@@ -1,0 +1,5 @@
+version=1
+title=PsychopatzCore
+description=Shared library and private development tools for Psychopatz mods.
+tags=Build 42;Framework;Library
+visibility=private

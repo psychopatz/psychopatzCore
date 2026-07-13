@@ -1,0 +1,7 @@
+name=PsychopatzCore
+id=PsychopatzCore
+description=Shared library and private development tools for Psychopatz mods.
+author=Psychopatz
+category=framework
+version=0.1.0
+versionMin=42.16
