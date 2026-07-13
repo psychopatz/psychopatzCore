@@ -1,10 +1,7 @@
-require "ISUI/ISButton"
-require "ISUI/ISCollapsableWindow"
-require "ISUI/ISLabel"
-require "ISUI/ISPanel"
-require "PsychopatzCore/00_PsychopatzCore_Init"
+require "PsychopatzCore/UI/PsychopatzUI"
 
 PsychopatzCore.DebugHub = PsychopatzCore.DebugHub or {}
+
 local Hub = PsychopatzCore.DebugHub
 Hub.tools = Hub.tools or {}
 
@@ -53,138 +50,80 @@ local function launcherIsAvailable(definition)
     return ok and not not available
 end
 
-local function splitWrappedLines(font, value, maxWidth)
-    local lines = {}
-    local current = ""
-    for word in string.gmatch(tostring(value or ""), "%S+") do
-        local candidate = current == "" and word or (current .. " " .. word)
-        if current ~= "" and getTextManager():MeasureStringX(font, candidate) > maxWidth then
-            lines[#lines + 1] = current
-            current = word
-        else
-            current = candidate
-        end
-    end
-    if current ~= "" then lines[#lines + 1] = current end
-    return lines
+local UI = PsychopatzCore.UI
+local Theme = UI.Theme
+local Layout = UI.Layout
+
+local function drawToolItem(list, y, entry, alternate)
+    local item = entry.item
+    local selected = list.selected == entry.index
+    local height = list.itemheight
+    UI.DrawListSelection(list, y, height, selected, alternate)
+    local text = Theme.colors.text
+    local muted = Theme.colors.textMuted
+    local statusColor = item.available and "success" or "danger"
+    list:drawText(item.title, 12, y + 7, text.r, text.g, text.b, text.a, UIFont.Medium)
+    UI.DrawBadge(list, item.available and "Available" or "Unavailable", list:getWidth() - 12, y + 7, statusColor)
+    local availableWidth = math.max(40, list:getWidth() - 30)
+    local description = Layout.Ellipsize(item.description, UIFont.Small, availableWidth)
+    list:drawText(description, 12, y + 31, muted.r, muted.g, muted.b, muted.a, UIFont.Small)
+    return y + height
 end
 
-local PsychopatzDebugHubCard = ISPanel:derive("PsychopatzDebugHubCard")
-
-function PsychopatzDebugHubCard:initialise()
-    ISPanel.initialise(self)
-end
-
-function PsychopatzDebugHubCard:createChildren()
-    self.button = ISButton:new(10, 10, self.width - 20, 26, self.definition.title, self, PsychopatzDebugHubCard.onLaunch)
-    self.button:initialise()
-    self:addChild(self.button)
-end
-
-function PsychopatzDebugHubCard:onLaunch()
-    self.parentWindow:onLauncherClick(self.definition.id)
-end
-
-function PsychopatzDebugHubCard:setAvailability(available)
-    self.available = available == true
-    self.button:setEnable(self.available)
-    self.button.backgroundColor = self.available
-        and { r = 0.2, g = 0.34, b = 0.22, a = 1 }
-        or { r = 0.16, g = 0.16, b = 0.16, a = 1 }
-end
-
-function PsychopatzDebugHubCard:prerender()
-    ISPanel.prerender(self)
-    self:drawRect(0, 0, self.width, self.height, 0.12, 0.02, 0.02, 0.02)
-    self:drawRectBorder(0, 0, self.width, self.height, 0.8, 0.35, 0.35, 0.38)
-end
-
-function PsychopatzDebugHubCard:render()
-    ISPanel.render(self)
-    local y = 44
-    for _, line in ipairs(splitWrappedLines(UIFont.Small, self.definition.description, self.width - 20)) do
-        self:drawText(line, 10, y, 0.8, 0.8, 0.8, 1, UIFont.Small)
-        y = y + 14
-    end
-    local text = self.available and "Available" or "Unavailable in current session"
-    local r, g, b = self.available and 0.5 or 0.78, self.available and 0.92 or 0.58, self.available and 0.5 or 0.58
-    self:drawText(text, 10, self.height - 20, r, g, b, 1, UIFont.Small)
-end
-
-function PsychopatzDebugHubCard:new(x, y, width, height, definition, parentWindow)
-    local o = ISPanel:new(x, y, width, height)
-    setmetatable(o, self)
-    self.__index = self
-    o.definition = definition
-    o.parentWindow = parentWindow
-    o.backgroundColor = { r = 0, g = 0, b = 0, a = 0 }
-    o.borderColor = { r = 0, g = 0, b = 0, a = 0 }
-    return o
-end
-
-PsychopatzDebugHubWindow = ISCollapsableWindow:derive("PsychopatzDebugHubWindow")
+PsychopatzDebugHubWindow = PsychopatzWindow:derive("PsychopatzDebugHubWindow")
 Hub.Window = PsychopatzDebugHubWindow
 
 function PsychopatzDebugHubWindow:initialise()
-    ISCollapsableWindow.initialise(self)
-    self.title = "Psychopatz Debug Hub"
-    self:setResizable(false)
+    PsychopatzWindow.initialise(self)
 end
 
 function PsychopatzDebugHubWindow:createChildren()
-    ISCollapsableWindow.createChildren(self)
+    PsychopatzWindow.createChildren(self)
+    self.toolList = UI.CreateList(self, { itemHeight = Layout.Pixels(58, self.uiScale), doDrawItem = drawToolItem })
+    self.launchButton = UI.CreateButton(self, {
+        id = "launch",
+        title = "Launch selected tool",
+        target = self,
+        onclick = PsychopatzDebugHubWindow.onLaunchSelected,
+        variant = "primary",
+    })
+    self.closeButton = UI.CreateButton(self, {
+        id = "close",
+        title = "Close",
+        target = self,
+        onclick = PsychopatzDebugHubWindow.onCloseClick,
+        variant = "quiet",
+    })
     self:rebuildCards()
+    self:requestResponsiveLayout(true)
 end
 
 function PsychopatzDebugHubWindow:rebuildCards()
-    if self.cards then
-        for _, card in pairs(self.cards) do
-            self:removeChild(card)
-        end
-    end
-    if self.introLabel then self:removeChild(self.introLabel) end
-    if self.closeButton then self:removeChild(self.closeButton) end
-
-    self.cards = {}
+    if not self.toolList then return end
+    local selected = self.toolList:getItem()
+    local selectedId = selected and selected.item and selected.item.id or nil
     self.definitions = Hub.GetTools()
-    local padX, topY, columns, columnGap, rowHeight = 14, self:titleBarHeight() + 10, 2, 14, 112
-    local columnWidth = math.floor((self:getWidth() - (padX * 2) - columnGap) / columns)
-
-    self.introLabel = ISLabel:new(padX, topY, 20, "Central launcher for Psychopatz mod development tools.", 0.9, 0.9, 0.9, 1, UIFont.Small, true)
-    self.introLabel:initialise()
-    self:addChild(self.introLabel)
-
-    for index, definition in ipairs(self.definitions) do
-        local column = (index - 1) % columns
-        local row = math.floor((index - 1) / columns)
-        local card = PsychopatzDebugHubCard:new(
-            padX + (columnWidth + columnGap) * column,
-            topY + 24 + rowHeight * row,
-            columnWidth,
-            rowHeight - 12,
-            definition,
-            self
-        )
-        card:initialise()
-        card:createChildren()
-        self:addChild(card)
-        self.cards[definition.id] = card
+    self.toolList:clear()
+    for _, definition in ipairs(self.definitions) do
+        local item = {
+            id = definition.id,
+            title = definition.title,
+            description = definition.description,
+            available = launcherIsAvailable(definition),
+        }
+        self.toolList:addItem(definition.title, item)
+        if selectedId == definition.id then self.toolList.selected = #self.toolList.items end
     end
-
-    local rows = math.max(1, math.ceil(#self.definitions / columns))
-    local closeY = topY + 24 + rowHeight * rows + 4
-    self.closeButton = ISButton:new(self:getWidth() - 124, closeY, 110, 25, "Close", self, PsychopatzDebugHubWindow.onCloseClick)
-    self.closeButton:initialise()
-    self:addChild(self.closeButton)
-    self:setHeight(closeY + 38)
     self:refreshAvailability()
 end
 
 function PsychopatzDebugHubWindow:refreshAvailability()
-    for _, definition in ipairs(self.definitions or {}) do
-        local card = self.cards[definition.id]
-        if card then card:setAvailability(launcherIsAvailable(definition)) end
+    for index, entry in ipairs(self.toolList and self.toolList.items or {}) do
+        local definition = Hub.tools[entry.item.id]
+        entry.item.available = definition and launcherIsAvailable(definition) or false
     end
+    local selected = self.toolList and self.toolList:getItem() or nil
+    self.launchButton:setEnable(selected and selected.item.available or false)
 end
 
 function PsychopatzDebugHubWindow:onLauncherClick(id)
@@ -203,6 +142,20 @@ function PsychopatzDebugHubWindow:onLauncherClick(id)
     end
 end
 
+function PsychopatzDebugHubWindow:onLaunchSelected()
+    local selected = self.toolList and self.toolList:getItem() or nil
+    if selected and selected.item then self:onLauncherClick(selected.item.id) end
+end
+
+function PsychopatzDebugHubWindow:onResponsiveLayout()
+    local rect = self:getContentRect({ top = 55, bottom = 48 })
+    Layout.SetBounds(self.toolList, rect.x, rect.y, rect.width, rect.height)
+    local buttons = { self.launchButton, self.closeButton }
+    local buttonWidth = math.min(Layout.Pixels(180, self.uiScale), math.floor((rect.width - Layout.Pixels(8, self.uiScale)) / 2))
+    for _, button in ipairs(buttons) do button.psychopatzPreferredWidth = buttonWidth end
+    Layout.Flow(buttons, { x = rect.x, y = rect.y + rect.height + Layout.Pixels(8, self.uiScale), width = rect.width }, { scale = self.uiScale })
+end
+
 function PsychopatzDebugHubWindow:onCloseClick()
     self:close()
 end
@@ -213,6 +166,17 @@ function PsychopatzDebugHubWindow:close()
     PsychopatzDebugHubWindow.instance = nil
 end
 
+function PsychopatzDebugHubWindow:render()
+    PsychopatzWindow.render(self)
+    local rect = self:getContentRect({ top = 55, bottom = 48 })
+    UI.DrawSectionTitle(self, "Development tools", rect.x, rect.y - Layout.Pixels(22, self.uiScale), rect.width, tostring(#(self.definitions or {})))
+end
+
+function PsychopatzDebugHubWindow:prerender()
+    PsychopatzWindow.prerender(self)
+    self:refreshAvailability()
+end
+
 function PsychopatzDebugHubWindow.Open()
     if PsychopatzDebugHubWindow.instance then
         PsychopatzDebugHubWindow.instance:setVisible(true)
@@ -221,26 +185,29 @@ function PsychopatzDebugHubWindow.Open()
         return PsychopatzDebugHubWindow.instance
     end
 
-    local width, height = 520, 360
-    local window = PsychopatzDebugHubWindow:new(
-        math.floor((getCore():getScreenWidth() - width) / 2),
-        math.floor((getCore():getScreenHeight() - height) / 2),
-        width,
-        height
-    )
+    local window = UI.NewWindow(PsychopatzDebugHubWindow, {
+        title = "Psychopatz Debug Hub",
+        resizable = true,
+        responsiveSpec = {
+            width = 720,
+            height = 520,
+            minWidth = 460,
+            minHeight = 350,
+            maxWidth = 920,
+            maxHeight = 760,
+        },
+    })
     window:initialise()
+    window:instantiate()
     window:addToUIManager()
     PsychopatzDebugHubWindow.instance = window
     return window
 end
 
-function PsychopatzDebugHubWindow:new(x, y, width, height)
-    local o = ISCollapsableWindow:new(x, y, width, height)
+function PsychopatzDebugHubWindow:new(x, y, width, height, options)
+    local o = PsychopatzWindow:new(x, y, width, height, options)
     setmetatable(o, self)
     self.__index = self
-    o.backgroundColor = { r = 0.03, g = 0.03, b = 0.03, a = 0.92 }
-    o.borderColor = { r = 0.85, g = 0.85, b = 0.85, a = 0.85 }
-    o.resizable = false
     return o
 end
 
