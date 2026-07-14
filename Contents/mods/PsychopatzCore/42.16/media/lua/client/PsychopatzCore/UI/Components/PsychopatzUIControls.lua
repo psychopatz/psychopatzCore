@@ -66,13 +66,25 @@ end
 function UI.CreateList(parent, options)
     options = options or {}
     local list = ISScrollingListBox:new(0, 0, 1, 1)
+    local baseDrawItem
     list:initialise()
     list:instantiate()
     list.itemheight = options.itemHeight or Layout.Pixels(28)
     list.drawBorder = options.drawBorder ~= false
     list.backgroundColor = Theme.Color("surface")
     list.borderColor = Theme.Color("border")
-    if options.doDrawItem then list.doDrawItem = options.doDrawItem end
+    if options.drawItemContent then
+        baseDrawItem = options.doDrawItem or list.doDrawItem
+        list.psychopatzBaseDrawItem = baseDrawItem
+        list.psychopatzDrawItemContent = options.drawItemContent
+        list.doDrawItem = function(self, y, item, alternate)
+            local nextY = self.psychopatzBaseDrawItem(self, y, item, alternate)
+            self.psychopatzDrawItemContent(self, y, item, alternate)
+            return nextY or (y + self.itemheight)
+        end
+    elseif options.doDrawItem then
+        list.doDrawItem = options.doDrawItem
+    end
     if parent then parent:addChild(list) end
     return list
 end

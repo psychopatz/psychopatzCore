@@ -2,7 +2,7 @@ PsychopatzCore = PsychopatzCore or {}
 
 local Core = PsychopatzCore
 
-Core.VERSION = Core.VERSION or "0.1.0"
+Core.VERSION = Core.VERSION or "0.2.0"
 Core.OWNER_STEAM_ID = Core.OWNER_STEAM_ID or "76561198137190990"
 Core.OWNER_SP_NAME = Core.OWNER_SP_NAME or "Psychopatz"
 Core.COMMAND_MODULE = Core.COMMAND_MODULE or "PsychopatzCore"

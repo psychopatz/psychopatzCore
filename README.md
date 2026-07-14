@@ -2,11 +2,13 @@
 
 Shared Project Zomboid Build 42 library for Psychopatz mods.
 
-The first release provides:
+The shared library provides:
 
 - owner-authorized special commands
 - the Psychopatz admin control window and night-vision helper
 - a registerable debug hub used by Dynamic Trading and Psychopatz NPC Core
+- namespaced in-game settings and window-state persistence
+- reusable directional event markers and their common icon assets
 
 Mods can add a launcher with `PsychopatzCore.DebugHub.RegisterTool(definition)`.
 
@@ -23,6 +25,7 @@ local bounds = UI.Layout.ResolveWindow({
     height = 620,
     minWidth = 520,
     minHeight = 360,
+    anchor = "top_right",
 })
 ```
 
@@ -34,6 +37,20 @@ split by responsibility:
 - `UI.Layout`: scale, safe window bounds, flow wrapping, splits, and clipping
 - `UI.CreateButton`, `UI.CreateList`, and `UI.CreatePanel`: themed controls
 - `PsychopatzWindow`: resizable, screen-safe shared window base
+
+`PsychopatzWindow` persists position and size by default. Set
+`persistGeometry = false` to opt out, or provide `geometryAdapter` with
+`load`, `save`, and optional `clear` callbacks to use another persistence
+strategy. `persistenceNamespace` and `persistenceKey` control the saved key.
+
+Window specifications accept `center`, `top`, `bottom`, `left`, `right`,
+`top_left`, `top_right`, `bottom_left`, and `bottom_right` anchors (spaces and
+hyphens are accepted too). `UI.Layout.PlaceAtAnchor` applies the same anchors
+to existing UI elements.
+
+`UI.CreateList` accepts `drawItemContent` in addition to `doDrawItem`. The base
+row renderer runs first, then the content callback can layer badges, icons, or
+other reusable row decorations without replacing the row layout.
 
 Controls should be created once in `createChildren()` and repositioned in
 `onResponsiveLayout()`:
@@ -50,3 +67,13 @@ function MyWindow:onResponsiveLayout()
         columns.first.width, columns.first.height)
 end
 ```
+
+## Shared settings and markers
+
+Open a namespaced settings store with
+`PsychopatzCore.Settings.Open(namespace, options)`. Stores preserve booleans,
+numbers, strings, and window geometry in a per-mod text file. Register a common
+settings screen through `PsychopatzCore.InGameSettings.Register(definition)`.
+
+Event markers are available as `PsychopatzCore.EventMarkers`. Existing
+`EventMarker` and `EventMarkerHandler` globals remain as compatibility aliases.
