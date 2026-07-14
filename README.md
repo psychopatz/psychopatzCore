@@ -9,6 +9,8 @@ The shared library provides:
 - a registerable debug hub used by Dynamic Trading and Psychopatz NPC Core
 - namespaced in-game settings and window-state persistence
 - reusable directional event markers and their common icon assets
+- base-game-compatible long-distance teleport handoff
+- server-authoritative multiplayer item giving and taking
 
 Mods can add a launcher with `PsychopatzCore.DebugHub.RegisterTool(definition)`.
 
@@ -77,3 +79,28 @@ settings screen through `PsychopatzCore.InGameSettings.Register(definition)`.
 
 Event markers are available as `PsychopatzCore.EventMarkers`. Existing
 `EventMarker` and `EventMarkerHandler` globals remain as compatibility aliases.
+
+## World and inventory services
+
+After a mod has authorized a teleport on the server, call:
+
+```lua
+local Teleport = require "PsychopatzCore/World/PsychopatzTeleport"
+Teleport.ToCoordinates(player, x, y, z)
+```
+
+In multiplayer, Core sends the approved destination only to that player and the
+client uses the base-game teleport command, allowing PZ to stream distant map
+chunks and perform its normal network bookkeeping.
+
+Server-side item transfers use native container sync packets:
+
+```lua
+local Items = require "PsychopatzCore/Inventory/PsychopatzItemTransfer"
+Items.GiveToPlayer(player, "Base.Axe", 1, { condition = 8 })
+Items.TakeFromPlayer(player, clientItemIDs, { expectedFullType = "Base.Axe" })
+```
+
+Treat client item IDs as claims, never as trusted item objects. `TakeFromPlayer`
+resolves every ID against the authoritative player inventory, rejects duplicates,
+validates the complete selection, and only then removes and synchronizes items.

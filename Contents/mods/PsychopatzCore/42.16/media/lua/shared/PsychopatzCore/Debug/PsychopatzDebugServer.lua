@@ -1,30 +1,17 @@
 require "PsychopatzCore/00_PsychopatzCore_Init"
+require "PsychopatzCore/Inventory/PsychopatzItemTransfer"
 
 if PsychopatzCore._specialCommandHandlerInstalled then
     return PsychopatzCore
 end
 PsychopatzCore._specialCommandHandlerInstalled = true
 
-local function syncAddedItems(inventory, items)
-    if not (isServer() and inventory and items) then
-        return
-    end
-
-    for index = 0, items:size() - 1 do
-        sendAddItemToContainer(inventory, items:get(index))
-    end
-end
-
 local function addItems(player, itemType, quantity)
-    local inventory = player and player:getInventory() or nil
     local count = math.max(1, math.floor(tonumber(quantity) or 1))
-    if not inventory or not getScriptManager():getItem(itemType) then
+    if not player or not getScriptManager():getItem(itemType) then
         return false
     end
-
-    local items = inventory:AddItems(itemType, count)
-    syncAddedItems(inventory, items)
-    return true
+    return PsychopatzCore.ItemTransfer.GiveToPlayer(player, itemType, count) ~= nil
 end
 
 local function heal(player)

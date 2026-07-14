@@ -1,7 +1,7 @@
 name=PsychopatzCore
 id=PsychopatzCore
-description=Shared UI, settings, event-marker, and private development infrastructure for Psychopatz mods.
+description=Shared UI, settings, event-marker, teleport, and authoritative inventory infrastructure for Psychopatz mods.
 author=Psychopatz
 category=framework
-version=0.2.0
+version=0.3.0
 versionMin=42.16
