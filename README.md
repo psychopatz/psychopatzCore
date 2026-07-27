@@ -106,6 +106,17 @@ Treat client item IDs as claims, never as trusted item objects. `TakeFromPlayer`
 resolves every ID against the authoritative player inventory, rejects duplicates,
 validates the complete selection, and only then removes and synchronizes items.
 
+The same service is the standard native-item boundary for all Psychopatz mods:
+
+- `ResolvePlayerContainer` and `GiveToPlayerContainer` safely target the main
+  inventory or a carried backpack by authoritative item ID.
+- `CaptureState` and `ApplyState` preserve portable condition, drainable,
+  favorite, custom-name, ammunition, fluid, and scalar modData fields.
+- `DropToSquare` materializes that item-state contract in the world.
+
+DynamicTrading's server helpers are compatibility wrappers around this service;
+new mods should call the Core API directly.
+
 Corpse construction uses a separate service because live-container add packets
 must not be mixed with `IsoDeadBody` conversion:
 

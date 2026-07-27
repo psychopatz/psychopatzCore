@@ -153,6 +153,25 @@ local function applyItemState(item, state)
     if state.haveBeenRepaired ~= nil and item.setHaveBeenRepaired then
         item:setHaveBeenRepaired(math.max(0, math.floor(tonumber(state.haveBeenRepaired) or 0)))
     end
+    if state.favorite ~= nil and item.setFavorite then
+        item:setFavorite(state.favorite == true)
+    end
+    if state.customName ~= nil and tostring(state.customName) ~= "" and item.setName then
+        item:setName(tostring(state.customName))
+    end
+    if state.ammoCount ~= nil and item.setCurrentAmmoCount then
+        item:setCurrentAmmoCount(math.max(0, math.floor(tonumber(state.ammoCount) or 0)))
+    end
+    if type(state.modData) == "table" and item.getModData then
+        local modData = item:getModData()
+        if modData then
+            for key, value in pairs(state.modData) do
+                if type(value) == "string" or type(value) == "number" or type(value) == "boolean" then
+                    modData[tostring(key)] = value
+                end
+            end
+        end
+    end
 
     applyFluidState(item, state)
 end
@@ -193,12 +212,182 @@ function Transfer.AddToContainer(container, fullType, count, state)
     return items
 end
 
+function Transfer.ApplyState(item, state)
+    applyItemState(item, state)
+    return item
+end
+
+--- Captures the portable portion of an InventoryItem's state.
+-- The result is intentionally packet-safe and can be used by other mods when
+-- moving an item between an abstract inventory and a native ItemContainer.
+function Transfer.CaptureState(item)
+    if not item then
+        return {}
+    end
+    local state = {}
+    if item.getCondition then state.condition = tonumber(item:getCondition()) end
+    if item.getHeadCondition then state.headCondition = tonumber(item:getHeadCondition()) end
+    if item.getQuality then state.quality = tonumber(item:getQuality()) end
+    if item.getHaveBeenRepaired then
+        state.haveBeenRepaired = tonumber(item:getHaveBeenRepaired())
+    end
+    if item.getUsedDelta then state.usedDelta = tonumber(item:getUsedDelta()) end
+    if item.isFavorite then state.favorite = item:isFavorite() == true end
+    if item.isCustomName and item:isCustomName() and item.getName then
+        state.customName = tostring(item:getName())
+    end
+    if item.getCurrentAmmoCount then
+        state.ammoCount = tonumber(item:getCurrentAmmoCount())
+    end
+    if item.getModData then
+        local raw = item:getModData()
+        local copied = {}
+        local hasCopiedValue = false
+        if raw then
+            for key, value in pairs(raw) do
+                if type(value) == "string" or type(value) == "number" or type(value) == "boolean" then
+                    copied[tostring(key)] = value
+                    hasCopiedValue = true
+                end
+            end
+        end
+        if hasCopiedValue then state.modData = copied end
+    end
+    if item.getFluidContainer then
+        local ok, fluidContainer = pcall(item.getFluidContainer, item)
+        if ok and fluidContainer then
+            if fluidContainer.getAmount then
+                ok, state.fluidAmount = pcall(fluidContainer.getAmount, fluidContainer)
+                if not ok then state.fluidAmount = nil end
+            end
+            local fluid
+            if fluidContainer.getPrimaryFluid then
+                ok, fluid = pcall(fluidContainer.getPrimaryFluid, fluidContainer)
+            elseif fluidContainer.getFluidType then
+                ok, fluid = pcall(fluidContainer.getFluidType, fluidContainer)
+            end
+            if ok and fluid then
+                if type(fluid) ~= "string" then
+                    local value
+                    if fluid.getFullName then
+                        local fluidOK
+                        fluidOK, value = pcall(fluid.getFullName, fluid)
+                        if fluidOK then fluid = value end
+                    elseif fluid.getName then
+                        local fluidOK
+                        fluidOK, value = pcall(fluid.getName, fluid)
+                        if fluidOK then fluid = value end
+                    end
+                end
+                state.fluidType = normalizeFluidType(fluid)
+            end
+        end
+    end
+    return state
+end
+
+function Transfer.DescribeItem(item)
+    local fullType = item and item.getFullType and item:getFullType() or nil
+    if not fullType or tostring(fullType) == "" then
+        return nil, "item_type_missing"
+    end
+    return {
+        fullType = tostring(fullType),
+        state = Transfer.CaptureState(item),
+    }
+end
+
 function Transfer.GiveToPlayer(player, fullType, count, state)
     local inventory = player and player.getInventory and player:getInventory() or nil
     if not inventory then
         return nil, "inventory_unavailable"
     end
     return Transfer.AddToContainer(inventory, fullType, count, state)
+end
+
+--- Resolves a destination owned by the authoritative player inventory.
+-- nil/"root" addresses the main inventory. Any other value is treated as the
+-- ID of a carried container item and is resolved recursively.
+function Transfer.ResolvePlayerContainer(player, containerItemID)
+    local inventory = player and player.getInventory and player:getInventory() or nil
+    if not inventory then
+        return nil, "inventory_unavailable"
+    end
+    if containerItemID == nil or tostring(containerItemID) == ""
+        or tostring(containerItemID) == "root"
+    then
+        return inventory
+    end
+
+    local item = Transfer.FindByIDRecursive(inventory, containerItemID)
+    if not item then
+        return nil, "container_item_missing"
+    end
+    local nested = item.getItemContainer and item:getItemContainer()
+        or item.getInventory and item:getInventory()
+        or nil
+    if not nested then
+        return nil, "destination_not_container"
+    end
+    return nested
+end
+
+function Transfer.GiveToPlayerContainer(player, containerItemID, fullType, count, state)
+    local container, reason = Transfer.ResolvePlayerContainer(player, containerItemID)
+    if not container then
+        return nil, reason
+    end
+    return Transfer.AddToContainer(container, fullType, count, state)
+end
+
+local function createItem(fullType)
+    local ok
+    local item
+    if InventoryItemFactory and InventoryItemFactory.CreateItem then
+        ok, item = pcall(InventoryItemFactory.CreateItem, tostring(fullType))
+        if ok and item then return item end
+    end
+    if instanceItem then
+        ok, item = pcall(instanceItem, tostring(fullType))
+        if ok and item then return item end
+    end
+    return nil
+end
+
+--- Materializes items on a loaded square using the same state contract as
+-- AddToContainer. World creation is authority-only at call sites.
+function Transfer.DropToSquare(square, fullType, count, state, offsets)
+    local quantity = normalizeCount(count)
+    if not square or not fullType or tostring(fullType) == "" or not quantity then
+        return nil, "invalid_drop_request"
+    end
+    local created = {}
+    for index = 1, quantity do
+        local item = createItem(fullType)
+        if not item then
+            return nil, "item_create_failed"
+        end
+        applyItemState(item, state)
+        local offsetX = offsets and tonumber(offsets.x)
+            or (ZombRand and (ZombRand(41) - 20) / 100)
+            or 0
+        local offsetY = offsets and tonumber(offsets.y)
+            or (ZombRand and (ZombRand(41) - 20) / 100)
+            or 0
+        local worldItem = square:AddWorldInventoryItem(
+            item,
+            0.5 + offsetX,
+            0.5 + offsetY,
+            offsets and tonumber(offsets.z) or 0
+        )
+        if not worldItem then
+            return nil, "world_add_failed"
+        end
+        -- AddWorldInventoryItem performs the native square replication when
+        -- invoked by the server; do not send a second complete-item packet.
+        created[#created + 1] = worldItem
+    end
+    return created
 end
 
 function Transfer.RemoveItem(item)
@@ -303,6 +492,12 @@ local function clearPlayerReferences(player, item)
     if player.getSecondaryHandItem and player:getSecondaryHandItem() == item and player.setSecondaryHandItem then
         player:setSecondaryHandItem(nil)
     end
+    if player.removeWornItem then
+        pcall(player.removeWornItem, player, item)
+    end
+    if player.removeAttachedItem then
+        pcall(player.removeAttachedItem, player, item)
+    end
 end
 
 --- Takes items identified by client-safe IDs from the authoritative inventory.
@@ -328,8 +523,10 @@ end
 -- Short aliases for call sites that prefer verb-style names.
 Transfer.Add = Transfer.AddToContainer
 Transfer.Give = Transfer.GiveToPlayer
+Transfer.GiveToContainer = Transfer.GiveToPlayerContainer
 Transfer.Remove = Transfer.RemoveItem
 Transfer.Resolve = Transfer.ResolvePlayerItems
 Transfer.Take = Transfer.TakeFromPlayer
+Transfer.Drop = Transfer.DropToSquare
 
 return Transfer

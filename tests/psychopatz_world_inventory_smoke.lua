@@ -78,6 +78,12 @@ local function newItem(fullType, container)
     function item:getID() return self.id end
     function item:getFullType() return self.fullType end
     function item:getContainer() return self.container end
+    function item:getName() return self.customName or self.fullType end
+    function item:isCustomName() return self.customName ~= nil end
+    function item:setName(value) self.customName = value end
+    function item:isFavorite() return self.favorite == true end
+    function item:setFavorite(value) self.favorite = value end
+    function item:getCondition() return self.condition end
     function item:IsDrainable() return false end
     function item:setCondition(value) self.condition = value end
     function item:getConditionMax() return 10 end
@@ -157,5 +163,41 @@ local nestedTaken = ItemTransfer.TakeFromPlayer(player, nested:getID())
 assertEqual(nestedTaken[1], nested, "nested item resolved")
 assertEqual(#bagInventory.values, 0, "nested item removed")
 assertEqual(#inventory.values, 1, "containing bag preserved")
+
+local resolvedRoot = ItemTransfer.ResolvePlayerContainer(player, "root")
+assertEqual(resolvedRoot, inventory, "root destination resolved")
+local resolvedBag = ItemTransfer.ResolvePlayerContainer(player, bag:getID())
+assertEqual(resolvedBag, bagInventory, "nested destination resolved")
+local nestedCreated = ItemTransfer.GiveToPlayerContainer(
+    player, bag:getID(), "Base.Bandage", 1, {
+        condition = 6,
+        favorite = true,
+        customName = "Emergency Bandage",
+    }
+)
+assertEqual(nestedCreated:size(), 1, "give to nested container")
+assertEqual(nestedCreated:get(0).condition, 6, "nested state condition")
+assertEqual(nestedCreated:get(0).favorite, true, "nested state favorite")
+assertEqual(nestedCreated:get(0).customName, "Emergency Bandage", "nested custom name")
+
+local captured = ItemTransfer.CaptureState(nestedCreated:get(0))
+assertEqual(captured.condition, 6, "captured condition")
+assertEqual(captured.favorite, true, "captured favorite")
+assertEqual(captured.customName, "Emergency Bandage", "captured custom name")
+
+local capturedItem = nestedCreated:get(0)
+function capturedItem:getModData()
+    return {
+        owner = "Forrest",
+        nested = { ignored = true },
+    }
+end
+local luaNext = next
+next = nil
+local kahluaCompatible, kahluaState = pcall(ItemTransfer.CaptureState, capturedItem)
+next = luaNext
+assertEqual(kahluaCompatible, true, "capture state avoids unavailable Kahlua next")
+assertEqual(kahluaState.modData.owner, "Forrest", "scalar mod data captured")
+assertEqual(kahluaState.modData.nested, nil, "nested mod data omitted")
 
 print("psychopatz_world_inventory_smoke: ok")
