@@ -11,6 +11,7 @@ The shared library provides:
 - reusable directional event markers and their common icon assets
 - base-game-compatible long-distance teleport handoff
 - server-authoritative multiplayer item giving and taking
+- idempotent, server-authoritative corpse-item injection
 
 Mods can add a launcher with `PsychopatzCore.DebugHub.RegisterTool(definition)`.
 
@@ -104,3 +105,33 @@ Items.TakeFromPlayer(player, clientItemIDs, { expectedFullType = "Base.Axe" })
 Treat client item IDs as claims, never as trusted item objects. `TakeFromPlayer`
 resolves every ID against the authoritative player inventory, rejects duplicates,
 validates the complete selection, and only then removes and synchronizes items.
+
+Corpse construction uses a separate service because live-container add packets
+must not be mixed with `IsoDeadBody` conversion:
+
+```lua
+local CorpseItems =
+    require "PsychopatzCore/Inventory/PsychopatzCorpseItems"
+
+CorpseItems.InjectIntoCorpse(corpse, {
+    {
+        fullType = "Base.IDcard",
+        key = "my-mod:identity:" .. npcId,
+        customName = "ID Card: " .. npcName,
+        modData = { MyNPCId = npcId },
+    },
+})
+CorpseItems.Transmit(corpse)
+```
+
+Stable keys make repeated lifecycle/finalization passes idempotent. Mutation is
+rejected on multiplayer clients. During corpse construction, inject everything
+and call `Transmit` once after the final corpse exists. To mutate an already
+replicated corpse, use `Insert(..., { syncItem = true })`; Core then sends the
+native per-item container packet from the server.
+
+`PsychopatzCore.UI.PortraitPanel` also accepts
+`spec.preferDescriptor = true`. Consumers that represent a survivor with an
+IsoZombie carrier can combine that with `animSetName = false`, full-body zoom,
+and the `idle` state to get a normal upright human portrait. Existing consumers
+that want to render a live character retain the original default behavior.

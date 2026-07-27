@@ -77,9 +77,28 @@ IsoDirections = { S = "south" }
 getTexture = function() return nil end
 ImmutableColor = { new = function(r, g, b, a) return { r = r, g = g, b = b, a = a } end }
 
+local bodyLocations = {}
+ResourceLocation = {
+    of = function(value)
+        return { id = tostring(value) }
+    end,
+}
+ItemBodyLocation = {
+    get = function(resource)
+        local id = resource and resource.id or ""
+        bodyLocations[id] = bodyLocations[id] or setmetatable({ id = id }, {
+            __tostring = function(value) return value.id end,
+        })
+        return bodyLocations[id]
+    end,
+}
+
 local worn = { values = {} }
 function worn:clear() self.values = {} end
-function worn:setItem(location, item) self.values[location] = item end
+function worn:setItem(location, item)
+    assert(type(location) ~= "string", "Build 42 portrait requires typed ItemBodyLocation")
+    self.values[tostring(location)] = item
+end
 
 local visual = {}
 function visual:setSkinTextureName(value) self.skin = value end
@@ -130,8 +149,29 @@ local character = { getHumanVisual = function() return visual end }
 assert(panel:setTarget(character, { id = "npc_live", key = "live" }), "live target failed")
 assertEqual(lastModel.character, character, "live character applied")
 
+local uprightPanel = PsychopatzCore.UI.PortraitPanel:new(0, 0, 130, 260, {
+    zoom = -3,
+    yOffset = 0,
+    animSetName = false,
+})
+uprightPanel:initialise()
+uprightPanel:createChildren()
+assertEqual(lastModel.animSet, nil, "vanilla human anim set remains untouched")
+assertEqual(lastModel.zoom, -3, "full-body portrait zoom")
+assertEqual(lastModel.yOffset, 0, "full-body portrait vertical offset")
+assert(uprightPanel:setTarget(character, {
+    id = "npc_upright",
+    key = "upright",
+    preferDescriptor = true,
+    appearance = { hairModel = "Long" },
+    equipment = { worn = {} },
+}), "descriptor-first target failed")
+assertEqual(uprightPanel.targetMode, "descriptor", "descriptor-first target mode")
+assertEqual(lastModel.character, nil, "live IsoZombie is not used by descriptor-first portrait")
+assertEqual(lastModel.descriptor, descriptor, "upright descriptor applied")
+
 panel:setPortraitBounds(3, 4, 150, 300)
 assertEqual(panel.width, 150, "responsive portrait width")
-assertEqual(lastModel.width, 146, "responsive model width")
+assertEqual(panel.modelView.width, 146, "responsive model width")
 
 print("psychopatz_portrait_smoke: ok")

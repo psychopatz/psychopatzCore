@@ -126,6 +126,24 @@ local function applyColor(humanVisual, color)
     safeCall(humanVisual, "setBeardColor", immutable)
 end
 
+local function resolveBodyLocation(location)
+    local ok
+    local resource
+    local resolved
+    if location == nil or tostring(location) == "" then return nil end
+    if ItemBodyLocation and ItemBodyLocation.get
+        and ResourceLocation and ResourceLocation.of
+    then
+        ok, resource = pcall(ResourceLocation.of, tostring(location))
+        if not ok or not resource then return nil end
+        ok, resolved = pcall(ItemBodyLocation.get, resource)
+        return ok and resolved or nil
+    end
+    -- Compatibility fallback for older builds where WornItems accepted the
+    -- legacy string location directly.
+    return location
+end
+
 local function addWornItem(wornItems, fullType, explicitLocation)
     local item = createItem(fullType)
     local location
@@ -136,8 +154,10 @@ local function addWornItem(wornItems, fullType, explicitLocation)
         location = resolved
     end
     if not location or location == "" then return false end
+    location = resolveBodyLocation(location)
+    if not location then return false end
     if wornItems.setItem then
-        local ok = pcall(wornItems.setItem, wornItems, tostring(location), item)
+        local ok = pcall(wornItems.setItem, wornItems, location, item)
         return ok
     end
     return false
@@ -221,7 +241,12 @@ function PsychopatzPortraitPanel:ensureModelView()
     self.modelView:setAnchorTop(true)
     self.modelView:setAnchorBottom(true)
     self:addChild(self.modelView)
-    pcall(function() self.modelView:setAnimSetName(self.animSetName or "zombie") end)
+    -- A false anim-set value deliberately leaves the model on the engine's
+    -- normal human avatar set. Descriptor-backed survivor portraits use this
+    -- to avoid inheriting the slouched zombie posture.
+    if self.animSetName then
+        pcall(function() self.modelView:setAnimSetName(self.animSetName) end)
+    end
     self:applyViewState()
     return self.modelView
 end
@@ -246,8 +271,13 @@ end
 function PsychopatzPortraitPanel:setTarget(character, spec, force)
     local key
     local descriptor
+    local descriptorFirst
     spec = type(spec) == "table" and spec or {}
-    key = tostring(spec.key or descriptorKey(spec)) .. "|" .. tostring(character or "descriptor")
+    descriptorFirst = spec.preferDescriptor == true
+    key = table.concat({
+        tostring(spec.key or descriptorKey(spec)),
+        tostring(descriptorFirst and "descriptor" or (character or "descriptor")),
+    }, "|")
     if force ~= true and self.targetKey == key then return true end
     self.targetKey = key
     self.targetCharacter = character
@@ -257,7 +287,7 @@ function PsychopatzPortraitPanel:setTarget(character, spec, force)
     if model.javaObject and model.javaObject.clearVariables then
         pcall(model.javaObject.clearVariables, model.javaObject)
     end
-    if isRenderableCharacter(character) then
+    if not descriptorFirst and isRenderableCharacter(character) then
         pcall(function() model:setCharacter(character) end)
         self.targetMode = "character"
     else
@@ -305,7 +335,11 @@ function PsychopatzPortraitPanel:new(x, y, width, height, options)
     o.direction = options.direction or (IsoDirections and IsoDirections.S)
     o.isometric = options.isometric == true
     o.animate = options.animate ~= false
-    o.animSetName = options.animSetName or "zombie"
+    if options.animSetName == nil then
+        o.animSetName = "zombie"
+    else
+        o.animSetName = options.animSetName
+    end
     o.stateName = options.stateName or "idle"
     return o
 end
