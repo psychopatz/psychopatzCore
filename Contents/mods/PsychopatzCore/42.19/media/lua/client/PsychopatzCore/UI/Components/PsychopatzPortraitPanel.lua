@@ -11,9 +11,25 @@ local Layout = UI.Layout
 PsychopatzPortraitPanel = ISPanel:derive("PsychopatzPortraitPanel")
 UI.PortraitPanel = PsychopatzPortraitPanel
 
+local PsychopatzPortraitModel = ISUI3DModel:derive(
+    "PsychopatzPortraitModel"
+)
+
+function PsychopatzPortraitModel:prerender()
+    if self.animateEnabled == false then
+        if self.javaObject then self.javaObject:setAnimate(false) end
+        return
+    end
+    ISUI3DModel.prerender(self)
+end
+
 local descriptorCache = {}
 local descriptorClock = 0
 local DESCRIPTOR_CACHE_LIMIT = 64
+local FACE_LOCATION_HINTS = {
+    "hat", "head", "eyes", "glasses", "mask", "neck", "scarf",
+    "ears", "earring", "nose",
+}
 
 local function safeCall(target, methodName, ...)
     local method = target and target[methodName] or nil
@@ -59,22 +75,53 @@ local function stableArraySignature(values)
     return table.concat(parts, ";")
 end
 
+local function isFaceLocation(location)
+    local normalized = string.lower(tostring(location or ""))
+    local i
+    for i = 1, #FACE_LOCATION_HINTS do
+        if string.find(normalized, FACE_LOCATION_HINTS[i], 1, true) then
+            return true
+        end
+    end
+    return false
+end
+
+local function portraitWornItems(spec)
+    local equipment = type(spec and spec.equipment) == "table"
+        and spec.equipment or {}
+    local worn = type(equipment.worn) == "table" and equipment.worn or {}
+    local filtered
+    local location
+    local fullType
+    if spec and spec.faceOnly ~= true then
+        return worn
+    end
+    filtered = {}
+    for location, fullType in pairs(worn) do
+        if isFaceLocation(location) then
+            filtered[location] = fullType
+        end
+    end
+    return filtered
+end
+
 local function descriptorKey(spec)
     local appearance = type(spec and spec.appearance) == "table" and spec.appearance or {}
-    local equipment = type(spec and spec.equipment) == "table" and spec.equipment or {}
     local hairColor = type(appearance.hairColor) == "table" and appearance.hairColor or {}
     return table.concat({
         tostring(spec and spec.id or ""),
         tostring(spec and spec.identitySeed or 1),
         tostring(spec and spec.isFemale == true),
+        tostring(spec and spec.faceOnly == true),
         tostring(appearance.skinTexture or ""),
         tostring(appearance.hairModel or ""),
         tostring(appearance.beardModel or ""),
         tostring(hairColor.r or ""),
         tostring(hairColor.g or ""),
         tostring(hairColor.b or ""),
-        stableArraySignature(appearance.outfitItems),
-        stableMapSignature(equipment.worn),
+        spec and spec.faceOnly == true
+            and "" or stableArraySignature(appearance.outfitItems),
+        stableMapSignature(portraitWornItems(spec)),
     }, "|")
 end
 
@@ -168,7 +215,7 @@ local function buildDescriptor(spec)
     local cached = descriptorCache[key]
     local descriptor
     local appearance
-    local equipment
+    local wornSpec
     local humanVisual
     local wornItems
     local location
@@ -183,7 +230,7 @@ local function buildDescriptor(spec)
     descriptor = createSurvivorDescriptor()
     if not descriptor then return nil, key end
     appearance = type(spec and spec.appearance) == "table" and spec.appearance or {}
-    equipment = type(spec and spec.equipment) == "table" and spec.equipment or {}
+    wornSpec = portraitWornItems(spec)
     safeCall(descriptor, "setFemale", spec and spec.isFemale == true)
     local _, resolvedVisual = safeCall(descriptor, "getHumanVisual")
     humanVisual = resolvedVisual
@@ -201,10 +248,13 @@ local function buildDescriptor(spec)
     wornItems = resolvedWorn
     if wornItems then
         safeCall(wornItems, "clear")
-        for i = 1, #(type(appearance.outfitItems) == "table" and appearance.outfitItems or {}) do
-            addWornItem(wornItems, appearance.outfitItems[i], nil)
+        if spec and spec.faceOnly ~= true then
+            for i = 1, #(type(appearance.outfitItems) == "table"
+                and appearance.outfitItems or {}) do
+                addWornItem(wornItems, appearance.outfitItems[i], nil)
+            end
         end
-        for location, fullType in pairs(type(equipment.worn) == "table" and equipment.worn or {}) do
+        for location, fullType in pairs(wornSpec) do
             addWornItem(wornItems, fullType, location)
         end
     end
@@ -221,9 +271,16 @@ end
 
 function PsychopatzPortraitPanel:initialise()
     ISPanel.initialise(self)
+    -- This component draws its optional background and border itself below.
+    -- Disable ISPanel's default pass so transparent portraits do not retain
+    -- the stock one-pixel edge and opaque portraits are not drawn twice.
+    self.background = false
     self.backgroundColor = { r = 0, g = 0, b = 0, a = 0 }
     self.borderColor = { r = 0.3, g = 0.3, b = 0.3, a = 1 }
-    self.avatarBackground = getTexture and getTexture("media/ui/avatarBackgroundWhite.png") or nil
+    self.avatarBackground = self.showBackground
+        and getTexture
+        and getTexture("media/ui/avatarBackgroundWhite.png")
+        or nil
 end
 
 function PsychopatzPortraitPanel:createChildren()
@@ -232,10 +289,17 @@ function PsychopatzPortraitPanel:createChildren()
 end
 
 function PsychopatzPortraitPanel:ensureModelView()
+    local padding = tonumber(self.padding) or 2
     if self.modelView then return self.modelView end
-    self.modelView = ISUI3DModel:new(2, 2, math.max(1, self.width - 4), math.max(1, self.height - 4))
+    self.modelView = PsychopatzPortraitModel:new(
+        padding,
+        padding,
+        math.max(1, self.width - padding * 2),
+        math.max(1, self.height - padding * 2)
+    )
     self.modelView:initialise()
     self.modelView:instantiate()
+    self.modelView.animateEnabled = self.animate ~= false
     self.modelView:setAnchorLeft(true)
     self.modelView:setAnchorRight(true)
     self.modelView:setAnchorTop(true)
@@ -254,6 +318,7 @@ end
 function PsychopatzPortraitPanel:applyViewState()
     local model = self.modelView
     if not model or not model.javaObject then return end
+    model.animateEnabled = self.animate ~= false
     pcall(function() model:setState(self.stateName or "idle") end)
     pcall(function() model:setDirection(self.direction or (IsoDirections and IsoDirections.S)) end)
     pcall(function() model:setIsometric(self.isometric == true) end)
@@ -268,11 +333,24 @@ function PsychopatzPortraitPanel:applyViewState()
     pcall(function() model.javaObject:setAnimate(self.animate ~= false) end)
 end
 
+-- Conversation views can use this lightweight pulse without owning or
+-- replacing the portrait renderer. It keeps the reusable model component
+-- suitable for map cards and other static consumers.
+function PsychopatzPortraitPanel:pulseSpeech(text)
+    local duration = math.max(280, math.min(1200, #tostring(text or "") * 18))
+    local current = getTimeInMillis and getTimeInMillis() or 0
+    self.speechPulseStartedAt = current
+    self.speechPulseUntil = current + duration
+end
+
 function PsychopatzPortraitPanel:setTarget(character, spec, force)
     local key
     local descriptor
     local descriptorFirst
     spec = type(spec) == "table" and spec or {}
+    if self.faceOnly == true and spec.faceOnly == nil then
+        spec.faceOnly = true
+    end
     descriptorFirst = spec.preferDescriptor == true
     key = table.concat({
         tostring(spec.key or descriptorKey(spec)),
@@ -308,20 +386,73 @@ function PsychopatzPortraitPanel:setTarget(character, spec, force)
 end
 
 function PsychopatzPortraitPanel:setPortraitBounds(x, y, width, height)
+    local padding = tonumber(self.padding) or 2
     Layout.SetBounds(self, x, y, width, height)
     if self.modelView then
-        Layout.SetBounds(self.modelView, 2, 2, math.max(1, width - 4), math.max(1, height - 4))
+        Layout.SetBounds(
+            self.modelView,
+            padding,
+            padding,
+            math.max(1, width - padding * 2),
+            math.max(1, height - padding * 2)
+        )
     end
 end
 
 function PsychopatzPortraitPanel:prerender()
-    ISPanel.prerender(self)
-    if self.avatarBackground then
-        self:drawTextureScaled(self.avatarBackground, 2, 2, math.max(1, self.width - 4), math.max(1, self.height - 4), 1, 0.4, 0.4, 0.4)
-    else
-        self:drawRect(2, 2, math.max(1, self.width - 4), math.max(1, self.height - 4), 1, 0.28, 0.28, 0.28)
+    local padding = tonumber(self.padding) or 2
+    local current = getTimeInMillis and getTimeInMillis() or 0
+    if self.modelView and self.speechPulseUntil
+        and current < self.speechPulseUntil
+    then
+        local phase = (current - (self.speechPulseStartedAt or current)) / 90
+        local offset = (tonumber(self.yOffset) or -0.85) + math.sin(phase) * 0.025
+        pcall(function() self.modelView:setYOffset(offset) end)
+    elseif self.modelView and self.speechPulseUntil then
+        self.speechPulseUntil = nil
+        pcall(function()
+            self.modelView:setYOffset(tonumber(self.yOffset) or -0.85)
+        end)
     end
-    self:drawRectBorder(0, 0, self.width, self.height, 1, 0.3, 0.3, 0.3)
+    ISPanel.prerender(self)
+    if self.showBackground then
+        if self.avatarBackground then
+            self:drawTextureScaled(
+                self.avatarBackground,
+                padding,
+                padding,
+                math.max(1, self.width - padding * 2),
+                math.max(1, self.height - padding * 2),
+                1,
+                0.4,
+                0.4,
+                0.4
+            )
+        else
+            self:drawRect(
+                padding,
+                padding,
+                math.max(1, self.width - padding * 2),
+                math.max(1, self.height - padding * 2),
+                1,
+                0.28,
+                0.28,
+                0.28
+            )
+        end
+    end
+    if self.showBorder then
+        self:drawRectBorder(
+            0,
+            0,
+            self.width,
+            self.height,
+            1,
+            0.3,
+            0.3,
+            0.3
+        )
+    end
 end
 
 function PsychopatzPortraitPanel:new(x, y, width, height, options)
@@ -335,6 +466,10 @@ function PsychopatzPortraitPanel:new(x, y, width, height, options)
     o.direction = options.direction or (IsoDirections and IsoDirections.S)
     o.isometric = options.isometric == true
     o.animate = options.animate ~= false
+    o.faceOnly = options.faceOnly == true
+    o.showBackground = options.showBackground ~= false
+    o.showBorder = options.showBorder ~= false
+    o.padding = math.max(0, tonumber(options.padding) or 2)
     if options.animSetName == nil then
         o.animSetName = "zombie"
     else
@@ -342,6 +477,14 @@ function PsychopatzPortraitPanel:new(x, y, width, height, options)
     end
     o.stateName = options.stateName or "idle"
     return o
+end
+
+function UI.GetPortraitDescriptorCacheSize()
+    local count = 0
+    for _, _ in pairs(descriptorCache) do
+        count = count + 1
+    end
+    return count
 end
 
 return PsychopatzPortraitPanel

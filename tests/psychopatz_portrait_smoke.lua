@@ -1,4 +1,5 @@
-local ROOT = "Contents/mods/PsychopatzCore/42.16/media/lua/client/PsychopatzCore/"
+local ROOT =
+    "Contents/mods/PsychopatzCore/42.19/media/lua/client/PsychopatzCore/"
 
 local function assertEqual(actual, expected, label)
     if actual ~= expected then
@@ -32,12 +33,12 @@ function Panel:setHeight(value) self.height = value end
 ISPanel = Panel
 
 local lastModel
-ISUI3DModel = {
-    new = function(_, x, y, width, height)
+ISUI3DModel = Panel:derive("ISUI3DModel")
+function ISUI3DModel:new(x, y, width, height)
         local model = Panel:new(x, y, width, height)
         model.javaObject = {
             clearVariables = function() end,
-            setAnimate = function() end,
+            setAnimate = function(self, value) self.animated = value end,
         }
         function model:instantiate() end
         function model:setAnchorLeft() end
@@ -56,9 +57,13 @@ ISUI3DModel = {
         function model:setCharacter(value) self.character = value end
         function model:setSurvivorDesc(value) self.descriptor = value end
         lastModel = model
+        setmetatable(model, self)
+        self.__index = self
         return model
-    end,
-}
+end
+function ISUI3DModel:prerender()
+    self.javaObject:setAnimate(true)
+end
 
 PsychopatzCore = {
     UI = {
@@ -169,6 +174,62 @@ assert(uprightPanel:setTarget(character, {
 assertEqual(uprightPanel.targetMode, "descriptor", "descriptor-first target mode")
 assertEqual(lastModel.character, nil, "live IsoZombie is not used by descriptor-first portrait")
 assertEqual(lastModel.descriptor, descriptor, "upright descriptor applied")
+
+local facePanel = PsychopatzCore.UI.PortraitPanel:new(0, 0, 84, 84, {
+    zoom = 16,
+    yOffset = -1,
+    animSetName = false,
+    animate = false,
+    faceOnly = true,
+    showBackground = false,
+    showBorder = false,
+    padding = 0,
+})
+facePanel:initialise()
+facePanel:createChildren()
+assertEqual(facePanel.avatarBackground, nil,
+    "transparent portrait loaded a background texture")
+assertEqual(facePanel.background, false,
+    "transparent portrait retained the stock ISPanel border")
+assertEqual(facePanel.modelView.x, 0,
+    "transparent portrait retained background padding")
+facePanel.modelView:prerender()
+assertEqual(facePanel.modelView.javaObject.animated, false,
+    "static portrait animation was re-enabled during prerender")
+assert(facePanel:setTarget(nil, {
+    id = "npc_face",
+    identitySeed = 11,
+    isFemale = false,
+    faceOnly = true,
+    appearance = {
+        hairModel = "Long",
+        outfitItems = { "Base.Shirt" },
+    },
+    equipment = {
+        worn = {
+            Hat = "Base.Hat_HardHat",
+            Jacket = "Base.Jacket",
+        },
+    },
+}), "face-only descriptor target failed")
+assertEqual(worn.values.Hat.fullType, "Base.Hat_HardHat",
+    "face-only portrait omitted head equipment")
+assertEqual(worn.values.Jacket, nil,
+    "face-only portrait retained torso equipment")
+assertEqual(worn.values.Shirt, nil,
+    "face-only portrait retained outfit clothing")
+
+for index = 1, 70 do
+    assert(facePanel:setTarget(nil, {
+        id = "npc_cache_" .. tostring(index),
+        identitySeed = index,
+        faceOnly = true,
+        appearance = { hairModel = "Long" },
+        equipment = { worn = {} },
+    }), "bounded portrait cache target failed")
+end
+assert(PsychopatzCore.UI.GetPortraitDescriptorCacheSize() <= 64,
+    "portrait descriptor cache exceeded its hard limit")
 
 panel:setPortraitBounds(3, 4, 150, 300)
 assertEqual(panel.width, 150, "responsive portrait width")
