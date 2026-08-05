@@ -15,6 +15,43 @@ The shared library provides:
 
 Mods can add a launcher with `PsychopatzCore.DebugHub.RegisterTool(definition)`.
 
+## Shared radio actions
+
+Client mods can add a player-facing action to the vanilla in-game radio window
+without each patching `ISRadioWindow`:
+
+```lua
+require "PsychopatzCore/UI/Radio/PsychopatzRadioActions"
+
+PsychopatzCore.RadioActions.Register({
+    id = "my-mod.example",
+    label = "Example Service",
+    signalLabel = "Example Service",
+    placement = PsychopatzCore.RadioActions.PLACEMENT_SIGNAL,
+    order = 100,
+    isAvailable = function(player, radioWindow) return true end,
+    isEnabled = function(player, radioWindow) return true end,
+    onClick = function(player, radioWindow) openMyWindow() end,
+})
+```
+
+`PLACEMENT_SIGNAL` asks Core's native Build 42 radio host to append a distinct,
+full-width action inside the collapsible Signal module. Each registration
+remains a separate button; the vanilla module and radio window derive their
+expanded height from the stack. `signalLabel` can provide a label specifically
+for that stack, and placed actions do not fall back into the top-level radio
+header when their host is unavailable.
+
+Actions without a placement use the core's compact radio service button. With
+one available action it uses that action's label directly; with several actions
+it opens a `Radio Services` menu. The older `hostButton` field remains available
+for integrations that intentionally own a compatible button; pair it with
+`hostRequired = true` when it must not fall back. `isAvailable`
+controls whether an item is shown, while `isEnabled`
+controls whether it can be launched. Actions are only shown for two-way radios
+and are disabled while the device is off or out of power. Use stable namespaced
+IDs and `Unregister(id)` only when a registration genuinely needs to be removed.
+
 ## Shared responsive UI
 
 Client mods can build consistent, resolution-aware windows on the Core UI layer:
