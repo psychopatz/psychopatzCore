@@ -158,11 +158,18 @@ function PsychopatzConversationChat:render()
                     key = "UI_PsychopatzConversation_NPC",
                     fallback = "NPC",
                 })
+            local playerName = self.owner
+                and self.owner.spec
+                and self.owner.spec.context
+                and (
+                    self.owner.spec.context.playerName
+                    or self.owner.spec.context.playerFullName
+                )
             local speakerLabel = player
-                and Text.Resolve({
-                    key = "UI_PsychopatzConversation_You",
-                    fallback = "YOU",
-                })
+                and (playerName or Text.Resolve({
+                        key = "UI_PsychopatzConversation_You",
+                        fallback = "YOU",
+                    }))
                 or tostring(npcName)
             self:drawText(
                 string.upper(speakerLabel),

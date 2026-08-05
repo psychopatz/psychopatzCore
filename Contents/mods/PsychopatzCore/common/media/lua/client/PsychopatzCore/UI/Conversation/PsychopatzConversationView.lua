@@ -22,31 +22,6 @@ local function buttonLabel(key, fallback)
     return Text.Resolve({ key = key, fallback = fallback })
 end
 
-local function statusFor(reason, connectedColor)
-    if reason == "distance" then
-        return buttonLabel(
-            "UI_PsychopatzConversation_StatusDistance",
-            "OUT OF RANGE"
-        ), { r = 0.95, g = 0.61, b = 0.24 }
-    end
-    if reason == "danger" then
-        return buttonLabel(
-            "UI_PsychopatzConversation_StatusDanger",
-            "THREAT DETECTED"
-        ), { r = 1.0, g = 0.25, b = 0.18 }
-    end
-    if reason == "npc_unavailable" or reason == "lifecycle_error" then
-        return buttonLabel(
-            "UI_PsychopatzConversation_StatusUnavailable",
-            "CONNECTION LOST"
-        ), { r = 0.90, g = 0.30, b = 0.25 }
-    end
-    return buttonLabel(
-        "UI_PsychopatzConversation_StatusConnected",
-        "LINK ACTIVE"
-    ), connectedColor
-end
-
 function PsychopatzConversationView:initialise()
     ISPanel.initialise(self)
     self.background = false
@@ -95,11 +70,38 @@ function PsychopatzConversationView:createChildren()
     self.choicesPart:instantiate()
     self:addChild(self.choicesPart)
 
+    self.extensionParts = {}
+    for _, definition in ipairs(self.spec.extensionParts or {}) do
+        local partID = definition and definition.partID
+        local factory = definition and definition.factory
+        if type(partID) == "string" and partID ~= ""
+            and type(factory) == "function"
+        then
+            local bounds = Layout.Resolve(
+                partID,
+                self.width,
+                self.height
+            )
+            local part = factory(bounds, {
+                owner = self,
+                definition = definition,
+                spec = self.spec,
+            })
+            if part then
+                part:initialise()
+                part:instantiate()
+                part:setVisible(definition.visible ~= false)
+                self:addChild(part)
+                self.extensionParts[partID] = part
+            end
+        end
+    end
+
     self.closeButton = ISButton:new(
         self.width - 42, 10, 32, 28,
         buttonLabel("UI_PsychopatzConversation_Close", "X"),
         self,
-        PsychopatzConversationView.close
+        PsychopatzConversationView.onCloseButton
     )
     self.closeButton:initialise()
     self.closeButton:instantiate()
@@ -144,6 +146,10 @@ function PsychopatzConversationView:createChildren()
     self:addChild(self.layoutButton)
 end
 
+function PsychopatzConversationView:onCloseButton()
+    self:close("close_button")
+end
+
 function PsychopatzConversationView:start()
     local started, reason = Lifecycle.Begin(self)
     if not started then
@@ -167,6 +173,33 @@ function PsychopatzConversationView:onChoiceSelected(choice)
     if self.session then self.session:selectChoice(choice) end
 end
 
+-- Consumers may learn new presentation-safe information while a conversation
+-- is open (for example, an NPC answering "What's your name?"). Refresh the
+-- active definition in place without resetting the message history.
+function PsychopatzConversationView:refreshConversationSpec(spec)
+    if type(spec) ~= "table" then return false end
+    self.spec = spec
+    if self.portraitPart then
+        self.portraitPart:setTarget(spec.character, spec.portrait)
+        self.portraitPart:setBackground(spec.backgroundID)
+    end
+    if self.session then
+        self.session.spec = spec
+        self.session.context = spec.context or {}
+        local nodeID = self.session.currentNodeID
+        local node = nodeID and spec.nodes and spec.nodes[nodeID] or nil
+        if node then
+            self.session.currentNode = node
+            if self.session.pendingChoices then
+                self.session.pendingChoices = node.choices or {}
+            elseif self.session.busy ~= true then
+                self.session:setChoices(node.choices or {})
+            end
+        end
+    end
+    return true
+end
+
 function PsychopatzConversationView:savePartLayout(part)
     Layout.Save(part.partID, {
         x = part:getX(),
@@ -182,6 +215,9 @@ function PsychopatzConversationView:applySavedLayout()
         history = self.historyPart,
         choices = self.choicesPart,
     }
+    for id, part in pairs(self.extensionParts or {}) do
+        parts[id] = part
+    end
     local id
     local part
     for id, part in pairs(parts) do
@@ -201,6 +237,9 @@ function PsychopatzConversationView:toggleEditMode()
     self.portraitPart:setEditMode(self.editMode)
     self.historyPart:setEditMode(self.editMode)
     self.choicesPart:setEditMode(self.editMode)
+    for _, part in pairs(self.extensionParts or {}) do
+        if part.setEditMode then part:setEditMode(self.editMode) end
+    end
     self.layoutButton:setTitle(self.editMode
         and buttonLabel("UI_PsychopatzConversation_SaveLayout", "Done")
         or buttonLabel("UI_PsychopatzConversation_EditLayout", "Edit layout"))
@@ -209,6 +248,9 @@ function PsychopatzConversationView:toggleEditMode()
         self.portraitPart:setReveal(1)
         self.historyPart:setReveal(1)
         self.choicesPart:setReveal(1)
+        for _, part in pairs(self.extensionParts or {}) do
+            if part.setReveal then part:setReveal(1) end
+        end
     end
 end
 
@@ -226,6 +268,9 @@ function PsychopatzConversationView:update()
     self.portraitPart:setReveal(state.portrait)
     self.historyPart:setReveal(state.history)
     self.choicesPart:setReveal(state.choices)
+    for _, part in pairs(self.extensionParts or {}) do
+        if part.setReveal then part:setReveal(state.history) end
+    end
     local interruption = Lifecycle.Update(self)
     if interruption and not self.closing then
         self:close(interruption)
@@ -237,39 +282,6 @@ end
 function PsychopatzConversationView:prerender()
     ISPanel.prerender(self)
     self:drawRect(0, 0, self.width, self.height, 0.075, 0, 0, 0)
-    local accent = Theme.Resolve(self.spec)
-    local status, color = statusFor(self.closeReason, accent)
-    local npcName = self.spec
-        and self.spec.context
-        and self.spec.context.npcName
-        or buttonLabel("UI_PsychopatzConversation_NPC", "NPC")
-    local barWidth = math.min(440, math.max(300, self.width * 0.31))
-    local barX = math.floor((self.width - barWidth) / 2)
-    local barY = 10
-    self:drawRect(barX + 3, barY + 3, barWidth, 28,
-        0.42, 0, 0, 0)
-    self:drawRect(barX, barY, barWidth, 28,
-        0.90, 0.008, 0.026, 0.021)
-    self:drawRectBorder(barX, barY, barWidth, 28,
-        0.72, color.r, color.g, color.b)
-    self:drawRect(barX, barY, 4, 28,
-        0.95, color.r, color.g, color.b)
-    self:drawRect(barX + 13, barY + 10, 7, 7,
-        0.95, color.r, color.g, color.b)
-    self:drawText(
-        string.upper(tostring(npcName)),
-        barX + 27,
-        barY + 5,
-        0.87, 0.93, 0.88, 1,
-        UIFont.Small
-    )
-    self:drawTextRight(
-        status,
-        barX + barWidth - 12,
-        barY + 5,
-        color.r, color.g, color.b, 1,
-        UIFont.Small
-    )
     if self.editMode then
         self:drawRect(0, 0, self.width, self.height, 0.32, 0, 0, 0)
         self:drawTextCentre(
@@ -304,7 +316,7 @@ end
 
 function PsychopatzConversationView:onKeyRelease(key)
     if Keyboard and key == Keyboard.KEY_ESCAPE then
-        self:close()
+        self:close("escape")
         return true
     end
     return ISPanel.onKeyRelease(self, key)

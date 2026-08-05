@@ -99,6 +99,78 @@ choiceSession:setChoices({
 assertEqual(mappedChoices[1].text.key, "UI_Test_Message", "choice text key mapping")
 assertEqual(mappedChoices[1].text.args[1], "Alex", "choice text argument mapping")
 
+local selectedActions = 0
+local sessionMessages = {}
+local navigationChoices
+local navigationSession = Session.New({
+    choicesPart = {
+        setChoices = function(_, choices) navigationChoices = choices end,
+    },
+    historyPart = {
+        addMessage = function(_, message)
+            sessionMessages[#sessionMessages + 1] = message
+        end,
+        setTyping = function() end,
+    },
+}, { namespace = "NavigationTest", npcID = "npc-navigation", context = {} })
+navigationSession:setChoices({
+    {
+        id = "topics",
+        text = { text = "Ask about..." },
+        log = false,
+        action = function() selectedActions = selectedActions + 1 end,
+    },
+})
+navigationSession:selectChoice(navigationChoices[1])
+assertEqual(selectedActions, 1, "navigation choice action runs")
+assertEqual(#sessionMessages, 0, "navigation choice is not added to log")
+
+local capturedCloseReason
+local closingChoices
+local closingSession = Session.New({
+    choicesPart = {
+        setChoices = function(_, choices) closingChoices = choices end,
+    },
+    historyPart = {
+        addMessage = function() end,
+        setTyping = function() end,
+    },
+    close = function(_, reason) capturedCloseReason = reason end,
+}, { context = {} })
+closingSession:setChoices({
+    {
+        id = "terminal",
+        text = { text = "Leave" },
+        log = false,
+        close = true,
+        closeReason = "authored_terminal:test",
+    },
+})
+closingSession:selectChoice(closingChoices[1])
+assertEqual(capturedCloseReason, "authored_terminal:test",
+    "authored close reason reaches the view")
+
+local sandboxMessages = {}
+local sandboxSession = Session.New({
+    choicesPart = { setChoices = function() end },
+    historyPart = {
+        addMessage = function(_, message)
+            sandboxMessages[#sandboxMessages + 1] = message
+        end,
+        setMessages = function() end,
+        setTyping = function() end,
+    },
+}, {
+    namespace = "SandboxTest",
+    npcID = "debug-npc",
+    persistHistory = false,
+    nodes = {},
+})
+sandboxSession:append("npc", { fallback = "Sandbox only" })
+assertEqual(#sandboxMessages, 1, "sandbox still renders conversation messages")
+assertEqual(modData[History.STORAGE_KEY], nil,
+    "non-persistent sandbox does not create conversation history")
+
 History.Append("Test", "npc-1", "npc", {
     key = "PNC_Test_Domain",
     domain = "TestDomain",
@@ -113,13 +185,28 @@ local records = History.Get("Test", "npc-1")
 assertEqual(#records, 2, "same-day history")
 assertEqual(records[1].speaker, "npc", "NPC speaker")
 assertEqual(records[2].speaker, "player", "player speaker")
-local compact = modData[History.STORAGE_KEY].threads["Test:npc-1"][1]
+local compact = modData[History.STORAGE_KEY].threads["unbound:Test:npc-1"][1]
 assertEqual(compact.k, "PNC_Test_Domain", "translation key serialized")
 assertEqual(compact.d, "TestDomain", "translation domain serialized")
 assertEqual(compact.a[1], "Alex", "translation argument serialized")
 assertEqual(compact.a.status, "safe", "named translation argument serialized")
 assertEqual(compact.text, nil, "resolved text is not serialized")
 assertEqual(compact.f, nil, "keyed fallback prose is not serialized")
+
+History.Append("Test", "npc-scoped", "npc", { fallback = "Alpha" },
+    "char_alpha")
+History.Append("Test", "npc-scoped", "npc", { fallback = "Beta" },
+    "char_beta")
+assertEqual(#History.Get("Test", "npc-scoped", "char_alpha"), 1,
+    "history is scoped to first survivor")
+assertEqual(#History.Get("Test", "npc-scoped", "char_beta"), 1,
+    "history is scoped to second survivor")
+assertEqual(
+    PsychopatzCore.Conversation.Text.Resolve(
+        History.Get("Test", "npc-scoped", "char_alpha")[1].payload
+    ),
+    "Alpha", "survivor histories do not cross"
+)
 
 worldHours = 49
 assertEqual(#History.Get("Test", "npc-1"), 0, "history clears on next day")

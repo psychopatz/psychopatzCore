@@ -30,6 +30,8 @@ function Session.New(view, spec)
         spec = spec or {},
         namespace = spec.namespace or "default",
         npcID = spec.npcID or spec.id or "unknown",
+        characterUUID = spec.characterUUID or "unbound",
+        persistHistory = spec.persistHistory ~= false,
         context = spec.context or {},
         queue = {},
         busy = false,
@@ -39,7 +41,10 @@ function Session.New(view, spec)
 end
 
 function Session:start()
-    self.view.historyPart:setMessages(History.Get(self.namespace, self.npcID))
+    local messages = self.persistHistory and History.Get(
+        self.namespace, self.npcID, self.characterUUID
+    ) or {}
+    self.view.historyPart:setMessages(messages)
     self:enterNode(self.spec.start or "start")
 end
 
@@ -54,7 +59,12 @@ function Session:append(speaker, payload)
         speaker = speaker,
         payload = Text.Payload(payload),
     }
-    History.Append(self.namespace, self.npcID, speaker, message.payload)
+    if self.persistHistory then
+        History.Append(
+            self.namespace, self.npcID, speaker, message.payload,
+            self.characterUUID
+        )
+    end
     self.view.historyPart:addMessage(message)
     if speaker == "npc" and self.view.portraitPart
         and self.view.portraitPart.portrait
@@ -116,7 +126,9 @@ function Session:setChoices(choices)
                 response = choice.response,
                 next = choice.next,
                 close = choice.close,
+                closeReason = choice.closeReason,
                 action = choice.action or choice.onSelect,
+                log = choice.log ~= false,
                 enabled = evaluate(choice.enabled, self.context, choice, self) ~= false,
                 source = choice,
             }
@@ -131,7 +143,7 @@ function Session:enterNode(nodeID)
     self.currentNode = node
     self.view.choicesPart:setChoices({})
     if not node then
-        self.view:close()
+        self.view:close("missing_node:" .. tostring(nodeID))
         return
     end
     local npc = evaluate(node.npc or node.message, self.context, self)
@@ -146,12 +158,23 @@ end
 function Session:selectChoice(choice)
     if self.busy or not choice or choice.enabled == false then return false end
     self.view.choicesPart:setChoices({})
-    self:append("player", evaluate(choice.text, self.context, choice.source, self))
+    if choice.log ~= false then
+        self:append(
+            "player",
+            evaluate(choice.text, self.context, choice.source, self)
+        )
+    end
     evaluate(choice.action, self.context, choice.source, self)
     local response = evaluate(choice.response, self.context, choice.source, self)
     if response then self:queueMessage("npc", response) end
     self.pendingNext = evaluate(choice.next, self.context, choice.source, self)
     self.pendingClose = evaluate(choice.close, self.context, choice.source, self) == true
+    self.pendingCloseReason = evaluate(
+        choice.closeReason,
+        self.context,
+        choice.source,
+        self
+    )
     if #self.queue == 0 then self:finishPending() end
     return true
 end
@@ -161,9 +184,12 @@ function Session:finishPending()
     self.view.historyPart:setTyping(nil)
     if self.pendingClose then
         self.pendingClose = nil
-        self.view:close()
+        local reason = self.pendingCloseReason or "choice_close"
+        self.pendingCloseReason = nil
+        self.view:close(reason)
         return
     end
+    self.pendingCloseReason = nil
     if self.pendingNext then
         local nextID = self.pendingNext
         self.pendingNext = nil

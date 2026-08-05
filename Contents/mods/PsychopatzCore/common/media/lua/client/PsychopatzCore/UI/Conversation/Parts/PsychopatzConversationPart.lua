@@ -122,16 +122,6 @@ function PsychopatzConversationPart:prerender()
     if self.editMode then
         self:drawRectBorder(0, 0, self.width, self.height, 0.95, 0.3, 0.82, 1.0)
         self:drawRect(self.width - 14, self.height - 14, 14, 14, 0.85, 0.3, 0.82, 1.0)
-        self:drawText(
-            Text.Resolve(self.editLabel, tostring(self.partID)),
-            6,
-            4,
-            0.7,
-            0.9,
-            1,
-            1,
-            UIFont.Small
-        )
     end
 end
 

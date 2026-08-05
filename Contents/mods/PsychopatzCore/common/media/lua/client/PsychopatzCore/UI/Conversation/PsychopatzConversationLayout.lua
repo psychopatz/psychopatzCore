@@ -11,6 +11,7 @@ Conversation.Layout = Layout
 
 Layout.defaults = Layout.defaults or {
     portrait = { x = 0.08, y = 0.12, w = 0.24, h = 0.37 },
+    relationship = { x = 0.08, y = 0.51, w = 0.16, h = 0.35 },
     history = { x = 0.40, y = 0.13, w = 0.50, h = 0.41 },
     choices = { x = 0.26, y = 0.64, w = 0.43, h = 0.27 },
 }
@@ -83,6 +84,7 @@ end
 
 function Layout.ResetAll(save)
     Layout.Reset("portrait", false)
+    Layout.Reset("relationship", false)
     Layout.Reset("history", false)
     Layout.Reset("choices", save ~= false)
     local view = Conversation.instance

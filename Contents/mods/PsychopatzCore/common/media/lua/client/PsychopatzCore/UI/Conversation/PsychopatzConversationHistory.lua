@@ -11,7 +11,7 @@ local History = Conversation.History or {}
 Conversation.History = History
 
 History.STORAGE_KEY = "PsychopatzCore_ConversationHistory"
-History.VERSION = 3
+History.VERSION = 4
 History.memoryRoot = History.memoryRoot or {
     v = History.VERSION,
     d = -1,
@@ -32,9 +32,15 @@ local function root()
     else
         value = History.memoryRoot
     end
-    if tonumber(value.v) ~= History.VERSION then
+    if tonumber(value.v) ~= History.VERSION
+        and tonumber(value.v) ~= 3
+    then
         value.v = History.VERSION
         value.threads = {}
+    end
+    if tonumber(value.v) == 3 then
+        value.v = History.VERSION
+        value.migratedThreads = value.migratedThreads or {}
     end
     value.threads = type(value.threads) == "table" and value.threads or {}
     local day = currentDay()
@@ -45,8 +51,29 @@ local function root()
     return value
 end
 
-local function threadID(namespace, npcID)
+local function legacyThreadID(namespace, npcID)
     return tostring(namespace or "default") .. ":" .. tostring(npcID or "unknown")
+end
+
+local function threadID(namespace, npcID, characterUUID)
+    return tostring(characterUUID or "unbound") .. ":"
+        .. legacyThreadID(namespace, npcID)
+end
+
+local function recordsFor(namespace, npcID, characterUUID, create)
+    local data = root()
+    local key = threadID(namespace, npcID, characterUUID)
+    local legacyKey = legacyThreadID(namespace, npcID)
+    data.migratedThreads = data.migratedThreads or {}
+    if data.threads[key] == nil and data.threads[legacyKey] ~= nil
+        and data.migratedThreads[legacyKey] == nil
+        and characterUUID and characterUUID ~= "unbound"
+    then
+        data.threads[key] = data.threads[legacyKey]
+        data.migratedThreads[legacyKey] = tostring(characterUUID)
+    end
+    if create and data.threads[key] == nil then data.threads[key] = {} end
+    return data, key, data.threads[key] or {}
 end
 
 local function copyPrimitiveArgs(values)
@@ -75,8 +102,8 @@ function History.GetDay()
     return currentDay()
 end
 
-function History.Get(namespace, npcID)
-    local records = root().threads[threadID(namespace, npcID)] or {}
+function History.Get(namespace, npcID, characterUUID)
+    local _, _, records = recordsFor(namespace, npcID, characterUUID, false)
     local output = {}
     for index = 1, #records do
         local record = records[index]
@@ -89,10 +116,10 @@ function History.Get(namespace, npcID)
     return output
 end
 
-function History.Append(namespace, npcID, speaker, value)
-    local data = root()
-    local key = threadID(namespace, npcID)
-    local records = data.threads[key] or {}
+function History.Append(namespace, npcID, speaker, value, characterUUID)
+    local data, key, records = recordsFor(
+        namespace, npcID, characterUUID, true
+    )
     data.threads[key] = records
     local textRecord = Text.ToRecord(value)
     records[#records + 1] = {
@@ -109,8 +136,8 @@ function History.Append(namespace, npcID, speaker, value)
     return records[#records]
 end
 
-function History.Clear(namespace, npcID)
-    root().threads[threadID(namespace, npcID)] = nil
+function History.Clear(namespace, npcID, characterUUID)
+    root().threads[threadID(namespace, npcID, characterUUID)] = nil
 end
 
 function History.ClearAll()

@@ -9,6 +9,25 @@ PsychopatzConversationPortrait = PsychopatzConversationPart:derive(
 local Conversation = PsychopatzCore.Conversation
 local Text = Conversation.Text
 
+local function partCoordinate(panel, value, axis)
+    local offset = axis == "x" and panel:getX() or panel:getY()
+    return (tonumber(value) or 0) + offset
+end
+
+-- The 3D portrait consumes pointer input to rotate the face.  During layout
+-- editing, forward that input to its containing panel so dragging the face
+-- moves/resizes the portrait window like every other conversation panel.
+local function routeLayoutPointer(part, original, method, panel, x, y)
+    if part and part.editMode then
+        return part[method](
+            part,
+            partCoordinate(panel, x, "x"),
+            partCoordinate(panel, y, "y")
+        )
+    end
+    return original and original(panel, x, y) or false
+end
+
 function PsychopatzConversationPortrait:createChildren()
     ISPanel.createChildren(self)
     self.portrait = PsychopatzPortraitPanel:new(2, 2, self.width - 4, self.height - 4, {
@@ -28,6 +47,47 @@ function PsychopatzConversationPortrait:createChildren()
     self.portrait:setAnchorRight(true)
     self.portrait:setAnchorTop(true)
     self.portrait:setAnchorBottom(true)
+    local portrait = self.portrait
+    local originalMouseDown = portrait.onMouseDown
+    local originalMouseMove = portrait.onMouseMove
+    local originalMouseMoveOutside = portrait.onMouseMoveOutside
+    local originalMouseUp = portrait.onMouseUp
+    local originalMouseUpOutside = portrait.onMouseUpOutside
+    portrait.onMouseDown = function(panel, x, y)
+        return routeLayoutPointer(
+            self, originalMouseDown, "onMouseDown", panel, x, y
+        )
+    end
+    portrait.onMouseMove = function(panel, x, y)
+        return routeLayoutPointer(
+            self, originalMouseMove, "onMouseMove", panel, x, y
+        )
+    end
+    portrait.onMouseMoveOutside = function(panel, x, y)
+        return routeLayoutPointer(
+            self,
+            originalMouseMoveOutside,
+            "onMouseMoveOutside",
+            panel,
+            x,
+            y
+        )
+    end
+    portrait.onMouseUp = function(panel, x, y)
+        return routeLayoutPointer(
+            self, originalMouseUp, "onMouseUp", panel, x, y
+        )
+    end
+    portrait.onMouseUpOutside = function(panel, x, y)
+        return routeLayoutPointer(
+            self,
+            originalMouseUpOutside,
+            "onMouseUpOutside",
+            panel,
+            x,
+            y
+        )
+    end
     self:addChild(self.portrait)
     self:applyTarget()
 end
@@ -179,33 +239,22 @@ function PsychopatzConversationPortrait:render()
             alpha,
             UIFont.Small
         )
-        local telemetry = string.upper(
-            tostring(context.relationshipID or "UNKNOWN")
-                .. "  /  "
-                .. tostring(context.timeID or self.backgroundID or "UNKNOWN")
-        )
-        self:drawText(
-            telemetry,
-            13,
-            plateY + 28,
-            bright.r,
-            bright.g,
-            bright.b,
-            alpha * 0.92,
-            UIFont.Small
-        )
-        self:drawRect(3, 3, self.width - 7, 22,
-            alpha * 0.72, 0.008, 0.022, 0.018)
-        self:drawText(
-            Text.Resolve(self.title, "PORTRAIT FEED"),
-            12,
-            6,
-            bright.r,
-            bright.g,
-            bright.b,
-            alpha,
-            UIFont.Small
-        )
+        local factionName = tostring(context.factionName or "")
+        local factionRole = tostring(context.factionRole or "")
+        if factionName ~= "" then
+            local affiliation = string.upper(factionName)
+            if factionRole ~= "" then affiliation = affiliation .. " / " .. string.upper(factionRole) end
+            self:drawText(
+                affiliation,
+                13,
+                plateY + 28,
+                bright.r,
+                bright.g,
+                bright.b,
+                alpha * 0.92,
+                UIFont.Small
+            )
+        end
         self:drawRectBorder(2, 2, self.width - 5, self.height - 5,
             alpha * 0.75, accent.r, accent.g, accent.b)
         if self.editMode then
