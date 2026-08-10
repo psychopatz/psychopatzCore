@@ -55,8 +55,10 @@ def default_llm_report_path() -> Path:
     return Path.home() / "Zomboid" / "Lua" / LLM_REPORT_FILENAME
 
 
-def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str, Any]]) -> dict[str, Any]:
-    """Build a bounded, value-redacted report intended for automated analysis."""
+def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str, Any]], *,
+                     include_performance: bool = True, include_moddata: bool = True,
+                     npc_id: Optional[str] = None) -> dict[str, Any]:
+    """Build a bounded report containing only the explicitly selected sections."""
     snapshot = snapshot or {}
     namespace = (snapshot.get("namespaces") or {}).get("ProjectHoomans") or {}
     timers = []
@@ -85,27 +87,49 @@ def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str,
         allowed = ("reportVersion", "capturedAtMs", "scanMs", "estimateMethod",
                    "valuesRedacted", "limits", "persisted", "runtimeRecords", "inventories")
         mod_data = {key: raw_mod_data.get(key) for key in allowed if key in raw_mod_data}
-    return {
+    report = {
         "reportVersion": 1,
-        "purpose": "compact ProjectHoomans performance and ModData analysis",
+        "purpose": "selective ProjectHoomans profiler analysis",
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "snapshot": {
             "timestamp": snapshot.get("timestamp"),
             "mode": snapshot.get("mode"),
             "source": snapshot.get("source"),
         },
-        "process": {key: process.get(key) for key in
-                    ("connected", "pid", "name", "rss", "vms", "cpu_percent", "threads", "uptime")},
-        "projectHoomans": {"topTimers": timers[:20], "gauges": gauges[:40]},
-        "modData": mod_data,
-        "warnings": list(snapshot.get("warnings") or [])[:30],
-        "interpretation": [
-            "Process RSS belongs to the whole Project Zomboid process, not one mod.",
+        "includedSections": [],
+        "interpretation": [],
+    }
+    if include_performance:
+        report["includedSections"].append("performance")
+        report["process"] = {key: process.get(key) for key in
+                             ("connected", "pid", "name", "rss", "vms", "cpu_percent",
+                              "threads", "uptime")}
+        report["projectHoomans"] = {"topTimers": timers[:20], "gauges": gauges[:40]}
+        report["warnings"] = list(snapshot.get("warnings") or [])[:30]
+        report["interpretation"].insert(
+            0, "Process RSS belongs to the whole Project Zomboid process, not one mod.")
+    if include_moddata:
+        report["includedSections"].append("modData")
+        report["modData"] = mod_data
+        report["interpretation"].extend((
             "ModData byte counts are bounded shape estimates, not exact JVM or save-file sizes.",
             "Persisted, runtimeRecords, and inventories overlap and must not be summed.",
-            "Raw values and dynamic identifiers are intentionally excluded.",
-        ],
-    }
+        ))
+    if npc_id is not None:
+        npc_records = raw_mod_data.get("npcRecords") if isinstance(raw_mod_data, Mapping) else None
+        records = npc_records.get("records") or [] if isinstance(npc_records, Mapping) else []
+        selected = next((item for item in records if isinstance(item, Mapping)
+                         and str(item.get("id")) == str(npc_id)), None)
+        report["includedSections"].append("npcData")
+        report["npcData"] = dict(selected) if selected is not None else {
+            "id": str(npc_id), "status": "NPC was not present in the bounded snapshot"
+        }
+        report["interpretation"].append(
+            "NPC data was explicitly selected and may contain gameplay values and identifiers.")
+    elif include_moddata:
+        report["interpretation"].append(
+            "Per-NPC values and dynamic identifiers are excluded from the ModData summary.")
+    return report
 
 
 def write_llm_report(report: Mapping[str, Any], path: Optional[Path] = None) -> Path:

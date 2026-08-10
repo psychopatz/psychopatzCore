@@ -179,6 +179,21 @@ class BoundedAndRecordingTests(unittest.TestCase):
         self.assertNotIn("npcRecords", report["modData"])
         self.assertEqual(len(report["projectHoomans"]["topTimers"]), 20)
         self.assertEqual(report["projectHoomans"]["topTimers"][0]["name"], "Timer49")
+        npc_report = build_llm_report(
+            {"pid": 7, "rss": 99}, snapshot,
+            include_performance=False, include_moddata=False, npc_id="npc_one",
+        )
+        self.assertNotIn("process", npc_report)
+        self.assertNotIn("projectHoomans", npc_report)
+        self.assertNotIn("modData", npc_report)
+        self.assertEqual(npc_report["includedSections"], ["npcData"])
+        self.assertEqual(npc_report["npcData"]["status"],
+                         "NPC was not present in the bounded snapshot")
+        diagnostic["npcRecords"]["records"][0]["id"] = "npc_one"
+        selected = build_llm_report(
+            {}, snapshot, include_performance=False, include_moddata=False, npc_id="npc_one")
+        self.assertEqual(selected["npcData"]["name"], "Private NPC")
+        self.assertEqual(selected["npcData"]["runtimeContent"]["secret"], 1)
         with tempfile.TemporaryDirectory() as directory:
             path = write_llm_report(report, Path(directory) / "report.json")
             self.assertEqual(json.loads(path.read_text(encoding="utf-8"))["reportVersion"], 1)

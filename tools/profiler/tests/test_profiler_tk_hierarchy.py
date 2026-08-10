@@ -60,6 +60,43 @@ class TkHierarchyTests(unittest.TestCase):
         self.assertFalse(self.ui.paused)
         self.assertEqual(self.ui.pause_button.cget("text"), "Pause Updates")
 
+    def test_named_npc_inventory_and_moddata_navigation(self):
+        snapshot = {
+            "diagnostics": {
+                "ProjectHoomans.modData": {
+                    "persisted": {}, "runtimeRecords": {}, "inventories": {},
+                    "npcRecords": {"records": [{
+                        "id": "npc_1", "name": "Alex Morgan", "faction": "colonist",
+                        "presence": "live", "runtimeEstimatedBytes": 500,
+                        "persistedEstimatedBytes": 300, "inventoryItems": 1,
+                        "wornItems": 1, "equippedItems": 1,
+                        "runtimeContent": {"inventory": {
+                            "items": {"hammer": {"fullType": "Base.Hammer", "stack": 1}},
+                            "equipped": {"primary": "hammer"},
+                            "worn": {"Back": "hammer"}, "attached": {},
+                            "containers": {"root": {"items": ["hammer"]}},
+                        }},
+                        "persistedContent": {},
+                    }]},
+                },
+            },
+        }
+        self.ui.model.last_snapshot = snapshot
+        self.ui._render_moddata(snapshot)
+        npc_row = next(iter(self.ui.moddata_npc_by_iid))
+        self.assertEqual(self.ui.moddata_tree.item(npc_row, "text"), "Alex Morgan")
+        self.ui.moddata_tree.selection_set(npc_row)
+        self.ui.on_moddata_activate()
+        self.assertEqual(self.ui.selected_npc_id, "npc_1")
+        self.assertEqual(self.ui.npc_inventory_tree.item("inventory|npc", "text"), "Alex Morgan")
+        item_rows = self.ui.npc_inventory_tree.get_children("inventory|items")
+        self.assertEqual(len(item_rows), 1)
+        self.assertEqual(self.ui.npc_inventory_tree.item(item_rows[0], "text"), "Base.Hammer")
+        self.assertEqual(self.ui.export_button.cget("text"), "Export LLM...")
+        self.ui.open_llm_export_dialog()
+        self.assertEqual(self.ui.llm_export_dialog.title(), "Build LLM Debug Report")
+        self.ui.llm_export_dialog.destroy()
+
 
 if __name__ == "__main__":
     unittest.main()

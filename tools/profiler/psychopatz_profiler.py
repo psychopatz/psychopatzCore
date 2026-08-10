@@ -65,9 +65,11 @@ class TkinterProfilerUI:
         self.metric_open_state = {}
         self.moddata_open_state = {}
         self.content_open_state = {}
+        self.inventory_open_state = {}
         self.paused = False
         self.selected_npc_id = None
         self.npc_by_iid = {}
+        self.moddata_npc_by_iid = {}
         self.process_values = {key: tk.StringVar(value="N/A") for key in ("pid", "rss", "cpu", "threads", "uptime")}
         self._build()
         self.refresh_game_mode()
@@ -121,14 +123,14 @@ class TkinterProfilerUI:
         ttk.Label(snapshot_bar, textvariable=self.snapshot_var).pack(side="left")
         ttk.Button(snapshot_bar, text="Select snapshot", command=self.select_snapshot).pack(side="right")
 
-        notebook = ttk.Notebook(outer)
-        notebook.pack(fill="both", expand=True, pady=8)
-        performance_tab = ttk.Frame(notebook, padding=6)
-        moddata_tab = ttk.Frame(notebook, padding=6)
-        npc_tab = ttk.Frame(notebook, padding=6)
-        notebook.add(performance_tab, text="Performance")
-        notebook.add(moddata_tab, text="ModData Summary")
-        notebook.add(npc_tab, text="NPC Data Inspector")
+        self.notebook = ttk.Notebook(outer)
+        self.notebook.pack(fill="both", expand=True, pady=8)
+        performance_tab = ttk.Frame(self.notebook, padding=6)
+        moddata_tab = ttk.Frame(self.notebook, padding=6)
+        self.npc_tab = ttk.Frame(self.notebook, padding=6)
+        self.notebook.add(performance_tab, text="Performance")
+        self.notebook.add(moddata_tab, text="ModData Summary")
+        self.notebook.add(self.npc_tab, text="NPC Data Inspector")
 
         pane = ttk.Panedwindow(performance_tab, orient="horizontal")
         pane.pack(fill="both", expand=True)
@@ -163,14 +165,11 @@ class TkinterProfilerUI:
         moddata_scroll = ttk.Scrollbar(moddata, command=self.moddata_tree.yview)
         self.moddata_tree.configure(yscrollcommand=moddata_scroll.set)
         self.moddata_tree.pack(side="left", fill="both", expand=True)
-        moddata_scroll.pack(side="left", fill="y")
+        moddata_scroll.pack(side="right", fill="y")
         self._bind_open_state(self.moddata_tree, "moddata_open_state")
-        moddata_actions = ttk.Frame(moddata)
-        moddata_actions.pack(side="right", fill="y", padx=(8, 0))
-        ttk.Button(moddata_actions, text="Export LLM Report", command=self.export_llm_report).pack(fill="x")
-        ttk.Label(moddata_actions, textvariable=self.llm_status_var, wraplength=220).pack(fill="x", pady=(8, 0))
+        self.moddata_tree.bind("<Double-1>", self.on_moddata_activate)
 
-        npc_pane = ttk.Panedwindow(npc_tab, orient="horizontal")
+        npc_pane = ttk.Panedwindow(self.npc_tab, orient="horizontal")
         npc_pane.pack(fill="both", expand=True)
         npc_list_frame = ttk.LabelFrame(npc_pane, text="NPCS", padding=6)
         npc_content_frame = ttk.LabelFrame(npc_pane, text="BOUNDED RUNTIME / PERSISTED CONTENT", padding=6)
@@ -197,8 +196,28 @@ class TkinterProfilerUI:
         self.npc_tree.pack(side="left", fill="both", expand=True)
         npc_scroll.pack(side="right", fill="y")
         self.npc_tree.bind("<<TreeviewSelect>>", self.on_npc_selected)
+        self.npc_detail_notebook = ttk.Notebook(npc_content_frame)
+        self.npc_detail_notebook.pack(fill="both", expand=True)
+        inventory_tab = ttk.Frame(self.npc_detail_notebook, padding=4)
+        raw_tab = ttk.Frame(self.npc_detail_notebook, padding=4)
+        self.npc_detail_notebook.add(inventory_tab, text="Inventory & Clothing")
+        self.npc_detail_notebook.add(raw_tab, text="Raw State")
+        self.npc_inventory_tree = ttk.Treeview(
+            inventory_tab, columns=("location", "details"), show="tree headings",
+        )
+        self.npc_inventory_tree.heading("#0", text="NPC / item")
+        self.npc_inventory_tree.heading("location", text="Slot / container")
+        self.npc_inventory_tree.heading("details", text="State")
+        self.npc_inventory_tree.column("#0", width=270)
+        self.npc_inventory_tree.column("location", width=130)
+        self.npc_inventory_tree.column("details", width=260)
+        inventory_scroll = ttk.Scrollbar(inventory_tab, command=self.npc_inventory_tree.yview)
+        self.npc_inventory_tree.configure(yscrollcommand=inventory_scroll.set)
+        self.npc_inventory_tree.pack(side="left", fill="both", expand=True)
+        inventory_scroll.pack(side="right", fill="y")
+        self._bind_open_state(self.npc_inventory_tree, "inventory_open_state")
         self.npc_content_tree = ttk.Treeview(
-            npc_content_frame, columns=("value", "type"), show="tree headings",
+            raw_tab, columns=("value", "type"), show="tree headings",
         )
         self.npc_content_tree.heading("#0", text="Field")
         self.npc_content_tree.heading("value", text="Value")
@@ -206,7 +225,7 @@ class TkinterProfilerUI:
         self.npc_content_tree.column("#0", width=260)
         self.npc_content_tree.column("value", width=300)
         self.npc_content_tree.column("type", width=80)
-        content_scroll = ttk.Scrollbar(npc_content_frame, command=self.npc_content_tree.yview)
+        content_scroll = ttk.Scrollbar(raw_tab, command=self.npc_content_tree.yview)
         self.npc_content_tree.configure(yscrollcommand=content_scroll.set)
         self.npc_content_tree.pack(side="left", fill="both", expand=True)
         content_scroll.pack(side="right", fill="y")
@@ -224,6 +243,8 @@ class TkinterProfilerUI:
         ttk.Button(controls, text="Add Marker", command=self.add_marker).pack(side="left", padx=6)
         self.pause_button = ttk.Button(controls, text="Pause Updates", command=self.toggle_pause)
         self.pause_button.pack(side="left", padx=(0, 6))
+        self.export_button = ttk.Button(controls, text="Export LLM...", command=self.open_llm_export_dialog)
+        self.export_button.pack(side="left", padx=(0, 6))
         self.interval_var = tk.StringVar(value=str(self.interval))
         ttk.Label(controls, text="Poll seconds:").pack(side="left", padx=(20, 4))
         interval = ttk.Combobox(controls, textvariable=self.interval_var, values=("0.5", "1", "2", "5"), width=5, state="readonly")
@@ -436,6 +457,7 @@ class TkinterProfilerUI:
     def _render_moddata(self, snapshot: Optional[dict[str, Any]]) -> None:
         tree_state = self._capture_tree_state(self.moddata_tree)
         self.moddata_tree.delete(*self.moddata_tree.get_children())
+        self.moddata_npc_by_iid = {}
         diagnostic = ((snapshot or {}).get("diagnostics") or {}).get("ProjectHoomans.modData")
         if not isinstance(diagnostic, dict):
             self.moddata_tree.insert("", "end", text="No ModData diagnostic yet",
@@ -485,7 +507,47 @@ class TkinterProfilerUI:
                 path = str(item.get("path", ""))
                 self.moddata_tree.insert(parent, "end", iid=f"moddata|{key}|{path}", text=path,
                                          values=(human_bytes(item.get("estimatedBytes")), "top retained path"))
+        records = list(((diagnostic.get("npcRecords") or {}).get("records") or []))
+        npc_parent_iid = "moddata|npcs"
+        npc_total = sum(float(item.get("runtimeEstimatedBytes") or 0) for item in records)
+        npc_parent = self.moddata_tree.insert(
+            "", "end", iid=npc_parent_iid, text="Per-NPC data (double-click to inspect)",
+            values=(human_bytes(npc_total), f"{len(records)} bounded NPC records"),
+            open=self.moddata_open_state.get(npc_parent_iid, True),
+        )
+        if column == "estimated":
+            records.sort(key=lambda item: float(item.get("runtimeEstimatedBytes") or 0), reverse=reverse)
+        else:
+            records.sort(key=lambda item: str(item.get("name") or "").casefold(), reverse=reverse)
+        for record in records:
+            npc_id = str(record.get("id") or "unknown")
+            iid = "moddata|npc|" + hashlib.sha1(npc_id.encode("utf-8", "replace")).hexdigest()
+            self.moddata_npc_by_iid[iid] = record
+            runtime = record.get("runtimeContent") or {}
+            inventory = runtime.get("inventory") or {} if isinstance(runtime, dict) else {}
+            details = (
+                f"items={record.get('inventoryItems', len(inventory.get('items') or {}))}  "
+                f"worn={record.get('wornItems', len(inventory.get('worn') or {}))}  "
+                f"equipped={record.get('equippedItems', len(inventory.get('equipped') or {}))}  "
+                f"persisted={human_bytes(record.get('persistedEstimatedBytes'))}  "
+                f"{record.get('faction', 'unknown')} / {record.get('presence', 'unknown')}"
+            )
+            self.moddata_tree.insert(
+                npc_parent, "end", iid=iid, text=str(record.get("name") or "Unknown NPC"),
+                values=(human_bytes(record.get("runtimeEstimatedBytes")), details),
+            )
         self._restore_tree_state(self.moddata_tree, tree_state)
+
+    def on_moddata_activate(self, _event: Any = None) -> None:
+        selection = self.moddata_tree.selection()
+        if not selection:
+            return
+        record = self.moddata_npc_by_iid.get(selection[0])
+        if not record:
+            return
+        self.selected_npc_id = record.get("id")
+        self._render_npcs(self.model.last_snapshot)
+        self.notebook.select(self.npc_tab)
 
     @staticmethod
     def _update_sort_headings(tree: Any, column: str, reverse: bool, labels: dict[str, str]) -> None:
@@ -552,6 +614,8 @@ class TkinterProfilerUI:
             self.selected_npc_id = records[0].get("id")
             self._show_npc_content(records[0])
         else:
+            self.npc_inventory_tree.delete(*self.npc_inventory_tree.get_children())
+            self.npc_inventory_tree.insert("", "end", text="No NPC diagnostic yet", values=("", "status"))
             self.npc_content_tree.delete(*self.npc_content_tree.get_children())
             self.npc_content_tree.insert("", "end", text="No NPC diagnostic yet", values=("", "status"))
         self._restore_tree_state(self.npc_tree, tree_state)
@@ -566,6 +630,7 @@ class TkinterProfilerUI:
             self._show_npc_content(record)
 
     def _show_npc_content(self, record: dict[str, Any]) -> None:
+        self._show_npc_inventory(record)
         tree_state = self._capture_tree_state(self.npc_content_tree)
         self.npc_content_tree.delete(*self.npc_content_tree.get_children())
         title_iid = "content|npc"
@@ -584,6 +649,96 @@ class TkinterProfilerUI:
             )
             self._insert_content(node, record.get(key), 0, key)
         self._restore_tree_state(self.npc_content_tree, tree_state)
+
+    @staticmethod
+    def _inventory_item_name(item_id: Any, item: Any) -> str:
+        if isinstance(item, dict):
+            return str(item.get("customName") or item.get("displayName") or
+                       item.get("fullType") or item.get("type") or item_id)
+        return str(item or item_id)
+
+    @staticmethod
+    def _inventory_item_state(item: Any) -> str:
+        if not isinstance(item, dict):
+            return ""
+        parts = []
+        for label, key in (("qty", "stack"), ("condition", "cond"), ("uses", "uses"),
+                           ("ammo", "ammoCount"), ("template", "templateKey")):
+            if item.get(key) is not None:
+                parts.append(f"{label}={item[key]}")
+        state = item.get("itemState")
+        if isinstance(state, dict) and state:
+            parts.append("state=" + ",".join(sorted(str(key) for key in state)[:8]))
+        return "  ".join(parts)
+
+    def _show_npc_inventory(self, record: dict[str, Any]) -> None:
+        tree_state = self._capture_tree_state(self.npc_inventory_tree)
+        self.npc_inventory_tree.delete(*self.npc_inventory_tree.get_children())
+        runtime = record.get("runtimeContent") or {}
+        inventory = runtime.get("inventory") or {} if isinstance(runtime, dict) else {}
+        if not isinstance(inventory, dict):
+            inventory = {}
+        items = inventory.get("items") or {}
+        if not isinstance(items, dict):
+            items = {str(index): item for index, item in enumerate(items)} if isinstance(items, list) else {}
+        name = str(record.get("name") or "Unknown NPC")
+        root_iid = "inventory|npc"
+        root = self.npc_inventory_tree.insert(
+            "", "end", iid=root_iid, text=name,
+            values=(record.get("id", ""), f"{len(items)} item records"),
+            open=self.inventory_open_state.get(root_iid, True),
+        )
+        for label, key in (("Equipped", "equipped"), ("Worn clothing", "worn"),
+                           ("Attached", "attached")):
+            values = inventory.get(key) or {}
+            if not isinstance(values, dict):
+                continue
+            category_iid = f"inventory|{key}"
+            category = self.npc_inventory_tree.insert(
+                root, "end", iid=category_iid, text=label, values=("", f"{len(values)} slots"),
+                open=self.inventory_open_state.get(category_iid, True),
+            )
+            for slot, item_id in sorted(values.items(), key=lambda pair: str(pair[0]).casefold()):
+                item = items.get(str(item_id), items.get(item_id))
+                self.npc_inventory_tree.insert(
+                    category, "end", iid=self._inventory_iid(f"{key}.{slot}"),
+                    text=self._inventory_item_name(item_id, item), values=(str(slot), str(item_id)),
+                )
+        item_root_iid = "inventory|items"
+        item_root = self.npc_inventory_tree.insert(
+            root, "end", iid=item_root_iid, text="All items", values=("", f"{len(items)} records"),
+            open=self.inventory_open_state.get(item_root_iid, True),
+        )
+        for item_id, item in sorted(items.items(), key=lambda pair: self._inventory_item_name(*pair).casefold()):
+            location = ""
+            if isinstance(item, dict):
+                location = str(item.get("containerId") or item.get("container") or item.get("location") or "")
+            self.npc_inventory_tree.insert(
+                item_root, "end", iid=self._inventory_iid(f"items.{item_id}"),
+                text=self._inventory_item_name(item_id, item),
+                values=(location, self._inventory_item_state(item)),
+            )
+        containers = inventory.get("containers") or {}
+        if isinstance(containers, dict):
+            container_iid = "inventory|containers"
+            container_root = self.npc_inventory_tree.insert(
+                root, "end", iid=container_iid, text="Containers", values=("", f"{len(containers)} records"),
+                open=self.inventory_open_state.get(container_iid, False),
+            )
+            for container_id, container in sorted(containers.items(), key=lambda pair: str(pair[0]).casefold()):
+                contained = container.get("items") or [] if isinstance(container, dict) else []
+                state = f"items={len(contained)}"
+                if isinstance(container, dict) and container.get("maxWeight") is not None:
+                    state += f"  maxWeight={container['maxWeight']}"
+                self.npc_inventory_tree.insert(
+                    container_root, "end", iid=self._inventory_iid(f"containers.{container_id}"),
+                    text=str(container_id), values=("container", state),
+                )
+        self._restore_tree_state(self.npc_inventory_tree, tree_state)
+
+    @staticmethod
+    def _inventory_iid(path: str) -> str:
+        return "inventory|" + hashlib.sha1(path.encode("utf-8", "replace")).hexdigest()
 
     @staticmethod
     def _content_iid(path: str) -> str:
@@ -632,23 +787,108 @@ class TkinterProfilerUI:
         except OSError as error:
             self.llm_status_var.set(f"LLM report write failed: {error}")
 
-    def export_llm_report(self) -> None:
+    def open_llm_export_dialog(self) -> None:
         if not self.model.last_snapshot:
             messagebox.showinfo("No report available", "Wait for a connected profiler snapshot first.")
             return
+        existing = getattr(self, "llm_export_dialog", None)
+        if existing is not None and existing.winfo_exists():
+            existing.lift()
+            return
+        dialog = tk.Toplevel(self.root)
+        self.llm_export_dialog = dialog
+        dialog.title("Build LLM Debug Report")
+        dialog.transient(self.root)
+        dialog.resizable(False, False)
+        body = ttk.Frame(dialog, padding=14)
+        body.pack(fill="both", expand=True)
+        ttk.Label(body, text="Choose only the profiler data needed for this debugging report.").pack(
+            anchor="w", pady=(0, 10))
+        performance_var = tk.BooleanVar(value=True)
+        moddata_var = tk.BooleanVar(value=True)
+        npc_var = tk.BooleanVar(value=False)
+        ttk.Checkbutton(
+            body, text="Performance — process usage, timers, gauges, and warnings",
+            variable=performance_var,
+        ).pack(anchor="w", pady=2)
+        ttk.Checkbutton(
+            body, text="ModData size — bounded aggregate size and retained paths",
+            variable=moddata_var,
+        ).pack(anchor="w", pady=2)
+        npc_check = ttk.Checkbutton(
+            body, text="NPC Data Inspector — selected NPC state, animation, inventory, and clothing",
+            variable=npc_var,
+        )
+        npc_check.pack(anchor="w", pady=2)
+        npc_row = ttk.Frame(body)
+        npc_row.pack(fill="x", padx=(24, 0), pady=(4, 10))
+        ttk.Label(npc_row, text="NPC:").pack(side="left", padx=(0, 6))
+        diagnostic = ((self.model.last_snapshot.get("diagnostics") or {}).get("ProjectHoomans.modData") or {})
+        records = list(((diagnostic.get("npcRecords") or {}).get("records") or []))
+        npc_choices = {}
+        selected_label = ""
+        for record in records:
+            label = f"{record.get('name') or 'Unknown NPC'} — {record.get('id') or 'unknown'}"
+            npc_choices[label] = str(record.get("id") or "")
+            if str(record.get("id")) == str(self.selected_npc_id):
+                selected_label = label
+        if not selected_label and npc_choices:
+            selected_label = next(iter(npc_choices))
+        npc_choice_var = tk.StringVar(value=selected_label)
+        npc_combo = ttk.Combobox(
+            npc_row, textvariable=npc_choice_var, values=tuple(npc_choices), state="readonly", width=54)
+        npc_combo.pack(side="left", fill="x", expand=True)
+        if not npc_choices:
+            npc_check.configure(state="disabled")
+            npc_combo.configure(state="disabled")
+            ttk.Label(body, text="No bounded NPC records are present in this snapshot.").pack(anchor="w", padx=(24, 0))
+        buttons = ttk.Frame(body)
+        buttons.pack(fill="x", pady=(8, 0))
+        ttk.Button(buttons, text="Cancel", command=dialog.destroy).pack(side="right")
+        ttk.Button(
+            buttons, text="Choose File & Export",
+            command=lambda: self._perform_llm_export(
+                dialog, performance_var.get(), moddata_var.get(),
+                npc_choices.get(npc_choice_var.get()) if npc_var.get() else None,
+                npc_var.get()),
+        ).pack(side="right", padx=(0, 6))
+        dialog.protocol("WM_DELETE_WINDOW", dialog.destroy)
+        dialog.grab_set()
+
+    def _perform_llm_export(self, dialog: Any, include_performance: bool,
+                            include_moddata: bool, npc_id: Optional[str],
+                            include_npc: bool) -> None:
+        if not include_performance and not include_moddata and not include_npc:
+            messagebox.showwarning("Nothing selected", "Select at least one report section.", parent=dialog)
+            return
+        if include_npc and not npc_id:
+            messagebox.showwarning("NPC required", "Choose an NPC for the NPC Data Inspector section.", parent=dialog)
+            return
         selected = filedialog.asksaveasfilename(
-            title="Export compact LLM report",
+            title="Export selected LLM debug report",
             defaultextension=".json",
             initialfile="PsychopatzCore_Profiler_LLM.json",
             filetypes=(("JSON reports", "*.json"), ("All files", "*")),
+            parent=dialog,
         )
         if not selected:
             return
         try:
-            path = write_llm_report(build_llm_report(self.model.last_process, self.model.last_snapshot), Path(selected))
-            messagebox.showinfo("LLM report exported", f"Saved compact, value-redacted report to:\n{path}")
+            report = build_llm_report(
+                self.model.last_process, self.model.last_snapshot,
+                include_performance=include_performance,
+                include_moddata=include_moddata,
+                npc_id=npc_id if include_npc else None,
+            )
+            path = write_llm_report(report, Path(selected))
+            dialog.destroy()
+            messagebox.showinfo("LLM report exported", f"Saved the selected profiler sections to:\n{path}")
         except OSError as error:
-            messagebox.showerror("Export failed", str(error))
+            messagebox.showerror("Export failed", str(error), parent=dialog)
+
+    def export_llm_report(self) -> None:
+        """Compatibility entry point for older callers."""
+        self.open_llm_export_dialog()
 
     def _render_graph(self) -> None:
         self.graph.delete("all")
