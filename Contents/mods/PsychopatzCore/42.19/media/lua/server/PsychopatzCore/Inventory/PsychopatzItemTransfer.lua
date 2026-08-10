@@ -4,6 +4,14 @@ PsychopatzCore.ItemTransfer = PsychopatzCore.ItemTransfer or {}
 
 local Transfer = PsychopatzCore.ItemTransfer
 
+local ITEM_VISUAL_STATE_FIELDS = {
+    baseTexture = "visualBaseTexture",
+    textureChoice = "visualTextureChoice",
+    tintR = "visualTintR",
+    tintG = "visualTintG",
+    tintB = "visualTintB",
+}
+
 local function isMultiplayerServer()
     return isServer and isServer() == true
 end
@@ -123,6 +131,82 @@ local function applyFluidState(item, state)
     end
 end
 
+local function readVisualValue(visual, methodName, ...)
+    local method = visual and visual[methodName] or nil
+    local ok
+    local value
+    if type(method) ~= "function" then return nil end
+    ok, value = pcall(method, visual, ...)
+    return ok and value or nil
+end
+
+local function applyItemVisualState(item, state)
+    local visual
+    local tintR
+    local tintG
+    local tintB
+    if not item or type(state) ~= "table" then return end
+    if state.visualFullType ~= nil
+        and item.getFullType
+        and tostring(state.visualFullType)
+            ~= tostring(item:getFullType() or "")
+    then
+        return
+    end
+    visual = item.getVisual and item:getVisual() or nil
+    if not visual then return end
+    if state[ITEM_VISUAL_STATE_FIELDS.baseTexture] ~= nil
+        and visual.setBaseTexture
+    then
+        visual:setBaseTexture(tonumber(
+            state[ITEM_VISUAL_STATE_FIELDS.baseTexture]
+        ) or -1)
+    end
+    if state[ITEM_VISUAL_STATE_FIELDS.textureChoice] ~= nil
+        and visual.setTextureChoice
+    then
+        visual:setTextureChoice(tonumber(
+            state[ITEM_VISUAL_STATE_FIELDS.textureChoice]
+        ) or -1)
+    end
+    if state.visualDecal ~= nil and visual.setDecal then
+        visual:setDecal(tostring(state.visualDecal))
+    end
+    tintR = tonumber(state[ITEM_VISUAL_STATE_FIELDS.tintR])
+    tintG = tonumber(state[ITEM_VISUAL_STATE_FIELDS.tintG])
+    tintB = tonumber(state[ITEM_VISUAL_STATE_FIELDS.tintB])
+    if tintR and tintG and tintB and ImmutableColor and visual.setTint then
+        visual:setTint(ImmutableColor.new(tintR, tintG, tintB, 1))
+    end
+end
+
+local function captureItemVisualState(item, state)
+    local visual = item and item.getVisual and item:getVisual() or nil
+    local clothingItem = item and item.getClothingItem
+        and item:getClothingItem() or nil
+    local tint
+    if not visual then return end
+    state.visualFullType = item.getFullType
+        and tostring(item:getFullType() or "") or nil
+    state[ITEM_VISUAL_STATE_FIELDS.baseTexture] = tonumber(
+        readVisualValue(visual, "getBaseTexture")
+    )
+    state[ITEM_VISUAL_STATE_FIELDS.textureChoice] = tonumber(
+        readVisualValue(visual, "getTextureChoice")
+    )
+    state.visualDecal = readVisualValue(
+        visual,
+        "getDecal",
+        clothingItem
+    )
+    tint = readVisualValue(visual, "getTint", clothingItem)
+    if tint then
+        state[ITEM_VISUAL_STATE_FIELDS.tintR] = tonumber(tint:getRedFloat())
+        state[ITEM_VISUAL_STATE_FIELDS.tintG] = tonumber(tint:getGreenFloat())
+        state[ITEM_VISUAL_STATE_FIELDS.tintB] = tonumber(tint:getBlueFloat())
+    end
+end
+
 local function applyItemState(item, state)
     if not item or type(state) ~= "table" then
         return
@@ -173,6 +257,8 @@ local function applyItemState(item, state)
         end
     end
 
+    applyItemVisualState(item, state)
+
     applyFluidState(item, state)
 end
 
@@ -199,11 +285,11 @@ function Transfer.AddToContainer(container, fullType, count, state)
 
     eachJavaList(items, function(item)
         applyItemState(item, state)
-        if type(state) == "table" and isMultiplayerServer() and item.syncItemFields then
-            item:syncItemFields()
-        end
     end)
 
+    -- sendAddItemToContainer serializes the already-configured item. Sending
+    -- SyncItemFields before this packet races the client's item creation and
+    -- can make SyncItemFieldsPacket parse a null InventoryItem.
     if isMultiplayerServer() and sendAddItemToContainer then
         eachJavaList(items, function(item)
             sendAddItemToContainer(container, item)
@@ -239,6 +325,7 @@ function Transfer.CaptureState(item)
     if item.getCurrentAmmoCount then
         state.ammoCount = tonumber(item:getCurrentAmmoCount())
     end
+    captureItemVisualState(item, state)
     if item.getModData then
         local raw = item:getModData()
         local copied = {}

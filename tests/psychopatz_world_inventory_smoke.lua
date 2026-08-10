@@ -1,5 +1,5 @@
-local SHARED_ROOT = "Contents/mods/PsychopatzCore/42.16/media/lua/shared/"
-local SERVER_ROOT = "Contents/mods/PsychopatzCore/42.16/media/lua/server/"
+local SHARED_ROOT = "Contents/mods/PsychopatzCore/42.19/media/lua/shared/"
+local SERVER_ROOT = "Contents/mods/PsychopatzCore/42.19/media/lua/server/"
 package.path = SHARED_ROOT .. "?.lua;" .. SERVER_ROOT .. "?.lua;" .. package.path
 
 local function assertEqual(actual, expected, label)
@@ -66,6 +66,15 @@ sendRemoveItemFromContainer = function(container, item)
 end
 
 local nextID = 100
+ImmutableColor = {
+    new = function(r, g, b)
+        return {
+            getRedFloat = function() return r end,
+            getGreenFloat = function() return g end,
+            getBlueFloat = function() return b end,
+        }
+    end,
+}
 local function newItem(fullType, container)
     nextID = nextID + 1
     local item = {
@@ -74,6 +83,10 @@ local function newItem(fullType, container)
         container = container,
         condition = 10,
         syncCount = 0,
+        visual = {
+            baseTexture = -1,
+            textureChoice = -1,
+        },
     }
     function item:getID() return self.id end
     function item:getFullType() return self.fullType end
@@ -88,6 +101,16 @@ local function newItem(fullType, container)
     function item:setCondition(value) self.condition = value end
     function item:getConditionMax() return 10 end
     function item:syncItemFields() self.syncCount = self.syncCount + 1 end
+    function item:getVisual() return self.visual end
+    function item:getClothingItem() return {} end
+    function item.visual:setBaseTexture(value) self.baseTexture = value end
+    function item.visual:getBaseTexture() return self.baseTexture end
+    function item.visual:setTextureChoice(value) self.textureChoice = value end
+    function item.visual:getTextureChoice() return self.textureChoice end
+    function item.visual:setDecal(value) self.decal = value end
+    function item.visual:getDecal() return self.decal end
+    function item.visual:setTint(value) self.tint = value end
+    function item.visual:getTint() return self.tint end
     return item
 end
 
@@ -131,14 +154,34 @@ function player:getSecondaryHandItem() return self.secondary end
 function player:setPrimaryHandItem(item) self.primary = item end
 function player:setSecondaryHandItem(item) self.secondary = item end
 
-local created = ItemTransfer.GiveToPlayer(player, "Base.Axe", 2, { condition = 7 })
+local created = ItemTransfer.GiveToPlayer(player, "Base.Axe", 2, {
+    condition = 7,
+    visualFullType = "Base.Axe",
+    visualBaseTexture = 3,
+    visualTextureChoice = 6,
+    visualDecal = "SpiffoLogo",
+    visualTintR = 0.9,
+    visualTintG = 0.8,
+    visualTintB = 0.1,
+})
 assertEqual(created:size(), 2, "give count")
 assertEqual(created:get(0).condition, 7, "state applied before sync")
-assertEqual(created:get(0).syncCount, 1, "item fields synced")
+assertEqual(created:get(0).syncCount, 0,
+    "new item sent a premature SyncItemFields packet")
+assertEqual(created:get(0).visual.baseTexture, 3,
+    "visual base texture applied before sync")
+assertEqual(created:get(0).visual.textureChoice, 6,
+    "visual texture choice applied before sync")
+assertEqual(created:get(0).visual.decal, "SpiffoLogo",
+    "visual decal applied before sync")
+assertEqual(created:get(0).visual.tint:getGreenFloat(), 0.8,
+    "visual tint applied before sync")
 assertEqual(#addedPackets, 2, "native add packets")
 
 local first = created:get(0)
 local second = created:get(1)
+assertEqual(ItemTransfer.CaptureState(first).visualDecal,
+    "SpiffoLogo", "visual decal captured for transfer")
 player.primary = first
 local beforeDuplicate = #inventory.values
 local duplicate, duplicateReason = ItemTransfer.TakeFromPlayer(player, { first:getID(), first:getID() })
@@ -184,6 +227,8 @@ local captured = ItemTransfer.CaptureState(nestedCreated:get(0))
 assertEqual(captured.condition, 6, "captured condition")
 assertEqual(captured.favorite, true, "captured favorite")
 assertEqual(captured.customName, "Emergency Bandage", "captured custom name")
+assertEqual(captured.visualFullType, "Base.Bandage",
+    "captured visual identity")
 
 local capturedItem = nestedCreated:get(0)
 function capturedItem:getModData()
