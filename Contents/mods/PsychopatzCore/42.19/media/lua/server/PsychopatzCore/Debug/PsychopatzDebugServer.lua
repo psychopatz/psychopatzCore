@@ -11,7 +11,11 @@ local function addItems(player, itemType, quantity)
     if not player or not getScriptManager():getItem(itemType) then
         return false
     end
-    return PsychopatzCore.ItemTransfer.GiveToPlayer(player, itemType, count) ~= nil
+    return PsychopatzCore.ItemTransfer.GiveToPlayer(
+        player,
+        itemType,
+        count
+    ) ~= nil
 end
 
 local function heal(player)
@@ -50,9 +54,15 @@ local function onPsychopatzCommand(module, command, player, args)
     args = args or {}
     if args.doHeal then heal(player) end
     if args.doStats then resetStats(player) end
-    if args.doSpawn then addItems(player, tostring(args.itemID or "Base.Katana"), args.quantity) end
-    if args.doMoney then addItems(player, "Base.MoneyBundle", args.qtyMoney or 100) end
-    if args.doWalkie then addItems(player, "Base.WalkieTalkie5", args.qtyWalkie or 1) end
+    if args.doSpawn then
+        addItems(player, tostring(args.itemID or "Base.Katana"), args.quantity)
+    end
+    if args.doMoney then
+        addItems(player, "Base.MoneyBundle", args.qtyMoney or 100)
+    end
+    if args.doWalkie then
+        addItems(player, "Base.WalkieTalkie5", args.qtyWalkie or 1)
+    end
 end
 
 Events.OnClientCommand.Add(onPsychopatzCommand)

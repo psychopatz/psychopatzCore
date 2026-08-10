@@ -35,4 +35,7 @@ function Core.IsOwner(player)
     return Core.GetSafeSteamID(player) == "0" and username == Core.OWNER_SP_NAME
 end
 
+require "PsychopatzCore/Radio/RadioFrequencies/PsychopatzRadioFrequencies"
+require "PsychopatzCore/Radio/CustomChannels/PsychopatzCustomRadio"
+
 return Core
