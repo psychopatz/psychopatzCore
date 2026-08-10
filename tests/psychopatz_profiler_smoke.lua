@@ -40,6 +40,9 @@ Profiler.Start("DETAILED", adapter, { historyCapacity = 3, snapshotEnabled = tru
 assertTrue(Profiler.IsRunning())
 assertEqual(added, 1, "one callback registered")
 assertTrue(Profiler.RegisterNamespace("ExampleMod", { displayName = "Example Mod" }))
+assertTrue(Profiler.RegisterSnapshotProvider("ExampleMod.diagnostic", function()
+    return { bounded = true, count = 2 }
+end))
 
 Profiler.Increment("ExampleMod.Events.Total", 3)
 Profiler.Decrement("ExampleMod.Events.Total", 1)
@@ -70,6 +73,8 @@ assertEqual(gauge.history.count, 3, "ring remains bounded")
 assertEqual(#gauge.history.values, 3, "ring backing array remains bounded")
 assertEqual(Profiler.SplitName("ExampleMod.Cache.Size"), "ExampleMod", "namespace parsing")
 assertEqual(Profiler.BuildSnapshot().profilerVersion, 1, "snapshot version")
+assertEqual(Profiler.BuildSnapshot().diagnostics["ExampleMod.diagnostic"].count, 2,
+    "snapshot provider payload")
 
 local stopped = 0
 Profiler.RegisterStopHook("test", function() stopped = stopped + 1 end)

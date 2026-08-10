@@ -15,8 +15,10 @@ except ImportError:
     tk = None  # type: ignore[assignment]
 
 from profiler_core import (ProcessMonitor, ProfilerModel, SnapshotReader, _psutil,
-                           default_game_config_path, iter_snapshot_metrics,
-                           read_game_profiler_mode, write_game_profiler_mode)
+                           build_llm_report, default_game_config_path,
+                           default_llm_report_path, iter_snapshot_metrics,
+                           read_game_profiler_mode, write_game_profiler_mode,
+                           write_llm_report)
 
 
 def human_bytes(value: Any) -> str:
@@ -53,6 +55,9 @@ class TkinterProfilerUI:
         self.process_var = tk.StringVar(value="")
         self.game_mode_var = tk.StringVar(value="Checking configuration...")
         self.game_config_path = default_game_config_path()
+        self.llm_report_path = default_llm_report_path()
+        self.llm_status_var = tk.StringVar(value="LLM report waiting for ModData diagnostics")
+        self.last_llm_snapshot_timestamp = None
         self.process_values = {key: tk.StringVar(value="N/A") for key in ("pid", "rss", "cpu", "threads", "uptime")}
         self._build()
         self.refresh_game_mode()
@@ -67,8 +72,8 @@ class TkinterProfilerUI:
 
     def _build(self) -> None:
         self.root.title("Psychopatz Performance Profiler")
-        self.root.geometry("980x720")
-        self.root.minsize(760, 540)
+        self.root.geometry("1080x860")
+        self.root.minsize(820, 680)
         outer = ttk.Frame(self.root, padding=10)
         outer.pack(fill="both", expand=True)
 
@@ -125,6 +130,24 @@ class TkinterProfilerUI:
         scroll.pack(side="right", fill="y")
         self.graph = tk.Canvas(history_frame, background="#161a20", highlightthickness=0)
         self.graph.pack(fill="both", expand=True)
+
+        moddata = ttk.LabelFrame(outer, text="PROJECT HOOMANS MODDATA BLOAT ANALYSIS", padding=6)
+        moddata.pack(fill="both", pady=(0, 8))
+        self.moddata_tree = ttk.Treeview(moddata, columns=("estimated", "details"), show="tree headings", height=7)
+        self.moddata_tree.heading("#0", text="Section / largest path")
+        self.moddata_tree.heading("estimated", text="Estimated shape")
+        self.moddata_tree.heading("details", text="Counts / status")
+        self.moddata_tree.column("#0", width=390)
+        self.moddata_tree.column("estimated", width=120, anchor="e")
+        self.moddata_tree.column("details", width=390)
+        moddata_scroll = ttk.Scrollbar(moddata, command=self.moddata_tree.yview)
+        self.moddata_tree.configure(yscrollcommand=moddata_scroll.set)
+        self.moddata_tree.pack(side="left", fill="both", expand=True)
+        moddata_scroll.pack(side="left", fill="y")
+        moddata_actions = ttk.Frame(moddata)
+        moddata_actions.pack(side="right", fill="y", padx=(8, 0))
+        ttk.Button(moddata_actions, text="Export LLM Report", command=self.export_llm_report).pack(fill="x")
+        ttk.Label(moddata_actions, textvariable=self.llm_status_var, wraplength=220).pack(fill="x", pady=(8, 0))
 
         warnings = ttk.LabelFrame(outer, text="WARNINGS", padding=6)
         warnings.pack(fill="x")
@@ -203,6 +226,7 @@ class TkinterProfilerUI:
                 self.monitor.select(self.candidates[0].pid)
         snapshot = self.reader.read()
         self.model.update(process, snapshot)
+        self._update_llm_report(process, snapshot)
         self._render(process, snapshot)
         self.root.after(int(self.interval * 1000), self.poll)
 
@@ -217,6 +241,7 @@ class TkinterProfilerUI:
         self.process_values["threads"].set(str(process.get("threads") or "N/A"))
         self.process_values["uptime"].set(duration(process.get("uptime")))
         self._render_metrics(snapshot)
+        self._render_moddata(snapshot)
         self._render_graph()
         warnings = list(self.model.warnings)
         if snapshot:
@@ -247,6 +272,69 @@ class TkinterProfilerUI:
             suffix = " ms/s" if kind == "timer" else " /s" if kind == "rate" else ""
             self.metrics.insert(namespace_nodes[namespace], "end", text=name,
                                 values=(f"{value:.2f}{suffix}", kind))
+
+    def _render_moddata(self, snapshot: Optional[dict[str, Any]]) -> None:
+        self.moddata_tree.delete(*self.moddata_tree.get_children())
+        diagnostic = ((snapshot or {}).get("diagnostics") or {}).get("ProjectHoomans.modData")
+        if not isinstance(diagnostic, dict):
+            self.moddata_tree.insert("", "end", text="No ModData diagnostic yet",
+                                     values=("N/A", "DETAILED mode; wait up to 10 seconds"))
+            return
+        sections = (
+            ("Persisted PNC ModData", "persisted"),
+            ("Runtime NPC records", "runtimeRecords"),
+            ("Inventory state", "inventories"),
+        )
+        for label, key in sections:
+            data = diagnostic.get(key) or {}
+            detail_parts = [f"nodes={data.get('nodes', 0)}", f"tables={data.get('tables', 0)}",
+                            f"entries={data.get('entries', 0)}"]
+            if key == "persisted":
+                detail_parts.append(f"stores={data.get('modDataTables', 0)}")
+            if key == "runtimeRecords":
+                detail_parts.append(f"records={data.get('recordCount', 0)}")
+            if key == "inventories":
+                detail_parts.extend((f"records={data.get('recordCount', 0)}",
+                                     f"items={data.get('itemCount', 0)}",
+                                     f"oplog={data.get('operationLogEntries', 0)}"))
+            if data.get("truncated"):
+                detail_parts.append("TRUNCATED")
+            parent = self.moddata_tree.insert("", "end", text=label,
+                                              values=(human_bytes(data.get("estimatedBytes")),
+                                                      "  ".join(detail_parts)), open=True)
+            for item in (data.get("topPaths") or [])[:15]:
+                self.moddata_tree.insert(parent, "end", text=str(item.get("path", "")),
+                                         values=(human_bytes(item.get("estimatedBytes")), "top retained path"))
+
+    def _update_llm_report(self, process: dict[str, Any], snapshot: Optional[dict[str, Any]]) -> None:
+        diagnostic = ((snapshot or {}).get("diagnostics") or {}).get("ProjectHoomans.modData")
+        timestamp = (snapshot or {}).get("timestamp")
+        if not diagnostic or timestamp == self.last_llm_snapshot_timestamp:
+            return
+        try:
+            write_llm_report(build_llm_report(process, snapshot), self.llm_report_path)
+            self.last_llm_snapshot_timestamp = timestamp
+            self.llm_status_var.set(f"Auto LLM report:\n{self.llm_report_path}")
+        except OSError as error:
+            self.llm_status_var.set(f"LLM report write failed: {error}")
+
+    def export_llm_report(self) -> None:
+        if not self.model.last_snapshot:
+            messagebox.showinfo("No report available", "Wait for a connected profiler snapshot first.")
+            return
+        selected = filedialog.asksaveasfilename(
+            title="Export compact LLM report",
+            defaultextension=".json",
+            initialfile="PsychopatzCore_Profiler_LLM.json",
+            filetypes=(("JSON reports", "*.json"), ("All files", "*")),
+        )
+        if not selected:
+            return
+        try:
+            path = write_llm_report(build_llm_report(self.model.last_process, self.model.last_snapshot), Path(selected))
+            messagebox.showinfo("LLM report exported", f"Saved compact, value-redacted report to:\n{path}")
+        except OSError as error:
+            messagebox.showerror("Export failed", str(error))
 
     def _render_graph(self) -> None:
         self.graph.delete("all")

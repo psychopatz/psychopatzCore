@@ -74,7 +74,7 @@ function Profiler.Start(mode, adapter, options)
     assert(adapter and type(adapter.nowMs) == "function", "profiler adapter requires nowMs")
     state = {
         mode = mode, adapter = adapter, metrics = {}, metricOrder = {}, namespaces = {},
-        samplers = {}, stopHooks = {}, warnings = {}, warningByKey = {},
+        samplers = {}, snapshotProviders = {}, stopHooks = {}, warnings = {}, warningByKey = {},
         maxWarnings = math.max(1, math.floor(tonumber(options.maxWarnings) or 100)),
         historyCapacity = math.max(2, math.floor(tonumber(options.historyCapacity) or 300)),
         sampleIntervalMs = math.max(100, math.floor(tonumber(options.sampleIntervalMs) or 1000)),
@@ -189,6 +189,18 @@ end
 function Profiler.UnregisterSampler(id)
     if not state then return false end
     state.samplers[tostring(id or "")] = nil
+    return true
+end
+
+function Profiler.RegisterSnapshotProvider(id, callback)
+    if not state or type(callback) ~= "function" then return false end
+    state.snapshotProviders[tostring(id or callback)] = callback
+    return true
+end
+
+function Profiler.UnregisterSnapshotProvider(id)
+    if not state then return false end
+    state.snapshotProviders[tostring(id or "")] = nil
     return true
 end
 

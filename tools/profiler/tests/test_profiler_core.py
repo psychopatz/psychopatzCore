@@ -9,8 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from profiler_core import (CsvRecorder, HistoryStore, ProcessMonitor, ProfilerModel,
-                           SnapshotReader, read_game_profiler_mode, score_process,
-                           write_game_profiler_mode)
+                           SnapshotReader, build_llm_report, read_game_profiler_mode,
+                           score_process, write_game_profiler_mode, write_llm_report)
 
 
 class NoSuchProcess(Exception):
@@ -162,6 +162,24 @@ class BoundedAndRecordingTests(unittest.TestCase):
         model.add_marker("battle")
         self.assertLessEqual(len(model.history.series["process.rss"]), 3)
         self.assertEqual(model.history.markers[-1][1], "battle")
+
+    def test_llm_report_is_bounded_and_contains_moddata_diagnostic(self):
+        timers = {f"Timer{index}": {"msPerSec": index, "peakMs": index * 2}
+                  for index in range(50)}
+        diagnostic = {"valuesRedacted": True, "persisted": {"estimatedBytes": 1234}}
+        snapshot = {
+            "timestamp": 42,
+            "mode": "DETAILED",
+            "namespaces": {"ProjectHoomans": {"timers": timers, "gauges": {}}},
+            "diagnostics": {"ProjectHoomans.modData": diagnostic},
+        }
+        report = build_llm_report({"pid": 7, "rss": 99}, snapshot)
+        self.assertEqual(report["modData"], diagnostic)
+        self.assertEqual(len(report["projectHoomans"]["topTimers"]), 20)
+        self.assertEqual(report["projectHoomans"]["topTimers"][0]["name"], "Timer49")
+        with tempfile.TemporaryDirectory() as directory:
+            path = write_llm_report(report, Path(directory) / "report.json")
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8"))["reportVersion"], 1)
 
 
 if __name__ == "__main__":

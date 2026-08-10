@@ -140,6 +140,27 @@ process/JVM**, never to Project Hoomans or another mod. Correlate those values
 with logical gauges to identify suspects. Messages such as “possible continuous
 growth” are observations, not proof of a memory leak.
 
+### Project Hoomans ModData diagnostics
+
+DETAILED mode adds a bounded, value-redacted Project Hoomans diagnostic. It
+separately summarizes persisted `PNC_*` GlobalModData tables, live runtime NPC
+records, and inventory/runtime-inventory structures. The report includes shape
+estimates, table/entry/string counts, inventory item/container/op-log counts,
+truncation status, and the largest normalized paths.
+
+The scan runs at most once per ten seconds and caps each section at 25,000 nodes,
+depth 12, and 30 retained paths. Dynamic identifiers and raw values are not
+exported. Estimated bytes are useful for comparisons and locating growth; they
+are not exact JVM heap, serialized, compressed-save, or disk byte counts. The
+persisted, runtime, and inventory sections overlap and must not be added together.
+
+The desktop GUI displays this data under **PROJECT HOOMANS MODDATA BLOAT
+ANALYSIS**. It also maintains a compact machine-readable report at
+`~/Zomboid/Lua/PsychopatzCore_Profiler_LLM_latest.json` and provides an
+**Export LLM Report** button. The LLM report keeps the top 20 timers, bounded
+gauges, warnings, ModData diagnostics, and one process sample while excluding
+raw save content.
+
 ## Known limitations
 
 - Exact per-mod RAM attribution is unavailable.

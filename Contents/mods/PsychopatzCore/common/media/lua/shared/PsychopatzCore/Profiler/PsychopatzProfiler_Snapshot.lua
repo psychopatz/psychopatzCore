@@ -40,6 +40,13 @@ function Profiler.BuildSnapshot()
             message = warning.message, metric = warning.metric, value = warning.value, count = warning.count,
         }
     end
+    for id, provider in pairs(state.snapshotProviders or {}) do
+        local ok, value = pcall(provider)
+        if ok and type(value) == "table" then
+            snapshot.diagnostics = snapshot.diagnostics or {}
+            snapshot.diagnostics[id] = value
+        end
+    end
     return snapshot
 end
 

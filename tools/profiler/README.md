@@ -103,6 +103,24 @@ The GUI labels RSS as **PROJECT ZOMBOID PROCESS** memory. It never claims that
 RSS belongs to an individual mod. Trend warnings use cautious wording and do not
 claim to prove a leak.
 
+## ModData and LLM analysis
+
+With Project Hoomans running in DETAILED mode, the GUI shows a bounded ModData
+bloat table. Expand persisted data, runtime records, and inventory state to see
+their estimated shape and largest normalized paths. Estimates are comparative,
+not exact heap or save-file sizes, and the three sections overlap.
+
+The GUI automatically writes a compact, value-redacted report to:
+
+```text
+~/Zomboid/Lua/PsychopatzCore_Profiler_LLM_latest.json
+```
+
+Use **Export LLM Report** to save another copy. This report is designed for
+token-efficient inspection by an LLM: it retains only the top timers, bounded
+gauges and warnings, summarized ModData structure, and a single process sample.
+It does not include raw NPC identifiers, item values, or complete save tables.
+
 ## Portability and failure behavior
 
 The tool uses `pathlib`, `psutil`, `collections.deque`, `csv`, `json`, and

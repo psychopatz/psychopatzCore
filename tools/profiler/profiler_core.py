@@ -21,6 +21,7 @@ except ImportError:  # The GUI turns this into a concise installation message.
 SNAPSHOT_VERSION = 1
 SNAPSHOT_FILENAME = "PsychopatzCore_Profiler_latest.json"
 GAME_CONFIG_FILENAME = "PsychopatzCore_Profiler.txt"
+LLM_REPORT_FILENAME = "PsychopatzCore_Profiler_LLM_latest.json"
 
 
 def default_game_config_path() -> Path:
@@ -48,6 +49,65 @@ def write_game_profiler_mode(mode: str, path: Optional[Path] = None) -> Path:
     config.parent.mkdir(parents=True, exist_ok=True)
     config.write_text(f"mode={normalized}\n", encoding="utf-8")
     return config
+
+
+def default_llm_report_path() -> Path:
+    return Path.home() / "Zomboid" / "Lua" / LLM_REPORT_FILENAME
+
+
+def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str, Any]]) -> dict[str, Any]:
+    """Build a bounded, value-redacted report intended for automated analysis."""
+    snapshot = snapshot or {}
+    namespace = (snapshot.get("namespaces") or {}).get("ProjectHoomans") or {}
+    timers = []
+    for name, metric in (namespace.get("timers") or {}).items():
+        if not isinstance(metric, Mapping):
+            continue
+        timers.append({
+            "name": str(name),
+            "msPerSec": metric.get("msPerSec", 0),
+            "callsPerSec": metric.get("callsPerSec", 0),
+            "movingAverageMs": metric.get("movingAverageMs", 0),
+            "peakMs": metric.get("peakMs", 0),
+        })
+    timers.sort(key=lambda item: float(item.get("msPerSec") or 0), reverse=True)
+    gauges = []
+    for name, metric in (namespace.get("gauges") or {}).items():
+        value = metric.get("value", 0) if isinstance(metric, Mapping) else metric
+        gauges.append({"name": str(name), "value": value})
+    gauges.sort(key=lambda item: item["name"])
+    diagnostics = snapshot.get("diagnostics") or {}
+    mod_data = diagnostics.get("ProjectHoomans.modData") if isinstance(diagnostics, Mapping) else None
+    return {
+        "reportVersion": 1,
+        "purpose": "compact ProjectHoomans performance and ModData analysis",
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "snapshot": {
+            "timestamp": snapshot.get("timestamp"),
+            "mode": snapshot.get("mode"),
+            "source": snapshot.get("source"),
+        },
+        "process": {key: process.get(key) for key in
+                    ("connected", "pid", "name", "rss", "vms", "cpu_percent", "threads", "uptime")},
+        "projectHoomans": {"topTimers": timers[:20], "gauges": gauges[:40]},
+        "modData": mod_data,
+        "warnings": list(snapshot.get("warnings") or [])[:30],
+        "interpretation": [
+            "Process RSS belongs to the whole Project Zomboid process, not one mod.",
+            "ModData byte counts are bounded shape estimates, not exact JVM or save-file sizes.",
+            "Persisted, runtimeRecords, and inventories overlap and must not be summed.",
+            "Raw values and dynamic identifiers are intentionally excluded.",
+        ],
+    }
+
+
+def write_llm_report(report: Mapping[str, Any], path: Optional[Path] = None) -> Path:
+    target = Path(path) if path else default_llm_report_path()
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_name(target.name + ".tmp")
+    temporary.write_text(json.dumps(report, ensure_ascii=True, separators=(",", ":")), encoding="utf-8")
+    temporary.replace(target)
+    return target
 
 
 @dataclass(frozen=True)
