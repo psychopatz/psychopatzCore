@@ -2,6 +2,11 @@
 
 Shared Project Zomboid Build 42 library for Psychopatz mods.
 
+The opt-in, generic performance profiler is documented in
+[`docs/profiler.md`](docs/profiler.md). It defaults to OFF and loads no metric
+backend, callbacks, histories, GUI, networking, or snapshot activity in normal
+gameplay.
+
 The shared library provides:
 
 - owner-authorized special commands

@@ -1,0 +1,6 @@
+tools/profiler/logs/
+tools/profiler/profiler-recordings/
+tools/profiler/.venv/
+*.profiler.csv
+__pycache__/
+*.pyc

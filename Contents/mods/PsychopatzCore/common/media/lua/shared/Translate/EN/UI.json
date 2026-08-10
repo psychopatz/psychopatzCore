@@ -38,5 +38,8 @@
     "UI_PsychopatzConversation_StatusDanger": "THREAT DETECTED",
     "UI_PsychopatzConversation_StatusUnavailable": "CONNECTION LOST",
     "UI_PsychopatzConversation_You": "YOU",
-    "UI_PsychopatzConversation_NPC": "NPC"
+    "UI_PsychopatzConversation_NPC": "NPC",
+    "UI_PsychopatzProfiler_Title": "Psychopatz Profiler",
+    "UI_PsychopatzProfiler_Reset": "Reset peaks/history",
+    "UI_PsychopatzProfiler_Export": "Export snapshot"
 }

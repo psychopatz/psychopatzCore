@@ -2,10 +2,14 @@ PsychopatzCore = PsychopatzCore or {}
 
 local Core = PsychopatzCore
 
-Core.VERSION = Core.VERSION or "0.3.0"
+Core.VERSION = Core.VERSION or "0.4.0"
 Core.OWNER_STEAM_ID = Core.OWNER_STEAM_ID or "76561198137190990"
 Core.OWNER_SP_NAME = Core.OWNER_SP_NAME or "Psychopatz"
 Core.COMMAND_MODULE = Core.COMMAND_MODULE or "PsychopatzCore"
+
+-- The bootstrap performs one configuration read. The metric backend, callbacks,
+-- GUI, networking, and history storage are not required or created in OFF mode.
+local ProfilerBootstrap = require "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"
 
 function Core.GetSafeSteamID(player)
     if not player or not player.getSteamID then
@@ -38,5 +42,7 @@ end
 require "PsychopatzCore/Radio/RadioFrequencies/PsychopatzRadioFrequencies"
 require "PsychopatzCore/Radio/CustomChannels/PsychopatzCustomRadio"
 require "PsychopatzCore/Traits/PsychopatzTraitRegistry"
+
+ProfilerBootstrap.Initialize()
 
 return Core
