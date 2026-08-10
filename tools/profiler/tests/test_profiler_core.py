@@ -166,7 +166,8 @@ class BoundedAndRecordingTests(unittest.TestCase):
     def test_llm_report_is_bounded_and_contains_moddata_diagnostic(self):
         timers = {f"Timer{index}": {"msPerSec": index, "peakMs": index * 2}
                   for index in range(50)}
-        diagnostic = {"valuesRedacted": True, "persisted": {"estimatedBytes": 1234}}
+        diagnostic = {"valuesRedacted": True, "persisted": {"estimatedBytes": 1234},
+                      "npcRecords": {"records": [{"name": "Private NPC", "runtimeContent": {"secret": 1}}]}}
         snapshot = {
             "timestamp": 42,
             "mode": "DETAILED",
@@ -174,7 +175,8 @@ class BoundedAndRecordingTests(unittest.TestCase):
             "diagnostics": {"ProjectHoomans.modData": diagnostic},
         }
         report = build_llm_report({"pid": 7, "rss": 99}, snapshot)
-        self.assertEqual(report["modData"], diagnostic)
+        self.assertEqual(report["modData"]["persisted"], diagnostic["persisted"])
+        self.assertNotIn("npcRecords", report["modData"])
         self.assertEqual(len(report["projectHoomans"]["topTimers"]), 20)
         self.assertEqual(report["projectHoomans"]["topTimers"][0]["name"], "Timer49")
         with tempfile.TemporaryDirectory() as directory:

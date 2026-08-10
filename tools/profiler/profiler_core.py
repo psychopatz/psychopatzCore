@@ -77,7 +77,14 @@ def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str,
         gauges.append({"name": str(name), "value": value})
     gauges.sort(key=lambda item: item["name"])
     diagnostics = snapshot.get("diagnostics") or {}
-    mod_data = diagnostics.get("ProjectHoomans.modData") if isinstance(diagnostics, Mapping) else None
+    raw_mod_data = diagnostics.get("ProjectHoomans.modData") if isinstance(diagnostics, Mapping) else None
+    mod_data = None
+    if isinstance(raw_mod_data, Mapping):
+        # Per-NPC contents are intentionally local-GUI-only; keep automated
+        # reports compact and value-redacted.
+        allowed = ("reportVersion", "capturedAtMs", "scanMs", "estimateMethod",
+                   "valuesRedacted", "limits", "persisted", "runtimeRecords", "inventories")
+        mod_data = {key: raw_mod_data.get(key) for key in allowed if key in raw_mod_data}
     return {
         "reportVersion": 1,
         "purpose": "compact ProjectHoomans performance and ModData analysis",

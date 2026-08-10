@@ -121,6 +121,20 @@ token-efficient inspection by an LLM: it retains only the top timers, bounded
 gauges and warnings, summarized ModData structure, and a single process sample.
 It does not include raw NPC identifiers, item values, or complete save tables.
 
+The main workspace is split into **Performance**, **ModData Summary**, and
+**NPC Data Inspector** tabs. Click a column heading to sort it; numeric columns
+sort by their raw values, and the default Performance order shows the largest
+timer latency first. The NPC tab lists display name, faction, presence, runtime
+shape, persisted shape, and item count. Selecting an NPC opens bounded runtime
+and saved ModData fields. This local detailed view is not copied into the
+automatic LLM report.
+
+Expand/collapse choices, selection, and scroll position persist across snapshot
+refreshes. Use **Pause Updates** to freeze process sampling, snapshot reads,
+graphs, tables, CSV metric rows, and automatic LLM-report writes. Existing data
+remains visible and expandable while paused; **Resume Updates** continues live
+collection.
+
 ## Portability and failure behavior
 
 The tool uses `pathlib`, `psutil`, `collections.deque`, `csv`, `json`, and

@@ -161,6 +161,27 @@ ANALYSIS**. It also maintains a compact machine-readable report at
 gauges, warnings, ModData diagnostics, and one process sample while excluding
 raw save content.
 
+The desktop workspace uses separate **Performance**, **ModData Summary**, and
+**NPC Data Inspector** tabs. Tree headings are clickable and sort using their
+underlying numeric values rather than formatted text; the initial Performance
+view places the highest timer latency first. The NPC inspector identifies records
+by display name and exposes bounded runtime and persisted content locally (up to
+50 NPCs, 500 nodes per view, depth 8, and 160 characters per string). Per-NPC
+contents are deliberately excluded from the automatic LLM report.
+
+Expansion state, selection, and scroll position survive periodic refreshes.
+**Pause Updates** freezes all desktop-side sampling, rendering, CSV rows, and
+LLM report writes while leaving the current snapshot available for inspection.
+It does not stop the already-running in-game Lua profiler; use OFF plus a game
+restart when strict zero-overhead mode is required.
+
+Project Hoomans server instrumentation also breaks the outer update and record
+broadcast timings into subsystem phases. Server metrics cover player lifecycle,
+factions, needs, engine path planning, body cleanup/audits, materialization,
+zombie aggro, social encounters, and per-NPC presence/health/stamina/animation/
+spatial/scheduling work. Network broadcast metrics separately time roster
+queueing, recipient discovery, payload construction, and payload sending.
+
 ## Known limitations
 
 - Exact per-mod RAM attribution is unavailable.
