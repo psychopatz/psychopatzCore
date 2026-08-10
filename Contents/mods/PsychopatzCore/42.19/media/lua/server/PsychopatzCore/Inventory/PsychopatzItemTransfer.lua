@@ -10,6 +10,11 @@ local ITEM_VISUAL_STATE_FIELDS = {
     tintR = "visualTintR",
     tintG = "visualTintG",
     tintB = "visualTintB",
+    modelIndex = "visualModelIndex",
+    customColor = "visualCustomColor",
+    colorR = "visualColorR",
+    colorG = "visualColorG",
+    colorB = "visualColorB",
 }
 
 local function isMultiplayerServer()
@@ -153,6 +158,41 @@ local function applyItemVisualState(item, state)
     then
         return
     end
+    if state[ITEM_VISUAL_STATE_FIELDS.modelIndex] ~= nil
+        and item.setModelIndex
+    then
+        item:setModelIndex(math.floor(tonumber(
+            state[ITEM_VISUAL_STATE_FIELDS.modelIndex]
+        ) or -1))
+    end
+    if state[ITEM_VISUAL_STATE_FIELDS.colorR] ~= nil
+        and item.setColorRed
+    then
+        item:setColorRed(tonumber(
+            state[ITEM_VISUAL_STATE_FIELDS.colorR]
+        ) or 1)
+    end
+    if state[ITEM_VISUAL_STATE_FIELDS.colorG] ~= nil
+        and item.setColorGreen
+    then
+        item:setColorGreen(tonumber(
+            state[ITEM_VISUAL_STATE_FIELDS.colorG]
+        ) or 1)
+    end
+    if state[ITEM_VISUAL_STATE_FIELDS.colorB] ~= nil
+        and item.setColorBlue
+    then
+        item:setColorBlue(tonumber(
+            state[ITEM_VISUAL_STATE_FIELDS.colorB]
+        ) or 1)
+    end
+    if state[ITEM_VISUAL_STATE_FIELDS.customColor] ~= nil
+        and item.setCustomColor
+    then
+        item:setCustomColor(
+            state[ITEM_VISUAL_STATE_FIELDS.customColor] == true
+        )
+    end
     visual = item.getVisual and item:getVisual() or nil
     if not visual then return end
     if state[ITEM_VISUAL_STATE_FIELDS.baseTexture] ~= nil
@@ -185,9 +225,19 @@ local function captureItemVisualState(item, state)
     local clothingItem = item and item.getClothingItem
         and item:getClothingItem() or nil
     local tint
-    if not visual then return end
     state.visualFullType = item.getFullType
         and tostring(item:getFullType() or "") or nil
+    state[ITEM_VISUAL_STATE_FIELDS.modelIndex] = item.getModelIndex
+        and tonumber(item:getModelIndex()) or nil
+    state[ITEM_VISUAL_STATE_FIELDS.customColor] = item.isCustomColor
+        and item:isCustomColor() == true or nil
+    state[ITEM_VISUAL_STATE_FIELDS.colorR] = item.getColorRed
+        and tonumber(item:getColorRed()) or nil
+    state[ITEM_VISUAL_STATE_FIELDS.colorG] = item.getColorGreen
+        and tonumber(item:getColorGreen()) or nil
+    state[ITEM_VISUAL_STATE_FIELDS.colorB] = item.getColorBlue
+        and tonumber(item:getColorBlue()) or nil
+    if not visual then return end
     state[ITEM_VISUAL_STATE_FIELDS.baseTexture] = tonumber(
         readVisualValue(visual, "getBaseTexture")
     )

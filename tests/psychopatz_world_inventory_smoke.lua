@@ -82,6 +82,11 @@ local function newItem(fullType, container)
         fullType = fullType,
         container = container,
         condition = 10,
+        modelIndex = 0,
+        customColor = false,
+        colorR = 1,
+        colorG = 1,
+        colorB = 1,
         syncCount = 0,
         visual = {
             baseTexture = -1,
@@ -100,6 +105,16 @@ local function newItem(fullType, container)
     function item:IsDrainable() return false end
     function item:setCondition(value) self.condition = value end
     function item:getConditionMax() return 10 end
+    function item:getModelIndex() return self.modelIndex end
+    function item:setModelIndex(value) self.modelIndex = value end
+    function item:isCustomColor() return self.customColor end
+    function item:setCustomColor(value) self.customColor = value end
+    function item:getColorRed() return self.colorR end
+    function item:getColorGreen() return self.colorGreen or self.colorG end
+    function item:getColorBlue() return self.colorBlue or self.colorB end
+    function item:setColorRed(value) self.colorR = value end
+    function item:setColorGreen(value) self.colorG = value end
+    function item:setColorBlue(value) self.colorB = value end
     function item:syncItemFields() self.syncCount = self.syncCount + 1 end
     function item:getVisual() return self.visual end
     function item:getClothingItem() return {} end
@@ -163,6 +178,11 @@ local created = ItemTransfer.GiveToPlayer(player, "Base.Axe", 2, {
     visualTintR = 0.9,
     visualTintG = 0.8,
     visualTintB = 0.1,
+    visualModelIndex = 1,
+    visualCustomColor = true,
+    visualColorR = 0.4,
+    visualColorG = 0.5,
+    visualColorB = 0.6,
 })
 assertEqual(created:size(), 2, "give count")
 assertEqual(created:get(0).condition, 7, "state applied before sync")
@@ -176,12 +196,20 @@ assertEqual(created:get(0).visual.decal, "SpiffoLogo",
     "visual decal applied before sync")
 assertEqual(created:get(0).visual.tint:getGreenFloat(), 0.8,
     "visual tint applied before sync")
+assertEqual(created:get(0).modelIndex, 1,
+    "item model index applied before sync")
+assertEqual(created:get(0).colorG, 0.5,
+    "item color applied before sync")
+assertEqual(created:get(0).customColor, true,
+    "item custom-color flag applied before sync")
 assertEqual(#addedPackets, 2, "native add packets")
 
 local first = created:get(0)
 local second = created:get(1)
 assertEqual(ItemTransfer.CaptureState(first).visualDecal,
     "SpiffoLogo", "visual decal captured for transfer")
+assertEqual(ItemTransfer.CaptureState(first).visualModelIndex,
+    1, "item model index captured for transfer")
 player.primary = first
 local beforeDuplicate = #inventory.values
 local duplicate, duplicateReason = ItemTransfer.TakeFromPlayer(player, { first:getID(), first:getID() })
