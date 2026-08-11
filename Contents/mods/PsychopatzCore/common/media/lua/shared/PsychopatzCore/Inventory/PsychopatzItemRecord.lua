@@ -84,10 +84,28 @@ function ItemRecord.encode(item, quantity)
 end
 
 local function createItem(fullType, factory)
-    if type(factory) == "function" then return factory(fullType) end
+    local ok
+    local item
+    if type(factory) == "function" then
+        ok, item = pcall(factory, fullType)
+        if ok and item then return item end
+    end
     if InventoryItemFactory then
-        if InventoryItemFactory.CreateItem then return InventoryItemFactory.CreateItem(fullType) end
-        if InventoryItemFactory.instanceItem then return InventoryItemFactory.instanceItem(fullType) end
+        if InventoryItemFactory.CreateItem then
+            ok, item = pcall(InventoryItemFactory.CreateItem, fullType)
+            if ok and item then return item end
+        end
+        if InventoryItemFactory.instanceItem then
+            ok, item = pcall(InventoryItemFactory.instanceItem, fullType)
+            if ok and item then return item end
+        end
+    end
+    -- Build 42 exposes instanceItem as a global on some authority paths where
+    -- InventoryItemFactory.CreateItem exists but returns nil. Keep all compact
+    -- inventory materialization behind this single compatibility boundary.
+    if instanceItem then
+        ok, item = pcall(instanceItem, fullType)
+        if ok and item then return item end
     end
     return nil
 end

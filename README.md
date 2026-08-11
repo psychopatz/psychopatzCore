@@ -9,6 +9,9 @@ The opt-in, generic performance profiler is documented in
 backend, callbacks, histories, GUI, networking, or snapshot activity in normal
 gameplay.
 
+Reusable responsive-window and scrolling-control rules are documented in
+[`docs/responsive-window-ui.md`](docs/responsive-window-ui.md).
+
 The shared library provides:
 
 - owner-authorized special commands
@@ -115,6 +118,10 @@ function MyWindow:onResponsiveLayout()
 end
 ```
 
+Always use `UI.Layout.SetBounds` for instantiated scrolling controls. It also
+synchronizes native `vscroll`/`hscroll` geometry; direct resize calls can leave
+Project Zomboid's cached stencil boundary in the old position and hide rows.
+
 ## Shared settings and markers
 
 Open a namespaced settings store with
@@ -157,6 +164,12 @@ The same service is the standard native-item boundary for all Psychopatz mods:
 - `CaptureState` and `ApplyState` preserve portable condition, drainable,
   favorite, custom-name, ammunition, fluid, and scalar modData fields.
 - `DropToSquare` materializes that item-state contract in the world.
+
+Compact inventory decoding centralizes Build 42 item creation in
+`PsychopatzItemRecord`. It tries an injected factory, then
+`InventoryItemFactory`, then the global `instanceItem` compatibility API. This
+keeps virtual-to-physical materialization consistent across server contexts
+where `InventoryItemFactory.CreateItem` exists but returns `nil`.
 
 DynamicTrading's server helpers are compatibility wrappers around this service;
 new mods should call the Core API directly.

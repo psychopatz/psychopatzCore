@@ -156,12 +156,38 @@ function Layout.KeepOnScreen(element, margin)
     element:setY(clamp(element:getY(), margin, math.max(margin, screenHeight - height - margin)))
 end
 
+-- Native PZ scrolling controls create their scrollbars during instantiate().
+-- The scrollbar does not reliably follow later setWidth/setHeight calls, and
+-- ISScrollingListBox uses its stale x-position as a stencil boundary. Keep the
+-- projection synchronized centrally so responsive windows cannot clip every
+-- row or leave a tiny scrollbar behind after a resize.
+function Layout.SyncNativeScrollbars(element)
+    if not element then return end
+    local vertical = element.vscroll
+    if vertical then
+        local width = vertical.getWidth and vertical:getWidth()
+            or vertical.width or 13
+        vertical:setX(math.max(0, element:getWidth() - width))
+        vertical:setY(0)
+        vertical:setHeight(element:getHeight())
+    end
+    local horizontal = element.hscroll
+    if horizontal then
+        local height = horizontal.getHeight and horizontal:getHeight()
+            or horizontal.height or 13
+        horizontal:setX(0)
+        horizontal:setY(math.max(0, element:getHeight() - height))
+        horizontal:setWidth(element:getWidth())
+    end
+end
+
 function Layout.SetBounds(element, x, y, width, height)
     if not element then return end
     element:setX(math.floor(x))
     element:setY(math.floor(y))
     element:setWidth(math.max(1, math.floor(width)))
     element:setHeight(math.max(1, math.floor(height)))
+    Layout.SyncNativeScrollbars(element)
 end
 
 function Layout.IsCompact(width, breakpoint)

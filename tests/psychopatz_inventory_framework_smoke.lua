@@ -253,4 +253,18 @@ truthy(Inventory.materialize(virtualized, destinationContainer, { factory = fact
     "virtual to physical")
 equal(#destinationItems, 2, "materialized item count")
 
+InventoryItemFactory = { CreateItem = function() return nil end }
+instanceItem = factory
+local fallbackDecoded, fallbackReason = Inventory.decodeItem(
+    Inventory.encodeItem(makeItem("Base.Apple", {
+        food = true, condition = 10,
+    }))
+)
+truthy(fallbackDecoded,
+    "global instanceItem fallback failed: " .. tostring(fallbackReason))
+equal(fallbackDecoded:getFullType(), "Base.Apple",
+    "global instanceItem fallback decoded wrong type")
+InventoryItemFactory = nil
+instanceItem = nil
+
 print("psychopatz_inventory_framework_smoke: PASS")

@@ -1,4 +1,4 @@
-local ROOT = "Contents/mods/PsychopatzCore/42.16/media/lua/client/PsychopatzCore/"
+local ROOT = "Contents/mods/PsychopatzCore/42.19/media/lua/client/PsychopatzCore/"
 
 local function assertEqual(actual, expected, label)
     if actual ~= expected then
@@ -92,6 +92,23 @@ assertEqual(y, 10, "top-left anchor y")
 x, y = Layout.ResolveAnchor("bottom right", 200, 100, { margin = 10 })
 assertEqual(x, 790, "bottom-right anchor x")
 assertEqual(y, 690, "bottom-right anchor y")
+local scrollbar = { x = -1, y = -1, width = 13, height = -1 }
+function scrollbar:getWidth() return self.width end
+function scrollbar:setX(value) self.x = value end
+function scrollbar:setY(value) self.y = value end
+function scrollbar:setHeight(value) self.height = value end
+local scrollingControl = { x = 0, y = 0, width = 1, height = 1,
+    vscroll = scrollbar }
+function scrollingControl:getWidth() return self.width end
+function scrollingControl:getHeight() return self.height end
+function scrollingControl:setX(value) self.x = value end
+function scrollingControl:setY(value) self.y = value end
+function scrollingControl:setWidth(value) self.width = value end
+function scrollingControl:setHeight(value) self.height = value end
+Layout.SetBounds(scrollingControl, 5, 6, 240, 180)
+assertEqual(scrollbar.x, 227, "responsive vertical scrollbar x")
+assertEqual(scrollbar.y, 0, "responsive vertical scrollbar y")
+assertEqual(scrollbar.height, 180, "responsive vertical scrollbar height")
 
 package.preload["ISUI/ISCollapsableWindow"] = function() return true end
 package.preload["PsychopatzCore/UI/Components/PsychopatzUIControls"] = function() return true end
