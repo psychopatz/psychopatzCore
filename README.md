@@ -1,5 +1,7 @@
 # PsychopatzCore
 
+Reusable inventory architecture and API: [docs/inventory-framework.md](docs/inventory-framework.md).
+
 Shared Project Zomboid Build 42 library for Psychopatz mods.
 
 The opt-in, generic performance profiler is documented in
