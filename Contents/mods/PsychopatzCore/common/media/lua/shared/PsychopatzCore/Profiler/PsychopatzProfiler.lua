@@ -33,6 +33,7 @@ end
 
 function Internal.GetMetric(name, kind)
     if not state then return nil end
+    if not state.capture.performance then return nil end
     local metric = state.metrics[name]
     if metric then return metric.kind == kind and metric or nil end
     local namespace, path = Internal.SplitName(name)
@@ -67,6 +68,10 @@ function Profiler.GetState()
     return state
 end
 
+function Profiler.IsSectionEnabled(section)
+    return state ~= nil and state.capture[tostring(section or "")] == true
+end
+
 function Profiler.Start(mode, adapter, options)
     if state then return Profiler end
     options = options or {}
@@ -81,6 +86,12 @@ function Profiler.Start(mode, adapter, options)
         lastSampleAt = adapter.nowMs(),
         snapshotEnabled = mode == Profiler.MODE_DETAILED and options.snapshotEnabled ~= false,
         sourceType = adapter.sourceType and adapter.sourceType() or "unknown",
+        capture = {
+            performance = options.capture == nil or options.capture.performance == true,
+            moddata = options.capture and options.capture.moddata == true or false,
+            npc = options.capture and options.capture.npc == true or false,
+        },
+        runtime = options.runtime or {},
     }
     state.sampleCallback = function() Profiler.Sample() end
     if adapter.addSampleCallback then adapter.addSampleCallback(state.sampleCallback) end
@@ -180,9 +191,12 @@ function Profiler.RecordRate(name, amount)
     return metric.total
 end
 
-function Profiler.RegisterSampler(id, callback)
+function Profiler.RegisterSampler(id, callback, options)
     if not state or type(callback) ~= "function" then return false end
-    state.samplers[tostring(id or callback)] = callback
+    options = options or {}
+    local section = tostring(options.section or "performance")
+    if not state.capture[section] then return false end
+    state.samplers[tostring(id or callback)] = { callback = callback, section = section }
     return true
 end
 
@@ -192,9 +206,16 @@ function Profiler.UnregisterSampler(id)
     return true
 end
 
-function Profiler.RegisterSnapshotProvider(id, callback)
+function Profiler.RegisterSnapshotProvider(id, callback, options)
     if not state or type(callback) ~= "function" then return false end
-    state.snapshotProviders[tostring(id or callback)] = callback
+    options = options or {}
+    local section = tostring(options.section or "performance")
+    if not state.capture[section] then return false end
+    state.snapshotProviders[tostring(id or callback)] = {
+        callback = callback, section = section,
+        intervalMs = math.max(0, math.floor(tonumber(options.intervalMs) or 0)),
+        lastAt = nil, lastValue = nil,
+    }
     return true
 end
 

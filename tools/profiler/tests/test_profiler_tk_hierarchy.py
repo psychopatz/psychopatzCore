@@ -1,11 +1,14 @@
 import sys
+import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 import psychopatz_profiler
+from profiler_config import CaptureConfig, write_capture_config
 
 
 class TkHierarchyTests(unittest.TestCase):
@@ -17,11 +20,16 @@ class TkHierarchyTests(unittest.TestCase):
         except psychopatz_profiler.tk.TclError as error:
             self.skipTest(f"display unavailable: {error}")
         self.root.withdraw()
-        self.ui = psychopatz_profiler.TkinterProfilerUI(self.root, None, None, 1.0)
+        self.settings_directory = tempfile.TemporaryDirectory()
+        settings_path = Path(self.settings_directory.name) / "app.json"
+        with patch.object(psychopatz_profiler, "default_app_settings_path", return_value=settings_path):
+            self.ui = psychopatz_profiler.TkinterProfilerUI(self.root, None, None, 1.0)
 
     def tearDown(self):
         if hasattr(self, "ui") and not self.ui.closed:
             self.ui.close()
+        if hasattr(self, "settings_directory"):
+            self.settings_directory.cleanup()
 
     def test_metric_hierarchy_and_collapse_survive_refresh(self):
         snapshot = {
@@ -60,6 +68,40 @@ class TkHierarchyTests(unittest.TestCase):
         self.assertFalse(self.ui.paused)
         self.assertEqual(self.ui.pause_button.cget("text"), "Pause Updates")
 
+    def test_runtime_fingerprint_reports_applied_and_pending_restart(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config_path = Path(directory) / "Profiler.txt"
+            config = CaptureConfig(mode="DETAILED", sections=("performance",))
+            write_capture_config(config, config_path)
+            self.ui.game_config_path = config_path
+            snapshot = {
+                "runtime": {"id": "seed-123456789", "configFingerprint": config.fingerprint,
+                            "capture": {"performance": True, "moddata": False, "npc": False}},
+                "namespaces": {},
+            }
+            process = {"connected": True, "pid": 1, "rss": 1, "cpu_percent": 0,
+                       "threads": 1, "uptime": 1}
+            self.ui._render(process, snapshot)
+            self.assertIn("APPLIED by runtime seed-123456789", self.ui.game_mode_var.get())
+            write_capture_config(CaptureConfig(
+                mode="DETAILED", sections=("performance", "moddata")), config_path)
+            self.ui._render(process, snapshot)
+            self.assertIn("RESTART REQUIRED", self.ui.game_mode_var.get())
+
+    def test_profiler_toggle_reflects_state_and_off_preserves_choices(self):
+        with tempfile.TemporaryDirectory() as directory:
+            config_path = Path(directory) / "Profiler.txt"
+            self.ui.game_config_path = config_path
+            write_capture_config(CaptureConfig(
+                mode="OFF", sections=("performance", "npc"), npc_ids=("npc-1",)), config_path)
+            self.ui.refresh_game_mode()
+            self.assertEqual(self.ui.profiler_toggle_button.cget("text"), "Enable Profiling")
+            self.assertTrue(self.ui.capture_performance_var.get())
+            self.assertTrue(self.ui.capture_npc_var.get())
+            write_capture_config(CaptureConfig(mode="DETAILED", sections=("performance",)), config_path)
+            self.ui.refresh_game_mode()
+            self.assertEqual(self.ui.profiler_toggle_button.cget("text"), "Disable Profiling")
+
     def test_named_npc_inventory_and_moddata_navigation(self):
         snapshot = {
             "diagnostics": {
@@ -96,6 +138,19 @@ class TkHierarchyTests(unittest.TestCase):
         self.ui.open_llm_export_dialog()
         self.assertEqual(self.ui.llm_export_dialog.title(), "Build LLM Debug Report")
         self.ui.llm_export_dialog.destroy()
+
+    def test_bridge_tab_renders_bounded_capabilities(self):
+        self.assertIn("External Control", [self.ui.notebook.tab(tab, "text")
+                                            for tab in self.ui.notebook.tabs()])
+        self.ui._render_bridge_capabilities({
+            "psychopatzcore.bridge": {"commands": [
+                {"name": "ping", "category": "READ", "read_only": True},
+                {"name": "capabilities", "category": "READ", "read_only": True},
+            ]},
+        })
+        roots = self.ui.bridge_capabilities.get_children()
+        self.assertEqual(len(roots), 1)
+        self.assertEqual(len(self.ui.bridge_capabilities.get_children(roots[0])), 2)
 
 
 if __name__ == "__main__":

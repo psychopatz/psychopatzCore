@@ -10,6 +10,7 @@ Core.COMMAND_MODULE = Core.COMMAND_MODULE or "PsychopatzCore"
 -- The bootstrap performs one configuration read. The metric backend, callbacks,
 -- GUI, networking, and history storage are not required or created in OFF mode.
 local ProfilerBootstrap = require "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"
+local BridgeBootstrap = require "PsychopatzCore/Bridge/PsychopatzBridgeBootstrap"
 
 function Core.GetSafeSteamID(player)
     if not player or not player.getSteamID then
@@ -44,5 +45,9 @@ require "PsychopatzCore/Radio/CustomChannels/PsychopatzCustomRadio"
 require "PsychopatzCore/Traits/PsychopatzTraitRegistry"
 
 ProfilerBootstrap.Initialize()
+BridgeBootstrap.Initialize()
+if BridgeBootstrap.IsEnabled() then
+    require("PsychopatzCore/Profiler/PsychopatzProfilerBridge").Register()
+end
 
 return Core

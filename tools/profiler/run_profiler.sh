@@ -10,14 +10,25 @@ GAME_PROFILER_CONFIG="$HOME/Zomboid/Lua/PsychopatzCore_Profiler.txt"
 
 if [ "${1:-}" = "--profile-project-hoomans" ]; then
     mkdir -p "$(dirname -- "$GAME_PROFILER_CONFIG")"
-    printf '%s\n' 'mode=DETAILED' > "$GAME_PROFILER_CONFIG"
+    printf '%s\n' \
+        'config_version=2' \
+        'mode=DETAILED' \
+        'capture=performance' \
+        'performance_interval_ms=1000' \
+        'moddata_interval_ms=60000' \
+        'npc_interval_ms=5000' \
+        'npc_scope=selected' \
+        'npc_ids=' > "$GAME_PROFILER_CONFIG"
     shift
     printf '%s\n' \
-        "ProjectHoomans profiling is enabled in DETAILED mode." \
+        "ProjectHoomans performance-only profiling is enabled." \
         "Start or fully restart Project Zomboid so startup instrumentation is installed."
 elif [ "${1:-}" = "--disable-game-profiler" ]; then
     mkdir -p "$(dirname -- "$GAME_PROFILER_CONFIG")"
-    printf '%s\n' 'mode=OFF' > "$GAME_PROFILER_CONFIG"
+    printf '%s\n' \
+        'config_version=2' \
+        'mode=OFF' \
+        'capture=performance' > "$GAME_PROFILER_CONFIG"
     printf '%s\n' \
         "Game profiling is disabled. Restart Project Zomboid to return to strict OFF mode."
     exit 0

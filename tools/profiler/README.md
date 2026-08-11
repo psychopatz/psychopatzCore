@@ -38,10 +38,23 @@ The recommended Project Hoomans workflow is GUI-first. Launch normally:
 ./run_profiler.sh
 ```
 
-Use **Enable DETAILED** under **PROJECT HOOMANS PROFILING SETUP**, then fully
-restart Project Zomboid and load the save. The GUI displays the currently
-configured mode and explains the required restart. Use **Disable (OFF)** when
-finished and restart the game to restore strict zero-overhead mode.
+Choose one or more capture sections under **PROJECT HOOMANS PROFILING SETUP**
+and use **Apply Settings**. **Performance** is the recommended default. ModData
+and NPC capture are independent and remain unregistered when not selected. If
+the External Control bridge is connected, settings are applied immediately;
+otherwise the GUI explains that a PZ restart is required.
+
+The adjacent state-aware button reads **Enable Profiling** while profiling is
+OFF and **Disable Profiling** while the current/configured runtime is active.
+Disabling does not erase the selected capture sections, so the next enable
+restores the previous Performance, ModData, and NPC choices.
+
+Every enabled runtime reports a unique runtime ID and the exact configuration
+fingerprint it applied. The GUI shows **RESTART REQUIRED** while that differs
+from the configuration file, and changes to **APPLIED by runtime ...** only
+after the restarted Lua runtime reports a match. OFF keeps the Lua backend
+unloaded; the app instead checks that the game process started after OFF was
+configured.
 
 The equivalent terminal shortcut remains available for automation:
 
@@ -49,10 +62,9 @@ The equivalent terminal shortcut remains available for automation:
 ./run_profiler.sh --profile-project-hoomans
 ```
 
-After using that option, start or fully restart Project Zomboid. The profiler is
-selected during mod startup; enabling it while a game process is already running
-cannot retrofit wrappers into the active session. To restore the normal strict
-OFF mode afterward, close the game and run:
+After using that option, start or fully restart Project Zomboid. Without the
+optional bridge, profiler topology is selected during mod startup. To restore
+the normal strict OFF mode afterward, close the game and run:
 
 ```sh
 ./run_profiler.sh --disable-game-profiler
@@ -85,6 +97,22 @@ If a process exits, the GUI remains open, reports `DISCONNECTED`, discards the
 dead `psutil.Process`, and rescans. Access-denied, zombie, and vanished processes
 do not crash the application. Unsupported metrics display `N/A`.
 
+After a successful **Connect**, the GUI atomically saves a stable identity made
+from the process name, executable basename, and client/server kind. PID and full
+command line are deliberately not persisted. On later launches it finds the
+new PID matching that identity and reconnects automatically. When there is no
+saved identity and exactly one safe PZ candidate, that candidate is connected
+and remembered automatically.
+
+External-app preferences are stored in:
+
+```text
+~/Zomboid/Lua/PsychopatzCore_ProfilerApp.json
+```
+
+This versioned file also preserves poll interval and selected tab. Capture and
+bridge settings remain in their own game-facing configuration files.
+
 The default poll is one second. Select 0.5, 1, 2, or 5 seconds in the GUI. Tk's
 event loop schedules polling; there is no busy loop or worker thread.
 
@@ -110,16 +138,15 @@ bloat table. Expand persisted data, runtime records, and inventory state to see
 their estimated shape and largest normalized paths. Estimates are comparative,
 not exact heap or save-file sizes, and the three sections overlap.
 
-The GUI automatically writes a compact, value-redacted report to:
+The GUI automatically writes a compact report to:
 
 ```text
 ~/Zomboid/Lua/PsychopatzCore_Profiler_LLM_latest.json
 ```
 
-Use **Export LLM Report** to save another copy. This report is designed for
-token-efficient inspection by an LLM: it retains only the top timers, bounded
-gauges and warnings, summarized ModData structure, and a single process sample.
-It does not include raw NPC identifiers, item values, or complete save tables.
+Use **Export LLM...** to select Performance, ModData, or one targeted NPC. The
+automatic report excludes detailed NPC contents. Explicit NPC exports may
+contain identifiers and gameplay state, but remain bounded by in-game limits.
 
 The main workspace is split into **Performance**, **ModData Summary**, and
 **NPC Data Inspector** tabs. Click a column heading to sort it; numeric columns
@@ -134,6 +161,110 @@ refreshes. Use **Pause Updates** to freeze process sampling, snapshot reads,
 graphs, tables, CSV metric rows, and automatic LLM-report writes. Existing data
 remains visible and expandable while paused; **Resume Updates** continues live
 collection.
+
+## Headless LLM interface
+
+`profiler_cli.py` is the authoritative read-only interface used by automation
+and the `pz-profiler-analysis` skill. It shares snapshot normalization and
+report generation with the GUI and never dumps raw JSON as a fallback.
+
+```sh
+python profiler_cli.py status
+python profiler_cli.py process status
+python profiler_cli.py list-sections
+python profiler_cli.py list-npcs
+python profiler_cli.py summarize --sections performance --top 15 --min-ms 0.5
+python profiler_cli.py summarize --sections npc --npc "Alex Morgan" \
+  --npc-view animation,ai,pathing --token-budget 3000
+```
+
+Global `--snapshot` and `--config` overrides appear before the subcommand.
+Reports are bounded by depth, collection length, string length, and an
+approximate four-characters-per-token budget.
+
+`process status`, normal `status`, and `summarize` reuse the GUI-saved process
+identity. An LLM therefore does not need the process name or changing PID in
+each request. Process output excludes the full command line.
+
+## External Control bridge
+
+The **External Control** tab is a generic local IPC foundation:
+
+```text
+External app -> BridgeClient -> FileBridgeTransport
+             -> PsychopatzCore Bridge -> registered capability
+```
+
+It is not arbitrary Lua execution, a console, a remote administration system,
+or an LLM implementation. External input is always untrusted. Commands are
+explicitly registered under namespaces, arguments are bounded and validated,
+and unknown commands are rejected. There is no `eval`, Java reflection,
+unrestricted filesystem access, or generic command button generation.
+
+The bridge has a separate startup configuration at
+`~/Zomboid/Lua/PsychopatzCore_Bridge.txt` and defaults to disabled:
+
+```ini
+config_version=1
+bridge_enabled=false
+bridge_transport=file
+bridge_poll_interval_ms=250
+```
+
+Enable it in **External Control**, save, and restart PZ once. When disabled,
+only the small bootstrap reads this file: the runtime backend is not loaded,
+no update callback or queue exists, and no bridge filesystem polling occurs.
+Once connected, **Apply Settings** can safely reconfigure profiler capture live.
+The only initial mutating capability is the validated
+`psychopatzcore.profiler.configure`; infrastructure capabilities are `ping`,
+`capabilities`, and `runtimeInfo`.
+
+The file transport uses 16 fixed slots under
+`~/Zomboid/Lua/PsychopatzBridge/`. Python publishes requests atomically. Lua
+processes at most four per throttled cycle and publishes a response before its
+completion marker. Python removes completed slots and performs bounded cleanup
+of expired bridge-owned files. Requests target the current runtime ID so a
+command queued for an old PZ session is rejected with `STALE_RUNTIME`.
+Each Python client claims a slot with an atomic lock file, allowing the GUI and
+CLI to run concurrently without overwriting one another. They share no polling
+thread or duplicate in-game profiler; both consume the same singleton PZ
+runtime, snapshots, configuration, and bridge queue.
+
+Safe CLI operations are also available:
+
+```sh
+python profiler_cli.py bridge status
+python profiler_cli.py bridge ping
+python profiler_cli.py bridge capabilities
+```
+
+The server is authoritative in hosted multiplayer and dedicated-server modes.
+Standalone multiplayer clients do not activate a local bridge. A future network
+transport must bind to `127.0.0.1` by default and require explicit opt-in and
+authentication for remote access. Future events and asynchronous jobs should
+use distinct versioned message types rather than changing protocol-v1 request
+and response semantics.
+
+## Capture configuration
+
+The GUI writes `~/Zomboid/Lua/PsychopatzCore_Profiler.txt` with a versioned
+contract. The recommended performance-only setup is:
+
+```ini
+config_version=2
+mode=DETAILED
+capture=performance
+performance_interval_ms=1000
+moddata_interval_ms=60000
+npc_interval_ms=5000
+npc_scope=selected
+npc_ids=
+```
+
+Available sections are `performance`, `moddata`, and `npc`. NPC capture emits
+a bounded lightweight roster, while deep runtime and persisted content is
+copied only for `npc_ids`. Select an NPC in the inspector and use **Capture
+Selected NPC** to configure it without manually copying the ID.
 
 ## Portability and failure behavior
 

@@ -12,6 +12,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Optional
 
+from profiler_config import (CaptureConfig, read_capture_config,
+                             write_capture_config)
+
 try:
     import psutil as _psutil
 except ImportError:  # The GUI turns this into a concise installation message.
@@ -30,29 +33,39 @@ def default_game_config_path() -> Path:
 
 def read_game_profiler_mode(path: Optional[Path] = None) -> str:
     config = Path(path) if path else default_game_config_path()
-    try:
-        for line in config.read_text(encoding="utf-8").splitlines():
-            key, separator, value = line.partition("=")
-            if separator and key.strip().lower() == "mode":
-                mode = value.split("#", 1)[0].split(";", 1)[0].strip().upper()
-                return mode if mode in ("BASIC", "DETAILED") else "OFF"
-    except (FileNotFoundError, PermissionError, OSError, UnicodeError):
-        pass
-    return "OFF"
+    return read_capture_config(config).mode
 
 
 def write_game_profiler_mode(mode: str, path: Optional[Path] = None) -> Path:
     normalized = str(mode).strip().upper()
     if normalized not in ("OFF", "BASIC", "DETAILED"):
         raise ValueError(f"unsupported profiler mode: {mode}")
-    config = Path(path) if path else default_game_config_path()
-    config.parent.mkdir(parents=True, exist_ok=True)
-    config.write_text(f"mode={normalized}\n", encoding="utf-8")
-    return config
+    path = Path(path) if path else default_game_config_path()
+    current = read_capture_config(path)
+    return write_capture_config(CaptureConfig(
+        mode=normalized, sections=current.sections,
+        performance_interval_ms=current.performance_interval_ms,
+        moddata_interval_ms=current.moddata_interval_ms,
+        npc_interval_ms=current.npc_interval_ms,
+        npc_scope=current.npc_scope, npc_ids=current.npc_ids,
+    ), path)
 
 
 def default_llm_report_path() -> Path:
     return Path.home() / "Zomboid" / "Lua" / LLM_REPORT_FILENAME
+
+
+def snapshot_npc_data(snapshot: Optional[Mapping[str, Any]]) -> Mapping[str, Any]:
+    diagnostics = (snapshot or {}).get("diagnostics") or {}
+    if not isinstance(diagnostics, Mapping):
+        return {}
+    current = diagnostics.get("ProjectHoomans.npcData")
+    if isinstance(current, Mapping):
+        return current
+    legacy = diagnostics.get("ProjectHoomans.modData")
+    if isinstance(legacy, Mapping) and isinstance(legacy.get("npcRecords"), Mapping):
+        return legacy["npcRecords"]
+    return {}
 
 
 def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str, Any]], *,
@@ -97,6 +110,7 @@ def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str,
             "source": snapshot.get("source"),
         },
         "includedSections": [],
+        "runtime": dict(snapshot.get("runtime") or {}),
         "interpretation": [],
     }
     if include_performance:
@@ -116,8 +130,7 @@ def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str,
             "Persisted, runtimeRecords, and inventories overlap and must not be summed.",
         ))
     if npc_id is not None:
-        npc_records = raw_mod_data.get("npcRecords") if isinstance(raw_mod_data, Mapping) else None
-        records = npc_records.get("records") or [] if isinstance(npc_records, Mapping) else []
+        records = snapshot_npc_data(snapshot).get("records") or []
         selected = next((item for item in records if isinstance(item, Mapping)
                          and str(item.get("id")) == str(npc_id)), None)
         report["includedSections"].append("npcData")

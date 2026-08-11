@@ -63,9 +63,13 @@ function Profiler.Sample(forceElapsedMs)
     if elapsedMs < state.sampleIntervalMs and forceElapsedMs == nil then return false end
     state.lastSampleAt = at
     local samplingStarted = at
-    for _, callback in pairs(state.samplers) do callback(Profiler) end
+    for _, entry in pairs(state.samplers) do entry.callback(Profiler) end
     local elapsedSec = math.max(0.001, elapsedMs / 1000)
-    for index = 1, #state.metricOrder do sampleMetric(state.metrics[state.metricOrder[index]], elapsedSec) end
+    if state.capture.performance then
+        for index = 1, #state.metricOrder do
+            sampleMetric(state.metrics[state.metricOrder[index]], elapsedSec)
+        end
+    end
     if state.mode == Profiler.MODE_DETAILED then
         Profiler.SetGauge("PsychopatzCore.Profiler.Sampling", math.max(0, Internal.NowMs() - samplingStarted))
         if state.snapshotEnabled and state.adapter.writeSnapshot then

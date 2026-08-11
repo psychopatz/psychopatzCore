@@ -6,6 +6,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import sys
+import time
+from dataclasses import replace
 from pathlib import Path
 from typing import Any, Optional
 
@@ -18,8 +20,15 @@ except ImportError:
 from profiler_core import (ProcessMonitor, ProfilerModel, SnapshotReader, _psutil,
                            build_llm_report, default_game_config_path,
                            default_llm_report_path, iter_snapshot_metrics,
-                           read_game_profiler_mode, write_game_profiler_mode,
-                           write_llm_report)
+                           snapshot_npc_data, write_llm_report)
+from profiler_config import (CaptureConfig, read_capture_config,
+                             runtime_application_state, write_capture_config)
+from bridge import (BridgeClient, BridgeConfig, FileBridgeTransport,
+                    default_bridge_config_path, read_bridge_config,
+                    write_bridge_config)
+from app_settings import (AppSettings, default_app_settings_path, read_app_settings,
+                          select_preferred_candidate, settings_for_candidate,
+                          write_app_settings)
 
 
 def human_bytes(value: Any) -> str:
@@ -43,9 +52,12 @@ def duration(value: Any) -> str:
 
 
 class TkinterProfilerUI:
-    def __init__(self, root: Any, pid: Optional[int], snapshot: Optional[Path], interval: float) -> None:
+    def __init__(self, root: Any, pid: Optional[int], snapshot: Optional[Path],
+                 interval: Optional[float]) -> None:
         self.root = root
-        self.interval = interval
+        self.app_settings_path = default_app_settings_path()
+        self.app_settings = read_app_settings(self.app_settings_path)
+        self.interval = float(interval if interval is not None else self.app_settings.poll_interval)
         self.monitor = ProcessMonitor()
         self.reader = SnapshotReader(snapshot)
         self.model = ProfilerModel(300)
@@ -54,8 +66,27 @@ class TkinterProfilerUI:
         self.status_var = tk.StringVar(value="DISCONNECTED")
         self.snapshot_var = tk.StringVar(value="snapshot not found")
         self.process_var = tk.StringVar(value="")
+        self.preferred_process_var = tk.StringVar(value="No saved process identity")
         self.game_mode_var = tk.StringVar(value="Checking configuration...")
         self.game_config_path = default_game_config_path()
+        self.bridge_config_path = default_bridge_config_path()
+        self.bridge_transport = FileBridgeTransport()
+        self.bridge_client = BridgeClient(self.bridge_transport)
+        self.bridge_enabled_var = tk.BooleanVar(value=False)
+        self.bridge_status_var = tk.StringVar(value="DISABLED")
+        self.bridge_runtime_var = tk.StringVar(value="N/A")
+        self.bridge_protocol_var = tk.StringVar(value="N/A")
+        self.bridge_response_var = tk.StringVar(value="No bridge response yet")
+        self.bridge_latency_var = tk.StringVar(value="N/A")
+        self.bridge_pending_var = tk.StringVar(value="0")
+        self.bridge_request_actions = {}
+        self.live_profiler_fingerprint = None
+        self.live_profiler_runtime_id = None
+        self.profiler_runtime_active = False
+        self.capture_performance_var = tk.BooleanVar(value=True)
+        self.capture_moddata_var = tk.BooleanVar(value=False)
+        self.capture_npc_var = tk.BooleanVar(value=False)
+        self.capture_npc_ids_var = tk.StringVar(value="")
         self.llm_report_path = default_llm_report_path()
         self.llm_status_var = tk.StringVar(value="LLM report waiting for ModData diagnostics")
         self.last_llm_snapshot_timestamp = None
@@ -72,13 +103,14 @@ class TkinterProfilerUI:
         self.moddata_npc_by_iid = {}
         self.process_values = {key: tk.StringVar(value="N/A") for key in ("pid", "rss", "cpu", "threads", "uptime")}
         self._build()
+        self._restore_selected_tab()
         self.refresh_game_mode()
-        self.refresh_candidates()
+        self.refresh_candidates(auto_connect=pid is None)
         if pid is not None:
             self.monitor.select(pid)
-        elif len(self.candidates) == 1:
-            self.monitor.select(self.candidates[0].pid)
-            self.process_var.set(self.candidates[0].label)
+            selected = next((candidate for candidate in self.candidates if candidate.pid == pid), None)
+            if selected:
+                self._remember_candidate(selected)
         self.root.protocol("WM_DELETE_WINDOW", self.close)
         self.root.after(50, self.poll)
 
@@ -92,24 +124,35 @@ class TkinterProfilerUI:
         picker = ttk.LabelFrame(outer, text="Project Zomboid process", padding=8)
         picker.pack(fill="x")
         self.process_combo = ttk.Combobox(picker, textvariable=self.process_var, state="readonly")
-        self.process_combo.pack(side="left", fill="x", expand=True)
-        ttk.Button(picker, text="Connect", command=self.connect_selected).pack(side="left", padx=6)
-        ttk.Button(picker, text="Rescan", command=self.refresh_candidates).pack(side="left")
-        ttk.Label(picker, textvariable=self.status_var, width=15).pack(side="right", padx=8)
+        self.process_combo.grid(row=0, column=0, sticky="ew")
+        ttk.Button(picker, text="Connect", command=self.connect_selected).grid(
+            row=0, column=1, padx=6)
+        ttk.Button(picker, text="Rescan", command=self.refresh_candidates).grid(row=0, column=2)
+        ttk.Label(picker, textvariable=self.status_var, width=15).grid(
+            row=0, column=3, padx=8)
+        ttk.Label(picker, textvariable=self.preferred_process_var).grid(
+            row=1, column=0, columnspan=4, sticky="w", pady=(5, 0))
+        picker.columnconfigure(0, weight=1)
 
         setup = ttk.LabelFrame(outer, text="PROJECT HOOMANS PROFILING SETUP", padding=8)
         setup.pack(fill="x", pady=(8, 0))
-        ttk.Label(setup, textvariable=self.game_mode_var).pack(side="left", fill="x", expand=True)
-        ttk.Button(
-            setup,
-            text="Enable DETAILED",
-            command=lambda: self.set_game_mode("DETAILED"),
-        ).pack(side="left", padx=6)
-        ttk.Button(
-            setup,
-            text="Disable (OFF)",
-            command=lambda: self.set_game_mode("OFF"),
-        ).pack(side="left")
+        ttk.Label(setup, textvariable=self.game_mode_var).grid(
+            row=0, column=0, columnspan=7, sticky="ew", pady=(0, 5))
+        ttk.Checkbutton(setup, text="Performance", variable=self.capture_performance_var).grid(
+            row=1, column=0, sticky="w")
+        ttk.Checkbutton(setup, text="ModData Summary", variable=self.capture_moddata_var).grid(
+            row=1, column=1, sticky="w", padx=(10, 0))
+        ttk.Checkbutton(setup, text="NPC Data", variable=self.capture_npc_var).grid(
+            row=1, column=2, sticky="w", padx=(10, 0))
+        ttk.Label(setup, text="NPC IDs:").grid(row=1, column=3, sticky="e", padx=(14, 4))
+        ttk.Entry(setup, textvariable=self.capture_npc_ids_var, width=24).grid(
+            row=1, column=4, sticky="ew")
+        ttk.Button(setup, text="Apply Settings", command=self.apply_capture_setup).grid(
+            row=1, column=5, padx=6)
+        self.profiler_toggle_button = ttk.Button(
+            setup, text="Enable Profiling", command=self.toggle_profiler_enabled)
+        self.profiler_toggle_button.grid(row=1, column=6)
+        setup.columnconfigure(4, weight=1)
 
         process = ttk.LabelFrame(outer, text="PROJECT ZOMBOID PROCESS", padding=8)
         process.pack(fill="x", pady=(8, 0))
@@ -131,6 +174,46 @@ class TkinterProfilerUI:
         self.notebook.add(performance_tab, text="Performance")
         self.notebook.add(moddata_tab, text="ModData Summary")
         self.notebook.add(self.npc_tab, text="NPC Data Inspector")
+        self.bridge_tab = ttk.Frame(self.notebook, padding=6)
+        self.notebook.add(self.bridge_tab, text="External Control")
+
+        bridge_setup = ttk.LabelFrame(self.bridge_tab, text="LOCAL PSYCHOPATZ BRIDGE", padding=10)
+        bridge_setup.pack(fill="x")
+        ttk.Checkbutton(bridge_setup, text="Enable bridge at next PZ startup",
+                        variable=self.bridge_enabled_var).grid(row=0, column=0, sticky="w")
+        ttk.Button(bridge_setup, text="Save Bridge Setting",
+                   command=self.save_bridge_setting).grid(row=0, column=1, padx=8)
+        ttk.Label(bridge_setup, text="Independent from Performance, ModData, and NPC capture.").grid(
+            row=1, column=0, columnspan=2, sticky="w", pady=(5, 0))
+
+        bridge_state = ttk.LabelFrame(self.bridge_tab, text="RUNTIME", padding=10)
+        bridge_state.pack(fill="x", pady=(8, 0))
+        for row, (label, variable) in enumerate((
+                ("Status", self.bridge_status_var), ("Runtime ID", self.bridge_runtime_var),
+                ("Protocol", self.bridge_protocol_var), ("Pending", self.bridge_pending_var),
+                ("Average RTT", self.bridge_latency_var),
+                ("Last response", self.bridge_response_var))):
+            ttk.Label(bridge_state, text=label + ":", width=15).grid(row=row, column=0, sticky="nw")
+            ttk.Label(bridge_state, textvariable=variable).grid(row=row, column=1, sticky="nw")
+        bridge_actions = ttk.Frame(self.bridge_tab)
+        bridge_actions.pack(fill="x", pady=8)
+        ttk.Button(bridge_actions, text="Ping Runtime", command=self.bridge_ping).pack(side="left")
+        ttk.Button(bridge_actions, text="Refresh Capabilities",
+                   command=self.bridge_refresh_capabilities).pack(side="left", padx=6)
+        self.bridge_apply_button = ttk.Button(
+            bridge_actions, text="Apply Profiler Settings Live", command=self.apply_capture_setup_live)
+        self.bridge_apply_button.pack(side="left")
+        capabilities = ttk.LabelFrame(self.bridge_tab, text="REGISTERED CAPABILITIES", padding=6)
+        capabilities.pack(fill="both", expand=True)
+        self.bridge_capabilities = ttk.Treeview(
+            capabilities, columns=("category", "access"), show="tree headings")
+        self.bridge_capabilities.heading("#0", text="Namespace / command")
+        self.bridge_capabilities.heading("category", text="Category")
+        self.bridge_capabilities.heading("access", text="Access")
+        self.bridge_capabilities.column("#0", width=440)
+        self.bridge_capabilities.column("category", width=100)
+        self.bridge_capabilities.column("access", width=100)
+        self.bridge_capabilities.pack(fill="both", expand=True)
 
         pane = ttk.Panedwindow(performance_tab, orient="horizontal")
         pane.pack(fill="both", expand=True)
@@ -245,28 +328,154 @@ class TkinterProfilerUI:
         self.pause_button.pack(side="left", padx=(0, 6))
         self.export_button = ttk.Button(controls, text="Export LLM...", command=self.open_llm_export_dialog)
         self.export_button.pack(side="left", padx=(0, 6))
-        self.interval_var = tk.StringVar(value=str(self.interval))
+        ttk.Button(controls, text="Capture Selected NPC", command=self.capture_selected_npc).pack(
+            side="left", padx=(0, 6))
+        self.interval_var = tk.StringVar(value=f"{self.interval:g}")
         ttk.Label(controls, text="Poll seconds:").pack(side="left", padx=(20, 4))
         interval = ttk.Combobox(controls, textvariable=self.interval_var, values=("0.5", "1", "2", "5"), width=5, state="readonly")
         interval.pack(side="left")
         interval.bind("<<ComboboxSelected>>", lambda _event: self._set_interval())
+        self.notebook.bind("<<NotebookTabChanged>>", lambda _event: self._save_ui_preferences())
 
     def refresh_game_mode(self) -> None:
-        mode = read_game_profiler_mode(self.game_config_path)
-        self.game_mode_var.set(f"Game instrumentation: {mode} — restart PZ after changing")
+        config = read_capture_config(self.game_config_path)
+        self.capture_performance_var.set("performance" in config.sections)
+        self.capture_moddata_var.set("moddata" in config.sections)
+        self.capture_npc_var.set("npc" in config.sections)
+        self.capture_npc_ids_var.set(",".join(config.npc_ids))
+        sections = ", ".join(config.sections) if config.mode != "OFF" else "none"
+        self.game_mode_var.set(f"Configured: {config.mode} — capture: {sections}")
+        self._update_profiler_toggle(config.mode != "OFF")
+        self.bridge_enabled_var.set(read_bridge_config(self.bridge_config_path).enabled)
+        self._update_preferred_process_text()
+
+    def _capture_config_from_controls(self, mode: str = "DETAILED") -> CaptureConfig:
+        current = read_capture_config(self.game_config_path)
+        sections = tuple(name for name, selected in (
+            ("performance", self.capture_performance_var.get()),
+            ("moddata", self.capture_moddata_var.get()),
+            ("npc", self.capture_npc_var.get()),
+        ) if selected)
+        npc_ids = tuple(dict.fromkeys(
+            value.strip() for value in self.capture_npc_ids_var.get().split(",") if value.strip()))
+        return CaptureConfig(
+            mode=mode, sections=sections,
+            performance_interval_ms=current.performance_interval_ms,
+            moddata_interval_ms=current.moddata_interval_ms,
+            npc_interval_ms=current.npc_interval_ms,
+            npc_scope="selected", npc_ids=npc_ids,
+        )
+
+    def apply_capture_setup(self) -> None:
+        config = self._capture_config_from_controls()
+        if not config.sections:
+            messagebox.showwarning("Nothing selected", "Select at least one capture section or use Disable (OFF).")
+            return
+        if config.enabled("npc") and not config.npc_ids:
+            if not messagebox.askyesno(
+                    "No NPC selected",
+                    "NPC Data will expose only the lightweight NPC roster until IDs are entered. Continue?"):
+                return
+        if self.bridge_status_var.get() == "CONNECTED":
+            self._submit_live_capture_config(config)
+        else:
+            self._write_capture_config(config)
+
+    @staticmethod
+    def _bridge_capture_arguments(config: CaptureConfig) -> dict[str, Any]:
+        return {"mode": config.mode, "capture": list(config.sections),
+                "performance_interval_ms": config.performance_interval_ms,
+                "moddata_interval_ms": config.moddata_interval_ms,
+                "npc_interval_ms": config.npc_interval_ms,
+                "npc_scope": config.npc_scope, "npc_ids": list(config.npc_ids)}
+
+    def apply_capture_setup_live(self) -> None:
+        config = self._capture_config_from_controls()
+        if not config.sections:
+            messagebox.showwarning("Nothing selected", "Select at least one capture section.")
+            return
+        self._submit_live_capture_config(config)
+
+    def _submit_live_capture_config(self, config: CaptureConfig) -> None:
+        try:
+            write_capture_config(config, self.game_config_path)
+            request_id = self.bridge_client.submit(
+                "psychopatzcore.profiler", "configure", self._bridge_capture_arguments(config))
+            self.bridge_request_actions[request_id] = "configure"
+            self.bridge_response_var.set("Profiler configuration submitted")
+        except (OSError, RuntimeError, ValueError) as error:
+            messagebox.showerror("Live configuration failed", str(error))
+
+    def save_bridge_setting(self) -> None:
+        current = read_bridge_config(self.bridge_config_path)
+        config = BridgeConfig(enabled=self.bridge_enabled_var.get(),
+                              poll_interval_ms=current.poll_interval_ms)
+        try:
+            write_bridge_config(config, self.bridge_config_path)
+            if config.enabled:
+                self.bridge_transport.ensure_directories()
+        except OSError as error:
+            messagebox.showerror("Bridge configuration failed", str(error))
+            return
+        messagebox.showinfo(
+            "Bridge restart required",
+            "Restart Project Zomboid to apply the bridge startup setting.\n\n"
+            "Once active, profiler capture settings can be changed live.")
+
+    def bridge_ping(self) -> None:
+        self._submit_bridge_action("ping")
+
+    def bridge_refresh_capabilities(self) -> None:
+        self._submit_bridge_action("capabilities")
+
+    def _submit_bridge_action(self, command: str) -> None:
+        try:
+            request_id = self.bridge_client.submit("psychopatzcore.bridge", command)
+            self.bridge_request_actions[request_id] = command
+            self.bridge_response_var.set(f"{command} submitted")
+        except (OSError, RuntimeError, ValueError) as error:
+            self.bridge_response_var.set(f"Request failed: {error}")
 
     def set_game_mode(self, mode: str) -> None:
+        config = self._capture_config_from_controls(mode)
+        if mode == "OFF":
+            config = CaptureConfig(mode="OFF", sections=config.sections,
+                                   performance_interval_ms=config.performance_interval_ms,
+                                   moddata_interval_ms=config.moddata_interval_ms,
+                                   npc_interval_ms=config.npc_interval_ms,
+                                   npc_scope=config.npc_scope, npc_ids=config.npc_ids)
+        if self.bridge_status_var.get() == "CONNECTED":
+            self._submit_live_capture_config(config)
+        else:
+            self._write_capture_config(config)
+
+    def toggle_profiler_enabled(self) -> None:
+        config = read_capture_config(self.game_config_path)
+        if self.profiler_runtime_active or config.mode != "OFF":
+            self.set_game_mode("OFF")
+            return
+        if not any((self.capture_performance_var.get(), self.capture_moddata_var.get(),
+                    self.capture_npc_var.get())):
+            self.capture_performance_var.set(True)
+        self.apply_capture_setup()
+
+    def _update_profiler_toggle(self, active: bool) -> None:
+        self.profiler_runtime_active = bool(active)
+        self.profiler_toggle_button.configure(
+            text="Disable Profiling" if self.profiler_runtime_active else "Enable Profiling")
+
+    def _write_capture_config(self, config: CaptureConfig) -> None:
         try:
-            path = write_game_profiler_mode(mode, self.game_config_path)
+            path = write_capture_config(config, self.game_config_path)
         except (OSError, PermissionError, ValueError) as error:
             messagebox.showerror("Could not update profiler", f"Failed to write the game configuration:\n{error}")
             return
         self.refresh_game_mode()
-        if mode == "DETAILED":
+        if config.mode == "DETAILED":
             message = (
-                "ProjectHoomans DETAILED profiling is enabled.\n\n"
+                f"Capture configured for: {', '.join(config.sections)}.\n\n"
                 "Fully close and restart Project Zomboid, then load your save. "
-                "The Project Hoomans namespace will appear after the snapshot is created."
+                "This status changes to APPLIED only when a new runtime reports the same configuration."
             )
         else:
             message = (
@@ -275,18 +484,65 @@ class TkinterProfilerUI:
             )
         messagebox.showinfo("Game restart required", f"{message}\n\nConfiguration: {path}")
 
-    def refresh_candidates(self) -> None:
+    def refresh_candidates(self, auto_connect: bool = True) -> None:
         self.candidates = self.monitor.discover()
         self.process_combo["values"] = [candidate.label for candidate in self.candidates]
-        if self.candidates and not self.process_var.get():
-            self.process_var.set(self.candidates[0].label)
+        preferred = select_preferred_candidate(self.candidates, self.app_settings)
+        displayed = preferred or (self.candidates[0] if self.candidates else None)
+        if displayed and (not self.process_var.get() or preferred):
+            self.process_var.set(displayed.label)
+        if auto_connect and self.monitor.process is None:
+            target = preferred if self.app_settings.auto_connect else None
+            if target is None and not self.app_settings.has_preferred_process and len(self.candidates) == 1:
+                target = self.candidates[0]
+            if target and self.monitor.select(target.pid):
+                self.process_var.set(target.label)
+                if not self.app_settings.has_preferred_process:
+                    self._remember_candidate(target)
 
     def connect_selected(self) -> None:
         selected = self.process_var.get()
         for candidate in self.candidates:
             if candidate.label == selected:
-                self.monitor.select(candidate.pid)
+                if self.monitor.select(candidate.pid):
+                    self._remember_candidate(candidate)
                 return
+
+    def _remember_candidate(self, candidate: Any) -> None:
+        current = replace(self.app_settings, poll_interval=self.interval,
+                          selected_tab=self._selected_tab_name())
+        self.app_settings = settings_for_candidate(candidate, current)
+        self._save_ui_preferences()
+        self._update_preferred_process_text()
+
+    def _update_preferred_process_text(self) -> None:
+        if self.app_settings.has_preferred_process:
+            kind = f" ({self.app_settings.preferred_process_kind})" \
+                if self.app_settings.preferred_process_kind else ""
+            self.preferred_process_var.set(
+                f"Saved auto-connect process: {self.app_settings.preferred_process_name}{kind} — PID is discovered")
+        else:
+            self.preferred_process_var.set("No saved process identity — Connect once to remember this process name")
+
+    def _selected_tab_name(self) -> str:
+        try:
+            return str(self.notebook.tab(self.notebook.select(), "text") or "Performance")
+        except (AttributeError, tk.TclError):
+            return self.app_settings.selected_tab
+
+    def _restore_selected_tab(self) -> None:
+        for tab in self.notebook.tabs():
+            if self.notebook.tab(tab, "text") == self.app_settings.selected_tab:
+                self.notebook.select(tab)
+                return
+
+    def _save_ui_preferences(self) -> None:
+        self.app_settings = replace(self.app_settings, poll_interval=self.interval,
+                                    selected_tab=self._selected_tab_name())
+        try:
+            write_app_settings(self.app_settings, self.app_settings_path)
+        except OSError:
+            pass
 
     def select_snapshot(self) -> None:
         selected = filedialog.askopenfilename(
@@ -301,23 +557,93 @@ class TkinterProfilerUI:
             self.interval = max(0.5, float(self.interval_var.get()))
         except ValueError:
             self.interval = 1.0
+        self._save_ui_preferences()
 
     def poll(self) -> None:
         if self.closed:
             return
         if self.paused:
+            self._poll_bridge(self.model.last_process)
             self.root.after(int(self.interval * 1000), self.poll)
             return
         process = self.monitor.sample()
         if not process.get("connected") and self.monitor.process is None:
             self.refresh_candidates()
-            if len(self.candidates) == 1:
-                self.monitor.select(self.candidates[0].pid)
         snapshot = self.reader.read()
         self.model.update(process, snapshot)
+        self._poll_bridge(process)
         self._update_llm_report(process, snapshot)
         self._render(process, snapshot)
         self.root.after(int(self.interval * 1000), self.poll)
+
+    def _poll_bridge(self, process: dict[str, Any]) -> None:
+        config = read_bridge_config(self.bridge_config_path)
+        runtime = self.bridge_client.refresh_runtime()
+        fresh = False
+        if runtime and process.get("connected") and process.get("uptime") is not None:
+            try:
+                runtime_mtime = (self.bridge_transport.state / "runtime.json").stat().st_mtime
+                fresh = runtime_mtime >= time.time() - float(process["uptime"]) - 2.0
+            except (OSError, TypeError, ValueError):
+                fresh = False
+        if not fresh:
+            self.bridge_client.runtime = None
+            runtime = None
+        if not config.enabled:
+            self.bridge_status_var.set("RESTART REQUIRED TO DISABLE" if fresh else "DISABLED")
+        elif not process.get("connected"):
+            self.bridge_status_var.set("DISCONNECTED")
+        elif not runtime:
+            self.bridge_status_var.set("RESTART REQUIRED / WAITING")
+        elif runtime.get("config_fingerprint") != config.fingerprint:
+            self.bridge_status_var.set("RESTART REQUIRED")
+        else:
+            self.bridge_status_var.set("CONNECTED")
+        self.bridge_runtime_var.set(str((runtime or {}).get("runtime_id") or "N/A"))
+        self.bridge_protocol_var.set(str((runtime or {}).get("protocol_version") or "N/A"))
+        if self.live_profiler_runtime_id and (runtime or {}).get("runtime_id") != self.live_profiler_runtime_id:
+            self.live_profiler_fingerprint = None
+            self.live_profiler_runtime_id = None
+        responses = self.bridge_client.poll()
+        self.bridge_pending_var.set(str(len(self.bridge_client.pending)))
+        average = self.bridge_client.average_latency_ms
+        self.bridge_latency_var.set(f"{average:.1f} ms" if average is not None else "N/A")
+        for response in responses:
+            action = self.bridge_request_actions.pop(response.request_id, "request")
+            if response.status == "ok":
+                self.bridge_response_var.set(f"{action}: OK from {response.runtime_id}")
+                if action == "capabilities":
+                    self._render_bridge_capabilities((response.result or {}).get("namespaces") or {})
+                elif action == "configure":
+                    result = response.result or {}
+                    suffix = "restart required" if result.get("restart_required") else "applied live"
+                    self.bridge_response_var.set(f"Profiler settings {suffix} by {response.runtime_id}")
+                    if result.get("applied") and not result.get("restart_required"):
+                        self.live_profiler_fingerprint = result.get("config_fingerprint")
+                        self.live_profiler_runtime_id = response.runtime_id
+            else:
+                error = response.error or {}
+                self.bridge_response_var.set(f"{action}: {error.get('code')} — {error.get('message')}")
+        if self.bridge_client.failures:
+            request_id = next(reversed(self.bridge_client.failures))
+            if request_id in self.bridge_request_actions:
+                action = self.bridge_request_actions.pop(request_id)
+                self.bridge_response_var.set(f"{action}: {self.bridge_client.failures[request_id]}")
+
+    def _render_bridge_capabilities(self, namespaces: dict[str, Any]) -> None:
+        self.bridge_capabilities.delete(*self.bridge_capabilities.get_children())
+        for namespace in sorted(namespaces):
+            parent = self.bridge_capabilities.insert("", "end", text=namespace, open=True)
+            commands = namespaces.get(namespace, {}).get("commands", [])
+            for command in commands[:64]:
+                if isinstance(command, str):
+                    name, category, access = command, "READ", "read-only"
+                else:
+                    name = str(command.get("name") or "unknown")
+                    category = str(command.get("category") or "READ")
+                    access = "read-only" if command.get("read_only") else "mutating"
+                self.bridge_capabilities.insert(parent, "end", text=name,
+                                                values=(category, access))
 
     def _render(self, process: dict[str, Any], snapshot: Optional[dict[str, Any]]) -> None:
         connected = process.get("connected") is True
@@ -329,6 +655,21 @@ class TkinterProfilerUI:
         self.process_values["cpu"].set(f"{cpu:.1f} %" if cpu is not None else "N/A")
         self.process_values["threads"].set(str(process.get("threads") or "N/A"))
         self.process_values["uptime"].set(duration(process.get("uptime")))
+        config = read_capture_config(self.game_config_path)
+        _runtime_state, runtime_text = runtime_application_state(
+            config, snapshot, config_path=self.game_config_path, process=process)
+        if (self.live_profiler_fingerprint == config.fingerprint
+                and self.live_profiler_runtime_id == (self.bridge_client.runtime or {}).get("runtime_id")):
+            runtime_text = (f"APPLIED LIVE by bridge runtime {str(self.live_profiler_runtime_id)[:16]} — "
+                            f"capturing: {', '.join(config.sections) if config.mode != 'OFF' else 'none'}")
+            profiler_active = config.mode != "OFF"
+        else:
+            current_snapshot = (connected and self.reader.status == "snapshot connected"
+                                and bool(((snapshot or {}).get("runtime") or {}).get("id")))
+            profiler_active = ((snapshot or {}).get("mode") != "OFF") if current_snapshot \
+                else config.mode != "OFF"
+        self.game_mode_var.set(runtime_text)
+        self._update_profiler_toggle(profiler_active)
         self._render_metrics(snapshot)
         self._render_moddata(snapshot)
         self._render_npcs(snapshot)
@@ -460,8 +801,11 @@ class TkinterProfilerUI:
         self.moddata_npc_by_iid = {}
         diagnostic = ((snapshot or {}).get("diagnostics") or {}).get("ProjectHoomans.modData")
         if not isinstance(diagnostic, dict):
+            capture = (((snapshot or {}).get("runtime") or {}).get("capture") or {})
+            reason = "Capture disabled in the running game" if capture.get("moddata") is False \
+                else "Waiting for the next bounded ModData scan"
             self.moddata_tree.insert("", "end", text="No ModData diagnostic yet",
-                                     values=("N/A", "DETAILED mode; wait up to 10 seconds"))
+                                     values=("N/A", reason))
             return
         sections = (
             ("Persisted PNC ModData", "persisted"),
@@ -507,7 +851,7 @@ class TkinterProfilerUI:
                 path = str(item.get("path", ""))
                 self.moddata_tree.insert(parent, "end", iid=f"moddata|{key}|{path}", text=path,
                                          values=(human_bytes(item.get("estimatedBytes")), "top retained path"))
-        records = list(((diagnostic.get("npcRecords") or {}).get("records") or []))
+        records = list(snapshot_npc_data(snapshot).get("records") or [])
         npc_parent_iid = "moddata|npcs"
         npc_total = sum(float(item.get("runtimeEstimatedBytes") or 0) for item in records)
         npc_parent = self.moddata_tree.insert(
@@ -577,9 +921,13 @@ class TkinterProfilerUI:
         selected_id = self.selected_npc_id
         self.npc_tree.delete(*self.npc_tree.get_children())
         self.npc_by_iid = {}
-        diagnostic = ((snapshot or {}).get("diagnostics") or {}).get("ProjectHoomans.modData") or {}
-        npc_data = diagnostic.get("npcRecords") or {}
+        npc_data = snapshot_npc_data(snapshot)
         records = list(npc_data.get("records") or [])
+        roster = list(npc_data.get("roster") or [])
+        records_by_id = {str(item.get("id")): item for item in records}
+        for item in roster:
+            records_by_id.setdefault(str(item.get("id")), item)
+        records = list(records_by_id.values())
         column, reverse = self.npc_sort
         numeric = {"runtime": "runtimeEstimatedBytes", "persisted": "persistedEstimatedBytes", "items": "inventoryItems"}
         if column in numeric:
@@ -628,6 +976,14 @@ class TkinterProfilerUI:
         if record:
             self.selected_npc_id = record.get("id")
             self._show_npc_content(record)
+
+    def capture_selected_npc(self) -> None:
+        if not self.selected_npc_id:
+            messagebox.showinfo("No NPC selected", "Select an NPC in the NPC Data Inspector first.")
+            return
+        self.capture_npc_var.set(True)
+        self.capture_npc_ids_var.set(str(self.selected_npc_id))
+        self.apply_capture_setup()
 
     def _show_npc_content(self, record: dict[str, Any]) -> None:
         self._show_npc_inventory(record)
@@ -776,9 +1132,8 @@ class TkinterProfilerUI:
                                          text="value", values=(str(value), type(value).__name__))
 
     def _update_llm_report(self, process: dict[str, Any], snapshot: Optional[dict[str, Any]]) -> None:
-        diagnostic = ((snapshot or {}).get("diagnostics") or {}).get("ProjectHoomans.modData")
         timestamp = (snapshot or {}).get("timestamp")
-        if not diagnostic or timestamp == self.last_llm_snapshot_timestamp:
+        if not snapshot or timestamp == self.last_llm_snapshot_timestamp:
             return
         try:
             write_llm_report(build_llm_report(process, snapshot), self.llm_report_path)
@@ -823,8 +1178,12 @@ class TkinterProfilerUI:
         npc_row = ttk.Frame(body)
         npc_row.pack(fill="x", padx=(24, 0), pady=(4, 10))
         ttk.Label(npc_row, text="NPC:").pack(side="left", padx=(0, 6))
-        diagnostic = ((self.model.last_snapshot.get("diagnostics") or {}).get("ProjectHoomans.modData") or {})
-        records = list(((diagnostic.get("npcRecords") or {}).get("records") or []))
+        npc_data = snapshot_npc_data(self.model.last_snapshot)
+        records = list(npc_data.get("records") or [])
+        records_by_id = {str(item.get("id")): item for item in records}
+        for item in npc_data.get("roster") or []:
+            records_by_id.setdefault(str(item.get("id")), item)
+        records = list(records_by_id.values())
         npc_choices = {}
         selected_label = ""
         for record in records:
@@ -943,6 +1302,10 @@ class TkinterProfilerUI:
     def close(self) -> None:
         self.closed = True
         self.model.recorder.stop()
+        if hasattr(self, "app_settings"):
+            self._save_ui_preferences()
+        if hasattr(self, "bridge_client"):
+            self.bridge_client.close()
         self.root.destroy()
 
 
@@ -950,7 +1313,8 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="PsychopatzCore cross-platform performance profiler")
     parser.add_argument("--pid", type=int, help="connect directly to a Project Zomboid client/server PID")
     parser.add_argument("--snapshot", type=Path, help="path to PsychopatzCore_Profiler_latest.json")
-    parser.add_argument("--interval", type=float, choices=(0.5, 1.0, 2.0, 5.0), default=1.0)
+    parser.add_argument("--interval", type=float, choices=(0.5, 1.0, 2.0, 5.0),
+                        help="override the saved GUI polling interval")
     return parser.parse_args(argv)
 
 

@@ -8,6 +8,11 @@ function Profiler.BuildSnapshot()
     local snapshot = {
         profilerVersion = Profiler.VERSION, timestamp = Internal.NowMs(), mode = state.mode,
         source = { type = state.sourceType }, namespaces = {}, warnings = {},
+        runtime = {
+            id = state.runtime.id,
+            configFingerprint = state.runtime.configFingerprint,
+            capture = state.runtime.capture or state.capture,
+        },
     }
     for name, metadata in pairs(state.namespaces) do
         snapshot.namespaces[name] = {
@@ -40,11 +45,18 @@ function Profiler.BuildSnapshot()
             message = warning.message, metric = warning.metric, value = warning.value, count = warning.count,
         }
     end
+    local now = Internal.NowMs()
     for id, provider in pairs(state.snapshotProviders or {}) do
-        local ok, value = pcall(provider)
-        if ok and type(value) == "table" then
+        if provider.lastAt == nil or provider.intervalMs == 0
+            or now - provider.lastAt >= provider.intervalMs
+        then
+            local ok, value = pcall(provider.callback)
+            provider.lastAt = now
+            if ok and type(value) == "table" then provider.lastValue = value end
+        end
+        if type(provider.lastValue) == "table" then
             snapshot.diagnostics = snapshot.diagnostics or {}
-            snapshot.diagnostics[id] = value
+            snapshot.diagnostics[id] = provider.lastValue
         end
     end
     return snapshot
