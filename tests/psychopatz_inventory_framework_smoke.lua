@@ -20,6 +20,10 @@ end
 local Inventory = require "PsychopatzCore/Inventory/PsychopatzInventory"
 local Types = Inventory.ItemTypeRegistry
 local C = require "PsychopatzCore/Inventory/PsychopatzInventoryConstants"
+local Util = require "PsychopatzCore/Inventory/PsychopatzInventoryUtil"
+
+equal(Util.number(2.5, false), 2.5, "numeric Java-style value remains numeric")
+equal(Util.number(nil, 0), 0, "numeric fallback")
 
 Types.load(nil)
 Types.scan({ "Base.Nails", "Base.Apple", "Base.Axe" })
@@ -63,6 +67,11 @@ local function makeItem(fullType, options)
     function item:getActualWeight() return self.weight end
     function item:getWeight() return self.weight end
     function item:setActualWeight(value) self.weight = value end
+    -- B42's generic ComboItem exposes these methods even when the item is not
+    -- food, a weapon, or clothing. Codec selection must use actual class kind.
+    function item:getAge() return self.age or 0 end
+    function item:getCurrentAmmoCount() return self.ammo or 0 end
+    function item:getWetness() return self.wetness or 0 end
     function item:getAllWeaponParts() return list(self.parts) end
     function item:attachWeaponPart(part) self.parts[#self.parts + 1] = part end
     if options.container then
@@ -121,6 +130,8 @@ local nails = makeItem("Base.Nails", { condition = 10, weight = 0.01 })
 truthy(store:add(nails, 9000), "add nails")
 truthy(store:add(nails, 282), "batch nails")
 equal(store:getRecordCount(), 1, "identical records batch")
+equal(store.records[1][C.CODEC_ID], C.CODEC_GENERIC,
+    "generic combo item was misclassified by inherited methods")
 equal(store:count("Base.Nails"), 9282, "logical count")
 equal(store:getLogicalItemCount(), 9282, "logical item count")
 
@@ -203,6 +214,13 @@ equal(chargedRecord[C.STACK_DISCRIMINATOR], 75, "custom codec stack key")
 
 local registryDelta = Inventory.NetworkCodec.encodeRegistryDelta(Types.getData().revision - 1)
 equal(#registryDelta.entries, 1, "incremental registry delta")
+local registryDebug = Types.getDebugSnapshot()
+truthy(registryDebug.registeredCount >= 4, "debug ledger registered count")
+equal(registryDebug.availableCount, 4, "debug ledger available count")
+equal(registryDebug.unavailableCount,
+    registryDebug.registeredCount - registryDebug.availableCount,
+    "debug ledger unavailable count")
+equal(registryDebug.gapCount, 0, "append-only ledger has no gaps")
 
 local physicalItems = { apple, axeWorn }
 local container = {}

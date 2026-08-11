@@ -21,6 +21,16 @@ local function wantedType(query)
     return nil
 end
 
+local function matches(item, query)
+    local typeId = wantedType(query)
+    if typeId and typeIdForItem(item) ~= typeId then return false end
+    if type(query) == "function" then return query(item) == true end
+    if type(query) == "table" and type(query.predicate) == "function" then
+        return query.predicate(item) == true
+    end
+    return typeId ~= nil or query == nil
+end
+
 function Physical.new(container, options)
     if not container then return nil, "container_required" end
     local self = setmetatable({ container = container, options = options or {}, revision = 0 }, Physical)
@@ -33,11 +43,10 @@ function Physical:_items()
 end
 
 function Physical:count(query)
-    local typeId = wantedType(query)
     local count = 0
     local items = self:_items()
     for i = 1, #items do
-        if not typeId or typeIdForItem(items[i]) == typeId then count = count + 1 end
+        if matches(items[i], query) then count = count + 1 end
     end
     return count
 end
@@ -47,17 +56,15 @@ function Physical:contains(query, quantity)
 end
 
 function Physical:find(query)
-    local typeId = wantedType(query)
     local items = self:_items()
-    for i = 1, #items do if not typeId or typeIdForItem(items[i]) == typeId then return items[i] end end
+    for i = 1, #items do if matches(items[i], query) then return items[i] end end
     return nil
 end
 
 function Physical:query(query)
     local output = {}
-    local typeId = wantedType(query)
     local items = self:_items()
-    for i = 1, #items do if not typeId or typeIdForItem(items[i]) == typeId then output[#output + 1] = items[i] end end
+    for i = 1, #items do if matches(items[i], query) then output[#output + 1] = items[i] end end
     return output
 end
 
@@ -152,10 +159,13 @@ end
 
 function Physical:getWeight()
     local weight = Util.call(self.container, "getContentsWeight")
-    if weight ~= nil then return tonumber(weight) or 0 end
+    if weight ~= nil then return Util.number(weight, 0) end
     weight = 0
     local items = self:_items()
-    for i = 1, #items do weight = weight + (tonumber(Util.call(items[i], "getActualWeight")) or 0) end
+    for i = 1, #items do
+        weight = weight + Util.number(
+            (Util.call(items[i], "getActualWeight")), 0)
+    end
     return weight
 end
 

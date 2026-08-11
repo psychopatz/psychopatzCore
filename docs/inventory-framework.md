@@ -73,6 +73,13 @@ The world registry is stored in `ModData["PsychopatzCore.Inventory"].itemTypeReg
 
 IDs are never recycled. A removed mod leaves its mappings reserved. `NetworkCodec.encodeRegistryDelta(clientRevision)` emits only later entries. Inventory snapshots therefore use numeric type IDs rather than repeated full-type strings.
 
+In debug mode, **Psychopatz Debug Hub > Item Type Ledger** presents the current
+Lua environment's generated registry. It shows every numeric ID, full type,
+script-catalog availability, registry revision, next ID, unavailable mappings,
+and unexpected gaps. `Refresh Script Availability` rechecks the loaded catalog
+without changing any numeric mapping. The same data is available through
+`ItemTypeRegistry.getDebugSnapshot()` for automated diagnostics.
+
 The virtual persistence envelope is `[virtualSchema, itemRecordSchema, revision, maxWeight, records]`. The network snapshot envelope is `[networkSchema, itemRecordSchema, registryRevision, inventoryRevision, records]`. Reservations, indexes, reverse registry lookup, cached query results, and debug state are intentionally absent.
 
 ## NPC flow

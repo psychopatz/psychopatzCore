@@ -27,15 +27,15 @@ end
 function Support.encodeCommon(item)
     local flags = 0
     local state = {}
-    local condition = tonumber(Util.call(item, "getCondition") or item.condition)
-    local conditionMax = tonumber(Util.call(item, "getConditionMax") or item.conditionMax)
-    local usedDelta = tonumber(Util.call(item, "getUsedDelta") or item.usedDelta)
+    local condition = Util.number(Util.call(item, "getCondition") or item.condition)
+    local conditionMax = Util.number(Util.call(item, "getConditionMax") or item.conditionMax)
+    local usedDelta = Util.number(Util.call(item, "getUsedDelta") or item.usedDelta)
     local favorite = Util.call(item, "isFavorite")
     local custom = Util.call(item, "isCustomName")
     local name = custom and Util.call(item, "getName") or item.customName
     local modData = getModData(item)
-    local actualWeight = tonumber(Util.call(item, "getActualWeight") or item.actualWeight)
-    local baseWeight = tonumber(Util.call(item, "getWeight") or item.weight)
+    local actualWeight = Util.number(Util.call(item, "getActualWeight") or item.actualWeight)
+    local baseWeight = Util.number(Util.call(item, "getWeight") or item.weight)
     if condition and (not conditionMax or condition ~= conditionMax) then
         flags = flags + C.FLAG_CONDITION
         state[#state + 1] = condition

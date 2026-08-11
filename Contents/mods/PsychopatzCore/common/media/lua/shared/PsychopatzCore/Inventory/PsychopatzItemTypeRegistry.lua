@@ -2,7 +2,13 @@ local C = require "PsychopatzCore/Inventory/PsychopatzInventoryConstants"
 local Util = require "PsychopatzCore/Inventory/PsychopatzInventoryUtil"
 local Metrics = require "PsychopatzCore/Inventory/PsychopatzInventoryMetrics"
 
-local Registry = { data = nil, reverse = {}, available = {} }
+local Registry = {
+    data = nil,
+    reverse = {},
+    available = {},
+    initialized = false,
+    catalogCount = 0,
+}
 
 local function cleanData(raw)
     local data = {
@@ -80,6 +86,7 @@ function Registry.scan(fullTypes)
     end
     table.sort(values)
     Registry.available = seen
+    Registry.catalogCount = #values
     for i = 1, #values do
         if not Registry.reverse[values[i]] then
             Registry.getId(values[i], true)
@@ -94,23 +101,96 @@ function Registry.scan(fullTypes)
     return added
 end
 
-function Registry.scanScripts(manager)
-    local items
+function Registry.refreshAvailability(fullTypes)
+    local seen = {}
+    local count = 0
+    for i = 1, #(fullTypes or {}) do
+        local value = tostring(fullTypes[i] or "")
+        if value ~= "" and not seen[value] then
+            seen[value] = true
+            count = count + 1
+        end
+    end
+    Registry.available = seen
+    Registry.catalogCount = count
+    local missing = 0
+    for _, fullType in pairs(Registry.getData().types) do
+        if not seen[fullType] then missing = missing + 1 end
+    end
+    Metrics.gauge("missingItemTypes", missing)
+    return count
+end
+
+local function collectScriptTypes(manager)
     local values = {}
     manager = manager or (getScriptManager and getScriptManager())
-    if not manager or not manager.getAllItems then return 0 end
-    items = Util.javaList(manager:getAllItems())
+    if not manager or not manager.getAllItems then return nil end
+    local items = Util.javaList(manager:getAllItems())
     for i = 1, #items do
         local fullType = Util.call(items[i], "getFullName")
             or Util.call(items[i], "getFullType")
         if fullType then values[#values + 1] = tostring(fullType) end
     end
-    return Registry.scan(values)
+    return values
+end
+
+function Registry.scanScripts(manager)
+    local values = collectScriptTypes(manager)
+    return values and Registry.scan(values) or 0
+end
+
+function Registry.refreshScriptAvailability(manager)
+    local values = collectScriptTypes(manager)
+    return values and Registry.refreshAvailability(values) or 0
 end
 
 function Registry.isAvailable(id)
     local fullType = Registry.getFullType(id)
     return fullType ~= nil and Registry.available[fullType] == true
+end
+
+function Registry.getDebugSnapshot()
+    local data = Registry.getData()
+    local entries = {}
+    local registered = 0
+    local available = 0
+    local unavailable = 0
+    local gaps = 0
+    for id = 1, data.nextId - 1 do
+        local fullType = data.types[id]
+        if fullType then
+            local present = Registry.available[fullType] == true
+            entries[#entries + 1] = {
+                id = id,
+                fullType = fullType,
+                available = present,
+                gap = false,
+            }
+            registered = registered + 1
+            if present then available = available + 1
+            else unavailable = unavailable + 1 end
+        else
+            entries[#entries + 1] = {
+                id = id,
+                fullType = nil,
+                available = false,
+                gap = true,
+            }
+            gaps = gaps + 1
+        end
+    end
+    return {
+        schemaVersion = data.schemaVersion,
+        revision = data.revision,
+        nextId = data.nextId,
+        initialized = Registry.initialized == true,
+        catalogCount = Registry.catalogCount,
+        registeredCount = registered,
+        availableCount = available,
+        unavailableCount = unavailable,
+        gapCount = gaps,
+        entries = entries,
+    }
 end
 
 function Registry.getDelta(sinceRevision)
@@ -156,6 +236,7 @@ function Registry.initializeWorld()
         Registry.load(nil)
         Registry.scanScripts()
     end
+    Registry.initialized = true
     return Registry.getData()
 end
 

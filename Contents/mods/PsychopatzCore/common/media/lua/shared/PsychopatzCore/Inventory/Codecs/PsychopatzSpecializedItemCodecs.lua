@@ -8,16 +8,15 @@ Registry.register({
     id = C.CODEC_FOOD, name = "food", priority = 100,
     matches = function(item)
         return Support.isKind(item, "Food") or item.isFood == true
-            or tonumber(Util.call(item, "getAge")) ~= nil
     end,
     encode = function(item)
         local result = Support.commonResult(item)
         result.flags = Support.append(result.flags, result.state, C.FLAG_FOOD, {
-            tonumber(Util.call(item, "getAge") or item.age),
+            Util.number(Util.call(item, "getAge") or item.age),
             Util.call(item, "isCooked") == true or item.cooked == true,
             Util.call(item, "isBurnt") == true or item.burnt == true,
             Util.call(item, "isFrozen") == true or item.frozen == true,
-            tonumber(Util.call(item, "getFreezingTime") or item.freezingTime),
+            Util.number(Util.call(item, "getFreezingTime") or item.freezingTime),
         })
         return result
     end,
@@ -37,7 +36,6 @@ Registry.register({
     id = C.CODEC_WEAPON, name = "weapon", priority = 90,
     matches = function(item)
         return Support.isKind(item, "HandWeapon") or item.isWeapon == true
-            or tonumber(Util.call(item, "getCurrentAmmoCount")) ~= nil
     end,
     encode = function(item)
         local result = Support.commonResult(item)
@@ -49,7 +47,7 @@ Registry.register({
         end
         if #attachments > 0 then result.batchable = false end
         result.flags = Support.append(result.flags, result.state, C.FLAG_AMMO, {
-            tonumber(Util.call(item, "getCurrentAmmoCount") or item.ammoCount),
+            Util.number(Util.call(item, "getCurrentAmmoCount") or item.ammoCount),
             Util.call(item, "isRoundChambered") == true or item.roundChambered == true,
             Util.call(item, "isJammed") == true or item.jammed == true,
             attachments,
@@ -79,15 +77,14 @@ Registry.register({
     id = C.CODEC_CLOTHING, name = "clothing", priority = 70,
     matches = function(item)
         return Support.isKind(item, "Clothing") or item.isClothing == true
-            or tonumber(Util.call(item, "getWetness")) ~= nil
     end,
     encode = function(item)
         local result = Support.commonResult(item)
         result.flags = Support.append(result.flags, result.state, C.FLAG_CLOTHING, {
-            tonumber(Util.call(item, "getWetness") or item.wetness),
-            tonumber(Util.call(item, "getBloodlevel")
+            Util.number(Util.call(item, "getWetness") or item.wetness),
+            Util.number(Util.call(item, "getBloodlevel")
                 or Util.call(item, "getBloodLevel") or item.bloodLevel),
-            tonumber(Util.call(item, "getDirtyness") or item.dirtyness),
+            Util.number(Util.call(item, "getDirtyness") or item.dirtyness),
         })
         return result
     end,

@@ -3,8 +3,17 @@ PsychopatzCore.Inventory = PsychopatzCore.Inventory or {}
 
 local Util = {}
 
+function Util.number(value, fallback)
+    if type(value) == "number" then return value end
+    if type(value) == "string" then
+        local converted = tonumber(value)
+        if converted ~= nil then return converted end
+    end
+    return fallback
+end
+
 function Util.hasFlag(flags, flag)
-    flags = math.max(0, math.floor(tonumber(flags) or 0))
+    flags = math.max(0, math.floor(Util.number(flags, 0)))
     return flags % (flag * 2) >= flag
 end
 
@@ -22,7 +31,7 @@ function Util.copy(value, depth, seen)
     local key
     local copied
     if type(value) ~= "table" then return value end
-    depth = tonumber(depth) or 0
+    depth = Util.number(depth, 0)
     if depth > 8 then return nil end
     seen = seen or {}
     if seen[value] then return nil end

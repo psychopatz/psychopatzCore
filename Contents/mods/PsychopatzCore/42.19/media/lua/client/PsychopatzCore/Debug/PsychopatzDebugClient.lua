@@ -5,6 +5,7 @@ require "ISUI/ISTextEntryBox"
 require "ISUI/ISTickBox"
 require "PsychopatzCore/00_PsychopatzCore_Init"
 require "PsychopatzCore/UI/PsychopatzDebugHubWindow"
+require "PsychopatzCore/UI/Inventory/PsychopatzItemTypeLedgerWindow"
 
 if PsychopatzCore._debugClientInstalled then
     return PsychopatzCore
