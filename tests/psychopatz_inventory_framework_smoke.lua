@@ -157,6 +157,16 @@ token = store:reserve("Base.Nails", 2, "job-b")
 truthy(store:commitReservation(token), "commit reservation")
 equal(store:count("Base.Nails"), 9280, "commit consumes")
 
+local selectedAxe = store.records[2]
+local selectedToken = store:reserve({
+    typeId = selectedAxe[1],
+    predicate = function(candidate) return candidate == selectedAxe end,
+}, 1, "job-stateful")
+truthy(selectedToken, "predicate reservation")
+local selectedOK, selectedRecords = store:commitReservation(selectedToken)
+truthy(selectedOK, "predicate reservation commit")
+truthy(selectedRecords and selectedRecords[1], "predicate reservation records")
+
 local destination = Inventory.createVirtualInventory()
 truthy(Inventory.transfer(store, destination, "Base.Nails", 80,
     { skipAuthorityCheck = true }), "atomic transfer")

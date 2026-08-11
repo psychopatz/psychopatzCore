@@ -15,10 +15,16 @@ function Virtual:reserve(query, quantity, owner)
     quantity = math.max(1, math.floor(tonumber(quantity) or 1))
     local typeId = queryTypeId(query)
     if not typeId then return nil, "reservation_requires_item_type" end
-    if self:count(typeId, false) < quantity then return nil, "insufficient_available_quantity" end
+    if self:count(query, false) < quantity then return nil, "insufficient_available_quantity" end
     local id = self.nextReservationId
     self.nextReservationId = id + 1
-    local token = { id = id, typeId = typeId, quantity = quantity, owner = owner }
+    local token = {
+        id = id,
+        typeId = typeId,
+        quantity = quantity,
+        owner = owner,
+        query = query,
+    }
     self.reservations[id] = token
     self.reservedByType[typeId] = (self.reservedByType[typeId] or 0) + quantity
     Metrics.increment("reservationCount")
@@ -39,7 +45,11 @@ function Virtual:commitReservation(token)
     local id = type(token) == "table" and token.id or tonumber(token)
     local saved = id and self.reservations[id] or nil
     if not saved then return false, "reservation_not_found" end
-    local ok, removed = self:remove(saved.typeId, saved.quantity, { includeReserved = true })
+    local ok, removed = self:remove(
+        saved.query or saved.typeId,
+        saved.quantity,
+        { includeReserved = true }
+    )
     if not ok then return false, removed end
     self:releaseReservation(saved)
     return true, removed
