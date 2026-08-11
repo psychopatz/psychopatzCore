@@ -39,7 +39,27 @@ function Physical.new(container, options)
 end
 
 function Physical:_items()
-    return Util.javaList(Util.call(self.container, "getItems"))
+    local output = {}
+    local seen = {}
+    local function visit(container, depth)
+        if not container or depth > (tonumber(self.options.maxDepth) or 8) then
+            return
+        end
+        if seen[container] then return end
+        seen[container] = true
+        local items = Util.javaList(Util.call(container, "getItems"))
+        for i = 1, #items do
+            local item = items[i]
+            output[#output + 1] = item
+            if self.options.recursive == true then
+                local nested = Util.call(item, "getItemContainer")
+                    or Util.call(item, "getInventory")
+                if nested then visit(nested, depth + 1) end
+            end
+        end
+    end
+    visit(self.container, 1)
+    return output
 end
 
 function Physical:count(query)
@@ -82,6 +102,15 @@ function Physical:_nativeAdd(item)
     return nil
 end
 
+function Physical:_nativeAddTo(container, item)
+    container = container or self.container
+    if container and container.AddItem then
+        local added = container:AddItem(item)
+        return added or item
+    end
+    return nil
+end
+
 function Physical:add(value, quantity)
     quantity = math.max(1, math.floor(tonumber(quantity) or (type(value) == "table" and value[C.QUANTITY]) or 1))
     local added = {}
@@ -109,9 +138,10 @@ function Physical:add(value, quantity)
 end
 
 function Physical:_nativeRemove(item)
-    if self.container.DoRemoveItem then self.container:DoRemoveItem(item) return true end
-    if self.container.Remove then self.container:Remove(item) return true end
-    if self.container.RemoveItem then self.container:RemoveItem(item) return true end
+    local container = Util.call(item, "getContainer") or self.container
+    if container.DoRemoveItem then container:DoRemoveItem(item) return true end
+    if container.Remove then container:Remove(item) return true end
+    if container.RemoveItem then container:RemoveItem(item) return true end
     return false
 end
 
@@ -119,16 +149,20 @@ function Physical:remove(query, quantity)
     quantity = math.max(1, math.floor(tonumber(quantity) or 1))
     local selected = self:query(query)
     if #selected < quantity then return false, "insufficient_quantity" end
-    local removed = { physicalItems = {} }
+    local removed = { physicalItems = {}, physicalContainers = {} }
     for i = 1, quantity do
         local record, reason = ItemRecord.encode(selected[i], 1)
         if not record then return false, reason end
         removed[#removed + 1] = record
         removed.physicalItems[#removed.physicalItems + 1] = selected[i]
+        removed.physicalContainers[#removed.physicalContainers + 1] =
+            Util.call(selected[i], "getContainer") or self.container
     end
     for i = 1, quantity do
         if not self:_nativeRemove(selected[i]) then
-            for j = i - 1, 1, -1 do self:_nativeAdd(selected[j]) end
+            for j = i - 1, 1, -1 do
+                self:_nativeAddTo(removed.physicalContainers[j], selected[j])
+            end
             return false, "physical_remove_failed"
         end
     end
@@ -139,7 +173,9 @@ end
 function Physical:restoreRemoved(removed)
     if type(removed) == "table" and type(removed.physicalItems) == "table" then
         for i = 1, #removed.physicalItems do
-            if not self:_nativeAdd(removed.physicalItems[i]) then return false end
+            if not self:_nativeAddTo(removed.physicalContainers
+                and removed.physicalContainers[i], removed.physicalItems[i])
+            then return false end
         end
         return true
     end

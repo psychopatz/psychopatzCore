@@ -5,6 +5,9 @@ local Core = PsychopatzCore
 require "PsychopatzCore/Collections/PC_RingBuffer"
 require "PsychopatzCore/Events/PC_EventBus"
 require "PsychopatzCore/Journal/PC_JournalService"
+require "PsychopatzCore/World/PC_GridRegion"
+require "PsychopatzCore/World/PC_GridRegionEditor"
+require "PsychopatzCore/World/PC_ZoneRegistry"
 
 Core.VERSION = Core.VERSION or "0.4.0"
 Core.OWNER_STEAM_ID = Core.OWNER_STEAM_ID or "76561198137190990"

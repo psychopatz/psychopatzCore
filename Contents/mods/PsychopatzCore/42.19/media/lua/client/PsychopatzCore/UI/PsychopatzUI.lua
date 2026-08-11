@@ -5,5 +5,6 @@ require "PsychopatzCore/UI/Components/PsychopatzMeter"
 require "PsychopatzCore/UI/Components/PsychopatzPortraitPanel"
 require "PsychopatzCore/UI/PsychopatzWindow"
 require "PsychopatzCore/UI/PsychopatzSettingsWindow"
+require "PsychopatzCore/UI/World/PsychopatzGridRegionSelector"
 
 return PsychopatzCore.UI

@@ -41,5 +41,20 @@
     "UI_PsychopatzConversation_NPC": "NPC",
     "UI_PsychopatzProfiler_Title": "Psychopatz Profiler",
     "UI_PsychopatzProfiler_Reset": "Reset peaks/history",
-    "UI_PsychopatzProfiler_Export": "Export snapshot"
+    "UI_PsychopatzProfiler_Export": "Export snapshot",
+    "UI_PsychopatzRegion_Title": "SELECT WORLD AREA",
+    "UI_PsychopatzRegion_Help": "Drag on the world; use Add or Erase for irregular shapes.",
+    "UI_PsychopatzRegion_Replace": "REPLACE",
+    "UI_PsychopatzRegion_Add": "ADD",
+    "UI_PsychopatzRegion_Erase": "ERASE",
+    "UI_PsychopatzRegion_Undo": "UNDO",
+    "UI_PsychopatzRegion_Reset": "RESET",
+    "UI_PsychopatzRegion_Confirm": "CONFIRM",
+    "UI_PsychopatzRegion_Cancel": "CANCEL",
+    "UI_PsychopatzRegion_Tiles": "tiles",
+    "UI_PsychopatzRegion_Spans": "spans",
+    "UI_PsychopatzRegion_Claimed": "claimed",
+    "UI_PsychopatzRegion_Empty": "Select at least one tile",
+    "UI_PsychopatzRegion_CapacityExceeded": "Selection exceeds the tile cap",
+    "UI_PsychopatzRegion_Valid": "Selection ready"
 }

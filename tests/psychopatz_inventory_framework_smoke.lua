@@ -251,6 +251,46 @@ end
 local virtualized = Inventory.virtualize(container)
 truthy(virtualized, "physical to virtual")
 equal(virtualized:getLogicalItemCount(), 2, "physical conversion count")
+
+Types.getId("Base.Money", true)
+local nestedItems = {}
+local nestedContainer = {}
+function nestedContainer:getItems() return list(nestedItems) end
+function nestedContainer:AddItem(item)
+    nestedItems[#nestedItems + 1] = item
+    return item
+end
+function nestedContainer:DoRemoveItem(item)
+    for i = #nestedItems, 1, -1 do
+        if nestedItems[i] == item then table.remove(nestedItems, i); return end
+    end
+end
+local nestedMoney = makeItem("Base.Money", { condition = 10 })
+function nestedMoney:getContainer() return nestedContainer end
+nestedItems[1] = nestedMoney
+local nestedBag = makeItem("Base.Bag", {
+    condition = 10, container = nestedContainer,
+})
+local recursiveRootItems = { nestedBag }
+local recursiveRoot = {
+    getItems = function() return list(recursiveRootItems) end,
+    AddItem = function(_, item)
+        recursiveRootItems[#recursiveRootItems + 1] = item
+        return item
+    end,
+}
+local recursive = Inventory.wrapPhysicalInventory(recursiveRoot, {
+    recursive = true,
+})
+equal(recursive:count({ fullType = "Base.Money" }), 1,
+    "recursive physical material count")
+local removedOK, removedMoney = recursive:remove({
+    fullType = "Base.Money",
+}, 1)
+truthy(removedOK, "recursive physical material removal")
+equal(#nestedItems, 0, "nested source removed")
+truthy(recursive:restoreRemoved(removedMoney), "nested material rollback")
+equal(#nestedItems, 1, "nested source restored")
 local destinationItems = {}
 local destinationContainer = {}
 function destinationContainer:getItems() return list(destinationItems) end

@@ -8,6 +8,7 @@ local ItemRecord = require "PsychopatzCore/Inventory/PsychopatzItemRecord"
 local Virtual = require "PsychopatzCore/Inventory/PsychopatzVirtualInventory"
 local Physical = require "PsychopatzCore/Inventory/PsychopatzPhysicalInventoryAdapter"
 local Transaction = require "PsychopatzCore/Inventory/PsychopatzInventoryTransaction"
+local MaterialTransaction = require "PsychopatzCore/Inventory/PsychopatzMaterialTransaction"
 local Serializer = require "PsychopatzCore/Inventory/PsychopatzInventorySerializer"
 local Network = require "PsychopatzCore/Inventory/PsychopatzInventoryNetworkCodec"
 local Metrics = require "PsychopatzCore/Inventory/PsychopatzInventoryMetrics"
@@ -19,6 +20,7 @@ Inventory.ItemRecord = ItemRecord
 Inventory.Serializer = Serializer
 Inventory.NetworkCodec = Network
 Inventory.Metrics = Metrics
+Inventory.MaterialTransaction = MaterialTransaction
 
 function Inventory.getItemTypeId(fullType, create) return Types.getId(fullType, create) end
 function Inventory.getItemFullType(typeId) return Types.getFullType(typeId) end
@@ -30,6 +32,8 @@ function Inventory.transfer(...) return Transaction.transfer(...) end
 function Inventory.deposit(...) return Transaction.deposit(...) end
 function Inventory.withdraw(...) return Transaction.withdraw(...) end
 function Inventory.consume(...) return Transaction.consume(...) end
+function Inventory.quoteMaterials(...) return MaterialTransaction.Quote(...) end
+function Inventory.consumeMaterials(...) return MaterialTransaction.Consume(...) end
 function Inventory.reserve(store, ...) return store:reserve(...) end
 function Inventory.commitReservation(store, ...) return store:commitReservation(...) end
 function Inventory.releaseReservation(store, ...) return store:releaseReservation(...) end
