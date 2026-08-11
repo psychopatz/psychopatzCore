@@ -71,12 +71,16 @@ function Support.decodeCommon(item, flags, state)
     if Util.hasFlag(flags, C.FLAG_CONDITION) then
         value, cursor = state[cursor], cursor + 1
         Util.call(item, "setCondition", value)
-        item.condition = item.condition ~= nil and value or item.condition
+        if type(item) == "table" and item.condition ~= nil then
+            item.condition = value
+        end
     end
     if Util.hasFlag(flags, C.FLAG_USED_DELTA) then
         value, cursor = state[cursor], cursor + 1
         Util.call(item, "setUsedDelta", value)
-        item.usedDelta = item.usedDelta ~= nil and value or item.usedDelta
+        if type(item) == "table" and item.usedDelta ~= nil then
+            item.usedDelta = value
+        end
     end
     if Util.hasFlag(flags, C.FLAG_FAVORITE) then Util.call(item, "setFavorite", true) end
     if Util.hasFlag(flags, C.FLAG_CUSTOM_NAME) then
@@ -88,7 +92,7 @@ function Support.decodeCommon(item, flags, state)
         local target = Util.call(item, "getModData")
         if type(target) == "table" then
             for key, entry in pairs(value or {}) do target[key] = Util.copy(entry) end
-        else
+        elseif type(item) == "table" then
             item.modData = Util.copy(value)
         end
     end

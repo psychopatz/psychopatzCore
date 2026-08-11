@@ -21,9 +21,18 @@ local Inventory = require "PsychopatzCore/Inventory/PsychopatzInventory"
 local Types = Inventory.ItemTypeRegistry
 local C = require "PsychopatzCore/Inventory/PsychopatzInventoryConstants"
 local Util = require "PsychopatzCore/Inventory/PsychopatzInventoryUtil"
+local CodecSupport = require "PsychopatzCore/Inventory/Codecs/PsychopatzItemCodecSupport"
 
 equal(Util.number(2.5, false), 2.5, "numeric Java-style value remains numeric")
 equal(Util.number(nil, 0), 0, "numeric fallback")
+
+-- PZ InventoryItem instances are Java-backed objects. Codec restoration must
+-- never fall through to direct Lua-field assignment on non-table objects.
+local foreignObject = io.tmpfile()
+local foreignOK = pcall(CodecSupport.decodeCommon, foreignObject,
+    C.FLAG_USED_DELTA, { 0.8125 })
+foreignObject:close()
+truthy(foreignOK, "codec wrote a Lua field onto a non-table object")
 
 Types.load(nil)
 Types.scan({ "Base.Nails", "Base.Apple", "Base.Axe" })

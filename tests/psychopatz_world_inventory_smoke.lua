@@ -1,6 +1,8 @@
 local SHARED_ROOT = "Contents/mods/PsychopatzCore/42.19/media/lua/shared/"
 local SERVER_ROOT = "Contents/mods/PsychopatzCore/42.19/media/lua/server/"
-package.path = SHARED_ROOT .. "?.lua;" .. SERVER_ROOT .. "?.lua;" .. package.path
+local COMMON_ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+package.path = COMMON_ROOT .. "?.lua;" .. SHARED_ROOT .. "?.lua;"
+    .. SERVER_ROOT .. "?.lua;" .. package.path
 
 local function assertEqual(actual, expected, label)
     if actual ~= expected then

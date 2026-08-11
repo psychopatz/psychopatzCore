@@ -1,5 +1,6 @@
 local ROOT = "Contents/mods/PsychopatzCore/42.19/media/lua/"
-package.path = ROOT .. "shared/?.lua;" .. package.path
+local COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+package.path = COMMON .. "?.lua;" .. ROOT .. "shared/?.lua;" .. package.path
 
 local function equal(actual, expected, label)
     if actual ~= expected then

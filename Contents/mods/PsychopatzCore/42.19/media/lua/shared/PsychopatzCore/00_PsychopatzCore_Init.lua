@@ -2,6 +2,10 @@ PsychopatzCore = PsychopatzCore or {}
 
 local Core = PsychopatzCore
 
+require "PsychopatzCore/Collections/PC_RingBuffer"
+require "PsychopatzCore/Events/PC_EventBus"
+require "PsychopatzCore/Journal/PC_JournalService"
+
 Core.VERSION = Core.VERSION or "0.4.0"
 Core.OWNER_STEAM_ID = Core.OWNER_STEAM_ID or "76561198137190990"
 Core.OWNER_SP_NAME = Core.OWNER_SP_NAME or "Psychopatz"
@@ -47,7 +51,8 @@ require "PsychopatzCore/Traits/PsychopatzTraitRegistry"
 ProfilerBootstrap.Initialize()
 BridgeBootstrap.Initialize()
 if BridgeBootstrap.IsEnabled() then
-    require("PsychopatzCore/Profiler/PsychopatzProfilerBridge").Register()
+    local ProfilerBridge = require "PsychopatzCore/Profiler/PsychopatzProfilerBridge"
+    ProfilerBridge.Register()
 end
 
 return Core
