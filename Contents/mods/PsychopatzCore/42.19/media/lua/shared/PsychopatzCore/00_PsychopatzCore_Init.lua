@@ -7,6 +7,7 @@ require "PsychopatzCore/Events/PC_EventBus"
 require "PsychopatzCore/Journal/PC_JournalService"
 require "PsychopatzCore/World/PC_GridRegion"
 require "PsychopatzCore/World/PC_GridRegionEditor"
+require "PsychopatzCore/World/PsychopatzSquareRules"
 require "PsychopatzCore/World/PC_ZoneRegistry"
 
 Core.VERSION = Core.VERSION or "0.4.0"

@@ -3,6 +3,7 @@ require "PsychopatzCore/UI/Components/PsychopatzUIControls"
 
 local GridRegion = require "PsychopatzCore/World/PC_GridRegion"
 local Editor = require "PsychopatzCore/World/PC_GridRegionEditor"
+local SquareRules = require "PsychopatzCore/World/PsychopatzSquareRules"
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 
@@ -59,6 +60,16 @@ function Selector:validateSelection()
     local ok, reason = stats.tileCount > 0, "EMPTY_REGION"
     if ok and self.maxTiles and stats.tileCount > self.maxTiles then
         ok, reason = false, "REGION_CAPACITY_EXCEEDED"
+    end
+    if ok and self.requiredSquareRule then
+        local valid, ruleReason, details = SquareRules.ValidateRegion(
+            stats.region, self.requiredSquareRule, self.squareRuleContext)
+        ok, reason = valid == true, ruleReason
+        if type(details) == "table" then
+            stats.ruleChecked = details.checked
+            stats.invalidX, stats.invalidY, stats.invalidZ =
+                details.x, details.y, details.z
+        end
     end
     if ok and self.validate then
         local valid, validationReason, extra = self.validate(
@@ -225,8 +236,16 @@ function Selector:prerender()
     if not self.dragging then
         local square, x, y, z = self:pickSquare(getMouseX(), getMouseY())
         if square then
+            local hoverColor = { r = 1, g = 1, b = 1, a = 0.45 }
+            if self.requiredSquareRule then
+                local valid = SquareRules.MatchSquare(
+                    square, self.requiredSquareRule, self.squareRuleContext)
+                hoverColor = valid
+                    and { r = 0.2, g = 1, b = 0.35, a = 0.55 }
+                    or { r = 1, g = 0.18, b = 0.12, a = 0.62 }
+            end
             addAreaHighlightForPlayer(self.playerNum, x, y, x + 1, y + 1, z,
-                1, 1, 1, 0.45)
+                hoverColor.r, hoverColor.g, hoverColor.b, hoverColor.a)
         end
     end
 end
@@ -280,6 +299,9 @@ function Selector:new(options)
     end
     object.guideRenderZ = options.guideRenderZ
     object.maxTiles = tonumber(options.maxTiles)
+    object.requiredSquareRule = options.requiredSquareRule
+        and tostring(options.requiredSquareRule) or nil
+    object.squareRuleContext = options.squareRuleContext
     object.validate = options.validate
     object.onConfirm, object.onCancel = options.onConfirm, options.onCancel
     object.ownerWindow = options.ownerWindow
