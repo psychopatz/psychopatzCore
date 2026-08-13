@@ -11,6 +11,10 @@ Bootstrap.CONFIG_FILE = "PsychopatzCore_Profiler.txt"
 Bootstrap.mode = Bootstrap.mode or Bootstrap.MODE_OFF
 Bootstrap.captureConfig = Bootstrap.captureConfig or nil
 Bootstrap.captureControllers = Bootstrap.captureControllers or {}
+Bootstrap.roleStarters = Bootstrap.roleStarters or {}
+Bootstrap.activeRoles = Bootstrap.activeRoles or {}
+
+local ROLE_ORDER = { "server", "client" }
 
 local function normalizeMode(value)
     value = string.upper(string.match(tostring(value or "OFF"), "^%s*(.-)%s*$") or "OFF")
@@ -83,19 +87,6 @@ local function readConfiguredConfig()
     return buildConfig(values)
 end
 
-local function startRoleModules()
-    local server = isServer and isServer() or false
-    local client = isClient and isClient() or false
-    if server then
-        local bridge = require "PsychopatzCore/Profiler/PsychopatzProfilerServer"
-        if bridge and bridge.Start then bridge.Start() end
-    end
-    if client or not server then
-        local bridge = require "PsychopatzCore/Profiler/PsychopatzProfilerClient"
-        if bridge and bridge.Start then bridge.Start() end
-    end
-end
-
 function Bootstrap.IsEnabled()
     return Bootstrap.mode ~= Bootstrap.MODE_OFF
 end
@@ -134,6 +125,20 @@ function Bootstrap.RegisterCaptureController(id, callback)
     if type(id) ~= "string" or id == "" or type(callback) ~= "function" then return false end
     if Bootstrap.captureControllers[id] then return false end
     Bootstrap.captureControllers[id] = callback
+    if Bootstrap.initialized or Bootstrap.IsEnabled() then
+        local ok, value = pcall(callback, Bootstrap.GetCaptureConfig())
+        if not ok or value == false then
+            Bootstrap.captureControllers[id] = nil
+            return false
+        end
+    end
+    return true
+end
+
+function Bootstrap.UnregisterCaptureController(id)
+    id = tostring(id or "")
+    if id == "" or not Bootstrap.captureControllers[id] then return false end
+    Bootstrap.captureControllers[id] = nil
     return true
 end
 
@@ -145,7 +150,67 @@ local function notifyCaptureControllers(config)
     end
     table.sort(applied)
     table.sort(failed)
+    Bootstrap.lastControllersApplied = applied
+    Bootstrap.lastControllersFailed = failed
     return applied, failed
+end
+
+function Bootstrap.StartRole(role)
+    role = tostring(role or "")
+    if not Bootstrap.IsEnabled() then
+        return false, "disabled"
+    end
+    if Bootstrap.activeRoles[role] then
+        return true
+    end
+    local starter = Bootstrap.roleStarters[role]
+    if type(starter) ~= "function" then
+        return false, "not_registered"
+    end
+    local ok, started = pcall(starter)
+    if not ok then
+        print("[PsychopatzProfiler][WARN] role_start_failed role="
+            .. role .. " error=" .. tostring(started))
+        return false, tostring(started)
+    end
+    if started == false then
+        return false, "starter_rejected"
+    end
+    Bootstrap.activeRoles[role] = true
+    return true
+end
+
+function Bootstrap.RegisterRoleStarter(role, callback)
+    role = tostring(role or "")
+    if role == "" or type(callback) ~= "function" then
+        return false, "invalid_starter"
+    end
+    if Bootstrap.roleStarters[role] then
+        return false, "already_registered"
+    end
+    Bootstrap.roleStarters[role] = callback
+    if Bootstrap.IsEnabled() then
+        return Bootstrap.StartRole(role)
+    end
+    return true
+end
+
+local function startRegisteredRoles()
+    local failed = {}
+    local index
+    local role
+    local started
+    local reason
+    for index = 1, #ROLE_ORDER do
+        role = ROLE_ORDER[index]
+        if Bootstrap.roleStarters[role] then
+            started, reason = Bootstrap.StartRole(role)
+            if not started then
+                failed[#failed + 1] = role .. ":" .. tostring(reason)
+            end
+        end
+    end
+    return #failed == 0, failed
 end
 
 function Bootstrap.Enable(mode)
@@ -169,7 +234,8 @@ function Bootstrap.Enable(mode)
         capture = config.enabled,
         runtime = Bootstrap.GetRuntimeMetadata(),
     })
-    startRoleModules()
+    startRegisteredRoles()
+    notifyCaptureControllers(config)
     print("[PsychopatzProfiler] runtime=" .. runtimeID()
         .. " config=" .. config.fingerprint)
     return Profiler
@@ -182,6 +248,7 @@ function Bootstrap.Disable()
     if client and client.Stop then client.Stop() end
     local server = rawget(PsychopatzCore, "ProfilerServer")
     if server and server.Stop then server.Stop() end
+    Bootstrap.activeRoles = {}
     Bootstrap.mode = Bootstrap.MODE_OFF
     return true
 end
@@ -203,11 +270,13 @@ function Bootstrap.ApplyCaptureConfig(arguments)
     Bootstrap.captureConfig, Bootstrap.mode = config, config.mode
     if config.mode == Bootstrap.MODE_OFF then
         Bootstrap.Disable()
+        notifyCaptureControllers(config)
     else
         local profiler, reason = Bootstrap.Enable(config.mode)
         if not profiler then return nil, reason or "profiler could not start" end
     end
-    local applied, failed = notifyCaptureControllers(config)
+    local applied = Bootstrap.lastControllersApplied or {}
+    local failed = Bootstrap.lastControllersFailed or {}
     return { applied = #failed == 0, restart_required = #failed > 0,
         runtime_id = runtimeID(), config_fingerprint = config.fingerprint,
         capture = { performance = config.enabled.performance == true,
@@ -229,5 +298,6 @@ Bootstrap.NormalizeMode = normalizeMode
 Bootstrap.BuildConfig = buildConfig
 Bootstrap.ReadConfiguredConfig = readConfiguredConfig
 Bootstrap.ReadConfiguredMode = function() return readConfiguredConfig().mode end
+Bootstrap.StartRegisteredRoles = startRegisteredRoles
 
 return Bootstrap

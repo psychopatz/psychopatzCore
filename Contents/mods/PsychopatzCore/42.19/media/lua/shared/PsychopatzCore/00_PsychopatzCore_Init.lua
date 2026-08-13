@@ -55,9 +55,5 @@ require "PsychopatzCore/Traits/PsychopatzTraitRegistry"
 
 ProfilerBootstrap.Initialize()
 BridgeBootstrap.Initialize()
-if BridgeBootstrap.IsEnabled() then
-    local ProfilerBridge = require "PsychopatzCore/Profiler/PsychopatzProfilerBridge"
-    ProfilerBridge.Register()
-end
 
 return Core

@@ -80,6 +80,7 @@ class TkinterProfilerUI:
         self.bridge_latency_var = tk.StringVar(value="N/A")
         self.bridge_pending_var = tk.StringVar(value="0")
         self.bridge_request_actions = {}
+        self.pending_live_config: Optional[CaptureConfig] = None
         self.live_profiler_fingerprint = None
         self.live_profiler_runtime_id = None
         self.profiler_runtime_active = False
@@ -179,7 +180,7 @@ class TkinterProfilerUI:
 
         bridge_setup = ttk.LabelFrame(self.bridge_tab, text="LOCAL PSYCHOPATZ BRIDGE", padding=10)
         bridge_setup.pack(fill="x")
-        ttk.Checkbutton(bridge_setup, text="Enable bridge at next PZ startup",
+        ttk.Checkbutton(bridge_setup, text="Enable local control bridge",
                         variable=self.bridge_enabled_var).grid(row=0, column=0, sticky="w")
         ttk.Button(bridge_setup, text="Save Bridge Setting",
                    command=self.save_bridge_setting).grid(row=0, column=1, padx=8)
@@ -200,9 +201,6 @@ class TkinterProfilerUI:
         ttk.Button(bridge_actions, text="Ping Runtime", command=self.bridge_ping).pack(side="left")
         ttk.Button(bridge_actions, text="Refresh Capabilities",
                    command=self.bridge_refresh_capabilities).pack(side="left", padx=6)
-        self.bridge_apply_button = ttk.Button(
-            bridge_actions, text="Apply Profiler Settings Live", command=self.apply_capture_setup_live)
-        self.bridge_apply_button.pack(side="left")
         capabilities = ttk.LabelFrame(self.bridge_tab, text="REGISTERED CAPABILITIES", padding=6)
         capabilities.pack(fill="both", expand=True)
         self.bridge_capabilities = ttk.Treeview(
@@ -376,10 +374,7 @@ class TkinterProfilerUI:
                     "No NPC selected",
                     "NPC Data will expose only the lightweight NPC roster until IDs are entered. Continue?"):
                 return
-        if self.bridge_status_var.get() == "CONNECTED":
-            self._submit_live_capture_config(config)
-        else:
-            self._write_capture_config(config)
+        self._apply_capture_config_pipeline(config)
 
     @staticmethod
     def _bridge_capture_arguments(config: CaptureConfig) -> dict[str, Any]:
@@ -389,22 +384,57 @@ class TkinterProfilerUI:
                 "npc_interval_ms": config.npc_interval_ms,
                 "npc_scope": config.npc_scope, "npc_ids": list(config.npc_ids)}
 
-    def apply_capture_setup_live(self) -> None:
-        config = self._capture_config_from_controls()
-        if not config.sections:
-            messagebox.showwarning("Nothing selected", "Select at least one capture section.")
+    def _apply_capture_config_pipeline(self, config: CaptureConfig) -> None:
+        bridge_config = read_bridge_config(self.bridge_config_path)
+        if not bridge_config.enabled:
+            self.pending_live_config = None
+            self._write_capture_config_for_restart(config)
             return
-        self._submit_live_capture_config(config)
-
-    def _submit_live_capture_config(self, config: CaptureConfig) -> None:
         try:
             write_capture_config(config, self.game_config_path)
+        except (OSError, PermissionError, ValueError) as error:
+            messagebox.showerror("Profiler configuration failed", str(error))
+            return
+        self.refresh_game_mode()
+        if self.bridge_status_var.get() == "CONNECTED":
+            self._submit_live_capture_config(config, persist=False)
+            return
+        self.pending_live_config = config
+        self.bridge_response_var.set(
+            "Settings saved; waiting for the enabled local bridge")
+
+    def _write_capture_config_for_restart(self, config: CaptureConfig) -> None:
+        try:
+            path = write_capture_config(config, self.game_config_path)
+        except (OSError, PermissionError, ValueError) as error:
+            messagebox.showerror(
+                "Could not update profiler",
+                f"Failed to write the game configuration:\n{error}",
+            )
+            return
+        self.refresh_game_mode()
+        if config.mode == "OFF":
+            message = "Profiling is configured OFF."
+        else:
+            message = f"Capture configured for: {', '.join(config.sections)}."
+        messagebox.showinfo(
+            "Game restart required",
+            f"{message}\n\nThe Local Control Bridge is disabled, so restart "
+            f"Project Zomboid to apply this configuration.\n\nConfiguration: {path}",
+        )
+
+    def _submit_live_capture_config(self, config: CaptureConfig, *, persist: bool = True) -> bool:
+        try:
+            if persist:
+                write_capture_config(config, self.game_config_path)
             request_id = self.bridge_client.submit(
                 "psychopatzcore.profiler", "configure", self._bridge_capture_arguments(config))
             self.bridge_request_actions[request_id] = "configure"
             self.bridge_response_var.set("Profiler configuration submitted")
+            return True
         except (OSError, RuntimeError, ValueError) as error:
             messagebox.showerror("Live configuration failed", str(error))
+            return False
 
     def save_bridge_setting(self) -> None:
         current = read_bridge_config(self.bridge_config_path)
@@ -418,19 +448,23 @@ class TkinterProfilerUI:
             messagebox.showerror("Bridge configuration failed", str(error))
             return
         messagebox.showinfo(
-            "Bridge restart required",
-            "Restart Project Zomboid to apply the bridge startup setting.\n\n"
-            "Once active, profiler capture settings can be changed live.")
+            "Bridge setting saved",
+            "When profiling is active, enabling the bridge is detected live. "
+            "If both profiling and the bridge are currently OFF, one startup is required "
+            "because no game-side listener is running.")
 
     def bridge_ping(self) -> None:
-        self._submit_bridge_action("ping")
+        marker = f"desktop-{time.time_ns()}"
+        self._submit_bridge_action("ping", {"console_marker": marker})
 
     def bridge_refresh_capabilities(self) -> None:
         self._submit_bridge_action("capabilities")
 
-    def _submit_bridge_action(self, command: str) -> None:
+    def _submit_bridge_action(self, command: str,
+                              arguments: Optional[dict[str, Any]] = None) -> None:
         try:
-            request_id = self.bridge_client.submit("psychopatzcore.bridge", command)
+            request_id = self.bridge_client.submit(
+                "psychopatzcore.bridge", command, arguments or {})
             self.bridge_request_actions[request_id] = command
             self.bridge_response_var.set(f"{command} submitted")
         except (OSError, RuntimeError, ValueError) as error:
@@ -444,10 +478,7 @@ class TkinterProfilerUI:
                                    moddata_interval_ms=config.moddata_interval_ms,
                                    npc_interval_ms=config.npc_interval_ms,
                                    npc_scope=config.npc_scope, npc_ids=config.npc_ids)
-        if self.bridge_status_var.get() == "CONNECTED":
-            self._submit_live_capture_config(config)
-        else:
-            self._write_capture_config(config)
+        self._apply_capture_config_pipeline(config)
 
     def toggle_profiler_enabled(self) -> None:
         config = read_capture_config(self.game_config_path)
@@ -464,33 +495,19 @@ class TkinterProfilerUI:
         self.profiler_toggle_button.configure(
             text="Disable Profiling" if self.profiler_runtime_active else "Enable Profiling")
 
-    def _write_capture_config(self, config: CaptureConfig) -> None:
-        try:
-            path = write_capture_config(config, self.game_config_path)
-        except (OSError, PermissionError, ValueError) as error:
-            messagebox.showerror("Could not update profiler", f"Failed to write the game configuration:\n{error}")
-            return
-        self.refresh_game_mode()
-        if config.mode == "DETAILED":
-            message = (
-                f"Capture configured for: {', '.join(config.sections)}.\n\n"
-                "Fully close and restart Project Zomboid, then load your save. "
-                "This status changes to APPLIED only when a new runtime reports the same configuration."
-            )
-        else:
-            message = (
-                "Profiling is configured OFF.\n\n"
-                "Fully close and restart Project Zomboid to return to strict zero-overhead mode."
-            )
-        messagebox.showinfo("Game restart required", f"{message}\n\nConfiguration: {path}")
-
     def refresh_candidates(self, auto_connect: bool = True) -> None:
         self.candidates = self.monitor.discover()
         self.process_combo["values"] = [candidate.label for candidate in self.candidates]
+        connected = next(
+            (candidate for candidate in self.candidates if candidate.pid == self.monitor.pid),
+            None,
+        )
         preferred = select_preferred_candidate(self.candidates, self.app_settings)
-        displayed = preferred or (self.candidates[0] if self.candidates else None)
-        if displayed and (not self.process_var.get() or preferred):
+        displayed = connected or preferred or (self.candidates[0] if self.candidates else None)
+        if displayed:
             self.process_var.set(displayed.label)
+        elif self.monitor.process is None:
+            self.process_var.set("")
         if auto_connect and self.monitor.process is None:
             target = preferred if self.app_settings.auto_connect else None
             if target is None and not self.app_settings.has_preferred_process and len(self.candidates) == 1:
@@ -562,19 +579,34 @@ class TkinterProfilerUI:
     def poll(self) -> None:
         if self.closed:
             return
+        try:
+            self._poll_once()
+        except Exception as error:
+            # Tk callbacks stop recurring after an uncaught exception. Keep the
+            # monitor alive and make the failure visible so a transient render,
+            # process, or partial-file error cannot freeze the whole window.
+            message = f"viewer refresh failed: {type(error).__name__}: {error}"
+            self.status_var.set("UPDATE ERROR")
+            self.snapshot_var.set(message[:240])
+            self.warning_var.set(message[:240])
+        finally:
+            if not self.closed:
+                self.root.after(int(self.interval * 1000), self.poll)
+
+    def _poll_once(self) -> None:
         if self.paused:
             self._poll_bridge(self.model.last_process)
-            self.root.after(int(self.interval * 1000), self.poll)
             return
         process = self.monitor.sample()
         if not process.get("connected") and self.monitor.process is None:
             self.refresh_candidates()
+            if self.monitor.process is not None:
+                process = self.monitor.sample()
         snapshot = self.reader.read()
         self.model.update(process, snapshot)
         self._poll_bridge(process)
         self._update_llm_report(process, snapshot)
         self._render(process, snapshot)
-        self.root.after(int(self.interval * 1000), self.poll)
 
     def _poll_bridge(self, process: dict[str, Any]) -> None:
         config = read_bridge_config(self.bridge_config_path)
@@ -594,11 +626,18 @@ class TkinterProfilerUI:
         elif not process.get("connected"):
             self.bridge_status_var.set("DISCONNECTED")
         elif not runtime:
-            self.bridge_status_var.set("RESTART REQUIRED / WAITING")
+            self.bridge_status_var.set(
+                "ACTIVATING / WAITING" if self.profiler_runtime_active
+                else "STARTUP REQUIRED / WAITING")
         elif runtime.get("config_fingerprint") != config.fingerprint:
             self.bridge_status_var.set("RESTART REQUIRED")
         else:
             self.bridge_status_var.set("CONNECTED")
+        if self.bridge_status_var.get() == "CONNECTED" and self.pending_live_config is not None:
+            pending = self.pending_live_config
+            self.pending_live_config = None
+            if not self._submit_live_capture_config(pending, persist=False):
+                self.pending_live_config = pending
         self.bridge_runtime_var.set(str((runtime or {}).get("runtime_id") or "N/A"))
         self.bridge_protocol_var.set(str((runtime or {}).get("protocol_version") or "N/A"))
         if self.live_profiler_runtime_id and (runtime or {}).get("runtime_id") != self.live_profiler_runtime_id:
@@ -612,7 +651,11 @@ class TkinterProfilerUI:
             action = self.bridge_request_actions.pop(response.request_id, "request")
             if response.status == "ok":
                 self.bridge_response_var.set(f"{action}: OK from {response.runtime_id}")
-                if action == "capabilities":
+                if action == "ping":
+                    marker = str((response.result or {}).get("console_marker") or "unknown")
+                    self.bridge_response_var.set(
+                        f"ping: OK from {response.runtime_id} — console marker {marker}")
+                elif action == "capabilities":
                     self._render_bridge_capabilities((response.result or {}).get("namespaces") or {})
                 elif action == "configure":
                     result = response.result or {}
@@ -686,7 +729,7 @@ class TkinterProfilerUI:
             self.metrics.insert(
                 "", "end",
                 text="No profiler snapshot",
-                values=("Enable DETAILED mode, then restart Project Zomboid", "status"),
+                values=("Apply settings or enable DETAILED mode", "status"),
             )
             return
         display_names = {name: data.get("displayName", name) for name, data in (snapshot or {}).get("namespaces", {}).items()}
@@ -1212,7 +1255,12 @@ class TkinterProfilerUI:
                 npc_var.get()),
         ).pack(side="right", padx=(0, 6))
         dialog.protocol("WM_DELETE_WINDOW", dialog.destroy)
-        dialog.grab_set()
+        try:
+            dialog.grab_set()
+        except tk.TclError:
+            # Another application can briefly own the desktop grab. The export
+            # dialog remains usable without making that transient state fatal.
+            pass
 
     def _perform_llm_export(self, dialog: Any, include_performance: bool,
                             include_moddata: bool, npc_id: Optional[str],

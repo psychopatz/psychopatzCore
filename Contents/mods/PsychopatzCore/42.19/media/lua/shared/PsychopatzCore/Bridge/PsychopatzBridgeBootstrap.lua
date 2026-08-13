@@ -5,6 +5,7 @@ PsychopatzCore.BridgeBootstrap = Bootstrap
 
 Bootstrap.CONFIG_FILE = "PsychopatzCore_Bridge.txt"
 Bootstrap.enabled = false
+Bootstrap.ACTIVATION_SAMPLER = "PsychopatzCore.bridgeActivation"
 
 local function truthy(value)
     value = string.lower(tostring(value or "false"))
@@ -39,10 +40,9 @@ end
 function Bootstrap.IsEnabled() return Bootstrap.enabled == true end
 function Bootstrap.GetConfig() return Bootstrap.config or readConfig() end
 
-function Bootstrap.Initialize()
-    if Bootstrap.initialized then return Bootstrap.IsEnabled() end
-    Bootstrap.initialized = true
-    Bootstrap.config = readConfig()
+local function activate(config)
+    if Bootstrap.enabled then return true end
+    Bootstrap.config = config or readConfig()
     if not Bootstrap.config.enabled then return false end
     local allowed, authority = authoritative()
     if not allowed then return false end
@@ -56,11 +56,47 @@ function Bootstrap.Initialize()
         pollIntervalMs = Bootstrap.config.pollIntervalMs,
         transport = Transport, authority = authority }) == true
     if Bootstrap.enabled then
+        local Profiler = PsychopatzCore and PsychopatzCore.Profiler
+        if Profiler and Profiler.UnregisterSampler then
+            Profiler.UnregisterSampler(Bootstrap.ACTIVATION_SAMPLER)
+        end
+        local ProfilerBridge = require "PsychopatzCore/Profiler/PsychopatzProfilerBridge"
+        ProfilerBridge.Register()
         print("[PsychopatzBridge] runtime=" .. runtime.id
             .. " config=" .. Bootstrap.config.fingerprint .. " authority=" .. authority)
     end
     return Bootstrap.enabled
 end
 
+function Bootstrap.TryActivate()
+    if Bootstrap.enabled then return true end
+    return activate(readConfig())
+end
+
+local function installActivationProbe()
+    local allowed = authoritative()
+    if not allowed then return false end
+    local Profiler = PsychopatzCore and PsychopatzCore.Profiler
+    if not Profiler or not Profiler.IsRunning or not Profiler.IsRunning() then return false end
+    local section = nil
+    for _, candidate in ipairs({ "performance", "moddata", "npc" }) do
+        if Profiler.IsSectionEnabled(candidate) then section = candidate break end
+    end
+    if not section then return false end
+    return Profiler.RegisterSampler(Bootstrap.ACTIVATION_SAMPLER, function()
+        Bootstrap.TryActivate()
+    end, { section = section })
+end
+
+function Bootstrap.Initialize()
+    if Bootstrap.initialized then return Bootstrap.IsEnabled() end
+    Bootstrap.initialized = true
+    Bootstrap.config = readConfig()
+    if activate(Bootstrap.config) then return true end
+    installActivationProbe()
+    return false
+end
+
 Bootstrap.ReadConfig = readConfig
+Bootstrap.InstallActivationProbe = installActivationProbe
 return Bootstrap

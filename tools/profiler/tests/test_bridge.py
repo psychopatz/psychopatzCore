@@ -63,7 +63,7 @@ class FileTransportTests(unittest.TestCase):
             "protocol_version": 1, "request_id": request.request_id,
             "runtime_id": "runtime-a", "status": "ok", "result": {}, "error": None,
         }))
-        (self.transport.responses / f"slot-{slot:02d}.ready").write_text("ready")
+        (self.transport.responses / f"slot-{slot:02d}.ready.txt").write_text("ready")
         self.assertEqual(self.transport.read_response(slot, request.request_id).runtime_id, "runtime-a")
         self.transport.release(slot)
         self.assertFalse(request_path.exists())
@@ -80,7 +80,7 @@ class FileTransportTests(unittest.TestCase):
         request = BridgeRequest("psychopatzcore.bridge", "ping")
         slot = self.transport.submit(request)
         name = f"slot-{slot:02d}"
-        (self.transport.responses / f"{name}.ready").write_text("ready")
+        (self.transport.responses / f"{name}.ready.txt").write_text("ready")
         with self.assertRaises(BridgeProtocolError):
             self.transport.read_response(slot, request.request_id)
         (self.transport.responses / f"{name}.json").write_text("{")
@@ -113,9 +113,9 @@ class FileTransportTests(unittest.TestCase):
             "protocol_version": 1, "runtime_id": "current", "future": {"ok": True},
             "namespaces": {},
         }))
-        (self.transport.state / "runtime.ready").write_text("ready")
+        (self.transport.state / "runtime.ready.txt").write_text("ready")
         self.assertIsNone(self.transport.read_runtime())
-        (self.transport.state / "runtime.ready").write_text("current")
+        (self.transport.state / "runtime.ready.txt").write_text("current")
         self.assertEqual(self.transport.read_runtime()["runtime_id"], "current")
 
 
@@ -134,7 +134,7 @@ class BridgeClientTests(unittest.TestCase):
             (transport.state / "runtime.json").write_text(json.dumps({
                 "protocol_version": 1, "runtime_id": "new", "namespaces": {},
             }))
-            (transport.state / "runtime.ready").write_text("new")
+            (transport.state / "runtime.ready.txt").write_text("new")
             self.assertEqual(client.refresh_runtime()["runtime_id"], "new")
 
 

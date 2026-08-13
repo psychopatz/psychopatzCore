@@ -37,7 +37,7 @@ end
 
 function Transport.ReadRequest(slot)
     local name = slotName(slot)
-    if readFile(Transport.RESPONSE_ROOT .. name .. ".ready", 32) then return nil end
+    if readFile(Transport.RESPONSE_ROOT .. name .. ".ready.txt", 32) then return nil end
     local text, reason = readFile(Transport.REQUEST_ROOT .. name .. ".json", Protocol.MAX_REQUEST_BYTES)
     if not text then return nil, reason end
     local request, parseReason = Protocol.Decode(text)
@@ -50,7 +50,7 @@ function Transport.WriteResponse(slot, response)
     if not encoded then return false, reason end
     local name = slotName(slot)
     if not writeFile(Transport.RESPONSE_ROOT .. name .. ".json", encoded) then return false, "write_failed" end
-    if not writeFile(Transport.RESPONSE_ROOT .. name .. ".ready", response.request_id) then
+    if not writeFile(Transport.RESPONSE_ROOT .. name .. ".ready.txt", response.request_id) then
         return false, "marker_failed"
     end
     return true
@@ -60,7 +60,7 @@ function Transport.WriteRuntime(runtime)
     local encoded, reason = Protocol.Encode(runtime)
     if not encoded then return false, reason end
     if not writeFile(Transport.STATE_ROOT .. "runtime.json", encoded) then return false, "write_failed" end
-    return writeFile(Transport.STATE_ROOT .. "runtime.ready", runtime.runtime_id)
+    return writeFile(Transport.STATE_ROOT .. "runtime.ready.txt", runtime.runtime_id)
 end
 
 return Transport

@@ -8,6 +8,12 @@ arbitrary Psychopatz mods. It does not assign process memory to an individual mo
 
 The tiny `PsychopatzProfilerBootstrap` is the only profiler component required by
 Core in an OFF session. It reads one configuration value during startup and stops.
+The shared bootstrap never requires client or server implementation files.
+Thin `00_PsychopatzCore_Client_Init.lua` and
+`00_PsychopatzCore_Server_Init.lua` anchors delegate to layer-specific
+composition roots. Those roots register dormant role starters, and an enabled
+bootstrap starts each role only after PZ has made that layer's Lua path
+available.
 The generic backend lives under `common/media/lua/shared`, split into a stable
 entry/API, bounded-history, analysis, and snapshot modules. The Project Zomboid
 bootstrap, clock, event, snapshot-file, client UI, and multiplayer adapters live
@@ -35,12 +41,12 @@ Developers embedding Core can set `PSYCHOPATZ_PROFILER_MODE` to `BASIC` or
 
 At runtime, `PsychopatzCore.ProfilerBootstrap.Disable()` stops Core callbacks,
 network handlers, histories, metrics, warnings, samplers, and the GUI. Hot
-functions and heavy modules are deliberately selected during startup. After an
-OFF startup or a runtime stop, restart the game/server with an enabled mode to
-install full instrumentation again. A late `Enable(mode)` may return
-`restart_required`; this tradeoff keeps an OFF hot path identical to the
-original function and prevents PZ's automatic script discovery from constructing
-the dormant backend or GUI.
+functions and heavy modules are restored by registered cleanup hooks. An active
+local bridge can enable or reconfigure the profiler again without restarting.
+The desktop app never enables that bridge implicitly: when its explicit setting
+is OFF, profiler changes retain the restart-based compatibility path.
+If both bridge and profiler started OFF, one startup is required because strict
+OFF deliberately has no recurring listener.
 
 ## Disabled mode
 
@@ -48,8 +54,10 @@ OFF performs one startup configuration read. Discovered profiler implementation
 files immediately return at their startup guard. They do not create the profiler
 API/backend table, metric registry, histories, timers, gauges, warnings, ring
 buffers, snapshot writers, GUI, profiler networking, or sampling callbacks.
-There is no profiler `OnTick` or recurring event. The bootstrap table and its
-small set of lifecycle/configuration functions remain loaded. A consumer may
+There is no profiler `OnTick` or recurring event. The bootstrap table, its small
+set of lifecycle/configuration functions, and one dormant role-starter closure
+for the active runtime layer remain loaded. The closure has no event hook and is
+never called while OFF. A consumer may
 also load its tiny startup integration gate; Project Hoomans allocates no
 profiler metric state and installs no wrappers when that gate sees OFF.
 
@@ -79,6 +87,31 @@ Every metric name must contain a namespace followed by a path, such as
 `FutureMod.Market.Refresh`. Registration supplies friendly metadata but is not
 required. Keep names in static locals/upvalues; do not concatenate names inside
 per-frame loops.
+
+New feature integrations should register once through
+`PsychopatzProfilerFeatureRegistry` instead of duplicating enable/disable and
+capture-section checks:
+
+```lua
+local Features = require "PsychopatzCore/Profiler/PsychopatzProfilerFeatureRegistry"
+Features.Register({
+    id = "FutureMod.World", namespace = "FutureMod", displayName = "Future Mod",
+    sections = { "performance" },
+    samplers = {{ id = "population", callback = function(Profiler)
+        Profiler.SetGauge("FutureMod.World.Population", World.Count())
+    end }},
+    install = function(Profiler, config)
+        local original = World.Update
+        World.Update = Profiler.Wrap("FutureMod.World.Update", original)
+        return function() World.Update = original end
+    end,
+})
+```
+
+The registry owns section gating, runtime reconfiguration, sampler/provider
+unregistration, and cleanup. Require it only after the tiny bootstrap gate says
+profiling or live control is active. In an OFF startup it is not loaded and it
+installs no event callbacks, samplers, providers, wrappers, or per-frame checks.
 
 `RegisterSampler` is useful for logical state owned by gameplay. Its callback is
 called only by an active profiler sample, normally once per second. The profiler
@@ -172,8 +205,9 @@ contents are deliberately excluded from the automatic LLM report.
 Expansion state, selection, and scroll position survive periodic refreshes.
 **Pause Updates** freezes all desktop-side sampling, rendering, CSV rows, and
 LLM report writes while leaving the current snapshot available for inspection.
-It does not stop the already-running in-game Lua profiler; use OFF plus a game
-restart when strict zero-overhead mode is required.
+It does not stop the already-running in-game Lua profiler; use OFF to remove its
+callbacks and instrumentation. Disable the independent bridge as well when its
+bounded control polling is not needed.
 
 Project Hoomans server instrumentation also breaks the outer update and record
 broadcast timings into subsystem phases. Server metrics cover player lifecycle,
@@ -190,5 +224,6 @@ queueing, recipient discovery, payload construction, and payload sending.
   high-frequency graph; the external GUI provides the lightweight RSS graph.
 - Snapshot replacement is reader-tolerant rather than atomically renamed due to
   the portable PZ Lua file API.
-- Profiler backend, GUI, and consumer hot-path instrumentation are selected at
-  startup and require a restart after OFF/disable if they must be enabled again.
+- Live enable requires an already-active profiler activation probe or bridge.
+  When both started OFF, strict zero-recurring-overhead behavior means there is
+  intentionally no listener and the first enable requires a game startup.

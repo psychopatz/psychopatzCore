@@ -17,6 +17,9 @@ Events = {
 local now = 1000
 getTimeInMillis = function() return now end
 PsychopatzCore = {}
+local printed = {}
+local originalPrint = print
+print = function(message) printed[#printed + 1] = tostring(message) end
 
 local Protocol = require "PsychopatzCore/Bridge/PsychopatzBridgeProtocol"
 local valid = Protocol.Decode('{"protocol_version":1,"request_id":"request01","namespace":"psychopatzcore.bridge","command":"ping","arguments":{}}')
@@ -42,10 +45,21 @@ equal(type(tickCallback), "function", "enabled bridge did not register tick")
 equal(transport.runtime.lifecycle, "READY", "runtime state")
 
 requests[0] = { message_type = "request", protocol_version = 1, request_id = "request03",
-    namespace = "psychopatzcore.bridge", command = "ping", arguments = {} }
+    namespace = "psychopatzcore.bridge", command = "ping",
+    arguments = { console_marker = "desktop-test-42" } }
 Bridge.ProcessPendingRequests()
 equal(responses[0].status, "ok", "ping failed")
 equal(responses[0].result.runtime_id, "runtime-new", "ping runtime")
+equal(responses[0].result.console_marker, "desktop-test-42", "ping marker response")
+equal(string.find(printed[#printed], "external_ping marker=desktop%-test%-42") ~= nil,
+    true, "ping did not write console confirmation")
+local printCount = #printed
+requests[0] = { message_type = "request", protocol_version = 1, request_id = "request03",
+    namespace = "psychopatzcore.bridge", command = "ping",
+    arguments = { console_marker = "desktop-test-42" } }
+Bridge.ProcessPendingRequests()
+equal(#printed, printCount, "duplicate request executed ping twice")
+equal(responses[0].result.console_marker, "desktop-test-42", "cached response missing")
 
 requests[1] = { message_type = "request", protocol_version = 1, request_id = "request04",
     target_runtime_id = "runtime-old", namespace = "psychopatzcore.bridge",
@@ -74,4 +88,5 @@ equal(Bridge.GetCapabilities()["example.debug"].commands[1].name, "inspect", "ca
 Bridge.Shutdown()
 equal(tickCallback, nil, "shutdown callback retained")
 
+print = originalPrint
 print("psychopatz bridge smoke: ok")

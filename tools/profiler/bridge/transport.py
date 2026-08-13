@@ -83,7 +83,7 @@ class FileBridgeTransport(BridgeTransport):
             name = self._slot_name(slot)
             request_path = self.requests / f"{name}.json"
             lock_path = self.requests / f"{name}.lock"
-            ready_path = self.responses / f"{name}.ready"
+            ready_path = self.responses / f"{name}.ready.txt"
             response_path = self.responses / f"{name}.json"
             if request_path.exists() or ready_path.exists() or response_path.exists():
                 continue
@@ -102,7 +102,7 @@ class FileBridgeTransport(BridgeTransport):
 
     def read_response(self, slot: int, request_id: str) -> Optional[BridgeResponse]:
         name = self._slot_name(slot)
-        marker = self.responses / f"{name}.ready"
+        marker = self.responses / f"{name}.ready.txt"
         if not marker.exists():
             return None
         path = self.responses / f"{name}.json"
@@ -117,7 +117,7 @@ class FileBridgeTransport(BridgeTransport):
         return response
 
     def read_runtime(self) -> Optional[dict[str, Any]]:
-        marker = self.state / "runtime.ready"
+        marker = self.state / "runtime.ready.txt"
         path = self.state / "runtime.json"
         if not marker.exists():
             return None
@@ -136,7 +136,8 @@ class FileBridgeTransport(BridgeTransport):
     def release(self, slot: int) -> None:
         name = self._slot_name(slot)
         for path in (self.requests / f"{name}.json", self.responses / f"{name}.json",
-                     self.responses / f"{name}.ready", self.requests / f"{name}.lock"):
+                     self.responses / f"{name}.ready.txt", self.responses / f"{name}.ready",
+                     self.requests / f"{name}.lock"):
             try:
                 path.unlink()
             except (FileNotFoundError, PermissionError, OSError):
@@ -149,7 +150,8 @@ class FileBridgeTransport(BridgeTransport):
         for slot in range(SLOT_COUNT):
             name = self._slot_name(slot)
             paths = (self.requests / f"{name}.json", self.responses / f"{name}.json",
-                     self.responses / f"{name}.ready", self.requests / f"{name}.lock")
+                     self.responses / f"{name}.ready.txt", self.responses / f"{name}.ready",
+                     self.requests / f"{name}.lock")
             try:
                 existing = [path for path in paths if path.exists()]
                 expired = existing and max(path.stat().st_mtime for path in existing) < cutoff

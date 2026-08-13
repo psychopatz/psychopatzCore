@@ -7,6 +7,7 @@ local Registry = require "PsychopatzCore/Bridge/PsychopatzBridgeRegistry"
 
 Bridge.PROTOCOL_VERSION = Protocol.VERSION
 Bridge.lifecycle = Bridge.lifecycle or "UNLOADED"
+local MAX_RESPONSE_CACHE = 64
 
 local function nowMs()
     return getTimeInMillis and getTimeInMillis() or 0
@@ -87,12 +88,21 @@ function Bridge.ProcessPendingRequests()
         local slot = (state.nextSlot + offset) % state.slotCount
         local request, readError = state.transport.ReadRequest(slot)
         if request then
-            local response
-            if readError then
-                response = Protocol.Error(request.request_id, state.runtimeID,
-                    "INVALID_REQUEST", "Request JSON is malformed or exceeds limits.")
-            else
-                response = dispatch(request)
+            local requestID = tostring(request.request_id or "")
+            local response = state.responseByRequestID[requestID]
+            if not response then
+                if readError then
+                    response = Protocol.Error(request.request_id, state.runtimeID,
+                        "INVALID_REQUEST", "Request JSON is malformed or exceeds limits.")
+                else
+                    response = dispatch(request)
+                end
+                state.responseByRequestID[requestID] = response
+                state.responseOrder[#state.responseOrder + 1] = requestID
+                if #state.responseOrder > MAX_RESPONSE_CACHE then
+                    local expired = table.remove(state.responseOrder, 1)
+                    state.responseByRequestID[expired] = nil
+                end
             end
             state.transport.WriteResponse(slot, response)
             processed = processed + 1
@@ -112,9 +122,15 @@ local function onTick()
 end
 
 local function registerBuiltins()
-    Registry.Register("psychopatzcore.bridge", "ping", { readOnly = true, handler = function()
+    Registry.Register("psychopatzcore.bridge", "ping", { readOnly = true, handler = function(_, arguments)
+        local marker = tostring(arguments and arguments.console_marker or "desktop")
+        marker = string.gsub(marker, "[^%w_%-%.:]", "_")
+        if #marker > 96 then marker = string.sub(marker, 1, 96) end
+        print("[PsychopatzBridge] external_ping marker=" .. marker
+            .. " runtime=" .. tostring(Bridge.state.runtimeID))
         return { alive = true, runtime_id = Bridge.state.runtimeID,
-            protocol_version = Protocol.VERSION, lifecycle = Bridge.lifecycle }
+            protocol_version = Protocol.VERSION, lifecycle = Bridge.lifecycle,
+            console_marker = marker, console_logged = true }
     end })
     Registry.Register("psychopatzcore.bridge", "capabilities", { readOnly = true, handler = function()
         return { runtime_id = Bridge.state.runtimeID, protocol_version = Protocol.VERSION,
@@ -133,7 +149,7 @@ function Bridge.Initialize(options)
         configFingerprint = options.configFingerprint, pollIntervalMs = options.pollIntervalMs or 250,
         transport = assert(options.transport), authority = options.authority or "server",
         slotCount = math.min(options.slotCount or 16, 16), maxPerCycle = math.min(options.maxPerCycle or 4, 4),
-        nextSlot = 0, lastPollAt = 0,
+        nextSlot = 0, lastPollAt = 0, responseByRequestID = {}, responseOrder = {},
     }
     Registry.namespaces = {}
     Registry.onChanged = Bridge.RefreshRuntimeState

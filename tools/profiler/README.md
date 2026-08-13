@@ -40,9 +40,11 @@ The recommended Project Hoomans workflow is GUI-first. Launch normally:
 
 Choose one or more capture sections under **PROJECT HOOMANS PROFILING SETUP**
 and use **Apply Settings**. **Performance** is the recommended default. ModData
-and NPC capture are independent and remain unregistered when not selected. If
-the External Control bridge is connected, settings are applied immediately;
-otherwise the GUI explains that a PZ restart is required.
+and NPC capture are independent and remain unregistered when not selected.
+The button always persists the configuration. If the Local Control Bridge was
+explicitly enabled and is connected, it also applies the same configuration
+live. When the bridge is disabled, the original restart-required workflow is
+used for backward compatibility and the app does not enable it implicitly.
 
 The adjacent state-aware button reads **Enable Profiling** while profiling is
 OFF and **Disable Profiling** while the current/configured runtime is active.
@@ -50,11 +52,10 @@ Disabling does not erase the selected capture sections, so the next enable
 restores the previous Performance, ModData, and NPC choices.
 
 Every enabled runtime reports a unique runtime ID and the exact configuration
-fingerprint it applied. The GUI shows **RESTART REQUIRED** while that differs
-from the configuration file, and changes to **APPLIED by runtime ...** only
-after the restarted Lua runtime reports a match. OFF keeps the Lua backend
-unloaded; the app instead checks that the game process started after OFF was
-configured.
+fingerprint it applied. The GUI changes to **APPLIED by runtime ...** only after
+the bridge response or snapshot reports an exact match. OFF releases callbacks,
+metrics, histories, providers, and wrappers while preserving the selected
+sections for a later live enable.
 
 The equivalent terminal shortcut remains available for automation:
 
@@ -211,13 +212,24 @@ bridge_transport=file
 bridge_poll_interval_ms=250
 ```
 
-Enable it in **External Control**, save, and restart PZ once. When disabled,
-only the small bootstrap reads this file: the runtime backend is not loaded,
-no update callback or queue exists, and no bridge filesystem polling occurs.
-Once connected, **Apply Settings** can safely reconfigure profiler capture live.
+Enable it explicitly in **External Control** and save the bridge setting. While
+the profiler is active, its existing bounded sample cycle detects that explicit
+activation, starts the bridge, and removes the activation probe. **Apply
+Settings** never enables the bridge implicitly. If the bridge remains disabled,
+the profiler configuration is saved for the next PZ startup. If both profiler
+and bridge started OFF, one game startup is unavoidable because no game-side
+listener exists. In that strict OFF state, only the small bootstraps read their
+configuration once: no update callback, queue, or filesystem polling exists.
+Once the enabled bridge connects, every profiler setup control uses the same
+live configuration pipeline.
 The only initial mutating capability is the validated
 `psychopatzcore.profiler.configure`; infrastructure capabilities are `ping`,
 `capabilities`, and `runtimeInfo`.
+
+**Ping Runtime** sends a unique desktop marker. The game writes
+`[PsychopatzBridge] external_ping marker=...` to `console.txt`, echoes the same
+marker in its response, and the app displays it under **Last response**. This
+verifies both app-to-game delivery and game-to-app response handling.
 
 The file transport uses 16 fixed slots under
 `~/Zomboid/Lua/PsychopatzBridge/`. Python publishes requests atomically. Lua
