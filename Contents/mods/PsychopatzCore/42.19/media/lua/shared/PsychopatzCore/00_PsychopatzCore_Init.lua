@@ -2,6 +2,7 @@ PsychopatzCore = PsychopatzCore or {}
 
 local Core = PsychopatzCore
 
+require "PsychopatzCore/Runtime/PC_RuntimeRole"
 require "PsychopatzCore/Collections/PC_RingBuffer"
 require "PsychopatzCore/Events/PC_EventBus"
 require "PsychopatzCore/Journal/PC_JournalService"

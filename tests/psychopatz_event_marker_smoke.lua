@@ -1,4 +1,4 @@
-local ROOT = "Contents/mods/PsychopatzCore/42.16/media/lua/client/"
+local ROOT = "Contents/mods/PsychopatzCore/42.19/media/lua/client/"
 package.path = ROOT .. "?.lua;" .. package.path
 
 local function assertEqual(actual, expected, label)

@@ -1,12 +1,13 @@
 local Metrics = require "PsychopatzCore/Inventory/PsychopatzInventoryMetrics"
 local C = require "PsychopatzCore/Inventory/PsychopatzInventoryConstants"
 local ItemRecord = require "PsychopatzCore/Inventory/PsychopatzItemRecord"
+local RuntimeRole = require "PsychopatzCore/Runtime/PC_RuntimeRole"
 
 local Transaction = {}
 
 local function authorityAllowed(options)
     if options and options.skipAuthorityCheck then return true end
-    return not (isClient and isClient() == true and (not isServer or isServer() ~= true))
+    return RuntimeRole.AllowsServerCode()
 end
 
 local function rollbackSource(source, removed)

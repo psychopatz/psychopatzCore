@@ -3,15 +3,13 @@ require "PsychopatzCore/00_PsychopatzCore_Init"
 PsychopatzCore.CorpseItems = PsychopatzCore.CorpseItems or {}
 
 local CorpseItems = PsychopatzCore.CorpseItems
+local RuntimeRole = require "PsychopatzCore/Runtime/PC_RuntimeRole"
 
 CorpseItems.INJECTION_KEY_FIELD =
     CorpseItems.INJECTION_KEY_FIELD or "PsychopatzCore_CorpseItemKey"
 
 local function isAuthority()
-    return not (
-        isClient and isClient() == true
-        and not (isServer and isServer() == true)
-    )
+    return RuntimeRole.AllowsServerCode()
 end
 
 local function itemFullType(item)
