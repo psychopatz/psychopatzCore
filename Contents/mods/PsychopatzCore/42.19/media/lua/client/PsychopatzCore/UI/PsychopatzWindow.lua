@@ -38,6 +38,17 @@ local function copySpec(options, width, height)
 end
 
 local function geometrySignature(window)
+    -- ISUIElement geometry getters instantiate the control when javaObject is
+    -- absent.  A base constructor must not instantiate a derived window before
+    -- the derived constructor has initialized its own fields.
+    if window.javaObject == nil then
+        return table.concat({
+            math.floor(tonumber(window.x) or 0),
+            math.floor(tonumber(window.y) or 0),
+            math.floor(tonumber(window.width) or 0),
+            math.floor(tonumber(window.height) or 0),
+        }, ":")
+    end
     return table.concat({
         math.floor(tonumber(window:getX()) or 0),
         math.floor(tonumber(window:getY()) or 0),
@@ -63,6 +74,18 @@ end
 
 function PsychopatzWindow:createChildren()
     ISCollapsableWindow.createChildren(self)
+    -- The vanilla constructor starts pinned and createChildren initially shows
+    -- the collapse control.  Keep the control visibility synchronized when a
+    -- caller explicitly requests an unpinned window before children exist.
+    if self.collapseButton and self.pinButton then
+        self.collapseButton:setVisible(self.pin == true)
+        self.pinButton:setVisible(self.pin ~= true)
+        if self.pin == true then
+            self.collapseButton:bringToTop()
+        else
+            self.pinButton:bringToTop()
+        end
+    end
 end
 
 function PsychopatzWindow:requestResponsiveLayout(force)

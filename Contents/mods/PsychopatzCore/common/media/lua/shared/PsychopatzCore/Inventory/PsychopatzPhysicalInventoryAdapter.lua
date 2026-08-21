@@ -95,18 +95,21 @@ function Physical:iterate()
 end
 
 function Physical:_nativeAdd(item)
-    if self.container.AddItem then
-        local added = self.container:AddItem(item)
-        return added or item
-    end
-    return nil
+    return self:_nativeAddTo(self.container, item)
 end
 
 function Physical:_nativeAddTo(container, item)
     container = container or self.container
     if container and container.AddItem then
         local added = container:AddItem(item)
-        return added or item
+        added = added or item
+        if self.options.syncOnMutation == true
+            and isServer and isServer() == true
+            and sendAddItemToContainer
+        then
+            pcall(sendAddItemToContainer, container, added)
+        end
+        return added
     end
     return nil
 end
@@ -139,9 +142,17 @@ end
 
 function Physical:_nativeRemove(item)
     local container = Util.call(item, "getContainer") or self.container
-    if container.DoRemoveItem then container:DoRemoveItem(item) return true end
-    if container.Remove then container:Remove(item) return true end
-    if container.RemoveItem then container:RemoveItem(item) return true end
+    local removed = false
+    if container.DoRemoveItem then container:DoRemoveItem(item); removed = true
+    elseif container.Remove then container:Remove(item); removed = true
+    elseif container.RemoveItem then container:RemoveItem(item); removed = true end
+    if removed and self.options.syncOnMutation == true
+        and isServer and isServer() == true
+        and sendRemoveItemFromContainer
+    then
+        pcall(sendRemoveItemFromContainer, container, item)
+    end
+    if removed then return true end
     return false
 end
 

@@ -122,19 +122,36 @@ function BaseWindow:derive(name)
     return class
 end
 function BaseWindow:new(x0, y0, width, height)
-    return setmetatable({ x = x0, y = y0, width = width, height = height }, self)
+    return setmetatable({ x = x0, y = y0, width = width, height = height,
+        pin = true }, self)
 end
 function BaseWindow:initialise() end
-function BaseWindow:createChildren() end
+function BaseWindow:createChildren()
+    local function button()
+        return {
+            visible = false,
+            setVisible = function(self, value) self.visible = value end,
+            bringToTop = function(self) self.onTop = true end,
+        }
+    end
+    self.collapseButton = button()
+    self.pinButton = button()
+    self.collapseButton:setVisible(true)
+end
+function BaseWindow:instantiate()
+    if self.javaObject ~= nil then return end
+    self.javaObject = {}
+    self:createChildren()
+end
 function BaseWindow:prerender() end
 function BaseWindow:close() self.visible = false end
 function BaseWindow:removeFromUIManager() self.removed = true end
 function BaseWindow:onMouseUp() end
 function BaseWindow:onMouseUpOutside() end
-function BaseWindow:getX() return self.x end
-function BaseWindow:getY() return self.y end
-function BaseWindow:getWidth() return self.width end
-function BaseWindow:getHeight() return self.height end
+function BaseWindow:getX() self:instantiate() return self.x end
+function BaseWindow:getY() self:instantiate() return self.y end
+function BaseWindow:getWidth() self:instantiate() return self.width end
+function BaseWindow:getHeight() self:instantiate() return self.height end
 function BaseWindow:setX(value) self.x = value end
 function BaseWindow:setY(value) self.y = value end
 function BaseWindow:setWidth(value) self.width = value end
@@ -144,6 +161,40 @@ getTimeInMillis = function() return 1000 end
 dofile(ROOT .. "UI/PsychopatzWindow.lua")
 
 local TestWindow = PsychopatzWindow:derive("SmokeWindow")
+local defaultUnpinned = PsychopatzWindow:new(0, 0, 200, 100, {
+    persistGeometry = false,
+})
+defaultUnpinned:instantiate()
+assertEqual(defaultUnpinned.pin, false, "window keeps reusable unpinned default")
+assertEqual(defaultUnpinned.collapseButton.visible, false,
+    "unpinned window initially hides collapse control")
+assertEqual(defaultUnpinned.pinButton.visible, true,
+    "unpinned window initially shows pin control")
+local initialPinned = PsychopatzWindow:new(0, 0, 200, 100, {
+    persistGeometry = false, pin = true,
+})
+initialPinned:instantiate()
+assertEqual(initialPinned.pin, true, "explicit pinned state retained")
+assertEqual(initialPinned.collapseButton.visible, true,
+    "pinned window initially shows collapse control")
+assertEqual(initialPinned.pinButton.visible, false,
+    "pinned window initially hides pin control")
+local LifecycleWindow = PsychopatzWindow:derive("LifecycleWindow")
+function LifecycleWindow:createChildren()
+    assertEqual(self.requiredState, "ready",
+        "derived state initialized before createChildren")
+end
+function LifecycleWindow:new(x0, y0, width, height, options)
+    local window = PsychopatzWindow.new(self, x0, y0, width, height, options)
+    window.requiredState = "ready"
+    return window
+end
+local lifecycle = PsychopatzCore.UI.NewWindow(LifecycleWindow, {
+    persistGeometry = false,
+    responsiveSpec = { width = 200, height = 100, minWidth = 100, minHeight = 80 },
+})
+assertEqual(lifecycle.javaObject, nil, "constructor does not instantiate derived window")
+assertEqual(lifecycle:getX(), 400, "derived window instantiates after construction")
 local derivedKey
 PsychopatzCore.UI.NewWindow(TestWindow, {
     geometryAdapter = {
