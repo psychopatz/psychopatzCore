@@ -264,4 +264,32 @@ Rules.Register("farmland", {
     end,
 })
 
+-- A growing plot is deliberately stricter than the legacy farmland hint:
+-- at least one tile in the selected rectangle must already be a vanilla
+-- farming furrow. Hoomans never digs or creates this state.
+Rules.Register("farming_furrow", {
+    reason = "FARMING_FURROW_REQUIRED",
+    matches = function(square)
+        local farming = CFarmingSystem and CFarmingSystem.instance or nil
+        if farming and farming.getLuaObjectOnSquare then
+            local ok, plot = pcall(farming.getLuaObjectOnSquare, farming, square)
+            if ok and plot and tostring(plot.state or "") == "plow" then
+                return plot
+            end
+        end
+        local serverFarming = SFarmingSystem and SFarmingSystem.instance or nil
+        if serverFarming and serverFarming.getLuaObjectAt then
+            local x = square and square.getX and square:getX() or 0
+            local y = square and square.getY and square:getY() or 0
+            local z = square and square.getZ and square:getZ() or 0
+            local ok, plot = pcall(serverFarming.getLuaObjectAt,
+                serverFarming, x, y, z)
+            if ok and plot and tostring(plot.state or "") == "plow" then
+                return plot
+            end
+        end
+        return false
+    end,
+})
+
 return Rules
