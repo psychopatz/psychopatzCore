@@ -128,13 +128,15 @@ first.qtyEntry = text("1")
 
 keyHandler(82)
 assert(created == 1, "pressing Numpad 0 on an open window created a duplicate")
-assert(PsychopatzDebugWindow.instance == nil, "executing did not close the singleton")
-assert(first.visible == false and first.removed == true,
-    "executing did not close and remove the debug window")
+assert(PsychopatzDebugWindow.instance == first, "executing closed the singleton instance")
+assert(first.visible == true, "executing hid the debug window")
 assert(#commands == 2 and commands[2].command == "GrantPowers",
     "Numpad 0 did not invoke the execute action")
 assert(commands[2].args.itemID == "Base.Katana" and commands[2].args.doSpawn == true,
     "execute action did not use the selected controls")
+
+first:close()
+assert(PsychopatzDebugWindow.instance == nil, "manual close left a stale singleton instance")
 
 keyHandler(82)
 local second = PsychopatzDebugWindow.instance

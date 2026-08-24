@@ -54,9 +54,9 @@ equal(Bootstrap.Initialize(), false, "profiler must default off")
 require "PsychopatzCore/00_PsychopatzCore_Client_Init"
 equal(sampleAdds, 0, "disabled profiler installed a sampler")
 equal(commandAdds, 0, "disabled profiler installed client networking")
-equal(toolsRegistered, 0, "disabled profiler registered UI")
-equal(package.loaded["PsychopatzCore/Profiler/PsychopatzProfilerClient"], nil,
-    "disabled composition loaded the client implementation")
+equal(toolsRegistered, 1, "disabled profiler did not register its settings UI")
+equal(package.loaded["PsychopatzCore/Profiler/PsychopatzProfilerClient"] ~= nil, true,
+    "disabled composition did not load the lightweight client registration")
 
 local Profiler = Bootstrap.Enable("BASIC")
 equal(type(Profiler), "table", "runtime enable failed")
@@ -67,6 +67,10 @@ equal(toolsRegistered, 1, "profiler tool was not registered")
 Bootstrap.Disable()
 equal(sampleRemoves, 1, "profiler sampler was not removed")
 equal(commandRemoves, 1, "client profiler transport was not removed")
-equal(toolsRemoved, 1, "profiler tool was not removed")
+equal(toolsRemoved, 0, "profiler settings UI was removed while profiling was disabled")
+
+local Client = require "PsychopatzCore/Profiler/PsychopatzProfilerClient"
+Client.Stop()
+equal(toolsRemoved, 1, "profiler client did not clean up its registered UI")
 
 print("psychopatz profiler client composition: ok")

@@ -87,6 +87,22 @@ local function readConfiguredConfig()
     return buildConfig(values)
 end
 
+local function serializeConfig(config)
+    local sections = table.concat(config.sections or {}, ",")
+    local npcIDs = table.concat(config.npcIDs or {}, ",")
+    return table.concat({
+        "config_version=2",
+        "mode=" .. tostring(config.mode or Bootstrap.MODE_OFF),
+        "capture=" .. sections,
+        "performance_interval_ms=" .. tostring(config.performanceIntervalMs or 1000),
+        "moddata_interval_ms=" .. tostring(config.modDataIntervalMs or 60000),
+        "npc_interval_ms=" .. tostring(config.npcIntervalMs or 5000),
+        "npc_scope=" .. tostring(config.npcScope or "selected"),
+        "npc_ids=" .. npcIDs,
+        "",
+    }, "\n")
+end
+
 function Bootstrap.IsEnabled()
     return Bootstrap.mode ~= Bootstrap.MODE_OFF
 end
@@ -97,6 +113,22 @@ end
 
 function Bootstrap.GetCaptureConfig()
     return Bootstrap.captureConfig or buildConfig({ mode = Bootstrap.mode })
+end
+
+function Bootstrap.WriteConfiguredConfig(config)
+    if not getFileWriter then return false, "file_writer_unavailable" end
+    config = config or Bootstrap.GetCaptureConfig()
+    local writer = getFileWriter(Bootstrap.CONFIG_FILE, true, false)
+    if not writer or not writer.write then return false, "file_writer_unavailable" end
+    local ok, reason = pcall(function()
+        writer:write(serializeConfig(config))
+        if writer.close then writer:close() end
+    end)
+    if not ok then
+        if writer.close then pcall(function() writer:close() end) end
+        return false, tostring(reason)
+    end
+    return true
 end
 
 function Bootstrap.IsSectionEnabled(section)
@@ -235,6 +267,8 @@ function Bootstrap.Enable(mode)
         runtime = Bootstrap.GetRuntimeMetadata(),
     })
     startRegisteredRoles()
+    local client = rawget(PsychopatzCore, "ProfilerClient")
+    if client and client.SetCaptureActive then client.SetCaptureActive(true) end
     notifyCaptureControllers(config)
     print("[PsychopatzProfiler] runtime=" .. runtimeID()
         .. " config=" .. config.fingerprint)
@@ -245,7 +279,8 @@ function Bootstrap.Disable()
     local profiler = rawget(PsychopatzCore, "Profiler")
     if profiler and profiler.Stop then profiler.Stop() end
     local client = rawget(PsychopatzCore, "ProfilerClient")
-    if client and client.Stop then client.Stop() end
+    if client and client.SetCaptureActive then client.SetCaptureActive(false) end
+    if client and client.ClearServerSnapshot then client.ClearServerSnapshot() end
     local server = rawget(PsychopatzCore, "ProfilerServer")
     if server and server.Stop then server.Stop() end
     Bootstrap.activeRoles = {}

@@ -3,7 +3,8 @@ local Server = PsychopatzCore.ProfilerServer
 
 local function onClientCommand(module, command, player)
     if module ~= PsychopatzCore.COMMAND_MODULE or command ~= "ProfilerSnapshotRequest" then return end
-    if not PsychopatzCore.IsOwner(player) then return end
+    local debugAccess = PsychopatzCore.Debug
+    if not debugAccess or not debugAccess.CanUse or not debugAccess.CanUse(player) then return end
     local profiler = PsychopatzCore.Profiler
     local snapshot = profiler and profiler.IsRunning and profiler.IsRunning()
         and profiler.BuildSnapshot() or nil

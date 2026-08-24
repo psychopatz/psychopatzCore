@@ -18,10 +18,16 @@ if not allowsClient then
 end
 
 local Bootstrap = require "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"
+local Client = require "PsychopatzCore/Profiler/PsychopatzProfilerClient"
+
+-- Keep only the small debug-gated tool registration alive while profiling is
+-- OFF.  The profiler backend and its sampling callbacks remain unloaded until
+-- the runtime is enabled.
+Client.Start()
 
 local function startProfilerClient()
-    local Client = require "PsychopatzCore/Profiler/PsychopatzProfilerClient"
     if Client.started then
+        Client.SetCaptureActive(true)
         return true
     end
     return Client.Start()

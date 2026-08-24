@@ -26,6 +26,15 @@ getFileReader = function()
         close = function() end,
     }
 end
+local writtenPath
+local writtenConfig
+getFileWriter = function(path)
+    writtenPath = path
+    return {
+        write = function(_, value) writtenConfig = value end,
+        close = function() end,
+    }
+end
 
 PsychopatzCore = nil
 local Bootstrap = require "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"
@@ -35,6 +44,15 @@ equal(config.enabled.moddata, nil, "ModData capture must remain disabled")
 equal(config.enabled.npc, true, "NPC capture")
 equal(config.fingerprint, "v2|DETAILED|performance,npc|750|60000|5000|selected|npc_a,npc_b",
     "canonical config fingerprint")
+local saved, saveReason = Bootstrap.WriteConfiguredConfig(config)
+equal(saved, true, "runtime config persistence")
+equal(saveReason, nil, "runtime config persistence reason")
+equal(writtenPath, "PsychopatzCore_Profiler.txt", "shared config path")
+equal(writtenConfig, table.concat({
+    "config_version=2", "mode=DETAILED", "capture=performance,npc",
+    "performance_interval_ms=750", "moddata_interval_ms=60000",
+    "npc_interval_ms=5000", "npc_scope=selected", "npc_ids=npc_b,npc_a", "",
+}, "\n"), "shared config serialization")
 
 Bootstrap.mode = "DETAILED"
 local Profiler = require "PsychopatzCore/Profiler/PsychopatzProfiler"
