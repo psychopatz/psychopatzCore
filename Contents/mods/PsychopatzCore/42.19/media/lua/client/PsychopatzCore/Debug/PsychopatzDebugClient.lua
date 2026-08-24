@@ -5,6 +5,7 @@ require "ISUI/ISTextEntryBox"
 require "ISUI/ISTickBox"
 require "PsychopatzCore/00_PsychopatzCore_Init"
 require "PsychopatzCore/UI/PsychopatzDebugHubWindow"
+require "PsychopatzCore/Debug/PsychopatzDebugContextMenu"
 require "PsychopatzCore/UI/Inventory/PsychopatzItemTypeLedgerWindow"
 
 if PsychopatzCore._debugClientInstalled then
@@ -12,9 +13,11 @@ if PsychopatzCore._debugClientInstalled then
 end
 PsychopatzCore._debugClientInstalled = true
 
-local KEY_TRIGGER = 82
+local KEY_NUMPAD_0 = 82
+local Debug = PsychopatzCore.Debug
 
 PsychopatzDebugWindow = ISCollapsableWindow:derive("PsychopatzDebugWindow")
+PsychopatzDebugWindow.instance = nil
 
 function PsychopatzDebugWindow:initialise()
     ISCollapsableWindow.initialise(self)
@@ -22,8 +25,22 @@ function PsychopatzDebugWindow:initialise()
     self:setResizable(false)
 end
 
-local function addTickBox(window, y, label, selected, width)
-    local tickBox = ISTickBox:new(10, y, width or 230, 20, "", window, nil)
+function PsychopatzDebugWindow:close()
+    self:setVisible(false)
+    self:removeFromUIManager()
+    if PsychopatzDebugWindow.instance == self then
+        PsychopatzDebugWindow.instance = nil
+    end
+end
+
+local function addTickBox(window, y, label, selected, width, onChange)
+    local callback
+    if onChange then
+        callback = function(target, _, value)
+            onChange(target, value == true)
+        end
+    end
+    local tickBox = ISTickBox:new(10, y, width or 230, 20, "", window, callback)
     tickBox:initialise()
     tickBox:instantiate()
     tickBox:addOption(label)
@@ -54,6 +71,18 @@ function PsychopatzDebugWindow:createChildren()
     self.chkWalkie = addTickBox(self, y, "Add Walkie Talkie", false, 150)
     self.qtyWalkie = addQuantityEntry(self, y, 1); y = y + 25
     self.chkNight = addTickBox(self, y, "Night Vision", _G.PsychopatzNightVisionActive == true); y = y + 25
+    self.chkDebugAccess = addTickBox(self, y,
+        "Debug Access",
+        Debug.IsLocalOverrideEnabled(getPlayer and getPlayer() or nil), 230,
+        function(_, enabled)
+            local player = getPlayer and getPlayer() or nil
+            Debug.SetLocalOverride(enabled, player)
+            if player and sendClientCommand then
+                sendClientCommand(player, PsychopatzCore.COMMAND_MODULE,
+                    Debug.COMMAND, { enabled = enabled })
+            end
+        end)
+    y = y + 25
 
     self:addChild(ISLabel:new(10, y, 20, "Item ID", 1, 1, 1, 1, UIFont.Small, true))
     self:addChild(ISLabel:new(200, y, 20, "Qty", 1, 1, 1, 1, UIFont.Small, true))
@@ -88,6 +117,13 @@ end
 function PsychopatzDebugWindow:onExecute()
     local player = getPlayer()
     if player then
+        local debugAccess = self.chkDebugAccess
+            and self.chkDebugAccess:isSelected(1) == true or false
+        Debug.SetLocalOverride(debugAccess, player)
+        if sendClientCommand then
+            sendClientCommand(player, PsychopatzCore.COMMAND_MODULE,
+                Debug.COMMAND, { enabled = debugAccess })
+        end
         sendClientCommand(player, PsychopatzCore.COMMAND_MODULE, "GrantPowers", {
             itemID = self.itemEntry:getText(),
             quantity = tonumber(self.qtyEntry:getText()) or 1,
@@ -108,16 +144,43 @@ function PsychopatzDebugWindow:onExecute()
 end
 
 function PsychopatzDebugWindow:onOpenDebugHub()
+    local player = getPlayer and getPlayer() or nil
+    if self.chkDebugAccess then
+        local enabled = self.chkDebugAccess:isSelected(1) == true
+        Debug.SetLocalOverride(enabled, player)
+        if player and sendClientCommand then
+            sendClientCommand(player, PsychopatzCore.COMMAND_MODULE,
+                Debug.COMMAND, { enabled = enabled })
+        end
+    end
     PsychopatzCore.DebugHub.Open()
 end
 
-local function onPsychopatzKey(key)
-    if key ~= KEY_TRIGGER then return end
+local function getOpenDebugWindow()
+    local window = PsychopatzDebugWindow.instance
+    if not window then return nil end
+
+    if window.getIsVisible and not window:getIsVisible() then
+        if PsychopatzDebugWindow.instance == window then
+            PsychopatzDebugWindow.instance = nil
+        end
+        return nil
+    end
+
+    return window
+end
+
+local function openDebugWindow()
+    local existing = getOpenDebugWindow()
+    if existing then
+        existing:setVisible(true)
+        existing:bringToTop()
+        return existing
+    end
+
     local player = getPlayer()
     if not PsychopatzCore.IsOwner(player) then return end
 
-    _G.PSYCHOPATZ_PRIVATE_DEBUG_BYPASS = true
-    _G.DT_PRIVATE_DEBUG_BYPASS = true
     local width, height = 250, 100
     local window = PsychopatzDebugWindow:new(
         math.floor((getCore():getScreenWidth() - width) / 2),
@@ -126,9 +189,25 @@ local function onPsychopatzKey(key)
         height
     )
     window:initialise()
+    PsychopatzDebugWindow.instance = window
     window:addToUIManager()
     window:setY(math.floor((getCore():getScreenHeight() - window:getHeight()) / 2))
     if window.itemEntry then window.itemEntry:selectAll() end
+    return window
+end
+
+local function onPsychopatzKey(key)
+    if key ~= KEY_NUMPAD_0 then return end
+    local player = getPlayer()
+    if not PsychopatzCore.IsOwner(player) then return end
+
+    local existing = getOpenDebugWindow()
+    if existing then
+        existing:onExecute()
+        return
+    end
+
+    openDebugWindow()
 end
 
 Events.OnKeyPressed.Add(onPsychopatzKey)

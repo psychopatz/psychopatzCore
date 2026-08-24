@@ -44,14 +44,21 @@ local function resetStats(player)
 end
 
 local function onPsychopatzCommand(module, command, player, args)
-    if module ~= PsychopatzCore.COMMAND_MODULE or command ~= "GrantPowers" then
-        return
-    end
-    if not PsychopatzCore.IsOwner(player) then
+    if module ~= PsychopatzCore.COMMAND_MODULE then
         return
     end
 
     args = args or {}
+    if command == PsychopatzCore.Debug.COMMAND then
+        PsychopatzCore.Debug.SetServerOverride(player, args.enabled == true)
+        return
+    end
+
+    if command ~= "GrantPowers" then return end
+    if not PsychopatzCore.IsOwner(player) then
+        return
+    end
+
     if args.doHeal then heal(player) end
     if args.doStats then resetStats(player) end
     if args.doSpawn then

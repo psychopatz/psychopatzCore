@@ -56,5 +56,6 @@
     "UI_PsychopatzRegion_Claimed": "claimed",
     "UI_PsychopatzRegion_Empty": "Select at least one tile",
     "UI_PsychopatzRegion_CapacityExceeded": "Selection exceeds the tile cap",
-    "UI_PsychopatzRegion_Valid": "Selection ready"
+    "UI_PsychopatzRegion_Valid": "Selection ready",
+    "ContextMenu_Psychopatz_DebugAccess": "[Debug] Access Psychopatz Mod Controls"
 }

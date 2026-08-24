@@ -4,6 +4,8 @@ PsychopatzCore.DebugHub = PsychopatzCore.DebugHub or {}
 
 local Hub = PsychopatzCore.DebugHub
 Hub.tools = Hub.tools or {}
+Hub.groupExpanded = Hub.groupExpanded or {}
+Hub.DEFAULT_SOURCE = Hub.DEFAULT_SOURCE or "PsychopatzCore"
 
 function Hub.RegisterTool(definition)
     if type(definition) ~= "table" or type(definition.id) ~= "string" or definition.id == "" then
@@ -14,6 +16,8 @@ function Hub.RegisterTool(definition)
     end
 
     definition.description = tostring(definition.description or "")
+    definition.source = tostring(definition.source or Hub.DEFAULT_SOURCE)
+    if definition.source == "" then definition.source = Hub.DEFAULT_SOURCE end
     definition.order = tonumber(definition.order) or 1000
     definition.available = type(definition.available) == "function" and definition.available or function() return true end
     Hub.tools[definition.id] = definition
@@ -45,6 +49,54 @@ function Hub.GetTools()
     return result
 end
 
+function Hub.IsGroupExpanded(source)
+    local key = tostring(source or Hub.DEFAULT_SOURCE)
+    if Hub.groupExpanded[key] == nil then
+        return true
+    end
+    return Hub.groupExpanded[key] == true
+end
+
+function Hub.SetGroupExpanded(source, expanded)
+    local key = tostring(source or Hub.DEFAULT_SOURCE)
+    Hub.groupExpanded[key] = expanded == true
+    if Hub.Window and Hub.Window.instance then
+        Hub.Window.instance:rebuildCards()
+    end
+    return Hub.groupExpanded[key]
+end
+
+function Hub.GetToolGroups()
+    local groupsBySource = {}
+    local groups = {}
+
+    for _, definition in ipairs(Hub.GetTools()) do
+        local source = tostring(definition.source or Hub.DEFAULT_SOURCE)
+        local group = groupsBySource[source]
+        if not group then
+            group = {
+                source = source,
+                order = definition.order,
+                tools = {},
+            }
+            groupsBySource[source] = group
+            groups[#groups + 1] = group
+        end
+        group.tools[#group.tools + 1] = definition
+    end
+
+    table.sort(groups, function(left, right)
+        if left.order == right.order then
+            return left.source < right.source
+        end
+        return left.order < right.order
+    end)
+    for _, group in ipairs(groups) do
+        group.expanded = Hub.IsGroupExpanded(group.source)
+    end
+    return groups
+end
+
 local function launcherIsAvailable(definition)
     local ok, available = pcall(definition.available)
     return ok and not not available
@@ -53,6 +105,22 @@ end
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
+
+local function drawGroupItem(list, y, entry, alternate)
+    local item = entry.item
+    local text = Theme.colors.text
+    local muted = Theme.colors.textMuted
+    local indicator = item.expanded and "[-] " or "[+] "
+    local count = tostring(item.count or 0) .. " tools"
+    UI.DrawListSelection(list, y, list.itemheight, false, alternate)
+    list:drawRect(0, y, list:getWidth(), list.itemheight, 0.22,
+        Theme.colors.accent.r, Theme.colors.accent.g, Theme.colors.accent.b)
+    list:drawText(indicator .. item.source, 12, y + 10,
+        text.r, text.g, text.b, text.a, UIFont.Medium)
+    list:drawText(count, list:getWidth() - Theme.TextWidth(UIFont.Small, count) - 12,
+        y + 12, muted.r, muted.g, muted.b, muted.a, UIFont.Small)
+    return y + list.itemheight
+end
 
 local function drawToolItem(list, y, entry, alternate)
     local item = entry.item
@@ -70,6 +138,13 @@ local function drawToolItem(list, y, entry, alternate)
     return y + height
 end
 
+local function drawHubItem(list, y, entry, alternate)
+    if entry.item and entry.item.kind == "group" then
+        return drawGroupItem(list, y, entry, alternate)
+    end
+    return drawToolItem(list, y, entry, alternate)
+end
+
 PsychopatzDebugHubWindow = PsychopatzWindow:derive("PsychopatzDebugHubWindow")
 Hub.Window = PsychopatzDebugHubWindow
 
@@ -79,7 +154,10 @@ end
 
 function PsychopatzDebugHubWindow:createChildren()
     PsychopatzWindow.createChildren(self)
-    self.toolList = UI.CreateList(self, { itemHeight = Layout.Pixels(58, self.uiScale), doDrawItem = drawToolItem })
+    self.toolList = UI.CreateList(self, { itemHeight = Layout.Pixels(58, self.uiScale), doDrawItem = drawHubItem })
+    self.toolList.onMouseDown = function(list, x, y)
+        return self:onToolListMouseDown(list, x, y)
+    end
     self.launchButton = UI.CreateButton(self, {
         id = "launch",
         title = "Launch selected tool",
@@ -98,32 +176,71 @@ function PsychopatzDebugHubWindow:createChildren()
     self:requestResponsiveLayout(true)
 end
 
+function PsychopatzDebugHubWindow:onToolListMouseDown(list, x, y)
+    local selectedBefore = list:getItem()
+    local selectedToolId = selectedBefore and selectedBefore.item
+        and selectedBefore.item.kind ~= "group"
+        and selectedBefore.item.id or nil
+    local result = ISScrollingListBox.onMouseDown(list, x, y)
+    local row = list:getItem()
+    local item = row and row.item or nil
+    if item and item.kind == "group" then
+        self.selectedToolId = selectedToolId
+        Hub.SetGroupExpanded(item.source, not item.expanded)
+    elseif item and item.kind ~= "group" then
+        self.selectedToolId = item.id
+    end
+    return result
+end
+
 function PsychopatzDebugHubWindow:rebuildCards()
     if not self.toolList then return end
     local selected = self.toolList:getItem()
-    local selectedId = selected and selected.item and selected.item.id or nil
+    local selectedId = self.selectedToolId or (selected and selected.item
+        and selected.item.kind ~= "group" and selected.item.id or nil)
     self.definitions = Hub.GetTools()
+    self.groups = Hub.GetToolGroups()
     self.toolList:clear()
-    for _, definition in ipairs(self.definitions) do
-        local item = {
-            id = definition.id,
-            title = definition.title,
-            description = definition.description,
-            available = launcherIsAvailable(definition),
-        }
-        self.toolList:addItem(definition.title, item)
-        if selectedId == definition.id then self.toolList.selected = #self.toolList.items end
+    local restoredSelection = false
+    for _, group in ipairs(self.groups) do
+        self.toolList:addItem(group.source, {
+            kind = "group",
+            source = group.source,
+            count = #group.tools,
+            expanded = group.expanded,
+        })
+        if group.expanded then
+            for _, definition in ipairs(group.tools) do
+                local item = {
+                    kind = "tool",
+                    id = definition.id,
+                    title = definition.title,
+                    description = definition.description,
+                    available = launcherIsAvailable(definition),
+                }
+                self.toolList:addItem(definition.title, item)
+                if selectedId == definition.id then
+                    self.toolList.selected = #self.toolList.items
+                    restoredSelection = true
+                end
+            end
+        end
     end
+    self.selectedToolId = restoredSelection and selectedId or nil
     self:refreshAvailability()
 end
 
 function PsychopatzDebugHubWindow:refreshAvailability()
     for index, entry in ipairs(self.toolList and self.toolList.items or {}) do
-        local definition = Hub.tools[entry.item.id]
-        entry.item.available = definition and launcherIsAvailable(definition) or false
+        if entry.item and entry.item.kind ~= "group" then
+            local definition = Hub.tools[entry.item.id]
+            entry.item.available = definition and launcherIsAvailable(definition) or false
+        end
     end
     local selected = self.toolList and self.toolList:getItem() or nil
-    self.launchButton:setEnable(selected and selected.item.available or false)
+    self.launchButton:setEnable(selected and selected.item
+        and selected.item.kind ~= "group"
+        and selected.item.available or false)
 end
 
 function PsychopatzDebugHubWindow:onLauncherClick(id)
@@ -144,7 +261,9 @@ end
 
 function PsychopatzDebugHubWindow:onLaunchSelected()
     local selected = self.toolList and self.toolList:getItem() or nil
-    if selected and selected.item then self:onLauncherClick(selected.item.id) end
+    if selected and selected.item and selected.item.kind ~= "group" then
+        self:onLauncherClick(selected.item.id)
+    end
 end
 
 function PsychopatzDebugHubWindow:onResponsiveLayout()
