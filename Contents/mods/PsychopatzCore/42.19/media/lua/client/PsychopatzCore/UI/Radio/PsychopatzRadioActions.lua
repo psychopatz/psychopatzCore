@@ -9,6 +9,7 @@ PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.RadioActions = PsychopatzCore.RadioActions or {}
 
 local RadioActions = PsychopatzCore.RadioActions
+local RadioDeviceState = PsychopatzCore.RadioDeviceState
 
 RadioActions._byID = RadioActions._byID or {}
 RadioActions._ordered = RadioActions._ordered or {}
@@ -40,9 +41,10 @@ local function isUsableRadio(window)
     if not data and window and window.device and window.device.getDeviceData then
         data = window.device:getDeviceData()
     end
-    if not data then return false end
-    if data.isTelevision and data:isTelevision() then return false end
-    return not data.getIsTwoWay or data:getIsTwoWay()
+    if not data or not RadioDeviceState then return false end
+    return data.getIsPortable and data:getIsPortable()
+        and data.getIsTwoWay and data:getIsTwoWay()
+        and (not data.getIsTelevision or not data:getIsTelevision())
 end
 
 local function isOperational(window)
@@ -50,10 +52,8 @@ local function isOperational(window)
     if not data and window and window.device and window.device.getDeviceData then
         data = window.device:getDeviceData()
     end
-    if not data then return false end
-    if data.getIsTurnedOn and not data:getIsTurnedOn() then return false end
-    if data.getPower and data:getPower() <= 0 then return false end
-    return true
+    if not data or not RadioDeviceState then return false end
+    return RadioDeviceState.IsActive(data)
 end
 
 local function sortActions()

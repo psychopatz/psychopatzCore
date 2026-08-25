@@ -47,6 +47,8 @@ ISRadioWindow = {
     prerender = function() end,
 }
 PsychopatzCore = {}
+dofile("Contents/mods/PsychopatzCore/common/media/lua/shared/"
+    .. "PsychopatzCore/Radio/PC_RadioDeviceState.lua")
 
 dofile(ROOT .. "UI/Radio/PsychopatzRadioActions.lua")
 
@@ -76,11 +78,27 @@ local radio = {
     deviceData = {
         isTelevision = function() return false end,
         getIsTwoWay = function() return true end,
+        getIsPortable = function() return true end,
+        getIsTelevision = function() return false end,
         getIsTurnedOn = function() return true end,
         getPower = function() return 1 end,
+        getDeviceVolume = function() return 0.1 end,
+        getMicIsMuted = function() return false end,
     },
 }
 assertEqual(#Actions.GetAvailable(radio), 2, "two available actions")
+
+local boundButton = fakeButton("")
+Actions.BindButton(boundButton, registered[1], radio)
+assertEqual(boundButton.enable, true, "active radio enables actions")
+radio.deviceData.getDeviceVolume = function() return 0 end
+Actions.BindButton(boundButton, registered[1], radio)
+assertEqual(boundButton.enable, false, "muted speaker disables actions")
+radio.deviceData.getDeviceVolume = function() return 0.1 end
+radio.deviceData.getMicIsMuted = function() return true end
+Actions.BindButton(boundButton, registered[1], radio)
+assertEqual(boundButton.enable, false, "muted microphone disables actions")
+radio.deviceData.getMicIsMuted = function() return false end
 
 Actions.Register({
     id = "smoke.hidden",

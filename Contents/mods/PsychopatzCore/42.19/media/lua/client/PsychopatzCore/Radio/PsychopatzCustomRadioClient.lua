@@ -2,6 +2,7 @@ require "PsychopatzCore/00_PsychopatzCore_Init"
 require "RadioCom/RadioWindowModules/RWMChannel"
 
 local Radio = PsychopatzCore.CustomRadio
+local RadioDeviceState = PsychopatzCore.RadioDeviceState
 local POLL_MS = 5000
 local lastPollAt = 0
 
@@ -52,23 +53,8 @@ if not RWMChannel.psychopatzCustomRadioPatched then
     RWMChannel.psychopatzCustomRadioPatched = true
 end
 
-local function addDevice(output, seen, item)
-    if not item or not instanceof(item, "Radio") or seen[item] then return end
-    seen[item] = true
-    output[#output + 1] = item
-end
-
 local function playerDevices(player)
-    local output, seen = {}, {}
-    addDevice(output, seen, player:getPrimaryHandItem())
-    addDevice(output, seen, player:getSecondaryHandItem())
-    local attached = player.getAttachedItems and player:getAttachedItems() or nil
-    if attached then
-        for index = 0, attached:size() - 1 do
-            addDevice(output, seen, attached:get(index):getItem())
-        end
-    end
-    return output
+    return RadioDeviceState.GetPlayerDevices(player)
 end
 
 local function onTick()
@@ -81,7 +67,7 @@ local function onTick()
             local notified = {}
             for _, item in ipairs(playerDevices(player)) do
                 local data = item:getDeviceData()
-                if data and data:getIsTurnedOn() and data:getPower() > 0 then
+                if data and RadioDeviceState.IsActive(data) then
                     local definition = Radio.GetChannelByFrequency(
                         data:getChannel())
                     if definition and not notified[definition.id] then

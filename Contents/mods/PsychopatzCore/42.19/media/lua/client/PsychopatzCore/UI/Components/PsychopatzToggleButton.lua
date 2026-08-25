@@ -36,11 +36,28 @@ end
 
 function UI.CreateToggleButton(parent, definition)
     definition = definition or {}
+    local callback = definition.onclick
+    local changeCallback = definition.onChange
+    local function onClick(target, button, ...)
+        local value = button and button.getToggleState
+            and button:getToggleState() or nil
+        if definition.autoToggle == true and button
+            and button.toggle then
+            value = button:toggle()
+        end
+        if changeCallback then
+            return changeCallback(target, button, value, ...)
+        end
+        if callback then
+            return callback(target, button, value, ...)
+        end
+        return value
+    end
     local button = UI.CreateButton(parent, {
         id = definition.id,
         title = definition.offTitle or definition.title,
         target = definition.target or parent,
-        onclick = definition.onclick,
+        onclick = onClick,
         width = definition.width,
         font = definition.font,
         variant = definition.offVariant or definition.variant,

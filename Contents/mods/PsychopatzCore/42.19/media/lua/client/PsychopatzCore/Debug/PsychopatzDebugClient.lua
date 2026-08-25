@@ -2,8 +2,8 @@ require "ISUI/ISButton"
 require "ISUI/ISCollapsableWindow"
 require "ISUI/ISLabel"
 require "ISUI/ISTextEntryBox"
-require "ISUI/ISTickBox"
 require "PsychopatzCore/00_PsychopatzCore_Init"
+require "PsychopatzCore/UI/PsychopatzUI"
 require "PsychopatzCore/UI/PsychopatzDebugHubWindow"
 require "PsychopatzCore/Debug/PsychopatzDebugContextMenu"
 require "PsychopatzCore/UI/Inventory/PsychopatzItemTypeLedgerWindow"
@@ -15,6 +15,7 @@ PsychopatzCore._debugClientInstalled = true
 
 local KEY_NUMPAD_0 = 82
 local Debug = PsychopatzCore.Debug
+local UI = PsychopatzCore.UI
 
 PsychopatzDebugWindow = ISCollapsableWindow:derive("PsychopatzDebugWindow")
 PsychopatzDebugWindow.instance = nil
@@ -33,23 +34,6 @@ function PsychopatzDebugWindow:close()
     end
 end
 
-local function addTickBox(window, y, label, selected, width, onChange)
-    local callback
-    if onChange then
-        callback = function(target, _, value)
-            onChange(target, value == true)
-        end
-    end
-    local tickBox = ISTickBox:new(10, y, width or 230, 20, "", window, callback)
-    tickBox:initialise()
-    tickBox:instantiate()
-    tickBox:addOption(label)
-    tickBox:setSelected(1, selected == true)
-    tickBox:setFont(UIFont.Small)
-    window:addChild(tickBox)
-    return tickBox
-end
-
 local function addQuantityEntry(window, y, defaultValue)
     local entry = ISTextEntryBox:new(tostring(defaultValue), 170, y, 50, 20)
     entry:initialise()
@@ -59,29 +43,82 @@ local function addQuantityEntry(window, y, defaultValue)
     return entry
 end
 
+local function addToggleButton(window, y, offTitle, onTitle, selected,
+    onChange)
+    local button = UI.CreateToggleButton(window, {
+        id = "debug_access",
+        offTitle = offTitle,
+        onTitle = onTitle,
+        target = window,
+        value = selected == true,
+        autoToggle = true,
+        onChange = onChange,
+        offVariant = "quiet",
+        onVariant = "success",
+    })
+    button:setX(10)
+    button:setY(y)
+    button:setWidth(230)
+    button:setHeight(20)
+    return button
+end
+
+local function debugAccessState(window)
+    local control = window.debugAccessButton or window.chkDebugAccess
+    if control and control.getToggleState then
+        return control:getToggleState() == true
+    end
+    return control and control.isSelected
+        and control:isSelected(1) == true or false
+end
+
+local function applyDebugAccess(enabled, player)
+    Debug.SetLocalOverride(enabled, player)
+    if player and sendClientCommand then
+        sendClientCommand(player, PsychopatzCore.COMMAND_MODULE,
+            Debug.COMMAND, { enabled = enabled })
+    end
+end
+
 function PsychopatzDebugWindow:createChildren()
     ISCollapsableWindow.createChildren(self)
 
     local y = self:titleBarHeight() + 10
-    self.chkHeal = addTickBox(self, y, "Heal Wounds", true); y = y + 25
-    self.chkStats = addTickBox(self, y, "Reset Stats", true); y = y + 30
-    self.chkSpawn = addTickBox(self, y, "Spawn Item", false); y = y + 25
-    self.chkMoney = addTickBox(self, y, "Add Money", false, 150)
+    self.chkHeal = UI.CreateCheckbox(self, {
+        id = "heal_wounds", label = "Heal Wounds", value = true,
+        x = 10, y = y, target = self, font = UIFont.Small,
+    }); y = y + 25
+    self.chkStats = UI.CreateCheckbox(self, {
+        id = "reset_stats", label = "Reset Stats", value = true,
+        x = 10, y = y, target = self, font = UIFont.Small,
+    }); y = y + 30
+    self.chkSpawn = UI.CreateCheckbox(self, {
+        id = "spawn_item", label = "Spawn Item", value = false,
+        x = 10, y = y, target = self, font = UIFont.Small,
+    }); y = y + 25
+    self.chkMoney = UI.CreateCheckbox(self, {
+        id = "add_money", label = "Add Money", value = false,
+        x = 10, y = y, width = 150, target = self, font = UIFont.Small,
+    })
     self.qtyMoney = addQuantityEntry(self, y, 100); y = y + 25
-    self.chkWalkie = addTickBox(self, y, "Add Walkie Talkie", false, 150)
+    self.chkWalkie = UI.CreateCheckbox(self, {
+        id = "add_walkie", label = "Add Walkie Talkie", value = false,
+        x = 10, y = y, width = 150, target = self, font = UIFont.Small,
+    })
     self.qtyWalkie = addQuantityEntry(self, y, 1); y = y + 25
-    self.chkNight = addTickBox(self, y, "Night Vision", _G.PsychopatzNightVisionActive == true); y = y + 25
-    self.chkDebugAccess = addTickBox(self, y,
-        "Debug Access",
-        Debug.IsLocalOverrideEnabled(getPlayer and getPlayer() or nil), 230,
-        function(_, enabled)
-            local player = getPlayer and getPlayer() or nil
-            Debug.SetLocalOverride(enabled, player)
-            if player and sendClientCommand then
-                sendClientCommand(player, PsychopatzCore.COMMAND_MODULE,
-                    Debug.COMMAND, { enabled = enabled })
-            end
+    self.chkNight = UI.CreateCheckbox(self, {
+        id = "night_vision", label = "Night Vision",
+        value = _G.PsychopatzNightVisionActive == true,
+        x = 10, y = y, target = self, font = UIFont.Small,
+    }); y = y + 25
+    self.debugAccessButton = addToggleButton(self, y,
+        "Debug Access: OFF", "Debug Access: ON",
+        Debug.IsLocalOverrideEnabled(getPlayer and getPlayer() or nil),
+        function(_, _, enabled)
+            applyDebugAccess(enabled == true,
+                getPlayer and getPlayer() or nil)
         end)
+    self.chkDebugAccess = self.debugAccessButton
     y = y + 25
 
     self:addChild(ISLabel:new(10, y, 20, "Item ID", 1, 1, 1, 1, UIFont.Small, true))
@@ -117,13 +154,8 @@ end
 function PsychopatzDebugWindow:onExecute()
     local player = getPlayer()
     if player then
-        local debugAccess = self.chkDebugAccess
-            and self.chkDebugAccess:isSelected(1) == true or false
-        Debug.SetLocalOverride(debugAccess, player)
-        if sendClientCommand then
-            sendClientCommand(player, PsychopatzCore.COMMAND_MODULE,
-                Debug.COMMAND, { enabled = debugAccess })
-        end
+        local debugAccess = debugAccessState(self)
+        applyDebugAccess(debugAccess, player)
         sendClientCommand(player, PsychopatzCore.COMMAND_MODULE, "GrantPowers", {
             itemID = self.itemEntry:getText(),
             quantity = tonumber(self.qtyEntry:getText()) or 1,
@@ -140,19 +172,11 @@ function PsychopatzDebugWindow:onExecute()
             HaloTextHelper.addTextWithArrow(player, "COMMAND SENT", true, HaloTextHelper.getColorGreen())
         end
     end
-    self:close()
 end
 
 function PsychopatzDebugWindow:onOpenDebugHub()
     local player = getPlayer and getPlayer() or nil
-    if self.chkDebugAccess then
-        local enabled = self.chkDebugAccess:isSelected(1) == true
-        Debug.SetLocalOverride(enabled, player)
-        if player and sendClientCommand then
-            sendClientCommand(player, PsychopatzCore.COMMAND_MODULE,
-                Debug.COMMAND, { enabled = enabled })
-        end
-    end
+    applyDebugAccess(debugAccessState(self), player)
     PsychopatzCore.DebugHub.Open()
 end
 

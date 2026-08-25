@@ -55,6 +55,8 @@ Radio.RegisterChannel({
 
 local presets = list()
 local transmissions = 0
+local volume = 0.1
+local mutedMicrophone = false
 local data = {
     getDevicePresets = function()
         return {
@@ -67,6 +69,11 @@ local data = {
     transmitPresets = function() transmissions = transmissions + 1 end,
     getIsTurnedOn = function() return true end,
     getPower = function() return 1 end,
+    getIsPortable = function() return true end,
+    getIsTwoWay = function() return true end,
+    getIsTelevision = function() return false end,
+    getDeviceVolume = function() return volume end,
+    getMicIsMuted = function() return mutedMicrophone end,
     getChannel = function() return 144200 end,
 }
 
@@ -111,5 +118,16 @@ Radio.RegisterListener("test.scan", "test", function(context)
 end)
 tickCallback()
 equal(listened, 1, "belt-attached tuned radio activates channel listener")
+
+volume = 0
+clock = 10000
+tickCallback()
+equal(listened, 1, "muted speaker suppresses channel listener")
+
+volume = 0.1
+mutedMicrophone = true
+clock = 15000
+tickCallback()
+equal(listened, 1, "muted microphone suppresses channel listener")
 
 print("psychopatz_custom_radio_client_smoke: ok")

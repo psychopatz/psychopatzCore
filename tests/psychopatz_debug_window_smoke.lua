@@ -15,6 +15,25 @@ PsychopatzCore = {
     DebugHub = { Open = function() end },
     IsOwner = function() return true end,
 }
+PsychopatzCore.UI = {
+    CreateToggleButton = function(parent, definition)
+        local button = {
+            parent = parent,
+            state = definition.value == true,
+        }
+        function button:setX(value) self.x = value end
+        function button:setY(value) self.y = value end
+        function button:setWidth(value) self.width = value end
+        function button:setHeight(value) self.height = value end
+        function button:getToggleState() return self.state end
+        function button:setToggleState(value) self.state = value == true end
+        function button:toggle()
+            self.state = not self.state
+            return self.state
+        end
+        return button
+    end,
+}
 
 package.preload["ISUI/ISButton"] = function() return true end
 package.preload["ISUI/ISLabel"] = function() return true end
@@ -22,6 +41,9 @@ package.preload["ISUI/ISTextEntryBox"] = function() return true end
 package.preload["ISUI/ISTickBox"] = function() return true end
 package.preload["PsychopatzCore/00_PsychopatzCore_Init"] = function()
     return PsychopatzCore
+end
+package.preload["PsychopatzCore/UI/PsychopatzUI"] = function()
+    return PsychopatzCore.UI
 end
 package.preload["PsychopatzCore/UI/PsychopatzDebugHubWindow"] = function()
     return PsychopatzCore.DebugHub
@@ -128,13 +150,26 @@ first.qtyEntry = text("1")
 
 keyHandler(82)
 assert(created == 1, "pressing Numpad 0 on an open window created a duplicate")
-assert(PsychopatzDebugWindow.instance == nil, "executing did not close the singleton")
-assert(first.visible == false and first.removed == true,
-    "executing did not close and remove the debug window")
+assert(PsychopatzDebugWindow.instance == first,
+    "executing unexpectedly replaced the singleton")
+assert(first.visible == true and first.removed ~= true,
+    "executing unexpectedly closed and removed the debug window")
 assert(#commands == 2 and commands[2].command == "GrantPowers",
     "Numpad 0 did not invoke the execute action")
 assert(commands[2].args.itemID == "Base.Katana" and commands[2].args.doSpawn == true,
     "execute action did not use the selected controls")
+
+keyHandler(82)
+assert(PsychopatzDebugWindow.instance == first,
+    "repeated access did not preserve the debug window")
+assert(#commands == 4 and commands[4].command == "GrantPowers",
+    "repeated access did not trigger the command again")
+assert(commands[4].args.itemID == "Base.Katana",
+    "repeated access did not preserve the form data")
+
+first:close()
+assert(PsychopatzDebugWindow.instance == nil,
+    "manual close left a stale singleton instance")
 
 keyHandler(82)
 local second = PsychopatzDebugWindow.instance
