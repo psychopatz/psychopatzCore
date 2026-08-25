@@ -140,6 +140,7 @@ function PsychopatzDebugWindow:onExecute()
             HaloTextHelper.addTextWithArrow(player, "COMMAND SENT", true, HaloTextHelper.getColorGreen())
         end
     end
+    self:close()
 end
 
 function PsychopatzDebugWindow:onOpenDebugHub()
