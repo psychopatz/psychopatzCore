@@ -66,10 +66,32 @@ UI.Window = PsychopatzWindow
 
 function PsychopatzWindow:initialise()
     ISCollapsableWindow.initialise(self)
+    self.clearStentil = true
     self.uiScale = Layout.Scale()
     self.backgroundColor = Theme.Color("window")
     self.borderColor = Theme.Color("borderStrong")
     self.lastScreenWidth, self.lastScreenHeight = Layout.ScreenSize()
+    self:installRenderClip()
+end
+
+function PsychopatzWindow:installRenderClip()
+    if self.psychopatzRenderClipInstalled then return end
+    local render = self.render
+    if not render or render == PsychopatzWindow.render then return end
+
+    self.psychopatzRenderClipInstalled = true
+    self.psychopatzOriginalRender = render
+    self.render = function(window, ...)
+        window.psychopatzCustomRenderActive = true
+        local ok, result = pcall(render, window, ...)
+        window.psychopatzCustomRenderActive = false
+        if window.psychopatzStencilActive then
+            window:clearStencilRect()
+            window.psychopatzStencilActive = false
+        end
+        if not ok then error(result) end
+        return result
+    end
 end
 
 function PsychopatzWindow:createChildren()
@@ -165,6 +187,11 @@ function PsychopatzWindow:getContentRect(options)
 end
 
 function PsychopatzWindow:prerender()
+    self:installRenderClip()
+    -- ISCollapsableWindow uses this flag to stencil the current window bounds
+    -- before its children render.  Keep it enabled even when a derived window
+    -- has changed the flag, otherwise collapsed children can bleed through.
+    self.clearStentil = true
     local screenWidth, screenHeight = Layout.ScreenSize()
     if self.lastScreenWidth ~= screenWidth or self.lastScreenHeight ~= screenHeight then
         self.lastScreenWidth = screenWidth
@@ -181,8 +208,25 @@ function PsychopatzWindow:prerender()
     self:requestResponsiveLayout(false)
     self:trackGeometry()
     ISCollapsableWindow.prerender(self)
+    self.psychopatzStencilActive = true
     local accent = Theme.colors.accent
     self:drawRect(0, self:titleBarHeight(), self:getWidth(), 2, 0.75, accent.r, accent.g, accent.b)
+end
+
+function PsychopatzWindow:render()
+    if self.psychopatzCustomRenderActive then
+        -- Derived windows commonly call this method first and then draw their
+        -- own content.  Let the derived draw pass finish before the stencil is
+        -- cleared by the wrapper installed above.
+        local clearStentil = self.clearStentil
+        self.clearStentil = false
+        ISCollapsableWindow.render(self)
+        self.clearStentil = clearStentil
+        return
+    end
+
+    ISCollapsableWindow.render(self)
+    self.psychopatzStencilActive = false
 end
 
 function PsychopatzWindow:onMouseUp(x, y)

@@ -75,6 +75,7 @@ PsychopatzCore.UI = {
             controlHeight = 24,
             compactBreakpoint = 700,
         },
+        colors = { accent = { r = 1, g = 1, b = 1 } },
         Color = function() return {} end,
     },
 }
@@ -123,7 +124,7 @@ function BaseWindow:derive(name)
 end
 function BaseWindow:new(x0, y0, width, height)
     return setmetatable({ x = x0, y = y0, width = width, height = height,
-        pin = true }, self)
+        pin = true, clearStentil = false, isCollapsed = false }, self)
 end
 function BaseWindow:initialise() end
 function BaseWindow:createChildren()
@@ -143,7 +144,24 @@ function BaseWindow:instantiate()
     self.javaObject = {}
     self:createChildren()
 end
-function BaseWindow:prerender() end
+function BaseWindow:prerender()
+    if self.clearStentil then
+        self:setStencilRect(0, 0, self.width,
+            self.isCollapsed and self:titleBarHeight() or self.height)
+    end
+end
+function BaseWindow:render()
+    if self.clearStentil then self:clearStencilRect() end
+end
+function BaseWindow:setStencilRect(x0, y0, width, height)
+    self.stencilRect = { x = x0, y = y0, width = width, height = height }
+    self.stencilSetCount = (self.stencilSetCount or 0) + 1
+end
+function BaseWindow:clearStencilRect()
+    self.stencilClearCount = (self.stencilClearCount or 0) + 1
+end
+function BaseWindow:titleBarHeight() return 18 end
+function BaseWindow:drawRect() end
 function BaseWindow:close() self.visible = false end
 function BaseWindow:removeFromUIManager() self.removed = true end
 function BaseWindow:onMouseUp() end
@@ -170,6 +188,14 @@ assertEqual(defaultUnpinned.collapseButton.visible, false,
     "unpinned window initially hides collapse control")
 assertEqual(defaultUnpinned.pinButton.visible, true,
     "unpinned window initially shows pin control")
+defaultUnpinned:prerender()
+assertEqual(defaultUnpinned.clearStentil, true,
+    "window enables child clipping")
+assertEqual(defaultUnpinned.stencilRect.height, 100,
+    "expanded window clips to its full bounds")
+defaultUnpinned:render()
+assertEqual(defaultUnpinned.stencilClearCount, 1,
+    "expanded window clears its child clip")
 local initialPinned = PsychopatzWindow:new(0, 0, 200, 100, {
     persistGeometry = false, pin = true,
 })
@@ -179,6 +205,33 @@ assertEqual(initialPinned.collapseButton.visible, true,
     "pinned window initially shows collapse control")
 assertEqual(initialPinned.pinButton.visible, false,
     "pinned window initially hides pin control")
+
+local CustomRenderWindow = PsychopatzWindow:derive("CustomRenderWindow")
+function CustomRenderWindow:initialise()
+    PsychopatzWindow.initialise(self)
+end
+function CustomRenderWindow:createChildren()
+    PsychopatzWindow.createChildren(self)
+end
+function CustomRenderWindow:render()
+    PsychopatzWindow.render(self)
+    self.customContentRendered = true
+end
+local custom = CustomRenderWindow:new(0, 0, 200, 100, {
+    persistGeometry = false,
+})
+custom:initialise()
+custom:instantiate()
+custom.isCollapsed = true
+custom:prerender()
+assertEqual(custom.stencilRect.height, 18,
+    "collapsed window clips to its title bar")
+custom:render()
+assertEqual(custom.customContentRendered, true,
+    "custom render still runs")
+assertEqual(custom.stencilClearCount, 1,
+    "custom render clears its child clip after subclass drawing")
+
 local LifecycleWindow = PsychopatzWindow:derive("LifecycleWindow")
 function LifecycleWindow:createChildren()
     assertEqual(self.requiredState, "ready",
