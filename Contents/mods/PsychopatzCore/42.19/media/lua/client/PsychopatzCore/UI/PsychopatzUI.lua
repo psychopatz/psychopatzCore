@@ -1,5 +1,6 @@
 require "PsychopatzCore/UI/Core/PsychopatzUITheme"
 require "PsychopatzCore/UI/Core/PsychopatzUILayout"
+require "PsychopatzCore/UI/Components/PsychopatzImageResolver"
 require "PsychopatzCore/UI/Components/PsychopatzUIControls"
 require "PsychopatzCore/UI/Components/PsychopatzToggleButton"
 require "PsychopatzCore/UI/Components/PsychopatzMeter"

@@ -1,5 +1,6 @@
 require "PsychopatzCore/00_PsychopatzCore_Init"
 require "PsychopatzCore/UI/PsychopatzDebugHubWindow"
+local ObjectNameContext = require "PsychopatzCore/Debug/PsychopatzObjectNameDebugContext"
 
 PsychopatzCore = PsychopatzCore or {}
 
@@ -43,7 +44,7 @@ local function openDebugHub(player)
     return true
 end
 
-function ContextMenu.OnFillWorldObjectContextMenu(playerNum, context, _, test)
+function ContextMenu.OnFillWorldObjectContextMenu(playerNum, context, worldObjects, test)
     if test or not context then
         return
     end
@@ -53,6 +54,10 @@ function ContextMenu.OnFillWorldObjectContextMenu(playerNum, context, _, test)
         or Debug.CanUse(player) ~= true
     then
         return
+    end
+
+    if ObjectNameContext and ObjectNameContext.Add then
+        ObjectNameContext.Add(context, worldObjects, player)
     end
 
     context:addOption(

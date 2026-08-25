@@ -76,6 +76,11 @@ Events = {
 getText = function(key) return key end
 local currentPlayer = guest
 getSpecificPlayer = function() return currentPlayer end
+local printed = {}
+local oldPrint = print
+print = function(message)
+    printed[#printed + 1] = tostring(message)
+end
 local function newMenu()
     local menu = { options = {} }
     function menu:addOption(label, target, callback)
@@ -85,6 +90,24 @@ local function newMenu()
     end
     return menu
 end
+local square = {
+    getX = function() return 101 end,
+    getY = function() return 202 end,
+    getZ = function() return 0 end,
+}
+local object = {
+    getObjectName = function() return "IsoObject" end,
+    getName = function() return nil end,
+    getSpriteName = function() return "trash_01_22" end,
+    getProperties = function()
+        return {
+            get = function(_, key)
+                return key == "CustomName" and "Trash" or nil
+            end,
+        }
+    end,
+    getSquare = function() return square end,
+}
 
 require "PsychopatzCore/Debug/PsychopatzDebugContextMenu"
 local menu = newMenu()
@@ -94,18 +117,25 @@ contextHandler(0, menu, {}, false)
 assert(#menu.options == 0, "unauthorized context option was visible")
 
 currentPlayer = admin
-contextHandler(0, menu, {}, false)
-assert(#menu.options == 1, "admin context option was missing")
-assert(menu.options[1].name == "[Debug] Access Psychopatz Mod Controls",
+contextHandler(0, menu, { object }, false)
+assert(#menu.options == 2, "admin context options were missing")
+assert(menu.options[1].name == "[Debug] Grab Object Name",
+    "object-name context option was missing")
+assert(menu.options[2].name == "[Debug] Access Psychopatz Mod Controls",
     "context option label was incorrect")
 menu.options[1].callback()
+assert(#printed == 1, "object-name context option did not print")
+assert(string.find(printed[1], "resolvedName=Trash", 1, true),
+    "object-name context option did not resolve CustomName")
+menu.options[2].callback()
 assert(opened == 1, "admin context option did not open the debug hub")
 
 currentPlayer = guest
 engineDebug = true
-contextHandler(0, menu, {}, false)
-assert(#menu.options == 2, "single-player debug context option was missing")
-menu.options[2].callback()
+contextHandler(0, menu, { object }, false)
+assert(#menu.options == 4, "single-player debug context options were missing")
+menu.options[4].callback()
 assert(opened == 2, "single-player debug context option did not open the debug hub")
 
+print = oldPrint
 print("psychopatz_debug_access_smoke: ok")
