@@ -86,6 +86,8 @@ split by responsibility:
 - `UI.Theme`: colors, typography choices, and spacing tokens
 - `UI.Layout`: scale, safe window bounds, flow wrapping, splits, and clipping
 - `UI.CreateButton`, `UI.CreateList`, and `UI.CreatePanel`: themed controls
+- `UI.CreateKeyValueList` / `UI.AddKeyValue`: reusable two-column detail lists
+- `UI.CreateTextEntry`: consistent text-entry construction and input options
 - `PsychopatzWindow`: resizable, screen-safe shared window base
 
 `PsychopatzWindow` persists position and size by default. Set
