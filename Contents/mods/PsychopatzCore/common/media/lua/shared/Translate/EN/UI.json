@@ -6,6 +6,7 @@
     "UI_PsychopatzConversation_Close": "X",
     "UI_PsychopatzConversation_EditLayout": "LAYOUT",
     "UI_PsychopatzConversation_SaveLayout": "SAVE",
+    "UI_PsychopatzConversation_ResetLayout": "RESET TO DEFAULT",
     "UI_PsychopatzConversation_EditHint": "Drag panels to move them; drag the bright corner to resize.",
     "UI_PsychopatzConversation_PreviewGreeting": "Evening. This is a preview of the conversation interface.",
     "UI_PsychopatzConversation_PreviewChoice": "Show me another message.",

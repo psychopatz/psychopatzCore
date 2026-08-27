@@ -144,10 +144,49 @@ function PsychopatzConversationView:createChildren()
         self.editMode or Conversation.Settings.Get("showEditorButton", true) == true
     )
     self:addChild(self.layoutButton)
+
+    self.resetLayoutButton = ISButton:new(
+        self.width - 320, 10, 140, 28,
+        buttonLabel(
+            "UI_PsychopatzConversation_ResetLayout",
+            "RESET TO DEFAULT"
+        ),
+        self,
+        PsychopatzConversationView.onResetLayoutButton
+    )
+    self.resetLayoutButton:initialise()
+    self.resetLayoutButton:instantiate()
+    self.resetLayoutButton:setAnchorLeft(false)
+    self.resetLayoutButton:setAnchorRight(true)
+    self.resetLayoutButton.backgroundColor = {
+        r = 0.20,
+        g = 0.10,
+        b = 0.04,
+        a = 0.88,
+    }
+    self.resetLayoutButton.backgroundColorMouseOver = {
+        r = 0.42,
+        g = 0.20,
+        b = 0.06,
+        a = 0.95,
+    }
+    self.resetLayoutButton.borderColor = {
+        r = 0.95,
+        g = 0.58,
+        b = 0.22,
+        a = 0.82,
+    }
+    self.resetLayoutButton:setVisible(self.editMode == true)
+    self:addChild(self.resetLayoutButton)
 end
 
 function PsychopatzConversationView:onCloseButton()
     self:close("close_button")
+end
+
+function PsychopatzConversationView:onResetLayoutButton()
+    if self.editMode ~= true then return end
+    if Layout and Layout.ResetAll then Layout.ResetAll(true) end
 end
 
 function PsychopatzConversationView:start()
@@ -243,6 +282,7 @@ function PsychopatzConversationView:toggleEditMode()
     self.layoutButton:setTitle(self.editMode
         and buttonLabel("UI_PsychopatzConversation_SaveLayout", "Done")
         or buttonLabel("UI_PsychopatzConversation_EditLayout", "Edit layout"))
+    self.resetLayoutButton:setVisible(self.editMode == true)
     if self.editMode then
         Animator.SkipOpen(self.animator)
         self.portraitPart:setReveal(1)
