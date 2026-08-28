@@ -5,7 +5,12 @@ Protocol.VERSION = 1
 Protocol.MAX_REQUEST_BYTES = 32768
 Protocol.MAX_RESPONSE_BYTES = 65536
 Protocol.MAX_STRING = 4096
-Protocol.MAX_DEPTH = 8
+-- A bridge response wraps conversation_context -> available_tools -> each
+-- function declaration -> parameters -> properties -> property metadata.
+-- Eight levels truncated the innermost `type` values into `[depth-limit]`,
+-- which made Gemini report an unsupported tool schema. Keep this bounded but
+-- deep enough for the published conversation tool contract.
+Protocol.MAX_DEPTH = 12
 Protocol.MAX_COLLECTION = 128
 Protocol.ERRORS = {
     INVALID_REQUEST = true, UNSUPPORTED_PROTOCOL = true,
