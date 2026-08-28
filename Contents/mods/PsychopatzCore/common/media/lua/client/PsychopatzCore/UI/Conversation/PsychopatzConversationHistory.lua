@@ -111,18 +111,29 @@ function History.Get(namespace, npcID, characterUUID)
             speaker = record.s == 1 and "player" or "npc",
             payload = Text.FromRecord(record),
             timestamp = record.t,
+            messageID = record.m,
+            conversationID = record.c,
+            sequence = record.q,
+            speakerID = record.i,
+            speakerName = record.n,
+            speakerKind = record.u,
+            playerUUID = record.p,
+            npcUUID = record.o,
+            namespace = record.v,
+            gameDay = record.g,
+            worldAgeHours = record.w,
         }
     end
     return output
 end
 
-function History.Append(namespace, npcID, speaker, value, characterUUID)
+function History.Append(namespace, npcID, speaker, value, characterUUID, message)
     local data, key, records = recordsFor(
         namespace, npcID, characterUUID, true
     )
     data.threads[key] = records
     local textRecord = Text.ToRecord(value)
-    records[#records + 1] = {
+    local record = {
         s = speaker == "player" and 1 or 0,
         k = textRecord.k,
         d = textRecord.d,
@@ -131,6 +142,20 @@ function History.Append(namespace, npcID, speaker, value, characterUUID)
         f = textRecord.f,
         t = getGameTime and getGameTime():getWorldAgeHours() or 0,
     }
+    if type(message) == "table" then
+        record.m = message.messageID
+        record.c = message.conversationID
+        record.q = message.sequence
+        record.i = message.speakerID
+        record.n = message.speakerName
+        record.u = message.speakerKind
+        record.p = message.playerUUID
+        record.o = message.npcUUID
+        record.v = message.namespace
+        record.g = message.gameDay
+        record.w = message.worldAgeHours
+    end
+    records[#records + 1] = record
     local limit = math.max(32, tonumber(Settings.Get("historySafetyLimit", 512)) or 512)
     while #records > limit do table.remove(records, 1) end
     return records[#records]

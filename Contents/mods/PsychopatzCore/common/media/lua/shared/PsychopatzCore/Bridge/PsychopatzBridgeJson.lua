@@ -142,4 +142,19 @@ function Json.Decode(text, limits)
     return value
 end
 
+-- Stable, dependency-free fingerprint for small protocol metadata documents.
+-- This is deliberately not a security hash. It is paired with the monotonic
+-- catalog revision and is only used to avoid retransmitting unchanged data.
+function Json.Fingerprint(text)
+    text = tostring(text or "")
+    local first, second = 5381, 52711
+    local modulus = 4294967291
+    for index = 1, #text do
+        local byte = string.byte(text, index)
+        first = (first * 33 + byte) % modulus
+        second = (second * 65599 + byte) % modulus
+    end
+    return tostring(first) .. ":" .. tostring(second) .. ":" .. tostring(#text)
+end
+
 return Json

@@ -4,3 +4,4 @@ tools/profiler/.venv/
 *.profiler.csv
 __pycache__/
 *.pyc
+.architecture-refactor/index.sqlite

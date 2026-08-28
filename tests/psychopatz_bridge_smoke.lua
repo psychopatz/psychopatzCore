@@ -85,6 +85,48 @@ requests[3] = { message_type = "request", protocol_version = 1, request_id = "re
 Bridge.ProcessPendingRequests()
 equal(responses[3].result.value, 42, "registered handler")
 equal(Bridge.GetCapabilities()["example.debug"].commands[1].name, "inspect", "capability discovery")
+
+local toolRegistered = Bridge.RegisterTool("example.debug", "inspect_tool", {
+    type = "function", ["function"] = {
+        name = "inspect_tool", description = "Inspect a debug value.",
+        parameters = { type = "object", properties = {}, additionalProperties = false },
+    },
+})
+equal(toolRegistered, true, "tool registration")
+local catalog = Bridge.GetToolCatalog()
+equal(catalog.catalog_version, 1, "tool catalog revision")
+equal(catalog.tools[1].id, "example.debug:inspect_tool", "tool catalog entry")
+equal(transport.runtime.tool_catalog_id, catalog.catalog_id, "runtime catalog fingerprint")
+
+requests[4] = { message_type = "request", protocol_version = 1, request_id = "request07",
+    target_runtime_id = "runtime-new", namespace = "psychopatzcore.bridge",
+    command = "toolCatalog", arguments = {} }
+Bridge.ProcessPendingRequests()
+equal(responses[4].result.catalog_id, catalog.catalog_id, "tool catalog command")
+
+equal(Bridge.RegisterPacketChannel("example.debug", "events", { maxEvents = 2 }), true,
+    "packet channel registration")
+local snapshotOK, snapshotRevision = Bridge.SetPacketSnapshot(
+    "example.debug", "events", { active = true }, 7
+)
+equal(snapshotOK, true, "packet snapshot")
+equal(snapshotRevision, 7, "packet snapshot revision")
+Bridge.PublishPacket("example.debug", "events", { packet_type = "first" })
+Bridge.PublishPacket("example.debug", "events", { packet_type = "second" })
+Bridge.PublishPacket("example.debug", "events", { packet_type = "third" })
+requests[5] = { message_type = "request", protocol_version = 1, request_id = "request08",
+    target_runtime_id = "runtime-new", namespace = "psychopatzcore.bridge",
+    command = "pollPackets", arguments = {
+        subscriptions = { {
+            namespace = "example.debug", channel = "events", after = 0,
+            include_snapshot = true,
+        } },
+    } }
+Bridge.ProcessPendingRequests()
+local stream = responses[5].result.streams[1]
+equal(stream.gap, true, "packet stream gap detection")
+equal(#stream.events, 2, "packet stream bounded retention")
+equal(stream.snapshot.active, true, "packet stream snapshot")
 Bridge.Shutdown()
 equal(tickCallback, nil, "shutdown callback retained")
 

@@ -1,5 +1,6 @@
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationHistory"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationText"
+require "PsychopatzCore/Conversation/PsychopatzConversationMessage"
 
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.Conversation = PsychopatzCore.Conversation or {}
@@ -8,6 +9,7 @@ local Conversation = PsychopatzCore.Conversation
 local History = Conversation.History
 local Settings = Conversation.Settings
 local Text = Conversation.Text
+local Message = Conversation.Message
 local Session = Conversation.Session or {}
 Conversation.Session = Session
 
@@ -25,14 +27,22 @@ local function evaluate(value, context, ...)
 end
 
 function Session.New(view, spec)
+    spec = spec or {}
+    local context = spec.context or {}
+    local persistHistory = spec.persistHistory ~= false
     local self = {
         view = view,
-        spec = spec or {},
+        spec = spec,
         namespace = spec.namespace or "default",
         npcID = spec.npcID or spec.id or "unknown",
         characterUUID = spec.characterUUID or "unbound",
-        persistHistory = spec.persistHistory ~= false,
-        context = spec.context or {},
+        persistHistory = persistHistory,
+        context = context,
+        saveUUID = spec.saveUUID
+            or (persistHistory and Message.GetSaveID() or "ephemeral"),
+        conversationID = spec.conversationID or Message.NewID("conversation"),
+        participants = spec.participants or {},
+        sequence = 0,
         queue = {},
         busy = false,
     }
@@ -54,24 +64,74 @@ function Session:getNode(nodeID)
     return node
 end
 
-function Session:append(speaker, payload)
-    local message = {
-        speaker = speaker,
-        payload = Text.Payload(payload),
-    }
+local function speakerDetails(session, speaker, metadata)
+    metadata = metadata or {}
+    local source = type(speaker) == "table" and speaker or {}
+    local kind = type(speaker) == "string" and speaker
+        or source.kind or source.speakerKind or "npc"
+    local context = session.context or {}
+    local player = kind == "player"
+    local speakerID = metadata.speakerID or source.speakerID or source.id
+    local speakerName = metadata.speakerName or source.speakerName or source.name
+    if player then
+        speakerID = speakerID or metadata.playerID or session.characterUUID
+        speakerName = speakerName or context.playerName
+            or context.playerFullName or session.spec.playerName
+    else
+        speakerID = speakerID or metadata.npcID or session.npcID
+        speakerName = speakerName or context.npcName
+            or context.npcFullName or session.spec.npcName
+    end
+    return kind, tostring(speakerID or "unknown-speaker"), speakerName
+end
+
+function Session:append(speaker, payload, metadata)
+    metadata = metadata or {}
+    local kind, speakerID, speakerName = speakerDetails(self, speaker, metadata)
+    self.sequence = self.sequence + 1
+    local textPayload = Text.Payload(
+        type(speaker) == "table" and (speaker.payload or payload) or payload
+    )
+    local message = Message.New({
+        conversationID = self.conversationID,
+        saveUUID = self.saveUUID,
+        sequence = self.sequence,
+        messageID = metadata.messageID,
+        speaker = kind,
+        speakerID = speakerID,
+        speakerName = speakerName,
+        speakerKind = metadata.speakerKind or kind,
+        playerUUID = self.characterUUID,
+        npcUUID = self.npcID,
+        namespace = self.namespace,
+        payload = textPayload,
+        text = Text.Resolve(textPayload),
+        worldAgeHours = metadata.worldAgeHours,
+        participants = metadata.participants or self.participants,
+        visibility = metadata.visibility,
+        provenance = metadata.provenance,
+        source = metadata.source,
+        deliveryState = metadata.deliveryState,
+        presentationState = metadata.presentationState or {
+            conversationUI = true,
+            nameplate = false,
+        },
+    })
     if self.persistHistory then
         History.Append(
-            self.namespace, self.npcID, speaker, message.payload,
-            self.characterUUID
+            self.namespace, self.npcID, kind, message.payload,
+            self.characterUUID, message
         )
     end
+    Message.Publish(message)
     self.view.historyPart:addMessage(message)
-    if speaker == "npc" and self.view.portraitPart
+    if kind == "npc" and self.view.portraitPart
         and self.view.portraitPart.portrait
         and self.view.portraitPart.portrait.pulseSpeech
     then
         self.view.portraitPart.portrait:pulseSpeech(Text.Resolve(message.payload))
     end
+    return message
 end
 
 function Session:delayFor(payload)
@@ -84,13 +144,16 @@ function Session:delayFor(payload)
     return math.max(minimum, math.min(maximum, length / rate * 1000))
 end
 
-function Session:queueMessage(speaker, payload)
+function Session:queueMessage(speaker, payload, metadata)
+    metadata = metadata or {}
     if payload == nil then return end
     if type(payload) == "table" and payload[1] ~= nil
         and payload.key == nil and payload.text == nil
     then
         local index
-        for index = 1, #payload do self:queueMessage(speaker, payload[index]) end
+        for index = 1, #payload do
+            self:queueMessage(speaker, payload[index], metadata)
+        end
         return
     end
     local previous = self.queue[#self.queue]
@@ -99,6 +162,7 @@ function Session:queueMessage(speaker, payload)
     self.queue[#self.queue + 1] = {
         speaker = speaker,
         payload = Text.Payload(payload),
+        metadata = metadata,
         readyAt = readyAt,
     }
     self.busy = true
@@ -207,7 +271,7 @@ function Session:update()
     local queued = self.queue[1]
     if queued and now() >= queued.readyAt then
         table.remove(self.queue, 1)
-        self:append(queued.speaker, queued.payload)
+        self:append(queued.speaker, queued.payload, queued.metadata)
         queued = self.queue[1]
         self.view.historyPart:setTyping(queued and queued.speaker or nil)
     end

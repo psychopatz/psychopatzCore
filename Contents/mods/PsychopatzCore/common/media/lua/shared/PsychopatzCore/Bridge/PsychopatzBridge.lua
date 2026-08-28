@@ -4,6 +4,7 @@ PsychopatzCore.Bridge = Bridge
 
 local Protocol = require "PsychopatzCore/Bridge/PsychopatzBridgeProtocol"
 local Registry = require "PsychopatzCore/Bridge/PsychopatzBridgeRegistry"
+local Streams = require "PsychopatzCore/Bridge/PsychopatzBridgeStreams"
 
 Bridge.PROTOCOL_VERSION = Protocol.VERSION
 Bridge.lifecycle = Bridge.lifecycle or "UNLOADED"
@@ -22,11 +23,44 @@ function Bridge.GetRuntimeInfo()
         lifecycle = Bridge.lifecycle, enabled = Bridge.lifecycle == "READY",
         transport = "file", config_fingerprint = state.configFingerprint,
         authority = state.authority, namespaces = Registry.Capabilities(),
+        tool_catalog_id = Registry.ToolCatalog().catalog_id,
+        tool_catalog_version = Registry.ToolCatalog().catalog_version,
+        packet_channels = Streams.Describe(),
     }
 end
 
 function Bridge.GetCapabilities()
     return Registry.Capabilities()
+end
+
+function Bridge.GetToolCatalog()
+    return Registry.ToolCatalog()
+end
+
+function Bridge.RegisterTool(namespace, name, definition, options)
+    if Bridge.lifecycle == "UNLOADED" then return false, "bridge_disabled" end
+    return Registry.RegisterTool(namespace, name, definition, options)
+end
+
+function Bridge.UnregisterTool(namespace, name)
+    return Registry.UnregisterTool(namespace, name)
+end
+
+function Bridge.RegisterPacketChannel(namespace, channel, options)
+    if Bridge.lifecycle == "UNLOADED" then return false, "bridge_disabled" end
+    return Streams.Register(namespace, channel, options)
+end
+
+function Bridge.UnregisterPacketChannel(namespace, channel)
+    return Streams.Unregister(namespace, channel)
+end
+
+function Bridge.SetPacketSnapshot(namespace, channel, snapshot, revision)
+    return Streams.SetSnapshot(namespace, channel, snapshot, revision)
+end
+
+function Bridge.PublishPacket(namespace, channel, packet)
+    return Streams.Publish(namespace, channel, packet)
 end
 
 function Bridge.RegisterCommand(namespace, command, options)
@@ -139,6 +173,15 @@ local function registerBuiltins()
     Registry.Register("psychopatzcore.bridge", "runtimeInfo", { readOnly = true, handler = function()
         return Bridge.GetRuntimeInfo()
     end })
+    Registry.Register("psychopatzcore.bridge", "toolCatalog", { readOnly = true, handler = function()
+        return Bridge.GetToolCatalog()
+    end })
+    Registry.Register("psychopatzcore.bridge", "packetChannels", { readOnly = true, handler = function()
+        return { channels = Streams.Describe() }
+    end })
+    Registry.Register("psychopatzcore.bridge", "pollPackets", { readOnly = true, handler = function(_, arguments)
+        return Streams.Poll(arguments)
+    end })
 end
 
 function Bridge.Initialize(options)
@@ -151,8 +194,10 @@ function Bridge.Initialize(options)
         slotCount = math.min(options.slotCount or 16, 16), maxPerCycle = math.min(options.maxPerCycle or 4, 4),
         nextSlot = 0, lastPollAt = 0, responseByRequestID = {}, responseOrder = {},
     }
-    Registry.namespaces = {}
+    Registry.Reset()
+    Streams.Reset()
     Registry.onChanged = Bridge.RefreshRuntimeState
+    Streams.onChanged = Bridge.RefreshRuntimeState
     registerBuiltins()
     Bridge.lifecycle = "READY"
     Bridge.RefreshRuntimeState()
@@ -167,6 +212,7 @@ function Bridge.Shutdown()
     if Events and Events.OnTick and Events.OnTick.Remove then Events.OnTick.Remove(onTick) end
     if Events and Events.OnGameExit and Events.OnGameExit.Remove then Events.OnGameExit.Remove(Bridge.Shutdown) end
     Registry.onChanged = nil
+    Streams.onChanged = nil
     Bridge.state = nil
     Bridge.lifecycle = "UNLOADED"
     return true

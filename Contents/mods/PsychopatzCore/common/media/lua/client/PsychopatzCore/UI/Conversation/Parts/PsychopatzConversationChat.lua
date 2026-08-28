@@ -158,6 +158,11 @@ function PsychopatzConversationChat:render()
                     key = "UI_PsychopatzConversation_NPC",
                     fallback = "NPC",
                 })
+            if not player and layout.message
+                and layout.message.speakerName
+            then
+                npcName = layout.message.speakerName
+            end
             local playerName = self.owner
                 and self.owner.spec
                 and self.owner.spec.context

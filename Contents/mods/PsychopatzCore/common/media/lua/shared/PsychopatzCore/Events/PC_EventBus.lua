@@ -13,6 +13,13 @@ function Events.subscribe(eventType, listener, ownerToken)
         list = {}
         listeners[eventType] = list
     end
+    -- Registration is idempotent for a listener/owner pair. This prevents a
+    -- reload or repeated composition pass from multiplying every delivery.
+    for index = 1, #list do
+        if list[index][1] == listener and list[index][2] == ownerToken then
+            return true
+        end
+    end
     list[#list + 1] = { listener, ownerToken }
     return true
 end
@@ -33,9 +40,13 @@ end
 function Events.emit(eventType, ...)
     local list = listeners[eventType]
     if not list then return 0 end
+    -- Deliver against a stable snapshot. A listener may subscribe or
+    -- unsubscribe while handling an event without changing this delivery.
+    local snapshot = {}
+    for index = 1, #list do snapshot[index] = list[index] end
     local delivered = 0
-    for index = 1, #list do
-        local ok, errorValue = pcall(list[index][1], ...)
+    for index = 1, #snapshot do
+        local ok, errorValue = pcall(snapshot[index][1], ...)
         if ok then
             delivered = delivered + 1
         elseif Events.onListenerError then

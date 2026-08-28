@@ -5,6 +5,9 @@ local Core = PsychopatzCore
 require "PsychopatzCore/Runtime/PC_RuntimeRole"
 require "PsychopatzCore/Collections/PC_RingBuffer"
 require "PsychopatzCore/Events/PC_EventBus"
+-- Public, opt-in voice transport. Loading this module only defines the API;
+-- it installs no event or tick listeners until a mod registers a source.
+require "PsychopatzCore/Voice/PsychopatzVoiceGateway"
 require "PsychopatzCore/Journal/PC_JournalService"
 require "PsychopatzCore/Radio/PC_RadioDeviceState"
 require "PsychopatzCore/World/PC_GridRegion"
@@ -51,6 +54,7 @@ function Core.IsOwner(player)
 end
 
 require "PsychopatzCore/Debug/PsychopatzDebug"
+require "PsychopatzCore/Debug/PsychopatzDebugTrace"
 require "PsychopatzCore/Radio/RadioFrequencies/PsychopatzRadioFrequencies"
 require "PsychopatzCore/Radio/CustomChannels/PsychopatzCustomRadio"
 require "PsychopatzCore/Traits/PsychopatzTraitRegistry"

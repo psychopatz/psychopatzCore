@@ -16,6 +16,37 @@ PsychopatzCore._debugClientInstalled = true
 local KEY_NUMPAD_0 = 82
 local Debug = PsychopatzCore.Debug
 local UI = PsychopatzCore.UI
+local DebugHub = PsychopatzCore.DebugHub
+
+local DebugTraceWindow
+local function openDebugTrace()
+    if not DebugTraceWindow then
+        local loaded, module = pcall(require,
+            "PsychopatzCore/UI/PsychopatzDebugTraceWindow")
+        if not loaded then
+            if print then print("[PsychopatzCore.DebugTrace] " .. tostring(module)) end
+            return nil
+        end
+        DebugTraceWindow = module
+    end
+    return DebugTraceWindow.Open()
+end
+
+if DebugHub and DebugHub.RegisterTool then
+    DebugHub.RegisterTool({
+        id = "psychopatz.runtimeTrace",
+        source = "PsychopatzCore",
+        order = 5,
+        title = "Runtime Debug Trace",
+        description = "Inspect opt-in structured runtime events from any mod.",
+        available = function()
+            return Debug.CanUse(getPlayer and getPlayer() or nil)
+        end,
+        action = function()
+            return openDebugTrace()
+        end,
+    })
+end
 
 PsychopatzDebugWindow = ISCollapsableWindow:derive("PsychopatzDebugWindow")
 PsychopatzDebugWindow.instance = nil

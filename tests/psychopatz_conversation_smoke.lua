@@ -1,4 +1,6 @@
 local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/"
+local SHARED = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+package.path = SHARED .. "?.lua;" .. package.path
 
 local function assertEqual(actual, expected, label)
     if actual ~= expected then
@@ -34,6 +36,8 @@ package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationSettings"]
     function() return PsychopatzCore.Conversation.Settings end
 package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationHistory"] =
     function() return PsychopatzCore.Conversation.History end
+package.preload["PsychopatzCore/Conversation/PsychopatzConversationMessage"] =
+    function() return PsychopatzCore.Conversation.Message end
 package.preload["PsychopatzCore/UI/Core/PsychopatzUILayout"] =
     function() return true end
 
@@ -55,6 +59,8 @@ ModData = {
 }
 
 dofile(ROOT .. "PsychopatzConversationText.lua")
+dofile(SHARED .. "PsychopatzCore/Events/PC_EventBus.lua")
+dofile(SHARED .. "PsychopatzCore/Conversation/PsychopatzConversationMessage.lua")
 dofile(ROOT .. "PsychopatzConversationTheme.lua")
 PsychopatzConversation_Text_TestDomain_EN = {
     PNC_Test_Domain = "Hello %1. Status: {status}.",
@@ -73,6 +79,78 @@ local Layout = PsychopatzCore.Conversation.Layout
 local Animator = PsychopatzCore.Conversation.Animator
 local Session = PsychopatzCore.Conversation.Session
 local Lifecycle = PsychopatzCore.Conversation.Lifecycle
+local Message = PsychopatzCore.Conversation.Message
+local Events = PsychopatzCore.Events
+
+local canonicalMessages = {}
+local publishedMessage
+Events.subscribe(Message.EVENT_TYPE, function(message)
+    publishedMessage = message
+end, "conversation-smoke")
+local canonicalSession = Session.New({
+    choicesPart = { setChoices = function() end },
+    historyPart = {
+        addMessage = function(_, message)
+            canonicalMessages[#canonicalMessages + 1] = message
+        end,
+        setTyping = function() end,
+    },
+}, {
+    namespace = "CanonicalTest",
+    npcID = "npc-canonical",
+    characterUUID = "player-canonical",
+    context = {
+        npcName = "Canonical NPC",
+        playerName = "Canonical Player",
+    },
+    persistHistory = false,
+    conversationID = "canonical-conversation",
+    saveUUID = "canonical-save",
+    participants = {
+        { id = "player-canonical", kind = "player" },
+        { id = "npc-canonical", kind = "npc" },
+    },
+})
+canonicalSession:append("npc", { text = "A dated reply." })
+assertEqual(#canonicalMessages, 1, "canonical message reaches chat")
+assertEqual(canonicalMessages[1].messageID, "canonical-conversation:1",
+    "canonical message ID")
+assertEqual(canonicalMessages[1].conversationID, "canonical-conversation",
+    "canonical conversation ID")
+assertEqual(canonicalMessages[1].saveUUID, "canonical-save",
+    "canonical save ID")
+assertEqual(canonicalMessages[1].speakerID, "npc-canonical",
+    "canonical NPC ID")
+assertEqual(canonicalMessages[1].speakerName, "Canonical NPC",
+    "canonical NPC name")
+assertEqual(canonicalMessages[1].playerUUID, "player-canonical",
+    "canonical player scope")
+assertEqual(canonicalMessages[1].npcUUID, "npc-canonical",
+    "canonical NPC scope")
+assertEqual(canonicalMessages[1].namespace, "CanonicalTest",
+    "canonical namespace")
+assertEqual(canonicalMessages[1].gameDay, 1, "canonical game day")
+assertEqual(canonicalMessages[1].worldAgeHours, 30,
+    "canonical world age")
+assertEqual(canonicalMessages[1].text, "A dated reply.",
+    "canonical resolved text")
+assertEqual(canonicalMessages[1].presentationState.conversationUI, true,
+    "canonical UI presentation state")
+assertEqual(publishedMessage, canonicalMessages[1],
+    "canonical message publication")
+assertEqual(canonicalMessages[1].participants[2].id, "npc-canonical",
+    "canonical participants")
+canonicalSession:append({
+    kind = "npc",
+    id = "npc-second",
+    name = "Second NPC",
+}, { text = "A second speaker." })
+assertEqual(canonicalMessages[2].sequence, 2, "multi-NPC sequence")
+assertEqual(canonicalMessages[2].speakerID, "npc-second",
+    "multi-NPC speaker ID")
+assertEqual(canonicalMessages[2].speakerName, "Second NPC",
+    "multi-NPC speaker name")
+Events.clearOwner("conversation-smoke")
 
 assertEqual(Text.Resolve({ key = "UI_Test_Message", args = { "Alex" } }),
     "Hello Alex", "translation payload")
@@ -192,6 +270,14 @@ assertEqual(compact.a[1], "Alex", "translation argument serialized")
 assertEqual(compact.a.status, "safe", "named translation argument serialized")
 assertEqual(compact.text, nil, "resolved text is not serialized")
 assertEqual(compact.f, nil, "keyed fallback prose is not serialized")
+
+History.Append("Test", "canonical-history", "npc", { fallback = "Connected" },
+    "char_canonical", canonicalMessages[1])
+local historical = History.Get("Test", "canonical-history", "char_canonical")[1]
+assertEqual(historical.messageID, canonicalMessages[1].messageID,
+    "history preserves canonical message ID")
+assertEqual(historical.conversationID, canonicalMessages[1].conversationID,
+    "history preserves canonical conversation ID")
 
 History.Append("Test", "npc-scoped", "npc", { fallback = "Alpha" },
     "char_alpha")
