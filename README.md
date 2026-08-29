@@ -89,6 +89,7 @@ split by responsibility:
   `UI.CreatePanel`: themed controls
 - `UI.CreateKeyValueList` / `UI.AddKeyValue`: reusable two-column detail lists
 - `UI.CreateTextEntry`: consistent text-entry construction and input options
+- `UI.ImageResolver`: safe cached texture/item-icon resolution and drawing
 - `PsychopatzWindow`: resizable, screen-safe shared window base
 
 `PsychopatzWindow` persists position and size by default. Set
@@ -131,6 +132,21 @@ of category labels. Each category is rendered as a toggleable header, and
 `collapseAll()` / `expandAll()` plus `onItemSelected` and `onItemActivated`
 are available on the returned list. This is the shared pattern for debug
 catalogs and inventory-like item browsers.
+
+`UI.CreateList` and `UI.CreateKeyValueList` use fixed-row virtualization by
+default: rows are indexed once after mutation and only rows intersecting the
+viewport are drawn. This keeps large ledgers, traces, profiler views, and
+catalogs responsive. Set `virtualized = false` for a custom renderer that
+intentionally returns variable row heights. `rebuildVirtualizedMetrics()` is
+available when code changes row heights directly.
+
+Use `UI.Layout.Ellipsize(value, font, width)` for single-line labels that must
+fit their allocated space. It is width-aware and uses a binary-search trim,
+so long item names, statuses, and descriptions do not repeatedly measure every
+prefix. `UI.ImageResolver.ResolveItemTexture(fullType)` and
+`UI.ImageResolver.DrawItemIcon(element, fullType, x, y, width, height, alpha)`
+provide the safe cached item-icon path used by debug catalogs; call
+`UI.ImageResolver.ClearCache()` after a runtime texture set is replaced.
 
 ## Shared settings and markers
 

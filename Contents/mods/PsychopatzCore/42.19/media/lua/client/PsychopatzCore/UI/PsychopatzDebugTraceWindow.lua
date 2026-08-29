@@ -65,8 +65,9 @@ local function drawEntry(list, y, row, alternate)
     list:drawText(Layout.Ellipsize(entryLabel(entry), UIFont.Small,
         list:getWidth() - 16), 8, y + 6,
         color.r, color.g, color.b, color.a, UIFont.Small)
-    list:drawText("#" .. tostring(entry.id or "?") .. "  "
-        .. tostring(entry.timestamp or ""), 8, y + 26,
+    list:drawText(Layout.Ellipsize("#" .. tostring(entry.id or "?") .. "  "
+        .. tostring(entry.timestamp or ""), UIFont.Small,
+        math.max(40, list:getWidth() - 16)), 8, y + 26,
         muted.r, muted.g, muted.b, muted.a, UIFont.Small)
     return y + list.itemheight
 end
@@ -109,7 +110,7 @@ function PsychopatzDebugTraceWindow:createChildren()
         onclick = PsychopatzDebugTraceWindow.onClear,
         variant = "danger",
     })
-    self.closeButton = UI.CreateButton(self, {
+    self.traceCloseButton = UI.CreateButton(self, {
         id = "close", title = "Close", target = self,
         onclick = PsychopatzDebugTraceWindow.close,
         variant = "quiet",
@@ -128,7 +129,7 @@ function PsychopatzDebugTraceWindow:onResponsiveLayout()
     Layout.SetBounds(self.eventList, rect.x, rect.y, leftWidth, rect.height)
     Layout.SetBounds(self.details, rect.x + leftWidth + gap, rect.y,
         rect.width - leftWidth - gap, rect.height)
-    local buttons = { self.captureButton, self.clearButton, self.closeButton }
+    local buttons = { self.captureButton, self.clearButton, self.traceCloseButton }
     Layout.Flow(buttons, {
         x = rect.x, y = rect.y + rect.height + Layout.Pixels(8, self.uiScale),
         width = rect.width,

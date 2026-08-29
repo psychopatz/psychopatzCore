@@ -26,8 +26,15 @@ local function drawMetric(list, y, entry, alternate)
     UI.DrawListSelection(list, y, list.itemheight, list.selected == entry.index, alternate)
     local color = Theme.colors.text
     local muted = Theme.colors.textMuted
-    list:drawText(item.name, 10, y + 6, color.r, color.g, color.b, color.a, UIFont.Small)
-    list:drawTextRight(item.value, list:getWidth() - 10, y + 6, muted.r, muted.g, muted.b, muted.a, UIFont.Small)
+    local value = tostring(item.value or "")
+    local valueWidth = math.min(math.max(80, math.floor(list:getWidth() * 0.42)),
+        math.max(40, list:getWidth() - 30))
+    value = Layout.Ellipsize(value, UIFont.Small, valueWidth)
+    local name = Layout.Ellipsize(item.name, UIFont.Small,
+        math.max(40, list:getWidth() - valueWidth - 24))
+    list:drawText(name, 10, y + 6, color.r, color.g, color.b, color.a, UIFont.Small)
+    list:drawTextRight(value, list:getWidth() - 10, y + 6,
+        muted.r, muted.g, muted.b, muted.a, UIFont.Small)
     return y + list.itemheight
 end
 
@@ -97,7 +104,7 @@ function PsychopatzProfilerWindow:createChildren()
     })
     self.resetButton = UI.CreateButton(self, { title = getText("UI_PsychopatzProfiler_Reset"), target = self, onclick = self.onReset })
     self.exportButton = UI.CreateButton(self, { title = getText("UI_PsychopatzProfiler_Export"), target = self, onclick = self.onExport })
-    self.closeButton = UI.CreateButton(self, { title = "Close", target = self, onclick = self.close, variant = "quiet" })
+    self.profilerCloseButton = UI.CreateButton(self, { title = "Close", target = self, onclick = self.close, variant = "quiet" })
     self:requestResponsiveLayout(true)
     self:refreshMetrics(true)
 end
@@ -123,7 +130,7 @@ function PsychopatzProfilerWindow:onResponsiveLayout()
         self.settingsStatusLabel:setY(218)
         Layout.SetBounds(self.settingsApplyButton, 16, 254, math.min(260, rect.width - 32), 28)
     end
-    local buttons = { self.resetButton, self.exportButton, self.closeButton }
+    local buttons = { self.resetButton, self.exportButton, self.profilerCloseButton }
     for _, button in ipairs(buttons) do button.psychopatzPreferredWidth = Layout.Pixels(150, self.uiScale) end
     Layout.Flow(buttons, { x = rect.x, y = rect.y + rect.height + 8, width = rect.width }, { scale = self.uiScale })
 end

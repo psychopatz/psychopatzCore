@@ -6,6 +6,7 @@ local Editor = require "PsychopatzCore/World/PC_GridRegionEditor"
 local SquareRules = require "PsychopatzCore/World/PsychopatzSquareRules"
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
+local Layout = UI.Layout
 
 local Selector = ISPanelJoypad:derive("PsychopatzGridRegionSelector")
 PsychopatzCore.UI.GridRegionSelector = Selector
@@ -198,9 +199,12 @@ function Selector:prerender()
     self:drawRect(0, 0, self.width, 2, 0.9, Theme.colors.accent.r,
         Theme.colors.accent.g, Theme.colors.accent.b)
     local stats = self.selectionStats or Editor.stats(self.region)
-    self:drawText(self.titleText, 12, 10, Theme.colors.text.r,
+    local textWidth = math.max(40, self.width - 24)
+    self:drawText(Layout.Ellipsize(self.titleText, UIFont.Medium, textWidth),
+        12, 10, Theme.colors.text.r,
         Theme.colors.text.g, Theme.colors.text.b, 1, UIFont.Medium)
-    self:drawText(self.instructionText, 12, 34, Theme.colors.textMuted.r,
+    self:drawText(Layout.Ellipsize(self.instructionText, UIFont.Small, textWidth),
+        12, 34, Theme.colors.textMuted.r,
         Theme.colors.textMuted.g, Theme.colors.textMuted.b, 1, UIFont.Small)
     local metric = tostring(stats.tileCount or 0) .. " "
         .. tr("UI_PsychopatzRegion_Tiles", "tiles")
@@ -215,13 +219,15 @@ function Selector:prerender()
             .. tostring(stats.capacity) .. " "
             .. tr("UI_PsychopatzRegion_Claimed", "claimed")
     end
-    self:drawText(metric, 12, 57, Theme.colors.accent.r,
+    self:drawText(Layout.Ellipsize(metric, UIFont.Small, textWidth), 12, 57,
+        Theme.colors.accent.r,
         Theme.colors.accent.g, Theme.colors.accent.b, 1, UIFont.Small)
     local state = self.validationMessage ~= "" and self.validationMessage
         or tr("UI_PsychopatzRegion_Valid", "Selection ready")
     local color = self.validationMessage ~= "" and Theme.colors.danger
         or Theme.colors.success
-    self:drawText(state, 12, 79, color.r, color.g, color.b, 1, UIFont.Small)
+    self:drawText(Layout.Ellipsize(state, UIFont.Small, textWidth), 12, 79,
+        color.r, color.g, color.b, 1, UIFont.Small)
 
     for _, layer in ipairs(self.guideLayers or {}) do
         renderRegion(self.playerNum, layer.region, layer.color,

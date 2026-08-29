@@ -94,19 +94,41 @@ function PsychopatzWindow:installRenderClip()
     end
 end
 
+function PsychopatzWindow:syncWindowControls()
+    local collapseButton = self.psychopatzTitlebarCollapseButton or self.collapseButton
+    local pinButton = self.psychopatzTitlebarPinButton or self.pinButton
+    if not collapseButton or not pinButton then return end
+
+    local pinned = self.pin == true
+    if self.psychopatzPinState == pinned then return end
+
+    collapseButton:setVisible(pinned)
+    pinButton:setVisible(not pinned)
+    local activeButton = pinned and collapseButton or pinButton
+    if activeButton then activeButton:bringToTop() end
+    self.psychopatzPinState = pinned
+end
+
 function PsychopatzWindow:createChildren()
     ISCollapsableWindow.createChildren(self)
+    -- Derived windows may use names such as "collapseButton" for their own
+    -- toolbar controls. Keep stable references to the native title-bar
+    -- controls so that pinning cannot hide the wrong button.
+    self.psychopatzTitlebarPinButton = self.pinButton
+    self.psychopatzTitlebarCollapseButton = self.collapseButton
     -- The vanilla constructor starts pinned and createChildren initially shows
-    -- the collapse control.  Keep the control visibility synchronized when a
-    -- caller explicitly requests an unpinned window before children exist.
-    if self.collapseButton and self.pinButton then
-        self.collapseButton:setVisible(self.pin == true)
-        self.pinButton:setVisible(self.pin ~= true)
-        if self.pin == true then
-            self.collapseButton:bringToTop()
-        else
-            self.pinButton:bringToTop()
+    -- the collapse control. Core windows may explicitly start unpinned.
+    if self.psychopatzTitlebarCollapseButton and self.psychopatzTitlebarPinButton then
+        self.psychopatzTitlebarPinButton.onclick = function(target)
+            target.pin = true
+            target:syncWindowControls()
         end
+        self.psychopatzTitlebarCollapseButton.onclick = function(target)
+            target.pin = false
+            target:syncWindowControls()
+        end
+        self.psychopatzPinState = nil
+        self:syncWindowControls()
     end
 end
 
@@ -188,6 +210,7 @@ end
 
 function PsychopatzWindow:prerender()
     self:installRenderClip()
+    self:syncWindowControls()
     -- ISCollapsableWindow uses this flag to stencil the current window bounds
     -- before its children render.  Keep it enabled even when a derived window
     -- has changed the flag, otherwise collapsed children can bleed through.

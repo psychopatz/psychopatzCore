@@ -18,7 +18,8 @@ local function drawDetail(list, y, entry, alternate)
     UI.DrawListSelection(list, y, list.itemheight, false, alternate)
     local row = entry.item or {}
     local color = Theme.colors.text
-    list:drawText(tostring(row.text or ""), 8, y + 6,
+    list:drawText(Layout.Ellipsize(row.text, UIFont.Small,
+        math.max(40, list:getWidth() - 16)), 8, y + 6,
         color.r, color.g, color.b, color.a, UIFont.Small)
     return y + list.itemheight
 end
@@ -61,8 +62,9 @@ function PsychopatzNotificationWindow:prerender()
     UI.Window.prerender(self)
     local rect = self:getContentRect({ top = 30, bottom = 10 })
     local color = Theme.colors.text
-    self:drawText(tostring(self.notification
-        and self.notification.message or ""), rect.x, rect.y,
+    local message = self.notification and self.notification.message or ""
+    self:drawText(Layout.Ellipsize(message, UIFont.Small,
+        math.max(40, rect.width)), rect.x, rect.y,
         color.r, color.g, color.b, color.a, UIFont.Small)
 end
 

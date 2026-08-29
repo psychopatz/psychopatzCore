@@ -2,6 +2,7 @@ require "ISUI/ISButton"
 require "ISUI/ISPanel"
 require "ISUI/ISScrollingListBox"
 require "PsychopatzCore/UI/Core/PsychopatzUILayout"
+local VirtualizedList = require "PsychopatzCore/UI/Components/PsychopatzVirtualizedList"
 
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
@@ -48,6 +49,10 @@ function UI.CreateButton(parent, definition)
     button:initialise()
     button:instantiate()
     if definition.font and button.setFont then button:setFont(definition.font) end
+    if definition.image and button.setImage and UI.ImageResolver then
+        local image = UI.ImageResolver.Resolve(definition.image)
+        if image then button:setImage(image) end
+    end
     UI.StyleButton(button, definition.variant)
     if parent then parent:addChild(button) end
     return button
@@ -85,6 +90,12 @@ function UI.CreateList(parent, options)
     elseif options.doDrawItem then
         list.doDrawItem = options.doDrawItem
     end
+    -- Core lists use a fixed row height by default, which lets the shared
+    -- list component render only the visible rows. Set virtualized=false for
+    -- a list whose draw callback intentionally returns variable row heights.
+    if options.virtualized ~= false then
+        VirtualizedList.Install(list)
+    end
     if parent then parent:addChild(list) end
     return list
 end
@@ -101,10 +112,14 @@ function UI.DrawSectionTitle(element, title, x, y, width, suffix)
     local accent = Theme.colors.accent
     local font = Theme.Font(element.uiScale)
     element:drawRect(x, y + Theme.FontHeight(font) + 3, width, 1, 0.7, accent.r, accent.g, accent.b)
-    element:drawText(tostring(title or ""), x, y, color.r, color.g, color.b, color.a, font)
-    if suffix and suffix ~= "" then
-        local text = tostring(suffix)
-        element:drawText(text, x + width - Theme.TextWidth(font, text), y, color.r, color.g, color.b, color.a, font)
+    local suffixText = suffix and tostring(suffix) or ""
+    local suffixWidth = suffixText ~= "" and Theme.TextWidth(font, suffixText) or 0
+    local titleWidth = math.max(0, width - suffixWidth - (suffixText ~= "" and 12 or 0))
+    element:drawText(Layout.Ellipsize(title, font, titleWidth), x, y,
+        color.r, color.g, color.b, color.a, font)
+    if suffixText ~= "" then
+        element:drawText(suffixText, x + width - suffixWidth, y,
+            color.r, color.g, color.b, color.a, font)
     end
 end
 

@@ -3,6 +3,7 @@ require "ISUI/ISButton"
 local UI = PsychopatzCore.UI
 local Sidebar = UI.Sidebar or {}
 UI.Sidebar = Sidebar
+local ImageResolver = UI.ImageResolver
 
 -- ISEquippedItem uses this spacing between its native controls. Keeping the
 -- same value makes registered controls look like part of the vanilla stack.
@@ -83,8 +84,11 @@ end
 local function resolveImage(entry, host, player)
     local image = entry.image
     if type(image) == "function" then image = image(entry, host, player) end
-    if type(image) == "string" and getTexture then
-        image = getTexture(image)
+    local resolver = UI.ImageResolver or ImageResolver
+    if resolver then return resolver.Resolve(image) end
+    if type(image) == "string" and type(getTexture) == "function" then
+        local ok, texture = pcall(getTexture, image)
+        if ok and texture then return texture end
     end
     return image
 end

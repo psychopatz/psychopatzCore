@@ -1,8 +1,10 @@
 require "ISUI/ISUIElement"
 require "PsychopatzCore/UI/Core/PsychopatzUITheme"
+require "PsychopatzCore/UI/Core/PsychopatzUILayout"
 
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
+local Layout = UI.Layout
 local Meter = UI.Meter or {}
 UI.Meter = Meter
 
@@ -75,6 +77,7 @@ function Meter.Draw(element, spec)
     if spec.showValue ~= false then
         local font = spec.font or UIFont.Small
         local valueText = Meter.FormatValue(spec, value, minimum, maximum)
+        valueText = Layout.Ellipsize(valueText, font, math.max(1, width - 8))
         local textColor = type(spec.textColor) == "table" and spec.textColor
             or Theme.colors[spec.textColorName or "text"] or Theme.colors.text
         local textY = y + math.floor((height - Theme.FontHeight(font)) / 2)

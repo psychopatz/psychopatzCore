@@ -77,6 +77,7 @@ PsychopatzCore.UI = {
         },
         colors = { accent = { r = 1, g = 1, b = 1 } },
         Color = function() return {} end,
+        TextWidth = function(_, value) return #tostring(value or "") end,
     },
 }
 getCore = function()
@@ -84,6 +85,13 @@ getCore = function()
 end
 dofile(ROOT .. "UI/Core/PsychopatzUILayout.lua")
 local Layout = PsychopatzCore.UI.Layout
+UIFont = { Small = 1, Medium = 2 }
+assertEqual(Layout.Ellipsize("abcdefgh", UIFont.Small, 6), "abc...",
+    "ellipsize keeps text within width")
+assertEqual(Layout.Ellipsize("abcdefgh", UIFont.Small, 2), "",
+    "ellipsize avoids an overflowing suffix")
+assertEqual(Layout.Ellipsize("abc", UIFont.Small, 3), "abc",
+    "ellipsize preserves short text")
 local x, y = Layout.ResolveAnchor("center", 200, 100, { margin = 10 })
 assertEqual(x, 400, "center anchor x")
 assertEqual(y, 350, "center anchor y")
@@ -99,17 +107,22 @@ function scrollbar:setX(value) self.x = value end
 function scrollbar:setY(value) self.y = value end
 function scrollbar:setHeight(value) self.height = value end
 local scrollingControl = { x = 0, y = 0, width = 1, height = 1,
-    vscroll = scrollbar }
+    vscroll = scrollbar, javaObject = {} }
 function scrollingControl:getWidth() return self.width end
 function scrollingControl:getHeight() return self.height end
 function scrollingControl:setX(value) self.x = value end
 function scrollingControl:setY(value) self.y = value end
 function scrollingControl:setWidth(value) self.width = value end
 function scrollingControl:setHeight(value) self.height = value end
+function scrollingControl:updateScrollbars()
+    self.scrollbarRefreshes = (self.scrollbarRefreshes or 0) + 1
+end
 Layout.SetBounds(scrollingControl, 5, 6, 240, 180)
 assertEqual(scrollbar.x, 227, "responsive vertical scrollbar x")
 assertEqual(scrollbar.y, 0, "responsive vertical scrollbar y")
 assertEqual(scrollbar.height, 180, "responsive vertical scrollbar height")
+assertEqual(scrollingControl.scrollbarRefreshes, 1,
+    "responsive bounds refresh native scrollbar state")
 
 package.preload["ISUI/ISCollapsableWindow"] = function() return true end
 package.preload["PsychopatzCore/UI/Components/PsychopatzUIControls"] = function() return true end
@@ -188,6 +201,18 @@ assertEqual(defaultUnpinned.collapseButton.visible, false,
     "unpinned window initially hides collapse control")
 assertEqual(defaultUnpinned.pinButton.visible, true,
     "unpinned window initially shows pin control")
+defaultUnpinned.pin = true
+defaultUnpinned:prerender()
+assertEqual(defaultUnpinned.collapseButton.visible, true,
+    "pin state restores collapse control")
+assertEqual(defaultUnpinned.pinButton.visible, false,
+    "pin state hides pin control")
+defaultUnpinned.pin = false
+defaultUnpinned:prerender()
+assertEqual(defaultUnpinned.collapseButton.visible, false,
+    "unpin state restores pin control")
+assertEqual(defaultUnpinned.pinButton.visible, true,
+    "unpin state shows pin control")
 defaultUnpinned:prerender()
 assertEqual(defaultUnpinned.clearStentil, true,
     "window enables child clipping")
@@ -205,6 +230,29 @@ assertEqual(initialPinned.collapseButton.visible, true,
     "pinned window initially shows collapse control")
 assertEqual(initialPinned.pinButton.visible, false,
     "pinned window initially hides pin control")
+
+local CollidingWindow = PsychopatzWindow:derive("CollidingWindow")
+function CollidingWindow:createChildren()
+    PsychopatzWindow.createChildren(self)
+    -- Simulate a derived window's toolbar using the old reserved field name.
+    self.collapseButton = {
+        visible = true,
+        setVisible = function(button, value) button.visible = value end,
+        bringToTop = function(button) button.onTop = true end,
+    }
+end
+local colliding = CollidingWindow:new(0, 0, 200, 100, {
+    persistGeometry = false,
+})
+colliding:instantiate()
+colliding.pin = true
+colliding:prerender()
+assertEqual(colliding.psychopatzTitlebarCollapseButton.visible, true,
+    "pinning survives a derived collapseButton name collision")
+assertEqual(colliding.psychopatzTitlebarPinButton.visible, false,
+    "pinning hides only the native title-bar pin control")
+assertEqual(colliding.collapseButton.visible, true,
+    "derived toolbar collapse control is not mutated by pin sync")
 
 local CustomRenderWindow = PsychopatzWindow:derive("CustomRenderWindow")
 function CustomRenderWindow:initialise()

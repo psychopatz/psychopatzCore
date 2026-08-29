@@ -126,6 +126,7 @@ function UI.CreateKeyValueList(parent, options)
         itemHeight = options.itemHeight or Layout.Pixels(28),
         drawBorder = options.drawBorder,
         doDrawItem = drawKeyValueItem,
+        virtualized = options.virtualized,
     })
     list.psychopatzKeyValueOptions = options
     return list

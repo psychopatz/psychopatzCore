@@ -179,6 +179,12 @@ function Layout.SyncNativeScrollbars(element)
         horizontal:setY(math.max(0, element:getHeight() - height))
         horizontal:setWidth(element:getWidth())
     end
+    -- setWidth/setHeight do not refresh the native thumb position.  Without
+    -- this pass, a list populated before its responsive bounds are applied
+    -- can keep the scrollbar's initial 1px geometry until the next resize.
+    if element.updateScrollbars and element.javaObject then
+        element:updateScrollbars()
+    end
 end
 
 function Layout.SetBounds(element, x, y, width, height)
@@ -273,13 +279,53 @@ function Layout.Split(rect, options)
     }
 end
 
+local function utf8Prefix(value, byteCount)
+    byteCount = math.min(math.max(0, byteCount or 0), #value)
+    if byteCount == #value then return value end
+
+    -- Lua 5.1/Kahlua has no guaranteed utf8 library. Keep the cut at a
+    -- codepoint boundary so localized labels never render a partial byte
+    -- sequence when they are shortened.
+    local index = byteCount
+    while index > 0 do
+        local byte = string.byte(value, index)
+        if byte < 0x80 then return string.sub(value, 1, byteCount) end
+        if byte >= 0xC0 then
+            local expected = byte < 0xE0 and 2
+                or byte < 0xF0 and 3 or byte < 0xF8 and 4 or 1
+            if index + expected - 1 <= byteCount then
+                return string.sub(value, 1, byteCount)
+            end
+            return string.sub(value, 1, index - 1)
+        end
+        index = index - 1
+    end
+    return ""
+end
+
 function Layout.Ellipsize(value, font, maximumWidth)
     local text = tostring(value or "")
-    if Theme.TextWidth(font, text) <= maximumWidth then return text end
-    while #text > 1 and Theme.TextWidth(font, text .. "...") > maximumWidth do
-        text = string.sub(text, 1, #text - 1)
+    local width = tonumber(maximumWidth) or 0
+    if width <= 0 then return "" end
+    if Theme.TextWidth(font, text) <= width then return text end
+
+    local suffix = "..."
+    if Theme.TextWidth(font, suffix) > width then return "" end
+
+    -- Width checks are monotonic for a prefix, so binary search avoids a
+    -- measure call for every character in long item names and descriptions.
+    local low = 0
+    local high = #text
+    while low < high do
+        local middle = math.floor((low + high + 1) / 2)
+        local prefix = utf8Prefix(text, middle)
+        if Theme.TextWidth(font, prefix .. suffix) <= width then
+            low = middle
+        else
+            high = middle - 1
+        end
     end
-    return text .. "..."
+    return utf8Prefix(text, low) .. suffix
 end
 
 return Layout

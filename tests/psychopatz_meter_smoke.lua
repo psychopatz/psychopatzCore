@@ -33,6 +33,7 @@ PsychopatzCore = { UI = { Theme = {
         success = { r = 0, g = 1, b = 0, a = 1 },
     },
     FontHeight = function() return 10 end,
+    TextWidth = function(_, value) return #tostring(value or "") end,
 } } }
 
 local Meter = dofile(ROOT
