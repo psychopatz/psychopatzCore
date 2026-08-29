@@ -85,7 +85,8 @@ split by responsibility:
 
 - `UI.Theme`: colors, typography choices, and spacing tokens
 - `UI.Layout`: scale, safe window bounds, flow wrapping, splits, and clipping
-- `UI.CreateButton`, `UI.CreateList`, and `UI.CreatePanel`: themed controls
+- `UI.CreateButton`, `UI.CreateList`, `UI.CreateCategorizedList`, and
+  `UI.CreatePanel`: themed controls
 - `UI.CreateKeyValueList` / `UI.AddKeyValue`: reusable two-column detail lists
 - `UI.CreateTextEntry`: consistent text-entry construction and input options
 - `PsychopatzWindow`: resizable, screen-safe shared window base
@@ -123,6 +124,13 @@ end
 Always use `UI.Layout.SetBounds` for instantiated scrolling controls. It also
 synchronizes native `vscroll`/`hscroll` geometry; direct resize calls can leave
 Project Zomboid's cached stencil boundary in the old position and hide rows.
+
+`UI.CreateCategorizedList` builds a scrolling list from arbitrary item records.
+Provide `getCategoryPath(item)` to return a slash-delimited string or an array
+of category labels. Each category is rendered as a toggleable header, and
+`collapseAll()` / `expandAll()` plus `onItemSelected` and `onItemActivated`
+are available on the returned list. This is the shared pattern for debug
+catalogs and inventory-like item browsers.
 
 ## Shared settings and markers
 
