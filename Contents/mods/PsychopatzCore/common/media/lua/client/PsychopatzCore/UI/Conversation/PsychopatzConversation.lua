@@ -1,6 +1,7 @@
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationSettings"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationBackgrounds"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationView"
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationSession"
 
 local Conversation = PsychopatzCore.Conversation
 
@@ -19,6 +20,58 @@ end
 
 function Conversation.Close()
     if Conversation.instance then Conversation.instance:close() end
+end
+
+function Conversation.CreateHeadless(spec)
+    spec = spec or {}
+    local Lifecycle = Conversation.Lifecycle
+    local host = {
+        spec = spec,
+        headless = true,
+        session = nil,
+        closed = false,
+        historyPart = {
+            messages = {},
+            typingSpeaker = nil,
+        },
+        choicesPart = {},
+        extensionParts = {},
+    }
+    function host.historyPart:setMessages(messages)
+        self.messages = messages or {}
+    end
+    function host.historyPart:addMessage(message)
+        self.messages[#self.messages + 1] = message
+    end
+    function host.historyPart:setTyping(speaker)
+        self.typingSpeaker = speaker
+    end
+    function host.choicesPart:setChoices(choices)
+        self.choices = choices or {}
+    end
+    function host:isConversationInteractive()
+        return self.closed ~= true
+            and self.session ~= nil
+            and self.session.busy ~= true
+    end
+    function host:close(reason)
+        self.closed = true
+        if Lifecycle and Lifecycle.Finish then
+            Lifecycle.Finish(self, reason or "headless_closed")
+        end
+    end
+    local started, reason = Lifecycle and Lifecycle.Begin
+        and Lifecycle.Begin(host) or true
+    if not started then
+        host.closed = true
+        host.lifecycleError = reason or "lifecycle_rejected"
+        return host
+    end
+    host.session = Conversation.Session.New(host, spec)
+    host.session:loadHistory()
+    host.session.currentNodeID = spec.start or "start"
+    host.session.currentNode = host.session:getNode(host.session.currentNodeID)
+    return host
 end
 
 function Conversation.OpenPreview(editMode)

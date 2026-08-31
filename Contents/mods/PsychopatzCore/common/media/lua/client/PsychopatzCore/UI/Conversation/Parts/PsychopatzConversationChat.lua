@@ -1,4 +1,5 @@
 require "PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPart"
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationTyping"
 
 PsychopatzConversationChat = PsychopatzConversationPart:derive(
     "PsychopatzConversationChat"
@@ -6,6 +7,7 @@ PsychopatzConversationChat = PsychopatzConversationPart:derive(
 
 local Conversation = PsychopatzCore.Conversation
 local Text = Conversation.Text
+local Typing = Conversation.Typing
 
 local function fontHeight()
     if getTextManager then
@@ -187,15 +189,8 @@ function PsychopatzConversationChat:render()
                 UIFont.Small
             )
             if layout.typing then
-                local phase = math.floor(
-                    ((getTimeInMillis and getTimeInMillis() or 0) / 240)
-                ) % 4
-                local telemetry = phase == 0 and "."
-                    or phase == 1 and ".  ."
-                    or phase == 2 and ".  .  ."
-                    or ".  ."
                 self:drawText(
-                    telemetry,
+                    Typing.GetText(),
                     x + 10,
                     y + 20,
                     0.74,

@@ -265,10 +265,10 @@ local function onDebugKeybind()
 end
 
 Keybinds.RegisterLongPress({
-    id = "PsychopatzCore.DebugControls",
+    id = "PsychopatzCore.DebugControlsNumpad0",
     label = "UI_PsychopatzCore_DebugControlsKey",
     tooltip = "UI_PsychopatzCore_DebugControlsTooltip",
-    defaultKey = getKeyCode and getKeyCode("T") or 20,
+    defaultKey = 82,
     longPressMs = 600,
     isEnabled = function()
         return PsychopatzCore.IsOwner(getPlayer and getPlayer() or nil)

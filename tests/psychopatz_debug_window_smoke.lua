@@ -2,8 +2,10 @@ local CLIENT = "Contents/mods/PsychopatzCore/42.19/media/lua/client/"
 package.path = CLIENT .. "?.lua;" .. package.path
 
 local created = 0
-local keyHandler
 local commands = {}
+local now = 0
+local downKey = 0
+local tickCallbacks = {}
 
 PsychopatzCore = {
     COMMAND_MODULE = "PsychopatzCore",
@@ -101,13 +103,17 @@ package.preload["ISUI/ISCollapsableWindow"] = function()
 end
 
 Events = {
-    OnKeyPressed = {
-        Add = function(handler) keyHandler = handler end,
-    },
     OnTick = {
-        Add = function() end,
+        Add = function(handler)
+            tickCallbacks[#tickCallbacks + 1] = handler
+            Events.tick = function()
+                for _, callback in ipairs(tickCallbacks) do callback() end
+            end
+        end,
     },
 }
+getTimeInMillis = function() return now end
+isKeyDown = function(key) return key == downKey end
 getPlayer = function() return { steamID = "76561198137190990" } end
 getCore = function()
     return {
@@ -121,10 +127,24 @@ end
 
 dofile(CLIENT .. "PsychopatzCore/Debug/PsychopatzDebugClient.lua")
 
-assert(keyHandler, "debug key handler was not registered")
+assert(Events.tick, "debug keybind tick handler was not registered")
 assert(PsychopatzDebugWindow.instance == nil, "debug window existed before opening")
 
-keyHandler(82)
+local function triggerDebugKey(startTime)
+    downKey = 0
+    now = startTime
+    Events.tick()
+    downKey = 82
+    now = startTime + 1
+    Events.tick()
+    now = startTime + 601
+    Events.tick()
+    downKey = 0
+    now = startTime + 602
+    Events.tick()
+end
+
+triggerDebugKey(0)
 local first = PsychopatzDebugWindow.instance
 assert(first ~= nil, "Numpad 0 did not open the debug window")
 assert(created == 1, "opening the debug window created the wrong number of instances")
@@ -148,7 +168,7 @@ first.qtyWalkie = text("1")
 first.itemEntry = text("Base.Katana")
 first.qtyEntry = text("1")
 
-keyHandler(82)
+triggerDebugKey(1000)
 assert(created == 1, "pressing Numpad 0 on an open window created a duplicate")
 assert(PsychopatzDebugWindow.instance == first,
     "executing unexpectedly replaced the singleton")
@@ -159,7 +179,7 @@ assert(#commands == 2 and commands[2].command == "GrantPowers",
 assert(commands[2].args.itemID == "Base.Katana" and commands[2].args.doSpawn == true,
     "execute action did not use the selected controls")
 
-keyHandler(82)
+triggerDebugKey(2000)
 assert(PsychopatzDebugWindow.instance == first,
     "repeated access did not preserve the debug window")
 assert(#commands == 4 and commands[4].command == "GrantPowers",
@@ -171,7 +191,7 @@ first:close()
 assert(PsychopatzDebugWindow.instance == nil,
     "manual close left a stale singleton instance")
 
-keyHandler(82)
+triggerDebugKey(3000)
 local second = PsychopatzDebugWindow.instance
 assert(second ~= nil and second ~= first, "closed debug window was not replaceable")
 assert(created == 2, "reopening the debug window created the wrong number of instances")

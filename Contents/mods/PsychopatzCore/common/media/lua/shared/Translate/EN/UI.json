@@ -61,6 +61,6 @@
     "ContextMenu_Psychopatz_DebugAccess": "[Debug] Access Psychopatz Mod Controls",
     "UI_PsychopatzCore_SettingsTitle": "Psychopatz Core",
     "UI_PsychopatzCore_KeybindingsSection": "Key Bindings",
-    "UI_PsychopatzCore_DebugControlsKey": "Open Psychopatz Debug Controls",
-    "UI_PsychopatzCore_DebugControlsTooltip": "Hold this key for 600 ms to open the Psychopatz debug controls."
+    "UI_PsychopatzCore_DebugControlsKey": "Open Psychopatz Debug Controls (Numpad 0)",
+    "UI_PsychopatzCore_DebugControlsTooltip": "Hold Numpad 0 for 600 ms to open the Psychopatz debug controls."
 }

@@ -50,11 +50,16 @@ function Session.New(view, spec)
     return self
 end
 
-function Session:start()
+function Session:loadHistory()
     local messages = self.persistHistory and History.Get(
         self.namespace, self.npcID, self.characterUUID
     ) or {}
     self.view.historyPart:setMessages(messages)
+    return messages
+end
+
+function Session:start()
+    self:loadHistory()
     self:enterNode(self.spec.start or "start")
 end
 

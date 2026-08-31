@@ -104,6 +104,47 @@ function Message.Publish(message)
     return true
 end
 
+local function isFalseFlag(value)
+    return value == false
+        or string.lower(tostring(value or "")) == "false"
+        or tostring(value or "") == "0"
+end
+
+local function isTrueFlag(value)
+    return value == true
+        or string.lower(tostring(value or "")) == "true"
+        or tostring(value or "") == "1"
+end
+
+local LLM_FAILURE_MARKERS = {
+    "i cannot answer right now",
+    "provider request failed",
+    "provider returned an empty response",
+    "openai-compatible provider",
+    "llm completion failed",
+}
+
+function Message.IsLLMContextEligible(message, content)
+    if type(message) ~= "table" then return true end
+    for _, source in ipairs({ message.source, message.provenance }) do
+        if type(source) == "table"
+            and (isFalseFlag(source.contextEligible)
+                or isTrueFlag(source.providerFailure)
+                or isTrueFlag(source.excludeFromLLM))
+        then
+            return false
+        end
+    end
+
+    local speaker = string.lower(tostring(message.speakerKind or message.speaker or ""))
+    if speaker == "player" then return true end
+    local lowered = string.lower(tostring(content or message.text or ""))
+    for _, marker in ipairs(LLM_FAILURE_MARKERS) do
+        if string.find(lowered, marker, 1, true) then return false end
+    end
+    return true
+end
+
 function Message.New(spec)
     spec = spec or {}
     local hours = tonumber(spec.worldAgeHours)
