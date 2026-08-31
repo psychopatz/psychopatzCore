@@ -122,6 +122,14 @@ local LLM_FAILURE_MARKERS = {
     "provider returned an empty response",
     "openai-compatible provider",
     "llm completion failed",
+    "i am an ai assistant",
+    "as an ai",
+    "language model",
+    "large language model",
+    "i don't have a personal identity",
+    "i do not have a personal identity",
+    "i don't have a name in the traditional sense",
+    "i do not have a name in the traditional sense",
 }
 
 function Message.IsLLMContextEligible(message, content)

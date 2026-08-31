@@ -16,7 +16,10 @@ local DefaultGeometryAdapter = {
         return GeometryStore:GetWindowState(key)
     end,
     save = function(key, state)
-        return GeometryStore:SetWindowState(key, state.x, state.y, state.w, state.h, true)
+        return GeometryStore:SetWindowState(key, state.x, state.y, state.w, state.h, true, {
+            pin = state.pin,
+            collapsed = state.collapsed,
+        })
     end,
     clear = function(key)
         return GeometryStore:ClearWindowState(key, true)
@@ -47,6 +50,8 @@ local function geometrySignature(window)
             math.floor(tonumber(window.y) or 0),
             math.floor(tonumber(window.width) or 0),
             math.floor(tonumber(window.height) or 0),
+            tostring(window.pin == true),
+            tostring(window.isCollapsed == true),
         }, ":")
     end
     return table.concat({
@@ -54,6 +59,8 @@ local function geometrySignature(window)
         math.floor(tonumber(window:getY()) or 0),
         math.floor(tonumber(window:getWidth()) or 0),
         math.floor(tonumber(window:getHeight()) or 0),
+        tostring(window.pin == true),
+        tostring(window.isCollapsed == true),
     }, ":")
 end
 
@@ -122,10 +129,12 @@ function PsychopatzWindow:createChildren()
         self.psychopatzTitlebarPinButton.onclick = function(target)
             target.pin = true
             target:syncWindowControls()
+            target:saveGeometry(true)
         end
         self.psychopatzTitlebarCollapseButton.onclick = function(target)
             target.pin = false
             target:syncWindowControls()
+            target:saveGeometry(true)
         end
         self.psychopatzPinState = nil
         self:syncWindowControls()
@@ -160,6 +169,10 @@ function PsychopatzWindow:restoreGeometry()
     if not self.persistGeometry or not self.persistenceKey then return false end
     local adapter = self.geometryAdapter
     local state = adapter and adapter.load and adapter.load(self.persistenceKey, self) or nil
+    if type(state) == "table" then
+        if state.pin ~= nil then self.pin = state.pin == true end
+        if state.collapsed ~= nil then self.isCollapsed = state.collapsed == true end
+    end
     local bounds = Layout.ResolveSavedWindow(state, self.responsiveSpec)
     if not bounds then return false end
     self:setX(bounds.x)
@@ -179,6 +192,8 @@ function PsychopatzWindow:saveGeometry(force)
     if not adapter or not adapter.save then return false end
     local saved = adapter.save(self.persistenceKey, {
         x = self:getX(), y = self:getY(), w = self:getWidth(), h = self:getHeight(),
+        pin = self.pin == true,
+        collapsed = self.isCollapsed == true,
     }, self)
     if saved == false then return false end
     self.savedGeometrySignature = signature

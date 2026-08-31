@@ -24,27 +24,28 @@ PsychopatzWindow = {
 
 dofile(CLIENT .. "PsychopatzCore/UI/PsychopatzDebugHubWindow.lua")
 local Hub = PsychopatzCore.DebugHub
+local launched = {}
 
 Hub.RegisterTool({
     id = "core.one",
     source = "PsychopatzCore",
     order = 10,
     title = "Core One",
-    action = function() end,
+    action = function() launched.coreOne = (launched.coreOne or 0) + 1 end,
 })
 Hub.RegisterTool({
     id = "hoomans.one",
     source = "Project Hoomans",
     order = 20,
     title = "Hoomans One",
-    action = function() end,
+    action = function() launched.hoomansOne = (launched.hoomansOne or 0) + 1 end,
 })
 Hub.RegisterTool({
     id = "hoomans.two",
     source = "Project Hoomans",
     order = 30,
     title = "Hoomans Two",
-    action = function() end,
+    action = function() launched.hoomansTwo = (launched.hoomansTwo or 0) + 1 end,
 })
 
 local groups = Hub.GetToolGroups()
@@ -83,6 +84,9 @@ ISScrollingListBox = {
     onMouseDown = function(target)
         target.selected = target.clickedRow
     end,
+    onMouseDoubleClick = function(target)
+        target.selected = target.clickedRow
+    end,
 }
 local window = {
     toolList = list,
@@ -90,6 +94,9 @@ local window = {
     rebuildCards = Hub.Window.rebuildCards,
     refreshAvailability = Hub.Window.refreshAvailability,
     onToolListMouseDown = Hub.Window.onToolListMouseDown,
+    onToolListMouseDoubleClick = Hub.Window.onToolListMouseDoubleClick,
+    onLaunchSelected = Hub.Window.onLaunchSelected,
+    onLauncherClick = Hub.Window.onLauncherClick,
 }
 Hub.Window.instance = window
 Hub.Window.rebuildCards(window)
@@ -107,6 +114,17 @@ window:onToolListMouseDown(list, 0, 0)
 assert(#list.items == 5, "collapsed group tools did not return on second click")
 assert(Hub.IsGroupExpanded("Project Hoomans") == true,
     "clicking a collapsed group header did not expand the group")
+
+list.clickedRow = 2
+window:onToolListMouseDoubleClick(list, 0, 0)
+assert(launched.coreOne == 1,
+    "double-clicking a tool row did not launch the selected tool")
+
+list.clickedRow = 1
+window:onToolListMouseDoubleClick(list, 0, 0)
+assert(launched.coreOne == 1,
+    "double-clicking a group header launched a tool")
+
 Hub.Window.instance = nil
 
 print("psychopatz_debug_hub_groups_smoke: ok")

@@ -54,6 +54,16 @@ function Conversation.CreateHeadless(spec)
             and self.session ~= nil
             and self.session.busy ~= true
     end
+    -- Visible conversation views receive Lifecycle.Update from their ISPanel
+    -- update loop. Headless hosts have no panel, so reusable integrations must
+    -- drive the same heartbeat explicitly while the compact UI is open.
+    function host:updateLifecycle()
+        if self.closed or self.lifecycleFinished then return nil end
+        local interruption = Lifecycle and Lifecycle.Update
+            and Lifecycle.Update(self) or nil
+        if interruption then self:close(interruption) end
+        return interruption
+    end
     function host:close(reason)
         self.closed = true
         if Lifecycle and Lifecycle.Finish then

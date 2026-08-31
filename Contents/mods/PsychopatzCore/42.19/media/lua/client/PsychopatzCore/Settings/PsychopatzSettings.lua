@@ -43,12 +43,28 @@ local function parseWindow(store, line)
     local separator = string.find(line, "=", 8, true)
     if not separator then return false end
     local key = string.sub(line, 8, separator - 1)
-    local values = {}
+    local rawValues = {}
     for value in string.gmatch(string.sub(line, separator + 1), "([^,]+)") do
-        values[#values + 1] = tonumber(value)
+        rawValues[#rawValues + 1] = value
     end
-    if #values ~= 4 then return false end
-    store.values.windows[key] = { x = values[1], y = values[2], w = values[3], h = values[4] }
+    if #rawValues < 4 or #rawValues > 6 then return false end
+    local values = {}
+    for index = 1, 4 do
+        values[index] = tonumber(rawValues[index])
+        if values[index] == nil then return false end
+    end
+    local state = {
+        x = values[1], y = values[2], w = values[3], h = values[4],
+    }
+    if rawValues[5] ~= nil then
+        if rawValues[5] ~= "true" and rawValues[5] ~= "false" then return false end
+        state.pin = rawValues[5] == "true"
+    end
+    if rawValues[6] ~= nil then
+        if rawValues[6] ~= "true" and rawValues[6] ~= "false" then return false end
+        state.collapsed = rawValues[6] == "true"
+    end
+    store.values.windows[key] = state
     return true
 end
 
@@ -78,15 +94,20 @@ function Store:GetWindowState(key)
     return self.values.windows[tostring(key or "")]
 end
 
-function Store:SetWindowState(key, x, y, width, height, save)
+function Store:SetWindowState(key, x, y, width, height, save, flags)
     key = tostring(key or "")
     if key == "" then return false end
-    self.values.windows[key] = {
+    local state = {
         x = math.floor(tonumber(x) or 0),
         y = math.floor(tonumber(y) or 0),
         w = math.floor(tonumber(width) or 0),
         h = math.floor(tonumber(height) or 0),
     }
+    if type(flags) == "table" then
+        if flags.pin ~= nil then state.pin = flags.pin == true end
+        if flags.collapsed ~= nil then state.collapsed = flags.collapsed == true end
+    end
+    self.values.windows[key] = state
     if save ~= false then self:Save() end
     return true
 end
@@ -110,9 +131,14 @@ function Store:Save()
         local key = windowKeys[index]
         local state = self.values.windows[key]
         if state then
-            writer:write(string.format("window_%s=%d,%d,%d,%d\r\n",
+            local flags = ""
+            if state.pin ~= nil or state.collapsed ~= nil then
+                flags = "," .. tostring(state.pin == true) .. ","
+                    .. tostring(state.collapsed == true)
+            end
+            writer:write(string.format("window_%s=%d,%d,%d,%d%s\r\n",
                 tostring(key), tonumber(state.x) or 0, tonumber(state.y) or 0,
-                tonumber(state.w) or 0, tonumber(state.h) or 0))
+                tonumber(state.w) or 0, tonumber(state.h) or 0, flags))
         end
     end
     writer:close()

@@ -6,6 +6,7 @@ local Resolver = UI.ImageResolver or {}
 UI.ImageResolver = Resolver
 local PATH_CACHE = {}
 local ITEM_TEXTURE_CACHE = {}
+local ITEM_INSTANCE_CACHE = {}
 
 local function safeCall(target, methodName, ...)
     if not target then return nil end
@@ -29,8 +30,11 @@ local function isUsableTexture(texture)
     local name = safeCall(texture, "getName")
     if name then
         name = string.lower(tostring(name))
-        if name == "question_highlight" or name == "questionmark"
-            or name == "question_mark"
+        name = string.gsub(name, "\\", "/")
+        name = string.gsub(name, "^.*/", "")
+        name = string.gsub(name, "%.png$", "")
+        if name == "question_on" or name == "question_highlight"
+            or name == "questionmark" or name == "question_mark"
         then
             return false
         end
@@ -158,43 +162,48 @@ local function resolveScriptItemTexture(fullType)
     return nil
 end
 
-local function resolveInventoryItemTexture(fullType)
-    if not InventoryItemFactory then
-        return nil
-    end
+local function createInventoryItem(fullType)
+    local cached = ITEM_INSTANCE_CACHE[fullType]
+    if cached ~= nil then return cached ~= false and cached or nil end
 
     local item
     local ok
-    for _, creator in ipairs({ "CreateItem", "instanceItem" }) do
-        local method = InventoryItemFactory[creator]
-        if type(method) == "function" then
-            ok, item = pcall(method, fullType)
-            if ok and item then break end
+    if InventoryItemFactory then
+        for _, creator in ipairs({ "CreateItem", "instanceItem" }) do
+            local method = InventoryItemFactory[creator]
+            if type(method) == "function" then
+                ok, item = pcall(method, fullType)
+                if ok and item then break end
+            end
         end
-    end
-    if not item and InventoryItemFactory.instance then
-        item = safeCall(InventoryItemFactory.instance, "CreateItem", fullType)
-            or safeCall(InventoryItemFactory.instance, "instanceItem", fullType)
+        if not item and InventoryItemFactory.instance then
+            item = safeCall(InventoryItemFactory.instance, "CreateItem", fullType)
+                or safeCall(InventoryItemFactory.instance, "instanceItem", fullType)
+        end
     end
     if not item and type(instanceItem) == "function" then
         ok, item = pcall(instanceItem, fullType)
     end
+    ITEM_INSTANCE_CACHE[fullType] = item or false
+    return item
+end
+
+local function resolveInventoryItemTexture(fullType)
+    local item = createInventoryItem(fullType)
     if not item then return nil end
 
+    local icon = safeCall(item, "getIcon")
     local texture = coerceTexture(safeCall(item, "getTex"))
         or coerceTexture(safeCall(item, "getTexture"))
+        or coerceTexture(icon)
     if texture then return texture end
 
-    local icon = safeCall(item, "getIcon")
-    if type(icon) == "string" then
-        local icons = {}
-        appendIconVariants(icons, icon)
-        for _, iconPath in ipairs(icons) do
-            texture = textureFromPath(iconPath)
-            if texture then return texture end
-        end
-    elseif icon then
-        return coerceTexture(icon)
+    local icons = {}
+    appendIconCollection(icons, icon)
+    appendIconCollection(icons, safeCall(item, "getIconsForTexture"))
+    for _, icon in ipairs(icons) do
+        texture = textureFromPath(icon)
+        if texture then return texture end
     end
     return nil
 end
@@ -226,6 +235,32 @@ local function itemTextureFromType(fullType)
 
     ITEM_TEXTURE_CACHE[fullType] = false
     return nil
+end
+
+local function drawNativeItemIcon(element, fullType, x, y, width, height, alpha)
+    if not element then return false end
+
+    local okMethod, method = pcall(function()
+        return element.drawItemIcon or element.DrawItemIcon
+    end)
+    if not okMethod or type(method) ~= "function" then return false end
+
+    -- The item is cached only when texture resolution had to materialize it.
+    -- Direct getItemTex() results can use the light-weight scaled draw path;
+    -- this keeps normal catalog rows from allocating an inventory item just
+    -- to render an already-resolved texture.
+    local item = ITEM_INSTANCE_CACHE[fullType]
+    if not item or item == false then return false end
+
+    local texture = coerceTexture(safeCall(item, "getTex"))
+        or coerceTexture(safeCall(item, "getTexture"))
+    if not texture then
+        return false
+    end
+
+    local ok = pcall(method, element, item, x, y, tonumber(alpha) or 1,
+        width, height)
+    return ok
 end
 
 local function nativeTexture(source)
@@ -291,9 +326,13 @@ end
 
 function Resolver.DrawItemIcon(element, fullType, x, y, width, height, alpha)
     local texture = itemTextureFromType(fullType)
-    if not texture or not element
-        or type(element.drawTextureScaledAspect) ~= "function"
-    then return texture end
+    if not texture or not element then return texture end
+    if drawNativeItemIcon(element, fullType, x, y, width, height, alpha) then
+        return texture
+    end
+    if type(element.drawTextureScaledAspect) ~= "function" then
+        return texture
+    end
     element:drawTextureScaledAspect(texture, x, y, width, height,
         tonumber(alpha) or 1, 1, 1, 1)
     return texture
@@ -302,6 +341,7 @@ end
 function Resolver.ClearCache()
     for key in pairs(PATH_CACHE) do PATH_CACHE[key] = nil end
     for key in pairs(ITEM_TEXTURE_CACHE) do ITEM_TEXTURE_CACHE[key] = nil end
+    for key in pairs(ITEM_INSTANCE_CACHE) do ITEM_INSTANCE_CACHE[key] = nil end
 end
 
 return Resolver

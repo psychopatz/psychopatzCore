@@ -349,4 +349,40 @@ assertEqual(Lifecycle.Finish(view, "duplicate"), false,
 assertEqual(table.concat(lifecycleEvents, ","), "begin,update,distance",
     "lifecycle callback order")
 
+-- Headless hosts do not have an ISPanel update loop, but integrations must be
+-- able to drive the same lifecycle heartbeat explicitly.
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationBackgrounds"] =
+    function() return {} end
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationView"] =
+    function() return true end
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationSession"] =
+    function() return PsychopatzCore.Conversation.Session end
+dofile(ROOT .. "PsychopatzConversation.lua")
+local headlessEvents = {}
+local headless = PsychopatzCore.Conversation.CreateHeadless({
+    namespace = "HeadlessTest",
+    npcID = "headless-npc",
+    characterUUID = "headless-player",
+    persistHistory = false,
+    context = {},
+    start = "start",
+    nodes = { start = { choices = {} } },
+    lifecycle = {
+        begin = function() return { marker = "headless-active" } end,
+        update = function(_, _, state)
+            assertEqual(state.marker, "headless-active",
+                "headless lifecycle state")
+            headlessEvents[#headlessEvents + 1] = "update"
+        end,
+        finish = function(_, _, _, reason)
+            headlessEvents[#headlessEvents + 1] = reason
+        end,
+    },
+})
+assertEqual(headless.lifecycleError, nil, "headless lifecycle begins")
+assertEqual(headless:updateLifecycle(), nil, "headless lifecycle heartbeat")
+headless:close("headless_done")
+assertEqual(table.concat(headlessEvents, ","), "update,headless_done",
+    "headless lifecycle callback order")
+
 print("psychopatz_conversation_smoke: ok")

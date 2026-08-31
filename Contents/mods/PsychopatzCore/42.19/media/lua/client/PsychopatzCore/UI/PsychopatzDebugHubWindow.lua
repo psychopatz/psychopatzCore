@@ -166,6 +166,9 @@ function PsychopatzDebugHubWindow:createChildren()
     self.toolList.onMouseDown = function(list, x, y)
         return self:onToolListMouseDown(list, x, y)
     end
+    self.toolList.onMouseDoubleClick = function(list, x, y)
+        return self:onToolListMouseDoubleClick(list, x, y)
+    end
     self.launchButton = UI.CreateButton(self, {
         id = "launch",
         title = "Launch selected tool",
@@ -197,6 +200,17 @@ function PsychopatzDebugHubWindow:onToolListMouseDown(list, x, y)
         Hub.SetGroupExpanded(item.source, not item.expanded)
     elseif item and item.kind ~= "group" then
         self.selectedToolId = item.id
+    end
+    return result
+end
+
+function PsychopatzDebugHubWindow:onToolListMouseDoubleClick(list, x, y)
+    local result = ISScrollingListBox.onMouseDoubleClick(list, x, y)
+    local row = list:getItem()
+    local item = row and row.item or nil
+    if item and item.kind ~= "group" then
+        self.selectedToolId = item.id
+        self:onLaunchSelected()
     end
     return result
 end

@@ -43,7 +43,9 @@ local stableValues = store.values
 store:Set("enabled", false, false)
 store:Set("volume", 0.75, false)
 store:Set("label", "saved", false)
-store:SetWindowState("Main", 40, 50, 640, 480, false)
+store:SetWindowState("Main", 40, 50, 640, 480, false, {
+    pin = false, collapsed = true,
+})
 assertEqual(store:Save(), true, "settings save")
 store:Set("enabled", true, false)
 store:ClearWindowState("Main", false)
@@ -53,6 +55,10 @@ assertEqual(store:Get("enabled"), false, "boolean round trip")
 assertEqual(store:Get("volume"), 0.75, "number round trip")
 assertEqual(store:Get("label"), "saved", "string round trip")
 assertEqual(store:GetWindowState("Main").w, 640, "window state round trip")
+assertEqual(store:GetWindowState("Main").pin, false,
+    "window pin state round trip")
+assertEqual(store:GetWindowState("Main").collapsed, true,
+    "window collapsed state round trip")
 local reopened = PsychopatzCore.Settings.Open("Smoke", {
     defaults = { enabled = true, newSetting = "added" },
     autoLoad = false,
@@ -326,7 +332,8 @@ local saved
 local adapter = {
     load = function(key)
         assertEqual(key, "Smoke:Main", "custom adapter key")
-        return { x = 45, y = 55, w = 420, h = 310 }
+        return { x = 45, y = 55, w = 420, h = 310,
+            pin = false, collapsed = true }
     end,
     save = function(_, state) saved = state return true end,
 }
@@ -340,9 +347,17 @@ assertEqual(persistent:getX(), 45, "restored x")
 assertEqual(persistent:getY(), 55, "restored y")
 assertEqual(persistent:getWidth(), 420, "restored width")
 assertEqual(persistent:getHeight(), 310, "restored height")
+assertEqual(persistent.pin, false, "restored pin state")
+assertEqual(persistent.isCollapsed, true, "restored collapsed state")
 persistent:close()
 assertEqual(saved.w, 420, "saved width")
 assertEqual(saved.h, 310, "saved height")
+assertEqual(saved.pin, false, "saved pin state")
+assertEqual(saved.collapsed, true, "saved collapsed state")
+persistent.pinButton.onclick(persistent)
+assertEqual(saved.pin, true, "pin toggle saves immediately")
+persistent.collapseButton.onclick(persistent)
+assertEqual(saved.pin, false, "unpin toggle saves immediately")
 
 local saveAttempts = 0
 local retryWindow = PsychopatzCore.UI.NewWindow(TestWindow, {
