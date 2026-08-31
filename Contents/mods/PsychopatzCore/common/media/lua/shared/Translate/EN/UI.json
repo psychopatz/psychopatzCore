@@ -58,5 +58,9 @@
     "UI_PsychopatzRegion_Empty": "Select at least one tile",
     "UI_PsychopatzRegion_CapacityExceeded": "Selection exceeds the tile cap",
     "UI_PsychopatzRegion_Valid": "Selection ready",
-    "ContextMenu_Psychopatz_DebugAccess": "[Debug] Access Psychopatz Mod Controls"
+    "ContextMenu_Psychopatz_DebugAccess": "[Debug] Access Psychopatz Mod Controls",
+    "UI_PsychopatzCore_SettingsTitle": "Psychopatz Core",
+    "UI_PsychopatzCore_KeybindingsSection": "Key Bindings",
+    "UI_PsychopatzCore_DebugControlsKey": "Open Psychopatz Debug Controls",
+    "UI_PsychopatzCore_DebugControlsTooltip": "Hold this key for 600 ms to open the Psychopatz debug controls."
 }

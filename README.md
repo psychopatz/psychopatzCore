@@ -155,6 +155,41 @@ Open a namespaced settings store with
 numbers, strings, and window geometry in a per-mod text file. Register a common
 settings screen through `PsychopatzCore.InGameSettings.Register(definition)`.
 
+## Shared key bindings
+
+Client mods can register a rebindable single-press or long-press action. The
+binding is persisted by Project Zomboid and appears under `Options > Mods >
+Psychopatz Core`:
+
+```lua
+require "PsychopatzCore/Input/PsychopatzKeybinds"
+
+local Keybinds = PsychopatzCore.Keybinds
+
+Keybinds.RegisterPress({
+    id = "MyMod.OpenPanel",
+    label = "UI_MyMod_OpenPanelKey",
+    defaultKey = getKeyCode("G"),
+    onTrigger = function(binding)
+        openMyPanel()
+    end,
+})
+
+Keybinds.RegisterLongPress({
+    id = "MyMod.OpenRadial",
+    label = "UI_MyMod_OpenRadialKey",
+    defaultKey = getKeyCode("T"),
+    longPressMs = 600,
+    onTrigger = function(binding)
+        openMyRadialMenu()
+    end,
+})
+```
+
+`onTrigger` fires once for a press, or once after the configured hold duration
+for a long press. Runtime checks read the current setting on every tick, so a
+player's rebind takes effect without changing the consumer code.
+
 Event markers are available as `PsychopatzCore.EventMarkers`. Existing
 `EventMarker` and `EventMarkerHandler` globals remain as compatibility aliases.
 

@@ -3,6 +3,7 @@ require "ISUI/ISCollapsableWindow"
 require "ISUI/ISLabel"
 require "ISUI/ISTextEntryBox"
 require "PsychopatzCore/00_PsychopatzCore_Init"
+local Keybinds = require "PsychopatzCore/Input/PsychopatzKeybinds"
 require "PsychopatzCore/UI/PsychopatzUI"
 require "PsychopatzCore/UI/PsychopatzDebugHubWindow"
 require "PsychopatzCore/Debug/PsychopatzDebugContextMenu"
@@ -13,7 +14,6 @@ if PsychopatzCore._debugClientInstalled then
 end
 PsychopatzCore._debugClientInstalled = true
 
-local KEY_NUMPAD_0 = 82
 local Debug = PsychopatzCore.Debug
 local UI = PsychopatzCore.UI
 local DebugHub = PsychopatzCore.DebugHub
@@ -251,8 +251,7 @@ local function openDebugWindow()
     return window
 end
 
-local function onPsychopatzKey(key)
-    if key ~= KEY_NUMPAD_0 then return end
+local function onDebugKeybind()
     local player = getPlayer()
     if not PsychopatzCore.IsOwner(player) then return end
 
@@ -265,7 +264,17 @@ local function onPsychopatzKey(key)
     openDebugWindow()
 end
 
-Events.OnKeyPressed.Add(onPsychopatzKey)
+Keybinds.RegisterLongPress({
+    id = "PsychopatzCore.DebugControls",
+    label = "UI_PsychopatzCore_DebugControlsKey",
+    tooltip = "UI_PsychopatzCore_DebugControlsTooltip",
+    defaultKey = getKeyCode and getKeyCode("T") or 20,
+    longPressMs = 600,
+    isEnabled = function()
+        return PsychopatzCore.IsOwner(getPlayer and getPlayer() or nil)
+    end,
+    onTrigger = onDebugKeybind,
+})
 
 local nightVisionLight = nil
 local updateTick = 0
