@@ -3,6 +3,7 @@
 require "ISUI/ISLabel"
 require "PsychopatzCore/UI/PsychopatzWindow"
 require "PsychopatzCore/UI/Components/PsychopatzUIControls"
+require "PsychopatzCore/UI/Components/PsychopatzFormRow"
 require "PsychopatzCore/UI/Components/PsychopatzSlider"
 require "PsychopatzCore/UI/Components/PsychopatzTextEntry"
 require "PsychopatzCore/UI/Components/PsychopatzWidgetWindow"
@@ -75,29 +76,45 @@ function ISPsychopatzCommandHubSettingsWindow:createChildren()
         { id = "height", key = "UI_PsychopatzCore_CommandHub_Settings_Height" },
     }
     for _, definition in ipairs(definitions) do
+        local row = UI.CreateFormRow(self, {
+            id = "command-hub-setting-row:" .. definition.id,
+            label = tr(definition.key, definition.id),
+            createControl = function(parent)
+                return UI.CreateTextEntry(parent, {
+                    onlyNumbers = true, maxTextLength = 5,
+                })
+            end,
+        })
         self.fields[definition.id] = {
-            label = label(self, tr(definition.key, definition.id)),
-            entry = UI.CreateTextEntry(self, {
-                onlyNumbers = true, maxTextLength = 5,
-            }),
+            row = row, label = row.label, entry = row.control,
         }
     end
 
-    self.opacityLabel = label(self,
-        tr("UI_PsychopatzCore_CommandHub_Settings_Opacity", "Opacity"))
-    self.opacitySlider = UI.CreateSlider(self, {
-        id = "psychopatz-command-hub-opacity",
-        target = self,
-        min = 10,
-        max = 100,
-        step = 1,
-        value = Options.GetOpacityPercent(),
-        onChange = function(_, value)
-            if self.opacityValue then self.opacityValue:setName(opacityText(value)) end
+    local opacityRow = UI.CreateFormRow(self, {
+        id = "command-hub-setting-row:opacity",
+        label = tr("UI_PsychopatzCore_CommandHub_Settings_Opacity", "Opacity"),
+        valueLabel = true,
+        valueText = opacityText(Options.GetOpacityPercent()),
+        createControl = function(parent)
+            return UI.CreateSlider(parent, {
+                id = "psychopatz-command-hub-opacity",
+                target = self,
+                min = 10,
+                max = 100,
+                step = 1,
+                value = Options.GetOpacityPercent(),
+                onChange = function(_, value)
+                    if self.opacityValue then
+                        UI.SetLabelText(self.opacityValue, opacityText(value))
+                    end
+                end,
+            })
         end,
     })
-    self.opacityValue = label(self, opacityText(
-        Options.GetOpacityPercent()), Theme.colors.textMuted)
+    self.opacityRow = opacityRow
+    self.opacityLabel = opacityRow.label
+    self.opacitySlider = opacityRow.control
+    self.opacityValue = opacityRow.valueLabel
     self.helpLabel = label(self,
         tr("UI_PsychopatzCore_CommandHub_Settings_Help",
             "Edit the hub position, dimensions, and opacity."),
@@ -144,7 +161,7 @@ end
 function ISPsychopatzCommandHubSettingsWindow:setStatus(value)
     local text = tostring(value or "")
     if self.statusLabel then
-        self.statusLabel:setName(text)
+        UI.SetLabelText(self.statusLabel, text)
         self.statusLabel:setVisible(text ~= "")
     end
 end
@@ -168,7 +185,9 @@ function ISPsychopatzCommandHubSettingsWindow:populate()
     setEntry(self.fields.height.entry, host:getHeight())
     local opacity = Options.GetOpacityPercent()
     self.opacitySlider:setValue(opacity, true)
-    if self.opacityValue then self.opacityValue:setName(opacityText(opacity)) end
+    if self.opacityValue then
+        UI.SetLabelText(self.opacityValue, opacityText(opacity))
+    end
     self.branchButton:setTitle(branchTitle())
 end
 
@@ -220,41 +239,36 @@ end
 function ISPsychopatzCommandHubSettingsWindow:onResponsiveLayout()
     local rect = self:getContentRect({ top = 34, bottom = 12 })
     local scale = self.uiScale or Layout.Scale()
-    local labelWidth = Layout.Pixels(110, scale)
-    local fieldX = rect.x + labelWidth
-    local fieldWidth = math.max(Layout.Pixels(150, scale),
-        rect.width - labelWidth)
     local y = rect.y
     local rowHeight = Layout.Pixels(30, scale)
     local gap = Layout.Pixels(4, scale)
 
     for _, id in ipairs({ "x", "y", "width", "height" }) do
         local field = self.fields[id]
-        field.label:setX(rect.x)
-        field.label:setY(y + 4)
-        Layout.SetBounds(field.entry, fieldX, y, fieldWidth, rowHeight - 4)
+        field.row:place(rect.x, y, rect.width, rowHeight, {
+            scale = scale,
+            labelWidth = 110,
+            gap = 4,
+            controlHeight = 26,
+        })
         y = y + rowHeight + gap
     end
-    self.opacityLabel:setX(rect.x)
-    self.opacityLabel:setY(y + 4)
-    Layout.SetBounds(self.opacitySlider, fieldX, y, fieldWidth - 48,
-        rowHeight - 4)
-    self.opacityValue:setX(rect.x + rect.width - 42)
-    self.opacityValue:setY(y + 4)
+    self.opacityRow:place(rect.x, y, rect.width, rowHeight, {
+        scale = scale,
+        labelWidth = 110,
+        valueWidth = 48,
+        gap = 4,
+        controlHeight = 26,
+    })
     y = y + rowHeight + gap
 
-    self.branchButton:setX(rect.x)
-    self.branchButton:setY(y)
-    self.branchButton:setWidth(rect.width)
-    self.branchButton:setHeight(rowHeight - 4)
+    Layout.SetBounds(self.branchButton, rect.x, y, rect.width, rowHeight - 4)
     y = y + rowHeight + gap
-    self.helpLabel:setX(rect.x)
-    self.helpLabel:setY(y)
-    self.helpLabel:setWidth(rect.width)
+    Layout.SetBounds(self.helpLabel, rect.x, y, rect.width,
+        Layout.Pixels(22, scale))
     y = y + Layout.Pixels(28, scale)
-    self.statusLabel:setX(rect.x)
-    self.statusLabel:setY(y)
-    self.statusLabel:setWidth(rect.width)
+    Layout.SetBounds(self.statusLabel, rect.x, y, rect.width,
+        Layout.Pixels(22, scale))
 
     local footerY = rect.y + rect.height - rowHeight
     Layout.SetBounds(self.resetButton, rect.x, footerY,

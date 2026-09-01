@@ -3,7 +3,9 @@ require "ISUI/ISLabel"
 require "ISUI/ISPanel"
 require "ISUI/ISTickBox"
 require "PsychopatzCore/UI/PsychopatzWindow"
+require "PsychopatzCore/UI/Components/PsychopatzFormRow"
 require "PsychopatzCore/UI/Components/PsychopatzSlider"
+require "PsychopatzCore/UI/Components/PsychopatzUIControls"
 
 PsychopatzCore.InGameSettings = PsychopatzCore.InGameSettings or {}
 
@@ -74,28 +76,39 @@ local function createBoolean(window, panel, definition, index)
 end
 
 local function createSlider(window, panel, definition)
-    local label = ISLabel:new(0, 0, 20, tostring(definition.label or definition.id), 1, 1, 1, 1, UIFont.Small, true)
-    panel:addChild(label)
-    local valueLabel = ISLabel:new(0, 0, 20, "", 0.8, 0.8, 0.8, 1, UIFont.Small, true)
-    panel:addChild(valueLabel)
-    local slider = UI.CreateSlider(panel, {
-        id = definition.id,
-        target = window,
-        min = tonumber(definition.min) or 0,
-        max = tonumber(definition.max) or 100,
-        step = tonumber(definition.step) or 1,
-        value = tonumber(readValue(window, definition))
-            or tonumber(definition.min) or 0,
-        onChange = function(_, value)
-            writeValue(window, definition, value)
-            valueLabel:setName(definition.format
-                and definition.format(value) or tostring(value))
+    local row
+    row = UI.CreateFormRow(panel, {
+        id = "settings-row:" .. tostring(definition.id),
+        label = definition.label or definition.id,
+        valueLabel = true,
+        valueText = "",
+        labelWidth = 120,
+        valueWidth = 66,
+        createControl = function(parent)
+            return UI.CreateSlider(parent, {
+                id = definition.id,
+                target = window,
+                min = tonumber(definition.min) or 0,
+                max = tonumber(definition.max) or 100,
+                step = tonumber(definition.step) or 1,
+                value = tonumber(readValue(window, definition))
+                    or tonumber(definition.min) or 0,
+                onChange = function(_, value)
+                    writeValue(window, definition, value)
+                    row:setValueText(definition.format
+                        and definition.format(value) or tostring(value))
+                end,
+            })
         end,
     })
-    valueLabel:setName(definition.format
-        and definition.format(slider:getValue())
-        or tostring(slider:getValue()))
-    return { kind = "slider", label = label, valueLabel = valueLabel, control = slider, height = 34 }
+    row.height = 34
+    row:setValueText(definition.format
+        and definition.format(row.control:getValue())
+        or tostring(row.control:getValue()))
+    return {
+        kind = "slider", row = row, label = row.label,
+        valueLabel = row.valueLabel, control = row.control, height = 34,
+    }
 end
 
 local function createAction(window, panel, definition)
@@ -141,13 +154,13 @@ function PsychopatzSettingsWindow:onResponsiveLayout()
     for index = 1, #self.rows do
         local row = self.rows[index]
         if row.kind == "slider" then
-            row.control.uiScale = self.uiScale or Layout.Scale()
-            row.label:setX(12)
-            row.label:setY(y + 3)
-            Layout.SetBounds(row.control, math.max(140, math.floor(rect.width * 0.42)), y,
-                math.max(100, math.floor(rect.width * 0.38)), 20)
-            row.valueLabel:setX(rect.width - 66)
-            row.valueLabel:setY(y + 3)
+            row.row:place(12, y, math.max(1, rect.width - 24), row.height, {
+                scale = self.uiScale or Layout.Scale(),
+                labelWidth = 120,
+                valueWidth = 66,
+                gap = 8,
+                controlHeight = 24,
+            })
         elseif row.kind == "action" then
             Layout.SetBounds(row.control, 12, y, math.min(260, rect.width - 24), 28)
         elseif row.kind == "boolean" then

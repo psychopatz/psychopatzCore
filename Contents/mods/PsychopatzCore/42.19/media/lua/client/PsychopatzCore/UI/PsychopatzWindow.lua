@@ -1,11 +1,13 @@
 require "ISUI/ISCollapsableWindow"
 require "PsychopatzCore/UI/Components/PsychopatzUIControls"
 require "PsychopatzCore/UI/Components/PsychopatzWindowToolbar"
+require "PsychopatzCore/UI/Components/PsychopatzLayoutHost"
 require "PsychopatzCore/Settings/PsychopatzSettings"
 
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
+local LayoutHost = UI.LayoutHost
 local Toolbar = UI.WindowToolbar
 local GeometryStore = PsychopatzCore.Settings.Open("UI", {
     fileName = "PsychopatzCore_UI.txt",
@@ -96,6 +98,24 @@ function PsychopatzWindow:initialise()
     self:installRenderClip()
 end
 
+local function syncNativeTitlebarButton(window, button)
+    if not window or not button then return end
+    local windowWidth = window.getWidth and window:getWidth()
+        or window.width or 0
+    local buttonWidth = button.getWidth and button:getWidth()
+        or button.width or 16
+    local x = math.max(0, math.floor(windowWidth - buttonWidth - 1))
+    if button.setX then button:setX(x) end
+    if button.setY then button:setY(1) end
+    -- Keep the native control anchored as well as explicitly positioned. The
+    -- explicit x fixes stale positions during resize; the anchor lets the
+    -- vanilla UI continue tracking later parent geometry changes.
+    button.anchorLeft = false
+    button.anchorRight = true
+    button.anchorTop = true
+    button.anchorBottom = false
+end
+
 function PsychopatzWindow:installRenderClip()
     if self.psychopatzRenderClipInstalled then return end
     local render = self.render
@@ -119,6 +139,9 @@ end
 function PsychopatzWindow:syncWindowControls()
     local collapseButton = self.psychopatzTitlebarCollapseButton or self.collapseButton
     local pinButton = self.psychopatzTitlebarPinButton or self.pinButton
+
+    syncNativeTitlebarButton(self, collapseButton)
+    syncNativeTitlebarButton(self, pinButton)
 
     if self.collapsible == false then
         -- Fixed windows still use the native window frame and resize widgets,
@@ -184,10 +207,22 @@ end
 function PsychopatzWindow:requestResponsiveLayout(force)
     local width = self:getWidth()
     local height = self:getHeight()
-    if not force and self.layoutWidth == width and self.layoutHeight == height then return end
+    if not force and self.layoutWidth == width and self.layoutHeight == height
+        and not LayoutHost.IsDirty(self)
+    then
+        return
+    end
     self.layoutWidth = width
     self.layoutHeight = height
-    if self.onResponsiveLayout then self:onResponsiveLayout() end
+    return LayoutHost.Perform(self, force)
+end
+
+function PsychopatzWindow:invalidateLayout(reason)
+    return LayoutHost.Invalidate(self, reason)
+end
+
+function PsychopatzWindow:performLayout(force)
+    return LayoutHost.Perform(self, force)
 end
 
 function PsychopatzWindow:applyResponsiveBounds(center)
@@ -385,6 +420,10 @@ function PsychopatzWindow:prerender()
     self:requestResponsiveLayout(false)
     self:trackGeometry()
     ISCollapsableWindow.prerender(self)
+    -- The native title-bar controls can be repositioned by the base window
+    -- during its prerender. Re-run the shared control sync after that pass so
+    -- both native and injected toolbar controls reflect the same bounds.
+    self:syncWindowControls()
     self.psychopatzStencilActive = true
     if self.drawFrame ~= false then
         local accent = Theme.colors.accent
@@ -446,6 +485,8 @@ function PsychopatzWindow:new(x, y, width, height, options)
     o.persistGeometry = options.persistGeometry ~= false and options.persistenceKey ~= false
     o.geometryAdapter = options.geometryAdapter or DefaultGeometryAdapter
     o.geometryTrace = options.geometryTrace == true
+    o.psychopatzLayoutDebug = options.layoutDebug == true
+    LayoutHost.Install(o, { debug = o.psychopatzLayoutDebug })
     local persistenceKey = options.persistenceKey or self.Type or options.title or "PsychopatzWindow"
     if options.persistenceNamespace and options.persistenceNamespace ~= "" then
         persistenceKey = tostring(options.persistenceNamespace) .. ":" .. tostring(persistenceKey)

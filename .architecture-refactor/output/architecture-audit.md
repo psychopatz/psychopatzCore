@@ -9,15 +9,15 @@ Scoring scope: `production`
 
 | Metric | Value |
 |---|---:|
-| Production Health | 69.5/100 |
+| Production Health | 69.3/100 |
 | Coverage | 76.7% |
-| Confidence | 63.1% |
+| Confidence | 63.2% |
 | Max Refactor Pressure | 100.0/100 |
-| Production files | 137 |
-| Tests indexed | 60 |
+| Production files | 139 |
+| Tests indexed | 63 |
 | Tooling files indexed | 12 |
 | Generated files indexed | 0 |
-| Production LOC scored | 20357 |
+| Production LOC scored | 20662 |
 | Logical subsystems | 22 |
 | Production findings | 36 |
 | Test findings | 3 |
@@ -27,7 +27,7 @@ Scoring scope: `production`
 | Subsystem | Pressure | Health | Coverage | Confidence | Files | LOC | Findings | Fan-in | Fan-out |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | (composition) | 100.0 | 61.1/100 | 78.5% | 63.8% | 3 | 53 | 7 | 7 | 14 |
-| UI | 100.0 | 53.9/100 | 77.5% | 64.9% | 53 | 10176 | 13 | 3 | 7 |
+| UI | 100.0 | 53.9/100 | 77.5% | 65.0% | 55 | 10481 | 13 | 3 | 7 |
 | Profiler | 67.2 | 63.2/100 | 77.9% | 63.0% | 11 | 1375 | 4 | 3 | 1 |
 | Bridge | 66.7 | 62.9/100 | 81.5% | 68.4% | 7 | 837 | 5 | 1 | 1 |
 | Inventory | 24.9 | 86.2/100 | 81.5% | 68.2% | 22 | 2620 | 2 | 3 | 2 |
@@ -90,10 +90,10 @@ Query evidence with `architecture_audit finding <repo> <finding-id> --context 4`
 | `ARC-EAAF595596` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Radio | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Radio -> (composition) |
 | `ARC-F69D2FCEA6` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | UI | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> World -> (composition) |
 | `ARC-F777426C83` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Debug | Subsystem participates in dependency cycle: (composition) -> Debug -> (composition) |
-| `ARC-23A78098D1` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationSettings.lua depends on non-core files. |
+| `ARC-7341900C5C` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/PsychopatzAudioSettings.lua depends on non-core files. |
+| `ARC-757AAA762D` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationSettings.lua depends on non-core files. |
 | `ARC-7DDDF08E0D` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPortrait.lua depends on non-core files. |
 | `ARC-D1150902D5` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationLLMInput.lua depends on non-core files. |
-| `ARC-D4984507E2` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/PsychopatzAudioSettings.lua depends on non-core files. |
 | `ARC-9830D6DAC6` | `CROSS_SUBSYSTEM_COUPLING` | MEDIUM | HIGH (82%) | (composition) | Contents/mods/PsychopatzCore/42.19/media/lua/shared/PsychopatzCore/00_PsychopatzCore_Init.lua directly depends on 11 foreign subsystems. |
 | `ARC-FF522A2B89` | `UNBOUNDED_LOOP` | MEDIUM | HIGH (92%) | Inventory | Potential unbounded loop in Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Inventory/PsychopatzInventory.lua. |
 | `ARC-07A213BB70` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | PsychopatzConversationChat:render spans 124 lines. |

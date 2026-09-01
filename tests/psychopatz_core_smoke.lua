@@ -134,6 +134,11 @@ assertEqual(scrollingControl.scrollbarRefreshes, 1,
 
 package.preload["ISUI/ISCollapsableWindow"] = function() return true end
 package.preload["PsychopatzCore/UI/Components/PsychopatzUIControls"] = function() return true end
+package.preload["PsychopatzCore/UI/Core/PsychopatzUILayout"] =
+    function() return Layout end
+package.preload["PsychopatzCore/UI/Components/PsychopatzLayoutHost"] = function()
+    return dofile(ROOT .. "UI/Components/PsychopatzLayoutHost.lua")
+end
 package.preload["PsychopatzCore/UI/Components/PsychopatzWindowToolbar"] = function()
     return dofile(ROOT .. "UI/Components/PsychopatzWindowToolbar.lua")
 end
@@ -154,10 +159,17 @@ function BaseWindow:initialise() end
 function BaseWindow:createChildren()
     local function button()
         return {
+            x = 0, y = 1, width = 16, height = 16,
             visible = false,
             setVisible = function(self, value) self.visible = value end,
             getIsVisible = function(self) return self.visible end,
             bringToTop = function(self) self.onTop = true end,
+            getX = function(self) return self.x end,
+            getY = function(self) return self.y end,
+            getWidth = function(self) return self.width end,
+            getHeight = function(self) return self.height end,
+            setX = function(self, value) self.x = value end,
+            setY = function(self, value) self.y = value end,
         }
     end
     local function resizeWidget()
@@ -253,6 +265,10 @@ assertEqual(defaultUnpinned.clearStentil, true,
     "window enables child clipping")
 assertEqual(defaultUnpinned.stencilRect.height, 100,
     "expanded window clips to its full bounds")
+defaultUnpinned:setWidth(260)
+defaultUnpinned:prerender()
+assertEqual(defaultUnpinned.pinButton.x, 243,
+    "native pin control follows resized window")
 defaultUnpinned:render()
 assertEqual(defaultUnpinned.stencilClearCount, 1,
     "expanded window clears its child clip")

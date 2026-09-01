@@ -258,13 +258,34 @@ function Toolbar.Sync(window)
     local native = nativeTitlebarButton(window)
     local height = titleBarHeight(window)
     local defaultSize = math.max(1, math.floor(height - 2))
+    local windowWidth = math.max(1, math.floor(tonumber(
+        readValue(window, "getWidth", "width", defaultSize)) or defaultSize))
     local nativeWidth = math.max(1, math.floor(tonumber(
         readValue(native, "getWidth", "width", defaultSize)) or defaultSize))
     local nativeHeight = math.max(1, math.floor(tonumber(
         readValue(native, "getHeight", "height", defaultSize)) or defaultSize))
-    local nativeX = tonumber(readValue(native, "getX", "x",
-        readValue(window, "getWidth", "width", defaultSize) - nativeWidth - 1))
-        or (defaultSize - nativeWidth - 1)
+    local observedNativeX = tonumber(readValue(native, "getX", "x", nil))
+    local fallbackNativeX = windowWidth - nativeWidth - 1
+
+    -- ISCollapsableWindow does not consistently update a title-bar child
+    -- before custom children are laid out. Preserve the native control's right
+    -- margin, then derive its current x from the current window width. This
+    -- makes toolbar buttons follow a resize immediately, even if the native
+    -- pin/collapse button still contains its previous x for one or more
+    -- frames.
+    if state.nativeControl ~= native then
+        state.nativeControl = native
+        state.nativeRightMargin = nil
+    end
+    if state.nativeRightMargin == nil then
+        state.nativeRightMargin = native and observedNativeX
+            and math.max(0, windowWidth - observedNativeX - nativeWidth) or 1
+    end
+    local nativeX = windowWidth - state.nativeRightMargin - nativeWidth
+    if nativeX < 0 or nativeX > windowWidth then
+        nativeX = observedNativeX or fallbackNativeX
+    end
+    if native and native.setX then native:setX(math.floor(nativeX)) end
     local nativeY = tonumber(readValue(native, "getY", "y", 1)) or 1
     local cursor = math.floor(nativeX - state.gap)
 
@@ -302,6 +323,9 @@ function Toolbar.Sync(window)
             end
         end
     end
+    state.lastWindowWidth = windowWidth
+    state.lastNativeX = nativeX
+    state.lastNativeRightMargin = state.nativeRightMargin
     return true
 end
 

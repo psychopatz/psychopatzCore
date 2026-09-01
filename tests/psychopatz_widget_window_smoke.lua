@@ -57,6 +57,7 @@ function nativePin:getX() return self.x end
 function nativePin:getY() return self.y end
 function nativePin:getWidth() return self.width end
 function nativePin:getHeight() return self.height end
+function nativePin:setX(value) self.x = value end
 
 local window = {
     width = 140,
@@ -112,11 +113,11 @@ equal(button.image, WidgetWindow.DETACHED_ICON, "detached lock icon")
 equal(changed, true, "detach callback")
 equal(window.saveCount, 1, "detach state saved")
 
-nativePin.x = 120
 window.width = 160
 WidgetWindow.Sync(window)
 equal(button.x, 103, "widget button follows resized title bar")
 equal(custom.x, 86, "custom button follows resized title bar")
+equal(nativePin.x, 120, "native title-bar control follows resized window")
 equal(WidgetWindow.Toggle(window), false, "widget reattaches")
 equal(button.image, WidgetWindow.ATTACHED_ICON, "reattached lock icon")
 equal(changed, false, "attach callback")

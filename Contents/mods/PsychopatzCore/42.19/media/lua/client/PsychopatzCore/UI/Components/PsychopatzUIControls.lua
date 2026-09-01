@@ -18,6 +18,34 @@ local variants = {
     quiet = { background = "surface", border = "border", text = "textMuted" },
 }
 
+-- ISLabel:setName() restores the label's originalX before measuring its new
+-- text. That is useful for right-aligned native labels, but it moves labels
+-- that were positioned later by a responsive layout. Keep dynamic labels
+-- inside their assigned layout bounds instead.
+function UI.SetLabelText(label, value)
+    if not label then return nil end
+    local text = tostring(value or "")
+    if label.psychopatzFormText == nil then
+        label.psychopatzFormText = text
+    end
+    local x = label.getX and label:getX() or label.x
+    local y = label.getY and label:getY() or label.y
+    local width = label.getWidth and label:getWidth() or label.width
+    local height = label.getHeight and label:getHeight() or label.height
+    if label.setNameWithoutMoving then
+        label:setNameWithoutMoving(text)
+    elseif label.setName then
+        label:setName(text)
+    else
+        label.name = text
+    end
+    if x ~= nil and label.setX then label:setX(x) end
+    if y ~= nil and label.setY then label:setY(y) end
+    if width ~= nil and label.setWidth then label:setWidth(width) end
+    if height ~= nil and label.setHeight then label:setHeight(height) end
+    return label
+end
+
 function UI.StyleButton(button, variant)
     if not button then return button end
     local style = variants[variant or "default"] or variants.default
@@ -119,10 +147,11 @@ function UI.CreateList(parent, options)
     return list
 end
 
-function UI.DrawSurface(element, x, y, width, height, raised)
+function UI.DrawSurface(element, x, y, width, height, raised, opacity)
     local color = Theme.colors[raised and "surfaceRaised" or "surface"]
     local border = Theme.colors.border
-    element:drawRect(x, y, width, height, color.a, color.r, color.g, color.b)
+    local alpha = tonumber(opacity) or color.a
+    element:drawRect(x, y, width, height, alpha, color.r, color.g, color.b)
     element:drawRectBorder(x, y, width, height, border.a, border.r, border.g, border.b)
 end
 

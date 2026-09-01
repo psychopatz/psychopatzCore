@@ -86,15 +86,30 @@ function Slider:setEnable(value)
     return self:setEnabled(value)
 end
 
+-- Form rows and external Core consumers can update this without reaching into
+-- the implementation field. The next render then uses the same scale for the
+-- track, fill, and knob.
+function Slider:setUIScale(value)
+    self.uiScale = tonumber(value) or Layout.Scale()
+    return self.uiScale
+end
+
+function Slider:syncUIScale()
+    local parentScale = self.parent and self.parent.uiScale
+    if parentScale ~= nil then self:setUIScale(parentScale) end
+    return self.uiScale
+end
+
 function Slider:isEnabled()
     return self.enabled ~= false
 end
 
 function Slider:trackBounds()
-    local scale = self.uiScale or Layout.Scale()
+    local scale = self:syncUIScale() or Layout.Scale()
     local padding = Layout.Pixels(8, scale)
     local left = padding
-    local right = math.max(left + 1, self.width - padding)
+    local width = self.getWidth and self:getWidth() or self.width or 0
+    local right = math.max(left + 1, width - padding)
     return left, right, scale
 end
 
@@ -155,10 +170,11 @@ function Slider:onMouseUpOutside(x, y)
 end
 
 function Slider:render()
-    local scale = self.uiScale or Layout.Scale()
+    local scale = self:syncUIScale() or Layout.Scale()
     local left, right = self:trackBounds()
     local trackHeight = Layout.Pixels(6, scale)
-    local trackY = math.floor((self.height - trackHeight) / 2)
+    local height = self.getHeight and self:getHeight() or self.height or 0
+    local trackY = math.floor((height - trackHeight) / 2)
     local trackWidth = math.max(1, right - left)
     local ratio = self:getRatio()
     local background = Theme.colors.surfaceRaised
@@ -177,12 +193,17 @@ function Slider:render()
     local knobWidth = Layout.Pixels(5, scale)
     local knobHeight = Layout.Pixels(18, scale)
     local knobX = math.floor(left + trackWidth * ratio - knobWidth / 2)
-    local knobY = math.floor((self.height - knobHeight) / 2)
+    local knobY = math.floor((height - knobHeight) / 2)
     self:drawRect(knobX, knobY, knobWidth, knobHeight,
         fill.a, fill.r, fill.g, fill.b)
     self:drawRectBorder(knobX, knobY, knobWidth, knobHeight,
         Theme.colors.borderStrong.a, Theme.colors.borderStrong.r,
         Theme.colors.borderStrong.g, Theme.colors.borderStrong.b)
+end
+
+function Slider:prerender()
+    self:syncUIScale()
+    if ISPanel.prerender then ISPanel.prerender(self) end
 end
 
 function Slider:new(x, y, width, height, definition)
