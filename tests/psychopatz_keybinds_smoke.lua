@@ -18,8 +18,15 @@ getKeyCode = function(name)
     return name == "T" and 20 or 34
 end
 getTimeInMillis = function() return now end
-isKeyDown = function(key) return key == downKey end
-isKeyPressed = function(key) return key == pressedKey end
+-- Exercise the same numeric Keyboard API available in the game runtime.
+-- The globals below intentionally fail so the compatibility fallback is
+-- covered as well.
+Keyboard = {
+    isKeyDown = function(key) return key == downKey end,
+    isKeyPressed = function(key) return key == pressedKey end,
+}
+isKeyDown = function() error("numeric global stub should not be used") end
+isKeyPressed = function() error("numeric global stub should not be used") end
 getText = function(key) return key end
 
 Events = {

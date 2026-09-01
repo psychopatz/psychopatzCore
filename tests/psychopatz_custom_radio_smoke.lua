@@ -82,6 +82,8 @@ equal(selected.packID, "test.refugee",
     "highest-priority matching flavor pack wins")
 equal(selected.lines[1].text, "Help near grid 10, 20",
     "message tokens expand from event context")
+equal(selected.lines[1].displayText, nil,
+    "radio selection keeps Markdown out of the received message")
 
 local manager = {
     getRadioChannel = function() return nil end,
@@ -97,6 +99,24 @@ local aired = Radio.AirEvent("test.scan", "discovery", {
 equal(aired, true, "native broadcast airs")
 equal(createdNative.broadcast.lines[1].text, "Help near grid 10, 20",
     "native broadcast receives selected custom text")
+
+Radio.RegisterMessagePack("test.markdown", {
+    channel = "test.scan", eventType = "markdown", priority = 10,
+    messages = { { lines = { "**Help** *chuckles*" } } },
+})
+local markdownSelected = Radio.SelectMessage("test.scan", "markdown", {
+    random = function() return 1 end,
+})
+equal(markdownSelected.lines[1].text, "**Help** *chuckles*",
+    "radio keeps canonical Markdown text for diagnostics")
+equal(markdownSelected.lines[1].displayText, nil,
+    "radio does not derive display text during message selection")
+local markdownAired = Radio.AirEvent("test.scan", "markdown", {
+    random = function() return 1 end,
+})
+equal(markdownAired, true, "Markdown radio broadcast airs")
+equal(createdNative.broadcast.lines[1].text, "Help chuckles",
+    "native broadcast uses the Markdown display projection")
 
 local listens = 0
 Radio.RegisterListener("test.scan", "test.listener", function()

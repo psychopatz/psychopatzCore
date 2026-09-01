@@ -44,7 +44,7 @@ store:Set("enabled", false, false)
 store:Set("volume", 0.75, false)
 store:Set("label", "saved", false)
 store:SetWindowState("Main", 40, 50, 640, 480, false, {
-    pin = false, collapsed = true,
+    pin = false, collapsed = true, widgetDetached = true,
 })
 assertEqual(store:Save(), true, "settings save")
 store:Set("enabled", true, false)
@@ -59,6 +59,8 @@ assertEqual(store:GetWindowState("Main").pin, false,
     "window pin state round trip")
 assertEqual(store:GetWindowState("Main").collapsed, true,
     "window collapsed state round trip")
+assertEqual(store:GetWindowState("Main").widgetDetached, true,
+    "window widget state round trip")
 local reopened = PsychopatzCore.Settings.Open("Smoke", {
     defaults = { enabled = true, newSetting = "added" },
     autoLoad = false,

@@ -47,7 +47,7 @@ local function parseWindow(store, line)
     for value in string.gmatch(string.sub(line, separator + 1), "([^,]+)") do
         rawValues[#rawValues + 1] = value
     end
-    if #rawValues < 4 or #rawValues > 6 then return false end
+    if #rawValues < 4 or #rawValues > 7 then return false end
     local values = {}
     for index = 1, 4 do
         values[index] = tonumber(rawValues[index])
@@ -63,6 +63,10 @@ local function parseWindow(store, line)
     if rawValues[6] ~= nil then
         if rawValues[6] ~= "true" and rawValues[6] ~= "false" then return false end
         state.collapsed = rawValues[6] == "true"
+    end
+    if rawValues[7] ~= nil then
+        if rawValues[7] ~= "true" and rawValues[7] ~= "false" then return false end
+        state.widgetDetached = rawValues[7] == "true"
     end
     store.values.windows[key] = state
     return true
@@ -106,6 +110,9 @@ function Store:SetWindowState(key, x, y, width, height, save, flags)
     if type(flags) == "table" then
         if flags.pin ~= nil then state.pin = flags.pin == true end
         if flags.collapsed ~= nil then state.collapsed = flags.collapsed == true end
+        if flags.widgetDetached ~= nil then
+            state.widgetDetached = flags.widgetDetached == true
+        end
     end
     self.values.windows[key] = state
     if save ~= false then self:Save() end
@@ -132,9 +139,14 @@ function Store:Save()
         local state = self.values.windows[key]
         if state then
             local flags = ""
-            if state.pin ~= nil or state.collapsed ~= nil then
+            if state.pin ~= nil or state.collapsed ~= nil
+                or state.widgetDetached ~= nil
+            then
                 flags = "," .. tostring(state.pin == true) .. ","
                     .. tostring(state.collapsed == true)
+                if state.widgetDetached ~= nil then
+                    flags = flags .. "," .. tostring(state.widgetDetached == true)
+                end
             end
             writer:write(string.format("window_%s=%d,%d,%d,%d%s\r\n",
                 tostring(key), tonumber(state.x) or 0, tonumber(state.y) or 0,

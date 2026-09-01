@@ -14,7 +14,7 @@ PsychopatzCore.VoiceGateway.RegisterSource("MyMod", {
     -- existing safe tick; otherwise Core installs the tick callback itself.
     externalTick = false,
     filter = function(message)
-        return message.speakerKind == "npc"
+        return message.speakerKind == "npc" or message.speakerKind == "player"
     end,
     enrich = function(message)
         return {
@@ -28,13 +28,18 @@ PsychopatzCore.VoiceGateway.RegisterSource("MyMod", {
 })
 ```
 
+Player bindings use the same `slot` and `pitch` contract, but identify the
+speaker with `speaker_kind = "player"`, `speaker_id`, and `player_uuid`.
+Project Hoomans keeps that path opt-in through the Core `Sounds` in-game
+setting; disabled player speech is rejected before a packet is queued.
+
 Core publishes resolved text to `psychopatzcore.voice:utterances`. The stream
 is bounded and ephemeral. Every packet includes the canonical message and
 conversation identity, save-aware day/time, source mod, resolved text, and an
 optional compact voice binding. Long text is capped for bridge safety while
 the canonical conversation history remains unchanged.
 
-P BrainZ consumes the channel through the existing `SpeechScheduler`. TTS is
+PBrainZ consumes the channel through the existing `SpeechScheduler`. TTS is
 therefore asynchronous and bounded; the game UI/nameplate can update before
 audio finishes. `speechStarted`, `speechFinished`, and `speechFailed` are
 optional lifecycle acknowledgements under `psychopatzcore.voice` and carry

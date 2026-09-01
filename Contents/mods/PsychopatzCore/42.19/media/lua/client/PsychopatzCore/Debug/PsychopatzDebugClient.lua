@@ -268,7 +268,7 @@ Keybinds.RegisterLongPress({
     id = "PsychopatzCore.DebugControlsNumpad0",
     label = "UI_PsychopatzCore_DebugControlsKey",
     tooltip = "UI_PsychopatzCore_DebugControlsTooltip",
-    defaultKey = 82,
+    defaultKey = Keyboard and Keyboard.KEY_NUMPAD0 or 82,
     longPressMs = 600,
     isEnabled = function()
         return PsychopatzCore.IsOwner(getPlayer and getPlayer() or nil)

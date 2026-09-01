@@ -189,6 +189,7 @@ function PsychopatzConversationLLMInput:createChildren()
     end
     self:onPartResize()
     self:updateModeButtonStyles()
+    self:updateToggleButton()
 end
 
 function PsychopatzConversationLLMInput:onPartResize()

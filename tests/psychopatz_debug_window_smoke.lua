@@ -113,7 +113,14 @@ Events = {
     },
 }
 getTimeInMillis = function() return now end
-isKeyDown = function(key) return key == downKey end
+local pressedKey = 0
+Keyboard = {
+    KEY_NUMPAD0 = 82,
+    isKeyDown = function(key) return key == downKey end,
+    isKeyPressed = function(key) return key == pressedKey end,
+}
+isKeyDown = function(key) return Keyboard.isKeyDown(key) end
+isKeyPressed = function(key) return Keyboard.isKeyPressed(key) end
 getPlayer = function() return { steamID = "76561198137190990" } end
 getCore = function()
     return {
@@ -132,6 +139,7 @@ assert(PsychopatzDebugWindow.instance == nil, "debug window existed before openi
 
 local function triggerDebugKey(startTime)
     downKey = 0
+    pressedKey = 0
     now = startTime
     Events.tick()
     downKey = 82
@@ -140,6 +148,7 @@ local function triggerDebugKey(startTime)
     now = startTime + 601
     Events.tick()
     downKey = 0
+    pressedKey = 0
     now = startTime + 602
     Events.tick()
 end

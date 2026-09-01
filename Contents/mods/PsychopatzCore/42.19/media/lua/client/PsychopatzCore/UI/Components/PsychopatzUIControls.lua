@@ -33,6 +33,25 @@ function UI.SetButtonVariant(button, variant)
     return UI.StyleButton(button, variant)
 end
 
+-- ISButton invokes callbacks as onclick(target, button, ...). Core panels
+-- commonly need the actual button first, so this adapter keeps that contract
+-- explicit and reusable without changing existing native-style callbacks.
+function UI.ButtonCallback(callback)
+    if type(callback) ~= "function" then return nil end
+    return function(target, button, ...)
+        local hub = UI.CommandHub
+        if hub and hub.Trace then
+            local id = button and (button.internal
+                or button.commandHubCategory or button.commandHubAction)
+                or "<nil>"
+            hub.Trace("native_button_callback", "id=" .. tostring(id)
+                .. " target=" .. tostring(target ~= nil)
+                .. " button=" .. tostring(button ~= nil))
+        end
+        return callback(button, target, ...)
+    end
+end
+
 function UI.CreateButton(parent, definition)
     definition = definition or {}
     local button = ISButton:new(

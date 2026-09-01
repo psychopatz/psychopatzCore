@@ -2,8 +2,8 @@ require "ISUI/ISButton"
 require "ISUI/ISLabel"
 require "ISUI/ISPanel"
 require "ISUI/ISTickBox"
-require "ISSliderPanel"
 require "PsychopatzCore/UI/PsychopatzWindow"
+require "PsychopatzCore/UI/Components/PsychopatzSlider"
 
 PsychopatzCore.InGameSettings = PsychopatzCore.InGameSettings or {}
 
@@ -78,18 +78,23 @@ local function createSlider(window, panel, definition)
     panel:addChild(label)
     local valueLabel = ISLabel:new(0, 0, 20, "", 0.8, 0.8, 0.8, 1, UIFont.Small, true)
     panel:addChild(valueLabel)
-    local slider = ISSliderPanel:new(0, 0, 160, 20, window, function(_, value)
-        local step = tonumber(definition.step) or 1
-        local snapped = math.floor((value / step) + 0.5) * step
-        writeValue(window, definition, snapped)
-        valueLabel:setName(definition.format and definition.format(snapped) or tostring(snapped))
-    end)
-    slider:initialise()
-    slider:setValues(tonumber(definition.min) or 0, tonumber(definition.max) or 100,
-        tonumber(definition.step) or 1, tonumber(definition.pageStep) or tonumber(definition.step) or 1)
-    slider.currentValue = tonumber(readValue(window, definition)) or tonumber(definition.min) or 0
-    valueLabel:setName(definition.format and definition.format(slider.currentValue) or tostring(slider.currentValue))
-    panel:addChild(slider)
+    local slider = UI.CreateSlider(panel, {
+        id = definition.id,
+        target = window,
+        min = tonumber(definition.min) or 0,
+        max = tonumber(definition.max) or 100,
+        step = tonumber(definition.step) or 1,
+        value = tonumber(readValue(window, definition))
+            or tonumber(definition.min) or 0,
+        onChange = function(_, value)
+            writeValue(window, definition, value)
+            valueLabel:setName(definition.format
+                and definition.format(value) or tostring(value))
+        end,
+    })
+    valueLabel:setName(definition.format
+        and definition.format(slider:getValue())
+        or tostring(slider:getValue()))
     return { kind = "slider", label = label, valueLabel = valueLabel, control = slider, height = 34 }
 end
 
@@ -136,6 +141,7 @@ function PsychopatzSettingsWindow:onResponsiveLayout()
     for index = 1, #self.rows do
         local row = self.rows[index]
         if row.kind == "slider" then
+            row.control.uiScale = self.uiScale or Layout.Scale()
             row.label:setX(12)
             row.label:setY(y + 3)
             Layout.SetBounds(row.control, math.max(140, math.floor(rect.width * 0.42)), y,

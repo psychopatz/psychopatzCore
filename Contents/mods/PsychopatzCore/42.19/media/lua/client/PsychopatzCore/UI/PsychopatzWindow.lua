@@ -19,6 +19,7 @@ local DefaultGeometryAdapter = {
         return GeometryStore:SetWindowState(key, state.x, state.y, state.w, state.h, true, {
             pin = state.pin,
             collapsed = state.collapsed,
+            widgetDetached = state.widgetDetached,
         })
     end,
     clear = function(key)
@@ -172,6 +173,9 @@ function PsychopatzWindow:restoreGeometry()
     if type(state) == "table" then
         if state.pin ~= nil then self.pin = state.pin == true end
         if state.collapsed ~= nil then self.isCollapsed = state.collapsed == true end
+        if state.widgetDetached ~= nil then
+            self.psychopatzWidgetDetached = state.widgetDetached == true
+        end
     end
     local bounds = Layout.ResolveSavedWindow(state, self.responsiveSpec)
     if not bounds then return false end
@@ -190,10 +194,15 @@ function PsychopatzWindow:saveGeometry(force)
     if force ~= true and signature == self.savedGeometrySignature then return false end
     local adapter = self.geometryAdapter
     if not adapter or not adapter.save then return false end
+    local widgetDetached
+    if self.psychopatzWidgetEnabled == true then
+        widgetDetached = self.psychopatzWidgetDetached == true
+    end
     local saved = adapter.save(self.persistenceKey, {
         x = self:getX(), y = self:getY(), w = self:getWidth(), h = self:getHeight(),
         pin = self.pin == true,
         collapsed = self.isCollapsed == true,
+        widgetDetached = widgetDetached,
     }, self)
     if saved == false then return false end
     self.savedGeometrySignature = signature

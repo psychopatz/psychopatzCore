@@ -1,5 +1,6 @@
 require "PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPart"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationTyping"
+require "PsychopatzCore/Text/PsychopatzMarkdown"
 
 PsychopatzConversationChat = PsychopatzConversationPart:derive(
     "PsychopatzConversationChat"
@@ -8,6 +9,7 @@ PsychopatzConversationChat = PsychopatzConversationPart:derive(
 local Conversation = PsychopatzCore.Conversation
 local Text = Conversation.Text
 local Typing = Conversation.Typing
+local Markdown = PsychopatzCore.Markdown
 
 local function fontHeight()
     if getTextManager then
@@ -24,21 +26,44 @@ local function textWidth(value)
 end
 
 local function wrap(value, maximumWidth)
-    local lines = {}
-    local line = ""
-    local word
-    value = tostring(value or "")
-    for word in string.gmatch(value, "%S+") do
-        local candidate = line == "" and word or (line .. " " .. word)
-        if line ~= "" and textWidth(candidate) > maximumWidth then
-            lines[#lines + 1] = line
-            line = word
-        else
-            line = candidate
-        end
+    return Markdown.Wrap(value, maximumWidth, textWidth)
+end
+
+local function drawFormattedLine(panel, line, x, y, baseColor, accent, alpha, kind)
+    if type(line) ~= "table" then
+        panel:drawText(tostring(line or ""), x, y,
+            baseColor.r, baseColor.g, baseColor.b, alpha, UIFont.Small)
+        return
     end
-    lines[#lines + 1] = line ~= "" and line or " "
-    return lines
+    local cursor = x
+    local index
+    for index = 1, #(line.runs or {}) do
+        local run = line.runs[index]
+        local style = run.style or "normal"
+        local color = baseColor
+        if style == "stage" then
+            color = { r = 0.68, g = 0.76, b = 0.71 }
+        elseif style == "italic" then
+            -- PZ has no portable italic UIFont; keep emphasis visibly
+            -- distinct while retaining the standard font for compatibility.
+            color = { r = 0.86, g = 0.91, b = 0.88 }
+        elseif style == "link" then
+            color = { r = 0.30, g = 0.82, b = 0.96 }
+        elseif style == "code" then
+            color = { r = 0.92, g = 0.78, b = 0.48 }
+        elseif kind == "heading" then
+            color = accent
+        end
+        panel:drawText(run.text, cursor, y,
+            color.r, color.g, color.b, alpha, UIFont.Small)
+        if style == "bold" or kind == "heading" then
+            -- PZ's standard UIFont.Small has no portable bold variant. A
+            -- one-pixel duplicate gives a stable, inexpensive bold face.
+            panel:drawText(run.text, cursor + 1, y,
+                color.r, color.g, color.b, alpha, UIFont.Small)
+        end
+        cursor = cursor + textWidth(run.text)
+    end
 end
 
 function PsychopatzConversationChat:setMessages(messages)
@@ -200,19 +225,19 @@ function PsychopatzConversationChat:render()
                     UIFont.Small
                 )
             else
-            local lineIndex
-            for lineIndex = 1, #layout.lines do
-                self:drawText(
-                    layout.lines[lineIndex],
-                    x + 10,
-                    y + 20 + (lineIndex - 1) * lineH,
-                    0.93,
-                    0.95,
-                    0.92,
-                    alpha,
-                    UIFont.Small
-                )
-            end
+                local lineIndex
+                for lineIndex = 1, #layout.lines do
+                    drawFormattedLine(
+                        self,
+                        layout.lines[lineIndex],
+                        x + 10,
+                        y + 20 + (lineIndex - 1) * lineH,
+                        { r = 0.93, g = 0.95, b = 0.92 },
+                        accent,
+                        alpha,
+                        layout.lines[lineIndex].kind
+                    )
+                end
             end
         end
     end

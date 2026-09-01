@@ -2,7 +2,7 @@
     Optional, mod-agnostic conversation voice gateway.
 
     Conversation.Message is the canonical message bus. This module only
-    adapts resolved NPC messages into a bounded Core packet stream; it does
+    adapts resolved speaker messages into a bounded Core packet stream; it does
     not know about a particular mod's NPC registry, TTS provider, or UI.
     Integrations register a source and may enrich a message with a compact
     voice binding and speech policy.
@@ -143,9 +143,9 @@ end
 
 local function bridgeConfigured()
     local bootstrap = PsychopatzCore and PsychopatzCore.BridgeBootstrap or nil
-    if bootstrap and bootstrap.GetConfig then
-        local ok, config = pcall(bootstrap.GetConfig)
-        return ok and type(config) == "table" and config.enabled == true
+    if bootstrap and type(bootstrap.IsEnabled) == "function" then
+        local ok, enabled = pcall(bootstrap.IsEnabled)
+        if not ok or enabled ~= true then return false end
     end
     return bridgeCanPublish()
 end
@@ -249,6 +249,14 @@ local function voiceBinding(message, enriched)
         or state.voiceBinding
 end
 
+local function isUnboundSpeakerID(value)
+    local normalized = string.lower(text(value, 256))
+    return normalized == ""
+        or normalized == "unknown-speaker"
+        or normalized == "unbound"
+        or normalized == "unbound-player"
+end
+
 local function buildEnvelope(sourceID, message, enriched)
     local rawText = tostring(message.text or "")
     local resolved = text(rawText, Gateway.MAX_TEXT)
@@ -257,6 +265,14 @@ local function buildEnvelope(sourceID, message, enriched)
     local state = type(message.presentationState) == "table"
         and message.presentationState or {}
     local source = copySource(message.source)
+    local speakerKind = string.lower(tostring(
+        message.speakerKind or message.speaker or "npc"
+    ))
+    local speakerID = message.speakerID
+    if isUnboundSpeakerID(speakerID) then
+        speakerID = speakerKind == "player" and message.playerUUID
+            or message.npcUUID
+    end
     local speech = messageSpeech(message, enriched)
     local binding = voiceBinding(message, enriched)
     local envelope = {
@@ -272,9 +288,9 @@ local function buildEnvelope(sourceID, message, enriched)
         sequence = tonumber(message.sequence) or 0,
         game_day = tonumber(message.gameDay) or 0,
         world_age_hours = tonumber(message.worldAgeHours) or 0,
-        speaker_id = tostring(message.speakerID or message.npcUUID or ""),
+        speaker_id = tostring(speakerID or ""),
         speaker_name = text(message.speakerName, 256),
-        speaker_kind = tostring(message.speakerKind or message.speaker or "npc"),
+        speaker_kind = speakerKind,
         player_uuid = tostring(message.playerUUID or ""),
         npc_uuid = tostring(message.npcUUID or message.speakerID or ""),
         namespace = tostring(message.namespace or ""),
@@ -292,11 +308,30 @@ local function buildEnvelope(sourceID, message, enriched)
         created_real_time_ms = nowMs(),
     }
     if type(binding) == "table" then
+        local bindingKind = string.lower(tostring(
+            binding.speaker_kind or binding.speakerKind or speakerKind
+        ))
+        local bindingID = binding.speaker_id or binding.speakerID
+            or binding.player_uuid or binding.playerUUID
+            or binding.npc_uuid or binding.npcUUID or envelope.speaker_id
+        if isUnboundSpeakerID(envelope.speaker_id) and bindingID then
+            envelope.speaker_id = tostring(bindingID)
+        end
         envelope.voice_binding = {
-            npc_uuid = tostring(binding.npc_uuid or binding.npcUUID or envelope.npc_uuid),
+            speaker_id = tostring(bindingID or ""),
+            speaker_kind = bindingKind,
             slot = text(binding.slot, 128),
             pitch = tonumber(binding.pitch) or 0,
         }
+        if bindingKind == "player" then
+            envelope.voice_binding.player_uuid = tostring(
+                binding.player_uuid or binding.playerUUID or bindingID or ""
+            )
+        else
+            envelope.voice_binding.npc_uuid = tostring(
+                binding.npc_uuid or binding.npcUUID or bindingID or envelope.npc_uuid
+            )
+        end
     end
     if speech then envelope.speech = speech end
     if enriched and type(enriched.audience) == "table" then
@@ -530,6 +565,13 @@ end
 -- This avoids installing another Core callback for integrations such as the
 -- Hoomans client bridge while keeping the default source API standalone.
 Gateway.Update = onTick
+
+-- Public readiness contract for integrations that need to decide whether a
+-- speech event may leave the game. Configuration alone is not sufficient:
+-- the live bridge must have completed activation and expose packet transport.
+function Gateway.IsBridgeReady()
+    return bridgeConfigured()
+end
 
 function Gateway.Cancel(cancelGroup)
     cancelGroup = text(cancelGroup, 128)

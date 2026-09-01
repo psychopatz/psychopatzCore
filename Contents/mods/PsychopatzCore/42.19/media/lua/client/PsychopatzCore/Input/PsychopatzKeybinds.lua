@@ -77,16 +77,33 @@ local function keyCodeFor(binding)
     return tonumber(binding.defaultKey) or 0
 end
 
-local function isKeyDown(key)
-    if key <= 0 or not isKeyDown then return false end
-    local ok, value = pcall(_G.isKeyDown, key)
+local function readNumericKeyState(functionName, key)
+    if key <= 0 then return false end
+
+    -- Build 42 exposes numeric overloads for the global helpers.  Prefer
+    -- those because they retain GameKeyboard's text-entry/UI suppression.
+    local globalFunction = rawget(_G, functionName)
+    if type(globalFunction) == "function" then
+        local ok, value = pcall(globalFunction, key)
+        if ok then return value == true end
+    end
+
+    -- Keep a raw Keyboard fallback for runtimes where the global overload is
+    -- unavailable.  This is also the API used by the vanilla UI code for
+    -- numeric modifier/key checks.
+    local keyboard = rawget(_G, "Keyboard")
+    local keyboardFunction = keyboard and keyboard[functionName]
+    if type(keyboardFunction) ~= "function" then return false end
+    local ok, value = pcall(keyboardFunction, key)
     return ok and value == true
 end
 
+local function isKeyDown(key)
+    return readNumericKeyState("isKeyDown", key)
+end
+
 local function isKeyPressed(key)
-    if key <= 0 or not isKeyPressed then return false end
-    local ok, value = pcall(_G.isKeyPressed, key)
-    return ok and value == true
+    return readNumericKeyState("isKeyPressed", key)
 end
 
 local function nowMs()

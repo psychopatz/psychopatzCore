@@ -21,7 +21,7 @@ PsychopatzCore.Bridge.RegisterTool("example.mod", "inspect", {
 ```
 
 The runtime state advertises `tool_catalog_id` and `tool_catalog_version`.
-P BrainZ requests `psychopatzcore.bridge.toolCatalog` only when that catalog
+PBrainZ requests `psychopatzcore.bridge.toolCatalog` only when that catalog
 ID is not already cached. Chat packets should send only the allowed
 `available_tool_ids` for the current turn.
 
@@ -39,7 +39,7 @@ bridge.PublishPacket("example.mod", "state", {
 })
 ```
 
-P BrainZ can poll the generic `psychopatzcore.bridge.pollPackets` command with
+PBrainZ can poll the generic `psychopatzcore.bridge.pollPackets` command with
 subscriptions containing `namespace`, `channel`, `after`, and an optional
 `include_snapshot`. Each event has a monotonically increasing sequence. When
 the bounded event history has been overrun, the response sets `gap = true` and

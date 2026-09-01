@@ -1,6 +1,8 @@
 require "PsychopatzCore/00_PsychopatzCore_Init"
+require "PsychopatzCore/Text/PsychopatzMarkdown"
 
 local Radio = PsychopatzCore.CustomRadio
+local Markdown = PsychopatzCore.Markdown
 Radio.NativeChannels = Radio.NativeChannels or {}
 
 local function category(name)
@@ -46,13 +48,21 @@ function Radio.AirEvent(channelID, eventType, context)
     local id = "PSY-" .. tostring(getTimestampMs and getTimestampMs()
         or ZombRand and ZombRand(100000, 999999) or 1)
     local broadcast = RadioBroadCast.new(id, -1, -1)
+    local airedLines = 0
     for _, source in ipairs(message.lines) do
-        local line = source.effects
-            and RadioLine.new(source.text,
-                source.r, source.g, source.b, source.effects)
-            or RadioLine.new(source.text, source.r, source.g, source.b)
-        if source.airTime then line:setAirTime(source.airTime) end
-        broadcast:AddRadioLine(line)
+        local displayText = Markdown.ToSingleLine(source.text)
+        if displayText ~= "" then
+            local line = source.effects
+                and RadioLine.new(displayText,
+                    source.r, source.g, source.b, source.effects)
+                or RadioLine.new(displayText, source.r, source.g, source.b)
+            if source.airTime then line:setAirTime(source.airTime) end
+            broadcast:AddRadioLine(line)
+            airedLines = airedLines + 1
+        end
+    end
+    if airedLines == 0 then
+        return false, "message_unavailable"
     end
     channel:setAiringBroadcast(broadcast)
     return true, message
