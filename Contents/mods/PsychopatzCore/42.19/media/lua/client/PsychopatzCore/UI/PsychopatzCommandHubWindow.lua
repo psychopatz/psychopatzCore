@@ -59,7 +59,10 @@ function ISPsychopatzCommandHubWindow:createChildren()
     self.categoryButtons = {}
     self.registryRevision = -1
     self:syncButtons()
-    self:fitToContent(true)
+    -- A restored geometry is an explicit user choice.  Still allow the
+    -- responsive pass to grow a window if new injected buttons require it,
+    -- but do not replace the saved height on every restart.
+    self:fitToContent(self.psychopatzGeometryRestored ~= true)
     self:requestResponsiveLayout(true)
 end
 

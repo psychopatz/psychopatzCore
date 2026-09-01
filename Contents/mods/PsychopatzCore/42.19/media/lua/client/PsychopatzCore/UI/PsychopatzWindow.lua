@@ -1,10 +1,12 @@
 require "ISUI/ISCollapsableWindow"
 require "PsychopatzCore/UI/Components/PsychopatzUIControls"
+require "PsychopatzCore/UI/Components/PsychopatzWindowToolbar"
 require "PsychopatzCore/Settings/PsychopatzSettings"
 
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
+local Toolbar = UI.WindowToolbar
 local GeometryStore = PsychopatzCore.Settings.Open("UI", {
     fileName = "PsychopatzCore_UI.txt",
     defaults = {},
@@ -69,6 +71,18 @@ local function nowMillis()
     return getTimeInMillis and getTimeInMillis() or 0
 end
 
+local function traceGeometry(window, event)
+    if not window or window.geometryTrace ~= true then return end
+    local hub = UI.CommandHub
+    if not hub or type(hub.Trace) ~= "function" then return end
+    hub.Trace("window_geometry_" .. tostring(event),
+        "key=" .. tostring(window.persistenceKey)
+        .. " x=" .. tostring(window:getX())
+        .. " y=" .. tostring(window:getY())
+        .. " w=" .. tostring(window:getWidth())
+        .. " h=" .. tostring(window:getHeight()))
+end
+
 PsychopatzWindow = ISCollapsableWindow:derive("PsychopatzWindow")
 UI.Window = PsychopatzWindow
 
@@ -105,16 +119,40 @@ end
 function PsychopatzWindow:syncWindowControls()
     local collapseButton = self.psychopatzTitlebarCollapseButton or self.collapseButton
     local pinButton = self.psychopatzTitlebarPinButton or self.pinButton
-    if not collapseButton or not pinButton then return end
+
+    if self.collapsible == false then
+        -- Fixed windows still use the native window frame and resize widgets,
+        -- but they must never enter the pin/collapse state machine.  Keeping
+        -- pin=true is important because ISCollapsableWindow collapses an
+        -- unpinned window when the mouse leaves it.
+        self.pin = true
+        self.isCollapsed = false
+        self.collapseCounter = 0
+        if self.clearMaxDrawHeight then self:clearMaxDrawHeight() end
+        if collapseButton then collapseButton:setVisible(false) end
+        if pinButton then pinButton:setVisible(false) end
+        self.psychopatzPinState = "disabled"
+        if Toolbar then Toolbar.Sync(self) end
+        return
+    end
+
+    if not collapseButton or not pinButton then
+        if Toolbar then Toolbar.Sync(self) end
+        return
+    end
 
     local pinned = self.pin == true
-    if self.psychopatzPinState == pinned then return end
+    if self.psychopatzPinState == pinned then
+        if Toolbar then Toolbar.Sync(self) end
+        return
+    end
 
     collapseButton:setVisible(pinned)
     pinButton:setVisible(not pinned)
     local activeButton = pinned and collapseButton or pinButton
     if activeButton then activeButton:bringToTop() end
     self.psychopatzPinState = pinned
+    if Toolbar then Toolbar.Sync(self) end
 end
 
 function PsychopatzWindow:createChildren()
@@ -140,6 +178,7 @@ function PsychopatzWindow:createChildren()
         self.psychopatzPinState = nil
         self:syncWindowControls()
     end
+    self:syncResizeWidgets()
 end
 
 function PsychopatzWindow:requestResponsiveLayout(force)
@@ -163,7 +202,83 @@ function PsychopatzWindow:applyResponsiveBounds(center)
         Layout.KeepOnScreen(self)
     end
     self:requestResponsiveLayout(true)
+    self:syncResizeWidgets()
     return bounds
+end
+
+function PsychopatzWindow:applyResize(width, height)
+    local nextWidth = Layout.Clamp(math.floor(tonumber(width) or self:getWidth()),
+        self.minimumWidth or 1, self.maximumWidth or math.huge)
+    local nextHeight = Layout.Clamp(math.floor(tonumber(height) or self:getHeight()),
+        self.minimumHeight or 1, self.maximumHeight or math.huge)
+    self:setWidth(nextWidth)
+    self:setHeight(nextHeight)
+    self.psychopatzUserResized = true
+    Layout.KeepOnScreen(self)
+    self:syncResizeWidgets()
+    self:requestResponsiveLayout(true)
+end
+
+function PsychopatzWindow:syncResizeWidgets()
+    local resizable = self.resizable ~= false
+    local bottomResize = self.bottomResize ~= false
+    local handleHeight = self.resizeWidgetHeight
+        and self:resizeWidgetHeight() or 12
+    local windowWidth = self:getWidth()
+    local windowHeight = self:getHeight()
+    if not self.psychopatzResizeFunction then
+        self.psychopatzResizeFunction = function(target, width, height)
+            if target and target.applyResize then
+                target:applyResize(width, height)
+            end
+        end
+    end
+    local resizeFunction = self.psychopatzResizeFunction
+    local corner = self.resizeWidget
+    if corner then
+        corner.resizeFunction = resizeFunction
+        corner.target = self
+        corner.yonly = false
+        corner:setX(math.max(0, windowWidth - handleHeight))
+        corner:setY(math.max(0, windowHeight - handleHeight))
+        corner:setWidth(handleHeight)
+        corner:setHeight(handleHeight)
+        corner:setVisible(resizable)
+        self.psychopatzResizeCornerBounds = {
+            x = corner:getX(), y = corner:getY(),
+            width = corner:getWidth(), height = corner:getHeight(),
+        }
+    end
+    local bottom = self.resizeWidget2
+    if bottom then
+        bottom.resizeFunction = resizeFunction
+        bottom.target = self
+        bottom.yonly = true
+        bottom:setVisible(resizable and bottomResize)
+        bottom:setX(0)
+        bottom:setY(math.max(0, windowHeight - handleHeight))
+        bottom:setWidth(math.max(1, windowWidth - handleHeight))
+        bottom:setHeight(handleHeight)
+        self.psychopatzResizeBottomBounds = {
+            x = bottom:getX(), y = bottom:getY(),
+            width = bottom:getWidth(), height = bottom:getHeight(),
+        }
+    end
+
+    -- Content controls are added after the native resize widgets. Keep both
+    -- hit targets above those controls; ISResizeWidget intentionally has no
+    -- visual render pass, so the panel renderer and its hitbox must stay in
+    -- lockstep.
+    local bottomVisible = bottom and (not bottom.getIsVisible
+        or bottom:getIsVisible())
+    local cornerVisible = corner and (not corner.getIsVisible
+        or corner:getIsVisible())
+    if bottomVisible and bottom.bringToTop then
+        bottom:bringToTop()
+    end
+    if cornerVisible and corner.bringToTop then
+        corner:bringToTop()
+    end
 end
 
 function PsychopatzWindow:restoreGeometry()
@@ -171,11 +286,19 @@ function PsychopatzWindow:restoreGeometry()
     local adapter = self.geometryAdapter
     local state = adapter and adapter.load and adapter.load(self.persistenceKey, self) or nil
     if type(state) == "table" then
-        if state.pin ~= nil then self.pin = state.pin == true end
-        if state.collapsed ~= nil then self.isCollapsed = state.collapsed == true end
+        if self.collapsible ~= false then
+            if state.pin ~= nil then self.pin = state.pin == true end
+            if state.collapsed ~= nil then
+                self.isCollapsed = state.collapsed == true
+            end
+        end
         if state.widgetDetached ~= nil then
             self.psychopatzWidgetDetached = state.widgetDetached == true
         end
+    end
+    if self.collapsible == false then
+        self.pin = true
+        self.isCollapsed = false
     end
     local bounds = Layout.ResolveSavedWindow(state, self.responsiveSpec)
     if not bounds then return false end
@@ -185,6 +308,11 @@ function PsychopatzWindow:restoreGeometry()
     self:setHeight(bounds.height)
     self.uiScale = bounds.scale
     self.geometrySignature = geometrySignature(self)
+    self.psychopatzGeometryRestored = true
+    -- Responsive panels must not replace a restored user size with their
+    -- first auto-fit measurement on the first open after a restart.
+    self.psychopatzUserResized = true
+    traceGeometry(self, "loaded")
     return true
 end
 
@@ -208,6 +336,7 @@ function PsychopatzWindow:saveGeometry(force)
     self.savedGeometrySignature = signature
     self.geometrySignature = signature
     self.geometryChangedAt = nil
+    traceGeometry(self, "saved")
     return true
 end
 
@@ -252,12 +381,16 @@ function PsychopatzWindow:prerender()
             end
         end
     end
+    self:syncResizeWidgets()
     self:requestResponsiveLayout(false)
     self:trackGeometry()
     ISCollapsableWindow.prerender(self)
     self.psychopatzStencilActive = true
-    local accent = Theme.colors.accent
-    self:drawRect(0, self:titleBarHeight(), self:getWidth(), 2, 0.75, accent.r, accent.g, accent.b)
+    if self.drawFrame ~= false then
+        local accent = Theme.colors.accent
+        self:drawRect(0, self:titleBarHeight(), self:getWidth(), 2, 0.75,
+            accent.r, accent.g, accent.b)
+    end
 end
 
 function PsychopatzWindow:render()
@@ -304,17 +437,33 @@ function PsychopatzWindow:new(x, y, width, height, options)
     o.responsiveSpec = copySpec(options, width, height)
     o.autoFitScreen = options.autoFitScreen ~= false
     o.resizable = options.resizable ~= false
+    o.bottomResize = options.bottomResize ~= false
+    o.collapsible = options.collapsible ~= false
     o.pin = options.pin == true
     o.title = tostring(options.title or "Psychopatz")
     o.backgroundColor = Theme.Color("window")
     o.borderColor = Theme.Color("borderStrong")
     o.persistGeometry = options.persistGeometry ~= false and options.persistenceKey ~= false
     o.geometryAdapter = options.geometryAdapter or DefaultGeometryAdapter
+    o.geometryTrace = options.geometryTrace == true
     local persistenceKey = options.persistenceKey or self.Type or options.title or "PsychopatzWindow"
     if options.persistenceNamespace and options.persistenceNamespace ~= "" then
         persistenceKey = tostring(options.persistenceNamespace) .. ":" .. tostring(persistenceKey)
     end
     o.persistenceKey = o.persistGeometry and tostring(persistenceKey) or nil
+    local bounds = Layout.ResolveWindow(o.responsiveSpec)
+    o.minimumWidth = bounds.minWidth
+    o.minimumHeight = bounds.minHeight
+    -- An omitted responsive maximum means "up to the usable screen", which
+    -- matches the native resize widget. An explicit maximum remains honored.
+    o.maximumWidth = o.responsiveSpec.maxWidth ~= nil
+        and bounds.maxWidth or bounds.screenWidth - bounds.margin * 2
+    o.maximumHeight = o.responsiveSpec.maxHeight ~= nil
+        and bounds.maxHeight or bounds.screenHeight - bounds.margin * 2
+    if o.collapsible == false then
+        o.pin = true
+        o.isCollapsed = false
+    end
     if not o:restoreGeometry() then
         o.geometrySignature = geometrySignature(o)
     end

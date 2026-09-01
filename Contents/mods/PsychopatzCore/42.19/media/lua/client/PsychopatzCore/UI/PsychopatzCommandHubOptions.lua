@@ -100,13 +100,28 @@ function Options.ApplySurfaceOpacity(window, opacity)
     return window.backgroundColor.a
 end
 
+function Options.ApplyWindowOpacity(window, opacity)
+    if not window then return end
+    if window.psychopatzOpacityMode == "surface" then
+        local base = clamp(tonumber(opacity) or Options.GetOpacity(), 0.1, 1)
+        local value = clamp(base + Options.GetContentOpacityLift(), 0.1, 1)
+        window.backgroundColor = window.backgroundColor
+            or { r = 0, g = 0, b = 0, a = value }
+        window.backgroundColor.a = value
+        window.commandHubOpacity = base
+        window.commandHubSurfaceOpacity = value
+        return value
+    end
+    return Options.ApplyOpacity(window, opacity)
+end
+
 Options.targets = Options.targets or {}
 
 function Options.RegisterTarget(id, window)
     local key = tostring(id or "")
     if key == "" or not window then return false end
     Options.targets[key] = window
-    Options.ApplyOpacity(window)
+    Options.ApplyWindowOpacity(window)
     return true
 end
 
@@ -120,7 +135,7 @@ end
 function Options.ApplyRegisteredOpacity(opacity)
     local value = tonumber(opacity) or Options.GetOpacity()
     for _, window in pairs(Options.targets) do
-        if window then Options.ApplyOpacity(window, value) end
+        if window then Options.ApplyWindowOpacity(window, value) end
     end
     return value
 end
@@ -184,7 +199,7 @@ function Options.ResetGeometry(window)
     Options.ApplyGeometry(window, bounds.x, bounds.y, bounds.width, bounds.height)
     Options.SetOpacityPercent(Options.DefaultOpacity * 100)
     Options.SetBranch(Options.DefaultBranch)
-    Options.ApplyOpacity(window, Options.DefaultOpacity)
+    Options.ApplyWindowOpacity(window, Options.DefaultOpacity)
     return true
 end
 

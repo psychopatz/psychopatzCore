@@ -22,6 +22,10 @@ package.preload[
     "PsychopatzCore/UI/Components/PsychopatzUIControls"] = function()
         return true
     end
+package.preload[
+    "PsychopatzCore/UI/Components/PsychopatzWindowToolbar"] = function()
+        return dofile(ROOT .. "Components/PsychopatzWindowToolbar.lua")
+    end
 
 function UI.CreateButton(parent, definition)
     local button = {
@@ -71,16 +75,40 @@ local button = WidgetWindow.Install(window, {
     onDetachedChanged = function(_, value) changed = value end,
 })
 equal(button, window.psychopatzWidgetButton, "widget button installed")
-equal(button.image, WidgetWindow.ATTACHED_ICON, "attached star icon")
+equal(button.image, WidgetWindow.ATTACHED_ICON, "attached lock icon")
 equal(button.visible, true, "widget button visible")
 equal(button.x, 83, "widget button beside native pin")
 equal(button.y, 1, "widget button title-bar y")
 equal(button.forcedWidthImage, 14, "widget icon size")
 equal(WidgetWindow.IsDetached(window), false, "default widget state")
 
+local toolbar = window.psychopatzWindowToolbar
+equal(toolbar ~= nil, true, "toolbar installed")
+local custom = toolbar:Add({
+    id = "smoke-custom",
+    image = "media/ui/MP/mp_ui_star.png",
+    order = 200,
+})
+equal(custom ~= nil, true, "custom toolbar button installed")
+equal(custom.x, 66, "custom button follows widget button")
+equal(toolbar:Find("smoke-custom"), custom, "custom button find")
+equal(toolbar:SetVisible("smoke-custom", false), true,
+    "custom button visibility update")
+equal(custom.visible, false, "custom button hidden")
+equal(button.x, 83, "widget reclaims hidden button space")
+equal(toolbar:SetVisible("smoke-custom", true), true,
+    "custom button visibility restore")
+equal(custom.x, 66, "custom button visibility restore layout")
+equal(toolbar:SetEnabled("smoke-custom", false), true,
+    "custom button enabled state update")
+equal(custom.enable, false, "custom button disabled")
+equal(toolbar:SetTooltip("smoke-custom", "Custom action"), true,
+    "custom button tooltip update")
+equal(custom.tooltip, "Custom action", "custom button tooltip")
+
 equal(WidgetWindow.Toggle(window), true, "widget detaches")
 equal(WidgetWindow.IsDetached(window), true, "detached widget state")
-equal(button.image, WidgetWindow.DETACHED_ICON, "detached star icon")
+equal(button.image, WidgetWindow.DETACHED_ICON, "detached lock icon")
 equal(changed, true, "detach callback")
 equal(window.saveCount, 1, "detach state saved")
 
@@ -88,9 +116,14 @@ nativePin.x = 120
 window.width = 160
 WidgetWindow.Sync(window)
 equal(button.x, 103, "widget button follows resized title bar")
+equal(custom.x, 86, "custom button follows resized title bar")
 equal(WidgetWindow.Toggle(window), false, "widget reattaches")
-equal(button.image, WidgetWindow.ATTACHED_ICON, "reattached star icon")
+equal(button.image, WidgetWindow.ATTACHED_ICON, "reattached lock icon")
 equal(changed, false, "attach callback")
 equal(window.saveCount, 2, "attach state saved")
+
+equal(toolbar:Remove("smoke-custom"), true, "custom button removed")
+equal(toolbar:Find("smoke-custom"), nil, "custom button no longer found")
+equal(button.x, 103, "widget reclaims removed button space")
 
 print("psychopatz_widget_window_smoke: ok")

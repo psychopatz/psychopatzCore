@@ -134,6 +134,9 @@ assertEqual(scrollingControl.scrollbarRefreshes, 1,
 
 package.preload["ISUI/ISCollapsableWindow"] = function() return true end
 package.preload["PsychopatzCore/UI/Components/PsychopatzUIControls"] = function() return true end
+package.preload["PsychopatzCore/UI/Components/PsychopatzWindowToolbar"] = function()
+    return dofile(ROOT .. "UI/Components/PsychopatzWindowToolbar.lua")
+end
 package.preload["PsychopatzCore/Settings/PsychopatzSettings"] = function() return PsychopatzCore.Settings end
 local BaseWindow = {}
 BaseWindow.__index = BaseWindow
@@ -153,11 +156,27 @@ function BaseWindow:createChildren()
         return {
             visible = false,
             setVisible = function(self, value) self.visible = value end,
+            getIsVisible = function(self) return self.visible end,
             bringToTop = function(self) self.onTop = true end,
         }
     end
+    local function resizeWidget()
+        local widget = button()
+        widget.x, widget.y, widget.width, widget.height = 0, 0, 1, 1
+        widget.setX = function(self, value) self.x = value end
+        widget.setY = function(self, value) self.y = value end
+        widget.setWidth = function(self, value) self.width = value end
+        widget.setHeight = function(self, value) self.height = value end
+        widget.getX = function(self) return self.x end
+        widget.getY = function(self) return self.y end
+        widget.getWidth = function(self) return self.width end
+        widget.getHeight = function(self) return self.height end
+        return widget
+    end
     self.collapseButton = button()
     self.pinButton = button()
+    self.resizeWidget = resizeWidget()
+    self.resizeWidget2 = resizeWidget()
     self.collapseButton:setVisible(true)
 end
 function BaseWindow:instantiate()
@@ -198,6 +217,14 @@ function BaseWindow:setHeight(value) self.height = value end
 ISCollapsableWindow = BaseWindow
 getTimeInMillis = function() return 1000 end
 dofile(ROOT .. "UI/PsychopatzWindow.lua")
+package.preload["PsychopatzCore/UI/PsychopatzWindow"] = function()
+    return PsychopatzWindow
+end
+dofile(ROOT .. "UI/PsychopatzFixedWindow.lua")
+package.preload["PsychopatzCore/UI/PsychopatzFixedWindow"] = function()
+    return PsychopatzFixedWindow
+end
+dofile(ROOT .. "UI/PsychopatzAttachedWindow.lua")
 
 local TestWindow = PsychopatzWindow:derive("SmokeWindow")
 local defaultUnpinned = PsychopatzWindow:new(0, 0, 200, 100, {
@@ -238,6 +265,43 @@ assertEqual(initialPinned.collapseButton.visible, true,
     "pinned window initially shows collapse control")
 assertEqual(initialPinned.pinButton.visible, false,
     "pinned window initially hides pin control")
+
+local fixed = PsychopatzFixedWindow:new(0, 0, 200, 100, {
+    persistGeometry = false,
+})
+fixed:instantiate()
+assertEqual(fixed.collapsible, false, "fixed window is not collapsible")
+assertEqual(fixed.pin, true, "fixed window remains pinned internally")
+assertEqual(fixed.isCollapsed, false, "fixed window starts expanded")
+assertEqual(fixed.collapseButton.visible, false,
+    "fixed window hides the collapse control")
+assertEqual(fixed.pinButton.visible, false,
+    "fixed window hides the pin control")
+fixed:applyResize(260, 140)
+assertEqual(fixed.resizeWidget.yonly, false,
+    "corner resize handle allows width and height")
+assertEqual(fixed.resizeWidget.x, 248,
+    "corner resize handle follows the right edge")
+assertEqual(fixed.resizeWidget.y, 128,
+    "corner resize handle follows the bottom edge")
+assertEqual(fixed.resizeWidget2.yonly, true,
+    "bottom resize handle only changes height")
+assertEqual(fixed.resizeWidget2.width, 248,
+    "bottom resize handle leaves the corner hitbox free")
+assertEqual(fixed.resizeWidget.onTop, true,
+    "corner resize handle remains above content controls")
+assertEqual(fixed.resizeWidget2.onTop, true,
+    "bottom resize handle remains above content controls")
+
+local attached = PsychopatzAttachedWindow:new(0, 0, 200, 100, {
+    persistGeometry = false,
+})
+attached:initialise()
+attached:instantiate()
+assertEqual(attached.drawFrame, false,
+    "attached window uses the frameless panel presentation")
+assertEqual(attached.background, true,
+    "attached window keeps a panel background")
 
 local CollidingWindow = PsychopatzWindow:derive("CollidingWindow")
 function CollidingWindow:createChildren()
@@ -349,6 +413,8 @@ assertEqual(persistent:getX(), 45, "restored x")
 assertEqual(persistent:getY(), 55, "restored y")
 assertEqual(persistent:getWidth(), 420, "restored width")
 assertEqual(persistent:getHeight(), 310, "restored height")
+assertEqual(persistent.psychopatzUserResized, true,
+    "restored geometry is treated as an explicit user size")
 assertEqual(persistent.pin, false, "restored pin state")
 assertEqual(persistent.isCollapsed, true, "restored collapsed state")
 persistent:close()

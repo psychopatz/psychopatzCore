@@ -2,26 +2,18 @@
 -- magnetic owner and behave like movable on-screen widgets.
 
 require "PsychopatzCore/UI/Components/PsychopatzUIControls"
+require "PsychopatzCore/UI/Components/PsychopatzWindowToolbar"
 
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Resolver = UI.ImageResolver
+local Toolbar = UI.WindowToolbar
 
 local WidgetWindow = UI.WidgetWindow or {}
 UI.WidgetWindow = WidgetWindow
 
-WidgetWindow.ATTACHED_ICON = "media/ui/MP/mp_ui_star_outline.png"
-WidgetWindow.DETACHED_ICON = "media/ui/MP/mp_ui_star.png"
-
-local function getValue(target, methodName, fallback)
-    if not target then return fallback end
-    local method = target[methodName]
-    if type(method) == "function" then
-        local ok, value = pcall(method, target)
-        if ok and value ~= nil then return value end
-    end
-    return target[string.lower(string.sub(methodName, 4))] or fallback
-end
+WidgetWindow.ATTACHED_ICON = "media/ui/MP/mp_ui_passwordOn.png"
+WidgetWindow.DETACHED_ICON = "media/ui/MP/mp_ui_passwordOff.png"
 
 local function iconFor(window)
     return window.psychopatzWidgetDetached
@@ -54,30 +46,6 @@ local function syncIcon(window)
     syncTooltip(window)
 end
 
-local function syncToolbar(window)
-    local button = window.psychopatzWidgetButton
-    if not button then return end
-
-    local native = window.psychopatzTitlebarPinButton or window.pinButton
-    local titleHeight = getValue(window, "titleBarHeight", 18)
-    local nativeWidth = getValue(native, "getWidth", titleHeight - 2)
-    local nativeHeight = getValue(native, "getHeight", titleHeight - 2)
-    local size = math.max(1, math.floor(math.min(nativeWidth, nativeHeight)))
-    local nativeX = getValue(native, "getX", getValue(window, "getWidth", 1) - size - 1)
-    local nativeY = getValue(native, "getY", 1)
-
-    button.anchorLeft = false
-    button.anchorRight = true
-    button.anchorTop = true
-    button.anchorBottom = false
-    button:setWidth(size)
-    button:setHeight(size)
-    button:setX(math.floor(nativeX - size - 1))
-    button:setY(math.floor(nativeY))
-    button:setVisible(true)
-    button:bringToTop()
-end
-
 function WidgetWindow.IsDetached(window)
     return window ~= nil and window.psychopatzWidgetEnabled == true
         and window.psychopatzWidgetDetached == true
@@ -91,7 +59,7 @@ function WidgetWindow.SetDetached(window, detached)
     local changed = window.psychopatzWidgetDetached ~= value
     window.psychopatzWidgetDetached = value
     syncIcon(window)
-    syncToolbar(window)
+    if Toolbar then Toolbar.Sync(window) end
     if changed then
         if window.saveGeometry then window:saveGeometry(true) end
         if window.psychopatzWidgetOnChanged then
@@ -109,7 +77,7 @@ end
 function WidgetWindow.Sync(window)
     if not window or window.psychopatzWidgetEnabled ~= true then return false end
     syncIcon(window)
-    syncToolbar(window)
+    if Toolbar then Toolbar.Sync(window) end
     return true
 end
 
@@ -125,9 +93,14 @@ function WidgetWindow.Install(window, definition)
     window.psychopatzWidgetDetached = window.psychopatzWidgetDetached == true
     window.psychopatzWidgetOnChanged = definition.onDetachedChanged
 
-    local button = UI.CreateButton(window, {
+    local button = Toolbar and Toolbar.Add(window, {
         id = definition.id or "psychopatz-widget-toggle",
         title = "",
+        image = function(target)
+            return iconFor(target)
+        end,
+        imageSize = definition.imageSize,
+        order = definition.order or 100,
         target = window,
         onclick = function(target)
             return WidgetWindow.Toggle(target)
@@ -142,11 +115,6 @@ function WidgetWindow.Install(window, definition)
     button.backgroundColorMouseOver = Theme.Color("surfaceHover", 0.7)
     button.borderColor = Theme.Color("transparent")
     button.textColor = Theme.Color("transparent")
-    if button.forceImageSize then
-        local titleHeight = getValue(window, "titleBarHeight", 18)
-        local size = math.max(1, math.floor(titleHeight - 4))
-        button:forceImageSize(size, size)
-    end
     window.psychopatzWidgetButton = button
     WidgetWindow.Sync(window)
     return button

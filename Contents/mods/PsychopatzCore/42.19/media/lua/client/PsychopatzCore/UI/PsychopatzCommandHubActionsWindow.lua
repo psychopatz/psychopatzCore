@@ -2,6 +2,7 @@
 
 require "ISUI/ISPanel"
 require "PsychopatzCore/UI/Components/PsychopatzUIControls"
+require "PsychopatzCore/UI/PsychopatzAttachedWindow"
 require "PsychopatzCore/UI/PsychopatzCommandHubRegistry"
 require "PsychopatzCore/UI/PsychopatzCommandHubOptions"
 
@@ -13,6 +14,7 @@ local Layout = UI.Layout
 local Theme = UI.Theme
 local Registry = UI.CommandHubRegistry
 local Options = UI.CommandHubOptions
+local AttachedWindow = UI.AttachedWindow or PsychopatzAttachedWindow
 
 local function trace(event, message)
     local hub = UI.CommandHub
@@ -21,7 +23,7 @@ end
 
 local Actions = UI.CommandHubActions or {}
 UI.CommandHubActions = Actions
-ISPsychopatzCommandHubActionsWindow = ISPanel:derive(
+ISPsychopatzCommandHubActionsWindow = AttachedWindow:derive(
     "ISPsychopatzCommandHubActionsWindow")
 Actions.Window = ISPsychopatzCommandHubActionsWindow
 
@@ -48,14 +50,14 @@ local function setEnabled(button, enabled)
 end
 
 function ISPsychopatzCommandHubActionsWindow:initialise()
-    ISPanel.initialise(self)
+    AttachedWindow.initialise(self)
     self.backgroundColor = Theme.Color("surface")
     self.borderColor = Theme.Color("borderStrong")
     Options.ApplySurfaceOpacity(self)
 end
 
 function ISPsychopatzCommandHubActionsWindow:createChildren()
-    ISPanel.createChildren(self)
+    AttachedWindow.createChildren(self)
     self.actionButtons = {}
     self.backButton = UI.CreateButton(self, {
         id = "command-hub-back",
@@ -109,37 +111,49 @@ function ISPsychopatzCommandHubActionsWindow:syncButtons()
     self.title = titleFor(parent)
 end
 
+function ISPsychopatzCommandHubActionsWindow:syncButtonStates()
+    local actions = Registry.GetChildren(self.parentID)
+    for _, action in ipairs(actions) do
+        local button = self.actionButtons[action.id]
+        if button and button:getIsVisible() then
+            local enabled = Registry.IsEnabled(action, self.owner)
+            setEnabled(button, enabled)
+            local selected = enabled and Registry.IsSelected(action, self.owner)
+            UI.StyleButton(button, selected and "selected"
+                or (enabled and "default" or "quiet"))
+        end
+    end
+end
+
 function ISPsychopatzCommandHubActionsWindow:layoutButtons()
     self:syncButtons()
+    self:syncButtonStates()
     local actions = Registry.GetChildren(self.parentID)
     local scale = self.uiScale or Layout.Scale()
     local gap = Layout.Pixels(6, scale)
     local padding = Layout.Pixels(8, scale)
-    local headerHeight = Layout.Pixels(30, scale)
     local rowHeight = Layout.Pixels(30, scale)
     local columns = #actions >= 4 and 2 or 1
-    local availableWidth = self.owner and self.owner:getWidth() or 220
+    local rect = self:getContentRect({ padding = 8 })
+    local availableWidth = rect.width
     local buttonWidth = columns == 1
-        and math.max(Layout.Pixels(180, scale), availableWidth - padding * 2)
+        and math.max(Layout.Pixels(180, scale), availableWidth)
         or math.max(Layout.Pixels(120, scale), math.floor(
-            (availableWidth - padding * 2 - gap) / columns))
+            (availableWidth - gap) / columns))
     local row, column = 0, 0
-    local top = headerHeight + padding
+    local top = rect.y
 
     if self.backButton:getIsVisible() then
-        Layout.SetBounds(self.backButton, padding, top, buttonWidth, rowHeight)
+        Layout.SetBounds(self.backButton, rect.x, top, buttonWidth, rowHeight)
         top = top + rowHeight + gap
     end
 
     for _, action in ipairs(actions) do
         local button = self.actionButtons[action.id]
         if button and button:getIsVisible() then
-            local x = padding + column * (buttonWidth + gap)
+            local x = rect.x + column * (buttonWidth + gap)
             local y = top + row * (rowHeight + gap)
             Layout.SetBounds(button, x, y, buttonWidth, rowHeight)
-            local enabled = Registry.IsEnabled(action, self.owner)
-            setEnabled(button, enabled)
-            UI.StyleButton(button, enabled and "primary" or "quiet")
             column = column + 1
             if column >= columns then
                 column = 0
@@ -150,10 +164,21 @@ function ISPsychopatzCommandHubActionsWindow:layoutButtons()
 
     local rows = row + (column > 0 and 1 or 0)
     if #actions == 0 then rows = 0 end
-    local height = top + rows * rowHeight + math.max(0, rows - 1) * gap + padding
-    self:setWidth(math.max(Layout.Pixels(190, scale), padding * 2
-        + columns * buttonWidth + math.max(0, columns - 1) * gap))
-    self:setHeight(math.max(Layout.Pixels(70, scale), height))
+    local resizeHeight = self:footerHeight()
+    local height = top + rows * rowHeight + math.max(0, rows - 1) * gap
+        + padding + resizeHeight
+    local desiredWidth = math.max(Layout.Pixels(190, scale), padding * 2
+        + columns * buttonWidth + math.max(0, columns - 1) * gap)
+    local desiredHeight = math.max(Layout.Pixels(70, scale), height)
+    if self.psychopatzUserResized ~= true then
+        self:setWidth(desiredWidth)
+        self:setHeight(desiredHeight)
+    else
+        self:setWidth(math.max(self:getWidth(), Layout.Pixels(190, scale)))
+        self:setHeight(math.max(self:getHeight(), desiredHeight,
+            Layout.Pixels(70, scale)))
+    end
+    self:syncResizeWidgets()
     self.layoutRevision = Registry.Revision
     self.layoutScale = scale
     self.layoutParentID = self.parentID
@@ -168,6 +193,12 @@ function ISPsychopatzCommandHubActionsWindow:ensureLayout()
         self.uiScale = scale
         self:layoutButtons()
     end
+    self:syncButtonStates()
+end
+
+function ISPsychopatzCommandHubActionsWindow:onResponsiveLayout()
+    self.layoutRevision = nil
+    self:layoutButtons()
 end
 
 function ISPsychopatzCommandHubActionsWindow:onControl(button)
@@ -216,6 +247,7 @@ function ISPsychopatzCommandHubActionsWindow:onControl(button)
     end
     trace("action_callback_result", "action=" .. tostring(actionID)
         .. " result=" .. tostring(result))
+    self:syncButtonStates()
     if result ~= false and action.closePanel == true then self:close() end
     return result ~= false
 end
@@ -228,20 +260,13 @@ function ISPsychopatzCommandHubActionsWindow:prerender()
         return
     end
     self:ensureLayout()
-    ISPanel.prerender(self)
-    local scale = self.uiScale or Layout.Scale()
-    local accent = Theme.colors.accent
-    self:drawTextCentre(self.title or "COMMAND", self:getWidth() / 2,
-        Layout.Pixels(7, scale), accent.r, accent.g, accent.b, 1,
-        Theme.Font(scale, "title"))
-    self:drawRect(Layout.Pixels(8, scale), Layout.Pixels(29, scale),
-        self:getWidth() - Layout.Pixels(16, scale), 1, 0.75,
-        accent.r, accent.g, accent.b)
+    AttachedWindow.prerender(self)
     Options.ApplySurfaceOpacity(self)
 end
 
 function ISPsychopatzCommandHubActionsWindow:close()
     Options.UnregisterTarget(self.commandHubTargetID)
+    self:saveGeometry(true)
     self:setVisible(false)
     self:removeFromUIManager()
     if Actions.instance == self then Actions.instance = nil end
@@ -256,10 +281,13 @@ function Actions.Open(parentID, owner)
             title = titleFor(Registry.Get(parentID)),
             width = 220,
             height = 180,
-            resizable = false,
-            persistGeometry = false,
+            resizable = true,
+            persistGeometry = true,
+            persistenceKey = "PsychopatzCore.CommandHub.Actions",
+            geometryTrace = true,
             responsiveSpec = { width = 220, height = 180,
-                minWidth = 180, minHeight = 70 },
+                minWidth = 180, minHeight = 70,
+                maxWidth = 520, maxHeight = 820 },
         })
         window:initialise()
         window:instantiate()
