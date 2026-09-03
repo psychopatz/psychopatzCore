@@ -132,6 +132,56 @@ assertEqual(scrollbar.height, 180, "responsive vertical scrollbar height")
 assertEqual(scrollingControl.scrollbarRefreshes, 1,
     "responsive bounds refresh native scrollbar state")
 
+local gridControls = {}
+for index = 1, 5 do
+    gridControls[index] = {
+        setX = function(self, value) self.x = value end,
+        setY = function(self, value) self.y = value end,
+        setWidth = function(self, value) self.width = value end,
+        setHeight = function(self, value) self.height = value end,
+    }
+end
+local grid = Layout.Grid(gridControls,
+    { x = 10, y = 20, width = 460, height = 140 },
+    { columns = 2, gap = 8, rowGap = 8, height = 34, stretchLastRow = true })
+assertEqual(grid.columns, 2, "responsive grid column count")
+assertEqual(grid.rows, 3, "responsive grid row count")
+assertEqual(grid.height, 118, "responsive grid height")
+assertEqual(gridControls[1].width, 226, "responsive grid cell width")
+assertEqual(gridControls[2].x, 244, "responsive grid second column x")
+assertEqual(gridControls[3].y, 62, "responsive grid second row y")
+assertEqual(gridControls[5].width, 460, "responsive grid stretches final row")
+
+package.preload["PsychopatzCore/Settings/PsychopatzSettings"] =
+    function() return PsychopatzCore.Settings end
+package.preload["PsychopatzCore/UI/Core/PsychopatzUILayout"] =
+    function() return Layout end
+local Options = dofile(ROOT .. "UI/PsychopatzCommandHubOptions.lua")
+Options.Reset()
+assertEqual(Options.GetSurfaceOpacityLift(), 0.08,
+    "surface opacity lift default")
+assertEqual(Options.GetDetailOpacityLift(), 0.04,
+    "detail opacity lift default")
+assertEqual(Options.GetTitlebarControlScale(), 1.0,
+    "title-bar control scale default")
+Options.SetTitlebarControlScale(0.65, false)
+assertEqual(Options.GetTitlebarControlScale(), 0.65,
+    "title-bar control scale setter")
+Options.Reset()
+assertEqual(Options.GetOpacityLift("detail"), 0.04,
+    "detail opacity role")
+assertEqual(Options.GetOpacityLift("surface"), 0.08,
+    "surface opacity role")
+local styledWindow = { backgroundColor = { r = 0, g = 0, b = 0, a = 1 } }
+Options.SetOpacity(0.5, false)
+Options.ApplySurfaceOpacity(styledWindow, "detail")
+assertEqual(styledWindow.backgroundColor.a, 0.54,
+    "detail opacity application")
+local firstSignature = Options.GetContentOpacitySignature()
+Options.SetDetailOpacityLift(0.12, false)
+assertEqual(Options.GetContentOpacitySignature() ~= firstSignature, true,
+    "content opacity signature tracks detail lift")
+
 package.preload["ISUI/ISCollapsableWindow"] = function() return true end
 package.preload["PsychopatzCore/UI/Components/PsychopatzUIControls"] = function() return true end
 package.preload["PsychopatzCore/UI/Core/PsychopatzUILayout"] =

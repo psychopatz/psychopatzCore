@@ -13,6 +13,14 @@ UI.WindowToolbar = Toolbar
 local ToolbarState = {}
 ToolbarState.__index = ToolbarState
 
+local function controlScale(window)
+    local options = UI.CommandHubOptions
+    if options and options.GetTitlebarControlScale then
+        return options.GetTitlebarControlScale()
+    end
+    return tonumber(window and window.psychopatzTitlebarControlScale) or 1
+end
+
 local function readValue(target, methodName, fieldName, fallback)
     if not target then return fallback end
     local method = target[methodName]
@@ -61,7 +69,7 @@ local function visibleFor(entry)
     return visible ~= false
 end
 
-local function applyImageSize(entry, width, height)
+local function applyImageSize(entry, width, height, scale)
     local button = entry.button
     if not button or not button.forceImageSize then return end
 
@@ -75,12 +83,16 @@ local function applyImageSize(entry, width, height)
         imageWidth = tonumber(imageSize)
         imageHeight = imageWidth
     end
-    imageWidth = math.max(1, math.floor(imageWidth or (width - 2)))
-    imageHeight = math.max(1, math.floor(imageHeight or (height - 2)))
+    imageWidth = imageWidth and math.floor(imageWidth * scale + 0.5)
+        or width - 2
+    imageHeight = imageHeight and math.floor(imageHeight * scale + 0.5)
+        or height - 2
+    imageWidth = math.max(1, imageWidth)
+    imageHeight = math.max(1, imageHeight)
     button:forceImageSize(imageWidth, imageHeight)
 end
 
-local function syncButton(entry, width, height)
+local function syncButton(entry, width, height, scale)
     local button = entry.button
     local definition = entry.definition
     if not button then return end
@@ -103,7 +115,7 @@ local function syncButton(entry, width, height)
         if button.setEnable then button:setEnable(enabled ~= false)
         else button.enable = enabled ~= false end
     end
-    applyImageSize(entry, width, height)
+    applyImageSize(entry, width, height, scale)
 end
 
 function ToolbarState:Add(definition)
@@ -156,6 +168,8 @@ function Toolbar.Install(window, options)
         gap = math.max(0, math.floor(tonumber(options and options.gap) or 1)),
     }, ToolbarState)
     window.psychopatzWindowToolbar = state
+    Toolbar.windows = Toolbar.windows or {}
+    Toolbar.windows[window] = true
     return state
 end
 
@@ -251,10 +265,66 @@ function Toolbar.Remove(window, id)
     return true
 end
 
+local function baseDimension(button, getter, field, fallback)
+    if not button then return fallback end
+    local stored = tonumber(button[field])
+    if stored then return stored end
+    local current = tonumber(readValue(button, getter, field, fallback))
+        or fallback
+    button[field] = current
+    return current
+end
+
+local function syncNativeTitlebarButton(window, button, scale)
+    if not window or not button then return end
+    local baseWidth = baseDimension(button, "getWidth",
+        "psychopatzTitlebarBaseWidth", 16)
+    local baseHeight = baseDimension(button, "getHeight",
+        "psychopatzTitlebarBaseHeight", 16)
+    local width = math.max(1, math.floor(baseWidth * scale + 0.5))
+    local height = math.max(1, math.floor(baseHeight * scale + 0.5))
+    if button.setWidth then button:setWidth(width) end
+    if button.setHeight then button:setHeight(height) end
+    local windowWidth = tonumber(readValue(window, "getWidth", "width", 0)) or 0
+    local rightMargin = tonumber(button.psychopatzTitlebarRightMargin)
+    if rightMargin == nil then
+        local observedX = tonumber(readValue(button, "getX", "x", nil))
+        -- During PsychopatzWindow construction the native button is often
+        -- still at x=0. Only preserve an observed margin after a toolbar has
+        -- already been installed; otherwise use the standard title-bar edge.
+        rightMargin = window.psychopatzWindowToolbar and observedX
+            and math.max(0, windowWidth - observedX - width) or 1
+        button.psychopatzTitlebarRightMargin = rightMargin
+    end
+    if button.setX then
+        button:setX(math.max(0, math.floor(windowWidth - rightMargin - width)))
+    end
+    if button.setY then button:setY(1) end
+    button.anchorLeft = false
+    button.anchorRight = true
+    button.anchorTop = true
+    button.anchorBottom = false
+end
+
+function Toolbar.SyncNativeControls(window)
+    if not window then return false end
+    Toolbar.windows = Toolbar.windows or {}
+    Toolbar.windows[window] = true
+    local scale = controlScale(window)
+    window.psychopatzTitlebarControlScale = scale
+    local pin = window.psychopatzTitlebarPinButton or window.pinButton
+    local collapse = window.psychopatzTitlebarCollapseButton
+        or window.collapseButton
+    syncNativeTitlebarButton(window, collapse, scale)
+    syncNativeTitlebarButton(window, pin, scale)
+    return scale
+end
+
 function Toolbar.Sync(window)
     local state = stateFor(window)
     if not state then return false end
 
+    local scale = Toolbar.SyncNativeControls(window)
     local native = nativeTitlebarButton(window)
     local height = titleBarHeight(window)
     local defaultSize = math.max(1, math.floor(height - 2))
@@ -301,10 +371,14 @@ function Toolbar.Sync(window)
         if button then
             local visible = visibleFor(entry)
             if visible then
-                local width = math.max(1, math.floor(tonumber(entry.definition.width)
-                    or nativeWidth))
-                local buttonHeight = math.max(1, math.floor(
-                    tonumber(entry.definition.height) or nativeHeight))
+                local definedWidth = tonumber(entry.definition.width)
+                local width = definedWidth
+                    and math.max(1, math.floor(definedWidth * scale + 0.5))
+                    or nativeWidth
+                local definedHeight = tonumber(entry.definition.height)
+                local buttonHeight = definedHeight
+                    and math.max(1, math.floor(definedHeight * scale + 0.5))
+                    or nativeHeight
                 local x = cursor - width
                 button.anchorLeft = false
                 button.anchorRight = true
@@ -315,7 +389,7 @@ function Toolbar.Sync(window)
                 button:setX(x)
                 button:setY(math.floor(nativeY))
                 button:setVisible(true)
-                syncButton(entry, width, buttonHeight)
+                syncButton(entry, width, buttonHeight, scale)
                 button:bringToTop()
                 cursor = x - state.gap
             else
@@ -327,6 +401,19 @@ function Toolbar.Sync(window)
     state.lastNativeX = nativeX
     state.lastNativeRightMargin = state.nativeRightMargin
     return true
+end
+
+function Toolbar.RefreshAll()
+    Toolbar.windows = Toolbar.windows or {}
+    local count = 0
+    for window, _ in pairs(Toolbar.windows) do
+        if window then
+            Toolbar.SyncNativeControls(window)
+            if stateFor(window) then Toolbar.Sync(window) end
+            count = count + 1
+        end
+    end
+    return count
 end
 
 return Toolbar

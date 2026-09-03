@@ -23,6 +23,7 @@ local function createLabel(parent, text, color)
     -- measured width, so responsive layout must measure the source text rather
     -- than the last display value.
     label.psychopatzFormText = labelText
+    label.psychopatzThemeColorName = color == nil and "text" or nil
     parent:addChild(label)
     return label
 end
@@ -153,6 +154,9 @@ function UI.CreateFormRow(parent, definition)
     row:instantiate()
     row.label = createLabel(row, definition.label or definition.title,
         definition.labelColor)
+    if definition.labelColorName then
+        row.label.psychopatzThemeColorName = definition.labelColorName
+    end
     if type(definition.createControl) == "function" then
         row.control = definition.createControl(row)
     else
@@ -162,6 +166,11 @@ function UI.CreateFormRow(parent, definition)
     if definition.valueLabel == true or definition.valueText ~= nil then
         row.valueLabel = createLabel(row, definition.valueText or "",
             definition.valueColor or Theme.colors.textMuted)
+        if not definition.valueColor then
+            row.valueLabel.psychopatzThemeColorName = "textMuted"
+        elseif definition.valueColorName then
+            row.valueLabel.psychopatzThemeColorName = definition.valueColorName
+        end
     end
     if parent then parent:addChild(row) end
     local host = UI.LayoutHost

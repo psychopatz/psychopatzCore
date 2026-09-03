@@ -46,19 +46,85 @@ function UI.SetLabelText(label, value)
     return label
 end
 
+function UI.ApplyButtonTheme(button, definition)
+    if not button then return button end
+    local style = definition or variants.default
+    button.backgroundColor = Theme.Color(style.background or "surface",
+        style.backgroundAlpha)
+    button.backgroundColorMouseOver = Theme.Color(
+        style.hover or "surfaceHover", style.hoverAlpha)
+    button.borderColor = Theme.Color(style.border or "border",
+        style.borderAlpha)
+    button.textColor = Theme.Color(style.text or "text", style.textAlpha)
+    return button
+end
+
 function UI.StyleButton(button, variant)
     if not button then return button end
-    local style = variants[variant or "default"] or variants.default
-    button.psychopatzVariant = variant or "default"
-    button.backgroundColor = Theme.Color(style.background)
-    button.backgroundColorMouseOver = Theme.Color("surfaceHover")
-    button.borderColor = Theme.Color(style.border)
-    button.textColor = Theme.Color(style.text)
-    return button
+    local selected = variant or "default"
+    local style = variants[selected] or variants.default
+    button.psychopatzVariant = selected
+    button.psychopatzThemeOverride = nil
+    return UI.ApplyButtonTheme(button, style)
+end
+
+-- Custom toolbar controls can retain their native hit behavior while opting
+-- into the same live theme refresh as ordinary Core buttons.
+function UI.SetButtonTheme(button, definition)
+    if not button then return button end
+    button.psychopatzThemeOverride = definition or variants.default
+    return UI.ApplyButtonTheme(button, button.psychopatzThemeOverride)
 end
 
 function UI.SetButtonVariant(button, variant)
     return UI.StyleButton(button, variant)
+end
+
+function UI.SetLabelTheme(label, colorName)
+    if not label then return label end
+    local name = colorName or "text"
+    local color = Theme.colors[name] or Theme.colors.text
+    label.psychopatzThemeColorName = name
+    if label.setColor then label:setColor(color.r, color.g, color.b, color.a) end
+    label.r, label.g, label.b, label.a = color.r, color.g, color.b, color.a
+    return label
+end
+
+local function refreshThemeElement(element, visited)
+    if not element or visited[element] then return end
+    visited[element] = true
+    if element.psychopatzThemeOverride then
+        UI.ApplyButtonTheme(element, element.psychopatzThemeOverride)
+    elseif element.psychopatzVariant then
+        UI.ApplyButtonTheme(element,
+            variants[element.psychopatzVariant] or variants.default)
+    end
+    if element.psychopatzThemeBackgroundName then
+        local current = element.backgroundColor
+        element.backgroundColor = Theme.Color(
+            element.psychopatzThemeBackgroundName, current and current.a)
+    end
+    if element.psychopatzThemeBorderName then
+        local current = element.borderColor
+        element.borderColor = Theme.Color(
+            element.psychopatzThemeBorderName, current and current.a)
+    end
+    if element.psychopatzThemeColorName then
+        UI.SetLabelTheme(element, element.psychopatzThemeColorName)
+    end
+    local children = element.getChildren and element:getChildren()
+        or element.children
+    if type(children) == "table" then
+        for _, child in ipairs(children) do
+            refreshThemeElement(child, visited)
+        end
+    end
+end
+
+function UI.RefreshTheme(root)
+    if not root then return false end
+    refreshThemeElement(root, {})
+    return true
 end
 
 -- ISButton invokes callbacks as onclick(target, button, ...). Core panels
@@ -111,6 +177,8 @@ function UI.CreatePanel(parent)
     panel:instantiate()
     panel.backgroundColor = Theme.Color("surface")
     panel.borderColor = Theme.Color("border")
+    panel.psychopatzThemeBackgroundName = "surface"
+    panel.psychopatzThemeBorderName = "border"
     if parent then parent:addChild(panel) end
     return panel
 end
@@ -125,6 +193,8 @@ function UI.CreateList(parent, options)
     list.drawBorder = options.drawBorder ~= false
     list.backgroundColor = Theme.Color("surface")
     list.borderColor = Theme.Color("border")
+    list.psychopatzThemeBackgroundName = "surface"
+    list.psychopatzThemeBorderName = "border"
     if options.drawItemContent then
         baseDrawItem = options.doDrawItem or list.doDrawItem
         list.psychopatzBaseDrawItem = baseDrawItem

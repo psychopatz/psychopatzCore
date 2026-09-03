@@ -13,14 +13,18 @@ local Layout = UI.Layout
 
 Options.DefaultOpacity = 0.92
 Options.DefaultBranch = "right"
-Options.ContentOpacityLift = 0.08
+Options.DefaultSurfaceOpacityLift = 0.08
+Options.DefaultDetailOpacityLift = 0.04
+Options.DefaultTitlebarControlScale = 1.0
 
 local Store = PsychopatzCore.Settings.Open("CommandHub", {
     fileName = "PsychopatzCore_CommandHub.txt",
     defaults = {
         opacity = 0.92,
         branch = "right",
-        contentOpacityLift = 0.08,
+        surfaceOpacityLift = 0.08,
+        detailOpacityLift = 0.04,
+        titlebarControlScale = 1.0,
     },
 })
 
@@ -67,16 +71,56 @@ function Options.SetBranch(value, persist)
     return branch
 end
 
-function Options.GetContentOpacityLift()
+function Options.GetSurfaceOpacityLift()
     ensureLoaded()
-    return clamp(tonumber(Store:Get("contentOpacityLift",
-        Options.ContentOpacityLift)) or Options.ContentOpacityLift, 0, 0.25)
+    return clamp(tonumber(Store:Get("surfaceOpacityLift",
+        Options.DefaultSurfaceOpacityLift)) or Options.DefaultSurfaceOpacityLift,
+        0, 0.25)
 end
 
-function Options.SetContentOpacityLift(value, persist)
-    local lift = clamp(tonumber(value) or 0.08, 0, 0.25)
-    Store:Set("contentOpacityLift", lift, persist ~= false)
+function Options.SetSurfaceOpacityLift(value, persist)
+    local lift = clamp(tonumber(value) or Options.DefaultSurfaceOpacityLift,
+        0, 0.25)
+    Store:Set("surfaceOpacityLift", lift, persist ~= false)
     return lift
+end
+
+function Options.GetDetailOpacityLift()
+    ensureLoaded()
+    return clamp(tonumber(Store:Get("detailOpacityLift",
+        Options.DefaultDetailOpacityLift)) or Options.DefaultDetailOpacityLift,
+        0, 0.25)
+end
+
+function Options.SetDetailOpacityLift(value, persist)
+    local lift = clamp(tonumber(value) or Options.DefaultDetailOpacityLift,
+        0, 0.25)
+    Store:Set("detailOpacityLift", lift, persist ~= false)
+    return lift
+end
+
+function Options.GetTitlebarControlScale()
+    ensureLoaded()
+    return clamp(tonumber(Store:Get("titlebarControlScale",
+        Options.DefaultTitlebarControlScale))
+        or Options.DefaultTitlebarControlScale, 0.5, 1.25)
+end
+
+function Options.SetTitlebarControlScale(value, persist)
+    local scale = clamp(tonumber(value) or Options.DefaultTitlebarControlScale,
+        0.5, 1.25)
+    Store:Set("titlebarControlScale", scale, persist ~= false)
+    return scale
+end
+
+-- Short aliases keep the option easy to consume from generic toolbar code
+-- while the longer name remains the persisted/public settings contract.
+Options.GetToolbarScale = Options.GetTitlebarControlScale
+Options.SetToolbarScale = Options.SetTitlebarControlScale
+
+function Options.GetOpacityLift(role)
+    return tostring(role or "surface"):lower() == "detail"
+        and Options.GetDetailOpacityLift() or Options.GetSurfaceOpacityLift()
 end
 
 function Options.ApplyOpacity(window, opacity)
@@ -89,10 +133,9 @@ function Options.ApplyOpacity(window, opacity)
     return value
 end
 
-function Options.ApplySurfaceOpacity(window, opacity)
+function Options.ApplySurfaceOpacity(window, role)
     if not window then return end
-    local lift = tonumber(opacity)
-    if lift == nil then lift = Options.GetContentOpacityLift() end
+    local lift = Options.GetOpacityLift(role)
     local value = clamp(Options.GetOpacity() + lift, 0.1, 1)
     window.backgroundColor = window.backgroundColor or { r = 0, g = 0, b = 0, a = value }
     window.backgroundColor.a = math.min(1, value)
@@ -104,7 +147,7 @@ function Options.ApplyWindowOpacity(window, opacity)
     if not window then return end
     if window.psychopatzOpacityMode == "surface" then
         local base = clamp(tonumber(opacity) or Options.GetOpacity(), 0.1, 1)
-        local value = clamp(base + Options.GetContentOpacityLift(), 0.1, 1)
+        local value = clamp(base + Options.GetSurfaceOpacityLift(), 0.1, 1)
         window.backgroundColor = window.backgroundColor
             or { r = 0, g = 0, b = 0, a = value }
         window.backgroundColor.a = value
@@ -138,6 +181,18 @@ function Options.ApplyRegisteredOpacity(opacity)
         if window then Options.ApplyWindowOpacity(window, value) end
     end
     return value
+end
+
+function Options.ApplyRegisteredToolbarScale()
+    local toolbar = UI.WindowToolbar
+    if toolbar and toolbar.RefreshAll then
+        return toolbar.RefreshAll()
+    end
+    local scale = Options.GetTitlebarControlScale()
+    for _, window in pairs(Options.targets) do
+        if window and toolbar and toolbar.Sync then toolbar.Sync(window) end
+    end
+    return scale
 end
 
 function Options.GetBounds(window)
@@ -187,10 +242,17 @@ function Options.ApplyGeometry(window, values, y, width, height)
     return true
 end
 
-function Options.GetContentOpacity(lift)
-    local amount = tonumber(lift)
-    if amount == nil then amount = Options.GetContentOpacityLift() end
+function Options.GetContentOpacity(role)
+    local amount = Options.GetOpacityLift(role)
     return clamp(Options.GetOpacity() + amount, 0.1, 1)
+end
+
+function Options.GetContentOpacitySignature()
+    return table.concat({
+        tostring(Options.GetOpacity()),
+        tostring(Options.GetSurfaceOpacityLift()),
+        tostring(Options.GetDetailOpacityLift()),
+    }, ":")
 end
 
 function Options.ResetGeometry(window)
@@ -199,6 +261,7 @@ function Options.ResetGeometry(window)
     Options.ApplyGeometry(window, bounds.x, bounds.y, bounds.width, bounds.height)
     Options.SetOpacityPercent(Options.DefaultOpacity * 100)
     Options.SetBranch(Options.DefaultBranch)
+    Options.SetTitlebarControlScale(Options.DefaultTitlebarControlScale)
     Options.ApplyWindowOpacity(window, Options.DefaultOpacity)
     return true
 end
@@ -228,9 +291,11 @@ function Options.PlaceAttached(window, owner, gap)
 end
 
 function Options.Reset()
-    Store:Set("opacity", 0.92, false)
-    Store:Set("branch", "right", false)
-    Store:Set("contentOpacityLift", 0.08, true)
+    Store:Set("opacity", Options.DefaultOpacity, false)
+    Store:Set("branch", Options.DefaultBranch, false)
+    Store:Set("surfaceOpacityLift", Options.DefaultSurfaceOpacityLift, false)
+    Store:Set("detailOpacityLift", Options.DefaultDetailOpacityLift, true)
+    Store:Set("titlebarControlScale", Options.DefaultTitlebarControlScale, true)
     return true
 end
 

@@ -15,6 +15,10 @@ UI.Theme = {
         return { name = name, a = alpha == nil and 1 or alpha }
     end,
 }
+UI.SetButtonTheme = function(button, definition)
+    button.psychopatzThemeOverride = definition
+    return button
+end
 UI.ImageResolver = {
     Resolve = function(path) return path end,
 }
@@ -58,6 +62,8 @@ function nativePin:getY() return self.y end
 function nativePin:getWidth() return self.width end
 function nativePin:getHeight() return self.height end
 function nativePin:setX(value) self.x = value end
+function nativePin:setWidth(value) self.width = value end
+function nativePin:setHeight(value) self.height = value end
 
 local window = {
     width = 140,
@@ -118,6 +124,14 @@ WidgetWindow.Sync(window)
 equal(button.x, 103, "widget button follows resized title bar")
 equal(custom.x, 86, "custom button follows resized title bar")
 equal(nativePin.x, 120, "native title-bar control follows resized window")
+window.psychopatzTitlebarControlScale = 0.75
+WidgetWindow.Sync(window)
+equal(nativePin.width, 12, "native title-bar control scales down")
+equal(button.width, 12, "custom toolbar control scales down")
+equal(button.forcedWidthImage, 10, "custom toolbar icon scales down")
+window.psychopatzTitlebarControlScale = 1
+WidgetWindow.Sync(window)
+equal(nativePin.width, 16, "native title-bar control restores its size")
 equal(WidgetWindow.Toggle(window), false, "widget reattaches")
 equal(button.image, WidgetWindow.ATTACHED_ICON, "reattached lock icon")
 equal(changed, false, "attach callback")

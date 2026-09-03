@@ -6,6 +6,7 @@ require "PsychopatzCore/UI/Components/PsychopatzUIControls"
 require "PsychopatzCore/UI/PsychopatzCommandHubRegistry"
 require "PsychopatzCore/UI/PsychopatzCommandHubOptions"
 require "PsychopatzCore/UI/PsychopatzCommandHubActionsWindow"
+local Tooltip = require "PsychopatzCore/UI/PsychopatzCommandHubTooltip"
 
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.UI = PsychopatzCore.UI or {}
@@ -22,21 +23,8 @@ local function trace(event, message)
     if hub and hub.Trace then hub.Trace(event, message) end
 end
 
-local function tr(key, fallback)
-    if not key or key == "" then return fallback end
-    local value = getText and getText(key) or nil
-    return value and value ~= "" and value ~= key and value or fallback
-end
-
-local function titleFor(definition)
-    return tr(definition and definition.titleKey,
-        definition and definition.titleFallback or "COMMAND")
-end
-
-local function tooltipFor(definition)
-    return tr(definition and definition.tooltipKey,
-        definition and definition.tooltipFallback or titleFor(definition))
-end
+local titleFor = Tooltip.TitleFor
+local tooltipFor = Tooltip.For
 
 local function setEnabled(button, enabled)
     if not button then return end
@@ -87,7 +75,7 @@ function ISPsychopatzCommandHubWindow:syncButtons()
             end
             button.commandHubCategory = category.id
             button:setTitle(titleFor(category))
-            button.tooltip = tooltipFor(category)
+            button.tooltip = tooltipFor(category, self, true)
             if button.setFont then button:setFont(Theme.Font(self.uiScale)) end
         end
     end
@@ -117,6 +105,25 @@ function ISPsychopatzCommandHubWindow:fitToContent(force)
     end
 end
 
+function ISPsychopatzCommandHubWindow:syncButtonStates()
+    for _, category in ipairs(Registry.All()) do
+        local button = self.categoryButtons[category.id]
+        if button and button:getIsVisible() then
+            local enabled = Registry.IsEnabled(category, self)
+            button.tooltip = tooltipFor(category, self, enabled)
+            setEnabled(button, enabled)
+            local selected = Registry.IsSelected(category, self)
+            if not selected and #Registry.GetChildren(category.id) > 0
+                and Actions.instance and Actions.instance.parentID == category.id
+            then
+                selected = true
+            end
+            UI.StyleButton(button, not enabled and "quiet"
+                or selected and "selected" or "default")
+        end
+    end
+end
+
 function ISPsychopatzCommandHubWindow:layoutButtons()
     self:syncButtons()
     local scale = self.uiScale or Layout.Scale()
@@ -133,16 +140,6 @@ function ISPsychopatzCommandHubWindow:layoutButtons()
             local x = rect.x + column * (cellWidth + gap)
             local y = rect.y + row * (rowHeight + gap)
             Layout.SetBounds(button, x, y, cellWidth, rowHeight)
-            local enabled = Registry.IsEnabled(category, self)
-            setEnabled(button, enabled)
-            local selected = Registry.IsSelected(category, self)
-            if not selected and #Registry.GetChildren(category.id) > 0
-                and Actions.instance and Actions.instance.parentID == category.id
-            then
-                selected = true
-            end
-            UI.StyleButton(button, not enabled and "quiet"
-                or selected and "selected" or "default")
             column = column + 1
             if column >= columns then
                 column = 0
@@ -156,6 +153,7 @@ function ISPsychopatzCommandHubWindow:layoutButtons()
         rowHeight = rowHeight,
         gap = gap,
     }
+    self:syncButtonStates()
 end
 
 function ISPsychopatzCommandHubWindow:onResponsiveLayout()
@@ -229,6 +227,7 @@ function ISPsychopatzCommandHubWindow:prerender()
     end
     PsychopatzWindow.prerender(self)
     Options.ApplyOpacity(self)
+    self:syncButtonStates()
     if Actions.instance and Actions.instance.owner == self then
         Actions.SyncPosition(self)
     end

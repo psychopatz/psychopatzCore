@@ -4,12 +4,15 @@
 
 require "ISUI/ISButton"
 require "ISUI/ISContextMenu"
+require "PsychopatzCore/UI/Core/PsychopatzUITheme"
 
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.RadioActions = PsychopatzCore.RadioActions or {}
 
 local RadioActions = PsychopatzCore.RadioActions
 local RadioDeviceState = PsychopatzCore.RadioDeviceState
+local Theme = PsychopatzCore.UI.Theme
+local UI = PsychopatzCore.UI
 
 RadioActions._byID = RadioActions._byID or {}
 RadioActions._ordered = RadioActions._ordered or {}
@@ -171,10 +174,22 @@ end
 
 local function styleActionButton(button)
     if not button then return end
-    button.backgroundColor = { r = 0.075, g = 0.09, b = 0.105, a = 0.96 }
-    button.backgroundColorMouseOver = { r = 0.13, g = 0.19, b = 0.22, a = 1 }
-    button.borderColor = { r = 0.20, g = 0.72, b = 0.82, a = 0.92 }
-    button.textColor = { r = 0.91, g = 0.94, b = 0.96, a = 1 }
+    local definition = {
+        background = "surface",
+        backgroundAlpha = 0.96,
+        hover = "surfaceHover",
+        border = "accent",
+        borderAlpha = 0.92,
+        text = "text",
+    }
+    if UI.SetButtonTheme then
+        UI.SetButtonTheme(button, definition)
+    else
+        button.backgroundColor = Theme.Color("surface", 0.96)
+        button.backgroundColorMouseOver = Theme.Color("surfaceHover")
+        button.borderColor = Theme.Color("accent", 0.92)
+        button.textColor = Theme.Color("text")
+    end
 end
 
 function RadioActions.BindButton(button, action, window, options)

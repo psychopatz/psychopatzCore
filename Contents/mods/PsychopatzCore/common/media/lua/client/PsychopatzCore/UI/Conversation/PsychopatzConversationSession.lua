@@ -197,6 +197,7 @@ function Session:setChoices(choices)
                 close = choice.close,
                 closeReason = choice.closeReason,
                 action = choice.action or choice.onSelect,
+                onHighlightChanged = choice.onHighlightChanged,
                 log = choice.log ~= false,
                 enabled = evaluate(choice.enabled, self.context, choice, self) ~= false,
                 source = choice,

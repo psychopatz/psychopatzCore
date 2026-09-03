@@ -111,10 +111,13 @@ function WidgetWindow.Install(window, definition)
 
     button:setTitle("")
     button:setDisplayBackground(true)
-    button.backgroundColor = Theme.Color("transparent")
-    button.backgroundColorMouseOver = Theme.Color("surfaceHover", 0.7)
-    button.borderColor = Theme.Color("transparent")
-    button.textColor = Theme.Color("transparent")
+    UI.SetButtonTheme(button, {
+        background = "transparent",
+        hover = "surfaceHover",
+        hoverAlpha = 0.7,
+        border = "transparent",
+        text = "transparent",
+    })
     window.psychopatzWidgetButton = button
     WidgetWindow.Sync(window)
     return button

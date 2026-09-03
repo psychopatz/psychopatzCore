@@ -157,9 +157,9 @@ function Hub.OpenSettings(owner)
             resizable = true,
             persistenceKey = "PsychopatzCore.CommandHub.Settings",
             responsiveSpec = {
-                width = 420, height = 360,
-                minWidth = 360, minHeight = 330,
-                maxWidth = 620, maxHeight = 560,
+                width = 420, height = 410,
+                minWidth = 340, minHeight = 390,
+                maxWidth = 700, maxHeight = 600,
             },
         })
         window:initialise()

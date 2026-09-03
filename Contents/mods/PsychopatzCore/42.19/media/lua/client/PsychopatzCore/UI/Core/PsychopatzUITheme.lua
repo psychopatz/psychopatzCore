@@ -1,9 +1,30 @@
 require "PsychopatzCore/00_PsychopatzCore_Init"
+require "PsychopatzCore/Settings/PsychopatzSettings"
 
 PsychopatzCore.UI = PsychopatzCore.UI or {}
 
 local Theme = PsychopatzCore.UI.Theme or {}
 PsychopatzCore.UI.Theme = Theme
+
+local ThemeStore = PsychopatzCore.Settings.Open("UI", {
+    fileName = "PsychopatzCore_UI.txt",
+    defaults = { themePreset = "cyan" },
+})
+
+Theme.DefaultPreset = "cyan"
+Theme.presets = {
+    { id = "cyan", title = "Cyan", titleKey = "UI_PsychopatzCore_Theme_Cyan",
+        color = { r = 0.2, g = 0.72, b = 0.82 } },
+    { id = "green", title = "Green", titleKey = "UI_PsychopatzCore_Theme_Green",
+        color = { r = 0.28, g = 0.82, b = 0.48 } },
+    { id = "amber", title = "Amber", titleKey = "UI_PsychopatzCore_Theme_Amber",
+        color = { r = 0.95, g = 0.68, b = 0.22 } },
+    { id = "purple", title = "Purple", titleKey = "UI_PsychopatzCore_Theme_Purple",
+        color = { r = 0.68, g = 0.48, b = 0.95 } },
+    { id = "red", title = "Red", titleKey = "UI_PsychopatzCore_Theme_Red",
+        color = { r = 0.95, g = 0.38, b = 0.36 } },
+}
+Theme.revision = Theme.revision or 0
 
 Theme.colors = {
     window = { r = 0.035, g = 0.043, b = 0.052, a = 0.97 },
@@ -44,6 +65,86 @@ local function copyColor(color, alpha)
     }
 end
 
+local function ensureLoaded()
+    if ThemeStore.loaded then return end
+    ThemeStore:Load()
+end
+
+local function presetFor(id)
+    id = tostring(id or ""):lower()
+    for _, preset in ipairs(Theme.presets) do
+        if preset.id == id then return preset end
+    end
+    return nil
+end
+
+local function setColor(target, source)
+    target.r = source.r
+    target.g = source.g
+    target.b = source.b
+    target.a = source.a or target.a or 1
+end
+
+local function applyPreset(id, notify)
+    local preset = presetFor(id) or presetFor(Theme.DefaultPreset)
+    if not preset then return false end
+    local accent = preset.color
+    setColor(Theme.colors.accent, {
+        r = accent.r, g = accent.g, b = accent.b, a = 1,
+    })
+    setColor(Theme.colors.accentDark, {
+        r = accent.r * 0.42,
+        g = accent.g * 0.43,
+        b = accent.b * 0.46,
+        a = 1,
+    })
+    Theme.activePreset = preset.id
+    if notify then Theme.revision = Theme.revision + 1 end
+    return preset.id
+end
+
+function Theme.GetPresetID()
+    ensureLoaded()
+    local stored = tostring(ThemeStore:Get("themePreset", Theme.DefaultPreset)
+        or Theme.DefaultPreset):lower()
+    return presetFor(stored) and stored or Theme.DefaultPreset
+end
+
+function Theme.GetPresetLabel(id)
+    local preset = presetFor(id or Theme.GetPresetID())
+    if not preset then preset = presetFor(Theme.DefaultPreset) end
+    local translated = preset.titleKey and getText and getText(preset.titleKey)
+        or nil
+    if translated and translated ~= "" and translated ~= preset.titleKey then
+        return translated
+    end
+    return preset.title
+end
+
+function Theme.GetPresetIDs()
+    local ids = {}
+    for _, preset in ipairs(Theme.presets) do ids[#ids + 1] = preset.id end
+    return ids
+end
+
+function Theme.SetPreset(id, persist)
+    ensureLoaded()
+    local preset = presetFor(id) or presetFor(Theme.DefaultPreset)
+    if not preset then return nil end
+    if persist ~= false then ThemeStore:Set("themePreset", preset.id, true)
+    else ThemeStore:Set("themePreset", preset.id, false) end
+    if Theme.activePreset ~= preset.id then applyPreset(preset.id, true) end
+    return preset.id
+end
+
+function Theme.GetRevision()
+    return Theme.revision or 0
+end
+
+function Theme.Reset()
+    return Theme.SetPreset(Theme.DefaultPreset)
+end
+
 function Theme.CopyColor(color, alpha)
     return copyColor(color, alpha)
 end
@@ -76,5 +177,8 @@ function Theme.TextWidth(font, value)
     end
     return #tostring(value or "") * 7
 end
+
+ensureLoaded()
+applyPreset(Theme.GetPresetID(), false)
 
 return Theme

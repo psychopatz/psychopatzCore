@@ -5,6 +5,7 @@ require "PsychopatzCore/UI/Components/PsychopatzUIControls"
 require "PsychopatzCore/UI/PsychopatzAttachedWindow"
 require "PsychopatzCore/UI/PsychopatzCommandHubRegistry"
 require "PsychopatzCore/UI/PsychopatzCommandHubOptions"
+local Tooltip = require "PsychopatzCore/UI/PsychopatzCommandHubTooltip"
 
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.UI = PsychopatzCore.UI or {}
@@ -27,21 +28,8 @@ ISPsychopatzCommandHubActionsWindow = AttachedWindow:derive(
     "ISPsychopatzCommandHubActionsWindow")
 Actions.Window = ISPsychopatzCommandHubActionsWindow
 
-local function tr(key, fallback)
-    if not key or key == "" then return fallback end
-    local value = getText and getText(key) or nil
-    return value and value ~= "" and value ~= key and value or fallback
-end
-
-local function titleFor(definition)
-    return tr(definition and definition.titleKey,
-        definition and definition.titleFallback or "COMMAND")
-end
-
-local function tooltipFor(definition)
-    return tr(definition and definition.tooltipKey,
-        definition and definition.tooltipFallback or titleFor(definition))
-end
+local titleFor = Tooltip.TitleFor
+local tooltipFor = Tooltip.For
 
 local function setEnabled(button, enabled)
     if not button then return end
@@ -53,6 +41,8 @@ function ISPsychopatzCommandHubActionsWindow:initialise()
     AttachedWindow.initialise(self)
     self.backgroundColor = Theme.Color("surface")
     self.borderColor = Theme.Color("borderStrong")
+    self.psychopatzThemeBackgroundName = "surface"
+    self.psychopatzThemeBorderName = "borderStrong"
     Options.ApplySurfaceOpacity(self)
 end
 
@@ -96,7 +86,7 @@ function ISPsychopatzCommandHubActionsWindow:syncButtons()
             end
             button.commandHubAction = action.id
             button:setTitle(titleFor(action))
-            button.tooltip = tooltipFor(action)
+            button.tooltip = tooltipFor(action, self.owner, true)
             if button.setFont then button:setFont(Theme.Font(self.uiScale)) end
         end
     end
@@ -117,6 +107,7 @@ function ISPsychopatzCommandHubActionsWindow:syncButtonStates()
         local button = self.actionButtons[action.id]
         if button and button:getIsVisible() then
             local enabled = Registry.IsEnabled(action, self.owner)
+            button.tooltip = tooltipFor(action, self.owner, enabled)
             setEnabled(button, enabled)
             local selected = enabled and Registry.IsSelected(action, self.owner)
             UI.StyleButton(button, selected and "selected"

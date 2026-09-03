@@ -257,6 +257,49 @@ function Layout.Flow(controls, rect, options)
     }
 end
 
+-- Fill a responsive grid with equal-width controls. Unlike Flow, Grid is
+-- useful for action panels where a short label should still receive a stable,
+-- roomy hit target and future controls should add predictable rows instead of
+-- competing for one horizontal line.
+function Layout.Grid(controls, rect, options)
+    options = options or {}
+    local scale = options.scale or Layout.Scale()
+    local gap = Layout.Pixels(options.gap or Theme.metrics.spacing, scale)
+    local rowGap = Layout.Pixels(options.rowGap or Theme.metrics.spacing, scale)
+    local height = Layout.Pixels(options.height or Theme.metrics.controlHeight, scale)
+    local count = #(controls or {})
+    local columns = tonumber(options.columns)
+    if not columns then
+        local minimumWidth = Layout.Pixels(options.minCellWidth or 140, scale)
+        columns = math.floor((rect.width + gap) / (minimumWidth + gap))
+    end
+    columns = math.max(1, math.min(count > 0 and count or 1,
+        math.floor(columns)))
+    local rows = count > 0 and math.ceil(count / columns) or 0
+    local cellWidth = math.max(1, math.floor(
+        (rect.width - gap * (columns - 1)) / columns))
+    local lastRowCount = count - math.max(0, rows - 1) * columns
+    for index, control in ipairs(controls or {}) do
+        local row = math.floor((index - 1) / columns)
+        local column = (index - 1) % columns
+        local x = rect.x + column * (cellWidth + gap)
+        local y = rect.y + row * (height + rowGap)
+        local lastColumn = column == columns - 1
+        local stretchLastRow = options.stretchLastRow == true
+            and row == rows - 1 and lastRowCount < columns
+        local width = (stretchLastRow or lastColumn)
+            and rect.x + rect.width - x or cellWidth
+        Layout.SetBounds(control, x, y, width, height)
+    end
+    return {
+        columns = columns,
+        rows = rows,
+        height = rows > 0 and rows * height + (rows - 1) * rowGap or 0,
+        bottom = rect.y + (rows > 0
+            and rows * height + (rows - 1) * rowGap or 0),
+    }
+end
+
 function Layout.Split(rect, options)
     options = options or {}
     local scale = options.scale or Layout.Scale()

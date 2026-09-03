@@ -5,7 +5,6 @@ require "PsychopatzCore/UI/PsychopatzWindow"
 require "PsychopatzCore/UI/Components/PsychopatzUIControls"
 require "PsychopatzCore/UI/Components/PsychopatzFormRow"
 require "PsychopatzCore/UI/Components/PsychopatzSlider"
-require "PsychopatzCore/UI/Components/PsychopatzTextEntry"
 require "PsychopatzCore/UI/Components/PsychopatzWidgetWindow"
 require "PsychopatzCore/UI/PsychopatzCommandHubOptions"
 
@@ -23,26 +22,15 @@ local function tr(key, fallback)
     return value and value ~= "" and value ~= key and value or fallback
 end
 
-local function label(parent, text, color)
+local function label(parent, text, color, colorName)
     local value = color or Theme.colors.text
     local control = ISLabel:new(0, 0, 22, tostring(text or ""),
         value.r, value.g, value.b, value.a, UIFont.Small, true)
     control:initialise()
+    control.psychopatzThemeColorName = colorName
+        or (color == Theme.colors.textMuted and "textMuted" or "text")
     parent:addChild(control)
     return control
-end
-
-local function readInteger(entry, minimum, maximum)
-    local value = tonumber(entry and entry:getText() or nil)
-    if not value then return nil end
-    value = math.floor(value + 0.5)
-    if minimum and value < minimum then return nil end
-    if maximum and value > maximum then return nil end
-    return value
-end
-
-local function setEntry(entry, value)
-    if entry then entry:setText(tostring(math.floor(value or 0))) end
 end
 
 local function branchTitle()
@@ -58,6 +46,19 @@ local function opacityText(value)
     return tostring(math.floor((tonumber(value) or 0) + 0.5)) .. "%"
 end
 
+local function liftText(value)
+    return "+" .. tostring(math.floor((tonumber(value) or 0) + 0.5)) .. "%"
+end
+
+local function controlScaleText(value)
+    return tostring(math.floor((tonumber(value) or 0) + 0.5)) .. "%"
+end
+
+local function themeTitle()
+    return tr("UI_PsychopatzCore_CommandHub_Settings_Theme", "THEME")
+        .. ": " .. Theme.GetPresetLabel()
+end
+
 ISPsychopatzCommandHubSettingsWindow = PsychopatzWindow:derive(
     "ISPsychopatzCommandHubSettingsWindow")
 
@@ -69,27 +70,6 @@ end
 function ISPsychopatzCommandHubSettingsWindow:createChildren()
     PsychopatzWindow.createChildren(self)
     self.fields = {}
-    local definitions = {
-        { id = "x", key = "UI_PsychopatzCore_CommandHub_Settings_X" },
-        { id = "y", key = "UI_PsychopatzCore_CommandHub_Settings_Y" },
-        { id = "width", key = "UI_PsychopatzCore_CommandHub_Settings_Width" },
-        { id = "height", key = "UI_PsychopatzCore_CommandHub_Settings_Height" },
-    }
-    for _, definition in ipairs(definitions) do
-        local row = UI.CreateFormRow(self, {
-            id = "command-hub-setting-row:" .. definition.id,
-            label = tr(definition.key, definition.id),
-            createControl = function(parent)
-                return UI.CreateTextEntry(parent, {
-                    onlyNumbers = true, maxTextLength = 5,
-                })
-            end,
-        })
-        self.fields[definition.id] = {
-            row = row, label = row.label, entry = row.control,
-        }
-    end
-
     local opacityRow = UI.CreateFormRow(self, {
         id = "command-hub-setting-row:opacity",
         label = tr("UI_PsychopatzCore_CommandHub_Settings_Opacity", "Opacity"),
@@ -115,10 +95,70 @@ function ISPsychopatzCommandHubSettingsWindow:createChildren()
     self.opacityLabel = opacityRow.label
     self.opacitySlider = opacityRow.control
     self.opacityValue = opacityRow.valueLabel
+    local function createLiftField(id, labelKey, fallback, value)
+        local row
+        row = UI.CreateFormRow(self, {
+            id = id,
+            label = tr(labelKey, fallback),
+            valueLabel = true,
+            valueText = liftText(value),
+            createControl = function(parent)
+                return UI.CreateSlider(parent, {
+                    id = id .. ":slider",
+                    target = self,
+                    min = 0,
+                    max = 25,
+                    step = 1,
+                    value = value,
+                    onChange = function(_, nextValue)
+                        UI.SetLabelText(row.valueLabel, liftText(nextValue))
+                    end,
+                })
+            end,
+        })
+        return row
+    end
+    self.surfaceLiftRow = createLiftField(
+        "command-hub-setting-row:surface-lift",
+        "UI_PsychopatzCore_CommandHub_Settings_SurfaceLift",
+        "Surface opacity lift", Options.GetSurfaceOpacityLift() * 100)
+    self.detailLiftRow = createLiftField(
+        "command-hub-setting-row:detail-lift",
+        "UI_PsychopatzCore_CommandHub_Settings_DetailLift",
+        "Detail opacity lift", Options.GetDetailOpacityLift() * 100)
+    local titlebarScaleRow
+    titlebarScaleRow = UI.CreateFormRow(self, {
+        id = "command-hub-setting-row:titlebar-scale",
+        label = tr("UI_PsychopatzCore_CommandHub_Settings_TitlebarScale",
+            "Title-bar control size"),
+        valueLabel = true,
+        valueText = controlScaleText(
+            Options.GetTitlebarControlScale() * 100),
+        createControl = function(parent)
+            return UI.CreateSlider(parent, {
+                id = "psychopatz-command-hub-titlebar-scale",
+                target = self,
+                min = 50,
+                max = 125,
+                step = 1,
+                value = Options.GetTitlebarControlScale() * 100,
+                onChange = function(_, value)
+                    UI.SetLabelText(titlebarScaleRow.valueLabel,
+                        controlScaleText(value))
+                end,
+            })
+        end,
+    })
+    self.titlebarScaleRow = titlebarScaleRow
     self.helpLabel = label(self,
         tr("UI_PsychopatzCore_CommandHub_Settings_Help",
-            "Edit the hub position, dimensions, and opacity."),
+            "Adjust opacity, child surface lifts, title-bar controls, theme, and panel side here."),
         Theme.colors.textMuted)
+    self.themeButton = UI.CreateButton(self, {
+        id = "theme", title = themeTitle(), target = self,
+        onclick = function() return self:onThemeCycle() end,
+        variant = "quiet",
+    })
     self.branchButton = UI.CreateButton(self, {
         id = "branch", title = branchTitle(), target = self,
         onclick = function() return self:onBranchToggle() end,
@@ -179,16 +219,23 @@ end
 function ISPsychopatzCommandHubSettingsWindow:populate()
     local host = self:getHost()
     if not host then return end
-    setEntry(self.fields.x.entry, host:getX())
-    setEntry(self.fields.y.entry, host:getY())
-    setEntry(self.fields.width.entry, host:getWidth())
-    setEntry(self.fields.height.entry, host:getHeight())
     local opacity = Options.GetOpacityPercent()
     self.opacitySlider:setValue(opacity, true)
     if self.opacityValue then
         UI.SetLabelText(self.opacityValue, opacityText(opacity))
     end
+    local surfaceLift = Options.GetSurfaceOpacityLift() * 100
+    self.surfaceLiftRow.control:setValue(surfaceLift, true)
+    UI.SetLabelText(self.surfaceLiftRow.valueLabel, liftText(surfaceLift))
+    local detailLift = Options.GetDetailOpacityLift() * 100
+    self.detailLiftRow.control:setValue(detailLift, true)
+    UI.SetLabelText(self.detailLiftRow.valueLabel, liftText(detailLift))
+    local titlebarScale = Options.GetTitlebarControlScale() * 100
+    self.titlebarScaleRow.control:setValue(titlebarScale, true)
+    UI.SetLabelText(self.titlebarScaleRow.valueLabel,
+        controlScaleText(titlebarScale))
     self.branchButton:setTitle(branchTitle())
+    self.themeButton:setTitle(themeTitle())
 end
 
 function ISPsychopatzCommandHubSettingsWindow:onBranchToggle()
@@ -202,9 +249,10 @@ function ISPsychopatzCommandHubSettingsWindow:onBranchToggle()
 end
 
 function ISPsychopatzCommandHubSettingsWindow:onReset()
-    local host = self:getHost()
-    if host then Options.ResetGeometry(host) end
+    Options.Reset()
+    Theme.Reset()
     Options.ApplyRegisteredOpacity(Options.GetOpacity())
+    Options.ApplyRegisteredToolbarScale()
     local hub = UI.CommandHub
     if hub and hub.Sync then hub.Sync() end
     self:populate()
@@ -212,22 +260,39 @@ function ISPsychopatzCommandHubSettingsWindow:onReset()
         "Settings applied."))
 end
 
+function ISPsychopatzCommandHubSettingsWindow:onThemeCycle()
+    local ids = Theme.GetPresetIDs()
+    local current = Theme.GetPresetID()
+    local index = 1
+    for position, id in ipairs(ids) do
+        if id == current then index = position end
+    end
+    local nextIndex = index + 1
+    if nextIndex > #ids then nextIndex = 1 end
+    Theme.SetPreset(ids[nextIndex])
+    self.themeButton:setTitle(themeTitle())
+    self:setStatus(tr("UI_PsychopatzCore_CommandHub_Settings_Applied",
+        "Settings applied."))
+end
+
 function ISPsychopatzCommandHubSettingsWindow:onApply()
     local host = self:getHost()
     if not host then return false end
-    local x = readInteger(self.fields.x.entry, 0)
-    local y = readInteger(self.fields.y.entry, 0)
-    local width = readInteger(self.fields.width.entry, 1)
-    local height = readInteger(self.fields.height.entry, 1)
     local opacity = math.floor(self.opacitySlider:getValue() + 0.5)
-    if not x or not y or not width or not height or not opacity then
+    if not opacity then
         self:setStatus(tr("UI_PsychopatzCore_CommandHub_Settings_Invalid",
-            "Enter valid numeric values."))
+            "Enter a valid opacity value."))
         return false
     end
-    Options.ApplyGeometry(host, x, y, width, height)
     Options.SetOpacityPercent(opacity)
+    Options.SetSurfaceOpacityLift(
+        math.floor(self.surfaceLiftRow.control:getValue() + 0.5) / 100)
+    Options.SetDetailOpacityLift(
+        math.floor(self.detailLiftRow.control:getValue() + 0.5) / 100)
+    Options.SetTitlebarControlScale(
+        math.floor(self.titlebarScaleRow.control:getValue() + 0.5) / 100)
     Options.ApplyRegisteredOpacity(opacity / 100)
+    Options.ApplyRegisteredToolbarScale()
     local hub = UI.CommandHub
     if hub and hub.Sync then hub.Sync() end
     self:populate()
@@ -240,19 +305,12 @@ function ISPsychopatzCommandHubSettingsWindow:onResponsiveLayout()
     local rect = self:getContentRect({ top = 34, bottom = 12 })
     local scale = self.uiScale or Layout.Scale()
     local y = rect.y
-    local rowHeight = Layout.Pixels(30, scale)
+    local rowHeight = Layout.Pixels(34, scale)
     local gap = Layout.Pixels(4, scale)
 
-    for _, id in ipairs({ "x", "y", "width", "height" }) do
-        local field = self.fields[id]
-        field.row:place(rect.x, y, rect.width, rowHeight, {
-            scale = scale,
-            labelWidth = 110,
-            gap = 4,
-            controlHeight = 26,
-        })
-        y = y + rowHeight + gap
-    end
+    Layout.SetBounds(self.helpLabel, rect.x, y, rect.width,
+        Layout.Pixels(22, scale))
+    y = y + Layout.Pixels(28, scale)
     self.opacityRow:place(rect.x, y, rect.width, rowHeight, {
         scale = scale,
         labelWidth = 110,
@@ -262,11 +320,35 @@ function ISPsychopatzCommandHubSettingsWindow:onResponsiveLayout()
     })
     y = y + rowHeight + gap
 
+    self.surfaceLiftRow:place(rect.x, y, rect.width, rowHeight, {
+        scale = scale,
+        labelWidth = 110,
+        valueWidth = 48,
+        gap = 4,
+        controlHeight = 26,
+    })
+    y = y + rowHeight + gap
+    self.detailLiftRow:place(rect.x, y, rect.width, rowHeight, {
+        scale = scale,
+        labelWidth = 110,
+        valueWidth = 48,
+        gap = 4,
+        controlHeight = 26,
+    })
+    y = y + rowHeight + gap
+    self.titlebarScaleRow:place(rect.x, y, rect.width, rowHeight, {
+        scale = scale,
+        labelWidth = 110,
+        valueWidth = 48,
+        gap = 4,
+        controlHeight = 26,
+    })
+    y = y + rowHeight + gap
+    Layout.SetBounds(self.themeButton, rect.x, y, rect.width, rowHeight - 4)
+    y = y + rowHeight + gap
+
     Layout.SetBounds(self.branchButton, rect.x, y, rect.width, rowHeight - 4)
     y = y + rowHeight + gap
-    Layout.SetBounds(self.helpLabel, rect.x, y, rect.width,
-        Layout.Pixels(22, scale))
-    y = y + Layout.Pixels(28, scale)
     Layout.SetBounds(self.statusLabel, rect.x, y, rect.width,
         Layout.Pixels(22, scale))
 

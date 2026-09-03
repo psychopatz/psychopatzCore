@@ -171,11 +171,19 @@ local choiceSession = Session.New({
         setChoices = function(_, choices) mappedChoices = choices end,
     },
 }, { context = {} })
+local mappedHighlightCallback = function() end
 choiceSession:setChoices({
-    { id = "hello", textKey = "UI_Test_Message", textArgs = { "Alex" } },
+    {
+        id = "hello",
+        textKey = "UI_Test_Message",
+        textArgs = { "Alex" },
+        onHighlightChanged = mappedHighlightCallback,
+    },
 })
 assertEqual(mappedChoices[1].text.key, "UI_Test_Message", "choice text key mapping")
 assertEqual(mappedChoices[1].text.args[1], "Alex", "choice text argument mapping")
+assertEqual(mappedChoices[1].onHighlightChanged, mappedHighlightCallback,
+    "choice highlight callback survives session mapping")
 
 local selectedActions = 0
 local sessionMessages = {}

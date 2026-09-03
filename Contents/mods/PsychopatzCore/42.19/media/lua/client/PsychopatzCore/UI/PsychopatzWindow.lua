@@ -94,26 +94,10 @@ function PsychopatzWindow:initialise()
     self.uiScale = Layout.Scale()
     self.backgroundColor = Theme.Color("window")
     self.borderColor = Theme.Color("borderStrong")
+    self.psychopatzThemeBackgroundName = "window"
+    self.psychopatzThemeBorderName = "borderStrong"
     self.lastScreenWidth, self.lastScreenHeight = Layout.ScreenSize()
     self:installRenderClip()
-end
-
-local function syncNativeTitlebarButton(window, button)
-    if not window or not button then return end
-    local windowWidth = window.getWidth and window:getWidth()
-        or window.width or 0
-    local buttonWidth = button.getWidth and button:getWidth()
-        or button.width or 16
-    local x = math.max(0, math.floor(windowWidth - buttonWidth - 1))
-    if button.setX then button:setX(x) end
-    if button.setY then button:setY(1) end
-    -- Keep the native control anchored as well as explicitly positioned. The
-    -- explicit x fixes stale positions during resize; the anchor lets the
-    -- vanilla UI continue tracking later parent geometry changes.
-    button.anchorLeft = false
-    button.anchorRight = true
-    button.anchorTop = true
-    button.anchorBottom = false
 end
 
 function PsychopatzWindow:installRenderClip()
@@ -140,8 +124,9 @@ function PsychopatzWindow:syncWindowControls()
     local collapseButton = self.psychopatzTitlebarCollapseButton or self.collapseButton
     local pinButton = self.psychopatzTitlebarPinButton or self.pinButton
 
-    syncNativeTitlebarButton(self, collapseButton)
-    syncNativeTitlebarButton(self, pinButton)
+    if Toolbar and Toolbar.SyncNativeControls then
+        Toolbar.SyncNativeControls(self)
+    end
 
     if self.collapsible == false then
         -- Fixed windows still use the native window frame and resize widgets,
@@ -392,12 +377,21 @@ function PsychopatzWindow:trackGeometry()
     end
 end
 
+function PsychopatzWindow:refreshTheme()
+    local revision = Theme.GetRevision and Theme.GetRevision() or 0
+    if self.psychopatzThemeRevision == revision then return false end
+    if UI.RefreshTheme then UI.RefreshTheme(self) end
+    self.psychopatzThemeRevision = revision
+    return true
+end
+
 function PsychopatzWindow:getContentRect(options)
     return Layout.ContentRect(self, options)
 end
 
 function PsychopatzWindow:prerender()
     self:installRenderClip()
+    self:refreshTheme()
     self:syncWindowControls()
     -- ISCollapsableWindow uses this flag to stencil the current window bounds
     -- before its children render.  Keep it enabled even when a derived window
@@ -482,6 +476,8 @@ function PsychopatzWindow:new(x, y, width, height, options)
     o.title = tostring(options.title or "Psychopatz")
     o.backgroundColor = Theme.Color("window")
     o.borderColor = Theme.Color("borderStrong")
+    o.psychopatzThemeBackgroundName = "window"
+    o.psychopatzThemeBorderName = "borderStrong"
     o.persistGeometry = options.persistGeometry ~= false and options.persistenceKey ~= false
     o.geometryAdapter = options.geometryAdapter or DefaultGeometryAdapter
     o.geometryTrace = options.geometryTrace == true

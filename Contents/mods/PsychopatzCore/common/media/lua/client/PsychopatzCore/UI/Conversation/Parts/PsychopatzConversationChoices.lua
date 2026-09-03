@@ -34,9 +34,29 @@ local function wrap(value, maximumWidth)
     return lines
 end
 
+local function notifyHighlight(choice, highlighted)
+    if type(choice) ~= "table"
+        or type(choice.onHighlightChanged) ~= "function"
+    then
+        return
+    end
+    choice.onHighlightChanged(choice, highlighted == true)
+end
+
+function PsychopatzConversationChoices:setHoveredChoice(index)
+    if index == self.hoveredChoice then return false end
+    local previous = self.hoveredChoice and self.choices
+        and self.choices[self.hoveredChoice] or nil
+    local current = index and self.choices and self.choices[index] or nil
+    self.hoveredChoice = index
+    notifyHighlight(previous, false)
+    notifyHighlight(current, true)
+    return true
+end
+
 function PsychopatzConversationChoices:setChoices(choices)
+    self:setHoveredChoice(nil)
     self.choices = choices or {}
-    self.hoveredChoice = nil
     self.scrollOffset = 0
     self.layoutDirty = true
 end
@@ -220,8 +240,16 @@ function PsychopatzConversationChoices:onMouseMove(dx, dy)
     end
     local x = self:getMouseX()
     local y = self:getMouseY()
-    self.hoveredChoice = self:choiceAt(x, y)
+    self:setHoveredChoice(self:choiceAt(x, y))
     return self.hoveredChoice ~= nil
+end
+
+function PsychopatzConversationChoices:onMouseMoveOutside(dx, dy)
+    if self.editMode then
+        return PsychopatzConversationPart.onMouseMoveOutside(self, dx, dy)
+    end
+    self:setHoveredChoice(nil)
+    return false
 end
 
 function PsychopatzConversationChoices:onMouseDown(x, y)
