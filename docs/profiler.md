@@ -17,7 +17,8 @@ available.
 The generic backend lives under `common/media/lua/shared`, split into a stable
 entry/API, bounded-history, analysis, and snapshot modules. The Project Zomboid
 bootstrap, clock, event, snapshot-file, client UI, and multiplayer adapters live
-under the versioned `42.19` runtime tree.
+under the versioned runtime tree (`42.20` for the current Build 42 branch;
+`42.19` remains available for older installations).
 
 Consumer mods own only static metric names and startup instrumentation. The
 backend has no Project Hoomans, Dynamic Trading, NPC, settlement, or trade logic.
@@ -33,7 +34,8 @@ mode=DETAILED
 
 Use `mode=BASIC` for current timers, counters, gauges, rates, averages, peaks,
 and one-second aggregates. `DETAILED` additionally creates bounded histories,
-growth analysis, warnings, self-overhead gauges, and snapshot export. Profiling
+growth analysis, warnings, self-overhead gauges, exclusive timer accounting,
+and snapshot export. Profiling
 is independent of PZ's generic debug setting.
 
 Developers embedding Core can set `PSYCHOPATZ_PROFILER_MODE` to `BASIC` or
@@ -114,8 +116,17 @@ profiling or live control is active. In an OFF startup it is not loaded and it
 installs no event callbacks, samplers, providers, wrappers, or per-frame checks.
 
 `RegisterSampler` is useful for logical state owned by gameplay. Its callback is
-called only by an active profiler sample, normally once per second. The profiler
-must never become canonical gameplay state.
+called only by an active profiler sample, normally once per second. The
+Project Zomboid adapter uses the tick event only for requested sub-second
+intervals; one-second and slower intervals use the lower-frequency event.
+The profiler must never become canonical gameplay state.
+
+Timer `msPerSec`, `totalMs`, `lastMs`, and `peakMs` are inclusive: nested
+instrumented calls are included in their parent. The corresponding
+`selfMsPerSec`, `selfTotalMs`, `lastSelfMs`, and `selfPeakMs` fields exclude
+nested instrumented calls, making them suitable for summing CPU attribution.
+Project Hoomans wrappers also use the protected wrapper option so a callback
+error unwinds its timer stack before the error is rethrown.
 
 Timers reuse metric and stack storage. Rates aggregate within intervals rather
 than retaining individual events. DETAILED histories use fixed circular buffers
@@ -128,6 +139,11 @@ systems at startup: server update, Director and population pumps, scheduled jobs
 spatial rebuild, world census, perception/decision/pathing boundaries, and the
 NPC scheduler. Once-per-second samplers expose actual NPC/live-body, world,
 active-aggro, scheduler, abstract-group, settlement, and dirty-record counts.
+The core adapter also exposes optional `ProjectZomboid` gauges for the game's
+average FPS, CPU/GPU frame times and waits, target/UI/lighting FPS, and the
+bounded local performance, network, and game statistics tables used by the
+stock admin statistics UI. Missing engine APIs are omitted rather than
+reported as zero.
 
 The former Project Hoomans-local timing collector was removed. Instrumentation
 names and observation points remain in Project Hoomans; storage and analysis are
@@ -181,7 +197,8 @@ records, and inventory/runtime-inventory structures. The report includes shape
 estimates, table/entry/string counts, inventory item/container/op-log counts,
 truncation status, and the largest normalized paths.
 
-The scan runs at most once per ten seconds and caps each section at 25,000 nodes,
+The scan runs at most once per configured ModData interval (60 seconds by
+default) and caps each section at 2,000 nodes,
 depth 12, and 30 retained paths. Dynamic identifiers and raw values are not
 exported. Estimated bytes are useful for comparisons and locating growth; they
 are not exact JVM heap, serialized, compressed-save, or disk byte counts. The
@@ -220,6 +237,10 @@ queueing, recipient discovery, payload construction, and payload sending.
 
 - Exact per-mod RAM attribution is unavailable.
 - Only code routed through registered/wrapped boundaries is timed.
+- The adapter prefers the public GameTime server clock, which is a monotonic
+  millisecond conversion, and falls back to wall-clock milliseconds when that
+  clock is unavailable. Backward movement is clamped; the engine's private
+  nanosecond clock is not accessed through unsupported reflection.
 - The in-game History view reports bounded series rather than rendering a
   high-frequency graph; the external GUI provides the lightweight RSS graph.
 - Snapshot replacement is reader-tolerant rather than atomically renamed due to

@@ -188,7 +188,7 @@ def build_summary(process: Mapping[str, Any], snapshot: dict[str, Any],
     report["capture"] = manifest
     performance = report.get("projectHoomans") or {}
     timers = [item for item in performance.get("topTimers") or []
-              if float(item.get("msPerSec") or 0) >= minimum_ms]
+              if float(item.get("selfMsPerSec", item.get("msPerSec")) or 0) >= minimum_ms]
     performance["topTimers"] = timers[:max(1, top)]
     performance["gauges"] = (performance.get("gauges") or [])[:max(1, top * 2)]
     filter_npc_views(report, views)
@@ -205,7 +205,8 @@ def render_text(report: Mapping[str, Any]) -> str:
     timers = ((report.get("projectHoomans") or {}).get("topTimers") or [])
     if timers:
         lines.append("top timers:")
-        lines.extend(f"- {item.get('name')}: {item.get('msPerSec')} ms/s, {item.get('callsPerSec')} calls/s"
+        lines.extend(f"- {item.get('name')}: {item.get('selfMsPerSec')} self ms/s "
+                     f"({item.get('msPerSec')} inclusive), {item.get('callsPerSec')} calls/s"
                      for item in timers)
     moddata = report.get("modData")
     if isinstance(moddata, Mapping):

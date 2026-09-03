@@ -164,7 +164,7 @@ class BoundedAndRecordingTests(unittest.TestCase):
         self.assertEqual(model.history.markers[-1][1], "battle")
 
     def test_llm_report_is_bounded_and_contains_moddata_diagnostic(self):
-        timers = {f"Timer{index}": {"msPerSec": index, "peakMs": index * 2}
+        timers = {f"Timer{index}": {"msPerSec": index, "selfMsPerSec": index / 2, "peakMs": index * 2}
                   for index in range(50)}
         diagnostic = {"valuesRedacted": True, "persisted": {"estimatedBytes": 1234},
                       "npcRecords": {"records": [{"name": "Private NPC", "runtimeContent": {"secret": 1}}]}}
@@ -179,6 +179,7 @@ class BoundedAndRecordingTests(unittest.TestCase):
         self.assertNotIn("npcRecords", report["modData"])
         self.assertEqual(len(report["projectHoomans"]["topTimers"]), 20)
         self.assertEqual(report["projectHoomans"]["topTimers"][0]["name"], "Timer49")
+        self.assertEqual(report["projectHoomans"]["topTimers"][0]["selfMsPerSec"], 24.5)
         npc_report = build_llm_report(
             {"pid": 7, "rss": 99}, snapshot,
             include_performance=False, include_moddata=False, npc_id="npc_one",

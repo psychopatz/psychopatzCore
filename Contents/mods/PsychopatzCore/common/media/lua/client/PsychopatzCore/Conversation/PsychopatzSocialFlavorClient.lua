@@ -166,6 +166,10 @@ local function normalize(spec)
     local priority = priorityFor(spec)
     local cooldowns = type(spec.cooldowns) == "table" and spec.cooldowns or {}
     local context = copyMap(spec.context)
+    local voiceBinding = spec.voiceBinding or spec.voice_binding
+    if type(voiceBinding) == "table" then
+        context.voiceBinding = copyMap(voiceBinding)
+    end
     context.npcType = context.npcType or spec.npcType
     context.socialRole = context.socialRole or spec.socialRole
     context.relationshipState = context.relationshipState
@@ -301,6 +305,12 @@ local function publish(item, text, isLLM, current)
     text = boundedText(text)
     if text == "" then return false, "empty_text" end
     local presentation = copyMap(item.presentationState)
+    if item.ttsManaged then
+        -- The local provider may already be speaking streamed chunks. The
+        -- final canonical message remains visible everywhere, but Core's
+        -- generic voice gateway must not replay the complete response.
+        presentation.tts = false
+    end
     if presentation.nameplate == nil then presentation.nameplate = true end
     if presentation.conversationUI == nil then presentation.conversationUI = false end
     if presentation.interrupt == nil then
@@ -381,8 +391,8 @@ local function requestLLM(item, current)
     if item.llmRequested then return true end
     item.llmRequested = true
     item.llmDeadline = current + item.llmGraceMs
-    local function complete(text)
-        Client.ReceiveLLMResult(item.eventID, text)
+    local function complete(text, options)
+        Client.ReceiveLLMResult(item.eventID, text, options)
     end
     local ok, accepted = pcall(llmProvider, item, complete)
     if not ok or accepted ~= true then
@@ -407,7 +417,7 @@ function Client.Enqueue(spec)
     return enqueueInternal(item)
 end
 
-function Client.ReceiveLLMResult(eventID, text)
+function Client.ReceiveLLMResult(eventID, text, options)
     eventID = clean(eventID, "")
     local item = byEventID[eventID]
     if not item or delivered[eventID] then
@@ -417,6 +427,9 @@ function Client.ReceiveLLMResult(eventID, text)
     text = boundedText(text)
     if text == "" then return false, "empty_text" end
     item.llmText = text
+    item.ttsManaged = type(options) == "table"
+        and options.ttsManaged == true
+        or false
     item.llmReady = true
     item.priority = math.max(item.priority, Client.LLM_PRIORITY)
     item.expiresAt = math.max(item.expiresAt, now() + 1000)
@@ -466,6 +479,7 @@ function Client.GetQueueSnapshot()
             mergedCount = item.mergedCount,
             llmRequested = item.llmRequested == true,
             llmReady = item.llmReady == true,
+            ttsManaged = item.ttsManaged == true,
         }
     end
     return output

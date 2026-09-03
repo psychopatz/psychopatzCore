@@ -88,6 +88,12 @@ python psychopatz_profiler.py --interval 2
 Paths are examples only; no machine-specific path is built into the tool. Use
 the **Select snapshot** button when automatic discovery is ambiguous.
 
+Timer reports expose both inclusive msPerSec and exclusive selfMsPerSec.
+The CLI and desktop metric aggregation use exclusive time when the field is
+present, so nested Project Hoomans wrappers do not double-count their parents.
+The ProjectZomboid namespace contains optional frame timing and stock local
+performance, network, and game statistics when the 42.20 adapter can read them.
+
 Process discovery enumerates processes with `psutil`, scores strong executable,
 name, and command-line Project Zomboid signals, and distinguishes likely clients
 from dedicated servers. A generic Java process is never accepted without an

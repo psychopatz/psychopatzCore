@@ -81,11 +81,18 @@ def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str,
         timers.append({
             "name": str(name),
             "msPerSec": metric.get("msPerSec", 0),
+            "selfMsPerSec": metric.get("selfMsPerSec", metric.get("msPerSec", 0)),
             "callsPerSec": metric.get("callsPerSec", 0),
+            "averageMs": metric.get("averageMs", 0),
+            "averageSelfMs": metric.get("averageSelfMs", metric.get("averageMs", 0)),
             "movingAverageMs": metric.get("movingAverageMs", 0),
             "peakMs": metric.get("peakMs", 0),
+            "selfPeakMs": metric.get("selfPeakMs", metric.get("peakMs", 0)),
         })
-    timers.sort(key=lambda item: float(item.get("msPerSec") or 0), reverse=True)
+    timers.sort(key=lambda item: (
+        float(item.get("selfMsPerSec") or 0),
+        float(item.get("msPerSec") or 0),
+    ), reverse=True)
     gauges = []
     for name, metric in (namespace.get("gauges") or {}).items():
         value = metric.get("value", 0) if isinstance(metric, Mapping) else metric
@@ -117,11 +124,20 @@ def build_llm_report(process: Mapping[str, Any], snapshot: Optional[Mapping[str,
         report["includedSections"].append("performance")
         report["process"] = {key: process.get(key) for key in
                              ("connected", "pid", "name", "rss", "vms", "cpu_percent",
-                              "threads", "uptime")}
+                             "threads", "uptime")}
         report["projectHoomans"] = {"topTimers": timers[:20], "gauges": gauges[:40]}
+        engine = (snapshot.get("namespaces") or {}).get("ProjectZomboid") or {}
+        engine_gauges = []
+        for name, metric in (engine.get("gauges") or {}).items():
+            value = metric.get("value", 0) if isinstance(metric, Mapping) else metric
+            engine_gauges.append({"name": str(name), "value": value})
+        engine_gauges.sort(key=lambda item: item["name"])
+        report["projectZomboid"] = {"gauges": engine_gauges[:40]}
         report["warnings"] = list(snapshot.get("warnings") or [])[:30]
         report["interpretation"].insert(
-            0, "Process RSS belongs to the whole Project Zomboid process, not one mod.")
+            0, "Timer msPerSec is inclusive; selfMsPerSec is exclusive and avoids double-counting nested wrappers.")
+        report["interpretation"].insert(
+            1, "Process RSS belongs to the whole Project Zomboid process, not one mod.")
     if include_moddata:
         report["includedSections"].append("modData")
         report["modData"] = mod_data
@@ -438,7 +454,12 @@ def iter_snapshot_metrics(snapshot: Optional[Mapping[str, Any]]) -> Iterable[tup
         for kind in ("timers", "counters", "gauges", "rates"):
             for name, metric in (data.get(kind) or {}).items():
                 if isinstance(metric, Mapping):
-                    key = "msPerSec" if kind == "timers" else "perSec" if kind == "rates" else "value"
+                    if kind == "timers":
+                        key = "selfMsPerSec" if "selfMsPerSec" in metric else "msPerSec"
+                    elif kind == "rates":
+                        key = "perSec"
+                    else:
+                        key = "value"
                     value = metric.get(key, 0)
                 else:
                     value = metric

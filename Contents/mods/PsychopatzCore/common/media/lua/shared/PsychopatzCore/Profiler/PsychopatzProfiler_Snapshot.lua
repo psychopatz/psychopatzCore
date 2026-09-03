@@ -32,6 +32,9 @@ function Profiler.BuildSnapshot()
                 lastMs = metric.lastMs, averageMs = metric.averageMs,
                 movingAverageMs = metric.movingAverageMs, peakMs = metric.peakMs,
                 totalMs = metric.totalMs, msPerSec = metric.msPerSec, spikeCount = metric.spikeCount,
+                lastSelfMs = metric.lastSelfMs, averageSelfMs = metric.averageSelfMs,
+                movingAverageSelfMs = metric.movingAverageSelfMs, selfPeakMs = metric.selfPeakMs,
+                selfTotalMs = metric.selfTotalMs, selfMsPerSec = metric.selfMsPerSec,
             }
         elseif metric.kind == "rate" then
             namespace.rates[metric.path] = { perSec = metric.perSec, total = metric.total, peak = metric.peak }

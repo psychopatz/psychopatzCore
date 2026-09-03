@@ -28,10 +28,11 @@ local Profiler = require "PsychopatzCore/Profiler/PsychopatzProfiler"
 local clock = 0
 local added, removed, writes = 0, 0, 0
 local callback
+local sampleInterval
 local adapter = {
     nowMs = function() return clock end,
     sourceType = function() return "test" end,
-    addSampleCallback = function(value) callback = value; added = added + 1 end,
+    addSampleCallback = function(value, interval) callback = value; sampleInterval = interval; added = added + 1 end,
     removeSampleCallback = function(value) if callback == value then callback = nil end; removed = removed + 1 end,
     writeSnapshot = function(json) writes = writes + 1; assertTrue(string.find(json, '"profilerVersion":1', 1, true) ~= nil); return true end,
 }
@@ -39,6 +40,7 @@ local adapter = {
 Profiler.Start("DETAILED", adapter, { historyCapacity = 3, snapshotEnabled = true })
 assertTrue(Profiler.IsRunning())
 assertEqual(added, 1, "one callback registered")
+assertEqual(sampleInterval, 1000, "sample interval passed to adapter")
 assertTrue(Profiler.RegisterNamespace("ExampleMod", { displayName = "Example Mod" }))
 assertTrue(Profiler.RegisterSnapshotProvider("ExampleMod.diagnostic", function()
     return { bounded = true, count = 2 }
@@ -60,8 +62,25 @@ assertEqual(timer.calls, 1, "timer call count")
 assertEqual(timer.totalMs, 4, "timer total")
 assertEqual(timer.callsPerSec, 1, "timer rate")
 assertEqual(timer.msPerSec, 4, "timer ms/sec")
+assertEqual(timer.selfTotalMs, 4, "flat timer self time")
 assertEqual(Profiler.GetMetrics("rate")[1].perSec, 5, "event rate")
 assertEqual(writes, 1, "detailed snapshot write")
+
+Profiler.Begin("ExampleMod.System.Parent")
+clock = clock + 2
+Profiler.Begin("ExampleMod.System.Child")
+clock = clock + 3
+Profiler.Finish("ExampleMod.System.Child")
+clock = clock + 1
+Profiler.Finish("ExampleMod.System.Parent")
+clock = clock + 1000
+Profiler.Sample(1000)
+local parent = Profiler.GetState().metrics["ExampleMod.System.Parent"]
+local child = Profiler.GetState().metrics["ExampleMod.System.Child"]
+assertEqual(parent.totalMs, 6, "nested timer inclusive time")
+assertEqual(parent.selfTotalMs, 3, "nested timer exclusive time")
+assertEqual(child.totalMs, 3, "nested child inclusive time")
+assertEqual(child.selfTotalMs, 3, "nested child exclusive time")
 
 for index = 1, 5 do
     Profiler.SetGauge("ExampleMod.Cache.Size", index * 10)
@@ -76,9 +95,19 @@ assertEqual(Profiler.BuildSnapshot().profilerVersion, 1, "snapshot version")
 assertEqual(Profiler.BuildSnapshot().diagnostics["ExampleMod.diagnostic"].count, 2,
     "snapshot provider payload")
 
+local wrapped = Profiler.Wrap("ExampleMod.Wrapped", function(value) return value + 1 end)
+assertEqual(wrapped(1), 2, "active wrapper result")
+local errorWrapped = Profiler.Wrap("ExampleMod.Error", function() error("expected profiler test error") end, {
+    protectErrors = true,
+})
+local errorRaised = pcall(errorWrapped)
+assertEqual(errorRaised, false, "protected wrapper rethrows callback errors")
+assertEqual(Profiler.GetState().callStackDepth, 0, "protected wrapper unwinds timer stack")
+
 local stopped = 0
 Profiler.RegisterStopHook("test", function() stopped = stopped + 1 end)
 Profiler.Stop()
+assertEqual(wrapped(2), 3, "stopped wrapper bypasses profiler")
 assertEqual(stopped, 1, "stop hooks run")
 assertEqual(removed, 1, "callback removed")
 assertEqual(Profiler.GetState(), nil, "runtime state released")

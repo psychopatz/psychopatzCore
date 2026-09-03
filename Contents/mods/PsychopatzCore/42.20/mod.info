@@ -1,0 +1,9 @@
+name=PsychopatzCore
+id=PsychopatzCore
+description=Shared UI, settings, event-marker, teleport, and authoritative inventory/corpse-item infrastructure for Psychopatz mods.
+author=Psychopatz
+category=framework
+version=0.4.0
+versionMin=42.16
+poster=poster.png
+icon=icon.png

@@ -25,9 +25,15 @@ local function sampleMetric(metric, elapsedSec)
     local sampleValue
     if metric.kind == "timer" then
         metric.callsPerSec, metric.msPerSec = metric.intervalCalls / elapsedSec, metric.intervalMs / elapsedSec
+        metric.selfMsPerSec = metric.intervalSelfMs / elapsedSec
         local average = metric.intervalCalls > 0 and metric.intervalMs / metric.intervalCalls or 0
+        local selfAverage = metric.intervalCalls > 0
+            and metric.intervalSelfMs / metric.intervalCalls or 0
         metric.movingAverageMs = metric.movingAverageMs == 0 and average or metric.movingAverageMs * 0.8 + average * 0.2
-        metric.intervalCalls, metric.intervalMs, sampleValue = 0, 0, metric.msPerSec
+        metric.movingAverageSelfMs = metric.movingAverageSelfMs == 0
+            and selfAverage or metric.movingAverageSelfMs * 0.8 + selfAverage * 0.2
+        metric.intervalCalls, metric.intervalMs, metric.intervalSelfMs = 0, 0, 0
+        sampleValue = metric.msPerSec
         if metric.warningRate and metric.callsPerSec > metric.warningRate then
             addWarning("rate:" .. metric.name, "Unusual callback rate", metric.name, metric.callsPerSec)
         end
@@ -96,7 +102,11 @@ function Profiler.ResetPeaks()
     local state = Internal.GetState()
     if not state then return false end
     for _, metric in pairs(state.metrics) do
-        if metric.kind == "timer" then metric.peakMs, metric.spikeCount = 0, 0 else metric.peak = metric.value or 0 end
+        if metric.kind == "timer" then
+            metric.peakMs, metric.selfPeakMs, metric.spikeCount = 0, 0, 0
+        else
+            metric.peak = metric.value or 0
+        end
     end
     return true
 end

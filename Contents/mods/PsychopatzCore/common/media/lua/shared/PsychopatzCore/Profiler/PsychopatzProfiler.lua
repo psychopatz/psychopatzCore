@@ -44,6 +44,9 @@ function Internal.GetMetric(name, kind)
         metric.peakMs, metric.spikeCount = 0, 0
         metric.intervalCalls, metric.intervalMs = 0, 0
         metric.callsPerSec, metric.msPerSec, metric.movingAverageMs = 0, 0, 0
+        metric.selfTotalMs, metric.lastSelfMs, metric.averageSelfMs = 0, 0, 0
+        metric.selfPeakMs, metric.intervalSelfMs = 0, 0
+        metric.selfMsPerSec, metric.movingAverageSelfMs = 0, 0
         metric.stack, metric.stackDepth = {}, 0
     elseif kind == "counter" or kind == "gauge" then
         metric.value, metric.peak = 0, 0
@@ -80,6 +83,9 @@ function Profiler.Start(mode, adapter, options)
     state = {
         mode = mode, adapter = adapter, metrics = {}, metricOrder = {}, namespaces = {},
         samplers = {}, snapshotProviders = {}, stopHooks = {}, warnings = {}, warningByKey = {},
+        token = {},
+        callStackNames = {}, callStackStartedAt = {}, callStackChildMs = {},
+        callStackDepth = 0,
         maxWarnings = math.max(1, math.floor(tonumber(options.maxWarnings) or 100)),
         historyCapacity = math.max(2, math.floor(tonumber(options.historyCapacity) or 300)),
         sampleIntervalMs = math.max(100, math.floor(tonumber(options.sampleIntervalMs) or 1000)),
@@ -94,7 +100,9 @@ function Profiler.Start(mode, adapter, options)
         runtime = options.runtime or {},
     }
     state.sampleCallback = function() Profiler.Sample() end
-    if adapter.addSampleCallback then adapter.addSampleCallback(state.sampleCallback) end
+    if adapter.addSampleCallback then
+        adapter.addSampleCallback(state.sampleCallback, state.sampleIntervalMs)
+    end
     return Profiler
 end
 
@@ -129,33 +137,65 @@ end
 function Profiler.Begin(name)
     local metric = Internal.GetMetric(name, "timer")
     if not metric then return nil end
+    local currentState = state
+    local depth = currentState.callStackDepth + 1
+    currentState.callStackDepth = depth
+    currentState.callStackNames[depth] = name
+    currentState.callStackStartedAt[depth] = Internal.NowMs()
+    currentState.callStackChildMs[depth] = 0
     metric.stackDepth = metric.stackDepth + 1
-    metric.stack[metric.stackDepth] = Internal.NowMs()
+    metric.stack[metric.stackDepth] = depth
     return metric.stackDepth
 end
 
 function Profiler.Finish(name)
     if not state then return nil end
     local metric = state.metrics[name]
-    if not metric or metric.kind ~= "timer" or metric.stackDepth == 0 then return nil end
-    local startedAt = metric.stack[metric.stackDepth]
+    local depth = state.callStackDepth
+    if not metric or metric.kind ~= "timer" or metric.stackDepth == 0
+        or depth == 0 or state.callStackNames[depth] ~= name
+    then return nil end
+    local startedAt = state.callStackStartedAt[depth]
+    local childMs = state.callStackChildMs[depth] or 0
+    state.callStackNames[depth] = nil
+    state.callStackStartedAt[depth], state.callStackChildMs[depth] = nil, nil
+    state.callStackDepth = depth - 1
     metric.stack[metric.stackDepth], metric.stackDepth = nil, metric.stackDepth - 1
     local elapsed = math.max(0, Internal.NowMs() - startedAt)
+    local selfMs = math.max(0, elapsed - childMs)
+    if depth > 1 then
+        state.callStackChildMs[depth - 1] =
+            (state.callStackChildMs[depth - 1] or 0) + elapsed
+    end
     metric.calls, metric.totalMs, metric.lastMs = metric.calls + 1, metric.totalMs + elapsed, elapsed
     metric.averageMs = metric.totalMs / metric.calls
-    metric.intervalCalls, metric.intervalMs = metric.intervalCalls + 1, metric.intervalMs + elapsed
+    metric.selfTotalMs, metric.lastSelfMs = metric.selfTotalMs + selfMs, selfMs
+    metric.averageSelfMs = metric.selfTotalMs / metric.calls
+    metric.intervalCalls = metric.intervalCalls + 1
+    metric.intervalMs, metric.intervalSelfMs =
+        metric.intervalMs + elapsed, metric.intervalSelfMs + selfMs
     if elapsed > metric.peakMs then metric.peakMs = elapsed end
+    if selfMs > metric.selfPeakMs then metric.selfPeakMs = selfMs end
     local spikeLimit = metric.spikeMs or math.max(5, metric.movingAverageMs * 4)
     if metric.calls > 5 and elapsed > spikeLimit then metric.spikeCount = metric.spikeCount + 1 end
     return elapsed
 end
 
-function Profiler.Wrap(name, callback)
+function Profiler.Wrap(name, callback, options)
     if not state then return callback end
     assert(type(callback) == "function", "profiler wrap requires a function")
     Internal.GetMetric(name, "timer")
+    local token = state.token
+    local protectErrors = options and options.protectErrors == true
     return function(...)
-        Profiler.Begin(name)
+        if not state or state.token ~= token then return callback(...) end
+        if not Profiler.Begin(name) then return callback(...) end
+        if protectErrors then
+            local ok, a, b, c, d, e, f, g, h = pcall(callback, ...)
+            Profiler.Finish(name)
+            if not ok then error(a) end
+            return a, b, c, d, e, f, g, h
+        end
         local a, b, c, d, e, f, g, h = callback(...)
         Profiler.Finish(name)
         return a, b, c, d, e, f, g, h
