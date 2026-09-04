@@ -1,5 +1,5 @@
 local ROOT =
-    "Contents/mods/PsychopatzCore/42.19/media/lua/client/PsychopatzCore/"
+    "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/"
 
 local function equal(actual, expected, message)
     if actual ~= expected then

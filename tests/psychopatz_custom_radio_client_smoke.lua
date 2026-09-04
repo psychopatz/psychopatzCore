@@ -1,4 +1,4 @@
-local ROOT = "Contents/mods/PsychopatzCore/42.19/media/lua/"
+local ROOT = "Contents/mods/PsychopatzCore/42.20/media/lua/"
 local COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
 package.path = COMMON .. "?.lua;" .. ROOT .. "shared/?.lua;" .. ROOT .. "client/?.lua;"
     .. package.path

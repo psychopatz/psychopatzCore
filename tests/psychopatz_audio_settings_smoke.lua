@@ -1,4 +1,4 @@
-local CLIENT = "Contents/mods/PsychopatzCore/42.19/media/lua/client/"
+local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
 local COMMON_CLIENT = "Contents/mods/PsychopatzCore/common/media/lua/client/"
 package.path = CLIENT .. "?.lua;" .. COMMON_CLIENT .. "?.lua;" .. package.path
 

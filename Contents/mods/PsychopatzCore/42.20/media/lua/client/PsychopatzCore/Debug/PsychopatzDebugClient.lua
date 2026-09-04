@@ -5,6 +5,7 @@ require "ISUI/ISTextEntryBox"
 require "PsychopatzCore/00_PsychopatzCore_Init"
 local Keybinds = require "PsychopatzCore/Input/PsychopatzKeybinds"
 require "PsychopatzCore/UI/PsychopatzUI"
+require "PsychopatzCore/UI/PsychopatzWindow"
 require "PsychopatzCore/UI/PsychopatzDebugHubWindow"
 require "PsychopatzCore/Debug/PsychopatzDebugContextMenu"
 require "PsychopatzCore/UI/Inventory/PsychopatzItemTypeLedgerWindow"
@@ -48,11 +49,11 @@ if DebugHub and DebugHub.RegisterTool then
     })
 end
 
-PsychopatzDebugWindow = ISCollapsableWindow:derive("PsychopatzDebugWindow")
+PsychopatzDebugWindow = PsychopatzWindow:derive("PsychopatzDebugWindow")
 PsychopatzDebugWindow.instance = nil
 
 function PsychopatzDebugWindow:initialise()
-    ISCollapsableWindow.initialise(self)
+    PsychopatzWindow.initialise(self)
     self.title = "Psychopatz Admin Control"
     self:setResizable(false)
 end
@@ -112,7 +113,7 @@ local function applyDebugAccess(enabled, player)
 end
 
 function PsychopatzDebugWindow:createChildren()
-    ISCollapsableWindow.createChildren(self)
+    PsychopatzWindow.createChildren(self)
 
     local y = self:titleBarHeight() + 10
     self.chkHeal = UI.CreateCheckbox(self, {
@@ -240,13 +241,27 @@ local function openDebugWindow()
     local window = PsychopatzDebugWindow:new(
         math.floor((getCore():getScreenWidth() - width) / 2),
         math.floor((getCore():getScreenHeight() - height) / 2),
-        width,
-        height
+        width, height, {
+            persistenceNamespace = "Debug",
+            persistenceKey = "AdminControl",
+            resizable = false,
+            bottomResize = false,
+            responsiveSpec = {
+                width = width, height = height,
+                minWidth = width, minHeight = height,
+                maxWidth = width, maxHeight = height,
+            },
+        }
     )
     window:initialise()
     PsychopatzDebugWindow.instance = window
     window:addToUIManager()
-    window:setY(math.floor((getCore():getScreenHeight() - window:getHeight()) / 2))
+    if not window.psychopatzGeometryRestored then
+        window:setX(math.floor((getCore():getScreenWidth()
+            - window:getWidth()) / 2))
+        window:setY(math.floor((getCore():getScreenHeight()
+            - window:getHeight()) / 2))
+    end
     if window.itemEntry then window.itemEntry:selectAll() end
     return window
 end

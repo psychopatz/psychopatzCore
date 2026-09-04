@@ -5,7 +5,7 @@ end
 
 package.path = table.concat({
     "Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua",
-    "Contents/mods/PsychopatzCore/42.19/media/lua/shared/?.lua", package.path,
+    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/?.lua", package.path,
 }, ";")
 
 local bridgeEnabled = false

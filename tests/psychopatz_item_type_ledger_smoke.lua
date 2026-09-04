@@ -1,5 +1,5 @@
 local SHARED = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
-local CLIENT = "Contents/mods/PsychopatzCore/42.19/media/lua/client/"
+local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
 package.path = SHARED .. "?.lua;" .. CLIENT .. "?.lua;" .. package.path
 
 local function equal(actual, expected, label)

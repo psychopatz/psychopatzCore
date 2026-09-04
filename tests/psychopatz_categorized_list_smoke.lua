@@ -1,4 +1,4 @@
-local CLIENT = "Contents/mods/PsychopatzCore/42.19/media/lua/client/"
+local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
 package.path = CLIENT .. "?.lua;" .. package.path
 
 local function equal(actual, expected, label)

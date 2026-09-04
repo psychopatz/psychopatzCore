@@ -1,4 +1,4 @@
-local ROOT = "Contents/mods/PsychopatzCore/42.19/media/lua/client/"
+local ROOT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
     .. "PsychopatzCore/Radio/"
 
 local function equal(actual, expected, label)

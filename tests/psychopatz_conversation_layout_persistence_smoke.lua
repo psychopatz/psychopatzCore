@@ -1,5 +1,5 @@
 local SETTINGS_ROOT =
-    "Contents/mods/PsychopatzCore/42.19/media/lua/client/PsychopatzCore/Settings/"
+    "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/Settings/"
 local CONVERSATION_ROOT =
     "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/"
 

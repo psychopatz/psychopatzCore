@@ -1,4 +1,4 @@
-local root = "Contents/mods/PsychopatzCore/42.19/media/lua/"
+local root = "Contents/mods/PsychopatzCore/42.20/media/lua/"
 local tickCallback
 
 package.preload["TimedActions/ISAttachItemHotbar"] = function()

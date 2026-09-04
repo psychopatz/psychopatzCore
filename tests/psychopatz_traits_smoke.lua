@@ -1,5 +1,5 @@
 local ROOT =
-    "Contents/mods/PsychopatzCore/42.19/media/lua/shared/PsychopatzCore/Traits/"
+    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/PsychopatzCore/Traits/"
 
 local function assertEqual(actual, expected, label)
     if actual ~= expected then

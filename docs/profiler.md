@@ -17,8 +17,7 @@ available.
 The generic backend lives under `common/media/lua/shared`, split into a stable
 entry/API, bounded-history, analysis, and snapshot modules. The Project Zomboid
 bootstrap, clock, event, snapshot-file, client UI, and multiplayer adapters live
-under the versioned runtime tree (`42.20` for the current Build 42 branch;
-`42.19` remains available for older installations).
+under the versioned runtime tree (`42.20` for the current Build 42 branch).
 
 Consumer mods own only static metric names and startup instrumentation. The
 backend has no Project Hoomans, Dynamic Trading, NPC, settlement, or trade logic.

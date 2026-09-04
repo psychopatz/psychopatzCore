@@ -1,5 +1,5 @@
 local SHARED_ROOT =
-    "Contents/mods/PsychopatzCore/42.19/media/lua/shared/"
+    "Contents/mods/PsychopatzCore/42.20/media/lua/shared/"
 local COMMON_ROOT =
     "Contents/mods/PsychopatzCore/common/media/lua/shared/"
 

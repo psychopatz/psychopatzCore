@@ -295,8 +295,9 @@ end
 
 local function fallbackText(item)
     if item.text ~= "" then return item.text, false end
+    local speaker = item.speakerKind or item.speaker or "npc"
     local result = Flavor.ResolveDetailed(
-        item.flavorID, "npc", item.seed, item.context
+        item.flavorID, speaker, item.seed, item.context
     )
     return result and boundedText(result.text) or nil, false
 end

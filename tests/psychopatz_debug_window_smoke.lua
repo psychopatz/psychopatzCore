@@ -1,4 +1,4 @@
-local CLIENT = "Contents/mods/PsychopatzCore/42.19/media/lua/client/"
+local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
 package.path = CLIENT .. "?.lua;" .. package.path
 
 local created = 0
@@ -91,8 +91,14 @@ ISCollapsableWindow = {
     bringToTop = function(self)
         self.broughtToTop = (self.broughtToTop or 0) + 1
     end,
+    setX = function(self, x)
+        self.x = x
+    end,
     setY = function(self, y)
         self.y = y
+    end,
+    getWidth = function(self)
+        return self.width
     end,
     getHeight = function(self)
         return self.height
@@ -100,6 +106,52 @@ ISCollapsableWindow = {
 }
 package.preload["ISUI/ISCollapsableWindow"] = function()
     return ISCollapsableWindow
+end
+
+local savedGeometry = {}
+PsychopatzWindow = ISCollapsableWindow:derive("PsychopatzWindow")
+PsychopatzWindow.derive = function(self, name)
+    local child = {}
+    child.Type = name
+    child.__index = child
+    setmetatable(child, { __index = self })
+    return child
+end
+PsychopatzWindow.new = function(self, x, y, width, height, options)
+    created = created + 1
+    options = options or {}
+    local persistenceKey = tostring(options.persistenceNamespace or "")
+        .. ":" .. tostring(options.persistenceKey or "")
+    local state = savedGeometry[persistenceKey]
+    local object = setmetatable({
+        x = x,
+        y = y,
+        width = width,
+        height = height,
+        visible = true,
+        persistenceKey = persistenceKey,
+        psychopatzGeometryRestored = state ~= nil,
+    }, self)
+    if state then
+        object.x = state.x
+        object.y = state.y
+    end
+    return object
+end
+PsychopatzWindow.initialise = function(self)
+    self.visible = true
+end
+PsychopatzWindow.createChildren = function() end
+PsychopatzWindow.saveGeometry = function(self)
+    savedGeometry[self.persistenceKey] = { x = self.x, y = self.y }
+    return true
+end
+PsychopatzWindow.removeFromUIManager = function(self)
+    self:saveGeometry(true)
+    self.removed = true
+end
+package.preload["PsychopatzCore/UI/PsychopatzWindow"] = function()
+    return PsychopatzWindow
 end
 
 Events = {
@@ -196,6 +248,8 @@ assert(#commands == 4 and commands[4].command == "GrantPowers",
 assert(commands[4].args.itemID == "Base.Katana",
     "repeated access did not preserve the form data")
 
+first:setX(321)
+first:setY(456)
 first:close()
 assert(PsychopatzDebugWindow.instance == nil,
     "manual close left a stale singleton instance")
@@ -204,6 +258,8 @@ triggerDebugKey(3000)
 local second = PsychopatzDebugWindow.instance
 assert(second ~= nil and second ~= first, "closed debug window was not replaceable")
 assert(created == 2, "reopening the debug window created the wrong number of instances")
+assert(second.x == 321 and second.y == 456,
+    "reopening the debug window did not restore its saved position")
 
 second:close()
 assert(PsychopatzDebugWindow.instance == nil, "manual close left a stale singleton instance")

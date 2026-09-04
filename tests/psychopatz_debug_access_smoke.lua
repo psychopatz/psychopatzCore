@@ -64,7 +64,7 @@ end
 package.preload["PsychopatzCore/UI/PsychopatzDebugHubWindow"] = function()
     return PsychopatzCore.DebugHub
 end
-package.path = "Contents/mods/PsychopatzCore/42.19/media/lua/client/?.lua;"
+package.path = "Contents/mods/PsychopatzCore/42.20/media/lua/client/?.lua;"
     .. package.path
 
 local contextHandler
