@@ -30,11 +30,15 @@ local function readConfig()
         fingerprint = table.concat({ "v1", tostring(enabled), "file", tostring(interval) }, "|") }
 end
 
-local function authoritative()
+-- The file bridge is a local client integration point, not a gameplay
+-- authority. Dedicated servers must not start it, while a pure MP client and
+-- the client half of a listen server must be able to host it locally.
+local function bridgeRuntime()
     local server = isServer and isServer() or false
     local client = isClient and isClient() or false
-    if client and not server then return false, "multiplayer_client" end
-    return true, server and "server" or "singleplayer"
+    if server and not client then return false, "dedicated_server" end
+    if client then return true, "multiplayer_client" end
+    return true, "singleplayer"
 end
 
 function Bootstrap.IsEnabled() return Bootstrap.enabled == true end
@@ -44,8 +48,13 @@ local function activate(config)
     if Bootstrap.enabled then return true end
     Bootstrap.config = config or readConfig()
     if not Bootstrap.config.enabled then return false end
-    local allowed, authority = authoritative()
-    if not allowed then return false end
+    local allowed, authority = bridgeRuntime()
+    if not allowed then
+        if print then
+            print("[PsychopatzBridge] bridge_not_started reason=" .. tostring(authority))
+        end
+        return false
+    end
     local Runtime = require "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"
     local runtime = Runtime.GetRuntimeMetadata()
     local Transport = require "PsychopatzCore/Bridge/PsychopatzBridgeFileTransport"
@@ -74,7 +83,7 @@ function Bootstrap.TryActivate()
 end
 
 local function installActivationProbe()
-    local allowed = authoritative()
+    local allowed = bridgeRuntime()
     if not allowed then return false end
     local Profiler = PsychopatzCore and PsychopatzCore.Profiler
     if not Profiler or not Profiler.IsRunning or not Profiler.IsRunning() then return false end

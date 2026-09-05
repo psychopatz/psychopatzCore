@@ -49,6 +49,36 @@ if DebugHub and DebugHub.RegisterTool then
     })
 end
 
+local DebugSettingsWindow
+local function openDebugSettings()
+    if not DebugSettingsWindow then
+        local loaded, module = pcall(require,
+            "PsychopatzCore/UI/PsychopatzDebugSettingsWindow")
+        if not loaded then
+            if print then print("[PsychopatzCore.DebugSettings] " .. tostring(module)) end
+            return nil
+        end
+        DebugSettingsWindow = module
+    end
+    return DebugSettingsWindow.Open()
+end
+
+if DebugHub and DebugHub.RegisterTool then
+    DebugHub.RegisterTool({
+        id = "psychopatz.debugSettings",
+        source = "PsychopatzCore",
+        order = 10,
+        title = "Debug Settings",
+        description = "Enable or disable persisted diagnostic instrumentation.",
+        available = function()
+            return Debug.CanUse(getPlayer and getPlayer() or nil)
+        end,
+        action = function()
+            return openDebugSettings()
+        end,
+    })
+end
+
 PsychopatzDebugWindow = PsychopatzWindow:derive("PsychopatzDebugWindow")
 PsychopatzDebugWindow.instance = nil
 

@@ -22,6 +22,11 @@ Events = {
     OnGameExit = { Add = function() end, Remove = function() end },
 }
 
+-- The bridge must be hosted by the local client in multiplayer. This test
+-- intentionally exercises the pure-client role rather than single-player.
+isClient = function() return true end
+isServer = function() return false end
+
 local activationCallback = nil
 local unregistered = nil
 local Profiler = {
@@ -53,5 +58,7 @@ equal(unregistered, "PsychopatzCore.bridgeActivation", "activation probe remaine
 local capabilities = PsychopatzCore.Bridge.GetCapabilities()
 equal(capabilities["psychopatzcore.profiler"] ~= nil, true,
     "profiler live configuration command was not composed")
+equal(PsychopatzCore.Bridge.GetRuntimeInfo().authority, "multiplayer_client",
+    "pure multiplayer client did not publish client bridge authority")
 
-print("psychopatz bridge live activation: ok")
+print("psychopatz bridge pure-client live activation: ok")

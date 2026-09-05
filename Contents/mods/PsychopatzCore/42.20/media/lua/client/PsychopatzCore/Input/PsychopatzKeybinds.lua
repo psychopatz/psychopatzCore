@@ -85,7 +85,11 @@ local function readNumericKeyState(functionName, key)
     local globalFunction = rawget(_G, functionName)
     if type(globalFunction) == "function" then
         local ok, value = pcall(globalFunction, key)
-        if ok then return value == true end
+        -- Multiplayer's chat/text layer can deliberately make the global
+        -- helper report false while the physical key is still down.  Let the
+        -- raw Keyboard API below confirm that state instead of treating a
+        -- successful false result as final.
+        if ok and value == true then return true end
     end
 
     -- Keep a raw Keyboard fallback for runtimes where the global overload is

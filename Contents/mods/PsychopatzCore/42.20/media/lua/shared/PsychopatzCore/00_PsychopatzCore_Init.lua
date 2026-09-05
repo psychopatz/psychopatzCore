@@ -58,6 +58,7 @@ end
 require "PsychopatzCore/ZombieKillDetector/PsychopatzZombieKillDetector"
 
 require "PsychopatzCore/Debug/PsychopatzDebug"
+require "PsychopatzCore/Debug/PsychopatzDebugSettings"
 require "PsychopatzCore/Debug/PsychopatzDebugTrace"
 require "PsychopatzCore/Radio/RadioFrequencies/PsychopatzRadioFrequencies"
 require "PsychopatzCore/Radio/CustomChannels/PsychopatzCustomRadio"

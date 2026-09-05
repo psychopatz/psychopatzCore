@@ -54,6 +54,19 @@ local function onPsychopatzCommand(module, command, player, args)
         return
     end
 
+    if command == PsychopatzCore.DebugSettings.COMMAND then
+        if not PsychopatzCore.Debug.CanUse(player) then return end
+        PsychopatzCore.DebugSettings.Set(
+            tostring(args.id or ""), args.enabled == true, true)
+        return
+    end
+
+    if command == PsychopatzCore.DebugSettings.APPLY_COMMAND then
+        if not PsychopatzCore.Debug.CanUse(player) then return end
+        PsychopatzCore.DebugSettings.ApplyConfigured()
+        return
+    end
+
     if command ~= "GrantPowers" then return end
     if not PsychopatzCore.IsOwner(player) then
         return

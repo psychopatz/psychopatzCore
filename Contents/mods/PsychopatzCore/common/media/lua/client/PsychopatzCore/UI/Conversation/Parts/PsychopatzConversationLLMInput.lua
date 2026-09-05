@@ -92,9 +92,11 @@ function PsychopatzConversationLLMInput:createChildren()
         local modeID = modeDefinition
             and (modeDefinition.mode or modeDefinition.id)
         if modeID then
+            local modeTitle = optionTitle(self, modeDefinition)
             local button = UI.CreateButton(self, {
                 id = modeDefinition.id or modeID,
-                title = optionTitle(self, modeDefinition),
+                title = modeDefinition.image and "" or modeTitle,
+                image = modeDefinition.image,
                 target = self,
                 onclick = function()
                     self:onModePressed(modeID)
@@ -102,6 +104,7 @@ function PsychopatzConversationLLMInput:createChildren()
                 variant = "quiet",
                 width = modeDefinition.width,
             })
+            if modeDefinition.image then button.tooltip = modeTitle end
             self.modeButtons[#self.modeButtons + 1] = {
                 button = button,
                 mode = modeID,
@@ -397,6 +400,14 @@ end
 
 function PsychopatzConversationLLMInput:focusInput()
     if self.entry and self.entry.focus then self.entry:focus() end
+end
+
+function PsychopatzConversationLLMInput:blurInput()
+    if self.entry and self.entry.unfocus then
+        self.entry:unfocus()
+        return true
+    end
+    return false
 end
 
 function PsychopatzConversationLLMInput:render()

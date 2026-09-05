@@ -10,6 +10,19 @@ Bridge.PROTOCOL_VERSION = Protocol.VERSION
 Bridge.lifecycle = Bridge.lifecycle or "UNLOADED"
 local MAX_RESPONSE_CACHE = 64
 
+local function markReady()
+    if Bridge.lifecycle ~= "STARTING" then
+        return Bridge.lifecycle == "READY"
+    end
+    Bridge.lifecycle = "READY"
+    Bridge.RefreshRuntimeState()
+    if print and Bridge.state then
+        print("[PsychopatzBridge] lifecycle=READY runtime="
+            .. tostring(Bridge.state.runtimeID))
+    end
+    return true
+end
+
 local function nowMs()
     return getTimeInMillis and getTimeInMillis() or 0
 end
@@ -31,6 +44,13 @@ end
 
 function Bridge.GetCapabilities()
     return Registry.Capabilities()
+end
+
+-- Runtime discovery is deliberately separate from activation.  The bridge
+-- may be initialized while the game is loading, but external clients must not
+-- send gameplay requests until Project Zomboid has entered the world.
+function Bridge.MarkReady()
+    return markReady()
 end
 
 function Bridge.GetToolCatalog()
@@ -199,10 +219,16 @@ function Bridge.Initialize(options)
     Registry.onChanged = Bridge.RefreshRuntimeState
     Streams.onChanged = Bridge.RefreshRuntimeState
     registerBuiltins()
-    Bridge.lifecycle = "READY"
+    Bridge.lifecycle = "STARTING"
     Bridge.RefreshRuntimeState()
     if Events and Events.OnTick and Events.OnTick.Add then Events.OnTick.Add(onTick) end
     if Events and Events.OnGameExit and Events.OnGameExit.Add then Events.OnGameExit.Add(Bridge.Shutdown) end
+    if Events and Events.OnGameStart and Events.OnGameStart.Add then
+        Events.OnGameStart.Add(markReady)
+    else
+        -- Keep isolated/headless consumers compatible with the bridge API.
+        markReady()
+    end
     return true
 end
 
@@ -211,6 +237,9 @@ function Bridge.Shutdown()
     Bridge.lifecycle = "SHUTTING_DOWN"
     if Events and Events.OnTick and Events.OnTick.Remove then Events.OnTick.Remove(onTick) end
     if Events and Events.OnGameExit and Events.OnGameExit.Remove then Events.OnGameExit.Remove(Bridge.Shutdown) end
+    if Events and Events.OnGameStart and Events.OnGameStart.Remove then
+        Events.OnGameStart.Remove(markReady)
+    end
     Registry.onChanged = nil
     Streams.onChanged = nil
     Bridge.state = nil

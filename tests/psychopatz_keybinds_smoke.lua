@@ -19,14 +19,14 @@ getKeyCode = function(name)
 end
 getTimeInMillis = function() return now end
 -- Exercise the same numeric Keyboard API available in the game runtime.
--- The globals below intentionally fail so the compatibility fallback is
--- covered as well.
+-- The globals below intentionally report false so the raw Keyboard fallback
+-- is covered as well. This mirrors multiplayer chat/text-entry suppression.
 Keyboard = {
     isKeyDown = function(key) return key == downKey end,
     isKeyPressed = function(key) return key == pressedKey end,
 }
-isKeyDown = function() error("numeric global stub should not be used") end
-isKeyPressed = function() error("numeric global stub should not be used") end
+isKeyDown = function() return false end
+isKeyPressed = function() return false end
 getText = function(key) return key end
 
 Events = {
@@ -118,5 +118,10 @@ Events.tick()
 now = 2500
 Events.tick()
 equal(_G.longCount, 2, "long press rearmed after release")
+
+local longBinding = Keybinds.Get("Smoke.Long")
+longBinding.option.key = 34
+equal(Keybinds.GetKeyCode(longBinding), 34,
+    "runtime reads the rebindable option value")
 
 print("psychopatz keybinds: ok")
