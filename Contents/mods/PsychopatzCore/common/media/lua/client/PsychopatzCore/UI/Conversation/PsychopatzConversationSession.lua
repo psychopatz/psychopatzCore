@@ -93,6 +93,9 @@ end
 function Session:append(speaker, payload, metadata)
     metadata = metadata or {}
     local kind, speakerID, speakerName = speakerDetails(self, speaker, metadata)
+    local portraitAnimation = metadata.portraitAnimation
+        or type(metadata.presentationState) == "table"
+        and metadata.presentationState.portraitAnimation or nil
     self.sequence = self.sequence + 1
     local textPayload = Text.Payload(
         type(speaker) == "table" and (speaker.payload or payload) or payload
@@ -121,6 +124,7 @@ function Session:append(speaker, payload, metadata)
             conversationUI = true,
             nameplate = false,
         },
+        portraitAnimation = portraitAnimation,
     })
     if self.persistHistory then
         History.Append(
@@ -132,9 +136,19 @@ function Session:append(speaker, payload, metadata)
     self.view.historyPart:addMessage(message)
     if kind == "npc" and self.view.portraitPart
         and self.view.portraitPart.portrait
-        and self.view.portraitPart.portrait.pulseSpeech
     then
-        self.view.portraitPart.portrait:pulseSpeech(Text.Resolve(message.payload))
+        if self.view.portraitPart.portrait.pulseSpeech then
+            self.view.portraitPart.portrait:pulseSpeech(
+                Text.Resolve(message.payload)
+            )
+        end
+        if message.portraitAnimation
+            and self.view.portraitPart.portrait.playAnimation
+        then
+            self.view.portraitPart.portrait:playAnimation(
+                message.portraitAnimation
+            )
+        end
     end
     return message
 end
@@ -217,7 +231,11 @@ function Session:enterNode(nodeID)
         return
     end
     local npc = evaluate(node.npc or node.message, self.context, self)
-    if npc then self:queueMessage("npc", npc) end
+    if npc then
+        self:queueMessage("npc", npc, {
+            portraitAnimation = node.portraitAnimation,
+        })
+    end
     self.pendingChoices = node.choices or {}
     if #self.queue == 0 then
         self:setChoices(self.pendingChoices)

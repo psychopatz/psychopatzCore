@@ -185,6 +185,30 @@ python profiler_cli.py summarize --sections npc --npc "Alex Morgan" \
   --npc-view animation,ai,pathing --token-budget 3000
 ```
 
+Persisted ModData can be inspected directly from a selected save without a
+running profiler runtime or Lua Maker. The reader follows the PZ 42.20
+`GlobalModData`/Kahlua serialization and emits compact, bounded JSON:
+
+```sh
+python profiler_cli.py persisted --save \
+  "$HOME/Zomboid/Saves/<world>/global_mod_data.bin" \
+  --prefix PNC_NPC --limit 40 --token-budget 2000
+python profiler_cli.py persisted --save \
+  "$HOME/Zomboid/Saves/<world>/global_mod_data.bin" \
+  --npc npc_123 --chunk 0 --chunk-size 8 --token-budget 3000
+python profiler_cli.py persisted --save \
+  "$HOME/Zomboid/Saves/<world>/global_mod_data.bin" \
+  --npc npc_123 --path social.relationships --token-budget 2000
+```
+
+The first command is index-only. Selected tables are paged by root fields and
+can be narrowed by a dot-separated path. Depth, nested entries, node count,
+string length, and final report size are bounded; `truncated=true` or
+`_profilerOmittedEntries` means the result must be narrowed or paged. Persisted
+data is the last saved state, not guaranteed to match unsaved runtime state.
+The output identifies its source, file modification time, PZ world version,
+table, and chunk so persisted and live reports cannot be confused.
+
 Global `--snapshot` and `--config` overrides appear before the subcommand.
 Reports are bounded by depth, collection length, string length, and an
 approximate four-characters-per-token budget.

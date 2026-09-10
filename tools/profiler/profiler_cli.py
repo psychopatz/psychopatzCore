@@ -14,6 +14,7 @@ from profiler_config import read_capture_config, runtime_application_state
 from profiler_core import (SNAPSHOT_FILENAME, ProcessMonitor, build_llm_report,
                            default_game_config_path, default_llm_report_path,
                            snapshot_npc_data)
+from moddata_reader import GlobalModDataReader
 from bridge import BridgeClient, FileBridgeTransport, read_bridge_config
 from app_settings import (default_app_settings_path, read_app_settings,
                           select_preferred_candidate)
@@ -195,6 +196,28 @@ def build_summary(process: Mapping[str, Any], snapshot: dict[str, Any],
     return enforce_budget(report, token_budget)
 
 
+def build_persisted_report(args: argparse.Namespace) -> dict[str, Any]:
+    """Inspect saved ModData without requiring a running PZ profiler runtime."""
+    if args.path and not (args.table or args.npc):
+        raise ValueError("--path requires --table or --npc")
+    with GlobalModDataReader(args.save) as reader:
+        if not any((args.table, args.npc, args.path)):
+            report = reader.summary(prefix=args.prefix, limit=args.limit)
+        else:
+            report = reader.inspect(
+                table=args.table,
+                npc=args.npc,
+                path=args.path,
+                chunk_index=args.chunk,
+                chunk_size=args.chunk_size,
+                max_depth=args.depth,
+                max_items=args.max_items,
+                max_nodes=args.max_nodes,
+                max_string=args.max_string,
+            )
+    return enforce_budget(report, args.token_budget)
+
+
 def render_text(report: Mapping[str, Any]) -> str:
     lines = ["Psychopatz profiler report"]
     runtime = report.get("runtime") or {}
@@ -252,6 +275,31 @@ def parser() -> argparse.ArgumentParser:
     bridge.add_argument("--timeout", type=float, default=5.0)
     process = sub.add_parser("process", help="inspect the GUI-saved process identity")
     process.add_argument("process_command", choices=("status",))
+    persisted = sub.add_parser(
+        "persisted",
+        help="bounded direct inspection of a saved global_mod_data.bin",
+    )
+    persisted.add_argument("--save", type=Path, required=True,
+                           help="path to the selected save's global_mod_data.bin")
+    persisted.add_argument("--table", help="exact persisted ModData table name")
+    persisted.add_argument("--npc", help="NPC ID, shorthand for PNC_NPC_<ID>")
+    persisted.add_argument("--path", help="dot-separated path inside the selected table")
+    persisted.add_argument("--prefix", help="table-name prefix for an index-only report")
+    persisted.add_argument("--limit", type=int, default=40,
+                           help="maximum index rows or NPC IDs to return")
+    persisted.add_argument("--chunk", type=int, default=0,
+                           help="zero-based root-field chunk to inspect")
+    persisted.add_argument("--chunk-size", type=int, default=8,
+                           help="root fields per chunk (1-64)")
+    persisted.add_argument("--depth", type=int, default=6,
+                           help="maximum nested table depth")
+    persisted.add_argument("--max-items", type=int, default=32,
+                           help="maximum captured entries per nested table")
+    persisted.add_argument("--max-nodes", type=int, default=5000,
+                           help="maximum captured values")
+    persisted.add_argument("--max-string", type=int, default=160,
+                           help="maximum returned string length")
+    persisted.add_argument("--token-budget", type=int, default=3000)
     return result
 
 
@@ -310,6 +358,12 @@ def main(argv: Optional[list[str]] = None) -> int:
     try:
         if args.command == "bridge":
             print(json.dumps(run_bridge_command(args), ensure_ascii=True, indent=2))
+            return 0
+        if args.command == "persisted":
+            output = build_persisted_report(args)
+            # Keep this path compact by default: it is intended as a bounded
+            # machine/LLM interface and the report already carries its limits.
+            print(json.dumps(output, ensure_ascii=True, separators=(",", ":")))
             return 0
         saved_process = sample_saved_process(args.app_settings)
         if args.command == "process":

@@ -168,7 +168,11 @@ function PsychopatzConversationPortrait:createChildren()
         showBorder = false,
         faceOnly = true,
         animate = true,
-        animSetName = false,
+        portraitAnimation = true,
+        -- Portraits intentionally use the zombie anim-set family: it is the
+        -- family that contains the close-up emote nodes (including WaveHi).
+        -- Camera framing remains the face-only conversation framing below.
+        animSetName = "zombie",
         stateName = "idle",
         zoom = 14,
         yOffset = -0.85,

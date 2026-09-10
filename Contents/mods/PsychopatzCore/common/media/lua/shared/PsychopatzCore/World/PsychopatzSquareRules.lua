@@ -55,6 +55,84 @@ local function spriteName(object)
     return string.lower(tostring(sprite.name or ""))
 end
 
+local function containsToken(text, token)
+    text = string.lower(tostring(text or ""))
+    token = string.lower(tostring(token or ""))
+    if text == "" or token == "" then return false end
+    local start = 1
+    while true do
+        local position = string.find(text, token, start, true)
+        if not position then return false end
+        local before = position > 1
+            and string.sub(text, position - 1, position - 1) or ""
+        local afterPosition = position + #token
+        local after = afterPosition <= #text
+            and string.sub(text, afterPosition, afterPosition) or ""
+        local beforeIsWord = before ~= ""
+            and string.find(before, "[%w]", 1) ~= nil
+        local afterIsWord = after ~= ""
+            and string.find(after, "[%w]", 1) ~= nil
+        if not beforeIsWord and not afterIsWord then return true end
+        start = position + #token
+    end
+end
+
+local function spriteGridSize(object)
+    local grid
+    if object and object.getSpriteGrid then
+        local ok, value = pcall(object.getSpriteGrid, object)
+        if ok then grid = value end
+    end
+    if not grid then
+        local sprite = object and object.getSprite and object:getSprite() or nil
+        if sprite and sprite.getSpriteGrid then
+            local ok, value = pcall(sprite.getSpriteGrid, sprite)
+            if ok then grid = value end
+        end
+    end
+    if not grid then return nil, nil end
+    local width
+    local height
+    if grid.getWidth then
+        local ok, value = pcall(grid.getWidth, grid)
+        if ok then width = tonumber(value) end
+    end
+    if grid.getHeight then
+        local ok, value = pcall(grid.getHeight, grid)
+        if ok then height = tonumber(value) end
+    end
+    return width, height
+end
+
+local function objectSearchText(object)
+    local values = {}
+    local function add(value)
+        if value and tostring(value) ~= "" then
+            values[#values + 1] = string.lower(tostring(value))
+        end
+    end
+
+    if object and object.getName then
+        local ok, value = pcall(object.getName, object)
+        if ok then add(value) end
+    end
+    local sprite = object and object.getSprite and object:getSprite() or nil
+    if sprite then
+        if sprite.getName then
+            local ok, value = pcall(sprite.getName, sprite)
+            if ok then add(value) end
+        end
+        add(sprite.tilesetName)
+    end
+    local propertyNames = {
+        "CustomName", "GroupName", "FurnitureType", "Type",
+    }
+    for index = 1, #propertyNames do
+        add(Rules.GetObjectProperty(object, propertyNames[index]))
+    end
+    return table.concat(values, " ")
+end
+
 function Rules.Register(id, definition)
     id = tostring(id or "")
     if id == "" or type(definition) ~= "table"
@@ -88,12 +166,22 @@ end
 
 function Rules.IsActualBed(object)
     if not object then return false end
+    local objectText = objectSearchText(object)
+    local sofaLike = containsToken(objectText, "sofa")
+        or containsToken(objectText, "couch")
+        or containsToken(objectText, "loveseat")
+        or containsToken(objectText, "sectional")
+    local genericSeating = containsToken(objectText, "chair")
+        or containsToken(objectText, "stool")
+        or containsToken(objectText, "bench")
+        or containsToken(objectText, "furniture_seating")
+    if genericSeating and not sofaLike then return false end
     local customName = string.lower(tostring(
         Rules.GetObjectProperty(object, "CustomName") or ""))
-    if string.find(customName, "bed", 1, true)
-        or string.find(customName, "mattress", 1, true)
-        or string.find(customName, "futon", 1, true)
-        or string.find(customName, "cot", 1, true)
+    if containsToken(customName, "bed")
+        or containsToken(customName, "mattress")
+        or containsToken(customName, "futon")
+        or containsToken(customName, "cot")
     then
         return true
     end
@@ -105,19 +193,64 @@ function Rules.IsActualBed(object)
         return true
     end
     local name = spriteName(object)
-    return string.find(name, "bed", 1, true) ~= nil
+    if string.find(name, "bed", 1, true) ~= nil
         and string.find(name, "bedding", 1, true) ~= nil
+    then
+        return true
+    end
+    return false
+end
+
+function Rules.IsActualSofa(object)
+    if not object or Rules.IsActualBed(object) then return false end
+    local text = objectSearchText(object)
+    local namedSofa = containsToken(text, "sofa")
+        or containsToken(text, "couch")
+        or containsToken(text, "loveseat")
+        or containsToken(text, "sectional")
+    local obviousNonSofa = containsToken(text, "stool")
+        or containsToken(text, "bench")
+        or containsToken(text, "table")
+        or containsToken(text, "desk")
+    if namedSofa and not obviousNonSofa then
+        return true
+    end
+    if obviousNonSofa or containsToken(text, "chair") then return false end
+    local width, height = spriteGridSize(object)
+    local multiTile = width and height and (width > 1 or height > 1)
+    return multiTile == true and containsToken(text, "furniture_seating")
+end
+
+function Rules.ClassifySleepSurface(object)
+    if Rules.IsActualBed(object) then return "bed" end
+    if Rules.IsActualSofa(object) then return "sofa" end
+    return nil
+end
+
+function Rules.IsSleepSurface(object)
+    return Rules.ClassifySleepSurface(object) ~= nil
 end
 
 function Rules.FindBed(square)
     if not square then return nil end
     if square.getBed then
         local ok, object = pcall(square.getBed, square)
-        if ok and Rules.IsActualBed(object) then return object end
+        if ok and Rules.ClassifySleepSurface(object) == "bed" then
+            return object
+        end
     end
     local objects = square.getObjects and square:getObjects() or nil
     return javaListEach(objects, function(object)
-        if Rules.IsActualBed(object) then return object end
+        if Rules.ClassifySleepSurface(object) == "bed" then return object end
+        return nil
+    end)
+end
+
+function Rules.FindSofa(square)
+    if not square then return nil end
+    local objects = square.getObjects and square:getObjects() or nil
+    return javaListEach(objects, function(object)
+        if Rules.IsActualSofa(object) then return object end
         return nil
     end)
 end
@@ -136,8 +269,27 @@ local function spriteGrid(object)
     return grid, sprite
 end
 
-function Rules.DescribeBed(square, object)
-    object = object or Rules.FindBed(square)
+local function furnitureFacing(object, fallback)
+    local manager
+    local value
+    if SeatingManager and SeatingManager.getInstance then
+        local ok, candidate = pcall(SeatingManager.getInstance)
+        if ok then manager = candidate end
+    end
+    if manager and type(manager.getFacingDirection) == "function" then
+        local ok, candidate = pcall(manager.getFacingDirection, manager, object)
+        if ok and candidate ~= nil and tostring(candidate) ~= "" then
+            value = tostring(candidate)
+        end
+    end
+    value = string.upper(tostring(value or fallback or ""))
+    if value == "N" or value == "S" or value == "E" or value == "W" then
+        return value
+    end
+    return nil
+end
+
+local function describeFurniture(square, object)
     if not square or not object then return nil end
     local x = square.getX and square:getX() or 0
     local y = square.getY and square:getY() or 0
@@ -145,25 +297,24 @@ function Rules.DescribeBed(square, object)
     local centerX, centerY = x + 0.5, y + 0.5
     local grid, sprite = spriteGrid(object)
     local width, height
+    local gridX, gridY
     if grid then
-        local okX, gridX = pcall(grid.getSpriteGridPosX, grid, sprite)
-        local okY, gridY = pcall(grid.getSpriteGridPosY, grid, sprite)
+        local okX, foundGridX = pcall(grid.getSpriteGridPosX, grid, sprite)
+        local okY, foundGridY = pcall(grid.getSpriteGridPosY, grid, sprite)
         local okW, gridWidth = pcall(grid.getWidth, grid)
         local okH, gridHeight = pcall(grid.getHeight, grid)
+        gridX, gridY = tonumber(foundGridX), tonumber(foundGridY)
         width, height = tonumber(gridWidth), tonumber(gridHeight)
         if okX and okY and okW and okH
-            and tonumber(gridX) and tonumber(gridY)
+            and gridX and gridY
             and width and height and width > 0 and height > 0
         then
-            centerX = x - tonumber(gridX) + width / 2
-            centerY = y - tonumber(gridY) + height / 2
+            centerX = x - gridX + width / 2
+            centerY = y - gridY + height / 2
         end
     end
-    local facing = string.upper(tostring(
-        Rules.GetObjectProperty(object, "Facing") or ""))
-    if facing ~= "N" and facing ~= "S" and facing ~= "E" and facing ~= "W" then
-        facing = nil
-    end
+    local facing = furnitureFacing(object,
+        Rules.GetObjectProperty(object, "Facing"))
     local axis
     if width and height and width > height then axis = "x"
     elseif width and height and height > width then axis = "y"
@@ -179,7 +330,25 @@ function Rules.DescribeBed(square, object)
         x = centerX, y = centerY, z = z,
         facing = facing, axis = axis,
         surfaceOffset = surfaceOffset,
+        spriteName = sprite and sprite.getName
+            and tostring(sprite:getName() or "") or nil,
+        gridX = gridX, gridY = gridY,
+        gridWidth = width, gridHeight = height,
     }
+end
+
+function Rules.DescribeSleepSurface(square, object)
+    object = object or Rules.FindBed(square) or Rules.FindSofa(square)
+    if not object or not Rules.IsSleepSurface(object) then return nil end
+    return describeFurniture(square, object)
+end
+
+function Rules.DescribeBed(square, object)
+    object = object or Rules.FindBed(square)
+    if not object or Rules.ClassifySleepSurface(object) ~= "bed" then
+        return nil
+    end
+    return describeFurniture(square, object)
 end
 
 function Rules.MatchSquare(square, ruleId, context)
@@ -230,6 +399,13 @@ Rules.Register("bed", {
     reason = "BED_REQUIRED",
     matches = function(square)
         return Rules.FindBed(square)
+    end,
+})
+
+Rules.Register("sofa", {
+    reason = "SOFA_REQUIRED",
+    matches = function(square)
+        return Rules.FindSofa(square)
     end,
 })
 

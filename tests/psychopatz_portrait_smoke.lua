@@ -35,31 +35,34 @@ ISPanel = Panel
 local lastModel
 ISUI3DModel = Panel:derive("ISUI3DModel")
 function ISUI3DModel:new(x, y, width, height)
-        local model = Panel:new(x, y, width, height)
-        model.javaObject = {
-            clearVariables = function() end,
-            setAnimate = function(self, value) self.animated = value end,
-        }
-        function model:instantiate() end
-        function model:setAnchorLeft() end
-        function model:setAnchorRight() end
-        function model:setAnchorTop() end
-        function model:setAnchorBottom() end
-        function model:setAnimSetName(value) self.animSet = value end
-        function model:setState(value) self.state = value end
-        function model:setDirection(value) self.direction = value end
-        function model:setIsometric(value) self.isometric = value end
-        function model:setDoRandomExtAnimations() end
-        function model:setZoom(value) self.zoom = value end
-        function model:setXOffset(value) self.xOffset = value end
-        function model:setYOffset(value) self.yOffset = value end
-        function model:setVariable() end
-        function model:setCharacter(value) self.character = value end
-        function model:setSurvivorDesc(value) self.descriptor = value end
-        lastModel = model
-        setmetatable(model, self)
-        self.__index = self
-        return model
+    local model = Panel:new(x, y, width, height)
+    model.variables = {}
+    model.javaObject = {
+        clearVariables = function() end,
+        setAnimate = function(self, value) self.animated = value end,
+    }
+    function model:instantiate() end
+    function model:setAnchorLeft() end
+    function model:setAnchorRight() end
+    function model:setAnchorTop() end
+    function model:setAnchorBottom() end
+    function model:setAnimSetName(value) self.animSet = value end
+    function model:setState(value) self.state = value end
+    function model:setDirection(value) self.direction = value end
+    function model:setIsometric(value) self.isometric = value end
+    function model:setDoRandomExtAnimations() end
+    function model:setZoom(value) self.zoom = value end
+    function model:setXOffset(value) self.xOffset = value end
+    function model:setYOffset(value) self.yOffset = value end
+    function model:setVariable(name, value)
+        self.variables[name] = value
+    end
+    function model:setCharacter(value) self.character = value end
+    function model:setSurvivorDesc(value) self.descriptor = value end
+    lastModel = model
+    setmetatable(model, self)
+    self.__index = self
+    return model
 end
 function ISUI3DModel:prerender()
     self.javaObject:setAnimate(true)
@@ -180,6 +183,7 @@ local facePanel = PsychopatzCore.UI.PortraitPanel:new(0, 0, 84, 84, {
     yOffset = -1,
     animSetName = false,
     animate = false,
+    portraitAnimation = true,
     faceOnly = true,
     showBackground = false,
     showBorder = false,
@@ -218,6 +222,32 @@ assertEqual(worn.values.Jacket, nil,
     "face-only portrait retained torso equipment")
 assertEqual(worn.values.Shirt, nil,
     "face-only portrait retained outfit clothing")
+
+assert(facePanel:setTarget(nil, {
+    id = "npc_current_clothing",
+    identitySeed = 12,
+    faceOnly = true,
+    includeCurrentClothing = true,
+    appearance = { outfitItems = { "Base.Shirt" } },
+    equipment = {
+        worn = {
+            Hat = "Base.Hat_HardHat",
+            Jacket = "Base.Jacket",
+        },
+    },
+}), "current-clothing descriptor target failed")
+assertEqual(worn.values.Jacket.fullType, "Base.Jacket",
+    "current-clothing portrait lost torso equipment")
+assertEqual(worn.values.Shirt, nil,
+    "current-clothing portrait added stale fallback outfit")
+assert(facePanel:playAnimation("greeting.wavehi"),
+    "portrait greeting animation was rejected")
+assertEqual(lastModel.variables.PNCPortraitState, "wavehi",
+    "portrait greeting animation did not select its state")
+assert(facePanel:playAnimation("reaction.thumbsdown"),
+    "portrait decline animation was rejected")
+assertEqual(lastModel.variables.PNCPortraitState, "thumbsdown",
+    "portrait decline animation did not select its state")
 
 for index = 1, 70 do
     assert(facePanel:setTarget(nil, {

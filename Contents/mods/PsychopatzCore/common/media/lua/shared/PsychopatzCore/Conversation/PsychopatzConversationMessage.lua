@@ -200,6 +200,7 @@ function Message.New(spec)
         source = copyTable(spec.source),
         deliveryState = spec.deliveryState or "delivered",
         presentationState = copyTable(spec.presentationState),
+        portraitAnimation = spec.portraitAnimation,
     }
 end
 

@@ -152,6 +152,46 @@ assertEqual(canonicalMessages[2].speakerName, "Second NPC",
     "multi-NPC speaker name")
 Events.clearOwner("conversation-smoke")
 
+local playedPortraitAnimation
+local animatedSession = Session.New({
+    choicesPart = { setChoices = function() end },
+    historyPart = {
+        addMessage = function() end,
+        setTyping = function() end,
+    },
+    portraitPart = {
+        portrait = {
+            pulseSpeech = function() end,
+            playAnimation = function(_, animationID)
+                playedPortraitAnimation = animationID
+            end,
+        },
+    },
+}, {
+    namespace = "AnimatedTest",
+    npcID = "npc-animated",
+    characterUUID = "player-animated",
+    persistHistory = false,
+})
+local animatedMessage = animatedSession:append(
+    "npc",
+    { text = "Hello." },
+    { portraitAnimation = "greeting.wavehi" }
+)
+assertEqual(animatedMessage.portraitAnimation, "greeting.wavehi",
+    "portrait animation metadata survives message creation")
+assertEqual(playedPortraitAnimation, "greeting.wavehi",
+    "portrait animation metadata reaches the portrait renderer")
+local declinedMessage = animatedSession:append(
+    "npc",
+    { text = "No." },
+    { portraitAnimation = "reaction.thumbsdown" }
+)
+assertEqual(declinedMessage.portraitAnimation, "reaction.thumbsdown",
+    "decline animation metadata survives message creation")
+assertEqual(playedPortraitAnimation, "reaction.thumbsdown",
+    "decline animation metadata reaches the portrait renderer")
+
 assertEqual(Text.Resolve({ key = "UI_Test_Message", args = { "Alex" } }),
     "Hello Alex", "translation payload")
 local hostileAccent = Theme.Resolve({

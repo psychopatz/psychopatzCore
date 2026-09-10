@@ -75,6 +75,26 @@ local function stableArraySignature(values)
     return table.concat(parts, ";")
 end
 
+local function stableValueSignature(value, depth)
+    local keys = {}
+    local parts = {}
+    local index
+    local key
+    depth = tonumber(depth) or 0
+    if type(value) ~= "table" then return tostring(value or "") end
+    if depth > 4 then return "[depth]" end
+    for key, _ in pairs(value) do keys[#keys + 1] = key end
+    table.sort(keys, function(left, right)
+        return tostring(left) < tostring(right)
+    end)
+    for index = 1, #keys do
+        key = keys[index]
+        parts[#parts + 1] = tostring(key) .. "="
+            .. stableValueSignature(value[key], depth + 1)
+    end
+    return "{" .. table.concat(parts, ";") .. "}"
+end
+
 local function isFaceLocation(location)
     local normalized = string.lower(tostring(location or ""))
     local i
@@ -93,6 +113,11 @@ local function portraitWornItems(spec)
     local filtered
     local location
     local fullType
+    if spec and (spec.includeCurrentClothing == true
+        or spec.clothingMode == "current")
+    then
+        return worn
+    end
     if spec and spec.faceOnly ~= true then
         return worn
     end
@@ -103,6 +128,13 @@ local function portraitWornItems(spec)
         end
     end
     return filtered
+end
+
+local function portraitWornVisuals(spec)
+    local equipment = type(spec and spec.equipment) == "table"
+        and spec.equipment or {}
+    return type(equipment.wornVisuals) == "table"
+        and equipment.wornVisuals or {}
 end
 
 local function descriptorKey(spec)
@@ -120,8 +152,10 @@ local function descriptorKey(spec)
         tostring(hairColor.g or ""),
         tostring(hairColor.b or ""),
         spec and spec.faceOnly == true
+            and spec.includeCurrentClothing ~= true
             and "" or stableArraySignature(appearance.outfitItems),
         stableMapSignature(portraitWornItems(spec)),
+        stableValueSignature(portraitWornVisuals(spec)),
     }, "|")
 end
 
@@ -191,10 +225,21 @@ local function resolveBodyLocation(location)
     return location
 end
 
-local function addWornItem(wornItems, fullType, explicitLocation)
+local function addWornItem(wornItems, fullType, explicitLocation, visualState)
     local item = createItem(fullType)
     local location
+    local equipment
     if not wornItems or not item then return false end
+    equipment = PNC and PNC.Equipment or nil
+    if visualState and equipment and equipment.Internal
+        and equipment.Internal.applyItemVisualState
+    then
+        pcall(
+            equipment.Internal.applyItemVisualState,
+            item,
+            visualState
+        )
+    end
     location = explicitLocation
     if not location or location == "" then
         local _, resolved = safeCall(item, "getBodyLocation")
@@ -218,6 +263,8 @@ local function buildDescriptor(spec)
     local wornSpec
     local humanVisual
     local wornItems
+    local wornVisuals
+    local hasWornItem
     local location
     local fullType
     local i
@@ -231,6 +278,7 @@ local function buildDescriptor(spec)
     if not descriptor then return nil, key end
     appearance = type(spec and spec.appearance) == "table" and spec.appearance or {}
     wornSpec = portraitWornItems(spec)
+    wornVisuals = portraitWornVisuals(spec)
     safeCall(descriptor, "setFemale", spec and spec.isFemale == true)
     local _, resolvedVisual = safeCall(descriptor, "getHumanVisual")
     humanVisual = resolvedVisual
@@ -248,14 +296,19 @@ local function buildDescriptor(spec)
     wornItems = resolvedWorn
     if wornItems then
         safeCall(wornItems, "clear")
-        if spec and spec.faceOnly ~= true then
+        hasWornItem = false
+        for _, _ in pairs(wornSpec) do
+            hasWornItem = true
+            break
+        end
+        if spec and (spec.faceOnly ~= true or not hasWornItem) then
             for i = 1, #(type(appearance.outfitItems) == "table"
                 and appearance.outfitItems or {}) do
                 addWornItem(wornItems, appearance.outfitItems[i], nil)
             end
         end
         for location, fullType in pairs(wornSpec) do
-            addWornItem(wornItems, fullType, location)
+            addWornItem(wornItems, fullType, location, wornVisuals[location])
         end
     end
     safeCall(descriptor, "resetModel")
@@ -326,11 +379,52 @@ function PsychopatzPortraitPanel:applyViewState()
     pcall(function() model:setZoom(tonumber(self.zoom) or 14) end)
     pcall(function() model:setXOffset(tonumber(self.xOffset) or 0) end)
     pcall(function() model:setYOffset(tonumber(self.yOffset) or -0.85) end)
+    if self.portraitAnimationEnabled then
+        self:applyAnimationVariables()
+    else
+        pcall(function() model:setVariable("bMoving", "false") end)
+        pcall(function() model:setVariable("isMoving", "false") end)
+        pcall(function() model:setVariable("Speed", "0.0") end)
+        pcall(function() model:setVariable("MovementSpeed", "0.0") end)
+    end
+    pcall(function() model.javaObject:setAnimate(self.animate ~= false) end)
+end
+
+function PsychopatzPortraitPanel:applyAnimationVariables(state)
+    local model = self.modelView
+    if not model or not model.javaObject then return end
+    state = tostring(state or self.portraitAnimationState or "idle")
+    pcall(function() model:setVariable("PNCPortrait", "true") end)
+    pcall(function() model:setVariable("PNCPortraitState", state) end)
     pcall(function() model:setVariable("bMoving", "false") end)
     pcall(function() model:setVariable("isMoving", "false") end)
     pcall(function() model:setVariable("Speed", "0.0") end)
     pcall(function() model:setVariable("MovementSpeed", "0.0") end)
-    pcall(function() model.javaObject:setAnimate(self.animate ~= false) end)
+    pcall(function() model:setVariable("WalkSpeed", "0.0") end)
+    pcall(function() model:setVariable("RunSpeed", "0.0") end)
+    pcall(function() model:setState("idle") end)
+end
+
+function PsychopatzPortraitPanel:refreshAnimationState(current)
+    local now = tonumber(current)
+        or (getTimeInMillis and getTimeInMillis() or 0)
+    local state = "idle"
+    if self.portraitAnimationEnabled ~= true then return end
+    if self.portraitAnimationUntil
+        and now < self.portraitAnimationUntil
+    then
+        state = self.portraitAnimationState or "idle"
+    elseif self.speechAnimationUntil and now < self.speechAnimationUntil then
+        state = "speech"
+    end
+    if self.portraitAnimationUntil and now >= self.portraitAnimationUntil then
+        self.portraitAnimationUntil = nil
+        self.portraitAnimationState = nil
+    end
+    if self.modelView and self.animationAppliedState ~= state then
+        self.animationAppliedState = state
+        self:applyAnimationVariables(state)
+    end
 end
 
 -- Conversation views can use this lightweight pulse without owning or
@@ -341,6 +435,30 @@ function PsychopatzPortraitPanel:pulseSpeech(text)
     local current = getTimeInMillis and getTimeInMillis() or 0
     self.speechPulseStartedAt = current
     self.speechPulseUntil = current + duration
+    if self.portraitAnimationEnabled then
+        self.speechAnimationUntil = current + duration
+    end
+    self:refreshAnimationState(current)
+end
+
+function PsychopatzPortraitPanel:playAnimation(animationID, durationMs)
+    local animation = tostring(animationID or "")
+    local state
+    local current
+    if self.portraitAnimationEnabled ~= true then return false end
+    if animation == "greeting.wavehi" or animation == "wavehi" then
+        state = "wavehi"
+    elseif animation == "reaction.thumbsdown" or animation == "thumbsdown" then
+        state = "thumbsdown"
+    else
+        return false
+    end
+    current = getTimeInMillis and getTimeInMillis() or 0
+    self.portraitAnimationState = state
+    self.portraitAnimationUntil = current
+        + math.max(400, tonumber(durationMs) or 2200)
+    self:refreshAnimationState(current)
+    return true
 end
 
 function PsychopatzPortraitPanel:setTarget(character, spec, force)
@@ -360,6 +478,10 @@ function PsychopatzPortraitPanel:setTarget(character, spec, force)
     self.targetKey = key
     self.targetCharacter = character
     self.targetSpec = spec
+    self.speechAnimationUntil = nil
+    self.portraitAnimationUntil = nil
+    self.portraitAnimationState = nil
+    self.animationAppliedState = nil
     local model = self:ensureModelView()
     if not model then return false end
     if model.javaObject and model.javaObject.clearVariables then
@@ -402,6 +524,7 @@ end
 function PsychopatzPortraitPanel:prerender()
     local padding = tonumber(self.padding) or 2
     local current = getTimeInMillis and getTimeInMillis() or 0
+    self:refreshAnimationState(current)
     if self.modelView and self.speechPulseUntil
         and current < self.speechPulseUntil
     then
@@ -466,6 +589,7 @@ function PsychopatzPortraitPanel:new(x, y, width, height, options)
     o.direction = options.direction or (IsoDirections and IsoDirections.S)
     o.isometric = options.isometric == true
     o.animate = options.animate ~= false
+    o.portraitAnimationEnabled = options.portraitAnimation == true
     o.faceOnly = options.faceOnly == true
     o.showBackground = options.showBackground ~= false
     o.showBorder = options.showBorder ~= false
