@@ -11,6 +11,7 @@ local function copyLine(value)
             b = tonumber(value.b) or 0.72,
             airTime = tonumber(value.airTime),
             effects = value.effects and tostring(value.effects) or nil,
+            speakerRole = value.speakerRole and tostring(value.speakerRole) or nil,
         }
     end
     return { text = tostring(value or ""), r = 0.75, g = 0.82, b = 0.72 }

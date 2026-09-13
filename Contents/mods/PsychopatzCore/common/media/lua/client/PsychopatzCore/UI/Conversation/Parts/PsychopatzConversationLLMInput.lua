@@ -38,6 +38,17 @@ local function optionTitle(component, definition)
     ) or ""
 end
 
+local function notifyNativeControlState(component, event, button)
+    if type(component.onNativeControlState) == "function" then
+        component.onNativeControlState(
+            component.owner,
+            component,
+            event,
+            button
+        )
+    end
+end
+
 -- GameKeyboard.isKeyDown() intentionally reports false while a text entry is
 -- focused.  The raw Keyboard API is still available here, which lets the
 -- text-entry command callback distinguish Enter from Shift+Enter.
@@ -242,12 +253,22 @@ function PsychopatzConversationLLMInput:onPartResize()
     if not self.resizingForText then self:resizeForText() end
 end
 
-function PsychopatzConversationLLMInput:updateModeButtonStyles()
+function PsychopatzConversationLLMInput:updateModeButtonStyles(event)
     for _, definition in ipairs(self.modeButtons or {}) do
-        UI.SetButtonVariant(
-            definition.button,
-            definition.mode == self.inputMode and "selected" or "quiet"
-        )
+        local desired = definition.mode == self.inputMode
+            and "selected" or "quiet"
+        local button = definition.button
+        -- Reconcile the native button itself, not only the logical input
+        -- mode.  A control refresh or reconstruction can reset a button
+        -- variant while inputMode remains unchanged; a mode-only cache would
+        -- then leave one icon selected and the other icon quiet incorrectly.
+        if button and button.psychopatzVariant ~= desired then
+            UI.SetButtonVariant(button, desired)
+        end
+    end
+    self.styledInputMode = self.inputMode
+    if type(self.onVisualRefresh) == "function" then
+        self.onVisualRefresh(self.owner, self, event or "mode_buttons")
     end
 end
 
@@ -275,8 +296,6 @@ function PsychopatzConversationLLMInput:setMode(mode, notify)
     for _, definition in ipairs(self.modeButtons or {}) do
         if definition.mode == mode then
             local previous = self.inputMode
-            self.inputMode = mode
-            self:updateModeButtonStyles()
             if notify and type(self.onModeChanged) == "function" then
                 local accepted = self.onModeChanged(
                     self.owner,
@@ -285,9 +304,18 @@ function PsychopatzConversationLLMInput:setMode(mode, notify)
                 )
                 if accepted == false then
                     self.inputMode = previous
-                    self:updateModeButtonStyles()
+                    self:updateModeButtonStyles("mode_rejected")
                     return false
                 end
+            end
+            -- Integrations can reject a mode while rebuilding their
+            -- recipients. Commit the visual selection only after that
+            -- transaction succeeds, so a rejected click never flashes a
+            -- mode that was not actually selected.
+            self.inputMode = mode
+            self:updateModeButtonStyles("mode_committed")
+            if type(self.onModeCommitted) == "function" then
+                self.onModeCommitted(self.owner, mode, self)
             end
             return true
         end
@@ -365,11 +393,25 @@ function PsychopatzConversationLLMInput:onSubmit()
     return accepted
 end
 
+function PsychopatzConversationLLMInput:refreshTheme()
+    local theme = UI.Theme
+    if not theme or not theme.GetRevision then return false end
+    local revision = theme.GetRevision()
+    if self.psychopatzThemeRevision == revision then return false end
+    if UI.RefreshTheme then UI.RefreshTheme(self) end
+    self.psychopatzThemeRevision = revision
+    return true
+end
+
 function PsychopatzConversationLLMInput:onClosePressed()
     if type(self.onClose) == "function" then self.onClose(self.owner, self) end
 end
 
 function PsychopatzConversationLLMInput:refreshControls()
+    -- Compact inputs are standalone UI roots, so they do not receive the
+    -- normal PsychopatzWindow theme traversal. Reconcile a changed theme
+    -- before native ISButton:setEnable() can restore its enabled-color cache.
+    self:refreshTheme()
     local state = type(self.getStateCallback) == "function"
         and self.getStateCallback(self.owner, self) or {}
     local enabled = state.enabled == true
@@ -384,18 +426,47 @@ function PsychopatzConversationLLMInput:refreshControls()
                 or "UI_PsychopatzConversation_Send",
             state.sendTitle or self.options.sendTitle or "SEND"
         ))
+        notifyNativeControlState(self, "before_send_setEnable", self.sendButton)
         self.sendButton:setEnable(enabled)
+        notifyNativeControlState(self, "after_send_setEnable", self.sendButton)
     end
-    if self.closeButton then self.closeButton:setEnable(true) end
+    if self.closeButton then
+        notifyNativeControlState(self, "before_close_setEnable", self.closeButton)
+        self.closeButton:setEnable(true)
+        notifyNativeControlState(self, "after_close_setEnable", self.closeButton)
+    end
     self.statusText = state.statusText or ""
-    self:updateModeButtonStyles()
-    self:updateToggleButton()
     for _, definition in ipairs(self.modeButtons or {}) do
+        notifyNativeControlState(
+            self,
+            "before_mode_setEnable_" .. tostring(definition.mode),
+            definition.button
+        )
         definition.button:setEnable(enabled)
+        notifyNativeControlState(
+            self,
+            "after_mode_setEnable_" .. tostring(definition.mode),
+            definition.button
+        )
     end
     if self.toggleButton then
+        notifyNativeControlState(
+            self,
+            "before_toggle_setEnable",
+            self.toggleButton.button
+        )
         self.toggleButton.button:setEnable(enabled)
+        notifyNativeControlState(
+            self,
+            "after_toggle_setEnable",
+            self.toggleButton.button
+        )
     end
+    -- ISButton:setEnable() restores its cached native colors.  Apply the
+    -- logical selection styles after that restore, otherwise a refresh can
+    -- leave the old mode painted blue while inputMode has already changed.
+    self:updateModeButtonStyles("controls_refresh")
+    self:updateToggleButton()
 end
 
 function PsychopatzConversationLLMInput:focusInput()
@@ -449,11 +520,16 @@ function PsychopatzConversationLLMInput:new(x, y, width, height, options)
     object.maxInputLength = tonumber(options.maxInputLength) or 4000
     object.modeButtons = {}
     object.inputMode = options.initialMode
+    object.styledInputMode = nil
+    object.psychopatzThemeRevision = nil
     if not object.inputMode and options.modeButtons then
         local first = options.modeButtons[1]
         object.inputMode = first and (first.mode or first.id) or nil
     end
     object.onModeChanged = options.onModeChanged
+    object.onModeCommitted = options.onModeCommitted
+    object.onVisualRefresh = options.onVisualRefresh
+    object.onNativeControlState = options.onNativeControlState
     object.toggleButton = nil
     object.toggleValue = options.initialToggleValue == true
     object.onToggleChanged = options.onToggleChanged

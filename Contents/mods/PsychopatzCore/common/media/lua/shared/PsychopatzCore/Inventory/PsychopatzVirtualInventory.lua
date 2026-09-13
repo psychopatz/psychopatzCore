@@ -1,4 +1,5 @@
 local C = require "PsychopatzCore/Inventory/PsychopatzInventoryConstants"
+local Util = require "PsychopatzCore/Inventory/PsychopatzInventoryUtil"
 local ItemRecord = require "PsychopatzCore/Inventory/PsychopatzItemRecord"
 local Types = require "PsychopatzCore/Inventory/PsychopatzItemTypeRegistry"
 local Metrics = require "PsychopatzCore/Inventory/PsychopatzInventoryMetrics"
@@ -161,7 +162,9 @@ function Virtual:remove(query, quantity, options)
 end
 
 function Virtual:clear()
-    if next(self.reservations) then return false, "active_reservations" end
+    if Util.hasEntries(self.reservations) then
+        return false, "active_reservations"
+    end
     self.records, self.stackIndex, self.typeCounts = {}, {}, {}
     self.cachedWeight = 0
     self.revision = self.revision + 1

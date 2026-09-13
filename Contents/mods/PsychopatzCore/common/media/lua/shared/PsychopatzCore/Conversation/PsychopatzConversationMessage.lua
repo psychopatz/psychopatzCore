@@ -198,6 +198,7 @@ function Message.New(spec)
         provenance = copyTable(spec.provenance),
 
         source = copyTable(spec.source),
+        voiceBinding = copyTable(spec.voiceBinding),
         deliveryState = spec.deliveryState or "delivered",
         presentationState = copyTable(spec.presentationState),
         portraitAnimation = spec.portraitAnimation,

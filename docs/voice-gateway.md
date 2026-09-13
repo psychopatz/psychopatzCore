@@ -36,7 +36,18 @@ setting; disabled player speech is rejected before a packet is queued.
 Core publishes resolved text to `psychopatzcore.voice:utterances`. The stream
 is bounded and ephemeral. Every packet includes the canonical message and
 conversation identity, save-aware day/time, source mod, resolved text, and an
-optional compact voice binding. Long text is capped for bridge safety while
+optional compact voice binding. A source may also include bounded per-utterance
+audio presentation fields inside `speech`:
+
+```lua
+speech = {
+    effect_profile = "radio", -- none, radio, telephone, muffled, underwater
+    environment = "normal", -- normal, underwater, muffled
+    intensity = 0.8,
+}
+```
+
+Long text is capped for bridge safety while
 the canonical conversation history remains unchanged.
 
 PBrainZ consumes the channel through the existing `SpeechScheduler`. TTS is

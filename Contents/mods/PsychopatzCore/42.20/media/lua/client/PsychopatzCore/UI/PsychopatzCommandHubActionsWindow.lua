@@ -124,11 +124,11 @@ function ISPsychopatzCommandHubActionsWindow:layoutButtons()
     local gap = Layout.Pixels(6, scale)
     local padding = Layout.Pixels(8, scale)
     local rowHeight = Layout.Pixels(30, scale)
-    local columns = #actions >= 4 and 2 or 1
     local rect = self:getContentRect({ padding = 8 })
     local availableWidth = rect.width
+    local columns = availableWidth >= Layout.Pixels(260, scale) and 2 or 1
     local buttonWidth = columns == 1
-        and math.max(Layout.Pixels(180, scale), availableWidth)
+        and math.max(1, availableWidth)
         or math.max(Layout.Pixels(120, scale), math.floor(
             (availableWidth - gap) / columns))
     local row, column = 0, 0

@@ -112,6 +112,10 @@ local function copySpeech(value)
         can_interrupt = true, canInterrupt = true,
         cancel_group = true, cancelGroup = true,
         expires_after_ms = true, expiresAfterMs = true,
+        effect_profile = true, effectProfile = true,
+        audio_effect_profile = true, audioEffectProfile = true,
+        environment = true, audio_environment = true, audioEnvironment = true,
+        intensity = true, effect_intensity = true, effectIntensity = true,
     }
     local key
     local item

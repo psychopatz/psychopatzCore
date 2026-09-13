@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: steam-uploader-gui
+Version: 0.1.0
+Summary: Portable Python GUI for Steam Workshop mod uploads
+Requires-Python: >=3.11
+Requires-Dist: Pillow>=10.0

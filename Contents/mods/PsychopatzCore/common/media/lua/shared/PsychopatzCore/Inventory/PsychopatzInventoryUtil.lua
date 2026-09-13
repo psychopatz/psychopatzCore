@@ -23,7 +23,8 @@ function Util.call(object, methodName, ...)
     local value
     if type(method) ~= "function" then return nil, false end
     ok, value = pcall(method, object, ...)
-    return ok and value or nil, ok
+    if not ok then return nil, false end
+    return value, true
 end
 
 function Util.copy(value, depth, seen)

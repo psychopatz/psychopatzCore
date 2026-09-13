@@ -6,6 +6,16 @@ local RadioDeviceState = PsychopatzCore.RadioDeviceState
 local POLL_MS = 5000
 local lastPollAt = 0
 
+local function nowMs()
+    if getTimeInMillis then return tonumber(getTimeInMillis()) or 0 end
+    if getTimestampMs then return tonumber(getTimestampMs()) or 0 end
+    local time = getGameTime and getGameTime() or nil
+    if time and time.getWorldAgeHours then
+        return (tonumber(time:getWorldAgeHours()) or 0) * 3600000
+    end
+    return 0
+end
+
 local function displayName(definition)
     if definition.nameKey and getText then
         local value = getText(definition.nameKey)
@@ -58,7 +68,8 @@ local function playerDevices(player)
 end
 
 local function onTick()
-    local at = getTimestampMs and tonumber(getTimestampMs()) or 0
+    local at = nowMs()
+    if at < lastPollAt then lastPollAt = 0 end
     if at - lastPollAt < POLL_MS then return end
     lastPollAt = at
     for playerNum = 0, 3 do

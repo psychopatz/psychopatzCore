@@ -19,6 +19,10 @@ function Network.applyRegistryDelta(payload)
     return Types.applyDelta(payload)
 end
 
+function Network.projectRecord(record, options)
+    return ItemRecord.projectDisplayState(record, options)
+end
+
 function Network.decodeSnapshot(payload)
     if type(payload) ~= "table" or tonumber(payload[1]) ~= C.NETWORK_SCHEMA
         or tonumber(payload[2]) ~= C.RECORD_SCHEMA

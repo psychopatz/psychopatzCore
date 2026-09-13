@@ -1,0 +1,7 @@
+"""Limits shared by the editor, validator, and Steam uploader adapter."""
+
+MAX_TITLE_LENGTH = 128
+MAX_DESCRIPTION_LENGTH = 8_000
+MAX_CHANGE_NOTE_LENGTH = 8_000
+MAX_TAG_LENGTH = 255
+MAX_PRIMARY_PREVIEW_BYTES = 1_000_000

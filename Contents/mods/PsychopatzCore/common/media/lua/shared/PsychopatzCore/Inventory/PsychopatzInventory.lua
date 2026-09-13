@@ -12,6 +12,11 @@ local MaterialTransaction = require "PsychopatzCore/Inventory/PsychopatzMaterial
 local Serializer = require "PsychopatzCore/Inventory/PsychopatzInventorySerializer"
 local Network = require "PsychopatzCore/Inventory/PsychopatzInventoryNetworkCodec"
 local Metrics = require "PsychopatzCore/Inventory/PsychopatzInventoryMetrics"
+local Portable = require "PsychopatzCore/Inventory/PsychopatzPortableItemState"
+local ItemStateDefaults = require
+    "PsychopatzCore/Inventory/PsychopatzItemStateDefaults"
+local DisplayState = require
+    "PsychopatzCore/Inventory/PsychopatzInventoryDisplayState"
 
 Inventory.SCHEMA_VERSION = 1
 Inventory.ItemTypeRegistry = Types
@@ -20,12 +25,30 @@ Inventory.ItemRecord = ItemRecord
 Inventory.Serializer = Serializer
 Inventory.NetworkCodec = Network
 Inventory.Metrics = Metrics
+Inventory.PortableItemState = Portable
+Inventory.ItemStateDefaults = ItemStateDefaults
+Inventory.DisplayState = DisplayState
 Inventory.MaterialTransaction = MaterialTransaction
 
 function Inventory.getItemTypeId(fullType, create) return Types.getId(fullType, create) end
 function Inventory.getItemFullType(typeId) return Types.getFullType(typeId) end
 function Inventory.encodeItem(item, quantity) return ItemRecord.encode(item, quantity) end
 function Inventory.decodeItem(record, factory) return ItemRecord.decode(record, factory) end
+function Inventory.projectItemState(record, options)
+    return DisplayState.ProjectRecord(record, options)
+end
+function Inventory.projectCompactState(item, options)
+    return DisplayState.ProjectCompactState(item, options)
+end
+function Inventory.projectNativeState(item, options)
+    return DisplayState.ProjectNativeState(item, options)
+end
+function Inventory.resolveItemState(item, options)
+    return ItemStateDefaults.Effective(item, options)
+end
+function Inventory.diffItemState(fullType, state, options)
+    return ItemStateDefaults.Diff(fullType, state, options)
+end
 function Inventory.createVirtualInventory(options) return Virtual.new(options) end
 function Inventory.wrapPhysicalInventory(container, options) return Physical.new(container, options) end
 function Inventory.transfer(...) return Transaction.transfer(...) end

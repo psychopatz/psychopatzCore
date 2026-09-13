@@ -67,7 +67,7 @@
     "UI_PsychopatzCore_SettingPlayerSpeechTTS": "Speak player dialogue with TTS",
     "UI_PsychopatzCore_KeybindingsSection": "Key Bindings",
     "UI_PsychopatzCore_DebugControlsKey": "Open Psychopatz Debug Controls (Numpad 0)",
-    "UI_PsychopatzCore_DebugControlsTooltip": "Hold Numpad 0 for 600 ms to open the Psychopatz debug controls.",
+    "UI_PsychopatzCore_DebugControlsTooltip": "Hold Numpad 0 for 600 ms to open the controls; press and release it while open to execute the current command set.",
     "UI_PsychopatzCore_Widget_Attach": "Attach to owner",
     "UI_PsychopatzCore_Widget_Detach": "Detach as widget",
     "UI_PsychopatzCore_CommandHub_Title": "COMMAND HUB",
@@ -90,5 +90,13 @@
     "UI_PsychopatzCore_CommandHub_Settings_Close": "CLOSE",
     "UI_PsychopatzCore_CommandHub_Settings_Apply": "APPLY",
     "UI_PsychopatzCore_CommandHub_Settings_Applied": "Settings applied.",
-    "UI_PsychopatzCore_CommandHub_Settings_Invalid": "Enter valid appearance values."
+    "UI_PsychopatzCore_CommandHub_Settings_Invalid": "Enter valid appearance values.",
+    "UI_PsychopatzInventory_Tooltip_MixedLiquids": "Mixed Liquids",
+    "UI_PsychopatzInventory_Tooltip_Status": "Status",
+    "UI_PsychopatzInventory_Tooltip_Freezing": "Freezing",
+    "UI_PsychopatzInventory_Tooltip_Chambered": "Chambered",
+    "UI_PsychopatzInventory_Tooltip_Jammed": "Jammed",
+    "UI_PsychopatzInventory_Tooltip_Clothing": "Clothing",
+    "UI_PsychopatzInventory_Tooltip_State": "State",
+    "UI_PsychopatzInventory_Tooltip_StateUnavailable": "State unavailable"
 }

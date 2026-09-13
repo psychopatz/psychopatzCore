@@ -18,6 +18,15 @@ local variants = {
     quiet = { background = "surface", border = "border", text = "textMuted" },
 }
 
+local function copyColor(color)
+    return {
+        r = color and color.r or 0,
+        g = color and color.g or 0,
+        b = color and color.b or 0,
+        a = color and color.a or 1,
+    }
+end
+
 -- ISLabel:setName() restores the label's originalX before measuring its new
 -- text. That is useful for right-aligned native labels, but it moves labels
 -- that were positioned later by a responsive layout. Keep dynamic labels
@@ -49,13 +58,23 @@ end
 function UI.ApplyButtonTheme(button, definition)
     if not button then return button end
     local style = definition or variants.default
-    button.backgroundColor = Theme.Color(style.background or "surface",
+    local background = Theme.Color(style.background or "surface",
         style.backgroundAlpha)
+    local border = Theme.Color(style.border or "border",
+        style.borderAlpha)
+    button.backgroundColor = background
     button.backgroundColorMouseOver = Theme.Color(
         style.hover or "surfaceHover", style.hoverAlpha)
-    button.borderColor = Theme.Color(style.border or "border",
-        style.borderAlpha)
+    button.borderColor = border
     button.textColor = Theme.Color(style.text or "text", style.textAlpha)
+
+    -- Build 42 ISButton:setEnable() snapshots these fields on the first
+    -- enable/disable call and restores them on every later enable.  Keeping
+    -- only the live colors in sync makes a mode switch look correct until the
+    -- next refresh, when native ISButton restores the old snapshot.  Theme
+    -- application owns the enabled-color cache as well as the live colors.
+    button.backgroundColorEnabled = copyColor(background)
+    button.borderColorEnabled = copyColor(border)
     return button
 end
 

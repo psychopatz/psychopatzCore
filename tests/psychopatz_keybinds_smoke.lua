@@ -15,7 +15,8 @@ local bootCount = 0
 local tickCount = 0
 
 getKeyCode = function(name)
-    return name == "T" and 20 or 34
+    local keys = { T = 20, G = 34, D = 44, H = 50 }
+    return keys[name] or 34
 end
 getTimeInMillis = function() return now end
 -- Exercise the same numeric Keyboard API available in the game runtime.
@@ -87,7 +88,25 @@ equal(Keybinds.RegisterLongPress({
     longPressMs = 500,
     onTrigger = function() _G.longCount = (_G.longCount or 0) + 1 end,
 }) ~= false, true, "long press registration")
-equal(#options.data, 3, "settings entries")
+equal(Keybinds.RegisterTapLongPress({
+    id = "Smoke.TapLong",
+    label = "Smoke tap-long press",
+    defaultKey = getKeyCode("D"),
+    longPressMs = 500,
+    onTap = function() _G.tapCount = (_G.tapCount or 0) + 1 end,
+    onLongPress = function()
+        _G.tapLongCount = (_G.tapLongCount or 0) + 1
+    end,
+}) ~= false, true, "tap-long press registration")
+equal(#options.data, 4, "settings entries")
+equal(Keybinds.RegisterPress({
+    id = "Smoke.Hidden",
+    label = "Hidden press",
+    exposeInOptions = false,
+    defaultKey = getKeyCode("H"),
+    onTrigger = function() end,
+}) ~= false, true, "hidden press registration")
+equal(#options.data, 4, "hidden binding omitted from settings")
 
 Events.boot()
 equal(bootCount, 1, "settings loaded at game boot")
@@ -119,9 +138,36 @@ now = 2500
 Events.tick()
 equal(_G.longCount, 2, "long press rearmed after release")
 
+downKey = 0
+now = 2600
+Events.tick()
+
 local longBinding = Keybinds.Get("Smoke.Long")
 longBinding.option.key = 34
 equal(Keybinds.GetKeyCode(longBinding), 34,
     "runtime reads the rebindable option value")
+
+downKey = 44
+now = 3000
+Events.tick()
+downKey = 0
+now = 3001
+Events.tick()
+equal(_G.tapCount, 1, "tap-long press tap trigger")
+equal(_G.tapLongCount, nil, "tap-long press did not fire on tap")
+
+downKey = 44
+now = 4000
+Events.tick()
+now = 4499
+Events.tick()
+equal(_G.tapLongCount, nil, "tap-long press fired too early")
+now = 4500
+Events.tick()
+equal(_G.tapLongCount, 1, "tap-long press long trigger")
+downKey = 0
+now = 4501
+Events.tick()
+equal(_G.tapCount, 1, "tap-long press did not tap after long press")
 
 print("psychopatz keybinds: ok")

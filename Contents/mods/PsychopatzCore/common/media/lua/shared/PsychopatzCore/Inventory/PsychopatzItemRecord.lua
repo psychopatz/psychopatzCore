@@ -137,5 +137,13 @@ function ItemRecord.decode(record, factory)
     return item
 end
 
+-- Lazy-load the read-only display projection to avoid a module cycle while
+-- built-in codecs register themselves during ItemRecord initialization.
+function ItemRecord.projectDisplayState(record, options)
+    local Display = require
+        "PsychopatzCore/Inventory/PsychopatzInventoryDisplayState"
+    return Display.ProjectRecord(record, options)
+end
+
 PsychopatzCore.Inventory.ItemRecord = ItemRecord
 return ItemRecord

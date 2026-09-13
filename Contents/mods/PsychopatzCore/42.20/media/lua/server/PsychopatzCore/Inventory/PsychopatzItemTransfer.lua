@@ -1,4 +1,5 @@
 require "PsychopatzCore/00_PsychopatzCore_Init"
+local Portable = require "PsychopatzCore/Inventory/PsychopatzPortableItemState"
 
 PsychopatzCore.ItemTransfer = PsychopatzCore.ItemTransfer or {}
 
@@ -29,111 +30,14 @@ local function normalizeCount(count)
     return value
 end
 
-local function normalizeFluidType(fluidType)
-    if fluidType == nil then
-        return nil
-    end
-    local value = tostring(fluidType)
-    local colonPos = string.find(value, ":", 1, true)
-    if colonPos then
-        value = string.sub(value, 1, colonPos - 1)
-    end
-    value = value:gsub("^%s+", ""):gsub("%s+$", "")
-    if value == "" or string.lower(value) == "true" then
-        return nil
-    end
-    return value
-end
-
-local function resolveScriptFluid(fluidType)
-    local normalized = normalizeFluidType(fluidType)
-    if not normalized or not getScriptManager then
-        return nil, normalized
-    end
-
-    local manager = getScriptManager()
-    if not manager or not manager.getFluid then
-        return nil, normalized
-    end
-
-    local fluid = manager:getFluid(normalized)
-    if not fluid and string.sub(normalized, 1, 5) == "Base." then
-        fluid = manager:getFluid(string.sub(normalized, 6))
-    elseif not fluid then
-        fluid = manager:getFluid("Base." .. normalized)
-    end
-    return fluid, normalized
-end
-
 local function applyFluidState(item, state)
-    if not item or not state or not item.getFluidContainer then
-        return
+    if not item or type(state) ~= "table"
+        or (state.fluids == nil and state.fluidType == nil
+            and state.fluidAmount == nil and state.fluidCapacity == nil)
+    then
+        return true
     end
-    local container = item:getFluidContainer()
-    if not container then
-        return
-    end
-
-    local scriptFluid, fluidType = resolveScriptFluid(state.fluidType)
-    local amount = tonumber(state.fluidAmount)
-    local applied = false
-    local attempts = {
-        function()
-            if scriptFluid and container.clear then container:clear() end
-        end,
-        function()
-            if scriptFluid and container.setPrimaryFluid then
-                container:setPrimaryFluid(scriptFluid)
-                applied = true
-            end
-        end,
-        function()
-            if scriptFluid and amount ~= nil and container.setPrimaryFluid then
-                container:setPrimaryFluid(scriptFluid, amount)
-                applied = true
-            end
-        end,
-        function()
-            if scriptFluid and container.setFluid then
-                container:setFluid(scriptFluid)
-                applied = true
-            end
-        end,
-        function()
-            if scriptFluid and amount ~= nil and container.addFluid then
-                container:addFluid(scriptFluid, amount)
-                applied = true
-            end
-        end,
-        function()
-            if fluidType and container.setFluidType then
-                container:setFluidType(fluidType)
-                applied = true
-            end
-        end,
-        function()
-            if fluidType and amount ~= nil and container.addFluid then
-                container:addFluid(fluidType, amount)
-                applied = true
-            end
-        end,
-        function()
-            if fluidType and amount ~= nil and container.insertFluid then
-                container:insertFluid(fluidType, amount)
-                applied = true
-            end
-        end,
-    }
-
-    if fluidType then
-        for _, attempt in ipairs(attempts) do
-            pcall(attempt)
-            if applied then break end
-        end
-    end
-    if amount ~= nil and container.setAmount then
-        pcall(container.setAmount, container, math.max(0, amount))
-    end
+    return Portable.ApplyFluid(item, state)
 end
 
 local function readVisualValue(visual, methodName, ...)
@@ -259,7 +163,7 @@ end
 
 local function applyItemState(item, state)
     if not item or type(state) ~= "table" then
-        return
+        return true
     end
 
     if state.usedDelta ~= nil and item.IsDrainable and item:IsDrainable() and item.setUsedDelta then
@@ -309,7 +213,9 @@ local function applyItemState(item, state)
 
     applyItemVisualState(item, state)
 
-    applyFluidState(item, state)
+    Portable.ApplyFood(item, state)
+
+    return applyFluidState(item, state)
 end
 
 local function eachJavaList(list, callback)
@@ -324,6 +230,8 @@ end
 --- Adds fully configured items, then sends the native MP container packets.
 function Transfer.AddToContainer(container, fullType, count, state)
     local quantity = normalizeCount(count)
+    local applyOK = true
+    local applyReason
     if not container or not fullType or tostring(fullType) == "" or not quantity then
         return nil, "invalid_add_request"
     end
@@ -334,8 +242,18 @@ function Transfer.AddToContainer(container, fullType, count, state)
     end
 
     eachJavaList(items, function(item)
-        applyItemState(item, state)
+        if applyOK then applyOK, applyReason = applyItemState(item, state) end
     end)
+    if not applyOK then
+        eachJavaList(items, function(item)
+            if item.getContainer and item:getContainer() then
+                Transfer.RemoveItem(item)
+            elseif container.DoRemoveItem then
+                container:DoRemoveItem(item)
+            end
+        end)
+        return nil, applyReason or "item_state_restore_failed"
+    end
 
     -- sendAddItemToContainer serializes the already-configured item. Sending
     -- SyncItemFields before this packet races the client's item creation and
@@ -390,35 +308,13 @@ function Transfer.CaptureState(item)
         end
         if hasCopiedValue then state.modData = copied end
     end
-    if item.getFluidContainer then
-        local ok, fluidContainer = pcall(item.getFluidContainer, item)
-        if ok and fluidContainer then
-            if fluidContainer.getAmount then
-                ok, state.fluidAmount = pcall(fluidContainer.getAmount, fluidContainer)
-                if not ok then state.fluidAmount = nil end
-            end
-            local fluid
-            if fluidContainer.getPrimaryFluid then
-                ok, fluid = pcall(fluidContainer.getPrimaryFluid, fluidContainer)
-            elseif fluidContainer.getFluidType then
-                ok, fluid = pcall(fluidContainer.getFluidType, fluidContainer)
-            end
-            if ok and fluid then
-                if type(fluid) ~= "string" then
-                    local value
-                    if fluid.getFullName then
-                        local fluidOK
-                        fluidOK, value = pcall(fluid.getFullName, fluid)
-                        if fluidOK then fluid = value end
-                    elseif fluid.getName then
-                        local fluidOK
-                        fluidOK, value = pcall(fluid.getName, fluid)
-                        if fluidOK then fluid = value end
-                    end
-                end
-                state.fluidType = normalizeFluidType(fluid)
-            end
-        end
+    local fluidState = Portable.CaptureFluid(item)
+    if fluidState then
+        for key, value in pairs(fluidState) do state[key] = value end
+    end
+    local foodState = Portable.CaptureFood(item)
+    if foodState then
+        for key, value in pairs(foodState) do state[key] = value end
     end
     return state
 end

@@ -5,6 +5,8 @@ local Keybinds = PsychopatzCore.Keybinds
 
 Keybinds.TYPE_PRESS = Keybinds.TYPE_PRESS or "press"
 Keybinds.TYPE_LONG_PRESS = Keybinds.TYPE_LONG_PRESS or "longpress"
+Keybinds.TYPE_TAP_LONG_PRESS = Keybinds.TYPE_TAP_LONG_PRESS
+    or "tap_longpress"
 Keybinds.DEFAULT_LONG_PRESS_MS = Keybinds.DEFAULT_LONG_PRESS_MS or 500
 Keybinds.bindings = Keybinds.bindings or {}
 
@@ -47,6 +49,8 @@ local function settingsOptions()
 end
 
 local function createOption(definition)
+    if definition.exposeInOptions == false then return nil end
+
     local options = settingsOptions()
     if not options then return nil end
 
@@ -123,13 +127,18 @@ local function isEnabled(binding)
     return ok and enabled == true
 end
 
-local function invoke(binding)
-    if type(binding.onTrigger) ~= "function" then return end
-    local ok, reason = pcall(binding.onTrigger, binding)
+local function invokeCallback(binding, callbackName)
+    local callback = binding[callbackName]
+    if type(callback) ~= "function" then return end
+    local ok, reason = pcall(callback, binding)
     if not ok and print then
         print("[PsychopatzCore.Keybinds] " .. tostring(binding.id)
-            .. " failed: " .. tostring(reason))
+            .. " " .. tostring(callbackName) .. " failed: " .. tostring(reason))
     end
+end
+
+local function invoke(binding)
+    invokeCallback(binding, "onTrigger")
 end
 
 local function resetLongPressState(binding, key)
@@ -167,16 +176,61 @@ local function processLongPress(binding, key)
     end
 end
 
+local function processTapLongPress(binding, key)
+    local state = binding.state
+    if not state or state.key ~= key then
+        state = resetLongPressState(binding, key)
+    end
+
+    if key <= 0 then
+        state.startedAt = nil
+        state.triggered = false
+        return
+    end
+
+    if isKeyDown(key) then
+        if not state.startedAt then
+            state.startedAt = nowMs()
+        end
+
+        local threshold = math.max(
+            1,
+            tonumber(binding.longPressMs) or Keybinds.DEFAULT_LONG_PRESS_MS
+        )
+        if not state.triggered and nowMs() - state.startedAt >= threshold then
+            state.triggered = true
+            invokeCallback(binding, "onLongPress")
+        end
+        return
+    end
+
+    if state.startedAt and not state.triggered then
+        invokeCallback(binding, "onTap")
+    end
+    state.startedAt = nil
+    state.triggered = false
+end
+
 function Keybinds.Register(definition)
     if type(definition) ~= "table" then return false end
 
     local id = tostring(definition.id or "")
     if id == "" then return false end
+    local tapLongPress = definition.type == Keybinds.TYPE_TAP_LONG_PRESS
     if definition.type ~= Keybinds.TYPE_PRESS
-        and definition.type ~= Keybinds.TYPE_LONG_PRESS then
+        and definition.type ~= Keybinds.TYPE_LONG_PRESS
+        and not tapLongPress then
         return false
     end
-    if type(definition.onTrigger) ~= "function" then return false end
+    if tapLongPress then
+        if type(definition.onTap) ~= "function"
+            or type(definition.onLongPress) ~= "function"
+        then
+            return false
+        end
+    elseif type(definition.onTrigger) ~= "function" then
+        return false
+    end
 
     definition.id = id
     definition.defaultKey = resolveKeyCode(
@@ -196,8 +250,12 @@ function Keybinds.Register(definition)
         existing.defaultKey = definition.defaultKey
         existing.longPressMs = definition.longPressMs
         existing.onTrigger = definition.onTrigger
+        existing.onTap = definition.onTap
+        existing.onLongPress = definition.onLongPress
         existing.isEnabled = definition.isEnabled
-        existing.option = definition.option or existing.option
+        existing.exposeInOptions = definition.exposeInOptions
+        existing.option = definition.exposeInOptions == false
+            and nil or definition.option or existing.option
         return existing
     end
 
@@ -219,6 +277,14 @@ function Keybinds.RegisterLongPress(definition)
     local copy = {}
     for key, value in pairs(definition) do copy[key] = value end
     copy.type = Keybinds.TYPE_LONG_PRESS
+    return Keybinds.Register(copy)
+end
+
+function Keybinds.RegisterTapLongPress(definition)
+    if type(definition) ~= "table" then return false end
+    local copy = {}
+    for key, value in pairs(definition) do copy[key] = value end
+    copy.type = Keybinds.TYPE_TAP_LONG_PRESS
     return Keybinds.Register(copy)
 end
 
@@ -249,13 +315,17 @@ function Keybinds.OnTick()
     for _, binding in pairs(Keybinds.bindings) do
         local key = keyCodeFor(binding)
         if not isEnabled(binding) then
-            if binding.type == Keybinds.TYPE_LONG_PRESS then
+            if binding.type == Keybinds.TYPE_LONG_PRESS
+                or binding.type == Keybinds.TYPE_TAP_LONG_PRESS
+            then
                 resetLongPressState(binding, key)
             end
         elseif binding.type == Keybinds.TYPE_PRESS then
             if isKeyPressed(key) then invoke(binding) end
         elseif binding.type == Keybinds.TYPE_LONG_PRESS then
             processLongPress(binding, key)
+        elseif binding.type == Keybinds.TYPE_TAP_LONG_PRESS then
+            processTapLongPress(binding, key)
         end
     end
 end

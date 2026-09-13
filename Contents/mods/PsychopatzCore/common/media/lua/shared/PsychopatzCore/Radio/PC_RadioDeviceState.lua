@@ -13,7 +13,7 @@ end
 
 -- DeviceData stores volume as a normalized value from 0 to 1.  The vanilla
 -- radio UI treats any value above zero as at least one audible volume step.
-function RadioDeviceState.Validate(device)
+local function validateAudible(device)
     local data = getDeviceData(device)
     if not data then return false, "missing_device_data" end
     if not data.getIsPortable or not data:getIsPortable() then
@@ -34,10 +34,22 @@ function RadioDeviceState.Validate(device)
     if not data.getDeviceVolume or data:getDeviceVolume() <= 0 then
         return false, "muted_volume"
     end
+    return true, nil
+end
+
+function RadioDeviceState.Validate(device)
+    local valid, reason = validateAudible(device)
+    if not valid then return false, reason end
+    local data = getDeviceData(device)
     if not data.getMicIsMuted or data:getMicIsMuted() then
         return false, "muted_microphone"
     end
     return true, nil
+end
+
+function RadioDeviceState.IsAudible(device)
+    local valid = validateAudible(device)
+    return valid == true
 end
 
 function RadioDeviceState.IsActive(device)
@@ -98,6 +110,13 @@ end
 function RadioDeviceState.FindActivePlayerDevice(player)
     for _, item in ipairs(RadioDeviceState.GetPlayerDevices(player)) do
         if RadioDeviceState.IsActive(item) then return item end
+    end
+    return nil
+end
+
+function RadioDeviceState.FindAudiblePlayerDevice(player)
+    for _, item in ipairs(RadioDeviceState.GetPlayerDevices(player)) do
+        if RadioDeviceState.IsAudible(item) then return item end
     end
     return nil
 end

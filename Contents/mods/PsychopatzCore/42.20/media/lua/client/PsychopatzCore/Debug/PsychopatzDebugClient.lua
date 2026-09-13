@@ -296,29 +296,37 @@ local function openDebugWindow()
     return window
 end
 
-local function onDebugKeybind()
+local function onDebugTap()
     local player = getPlayer()
     if not PsychopatzCore.IsOwner(player) then return end
 
     local existing = getOpenDebugWindow()
     if existing then
         existing:onExecute()
-        return
     end
-
-    openDebugWindow()
 end
 
-Keybinds.RegisterLongPress({
+local function onDebugLongPress()
+    local player = getPlayer()
+    if not PsychopatzCore.IsOwner(player) then return end
+
+    if not getOpenDebugWindow() then
+        openDebugWindow()
+    end
+end
+
+Keybinds.RegisterTapLongPress({
     id = "PsychopatzCore.DebugControlsNumpad0",
     label = "UI_PsychopatzCore_DebugControlsKey",
     tooltip = "UI_PsychopatzCore_DebugControlsTooltip",
+    exposeInOptions = false,
     defaultKey = Keyboard and Keyboard.KEY_NUMPAD0 or 82,
     longPressMs = 600,
     isEnabled = function()
         return PsychopatzCore.IsOwner(getPlayer and getPlayer() or nil)
     end,
-    onTrigger = onDebugKeybind,
+    onTap = onDebugTap,
+    onLongPress = onDebugLongPress,
 })
 
 local nightVisionLight = nil

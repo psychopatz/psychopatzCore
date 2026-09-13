@@ -1,0 +1,2 @@
+[console_scripts]
+steam-uploader-gui = steam_uploader_gui.__main__:main

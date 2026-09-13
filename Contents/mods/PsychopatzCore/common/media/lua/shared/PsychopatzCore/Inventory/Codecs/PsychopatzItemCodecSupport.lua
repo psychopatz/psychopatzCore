@@ -1,5 +1,8 @@
 local C = require "PsychopatzCore/Inventory/PsychopatzInventoryConstants"
 local Util = require "PsychopatzCore/Inventory/PsychopatzInventoryUtil"
+local Defaults = require
+    "PsychopatzCore/Inventory/PsychopatzItemStateDefaults"
+local Profiles = require "PsychopatzCore/Inventory/PsychopatzItemTypeProfile"
 
 local Support = {}
 
@@ -36,13 +39,37 @@ function Support.encodeCommon(item)
     local modData = getModData(item)
     local actualWeight = Util.number(Util.call(item, "getActualWeight") or item.actualWeight)
     local baseWeight = Util.number(Util.call(item, "getWeight") or item.weight)
-    if condition and (not conditionMax or condition ~= conditionMax) then
-        flags = flags + C.FLAG_CONDITION
-        state[#state + 1] = condition
+    local actualState = {}
+    local fallbackDefaults = {}
+    local defaults
+    local commonDelta
+    local fullType = Support.fullType(item)
+    local profile = Profiles.ClassifyNative(item)
+    local capabilities = profile.capabilities or {}
+
+    if condition ~= nil then actualState.condition = condition end
+    if capabilities.uses and usedDelta ~= nil then
+        actualState.usedDelta = usedDelta
     end
-    if usedDelta ~= nil then
+    defaults = Defaults.Get(fullType)
+    if type(defaults) == "table" then
+        fallbackDefaults = Util.copy(defaults)
+    end
+    -- Keep the established native condition fallback when a definition
+    -- provider only knows a specialized component such as fluids.
+    if fallbackDefaults.condition == nil and conditionMax ~= nil then
+        fallbackDefaults.condition = conditionMax
+    end
+    commonDelta = Defaults.Diff(fullType, actualState, {
+        defaults = fallbackDefaults,
+    })
+    if commonDelta and commonDelta.condition ~= nil then
+        flags = flags + C.FLAG_CONDITION
+        state[#state + 1] = commonDelta.condition
+    end
+    if commonDelta and commonDelta.usedDelta ~= nil then
         flags = flags + C.FLAG_USED_DELTA
-        state[#state + 1] = usedDelta
+        state[#state + 1] = commonDelta.usedDelta
     end
     if favorite == true or item.favorite == true then flags = flags + C.FLAG_FAVORITE end
     if name and name ~= "" then

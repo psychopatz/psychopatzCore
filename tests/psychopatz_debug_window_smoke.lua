@@ -6,6 +6,7 @@ local commands = {}
 local now = 0
 local downKey = 0
 local tickCallbacks = {}
+local owner = true
 
 PsychopatzCore = {
     COMMAND_MODULE = "PsychopatzCore",
@@ -15,7 +16,7 @@ PsychopatzCore = {
         SetLocalOverride = function() end,
     },
     DebugHub = { Open = function() end },
-    IsOwner = function() return true end,
+    IsOwner = function() return owner end,
 }
 PsychopatzCore.UI = {
     CreateToggleButton = function(parent, definition)
@@ -189,9 +190,21 @@ dofile(CLIENT .. "PsychopatzCore/Debug/PsychopatzDebugClient.lua")
 assert(Events.tick, "debug keybind tick handler was not registered")
 assert(PsychopatzDebugWindow.instance == nil, "debug window existed before opening")
 
-local function triggerDebugKey(startTime)
+local function tapDebugKey(startTime)
     downKey = 0
     pressedKey = 0
+    now = startTime
+    Events.tick()
+    downKey = 82
+    now = startTime + 1
+    Events.tick()
+    downKey = 0
+    now = startTime + 2
+    Events.tick()
+end
+
+local function longPressDebugKey(startTime)
+    downKey = 0
     now = startTime
     Events.tick()
     downKey = 82
@@ -200,12 +213,23 @@ local function triggerDebugKey(startTime)
     now = startTime + 601
     Events.tick()
     downKey = 0
-    pressedKey = 0
     now = startTime + 602
     Events.tick()
 end
 
-triggerDebugKey(0)
+owner = false
+tapDebugKey(0)
+assert(PsychopatzDebugWindow.instance == nil,
+    "non-owner opened the secret debug window")
+assert(#commands == 0, "non-owner triggered a debug command")
+
+owner = true
+tapDebugKey(100)
+assert(PsychopatzDebugWindow.instance == nil,
+    "short press opened the debug window")
+assert(#commands == 0, "short press triggered a command while closed")
+
+longPressDebugKey(1000)
 local first = PsychopatzDebugWindow.instance
 assert(first ~= nil, "Numpad 0 did not open the debug window")
 assert(created == 1, "opening the debug window created the wrong number of instances")
@@ -229,7 +253,7 @@ first.qtyWalkie = text("1")
 first.itemEntry = text("Base.Katana")
 first.qtyEntry = text("1")
 
-triggerDebugKey(1000)
+tapDebugKey(2000)
 assert(created == 1, "pressing Numpad 0 on an open window created a duplicate")
 assert(PsychopatzDebugWindow.instance == first,
     "executing unexpectedly replaced the singleton")
@@ -240,7 +264,11 @@ assert(#commands == 2 and commands[2].command == "GrantPowers",
 assert(commands[2].args.itemID == "Base.Katana" and commands[2].args.doSpawn == true,
     "execute action did not use the selected controls")
 
-triggerDebugKey(2000)
+longPressDebugKey(3000)
+assert(created == 1, "holding Numpad 0 on an open window created a duplicate")
+assert(#commands == 2, "holding Numpad 0 on an open window executed a command")
+
+tapDebugKey(4000)
 assert(PsychopatzDebugWindow.instance == first,
     "repeated access did not preserve the debug window")
 assert(#commands == 4 and commands[4].command == "GrantPowers",
@@ -254,7 +282,7 @@ first:close()
 assert(PsychopatzDebugWindow.instance == nil,
     "manual close left a stale singleton instance")
 
-triggerDebugKey(3000)
+longPressDebugKey(5000)
 local second = PsychopatzDebugWindow.instance
 assert(second ~= nil and second ~= first, "closed debug window was not replaceable")
 assert(created == 2, "reopening the debug window created the wrong number of instances")
