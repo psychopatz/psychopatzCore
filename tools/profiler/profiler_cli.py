@@ -282,7 +282,7 @@ def parser() -> argparse.ArgumentParser:
     persisted.add_argument("--save", type=Path, required=True,
                            help="path to the selected save's global_mod_data.bin")
     persisted.add_argument("--table", help="exact persisted ModData table name")
-    persisted.add_argument("--npc", help="NPC ID, shorthand for PNC_NPC_<ID>")
+    persisted.add_argument("--npc", help="NPC ID, shorthand for PNC_npc<ID>")
     persisted.add_argument("--path", help="dot-separated path inside the selected table")
     persisted.add_argument("--prefix", help="table-name prefix for an index-only report")
     persisted.add_argument("--limit", type=int, default=40,

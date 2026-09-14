@@ -60,7 +60,7 @@ class ModDataReaderTests(unittest.TestCase):
 
     def test_index_and_bounded_chunks_preserve_pz_values(self):
         path = self.write_fixture([
-            ("PNC_NPC_npc_1", [
+            ("PNC_npc_1", [
                 ("identity", {"name": "Dudley", "age": 42}),
                 ("social", {"relationships": {"player": 36.5}}),
                 ("alive", True),
@@ -85,7 +85,7 @@ class ModDataReaderTests(unittest.TestCase):
 
     def test_path_projection_and_numeric_arrays(self):
         path = self.write_fixture([
-            ("PNC_NPC_npc_1", [
+            ("PNC_npc_1", [
                 ("social", {"relationships": {"player": 36.5}}),
                 ("items", ["knife", "water"]),
             ]),
@@ -101,11 +101,11 @@ class ModDataReaderTests(unittest.TestCase):
 
     def test_summary_is_index_only_and_invalid_chunk_fails(self):
         path = self.write_fixture([
-            ("PNC_NPC_npc_1", [("name", "Dudley")]),
+            ("PNC_npc_1", [("name", "Dudley")]),
             ("Other", [("value", 1)]),
         ])
         with GlobalModDataReader(path) as reader:
-            summary = reader.summary(prefix="PNC_NPC")
+            summary = reader.summary(prefix="PNC_npc")
             self.assertEqual(summary["npcIds"], ["npc_1"])
             self.assertNotIn("data", summary)
             with self.assertRaises(ModDataFormatError):
@@ -113,7 +113,7 @@ class ModDataReaderTests(unittest.TestCase):
 
     def test_safe_limits_mark_truncation_without_loading_unbounded_output(self):
         path = self.write_fixture([
-            ("PNC_NPC_npc_1", [("values", {str(i): i for i in range(10)})]),
+            ("PNC_npc_1", [("values", {str(i): i for i in range(10)})]),
         ])
         with GlobalModDataReader(path) as reader:
             report = reader.inspect(npc="npc_1", max_items=2, max_nodes=50)
@@ -123,7 +123,7 @@ class ModDataReaderTests(unittest.TestCase):
 
     def test_cli_exposes_direct_reader_without_snapshot_or_process(self):
         path = self.write_fixture([
-            ("PNC_NPC_npc_1", [("social", {"morale": 12.5})]),
+            ("PNC_npc_1", [("social", {"morale": 12.5})]),
         ])
         completed = subprocess.run([
             sys.executable, str(ROOT / "profiler_cli.py"), "persisted",
@@ -133,6 +133,27 @@ class ModDataReaderTests(unittest.TestCase):
         parsed = json.loads(completed.stdout)
         self.assertEqual(parsed["source"], "persisted_global_mod_data")
         self.assertEqual(parsed["data"]["social"]["morale"], 12.5)
+
+    def test_raw_inspection_preserves_numeric_keys_order_and_byte_spans(self):
+        path = self.write_fixture([
+            ("PNC_npc_1", [("compact", ["water", {"amount": 2}]), ("enabled", True)]),
+        ])
+        with GlobalModDataReader(path) as reader:
+            report = reader.inspect_raw(table="PNC_npc_1")
+            raw = report["raw"]
+            self.assertEqual(raw["entryCount"], 2)
+            self.assertEqual(raw["entries"][0]["key"]["value"], "compact")
+            compact = raw["entries"][0]["value"]
+            self.assertEqual([entry["key"]["value"] for entry in compact["entries"]], [1, 2])
+            self.assertEqual(compact["entries"][1]["value"]["entries"][0]["key"]["value"], "amount")
+            self.assertGreater(raw["bytes"], 0)
+            self.assertTrue(all(entry["bytes"] > 0 for entry in raw["entries"]))
+
+    def test_old_npc_prefix_is_not_a_canonical_table(self):
+        path = self.write_fixture([("PNC_npc_1", [("name", "Dudley")])])
+        with GlobalModDataReader(path) as reader:
+            with self.assertRaises(ModDataFormatError):
+                reader.find_table("PNC_NPC_npc_1")
 
 
 if __name__ == "__main__":

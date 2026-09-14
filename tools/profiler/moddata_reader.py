@@ -244,6 +244,161 @@ class _Decoder:
         return _table_to_json(entries, omitted), count
 
 
+class _RawDecoder:
+    """Decode the wire shape while retaining entry order and byte spans."""
+
+    def __init__(self, data: Any, world_version: int, *, max_depth: int,
+                 max_items: int, max_nodes: int, max_string: int):
+        self.data = data
+        self.world_version = world_version
+        self.max_depth = max_depth
+        self.max_items = max_items
+        self.max_nodes = max_nodes
+        self.max_string = max_string
+        self.nodes = 0
+        self.truncated = False
+
+    def _read_string(self, cursor: _Cursor) -> tuple[str, bool]:
+        length = struct.unpack(">h", cursor.read(2))[0]
+        if length <= 0:
+            return "", False
+        if length > MAX_STRING_LENGTH:
+            raise ModDataFormatError("ModData string exceeds the safe format limit")
+        raw = cursor.read(length)
+        value = raw.decode("utf-8", errors="replace")
+        if len(value) <= self.max_string:
+            return value, False
+        self.truncated = True
+        return value[:self.max_string] + "…", True
+
+    def _read_key(self, cursor: _Cursor) -> dict[str, Any]:
+        offset = cursor.position
+        if self.world_version < 25:
+            value, truncated = self._read_string(cursor)
+            key_type = "string"
+        else:
+            kind = cursor.read(1)[0]
+            if kind == 0:
+                value, truncated = self._read_string(cursor)
+                key_type = "string"
+            elif kind == 1:
+                raw_number = struct.unpack(">d", cursor.read(8))[0]
+                value = _json_number(raw_number)
+                truncated = False
+                key_type = "number"
+            else:
+                raise ModDataFormatError(f"unsupported ModData key type: {kind}")
+        return {
+            "type": key_type,
+            "value": value,
+            "offset": offset,
+            "bytes": cursor.position - offset,
+            "truncated": truncated,
+        }
+
+    def _read_scalar(self, cursor: _Cursor, kind: int) -> dict[str, Any]:
+        offset = cursor.position - 1
+        if kind == 0:
+            value, truncated = self._read_string(cursor)
+            return {"type": "string", "wireType": kind, "value": value,
+                    "offset": offset, "bytes": cursor.position - offset,
+                    "truncated": truncated}
+        if kind == 1:
+            value = _json_number(struct.unpack(">d", cursor.read(8))[0])
+            return {"type": "number", "wireType": kind, "value": value,
+                    "offset": offset, "bytes": cursor.position - offset}
+        if kind == 3:
+            value = cursor.read(1)[0] != 0
+            return {"type": "boolean", "wireType": kind, "value": value,
+                    "offset": offset, "bytes": cursor.position - offset}
+        raise ModDataFormatError(f"unsupported ModData value type: {kind}")
+
+    def _read_value(self, cursor: _Cursor, kind: int, depth: int,
+                    type_offset: int) -> dict[str, Any]:
+        if kind == 2:
+            value = self._read_table(cursor, depth + 1)
+            value["offset"] = type_offset
+            value["bytes"] = cursor.position - type_offset
+            value["wireType"] = kind
+            return value
+        value = self._read_scalar(cursor, kind)
+        value["offset"] = type_offset
+        value["bytes"] = cursor.position - type_offset
+        return value
+
+    def _skip_value(self, cursor: _Cursor, kind: int, depth: int) -> None:
+        if kind == 0:
+            cursor.read_string()
+            return
+        if kind == 1:
+            cursor.read(8)
+            return
+        if kind == 2:
+            self._skip_table(cursor, depth + 1)
+            return
+        if kind == 3:
+            cursor.read(1)
+            return
+        raise ModDataFormatError(f"unsupported ModData value type: {kind}")
+
+    def _skip_table(self, cursor: _Cursor, depth: int) -> int:
+        count = cursor.read_int32()
+        if count < 0 or count > MAX_TABLE_ENTRIES:
+            raise ModDataFormatError(f"invalid ModData table entry count: {count}")
+        for _ in range(count):
+            self._read_key(cursor)
+            self._skip_value(cursor, cursor.read(1)[0], depth)
+        return count
+
+    def _read_table(self, cursor: _Cursor, depth: int) -> dict[str, Any]:
+        table_offset = cursor.position
+        count = cursor.read_int32()
+        if count < 0 or count > MAX_TABLE_ENTRIES:
+            raise ModDataFormatError(f"invalid ModData table entry count: {count}")
+
+        entries: list[dict[str, Any]] = []
+        omitted = 0
+        for index in range(count):
+            entry_offset = cursor.position
+            key = self._read_key(cursor)
+            kind = cursor.read(1)[0]
+            within_limits = depth <= self.max_depth and self.nodes < self.max_nodes
+            within_items = len(entries) < self.max_items
+            if within_limits and within_items:
+                self.nodes += 1
+                value = self._read_value(cursor, kind, depth, cursor.position - 1)
+                entries.append({
+                    "index": index,
+                    "key": key,
+                    "value": value,
+                    "offset": entry_offset,
+                    "bytes": cursor.position - entry_offset,
+                })
+            else:
+                self._skip_value(cursor, kind, depth)
+                omitted += 1
+                self.truncated = True
+
+        result: dict[str, Any] = {
+            "type": "table",
+            "entryCount": count,
+            "entries": entries,
+            "offset": table_offset,
+            "bytes": cursor.position - table_offset,
+        }
+        if omitted:
+            result[OMITTED_MARKER] = omitted
+        return result
+
+    def read_root(self, data_offset: int, end_offset: int) -> tuple[dict[str, Any], int]:
+        cursor = _Cursor(self.data, data_offset, end_offset)
+        value = self._read_table(cursor, 0)
+        if cursor.position != end_offset:
+            raise ModDataFormatError(
+                f"table block boundary mismatch: consumed {cursor.position}, expected {end_offset}")
+        return value, value["entryCount"]
+
+
 def _table_to_json(entries: Iterable[tuple[Any, Any]], omitted: int = 0) -> Any:
     pairs = list(entries)
     if not pairs:
@@ -370,6 +525,10 @@ class GlobalModDataReader:
     def index(self) -> tuple[TableIndexEntry, ...]:
         return self._index
 
+    @property
+    def file_bytes(self) -> int:
+        return self._file_size
+
     def find_table(self, name: str) -> TableIndexEntry:
         for entry in self._index:
             if entry.name == name:
@@ -377,8 +536,13 @@ class GlobalModDataReader:
         raise ModDataFormatError(f"ModData table not found: {name}")
 
     def find_npc_table(self, npc_id: str) -> TableIndexEntry:
-        return self.find_table(npc_id if npc_id.startswith("PNC_NPC_")
-                               else f"PNC_NPC_{npc_id}")
+        if npc_id.startswith("PNC_npc"):
+            table_name = npc_id
+        elif npc_id.startswith("npc"):
+            table_name = f"PNC_{npc_id}"
+        else:
+            table_name = f"PNC_npc{npc_id}"
+        return self.find_table(table_name)
 
     def summary(self, *, prefix: Optional[str] = None, limit: int = 40) -> dict[str, Any]:
         if limit < 1 or limit > 500:
@@ -388,11 +552,11 @@ class GlobalModDataReader:
                     if not prefix or entry.name.startswith(prefix)]
         groups: dict[str, dict[str, int]] = defaultdict(lambda: {"count": 0, "bytes": 0})
         for entry in self._index:
-            group = "PNC_NPC" if entry.name.startswith("PNC_NPC_") else entry.name.split("_", 1)[0]
+            group = "PNC_npc" if entry.name.startswith("PNC_npc") else entry.name.split("_", 1)[0]
             groups[group]["count"] += 1
             groups[group]["bytes"] += entry.block_size
-        npc_ids = [entry.name.removeprefix("PNC_NPC_") for entry in selected
-                   if entry.name.startswith("PNC_NPC_")]
+        npc_ids = [entry.name.removeprefix("PNC_") for entry in selected
+                   if entry.name.startswith("PNC_npc")]
         tables = [{"name": entry.name, "bytes": entry.block_size,
                    "entries": entry.entry_count} for entry in selected[:limit]]
         result: dict[str, Any] = {
@@ -410,7 +574,7 @@ class GlobalModDataReader:
             "tableGroups": dict(sorted(groups.items())),
             "tables": tables,
         }
-        if prefix and prefix.startswith("PNC_NPC"):
+        if prefix and prefix.startswith("PNC_npc"):
             result["npcIds"] = npc_ids[:limit]
             if len(npc_ids) > limit:
                 result[OMITTED_MARKER] = len(npc_ids) - limit
@@ -420,14 +584,14 @@ class GlobalModDataReader:
 
     def inspect(self, *, table: Optional[str] = None, npc: Optional[str] = None,
                 path: Optional[str] = None, chunk_index: int = 0,
-                chunk_size: int = 8, max_depth: int = 6,
+                chunk_size: Optional[int] = 8, max_depth: int = 6,
                 max_items: int = 32, max_nodes: int = 5_000,
                 max_string: int = 160) -> dict[str, Any]:
         if table and npc:
             raise ModDataFormatError("choose --table or --npc, not both")
         if chunk_index < 0:
             raise ModDataFormatError("chunk must be zero or greater")
-        if chunk_size < 1 or chunk_size > MAX_CHUNK_SIZE:
+        if chunk_size is not None and (chunk_size < 1 or chunk_size > MAX_CHUNK_SIZE):
             raise ModDataFormatError(f"chunk-size must be between 1 and {MAX_CHUNK_SIZE}")
         if max_depth < 0 or max_depth > MAX_DEPTH:
             raise ModDataFormatError(f"depth must be between 0 and {MAX_DEPTH}")
@@ -451,7 +615,8 @@ class GlobalModDataReader:
                                                  projection=projection)
             chunk_count = 1
         else:
-            chunk_count = max(1, math.ceil(target.entry_count / chunk_size))
+            chunk_count = (1 if chunk_size is None
+                           else max(1, math.ceil(target.entry_count / chunk_size)))
             if chunk_index >= chunk_count:
                 raise ModDataFormatError(
                     f"chunk {chunk_index} is outside {chunk_count} available chunks")
@@ -482,3 +647,45 @@ class GlobalModDataReader:
             "data": data,
         }
         return result
+
+    def inspect_raw(self, *, table: Optional[str] = None, npc: Optional[str] = None,
+                    max_depth: int = 10, max_items: int = 128,
+                    max_nodes: int = 20_000, max_string: int = 4_096) -> dict[str, Any]:
+        """Inspect one table without normalizing arrays or discarding wire metadata."""
+        if table and npc:
+            raise ModDataFormatError("choose --table or --npc, not both")
+        if max_depth < 0 or max_depth > MAX_DEPTH:
+            raise ModDataFormatError(f"depth must be between 0 and {MAX_DEPTH}")
+        if max_items < 1 or max_items > MAX_TABLE_ENTRIES:
+            raise ModDataFormatError("max-items is outside safe bounds")
+        if max_nodes < 1 or max_nodes > MAX_NODES:
+            raise ModDataFormatError("max-nodes is outside safe bounds")
+        if max_string < 1 or max_string > MAX_STRING_LENGTH:
+            raise ModDataFormatError("max-string is outside safe bounds")
+        self._assert_stable()
+        target = self.find_npc_table(npc) if npc else self.find_table(table) if table else None
+        if target is None:
+            return self.summary()
+        decoder = _RawDecoder(self.data, self.world_version, max_depth=max_depth,
+                               max_items=max_items, max_nodes=max_nodes,
+                               max_string=max_string)
+        raw, root_count = decoder.read_root(target.data_offset, target.end_offset)
+        self._assert_stable()
+        return {
+            "reportVersion": 1,
+            "source": "persisted_global_mod_data",
+            "format": "PZ GlobalModData/KahluaTable",
+            "file": str(self.path),
+            "fileBytes": len(self.data),
+            "fileMtimeMs": self.file_mtime_ms,
+            "worldVersion": self.world_version,
+            "formatCompatibility": ("verified_42.20"
+                                     if self.world_version == REFERENCE_WORLD_VERSION
+                                     else "unverified_world_version"),
+            "table": {"name": target.name, "bytes": target.block_size,
+                      "entries": root_count, "dataOffset": target.data_offset},
+            "limits": {"depth": max_depth, "itemsPerTable": max_items,
+                       "nodes": max_nodes, "string": max_string},
+            "truncated": decoder.truncated,
+            "raw": raw,
+        }

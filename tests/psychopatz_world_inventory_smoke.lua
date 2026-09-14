@@ -84,6 +84,9 @@ local function newItem(fullType, container)
         fullType = fullType,
         container = container,
         condition = 10,
+        attachedSlot = -1,
+        attachedSlotType = "Walkie Belt Left",
+        attachedToModel = "SmallBeltLeft",
         modelIndex = 0,
         customColor = false,
         colorR = 1,
@@ -107,6 +110,9 @@ local function newItem(fullType, container)
     function item:IsDrainable() return false end
     function item:setCondition(value) self.condition = value end
     function item:getConditionMax() return 10 end
+    function item:setAttachedSlot(value) self.attachedSlot = value end
+    function item:setAttachedSlotType(value) self.attachedSlotType = value end
+    function item:setAttachedToModel(value) self.attachedToModel = value end
     function item:getModelIndex() return self.modelIndex end
     function item:setModelIndex(value) self.modelIndex = value end
     function item:isCustomColor() return self.customColor end
@@ -213,6 +219,9 @@ assertEqual(ItemTransfer.CaptureState(first).visualDecal,
 assertEqual(ItemTransfer.CaptureState(first).visualModelIndex,
     1, "item model index captured for transfer")
 player.primary = first
+first.attachedSlot = 2
+first.attachedSlotType = "Walkie Belt Left"
+first.attachedToModel = "SmallBeltLeft"
 local beforeDuplicate = #inventory.values
 local duplicate, duplicateReason = ItemTransfer.TakeFromPlayer(player, { first:getID(), first:getID() })
 assertEqual(duplicate, nil, "duplicates rejected")
@@ -224,6 +233,11 @@ local taken = ItemTransfer.TakeFromPlayer(player, { first:getID(), second:getID(
 })
 assertEqual(#taken, 2, "take count")
 assertEqual(player.primary, nil, "held reference cleared")
+assertEqual(first.attachedSlot, -1, "player transfer clears attached slot")
+assertEqual(first.attachedSlotType, nil,
+    "player transfer clears attached slot type")
+assertEqual(first.attachedToModel, nil,
+    "player transfer clears attached model")
 assertEqual(#inventory.values, 0, "items removed")
 assertEqual(#removedPackets, 2, "native remove packets")
 

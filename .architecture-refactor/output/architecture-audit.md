@@ -9,15 +9,15 @@ Scoring scope: `production`
 
 | Metric | Value |
 |---|---:|
-| Production Health | 68.7/100 |
+| Production Health | 68.9/100 |
 | Coverage | 77.5% |
 | Confidence | 63.8% |
 | Max Refactor Pressure | 100.0/100 |
-| Production files | 155 |
-| Tests indexed | 74 |
-| Tooling files indexed | 13 |
+| Production files | 156 |
+| Tests indexed | 79 |
+| Tooling files indexed | 44 |
 | Generated files indexed | 0 |
-| Production LOC scored | 26244 |
+| Production LOC scored | 26642 |
 | Logical subsystems | 23 |
 | Production findings | 50 |
 | Test findings | 6 |
@@ -27,11 +27,11 @@ Scoring scope: `production`
 | Subsystem | Pressure | Health | Coverage | Confidence | Files | LOC | Findings | Fan-in | Fan-out |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | (composition) | 100.0 | 61.1/100 | 78.5% | 63.8% | 3 | 59 | 8 | 7 | 17 |
-| UI | 100.0 | 51.2/100 | 77.6% | 65.0% | 60 | 12445 | 18 | 3 | 8 |
+| UI | 100.0 | 51.2/100 | 77.6% | 65.0% | 60 | 12554 | 18 | 3 | 8 |
 | Profiler | 83.3 | 63.2/100 | 77.9% | 63.0% | 11 | 1550 | 5 | 3 | 1 |
 | Bridge | 82.7 | 62.9/100 | 81.5% | 68.4% | 7 | 866 | 6 | 1 | 1 |
 | Debug | 69.7 | 63.2/100 | 76.9% | 62.1% | 7 | 989 | 4 | 2 | 5 |
-| Inventory | 25.4 | 86.2/100 | 81.5% | 68.2% | 25 | 4050 | 2 | 3 | 2 |
+| Inventory | 25.5 | 86.2/100 | 81.5% | 68.2% | 26 | 4287 | 2 | 3 | 2 |
 | World | 23.6 | 85.5/100 | 78.5% | 66.0% | 5 | 1017 | 2 | 3 | 1 |
 | Radio | 19.1 | 87.5/100 | 76.3% | 61.9% | 10 | 727 | 1 | 2 | 2 |
 | Traits | 17.5 | 87.5/100 | 67.0% | 54.1% | 2 | 290 | 1 | 1 | 1 |
@@ -47,7 +47,7 @@ Scoring scope: `production`
 | Text | 1.3 | 100.0/100 | 54.6% | 41.0% | 1 | 246 | 0 | 2 | 0 |
 | Collections | 1.2 | 100.0/100 | 54.6% | 41.0% | 1 | 77 | 0 | 2 | 0 |
 | Settings | 0.7 | 100.0/100 | 57.7% | 43.3% | 1 | 213 | 0 | 1 | 0 |
-| Compatibility | 0.6 | 100.0/100 | 54.6% | 41.0% | 1 | 49 | 0 | 1 | 0 |
+| Compatibility | 0.6 | 100.0/100 | 54.6% | 41.0% | 1 | 101 | 0 | 1 | 0 |
 | EventMarkers | 0.1 | 100.0/100 | 67.0% | 50.2% | 2 | 248 | 0 | 0 | 0 |
 
 ## Finding counts
@@ -99,19 +99,19 @@ Query evidence with `architecture_audit finding <repo> <finding-id> --context 4`
 | `ARC-FD4ABEBFE7` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | (composition) | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> (composition) |
 | `ARC-FDF3C9705C` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Debug | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> (composition) |
 | `ARC-059B1384F8` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPortrait.lua depends on non-core files. |
+| `ARC-303187A4BD` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/PsychopatzAudioSettings.lua depends on non-core files. |
 | `ARC-523904185E` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationLLMInput.lua depends on non-core files. |
-| `ARC-94F07BB1FD` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationSettings.lua depends on non-core files. |
+| `ARC-A8A2841641` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationSettings.lua depends on non-core files. |
 | `ARC-BBDD52F84B` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Core/PsychopatzUITheme.lua depends on non-core files. |
-| `ARC-E8186F5FD9` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/PsychopatzAudioSettings.lua depends on non-core files. |
 | `ARC-5B36627A03` | `CROSS_SUBSYSTEM_COUPLING` | MEDIUM | HIGH (82%) | (composition) | Contents/mods/PsychopatzCore/42.20/media/lua/shared/PsychopatzCore/00_PsychopatzCore_Init.lua directly depends on 13 foreign subsystems. |
 | `ARC-869C0B2E6E` | `CROSS_SUBSYSTEM_COUPLING` | MEDIUM | HIGH (82%) | (composition) | Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/00_PsychopatzCore_Client_Init.lua directly depends on 5 foreign subsystems. |
 | `ARC-17B6F562A1` | `UNBOUNDED_LOOP` | MEDIUM | HIGH (92%) | World | Potential unbounded loop in Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/World/PsychopatzSquareRules.lua. |
 | `ARC-4388B2C742` | `UNBOUNDED_LOOP` | MEDIUM | HIGH (92%) | Inventory | Potential unbounded loop in Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Inventory/PsychopatzInventory.lua. |
-| `ARC-01CB15F5C0` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | Model.Build spans 200 lines. |
 | `ARC-07A213BB70` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | PsychopatzConversationChat:render spans 124 lines. |
 | `ARC-712263E72E` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | PsychopatzConversationView:createChildren spans 151 lines. |
 | `ARC-8983BD725E` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | PsychopatzConversationChoices:render spans 125 lines. |
 | `ARC-A3FBB4A811` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | list:prerender spans 128 lines. |
+| `ARC-D1052FF252` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | Model.Build spans 219 lines. |
 | `ARC-DD1A9C7D55` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | ISPsychopatzCommandHubSettingsWindow:createChildren spans 130 lines. |
 | `ARC-ED4EDDDCD1` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | ZombieKillDetector | Internal.HandleClientCommand spans 122 lines. |
 | `ARC-EF0A486FA0` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | VirtualizedList.Install spans 251 lines. |
@@ -137,7 +137,7 @@ Generated artifacts and tooling are indexed but excluded from this table and pro
 | ID | Function | File | Start | LOC |
 |---|---|---|---:|---:|
 | `ARC-EF0A486FA0` | `VirtualizedList.Install` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Components/PsychopatzVirtualizedList.lua` | 130 | 251 |
-| `ARC-01CB15F5C0` | `Model.Build` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Inventory/PsychopatzInventoryTooltipModel.lua` | 185 | 200 |
+| `ARC-D1052FF252` | `Model.Build` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Inventory/PsychopatzInventoryTooltipModel.lua` | 204 | 219 |
 | `ARC-712263E72E` | `PsychopatzConversationView:createChildren` | `Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationView.lua` | 31 | 151 |
 | `ARC-DD1A9C7D55` | `ISPsychopatzCommandHubSettingsWindow:createChildren` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/PsychopatzCommandHubSettingsWindow.lua` | 70 | 130 |
 | `ARC-A3FBB4A811` | `list:prerender` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Components/PsychopatzVirtualizedList.lua` | 250 | 128 |

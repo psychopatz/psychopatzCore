@@ -23,6 +23,10 @@ local FOOD_OPTIONAL = {
     cookingTime = 4096,
     foodLastAgedHours = 8192,
     foodCreatedAtHours = 16384,
+    calories = 32768,
+    carbohydrates = 65536,
+    proteins = 131072,
+    lipids = 262144,
 }
 
 local FOOD_OPTIONAL_ORDER = {
@@ -30,7 +34,7 @@ local FOOD_OPTIONAL_ORDER = {
     "poisonLevelForRecipe", "poisonPower", "rottenTime",
     "cookedInMicrowave", "tainted", "fertilized", "fertilizedTime",
     "heat", "lastCookMinute", "cookingTime", "foodLastAgedHours",
-    "foodCreatedAtHours",
+    "foodCreatedAtHours", "calories", "carbohydrates", "proteins", "lipids",
 }
 
 local function encodeFoodState(food)

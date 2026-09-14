@@ -237,6 +237,10 @@ function Portable.CaptureFood(item)
         { "freezingTime", "getFreezingTime" },
         { "hungChange", "getHungChange" },
         { "thirstChange", "getThirstChange" },
+        { "calories", "getCalories" },
+        { "carbohydrates", "getCarbohydrates" },
+        { "proteins", "getProteins" },
+        { "lipids", "getLipids" },
     }
     local optional = {
         { "dangerousUncooked", "isbDangerousUncooked", nil, true },
@@ -300,6 +304,8 @@ function Portable.ApplyFood(item, state)
         age = "setAge", cooked = "setCooked", burnt = "setBurnt",
         frozen = "setFrozen", freezingTime = "setFreezingTime",
         hungChange = "setHungChange", thirstChange = "setThirstChange",
+        calories = "setCalories", carbohydrates = "setCarbohydrates",
+        proteins = "setProteins", lipids = "setLipids",
         dangerousUncooked = "setbDangerousUncooked",
         poisonDetectionLevel = "setPoisonDetectionLevel",
         poisonLevelForRecipe = "setPoisonLevelForRecipe",

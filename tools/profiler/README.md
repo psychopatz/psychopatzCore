@@ -155,8 +155,22 @@ Use **Export LLM...** to select Performance, ModData, or one targeted NPC. The
 automatic report excludes detailed NPC contents. Explicit NPC exports may
 contain identifiers and gameplay state, but remain bounded by in-game limits.
 
-The main workspace is split into **Performance**, **ModData Summary**, and
-**NPC Data Inspector** tabs. Click a column heading to sort it; numeric columns
+The main workspace is split into **Performance**, **ModData Summary**, **ModData
+Explorer**, and **NPC Data Inspector** tabs. The ModData Explorer opens the
+newest saved `global_mod_data.bin` when available, or lets you choose one.
+The explorer lists every table in that file, regardless of which mod created
+it; selecting a table loads its contents. Use **Formatted** for the normalized
+decoded shape or **Raw Value** for the serializer-faithful entry order, numeric
+keys, wire types, offsets, and byte spans. A formatter detector recognizes the
+Project Hoomans `PNC_*` namespace and labels its schema; its compact NPC
+inventory persistence array is shown as named schema fields in Formatted only.
+Unknown mods use the generic formatter, and Raw Value is never transformed by a
+detector. Both views are bounded and read-only; strings or nested entries
+beyond the displayed limits are marked as truncated.
+Every tree node can be opened or closed normally, and **Expand all** / **Collapse
+all** applies to the currently selected subtab.
+
+Click a column heading to sort it; numeric columns
 sort by their raw values, and the default Performance order shows the largest
 timer latency first. The NPC tab lists display name, faction, presence, runtime
 shape, persisted shape, and item count. Selecting an NPC opens bounded runtime
@@ -192,7 +206,7 @@ running profiler runtime or Lua Maker. The reader follows the PZ 42.20
 ```sh
 python profiler_cli.py persisted --save \
   "$HOME/Zomboid/Saves/<world>/global_mod_data.bin" \
-  --prefix PNC_NPC --limit 40 --token-budget 2000
+  --prefix PNC_npc --limit 40 --token-budget 2000
 python profiler_cli.py persisted --save \
   "$HOME/Zomboid/Saves/<world>/global_mod_data.bin" \
   --npc npc_123 --chunk 0 --chunk-size 8 --token-budget 3000

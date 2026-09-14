@@ -28,6 +28,7 @@ local function makeFood(fullType)
         tainted = true, fertilized = true, fertilizedTime = 4,
         heat = 2, lastCookMinute = 12, cookingTime = 9,
         foodLastAgedHours = 42, foodCreatedAtHours = 41,
+        calories = 720, carbohydrates = 72, proteins = 18, lipids = 36,
         weight = 0.5,
     }
     function item:getFullType() return self.fullType end
@@ -48,6 +49,14 @@ local function makeFood(fullType)
     function item:setHungChange(value) self.hungChange = value end
     function item:getThirstChange() return self.thirstChange end
     function item:setThirstChange(value) self.thirstChange = value end
+    function item:getCalories() return self.calories end
+    function item:setCalories(value) self.calories = value end
+    function item:getCarbohydrates() return self.carbohydrates end
+    function item:setCarbohydrates(value) self.carbohydrates = value end
+    function item:getProteins() return self.proteins end
+    function item:setProteins(value) self.proteins = value end
+    function item:getLipids() return self.lipids end
+    function item:setLipids(value) self.lipids = value end
     function item:isbDangerousUncooked() return self.dangerousUncooked end
     function item:setbDangerousUncooked(value) self.dangerousUncooked = value end
     function item:isPoison() return self.poison end
@@ -84,7 +93,7 @@ local encoded = Inventory.encodeItem(source, 1)
 truthy(encoded, "food record encodes")
 truthy(Util.hasFlag(encoded[C.FLAGS], C.FLAG_FOOD),
     "food codec selected")
-    truthy(encoded[C.STATE][1][8],
+truthy(encoded[C.STATE][1][8],
     "optional food fields use a compact presence mask")
 truthy(Util.hasFlag(encoded[C.STATE][1][8], 8192),
     "food lifecycle checkpoint is persisted in the food codec")
@@ -100,6 +109,10 @@ equal(decoded.poisonPower, 5, "poison power restored")
 equal(decoded.tainted, true, "taint restored")
 equal(decoded.fertilizedTime, 4, "fertilized time restored")
 equal(decoded:getCookingTime(), 9, "cooking time restored")
+equal(decoded:getCalories(), 720, "calories restored")
+equal(decoded:getCarbohydrates(), 72, "carbohydrates restored")
+equal(decoded:getProteins(), 18, "proteins restored")
+equal(decoded:getLipids(), 36, "lipids restored")
 equal(decoded.foodLastAgedHours, 42, "lifecycle checkpoint restored")
 equal(decoded.foodCreatedAtHours, 41, "food creation anchor restored")
 

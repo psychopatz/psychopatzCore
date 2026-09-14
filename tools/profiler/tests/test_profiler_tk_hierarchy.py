@@ -58,6 +58,35 @@ class TkHierarchyTests(unittest.TestCase):
         self.ui._render_metrics(snapshot)
         self.assertFalse(bool(self.ui.metrics.item(server, "open")))
 
+    def test_moddata_explorer_has_two_views_and_explicit_tree_controls(self):
+        explorer = self.ui.moddata_explorer
+        explorer._render_formatted({
+            "table": {"name": "PNC_npc_1", "bytes": 42, "dataOffset": 10},
+            "data": {"inventory": {"items": ["water"]}},
+        })
+        explorer._render_raw({
+            "table": {"name": "PNC_npc_1", "bytes": 42},
+            "raw": {"type": "table", "entryCount": 1, "bytes": 30, "offset": 10,
+                    "entries": [{"index": 0, "key": {"type": "string", "value": "inventory"},
+                                 "bytes": 20, "offset": 14,
+                                 "value": {"type": "table", "entryCount": 1, "bytes": 10,
+                                           "offset": 24, "entries": []}}]},
+        })
+        self.assertEqual(
+            [explorer.notebook.tab(tab, "text") for tab in explorer.notebook.tabs()],
+            ["Formatted", "Raw Value"],
+        )
+        explorer.notebook.select(explorer.notebook.tabs()[0])
+        explorer.set_all_open(True)
+        formatted_root = explorer.formatted_tree.get_children()[0]
+        self.assertTrue(bool(explorer.formatted_tree.item(formatted_root, "open")))
+        explorer.set_all_open(False)
+        self.assertFalse(bool(explorer.formatted_tree.item(formatted_root, "open")))
+        explorer.notebook.select(explorer.notebook.tabs()[1])
+        explorer.set_all_open(True)
+        raw_root = explorer.raw_tree.get_children()[0]
+        self.assertTrue(bool(explorer.raw_tree.item(raw_root, "open")))
+
     def test_pause_skips_collection_until_resumed(self):
         self.ui.toggle_pause()
         self.assertTrue(self.ui.paused)

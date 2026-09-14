@@ -29,6 +29,7 @@ from bridge import (BridgeClient, BridgeConfig, FileBridgeTransport,
 from app_settings import (AppSettings, default_app_settings_path, read_app_settings,
                           select_preferred_candidate, settings_for_candidate,
                           write_app_settings)
+from moddata_explorer import ModDataExplorer, discover_saved_moddata
 
 
 def human_bytes(value: Any) -> str:
@@ -174,9 +175,17 @@ class TkinterProfilerUI:
         self.npc_tab = ttk.Frame(self.notebook, padding=6)
         self.notebook.add(performance_tab, text="Performance")
         self.notebook.add(moddata_tab, text="ModData Summary")
+        self.moddata_explorer_tab = ttk.Frame(self.notebook, padding=6)
+        self.notebook.add(self.moddata_explorer_tab, text="ModData Explorer")
         self.notebook.add(self.npc_tab, text="NPC Data Inspector")
         self.bridge_tab = ttk.Frame(self.notebook, padding=6)
         self.notebook.add(self.bridge_tab, text="External Control")
+
+        initial_moddata = discover_saved_moddata()
+        self.moddata_explorer = ModDataExplorer(
+            self.moddata_explorer_tab,
+            initial_path=initial_moddata[0] if initial_moddata else None,
+        )
 
         bridge_setup = ttk.LabelFrame(self.bridge_tab, text="LOCAL PSYCHOPATZ BRIDGE", padding=10)
         bridge_setup.pack(fill="x")
@@ -1350,6 +1359,8 @@ class TkinterProfilerUI:
     def close(self) -> None:
         self.closed = True
         self.model.recorder.stop()
+        if hasattr(self, "moddata_explorer"):
+            self.moddata_explorer.close()
         if hasattr(self, "app_settings"):
             self._save_ui_preferences()
         if hasattr(self, "bridge_client"):

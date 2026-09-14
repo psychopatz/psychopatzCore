@@ -531,6 +531,16 @@ local function clearPlayerReferences(player, item)
     if player.removeAttachedItem then
         pcall(player.removeAttachedItem, player, item)
     end
+    -- The native attachment map and the InventoryItem attachment fields are
+    -- separate pieces of state.  Removing the item from a player only clears
+    -- the former.  Clear the latter as well or ISHotbar.reloadIcons() can
+    -- resurrect a stale walkie/belt entry and call setAttachedItem() during
+    -- its update pass.
+    if item then
+        if item.setAttachedSlot then item:setAttachedSlot(-1) end
+        if item.setAttachedSlotType then item:setAttachedSlotType(nil) end
+        if item.setAttachedToModel then item:setAttachedToModel(nil) end
+    end
 end
 
 --- Takes items identified by client-safe IDs from the authoritative inventory.

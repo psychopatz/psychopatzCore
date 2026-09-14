@@ -22,7 +22,8 @@ local foodFlags = C.FLAG_CONDITION + C.FLAG_FOOD
 local foodRecord = {
     1, 2, foodFlags, C.CODEC_FOOD,
     { 7, { 1.5, true, false, false, 0, -0.2, -0.1,
-        32 + 16384, 42, 99 } },
+        32 + 16384 + 32768 + 65536 + 131072 + 262144,
+        42, 99, 720, 72, 18, 36 } },
     0.5,
 }
 local foodState, foodKnown = Display.ProjectRecord(foodRecord)
@@ -33,6 +34,10 @@ equal(foodState.cooked, true, "food cooked")
 equal(foodState.rottenTime, 42, "food optional field")
 equal(foodState.foodLastAgedHours, nil, "aging checkpoint omitted")
 equal(foodState.foodCreatedAtHours, 99, "food creation anchor")
+equal(foodState.calories, 720, "food calories")
+equal(foodState.carbohydrates, 72, "food carbohydrates")
+equal(foodState.proteins, 18, "food proteins")
+equal(foodState.lipids, 36, "food lipids")
 
 local fluidFlags = C.FLAG_CONDITION + C.FLAG_FLUID
 local fluidRecord = {
