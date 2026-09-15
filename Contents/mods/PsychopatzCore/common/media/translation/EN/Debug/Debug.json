@@ -27,6 +27,10 @@
     "UI_PsychopatzDebugHub_Unavailable": "Unavailable",
     "UI_PsychopatzDebugHub_ToolUnavailable": "%s unavailable in this session.",
     "UI_PsychopatzDebugHub_ToolFailed": "%s failed to open.",
+    "UI_PsychopatzDebugHub_Profiler_Title": "Profiler",
+    "UI_PsychopatzDebugHub_Profiler_Description": "Inspect metrics and configure the shared profiler capture runtime.",
+    "UI_PsychopatzDebugHub_ItemTypeLedger_Title": "Item Type Ledger",
+    "UI_PsychopatzDebugHub_ItemTypeLedger_Description": "Inspect numeric item IDs, script availability, revision, missing types, and ledger gaps.",
     "UI_PsychopatzDebugTrace_CaptureOff": "Capture: OFF",
     "UI_PsychopatzDebugTrace_CaptureOn": "Capture: ON",
     "UI_PsychopatzDebugTrace_Clear": "Clear",
@@ -48,6 +52,8 @@
     "UI_PsychopatzDebugSettings_Applied": "Applied and saved runtime settings.",
     "UI_PsychopatzDebugSettings_ReloadFailed": "Reload failed: %s",
     "UI_PsychopatzDebugSettings_Reloaded": "Reloaded %s and applied %d runtime setting(s). Restart required for %d.",
+    "UI_PsychopatzDebugSettings_TranslationAudit_Title": "Translation fallback audit",
+    "UI_PsychopatzDebugSettings_TranslationAudit_Description": "Warns when the active language uses an English key, catalog, or untranslated English prose value.",
     "UI_PsychopatzDebugSettings_Title": "Debug Settings",
     "UI_PsychopatzObjectName_Grab": "[Debug] Grab Object Name"
 }

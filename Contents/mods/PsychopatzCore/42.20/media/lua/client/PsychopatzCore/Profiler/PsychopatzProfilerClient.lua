@@ -61,8 +61,8 @@ function Client.Start()
         id = "psychopatz.profiler",
         source = "PsychopatzCore",
         order = 100,
-        title = tr("UI_PsychopatzProfiler_Title", "Psychopatz Profiler"),
-        description = tr("UI_PsychopatzProfiler_Description",
+        title = tr("UI_PsychopatzDebugHub_Profiler_Title", "Profiler"),
+        description = tr("UI_PsychopatzDebugHub_Profiler_Description",
             "Inspect metrics and configure the shared profiler capture runtime."),
         available = function()
             local player = getPlayer and getPlayer() or nil

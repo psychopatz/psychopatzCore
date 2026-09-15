@@ -1,4 +1,5 @@
 local Radio = PsychopatzCore.CustomRadio
+local Translation = PsychopatzCore.Translation
 
 Radio.MessagePacks = Radio.MessagePacks or {}
 
@@ -6,6 +7,13 @@ local function copyLine(value)
     if type(value) == "table" then
         return {
             text = tostring(value.text or ""),
+            textKey = value.textKey and tostring(value.textKey) or nil,
+            textFallback = value.textFallback
+                and tostring(value.textFallback) or nil,
+            textSource = value.textSource
+                and tostring(value.textSource) or nil,
+            textArgs = type(value.textArgs) == "table"
+                and value.textArgs or nil,
             r = tonumber(value.r) or 0.75,
             g = tonumber(value.g) or 0.82,
             b = tonumber(value.b) or 0.72,
@@ -15,6 +23,33 @@ local function copyLine(value)
         }
     end
     return { text = tostring(value or ""), r = 0.75, g = 0.82, b = 0.72 }
+end
+
+local function formatIndexed(value, args)
+    if type(args) ~= "table" then return value end
+    value = string.gsub(value, "%%(%d+)", function(index)
+        local replacement = args[tonumber(index)]
+        return replacement ~= nil and tostring(replacement)
+            or "%%" .. index
+    end)
+    local ok, formatted = pcall(string.format, value,
+        args[1], args[2], args[3], args[4])
+    return ok and formatted or value
+end
+
+local function resolveLineText(line)
+    local value = line.text
+    if line.textKey and Translation
+        and type(Translation.GetKey) == "function"
+    then
+        local fallback = line.textFallback or value
+        local ok, translated = pcall(Translation.GetKey,
+            line.textKey, fallback, line.textSource)
+        value = ok and type(translated) == "string"
+            and translated ~= "" and translated or fallback
+        value = formatIndexed(value, line.textArgs)
+    end
+    return value
 end
 
 local function expand(text, context)
@@ -79,7 +114,7 @@ function Radio.SelectMessage(channel, eventType, context)
     local output = {}
     for _, value in ipairs(lines) do
         local line = copyLine(value)
-        line.text = expand(line.text, context)
+        line.text = expand(resolveLineText(line), context)
         if line.text ~= "" then output[#output + 1] = line end
     end
     return {

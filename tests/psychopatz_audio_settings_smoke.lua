@@ -62,8 +62,7 @@ local Audio = PsychopatzCore.Audio
 falsy(Audio.IsPlayerSpeechEnabled(), "player speech defaults to disabled")
 truthy(PsychopatzCore.audioDefinition, "audio settings were registered")
 equal(PsychopatzCore.audioDefinition.id, "PsychopatzAudio", "audio settings use the Core registry")
-truthy(PsychopatzCore.audioTool, "audio settings were exposed to the debug hub")
-equal(PsychopatzCore.audioTool.source, "Sounds", "audio tool is grouped under Sounds")
+falsy(PsychopatzCore.audioTool, "audio settings remained in the debug hub")
 Audio.Set("playerSpeechTTS", true)
 truthy(Audio.IsPlayerSpeechEnabled(), "player speech setting persists in the Core store")
 

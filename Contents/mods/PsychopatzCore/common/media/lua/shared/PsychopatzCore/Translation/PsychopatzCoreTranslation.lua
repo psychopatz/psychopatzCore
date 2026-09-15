@@ -16,6 +16,7 @@ local MOD_ID = "PsychopatzCore"
 local BASE_PATH = "media/translation"
 
 Translation.Systems = Translation.Systems or {}
+Translation.Providers = Translation.Providers or {}
 Translation.KeyPrefixes = Translation.KeyPrefixes or {
     { prefix = "UI_PsychopatzConversation_", system = "Conversation" },
     { prefix = "UI_PsychopatzProfiler_", system = "Profiler" },
@@ -74,10 +75,54 @@ function Translation.IsCoreKey(key)
     return Translation.SystemForKey(key) ~= nil
 end
 
-function Translation.GetKey(key, fallback)
+function Translation.RegisterProvider(source, provider)
+    source = tostring(source or "")
+    if source == "" then return false, "source_required" end
+    if type(provider) == "function" then
+        provider = { getKey = provider }
+    end
+    if type(provider) ~= "table"
+        or type(provider.getKey) ~= "function"
+            and type(provider.GetKey) ~= "function"
+    then
+        return false, "provider_get_key_required"
+    end
+    Translation.Providers[source] = provider
+    return provider
+end
+
+function Translation.GetProvider(source)
+    if source == nil then return nil end
+    return Translation.Providers[tostring(source)]
+end
+
+function Translation.RecordAudit(modID, systemName, keyName, reason,
+    language, detail, path)
+    if Manager and type(Manager.RecordTranslationAudit) == "function" then
+        return Manager.RecordTranslationAudit(
+            modID, systemName, keyName, reason, language, detail, path)
+    end
+    return false
+end
+
+local function validResolvedValue(value, key)
+    return type(value) == "string"
+        and value ~= ""
+        and value ~= key
+end
+
+function Translation.GetKey(key, fallback, source)
     if type(key) ~= "string" or key == "" then
         return fallback or ""
     end
+
+    local provider = Translation.GetProvider(source)
+    if provider then
+        local resolver = provider.getKey or provider.GetKey
+        local ok, value = pcall(resolver, key, fallback)
+        if ok and validResolvedValue(value, key) then return value end
+    end
+
     local systemName = Translation.SystemForKey(key)
     if systemName then
         return Translation.Get(systemName, key, fallback)

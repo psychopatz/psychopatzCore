@@ -85,6 +85,31 @@ equal(selected.lines[1].text, "Help near grid 10, 20",
 equal(selected.lines[1].displayText, nil,
     "radio selection keeps Markdown out of the received message")
 
+PsychopatzCore.Translation.RegisterProvider("TestRadio", {
+    getKey = function(key, fallback)
+        if key == "UI_TestRadio_Keyed" then
+            return "Keyed %1 {location}"
+        end
+        return fallback
+    end,
+})
+Radio.RegisterMessagePack("test.keyed", {
+    channel = "test.scan", eventType = "keyed", priority = 0,
+    messages = { { lines = {
+        {
+            textKey = "UI_TestRadio_Keyed",
+            textFallback = "Fallback %1 {location}",
+            textSource = "TestRadio",
+            textArgs = { "value" },
+        },
+    } } },
+})
+local keyed = Radio.SelectMessage("test.scan", "keyed", {
+    location = "grid 10, 20", random = function() return 1 end,
+})
+equal(keyed.lines[1].text, "Keyed value grid 10, 20",
+    "radio message keys resolve before context expansion")
+
 local manager = {
     getRadioChannel = function() return nil end,
     AddChannel = function(self, channel) self.added = channel end,

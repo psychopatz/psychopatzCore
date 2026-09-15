@@ -58,6 +58,12 @@ assert(conversationDiagnostics.localizedPath
     "Core uses the per-system Tagalog catalog path")
 assert(Translation.Get("Core", "UI_PsychopatzCore_SettingsTitle")
     == "Psychopatz Core", "Core catalog resolves shared settings text")
+assert(Translation.Get("Debug", "UI_PsychopatzDebugHub_Profiler_Title")
+    == "Profiler", "Core profiler hub title resolves from the Debug catalog")
+assert(Translation.Get("Debug",
+    "UI_PsychopatzDebugHub_ItemTypeLedger_Description")
+    == "Suriin ang numeric item ID, availability ng script, rebisyon, nawawalang type, at mga puwang sa ledger.",
+    "Core ledger hub description resolves from the Debug catalog")
 
 language = "FR"
 -- PZ recreates Lua state after changing the native language. In this isolated

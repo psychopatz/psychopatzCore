@@ -220,8 +220,9 @@ PsychopatzCore.DebugHub.RegisterTool({
     id = "psychopatz.inventory.itemTypeLedger",
     source = "PsychopatzCore",
     order = 80,
-    title = tr("UI_PsychopatzInventory_Ledger_Section", "Item Type Ledger"),
-    description = "Inspect numeric item IDs, script availability, revision, missing types, and ledger gaps.",
+    title = tr("UI_PsychopatzDebugHub_ItemTypeLedger_Title", "Item Type Ledger"),
+    description = tr("UI_PsychopatzDebugHub_ItemTypeLedger_Description",
+        "Inspect numeric item IDs, script availability, revision, missing types, and ledger gaps."),
     action = function() PsychopatzItemTypeLedgerWindow.Open() end,
 })
 

@@ -13,6 +13,11 @@ PsychopatzCore = {
     Inventory = {},
     UI = { Theme = {}, Layout = {} },
     DebugHub = {},
+    Translation = {
+        GetKey = function(key, fallback)
+            return "[translated] " .. tostring(key)
+        end,
+    },
 }
 
 local Window = {}
@@ -49,6 +54,11 @@ dofile(CLIENT
 
 equal(registered.id, "psychopatz.inventory.itemTypeLedger",
     "debug hub ledger registration")
+equal(registered.title, "[translated] UI_PsychopatzDebugHub_ItemTypeLedger_Title",
+    "ledger hub title uses Core translation")
+equal(registered.description,
+    "[translated] UI_PsychopatzDebugHub_ItemTypeLedger_Description",
+    "ledger hub description uses Core translation")
 equal(type(registered.action), "function", "ledger launch action")
 local snapshot = Types.getDebugSnapshot()
 equal(snapshot.registeredCount, 2, "ledger registered count")

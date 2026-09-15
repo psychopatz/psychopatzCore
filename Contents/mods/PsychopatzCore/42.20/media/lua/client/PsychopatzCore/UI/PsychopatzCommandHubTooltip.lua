@@ -15,25 +15,27 @@ local function trace(definition, result)
     end
 end
 
-local function tr(key, fallback)
+local function tr(key, fallback, source)
     if not key or key == "" then return fallback end
     local value = Translation and Translation.GetKey
-        and Translation.GetKey(key, fallback)
+        and Translation.GetKey(key, fallback, source)
         or getText and getText(key) or nil
     return value and value ~= "" and value ~= key and value or fallback
 end
 
 function Tooltip.TitleFor(definition)
     return tr(definition and definition.titleKey,
-        definition and definition.titleFallback or "COMMAND")
+        definition and definition.titleFallback or "COMMAND",
+        definition and definition.source)
 end
 
 function Tooltip.For(definition, context, enabled)
     local key = definition and definition.tooltipKey
     local fallback = definition and definition.tooltipFallback
         or Tooltip.TitleFor(definition)
+    local source = definition and definition.source
     if enabled ~= false or not definition then
-        return tr(key, fallback)
+        return tr(key, fallback, source)
     end
 
     local resolver = definition.disabledTooltip
@@ -51,13 +53,14 @@ function Tooltip.For(definition, context, enabled)
     if type(value) == "table" then
         key = value.key or value.tooltipKey or key
         fallback = value.fallback or value.tooltipFallback or fallback
+        source = value.source or source
     elseif type(value) == "string" and value ~= "" then
         return value
     elseif type(definition.disabledTooltipKey) == "string" then
         key = definition.disabledTooltipKey
         fallback = definition.disabledTooltipFallback or fallback
     end
-    return tr(key, fallback)
+    return tr(key, fallback, source)
 end
 
 return Tooltip

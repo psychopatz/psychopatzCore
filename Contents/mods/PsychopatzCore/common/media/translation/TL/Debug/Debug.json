@@ -27,6 +27,10 @@
     "UI_PsychopatzDebugHub_Unavailable": "Hindi available",
     "UI_PsychopatzDebugHub_ToolUnavailable": "Hindi available ang %s sa session na ito.",
     "UI_PsychopatzDebugHub_ToolFailed": "Hindi mabuksan ang %s.",
+    "UI_PsychopatzDebugHub_Profiler_Title": "Profiler",
+    "UI_PsychopatzDebugHub_Profiler_Description": "Suriin ang mga sukatan at i-configure ang shared profiler capture runtime.",
+    "UI_PsychopatzDebugHub_ItemTypeLedger_Title": "Ledger ng Uri ng Item",
+    "UI_PsychopatzDebugHub_ItemTypeLedger_Description": "Suriin ang numeric item ID, availability ng script, rebisyon, nawawalang type, at mga puwang sa ledger.",
     "UI_PsychopatzDebugTrace_CaptureOff": "Capture: NAKA-OFF",
     "UI_PsychopatzDebugTrace_CaptureOn": "Capture: NAKA-ON",
     "UI_PsychopatzDebugTrace_Clear": "Burahin",
@@ -48,6 +52,8 @@
     "UI_PsychopatzDebugSettings_Applied": "Nailapat at na-save ang runtime setting.",
     "UI_PsychopatzDebugSettings_ReloadFailed": "Hindi na-reload: %s",
     "UI_PsychopatzDebugSettings_Reloaded": "Na-reload ang %s at nailapat ang %d runtime setting. Kailangan ng restart para sa %d.",
+    "UI_PsychopatzDebugSettings_TranslationAudit_Title": "Audit ng fallback sa pagsasalin",
+    "UI_PsychopatzDebugSettings_TranslationAudit_Description": "Nagbibigay ng babala kapag English key, catalog, o hindi naisaling English na prose value ang ginamit sa aktibong wika.",
     "UI_PsychopatzDebugSettings_Title": "Mga Setting ng Debug",
     "UI_PsychopatzObjectName_Grab": "[Debug] Kunin ang Pangalan ng Object"
 }

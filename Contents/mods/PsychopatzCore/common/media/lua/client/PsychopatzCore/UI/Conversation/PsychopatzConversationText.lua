@@ -80,6 +80,26 @@ function Text.Payload(value, fallback)
     return { text = tostring(value or fallback or "") }
 end
 
+local function format(value, args)
+    local output = tostring(value or "")
+    local key
+    local replacement
+    for key, replacement in pairs(type(args) == "table" and args or {}) do
+        if type(key) == "number" then
+            output = string.gsub(output, "%%" .. tostring(key), function()
+                return tostring(replacement)
+            end)
+        else
+            output = string.gsub(
+                output,
+                "{" .. tostring(key) .. "}",
+                function() return tostring(replacement) end
+            )
+        end
+    end
+    return output
+end
+
 local function translate(key, args)
     if not key or key == "" then return nil end
     if CoreTranslation and CoreTranslation.IsCoreKey
@@ -109,26 +129,6 @@ local function translate(key, args)
     )
 end
 
-local function format(value, args)
-    local output = tostring(value or "")
-    local key
-    local replacement
-    for key, replacement in pairs(type(args) == "table" and args or {}) do
-        if type(key) == "number" then
-            output = string.gsub(output, "%%" .. tostring(key), function()
-                return tostring(replacement)
-            end)
-        else
-            output = string.gsub(
-                output,
-                "{" .. tostring(key) .. "}",
-                function() return tostring(replacement) end
-            )
-        end
-    end
-    return output
-end
-
 local function domainValue(key, domain)
     local language = languageCode()
     local function resolveFrom(selectedDomain, selectedLanguage)
@@ -136,8 +136,26 @@ local function domainValue(key, domain)
         local value = values and values[key] or nil
         return type(value) == "string" and value ~= "" and value or nil
     end
+    local function resolveAndAudit(selectedDomain)
+        local value = resolveFrom(selectedDomain, language)
+        if value and language ~= "EN" then
+            local english = resolveFrom(selectedDomain, "EN")
+            if english and string.find(english, "%s") ~= nil
+                and value == english
+                and CoreTranslation
+                and type(CoreTranslation.RecordAudit) == "function"
+            then
+                CoreTranslation.RecordAudit(
+                    "ProjectHoomans", "Conversation", key,
+                    "english_value_fallback", language,
+                    "domain=" .. tostring(selectedDomain)
+                )
+            end
+        end
+        return value
+    end
     if domain then
-        local value = resolveFrom(domain, language)
+        local value = resolveAndAudit(domain)
         if not value and language ~= "EN" then value = resolveFrom(domain, "EN") end
         if value then return value end
     end
@@ -145,7 +163,7 @@ local function domainValue(key, domain)
     for index = 1, #Text.domains do
         local selected = Text.domains[index]
         if selected ~= domain then
-            local value = resolveFrom(selected, language)
+            local value = resolveAndAudit(selected)
             if not value and language ~= "EN" then
                 value = resolveFrom(selected, "EN")
             end

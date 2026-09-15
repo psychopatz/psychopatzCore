@@ -1,5 +1,4 @@
 require "PsychopatzCore/Settings/PsychopatzSettings"
-require "PsychopatzCore/UI/PsychopatzDebugHubWindow"
 require "PsychopatzCore/UI/PsychopatzSettingsWindow"
 
 PsychopatzCore = PsychopatzCore or {}
@@ -86,26 +85,6 @@ function Audio.ToggleSettings()
     return PsychopatzCore.InGameSettings
         and PsychopatzCore.InGameSettings.Toggle("PsychopatzAudio")
         or nil
-end
-
-if PsychopatzCore.DebugHub and not Audio.debugHubRegistered then
-    PsychopatzCore.DebugHub.RegisterTool({
-        id = "psychopatz.audioSettings",
-        source = "Sounds",
-        order = 10,
-        title = tr("UI_PsychopatzCore_AudioSettingsTitle", "Sound settings"),
-        description = tr(
-            "UI_PsychopatzCore_AudioSettingsDescription",
-            "Enable optional player dialogue TTS and inspect voice playback settings."
-        ),
-        available = function()
-            return Audio.ToggleSettings ~= nil
-        end,
-        action = function()
-            return Audio.ToggleSettings()
-        end,
-    })
-    Audio.debugHubRegistered = true
 end
 
 return Audio

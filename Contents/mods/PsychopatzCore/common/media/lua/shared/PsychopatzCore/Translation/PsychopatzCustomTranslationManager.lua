@@ -17,6 +17,19 @@ Manager.Data = type(Manager.Data) == "table" and Manager.Data or {}
 Manager.Systems = type(Manager.Systems) == "table" and Manager.Systems or {}
 Manager.Diagnostics = type(Manager.Diagnostics) == "table"
     and Manager.Diagnostics or {}
+Manager.TranslationAuditEnabled = Manager.TranslationAuditEnabled == true
+Manager.LookupDiagnostics = type(Manager.LookupDiagnostics) == "table"
+    and Manager.LookupDiagnostics or {}
+Manager.LookupDiagnostics.warnings =
+    type(Manager.LookupDiagnostics.warnings) == "table"
+    and Manager.LookupDiagnostics.warnings or {}
+Manager.LookupDiagnostics.counts =
+    type(Manager.LookupDiagnostics.counts) == "table"
+    and Manager.LookupDiagnostics.counts or {}
+Manager.LookupDiagnostics.lookupCount =
+    tonumber(Manager.LookupDiagnostics.lookupCount) or 0
+Manager.LookupDiagnostics.warningCount =
+    tonumber(Manager.LookupDiagnostics.warningCount) or 0
 Manager._handles = type(Manager._handles) == "table"
     and Manager._handles or {}
 Manager._languageOverride = Manager._languageOverride
@@ -32,6 +45,16 @@ local function log(level, message)
     local prefix = "[PsychopatzCore][CustomTranslationManager]["
         .. tostring(level) .. "] "
     if print then print(prefix .. tostring(message)) end
+end
+
+local function likelyUntranslatedProse(englishValue, localizedValue)
+    -- Identical one-word labels are often intentional loanwords or proper
+    -- names in a localized catalog. Equal multi-word prose is a useful,
+    -- low-noise signal for an untranslated entry.
+    return type(englishValue) == "string"
+        and englishValue ~= ""
+        and englishValue == localizedValue
+        and string.find(englishValue, "%s") ~= nil
 end
 
 local function validIdentifier(value)
@@ -85,9 +108,19 @@ local function activeLanguage()
     return normalizeLanguage(value)
 end
 
+local function resetLookupDiagnostics()
+    local diagnostics = Manager.LookupDiagnostics
+    diagnostics.warnings = {}
+    diagnostics.counts = {}
+    diagnostics.lookupCount = 0
+    diagnostics.warningCount = 0
+    diagnostics.language = activeLanguage()
+end
+
 local function invalidateLoadedCatalogs()
     Manager.Data = {}
     Manager.Diagnostics = {}
+    resetLookupDiagnostics()
     for _, systems in pairs(Manager.Systems) do
         for _, source in pairs(systems) do
             source._state = nil
@@ -246,6 +279,12 @@ local function loadSystem(source)
     source._state = "loading"
 
     local language = activeLanguage()
+    source._language = language
+    source._localizedAvailable = false
+    source._localizedReason = nil
+    source._localizedPath = nil
+    source._localizedKeys = {}
+    source._untranslatedKeys = {}
     local english, englishReason, englishPath = readCatalog(source, ENGLISH)
     if not english then
         source._state = "error"
@@ -272,11 +311,20 @@ local function loadSystem(source)
         local localized, reason, path = readCatalog(source, language)
         localizedPath = path
         if localized then
-            for key, text in pairs(localized) do resolved[key] = text end
-        else
-            localizedReason = reason
-            usedEnglishFallback = true
-        end
+            source._localizedAvailable = true
+            source._localizedKeys = localized
+            for key, text in pairs(localized) do
+                resolved[key] = text
+                if likelyUntranslatedProse(english[key], text) then
+                    source._untranslatedKeys[key] = true
+                end
+            end
+    else
+        localizedReason = reason
+        source._localizedReason = reason
+        usedEnglishFallback = true
+    end
+    source._localizedPath = localizedPath
     end
 
     dataFor(source.modID)[source.systemName] = resolved
@@ -296,6 +344,47 @@ local function loadSystem(source)
             Manager.Diagnostics[systemKey(source.modID, source.systemName)].entryCount + 1
     end
     return true, resolved
+end
+
+function Manager.RecordTranslationAudit(modID, systemName, keyName, reason,
+    language, detail, path)
+    language = normalizeLanguage(language or activeLanguage())
+    if Manager.TranslationAuditEnabled ~= true or language == ENGLISH then
+        return false
+    end
+    local diagnostics = Manager.LookupDiagnostics
+    diagnostics.language = language
+    diagnostics.lookupCount = diagnostics.lookupCount + 1
+    diagnostics.counts[reason] = (diagnostics.counts[reason] or 0) + 1
+
+    local warningKey = systemKey(modID, systemName)
+        .. "|" .. tostring(keyName) .. "|" .. tostring(reason)
+    if diagnostics.warnings[warningKey] then return false end
+    diagnostics.warnings[warningKey] = true
+    diagnostics.warningCount = diagnostics.warningCount + 1
+
+    log("WARN", "translation_audit language="
+        .. tostring(diagnostics.language)
+        .. " mod=" .. tostring(modID)
+        .. " system=" .. tostring(systemName)
+        .. " key=" .. tostring(keyName)
+        .. " result=" .. tostring(reason)
+        .. (detail and " detail=" .. tostring(detail) or "")
+        .. (path and " path=" .. tostring(path) or ""))
+    return true
+end
+
+local function recordLookup(source, keyName, reason)
+    if not source then return end
+    Manager.RecordTranslationAudit(
+        source.modID,
+        source.systemName,
+        keyName,
+        reason,
+        source._language,
+        source._localizedReason,
+        source._localizedPath
+    )
 end
 
 local function makeHandle(source)
@@ -334,6 +423,35 @@ end
 
 function Manager.clearLanguageOverride()
     return Manager.setLanguageOverride(nil)
+end
+
+function Manager.SetTranslationAuditEnabled(enabled)
+    Manager.TranslationAuditEnabled = enabled == true
+    resetLookupDiagnostics()
+    if Manager.TranslationAuditEnabled == true then
+        log("INFO", "translation_audit event=enabled language="
+            .. tostring(activeLanguage()))
+    end
+    return Manager.TranslationAuditEnabled
+end
+
+function Manager.IsTranslationAuditEnabled()
+    return Manager.TranslationAuditEnabled == true
+end
+
+function Manager.GetTranslationAuditSnapshot()
+    local source = Manager.LookupDiagnostics
+    local counts = {}
+    for reason, count in pairs(source.counts or {}) do
+        counts[reason] = count
+    end
+    return {
+        enabled = Manager.TranslationAuditEnabled == true,
+        language = source.language or activeLanguage(),
+        lookupCount = source.lookupCount or 0,
+        warningCount = source.warningCount or 0,
+        counts = counts,
+    }
 end
 
 function Manager.getLanguageOverride()
@@ -413,7 +531,28 @@ function Manager.get(modID, systemName, keyName, fallback)
     local data = Manager.Data[modID]
     local catalog = data and data[systemName] or nil
     local value = catalog and catalog[keyName] or nil
-    if type(value) == "string" and value ~= "" then return value end
+    if type(value) == "string" and value ~= "" then
+        if source and source._language ~= ENGLISH then
+            local reason
+            if source._untranslatedKeys
+                and source._untranslatedKeys[keyName]
+            then
+                reason = "english_value_fallback"
+            elseif not (source._localizedKeys and source._localizedKeys[keyName]) then
+                reason = source._localizedAvailable
+                    and "english_key_fallback"
+                    or "english_catalog_fallback"
+            end
+            if reason then recordLookup(source, keyName, reason) end
+        end
+        return value
+    end
+    if source then
+        local reason = source._state == "error"
+            and "missing_english_catalog"
+            or "missing_translation_key"
+        recordLookup(source, keyName, reason)
+    end
     return fallback or keyName
 end
 
