@@ -7,6 +7,13 @@ local Notifications = PsychopatzCore.Notifications
 local UI = PsychopatzCore.UI
 local Layout = UI.Layout
 local Theme = UI.Theme
+local Translation = PsychopatzCore.Translation
+
+local function tr(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
 
 Notifications.Queue = Notifications.Queue or {}
 Notifications.QueuedIDs = Notifications.QueuedIDs or {}
@@ -31,7 +38,7 @@ function PsychopatzNotificationWindow:createChildren()
         doDrawItem = drawDetail,
     })
     self.dismissButton = UI.CreateButton(self, {
-        id = "dismiss", title = "Close", target = self,
+        id = "dismiss", title = tr("UI_PsychopatzCore_Close", "Close"), target = self,
         onclick = PsychopatzNotificationWindow.onDismiss,
         variant = "quiet",
     })
@@ -50,7 +57,8 @@ end
 
 function PsychopatzNotificationWindow:applyNotification(definition)
     self.notification = definition
-    self:setTitle(tostring(definition.title or "Notification"))
+    self:setTitle(tostring(definition.title or tr(
+        "UI_PsychopatzCore_Notification_DefaultTitle", "Notification")))
     self.details:clear()
     for index, value in ipairs(definition.details or {}) do
         self.details:addItem(tostring(index), { text = tostring(value) })
@@ -79,7 +87,8 @@ end
 
 function PsychopatzNotificationWindow:new(x, y, width, height)
     return UI.Window.new(self, x, y, width, height, {
-        title = "Notification", persistGeometry = false,
+        title = tr("UI_PsychopatzCore_Notification_DefaultTitle", "Notification"),
+        persistGeometry = false,
         responsiveSpec = {
             width = width, height = height,
             minWidth = 360, minHeight = 190,

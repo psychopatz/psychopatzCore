@@ -12,10 +12,13 @@ local UI = PsychopatzCore.UI
 local Hub = UI.CommandHub or {}
 UI.CommandHub = Hub
 PsychopatzCore.CommandHub = Hub
+local Translation = PsychopatzCore.Translation
 
 local function tr(key, fallback)
     if not key or key == "" then return fallback end
-    local value = getText and getText(key) or nil
+    local value = Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or getText and getText(key) or nil
     return value and value ~= "" and value ~= key and value or fallback
 end
 
@@ -151,9 +154,8 @@ function Hub.OpenSettings(owner)
     local window = Hub.Settings.instance
     if not window then
         window = UI.NewWindow(Hub.Settings.Window, {
-            title = getText and getText(
-                "UI_PsychopatzCore_CommandHub_Settings_Title")
-                or "COMMAND HUB SETTINGS",
+            title = tr("UI_PsychopatzCore_CommandHub_Settings_Title",
+                "COMMAND HUB SETTINGS"),
             resizable = true,
             persistenceKey = "PsychopatzCore.CommandHub.Settings",
             responsiveSpec = {

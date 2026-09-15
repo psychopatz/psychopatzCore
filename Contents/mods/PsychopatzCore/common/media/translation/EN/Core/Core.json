@@ -1,0 +1,14 @@
+{
+    "UI_PsychopatzCore_SettingsTitle": "Psychopatz Core",
+    "UI_PsychopatzCore_AudioSettingsTitle": "Sounds",
+    "UI_PsychopatzCore_AudioSettingsDescription": "Enable optional player dialogue TTS and inspect voice playback settings.",
+    "UI_PsychopatzCore_SettingPlayerSpeechTTS": "Speak player dialogue with TTS",
+    "UI_PsychopatzCore_KeybindingsSection": "Key Bindings",
+    "UI_PsychopatzCore_DebugControlsKey": "Open Psychopatz Debug Controls (Numpad 0)",
+    "UI_PsychopatzCore_DebugControlsTooltip": "Hold Numpad 0 for 600 ms to open the controls; press and release it while open to execute the current command set.",
+    "UI_PsychopatzCore_Widget_Attach": "Attach to owner",
+    "UI_PsychopatzCore_Widget_Detach": "Detach as widget",
+    "UI_PsychopatzCore_Window_DefaultTitle": "Psychopatz",
+    "UI_PsychopatzCore_Notification_DefaultTitle": "Notification",
+    "UI_PsychopatzCore_Close": "Close"
+}

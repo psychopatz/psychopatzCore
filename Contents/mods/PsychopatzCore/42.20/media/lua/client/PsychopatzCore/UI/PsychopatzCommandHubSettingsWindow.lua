@@ -15,10 +15,13 @@ local UI = PsychopatzCore.UI
 local Layout = UI.Layout
 local Theme = UI.Theme
 local Options = UI.CommandHubOptions
+local Translation = PsychopatzCore.Translation
 
 local function tr(key, fallback)
     if not key or key == "" then return fallback end
-    local value = getText and getText(key) or nil
+    local value = Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or getText and getText(key) or nil
     return value and value ~= "" and value ~= key and value or fallback
 end
 
@@ -167,22 +170,19 @@ function ISPsychopatzCommandHubSettingsWindow:createChildren()
     self.statusLabel = label(self, "", Theme.colors.textMuted)
     self.resetButton = UI.CreateButton(self, {
         id = "reset",
-        title = getText and getText(
-            "UI_PsychopatzCore_CommandHub_Settings_Reset") or "RESET",
+        title = tr("UI_PsychopatzCore_CommandHub_Settings_Reset", "RESET"),
         target = self, onclick = function() return self:onReset() end,
         variant = "quiet",
     })
     self.closeButton = UI.CreateButton(self, {
         id = "close",
-        title = getText and getText(
-            "UI_PsychopatzCore_CommandHub_Settings_Close") or "CLOSE",
+        title = tr("UI_PsychopatzCore_CommandHub_Settings_Close", "CLOSE"),
         target = self, onclick = function() return self:close() end,
         variant = "quiet",
     })
     self.applyButton = UI.CreateButton(self, {
         id = "apply",
-        title = getText and getText(
-            "UI_PsychopatzCore_CommandHub_Settings_Apply") or "APPLY",
+        title = tr("UI_PsychopatzCore_CommandHub_Settings_Apply", "APPLY"),
         target = self, onclick = function() return self:onApply() end,
         variant = "primary",
     })

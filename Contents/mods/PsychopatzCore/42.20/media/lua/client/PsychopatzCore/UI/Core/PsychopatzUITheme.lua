@@ -5,6 +5,7 @@ PsychopatzCore.UI = PsychopatzCore.UI or {}
 
 local Theme = PsychopatzCore.UI.Theme or {}
 PsychopatzCore.UI.Theme = Theme
+local Translation = PsychopatzCore.Translation
 
 local ThemeStore = PsychopatzCore.Settings.Open("UI", {
     fileName = "PsychopatzCore_UI.txt",
@@ -113,8 +114,11 @@ end
 function Theme.GetPresetLabel(id)
     local preset = presetFor(id or Theme.GetPresetID())
     if not preset then preset = presetFor(Theme.DefaultPreset) end
-    local translated = preset.titleKey and getText and getText(preset.titleKey)
-        or nil
+    local translated = preset.titleKey and Translation
+        and Translation.GetKey(preset.titleKey, nil) or nil
+    if not translated and preset.titleKey and getText then
+        translated = getText(preset.titleKey)
+    end
     if translated and translated ~= "" and translated ~= preset.titleKey then
         return translated
     end

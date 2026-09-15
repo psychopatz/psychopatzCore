@@ -1,0 +1,23 @@
+{
+    "UI_PsychopatzCore_CommandHub_Title": "COMMAND HUB",
+    "UI_PsychopatzCore_CommandHub_Settings_Title": "MGA SETTING NG COMMAND HUB",
+    "UI_PsychopatzCore_CommandHub_Back": "Bumalik",
+    "UI_PsychopatzCore_CommandHub_Settings_Opacity": "Opacity",
+    "UI_PsychopatzCore_CommandHub_Settings_Help": "Ayusin dito ang opacity, pag-angat ng child surface, controls ng title bar, tema, at panig ng panel.",
+    "UI_PsychopatzCore_CommandHub_Settings_BranchLeft": "ACTION PANEL: KALIWA",
+    "UI_PsychopatzCore_CommandHub_Settings_BranchRight": "ACTION PANEL: KANAN",
+    "UI_PsychopatzCore_CommandHub_Settings_SurfaceLift": "Pag-angat ng opacity ng surface",
+    "UI_PsychopatzCore_CommandHub_Settings_DetailLift": "Pag-angat ng opacity ng detalye",
+    "UI_PsychopatzCore_CommandHub_Settings_TitlebarScale": "Laki ng control sa title bar",
+    "UI_PsychopatzCore_CommandHub_Settings_Theme": "TEMA",
+    "UI_PsychopatzCore_Theme_Cyan": "Cyan",
+    "UI_PsychopatzCore_Theme_Green": "Berde",
+    "UI_PsychopatzCore_Theme_Amber": "Amber",
+    "UI_PsychopatzCore_Theme_Purple": "Lila",
+    "UI_PsychopatzCore_Theme_Red": "Pula",
+    "UI_PsychopatzCore_CommandHub_Settings_Reset": "I-RESET",
+    "UI_PsychopatzCore_CommandHub_Settings_Close": "ISARA",
+    "UI_PsychopatzCore_CommandHub_Settings_Apply": "ILAPAT",
+    "UI_PsychopatzCore_CommandHub_Settings_Applied": "Nailapat ang mga setting.",
+    "UI_PsychopatzCore_CommandHub_Settings_Invalid": "Maglagay ng valid na value para sa appearance."
+}

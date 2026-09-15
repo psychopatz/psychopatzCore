@@ -1,0 +1,14 @@
+{
+    "UI_PsychopatzCore_SettingsTitle": "Psychopatz Core",
+    "UI_PsychopatzCore_AudioSettingsTitle": "Tunog",
+    "UI_PsychopatzCore_AudioSettingsDescription": "Paganahin ang opsyonal na TTS para sa diyalogo ng manlalaro at suriin ang mga setting ng voice playback.",
+    "UI_PsychopatzCore_SettingPlayerSpeechTTS": "Bigkasin ang diyalogo ng manlalaro gamit ang TTS",
+    "UI_PsychopatzCore_KeybindingsSection": "Mga Key Binding",
+    "UI_PsychopatzCore_DebugControlsKey": "Buksan ang Psychopatz Debug Controls (Numpad 0)",
+    "UI_PsychopatzCore_DebugControlsTooltip": "Hawakan ang Numpad 0 nang 600 ms para buksan ang controls; pindutin at bitawan ito habang bukas upang isagawa ang kasalukuyang command set.",
+    "UI_PsychopatzCore_Widget_Attach": "Ikabit sa may-ari",
+    "UI_PsychopatzCore_Widget_Detach": "Ihiwalay bilang widget",
+    "UI_PsychopatzCore_Window_DefaultTitle": "Psychopatz",
+    "UI_PsychopatzCore_Notification_DefaultTitle": "Abiso",
+    "UI_PsychopatzCore_Close": "Isara"
+}

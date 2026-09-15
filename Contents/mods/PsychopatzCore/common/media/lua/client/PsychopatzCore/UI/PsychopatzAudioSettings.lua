@@ -7,6 +7,7 @@ PsychopatzCore.Audio = PsychopatzCore.Audio or {}
 
 local Audio = PsychopatzCore.Audio
 local Settings = PsychopatzCore.Settings
+local CoreTranslation = PsychopatzCore.Translation
 
 Audio.defaults = Audio.defaults or {
     playerSpeechTTS = false,
@@ -39,6 +40,9 @@ function Audio.IsPlayerSpeechEnabled()
 end
 
 local function tr(key, fallback)
+    if CoreTranslation and CoreTranslation.GetKey then
+        return CoreTranslation.GetKey(key, fallback)
+    end
     local value = getText and getText(key) or nil
     if value and value ~= "" and value ~= key then return value end
     return fallback or key

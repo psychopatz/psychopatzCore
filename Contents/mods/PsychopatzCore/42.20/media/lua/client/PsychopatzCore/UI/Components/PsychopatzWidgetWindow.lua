@@ -8,6 +8,7 @@ local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Resolver = UI.ImageResolver
 local Toolbar = UI.WindowToolbar
+local Translation = PsychopatzCore.Translation
 
 local WidgetWindow = UI.WidgetWindow or {}
 UI.WidgetWindow = WidgetWindow
@@ -24,14 +25,16 @@ local function syncTooltip(window)
     local button = window.psychopatzWidgetButton
     if not button then return end
     if window.psychopatzWidgetDetached then
-        local value = getText and getText("UI_PsychopatzCore_Widget_Attach")
-            or nil
+        local value = Translation and Translation.GetKey
+            and Translation.GetKey("UI_PsychopatzCore_Widget_Attach", nil)
+            or getText and getText("UI_PsychopatzCore_Widget_Attach") or nil
         button.tooltip = value and value ~= ""
             and value ~= "UI_PsychopatzCore_Widget_Attach"
             and value or "Attach to owner"
     else
-        local value = getText and getText("UI_PsychopatzCore_Widget_Detach")
-            or nil
+        local value = Translation and Translation.GetKey
+            and Translation.GetKey("UI_PsychopatzCore_Widget_Detach", nil)
+            or getText and getText("UI_PsychopatzCore_Widget_Detach") or nil
         button.tooltip = value and value ~= ""
             and value ~= "UI_PsychopatzCore_Widget_Detach"
             and value or "Detach as widget"

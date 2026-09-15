@@ -140,12 +140,18 @@ end
 local function descriptorKey(spec)
     local appearance = type(spec and spec.appearance) == "table" and spec.appearance or {}
     local hairColor = type(appearance.hairColor) == "table" and appearance.hairColor or {}
+    local skinColor = type(appearance.skinColor) == "table" and appearance.skinColor or {}
     return table.concat({
         tostring(spec and spec.id or ""),
         tostring(spec and spec.identitySeed or 1),
         tostring(spec and spec.isFemale == true),
         tostring(spec and spec.faceOnly == true),
+        tostring(appearance.outfitMode or ""),
+        tostring(appearance.outfit or ""),
         tostring(appearance.skinTexture or ""),
+        tostring(skinColor.r or ""),
+        tostring(skinColor.g or ""),
+        tostring(skinColor.b or ""),
         tostring(appearance.hairModel or ""),
         tostring(appearance.beardModel or ""),
         tostring(hairColor.r or ""),
@@ -154,6 +160,7 @@ local function descriptorKey(spec)
         spec and spec.faceOnly == true
             and spec.includeCurrentClothing ~= true
             and "" or stableArraySignature(appearance.outfitItems),
+        stableValueSignature(appearance.outfitItemSpecs),
         stableMapSignature(portraitWornItems(spec)),
         stableValueSignature(portraitWornVisuals(spec)),
     }, "|")
@@ -205,6 +212,24 @@ local function applyColor(humanVisual, color)
     if not ok or not immutable then return end
     safeCall(humanVisual, "setHairColor", immutable)
     safeCall(humanVisual, "setBeardColor", immutable)
+end
+
+local function applySkinColor(humanVisual, color)
+    local immutable
+    if not humanVisual or type(color) ~= "table" or not ImmutableColor then
+        return
+    end
+    local ok
+    ok, immutable = pcall(
+        ImmutableColor.new,
+        tonumber(color.r) or 0.2,
+        tonumber(color.g) or 0.1,
+        tonumber(color.b) or 0.1,
+        tonumber(color.a) or 1
+    )
+    if ok and immutable then
+        safeCall(humanVisual, "setSkinColor", immutable)
+    end
 end
 
 local function resolveBodyLocation(location)
@@ -285,6 +310,7 @@ local function buildDescriptor(spec)
     if humanVisual then
         safeCall(humanVisual, "setSkinTextureName", appearance.skinTexture
             or (spec and spec.isFemale and "FemaleBody01" or "MaleBody01"))
+        applySkinColor(humanVisual, appearance.skinColor)
         if appearance.hairModel then safeCall(humanVisual, "setHairModel", appearance.hairModel) end
         safeCall(humanVisual, "setBeardModel", spec and spec.isFemale and "" or (appearance.beardModel or ""))
         applyColor(humanVisual, appearance.hairColor)
@@ -296,15 +322,39 @@ local function buildDescriptor(spec)
     wornItems = resolvedWorn
     if wornItems then
         safeCall(wornItems, "clear")
+        if appearance.outfitMode == "item" and appearance.outfit then
+            safeCall(descriptor, "dressInNamedOutfit", appearance.outfit)
+        end
         hasWornItem = false
         for _, _ in pairs(wornSpec) do
             hasWornItem = true
             break
         end
         if spec and (spec.faceOnly ~= true or not hasWornItem) then
-            for i = 1, #(type(appearance.outfitItems) == "table"
-                and appearance.outfitItems or {}) do
-                addWornItem(wornItems, appearance.outfitItems[i], nil)
+            if type(appearance.outfitItemSpecs) == "table"
+                and #appearance.outfitItemSpecs > 0
+            then
+                for i = 1, #appearance.outfitItemSpecs do
+                    local itemSpec = appearance.outfitItemSpecs[i]
+                    local itemType = itemSpec and itemSpec.type
+                    local itemState = itemSpec and itemSpec.itemState
+                    local visualState
+                    if PNC and PNC.Equipment
+                        and PNC.Equipment.VisualStateFromItemState
+                    then
+                        visualState = PNC.Equipment.VisualStateFromItemState(
+                            itemState, itemType)
+                    end
+                    if itemType then
+                        addWornItem(wornItems, itemType,
+                            itemSpec.wornSlot, visualState)
+                    end
+                end
+            else
+                for i = 1, #(type(appearance.outfitItems) == "table"
+                    and appearance.outfitItems or {}) do
+                    addWornItem(wornItems, appearance.outfitItems[i], nil)
+                end
             end
         end
         for location, fullType in pairs(wornSpec) do

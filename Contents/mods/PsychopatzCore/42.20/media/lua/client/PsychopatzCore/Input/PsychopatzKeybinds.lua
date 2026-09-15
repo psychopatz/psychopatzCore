@@ -2,6 +2,13 @@ PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.Keybinds = PsychopatzCore.Keybinds or {}
 
 local Keybinds = PsychopatzCore.Keybinds
+local Translation = PsychopatzCore.Translation
+
+local function tr(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
 
 Keybinds.TYPE_PRESS = Keybinds.TYPE_PRESS or "press"
 Keybinds.TYPE_LONG_PRESS = Keybinds.TYPE_LONG_PRESS or "longpress"
@@ -33,16 +40,14 @@ local function settingsOptions()
         and modOptions:getOptions(OPTIONS_ID)
         or nil
     if not options and modOptions.create then
-        options = modOptions:create(
-            OPTIONS_ID,
-            "UI_PsychopatzCore_SettingsTitle"
-        )
+        options = modOptions:create(OPTIONS_ID,
+            tr("UI_PsychopatzCore_SettingsTitle", "Psychopatz Core"))
     end
     if not options then return nil end
 
     if not options._psychopatzCoreKeybindTitleAdded
         and options.addTitle then
-        options:addTitle("UI_PsychopatzCore_KeybindingsSection")
+        options:addTitle(tr("UI_PsychopatzCore_KeybindingsSection", "Key Bindings"))
         options._psychopatzCoreKeybindTitleAdded = true
     end
     return options

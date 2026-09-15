@@ -1,4 +1,4 @@
-local Json = require "PsychopatzCore/Bridge/PsychopatzBridgeJson"
+local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
 local Registry = { namespaces = {}, tools = {}, toolRevision = 0, toolCatalog = nil }
 local MAX_TOOLS = 256
 

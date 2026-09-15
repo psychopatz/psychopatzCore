@@ -5,6 +5,13 @@ local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
 local Trace = PsychopatzCore.DebugTrace
+local Translation = PsychopatzCore.Translation
+
+local function tr(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
 
 PsychopatzDebugTraceWindow = UI.Window:derive("PsychopatzDebugTraceWindow")
 PsychopatzDebugTraceWindow.instance = nil
@@ -101,17 +108,17 @@ function PsychopatzDebugTraceWindow:createChildren()
     self:addChild(self.details)
 
     self.captureButton = UI.CreateButton(self, {
-        id = "capture", title = "Capture: OFF", target = self,
+        id = "capture", title = tr("UI_PsychopatzDebugTrace_CaptureOff", "Capture: OFF"), target = self,
         onclick = PsychopatzDebugTraceWindow.onCapture,
         variant = "quiet",
     })
     self.clearButton = UI.CreateButton(self, {
-        id = "clear", title = "Clear", target = self,
+        id = "clear", title = tr("UI_PsychopatzDebugTrace_Clear", "Clear"), target = self,
         onclick = PsychopatzDebugTraceWindow.onClear,
         variant = "danger",
     })
     self.traceCloseButton = UI.CreateButton(self, {
-        id = "close", title = "Close", target = self,
+        id = "close", title = tr("UI_PsychopatzDebugTrace_Close", "Close"), target = self,
         onclick = PsychopatzDebugTraceWindow.close,
         variant = "quiet",
     })
@@ -170,7 +177,8 @@ function PsychopatzDebugTraceWindow:refreshDetails()
             "data = " .. formatValue(entry.data, 0, 0),
         }, "\n")
     else
-        content = "No trace events. Enable capture, then perform the action you want to inspect."
+        content = tr("UI_PsychopatzDebugTrace_Empty",
+            "No trace events. Enable capture, then perform the action you want to inspect.")
     end
     self.details.text = content
     self.details:paginate()
@@ -191,11 +199,16 @@ function PsychopatzDebugTraceWindow:render()
     UI.Window.render(self)
     local rect = self:getContentRect({ top = 32, bottom = 10 })
     local color = Theme.colors.textMuted
-    local status = Trace.IsEnabled() and "Capture is live; events stay in memory only."
-        or "Capture is OFF; no payloads are copied or retained."
+    local status = Trace.IsEnabled()
+        and tr("UI_PsychopatzDebugTrace_Live",
+            "Capture is live; events stay in memory only.")
+        or tr("UI_PsychopatzDebugTrace_Off",
+            "Capture is OFF; no payloads are copied or retained.")
     self:drawText(status, rect.x, rect.y - Layout.Pixels(24, self.uiScale),
         color.r, color.g, color.b, color.a, UIFont.Small)
-    self.captureButton:setTitle(Trace.IsEnabled() and "Capture: ON" or "Capture: OFF")
+    self.captureButton:setTitle(Trace.IsEnabled()
+        and tr("UI_PsychopatzDebugTrace_CaptureOn", "Capture: ON")
+        or tr("UI_PsychopatzDebugTrace_CaptureOff", "Capture: OFF"))
     UI.DrawSectionTitle(self, "Runtime trace", rect.x,
         rect.y - Layout.Pixels(44, self.uiScale), rect.width,
         tostring(#(Trace.GetEntries() or {})))
@@ -228,7 +241,8 @@ function PsychopatzDebugTraceWindow.Open()
         return window
     end
     window = UI.NewWindow(PsychopatzDebugTraceWindow, {
-        title = "Psychopatz Runtime Debug Trace",
+        title = tr("UI_PsychopatzDebug_RuntimeTrace_Title",
+            "Psychopatz Runtime Debug Trace"),
         resizable = true,
         responsiveSpec = {
             width = 1040, height = 680,

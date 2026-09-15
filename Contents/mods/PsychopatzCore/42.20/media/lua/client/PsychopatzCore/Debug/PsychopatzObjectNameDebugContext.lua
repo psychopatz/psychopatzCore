@@ -5,7 +5,10 @@ PsychopatzCore = PsychopatzCore or {}
 local Core = PsychopatzCore
 local SquareRules = require "PsychopatzCore/World/PsychopatzSquareRules"
 local Context = Core.ObjectNameDebugContext or {}
-local LABEL = "[Debug] Grab Object Name"
+local Translation = Core.Translation
+local LABEL = Translation and Translation.GetKey
+    and Translation.GetKey("UI_PsychopatzObjectName_Grab", "[Debug] Grab Object Name")
+    or "[Debug] Grab Object Name"
 
 Core.ObjectNameDebugContext = Context
 

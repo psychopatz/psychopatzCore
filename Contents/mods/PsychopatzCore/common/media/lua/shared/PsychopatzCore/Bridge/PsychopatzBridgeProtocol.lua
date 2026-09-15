@@ -1,5 +1,5 @@
 local Protocol = {}
-local Json = require "PsychopatzCore/Bridge/PsychopatzBridgeJson"
+local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
 
 Protocol.VERSION = 1
 Protocol.MAX_REQUEST_BYTES = 32768

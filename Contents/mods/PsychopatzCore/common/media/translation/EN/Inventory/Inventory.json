@@ -1,0 +1,22 @@
+{
+    "UI_PsychopatzInventory_Tooltip_MixedLiquids": "Mixed Liquids",
+    "UI_PsychopatzInventory_Tooltip_Status": "Status",
+    "UI_PsychopatzInventory_Tooltip_Freezing": "Freezing",
+    "UI_PsychopatzInventory_Tooltip_Chambered": "Chambered",
+    "UI_PsychopatzInventory_Tooltip_Jammed": "Jammed",
+    "UI_PsychopatzInventory_Tooltip_Clothing": "Clothing",
+    "UI_PsychopatzInventory_Tooltip_State": "State",
+    "UI_PsychopatzInventory_Tooltip_StateUnavailable": "State unavailable",
+    "UI_PsychopatzInventory_Ledger_Title": "PsychopatzCore Item Type Ledger",
+    "UI_PsychopatzInventory_Ledger_Section": "Item Type Ledger",
+    "UI_PsychopatzInventory_Ledger_Filter": "Show: %s",
+    "UI_PsychopatzInventory_Ledger_FilterAll": "All",
+    "UI_PsychopatzInventory_Ledger_FilterMissing": "Missing",
+    "UI_PsychopatzInventory_Ledger_FilterAvailable": "Available",
+    "UI_PsychopatzInventory_Ledger_Refresh": "Refresh",
+    "UI_PsychopatzInventory_Ledger_RefreshScripts": "Refresh Script Availability",
+    "UI_PsychopatzInventory_Ledger_Unassigned": "<unassigned>",
+    "UI_PsychopatzInventory_Ledger_Gap": "GAP",
+    "UI_PsychopatzInventory_Ledger_Available": "AVAILABLE",
+    "UI_PsychopatzInventory_Ledger_Missing": "MISSING"
+}

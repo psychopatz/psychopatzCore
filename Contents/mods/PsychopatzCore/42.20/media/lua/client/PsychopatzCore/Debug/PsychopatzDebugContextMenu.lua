@@ -7,6 +7,7 @@ PsychopatzCore = PsychopatzCore or {}
 local Core = PsychopatzCore
 local Debug = Core.Debug
 local Hub = Core.DebugHub
+local Translation = Core.Translation
 
 if Core._debugContextMenuInstalled then
     return Core.DebugContextMenu
@@ -17,6 +18,9 @@ local ContextMenu = {}
 Core.DebugContextMenu = ContextMenu
 
 local function tr(key, fallback)
+    if Translation and Translation.GetKey then
+        return Translation.GetKey(key, fallback)
+    end
     local value = getText and getText(key) or nil
     if not value or value == "" or value == key then
         return fallback

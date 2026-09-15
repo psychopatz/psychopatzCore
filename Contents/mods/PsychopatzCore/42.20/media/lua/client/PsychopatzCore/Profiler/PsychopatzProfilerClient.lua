@@ -1,5 +1,12 @@
 PsychopatzCore.ProfilerClient = PsychopatzCore.ProfilerClient or {}
 local Client = PsychopatzCore.ProfilerClient
+local Translation = PsychopatzCore.Translation
+
+local function tr(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
 
 Client.started = Client.started or false
 Client.captureActive = Client.captureActive or false
@@ -54,8 +61,9 @@ function Client.Start()
         id = "psychopatz.profiler",
         source = "PsychopatzCore",
         order = 100,
-        title = getText("UI_PsychopatzProfiler_Title"),
-        description = "Inspect metrics and configure the shared profiler capture runtime.",
+        title = tr("UI_PsychopatzProfiler_Title", "Psychopatz Profiler"),
+        description = tr("UI_PsychopatzProfiler_Description",
+            "Inspect metrics and configure the shared profiler capture runtime."),
         available = function()
             local player = getPlayer and getPlayer() or nil
             local debugAccess = PsychopatzCore.Debug

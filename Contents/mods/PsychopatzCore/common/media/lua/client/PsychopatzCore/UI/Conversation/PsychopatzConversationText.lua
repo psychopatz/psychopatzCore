@@ -6,6 +6,7 @@ local Text = Conversation.Text or {}
 Conversation.Text = Text
 Text.domains = Text.domains or {}
 Text.tables = Text.tables or {}
+local CoreTranslation = PsychopatzCore.Translation
 
 local function copyArgs(values)
     local output = {}
@@ -80,7 +81,17 @@ function Text.Payload(value, fallback)
 end
 
 local function translate(key, args)
-    if not getText or not key or key == "" then return nil end
+    if not key or key == "" then return nil end
+    if CoreTranslation and CoreTranslation.IsCoreKey
+        and CoreTranslation.IsCoreKey(key)
+    then
+        local value = CoreTranslation.GetKey(key, nil)
+        if value and value ~= "" and value ~= key then
+            return format(value, args)
+        end
+        return nil
+    end
+    if not getText then return nil end
     args = args or {}
     local count = #args
     if count == 0 then return getText(key) end

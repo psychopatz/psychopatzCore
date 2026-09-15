@@ -1,0 +1,22 @@
+{
+    "UI_PsychopatzInventory_Tooltip_MixedLiquids": "Magkahalong Likido",
+    "UI_PsychopatzInventory_Tooltip_Status": "Katayuan",
+    "UI_PsychopatzInventory_Tooltip_Freezing": "Nagyeyelo",
+    "UI_PsychopatzInventory_Tooltip_Chambered": "May Bala sa Chamber",
+    "UI_PsychopatzInventory_Tooltip_Jammed": "Na-jam",
+    "UI_PsychopatzInventory_Tooltip_Clothing": "Damit",
+    "UI_PsychopatzInventory_Tooltip_State": "Kalagayan",
+    "UI_PsychopatzInventory_Tooltip_StateUnavailable": "Hindi available ang kalagayan",
+    "UI_PsychopatzInventory_Ledger_Title": "PsychopatzCore Item Type Ledger",
+    "UI_PsychopatzInventory_Ledger_Section": "Ledger ng Uri ng Item",
+    "UI_PsychopatzInventory_Ledger_Filter": "Ipakita: %s",
+    "UI_PsychopatzInventory_Ledger_FilterAll": "Lahat",
+    "UI_PsychopatzInventory_Ledger_FilterMissing": "Nawawala",
+    "UI_PsychopatzInventory_Ledger_FilterAvailable": "Available",
+    "UI_PsychopatzInventory_Ledger_Refresh": "I-refresh",
+    "UI_PsychopatzInventory_Ledger_RefreshScripts": "I-refresh ang Availability ng Script",
+    "UI_PsychopatzInventory_Ledger_Unassigned": "<walang nakatalaga>",
+    "UI_PsychopatzInventory_Ledger_Gap": "PUWANG",
+    "UI_PsychopatzInventory_Ledger_Available": "AVAILABLE",
+    "UI_PsychopatzInventory_Ledger_Missing": "NAWAWALA"
+}

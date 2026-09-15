@@ -4,6 +4,7 @@ local Portable = require "PsychopatzCore/Inventory/PsychopatzPortableItemState"
 local Profiles = require "PsychopatzCore/Inventory/PsychopatzItemTypeProfile"
 
 local Model = {}
+local Translation = PsychopatzCore and PsychopatzCore.Translation
 
 local function call(object, method, ...)
     local value
@@ -29,6 +30,11 @@ local function text(options, key, fallback)
     if options and type(options.translate) == "function" then
         ok, value = pcall(options.translate, key, fallback)
         if ok and value and value ~= "" then return tostring(value) end
+    end
+    if Translation and Translation.IsCoreKey
+        and Translation.IsCoreKey(key)
+    then
+        return Translation.GetKey(key, fallback)
     end
     value = getText and getText(key) or nil
     return value and value ~= "" and value ~= key and value or fallback

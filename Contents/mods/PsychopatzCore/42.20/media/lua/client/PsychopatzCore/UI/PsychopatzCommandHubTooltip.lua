@@ -4,6 +4,7 @@ PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.UI = PsychopatzCore.UI or {}
 
 local Tooltip = {}
+local Translation = PsychopatzCore.Translation
 
 local function trace(definition, result)
     local hub = PsychopatzCore.UI.CommandHub
@@ -16,7 +17,9 @@ end
 
 local function tr(key, fallback)
     if not key or key == "" then return fallback end
-    local value = getText and getText(key) or nil
+    local value = Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or getText and getText(key) or nil
     return value and value ~= "" and value ~= key and value or fallback
 end
 

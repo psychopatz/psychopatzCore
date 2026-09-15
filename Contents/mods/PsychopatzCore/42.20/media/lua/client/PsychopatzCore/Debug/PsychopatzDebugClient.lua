@@ -18,6 +18,13 @@ PsychopatzCore._debugClientInstalled = true
 local Debug = PsychopatzCore.Debug
 local UI = PsychopatzCore.UI
 local DebugHub = PsychopatzCore.DebugHub
+local Translation = PsychopatzCore.Translation
+
+local function tr(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
 
 local DebugTraceWindow
 local function openDebugTrace()
@@ -38,8 +45,9 @@ if DebugHub and DebugHub.RegisterTool then
         id = "psychopatz.runtimeTrace",
         source = "PsychopatzCore",
         order = 5,
-        title = "Runtime Debug Trace",
-        description = "Inspect opt-in structured runtime events from any mod.",
+        title = tr("UI_PsychopatzDebug_RuntimeTrace_Title", "Runtime Debug Trace"),
+        description = tr("UI_PsychopatzDebug_RuntimeTrace_Description",
+            "Inspect opt-in structured runtime events from any mod."),
         available = function()
             return Debug.CanUse(getPlayer and getPlayer() or nil)
         end,
@@ -68,8 +76,9 @@ if DebugHub and DebugHub.RegisterTool then
         id = "psychopatz.debugSettings",
         source = "PsychopatzCore",
         order = 10,
-        title = "Debug Settings",
-        description = "Enable or disable persisted diagnostic instrumentation.",
+        title = tr("UI_PsychopatzDebug_Settings_Title", "Debug Settings"),
+        description = tr("UI_PsychopatzDebug_Settings_Description",
+            "Enable or disable persisted diagnostic instrumentation."),
         available = function()
             return Debug.CanUse(getPlayer and getPlayer() or nil)
         end,
@@ -84,7 +93,7 @@ PsychopatzDebugWindow.instance = nil
 
 function PsychopatzDebugWindow:initialise()
     PsychopatzWindow.initialise(self)
-    self.title = "Psychopatz Admin Control"
+    self.title = tr("UI_PsychopatzDebug_Admin_Title", "Psychopatz Admin Control")
     self:setResizable(false)
 end
 
@@ -147,34 +156,35 @@ function PsychopatzDebugWindow:createChildren()
 
     local y = self:titleBarHeight() + 10
     self.chkHeal = UI.CreateCheckbox(self, {
-        id = "heal_wounds", label = "Heal Wounds", value = true,
+        id = "heal_wounds", label = tr("UI_PsychopatzDebug_Action_HealWounds", "Heal Wounds"), value = true,
         x = 10, y = y, target = self, font = UIFont.Small,
     }); y = y + 25
     self.chkStats = UI.CreateCheckbox(self, {
-        id = "reset_stats", label = "Reset Stats", value = true,
+        id = "reset_stats", label = tr("UI_PsychopatzDebug_Action_ResetStats", "Reset Stats"), value = true,
         x = 10, y = y, target = self, font = UIFont.Small,
     }); y = y + 30
     self.chkSpawn = UI.CreateCheckbox(self, {
-        id = "spawn_item", label = "Spawn Item", value = false,
+        id = "spawn_item", label = tr("UI_PsychopatzDebug_Action_SpawnItem", "Spawn Item"), value = false,
         x = 10, y = y, target = self, font = UIFont.Small,
     }); y = y + 25
     self.chkMoney = UI.CreateCheckbox(self, {
-        id = "add_money", label = "Add Money", value = false,
+        id = "add_money", label = tr("UI_PsychopatzDebug_Action_AddMoney", "Add Money"), value = false,
         x = 10, y = y, width = 150, target = self, font = UIFont.Small,
     })
     self.qtyMoney = addQuantityEntry(self, y, 100); y = y + 25
     self.chkWalkie = UI.CreateCheckbox(self, {
-        id = "add_walkie", label = "Add Walkie Talkie", value = false,
+        id = "add_walkie", label = tr("UI_PsychopatzDebug_Action_AddWalkieTalkie", "Add Walkie Talkie"), value = false,
         x = 10, y = y, width = 150, target = self, font = UIFont.Small,
     })
     self.qtyWalkie = addQuantityEntry(self, y, 1); y = y + 25
     self.chkNight = UI.CreateCheckbox(self, {
-        id = "night_vision", label = "Night Vision",
+        id = "night_vision", label = tr("UI_PsychopatzDebug_Action_NightVision", "Night Vision"),
         value = _G.PsychopatzNightVisionActive == true,
         x = 10, y = y, target = self, font = UIFont.Small,
     }); y = y + 25
     self.debugAccessButton = addToggleButton(self, y,
-        "Debug Access: OFF", "Debug Access: ON",
+        tr("UI_PsychopatzDebug_Access_Off", "Debug Access: OFF"),
+        tr("UI_PsychopatzDebug_Access_On", "Debug Access: ON"),
         Debug.IsLocalOverrideEnabled(getPlayer and getPlayer() or nil),
         function(_, _, enabled)
             applyDebugAccess(enabled == true,
@@ -183,8 +193,10 @@ function PsychopatzDebugWindow:createChildren()
     self.chkDebugAccess = self.debugAccessButton
     y = y + 25
 
-    self:addChild(ISLabel:new(10, y, 20, "Item ID", 1, 1, 1, 1, UIFont.Small, true))
-    self:addChild(ISLabel:new(200, y, 20, "Qty", 1, 1, 1, 1, UIFont.Small, true))
+    self:addChild(ISLabel:new(10, y, 20,
+        tr("UI_PsychopatzDebug_ItemID", "Item ID"), 1, 1, 1, 1, UIFont.Small, true))
+    self:addChild(ISLabel:new(200, y, 20,
+        tr("UI_PsychopatzDebug_Quantity", "Qty"), 1, 1, 1, 1, UIFont.Small, true))
     y = y + 18
 
     self.itemEntry = ISTextEntryBox:new("Base.Katana", 10, y, 180, 20)
@@ -201,12 +213,16 @@ function PsychopatzDebugWindow:createChildren()
     self:addChild(self.qtyEntry)
     y = y + 30
 
-    self.executeBtn = ISButton:new(10, y, 230, 25, "EXECUTE", self, PsychopatzDebugWindow.onExecute)
+    self.executeBtn = ISButton:new(10, y, 230, 25,
+        tr("UI_PsychopatzDebug_Execute", "EXECUTE"), self,
+        PsychopatzDebugWindow.onExecute)
     self.executeBtn:initialise()
     self:addChild(self.executeBtn)
     y = y + 30
 
-    self.debugHubBtn = ISButton:new(10, y, 230, 25, "OPEN DEBUG HUB", self, PsychopatzDebugWindow.onOpenDebugHub)
+    self.debugHubBtn = ISButton:new(10, y, 230, 25,
+        tr("UI_PsychopatzDebug_OpenHub", "OPEN DEBUG HUB"), self,
+        PsychopatzDebugWindow.onOpenDebugHub)
     self.debugHubBtn:initialise()
     self.debugHubBtn.backgroundColor = { r = 0.28, g = 0.18, b = 0.46, a = 1 }
     self:addChild(self.debugHubBtn)
@@ -231,7 +247,9 @@ function PsychopatzDebugWindow:onExecute()
         })
         _G.PsychopatzNightVisionActive = self.chkNight:isSelected(1)
         if HaloTextHelper then
-            HaloTextHelper.addTextWithArrow(player, "COMMAND SENT", true, HaloTextHelper.getColorGreen())
+            HaloTextHelper.addTextWithArrow(player,
+                tr("UI_PsychopatzDebug_CommandSent", "COMMAND SENT"), true,
+                HaloTextHelper.getColorGreen())
         end
     end
 end
@@ -317,8 +335,10 @@ end
 
 Keybinds.RegisterTapLongPress({
     id = "PsychopatzCore.DebugControlsNumpad0",
-    label = "UI_PsychopatzCore_DebugControlsKey",
-    tooltip = "UI_PsychopatzCore_DebugControlsTooltip",
+    label = tr("UI_PsychopatzCore_DebugControlsKey",
+        "Open Psychopatz Debug Controls (Numpad 0)"),
+    tooltip = tr("UI_PsychopatzCore_DebugControlsTooltip",
+        "Hold Numpad 0 for 600 ms to open the controls; press and release it while open to execute the current command set."),
     exposeInOptions = false,
     defaultKey = Keyboard and Keyboard.KEY_NUMPAD0 or 82,
     longPressMs = 600,

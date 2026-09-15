@@ -190,6 +190,83 @@ Keybinds.RegisterLongPress({
 for a long press. Runtime checks read the current setting on every tick, so a
 player's rebind takes effect without changing the consumer code.
 
+## Shared custom translations
+
+Build 42 only discovers the engine's canonical translation domains. Mods that
+need dedicated catalogs can use the Core manager instead of adding more keys to
+`UI.json`:
+
+```lua
+require "CustomTranslationManager"
+
+local Traits = CustomTranslationManager.registerSystem({
+    modID = "ProjectHoomans",
+    systemName = "Traits",
+    basePath = "media/translation",
+})
+
+local label = Traits:get("UI_PNC_Trait_Friendly", "Friendly")
+```
+
+For a mod that owns several systems, create a scoped facade once. This keeps
+the public registration call short without sharing a mutable global mod ID:
+
+```lua
+local Translations = CustomTranslationManager.forMod("ProjectHoomans")
+local Traits = Translations.registerSystem("Traits", "media/translation")
+local label = Traits:get("UI_PNC_Trait_Friendly", "Friendly")
+```
+
+The two-argument `registerSystem(systemName, basePath)` form belongs to this
+mod-scoped facade. The root manager retains the explicit `modID` so two mods
+can safely register the same system name without overwriting one another.
+
+The manager reads `media/translation/EN/Traits/Traits.json` and overlays the
+active language file on top of it. Missing language files and missing
+individual keys therefore fall back to English. It uses `getModFileReader` for
+packaged mod files, closes each reader after the line-by-line read, and keeps
+only the final resolved catalog in
+`CustomTranslationManager.Data[modID][systemName]`. Existing flat catalogs at
+`media/translation/<LANG>/Traits.json` remain supported as a compatibility
+fallback for external mods.
+
+Core's own catalogs are split by subsystem under
+`common/media/translation/<LANG>/<SYSTEM>/<SYSTEM>.json`: `Core`,
+`Conversation`, `Debug`, `CommandHub`, `Inventory`, `Profiler`, and
+`WorldRegion`. They are loaded lazily on the first lookup, so unused systems
+are not decoded during boot. Core-owned keys can be resolved with:
+
+The current Core audit contains 213 catalog keys with matching EN and TL
+entries: Core (12), Conversation (44), Debug (51), CommandHub (21),
+Inventory (20), Profiler (48), and WorldRegion (17).
+
+```lua
+local text = PsychopatzCore.Translation.GetKey(
+    "UI_PsychopatzConversation_Send", "SEND")
+```
+
+PsychopatzCore registers Tagalog with the native Build 42 language discovery
+path at `common/media/lua/shared/Translate/TL/language.json`. After a full
+game restart, Tagalog should appear in the base Game Options language list.
+The native selector then becomes the only language setting: the Core manager
+reads `Translator.getLanguage():toString()` and automatically loads the
+matching `common/media/translation/<LANG>/` catalogs.
+
+```lua
+-- No custom setting is required. This is only a test/debug override:
+CustomTranslationManager.setLanguageOverride("TL")
+```
+
+The override is not part of normal startup and should not be needed when
+Tagalog is selected in the base options. The manager falls back to English for
+languages without a matching custom catalog. It does not replace or
+monkey-patch the native `getText()` function; native PZ keys remain in their
+canonical translation domains.
+
+Use a unique `modID` and system name for each catalog. Native domains required
+by the engine, such as `Sandbox.json`, `RadioData.json`, and `ItemName.json`,
+should remain in their normal `Translate/<LANG>/` locations.
+
 Event markers are available as `PsychopatzCore.EventMarkers`. Existing
 `EventMarker` and `EventMarkerHandler` globals remain as compatibility aliases.
 

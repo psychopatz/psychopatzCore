@@ -7,7 +7,20 @@ PsychopatzCore.DebugSettingsWindow = PsychopatzCore.DebugSettingsWindow or {}
 
 local Controller = PsychopatzCore.DebugSettingsWindow
 local Debug = PsychopatzCore.Debug
+local Translation = PsychopatzCore.Translation
 local SETTINGS_ID = "PsychopatzCore.DebugSettings"
+
+local function tr(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
+
+local function fmt(key, fallback, args)
+    return Translation and Translation.FormatKey
+        and Translation.FormatKey(key, fallback, args)
+        or fallback or key
+end
 
 local function currentPlayer()
     return getPlayer and getPlayer() or nil
@@ -48,18 +61,21 @@ end
 local function statusText()
     local status = DebugSettings.GetStatus()
     if status.pendingApply > 0 and status.pendingRestart > 0 then
-        return "Pending: " .. tostring(status.pendingApply)
-            .. " can apply now; " .. tostring(status.pendingRestart)
-            .. " require restart."
+        return fmt("UI_PsychopatzDebugSettings_PendingBoth",
+            "Pending: %d can apply now; %d require restart.",
+            { status.pendingApply, status.pendingRestart })
     end
     if status.pendingApply > 0 then
-        return "Pending: " .. tostring(status.pendingApply)
-            .. " runtime change(s). Press Apply & Save."
+        return fmt("UI_PsychopatzDebugSettings_PendingApply",
+            "Pending: %d runtime change(s). Press Apply & Save.",
+            { status.pendingApply })
     end
     if status.pendingRestart > 0 then
-        return "Saved values are waiting for a restart."
+        return tr("UI_PsychopatzDebugSettings_WaitingRestart",
+            "Saved values are waiting for a restart.")
     end
-    return "Runtime values match the saved settings."
+    return tr("UI_PsychopatzDebugSettings_InSync",
+        "Runtime values match the saved settings.")
 end
 
 function Controller.UpdateStatus(window, message)
@@ -88,42 +104,50 @@ end
 local function saveForRestart(window)
     local ok, reason = DebugSettings.Save()
     if not ok then
-        Controller.UpdateStatus(window, "Save failed: " .. tostring(reason))
+        Controller.UpdateStatus(window, fmt("UI_PsychopatzDebugSettings_SaveFailed",
+            "Save failed: %s", { tostring(reason) }))
         return
     end
     sendConfiguredToServer(false)
-    Controller.UpdateStatus(window,
-        "Saved. Runtime unchanged; restart to apply non-live settings.")
+    Controller.UpdateStatus(window, tr("UI_PsychopatzDebugSettings_SavedRestart",
+        "Saved. Runtime unchanged; restart to apply non-live settings."))
 end
 
 local function applyAndSave(window)
     local saved, reason = DebugSettings.Save()
     if not saved then
-        Controller.UpdateStatus(window, "Save failed: " .. tostring(reason))
+        Controller.UpdateStatus(window, fmt("UI_PsychopatzDebugSettings_SaveFailed",
+            "Save failed: %s", { tostring(reason) }))
         return
     end
     local applied, report = DebugSettings.ApplyConfigured()
     sendConfiguredToServer(true)
     if not applied then
         local failure = report and report.failed and report.failed[1]
-        Controller.UpdateStatus(window, "Apply failed: "
-            .. tostring(failure and failure.reason or "unknown"))
+        Controller.UpdateStatus(window, fmt(
+            "UI_PsychopatzDebugSettings_ApplyFailed", "Apply failed: %s",
+            { tostring(failure and failure.reason or "unknown") }))
         return
     end
     local pending = report and report.pendingRestart
         and #report.pendingRestart or 0
     if pending > 0 then
-        Controller.UpdateStatus(window, "Applied live settings; "
-            .. tostring(pending) .. " setting(s) require restart.")
+        Controller.UpdateStatus(window, fmt(
+            "UI_PsychopatzDebugSettings_AppliedRestart",
+            "Applied live settings; %d setting(s) require restart.",
+            { pending }))
     else
-        Controller.UpdateStatus(window, "Applied and saved runtime settings.")
+        Controller.UpdateStatus(window, tr("UI_PsychopatzDebugSettings_Applied",
+            "Applied and saved runtime settings."))
     end
 end
 
 local function reloadFileAndApply(window)
     local reloaded, reason = DebugSettings.Reload()
     if not reloaded then
-        Controller.UpdateStatus(window, "Reload failed: " .. tostring(reason))
+        Controller.UpdateStatus(window, fmt(
+            "UI_PsychopatzDebugSettings_ReloadFailed", "Reload failed: %s",
+            { tostring(reason) }))
         return
     end
     refreshControls(window)
@@ -131,17 +155,18 @@ local function reloadFileAndApply(window)
     sendConfiguredToServer(true)
     if not applied then
         local failure = report and report.failed and report.failed[1]
-        Controller.UpdateStatus(window, "Apply failed: "
-            .. tostring(failure and failure.reason or "unknown"))
+        Controller.UpdateStatus(window, fmt(
+            "UI_PsychopatzDebugSettings_ApplyFailed", "Apply failed: %s",
+            { tostring(failure and failure.reason or "unknown") }))
         return
     end
     local source = reason == "file_not_found" and "defaults" or "file"
     local pending = report and report.pendingRestart
         and #report.pendingRestart or 0
-    Controller.UpdateStatus(window, "Reloaded " .. source .. " and applied "
-        .. tostring(#(report.applied or {})) .. " runtime setting(s)."
-        .. (pending > 0 and " Restart required for " .. tostring(pending)
-            .. "." or ""))
+    Controller.UpdateStatus(window, fmt(
+        "UI_PsychopatzDebugSettings_Reloaded",
+        "Reloaded %s and applied %d runtime setting(s). Restart required for %d.",
+        { source, #(report.applied or {}), pending }))
 end
 
 local function buildDefinition()
@@ -188,21 +213,21 @@ local function buildDefinition()
     controls[#controls + 1] = {
         type = "action",
         id = "save_for_restart",
-        label = "Save for Restart",
+        label = tr("UI_PsychopatzDebugSettings_SaveRestart", "Save for Restart"),
         variant = "quiet",
         action = saveForRestart,
     }
     controls[#controls + 1] = {
         type = "action",
         id = "apply_and_save",
-        label = "Apply & Save",
+        label = tr("UI_PsychopatzDebugSettings_ApplySave", "Apply & Save"),
         variant = "success",
         action = applyAndSave,
     }
     controls[#controls + 1] = {
         type = "action",
         id = "reload_file_apply",
-        label = "Reload File & Apply",
+        label = tr("UI_PsychopatzDebugSettings_ReloadApply", "Reload File & Apply"),
         variant = "primary",
         action = reloadFileAndApply,
     }
@@ -210,7 +235,7 @@ local function buildDefinition()
     local height = math.min(760, math.max(320, 240 + #definitions * 30))
     return {
         id = SETTINGS_ID,
-        title = "Debug Settings",
+        title = tr("UI_PsychopatzDebugSettings_Title", "Debug Settings"),
         controls = controls,
         window = {
             persistenceNamespace = "Debug",

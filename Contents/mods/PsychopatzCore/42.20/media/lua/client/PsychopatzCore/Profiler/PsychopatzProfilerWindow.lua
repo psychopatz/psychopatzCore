@@ -10,9 +10,37 @@ local Controller = PsychopatzCore.ProfilerWindow
 local UI = PsychopatzCore.UI
 local Layout = UI.Layout
 local Theme = UI.Theme
+local Translation = PsychopatzCore.Translation
 
 local VIEWS = { "Overview", "CPU", "Metrics", "Growth", "Network", "Events", "History", "Settings" }
 local MODES = { Bootstrap.MODE_OFF, Bootstrap.MODE_BASIC, Bootstrap.MODE_DETAILED }
+
+local VIEW_KEYS = {
+    Overview = "UI_PsychopatzProfiler_Tab_Overview",
+    CPU = "UI_PsychopatzProfiler_Tab_CPU",
+    Metrics = "UI_PsychopatzProfiler_Tab_Metrics",
+    Growth = "UI_PsychopatzProfiler_Tab_Growth",
+    Network = "UI_PsychopatzProfiler_Tab_Network",
+    Events = "UI_PsychopatzProfiler_Tab_Events",
+    History = "UI_PsychopatzProfiler_Tab_History",
+    Settings = "UI_PsychopatzProfiler_Tab_Settings",
+}
+
+local function tr(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
+
+local function fmt(key, fallback, args)
+    return Translation and Translation.FormatKey
+        and Translation.FormatKey(key, fallback, args)
+        or fallback or key
+end
+
+local function viewLabel(name)
+    return tr(VIEW_KEYS[name], name)
+end
 
 local function nextMode(mode)
     for index = 1, #MODES do
@@ -70,7 +98,7 @@ function PsychopatzProfilerWindow:createChildren()
     for index = 1, #VIEWS do
         local name = VIEWS[index]
         local button = UI.CreateButton(self, {
-            title = name, target = self,
+            title = viewLabel(name), target = self,
             onclick = function(target)
                 target.view = name
                 target:requestResponsiveLayout(true)
@@ -82,29 +110,45 @@ function PsychopatzProfilerWindow:createChildren()
     end
     self.metricList = UI.CreateList(self, { itemHeight = 26, doDrawItem = drawMetric })
     self.settingsPanel = UI.CreatePanel(self)
-    self.settingsTitleLabel = createSettingsLabel(self.settingsPanel, "Capture settings")
+    self.settingsTitleLabel = createSettingsLabel(self.settingsPanel,
+        tr("UI_PsychopatzProfiler_CaptureSettings", "Capture settings"))
     self.settingsMode = Bootstrap.GetMode()
     self.settingsDirty = false
     self.settingsModeButton = UI.CreateButton(self.settingsPanel, {
-        title = "Mode: " .. tostring(self.settingsMode), target = self,
+        title = fmt("UI_PsychopatzProfiler_Mode", "Mode: %s",
+            { self.settingsMode }), target = self,
         onclick = self.onSettingsModeCycle, variant = "primary",
     })
     self.settingsPerformance = createSettingsToggle(self.settingsPanel, self,
-        "Performance capture", function(target) target.settingsDirty = true end)
+        tr("UI_PsychopatzProfiler_PerformanceCapture", "Performance capture"),
+        function(target) target.settingsDirty = true end)
     self.settingsModData = createSettingsToggle(self.settingsPanel, self,
-        "ModData summary capture", function(target) target.settingsDirty = true end)
+        tr("UI_PsychopatzProfiler_ModDataCapture", "ModData summary capture"),
+        function(target) target.settingsDirty = true end)
     self.settingsNPC = createSettingsToggle(self.settingsPanel, self,
-        "NPC data capture", function(target) target.settingsDirty = true end)
+        tr("UI_PsychopatzProfiler_NPCCapture", "NPC data capture"),
+        function(target) target.settingsDirty = true end)
     self.settingsHintLabel = createSettingsLabel(self.settingsPanel,
-        "Changes apply to the current runtime and the shared profiler config file.")
+        tr("UI_PsychopatzProfiler_SettingsHelp",
+            "Changes apply to the current runtime and the shared profiler config file."))
     self.settingsStatusLabel = createSettingsLabel(self.settingsPanel, "")
     self.settingsApplyButton = UI.CreateButton(self.settingsPanel, {
-        title = "Apply settings", target = self, onclick = self.onSettingsApply,
+        title = tr("UI_PsychopatzProfiler_ApplySettings", "Apply settings"),
+        target = self, onclick = self.onSettingsApply,
         variant = "success",
     })
-    self.resetButton = UI.CreateButton(self, { title = getText("UI_PsychopatzProfiler_Reset"), target = self, onclick = self.onReset })
-    self.exportButton = UI.CreateButton(self, { title = getText("UI_PsychopatzProfiler_Export"), target = self, onclick = self.onExport })
-    self.profilerCloseButton = UI.CreateButton(self, { title = "Close", target = self, onclick = self.close, variant = "quiet" })
+    self.resetButton = UI.CreateButton(self, {
+        title = tr("UI_PsychopatzProfiler_Reset", "Reset peaks/history"),
+        target = self, onclick = self.onReset,
+    })
+    self.exportButton = UI.CreateButton(self, {
+        title = tr("UI_PsychopatzProfiler_Export", "Export snapshot"),
+        target = self, onclick = self.onExport,
+    })
+    self.profilerCloseButton = UI.CreateButton(self, {
+        title = tr("UI_PsychopatzProfiler_Close", "Close"), target = self,
+        onclick = self.close, variant = "quiet",
+    })
     self:requestResponsiveLayout(true)
     self:refreshMetrics(true)
 end
@@ -144,7 +188,9 @@ local function formatted(value, suffix)
 end
 
 local function sectionSummary(config)
-    if not config or #(config.sections or {}) == 0 then return "none" end
+    if not config or #(config.sections or {}) == 0 then
+        return tr("UI_PsychopatzProfiler_None", "none")
+    end
     return table.concat(config.sections, ", ")
 end
 
@@ -156,16 +202,20 @@ function PsychopatzProfilerWindow:refreshSettingsControls(force)
         self.settingsModData:setSelected(1, config.enabled.moddata == true)
         self.settingsNPC:setSelected(1, config.enabled.npc == true)
     end
-    self.settingsModeButton:setTitle("Mode: " .. tostring(self.settingsMode))
+    self.settingsModeButton:setTitle(fmt("UI_PsychopatzProfiler_Mode", "Mode: %s",
+        { self.settingsMode }))
     local profiler = PsychopatzCore.Profiler
     local running = profiler and profiler.IsRunning and profiler.IsRunning()
     local status
     if self.settingsDirty then
-        status = "Unsaved changes — press Apply settings."
+        status = tr("UI_PsychopatzProfiler_Unsaved",
+            "Unsaved changes — press Apply settings.")
     elseif running then
-        status = "LIVE — capturing: " .. sectionSummary(config)
+        status = fmt("UI_PsychopatzProfiler_Live", "LIVE — capturing: %s",
+            { sectionSummary(config) })
     else
-        status = "OFF — no profiler sampler or capture callback is installed."
+        status = tr("UI_PsychopatzProfiler_Off",
+            "OFF — no profiler sampler or capture callback is installed.")
     end
     self.settingsStatusLabel:setName(status)
     return config
@@ -174,8 +224,10 @@ end
 function PsychopatzProfilerWindow:onSettingsModeCycle()
     self.settingsMode = nextMode(self.settingsMode)
     self.settingsDirty = true
-    self.settingsModeButton:setTitle("Mode: " .. tostring(self.settingsMode))
-    self.settingsStatusLabel:setName("Unsaved changes — press Apply settings.")
+    self.settingsModeButton:setTitle(fmt("UI_PsychopatzProfiler_Mode", "Mode: %s",
+        { self.settingsMode }))
+    self.settingsStatusLabel:setName(tr("UI_PsychopatzProfiler_Unsaved",
+        "Unsaved changes — press Apply settings."))
 end
 
 function PsychopatzProfilerWindow:onSettingsApply()
@@ -194,16 +246,21 @@ function PsychopatzProfilerWindow:onSettingsApply()
         npc_ids = current.npcIDs,
     })
     if not result then
-        self.settingsStatusLabel:setName("Could not apply: " .. tostring(reason))
+        self.settingsStatusLabel:setName(fmt(
+            "UI_PsychopatzProfiler_ApplyFailed", "Could not apply: %s",
+            { tostring(reason) }))
         return
     end
     local persisted, persistReason = Bootstrap.WriteConfiguredConfig(Bootstrap.GetCaptureConfig())
     self.settingsDirty = false
     self:refreshSettingsControls(true)
     if persisted then
-        self.settingsStatusLabel:setName("Applied live and saved to the shared profiler config.")
+        self.settingsStatusLabel:setName(tr("UI_PsychopatzProfiler_Applied",
+            "Applied live and saved to the shared profiler config."))
     else
-        self.settingsStatusLabel:setName("Applied live; config save failed: " .. tostring(persistReason))
+        self.settingsStatusLabel:setName(fmt(
+            "UI_PsychopatzProfiler_SaveFailed",
+            "Applied live; config save failed: %s", { tostring(persistReason) }))
     end
     self:refreshMetrics(true)
 end
@@ -219,21 +276,21 @@ function PsychopatzProfilerWindow:refreshMetrics(force)
     if self.resetButton.setEnable then self.resetButton:setEnable(running == true) end
     if self.exportButton.setEnable then self.exportButton:setEnable(running == true) end
     if self.view == "Settings" then
-        add(self.metricList, "Mode", config.mode)
-        add(self.metricList, "Capture sections", sectionSummary(config))
-        add(self.metricList, "Performance interval", tostring(config.performanceIntervalMs) .. " ms")
-        add(self.metricList, "ModData interval", tostring(config.modDataIntervalMs) .. " ms")
-        add(self.metricList, "NPC interval", tostring(config.npcIntervalMs) .. " ms")
-        add(self.metricList, "NPC scope", config.npcScope)
-        add(self.metricList, "Runtime", running and "active" or "inactive")
-        add(self.metricList, "Config fingerprint", config.fingerprint)
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_Mode", "Mode"), config.mode)
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_CaptureSections", "Capture sections"), sectionSummary(config))
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_PerformanceInterval", "Performance interval"), tostring(config.performanceIntervalMs) .. " ms")
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_ModDataInterval", "ModData interval"), tostring(config.modDataIntervalMs) .. " ms")
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_NPCInterval", "NPC interval"), tostring(config.npcIntervalMs) .. " ms")
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_NPCScope", "NPC scope"), config.npcScope)
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_Runtime", "Runtime"), running and tr("UI_PsychopatzProfiler_Active", "active") or tr("UI_PsychopatzProfiler_Inactive", "inactive"))
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_ConfigFingerprint", "Config fingerprint"), config.fingerprint)
         return
     end
     if not running then
-        add(self.metricList, "Profiler", "OFF")
-        add(self.metricList, "Capture", "No sampling callbacks installed")
-        add(self.metricList, "Capture sections", sectionSummary(config))
-        add(self.metricList, "Settings", "Use the Settings tab to enable profiling")
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_Profiler", "Profiler"), "OFF")
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_Capture", "Capture"), tr("UI_PsychopatzProfiler_NoSampling", "No sampling callbacks installed"))
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_CaptureSections", "Capture sections"), sectionSummary(config))
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_Settings", "Settings"), tr("UI_PsychopatzProfiler_EnableHint", "Use the Settings tab to enable profiling"))
         return
     end
     local state = profiler.GetState()
@@ -291,7 +348,10 @@ function PsychopatzProfilerWindow:refreshMetrics(force)
         table.sort(values, function(left, right) return (left.perSec or left.callsPerSec or 0) > (right.perSec or right.callsPerSec or 0) end)
         for _, metric in ipairs(values) do add(self.metricList, metric.name, formatted(metric.perSec or metric.callsPerSec, " /s")) end
     elseif self.view == "History" then
-        add(self.metricList, "History", state.mode == "DETAILED" and "bounded to " .. tostring(state.historyCapacity) .. " samples" or "available in DETAILED mode")
+        add(self.metricList, tr("UI_PsychopatzProfiler_Metric_History", "History"),
+            state.mode == "DETAILED"
+                and fmt("UI_PsychopatzProfiler_BoundedHistory", "bounded to %s samples", { tostring(state.historyCapacity) })
+                or tr("UI_PsychopatzProfiler_DetailedHistory", "available in DETAILED mode"))
         for _, metric in ipairs(profiler.GetMetrics()) do
             if metric.history then add(self.metricList, metric.name, tostring(metric.history.count) .. " samples") end
         end
@@ -349,7 +409,7 @@ function Controller.Open()
         return PsychopatzProfilerWindow.instance
     end
     local window = UI.NewWindow(PsychopatzProfilerWindow, {
-        title = getText("UI_PsychopatzProfiler_Title"),
+        title = tr("UI_PsychopatzProfiler_Title", "Psychopatz Profiler"),
         persistenceKey = "psychopatzProfiler",
         responsiveSpec = { width = 900, height = 620, minWidth = 600, minHeight = 400 },
     })

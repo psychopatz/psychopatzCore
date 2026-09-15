@@ -105,13 +105,27 @@ end
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
+local Translation = PsychopatzCore.Translation
+
+local function tr(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
+
+local function fmt(key, fallback, args)
+    return Translation and Translation.FormatKey
+        and Translation.FormatKey(key, fallback, args)
+        or fallback or key
+end
 
 local function drawGroupItem(list, y, entry, alternate)
     local item = entry.item
     local text = Theme.colors.text
     local muted = Theme.colors.textMuted
     local indicator = item.expanded and "[-] " or "[+] "
-    local count = tostring(item.count or 0) .. " tools"
+    local count = fmt("UI_PsychopatzDebugHub_ToolCount", "%s tools",
+        { tostring(item.count or 0) })
     local countWidth = Theme.TextWidth(UIFont.Small, count)
     local sourceWidth = math.max(40, list:getWidth() - countWidth - 36)
     local source = Layout.Ellipsize(indicator .. tostring(item.source or ""),
@@ -134,7 +148,9 @@ local function drawToolItem(list, y, entry, alternate)
     local text = Theme.colors.text
     local muted = Theme.colors.textMuted
     local statusColor = item.available and "success" or "danger"
-    local status = item.available and "Available" or "Unavailable"
+    local status = item.available
+        and tr("UI_PsychopatzDebugHub_Available", "Available")
+        or tr("UI_PsychopatzDebugHub_Unavailable", "Unavailable")
     local badgeWidth = UI.DrawBadge(list, status, list:getWidth() - 12,
         y + 7, statusColor)
     local title = Layout.Ellipsize(item.title, UIFont.Medium,
@@ -171,14 +187,14 @@ function PsychopatzDebugHubWindow:createChildren()
     end
     self.launchButton = UI.CreateButton(self, {
         id = "launch",
-        title = "Launch selected tool",
+        title = tr("UI_PsychopatzDebugHub_Launch", "Launch selected tool"),
         target = self,
         onclick = PsychopatzDebugHubWindow.onLaunchSelected,
         variant = "primary",
     })
     self.hubCloseButton = UI.CreateButton(self, {
         id = "close",
-        title = "Close",
+        title = tr("UI_PsychopatzDebugHub_Close", "Close"),
         target = self,
         onclick = PsychopatzDebugHubWindow.onCloseClick,
         variant = "quiet",
@@ -269,14 +285,20 @@ function PsychopatzDebugHubWindow:onLauncherClick(id)
     local definition = Hub.tools[id]
     if not definition or not launcherIsAvailable(definition) then
         local player = getPlayer and getPlayer() or nil
-        if player and definition then player:Say(definition.title .. " unavailable in this session.") end
+        if player and definition then
+            player:Say(fmt("UI_PsychopatzDebugHub_ToolUnavailable",
+                "%s unavailable in this session.", { definition.title }))
+        end
         return
     end
 
     local ok, err = pcall(definition.action)
     if not ok then
         local player = getPlayer and getPlayer() or nil
-        if player then player:Say(definition.title .. " failed to open.") end
+        if player then
+            player:Say(fmt("UI_PsychopatzDebugHub_ToolFailed",
+                "%s failed to open.", { definition.title }))
+        end
         print("[PsychopatzCore.DebugHub] " .. tostring(err))
     end
 end
@@ -310,7 +332,9 @@ end
 function PsychopatzDebugHubWindow:render()
     PsychopatzWindow.render(self)
     local rect = self:getContentRect({ top = 55, bottom = 48 })
-    UI.DrawSectionTitle(self, "Development tools", rect.x, rect.y - Layout.Pixels(22, self.uiScale), rect.width, tostring(#(self.definitions or {})))
+    UI.DrawSectionTitle(self, tr("UI_PsychopatzDebugHub_Section",
+        "Development tools"), rect.x, rect.y - Layout.Pixels(22, self.uiScale),
+        rect.width, tostring(#(self.definitions or {})))
 end
 
 function PsychopatzDebugHubWindow:prerender()
@@ -327,7 +351,7 @@ function PsychopatzDebugHubWindow.Open()
     end
 
     local window = UI.NewWindow(PsychopatzDebugHubWindow, {
-        title = "Psychopatz Debug Hub",
+        title = tr("UI_PsychopatzDebugHub_Title", "Psychopatz Debug Hub"),
         resizable = true,
         responsiveSpec = {
             width = 720,

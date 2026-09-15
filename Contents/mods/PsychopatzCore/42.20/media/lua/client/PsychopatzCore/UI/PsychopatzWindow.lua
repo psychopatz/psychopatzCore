@@ -7,6 +7,13 @@ require "PsychopatzCore/Settings/PsychopatzSettings"
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
+local Translation = PsychopatzCore.Translation
+
+local function coreText(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
 local LayoutHost = UI.LayoutHost
 local Toolbar = UI.WindowToolbar
 local GeometryStore = PsychopatzCore.Settings.Open("UI", {
@@ -473,7 +480,8 @@ function PsychopatzWindow:new(x, y, width, height, options)
     o.bottomResize = options.bottomResize ~= false
     o.collapsible = options.collapsible ~= false
     o.pin = options.pin == true
-    o.title = tostring(options.title or "Psychopatz")
+    o.title = tostring(options.title or coreText(
+        "UI_PsychopatzCore_Window_DefaultTitle", "Psychopatz"))
     o.backgroundColor = Theme.Color("window")
     o.borderColor = Theme.Color("borderStrong")
     o.psychopatzThemeBackgroundName = "window"

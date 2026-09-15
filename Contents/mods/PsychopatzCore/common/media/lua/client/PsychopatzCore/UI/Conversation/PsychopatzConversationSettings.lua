@@ -8,6 +8,7 @@ PsychopatzCore.Conversation = PsychopatzCore.Conversation or {}
 local Conversation = PsychopatzCore.Conversation
 local Settings = Conversation.Settings or {}
 Conversation.Settings = Settings
+local CoreTranslation = PsychopatzCore.Translation
 
 Settings.defaults = Settings.defaults or {
     crtEnabled = true,
@@ -66,9 +67,12 @@ function Settings.Set(key, value, save)
     return Settings.store:Set(key, value, save ~= false)
 end
 
-local function tr(key)
+local function tr(key, fallback)
+    if CoreTranslation and CoreTranslation.GetKey then
+        return CoreTranslation.GetKey(key, fallback)
+    end
     local value = getText and getText(key) or nil
-    return value and value ~= "" and value or key
+    return value and value ~= "" and value or fallback or key
 end
 
 local function slider(id, label, minimum, maximum, step)
@@ -90,15 +94,15 @@ end
 if PsychopatzCore.InGameSettings and not Settings.registered then
     PsychopatzCore.InGameSettings.Register({
         id = "PsychopatzConversation",
-        title = getText("UI_PsychopatzConversation_SettingsTitle"),
+        title = tr("UI_PsychopatzConversation_SettingsTitle"),
         store = Settings.store,
         controls = {
-            { id = "crtEnabled", key = "crtEnabled", type = "boolean", label = getText("UI_PsychopatzConversation_SettingCRT") },
+            { id = "crtEnabled", key = "crtEnabled", type = "boolean", label = tr("UI_PsychopatzConversation_SettingCRT") },
             slider("animationScale", tr("UI_PsychopatzConversation_SettingAnimation"), 0.25, 2.0, 0.05),
             slider("typingCharactersPerSecond", tr("UI_PsychopatzConversation_SettingTypingSpeed"), 10, 120, 1),
             slider("typingMinimumMs", tr("UI_PsychopatzConversation_SettingMinimumDelay"), 0, 1500, 50),
             slider("typingMaximumMs", tr("UI_PsychopatzConversation_SettingMaximumDelay"), 250, 5000, 50),
-            { id = "closeConversationOnDanger", key = "closeConversationOnDanger", type = "boolean", label = getText("UI_PsychopatzConversation_SettingCloseOnDanger") },
+            { id = "closeConversationOnDanger", key = "closeConversationOnDanger", type = "boolean", label = tr("UI_PsychopatzConversation_SettingCloseOnDanger") },
             slider("maximumConversationDistance", tr("UI_PsychopatzConversation_SettingMaximumDistance"), 2, 12, 0.5),
             slider("conversationDangerRadius", tr("UI_PsychopatzConversation_SettingDangerRadius"), 2, 20, 0.5),
             slider("portraitBackgroundOpacity", tr("UI_PsychopatzConversation_SettingPortraitBackground"), 0, 1, 0.05),
@@ -107,11 +111,11 @@ if PsychopatzCore.InGameSettings and not Settings.registered then
             slider("historyContentOpacity", tr("UI_PsychopatzConversation_SettingHistoryContent"), 0, 1, 0.05),
             slider("choicesBackgroundOpacity", tr("UI_PsychopatzConversation_SettingChoicesBackground"), 0, 1, 0.05),
             slider("choicesContentOpacity", tr("UI_PsychopatzConversation_SettingChoicesContent"), 0, 1, 0.05),
-            { id = "showEditorButton", key = "showEditorButton", type = "boolean", label = getText("UI_PsychopatzConversation_SettingEditorButton") },
+            { id = "showEditorButton", key = "showEditorButton", type = "boolean", label = tr("UI_PsychopatzConversation_SettingEditorButton") },
             {
                 id = "editLayout",
                 type = "action",
-                label = getText("UI_PsychopatzConversation_SettingOpenEditor"),
+                label = tr("UI_PsychopatzConversation_SettingOpenEditor"),
                 action = function()
                     if Conversation.OpenLayoutEditor then Conversation.OpenLayoutEditor() end
                 end,
@@ -119,7 +123,7 @@ if PsychopatzCore.InGameSettings and not Settings.registered then
             {
                 id = "preview",
                 type = "action",
-                label = getText("UI_PsychopatzConversation_SettingPreview"),
+                label = tr("UI_PsychopatzConversation_SettingPreview"),
                 action = function()
                     if Conversation.OpenPreview then Conversation.OpenPreview() end
                 end,
@@ -127,7 +131,7 @@ if PsychopatzCore.InGameSettings and not Settings.registered then
             {
                 id = "resetLayout",
                 type = "action",
-                label = getText("UI_PsychopatzConversation_SettingReset"),
+                label = tr("UI_PsychopatzConversation_SettingReset"),
                 variant = "danger",
                 action = function()
                     if Conversation.Layout and Conversation.Layout.ResetAll then

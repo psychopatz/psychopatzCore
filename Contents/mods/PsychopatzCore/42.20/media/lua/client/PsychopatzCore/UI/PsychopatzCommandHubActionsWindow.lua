@@ -16,6 +16,7 @@ local Theme = UI.Theme
 local Registry = UI.CommandHubRegistry
 local Options = UI.CommandHubOptions
 local AttachedWindow = UI.AttachedWindow or PsychopatzAttachedWindow
+local Translation = PsychopatzCore.Translation
 
 local function trace(event, message)
     local hub = UI.CommandHub
@@ -51,7 +52,9 @@ function ISPsychopatzCommandHubActionsWindow:createChildren()
     self.actionButtons = {}
     self.backButton = UI.CreateButton(self, {
         id = "command-hub-back",
-        title = getText and getText("UI_PsychopatzCore_CommandHub_Back")
+        title = Translation and Translation.GetKey
+            and Translation.GetKey("UI_PsychopatzCore_CommandHub_Back", "Back")
+            or getText and getText("UI_PsychopatzCore_CommandHub_Back")
             or "Back",
         target = self,
         onclick = UI.ButtonCallback(function(button)

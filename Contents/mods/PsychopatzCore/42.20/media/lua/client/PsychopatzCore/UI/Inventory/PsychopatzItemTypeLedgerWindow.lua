@@ -6,6 +6,7 @@ local Types = require "PsychopatzCore/Inventory/PsychopatzItemTypeRegistry"
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
+local Translation = PsychopatzCore.Translation
 
 PsychopatzItemTypeLedgerWindow = PsychopatzWindow:derive(
     "PsychopatzItemTypeLedgerWindow"
@@ -15,18 +16,47 @@ local function lower(value)
     return string.lower(tostring(value or ""))
 end
 
+local function tr(key, fallback)
+    return Translation and Translation.GetKey
+        and Translation.GetKey(key, fallback)
+        or fallback or key
+end
+
+local function filterLabel(mode)
+    local keys = {
+        all = "UI_PsychopatzInventory_Ledger_FilterAll",
+        missing = "UI_PsychopatzInventory_Ledger_FilterMissing",
+        available = "UI_PsychopatzInventory_Ledger_FilterAvailable",
+    }
+    return tr(keys[mode], string.upper(tostring(mode or "all")))
+end
+
+local function filterButtonLabel(mode)
+    if Translation and Translation.FormatKey then
+        return Translation.FormatKey(
+            "UI_PsychopatzInventory_Ledger_Filter", "Show: %s",
+            { filterLabel(mode) })
+    end
+    return "Show: " .. filterLabel(mode)
+end
+
 local function drawLedgerRow(list, y, entry, alternate)
     local row = entry.item or {}
     UI.DrawListSelection(list, y, list.itemheight,
         list.selected == entry.index, alternate)
     local text = Theme.colors.text
     local muted = Theme.colors.textMuted
-    local status = row.gap and "GAP" or row.available and "AVAILABLE" or "MISSING"
+    local status = row.gap
+        and tr("UI_PsychopatzInventory_Ledger_Gap", "GAP")
+        or row.available
+        and tr("UI_PsychopatzInventory_Ledger_Available", "AVAILABLE")
+        or tr("UI_PsychopatzInventory_Ledger_Missing", "MISSING")
     local statusColor = row.available and "success"
         or row.gap and "warning" or "danger"
     list:drawText(tostring(row.id or "-"), 10, y + 8,
         muted.r, muted.g, muted.b, muted.a, UIFont.Small)
-    list:drawText(Layout.Ellipsize(row.fullType or "<unassigned>",
+    list:drawText(Layout.Ellipsize(row.fullType
+        or tr("UI_PsychopatzInventory_Ledger_Unassigned", "<unassigned>"),
         UIFont.Small, math.max(80, list:getWidth() - 190)),
         72, y + 8, text.r, text.g, text.b, text.a, UIFont.Small)
     UI.DrawBadge(list, status, list:getWidth() - 10, y + 5, statusColor)
@@ -48,21 +78,22 @@ function PsychopatzItemTypeLedgerWindow:createChildren()
     self.filterMode = "all"
     self.filterButton = UI.CreateButton(self, {
         id = "filter",
-        title = "Show: All",
+        title = filterButtonLabel(self.filterMode),
         target = self,
         onclick = PsychopatzItemTypeLedgerWindow.onFilter,
         variant = "quiet",
     })
     self.refreshButton = UI.CreateButton(self, {
         id = "refresh",
-        title = "Refresh",
+        title = tr("UI_PsychopatzInventory_Ledger_Refresh", "Refresh"),
         target = self,
         onclick = PsychopatzItemTypeLedgerWindow.onRefresh,
         variant = "quiet",
     })
     self.scanButton = UI.CreateButton(self, {
         id = "scan",
-        title = "Refresh Script Availability",
+        title = tr("UI_PsychopatzInventory_Ledger_RefreshScripts",
+            "Refresh Script Availability"),
         target = self,
         onclick = PsychopatzItemTypeLedgerWindow.onScan,
         variant = "primary",
@@ -101,7 +132,7 @@ end
 function PsychopatzItemTypeLedgerWindow:onFilter(button)
     local nextMode = { all = "missing", missing = "available", available = "all" }
     self.filterMode = nextMode[self.filterMode] or "all"
-    button:setTitle("Show: " .. string.upper(self.filterMode))
+    button:setTitle(filterButtonLabel(self.filterMode))
     self:rebuildLedger()
 end
 
@@ -145,7 +176,8 @@ function PsychopatzItemTypeLedgerWindow:render()
         and summary or string.format("LEDGER %d  |  MISSING %d  |  GAPS %d",
             snapshot.registeredCount or 0,
             snapshot.unavailableCount or 0, snapshot.gapCount or 0)
-    UI.DrawSectionTitle(self, "APPEND-ONLY ITEM TYPE LEDGER",
+    UI.DrawSectionTitle(self, tr("UI_PsychopatzInventory_Ledger_Section",
+        "APPEND-ONLY ITEM TYPE LEDGER"),
         rect.x, rect.y - Layout.Pixels(22, self.uiScale), rect.width, suffix)
 end
 
@@ -164,7 +196,8 @@ function PsychopatzItemTypeLedgerWindow.Open()
         return window
     end
     local window = UI.NewWindow(PsychopatzItemTypeLedgerWindow, {
-        title = "PsychopatzCore Item Type Ledger",
+        title = tr("UI_PsychopatzInventory_Ledger_Title",
+            "PsychopatzCore Item Type Ledger"),
         persistenceKey = "PsychopatzCore.ItemTypeLedger",
         resizable = true,
         responsiveSpec = {
@@ -187,7 +220,7 @@ PsychopatzCore.DebugHub.RegisterTool({
     id = "psychopatz.inventory.itemTypeLedger",
     source = "PsychopatzCore",
     order = 80,
-    title = "Item Type Ledger",
+    title = tr("UI_PsychopatzInventory_Ledger_Section", "Item Type Ledger"),
     description = "Inspect numeric item IDs, script availability, revision, missing types, and ledger gaps.",
     action = function() PsychopatzItemTypeLedgerWindow.Open() end,
 })

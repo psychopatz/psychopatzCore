@@ -3,6 +3,7 @@ require "RadioCom/RadioWindowModules/RWMChannel"
 
 local Radio = PsychopatzCore.CustomRadio
 local RadioDeviceState = PsychopatzCore.RadioDeviceState
+local Translation = PsychopatzCore.Translation
 local POLL_MS = 5000
 local lastPollAt = 0
 
@@ -17,7 +18,10 @@ local function nowMs()
 end
 
 local function displayName(definition)
-    if definition.nameKey and getText then
+    if definition.nameKey and Translation and Translation.GetKey then
+        local value = Translation.GetKey(definition.nameKey, definition.name)
+        if value and value ~= definition.nameKey then return value end
+    elseif definition.nameKey and getText then
         local value = getText(definition.nameKey)
         if value and value ~= definition.nameKey then return value end
     end

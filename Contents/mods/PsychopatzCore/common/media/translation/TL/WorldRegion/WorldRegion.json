@@ -1,0 +1,19 @@
+{
+    "UI_PsychopatzRegion_Title": "PUMILI NG LUGAR SA MUNDO",
+    "UI_PsychopatzRegion_Help": "Mag-drag sa mundo; gamitin ang Add o Erase para sa hindi regular na hugis.",
+    "UI_PsychopatzRegion_Replace": "PALITAN",
+    "UI_PsychopatzRegion_Add": "IDAGDAG",
+    "UI_PsychopatzRegion_Erase": "BURAHIN",
+    "UI_PsychopatzRegion_Undo": "I-UNDO",
+    "UI_PsychopatzRegion_Reset": "I-RESET",
+    "UI_PsychopatzRegion_Confirm": "KUMPIRMAHIN",
+    "UI_PsychopatzRegion_Cancel": "KANSELAHIN",
+    "UI_PsychopatzRegion_Tiles": "tile",
+    "UI_PsychopatzRegion_Spans": "span",
+    "UI_PsychopatzRegion_Claimed": "naangkin",
+    "UI_PsychopatzRegion_Empty": "Pumili ng kahit isang tile",
+    "UI_PsychopatzRegion_CapacityExceeded": "Lumampas ang selection sa limitasyon ng tile",
+    "UI_PsychopatzRegion_InvalidTile": "May invalid na tile sa selection",
+    "UI_PsychopatzRegion_InvalidPlacement": "INVALID NA PAGKAKALAGAY",
+    "UI_PsychopatzRegion_Valid": "Handa na ang selection"
+}

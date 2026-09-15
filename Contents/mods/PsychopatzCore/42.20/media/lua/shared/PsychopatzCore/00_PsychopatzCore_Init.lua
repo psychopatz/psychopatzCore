@@ -5,6 +5,8 @@ local Core = PsychopatzCore
 require "PsychopatzCore/Runtime/PC_RuntimeRole"
 require "PsychopatzCore/Collections/PC_RingBuffer"
 require "PsychopatzCore/Events/PC_EventBus"
+require "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
+require "PsychopatzCore/Translation/PsychopatzCoreTranslation"
 require "PsychopatzCore/Conversation/PsychopatzSocialFlavor"
 require "PsychopatzCore/Conversation/PsychopatzNameParts"
 -- Public, opt-in voice transport. Loading this module only defines the API;

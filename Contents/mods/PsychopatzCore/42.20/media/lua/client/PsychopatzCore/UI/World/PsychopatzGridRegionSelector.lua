@@ -7,11 +7,15 @@ local SquareRules = require "PsychopatzCore/World/PsychopatzSquareRules"
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
+local Translation = PsychopatzCore.Translation
 
 local Selector = ISPanelJoypad:derive("PsychopatzGridRegionSelector")
 PsychopatzCore.UI.GridRegionSelector = Selector
 
 local function tr(key, fallback)
+    if Translation and Translation.GetKey then
+        return Translation.GetKey(key, fallback)
+    end
     local value = getText and getText(key) or nil
     if not value or value == key then return fallback end
     return value
