@@ -7,6 +7,18 @@ PsychopatzCore.UI = PsychopatzCore.UI or {}
 
 local UI = PsychopatzCore.UI
 local Layout = UI.Layout
+local CRT_TEXTURE_PATH = "media/ui/Effects/crt.png"
+
+local function normalizeScreenVariant(value)
+    if value == nil then return nil end
+    value = string.lower(tostring(value))
+    if value == "crt" or value == "screen" then return "crt" end
+    if value == "subtle" or value == "default" or value == "clean" then
+        return "subtle"
+    end
+    if value == "none" or value == "off" then return "none" end
+    return nil
+end
 
 PsychopatzPortraitPanel = ISPanel:derive("PsychopatzPortraitPanel")
 UI.PortraitPanel = PsychopatzPortraitPanel
@@ -384,6 +396,7 @@ function PsychopatzPortraitPanel:initialise()
         and getTexture
         and getTexture("media/ui/avatarBackgroundWhite.png")
         or nil
+    self.crtTexture = getTexture and getTexture(CRT_TEXTURE_PATH) or nil
 end
 
 function PsychopatzPortraitPanel:createChildren()
@@ -453,6 +466,14 @@ function PsychopatzPortraitPanel:applyAnimationVariables(state)
     pcall(function() model:setVariable("WalkSpeed", "0.0") end)
     pcall(function() model:setVariable("RunSpeed", "0.0") end)
     pcall(function() model:setState("idle") end)
+end
+
+function PsychopatzPortraitPanel:setScreenVariant(variant)
+    self.screenVariant = normalizeScreenVariant(variant)
+end
+
+function PsychopatzPortraitPanel:getScreenVariant()
+    return self.screenVariant or "subtle"
 end
 
 function PsychopatzPortraitPanel:refreshAnimationState(current)
@@ -628,6 +649,47 @@ function PsychopatzPortraitPanel:prerender()
     end
 end
 
+function PsychopatzPortraitPanel:render()
+    local padding = tonumber(self.padding) or 2
+    local width = math.max(1, self.width - padding * 2)
+    local height = math.max(1, self.height - padding * 2)
+    local variant = self:getScreenVariant()
+    local alpha
+    local time
+    local offsetX = padding
+    local offsetY = padding
+
+    ISPanel.render(self)
+    if variant == "none" or not self.crtTexture then return end
+    if variant == "crt" then
+        time = tonumber(getTimeInMillis and getTimeInMillis() or 0) or 0
+        alpha = tonumber(self.crtOpacity) or 0.52
+        alpha = alpha * (0.91 + math.sin(time / 83) * 0.055
+            + math.sin(time / 211) * 0.035)
+        offsetX = offsetX + math.floor(math.sin(time / 127) * 1.5)
+        offsetY = offsetY + math.floor(math.sin(time / 173) * 1.0)
+    else
+        alpha = tonumber(self.subtleOpacity) or 0.18
+    end
+    alpha = math.max(0, math.min(1, alpha))
+    self:drawTextureScaled(
+        self.crtTexture,
+        offsetX,
+        offsetY,
+        width,
+        height,
+        alpha,
+        1,
+        1,
+        1
+    )
+    if variant == "crt" then
+        local scanY = padding + math.floor((time / 7) % height)
+        self:drawRect(padding, scanY, width, 2, alpha * 0.24,
+            0.42, 0.88, 0.78)
+    end
+end
+
 function PsychopatzPortraitPanel:new(x, y, width, height, options)
     local o = ISPanel:new(x, y, width, height)
     options = options or {}
@@ -644,6 +706,11 @@ function PsychopatzPortraitPanel:new(x, y, width, height, options)
     o.showBackground = options.showBackground ~= false
     o.showBorder = options.showBorder ~= false
     o.padding = math.max(0, tonumber(options.padding) or 2)
+    o.screenVariant = normalizeScreenVariant(options.screenVariant)
+    o.subtleOpacity = math.max(0, math.min(1,
+        tonumber(options.subtleOpacity) or 0.18))
+    o.crtOpacity = math.max(0, math.min(1,
+        tonumber(options.crtOpacity) or 0.52))
     if options.animSetName == nil then
         o.animSetName = "zombie"
     else

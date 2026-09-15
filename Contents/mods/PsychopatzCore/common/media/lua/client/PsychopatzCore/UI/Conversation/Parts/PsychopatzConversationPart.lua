@@ -2,12 +2,14 @@ require "ISUI/ISPanel"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationLayout"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationText"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationTheme"
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationOpacity"
 
 PsychopatzConversationPart = ISPanel:derive("PsychopatzConversationPart")
 
 local Conversation = PsychopatzCore.Conversation
 local Text = Conversation.Text
 local Theme = Conversation.Theme
+local Opacity = Conversation.Opacity
 
 local ACCENTS = {
     portrait = { r = 0.94, g = 0.53, b = 0.22 },
@@ -53,13 +55,11 @@ function PsychopatzConversationPart:setEditMode(enabled)
 end
 
 function PsychopatzConversationPart:getBackgroundOpacity()
-    local key = tostring(self.partID) .. "BackgroundOpacity"
-    return (tonumber(Conversation.Settings.Get(key, 0.82)) or 0.82) * (self.reveal or 1)
+    return Opacity.Get(self.partID, "surface") * (self.reveal or 1)
 end
 
 function PsychopatzConversationPart:getContentOpacity()
-    local key = tostring(self.partID) .. "ContentOpacity"
-    return (tonumber(Conversation.Settings.Get(key, 1)) or 1) * (self.reveal or 1)
+    return Opacity.Get(self.partID, "detail") * (self.reveal or 1)
 end
 
 function PsychopatzConversationPart:prerender()

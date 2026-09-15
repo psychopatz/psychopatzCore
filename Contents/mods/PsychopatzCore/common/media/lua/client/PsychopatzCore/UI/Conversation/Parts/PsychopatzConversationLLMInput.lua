@@ -12,6 +12,34 @@ PsychopatzConversationLLMInput = PsychopatzConversationPart:derive(
 local Conversation = PsychopatzCore.Conversation
 local Text = Conversation.Text
 local UI = PsychopatzCore.UI
+local Opacity = Conversation.Opacity
+
+local function applyControlOpacity(control, alpha)
+    if not control then return end
+    local fields = {
+        "backgroundColor",
+        "backgroundColorMouseOver",
+        "backgroundColorEnabled",
+        "borderColor",
+        "borderColorEnabled",
+        "textColor",
+        "textColor2",
+        "textColorEnabled",
+    }
+    for _, field in ipairs(fields) do
+        local color = control[field]
+        if color then
+            control.conversationOpacityColors =
+                control.conversationOpacityColors or {}
+            local state = control.conversationOpacityColors[field]
+            if not state or state.color ~= color then
+                state = { color = color, alpha = tonumber(color.a) or 1 }
+                control.conversationOpacityColors[field] = state
+            end
+            color.a = state.alpha * alpha
+        end
+    end
+end
 
 local function resolved(callback, key, fallback)
     if type(callback) == "function" then
@@ -204,6 +232,34 @@ function PsychopatzConversationLLMInput:createChildren()
     self:onPartResize()
     self:updateModeButtonStyles()
     self:updateToggleButton()
+    self:refreshOpacity()
+end
+
+function PsychopatzConversationLLMInput:refreshOpacity()
+    local signature = Opacity.GetSignature()
+    local reveal = tonumber(self.reveal) or 1
+    if self.lastConversationOpacitySignature == signature
+        and self.lastConversationOpacityReveal == reveal
+    then
+        return false
+    end
+    local alpha = self:getContentOpacity()
+    for _, definition in ipairs(self.modeButtons or {}) do
+        applyControlOpacity(definition.button, alpha)
+    end
+    applyControlOpacity(self.toggleButton and self.toggleButton.button, alpha)
+    applyControlOpacity(self.entry, alpha)
+    applyControlOpacity(self.sendButton, alpha)
+    applyControlOpacity(self.closeButton, alpha)
+    self.conversationContentOpacity = alpha
+    self.lastConversationOpacitySignature = signature
+    self.lastConversationOpacityReveal = reveal
+    return true
+end
+
+function PsychopatzConversationLLMInput:prerender()
+    PsychopatzConversationPart.prerender(self)
+    self:refreshOpacity()
 end
 
 function PsychopatzConversationLLMInput:onPartResize()
@@ -411,7 +467,8 @@ function PsychopatzConversationLLMInput:refreshControls()
     -- Compact inputs are standalone UI roots, so they do not receive the
     -- normal PsychopatzWindow theme traversal. Reconcile a changed theme
     -- before native ISButton:setEnable() can restore its enabled-color cache.
-    self:refreshTheme()
+    local themeChanged = self:refreshTheme()
+    if themeChanged then self.lastConversationOpacitySignature = nil end
     local state = type(self.getStateCallback) == "function"
         and self.getStateCallback(self.owner, self) or {}
     local enabled = state.enabled == true
@@ -467,6 +524,7 @@ function PsychopatzConversationLLMInput:refreshControls()
     -- leave the old mode painted blue while inputMode has already changed.
     self:updateModeButtonStyles("controls_refresh")
     self:updateToggleButton()
+    self:refreshOpacity()
 end
 
 function PsychopatzConversationLLMInput:focusInput()
@@ -522,6 +580,8 @@ function PsychopatzConversationLLMInput:new(x, y, width, height, options)
     object.inputMode = options.initialMode
     object.styledInputMode = nil
     object.psychopatzThemeRevision = nil
+    object.lastConversationOpacitySignature = nil
+    object.lastConversationOpacityReveal = nil
     if not object.inputMode and options.modeButtons then
         local first = options.modeButtons[1]
         object.inputMode = first and (first.mode or first.id) or nil

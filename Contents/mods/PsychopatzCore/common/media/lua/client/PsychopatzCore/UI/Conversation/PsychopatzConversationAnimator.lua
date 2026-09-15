@@ -63,7 +63,7 @@ function Animator.Get(state)
         return { portrait = 1, history = 1, choices = 1, interactive = true, done = true }
     end
 
-    local enabled = Settings.Get("crtEnabled", true) == true
+    local enabled = Settings.Get("crtEnabled", false) == true
     local scale = math.max(0.05, tonumber(Settings.Get("animationScale", 1)) or 1)
     if not enabled then scale = 0.05 end
 

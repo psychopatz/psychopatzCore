@@ -11,11 +11,24 @@ Conversation.Settings = Settings
 local CoreTranslation = PsychopatzCore.Translation
 
 Settings.defaults = Settings.defaults or {
-    crtEnabled = true,
+    crtEnabled = false,
     animationScale = 1.0,
     typingCharactersPerSecond = 38,
     typingMinimumMs = 320,
     typingMaximumMs = 1800,
+    conversationOpacitySchema = 0,
+    conversationOpacityBase = 0.82,
+    portraitSurfaceOpacityLift = 0.10,
+    portraitDetailOpacityLift = 0.18,
+    historySurfaceOpacityLift = 0.00,
+    historyDetailOpacityLift = 0.18,
+    relationshipSurfaceOpacityLift = 0.00,
+    relationshipDetailOpacityLift = 0.18,
+    choicesSurfaceOpacityLift = 0.00,
+    choicesDetailOpacityLift = 0.18,
+    llmInputSurfaceOpacityLift = 0.00,
+    llmInputDetailOpacityLift = 0.18,
+    -- Legacy absolute values remain in the schema for one-time migration.
     portraitBackgroundOpacity = 0.92,
     portraitContentOpacity = 1.0,
     historyBackgroundOpacity = 0.82,
@@ -50,8 +63,40 @@ Settings.store = Settings.store or PsychopatzCore.Settings.Open("Conversation", 
     defaults = Settings.defaults,
 })
 
+local function clamp(value, minimum, maximum)
+    return math.max(minimum, math.min(maximum, value))
+end
+
+local function migrateOpacitySettings()
+    local store = Settings.store
+    local schema = tonumber(store:Get("conversationOpacitySchema", 0)) or 0
+    if schema >= 2 then return end
+
+    local base = tonumber(store:Get("conversationOpacityBase", 0.82)) or 0.82
+    local migrations = {
+        { "portraitBackgroundOpacity", "portraitSurfaceOpacityLift" },
+        { "portraitContentOpacity", "portraitDetailOpacityLift" },
+        { "historyBackgroundOpacity", "historySurfaceOpacityLift" },
+        { "historyContentOpacity", "historyDetailOpacityLift" },
+        { "choicesBackgroundOpacity", "choicesSurfaceOpacityLift" },
+        { "choicesContentOpacity", "choicesDetailOpacityLift" },
+    }
+    for _, migration in ipairs(migrations) do
+        local legacy = tonumber(store:Get(migration[1], nil))
+        if legacy ~= nil then
+            store:Set(migration[2], clamp(legacy - base, 0, 0.25), false)
+        end
+    end
+    store:Set("conversationOpacitySchema", 2, false)
+    store:Save()
+end
+
 function Settings.EnsureLoaded()
     if not Settings.store.loaded then Settings.store:Load() end
+    if not Settings.opacityMigrationChecked then
+        migrateOpacitySettings()
+        Settings.opacityMigrationChecked = true
+    end
     return Settings.store
 end
 
@@ -105,12 +150,17 @@ if PsychopatzCore.InGameSettings and not Settings.registered then
             { id = "closeConversationOnDanger", key = "closeConversationOnDanger", type = "boolean", label = tr("UI_PsychopatzConversation_SettingCloseOnDanger") },
             slider("maximumConversationDistance", tr("UI_PsychopatzConversation_SettingMaximumDistance"), 2, 12, 0.5),
             slider("conversationDangerRadius", tr("UI_PsychopatzConversation_SettingDangerRadius"), 2, 20, 0.5),
-            slider("portraitBackgroundOpacity", tr("UI_PsychopatzConversation_SettingPortraitBackground"), 0, 1, 0.05),
-            slider("portraitContentOpacity", tr("UI_PsychopatzConversation_SettingPortraitContent"), 0, 1, 0.05),
-            slider("historyBackgroundOpacity", tr("UI_PsychopatzConversation_SettingHistoryBackground"), 0, 1, 0.05),
-            slider("historyContentOpacity", tr("UI_PsychopatzConversation_SettingHistoryContent"), 0, 1, 0.05),
-            slider("choicesBackgroundOpacity", tr("UI_PsychopatzConversation_SettingChoicesBackground"), 0, 1, 0.05),
-            slider("choicesContentOpacity", tr("UI_PsychopatzConversation_SettingChoicesContent"), 0, 1, 0.05),
+            slider("conversationOpacityBase", tr("UI_PsychopatzConversation_SettingOpacityBase"), 0, 1, 0.05),
+            slider("portraitSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingPortraitSurfaceLift"), 0, 0.25, 0.01),
+            slider("portraitDetailOpacityLift", tr("UI_PsychopatzConversation_SettingPortraitDetailLift"), 0, 0.25, 0.01),
+            slider("historySurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingHistorySurfaceLift"), 0, 0.25, 0.01),
+            slider("historyDetailOpacityLift", tr("UI_PsychopatzConversation_SettingHistoryDetailLift"), 0, 0.25, 0.01),
+            slider("relationshipSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingRelationshipSurfaceLift"), 0, 0.25, 0.01),
+            slider("relationshipDetailOpacityLift", tr("UI_PsychopatzConversation_SettingRelationshipDetailLift"), 0, 0.25, 0.01),
+            slider("choicesSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingChoicesSurfaceLift"), 0, 0.25, 0.01),
+            slider("choicesDetailOpacityLift", tr("UI_PsychopatzConversation_SettingChoicesDetailLift"), 0, 0.25, 0.01),
+            slider("llmInputSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingLLMInputSurfaceLift"), 0, 0.25, 0.01),
+            slider("llmInputDetailOpacityLift", tr("UI_PsychopatzConversation_SettingLLMInputDetailLift"), 0, 0.25, 0.01),
             { id = "showEditorButton", key = "showEditorButton", type = "boolean", label = tr("UI_PsychopatzConversation_SettingEditorButton") },
             {
                 id = "editLayout",

@@ -113,6 +113,16 @@ package.preload["PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPart
         dofile(ROOT .. "UI/Conversation/Parts/PsychopatzConversationPart.lua")
         return PsychopatzConversationPart
     end
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationOpacity"] =
+    function()
+        local opacity = {
+            Get = function(_, role)
+                return role == "detail" and 1 or 0.82
+            end,
+        }
+        PsychopatzCore.Conversation.Opacity = opacity
+        return opacity
+    end
 package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationLayout"] =
     function() return true end
 package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationText"] =

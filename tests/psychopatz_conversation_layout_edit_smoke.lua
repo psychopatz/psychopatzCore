@@ -68,12 +68,33 @@ end
 ISButton = Button
 
 local Part = Panel:derive("TestConversationPart")
+function Part:new(x, y, width, height, options)
+    local object = Panel.new(self, x, y, width, height)
+    object.screenVariant = options and options.screenVariant or nil
+    return object
+end
+function Part:setScreenVariant(value)
+    self.screenVariant = value
+end
+function Part:setTemporaryScreenVariant(value)
+    self.temporaryScreenVariant = value == "clean" and "subtle" or value
+end
+function Part:getScreenVariant()
+    return self.temporaryScreenVariant
+        or self.screenVariant
+        or (values.crtEnabled and "crt" or "subtle")
+end
 local function registerPart(name)
     _G[name] = Part
     return Part
 end
 
+local debugAuthorized = false
+
 PsychopatzCore = {
+    Debug = {
+        CanUse = function() return debugAuthorized end,
+    },
     Conversation = {
         Settings = {
             Get = function(key, fallback)
@@ -101,6 +122,7 @@ PsychopatzCore = {
 }
 
 values = {
+    crtEnabled = false,
     layout_portrait_x = 0.30,
     layout_portrait_y = 0.31,
     layout_portrait_w = 0.32,
@@ -121,6 +143,8 @@ values = {
 
 package.preload["ISUI/ISPanel"] = function() return ISPanel end
 package.preload["ISUI/ISButton"] = function() return ISButton end
+package.preload["PsychopatzCore/Debug/PsychopatzDebug"] =
+    function() return PsychopatzCore.Debug end
 package.preload["PsychopatzCore/UI/Core/PsychopatzUILayout"] =
     function() return true end
 package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationSettings"] =
@@ -166,10 +190,55 @@ assertEqual(view.resetLayoutButton.title, "RESET TO DEFAULT",
     "reset button title")
 assertEqual(view.resetLayoutButton.visible, false,
     "reset button starts hidden")
+assertEqual(view.crtDebugButton.visible, false,
+    "CRT debug button stays hidden without authorization")
+assertEqual(view.crtDebugButton.title, "CRT DEBUG: OFF",
+    "CRT debug button reflects the default subtle mode")
 
 view:toggleEditMode()
 assertEqual(view.resetLayoutButton.visible, true,
     "reset button appears in edit mode")
+assertEqual(view.crtDebugButton.visible, false,
+    "CRT debug button stays hidden in edit mode without authorization")
+
+debugAuthorized = true
+view:refreshCRTDebugButton()
+assertEqual(view.crtDebugButton.visible, true,
+    "CRT debug button appears for authorized users")
+view.crtDebugButton.onclick(view, view.crtDebugButton)
+assertEqual(view.crtDebugEnabled, true,
+    "CRT debug toggle enables the temporary preview")
+assertEqual(view.portraitPart.temporaryScreenVariant, "crt",
+    "CRT debug toggle forces the CRT variant")
+view.crtDebugButton.onclick(view, view.crtDebugButton)
+assertEqual(view.crtDebugEnabled, false,
+    "CRT debug toggle can be disabled")
+assertEqual(view.portraitPart.temporaryScreenVariant, "subtle",
+    "CRT debug toggle forces the clean variant")
+
+view:clearCRTDebug()
+values.crtEnabled = true
+view.spec.screenVariant = "crt"
+view.portraitPart:setScreenVariant("crt")
+view:refreshCRTDebugButton()
+assertEqual(view.crtDebugButton.title, "CRT DEBUG: OFF",
+    "CRT debug button tracks only its temporary override")
+view.crtDebugButton.onclick(view, view.crtDebugButton)
+assertEqual(view.portraitPart.temporaryScreenVariant, "crt",
+    "CRT debug toggle enables the temporary CRT override")
+view.crtDebugButton.onclick(view, view.crtDebugButton)
+assertEqual(view.portraitPart.temporaryScreenVariant, "subtle",
+    "CRT debug toggle forces the temporary subtle override")
+view:clearCRTDebug()
+assertEqual(view.crtDebugButton.title, "CRT DEBUG: OFF",
+    "CRT base mode does not masquerade as debug mode")
+
+debugAuthorized = false
+view:refreshCRTDebugButton()
+assertEqual(view.crtDebugButton.visible, false,
+    "CRT debug button hides after authorization is revoked")
+assertEqual(view.portraitPart.temporaryScreenVariant, nil,
+    "CRT debug override clears when authorization is revoked")
 
 view.resetLayoutButton.onclick(view, view.resetLayoutButton)
 assertEqual(values.layout_portrait_x, Layout.defaults.portrait.x,

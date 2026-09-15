@@ -1,5 +1,6 @@
 require "ISUI/ISPanel"
 require "ISUI/ISButton"
+require "PsychopatzCore/Debug/PsychopatzDebug"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationAnimator"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationLifecycle"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationLayout"
@@ -17,9 +18,23 @@ local Lifecycle = Conversation.Lifecycle
 local Layout = Conversation.Layout
 local Text = Conversation.Text
 local Theme = Conversation.Theme
+local Debug = PsychopatzCore.Debug
 
 local function buttonLabel(key, fallback)
     return Text.Resolve({ key = key, fallback = fallback })
+end
+
+local function currentPlayer()
+    return getPlayer and getPlayer() or nil
+end
+
+local function screenVariantFor(spec)
+    if type(spec) ~= "table" then return "subtle" end
+    local variant = spec.screenVariant
+    if variant == nil and type(spec.portrait) == "table" then
+        variant = spec.portrait.screenVariant
+    end
+    return variant or "subtle"
 end
 
 function PsychopatzConversationView:initialise()
@@ -41,6 +56,7 @@ function PsychopatzConversationView:createChildren()
             character = self.spec.character,
             portraitSpec = self.spec.portrait,
             backgroundID = self.spec.backgroundID,
+            screenVariant = screenVariantFor(self.spec),
             editLabel = { key = "UI_PsychopatzConversation_Portrait", fallback = "Portrait" },
         }
     )
@@ -178,6 +194,40 @@ function PsychopatzConversationView:createChildren()
     }
     self.resetLayoutButton:setVisible(self.editMode == true)
     self:addChild(self.resetLayoutButton)
+
+    self.crtDebugButton = ISButton:new(
+        self.width - 470, 10, 140, 28,
+        buttonLabel(
+            "UI_PsychopatzConversation_DebugCRT_Off",
+            "CRT DEBUG: OFF"
+        ),
+        self,
+        PsychopatzConversationView.onCRTDebugButton
+    )
+    self.crtDebugButton:initialise()
+    self.crtDebugButton:instantiate()
+    self.crtDebugButton:setAnchorLeft(false)
+    self.crtDebugButton:setAnchorRight(true)
+    self.crtDebugButton.backgroundColor = {
+        r = 0.18,
+        g = 0.08,
+        b = 0.28,
+        a = 0.88,
+    }
+    self.crtDebugButton.backgroundColorMouseOver = {
+        r = 0.38,
+        g = 0.16,
+        b = 0.52,
+        a = 0.95,
+    }
+    self.crtDebugButton.borderColor = {
+        r = 0.78,
+        g = 0.38,
+        b = 0.92,
+        a = 0.82,
+    }
+    self:addChild(self.crtDebugButton)
+    self:refreshCRTDebugButton()
 end
 
 function PsychopatzConversationView:onCloseButton()
@@ -187,6 +237,79 @@ end
 function PsychopatzConversationView:onResetLayoutButton()
     if self.editMode ~= true then return end
     if Layout and Layout.ResetAll then Layout.ResetAll(true) end
+end
+
+function PsychopatzConversationView:canUseDebug()
+    return Debug and type(Debug.CanUse) == "function"
+        and Debug.CanUse(currentPlayer()) == true
+end
+
+function PsychopatzConversationView:isCRTDebugOn()
+    return self.crtDebugOverrideActive == true
+        and self.crtDebugEnabled == true
+end
+
+function PsychopatzConversationView:setCRTDebugEnabled(enabled)
+    enabled = enabled == true
+    if enabled and not self:canUseDebug() then return false end
+    self.crtDebugEnabled = enabled
+    self.crtDebugOverrideActive = true
+    if self.portraitPart
+        and self.portraitPart.setTemporaryScreenVariant
+    then
+        self.portraitPart:setTemporaryScreenVariant(
+            enabled and "crt" or "clean"
+        )
+    end
+    if self.crtDebugButton then
+        self.crtDebugButton:setTitle(buttonLabel(
+            enabled and "UI_PsychopatzConversation_DebugCRT_On"
+                or "UI_PsychopatzConversation_DebugCRT_Off",
+            enabled and "CRT DEBUG: ON" or "CRT DEBUG: OFF"
+        ))
+    end
+    return true
+end
+
+function PsychopatzConversationView:clearCRTDebug()
+    self.crtDebugEnabled = false
+    self.crtDebugOverrideActive = false
+    if self.portraitPart
+        and self.portraitPart.setTemporaryScreenVariant
+    then
+        self.portraitPart:setTemporaryScreenVariant(nil)
+    end
+    if self.crtDebugButton then
+        self.crtDebugButton:setTitle(buttonLabel(
+            "UI_PsychopatzConversation_DebugCRT_Off",
+            "CRT DEBUG: OFF"
+        ))
+    end
+end
+
+function PsychopatzConversationView:refreshCRTDebugButton()
+    local visible = self.editMode == true and self:canUseDebug()
+    if not visible and self.crtDebugOverrideActive then
+        self:clearCRTDebug()
+    end
+    if self.crtDebugButton then
+        self.crtDebugButton:setVisible(visible)
+        self.crtDebugButton:setTitle(buttonLabel(
+            self:isCRTDebugOn()
+                and "UI_PsychopatzConversation_DebugCRT_On"
+                or "UI_PsychopatzConversation_DebugCRT_Off",
+            self:isCRTDebugOn() and "CRT DEBUG: ON" or "CRT DEBUG: OFF"
+        ))
+    end
+end
+
+function PsychopatzConversationView:onCRTDebugButton()
+    if not self:canUseDebug() then
+        self:clearCRTDebug()
+        self:refreshCRTDebugButton()
+        return
+    end
+    self:setCRTDebugEnabled(not self:isCRTDebugOn())
 end
 
 function PsychopatzConversationView:start()
@@ -219,6 +342,7 @@ function PsychopatzConversationView:refreshConversationSpec(spec)
     if type(spec) ~= "table" then return false end
     self.spec = spec
     if self.portraitPart then
+        self.portraitPart:setScreenVariant(screenVariantFor(spec))
         self.portraitPart:setTarget(spec.character, spec.portrait)
         self.portraitPart:setBackground(spec.backgroundID)
     end
@@ -272,6 +396,7 @@ function PsychopatzConversationView:applySavedLayout()
 end
 
 function PsychopatzConversationView:toggleEditMode()
+    if self.editMode then self:clearCRTDebug() end
     self.editMode = not self.editMode
     self.portraitPart:setEditMode(self.editMode)
     self.historyPart:setEditMode(self.editMode)
@@ -283,6 +408,7 @@ function PsychopatzConversationView:toggleEditMode()
         and buttonLabel("UI_PsychopatzConversation_SaveLayout", "Done")
         or buttonLabel("UI_PsychopatzConversation_EditLayout", "Edit layout"))
     self.resetLayoutButton:setVisible(self.editMode == true)
+    self:refreshCRTDebugButton()
     if self.editMode then
         Animator.SkipOpen(self.animator)
         self.portraitPart:setReveal(1)
@@ -296,6 +422,7 @@ end
 
 function PsychopatzConversationView:update()
     ISPanel.update(self)
+    self:refreshCRTDebugButton()
     if self.width ~= getCore():getScreenWidth()
         or self.height ~= getCore():getScreenHeight()
     then
@@ -371,6 +498,8 @@ function PsychopatzConversationView:new(spec)
     o.spec = spec or {}
     o.animator = Animator.New()
     o.editMode = false
+    o.crtDebugEnabled = false
+    o.crtDebugOverrideActive = false
     o.closing = false
     o.animationInteractive = false
     o.lifecycleStarted = false

@@ -8,6 +8,26 @@ PsychopatzConversationPortrait = PsychopatzConversationPart:derive(
 
 local Conversation = PsychopatzCore.Conversation
 local Text = Conversation.Text
+local Settings = Conversation.Settings
+
+local function normalizeScreenVariant(value)
+    if value == nil then return nil end
+    value = string.lower(tostring(value))
+    if value == "crt" or value == "screen" then return "crt" end
+    if value == "subtle" or value == "default" or value == "clean" then
+        return "subtle"
+    end
+    if value == "none" or value == "off" then return "none" end
+    return nil
+end
+
+local function isCRTEnabled(part)
+    local variant = normalizeScreenVariant(part and part.screenVariant)
+    if variant == "crt" then return true end
+    if variant == "none" then return false end
+    return Settings and Settings.Get
+        and Settings.Get("crtEnabled", false) == true
+end
 
 local function partCoordinate(part, panel, value, axis)
     local coordinate = tonumber(value) or 0
@@ -177,6 +197,7 @@ function PsychopatzConversationPortrait:createChildren()
         zoom = 14,
         yOffset = -0.85,
         padding = 0,
+        screenVariant = self:getScreenVariant(),
     })
     self.portrait:initialise()
     self.portrait:instantiate()
@@ -204,6 +225,9 @@ end
 function PsychopatzConversationPortrait:setTarget(character, spec)
     self.targetCharacter = character
     self.targetSpec = spec or {}
+    if type(spec) == "table" and spec.screenVariant ~= nil then
+        self.screenVariant = normalizeScreenVariant(spec.screenVariant)
+    end
     self:applyTarget()
 end
 
@@ -233,6 +257,34 @@ function PsychopatzConversationPortrait:applyTarget()
     end
 end
 
+function PsychopatzConversationPortrait:setScreenVariant(variant)
+    self.screenVariant = normalizeScreenVariant(variant)
+    if self.portrait and self.portrait.setScreenVariant then
+        self.portrait:setScreenVariant(self:getScreenVariant())
+    end
+end
+
+function PsychopatzConversationPortrait:setTemporaryScreenVariant(variant)
+    self.temporaryScreenVariant = normalizeScreenVariant(variant)
+    self:syncScreenVariant()
+end
+
+function PsychopatzConversationPortrait:getScreenVariant()
+    local temporaryVariant = normalizeScreenVariant(
+        self.temporaryScreenVariant
+    )
+    if temporaryVariant then return temporaryVariant end
+    local variant = normalizeScreenVariant(self.screenVariant)
+    if variant then return variant end
+    return isCRTEnabled(self) and "crt" or "subtle"
+end
+
+function PsychopatzConversationPortrait:syncScreenVariant()
+    if self.portrait and self.portrait.setScreenVariant then
+        self.portrait:setScreenVariant(self:getScreenVariant())
+    end
+end
+
 function PsychopatzConversationPortrait:setBackground(id)
     self.backgroundID = id or "twilight"
     self.backgroundDefinition = Conversation.Backgrounds.Get(self.backgroundID)
@@ -244,6 +296,7 @@ end
 
 function PsychopatzConversationPortrait:prerender()
     local reveal = self.reveal or 0
+    self:syncScreenVariant()
     if reveal <= 0.18 then
         self.reveal = 0
         PsychopatzConversationPart.prerender(self)
@@ -311,18 +364,23 @@ function PsychopatzConversationPortrait:render()
             self:drawRect(2, 2, self.width - 4, self.height - 4,
                 1 - alpha, 0, 0, 0)
         end
-        local scanY
-        for scanY = 3, self.height - 4, 5 do
-            self:drawRect(
-                3,
-                scanY,
-                self.width - 7,
-                1,
-                alpha * 0.055,
-                0.03,
-                0.08,
-                0.065
-            )
+        local screenVariant = self:getScreenVariant()
+        if screenVariant ~= "none" then
+            local scanAlpha = screenVariant == "crt"
+                and alpha * 0.055 or alpha * 0.025
+            local scanY
+            for scanY = 3, self.height - 4, 5 do
+                self:drawRect(
+                    3,
+                    scanY,
+                    self.width - 7,
+                    1,
+                    scanAlpha,
+                    0.03,
+                    0.08,
+                    0.065
+                )
+            end
         end
         local plateHeight = math.max(48, math.min(62, self.height * 0.18))
         local plateY = self.height - plateHeight - 3
@@ -419,6 +477,8 @@ function PsychopatzConversationPortrait:onPartResize()
 end
 
 function PsychopatzConversationPortrait:new(x, y, width, height, options)
+    local portraitSpec
+    local screenVariant
     options = options or {}
     options.partID = "portrait"
     options.minimumWidth = options.minimumWidth or 150
@@ -430,6 +490,11 @@ function PsychopatzConversationPortrait:new(x, y, width, height, options)
     local o = PsychopatzConversationPart.new(self, x, y, width, height, options)
     o.targetCharacter = options.character
     o.targetSpec = options.portraitSpec or {}
+    portraitSpec = type(options.portraitSpec) == "table"
+        and options.portraitSpec or nil
+    screenVariant = options.screenVariant
+        or (portraitSpec and portraitSpec.screenVariant)
+    o.screenVariant = normalizeScreenVariant(screenVariant)
     o:setBackground(options.backgroundID or "twilight")
     return o
 end

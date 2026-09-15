@@ -9,34 +9,61 @@ Scoring scope: `production`
 
 | Metric | Value |
 |---|---:|
-| Production Health | 80.3/100 |
-| Coverage | 63.8% |
-| Confidence | 53.5% |
-| Max Refactor Pressure | 35.7/100 |
+| Production Health | 69.4/100 |
+| Coverage | 77.3% |
+| Confidence | 63.5% |
+| Max Refactor Pressure | 100.0/100 |
 | Production files | 161 |
 | Tests indexed | 81 |
 | Tooling files indexed | 45 |
 | Generated files indexed | 0 |
-| Production LOC scored | 27740 |
-| Logical subsystems | 2 |
-| Production findings | 13 |
-| Test findings | 3 |
+| Production LOC scored | 27974 |
+| Logical subsystems | 26 |
+| Production findings | 52 |
+| Test findings | 6 |
 
 ## Subsystems by refactor pressure
 
 | Subsystem | Pressure | Health | Coverage | Confidence | Files | LOC | Findings | Fan-in | Fan-out |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| PsychopatzCore | 35.7 | 80.3/100 | 63.8% | 53.5% | 160 | 27739 | 13 | 1 | 0 |
-| (root) | 0.8 | 100.0/100 | 66.6% | 50.0% | 1 | 1 | 0 | 0 | 1 |
+| (composition) | 100.0 | 61.1/100 | 78.5% | 63.8% | 3 | 62 | 8 | 7 | 18 |
+| UI | 100.0 | 50.7/100 | 77.6% | 65.0% | 60 | 12985 | 19 | 3 | 8 |
+| Bridge | 83.5 | 62.9/100 | 81.5% | 68.4% | 7 | 719 | 6 | 1 | 2 |
+| Profiler | 83.3 | 63.2/100 | 77.9% | 63.0% | 11 | 1613 | 5 | 3 | 1 |
+| Debug | 70.3 | 63.2/100 | 76.9% | 62.1% | 7 | 1015 | 4 | 3 | 5 |
+| Inventory | 25.5 | 86.2/100 | 81.5% | 68.2% | 26 | 4287 | 2 | 3 | 2 |
+| World | 23.6 | 85.5/100 | 78.5% | 66.0% | 5 | 1017 | 2 | 3 | 1 |
+| Radio | 19.1 | 87.5/100 | 76.3% | 61.9% | 10 | 764 | 1 | 2 | 2 |
+| Traits | 17.5 | 87.5/100 | 67.0% | 54.1% | 2 | 290 | 1 | 1 | 1 |
+| Conversation | 3.7 | 99.8/100 | 81.5% | 63.4% | 4 | 839 | 1 | 3 | 1 |
+| Voice | 3.2 | 99.8/100 | 78.5% | 61.1% | 1 | 552 | 1 | 1 | 2 |
+| Serialization | 3.1 | 97.5/100 | 54.6% | 44.8% | 1 | 256 | 1 | 2 | 0 |
+| Translation | 3.0 | 100.0/100 | 78.5% | 58.9% | 3 | 658 | 0 | 2 | 2 |
+| WorldLoot | 2.6 | 100.0/100 | 78.5% | 58.9% | 4 | 674 | 0 | 0 | 3 |
+| ZombieKillDetector | 2.6 | 98.2/100 | 78.5% | 62.7% | 4 | 742 | 1 | 1 | 0 |
+| Events | 1.8 | 100.0/100 | 54.6% | 41.0% | 1 | 73 | 0 | 3 | 0 |
+| Runtime | 1.8 | 100.0/100 | 54.6% | 41.0% | 1 | 22 | 0 | 3 | 0 |
+| Journal | 1.5 | 100.0/100 | 78.5% | 58.9% | 1 | 165 | 0 | 1 | 1 |
+| Composition | 1.4 | 100.0/100 | 78.5% | 58.9% | 2 | 60 | 0 | 1 | 1 |
+| Input | 1.3 | 100.0/100 | 54.6% | 41.0% | 1 | 295 | 0 | 2 | 0 |
+| Text | 1.3 | 100.0/100 | 54.6% | 41.0% | 1 | 246 | 0 | 2 | 0 |
+| Collections | 1.2 | 100.0/100 | 54.6% | 41.0% | 1 | 77 | 0 | 2 | 0 |
+| CustomTranslation | 0.8 | 100.0/100 | 72.9% | 54.7% | 1 | 1 | 0 | 0 | 1 |
+| Settings | 0.7 | 100.0/100 | 57.7% | 43.3% | 1 | 213 | 0 | 1 | 0 |
+| Compatibility | 0.6 | 100.0/100 | 54.6% | 41.0% | 1 | 101 | 0 | 1 | 0 |
+| EventMarkers | 0.1 | 100.0/100 | 67.0% | 50.2% | 2 | 248 | 0 | 0 | 0 |
 
 ## Finding counts
 
 | Scope | Rule | Severity | Count |
 |---|---|---|---:|
-| production | `LARGE_FUNCTION` | MEDIUM | 9 |
-| production | `HOT_PATH_EVENT_RISK` | LOW | 2 |
+| production | `DEPENDENCY_CYCLE` | HIGH | 30 |
+| production | `LARGE_FUNCTION` | MEDIUM | 10 |
+| production | `CORE_DOMAIN_DEPENDENCY` | HIGH | 5 |
+| production | `HOT_PATH_EVENT_RISK` | LOW | 3 |
+| production | `CROSS_SUBSYSTEM_COUPLING` | MEDIUM | 2 |
 | production | `UNBOUNDED_LOOP` | MEDIUM | 2 |
-| test | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | 3 |
+| test | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | 6 |
 
 ## Finding index
 
@@ -44,22 +71,64 @@ Query evidence with `architecture_audit finding <repo> <finding-id> --context 4`
 
 | ID | Rule | Severity | Confidence | Subsystem | Summary |
 |---|---|---|---:|---|---|
-| `ARC-42F416692C` | `UNBOUNDED_LOOP` | MEDIUM | HIGH (92%) | PsychopatzCore | Potential unbounded loop in Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Inventory/PsychopatzInventory.lua. |
-| `ARC-A3CD4D40BB` | `UNBOUNDED_LOOP` | MEDIUM | HIGH (92%) | PsychopatzCore | Potential unbounded loop in Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/World/PsychopatzSquareRules.lua. |
-| `ARC-0B8EC2A28E` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | PsychopatzCore | PsychopatzConversationView:createChildren spans 151 lines. |
-| `ARC-2C0AD8E977` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | PsychopatzCore | PsychopatzConversationChat:render spans 124 lines. |
-| `ARC-60CA0E0BEE` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | PsychopatzCore | list:prerender spans 128 lines. |
-| `ARC-96D979BE48` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | PsychopatzCore | Model.Build spans 219 lines. |
-| `ARC-A74A63EE0B` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | PsychopatzCore | parser spans 144 lines. |
-| `ARC-ADC2F4DD5F` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | PsychopatzCore | VirtualizedList.Install spans 251 lines. |
-| `ARC-C2062E3947` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | PsychopatzCore | PsychopatzConversationChoices:render spans 125 lines. |
-| `ARC-C953AD29DF` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | PsychopatzCore | ISPsychopatzCommandHubSettingsWindow:createChildren spans 127 lines. |
-| `ARC-DB187C8B3F` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | PsychopatzCore | Internal.HandleClientCommand spans 122 lines. |
-| `ARC-43A17EA6D0` | `HOT_PATH_EVENT_RISK` | LOW | LOW (52%) | PsychopatzCore | Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Voice/PsychopatzVoiceGateway.lua publishes events and contains a recurring hot-path signal. |
-| `ARC-E37DE3497D` | `HOT_PATH_EVENT_RISK` | LOW | LOW (52%) | PsychopatzCore | Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Bridge/PsychopatzBridge.lua publishes events and contains a recurring hot-path signal. |
-| `ARC-3C61FE751F` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | HIGH (95%) | PsychopatzCore | Repeated test setup appears across 19 tests (~264 repeated LOC). |
+| `ARC-059674E799` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | (composition) | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> World -> (composition) |
+| `ARC-099A00F95C` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Bridge | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> (composition) |
+| `ARC-0BCFC5B86A` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | UI | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> World -> (composition) |
+| `ARC-238533140E` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Profiler | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> World -> (composition) |
+| `ARC-3895ECB6DF` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | UI | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> (composition) |
+| `ARC-3941C37EE3` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Debug | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> World -> (composition) |
+| `ARC-3A4C4456C2` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | UI | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> (composition) |
+| `ARC-42702158A2` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Bridge | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> Inventory -> (composition) |
+| `ARC-4F9DEAAA68` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Profiler | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> Inventory -> (composition) |
+| `ARC-5271DD852B` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Debug | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> (composition) |
+| `ARC-5520EB1173` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | (composition) | Subsystem participates in dependency cycle: (composition) -> Traits -> (composition) |
+| `ARC-59DD434017` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Debug | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> Inventory -> (composition) |
+| `ARC-5DBA3D3506` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | (composition) | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> (composition) |
+| `ARC-7855BF9318` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Bridge | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> (composition) |
+| `ARC-7B5445309A` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | UI | Subsystem participates in dependency cycle: Debug -> UI -> Debug |
+| `ARC-7CED0E69ED` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Debug | Subsystem participates in dependency cycle: Debug -> UI -> Debug |
+| `ARC-7FEA0D72D2` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | (composition) | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Radio -> (composition) |
+| `ARC-9DEB2723F0` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Profiler | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Radio -> (composition) |
+| `ARC-AA5D97F47E` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Traits | Subsystem participates in dependency cycle: (composition) -> Traits -> (composition) |
+| `ARC-BC9A398ED6` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | (composition) | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> Inventory -> (composition) |
+| `ARC-BE8D4731F0` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Profiler | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> (composition) |
+| `ARC-C480E0AE4D` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Bridge | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> World -> (composition) |
+| `ARC-C5CF625B2E` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | World | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> World -> (composition) |
+| `ARC-CAA69F4FC5` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Radio | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Radio -> (composition) |
+| `ARC-D5A61FB0A0` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | UI | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> Inventory -> (composition) |
+| `ARC-D67F823415` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Profiler | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> (composition) |
+| `ARC-E13C1C02C1` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Bridge | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Radio -> (composition) |
+| `ARC-EAD4B3AF13` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Inventory | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Debug -> Inventory -> (composition) |
+| `ARC-EDFA7D3A82` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | UI | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> Radio -> (composition) |
+| `ARC-F182493FB3` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | (composition) | Subsystem participates in dependency cycle: (composition) -> Bridge -> Profiler -> UI -> (composition) |
+| `ARC-059B1384F8` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPortrait.lua depends on non-core files. |
+| `ARC-1096002EF9` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationSettings.lua depends on non-core files. |
+| `ARC-523904185E` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationLLMInput.lua depends on non-core files. |
+| `ARC-6DD3A465A6` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/PsychopatzAudioSettings.lua depends on non-core files. |
+| `ARC-BBDD52F84B` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Core/PsychopatzUITheme.lua depends on non-core files. |
+| `ARC-5B36627A03` | `CROSS_SUBSYSTEM_COUPLING` | MEDIUM | HIGH (82%) | (composition) | Contents/mods/PsychopatzCore/42.20/media/lua/shared/PsychopatzCore/00_PsychopatzCore_Init.lua directly depends on 14 foreign subsystems. |
+| `ARC-869C0B2E6E` | `CROSS_SUBSYSTEM_COUPLING` | MEDIUM | HIGH (82%) | (composition) | Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/00_PsychopatzCore_Client_Init.lua directly depends on 5 foreign subsystems. |
+| `ARC-17B6F562A1` | `UNBOUNDED_LOOP` | MEDIUM | HIGH (92%) | World | Potential unbounded loop in Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/World/PsychopatzSquareRules.lua. |
+| `ARC-4388B2C742` | `UNBOUNDED_LOOP` | MEDIUM | HIGH (92%) | Inventory | Potential unbounded loop in Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Inventory/PsychopatzInventory.lua. |
+| `ARC-07A213BB70` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | PsychopatzConversationChat:render spans 124 lines. |
+| `ARC-092ADB896C` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | Serialization | parser spans 144 lines. |
+| `ARC-2F4CA99401` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | ISPsychopatzCommandHubSettingsWindow:createChildren spans 127 lines. |
+| `ARC-33E0C8957A` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | PsychopatzConversationView:createChildren spans 185 lines. |
+| `ARC-8983BD725E` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | PsychopatzConversationChoices:render spans 125 lines. |
+| `ARC-A3FBB4A811` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | list:prerender spans 128 lines. |
+| `ARC-B4FCB5E659` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | Model.Build spans 219 lines. |
+| `ARC-ED4EDDDCD1` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | ZombieKillDetector | Internal.HandleClientCommand spans 122 lines. |
+| `ARC-EF0A486FA0` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | VirtualizedList.Install spans 251 lines. |
+| `ARC-F6D5594C83` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | PsychopatzConversationPortrait:render spans 120 lines. |
+| `ARC-06FE02703D` | `HOT_PATH_EVENT_RISK` | LOW | LOW (52%) | Bridge | Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Bridge/PsychopatzBridge.lua publishes events and contains a recurring hot-path signal. |
+| `ARC-26CAED0862` | `HOT_PATH_EVENT_RISK` | LOW | LOW (52%) | Voice | Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Voice/PsychopatzVoiceGateway.lua publishes events and contains a recurring hot-path signal. |
+| `ARC-DE0DE3248F` | `HOT_PATH_EVENT_RISK` | LOW | LOW (52%) | Conversation | Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/Conversation/PsychopatzSocialFlavorClient.lua publishes events and contains a recurring hot-path signal. |
+| `ARC-2808E9ADA6` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (80%) | Inventory | Repeated test setup appears across 7 tests (~84 repeated LOC). |
+| `ARC-3147ADDCAA` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (70%) | World | Repeated test setup appears across 3 tests (~24 repeated LOC). |
 | `ARC-4BD2C13DA1` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (70%) | tools | Repeated test setup appears across 3 tests (~12 repeated LOC). |
 | `ARC-4E0EE034B0` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | HIGH (95%) | tests | Repeated test setup appears across 32 tests (~378 repeated LOC). |
+| `ARC-B91DA22AEC` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (70%) | Bridge | Repeated test setup appears across 3 tests (~36 repeated LOC). |
+| `ARC-E50A71C6E8` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | HIGH (82%) | Profiler | Repeated test setup appears across 8 tests (~120 repeated LOC). |
 
 ## Largest maintained modules
 
@@ -72,15 +141,16 @@ Generated artifacts and tooling are indexed but excluded from this table and pro
 
 | ID | Function | File | Start | LOC |
 |---|---|---|---:|---:|
-| `ARC-ADC2F4DD5F` | `VirtualizedList.Install` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Components/PsychopatzVirtualizedList.lua` | 130 | 251 |
-| `ARC-96D979BE48` | `Model.Build` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Inventory/PsychopatzInventoryTooltipModel.lua` | 210 | 219 |
-| `ARC-0B8EC2A28E` | `PsychopatzConversationView:createChildren` | `Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationView.lua` | 31 | 151 |
-| `ARC-A74A63EE0B` | `parser` | `Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Serialization/PsychopatzJson.lua` | 111 | 144 |
-| `ARC-60CA0E0BEE` | `list:prerender` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Components/PsychopatzVirtualizedList.lua` | 250 | 128 |
-| `ARC-C953AD29DF` | `ISPsychopatzCommandHubSettingsWindow:createChildren` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/PsychopatzCommandHubSettingsWindow.lua` | 73 | 127 |
-| `ARC-C2062E3947` | `PsychopatzConversationChoices:render` | `Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChoices.lua` | 111 | 125 |
-| `ARC-2C0AD8E977` | `PsychopatzConversationChat:render` | `Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChat.lua` | 135 | 124 |
-| `ARC-DB187C8B3F` | `Internal.HandleClientCommand` | `Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ZombieKillDetector/PsychopatzZombieKillDetector_Transport.lua` | 75 | 122 |
+| `ARC-EF0A486FA0` | `VirtualizedList.Install` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Components/PsychopatzVirtualizedList.lua` | 130 | 251 |
+| `ARC-B4FCB5E659` | `Model.Build` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Inventory/PsychopatzInventoryTooltipModel.lua` | 210 | 219 |
+| `ARC-33E0C8957A` | `PsychopatzConversationView:createChildren` | `Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationView.lua` | 37 | 185 |
+| `ARC-092ADB896C` | `parser` | `Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Serialization/PsychopatzJson.lua` | 111 | 144 |
+| `ARC-A3FBB4A811` | `list:prerender` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Components/PsychopatzVirtualizedList.lua` | 250 | 128 |
+| `ARC-2F4CA99401` | `ISPsychopatzCommandHubSettingsWindow:createChildren` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/PsychopatzCommandHubSettingsWindow.lua` | 73 | 127 |
+| `ARC-8983BD725E` | `PsychopatzConversationChoices:render` | `Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChoices.lua` | 111 | 125 |
+| `ARC-07A213BB70` | `PsychopatzConversationChat:render` | `Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChat.lua` | 135 | 124 |
+| `ARC-ED4EDDDCD1` | `Internal.HandleClientCommand` | `Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ZombieKillDetector/PsychopatzZombieKillDetector_Transport.lua` | 75 | 122 |
+| `ARC-F6D5594C83` | `PsychopatzConversationPortrait:render` | `Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPortrait.lua` | 351 | 120 |
 
 ## Recommended workflow
 
