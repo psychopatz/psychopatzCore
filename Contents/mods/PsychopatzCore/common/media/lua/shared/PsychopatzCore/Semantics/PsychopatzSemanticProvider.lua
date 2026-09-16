@@ -64,6 +64,10 @@ function Provider.Normalize(payload, context, options)
         recipient = firstValue(raw.recipient, context.recipient),
         target = firstValue(raw.target, context.target),
         object = firstValue(raw.object, context.object),
+        inventoryQuery = firstValue(
+            firstValue(raw.inventoryQuery, raw.inventory_query),
+            firstValue(raw.itemQuery, raw.item_query)
+        ),
         source = firstValue(raw.source, context.sourceEntity),
         destination = firstValue(raw.destination, context.destination),
         slots = raw.slots,

@@ -42,12 +42,34 @@ local function normalizeRule(rule)
             output.value = output.literal or output.value
         elseif output.any_concept then
             output.kind = "any_concept"
+        elseif output.any_phrase or output.span then
+            output.kind = "any_phrase"
         elseif output.any then
             output.kind = "any"
         end
     end
     if output.kind == "literal" then
         output.value = Normalizer.NormalizePhrase(output.value)
+    end
+    if output.kind == "any_phrase" then
+        -- Phrase captures are deliberately bounded.  They are intended for
+        -- game-world names ("recycle bin", "medical supplies"), not for
+        -- arbitrary-English parsing or unbounded backtracking.
+        output.minTokens = math.max(1, math.floor(
+            tonumber(output.minTokens) or 1))
+        output.maxTokens = math.max(output.minTokens, math.min(8, math.floor(
+            tonumber(output.maxTokens) or 4)))
+        if type(output.stopWords) == "string" then
+            output.stopWords = { output.stopWords }
+        end
+        if type(output.stopWords) == "table" then
+            local normalized = {}
+            for index = 1, #output.stopWords do
+                normalized[#normalized + 1] = Normalizer.NormalizePhrase(
+                    output.stopWords[index])
+            end
+            output.stopWords = normalized
+        end
     end
     return output
 end
@@ -92,6 +114,96 @@ local function captureValue(symbol)
     return output
 end
 
+local function symbolText(symbol)
+    return tostring(symbol and (symbol.text or symbol.value) or "")
+end
+
+local function phraseText(symbols, first, last)
+    local values = {}
+    local index
+    for index = first, last do
+        values[#values + 1] = symbolText(symbols[index])
+    end
+    return table.concat(values, " ")
+end
+
+local function hasStopWord(symbols, first, last, stopWords)
+    if type(stopWords) ~= "table" or #stopWords < 1 then return false end
+    local index
+    local stopIndex
+    local text
+    for index = first, last do
+        text = " " .. symbolText(symbols[index]) .. " "
+        for stopIndex = 1, #stopWords do
+            local stop = tostring(stopWords[stopIndex] or "")
+            if stop ~= "" and string.find(
+                text, " " .. stop .. " ", 1, true)
+            then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+local function capturePhraseValue(symbols, first, last)
+    -- Preserve the richer concept capture when a phrase is exactly one known
+    -- concept.  This keeps existing emit contracts stable while allowing an
+    -- unresolved multi-word world/item name to travel as one value.
+    if first == last and symbols[first].kind == "concept"
+        and symbols[first].id ~= nil
+    then
+        local output = captureValue(symbols[first])
+        output.startToken = symbols[first].startToken
+        output.endToken = symbols[first].endToken
+        output.tokens = { symbolText(symbols[first]) }
+        return output
+    end
+
+    local output = {
+        kind = "phrase",
+        value = phraseText(symbols, first, last),
+        text = phraseText(symbols, first, last),
+        unresolved = true,
+        startToken = symbols[first] and symbols[first].startToken or nil,
+        endToken = symbols[last] and symbols[last].endToken or nil,
+        tokens = {},
+    }
+    local index
+    for index = first, last do
+        output.tokens[#output.tokens + 1] = symbolText(symbols[index])
+    end
+    local lowered = string.lower(output.text)
+    if lowered == "this" or lowered == "that"
+        or lowered == "it" or lowered == "him" or lowered == "her"
+        or lowered == "them"
+    then
+        output.reference = string.upper(lowered)
+    end
+    return output
+end
+
+local function spanMetrics(symbols, first, last)
+    local unresolved = first ~= last and 1 or 0
+    local ambiguous = 0
+    local fuzzy = 0
+    local index
+    local symbol
+    for index = first, last do
+        symbol = symbols[index]
+        if symbol.kind ~= "concept" or symbol.id == nil then
+            -- A captured phrase is one unresolved semantic slot even when
+            -- its display name contains several literal tokens.
+            unresolved = 1
+        end
+        if symbol.kind == "concept" and not symbol.id then
+            ambiguous = ambiguous + 1
+        end
+        if symbol.fuzzy == true then fuzzy = fuzzy + 1 end
+    end
+    return unresolved, ambiguous, fuzzy
+end
+
 local function cloneCaptures(captures)
     local output = {}
     local key
@@ -125,6 +237,63 @@ function PatternMatcher.Match(pattern, symbols, normalized)
 
         local rule = normalizeRule(rules[ruleIndex])
         if not rule then return nil end
+
+        if rule.kind == "any_phrase" then
+            local first = symbolIndex
+            local last
+            local firstToken = symbols[first]
+                and symbols[first].startToken or nil
+            local spanFirst
+            local spanLast
+            -- Try longer spans first so names such as "medical supplies"
+            -- remain intact.  Recursive backtracking still permits a later
+            -- grammar rule to consume a terminator such as "to" or "yet".
+            for last = #symbols, first, -1 do
+                local endToken = symbols[last]
+                    and symbols[last].endToken or nil
+                local tokenCount = endToken and firstToken
+                    and endToken - firstToken + 1 or 0
+                if tokenCount < rule.minTokens then break end
+                if tokenCount <= rule.maxTokens
+                    and not hasStopWord(
+                        symbols, first, last, rule.stopWords)
+                then
+                    spanFirst = first
+                    spanLast = last
+                    local nextCaptures = cloneCaptures(captures)
+                    if rule.capture then
+                        nextCaptures[rule.capture] = capturePhraseValue(
+                            symbols, spanFirst, spanLast)
+                    end
+                    local spanUnresolved, spanAmbiguous, spanFuzzy =
+                        spanMetrics(symbols, spanFirst, spanLast)
+                    local result = search(
+                        ruleIndex + 1,
+                        last + 1,
+                        nextCaptures,
+                        consumed + (last - first + 1),
+                        skipped,
+                        unresolved + spanUnresolved,
+                        ambiguous + spanAmbiguous,
+                        fuzzy + spanFuzzy
+                    )
+                    if result then return result end
+                end
+            end
+            if rule.optional == true then
+                return search(
+                    ruleIndex + 1,
+                    symbolIndex,
+                    cloneCaptures(captures),
+                    consumed,
+                    skipped + 1,
+                    unresolved,
+                    ambiguous,
+                    fuzzy
+                )
+            end
+            return nil
+        end
 
         -- Consume first so optional words are retained when they actually
         -- match. Backtracking handles optional grammar without hardcoding

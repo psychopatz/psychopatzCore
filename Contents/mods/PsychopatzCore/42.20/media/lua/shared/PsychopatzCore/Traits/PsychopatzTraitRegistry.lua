@@ -26,16 +26,6 @@ local function normalized(value)
     return string.lower(value)
 end
 
-local function localized(value)
-    if getText and type(value) == "string" then
-        local ok
-        local translated
-        ok, translated = pcall(getText, value)
-        if ok and translated and translated ~= "" then return translated end
-    end
-    return value
-end
-
 local function alias(owner, value, id)
     value = normalized(value)
     if not value then return end
@@ -168,9 +158,9 @@ function Traits.RegisterAll()
             ok, existing = pcall(
                 CharacterTraitDefinition.addCharacterTraitDefinition,
                 trait,
-                localized(spec.uiName),
+                spec.uiName,
                 spec.cost,
-                localized(spec.uiDescription),
+                spec.uiDescription,
                 false,
                 false
             )

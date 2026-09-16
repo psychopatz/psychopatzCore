@@ -28,9 +28,9 @@ CharacterTraitDefinition = {
     end,
     addCharacterTraitDefinition = function(trait, name, cost, description)
         definitions[trait] = {
-            name = name,
+            name = getText and getText(name) or name,
             cost = cost,
-            description = description,
+            description = getText and getText(description) or description,
             exclusions = {},
         }
         return definitions[trait]
@@ -57,7 +57,7 @@ assertEqual(#Traits.GetDefinitions("Example"), 2, "catalog definitions")
 assertEqual(definitions[Traits.EngineTraits.Example_A].cost, 2,
     "vanilla cost retained")
 assertEqual(definitions[Traits.EngineTraits.Example_A].name,
-    "Localized UI_A", "trait label localized before engine registration")
+    "Localized UI_A", "trait label localized by engine registration")
 assertEqual(definitions[Traits.EngineTraits.Example_A]
     .exclusions[Traits.EngineTraits.Example_B], true,
     "mutual exclusion registered")

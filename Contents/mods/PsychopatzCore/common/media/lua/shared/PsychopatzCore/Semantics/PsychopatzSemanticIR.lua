@@ -68,6 +68,11 @@ function IR.New(spec)
         recipient = copyValue(spec.recipient),
         target = copyValue(spec.target),
         object = copyValue(spec.object),
+        -- Inventory questions are semantic read requests, not gameplay
+        -- actions.  Keeping the query beside the other IR slots lets the
+        -- client/server boundary use the same contract without pretending a
+        -- question is a task.
+        inventoryQuery = copyValue(spec.inventoryQuery or spec.itemQuery),
         source = copyValue(spec.source),
         destination = copyValue(spec.destination),
 

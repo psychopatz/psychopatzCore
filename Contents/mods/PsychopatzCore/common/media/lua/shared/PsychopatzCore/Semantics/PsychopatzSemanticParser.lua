@@ -86,10 +86,22 @@ function Parser.Parse(text, options)
     symbols = ConceptMatcher.Build(normalized, exactOptions)
     analysis = ConceptMatcher.Analysis(normalized, symbols)
     best, tie = findBest(symbols)
-    if not best and options.enableFuzzy ~= false then
-        symbols = ConceptMatcher.Build(normalized, options)
-        analysis = ConceptMatcher.Analysis(normalized, symbols)
-        best, tie = findBest(symbols)
+    local fuzzyCapture = best and best.pattern
+        and best.pattern.allowFuzzyCapture == true
+        and best.match and best.match.unresolvedCount > 0
+    if options.enableFuzzy ~= false and (not best or fuzzyCapture) then
+        local fuzzySymbols = ConceptMatcher.Build(normalized, options)
+        local fuzzyAnalysis = ConceptMatcher.Analysis(
+            normalized, fuzzySymbols)
+        local fuzzyBest
+        local fuzzyTie
+        fuzzyBest, fuzzyTie = findBest(fuzzySymbols)
+        if fuzzyBest and (not best or fuzzyBest.score >= best.score) then
+            symbols = fuzzySymbols
+            analysis = fuzzyAnalysis
+            best = fuzzyBest
+            tie = fuzzyTie
+        end
     end
     diagnostics = baseDiagnostics(normalized, symbols)
     diagnostics.fuzzyMatch = analysis.fuzzyMatch == true
