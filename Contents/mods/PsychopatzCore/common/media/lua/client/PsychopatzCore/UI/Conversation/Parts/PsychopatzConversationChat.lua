@@ -10,6 +10,46 @@ local Conversation = PsychopatzCore.Conversation
 local Text = Conversation.Text
 local Typing = Conversation.Typing
 local Markdown = PsychopatzCore.Markdown
+local DebugTrace = PsychopatzCore.DebugTrace
+
+local function traceEnabled()
+    return DebugTrace and DebugTrace.IsEnabled
+        and DebugTrace.IsEnabled() == true
+end
+
+local function traceTypingRender(part, layout, x, y, visible, contentAlpha, reason)
+    if not traceEnabled() then return end
+    local headerHeight = part.headerHeight or 24
+    local clipTop = headerHeight + 2
+    local clipBottom = part.height - 3
+    local signature = table.concat({
+        tostring(visible == true),
+        tostring(math.floor((tonumber(contentAlpha) or 0) * 1000 + 0.5)),
+        tostring(math.floor((tonumber(part.reveal) or 0) * 1000 + 0.5)),
+        tostring(math.floor(tonumber(y) or -1)),
+        tostring(layout and layout.height or -1),
+        tostring(reason or "layout"),
+    }, ":")
+    if part.typingRenderSignature == signature then return end
+    part.typingRenderSignature = signature
+    DebugTrace.Record({
+        source = "PsychopatzCore",
+        event = "conversation.typing_render",
+        data = {
+            speaker = part.typingSpeaker,
+            visible = visible == true,
+            contentAlpha = contentAlpha,
+            reveal = part.reveal,
+            x = x,
+            y = y,
+            height = layout and layout.height or nil,
+            width = layout and layout.width or nil,
+            clipTop = clipTop,
+            clipBottom = clipBottom,
+            reason = reason,
+        },
+    })
+end
 
 local function fontHeight()
     if getTextManager then
@@ -79,8 +119,23 @@ function PsychopatzConversationChat:addMessage(message)
 end
 
 function PsychopatzConversationChat:setTyping(speaker)
+    local previous = self.typingSpeaker
     self.typingSpeaker = speaker
     self.layoutDirty = true
+    self.typingRenderSignature = nil
+    if traceEnabled() and previous ~= speaker then
+        DebugTrace.Record({
+            source = "PsychopatzCore",
+            event = "conversation.typing_state",
+            data = {
+                previousSpeaker = previous,
+                speaker = speaker,
+                messageCount = #(self.messages or {}),
+                reveal = self.reveal,
+                contentAlpha = self:getContentOpacity(),
+            },
+        })
+    end
 end
 
 function PsychopatzConversationChat:buildLayout()
@@ -125,6 +180,23 @@ function PsychopatzConversationChat:buildLayout()
     )
     self.scrollOffset = math.max(0, math.min(self.maximumScroll, self.scrollOffset or 0))
     self.layoutDirty = false
+    if traceEnabled() and self.typingSpeaker then
+        local typingLayout = layouts[#layouts]
+        DebugTrace.Record({
+            source = "PsychopatzCore",
+            event = "conversation.typing_layout",
+            data = {
+                speaker = self.typingSpeaker,
+                y = typingLayout and typingLayout.y or nil,
+                height = typingLayout and typingLayout.height or nil,
+                width = typingLayout and typingLayout.width or nil,
+                contentHeight = self.contentHeight,
+                maximumScroll = self.maximumScroll,
+                scrollOffset = self.scrollOffset,
+                viewportHeight = self.height,
+            },
+        })
+    end
 end
 
 function PsychopatzConversationChat:prerender()
@@ -133,11 +205,19 @@ function PsychopatzConversationChat:prerender()
 end
 
 function PsychopatzConversationChat:render()
-    local alpha = self:getContentOpacity()
+    local contentAlpha = self:getContentOpacity()
     local lineH = fontHeight()
     local index
-    if self.reveal <= 0 then return end
+    if self.reveal <= 0 then
+        if self.typingSpeaker then
+            traceTypingRender(self, nil, nil, nil, false, contentAlpha, "reveal")
+        end
+        return
+    end
     local headerHeight = self.headerHeight or 24
+    local typingLayout
+    local typingX
+    local typingY
     self:setStencilRect(
         2,
         headerHeight + 2,
@@ -157,26 +237,33 @@ function PsychopatzConversationChat:render()
             and { r = 0.25, g = 0.92, b = 0.70 }
             or self:getAccentColor()
         if y + layout.height >= headerHeight and y <= self.height then
-            self:drawRect(x + 3, y + 4, layout.width, layout.height,
-                alpha * 0.38, 0, 0, 0)
-            self:drawRect(x, y, layout.width, layout.height, alpha * 0.92,
-                color.r, color.g, color.b)
-            self:drawRectBorder(
-                x,
-                y,
-                layout.width,
-                layout.height,
-                alpha * 0.44,
-                accent.r,
-                accent.g,
-                accent.b
-            )
-            local railX = player and x + layout.width - 3 or x
-            self:drawRect(railX, y, 3, layout.height, alpha * 0.92,
-                accent.r, accent.g, accent.b)
-            local tailX = player and x + layout.width - 8 or x - 5
-            self:drawRect(tailX, y + layout.height - 10, 8, 6,
-                alpha * 0.9, color.r, color.g, color.b)
+            if not layout.typing then
+                self:drawRect(x + 3, y + 4, layout.width, layout.height,
+                    contentAlpha * 0.38, 0, 0, 0)
+                self:drawRect(x, y, layout.width, layout.height, contentAlpha * 0.92,
+                    color.r, color.g, color.b)
+                self:drawRectBorder(
+                    x,
+                    y,
+                    layout.width,
+                    layout.height,
+                    contentAlpha * 0.44,
+                    accent.r,
+                    accent.g,
+                    accent.b
+                )
+                local tailX = player and x + layout.width - 8 or x - 5
+                self:drawRect(tailX, y + layout.height - 10, 8, 6,
+                    contentAlpha * 0.9, color.r, color.g, color.b)
+                local railX = player and x + layout.width - 3 or x
+                self:drawRect(railX, y, 3, layout.height, contentAlpha * 0.92,
+                    accent.r, accent.g, accent.b)
+            end
+            if layout.typing then
+                typingLayout = layout
+                typingX = x
+                typingY = y
+            end
             local npcName = self.owner
                 and self.owner.spec
                 and self.owner.spec.context
@@ -210,7 +297,7 @@ function PsychopatzConversationChat:render()
                 accent.r,
                 accent.g,
                 accent.b,
-                alpha * 0.9,
+                contentAlpha * 0.9,
                 UIFont.Small
             )
             if layout.typing then
@@ -221,7 +308,7 @@ function PsychopatzConversationChat:render()
                     0.74,
                     0.91,
                     0.82,
-                    alpha,
+                    contentAlpha,
                     UIFont.Small
                 )
             else
@@ -234,12 +321,24 @@ function PsychopatzConversationChat:render()
                         y + 20 + (lineIndex - 1) * lineH,
                         { r = 0.93, g = 0.95, b = 0.92 },
                         accent,
-                        alpha,
+                        contentAlpha,
                         layout.lines[lineIndex].kind
                     )
                 end
             end
         end
+    end
+    if self.typingSpeaker then
+        local visible = typingLayout ~= nil
+        traceTypingRender(
+            self,
+            typingLayout,
+            typingX,
+            typingY,
+            visible,
+            contentAlpha,
+            visible and "visible" or "clipped"
+        )
     end
     self:clearStencilRect()
     if self.maximumScroll > 0 then
@@ -251,9 +350,9 @@ function PsychopatzConversationChat:render()
             * (1 - ((self.scrollOffset or 0) / self.maximumScroll))
         local accent = self:getAccentColor()
         self:drawRect(self.width - 7, trackY, 2, trackH,
-            alpha * 0.18, accent.r, accent.g, accent.b)
+            contentAlpha * 0.18, accent.r, accent.g, accent.b)
         self:drawRect(self.width - 8, thumbY, 4, thumbH,
-            alpha * 0.88, accent.r, accent.g, accent.b)
+            contentAlpha * 0.88, accent.r, accent.g, accent.b)
     end
 end
 
@@ -268,6 +367,7 @@ function PsychopatzConversationChat:onMouseWheel(del)
 end
 
 function PsychopatzConversationChat:onPartResize()
+    PsychopatzConversationPart.onPartResize(self)
     self.layoutDirty = true
 end
 

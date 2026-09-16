@@ -14,7 +14,7 @@ local Text = Conversation.Text
 local UI = PsychopatzCore.UI
 local Opacity = Conversation.Opacity
 
-local function applyControlOpacity(control, alpha)
+local function applyControlOpacity(control, contentAlpha)
     if not control then return end
     local fields = {
         "backgroundColor",
@@ -25,6 +25,7 @@ local function applyControlOpacity(control, alpha)
         "textColor",
         "textColor2",
         "textColorEnabled",
+        "textureColor",
     }
     for _, field in ipairs(fields) do
         local color = control[field]
@@ -36,7 +37,7 @@ local function applyControlOpacity(control, alpha)
                 state = { color = color, alpha = tonumber(color.a) or 1 }
                 control.conversationOpacityColors[field] = state
             end
-            color.a = state.alpha * alpha
+            color.a = state.alpha * contentAlpha
         end
     end
 end
@@ -122,6 +123,9 @@ function PsychopatzConversationLLMInput:insertNewline()
 end
 
 function PsychopatzConversationLLMInput:createChildren()
+    if PsychopatzConversationPart.createChildren then
+        PsychopatzConversationPart.createChildren(self)
+    end
     local options = self.options or {}
     local definitions = options.modeButtons or {}
     local modeIndex
@@ -243,15 +247,20 @@ function PsychopatzConversationLLMInput:refreshOpacity()
     then
         return false
     end
-    local alpha = self:getContentOpacity()
+    local panelAlpha = self:getBackgroundOpacity()
+    local contentAlpha = self:getContentOpacity()
     for _, definition in ipairs(self.modeButtons or {}) do
-        applyControlOpacity(definition.button, alpha)
+        applyControlOpacity(definition.button, contentAlpha)
     end
-    applyControlOpacity(self.toggleButton and self.toggleButton.button, alpha)
-    applyControlOpacity(self.entry, alpha)
-    applyControlOpacity(self.sendButton, alpha)
-    applyControlOpacity(self.closeButton, alpha)
-    self.conversationContentOpacity = alpha
+    applyControlOpacity(
+        self.toggleButton and self.toggleButton.button,
+        contentAlpha
+    )
+    applyControlOpacity(self.entry, contentAlpha)
+    applyControlOpacity(self.sendButton, contentAlpha)
+    applyControlOpacity(self.closeButton, contentAlpha)
+    self.conversationPanelOpacity = panelAlpha
+    self.conversationContentOpacity = contentAlpha
     self.lastConversationOpacitySignature = signature
     self.lastConversationOpacityReveal = reveal
     return true
@@ -262,7 +271,20 @@ function PsychopatzConversationLLMInput:prerender()
     self:refreshOpacity()
 end
 
+function PsychopatzConversationLLMInput:update()
+    -- Full conversation views are driven by ISPanel.update(), while compact
+    -- headless hosts refresh this part explicitly from their integration
+    -- heartbeat.  Keep the native controls synchronized with the session in
+    -- both modes; otherwise the widget is initialized before the session is
+    -- created and its SEND button can remain disabled forever.
+    ISPanel.update(self)
+    self:refreshControls()
+end
+
 function PsychopatzConversationLLMInput:onPartResize()
+    if PsychopatzConversationPart.onPartResize then
+        PsychopatzConversationPart.onPartResize(self)
+    end
     if not self.entry or not self.sendButton then return end
     local modeCount = #self.modeButtons
     local controlCount = modeCount + (self.toggleButton and 1 or 0)

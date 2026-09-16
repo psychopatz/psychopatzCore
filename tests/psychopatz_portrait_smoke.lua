@@ -24,7 +24,9 @@ function Panel:new(x, y, width, height)
 end
 function Panel:initialise() end
 function Panel:createChildren() end
+local panelRenderCount = 0
 function Panel:prerender() end
+function Panel:render() panelRenderCount = panelRenderCount + 1 end
 function Panel:addChild(child) self.children[#self.children + 1] = child end
 function Panel:setX(value) self.x = value end
 function Panel:setY(value) self.y = value end
@@ -41,6 +43,7 @@ function ISUI3DModel:new(x, y, width, height)
         clearVariables = function() end,
         setAnimate = function(self, value) self.animated = value end,
     }
+    function model:setVisible(value) self.visible = value end
     function model:instantiate() end
     function model:setAnchorLeft() end
     function model:setAnchorRight() end
@@ -200,6 +203,24 @@ assertEqual(facePanel.modelView.x, 0,
 facePanel.modelView:prerender()
 assertEqual(facePanel.modelView.javaObject.animated, false,
     "static portrait animation was re-enabled during prerender")
+facePanel:setContentOpacity(0.4)
+assertEqual(facePanel.contentOpacity, 0.4,
+    "portrait stores content opacity")
+assertEqual(facePanel.modelView.visible, true,
+    "partially transparent portrait keeps its model visible")
+facePanel:setContentOpacity(0)
+assertEqual(facePanel.modelView.visible, false,
+    "fully transparent portrait hides its 3D model")
+panelRenderCount = 0
+facePanel:render()
+assertEqual(panelRenderCount, 0,
+    "fully transparent portrait skips its viewport renderer")
+facePanel:setContentOpacity(1)
+assertEqual(facePanel.modelView.visible, true,
+    "opaque portrait restores its 3D model")
+facePanel:render()
+assertEqual(panelRenderCount, 1,
+    "opaque portrait renders its viewport")
 assert(facePanel:setTarget(nil, {
     id = "npc_face",
     identitySeed = 11,

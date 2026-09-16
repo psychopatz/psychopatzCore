@@ -152,6 +152,33 @@ assertEqual(canonicalMessages[2].speakerName, "Second NPC",
     "multi-NPC speaker name")
 Events.clearOwner("conversation-smoke")
 
+local delayedMessages = {}
+local delayedTyping
+local delayedSession = Session.New({
+    choicesPart = { setChoices = function() end },
+    historyPart = {
+        addMessage = function(_, message)
+            delayedMessages[#delayedMessages + 1] = message
+        end,
+        setTyping = function(_, speaker) delayedTyping = speaker end,
+    },
+}, {
+    namespace = "DelayTest",
+    npcID = "npc-delay",
+    persistHistory = false,
+})
+delayedSession:queueMessage("npc", { text = "Delayed reply.", delayMs = 500 })
+assertEqual(delayedTyping, "npc", "NPC queue enables typing state")
+assertEqual(delayedSession.queue[1].readyAt, 1500,
+    "NPC queue preserves explicit typing delay")
+now = 1499
+delayedSession:update()
+assertEqual(#delayedMessages, 0, "NPC reply remains queued before delay")
+now = 1500
+delayedSession:update()
+assertEqual(#delayedMessages, 1, "NPC reply releases at delay boundary")
+assertEqual(delayedTyping, nil, "NPC queue clears typing after release")
+
 local playedPortraitAnimation
 local animatedSession = Session.New({
     choicesPart = { setChoices = function() end },
@@ -317,7 +344,11 @@ assertEqual(compact.d, "TestDomain", "translation domain serialized")
 assertEqual(compact.a[1], "Alex", "translation argument serialized")
 assertEqual(compact.a.status, "safe", "named translation argument serialized")
 assertEqual(compact.text, nil, "resolved text is not serialized")
-assertEqual(compact.f, nil, "keyed fallback prose is not serialized")
+assertEqual(compact.f, "Duplicated resolved prose",
+    "keyed fallback prose remains available to history")
+Text.RegisterFallback("PNC_Legacy_Key", "Recovered legacy prose")
+assertEqual(Text.Resolve({ key = "PNC_Legacy_Key" }),
+    "Recovered legacy prose", "registered fallback repairs old history")
 
 History.Append("Test", "canonical-history", "npc", { fallback = "Connected" },
     "char_canonical", canonicalMessages[1])

@@ -428,7 +428,26 @@ function PsychopatzPortraitPanel:ensureModelView()
         pcall(function() self.modelView:setAnimSetName(self.animSetName) end)
     end
     self:applyViewState()
+    self:applyModelVisibility(self.contentOpacity)
     return self.modelView
+end
+
+function PsychopatzPortraitPanel:applyModelVisibility(value)
+    local alpha = math.max(0, math.min(1, tonumber(value) or 1))
+    local model = self.modelView
+    if not model then return end
+    local visible = alpha > 0.001
+    if self.modelVisibilityApplied ~= visible then
+        -- Java Engine Ground Truth: UI3DModel inherits UIElement.setVisible
+        -- but exposes no setAlpha or setColor method in Build 42.20.
+        model:setVisible(visible)
+        self.modelVisibilityApplied = visible
+    end
+end
+
+function PsychopatzPortraitPanel:setContentOpacity(value)
+    self.contentOpacity = math.max(0, math.min(1, tonumber(value) or 1))
+    self:applyModelVisibility(self.contentOpacity)
 end
 
 function PsychopatzPortraitPanel:applyViewState()
@@ -595,6 +614,8 @@ end
 function PsychopatzPortraitPanel:prerender()
     local padding = tonumber(self.padding) or 2
     local current = getTimeInMillis and getTimeInMillis() or 0
+    self:applyModelVisibility(self.contentOpacity)
+    if (tonumber(self.contentOpacity) or 1) <= 0.001 then return end
     self:refreshAnimationState(current)
     if self.modelView and self.speechPulseUntil
         and current < self.speechPulseUntil
@@ -650,6 +671,10 @@ function PsychopatzPortraitPanel:prerender()
 end
 
 function PsychopatzPortraitPanel:render()
+    -- UI3DModel can retain its viewport clear surface even after the model
+    -- itself is hidden.  A fully transparent content layer must skip the
+    -- child renderer as well, otherwise it leaves an opaque black rectangle.
+    if (tonumber(self.contentOpacity) or 1) <= 0.001 then return end
     local padding = tonumber(self.padding) or 2
     local width = math.max(1, self.width - padding * 2)
     local height = math.max(1, self.height - padding * 2)
@@ -671,6 +696,7 @@ function PsychopatzPortraitPanel:render()
     else
         alpha = tonumber(self.subtleOpacity) or 0.18
     end
+    alpha = alpha * (tonumber(self.contentOpacity) or 1)
     alpha = math.max(0, math.min(1, alpha))
     self:drawTextureScaled(
         self.crtTexture,
@@ -711,6 +737,8 @@ function PsychopatzPortraitPanel:new(x, y, width, height, options)
         tonumber(options.subtleOpacity) or 0.18))
     o.crtOpacity = math.max(0, math.min(1,
         tonumber(options.crtOpacity) or 0.52))
+    o.contentOpacity = 1
+    o.modelVisibilityApplied = nil
     if options.animSetName == nil then
         o.animSetName = "zombie"
     else

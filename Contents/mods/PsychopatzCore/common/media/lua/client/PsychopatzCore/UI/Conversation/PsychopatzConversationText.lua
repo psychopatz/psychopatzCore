@@ -6,6 +6,7 @@ local Text = Conversation.Text or {}
 Conversation.Text = Text
 Text.domains = Text.domains or {}
 Text.tables = Text.tables or {}
+Text.fallbacks = Text.fallbacks or {}
 local CoreTranslation = PsychopatzCore.Translation
 
 local function copyArgs(values)
@@ -60,6 +61,22 @@ function Text.RegisterTable(domain, language, values)
     Text.tables[domain][language] = values
     rawset(_G, tableName(domain, language), values)
     return values
+end
+
+-- Register a presentation fallback for a keyed message.  Translations and
+-- explicit payload fallbacks still win; this last-resort registry exists so
+-- history written by an older build can remain readable after a vocabulary
+-- or translation source is temporarily unavailable.
+function Text.RegisterFallback(key, fallback)
+    key = tostring(key or "")
+    fallback = tostring(fallback or "")
+    if key == "" or fallback == "" then return false end
+    Text.fallbacks[key] = fallback
+    return fallback
+end
+
+function Text.GetFallback(key)
+    return Text.fallbacks[tostring(key or "")]
 end
 
 function Text.Payload(value, fallback)
@@ -183,25 +200,29 @@ function Text.Resolve(value, fallback)
     if translated then return format(translated, payload.args) end
     if payload.text and payload.text ~= "" then return tostring(payload.text) end
     if payload.fallback and payload.fallback ~= "" then return tostring(payload.fallback) end
+    local registeredFallback = Text.GetFallback(payload.key)
+    if registeredFallback then
+        return format(registeredFallback, payload.args)
+    end
     return tostring(payload.key or "")
 end
 
 function Text.ToRecord(value)
     local payload = Text.Payload(value)
     local rawText
-    local fallback
+    local fallback = payload.fallback
     if not payload.key then
         rawText = payload.text
-        fallback = payload.fallback
     end
     return {
         k = payload.key,
         d = payload.domain,
         a = copyArgs(payload.args),
         x = rawText,
-        -- Keyed messages stay key-and-argument only in persisted history.
-        -- Fallback prose is a presentation concern and would duplicate every
-        -- translated line in the save.
+        -- Keep the fallback with keyed history records.  It is only used when
+        -- the active translation/domain cannot resolve the key, so translated
+        -- builds retain precedence while an untranslated save remains human
+        -- readable.  Older records without f are covered by RegisterFallback.
         f = fallback,
     }
 end

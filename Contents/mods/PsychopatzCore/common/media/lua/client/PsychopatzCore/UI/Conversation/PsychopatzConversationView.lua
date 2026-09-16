@@ -6,6 +6,9 @@ require "PsychopatzCore/UI/Conversation/PsychopatzConversationLifecycle"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationLayout"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationSession"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationTheme"
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationText"
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationOpacity"
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationOpacityControl"
 require "PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPortrait"
 require "PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChat"
 require "PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChoices"
@@ -18,6 +21,7 @@ local Lifecycle = Conversation.Lifecycle
 local Layout = Conversation.Layout
 local Text = Conversation.Text
 local Theme = Conversation.Theme
+local OpacityControl = Conversation.OpacityControl
 local Debug = PsychopatzCore.Debug
 
 local function buttonLabel(key, fallback)
@@ -228,6 +232,51 @@ function PsychopatzConversationView:createChildren()
     }
     self:addChild(self.crtDebugButton)
     self:refreshCRTDebugButton()
+    self:attachOpacityControls()
+    self:refreshOpacityControls()
+end
+
+function PsychopatzConversationView:attachOpacityControls()
+    if not OpacityControl then return end
+    local parts = {
+        self.portraitPart,
+        self.historyPart,
+        self.choicesPart,
+    }
+    for _, part in pairs(self.extensionParts or {}) do
+        parts[#parts + 1] = part
+    end
+    for _, part in ipairs(parts) do
+        if part and part.attachOpacityControl then
+            part:attachOpacityControl(self)
+        end
+    end
+end
+
+function PsychopatzConversationView:refreshOpacityControls()
+    local parts = {
+        self.portraitPart,
+        self.historyPart,
+        self.choicesPart,
+    }
+    for _, part in pairs(self.extensionParts or {}) do
+        parts[#parts + 1] = part
+    end
+    for _, part in ipairs(parts) do
+        if part then
+            if part.positionOpacityControl then
+                part:positionOpacityControl()
+            end
+            if part.refreshOpacityControlVisibility then
+                part:refreshOpacityControlVisibility()
+            end
+            if part.opacityControl and part.opacityControl.parent == self
+                and part.opacityControl.bringToTop
+            then
+                part.opacityControl:bringToTop()
+            end
+        end
+    end
 end
 
 function PsychopatzConversationView:onCloseButton()
@@ -409,6 +458,7 @@ function PsychopatzConversationView:toggleEditMode()
         or buttonLabel("UI_PsychopatzConversation_EditLayout", "Edit layout"))
     self.resetLayoutButton:setVisible(self.editMode == true)
     self:refreshCRTDebugButton()
+    self:refreshOpacityControls()
     if self.editMode then
         Animator.SkipOpen(self.animator)
         self.portraitPart:setReveal(1)
@@ -423,6 +473,7 @@ end
 function PsychopatzConversationView:update()
     ISPanel.update(self)
     self:refreshCRTDebugButton()
+    self:refreshOpacityControls()
     if self.width ~= getCore():getScreenWidth()
         or self.height ~= getCore():getScreenHeight()
     then

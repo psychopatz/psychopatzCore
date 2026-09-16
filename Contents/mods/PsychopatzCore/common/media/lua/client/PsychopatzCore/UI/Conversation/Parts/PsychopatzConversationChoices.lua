@@ -110,7 +110,7 @@ end
 
 function PsychopatzConversationChoices:render()
     if self.reveal <= 0 then return end
-    local alpha = self:getContentOpacity()
+    local contentAlpha = self:getContentOpacity()
     local accent = self:getAccentColor()
     local index
     local headerHeight = self.headerHeight or 24
@@ -136,7 +136,7 @@ function PsychopatzConversationChoices:render()
             y + 3,
             width,
             layout.height,
-            alpha * 0.34,
+            contentAlpha * 0.34,
             0,
             0,
             0
@@ -146,7 +146,7 @@ function PsychopatzConversationChoices:render()
             y,
             width,
             layout.height,
-            alpha * (hovered and 0.9 or 0.63),
+            contentAlpha * (hovered and 0.9 or 0.63),
             enabled and accent.r * (hovered and 0.30 or 0.15) or 0.10,
             enabled and accent.g * (hovered and 0.30 or 0.15) or 0.10,
             enabled and accent.b * (hovered and 0.30 or 0.15) or 0.10
@@ -156,7 +156,7 @@ function PsychopatzConversationChoices:render()
             y,
             width,
             layout.height,
-            alpha * (enabled and (hovered and 0.95 or 0.52) or 0.22),
+            contentAlpha * (enabled and (hovered and 0.95 or 0.52) or 0.22),
             enabled and accent.r or 0.40,
             enabled and accent.g or 0.40,
             enabled and accent.b or 0.40
@@ -166,7 +166,7 @@ function PsychopatzConversationChoices:render()
             y,
             hovered and 5 or 2,
             layout.height,
-            alpha * (enabled and 0.92 or 0.24),
+            contentAlpha * (enabled and 0.92 or 0.24),
             accent.r,
             accent.g,
             accent.b
@@ -175,12 +175,12 @@ function PsychopatzConversationChoices:render()
         local badgeX = left + 9
         local badgeY = y + math.floor((layout.height - badgeSize) / 2)
         self:drawRect(badgeX, badgeY, badgeSize, badgeSize,
-            alpha * (hovered and 0.72 or 0.30),
+            contentAlpha * (hovered and 0.72 or 0.30),
             accent.r * 0.30,
             accent.g * 0.30,
             accent.b * 0.30)
         self:drawRectBorder(badgeX, badgeY, badgeSize, badgeSize,
-            alpha * (enabled and 0.75 or 0.25),
+            contentAlpha * (enabled and 0.75 or 0.25),
             accent.r, accent.g, accent.b)
         self:drawTextCentre(
             tostring(index),
@@ -189,7 +189,7 @@ function PsychopatzConversationChoices:render()
             enabled and math.min(1, accent.r + 0.28) or 0.45,
             enabled and math.min(1, accent.g + 0.28) or 0.45,
             enabled and math.min(1, accent.b + 0.28) or 0.45,
-            alpha,
+            contentAlpha,
             UIFont.Small
         )
         if hovered and enabled then
@@ -200,7 +200,7 @@ function PsychopatzConversationChoices:render()
                 math.min(1, accent.r + 0.25),
                 math.min(1, accent.g + 0.25),
                 math.min(1, accent.b + 0.25),
-                alpha,
+                contentAlpha,
                 UIFont.Small
             )
         end
@@ -213,7 +213,7 @@ function PsychopatzConversationChoices:render()
                 enabled and 0.92 or 0.48,
                 enabled and 0.96 or 0.48,
                 enabled and 0.90 or 0.48,
-                alpha,
+                contentAlpha,
                 UIFont.Small
             )
         end
@@ -228,9 +228,9 @@ function PsychopatzConversationChoices:render()
         local thumbY = trackY + (trackH - thumbH)
             * (1 - ((self.scrollOffset or 0) / self.maximumScroll))
         self:drawRect(self.width - 7, trackY, 2, trackH,
-            alpha * 0.18, accent.r, accent.g, accent.b)
+            contentAlpha * 0.18, accent.r, accent.g, accent.b)
         self:drawRect(self.width - 8, thumbY, 4, thumbH,
-            alpha * 0.88, accent.r, accent.g, accent.b)
+            contentAlpha * 0.88, accent.r, accent.g, accent.b)
     end
 end
 
@@ -277,6 +277,7 @@ function PsychopatzConversationChoices:onMouseWheel(del)
 end
 
 function PsychopatzConversationChoices:onPartResize()
+    PsychopatzConversationPart.onPartResize(self)
     self.layoutDirty = true
 end
 

@@ -123,6 +123,20 @@ package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationOpacity"] 
         PsychopatzCore.Conversation.Opacity = opacity
         return opacity
     end
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationOpacityControl"] =
+    function()
+        local control = Panel:derive("TestOpacityControl")
+        function control:new(x, y, width, height, options)
+            local object = Panel.new(self, x, y, width, height)
+            object.owner = options and options.owner
+            object.partID = options and options.partID
+            return object
+        end
+        function control:refresh() end
+        function control:bringToTop() end
+        PsychopatzCore.Conversation.OpacityControl = control
+        return control
+    end
 package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationLayout"] =
     function() return true end
 package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationText"] =
@@ -143,7 +157,10 @@ getMouseY = function() return 100 end
 dofile(ROOT .. "UI/Conversation/Parts/PsychopatzConversationPortrait.lua")
 
 local part = PsychopatzConversationPortrait:new(10, 20, 200, 200, {
-    owner = { spec = {} },
+    owner = {
+        spec = {},
+        canUseDebug = function() return true end,
+    },
 })
 part:initialise()
 part:createChildren()
@@ -162,6 +179,12 @@ assertEqual(model.originalMouseDownCount, 1,
 part:setEditMode(true)
 assertEqual(part.resizeGrip.visible, true,
     "portrait resize grip becomes visible in edit mode")
+assertEqual(part.opacityControl.visible, true,
+    "authorized opacity control becomes visible in edit mode")
+assertEqual(part.opacityControl.x, 8,
+    "opacity control is centered horizontally")
+assertEqual(part.opacityControl.y, 65,
+    "opacity control is centered vertically")
 assertEqual(part.children[#part.children], part.resizeGrip,
     "portrait resize grip is the topmost child")
 
@@ -183,11 +206,29 @@ part:setHeight(220)
 part:onPartResize()
 assertEqual(part.resizeGrip.x, 226, "resize grip follows width")
 assertEqual(part.resizeGrip.y, 206, "resize grip follows height")
+assertEqual(part.opacityControl.x, 8,
+    "opacity control remains centered after resize")
+assertEqual(part.opacityControl.y, 75,
+    "opacity control remains vertically centered after resize")
 
 part.resizeGrip:onMouseDown(1, 1)
 assertEqual(part.resizing, true, "topmost grip starts resizing")
 part.resizeGrip:onMouseUp(1, 1)
 assertEqual(part.capture, false, "topmost grip finishes resizing")
+
+-- The live conversation promotes opacity controls to the root so nested model
+-- and content renderers cannot paint over the editor affordance.
+local root = Panel:new(0, 0, 800, 600)
+root:addChild(part)
+part:attachOpacityControl(root)
+assertEqual(part.opacityControl.parent, root,
+    "opacity control is hosted by the conversation root")
+assertEqual(root.children[#root.children], part.opacityControl,
+    "root-hosted opacity control is the topmost editor child")
+assertEqual(part.opacityControl.x, 18,
+    "root-hosted opacity control keeps horizontal centering")
+assertEqual(part.opacityControl.y, 95,
+    "root-hosted opacity control keeps vertical centering")
 
 part:setEditMode(false)
 assertEqual(part.resizeGrip.visible, false,

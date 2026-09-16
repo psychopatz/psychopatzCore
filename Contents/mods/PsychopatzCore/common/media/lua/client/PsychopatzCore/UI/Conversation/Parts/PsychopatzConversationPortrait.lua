@@ -182,7 +182,7 @@ local function installLayoutPointerBridge(part, panel)
 end
 
 function PsychopatzConversationPortrait:createChildren()
-    ISPanel.createChildren(self)
+    PsychopatzConversationPart.createChildren(self)
     self.portrait = PsychopatzPortraitPanel:new(2, 2, self.width - 4, self.height - 4, {
         showBackground = false,
         showBorder = false,
@@ -304,9 +304,17 @@ function PsychopatzConversationPortrait:prerender()
     else
         PsychopatzConversationPart.prerender(self)
     end
-    local alpha = self:getContentOpacity()
-    local backgroundAlpha = self:getBackgroundOpacity()
+    local contentAlpha = self:getContentOpacity()
     local accent = self:getAccentColor()
+    local contentVisible = contentAlpha > 0.001
+    if self.portrait then
+        if self.portrait.setContentOpacity then
+            self.portrait:setContentOpacity(contentAlpha)
+        end
+        if self.portrait.setVisible then
+            self.portrait:setVisible(contentVisible)
+        end
+    end
     if reveal <= 0 then
         if self.portrait then self.portrait:setVisible(false) end
         return
@@ -316,22 +324,24 @@ function PsychopatzConversationPortrait:prerender()
     expansion = math.max(0, math.min(1, expansion))
     if expansion <= 0 then
         if self.portrait then self.portrait:setVisible(false) end
-        self:drawRect(
-            self.width * 0.5 * (1 - linePhase),
-            math.floor(self.height / 2),
-            self.width * linePhase,
-            2,
-            alpha,
-            accent.r,
-            accent.g,
-            accent.b
-        )
+        if contentVisible then
+            self:drawRect(
+                self.width * 0.5 * (1 - linePhase),
+                math.floor(self.height / 2),
+                self.width * linePhase,
+                2,
+                contentAlpha,
+                accent.r,
+                accent.g,
+                accent.b
+            )
+        end
         return
     end
     local visibleH = math.max(2, self.height * expansion)
     local visibleY = (self.height - visibleH) / 2
     self:setStencilRect(1, visibleY, self.width - 2, visibleH)
-    if self.backgroundTexture then
+    if self.backgroundTexture and contentVisible then
         local tint = self.backgroundDefinition.tint or { r = 1, g = 1, b = 1 }
         self:drawTextureScaled(
             self.backgroundTexture,
@@ -339,35 +349,32 @@ function PsychopatzConversationPortrait:prerender()
             2,
             self.width - 4,
             self.height - 4,
-            backgroundAlpha,
+            contentAlpha,
             tint.r or 1,
             tint.g or 1,
             tint.b or 1
         )
     end
-    if self.portrait then self.portrait:setVisible(true) end
+    if self.portrait and self.portrait.setVisible then
+        self.portrait:setVisible(contentVisible)
+    end
 end
 
 function PsychopatzConversationPortrait:render()
     if (self.reveal or 0) > 0.18 then
         self:clearStencilRect()
-        local alpha = self:getContentOpacity()
+        local contentAlpha = self:getContentOpacity()
+        local panelAlpha = self:getBackgroundOpacity()
         local accent = self:getAccentColor()
         local bright = Conversation.Theme.Brighten(accent, 0.34)
         local context = self.owner
             and self.owner.spec
             and self.owner.spec.context
             or {}
-        if alpha < 1 then
-            -- ISUI3DModel has no portable alpha setter across supported PZ
-            -- builds. Composite it down against the panel layer instead.
-            self:drawRect(2, 2, self.width - 4, self.height - 4,
-                1 - alpha, 0, 0, 0)
-        end
         local screenVariant = self:getScreenVariant()
-        if screenVariant ~= "none" then
+        if screenVariant ~= "none" and contentAlpha > 0.001 then
             local scanAlpha = screenVariant == "crt"
-                and alpha * 0.055 or alpha * 0.025
+                and contentAlpha * 0.055 or contentAlpha * 0.025
             local scanY
             for scanY = 3, self.height - 4, 5 do
                 self:drawRect(
@@ -382,68 +389,75 @@ function PsychopatzConversationPortrait:render()
                 )
             end
         end
-        local plateHeight = math.max(48, math.min(62, self.height * 0.18))
-        local plateY = self.height - plateHeight - 3
-        self:drawRect(
-            3,
-            plateY - 18,
-            self.width - 7,
-            18,
-            alpha * 0.35,
-            0,
-            0,
-            0
-        )
-        self:drawRect(
-            3,
-            plateY,
-            self.width - 7,
-            plateHeight,
-            alpha * 0.91,
-            0.012,
-            0.030,
-            0.025
-        )
-        self:drawRect(
-            3,
-            plateY,
-            self.width - 7,
-            2,
-            alpha * 0.92,
-            accent.r,
-            accent.g,
-            accent.b
-        )
-        self:drawRect(13, plateY + 13, 7, 7,
-            alpha, accent.r, accent.g, accent.b)
-        self:drawText(
-            string.upper(tostring(context.npcName or "NPC")),
-            27,
-            plateY + 8,
-            bright.r,
-            bright.g,
-            bright.b,
-            alpha,
-            UIFont.Small
-        )
-        local factionName = tostring(context.factionName or "")
-        local factionRole = tostring(context.factionRole or "")
-        if factionName ~= "" then
-            local affiliation = string.upper(factionName)
-            if factionRole ~= "" then affiliation = affiliation .. " / " .. string.upper(factionRole) end
+        if contentAlpha > 0.001 then
+            local plateHeight = math.max(48, math.min(62, self.height * 0.18))
+            local plateY = self.height - plateHeight - 3
+            -- The nameplate is part of the portrait feed content. Keeping
+            -- its fill and accent with CONTENT lets the entire plate vanish
+            -- without hiding the panel frame or affecting its layout.
+            self:drawRect(
+                3,
+                plateY - 18,
+                self.width - 7,
+                18,
+                contentAlpha * 0.35,
+                0,
+                0,
+                0
+            )
+            self:drawRect(
+                3,
+                plateY,
+                self.width - 7,
+                plateHeight,
+                contentAlpha * 0.91,
+                0.012,
+                0.030,
+                0.025
+            )
+            self:drawRect(
+                3,
+                plateY,
+                self.width - 7,
+                2,
+                contentAlpha * 0.92,
+                accent.r,
+                accent.g,
+                accent.b
+            )
+            self:drawRect(13, plateY + 13, 7, 7,
+                contentAlpha, accent.r, accent.g, accent.b)
             self:drawText(
-                affiliation,
-                13,
-                plateY + 28,
+                string.upper(tostring(context.npcName or "NPC")),
+                27,
+                plateY + 8,
                 bright.r,
                 bright.g,
                 bright.b,
-                alpha * 0.92,
+                contentAlpha,
                 UIFont.Small
             )
+            local factionName = tostring(context.factionName or "")
+            local factionRole = tostring(context.factionRole or "")
+            if factionName ~= "" then
+                local affiliation = string.upper(factionName)
+                if factionRole ~= "" then affiliation = affiliation .. " / " .. string.upper(factionRole) end
+                self:drawText(
+                    affiliation,
+                    13,
+                    plateY + 28,
+                    bright.r,
+                    bright.g,
+                    bright.b,
+                    contentAlpha * 0.92,
+                    UIFont.Small
+                )
+            end
         end
-        self:drawRectBorder(2, 2, self.width - 5, self.height - 5,
-            alpha * 0.75, accent.r, accent.g, accent.b)
+        if panelAlpha > 0.001 then
+            self:drawRectBorder(2, 2, self.width - 5, self.height - 5,
+                panelAlpha * 0.75, accent.r, accent.g, accent.b)
+        end
         if self.editMode then
             self:drawRectBorder(
                 0,
@@ -470,6 +484,7 @@ function PsychopatzConversationPortrait:render()
 end
 
 function PsychopatzConversationPortrait:onPartResize()
+    PsychopatzConversationPart.onPartResize(self)
     if self.portrait then
         self.portrait:setPortraitBounds(2, 2, self.width - 4, self.height - 4)
     end

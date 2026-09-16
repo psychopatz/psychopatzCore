@@ -8,7 +8,7 @@ local values = {
     historySurfaceOpacityLift = 0,
     historyDetailOpacityLift = 0.18,
     relationshipSurfaceOpacityLift = 0.04,
-    relationshipDetailOpacityLift = 0.12,
+    relationshipDetailOpacityLift = 0.08,
     choicesSurfaceOpacityLift = 0,
     choicesDetailOpacityLift = 0.18,
     llmInputSurfaceOpacityLift = 0,
@@ -51,8 +51,14 @@ assertNear(Opacity.Get("history", "detail"), 1,
     "history detail reaches readable opacity")
 assertNear(Opacity.Get("relationship", "surface"), 0.86,
     "relationship surface remains independently adjustable")
-assertNear(Opacity.Get("relationship", "detail"), 0.94,
-    "relationship detail uses its own lift")
+assertNear(Opacity.Get("relationship", "detail"), 0.90,
+    "relationship detail uses the shared base independently")
+
+values.relationshipSurfaceOpacityLift = -0.82
+assertNear(Opacity.Get("relationship", "surface"), 0,
+    "relationship surface reaches zero without clamping content")
+assertNear(Opacity.Get("relationship", "detail"), 0.90,
+    "relationship content remains visible when its panel is transparent")
 
 values.conversationOpacityBase = 0.70
 assertNear(Opacity.Get("choices", "detail"), 0.88,

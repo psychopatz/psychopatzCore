@@ -1,6 +1,7 @@
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationHistory"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationText"
 require "PsychopatzCore/Conversation/PsychopatzConversationMessage"
+require "PsychopatzCore/Debug/PsychopatzDebugTrace"
 
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.Conversation = PsychopatzCore.Conversation or {}
@@ -12,6 +13,12 @@ local Text = Conversation.Text
 local Message = Conversation.Message
 local Session = Conversation.Session or {}
 Conversation.Session = Session
+local DebugTrace = PsychopatzCore.DebugTrace
+
+local function traceEnabled()
+    return DebugTrace and DebugTrace.IsEnabled
+        and DebugTrace.IsEnabled() == true
+end
 
 local function now()
     return getTimeInMillis and getTimeInMillis()
@@ -177,7 +184,11 @@ function Session:queueMessage(speaker, payload, metadata)
     end
     local previous = self.queue[#self.queue]
     local readyAt = math.max(now(), previous and previous.readyAt or 0)
-    if speaker == "npc" then readyAt = readyAt + self:delayFor(payload) end
+    local delayMs = 0
+    if speaker == "npc" then
+        delayMs = self:delayFor(payload)
+        readyAt = readyAt + delayMs
+    end
     self.queue[#self.queue + 1] = {
         speaker = speaker,
         payload = Text.Payload(payload),
@@ -186,6 +197,20 @@ function Session:queueMessage(speaker, payload, metadata)
     }
     self.busy = true
     self.view.historyPart:setTyping(self.queue[1] and self.queue[1].speaker or nil)
+    if traceEnabled() then
+        DebugTrace.Record({
+            source = "PsychopatzCore",
+            event = "conversation.reply_queued",
+            data = {
+                speaker = speaker,
+                delayMs = delayMs,
+                explicitDelay = type(payload) == "table"
+                    and tonumber(payload.delayMs) ~= nil,
+                queueLength = #self.queue,
+                readyAt = readyAt,
+            },
+        })
+    end
 end
 
 function Session:setChoices(choices)
@@ -293,11 +318,25 @@ end
 
 function Session:update()
     local queued = self.queue[1]
-    if queued and now() >= queued.readyAt then
+    local currentTime = now()
+    if queued and currentTime >= queued.readyAt then
+        local released = queued
         table.remove(self.queue, 1)
-        self:append(queued.speaker, queued.payload, queued.metadata)
+        self:append(released.speaker, released.payload, released.metadata)
         queued = self.queue[1]
         self.view.historyPart:setTyping(queued and queued.speaker or nil)
+        if traceEnabled() then
+            DebugTrace.Record({
+                source = "PsychopatzCore",
+                event = "conversation.reply_released",
+                data = {
+                    speaker = released.speaker,
+                    delayReadyAt = released.readyAt,
+                    releasedAt = currentTime,
+                    remaining = #self.queue,
+                },
+            })
+        end
     end
     if #self.queue == 0 and self.busy then self:finishPending() end
 end

@@ -1,3 +1,4 @@
+require "PsychopatzCore/Debug/PsychopatzDebugTrace"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationSettings"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationBackgrounds"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationView"

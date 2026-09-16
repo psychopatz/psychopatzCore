@@ -159,6 +159,12 @@ package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationSession"] 
     function() return {} end
 package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationTheme"] =
     function() return PsychopatzCore.Conversation.Theme end
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationText"] =
+    function() return PsychopatzCore.Conversation.Text end
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationOpacity"] =
+    function() return true end
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationOpacityControl"] =
+    function() return true end
 package.preload["PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPortrait"] =
     function() return registerPart("PsychopatzConversationPortrait") end
 package.preload["PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChat"] =

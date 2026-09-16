@@ -70,24 +70,46 @@ end
 local function migrateOpacitySettings()
     local store = Settings.store
     local schema = tonumber(store:Get("conversationOpacitySchema", 0)) or 0
-    if schema >= 2 then return end
+    if schema >= 4 then return end
 
     local base = tonumber(store:Get("conversationOpacityBase", 0.82)) or 0.82
-    local migrations = {
-        { "portraitBackgroundOpacity", "portraitSurfaceOpacityLift" },
-        { "portraitContentOpacity", "portraitDetailOpacityLift" },
-        { "historyBackgroundOpacity", "historySurfaceOpacityLift" },
-        { "historyContentOpacity", "historyDetailOpacityLift" },
-        { "choicesBackgroundOpacity", "choicesSurfaceOpacityLift" },
-        { "choicesContentOpacity", "choicesDetailOpacityLift" },
-    }
-    for _, migration in ipairs(migrations) do
-        local legacy = tonumber(store:Get(migration[1], nil))
-        if legacy ~= nil then
-            store:Set(migration[2], clamp(legacy - base, 0, 0.25), false)
+    if schema < 2 then
+        local migrations = {
+            { "portraitBackgroundOpacity", "portraitSurfaceOpacityLift" },
+            { "portraitContentOpacity", "portraitDetailOpacityLift" },
+            { "historyBackgroundOpacity", "historySurfaceOpacityLift" },
+            { "historyContentOpacity", "historyDetailOpacityLift" },
+            { "choicesBackgroundOpacity", "choicesSurfaceOpacityLift" },
+            { "choicesContentOpacity", "choicesDetailOpacityLift" },
+        }
+        for _, migration in ipairs(migrations) do
+            local legacy = tonumber(store:Get(migration[1], nil))
+            if legacy ~= nil then
+                store:Set(migration[2], clamp(legacy - base, -1, 1), false)
+            end
         end
     end
-    store:Set("conversationOpacitySchema", 2, false)
+
+    -- Schema 2 already stored both lifts relative to the global base. Schema
+    -- 3 changed only the detail lift to be surface-relative.
+    -- Schema 4 decouples content from the panel again. Convert schema 3's
+    -- surface-relative detail lift back to a global-base-relative lift so
+    -- the effective content opacity is preserved during the upgrade.
+    if schema == 3 then
+        local parts = { "portrait", "history", "relationship", "choices", "llmInput" }
+        for _, partID in ipairs(parts) do
+            local surface = tonumber(store:Get(
+                partID .. "SurfaceOpacityLift", 0)) or 0
+            local detail = tonumber(store:Get(
+                partID .. "DetailOpacityLift", 0.18)) or 0.18
+            store:Set(
+                partID .. "DetailOpacityLift",
+                clamp(surface + detail, -1, 1),
+                false
+            )
+        end
+    end
+    store:Set("conversationOpacitySchema", 4, false)
     store:Save()
 end
 
@@ -151,16 +173,16 @@ if PsychopatzCore.InGameSettings and not Settings.registered then
             slider("maximumConversationDistance", tr("UI_PsychopatzConversation_SettingMaximumDistance"), 2, 12, 0.5),
             slider("conversationDangerRadius", tr("UI_PsychopatzConversation_SettingDangerRadius"), 2, 20, 0.5),
             slider("conversationOpacityBase", tr("UI_PsychopatzConversation_SettingOpacityBase"), 0, 1, 0.05),
-            slider("portraitSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingPortraitSurfaceLift"), 0, 0.25, 0.01),
-            slider("portraitDetailOpacityLift", tr("UI_PsychopatzConversation_SettingPortraitDetailLift"), 0, 0.25, 0.01),
-            slider("historySurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingHistorySurfaceLift"), 0, 0.25, 0.01),
-            slider("historyDetailOpacityLift", tr("UI_PsychopatzConversation_SettingHistoryDetailLift"), 0, 0.25, 0.01),
-            slider("relationshipSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingRelationshipSurfaceLift"), 0, 0.25, 0.01),
-            slider("relationshipDetailOpacityLift", tr("UI_PsychopatzConversation_SettingRelationshipDetailLift"), 0, 0.25, 0.01),
-            slider("choicesSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingChoicesSurfaceLift"), 0, 0.25, 0.01),
-            slider("choicesDetailOpacityLift", tr("UI_PsychopatzConversation_SettingChoicesDetailLift"), 0, 0.25, 0.01),
-            slider("llmInputSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingLLMInputSurfaceLift"), 0, 0.25, 0.01),
-            slider("llmInputDetailOpacityLift", tr("UI_PsychopatzConversation_SettingLLMInputDetailLift"), 0, 0.25, 0.01),
+            slider("portraitSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingPortraitSurfaceLift"), -1, 1, 0.01),
+            slider("portraitDetailOpacityLift", tr("UI_PsychopatzConversation_SettingPortraitDetailLift"), -1, 1, 0.01),
+            slider("historySurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingHistorySurfaceLift"), -1, 1, 0.01),
+            slider("historyDetailOpacityLift", tr("UI_PsychopatzConversation_SettingHistoryDetailLift"), -1, 1, 0.01),
+            slider("relationshipSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingRelationshipSurfaceLift"), -1, 1, 0.01),
+            slider("relationshipDetailOpacityLift", tr("UI_PsychopatzConversation_SettingRelationshipDetailLift"), -1, 1, 0.01),
+            slider("choicesSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingChoicesSurfaceLift"), -1, 1, 0.01),
+            slider("choicesDetailOpacityLift", tr("UI_PsychopatzConversation_SettingChoicesDetailLift"), -1, 1, 0.01),
+            slider("llmInputSurfaceOpacityLift", tr("UI_PsychopatzConversation_SettingLLMInputSurfaceLift"), -1, 1, 0.01),
+            slider("llmInputDetailOpacityLift", tr("UI_PsychopatzConversation_SettingLLMInputDetailLift"), -1, 1, 0.01),
             { id = "showEditorButton", key = "showEditorButton", type = "boolean", label = tr("UI_PsychopatzConversation_SettingEditorButton") },
             {
                 id = "editLayout",
