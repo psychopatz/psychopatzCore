@@ -2,6 +2,8 @@
 
 Reusable inventory architecture and API: [docs/inventory-framework.md](docs/inventory-framework.md).
 
+Reusable current-player animation playback: [docs/player-animation-controller.md](docs/player-animation-controller.md).
+
 Shared Project Zomboid Build 42 library for Psychopatz mods.
 
 The opt-in, generic performance profiler is documented in
@@ -14,6 +16,7 @@ Reusable responsive-window and scrolling-control rules are documented in
 
 The shared library provides:
 
+- an opt-in native current-player animation controller for action/emote playback
 - owner-authorized special commands
 - the Psychopatz admin control window and night-vision helper
 - a registerable debug hub used by Dynamic Trading and Psychopatz NPC Core
