@@ -40,6 +40,44 @@ local function openDebugTrace()
     return DebugTraceWindow.Open()
 end
 
+-- Preview registration is intentionally cheap at startup. The UI window,
+-- renderer, and ISUI drawer are loaded only when the tool is launched.
+local Preview = require "PsychopatzCore/Preview/PC_Preview"
+local PreviewHub
+local function openPreviewHub()
+    if not PreviewHub then
+        local loaded, module = pcall(require,
+            "PsychopatzCore/Preview/PC_PreviewHub")
+        if not loaded then
+            if print then
+                print("[PsychopatzCore.Preview] " .. tostring(module))
+            end
+            return nil
+        end
+        PreviewHub = module
+    end
+    return PreviewHub.Open()
+end
+
+if DebugHub and DebugHub.RegisterTool then
+    DebugHub.RegisterTool({
+        id = "psychopatz.preview",
+        source = "PsychopatzCore",
+        order = 25,
+        title = tr("UI_PsychopatzPreview_Title",
+            "Preview Hub"),
+        description = tr("UI_PsychopatzPreview_Description",
+            "Inspect registered client-local perception previews."),
+        available = function()
+            return Debug.CanUse(getPlayer and getPlayer() or nil)
+                and #Preview.ListProviders() > 0
+        end,
+        action = function()
+            return openPreviewHub()
+        end,
+    })
+end
+
 if DebugHub and DebugHub.RegisterTool then
     DebugHub.RegisterTool({
         id = "psychopatz.runtimeTrace",

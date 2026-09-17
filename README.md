@@ -4,6 +4,8 @@ Reusable inventory architecture and API: [docs/inventory-framework.md](docs/inve
 
 Reusable current-player animation playback: [docs/player-animation-controller.md](docs/player-animation-controller.md).
 
+Reusable client-local preview/debug framework: [docs/preview-framework.md](docs/preview-framework.md).
+
 Shared Project Zomboid Build 42 library for Psychopatz mods.
 
 The opt-in, generic performance profiler is documented in
@@ -20,6 +22,7 @@ The shared library provides:
 - owner-authorized special commands
 - the Psychopatz admin control window and night-vision helper
 - a registerable debug hub used by Dynamic Trading and Psychopatz NPC Core
+- a reusable, explicit-refresh preview hub for client-local perception providers
 - namespaced in-game settings and window-state persistence
 - reusable directional event markers and their common icon assets
 - base-game-compatible long-distance teleport handoff
@@ -249,9 +252,9 @@ eagerly populating the normal translation cache.
 It covers registered custom catalogs; native PZ `Translate` domains and
 runtime-generated conversation tables remain outside this catalog comparison.
 
-The Core catalogs currently contain 265 keys with matching EN and TL entries:
+The Core catalogs currently contain 299 keys with matching EN and TL entries:
 Core (12), Conversation (54), Debug (93), CommandHub (21), Inventory (20),
-Profiler (48), and WorldRegion (17). The coverage tool also includes systems
+Preview (34), Profiler (48), and WorldRegion (17). The coverage tool also includes systems
 registered by other loaded mods, such as ProjectHoomans and MarketSense.
 
 ```lua
