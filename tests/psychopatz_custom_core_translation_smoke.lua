@@ -64,6 +64,18 @@ assert(Translation.Get("Debug",
     "UI_PsychopatzDebugHub_ItemTypeLedger_Description")
     == "Suriin ang numeric item ID, availability ng script, rebisyon, nawawalang type, at mga puwang sa ledger.",
     "Core ledger hub description resolves from the Debug catalog")
+assert(Translation.Get("Debug",
+    "UI_PsychopatzDebug_TranslationCoverage_Title")
+    == "Saklaw ng Pagsasalin",
+    "translation coverage window title resolves from the Debug catalog")
+local coverage = Manager.GetTranslationCoverageSnapshot()
+assert(coverage.language == "TL",
+    "Core coverage snapshot follows the active language")
+assert(coverage.counts.missing_key == 0
+    and coverage.counts.missing_catalog == 0,
+    "Core catalogs have no missing Tagalog keys or catalogs")
+assert(coverage.counts.total == 265,
+    "Core coverage snapshot counts every modular catalog key")
 
 language = "FR"
 -- PZ recreates Lua state after changing the native language. In this isolated

@@ -23,6 +23,9 @@ Manager.LookupDiagnostics = type(Manager.LookupDiagnostics) == "table"
 Manager.LookupDiagnostics.warnings =
     type(Manager.LookupDiagnostics.warnings) == "table"
     and Manager.LookupDiagnostics.warnings or {}
+Manager.LookupDiagnostics.warningEntries =
+    type(Manager.LookupDiagnostics.warningEntries) == "table"
+    and Manager.LookupDiagnostics.warningEntries or {}
 Manager.LookupDiagnostics.counts =
     type(Manager.LookupDiagnostics.counts) == "table"
     and Manager.LookupDiagnostics.counts or {}
@@ -30,6 +33,9 @@ Manager.LookupDiagnostics.lookupCount =
     tonumber(Manager.LookupDiagnostics.lookupCount) or 0
 Manager.LookupDiagnostics.warningCount =
     tonumber(Manager.LookupDiagnostics.warningCount) or 0
+Manager.LookupDiagnostics.revision =
+    tonumber(Manager.LookupDiagnostics.revision) or 0
+Manager.CoverageRevision = tonumber(Manager.CoverageRevision) or 0
 Manager._handles = type(Manager._handles) == "table"
     and Manager._handles or {}
 Manager._languageOverride = Manager._languageOverride
@@ -40,6 +46,7 @@ local ENGLISH = "EN"
 local MAX_FILE_BYTES = 1048576
 local MAX_ENTRIES = 4096
 local MAX_KEY_LENGTH = 160
+local MAX_COVERAGE_ENTRIES = 65536
 
 local function log(level, message)
     local prefix = "[PsychopatzCore][CustomTranslationManager]["
@@ -111,10 +118,13 @@ end
 local function resetLookupDiagnostics()
     local diagnostics = Manager.LookupDiagnostics
     diagnostics.warnings = {}
+    diagnostics.warningEntries = {}
     diagnostics.counts = {}
     diagnostics.lookupCount = 0
     diagnostics.warningCount = 0
     diagnostics.language = activeLanguage()
+    diagnostics.revision = diagnostics.revision + 1
+    Manager.CoverageRevision = Manager.CoverageRevision + 1
 end
 
 local function invalidateLoadedCatalogs()
@@ -152,6 +162,62 @@ end
 
 local function systemKey(modID, systemName)
     return modID .. ":" .. systemName
+end
+
+local function emptyCoverageCounts()
+    return {
+        total = 0,
+        translated = 0,
+        missing_key = 0,
+        missing_catalog = 0,
+        same_as_english = 0,
+        extra_key = 0,
+        english = 0,
+        missing_english_catalog = 0,
+    }
+end
+
+local function sortedCatalogKeys(catalog)
+    local keys = {}
+    for key in pairs(catalog or {}) do
+        keys[#keys + 1] = key
+    end
+    table.sort(keys, function(left, right)
+        return tostring(left) < tostring(right)
+    end)
+    return keys
+end
+
+local function sortedSources()
+    local sources = {}
+    for _, systems in pairs(Manager.Systems) do
+        for _, source in pairs(systems) do
+            sources[#sources + 1] = source
+        end
+    end
+    table.sort(sources, function(left, right)
+        local leftKey = systemKey(left.modID, left.systemName)
+        local rightKey = systemKey(right.modID, right.systemName)
+        return leftKey < rightKey
+    end)
+    return sources
+end
+
+local function sortedWarningEntries()
+    local warnings = {}
+    for _, warning in pairs(Manager.LookupDiagnostics.warningEntries or {}) do
+        warnings[#warnings + 1] = warning
+    end
+    table.sort(warnings, function(left, right)
+        local leftKey = tostring(left.modID) .. ":"
+            .. tostring(left.systemName) .. ":"
+            .. tostring(left.key) .. ":" .. tostring(left.reason)
+        local rightKey = tostring(right.modID) .. ":"
+            .. tostring(right.systemName) .. ":"
+            .. tostring(right.key) .. ":" .. tostring(right.reason)
+        return leftKey < rightKey
+    end)
+    return warnings
 end
 
 -- Core catalogs use one directory per system:
@@ -362,6 +428,18 @@ function Manager.RecordTranslationAudit(modID, systemName, keyName, reason,
     if diagnostics.warnings[warningKey] then return false end
     diagnostics.warnings[warningKey] = true
     diagnostics.warningCount = diagnostics.warningCount + 1
+    diagnostics.warningEntries[warningKey] = {
+        id = warningKey,
+        modID = modID,
+        systemName = systemName,
+        key = keyName,
+        reason = reason,
+        language = language,
+        detail = detail,
+        path = path,
+    }
+    diagnostics.revision = diagnostics.revision + 1
+    Manager.CoverageRevision = Manager.CoverageRevision + 1
 
     log("WARN", "translation_audit language="
         .. tostring(diagnostics.language)
@@ -445,13 +523,164 @@ function Manager.GetTranslationAuditSnapshot()
     for reason, count in pairs(source.counts or {}) do
         counts[reason] = count
     end
+    local warnings = sortedWarningEntries()
     return {
         enabled = Manager.TranslationAuditEnabled == true,
         language = source.language or activeLanguage(),
         lookupCount = source.lookupCount or 0,
         warningCount = source.warningCount or 0,
         counts = counts,
+        revision = source.revision or 0,
+        warnings = warnings,
     }
+end
+
+local function addCoverageEntry(snapshot, summary, status, values)
+    values = values or {}
+    summary.counts[status] = (summary.counts[status] or 0) + 1
+    summary.counts.total = summary.counts.total + 1
+    snapshot.counts[status] = (snapshot.counts[status] or 0) + 1
+    snapshot.counts.total = snapshot.counts.total + 1
+
+    if #snapshot.entries >= snapshot.maxEntries then
+        snapshot.truncated = true
+        return
+    end
+
+    local keyName = values.key
+    snapshot.entries[#snapshot.entries + 1] = {
+        id = summary.id .. "|" .. tostring(status) .. "|"
+            .. tostring(keyName or ""),
+        modID = summary.modID,
+        systemName = summary.systemName,
+        basePath = summary.basePath,
+        key = keyName,
+        status = status,
+        englishValue = values.englishValue,
+        localizedValue = values.localizedValue,
+        currentValue = values.currentValue,
+        englishPath = summary.englishPath,
+        localizedPath = summary.localizedPath,
+        detail = values.detail,
+    }
+end
+
+function Manager.GetTranslationCoverageRevision()
+    return Manager.CoverageRevision or 0
+end
+
+function Manager.GetTranslationCoverageSnapshot(language)
+    language = normalizeLanguage(language or activeLanguage())
+    local snapshot = {
+        language = language,
+        revision = Manager.GetTranslationCoverageRevision(),
+        entries = {},
+        systems = {},
+        counts = emptyCoverageCounts(),
+        maxEntries = MAX_COVERAGE_ENTRIES,
+        truncated = false,
+        runtimeWarnings = sortedWarningEntries(),
+    }
+
+    for _, source in ipairs(sortedSources()) do
+        local summary = {
+            id = systemKey(source.modID, source.systemName),
+            modID = source.modID,
+            systemName = source.systemName,
+            basePath = source.basePath,
+            language = language,
+            counts = emptyCoverageCounts(),
+        }
+        local english, englishReason, englishPath = readCatalog(source, ENGLISH)
+        summary.englishPath = englishPath or pathFor(source, ENGLISH)
+
+        if not english then
+            summary.state = "missing_english_catalog"
+            summary.reason = englishReason
+            addCoverageEntry(snapshot, summary, "missing_english_catalog", {
+                key = "[English catalog]",
+                detail = englishReason,
+            })
+        else
+            local englishKeys = sortedCatalogKeys(english)
+            if language == ENGLISH then
+                summary.state = "english"
+                summary.localizedPath = summary.englishPath
+                for _, keyName in ipairs(englishKeys) do
+                    local value = english[keyName]
+                    addCoverageEntry(snapshot, summary, "english", {
+                        key = keyName,
+                        englishValue = value,
+                        localizedValue = value,
+                        currentValue = value,
+                    })
+                end
+            else
+                local localized, localizedReason, localizedPath =
+                    readCatalog(source, language)
+                summary.localizedPath = localizedPath
+                    or pathFor(source, language)
+                summary.localizedReason = localizedReason
+                if not localized then
+                    summary.state = "missing_catalog"
+                    summary.reason = localizedReason
+                    for _, keyName in ipairs(englishKeys) do
+                        local value = english[keyName]
+                        addCoverageEntry(snapshot, summary, "missing_catalog", {
+                            key = keyName,
+                            englishValue = value,
+                            currentValue = value,
+                            detail = localizedReason,
+                        })
+                    end
+                else
+                    summary.state = "available"
+                    local localizedKeys = sortedCatalogKeys(localized)
+                    local seen = {}
+                    for _, keyName in ipairs(englishKeys) do
+                        local englishValue = english[keyName]
+                        local localizedValue = localized[keyName]
+                        local status
+                        if localizedValue == nil then
+                            status = "missing_key"
+                        elseif likelyUntranslatedProse(
+                            englishValue, localizedValue)
+                        then
+                            status = "same_as_english"
+                        else
+                            status = "translated"
+                        end
+                        seen[keyName] = true
+                        addCoverageEntry(snapshot, summary, status, {
+                            key = keyName,
+                            englishValue = englishValue,
+                            localizedValue = localizedValue,
+                            currentValue = localizedValue or englishValue,
+                        })
+                    end
+                    for _, keyName in ipairs(localizedKeys) do
+                        if not seen[keyName] then
+                            addCoverageEntry(snapshot, summary, "extra_key", {
+                                key = keyName,
+                                localizedValue = localized[keyName],
+                                currentValue = localized[keyName],
+                            })
+                        end
+                    end
+                end
+            end
+        end
+
+        summary.total = summary.counts.total
+        summary.missingCount = (summary.counts.missing_key or 0)
+            + (summary.counts.missing_catalog or 0)
+            + (summary.counts.missing_english_catalog or 0)
+        snapshot.systems[#snapshot.systems + 1] = summary
+    end
+
+    snapshot.systemCount = #snapshot.systems
+    snapshot.entryCount = #snapshot.entries
+    return snapshot
 end
 
 function Manager.getLanguageOverride()
@@ -481,6 +710,7 @@ function Manager.registerSystem(first, second, third)
     end
 
     systems[source.systemName] = source
+    Manager.CoverageRevision = Manager.CoverageRevision + 1
     local handle = makeHandle(source)
     return handle
 end

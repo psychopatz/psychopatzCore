@@ -88,6 +88,42 @@ if DebugHub and DebugHub.RegisterTool then
     })
 end
 
+local TranslationCoverageWindow
+local function openTranslationCoverage()
+    if not TranslationCoverageWindow then
+        local loaded, module = pcall(require,
+            "PsychopatzCore/UI/PsychopatzTranslationCoverageWindow")
+        if not loaded then
+            if print then
+                print("[PsychopatzCore.TranslationCoverage] "
+                    .. tostring(module))
+            end
+            return nil
+        end
+        TranslationCoverageWindow = module
+    end
+    return TranslationCoverageWindow.Open()
+end
+
+if DebugHub and DebugHub.RegisterTool then
+    DebugHub.RegisterTool({
+        id = "psychopatz.translationCoverage",
+        source = "PsychopatzCore",
+        order = 20,
+        title = tr("UI_PsychopatzDebugHub_TranslationCoverage_Title",
+            "Translation Coverage"),
+        description = tr(
+            "UI_PsychopatzDebugHub_TranslationCoverage_Description",
+            "Find missing, untranslated, and extra keys in registered catalogs."),
+        available = function()
+            return Debug.CanUse(getPlayer and getPlayer() or nil)
+        end,
+        action = function()
+            return openTranslationCoverage()
+        end,
+    })
+end
+
 PsychopatzDebugWindow = PsychopatzWindow:derive("PsychopatzDebugWindow")
 PsychopatzDebugWindow.instance = nil
 

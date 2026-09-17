@@ -236,9 +236,20 @@ Core's own catalogs are split by subsystem under
 `WorldRegion`. They are loaded lazily on the first lookup, so unused systems
 are not decoded during boot. Core-owned keys can be resolved with:
 
-The current Core audit contains 213 catalog keys with matching EN and TL
-entries: Core (12), Conversation (44), Debug (51), CommandHub (21),
-Inventory (20), Profiler (48), and WorldRegion (17).
+The Debug Hub's `Translation Coverage` tool compares every registered custom
+catalog with the active language on demand. Its default view lists missing
+catalogs, missing keys, and multi-word values that are identical to English;
+search, status filters, and the detail pane show the exact key, fallback value,
+and catalog paths. The view refreshes when a language or translation-audit
+revision changes, and its Refresh button rescans packaged catalogs without
+eagerly populating the normal translation cache.
+It covers registered custom catalogs; native PZ `Translate` domains and
+runtime-generated conversation tables remain outside this catalog comparison.
+
+The Core catalogs currently contain 265 keys with matching EN and TL entries:
+Core (12), Conversation (54), Debug (93), CommandHub (21), Inventory (20),
+Profiler (48), and WorldRegion (17). The coverage tool also includes systems
+registered by other loaded mods, such as ProjectHoomans and MarketSense.
 
 ```lua
 local text = PsychopatzCore.Translation.GetKey(

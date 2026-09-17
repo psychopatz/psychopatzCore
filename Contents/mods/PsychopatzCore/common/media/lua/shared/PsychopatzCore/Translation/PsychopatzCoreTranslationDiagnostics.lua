@@ -48,4 +48,12 @@ function Diagnostics.GetSnapshot()
     return Manager.GetTranslationAuditSnapshot()
 end
 
+function Diagnostics.GetCoverageSnapshot(language)
+    return Manager.GetTranslationCoverageSnapshot(language)
+end
+
+function Diagnostics.GetCoverageRevision()
+    return Manager.GetTranslationCoverageRevision()
+end
+
 return Diagnostics
