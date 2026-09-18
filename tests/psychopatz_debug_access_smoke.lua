@@ -118,23 +118,25 @@ assert(#menu.options == 0, "unauthorized context option was visible")
 
 currentPlayer = admin
 contextHandler(0, menu, { object }, false)
-assert(#menu.options == 2, "admin context options were missing")
+assert(#menu.options == 3, "admin context options were missing")
 assert(menu.options[1].name == "[Debug] Grab Object Name",
     "object-name context option was missing")
-assert(menu.options[2].name == "[Debug] Access Psychopatz Mod Controls",
+assert(menu.options[2].name == "[Debug] Inspect Current Place",
+    "place context option was missing")
+assert(menu.options[3].name == "[Debug] Access Psychopatz Mod Controls",
     "context option label was incorrect")
 menu.options[1].callback()
 assert(#printed == 1, "object-name context option did not print")
 assert(string.find(printed[1], "resolvedName=Trash", 1, true),
     "object-name context option did not resolve CustomName")
-menu.options[2].callback()
+menu.options[3].callback()
 assert(opened == 1, "admin context option did not open the debug hub")
 
 currentPlayer = guest
 engineDebug = true
 contextHandler(0, menu, { object }, false)
-assert(#menu.options == 4, "single-player debug context options were missing")
-menu.options[4].callback()
+assert(#menu.options == 6, "single-player debug context options were missing")
+menu.options[6].callback()
 assert(opened == 2, "single-player debug context option did not open the debug hub")
 
 print = oldPrint

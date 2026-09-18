@@ -91,5 +91,22 @@
     "UI_PsychopatzDebug_TranslationCoverage_DetailLocalizedPath": "Aktibong catalog: %s",
     "UI_PsychopatzDebug_TranslationCoverage_DetailDiagnostic": "Diagnostic: %s",
     "UI_PsychopatzDebug_TranslationCoverage_DetailRuntime": "Runtime observation: %s",
-    "UI_PsychopatzObjectName_Grab": "[Debug] Kunin ang Pangalan ng Object"
+    "UI_PsychopatzObjectName_Grab": "[Debug] Kunin ang Pangalan ng Object",
+    "UI_PsychopatzPlace_Inspect": "[Debug] Suriin ang Kasalukuyang Lugar",
+    "UI_PsychopatzPlace_InspectMap": "[Debug] Suriin ang Lugar sa Mapa",
+    "UI_PsychopatzZombiePopulation_InspectMap": "[Debug] Suriin ang Populasyon ng Zombie",
+    "UI_PsychopatzWorldMetadata_Title": "I-export ang Metadata ng Lugar ng Mundo",
+    "UI_PsychopatzWorldMetadata_Description": "I-export ang deduplicated na zone, gusali, kuwarto, laki, at structural feature para sa susunod na tagging.",
+    "UI_PsychopatzWorldMetadata_Start": "Simulan",
+    "UI_PsychopatzWorldMetadata_Cancel": "Kanselahin",
+    "UI_PsychopatzWorldMetadata_Close": "Isara",
+    "UI_PsychopatzWorldMetadata_Status": "Status: ",
+    "UI_PsychopatzWorldMetadata_Logs": "Kamakailang log (huling 5)",
+    "UI_PsychopatzWorldMetadata_OutputTypes": "Mga uri ng output",
+    "UI_PsychopatzWorldMetadata_Include_Places": "Mga lugar, gusali, at kuwarto",
+    "UI_PsychopatzWorldMetadata_Include_ZombiesType": "Mga ZombiesType zone",
+    "UI_PsychopatzWorldMetadata_Include_Nav": "Mga Nav zone",
+    "UI_PsychopatzWorldMetadata_Include_ForagingNav": "Mga ForagingNav zone",
+    "UI_PsychopatzWorldMetadata_Include_SpawnPoint": "Mga SpawnPoint zone",
+    "UI_PsychopatzWorldMetadata_Include_OtherZones": "Iba pang uri ng zone"
 }

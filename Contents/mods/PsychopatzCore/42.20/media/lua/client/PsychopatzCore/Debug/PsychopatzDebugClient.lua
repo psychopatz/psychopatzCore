@@ -80,6 +80,32 @@ end
 
 if DebugHub and DebugHub.RegisterTool then
     DebugHub.RegisterTool({
+        id = "psychopatz.worldMetadata",
+        source = "PsychopatzCore",
+        order = 30,
+        title = tr("UI_PsychopatzWorldMetadata_Title",
+            "Export World Place Metadata"),
+        description = tr("UI_PsychopatzWorldMetadata_Description",
+            "Export deduplicated zones, buildings, rooms, sizes, and structural features for downstream tagging."),
+        available = function()
+            return Debug.CanUse(getPlayer and getPlayer() or nil)
+                and type(getWorld) == "function"
+        end,
+        action = function()
+            local loaded, window = pcall(require,
+                "PsychopatzCore/UI/PsychopatzWorldMetadataWindow")
+            if not loaded then
+                print("[PsychopatzCore.WorldMetadata] window failed: "
+                    .. tostring(window))
+                return nil
+            end
+            return window.Open()
+        end,
+    })
+end
+
+if DebugHub and DebugHub.RegisterTool then
+    DebugHub.RegisterTool({
         id = "psychopatz.runtimeTrace",
         source = "PsychopatzCore",
         order = 5,

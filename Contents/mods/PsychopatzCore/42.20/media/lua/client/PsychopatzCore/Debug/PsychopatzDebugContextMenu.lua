@@ -8,6 +8,8 @@ local Core = PsychopatzCore
 local Debug = Core.Debug
 local Hub = Core.DebugHub
 local Translation = Core.Translation
+local PlaceContext = require "PsychopatzCore/Debug/PsychopatzPlaceDebugContext"
+require "PsychopatzCore/Debug/PsychopatzPlaceDebugMapContext"
 
 if Core._debugContextMenuInstalled then
     return Core.DebugContextMenu
@@ -62,6 +64,10 @@ function ContextMenu.OnFillWorldObjectContextMenu(playerNum, context, worldObjec
 
     if ObjectNameContext and ObjectNameContext.Add then
         ObjectNameContext.Add(context, worldObjects, player)
+    end
+
+    if PlaceContext and PlaceContext.Add then
+        PlaceContext.Add(context, player)
     end
 
     context:addOption(

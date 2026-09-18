@@ -74,7 +74,7 @@ assert(coverage.language == "TL",
 assert(coverage.counts.missing_key == 0
     and coverage.counts.missing_catalog == 0,
     "Core catalogs have no missing Tagalog keys or catalogs")
-assert(coverage.counts.total == 265,
+assert(coverage.counts.total == 316,
     "Core coverage snapshot counts every modular catalog key")
 
 language = "FR"

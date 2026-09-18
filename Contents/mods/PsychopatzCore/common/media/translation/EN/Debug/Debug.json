@@ -91,5 +91,22 @@
     "UI_PsychopatzDebug_TranslationCoverage_DetailLocalizedPath": "Active catalog: %s",
     "UI_PsychopatzDebug_TranslationCoverage_DetailDiagnostic": "Diagnostic: %s",
     "UI_PsychopatzDebug_TranslationCoverage_DetailRuntime": "Runtime observation: %s",
-    "UI_PsychopatzObjectName_Grab": "[Debug] Grab Object Name"
+    "UI_PsychopatzObjectName_Grab": "[Debug] Grab Object Name",
+    "UI_PsychopatzPlace_Inspect": "[Debug] Inspect Current Place",
+    "UI_PsychopatzPlace_InspectMap": "[Debug] Inspect Map Place",
+    "UI_PsychopatzZombiePopulation_InspectMap": "[Debug] Inspect Zombie Population",
+    "UI_PsychopatzWorldMetadata_Title": "Export World Place Metadata",
+    "UI_PsychopatzWorldMetadata_Description": "Export deduplicated zones, buildings, rooms, sizes, and structural features for downstream tagging.",
+    "UI_PsychopatzWorldMetadata_Start": "Start",
+    "UI_PsychopatzWorldMetadata_Cancel": "Cancel",
+    "UI_PsychopatzWorldMetadata_Close": "Close",
+    "UI_PsychopatzWorldMetadata_Status": "Status: ",
+    "UI_PsychopatzWorldMetadata_Logs": "Recent log (last 5)",
+    "UI_PsychopatzWorldMetadata_OutputTypes": "Output types",
+    "UI_PsychopatzWorldMetadata_Include_Places": "Places, buildings, and rooms",
+    "UI_PsychopatzWorldMetadata_Include_ZombiesType": "ZombiesType zones",
+    "UI_PsychopatzWorldMetadata_Include_Nav": "Nav zones",
+    "UI_PsychopatzWorldMetadata_Include_ForagingNav": "ForagingNav zones",
+    "UI_PsychopatzWorldMetadata_Include_SpawnPoint": "SpawnPoint zones",
+    "UI_PsychopatzWorldMetadata_Include_OtherZones": "Other zone types"
 }

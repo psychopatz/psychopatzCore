@@ -31,6 +31,9 @@ Translation.KeyPrefixes = Translation.KeyPrefixes or {
     { prefix = "UI_PsychopatzDebugTrace_", system = "Debug" },
     { prefix = "UI_PsychopatzDebugSettings_", system = "Debug" },
     { prefix = "UI_PsychopatzObjectName_", system = "Debug" },
+    { prefix = "UI_PsychopatzPlace_", system = "Debug" },
+    { prefix = "UI_PsychopatzZombiePopulation_", system = "Debug" },
+    { prefix = "UI_PsychopatzWorldMetadata_", system = "Debug" },
     { prefix = "UI_PsychopatzPreview_", system = "Preview" },
 }
 
