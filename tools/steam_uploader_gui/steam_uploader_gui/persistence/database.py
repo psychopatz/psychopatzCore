@@ -56,6 +56,12 @@ class SettingsDatabase:
                     message TEXT NOT NULL,
                     details_json TEXT NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS workshop_sync (
+                    profile_key TEXT PRIMARY KEY,
+                    steam_json TEXT NOT NULL,
+                    local_json TEXT NOT NULL,
+                    synced_at TEXT NOT NULL
+                );
                 """
             )
 
@@ -101,6 +107,17 @@ class SettingsDatabase:
             row = self._connection.execute("SELECT * FROM profiles WHERE key = ?", (key,)).fetchone()
         if not row:
             return None
+        return self._profile_from_row(row)
+
+    def load_profiles(self) -> dict[str, ModProfile]:
+        """Load cached profiles for identity recovery during a fresh disk scan."""
+
+        with self._lock:
+            rows = self._connection.execute("SELECT * FROM profiles").fetchall()
+        return {str(row["key"]): self._profile_from_row(row) for row in rows}
+
+    @staticmethod
+    def _profile_from_row(row: sqlite3.Row) -> ModProfile:
         return ModProfile(
             key=row["key"], name=row["name"], mod_root=Path(row["mod_root"]), appid=row["appid"],
             workshopid=row["workshopid"], content_path=Path(row["content_path"]) if row["content_path"] else None,
@@ -114,6 +131,41 @@ class SettingsDatabase:
             self._connection.execute(
                 "INSERT INTO events(created_at, level, operation, message, details_json) VALUES(?, ?, ?, ?, ?)",
                 (_now(), level, operation, message, json.dumps(details or {}, ensure_ascii=False, default=str)),
+            )
+
+    def load_workshop_sync(self, profile_key: str) -> dict[str, Any] | None:
+        with self._lock:
+            row = self._connection.execute(
+                "SELECT steam_json, local_json, synced_at FROM workshop_sync WHERE profile_key = ?",
+                (profile_key,),
+            ).fetchone()
+        if not row:
+            return None
+        return {
+            "steam": json.loads(row["steam_json"] or "{}"),
+            "local": json.loads(row["local_json"] or "{}"),
+            "synced_at": row["synced_at"],
+        }
+
+    def save_workshop_sync(
+        self,
+        profile_key: str,
+        steam: dict[str, Any],
+        local: dict[str, Any],
+    ) -> None:
+        with self._lock, self._connection:
+            self._connection.execute(
+                "INSERT INTO workshop_sync(profile_key, steam_json, local_json, synced_at) "
+                "VALUES(?, ?, ?, ?) "
+                "ON CONFLICT(profile_key) DO UPDATE SET "
+                "steam_json = excluded.steam_json, local_json = excluded.local_json, "
+                "synced_at = excluded.synced_at",
+                (
+                    profile_key,
+                    json.dumps(steam, ensure_ascii=False),
+                    json.dumps(local, ensure_ascii=False),
+                    _now(),
+                ),
             )
 
     def close(self) -> None:

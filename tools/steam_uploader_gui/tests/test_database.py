@@ -23,6 +23,15 @@ class DatabaseTests(unittest.TestCase):
             assert loaded is not None
             self.assertEqual(loaded.workshopid, 10)
             self.assertEqual(loaded.tags, ["Build 42"])
+            database.save_workshop_sync(
+                "A",
+                {"title": "Steam title"},
+                {"title": "Local title"},
+            )
+            sync = database.load_workshop_sync("A")
+            assert sync is not None
+            self.assertEqual(sync["steam"]["title"], "Steam title")
+            self.assertEqual(sync["local"]["title"], "Local title")
             database.close()
 
 

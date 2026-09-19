@@ -45,6 +45,8 @@ def validate(profile: ModProfile, selection: UpdateSelection) -> ValidationResul
         result.errors.append("App ID must be a positive integer.")
     if profile.workshopid is None or profile.workshopid <= 0:
         result.errors.append("Workshop ID is required for an existing item update.")
+    for conflict in profile.identity_conflicts:
+        result.errors.append(f"Identity conflict must be resolved before upload: {conflict}")
 
     if selection.content:
         if not profile.content_path or not profile.content_path.is_dir():

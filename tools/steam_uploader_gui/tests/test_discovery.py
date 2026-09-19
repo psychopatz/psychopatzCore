@@ -49,6 +49,57 @@ class DiscoveryTests(unittest.TestCase):
             values = parse_workshop_txt(path)
             self.assertEqual(values["description"], "[h1]Title[/h1]\n\nSecond line")
 
+    def test_repairs_missing_workshop_and_mod_ids_from_unambiguous_sources(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            mod = root / "AnyMod"
+            info = mod / "Contents" / "mods" / "AnyMod" / "42.20" / "mod.info"
+            info.parent.mkdir(parents=True)
+            (mod / "workshop.txt").write_text("version=1\ntitle=Any Mod\n", encoding="utf-8")
+            (mod / "workshop_update.vdf").write_text(
+                '"workshopitem"\n{\n\t"publishedfileid" "987654321"\n}\n',
+                encoding="utf-8",
+            )
+            info.write_text("name=Any Mod\n", encoding="utf-8")
+
+            profile = discover_profiles(root)[0]
+
+            self.assertEqual(profile.workshopid, 987654321)
+            self.assertEqual(profile.mod_ids, ["AnyMod"])
+            self.assertTrue(any("Workshop ID" in repair for repair in profile.identity_repairs))
+            self.assertTrue(any("Mod ID" in repair for repair in profile.identity_repairs))
+            self.assertIn("id=987654321", (mod / "workshop.txt").read_text(encoding="utf-8"))
+            self.assertIn("id=AnyMod", info.read_text(encoding="utf-8"))
+
+    def test_repairs_missing_workshop_id_from_cached_profile(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            mod = root / "AnyMod"
+            (mod / "Contents").mkdir(parents=True)
+            (mod / "workshop.txt").write_text("title=Any Mod\n", encoding="utf-8")
+
+            profile = discover_profiles(root, cached_workshop_ids={"AnyMod": 2468})[0]
+
+            self.assertEqual(profile.workshopid, 2468)
+            self.assertEqual(profile.workshopid_source, "cached profile")
+            self.assertIn("id=2468", (mod / "workshop.txt").read_text(encoding="utf-8"))
+
+    def test_conflicting_workshop_sources_are_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            mod = root / "AnyMod"
+            (mod / "Contents").mkdir(parents=True)
+            (mod / "workshop.txt").write_text("id=123\n", encoding="utf-8")
+            (mod / "workshop_update.vdf").write_text(
+                '"publishedfileid" "456"\n',
+                encoding="utf-8",
+            )
+
+            profile = discover_profiles(root)[0]
+
+            self.assertEqual(profile.workshopid, 123)
+            self.assertTrue(any("sources disagree" in conflict for conflict in profile.identity_conflicts))
+
 
 if __name__ == "__main__":
     unittest.main()

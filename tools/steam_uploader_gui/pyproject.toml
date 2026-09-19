@@ -13,6 +13,7 @@ dependencies = [
 
 [project.scripts]
 steam-uploader-gui = "steam_uploader_gui.__main__:main"
+steam-uploader-cli = "steam_uploader_gui.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "."}

@@ -3,7 +3,12 @@ from __future__ import annotations
 import sys
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    arguments = list(sys.argv[1:] if argv is None else argv)
+    if arguments and arguments[0] in {"cli", "--cli"}:
+        from .cli import main as cli_main
+
+        return cli_main(arguments[1:])
     try:
         from .ui.app import run_gui
         return run_gui()

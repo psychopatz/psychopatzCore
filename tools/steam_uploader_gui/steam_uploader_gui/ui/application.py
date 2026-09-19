@@ -26,7 +26,12 @@ from ..services.uploader import (
     StockSteamUploader,
     validate,
 )
-from ..services.workshop import WorkshopItem, fetch_workshop_item, open_workshop_page
+from ..services.workshop import (
+    WorkshopSyncResult,
+    fetch_workshop_item,
+    open_workshop_page,
+    sync_workshop_metadata,
+)
 from .editor import ModEditor
 from .log_panel import LiveLogPanel
 from .project_list import ProjectList
@@ -155,10 +160,14 @@ class WorkshopApplication(tk.Tk):
 
     def _scan(self) -> None:
         root = Path(self.database.get_setting(SETTING_WORKSHOP_ROOT, str(default_workshop_root()))).expanduser()
-        discovered = discover_profiles(root)
+        saved_profiles = self.database.load_profiles()
+        discovered = discover_profiles(
+            root,
+            cached_workshop_ids={key: profile.workshopid for key, profile in saved_profiles.items()},
+        )
         self.profiles = {}
         for profile in discovered:
-            saved = self.database.load_profile(profile.key)
+            saved = saved_profiles.get(profile.key)
             if saved is not None and self._is_legacy_truncated_description(saved.description, profile.description):
                 # Older builds overwrote repeated description= keys and saved
                 # only the final line. Repair that exact shape from the local
@@ -172,7 +181,16 @@ class WorkshopApplication(tk.Tk):
                     mod=profile.name,
                     key=profile.key,
                 )
-            self.profiles[profile.key] = saved or profile
+            selected = self._merge_discovered_profile(saved, profile) if saved is not None else profile
+            identity_cache_changed = saved is not None and selected.workshopid != saved.workshopid
+            if profile.identity_repairs or identity_cache_changed:
+                for repair in profile.identity_repairs:
+                    self.logger.emit("INFO", "identity", repair, mod=profile.name, key=profile.key)
+                self.database.save_profile(selected)
+            if profile.identity_conflicts:
+                for conflict in profile.identity_conflicts:
+                    self.logger.emit("ERROR", "identity", conflict, mod=profile.name, key=profile.key)
+            self.profiles[profile.key] = selected
         self.project_list.set_projects(
             (profile.key, f"{profile.name}  [{profile.key}]") for profile in self.profiles.values()
         )
@@ -185,6 +203,28 @@ class WorkshopApplication(tk.Tk):
         if selected is None:
             self.current_key = None
             self.current_mod_var.set("No mod selected")
+
+    @staticmethod
+    def _merge_discovered_profile(saved: ModProfile, discovered: ModProfile) -> ModProfile:
+        """Keep cached editor content while making disk identities authoritative."""
+
+        return ModProfile(
+            key=discovered.key,
+            name=saved.name or discovered.name,
+            mod_root=discovered.mod_root,
+            appid=discovered.appid,
+            workshopid=discovered.workshopid or saved.workshopid,
+            content_path=discovered.content_path,
+            preview_path=discovered.preview_path,
+            title=saved.title or discovered.title,
+            description=saved.description,
+            visibility=saved.visibility,
+            tags=list(saved.tags),
+            workshopid_source=discovered.workshopid_source,
+            mod_ids=list(discovered.mod_ids),
+            identity_repairs=list(discovered.identity_repairs),
+            identity_conflicts=list(discovered.identity_conflicts),
+        )
 
     @staticmethod
     def _is_legacy_truncated_description(saved: str, discovered: str) -> bool:
@@ -217,6 +257,7 @@ class WorkshopApplication(tk.Tk):
         self.ui_state.set("selected_profile", key)
         self.current_mod_var.set(profile.name)
         self.status_var.set(f"Editing {profile.name}")
+        self._start_steam_fetch(key, profile, automatic=True)
 
     def _collect(self) -> ModProfile:
         if not self.current_key:
@@ -319,60 +360,123 @@ class WorkshopApplication(tk.Tk):
             return
         try:
             profile = self._collect()
-            if profile.workshopid is None or profile.workshopid <= 0:
-                raise BackendError("A valid Workshop ID is required to fetch Steam data.")
         except (BackendError, OSError, ValueError) as exc:
             self.logger.emit("ERROR", "workshop", str(exc))
             messagebox.showerror("Fetch Steam data", str(exc), parent=self)
             return
 
+        self._start_steam_fetch(profile.key, profile, automatic=False)
+
+    def _start_steam_fetch(self, key: str, profile: ModProfile, *, automatic: bool) -> None:
+        if self._steam_fetching:
+            if not automatic:
+                self.status_var.set("A Steam metadata fetch is already running…")
+            return
+        if profile.identity_conflicts:
+            message = "Steam metadata sync skipped until identity conflicts are resolved."
+            self.logger.emit("ERROR", "workshop", message, key=key, conflicts=profile.identity_conflicts)
+            if not automatic:
+                messagebox.showerror("Fetch Steam data", message, parent=self)
+            else:
+                self.status_var.set(message)
+            return
+        if profile.workshopid is None or profile.workshopid <= 0:
+            message = "A valid Workshop ID is required to fetch Steam data."
+            if not automatic:
+                self.logger.emit("ERROR", "workshop", message)
+                messagebox.showerror("Fetch Steam data", message, parent=self)
+            else:
+                self.status_var.set(message)
+            return
+
         key = profile.key
         self._steam_fetching = True
         self.fetch_steam_button.configure(state="disabled")
-        self.status_var.set(f"Fetching Steam data for {profile.title} (up to 6 seconds)…")
+        action = "Syncing Steam metadata" if automatic else "Fetching Steam data"
+        self.status_var.set(f"{action} for {profile.title} (up to 6 seconds)…")
         self.logger.emit(
             "INFO", "workshop", "Fetching Workshop metadata.", workshopid=profile.workshopid
         )
         thread = threading.Thread(
             target=self._fetch_worker,
-            args=(key, profile.workshopid),
+            args=(key, profile.workshopid, profile.mod_root),
             daemon=True,
         )
         thread.start()
 
-    def _fetch_worker(self, key: str, workshopid: int | None) -> None:
+    def _fetch_worker(self, key: str, workshopid: int | None, mod_root: Path) -> None:
         try:
             if workshopid is None:
                 raise BackendError("A valid Workshop ID is required to fetch Steam data.")
             item = fetch_workshop_item(workshopid)
-            self.events.put({"steam_item": item, "profile_key": key})
+            previous_snapshot = self.database.load_workshop_sync(key)
+            result = sync_workshop_metadata(mod_root, item, previous_snapshot)
+            self.database.save_workshop_sync(key, result.remote, result.local_after)
+            self.events.put({"steam_sync": result, "profile_key": key})
         except Exception as exc:
             self.logger.emit("ERROR", "workshop", str(exc), workshopid=workshopid)
             self.events.put({"ui_status": "Steam data fetch failed; see live log."})
         finally:
             self.events.put({"steam_fetch_done": True})
 
-    def _apply_fetched_item(self, key: str, item: WorkshopItem) -> None:
-        if key != self.current_key or key not in self.profiles:
+    def _apply_sync_result(self, key: str, result: WorkshopSyncResult) -> None:
+        if key not in self.profiles:
             return
-        self.editor.apply_workshop_metadata(
-            item.title,
-            item.description,
-            item.tags,
-            item.visibility,
-        )
-        self.profiles[key] = self.editor.collect_profile(self.profiles[key])
-        self.project_list.update_label(key, f"{item.title}  [{key}]")
-        self.current_mod_var.set(item.title)
+
+        profile = self.profiles[key]
+        metadata = result.local_after
+        profile.title = str(metadata.get("title") or "")
+        profile.description = str(metadata.get("description") or "")
+        profile.tags = [str(tag) for tag in (metadata.get("tags") or [])]
+        visibility = metadata.get("visibility")
+        profile.visibility = int(visibility) if visibility is not None else 2
+        if key == self.current_key and not self.editor.dirty:
+            self.editor.apply_workshop_metadata(
+                profile.title,
+                profile.description,
+                profile.tags,
+                profile.visibility,
+            )
+            self.editor.mark_clean()
+            self.profiles[key] = self.editor.collect_profile(profile)
+        self.database.save_profile(profile)
+        self.project_list.update_label(key, f"{profile.title or profile.name}  [{key}]")
+        if key == self.current_key:
+            self.current_mod_var.set(profile.title or profile.name)
+        conflicts = result.conflicts or {}
+        if conflicts:
+            fields = ", ".join(conflicts)
+            self.logger.emit(
+                "WARNING",
+                "workshop",
+                "Steam metadata conflicts require review.",
+                workshopid=result.item.published_file_id,
+                fields=fields,
+                conflicts=conflicts,
+            )
+            status = f"Steam metadata conflict in: {fields}. Local values were preserved."
+        elif result.applied_fields:
+            fields = ", ".join(result.applied_fields)
+            self.logger.emit(
+                "INFO",
+                "workshop",
+                "Steam metadata synchronized to local workshop.txt.",
+                workshopid=result.item.published_file_id,
+                fields=fields,
+            )
+            status = f"Steam metadata synchronized locally: {fields}."
+        else:
+            status = "Steam metadata is already in sync with local workshop.txt."
         self.logger.emit(
             "INFO",
             "workshop",
-            "Steam Workshop metadata loaded into the editor; review and save it.",
-            workshopid=item.published_file_id,
-            preview_url=item.preview_url,
-            file_url=item.file_url,
+            "Steam Workshop metadata loaded.",
+            workshopid=result.item.published_file_id,
+            preview_url=result.item.preview_url,
+            file_url=result.item.file_url,
         )
-        self.status_var.set("Steam data loaded; review the fields and save the profile.")
+        if key == self.current_key:
+            self.status_var.set(status)
 
     def _upload(self) -> None:
         plan = self._validate_plan()
@@ -481,15 +585,15 @@ class WorkshopApplication(tk.Tk):
                 event = self.events.get_nowait()
             except queue.Empty:
                 break
-            if "steam_item" in event:
-                self._apply_fetched_item(
+            if "steam_sync" in event:
+                self._apply_sync_result(
                     str(event.get("profile_key", "")),
-                    event["steam_item"],
+                    event["steam_sync"],
                 )
             if event.get("steam_fetch_done"):
                 self._steam_fetching = False
                 self.fetch_steam_button.configure(state="normal")
-            if "steam_item" in event:
+            if "steam_sync" in event:
                 continue
             if event.get("steam_fetch_done"):
                 continue

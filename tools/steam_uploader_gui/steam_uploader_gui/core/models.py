@@ -20,6 +20,10 @@ class ModProfile:
     description: str = ""
     visibility: int = 2
     tags: list[str] = field(default_factory=list)
+    workshopid_source: str = ""
+    mod_ids: list[str] = field(default_factory=list)
+    identity_repairs: list[str] = field(default_factory=list)
+    identity_conflicts: list[str] = field(default_factory=list)
 
     def as_dict(self) -> dict[str, Any]:
         return {

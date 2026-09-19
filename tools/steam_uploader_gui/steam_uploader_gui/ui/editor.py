@@ -43,6 +43,8 @@ class ModEditor(ttk.Frame):
 
         self.appid_var = tk.StringVar()
         self.workshopid_var = tk.StringVar()
+        self.mod_ids_var = tk.StringVar()
+        self.identity_status_var = tk.StringVar()
         self.mod_root_var = tk.StringVar()
         self.content_var_path = tk.StringVar()
         self.preview_var_path = tk.StringVar()
@@ -59,6 +61,7 @@ class ModEditor(ttk.Frame):
 
         self._appid_entry: ttk.Entry
         self._workshopid_entry: ttk.Entry
+        self._identity_status_label: ttk.Label
         self.sections: dict[str, CollapsibleSection] = {}
         self._build()
         self._attach_dirty_tracking()
@@ -92,11 +95,19 @@ class ModEditor(ttk.Frame):
         self._workshopid_entry = self._field(
             identifiers.body, "Workshop ID", self.workshopid_var, 1, state="readonly"
         )
-        self._field(identifiers.body, "Mod root", self.mod_root_var, 2)
-        self._field(identifiers.body, "Content directory", self.content_var_path, 3)
-        self._field(identifiers.body, "Preview file", self.preview_var_path, 4)
+        self._field(identifiers.body, "Mod ID(s)", self.mod_ids_var, 2, state="readonly")
+        self._field(identifiers.body, "Mod root", self.mod_root_var, 3)
+        self._field(identifiers.body, "Content directory", self.content_var_path, 4)
+        self._field(identifiers.body, "Preview file", self.preview_var_path, 5)
+        self._identity_status_label = ttk.Label(
+            identifiers.body,
+            textvariable=self.identity_status_var,
+            wraplength=700,
+            justify="left",
+        )
+        self._identity_status_label.grid(row=6, column=0, columnspan=2, sticky="w", pady=(4, 0))
         preview_frame = ttk.LabelFrame(identifiers.body, text="Primary preview")
-        preview_frame.grid(row=5, column=0, columnspan=2, sticky="ew", pady=(8, 0))
+        preview_frame.grid(row=7, column=0, columnspan=2, sticky="ew", pady=(8, 0))
         self.preview_image = ImagePreview(preview_frame)
         self.preview_image.pack(fill="x", expand=True, padx=6, pady=6)
 
@@ -294,6 +305,17 @@ class ModEditor(ttk.Frame):
         self._loading = True
         self.appid_var.set(str(profile.appid))
         self.workshopid_var.set(str(profile.workshopid or ""))
+        self.mod_ids_var.set("; ".join(profile.mod_ids) or "(not found)")
+        if profile.identity_conflicts:
+            self.identity_status_var.set("IDENTITY CONFLICT: " + " | ".join(profile.identity_conflicts))
+        elif profile.identity_repairs:
+            self.identity_status_var.set("Auto-repaired: " + " | ".join(profile.identity_repairs))
+        elif profile.workshopid:
+            self.identity_status_var.set(
+                f"Workshop ID source: {profile.workshopid_source or 'local metadata'}"
+            )
+        else:
+            self.identity_status_var.set("Workshop ID not found; this project cannot update an existing item yet.")
         self.mod_root_var.set(str(profile.mod_root))
         self.content_var_path.set(str(profile.content_path or ""))
         self.preview_var_path.set(str(profile.preview_path or ""))
@@ -356,6 +378,10 @@ class ModEditor(ttk.Frame):
             description=self.description_editor.get_source(),
             visibility=visibility,
             tags=[tag.strip() for tag in self.tags_var.get().split(";") if tag.strip()],
+            workshopid_source=base.workshopid_source,
+            mod_ids=list(base.mod_ids),
+            identity_repairs=list(base.identity_repairs),
+            identity_conflicts=list(base.identity_conflicts),
         )
 
     def identifiers_changed(self, base: ModProfile) -> bool:

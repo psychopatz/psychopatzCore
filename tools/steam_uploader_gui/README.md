@@ -65,6 +65,73 @@ and Workshop ID are read-only unless the unsafe identifier-editing checkbox in
 Settings is enabled. Section expansion, selected project, update selections,
 and window geometry are stored in the SQLite UI-state namespace.
 
+## Identity recovery
+
+Workshop IDs are resolved from local `workshop.txt` metadata first, then a
+`workshop_update.vdf` published-file ID, and finally the cached profile when
+the local project has no usable ID. Missing or non-canonical IDs are repaired
+atomically by default. Mod IDs are discovered from every `Contents/mods/**/mod.info`
+file; a missing ID is filled from its unambiguous mod folder name.
+
+Conflicting local identity sources are shown in the Identifiers and files
+section and prevent an upload until they are resolved. The database is treated
+as a recovery cache, not as the authoritative source when disk metadata exists.
+
+When a project with a valid Workshop ID is selected, the GUI fetches public
+Steam metadata in the background. Missing local fields, or fields unchanged
+since the previous sync, are written back to `workshop.txt`; unrelated keys are
+preserved. Local edits that conflict with Steam are retained and reported in
+the status bar and live log instead of being overwritten.
+
+## Terminal control
+
+The same package can be controlled without opening Tkinter. Use the dedicated
+entry point after installing the tool, or prefix commands with `cli` when
+running the module directly:
+
+```bash
+steam-uploader-cli projects
+steam-uploader-cli read --project psychopatzCore
+python -m steam_uploader_gui cli read --project psychopatzCore
+```
+
+The project selector accepts a project key, folder name, title, or Workshop ID.
+Use `--json` for agent and script-friendly output. The important operations are:
+
+```bash
+# Read local metadata and identity information.
+steam-uploader-cli read --project psychopatzCore --json
+
+# Read public Steam metadata without changing local files.
+steam-uploader-cli read --project psychopatzCore --steam
+
+# Replace a description directly, from a file, or from stdin.
+steam-uploader-cli edit --project psychopatzCore --description '[h1]Release notes[/h1]'
+steam-uploader-cli edit --project psychopatzCore --description-file description.bbcode
+printf '%s\n' '[h1]Release notes[/h1]' | \\
+  steam-uploader-cli edit --project psychopatzCore --description-file -
+
+# Reconcile public Steam metadata into workshop.txt while preserving conflicts.
+steam-uploader-cli sync --project psychopatzCore
+
+# Validate and show an upload plan without starting SteamUploader.
+steam-uploader-cli push --project psychopatzCore --fields description --dry-run
+
+# Upload selected fields only after explicitly approving the plan.
+steam-uploader-cli push --project psychopatzCore \\
+  --fields content,preview,title,description,tags,visibility \\
+  --change-note 'Updated Workshop description' --yes
+```
+
+`edit` changes the local `workshop.txt` atomically and preserves unrelated
+keys. `sync` fetches current public Steam metadata, applies missing or
+previously unchanged fields, and returns a non-zero status when it detects a
+local-versus-Steam conflict. `push` uses the same identity repair and upload
+validation as the GUI; it never starts an upload unless `--yes` is supplied.
+The GUI's saved Workshop root, database, and SteamUploader path are reused.
+Override them with `--workshop-root`, `--database`, and `--uploader` when
+needed.
+
 ## BBCode editor
 
 The description and change-note editors each have separate `BBCode source` and
