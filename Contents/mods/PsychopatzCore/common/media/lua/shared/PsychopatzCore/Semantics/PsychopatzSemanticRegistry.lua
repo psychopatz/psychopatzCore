@@ -10,6 +10,7 @@ Semantics.Registry = Registry
 Registry.VERSION = 1
 Registry.Concepts = Registry.Concepts or {}
 Registry.Aliases = Registry.Aliases or {}
+Registry.VerbForms = Registry.VerbForms or {}
 Registry.SpeechActs = Registry.SpeechActs or {}
 Registry.Patterns = Registry.Patterns or {}
 Registry.PatternOrder = Registry.PatternOrder or {}
@@ -134,6 +135,63 @@ end
 
 function Registry.GetConcept(id)
     return Registry.Concepts[id]
+end
+
+-- Inflected verbs live in a separate exact index. Grammar patterns must opt
+-- into specific forms before they can satisfy a concept rule.
+function Registry.RegisterVerbForm(definition)
+    if type(definition) ~= "table"
+        or type(definition.surface) ~= "string"
+        or type(definition.concept) ~= "string"
+        or type(definition.lemma) ~= "string"
+        or type(definition.form) ~= "string"
+    then
+        return false, "invalid_verb_form"
+    end
+
+    local surface = Normalizer.NormalizePhrase(definition.surface)
+    local lemma = Normalizer.NormalizePhrase(definition.lemma)
+    local concept = definition.concept
+    local form = string.upper(definition.form)
+    if surface == "" or lemma == "" or form == "" then
+        return false, "invalid_verb_form"
+    end
+    if not Registry.Concepts[concept] then
+        return false, "unknown_verb_form_concept"
+    end
+
+    local existing = Registry.VerbForms[surface]
+    if type(existing) == "table" then
+        if existing.concept ~= concept
+            or existing.lemma ~= lemma
+            or existing.form ~= form
+        then
+            return false, "verb_form_conflict"
+        end
+        return true, existing
+    end
+
+    local normalized = {
+        surface = surface,
+        concept = concept,
+        lemma = lemma,
+        form = form,
+        owner = definition.owner,
+    }
+    Registry.VerbForms[surface] = normalized
+
+    local tokenCount = 0
+    for _ in string.gmatch(surface, "%S+") do tokenCount = tokenCount + 1 end
+    if tokenCount > Registry.MaxPhraseTokens then
+        Registry.MaxPhraseTokens = tokenCount
+    end
+    bumpRevision()
+    return true, normalized
+end
+
+-- Internal hot-path lookup for an already-normalized surface form.
+function Registry.LookupVerbForm(surface)
+    return Registry.VerbForms[surface]
 end
 
 function Registry.GetAliasMatches(phrase)
@@ -264,6 +322,7 @@ end
 function Registry.Reset()
     Registry.Concepts = {}
     Registry.Aliases = {}
+    Registry.VerbForms = {}
     Registry.SpeechActs = {}
     Registry.Patterns = {}
     Registry.PatternOrder = {}

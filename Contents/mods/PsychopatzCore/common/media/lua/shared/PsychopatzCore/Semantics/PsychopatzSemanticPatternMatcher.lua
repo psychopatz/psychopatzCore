@@ -76,12 +76,33 @@ end
 
 local function matchesRule(rule, symbol)
     if not rule or not symbol then return false end
-    if rule.kind == "any" then return true end
-    if rule.kind == "any_concept" then return symbol.kind == "concept" end
-    if rule.kind == "concept" then
+    if rule.kind == "any" then
+        return symbol.verbForm == nil or rule.allowVerbForms == true
+    end
+    if rule.kind == "any_concept" then
         return symbol.kind == "concept"
-            and symbol.id ~= nil
-            and tostring(symbol.id) == tostring(rule.id)
+            and (symbol.verbForm == nil or rule.allowVerbForms == true)
+    end
+    if rule.kind == "concept" then
+        if symbol.kind ~= "concept"
+            or symbol.id == nil
+            or tostring(symbol.id) ~= tostring(rule.id)
+        then
+            return false
+        end
+
+        if type(rule.verbForms) == "table" then
+            if not symbol.verbForm then return rule.allowBaseVerb == true end
+            local form = string.upper(tostring(symbol.verbForm.form or ""))
+            local index
+            for index = 1, #rule.verbForms do
+                if form == string.upper(tostring(rule.verbForms[index] or "")) then
+                    return true
+                end
+            end
+            return false
+        end
+        return symbol.verbForm == nil
     end
     if rule.kind == "literal" then
         return symbol.text == rule.value
@@ -142,6 +163,14 @@ local function hasStopWord(symbols, first, last, stopWords)
                 return true
             end
         end
+    end
+    return false
+end
+
+local function containsVerbForm(symbols, first, last)
+    local index
+    for index = first, last do
+        if symbols[index] and symbols[index].verbForm then return true end
     end
     return false
 end
@@ -255,6 +284,8 @@ function PatternMatcher.Match(pattern, symbols, normalized)
                     and endToken - firstToken + 1 or 0
                 if tokenCount < rule.minTokens then break end
                 if tokenCount <= rule.maxTokens
+                    and (rule.allowVerbForms == true
+                        or not containsVerbForm(symbols, first, last))
                     and not hasStopWord(
                         symbols, first, last, rule.stopWords)
                 then

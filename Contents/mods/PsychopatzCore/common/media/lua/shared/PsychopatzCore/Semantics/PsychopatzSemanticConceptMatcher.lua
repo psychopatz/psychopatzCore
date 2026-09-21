@@ -76,6 +76,7 @@ function Matcher.Build(normalized, options)
     local fuzzyEnabled = not (
         type(options) == "table" and options.enableFuzzy == false
     )
+    local verbFormLookup = Registry.LookupVerbForm
     local tokenIndex = 1
 
     while tokenIndex <= #tokens do
@@ -99,6 +100,28 @@ function Matcher.Build(normalized, options)
                         matchType = "exact",
                         fuzzy = false,
                         editDistance = 0,
+                        startToken = tokenIndex,
+                        endToken = last,
+                    }
+                    break
+                end
+
+                local verbForm = type(verbFormLookup) == "function"
+                    and verbFormLookup(candidatePhrase) or nil
+                if type(verbForm) == "table" then
+                    selected = {
+                        kind = "concept",
+                        id = verbForm.concept,
+                        candidates = { verbForm.concept },
+                        text = candidatePhrase,
+                        matchedAlias = candidatePhrase,
+                        matchType = "verb_form",
+                        fuzzy = false,
+                        editDistance = 0,
+                        verbForm = {
+                            lemma = verbForm.lemma,
+                            form = verbForm.form,
+                        },
                         startToken = tokenIndex,
                         endToken = last,
                     }
@@ -164,6 +187,7 @@ function Matcher.Analysis(normalized, symbols)
             candidates = copyValue(symbol.candidates),
             matchedAlias = symbol.matchedAlias,
             matchType = symbol.matchType,
+            verbForm = copyValue(symbol.verbForm),
             fuzzy = symbol.fuzzy == true,
             editDistance = symbol.editDistance,
             startToken = symbol.startToken,

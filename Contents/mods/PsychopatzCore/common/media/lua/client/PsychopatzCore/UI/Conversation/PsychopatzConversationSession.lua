@@ -28,6 +28,24 @@ local function now()
         or 0
 end
 
+local function isClosed(session)
+    local view = session and session.view or nil
+    return session and session.closed == true
+        or view and (view.lifecycleFinished == true
+            or view.closed == true or view.closing == true) or false
+end
+
+local function trimActiveMessages(session)
+    local limit = tonumber(session and session.spec
+        and session.spec.activeMessageLimit)
+    local view = session and session.view or nil
+    local history = view and view.historyPart or nil
+    local messages = history and history.messages or nil
+    if not limit or limit < 1 or type(messages) ~= "table" then return end
+    limit = math.min(512, math.floor(limit))
+    while #messages > limit do table.remove(messages, 1) end
+end
+
 local function evaluate(value, context, ...)
     if type(value) == "function" then return value(context, ...) end
     return value
@@ -98,6 +116,7 @@ local function speakerDetails(session, speaker, metadata)
 end
 
 function Session:append(speaker, payload, metadata)
+    if isClosed(self) then return nil, "conversation_closed" end
     metadata = metadata or {}
     local kind, speakerID, speakerName = speakerDetails(self, speaker, metadata)
     local portraitAnimation = metadata.portraitAnimation
@@ -141,6 +160,7 @@ function Session:append(speaker, payload, metadata)
     end
     Message.Publish(message)
     self.view.historyPart:addMessage(message)
+    trimActiveMessages(self)
     if kind == "npc" and self.view.portraitPart
         and self.view.portraitPart.portrait
     then
@@ -171,6 +191,7 @@ function Session:delayFor(payload)
 end
 
 function Session:queueMessage(speaker, payload, metadata)
+    if isClosed(self) then return false, "conversation_closed" end
     metadata = metadata or {}
     if payload == nil then return end
     if type(payload) == "table" and payload[1] ~= nil

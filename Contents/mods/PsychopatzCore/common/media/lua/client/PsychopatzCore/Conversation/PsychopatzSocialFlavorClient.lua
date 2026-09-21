@@ -39,7 +39,9 @@ local recentFamily = {}
 local recentSpeaker = {}
 local sequence = 0
 local activeUntil = 0
+local activePriority = 0
 local lastAmbientAt = 0
+local lastAmbientPriority = 0
 local llmProvider = nil
 local llmCanceler = nil
 local debugEnabled = false
@@ -156,6 +158,12 @@ local function cooldownActive(map, key, current)
     return key and tonumber(map[key]) and current < tonumber(map[key])
 end
 
+local function ambientCadenceBlocks(item, current)
+    return item.priority <= lastAmbientPriority
+        and lastAmbientAt > 0
+        and current < lastAmbientAt + item.ambientCadenceMs
+end
+
 local function normalize(spec)
     if type(spec) ~= "table" then return nil, "invalid_spec" end
     local eventID = clean(spec.eventID or spec.id, nil)
@@ -230,8 +238,7 @@ local function shouldAdmit(item, current)
         return false, "speaker_cooldown"
     end
     if item.priority < Client.CRITICAL_PRIORITY
-        and lastAmbientAt > 0
-        and current < lastAmbientAt + item.ambientCadenceMs
+        and ambientCadenceBlocks(item, current)
     then
         return false, "ambient_cadence"
     end
@@ -246,8 +253,7 @@ local function discardSuppressed(current)
             and (
                 cooldownActive(recentFamily, item.family, current)
                 or cooldownActive(recentSpeaker, item.speakerID, current)
-                or (lastAmbientAt > 0
-                    and current < lastAmbientAt + item.ambientCadenceMs)
+                or ambientCadenceBlocks(item, current)
             )
         if suppressed then
             if item.llmRequested and type(llmCanceler) == "function" then
@@ -356,7 +362,9 @@ local function publish(item, text, isLLM, current)
     recentFamily[item.family] = current + item.familyCooldownMs
     recentSpeaker[item.speakerID] = current + item.speakerCooldownMs
     lastAmbientAt = current
+    lastAmbientPriority = item.priority
     activeUntil = current + item.holdMs
+    activePriority = item.priority
     EventBus.emit(Client.EVENT_DELIVERED, {
         item = item,
         message = message,
@@ -374,6 +382,7 @@ local function choose(current)
     local selectedIndex
     for index, item in ipairs(queue) do
         if current >= activeUntil
+            or item.priority > activePriority
             or item.priority >= Client.CRITICAL_PRIORITY
         then
             if not selected or score(item) > score(selected) then
@@ -505,7 +514,9 @@ function Client.Reset()
     recentSpeaker = {}
     sequence = 0
     activeUntil = 0
+    activePriority = 0
     lastAmbientAt = 0
+    lastAmbientPriority = 0
     return true
 end
 

@@ -162,7 +162,32 @@ function History.Append(namespace, npcID, speaker, value, characterUUID, message
 end
 
 function History.Clear(namespace, npcID, characterUUID)
-    root().threads[threadID(namespace, npcID, characterUUID)] = nil
+    local data
+    if ModData and type(ModData.get) == "function" then
+        local ok
+        ok, data = pcall(ModData.get, History.STORAGE_KEY)
+        if not ok then data = nil end
+        if type(data) ~= "table" or type(data.threads) ~= "table" then
+            return true
+        end
+        -- Normalize only an existing store. A conversation with persistence
+        -- disabled must not allocate an otherwise empty ModData root just to
+        -- clear it.
+        data = root()
+    else
+        data = History.memoryRoot
+        if type(data) ~= "table" or type(data.threads) ~= "table" then
+            return true
+        end
+    end
+    local currentKey = threadID(namespace, npcID, characterUUID)
+    local legacyKey = legacyThreadID(namespace, npcID)
+    data.threads[currentKey] = nil
+    data.threads[legacyKey] = nil
+    if type(data.migratedThreads) == "table" then
+        data.migratedThreads[legacyKey] = nil
+    end
+    return true
 end
 
 function History.ClearAll()
