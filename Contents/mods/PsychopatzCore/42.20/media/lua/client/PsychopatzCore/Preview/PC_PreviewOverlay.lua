@@ -345,14 +345,12 @@ end
 
 local function playerFor()
     if type(getSpecificPlayer) ~= "function" then return nil end
-    local ok, player = pcall(getSpecificPlayer, 0)
-    return ok and player or nil
+    return getSpecificPlayer(0)
 end
 
 local function playerNum(player)
     if not player or type(player.getPlayerNum) ~= "function" then return 0 end
-    local ok, value = pcall(player.getPlayerNum, player)
-    return ok and tonumber(value) or 0
+    return tonumber(player:getPlayerNum()) or 0
 end
 
 local function mousePosition(drawer)

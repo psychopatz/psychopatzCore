@@ -92,8 +92,8 @@ local function createItem(fullType, factory)
     end
     if InventoryItemFactory then
         if InventoryItemFactory.CreateItem then
-            ok, item = pcall(InventoryItemFactory.CreateItem, fullType)
-            if ok and item then return item end
+            item = InventoryItemFactory.CreateItem(fullType)
+            if item then return item end
         end
         if InventoryItemFactory.instanceItem then
             ok, item = pcall(InventoryItemFactory.instanceItem, fullType)
@@ -104,8 +104,8 @@ local function createItem(fullType, factory)
     -- InventoryItemFactory.CreateItem exists but returns nil. Keep all compact
     -- inventory materialization behind this single compatibility boundary.
     if instanceItem then
-        ok, item = pcall(instanceItem, fullType)
-        if ok and item then return item end
+        item = instanceItem(fullType)
+        if item then return item end
     end
     return nil
 end

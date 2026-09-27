@@ -29,13 +29,12 @@ end
 local function propertyValue(source, name)
     local properties
     if source and source.getProperties then
-        local ok, value = pcall(source.getProperties, source)
-        if ok then properties = value end
+        properties = source:getProperties()
     end
     if not properties then return nil end
     if properties.get then
-        local ok, value = pcall(properties.get, properties, name)
-        if ok and value ~= nil and tostring(value) ~= "" then return value end
+        local value = properties:get(name)
+        if value ~= nil and tostring(value) ~= "" then return value end
     end
     if properties.Val then
         local ok, value = pcall(properties.Val, properties, name)
@@ -80,26 +79,22 @@ end
 local function spriteGridSize(object)
     local grid
     if object and object.getSpriteGrid then
-        local ok, value = pcall(object.getSpriteGrid, object)
-        if ok then grid = value end
+        grid = object:getSpriteGrid()
     end
     if not grid then
         local sprite = object and object.getSprite and object:getSprite() or nil
         if sprite and sprite.getSpriteGrid then
-            local ok, value = pcall(sprite.getSpriteGrid, sprite)
-            if ok then grid = value end
+            grid = sprite:getSpriteGrid()
         end
     end
     if not grid then return nil, nil end
     local width
     local height
     if grid.getWidth then
-        local ok, value = pcall(grid.getWidth, grid)
-        if ok then width = tonumber(value) end
+        width = tonumber(grid:getWidth())
     end
     if grid.getHeight then
-        local ok, value = pcall(grid.getHeight, grid)
-        if ok then height = tonumber(value) end
+        height = tonumber(grid:getHeight())
     end
     return width, height
 end
@@ -113,14 +108,12 @@ local function objectSearchText(object)
     end
 
     if object and object.getName then
-        local ok, value = pcall(object.getName, object)
-        if ok then add(value) end
+        add(object:getName())
     end
     local sprite = object and object.getSprite and object:getSprite() or nil
     if sprite then
         if sprite.getName then
-            local ok, value = pcall(sprite.getName, sprite)
-            if ok then add(value) end
+            add(sprite:getName())
         end
         add(sprite.tilesetName)
     end
@@ -234,8 +227,8 @@ end
 function Rules.FindBed(square)
     if not square then return nil end
     if square.getBed then
-        local ok, object = pcall(square.getBed, square)
-        if ok and Rules.ClassifySleepSurface(object) == "bed" then
+        local object = square:getBed()
+        if Rules.ClassifySleepSurface(object) == "bed" then
             return object
         end
     end
@@ -258,13 +251,11 @@ end
 local function spriteGrid(object)
     local grid
     if object and object.getSpriteGrid then
-        local ok, value = pcall(object.getSpriteGrid, object)
-        if ok then grid = value end
+        grid = object:getSpriteGrid()
     end
     local sprite = object and object.getSprite and object:getSprite() or nil
     if not grid and sprite and sprite.getSpriteGrid then
-        local ok, value = pcall(sprite.getSpriteGrid, sprite)
-        if ok then grid = value end
+        grid = sprite:getSpriteGrid()
     end
     return grid, sprite
 end
@@ -272,9 +263,8 @@ end
 local function furnitureFacing(object, fallback)
     local manager
     local value
-    if SeatingManager and SeatingManager.getInstance then
-        local ok, candidate = pcall(SeatingManager.getInstance)
-        if ok then manager = candidate end
+    if SeatingManager and type(SeatingManager.getInstance) == "function" then
+        manager = SeatingManager.getInstance()
     end
     if manager and type(manager.getFacingDirection) == "function" then
         local ok, candidate = pcall(manager.getFacingDirection, manager, object)
@@ -299,14 +289,13 @@ local function describeFurniture(square, object)
     local width, height
     local gridX, gridY
     if grid then
-        local okX, foundGridX = pcall(grid.getSpriteGridPosX, grid, sprite)
-        local okY, foundGridY = pcall(grid.getSpriteGridPosY, grid, sprite)
-        local okW, gridWidth = pcall(grid.getWidth, grid)
-        local okH, gridHeight = pcall(grid.getHeight, grid)
+        local foundGridX = grid:getSpriteGridPosX(sprite)
+        local foundGridY = grid:getSpriteGridPosY(sprite)
+        local gridWidth = grid:getWidth()
+        local gridHeight = grid:getHeight()
         gridX, gridY = tonumber(foundGridX), tonumber(foundGridY)
         width, height = tonumber(gridWidth), tonumber(gridHeight)
-        if okX and okY and okW and okH
-            and gridX and gridY
+        if gridX and gridY
             and width and height and width > 0 and height > 0
         then
             centerX = x - gridX + width / 2
@@ -322,8 +311,7 @@ local function describeFurniture(square, object)
     elseif facing == "E" or facing == "W" then axis = "x" end
     local surfaceOffset
     if object.getSurfaceOffsetNoTable then
-        local ok, value = pcall(object.getSurfaceOffsetNoTable, object)
-        if ok then surfaceOffset = tonumber(value) end
+        surfaceOffset = tonumber(object:getSurfaceOffsetNoTable())
     end
     return {
         object = object,

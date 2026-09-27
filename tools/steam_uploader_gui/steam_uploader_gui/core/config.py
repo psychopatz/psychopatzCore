@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import shutil
 import sys
 from pathlib import Path
 
@@ -54,4 +55,21 @@ def uploader_candidates() -> list[Path]:
 
 
 def first_existing_uploader() -> Path | None:
+    names = ["SteamUploader.exe", "SteamUploader"] if sys.platform == "win32" else ["SteamUploader"]
+    for name in names:
+        located = shutil.which(name)
+        if located:
+            candidate = Path(located).expanduser()
+            if candidate.is_file():
+                return candidate
     return next((candidate for candidate in uploader_candidates() if candidate.is_file()), None)
+
+
+def resolve_uploader_path(configured: str | Path | None = None) -> Path | None:
+    """Use a valid configured executable, then fall back to standard discovery."""
+
+    if configured:
+        candidate = Path(configured).expanduser()
+        if candidate.is_file():
+            return candidate
+    return first_existing_uploader()

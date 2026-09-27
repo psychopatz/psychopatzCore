@@ -183,7 +183,7 @@ local function applyItemState(item, state)
         end
         item:setHeadCondition(condition)
     elseif state.condition ~= nil and item.setHeadConditionFromCondition then
-        pcall(item.setHeadConditionFromCondition, item, item)
+        item:setHeadConditionFromCondition(item)
     end
     if state.quality ~= nil and item.setQuality then
         item:setQuality(math.max(0, math.floor(tonumber(state.quality) or 0)))
@@ -374,15 +374,14 @@ function Transfer.GiveToPlayerContainer(player, containerItemID, fullType, count
 end
 
 local function createItem(fullType)
-    local ok
     local item
     if InventoryItemFactory and InventoryItemFactory.CreateItem then
-        ok, item = pcall(InventoryItemFactory.CreateItem, tostring(fullType))
-        if ok and item then return item end
+        item = InventoryItemFactory.CreateItem(tostring(fullType))
+        if item then return item end
     end
     if instanceItem then
-        ok, item = pcall(instanceItem, tostring(fullType))
-        if ok and item then return item end
+        item = instanceItem(tostring(fullType))
+        if item then return item end
     end
     return nil
 end
@@ -466,8 +465,7 @@ local function resolveFromInventory(inventory, itemID)
     if inventory and inventory.getItemById then
         local numericID = tonumber(itemID)
         if numericID then
-            local ok, result = pcall(inventory.getItemById, inventory, numericID)
-            if ok then item = result end
+            item = inventory:getItemById(numericID)
         end
     end
     return item or Transfer.FindByIDRecursive(inventory, itemID)
@@ -526,10 +524,10 @@ local function clearPlayerReferences(player, item)
         player:setSecondaryHandItem(nil)
     end
     if player.removeWornItem then
-        pcall(player.removeWornItem, player, item)
+        player:removeWornItem(item)
     end
     if player.removeAttachedItem then
-        pcall(player.removeAttachedItem, player, item)
+        player:removeAttachedItem(item)
     end
     -- The native attachment map and the InventoryItem attachment fields are
     -- separate pieces of state.  Removing the item from a player only clears

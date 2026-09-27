@@ -123,11 +123,15 @@ local function engineTraitFor(resource)
     if not CharacterTrait or not ResourceLocation or not ResourceLocation.of then
         return nil
     end
-    ok, location = pcall(ResourceLocation.of, resource)
-    if not ok or not location then return nil end
+    if type(resource) ~= "string" or resource == ""
+        or string.sub(resource, 1, 1) == ":"
+        or string.sub(resource, -1) == ":"
+    then
+        return nil
+    end
+    location = ResourceLocation.of(resource)
     if CharacterTrait.get then
-        ok, trait = pcall(CharacterTrait.get, location)
-        if not ok then trait = nil end
+        trait = CharacterTrait.get(location)
     end
     if not trait and CharacterTrait.register then
         ok, trait = pcall(CharacterTrait.register, resource)
@@ -155,8 +159,7 @@ function Traits.RegisterAll()
             and CharacterTraitDefinition.getCharacterTraitDefinition(trait)
             or nil
         if not existing then
-            ok, existing = pcall(
-                CharacterTraitDefinition.addCharacterTraitDefinition,
+            existing = CharacterTraitDefinition.addCharacterTraitDefinition(
                 trait,
                 spec.uiName,
                 spec.cost,
@@ -164,7 +167,7 @@ function Traits.RegisterAll()
                 false,
                 false
             )
-            if not ok or not existing then
+            if not existing then
                 return false, "definition_registration_failed:" .. id
             end
         end

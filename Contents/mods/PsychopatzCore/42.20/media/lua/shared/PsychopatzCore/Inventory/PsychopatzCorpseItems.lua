@@ -86,15 +86,14 @@ function CorpseItems.AddExisting(container, item)
     if not container.AddItem then
         return false, "container_add_unavailable"
     end
-    ok, added = pcall(container.AddItem, container, item)
-    if not ok or not added then
+    added = container:AddItem(item)
+    if not added then
         return false, "container_add_failed"
     end
     return true
 end
 
 function CorpseItems.Create(fullType)
-    local ok
     local item
     local manager
     local script
@@ -104,25 +103,25 @@ function CorpseItems.Create(fullType)
     end
     manager = getScriptManager and getScriptManager() or nil
     if manager and manager.FindItem then
-        ok, script = pcall(manager.FindItem, manager, fullType)
-        if not ok or not script then
+        script = manager:FindItem(fullType)
+        if not script then
             return nil
         end
     elseif manager and manager.getItem then
-        ok, script = pcall(manager.getItem, manager, fullType)
-        if not ok or not script then
+        script = manager:getItem(fullType)
+        if not script then
             return nil
         end
     end
     if instanceItem then
-        ok, item = pcall(instanceItem, fullType)
-        if ok and item then
+        item = instanceItem(fullType)
+        if item then
             return item
         end
     end
     if InventoryItemFactory and InventoryItemFactory.CreateItem then
-        ok, item = pcall(InventoryItemFactory.CreateItem, fullType)
-        if ok then
+        item = InventoryItemFactory.CreateItem(fullType)
+        if item then
             return item
         end
     end
@@ -137,17 +136,13 @@ function CorpseItems.ApplyState(item, spec)
         return false, "invalid_item_state"
     end
     if spec.customName ~= nil and item.setName then
-        pcall(item.setName, item, tostring(spec.customName))
+        item:setName(tostring(spec.customName))
     end
     if spec.condition ~= nil and item.setCondition then
-        pcall(
-            item.setCondition,
-            item,
-            math.max(0, math.floor(tonumber(spec.condition) or 0))
-        )
+        item:setCondition(math.max(0, math.floor(tonumber(spec.condition) or 0)))
     end
     if spec.uses ~= nil and item.setUses then
-        pcall(item.setUses, item, math.max(0, math.floor(tonumber(spec.uses) or 0)))
+        item:setUses(math.max(0, math.floor(tonumber(spec.uses) or 0)))
     end
     modData = item.getModData and item:getModData() or nil
     key = spec.key ~= nil and tostring(spec.key) or nil
@@ -178,10 +173,10 @@ function CorpseItems.SyncAddedItem(container, item)
     end
     if isServer and isServer() == true then
         if item and item.syncItemFields then
-            pcall(item.syncItemFields, item)
+            item:syncItemFields()
         end
         if item and item.transmitModData then
-            pcall(item.transmitModData, item)
+            item:transmitModData()
         end
         if sendAddItemToContainer then
             local ok = pcall(sendAddItemToContainer, container, item)

@@ -58,14 +58,14 @@ local function routeLayoutPointer(part, original, method, panel, x, y)
                 partCoordinate(part, panel, y, "y")
             )
             if result and panel.setCapture then
-                pcall(panel.setCapture, panel, true)
+                panel:setCapture(true)
             end
             part.layoutPointerPanel = panel
             return result
         end
         result = part[method](part, x, y)
         if method == "onMouseUp" or method == "onMouseUpOutside" then
-            if panel.setCapture then pcall(panel.setCapture, panel, false) end
+            if panel.setCapture then panel:setCapture(false) end
             if part.layoutPointerPanel == panel then
                 part.layoutPointerPanel = nil
             end
@@ -94,7 +94,7 @@ function ResizeGrip:onMouseDown(x, y)
     if not self.owner or not self.owner.editMode then return false end
     local accepted = self.owner:onMouseDown(self.x + x, self.y + y)
     if accepted and self.setCapture then
-        pcall(self.setCapture, self, true)
+        self:setCapture(true)
     end
     if accepted then self.owner.layoutPointerPanel = self end
     return accepted
@@ -113,7 +113,7 @@ end
 function ResizeGrip:onMouseUp(x, y)
     if not self.owner then return false end
     local accepted = self.owner:onMouseUp(self.x + x, self.y + y)
-    if self.setCapture then pcall(self.setCapture, self, false) end
+    if self.setCapture then self:setCapture(false) end
     if self.owner.layoutPointerPanel == self then
         self.owner.layoutPointerPanel = nil
     end
@@ -123,7 +123,7 @@ end
 function ResizeGrip:onMouseUpOutside(x, y)
     if not self.owner then return false end
     local accepted = self.owner:onMouseUpOutside(self.x + x, self.y + y)
-    if self.setCapture then pcall(self.setCapture, self, false) end
+    if self.setCapture then self:setCapture(false) end
     if self.owner.layoutPointerPanel == self then
         self.owner.layoutPointerPanel = nil
     end
@@ -241,8 +241,7 @@ function PsychopatzConversationPortrait:setEditMode(enabled)
     if not enabled and self.layoutPointerPanel
         and self.layoutPointerPanel.setCapture
     then
-        pcall(self.layoutPointerPanel.setCapture,
-            self.layoutPointerPanel, false)
+        self.layoutPointerPanel:setCapture(false)
         self.layoutPointerPanel = nil
     end
     PsychopatzConversationPart.setEditMode(self, enabled)

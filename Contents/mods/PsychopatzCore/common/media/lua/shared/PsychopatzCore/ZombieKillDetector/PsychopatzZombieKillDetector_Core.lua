@@ -111,8 +111,7 @@ local function isLocalPlayer(player)
         return false
     end
     if player.isLocalPlayer then
-        local ok, result = pcall(player.isLocalPlayer, player)
-        if ok and result == true then
+        if player:isLocalPlayer() then
             return true
         end
     end

@@ -9,16 +9,11 @@ function Adapter.nowMs()
     local now = 0
     local gameTimeReader = rawget(_G, "getGameTime")
     if type(gameTimeReader) == "function" then
-        local ok, gameTime = pcall(gameTimeReader)
-        if ok and gameTime ~= nil then
-            local methodOk, method = pcall(function()
-                return gameTime["getServerTimeMills"]
-            end)
-            if methodOk and type(method) == "function" then
-                local valueOk, value = pcall(method, gameTime)
-                if valueOk and type(value) == "number" and value > 0 then
-                    now = value
-                end
+        local gameTime = gameTimeReader()
+        if gameTime ~= nil and type(gameTime.getServerTimeMills) == "function" then
+            local value = gameTime:getServerTimeMills()
+            if type(value) == "number" and value > 0 then
+                now = value
             end
         end
     end

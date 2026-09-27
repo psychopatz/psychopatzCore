@@ -204,19 +204,18 @@ local function worldAgeHours()
     local getGameTime = rawget(_G, "getGameTime")
     local gameTimeClass = rawget(_G, "GameTime")
     local gameTime
-    local ok
     local value
     if type(getGameTime) == "function" then
-        ok, gameTime = pcall(getGameTime)
-        if ok and gameTime then
+        gameTime = getGameTime()
+        if gameTime then
             value = Util.call(gameTime, "getWorldAgeHours")
             value = finiteNumber(value)
             if value ~= nil then return value end
         end
     end
     if gameTimeClass and type(gameTimeClass.getInstance) == "function" then
-        ok, gameTime = pcall(gameTimeClass.getInstance)
-        if ok and gameTime then
+        gameTime = gameTimeClass.getInstance()
+        if gameTime then
             value = Util.call(gameTime, "getWorldAgeHours")
             value = finiteNumber(value)
             if value ~= nil then return value end
@@ -271,6 +270,9 @@ function Portable.CaptureFood(item)
     -- then use the capture time as the ledger's next aging checkpoint.
     now = worldAgeHours()
     if now ~= nil and type(item.updateAge) == "function" then
+        -- Food exposes updateAge(boolean), while the base item and container
+        -- variants expose updateAge() only. Keep this overload boundary
+        -- protected until the runtime type is known.
         pcall(item.updateAge, item, false)
     end
     for i = 1, #fields do

@@ -48,16 +48,16 @@ local function textureFromPath(path)
     local cached = PATH_CACHE[path]
     if cached ~= nil then return cached ~= false and cached or nil end
     if tryGetTexture then
-        local ok, texture = pcall(tryGetTexture, path)
-        texture = ok and isUsableTexture(texture) and texture or nil
+        local texture = tryGetTexture(path)
+        texture = isUsableTexture(texture) and texture or nil
         if texture then
             PATH_CACHE[path] = texture
             return texture
         end
     end
     if getTexture then
-        local ok, texture = pcall(getTexture, path)
-        texture = ok and isUsableTexture(texture) and texture or nil
+        local texture = getTexture(path)
+        texture = isUsableTexture(texture) and texture or nil
         if texture then
             PATH_CACHE[path] = texture
             return texture
@@ -132,13 +132,15 @@ end
 local function getScriptItem(fullType)
     local manager
     if type(getScriptManager) == "function" then
-        local ok, result = pcall(getScriptManager)
-        if ok then manager = result end
+        manager = getScriptManager()
     end
     if not manager and ScriptManager and ScriptManager.instance then
         manager = ScriptManager.instance
     end
-    return safeCall(manager, "getItem", fullType)
+    if manager and type(manager.getItem) == "function" then
+        return manager:getItem(fullType)
+    end
+    return nil
 end
 
 local function resolveScriptItemTexture(fullType)
@@ -169,12 +171,8 @@ local function createInventoryItem(fullType)
     local item
     local ok
     if InventoryItemFactory then
-        for _, creator in ipairs({ "CreateItem", "instanceItem" }) do
-            local method = InventoryItemFactory[creator]
-            if type(method) == "function" then
-                ok, item = pcall(method, fullType)
-                if ok and item then break end
-            end
+        if type(InventoryItemFactory.CreateItem) == "function" then
+            item = InventoryItemFactory.CreateItem(fullType)
         end
         if not item and InventoryItemFactory.instance then
             item = safeCall(InventoryItemFactory.instance, "CreateItem", fullType)

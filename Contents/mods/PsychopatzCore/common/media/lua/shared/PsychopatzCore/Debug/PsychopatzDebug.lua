@@ -8,14 +8,6 @@ Debug.COMMAND = Debug.COMMAND or "SetDebugAccess"
 Debug.localOverride = Debug.localOverride == true
 Debug.serverOverrides = Debug.serverOverrides or {}
 
-local function callBoolean(target, method)
-    if not target or type(target[method]) ~= "function" then
-        return false
-    end
-    local ok, value = pcall(target[method], target)
-    return ok and value == true
-end
-
 local function playerKey(player)
     if not player then return nil end
     local steamID = Core.GetSafeSteamID and Core.GetSafeSteamID(player) or "0"
@@ -29,20 +21,21 @@ end
 
 function Debug.IsEngineEnabled()
     if isDebugEnabled then
-        local ok, enabled = pcall(isDebugEnabled)
-        if ok and enabled == true then return true end
+        if isDebugEnabled() == true then return true end
     end
     if getCore then
-        local ok, gameCore = pcall(getCore)
-        if ok and callBoolean(gameCore, "getDebug") then return true end
+        local gameCore = getCore()
+        if gameCore and gameCore.getDebug and gameCore:getDebug() then
+            return true
+        end
     end
     return false
 end
 
 function Debug.IsAdmin(player)
     if not player or not player.getAccessLevel then return false end
-    local ok, access = pcall(player.getAccessLevel, player)
-    return ok and string.lower(tostring(access or "")) == "admin"
+    local access = player:getAccessLevel()
+    return string.lower(tostring(access or "")) == "admin"
 end
 
 function Debug.IsOwner(player)

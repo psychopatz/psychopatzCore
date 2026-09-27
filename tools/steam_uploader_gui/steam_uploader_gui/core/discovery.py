@@ -187,7 +187,7 @@ def _read_workshop_vdf_id(path: Path) -> int | None:
     return _positive_int(match.group(1)) if match else None
 
 
-def _workshop_identity(
+def resolve_workshop_identity(
     root: Path,
     cached_workshopid: int | None = None,
     auto_repair: bool = True,
@@ -228,7 +228,7 @@ def _workshop_identity(
             f"Replaced stale cached Workshop ID {cached_workshopid} with {workshopid} from {source}."
         )
 
-    if auto_repair and source != "workshop.txt:id":
+    if auto_repair and not conflicts and source != "workshop.txt:id":
         if _upsert_key(workshop_path, "id", str(workshopid), insert_after="version"):
             repairs.append(f"Repaired Workshop ID to {workshopid} from {source}.")
 
@@ -344,7 +344,7 @@ def discover_profiles(
 
         relative_key = root.relative_to(workshop_root).as_posix()
         title = metadata.get("title") or root.name
-        workshopid, workshopid_source, identity_conflicts, identity_repairs = _workshop_identity(
+        workshopid, workshopid_source, identity_conflicts, identity_repairs = resolve_workshop_identity(
             root,
             (cached_workshop_ids or {}).get(relative_key),
             auto_repair,

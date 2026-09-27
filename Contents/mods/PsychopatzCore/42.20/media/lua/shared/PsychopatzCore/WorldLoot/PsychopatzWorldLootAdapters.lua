@@ -152,17 +152,17 @@ end
 
 local function removeFloorObject(square, worldObject)
     if square and square.transmitRemoveItemFromSquare then
-        local ok = pcall(square.transmitRemoveItemFromSquare, square, worldObject)
-        if ok then return true end
+        square:transmitRemoveItemFromSquare(worldObject)
+        return true
     end
     if square and square.RemoveTileObject then
         local ok = pcall(square.RemoveTileObject, square, worldObject)
         if ok then return true end
     end
     if worldObject and worldObject.removeFromWorld then
-        pcall(worldObject.removeFromWorld, worldObject)
+        worldObject:removeFromWorld()
         if worldObject.removeFromSquare then
-            pcall(worldObject.removeFromSquare, worldObject)
+            worldObject:removeFromSquare()
         end
         return true
     end

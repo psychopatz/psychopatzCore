@@ -133,7 +133,7 @@ def selective_request_for(
 class StockSteamUploader:
     """Adapter for stock full uploads and the selective Rust update command."""
 
-    def __init__(self, executable: Path, logger: EventLogger):
+    def __init__(self, executable: Path | None, logger: EventLogger):
         self.executable = executable
         self.logger = logger
         self._selective_capability: bool | None = None
@@ -144,7 +144,7 @@ class StockSteamUploader:
 
         if self._selective_capability is not None:
             return self._selective_capability
-        if not self.executable.is_file():
+        if self.executable is None or not self.executable.is_file():
             self._selective_capability = False
             return False
         try:
@@ -180,6 +180,10 @@ class StockSteamUploader:
         )
 
     def upload(self, profile: ModProfile, selection: UpdateSelection) -> BackendResult:
+        if self.executable is None:
+            raise BackendError(
+                "SteamUploader executable is not configured. Choose it in Settings before uploading."
+            )
         if not self.executable.is_file():
             raise BackendError(f"SteamUploader executable not found: {self.executable}")
         if not selection.is_full_update and not self.selective_available:

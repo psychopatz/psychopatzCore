@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import queue
 import threading
+import time
 import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
@@ -14,7 +15,7 @@ from ..core.config import (
     default_database_path,
     default_log_dir,
     default_workshop_root,
-    first_existing_uploader,
+    resolve_uploader_path,
 )
 from ..core.discovery import discover_profiles
 from ..core.models import ModProfile, UpdateSelection
@@ -27,8 +28,10 @@ from ..services.uploader import (
     validate,
 )
 from ..services.workshop import (
+    WorkshopFetchResult,
+    WorkshopItemLookupError,
     WorkshopSyncResult,
-    fetch_workshop_item,
+    fetch_workshop_item_with_identity_repair,
     open_workshop_page,
     sync_workshop_metadata,
 )
@@ -39,6 +42,9 @@ from .settings_dialog import SettingsDialog
 from .state import UIStateStore
 from .theme import apply_theme
 from .widgets import CollapsibleSection, ScrollableFrame
+
+
+STEAM_METADATA_FRESHNESS_SECONDS = 60.0
 
 
 class WorkshopApplication(tk.Tk):
@@ -64,6 +70,11 @@ class WorkshopApplication(tk.Tk):
         self.profiles: dict[str, ModProfile] = {}
         self.current_key: str | None = None
         self._steam_fetching = False
+        self._steam_fetching_key: str | None = None
+        self._pending_steam_fetch: tuple[str, ModProfile, bool, bool] | None = None
+        self._verified_steam_metadata: dict[str, tuple[int, Path, float]] = {}
+        self._upload_waiting_for_steam: set[str] = set()
+        self._unavailable_workshop_ids: dict[str, tuple[int, str]] = {}
 
         self.current_mod_var = tk.StringVar(value="No mod selected")
         self.status_var = tk.StringVar(value="Ready")
@@ -191,6 +202,11 @@ class WorkshopApplication(tk.Tk):
                 for conflict in profile.identity_conflicts:
                     self.logger.emit("ERROR", "identity", conflict, mod=profile.name, key=profile.key)
             self.profiles[profile.key] = selected
+        self._unavailable_workshop_ids = {
+            key: failure
+            for key, failure in self._unavailable_workshop_ids.items()
+            if key in self.profiles and self.profiles[key].workshopid == failure[0]
+        }
         self.project_list.set_projects(
             (profile.key, f"{profile.name}  [{profile.key}]") for profile in self.profiles.values()
         )
@@ -206,7 +222,7 @@ class WorkshopApplication(tk.Tk):
 
     @staticmethod
     def _merge_discovered_profile(saved: ModProfile, discovered: ModProfile) -> ModProfile:
-        """Keep cached editor content while making disk identities authoritative."""
+        """Prefer current disk metadata over a possibly stale saved editor profile."""
 
         return ModProfile(
             key=discovered.key,
@@ -216,10 +232,10 @@ class WorkshopApplication(tk.Tk):
             workshopid=discovered.workshopid or saved.workshopid,
             content_path=discovered.content_path,
             preview_path=discovered.preview_path,
-            title=saved.title or discovered.title,
-            description=saved.description,
-            visibility=saved.visibility,
-            tags=list(saved.tags),
+            title=discovered.title,
+            description=discovered.description,
+            visibility=discovered.visibility,
+            tags=list(discovered.tags),
             workshopid_source=discovered.workshopid_source,
             mod_ids=list(discovered.mod_ids),
             identity_repairs=list(discovered.identity_repairs),
@@ -293,11 +309,16 @@ class WorkshopApplication(tk.Tk):
             for error in validation.errors:
                 self.logger.emit("ERROR", "validate", error)
             if validation.ok:
+                uploader_path = self._resolve_uploader_path()
                 if selection.is_full_update:
-                    capability = "full stock backend"
+                    capability = (
+                        "full stock backend"
+                        if uploader_path is not None
+                        else "SteamUploader executable not configured"
+                    )
                 else:
                     uploader = StockSteamUploader(
-                        Path(self.database.get_setting(SETTING_UPLOADER_PATH)).expanduser(),
+                        uploader_path,
                         self.logger,
                     )
                     capability = (
@@ -315,13 +336,46 @@ class WorkshopApplication(tk.Tk):
             self.status_var.set(str(exc))
             return None
 
+    def _has_fresh_steam_metadata(self, profile: ModProfile) -> bool:
+        verified = self._verified_steam_metadata.get(profile.key)
+        return bool(
+            verified
+            and verified[0] == profile.workshopid
+            and verified[1] == profile.mod_root
+            and time.monotonic() - verified[2] <= STEAM_METADATA_FRESHNESS_SECONDS
+        )
+
+    def _refresh_steam_metadata_for_upload(self, profile: ModProfile) -> None:
+        self._upload_waiting_for_steam.add(profile.key)
+        started = self._start_steam_fetch(
+            profile.key,
+            profile,
+            automatic=True,
+            force_refresh=True,
+        )
+        if not started:
+            self._upload_waiting_for_steam.discard(profile.key)
+            return
+        message = (
+            "Refreshing Steam metadata before upload. It will be saved locally; "
+            "review it and click Upload again after the fetch finishes."
+        )
+        self.status_var.set(message)
+        self.logger.emit(
+            "INFO",
+            "upload",
+            message,
+            mod=profile.name,
+            workshopid=profile.workshopid,
+        )
+
     def _dry_run(self) -> None:
         plan = self._validate_plan()
         if not plan:
             return
         profile, selection = plan
         uploader = StockSteamUploader(
-            Path(self.database.get_setting(SETTING_UPLOADER_PATH)).expanduser(),
+            self._resolve_uploader_path(),
             self.logger,
         )
         uploader.dry_run(profile, selection)
@@ -365,13 +419,28 @@ class WorkshopApplication(tk.Tk):
             messagebox.showerror("Fetch Steam data", str(exc), parent=self)
             return
 
-        self._start_steam_fetch(profile.key, profile, automatic=False)
+        self._start_steam_fetch(profile.key, profile, automatic=False, force_refresh=True)
 
-    def _start_steam_fetch(self, key: str, profile: ModProfile, *, automatic: bool) -> None:
+    def _start_steam_fetch(
+        self,
+        key: str,
+        profile: ModProfile,
+        *,
+        automatic: bool,
+        force_refresh: bool = False,
+    ) -> bool:
         if self._steam_fetching:
+            if key == self._steam_fetching_key:
+                self._pending_steam_fetch = None
+                if not automatic:
+                    self.status_var.set("A Steam metadata fetch is already running…")
+                return False
+            self._pending_steam_fetch = (key, profile, automatic, force_refresh)
             if not automatic:
-                self.status_var.set("A Steam metadata fetch is already running…")
-            return
+                self.status_var.set("A Steam metadata fetch is running; this request is queued…")
+            else:
+                self.status_var.set("A Steam metadata fetch is running; the selected project is queued…")
+            return True
         if profile.identity_conflicts:
             message = "Steam metadata sync skipped until identity conflicts are resolved."
             self.logger.emit("ERROR", "workshop", message, key=key, conflicts=profile.identity_conflicts)
@@ -379,7 +448,7 @@ class WorkshopApplication(tk.Tk):
                 messagebox.showerror("Fetch Steam data", message, parent=self)
             else:
                 self.status_var.set(message)
-            return
+            return False
         if profile.workshopid is None or profile.workshopid <= 0:
             message = "A valid Workshop ID is required to fetch Steam data."
             if not automatic:
@@ -387,10 +456,12 @@ class WorkshopApplication(tk.Tk):
                 messagebox.showerror("Fetch Steam data", message, parent=self)
             else:
                 self.status_var.set(message)
-            return
+            return False
 
         key = profile.key
+        self._verified_steam_metadata.pop(key, None)
         self._steam_fetching = True
+        self._steam_fetching_key = key
         self.fetch_steam_button.configure(state="disabled")
         action = "Syncing Steam metadata" if automatic else "Fetching Steam data"
         self.status_var.set(f"{action} for {profile.title} (up to 6 seconds)…")
@@ -399,47 +470,111 @@ class WorkshopApplication(tk.Tk):
         )
         thread = threading.Thread(
             target=self._fetch_worker,
-            args=(key, profile.workshopid, profile.mod_root),
+            args=(key, profile.workshopid, profile.mod_root, force_refresh),
             daemon=True,
         )
         thread.start()
+        return True
 
-    def _fetch_worker(self, key: str, workshopid: int | None, mod_root: Path) -> None:
+    def _fetch_worker(
+        self,
+        key: str,
+        workshopid: int | None,
+        mod_root: Path,
+        force_refresh: bool = False,
+    ) -> None:
         try:
             if workshopid is None:
                 raise BackendError("A valid Workshop ID is required to fetch Steam data.")
-            item = fetch_workshop_item(workshopid)
+            fetch_result = fetch_workshop_item_with_identity_repair(
+                workshopid,
+                mod_root,
+                force_refresh=force_refresh,
+            )
+            item = fetch_result.item
             previous_snapshot = self.database.load_workshop_sync(key)
             result = sync_workshop_metadata(mod_root, item, previous_snapshot)
             self.database.save_workshop_sync(key, result.remote, result.local_after)
-            self.events.put({"steam_sync": result, "profile_key": key})
+            event: dict[str, object] = {"steam_sync": result, "profile_key": key}
+            if fetch_result.identity_repair:
+                event["identity_recovery"] = fetch_result
+            self.events.put(event)
+        except WorkshopItemLookupError as exc:
+            self.logger.emit("ERROR", "workshop", str(exc), workshopid=workshopid)
+            self.events.put({
+                "steam_lookup_failed": {
+                    "profile_key": key,
+                    "workshopid": exc.workshopid,
+                    "error": str(exc),
+                },
+                "ui_status": "Steam could not verify this Workshop ID; upload is blocked until it is corrected.",
+            })
         except Exception as exc:
             self.logger.emit("ERROR", "workshop", str(exc), workshopid=workshopid)
             self.events.put({"ui_status": "Steam data fetch failed; see live log."})
         finally:
-            self.events.put({"steam_fetch_done": True})
+            self.events.put({"steam_fetch_done": True, "profile_key": key})
 
-    def _apply_sync_result(self, key: str, result: WorkshopSyncResult) -> None:
+    def _apply_sync_result(
+        self,
+        key: str,
+        result: WorkshopSyncResult,
+        identity_recovery: WorkshopFetchResult | None = None,
+    ) -> None:
         if key not in self.profiles:
             return
 
         profile = self.profiles[key]
+        self._unavailable_workshop_ids.pop(key, None)
+        if identity_recovery and identity_recovery.identity_repair:
+            profile.workshopid = result.item.published_file_id
+            profile.workshopid_source = identity_recovery.identity_source
+            profile.identity_conflicts = []
+            profile.identity_repairs = list(dict.fromkeys([
+                *profile.identity_repairs,
+                identity_recovery.identity_repair,
+            ]))
+            self.logger.emit(
+                "INFO",
+                "identity",
+                identity_recovery.identity_repair,
+                mod=profile.name,
+                workshopid=result.item.published_file_id,
+                source=identity_recovery.identity_source,
+            )
+            if (
+                key == self.current_key
+                and self.editor.workshopid_var.get().strip()
+                == str(identity_recovery.requested_workshopid)
+            ):
+                self.editor.apply_workshop_identity(
+                    result.item.published_file_id,
+                    identity_recovery.identity_source,
+                    identity_recovery.identity_repair,
+                )
         metadata = result.local_after
         profile.title = str(metadata.get("title") or "")
         profile.description = str(metadata.get("description") or "")
         profile.tags = [str(tag) for tag in (metadata.get("tags") or [])]
         visibility = metadata.get("visibility")
         profile.visibility = int(visibility) if visibility is not None else 2
-        if key == self.current_key and not self.editor.dirty:
+        if key == self.current_key:
+            editor_was_dirty = self.editor.dirty
             self.editor.apply_workshop_metadata(
                 profile.title,
                 profile.description,
                 profile.tags,
                 profile.visibility,
             )
-            self.editor.mark_clean()
-            self.profiles[key] = self.editor.collect_profile(profile)
+            if not editor_was_dirty:
+                self.editor.mark_clean()
+        self.profiles[key] = profile
         self.database.save_profile(profile)
+        self._verified_steam_metadata[key] = (
+            result.item.published_file_id,
+            profile.mod_root,
+            time.monotonic(),
+        )
         self.project_list.update_label(key, f"{profile.title or profile.name}  [{key}]")
         if key == self.current_key:
             self.current_mod_var.set(profile.title or profile.name)
@@ -476,6 +611,11 @@ class WorkshopApplication(tk.Tk):
             file_url=result.item.file_url,
         )
         if key == self.current_key:
+            if identity_recovery and identity_recovery.identity_repair:
+                status = f"{identity_recovery.identity_repair} {status}"
+            if key in self._upload_waiting_for_steam:
+                self._upload_waiting_for_steam.discard(key)
+                status = f"{status} Review the refreshed metadata, then click Upload again."
             self.status_var.set(status)
 
     def _upload(self) -> None:
@@ -483,9 +623,41 @@ class WorkshopApplication(tk.Tk):
         if not plan:
             return
         profile, selection = plan
+        if self._steam_fetching_key == profile.key:
+            message = "Wait for Steam to finish checking this Workshop ID before uploading."
+            self.status_var.set(message)
+            self.logger.emit("WARNING", "upload", message, workshopid=profile.workshopid)
+            return
+        if self._pending_steam_fetch and self._pending_steam_fetch[0] == profile.key:
+            message = "Wait for Steam to check this Workshop ID before uploading."
+            self.status_var.set(message)
+            self.logger.emit("WARNING", "upload", message, workshopid=profile.workshopid)
+            return
+        unavailable = self._unavailable_workshop_ids.get(profile.key)
+        if unavailable and unavailable[0] == profile.workshopid:
+            message = (
+                f"{unavailable[1]} Upload is blocked until the Workshop ID is corrected "
+                "in the project metadata or editor."
+            )
+            self.status_var.set("Workshop ID could not be verified; upload blocked.")
+            self.logger.emit("ERROR", "upload", message, workshopid=profile.workshopid)
+            messagebox.showerror("Workshop ID not found", message, parent=self)
+            return
+        uploader_path = self._resolve_uploader_path()
+        if uploader_path is None:
+            message = (
+                "SteamUploader executable was not found. Choose a valid executable "
+                "in Settings before uploading."
+            )
+            self.status_var.set(message)
+            self.logger.emit("ERROR", "upload", message)
+            messagebox.showerror("SteamUploader not configured", message, parent=self)
+            return
         if not self._confirm_identifier_change(profile.key):
             return
-        uploader_path = Path(self.database.get_setting(SETTING_UPLOADER_PATH)).expanduser()
+        if selection.updates_workshop_metadata and not self._has_fresh_steam_metadata(profile):
+            self._refresh_steam_metadata_for_upload(profile)
+            return
         uploader = StockSteamUploader(uploader_path, self.logger)
         if not selection.is_full_update:
             if not uploader.selective_available:
@@ -505,6 +677,9 @@ class WorkshopApplication(tk.Tk):
             parent=self,
         ):
             self.logger.emit("INFO", "upload", "User cancelled upload.")
+            return
+        if selection.updates_workshop_metadata and not self._has_fresh_steam_metadata(profile):
+            self._refresh_steam_metadata_for_upload(profile)
             return
         self.database.save_profile(profile)
         self.profiles[profile.key] = profile
@@ -539,18 +714,24 @@ class WorkshopApplication(tk.Tk):
             self.events.put({"ui_status": "Upload failed; see live log."})
 
     def _open_settings(self) -> None:
+        configured_uploader = self.database.get_setting(SETTING_UPLOADER_PATH, "").strip()
+        uploader_path = self._resolve_uploader_path()
         SettingsDialog(
             self,
             self.database,
             self.database.get_setting(SETTING_WORKSHOP_ROOT, str(default_workshop_root())),
-            self.database.get_setting(
-                SETTING_UPLOADER_PATH,
-                str(first_existing_uploader() or ""),
-            ),
+            str(uploader_path) if uploader_path is not None else configured_uploader,
             self.identifier_editing_enabled,
             self.dark_mode_enabled,
             self._settings_saved,
         )
+
+    def _resolve_uploader_path(self) -> Path | None:
+        configured = self.database.get_setting(SETTING_UPLOADER_PATH, "").strip()
+        resolved = resolve_uploader_path(configured)
+        if resolved is not None and str(resolved) != configured:
+            self.database.set_setting(SETTING_UPLOADER_PATH, str(resolved))
+        return resolved
 
     def _settings_saved(
         self,
@@ -589,10 +770,36 @@ class WorkshopApplication(tk.Tk):
                 self._apply_sync_result(
                     str(event.get("profile_key", "")),
                     event["steam_sync"],
+                    event.get("identity_recovery")
+                    if isinstance(event.get("identity_recovery"), WorkshopFetchResult)
+                    else None,
                 )
+            if "steam_lookup_failed" in event:
+                failure = event["steam_lookup_failed"]
+                if isinstance(failure, dict):
+                    key = str(failure.get("profile_key", ""))
+                    try:
+                        failed_id = int(failure.get("workshopid", 0))
+                    except (TypeError, ValueError):
+                        failed_id = 0
+                    if key and failed_id > 0:
+                        self._unavailable_workshop_ids[key] = (
+                            failed_id,
+                            str(failure.get("error", "Steam could not verify this Workshop ID.")),
+                        )
             if event.get("steam_fetch_done"):
-                self._steam_fetching = False
-                self.fetch_steam_button.configure(state="normal")
+                if event.get("profile_key") == self._steam_fetching_key:
+                    self._steam_fetching = False
+                    self._steam_fetching_key = None
+                    self.fetch_steam_button.configure(state="normal")
+                    pending = self._pending_steam_fetch
+                    self._pending_steam_fetch = None
+                    if pending and pending[0] == self.current_key and pending[0] in self.profiles:
+                        self._start_steam_fetch(
+                            pending[0],
+                            self.profiles[pending[0]],
+                            automatic=pending[2],
+                        )
             if "steam_sync" in event:
                 continue
             if event.get("steam_fetch_done"):

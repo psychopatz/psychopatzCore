@@ -53,12 +53,12 @@ end
 local function createItem(fullType)
     if not fullType or fullType == "" then return nil end
     if instanceItem then
-        local ok, item = pcall(instanceItem, fullType)
-        if ok and item then return item end
+        local item = instanceItem(fullType)
+        if item then return item end
     end
     if InventoryItemFactory and InventoryItemFactory.CreateItem then
-        local ok, item = pcall(InventoryItemFactory.CreateItem, fullType)
-        if ok and item then return item end
+        local item = InventoryItemFactory.CreateItem(fullType)
+        if item then return item end
     end
     return nil
 end
@@ -213,15 +213,13 @@ end
 local function applyColor(humanVisual, color)
     local immutable
     if not humanVisual or type(color) ~= "table" or not ImmutableColor then return end
-    local ok
-    ok, immutable = pcall(
-        ImmutableColor.new,
+    immutable = ImmutableColor.new(
         tonumber(color.r) or 0.2,
         tonumber(color.g) or 0.1,
         tonumber(color.b) or 0.1,
         tonumber(color.a) or 1
     )
-    if not ok or not immutable then return end
+    if not immutable then return end
     safeCall(humanVisual, "setHairColor", immutable)
     safeCall(humanVisual, "setBeardColor", immutable)
 end
@@ -231,31 +229,35 @@ local function applySkinColor(humanVisual, color)
     if not humanVisual or type(color) ~= "table" or not ImmutableColor then
         return
     end
-    local ok
-    ok, immutable = pcall(
-        ImmutableColor.new,
+    immutable = ImmutableColor.new(
         tonumber(color.r) or 0.2,
         tonumber(color.g) or 0.1,
         tonumber(color.b) or 0.1,
         tonumber(color.a) or 1
     )
-    if ok and immutable then
+    if immutable then
         safeCall(humanVisual, "setSkinColor", immutable)
     end
 end
 
 local function resolveBodyLocation(location)
-    local ok
     local resource
     local resolved
-    if location == nil or tostring(location) == "" then return nil end
+    local raw = tostring(location or "")
+    local separator
+    if raw == "" then return nil end
     if ItemBodyLocation and ItemBodyLocation.get
         and ResourceLocation and ResourceLocation.of
     then
-        ok, resource = pcall(ResourceLocation.of, tostring(location))
-        if not ok or not resource then return nil end
-        ok, resolved = pcall(ItemBodyLocation.get, resource)
-        return ok and resolved or nil
+        -- ResourceLocation.of throws only for an empty identifier, namespace,
+        -- or path. Reject those inputs before calling the concrete API.
+        separator = string.find(raw, ":", 1, true)
+        if separator and (separator == 1 or separator == #raw) then
+            return nil
+        end
+        resource = ResourceLocation.of(raw)
+        resolved = ItemBodyLocation.get(resource)
+        return resolved
     end
     -- Compatibility fallback for older builds where WornItems accepted the
     -- legacy string location directly.
@@ -286,8 +288,8 @@ local function addWornItem(wornItems, fullType, explicitLocation, visualState)
     location = resolveBodyLocation(location)
     if not location then return false end
     if wornItems.setItem then
-        local ok = pcall(wornItems.setItem, wornItems, location, item)
-        return ok
+        wornItems:setItem(location, item)
+        return true
     end
     return false
 end
@@ -425,7 +427,7 @@ function PsychopatzPortraitPanel:ensureModelView()
     -- normal human avatar set. Descriptor-backed survivor portraits use this
     -- to avoid inheriting the slouched zombie posture.
     if self.animSetName then
-        pcall(function() self.modelView:setAnimSetName(self.animSetName) end)
+        self.modelView:setAnimSetName(self.animSetName)
     end
     self:applyViewState()
     self:applyModelVisibility(self.contentOpacity)
@@ -454,37 +456,37 @@ function PsychopatzPortraitPanel:applyViewState()
     local model = self.modelView
     if not model or not model.javaObject then return end
     model.animateEnabled = self.animate ~= false
-    pcall(function() model:setState(self.stateName or "idle") end)
-    pcall(function() model:setDirection(self.direction or (IsoDirections and IsoDirections.S)) end)
-    pcall(function() model:setIsometric(self.isometric == true) end)
-    pcall(function() model:setDoRandomExtAnimations(false) end)
-    pcall(function() model:setZoom(tonumber(self.zoom) or 14) end)
-    pcall(function() model:setXOffset(tonumber(self.xOffset) or 0) end)
-    pcall(function() model:setYOffset(tonumber(self.yOffset) or -0.85) end)
+    model:setState(self.stateName or "idle")
+    model:setDirection(self.direction or (IsoDirections and IsoDirections.S))
+    model:setIsometric(self.isometric == true)
+    model:setDoRandomExtAnimations(false)
+    model:setZoom(tonumber(self.zoom) or 14)
+    model:setXOffset(tonumber(self.xOffset) or 0)
+    model:setYOffset(tonumber(self.yOffset) or -0.85)
     if self.portraitAnimationEnabled then
         self:applyAnimationVariables()
     else
-        pcall(function() model:setVariable("bMoving", "false") end)
-        pcall(function() model:setVariable("isMoving", "false") end)
-        pcall(function() model:setVariable("Speed", "0.0") end)
-        pcall(function() model:setVariable("MovementSpeed", "0.0") end)
+        model:setVariable("bMoving", "false")
+        model:setVariable("isMoving", "false")
+        model:setVariable("Speed", "0.0")
+        model:setVariable("MovementSpeed", "0.0")
     end
-    pcall(function() model.javaObject:setAnimate(self.animate ~= false) end)
+    model.javaObject:setAnimate(self.animate ~= false)
 end
 
 function PsychopatzPortraitPanel:applyAnimationVariables(state)
     local model = self.modelView
     if not model or not model.javaObject then return end
     state = tostring(state or self.portraitAnimationState or "idle")
-    pcall(function() model:setVariable("PNCPortrait", "true") end)
-    pcall(function() model:setVariable("PNCPortraitState", state) end)
-    pcall(function() model:setVariable("bMoving", "false") end)
-    pcall(function() model:setVariable("isMoving", "false") end)
-    pcall(function() model:setVariable("Speed", "0.0") end)
-    pcall(function() model:setVariable("MovementSpeed", "0.0") end)
-    pcall(function() model:setVariable("WalkSpeed", "0.0") end)
-    pcall(function() model:setVariable("RunSpeed", "0.0") end)
-    pcall(function() model:setState("idle") end)
+    model:setVariable("PNCPortrait", "true")
+    model:setVariable("PNCPortraitState", state)
+    model:setVariable("bMoving", "false")
+    model:setVariable("isMoving", "false")
+    model:setVariable("Speed", "0.0")
+    model:setVariable("MovementSpeed", "0.0")
+    model:setVariable("WalkSpeed", "0.0")
+    model:setVariable("RunSpeed", "0.0")
+    model:setState("idle")
 end
 
 function PsychopatzPortraitPanel:setScreenVariant(variant)
@@ -575,19 +577,19 @@ function PsychopatzPortraitPanel:setTarget(character, spec, force)
     local model = self:ensureModelView()
     if not model then return false end
     if model.javaObject and model.javaObject.clearVariables then
-        pcall(model.javaObject.clearVariables, model.javaObject)
+        model.javaObject:clearVariables()
     end
     if not descriptorFirst and isRenderableCharacter(character) then
-        pcall(function() model:setCharacter(character) end)
+        model:setCharacter(character)
         self.targetMode = "character"
     else
         descriptor = buildDescriptor(spec)
         if descriptor then
-            pcall(function() model:setCharacter(nil) end)
-            pcall(function() model:setSurvivorDesc(descriptor) end)
+            model:setCharacter(nil)
+            model:setSurvivorDesc(descriptor)
             self.targetMode = "descriptor"
         elseif spec.outfit then
-            pcall(function() model:setOutfitName(spec.outfit, spec.isFemale == true, false) end)
+            model:setOutfitName(spec.outfit, spec.isFemale == true, false)
             self.targetMode = "outfit"
         else
             return false
@@ -622,12 +624,10 @@ function PsychopatzPortraitPanel:prerender()
     then
         local phase = (current - (self.speechPulseStartedAt or current)) / 90
         local offset = (tonumber(self.yOffset) or -0.85) + math.sin(phase) * 0.025
-        pcall(function() self.modelView:setYOffset(offset) end)
+        self.modelView:setYOffset(offset)
     elseif self.modelView and self.speechPulseUntil then
         self.speechPulseUntil = nil
-        pcall(function()
-            self.modelView:setYOffset(tonumber(self.yOffset) or -0.85)
-        end)
+        self.modelView:setYOffset(tonumber(self.yOffset) or -0.85)
     end
     ISPanel.prerender(self)
     if self.showBackground then

@@ -65,6 +65,10 @@ class UpdateSelection:
     def is_full_update(self) -> bool:
         return len(self.fields) == 6
 
+    @property
+    def updates_workshop_metadata(self) -> bool:
+        return self.title or self.description or self.tags or self.visibility
+
 
 @dataclass
 class ValidationResult:

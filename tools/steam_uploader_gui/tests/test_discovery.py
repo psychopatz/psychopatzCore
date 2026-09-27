@@ -100,6 +100,23 @@ class DiscoveryTests(unittest.TestCase):
             self.assertEqual(profile.workshopid, 123)
             self.assertTrue(any("sources disagree" in conflict for conflict in profile.identity_conflicts))
 
+    def test_conflicting_workshop_sources_are_not_repaired_automatically(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            mod = root / "AnyMod"
+            (mod / "Contents").mkdir(parents=True)
+            workshop = mod / "workshop.txt"
+            workshop.write_text("workshopid=123\n", encoding="utf-8")
+            (mod / "workshop_update.vdf").write_text(
+                '"publishedfileid" "456"\n',
+                encoding="utf-8",
+            )
+
+            profile = discover_profiles(root)[0]
+
+            self.assertTrue(profile.identity_conflicts)
+            self.assertEqual(workshop.read_text(encoding="utf-8"), "workshopid=123\n")
+
 
 if __name__ == "__main__":
     unittest.main()

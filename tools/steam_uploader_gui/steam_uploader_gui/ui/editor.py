@@ -235,6 +235,7 @@ class ModEditor(ttk.Frame):
             self.update_visibility_var,
         ):
             variable.trace_add("write", self._persist_selection_from_variable)
+        self.update_description_var.trace_add("write", self._expand_description_for_update)
         self.preview_var_path.trace_add("write", self._preview_path_changed)
         self.description_editor.source.bind("<KeyRelease>", self._mark_dirty_from_event, add="+")
         self.description_editor.source.bind("<<Paste>>", self._mark_dirty_from_event, add="+")
@@ -263,6 +264,12 @@ class ModEditor(ttk.Frame):
     def _persist_selection_from_event(self, _event: object = None) -> None:
         if not self._loading and self._on_update_selection_changed:
             self._on_update_selection_changed()
+
+    def _expand_description_for_update(self, *_args: object) -> None:
+        if self.update_description_var.get():
+            section = self.sections.get("description")
+            if section is not None and not section.expanded:
+                section.set_expanded(True)
 
     def _preview_path_changed(self, *_args: object) -> None:
         if not self._loading:
@@ -352,6 +359,7 @@ class ModEditor(ttk.Frame):
             ("visibility", self.update_visibility_var),
         ):
             variable.set(bool(values.get(name, True)))
+        self._expand_description_for_update()
         self.change_note_editor.set_source(str(values.get("change_note", "")))
         self._loading = False
 
@@ -426,3 +434,18 @@ class ModEditor(ttk.Frame):
         self.description_editor.set_source(description)
         self._loading = False
         self._dirty = True
+
+    def apply_workshop_identity(
+        self,
+        workshopid: int,
+        source: str,
+        repair_message: str,
+    ) -> None:
+        """Update a Steam-verified Workshop ID without dirtying metadata edits."""
+
+        self._loading = True
+        self.workshopid_var.set(str(workshopid))
+        self.identity_status_var.set(
+            f"Auto-repaired: {repair_message} (source: {source})"
+        )
+        self._loading = False
