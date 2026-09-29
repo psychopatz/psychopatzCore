@@ -50,15 +50,18 @@ local function safeCall(target, methodName, ...)
     return ok, result
 end
 
+-- Engine instantiation crosses PZ's Kahlua Java bridge, which can raise a raw
+-- Java exception instead of returning nil. Keep both engine calls guarded so a
+-- bad descriptor degrades to "no portrait item" instead of breaking the panel.
 local function createItem(fullType)
     if not fullType or fullType == "" then return nil end
-    if instanceItem then
-        local item = instanceItem(fullType)
-        if item then return item end
+    if type(instanceItem) == "function" then
+        local ok, item = pcall(instanceItem, fullType)
+        if ok and item then return item end
     end
-    if InventoryItemFactory and InventoryItemFactory.CreateItem then
-        local item = InventoryItemFactory.CreateItem(fullType)
-        if item then return item end
+    if InventoryItemFactory and type(InventoryItemFactory.CreateItem) == "function" then
+        local ok, item = pcall(InventoryItemFactory.CreateItem, fullType)
+        if ok and item then return item end
     end
     return nil
 end

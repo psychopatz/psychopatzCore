@@ -316,4 +316,57 @@ equal(fallbackDecoded:getFullType(), "Base.Apple",
 InventoryItemFactory = nil
 instanceItem = nil
 
+-- The engine's Kahlua Java bridge can raise a raw Java exception instead of
+-- returning nil (NullPointerException in ReturnValues.put on a reused
+-- reflection-pool entry). A raising engine factory must degrade to a decode
+-- reason, never propagate into the caller's materialization pass.
+local bridgeRecord = Inventory.encodeItem(makeItem("Base.Apple", {
+    food = true, condition = 10,
+}))
+truthy(bridgeRecord, "raising-bridge encode")
+local raisingBridge = function() error("engine bridge failure") end
+InventoryItemFactory = { CreateItem = raisingBridge }
+instanceItem = raisingBridge
+local guardedItem, guardedReason = Inventory.decodeItem(bridgeRecord)
+equal(guardedItem, nil, "raising engine factory must not yield an item")
+equal(guardedReason, "item_type_unavailable", "raising engine factory reason")
+
+-- A guarded failure must still fall through to the next engine path.
+InventoryItemFactory = { CreateItem = raisingBridge }
+instanceItem = factory
+local recoveredItem = Inventory.decodeItem(bridgeRecord)
+truthy(recoveredItem, "guarded failure must fall through to instanceItem")
+equal(recoveredItem:getFullType(), "Base.Apple", "guarded fallback type")
+InventoryItemFactory = nil
+instanceItem = nil
+
+-- A type the script manager cannot resolve must never reach the engine:
+-- CreateItem carries eight overloads, and a bridged call that fails overload
+-- resolution corrupts Kahlua's shared MethodArguments pool, which then breaks
+-- unrelated Java calls (item creation) later in the same session.
+local engineCalls = 0
+local countingFactory = function(fullType)
+    engineCalls = engineCalls + 1
+    return factory(fullType)
+end
+getScriptManager = function() return { FindItem = function() return nil end } end
+InventoryItemFactory = { CreateItem = countingFactory }
+instanceItem = countingFactory
+local absentItem, absentReason = Inventory.decodeItem(bridgeRecord)
+equal(absentItem, nil, "type absent from scripts must not decode")
+equal(absentReason, "item_type_unavailable", "type absent from scripts reason")
+equal(engineCalls, 0, "engine must not be called for a type absent in scripts")
+
+-- The same record must still materialize while its script does exist.
+getScriptManager = function()
+    return { FindItem = function() return { fullType = "Base.Apple" } end }
+end
+local presentItem = Inventory.decodeItem(bridgeRecord)
+truthy(presentItem, "type present in scripts must still materialize")
+equal(presentItem:getFullType(), "Base.Apple", "script-present decode type")
+truthy(engineCalls > 0, "engine must be called for a type present in scripts")
+getScriptManager = nil
+InventoryItemFactory = nil
+instanceItem = nil
+
 print("psychopatz_inventory_framework_smoke: PASS")

@@ -172,7 +172,11 @@ local function createInventoryItem(fullType)
     local ok
     if InventoryItemFactory then
         if type(InventoryItemFactory.CreateItem) == "function" then
-            item = InventoryItemFactory.CreateItem(fullType)
+            -- The engine's Kahlua Java bridge can raise a raw Java exception
+            -- instead of returning nil, so this probe stays guarded.
+            local created
+            ok, created = pcall(InventoryItemFactory.CreateItem, fullType)
+            if ok then item = created end
         end
         if not item and InventoryItemFactory.instance then
             item = safeCall(InventoryItemFactory.instance, "CreateItem", fullType)

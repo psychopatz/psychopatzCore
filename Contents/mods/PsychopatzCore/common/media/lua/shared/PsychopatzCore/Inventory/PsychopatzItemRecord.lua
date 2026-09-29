@@ -83,30 +83,69 @@ function ItemRecord.encode(item, quantity)
     return record
 end
 
+-- A type whose script no longer exists is knowable without touching the engine.
+-- Asking anyway is not free: InventoryItemFactory.CreateItem has eight
+-- overloads, so a lookup that fails overload resolution inside PZ's Kahlua
+-- bridge corrupts the shared MethodArguments pool (MultiLuaJavaInvoker pools an
+-- already-released argument set), and unrelated bridged calls then fail with a
+-- raw Java NullPointerException. Detect the missing script first, and keep the
+-- remaining engine calls pcall-guarded as a containment boundary for engine
+-- faults this module cannot predict.
+local UNAVAILABLE_TYPES = {}
+
+local function reportUnavailableType(fullType, reason)
+    Metrics.increment("unavailableItemTypes")
+    if UNAVAILABLE_TYPES[fullType] then return end
+    UNAVAILABLE_TYPES[fullType] = true
+    Util.log("WARN", "item_type_unavailable fullType=" .. tostring(fullType)
+        .. " reason=" .. tostring(reason))
+end
+
+-- Returns true/false when the script manager can answer, and nil when this
+-- authority path has no script manager at all (headless tests, early load).
+local function scriptMissing(fullType)
+    local manager = getScriptManager and getScriptManager() or nil
+    local ok
+    local script
+    if not manager then return nil end
+    if type(manager.FindItem) == "function" then
+        ok, script = pcall(manager.FindItem, manager, fullType)
+    elseif type(manager.getItem) == "function" then
+        ok, script = pcall(manager.getItem, manager, fullType)
+    else
+        return nil
+    end
+    if not ok then return nil end
+    return script == nil
+end
+
 local function createItem(fullType, factory)
     local ok
     local item
+    local missing
     if type(factory) == "function" then
         ok, item = pcall(factory, fullType)
         if ok and item then return item end
     end
-    if InventoryItemFactory then
-        if InventoryItemFactory.CreateItem then
-            item = InventoryItemFactory.CreateItem(fullType)
-            if item then return item end
-        end
-        if InventoryItemFactory.instanceItem then
-            ok, item = pcall(InventoryItemFactory.instanceItem, fullType)
-            if ok and item then return item end
-        end
+    missing = scriptMissing(fullType)
+    if missing == true then
+        reportUnavailableType(fullType, "missing_script")
+        return nil
+    end
+    if InventoryItemFactory
+        and type(InventoryItemFactory.CreateItem) == "function"
+    then
+        ok, item = pcall(InventoryItemFactory.CreateItem, fullType)
+        if ok and item then return item end
     end
     -- Build 42 exposes instanceItem as a global on some authority paths where
     -- InventoryItemFactory.CreateItem exists but returns nil. Keep all compact
     -- inventory materialization behind this single compatibility boundary.
-    if instanceItem then
-        item = instanceItem(fullType)
-        if item then return item end
+    if type(instanceItem) == "function" then
+        ok, item = pcall(instanceItem, fullType)
+        if ok and item then return item end
     end
+    reportUnavailableType(fullType, "engine_create_failed")
     return nil
 end
 

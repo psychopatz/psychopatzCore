@@ -373,15 +373,20 @@ function Transfer.GiveToPlayerContainer(player, containerItemID, fullType, count
     return Transfer.AddToContainer(container, fullType, count, state)
 end
 
+-- Engine instantiation goes through PZ's Kahlua Java bridge, which can raise a
+-- raw Java exception instead of returning nil. Keep every engine call guarded
+-- so a single bad type reports a failure instead of breaking the transfer.
 local function createItem(fullType)
     local item
+    local ok
+    local fullTypeName = tostring(fullType)
     if InventoryItemFactory and InventoryItemFactory.CreateItem then
-        item = InventoryItemFactory.CreateItem(tostring(fullType))
-        if item then return item end
+        ok, item = pcall(InventoryItemFactory.CreateItem, fullTypeName)
+        if ok and item then return item end
     end
-    if instanceItem then
-        item = instanceItem(tostring(fullType))
-        if item then return item end
+    if type(instanceItem) == "function" then
+        ok, item = pcall(instanceItem, fullTypeName)
+        if ok and item then return item end
     end
     return nil
 end

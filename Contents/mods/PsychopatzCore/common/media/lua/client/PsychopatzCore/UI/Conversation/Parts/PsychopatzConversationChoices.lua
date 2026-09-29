@@ -232,6 +232,45 @@ function PsychopatzConversationChoices:render()
         self:drawRect(self.width - 8, thumbY, 4, thumbH,
             contentAlpha * 0.88, accent.r, accent.g, accent.b)
     end
+    self:updateChoiceTooltip()
+end
+
+-- A disabled entry can explain why it is disabled: the reason shows on hover
+-- instead of the row silently doing nothing. Follows the shared list-tooltip
+-- pattern (an ISToolTip owned by the drawing panel, repositioned on hover).
+function PsychopatzConversationChoices:updateChoiceTooltip()
+    local hovered = self.hoveredChoice and self.choices
+        and self.choices[self.hoveredChoice] or nil
+    local text
+    if hovered and hovered.enabled == false
+        and type(hovered.tooltip) == "string"
+        and hovered.tooltip ~= ""
+    then
+        text = hovered.tooltip
+    end
+    if not text or not ISToolTip then
+        if self.choiceTooltip and self.choiceTooltip.getIsVisible
+            and self.choiceTooltip:getIsVisible()
+        then
+            self.choiceTooltip:setVisible(false)
+            self.choiceTooltip:removeFromUIManager()
+        end
+        return
+    end
+    if not self.choiceTooltip then
+        self.choiceTooltip = ISToolTip:new()
+        self.choiceTooltip:setOwner(self)
+        self.choiceTooltip:setVisible(false)
+        self.choiceTooltip:setAlwaysOnTop(true)
+        self.choiceTooltip.maxLineWidth = 1000
+    end
+    if not self.choiceTooltip:getIsVisible() then
+        self.choiceTooltip:addToUIManager()
+        self.choiceTooltip:setVisible(true)
+    end
+    self.choiceTooltip.description = text
+    self.choiceTooltip:setX(self:getMouseX() + 23)
+    self.choiceTooltip:setY(self:getMouseY() + 23)
 end
 
 function PsychopatzConversationChoices:onMouseMove(dx, dy)

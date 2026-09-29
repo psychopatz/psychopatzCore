@@ -260,6 +260,9 @@ function Session:setChoices(choices)
                 onHighlightChanged = choice.onHighlightChanged,
                 log = choice.log ~= false,
                 enabled = evaluate(choice.enabled, self.context, choice, self) ~= false,
+                -- A disabled entry may explain itself on hover, for example
+                -- "Requires Dynamic Trading mod".
+                tooltip = choice.tooltip,
                 source = choice,
             }
         end

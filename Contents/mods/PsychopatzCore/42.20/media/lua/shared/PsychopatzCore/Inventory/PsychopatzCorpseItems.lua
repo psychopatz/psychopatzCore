@@ -95,33 +95,38 @@ end
 
 function CorpseItems.Create(fullType)
     local item
+    local ok
     local manager
     local script
     fullType = tostring(fullType or "")
     if fullType == "" then
         return nil
     end
+    -- Script lookup and item instantiation both cross PZ's Kahlua Java bridge,
+    -- which can raise a raw Java exception instead of returning nil. Keep every
+    -- engine call guarded so a bad descriptor reports a failure instead of
+    -- breaking corpse restoration.
     manager = getScriptManager and getScriptManager() or nil
     if manager and manager.FindItem then
-        script = manager:FindItem(fullType)
-        if not script then
+        ok, script = pcall(manager.FindItem, manager, fullType)
+        if not ok or not script then
             return nil
         end
     elseif manager and manager.getItem then
-        script = manager:getItem(fullType)
-        if not script then
+        ok, script = pcall(manager.getItem, manager, fullType)
+        if not ok or not script then
             return nil
         end
     end
-    if instanceItem then
-        item = instanceItem(fullType)
-        if item then
+    if type(instanceItem) == "function" then
+        ok, item = pcall(instanceItem, fullType)
+        if ok and item then
             return item
         end
     end
     if InventoryItemFactory and InventoryItemFactory.CreateItem then
-        item = InventoryItemFactory.CreateItem(fullType)
-        if item then
+        ok, item = pcall(InventoryItemFactory.CreateItem, fullType)
+        if ok and item then
             return item
         end
     end
