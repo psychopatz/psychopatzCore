@@ -17,7 +17,9 @@ Semantics.FuzzyMatcher = Fuzzy
 Fuzzy.VERSION = 1
 Fuzzy.MIN_LENGTH = 4
 Fuzzy.MAX_DISTANCE = 2
-Fuzzy.MAX_SCAN = 128
+-- Keep fuzzy recognition bounded, but large enough to cover the current
+-- one-token vocabulary without making the result depend on registration order.
+Fuzzy.MAX_SCAN = 512
 Fuzzy.Revision = -1
 Fuzzy.Aliases = {}
 Fuzzy.ByTokenCount = {}

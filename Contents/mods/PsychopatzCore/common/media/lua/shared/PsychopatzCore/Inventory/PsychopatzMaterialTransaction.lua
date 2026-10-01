@@ -111,6 +111,28 @@ local function rollback(receipts)
     return ok
 end
 
+-- Consume is deliberately one-way: the receipts it returns are the only handle
+-- that can undo a committed removal. Server-side callers must keep those
+-- receipts until the operation they funded is durably accepted, then drop
+-- them. This entry point restores the exact removed instances and notifies
+-- each source so clients can resynchronize.
+function MaterialTransaction.Rollback(receipts)
+    if type(receipts) ~= "table" or #receipts == 0 then return true end
+    local ok = rollback(receipts)
+    local notified = {}
+    for _, receipt in ipairs(receipts) do
+        local source = receipt.source
+        if source and not notified[source] then
+            notified[source] = true
+            if type(source.onRolledBack) == "function" then
+                local called = pcall(source.onRolledBack, source, receipts)
+                if called ~= true then ok = false end
+            end
+        end
+    end
+    return ok
+end
+
 function MaterialTransaction.Consume(recipe, sources, options)
     local ordered = orderedSources(sources)
     local byId = {}

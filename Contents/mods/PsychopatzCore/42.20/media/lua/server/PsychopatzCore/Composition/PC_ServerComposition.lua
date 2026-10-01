@@ -17,6 +17,11 @@ if not isServer then
     return Composition
 end
 
+-- Early-loading vanilla compatibility guards.  These only register handlers, so
+-- they must run at mod load time: MapObjects matches sprites before any game
+-- event fires, and chunk loading starts long before OnGameStart.
+require "PsychopatzCore/Compatibility/PsychopatzFeedingTroughGuard"
+
 local Bootstrap = require "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"
 
 local function startProfilerServer()
