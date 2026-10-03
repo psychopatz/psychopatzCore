@@ -41,6 +41,16 @@ local function screenVariantFor(spec)
     return variant or "subtle"
 end
 
+local Internal = {
+    Conversation = Conversation,
+    Layout = Layout,
+    Theme = Theme,
+    OpacityControl = OpacityControl,
+    buttonLabel = buttonLabel,
+    screenVariantFor = screenVariantFor,
+}
+PsychopatzConversationView.Internal = Internal
+
 function PsychopatzConversationView:initialise()
     ISPanel.initialise(self)
     self.background = false
@@ -50,233 +60,19 @@ end
 function PsychopatzConversationView:createChildren()
     ISPanel.createChildren(self)
     local accent = Theme.Resolve(self.spec)
-    local portrait = Layout.Resolve("portrait", self.width, self.height)
-    local history = Layout.Resolve("history", self.width, self.height)
-    local choices = Layout.Resolve("choices", self.width, self.height)
-    self.portraitPart = PsychopatzConversationPortrait:new(
-        portrait.x, portrait.y, portrait.width, portrait.height,
-        {
-            owner = self,
-            character = self.spec.character,
-            portraitSpec = self.spec.portrait,
-            backgroundID = self.spec.backgroundID,
-            screenVariant = screenVariantFor(self.spec),
-            editLabel = { key = "UI_PsychopatzConversation_Portrait", fallback = "Portrait" },
-        }
-    )
-    self.portraitPart:initialise()
-    self.portraitPart:instantiate()
-    self:addChild(self.portraitPart)
-
-    self.historyPart = PsychopatzConversationChat:new(
-        history.x, history.y, history.width, history.height,
-        {
-            owner = self,
-            editLabel = { key = "UI_PsychopatzConversation_History", fallback = "Conversation history" },
-        }
-    )
-    self.historyPart:initialise()
-    self.historyPart:instantiate()
-    self:addChild(self.historyPart)
-
-    self.choicesPart = PsychopatzConversationChoices:new(
-        choices.x, choices.y, choices.width, choices.height,
-        {
-            owner = self,
-            editLabel = { key = "UI_PsychopatzConversation_Choices", fallback = "Choices" },
-        }
-    )
-    self.choicesPart:initialise()
-    self.choicesPart:instantiate()
-    self:addChild(self.choicesPart)
-
-    self.extensionParts = {}
-    for _, definition in ipairs(self.spec.extensionParts or {}) do
-        local partID = definition and definition.partID
-        local factory = definition and definition.factory
-        if type(partID) == "string" and partID ~= ""
-            and type(factory) == "function"
-        then
-            local bounds = Layout.Resolve(
-                partID,
-                self.width,
-                self.height
-            )
-            local part = factory(bounds, {
-                owner = self,
-                definition = definition,
-                spec = self.spec,
-            })
-            if part then
-                part:initialise()
-                part:instantiate()
-                part:setVisible(definition.visible ~= false)
-                self:addChild(part)
-                self.extensionParts[partID] = part
-            end
-        end
-    end
-
-    self.closeButton = ISButton:new(
-        self.width - 42, 10, 32, 28,
-        buttonLabel("UI_PsychopatzConversation_Close", "X"),
-        self,
-        PsychopatzConversationView.onCloseButton
-    )
-    self.closeButton:initialise()
-    self.closeButton:instantiate()
-    self.closeButton:setAnchorLeft(false)
-    self.closeButton:setAnchorRight(true)
-    self.closeButton.backgroundColor = { r = 0.14, g = 0.05, b = 0.04, a = 0.88 }
-    self.closeButton.backgroundColorMouseOver = { r = 0.42, g = 0.08, b = 0.05, a = 0.95 }
-    self.closeButton.borderColor = { r = 0.92, g = 0.38, b = 0.26, a = 0.8 }
-    self:addChild(self.closeButton)
-
-    self.layoutButton = ISButton:new(
-        self.width - 170, 10, 120, 28,
-        buttonLabel("UI_PsychopatzConversation_EditLayout", "Edit layout"),
-        self,
-        PsychopatzConversationView.toggleEditMode
-    )
-    self.layoutButton:initialise()
-    self.layoutButton:instantiate()
-    self.layoutButton:setAnchorLeft(false)
-    self.layoutButton:setAnchorRight(true)
-    self.layoutButton.backgroundColor = {
-        r = accent.r * 0.16,
-        g = accent.g * 0.16,
-        b = accent.b * 0.16,
-        a = 0.88,
-    }
-    self.layoutButton.backgroundColorMouseOver = {
-        r = accent.r * 0.34,
-        g = accent.g * 0.34,
-        b = accent.b * 0.34,
-        a = 0.95,
-    }
-    self.layoutButton.borderColor = {
-        r = accent.r,
-        g = accent.g,
-        b = accent.b,
-        a = 0.78,
-    }
-    self.layoutButton:setVisible(
-        self.editMode or Conversation.Settings.Get("showEditorButton", true) == true
-    )
-    self:addChild(self.layoutButton)
-
-    self.resetLayoutButton = ISButton:new(
-        self.width - 320, 10, 140, 28,
-        buttonLabel(
-            "UI_PsychopatzConversation_ResetLayout",
-            "RESET TO DEFAULT"
-        ),
-        self,
-        PsychopatzConversationView.onResetLayoutButton
-    )
-    self.resetLayoutButton:initialise()
-    self.resetLayoutButton:instantiate()
-    self.resetLayoutButton:setAnchorLeft(false)
-    self.resetLayoutButton:setAnchorRight(true)
-    self.resetLayoutButton.backgroundColor = {
-        r = 0.20,
-        g = 0.10,
-        b = 0.04,
-        a = 0.88,
-    }
-    self.resetLayoutButton.backgroundColorMouseOver = {
-        r = 0.42,
-        g = 0.20,
-        b = 0.06,
-        a = 0.95,
-    }
-    self.resetLayoutButton.borderColor = {
-        r = 0.95,
-        g = 0.58,
-        b = 0.22,
-        a = 0.82,
-    }
-    self.resetLayoutButton:setVisible(self.editMode == true)
-    self:addChild(self.resetLayoutButton)
-
-    self.crtDebugButton = ISButton:new(
-        self.width - 470, 10, 140, 28,
-        buttonLabel(
-            "UI_PsychopatzConversation_DebugCRT_Off",
-            "CRT DEBUG: OFF"
-        ),
-        self,
-        PsychopatzConversationView.onCRTDebugButton
-    )
-    self.crtDebugButton:initialise()
-    self.crtDebugButton:instantiate()
-    self.crtDebugButton:setAnchorLeft(false)
-    self.crtDebugButton:setAnchorRight(true)
-    self.crtDebugButton.backgroundColor = {
-        r = 0.18,
-        g = 0.08,
-        b = 0.28,
-        a = 0.88,
-    }
-    self.crtDebugButton.backgroundColorMouseOver = {
-        r = 0.38,
-        g = 0.16,
-        b = 0.52,
-        a = 0.95,
-    }
-    self.crtDebugButton.borderColor = {
-        r = 0.78,
-        g = 0.38,
-        b = 0.92,
-        a = 0.82,
-    }
-    self:addChild(self.crtDebugButton)
+    Internal.buildParts(self)
+    Internal.buildControls(self, accent)
     self:refreshCRTDebugButton()
     self:attachOpacityControls()
     self:refreshOpacityControls()
 end
 
 function PsychopatzConversationView:attachOpacityControls()
-    if not OpacityControl then return end
-    local parts = {
-        self.portraitPart,
-        self.historyPart,
-        self.choicesPart,
-    }
-    for _, part in pairs(self.extensionParts or {}) do
-        parts[#parts + 1] = part
-    end
-    for _, part in ipairs(parts) do
-        if part and part.attachOpacityControl then
-            part:attachOpacityControl(self)
-        end
-    end
+    Internal.attachOpacityControls(self)
 end
 
 function PsychopatzConversationView:refreshOpacityControls()
-    local parts = {
-        self.portraitPart,
-        self.historyPart,
-        self.choicesPart,
-    }
-    for _, part in pairs(self.extensionParts or {}) do
-        parts[#parts + 1] = part
-    end
-    for _, part in ipairs(parts) do
-        if part then
-            if part.positionOpacityControl then
-                part:positionOpacityControl()
-            end
-            if part.refreshOpacityControlVisibility then
-                part:refreshOpacityControlVisibility()
-            end
-            if part.opacityControl and part.opacityControl.parent == self
-                and part.opacityControl.bringToTop
-            then
-                part.opacityControl:bringToTop()
-            end
-        end
-    end
+    Internal.refreshOpacityControls(self)
 end
 
 function PsychopatzConversationView:onCloseButton()
@@ -559,5 +355,8 @@ function PsychopatzConversationView:new(spec)
     o.closeReason = nil
     return o
 end
+
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationView_Parts"
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationView_Controls"
 
 return PsychopatzConversationView

@@ -67,7 +67,8 @@ function Inventory.virtualize(container, options)
     if not physical then return nil, reason end
     local store = Virtual.new(options)
     local iterator = physical:iterate()
-    while true do
+    local recordCount = physical:getRecordCount()
+    for _ = 1, recordCount do
         local item = iterator()
         if not item then break end
         local record

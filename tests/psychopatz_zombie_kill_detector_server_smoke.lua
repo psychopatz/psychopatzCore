@@ -117,6 +117,19 @@ assert(accepted == true and reason == "accepted",
     "server accepts the validated core report")
 assert(serverKills == 3, "server report callback emitted")
 
+local mismatched, mismatchReason = handlers.command(
+    "PsychopatzCore",
+    "ZombieKillReport",
+    player,
+    {
+        zombieOnlineID = 43,
+        bodyInstanceID = 100,
+        killerOnlineID = 999,
+    }
+)
+assert(mismatched == false and mismatchReason == "killer_mismatch",
+    "server preserves sender identity validation")
+
 local duplicate, duplicateReason = handlers.command(
     "PsychopatzCore",
     "ZombieKillReport",

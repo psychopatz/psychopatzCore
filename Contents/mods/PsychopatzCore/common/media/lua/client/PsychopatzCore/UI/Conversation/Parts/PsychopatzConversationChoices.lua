@@ -43,6 +43,11 @@ local function notifyHighlight(choice, highlighted)
     choice.onHighlightChanged(choice, highlighted == true)
 end
 
+local Internal = {
+    fontHeight = fontHeight,
+}
+PsychopatzConversationChoices.Internal = Internal
+
 function PsychopatzConversationChoices:setHoveredChoice(index)
     if index == self.hoveredChoice then return false end
     local previous = self.hoveredChoice and self.choices
@@ -112,7 +117,6 @@ function PsychopatzConversationChoices:render()
     if self.reveal <= 0 then return end
     local contentAlpha = self:getContentOpacity()
     local accent = self:getAccentColor()
-    local index
     local headerHeight = self.headerHeight or 24
     self:setStencilRect(
         2,
@@ -120,121 +124,11 @@ function PsychopatzConversationChoices:render()
         self.width - 5,
         self.height - headerHeight - 5
     )
-    for index = 1, #self.choices do
-        local choice = self.choices[index]
-        local layout = self.choiceLayout[index]
-        local y = layout.y - (self.maximumScroll - (self.scrollOffset or 0))
-        local enabled = choice.enabled ~= false
-            and self.owner
-            and self.owner:isConversationInteractive()
-        local hovered = index == self.hoveredChoice
-        local left = self.padding
-        local width = self.width - self.padding * 2
-        if y + layout.height >= headerHeight and y <= self.height then
-        self:drawRect(
-            left + 3,
-            y + 3,
-            width,
-            layout.height,
-            contentAlpha * 0.34,
-            0,
-            0,
-            0
-        )
-        self:drawRect(
-            left,
-            y,
-            width,
-            layout.height,
-            contentAlpha * (hovered and 0.9 or 0.63),
-            enabled and accent.r * (hovered and 0.30 or 0.15) or 0.10,
-            enabled and accent.g * (hovered and 0.30 or 0.15) or 0.10,
-            enabled and accent.b * (hovered and 0.30 or 0.15) or 0.10
-        )
-        self:drawRectBorder(
-            left,
-            y,
-            width,
-            layout.height,
-            contentAlpha * (enabled and (hovered and 0.95 or 0.52) or 0.22),
-            enabled and accent.r or 0.40,
-            enabled and accent.g or 0.40,
-            enabled and accent.b or 0.40
-        )
-        self:drawRect(
-            left,
-            y,
-            hovered and 5 or 2,
-            layout.height,
-            contentAlpha * (enabled and 0.92 or 0.24),
-            accent.r,
-            accent.g,
-            accent.b
-        )
-        local badgeSize = 24
-        local badgeX = left + 9
-        local badgeY = y + math.floor((layout.height - badgeSize) / 2)
-        self:drawRect(badgeX, badgeY, badgeSize, badgeSize,
-            contentAlpha * (hovered and 0.72 or 0.30),
-            accent.r * 0.30,
-            accent.g * 0.30,
-            accent.b * 0.30)
-        self:drawRectBorder(badgeX, badgeY, badgeSize, badgeSize,
-            contentAlpha * (enabled and 0.75 or 0.25),
-            accent.r, accent.g, accent.b)
-        self:drawTextCentre(
-            tostring(index),
-            badgeX + badgeSize / 2,
-            badgeY + 4,
-            enabled and math.min(1, accent.r + 0.28) or 0.45,
-            enabled and math.min(1, accent.g + 0.28) or 0.45,
-            enabled and math.min(1, accent.b + 0.28) or 0.45,
-            contentAlpha,
-            UIFont.Small
-        )
-        if hovered and enabled then
-            self:drawText(
-                ">",
-                left + width - 18,
-                y + math.floor((layout.height - fontHeight()) / 2),
-                math.min(1, accent.r + 0.25),
-                math.min(1, accent.g + 0.25),
-                math.min(1, accent.b + 0.25),
-                contentAlpha,
-                UIFont.Small
-            )
-        end
-        local lineIndex
-        for lineIndex = 1, #layout.lines do
-            self:drawText(
-                layout.lines[lineIndex],
-                left + 42,
-                y + 8 + (lineIndex - 1) * fontHeight(),
-                enabled and 0.92 or 0.48,
-                enabled and 0.96 or 0.48,
-                enabled and 0.90 or 0.48,
-                contentAlpha,
-                UIFont.Small
-            )
-        end
-        end
-    end
+    Internal.renderChoices(self, contentAlpha, accent, headerHeight)
     self:clearStencilRect()
-    if self.maximumScroll > 0 then
-        local trackY = headerHeight + 7
-        local trackH = math.max(18, self.height - trackY - 8)
-        local viewportH = math.max(1, self.height - headerHeight)
-        local thumbH = math.max(18, trackH * (viewportH / self.contentHeight))
-        local thumbY = trackY + (trackH - thumbH)
-            * (1 - ((self.scrollOffset or 0) / self.maximumScroll))
-        self:drawRect(self.width - 7, trackY, 2, trackH,
-            contentAlpha * 0.18, accent.r, accent.g, accent.b)
-        self:drawRect(self.width - 8, thumbY, 4, thumbH,
-            contentAlpha * 0.88, accent.r, accent.g, accent.b)
-    end
+    Internal.renderScrollbar(self, contentAlpha, accent, headerHeight)
     self:updateChoiceTooltip()
 end
-
 -- A disabled entry can explain why it is disabled: the reason shows on hover
 -- instead of the row silently doing nothing. Follows the shared list-tooltip
 -- pattern (an ISToolTip owned by the drawing panel, repositioned on hover).
@@ -337,5 +231,7 @@ function PsychopatzConversationChoices:new(x, y, width, height, options)
     o.layoutDirty = true
     return o
 end
+
+require "PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChoices_Renderer"
 
 return PsychopatzConversationChoices

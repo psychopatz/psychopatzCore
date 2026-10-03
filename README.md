@@ -8,6 +8,22 @@ Reusable client-local preview/debug framework: [docs/preview-framework.md](docs/
 
 Shared Project Zomboid Build 42 library for Psychopatz mods.
 
+## Refactor smoke test
+
+After splitting Lua modules, run the private-helper binding smoke test from
+the repository root. It checks both `common` and the newest numeric runtime
+tree:
+
+```bash
+python3 tests/refactor_binding_smoke.py
+python3 tests/refactor_binding_smoke.py --all
+```
+
+The default scan checks changed Lua files and the full scan checks every Core
+Lua file. A finding means a file is resolving a sibling file's private local
+helper through `_ENV`; move the helper to a shared module or make the
+dependency explicit.
+
 The opt-in, generic performance profiler is documented in
 [`docs/profiler.md`](docs/profiler.md). It defaults to OFF and loads no metric
 backend, callbacks, histories, GUI, networking, or snapshot activity in normal

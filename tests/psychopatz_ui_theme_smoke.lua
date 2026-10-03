@@ -1,5 +1,6 @@
-local ROOT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
-    .. "PsychopatzCore/UI/Core/"
+local CLIENT_ROOT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
+local ROOT = CLIENT_ROOT .. "PsychopatzCore/UI/Core/"
+package.path = CLIENT_ROOT .. "?.lua;" .. ROOT .. "?.lua;" .. package.path
 
 local function equal(actual, expected, label)
     if actual ~= expected then
@@ -9,7 +10,9 @@ local function equal(actual, expected, label)
 end
 
 PsychopatzCore = { UI = {} }
+local coreBootstrapCalls = 0
 package.preload["PsychopatzCore/00_PsychopatzCore_Init"] = function()
+    coreBootstrapCalls = coreBootstrapCalls + 1
     return true
 end
 local values = {}
@@ -25,6 +28,8 @@ package.preload["PsychopatzCore/Settings/PsychopatzSettings"] = function()
     return PsychopatzCore.Settings
 end
 local Theme = dofile(ROOT .. "PsychopatzUITheme.lua")
+
+equal(coreBootstrapCalls, 0, "theme must not bootstrap shared Core")
 
 equal(Theme.GetPresetID(), "cyan", "default theme preset")
 local revision = Theme.GetRevision()

@@ -59,7 +59,7 @@ local function containsToken(text, token)
     token = string.lower(tostring(token or ""))
     if text == "" or token == "" then return false end
     local start = 1
-    while true do
+    while start <= #text do
         local position = string.find(text, token, start, true)
         if not position then return false end
         local before = position > 1

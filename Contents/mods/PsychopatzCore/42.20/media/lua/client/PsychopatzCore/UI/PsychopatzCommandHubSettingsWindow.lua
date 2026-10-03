@@ -65,137 +65,24 @@ end
 ISPsychopatzCommandHubSettingsWindow = PsychopatzWindow:derive(
     "ISPsychopatzCommandHubSettingsWindow")
 
+local Internal = {
+    tr = tr,
+    label = label,
+    branchTitle = branchTitle,
+    opacityText = opacityText,
+    liftText = liftText,
+    controlScaleText = controlScaleText,
+    themeTitle = themeTitle,
+}
+ISPsychopatzCommandHubSettingsWindow.Internal = Internal
+
 function ISPsychopatzCommandHubSettingsWindow:initialise()
     PsychopatzWindow.initialise(self)
     Options.ApplyOpacity(self)
 end
 
 function ISPsychopatzCommandHubSettingsWindow:createChildren()
-    PsychopatzWindow.createChildren(self)
-    self.fields = {}
-    local opacityRow = UI.CreateFormRow(self, {
-        id = "command-hub-setting-row:opacity",
-        label = tr("UI_PsychopatzCore_CommandHub_Settings_Opacity", "Opacity"),
-        valueLabel = true,
-        valueText = opacityText(Options.GetOpacityPercent()),
-        createControl = function(parent)
-            return UI.CreateSlider(parent, {
-                id = "psychopatz-command-hub-opacity",
-                target = self,
-                min = 10,
-                max = 100,
-                step = 1,
-                value = Options.GetOpacityPercent(),
-                onChange = function(_, value)
-                    if self.opacityValue then
-                        UI.SetLabelText(self.opacityValue, opacityText(value))
-                    end
-                end,
-            })
-        end,
-    })
-    self.opacityRow = opacityRow
-    self.opacityLabel = opacityRow.label
-    self.opacitySlider = opacityRow.control
-    self.opacityValue = opacityRow.valueLabel
-    local function createLiftField(id, labelKey, fallback, value)
-        local row
-        row = UI.CreateFormRow(self, {
-            id = id,
-            label = tr(labelKey, fallback),
-            valueLabel = true,
-            valueText = liftText(value),
-            createControl = function(parent)
-                return UI.CreateSlider(parent, {
-                    id = id .. ":slider",
-                    target = self,
-                    min = 0,
-                    max = 25,
-                    step = 1,
-                    value = value,
-                    onChange = function(_, nextValue)
-                        UI.SetLabelText(row.valueLabel, liftText(nextValue))
-                    end,
-                })
-            end,
-        })
-        return row
-    end
-    self.surfaceLiftRow = createLiftField(
-        "command-hub-setting-row:surface-lift",
-        "UI_PsychopatzCore_CommandHub_Settings_SurfaceLift",
-        "Surface opacity lift", Options.GetSurfaceOpacityLift() * 100)
-    self.detailLiftRow = createLiftField(
-        "command-hub-setting-row:detail-lift",
-        "UI_PsychopatzCore_CommandHub_Settings_DetailLift",
-        "Detail opacity lift", Options.GetDetailOpacityLift() * 100)
-    local titlebarScaleRow
-    titlebarScaleRow = UI.CreateFormRow(self, {
-        id = "command-hub-setting-row:titlebar-scale",
-        label = tr("UI_PsychopatzCore_CommandHub_Settings_TitlebarScale",
-            "Title-bar control size"),
-        valueLabel = true,
-        valueText = controlScaleText(
-            Options.GetTitlebarControlScale() * 100),
-        createControl = function(parent)
-            return UI.CreateSlider(parent, {
-                id = "psychopatz-command-hub-titlebar-scale",
-                target = self,
-                min = 50,
-                max = 125,
-                step = 1,
-                value = Options.GetTitlebarControlScale() * 100,
-                onChange = function(_, value)
-                    UI.SetLabelText(titlebarScaleRow.valueLabel,
-                        controlScaleText(value))
-                end,
-            })
-        end,
-    })
-    self.titlebarScaleRow = titlebarScaleRow
-    self.helpLabel = label(self,
-        tr("UI_PsychopatzCore_CommandHub_Settings_Help",
-            "Adjust opacity, child surface lifts, title-bar controls, theme, and panel side here."),
-        Theme.colors.textMuted)
-    self.themeButton = UI.CreateButton(self, {
-        id = "theme", title = themeTitle(), target = self,
-        onclick = function() return self:onThemeCycle() end,
-        variant = "quiet",
-    })
-    self.branchButton = UI.CreateButton(self, {
-        id = "branch", title = branchTitle(), target = self,
-        onclick = function() return self:onBranchToggle() end,
-        variant = "quiet",
-    })
-    self.statusLabel = label(self, "", Theme.colors.textMuted)
-    self.resetButton = UI.CreateButton(self, {
-        id = "reset",
-        title = tr("UI_PsychopatzCore_CommandHub_Settings_Reset", "RESET"),
-        target = self, onclick = function() return self:onReset() end,
-        variant = "quiet",
-    })
-    self.closeButton = UI.CreateButton(self, {
-        id = "close",
-        title = tr("UI_PsychopatzCore_CommandHub_Settings_Close", "CLOSE"),
-        target = self, onclick = function() return self:close() end,
-        variant = "quiet",
-    })
-    self.applyButton = UI.CreateButton(self, {
-        id = "apply",
-        title = tr("UI_PsychopatzCore_CommandHub_Settings_Apply", "APPLY"),
-        target = self, onclick = function() return self:onApply() end,
-        variant = "primary",
-    })
-
-    self:populate()
-    self:requestResponsiveLayout(true)
-    UI.WidgetWindow.Install(self, {
-        id = "psychopatzcore-command-hub-settings-widget",
-        onDetachedChanged = function()
-            local hub = UI.CommandHub
-            if hub and hub.Sync then hub.Sync() end
-        end,
-    })
+    Internal.createChildren(self)
 end
 
 function ISPsychopatzCommandHubSettingsWindow:setStatus(value)
@@ -389,5 +276,7 @@ function ISPsychopatzCommandHubSettingsWindow:new(x, y, width, height, options)
     self.__index = self
     return object
 end
+
+require "PsychopatzCore/UI/PsychopatzCommandHubSettingsWindow_Controls"
 
 return ISPsychopatzCommandHubSettingsWindow

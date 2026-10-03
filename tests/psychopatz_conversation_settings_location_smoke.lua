@@ -1,6 +1,9 @@
 local FILE =
     "Contents/mods/PsychopatzCore/common/media/lua/client/"
     .. "PsychopatzCore/UI/Conversation/PsychopatzConversationSettings.lua"
+local UI_FILE =
+    "Contents/mods/PsychopatzCore/common/media/lua/client/"
+    .. "PsychopatzCore/UI/Conversation/PsychopatzConversationSettings_UI.lua"
 
 local function assertEqual(actual, expected, label)
     if actual ~= expected then
@@ -48,6 +51,8 @@ package.preload["PsychopatzCore/UI/PsychopatzDebugHubWindow"] =
     function() return PsychopatzCore.DebugHub end
 package.preload["PsychopatzCore/UI/PsychopatzSettingsWindow"] =
     function() return PsychopatzCore.InGameSettings end
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationSettings_UI"] =
+    function() return dofile(UI_FILE) end
 
 getText = function(key)
     local values = {

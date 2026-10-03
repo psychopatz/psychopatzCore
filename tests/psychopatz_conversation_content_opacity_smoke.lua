@@ -1,5 +1,7 @@
 local ROOT =
     "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/"
+package.path = "Contents/mods/PsychopatzCore/common/media/lua/client/?.lua;"
+    .. package.path
 
 local Part = {}
 Part.__index = Part

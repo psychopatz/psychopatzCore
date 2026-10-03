@@ -2,6 +2,7 @@ local SETTINGS_ROOT =
     "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/Settings/"
 local CONVERSATION_ROOT =
     "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/"
+local SETTINGS_UI_FILE = CONVERSATION_ROOT .. "PsychopatzConversationSettings_UI.lua"
 
 local function assertEqual(actual, expected, label)
     if actual ~= expected then
@@ -49,6 +50,8 @@ package.preload["PsychopatzCore/UI/PsychopatzDebugHubWindow"] =
     function() return true end
 package.preload["PsychopatzCore/UI/PsychopatzSettingsWindow"] =
     function() return true end
+package.preload["PsychopatzCore/UI/Conversation/PsychopatzConversationSettings_UI"] =
+    function() return dofile(SETTINGS_UI_FILE) end
 package.preload["PsychopatzCore/UI/Core/PsychopatzUILayout"] =
     function() return true end
 
