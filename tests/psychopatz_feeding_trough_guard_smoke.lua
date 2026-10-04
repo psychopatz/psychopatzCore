@@ -6,8 +6,8 @@
       1. The MapObjects callback only *claims* the sprite. It must never touch
          ``transmitRemoveItemFromSquare``, because the Java->Lua callback frame
          reserves no return slot and the call cannot marshal its int result.
-      2. The deferred pass performs the square surgery exactly once and leaves
-         a valid trough behind.
+      2. The deferred pass performs the square surgery exactly once through a
+         protected Java call and leaves a valid trough behind.
 ]]
 
 local function equal(actual, expected, message)
@@ -185,9 +185,23 @@ equal(#troughInstances, 0, "callback must not create the trough")
 
 -- --- the deferred pump performs the surgery ---------------------------------
 
+local originalPcall = pcall
+local protectedRemovalCalls = 0
+local removalMethod = square.transmitRemoveItemFromSquare
+pcall = function(fn, ...)
+    if fn == removalMethod then
+        protectedRemovalCalls = protectedRemovalCalls + 1
+    end
+    return originalPcall(fn, ...)
+end
+
 tickCallback()
 
+pcall = originalPcall
+
 equal(#transmitted, 1, "pump must transmit the removal exactly once")
+equal(protectedRemovalCalls, 1,
+    "pump must invoke the return-valued Java removal through pcall")
 equal(transmitted[1].target, object, "pump must remove the claimed object")
 equal(transmitted[1].safely, false, "pump must keep vanilla's safelyRemove flag")
 equal(#troughInstances, 1, "pump must create one trough")

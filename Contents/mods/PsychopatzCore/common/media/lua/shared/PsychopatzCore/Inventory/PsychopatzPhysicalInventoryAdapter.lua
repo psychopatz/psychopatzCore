@@ -3,6 +3,11 @@ local Util = require "PsychopatzCore/Inventory/PsychopatzInventoryUtil"
 local Types = require "PsychopatzCore/Inventory/PsychopatzItemTypeRegistry"
 local ItemRecord = require "PsychopatzCore/Inventory/PsychopatzItemRecord"
 local Metrics = require "PsychopatzCore/Inventory/PsychopatzInventoryMetrics"
+local InitialCurrency = PsychopatzCore and PsychopatzCore.Currency or nil
+
+local function currencyService()
+    return PsychopatzCore and PsychopatzCore.Currency or InitialCurrency
+end
 
 local Physical = {}
 Physical.__index = Physical
@@ -117,6 +122,35 @@ end
 function Physical:add(value, quantity)
     quantity = math.max(1, math.floor(tonumber(quantity) or (type(value) == "table" and value[C.QUANTITY]) or 1))
     local added = {}
+    local currency = currencyService()
+    local fullType
+    if type(value) == "table" then
+        fullType = value.fullType
+        if not fullType and tonumber(value[C.TYPE_ID])
+            and PsychopatzCore and PsychopatzCore.Inventory
+            and PsychopatzCore.Inventory.getItemFullType
+        then
+            fullType = PsychopatzCore.Inventory.getItemFullType(
+                value[C.TYPE_ID])
+        end
+    end
+    if currency and currency.IsType(fullType) and quantity > 1
+        and not (type(value) == "table" and value.getFullType)
+    then
+        local item, reason = ItemRecord.decode(value, 1)
+        if not item then return false, reason end
+        local setter = item.setCount
+        local setOK = type(setter) == "function"
+            and pcall(setter, item, quantity)
+        if setOK then
+            local result = self:_nativeAdd(item)
+            if result then
+                added[1] = result
+                self.revision = self.revision + 1
+                return true, added
+            end
+        end
+    end
     if type(value) == "table" and (value.getFullType or value.fullType) and not tonumber(value[C.TYPE_ID]) then
         local result = self:_nativeAdd(value)
         if not result then return false, "physical_add_failed" end
@@ -138,6 +172,37 @@ function Physical:add(value, quantity)
     end
     self.revision = self.revision + 1
     return true, added
+end
+
+function Physical:countCurrency()
+    local currency = currencyService()
+    if not currency or type(currency.Snapshot) ~= "function" then return 0 end
+    local snapshot = currency.Snapshot(self.container, {
+        recursive = self.options.recursive == true,
+    })
+    return snapshot.units
+end
+
+function Physical:containsCurrency(quantity)
+    return self:countCurrency()
+        >= math.max(1, math.floor(tonumber(quantity) or 1))
+end
+
+function Physical:removeCurrency(quantity)
+    local currency = currencyService()
+    if not currency or type(currency.RemoveUnits) ~= "function" then
+        return false, "currency_service_unavailable"
+    end
+    local ok, reason, details = currency.RemoveUnits(
+        self.container,
+        quantity,
+        { recursive = self.options.recursive == true }
+    )
+    if not ok then return false, reason end
+    self.revision = self.revision + 1
+    details = details or {}
+    details.currency = true
+    return true, details
 end
 
 function Physical:_nativeRemove(item)
@@ -182,6 +247,11 @@ function Physical:remove(query, quantity)
 end
 
 function Physical:restoreRemoved(removed)
+    if type(removed) == "table" and removed.currency
+        and type(removed.restore) == "function"
+    then
+        return removed.restore() == true
+    end
     if type(removed) == "table" and type(removed.physicalItems) == "table" then
         for i = 1, #removed.physicalItems do
             if not self:_nativeAddTo(removed.physicalContainers

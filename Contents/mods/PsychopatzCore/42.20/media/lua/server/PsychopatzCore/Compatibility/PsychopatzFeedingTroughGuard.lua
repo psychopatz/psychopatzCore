@@ -22,11 +22,11 @@
     thrown`` at MOFeedingTrough.lua:21 and aborts the whole replacement, so the
     trough never materialises and the chunk load keeps erroring.
 
-    The same call is harmless from ordinary game-event frames (see
-    ``MOHutch.lua`` and ``MORainCollectorBarrel.lua``), which use the identical
-    two/three-argument form.  This guard therefore keeps vanilla's replacement
-    logic but runs the square surgery one tick later, from :func:`Events.OnTick`
-    where return values marshal normally.
+    Deferring the surgery alone is not sufficient: ``Events.OnTick`` is also
+    dispatched through a void callback frame.  The deferred pass must invoke
+    the value-returning Java method as the function passed to ``pcall`` so
+    Kahlua has a return frame for the integer result.  Wrapping only the outer
+    Lua replacement function is insufficient.
 
     Contract:
       * Only the value-returning square mutation is deferred; sprite matching
@@ -179,7 +179,18 @@ local function replaceTrough(isoObject, isNorth)
         end
     end
 
-    square:transmitRemoveItemFromSquare(isoObject, false)
+    -- This Java method returns an int.  Pass the bound method directly to
+    -- pcall so Kahlua owns a return frame even though flush() runs from the
+    -- void Events.OnTick callback.
+    local removed = pcall(
+        square.transmitRemoveItemFromSquare,
+        square,
+        isoObject,
+        false
+    )
+    if not removed then
+        return false, "remove_failed"
+    end
 
     local trough = IsoFeedingTrough.new(square, name, nil)
     if not trough then return false, "create_failed" end

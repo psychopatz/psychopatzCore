@@ -8,6 +8,7 @@ PsychopatzCore.DebugSettingsWindow = PsychopatzCore.DebugSettingsWindow or {}
 local Controller = PsychopatzCore.DebugSettingsWindow
 local Debug = PsychopatzCore.Debug
 local Translation = PsychopatzCore.Translation
+local UI = PsychopatzCore.UI
 local SETTINGS_ID = "PsychopatzCore.DebugSettings"
 
 local function tr(key, fallback)
@@ -79,8 +80,16 @@ local function statusText()
 end
 
 function Controller.UpdateStatus(window, message)
-    local row = window and window.rows and window.rows[1]
-    if row and row.label then row.label:setName(message or statusText()) end
+    local row = window and window.statusRow
+        or (window and window.rows and window.rows[1])
+    if row and row.label then
+        local value = message or statusText()
+        if UI and UI.SetLabelText then
+            UI.SetLabelText(row.label, value)
+        else
+            row.label:setName(value)
+        end
+    end
 end
 
 local function saveSetting(definition, enabled)
@@ -174,6 +183,7 @@ local function buildDefinition()
         {
             type = "custom",
             id = "status",
+            sticky = "top",
             create = createNotice,
             layout = function(_, row, rect)
                 row.label:setX(rect.x)
@@ -187,16 +197,14 @@ local function buildDefinition()
     for _, definition in ipairs(definitions) do
         local registered = definition
         local mode = registered.runtimeMutable and "live" or "restart"
-        local label = "[" .. tostring(registered.source) .. "] "
-            .. tostring(registered.title) .. " (" .. mode .. ")"
-        if registered.description ~= "" then
-            label = label .. " - " .. registered.description
-        end
         controls[#controls + 1] = {
             type = "boolean",
             id = "setting:" .. tostring(registered.id),
             settingID = registered.id,
-            label = label,
+            section = registered.source,
+            sectionLabel = registered.source,
+            label = tostring(registered.title) .. " (" .. mode .. ")",
+            description = registered.description,
             default = registered.defaultEnabled == true,
             get = function()
                 return DebugSettings.GetConfigured(registered.id) == true
@@ -213,6 +221,7 @@ local function buildDefinition()
     controls[#controls + 1] = {
         type = "action",
         id = "save_for_restart",
+        sticky = "footer",
         label = tr("UI_PsychopatzDebugSettings_SaveRestart", "Save for Restart"),
         variant = "quiet",
         action = saveForRestart,
@@ -220,6 +229,7 @@ local function buildDefinition()
     controls[#controls + 1] = {
         type = "action",
         id = "apply_and_save",
+        sticky = "footer",
         label = tr("UI_PsychopatzDebugSettings_ApplySave", "Apply & Save"),
         variant = "success",
         action = applyAndSave,
@@ -227,12 +237,12 @@ local function buildDefinition()
     controls[#controls + 1] = {
         type = "action",
         id = "reload_file_apply",
+        sticky = "footer",
         label = tr("UI_PsychopatzDebugSettings_ReloadApply", "Reload File & Apply"),
         variant = "primary",
         action = reloadFileAndApply,
     }
 
-    local height = math.min(760, math.max(320, 240 + #definitions * 30))
     return {
         id = SETTINGS_ID,
         title = tr("UI_PsychopatzDebugSettings_Title", "Debug Settings"),
@@ -240,9 +250,11 @@ local function buildDefinition()
         window = {
             persistenceNamespace = "Debug",
             persistenceKey = "DebugSettings",
+            scrollableSections = true,
+            sectionExpandedByDefault = true,
             responsiveSpec = {
-                width = 620, height = height,
-                minWidth = 460, minHeight = 280,
+                width = 660, height = 540,
+                minWidth = 460, minHeight = 360,
                 maxWidth = 900, maxHeight = 760,
             },
         },

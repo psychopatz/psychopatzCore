@@ -18,5 +18,12 @@
     "UI_PsychopatzInventory_Ledger_Unassigned": "<unassigned>",
     "UI_PsychopatzInventory_Ledger_Gap": "GAP",
     "UI_PsychopatzInventory_Ledger_Available": "AVAILABLE",
-    "UI_PsychopatzInventory_Ledger_Missing": "MISSING"
+    "UI_PsychopatzInventory_Ledger_Missing": "MISSING",
+    "UI_PsychopatzInventory_Money_Bundler": "Money Bundler",
+    "UI_PsychopatzInventory_Money_BundleAll": "Bundle All ($%d -> %d bundles)",
+    "UI_PsychopatzInventory_Money_UnbundleAll": "Unbundle All (%d bundles -> $%d)",
+    "UI_PsychopatzInventory_Money_Bundled": "Bundled $%d into %d bundles",
+    "UI_PsychopatzInventory_Money_Unbundled": "Unbundled %d bundles into $%d",
+    "UI_PsychopatzInventory_Money_Need100": "Need at least 100 loose money.",
+    "UI_PsychopatzInventory_Money_Failed": "Money conversion failed; inventory restored."
 }

@@ -3,6 +3,7 @@ require "ISUI/ISPanel"
 require "ISUI/ISScrollingListBox"
 require "PsychopatzCore/UI/Core/PsychopatzUILayout"
 local VirtualizedList = require "PsychopatzCore/UI/Components/PsychopatzVirtualizedList"
+local ScrollPanel = require "PsychopatzCore/UI/Components/PsychopatzScrollPanel"
 
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
@@ -192,6 +193,18 @@ end
 
 function UI.CreatePanel(parent)
     local panel = ISPanel:new(0, 0, 1, 1)
+    panel:initialise()
+    panel:instantiate()
+    panel.backgroundColor = Theme.Color("surface")
+    panel.borderColor = Theme.Color("border")
+    panel.psychopatzThemeBackgroundName = "surface"
+    panel.psychopatzThemeBorderName = "border"
+    if parent then parent:addChild(panel) end
+    return panel
+end
+
+function UI.CreateScrollPanel(parent)
+    local panel = ScrollPanel:new(0, 0, 1, 1)
     panel:initialise()
     panel:instantiate()
     panel.backgroundColor = Theme.Color("surface")
