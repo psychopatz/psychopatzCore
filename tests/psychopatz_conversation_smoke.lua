@@ -82,6 +82,9 @@ local Lifecycle = PsychopatzCore.Conversation.Lifecycle
 local Message = PsychopatzCore.Conversation.Message
 local Events = PsychopatzCore.Events
 
+assert(Layout.defaults.llmInput ~= nil,
+    "conversation layout provides a dedicated llm input region")
+
 local canonicalMessages = {}
 local publishedMessage
 Events.subscribe(Message.EVENT_TYPE, function(message)

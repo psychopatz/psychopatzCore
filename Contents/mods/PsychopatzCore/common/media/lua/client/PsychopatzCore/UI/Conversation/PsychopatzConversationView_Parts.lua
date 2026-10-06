@@ -61,6 +61,7 @@ function Internal.buildParts(view)
             local bounds = Layout.Resolve(partID, view.width, view.height)
             local part = factory(bounds, {
                 owner = view,
+                partID = partID,
                 definition = definition,
                 spec = spec,
             })

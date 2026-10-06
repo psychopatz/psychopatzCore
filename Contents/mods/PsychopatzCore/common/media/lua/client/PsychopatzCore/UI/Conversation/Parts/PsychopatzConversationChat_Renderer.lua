@@ -7,6 +7,9 @@ local fontHeight = Internal.fontHeight
 local drawFormattedLine = Internal.drawFormattedLine
 
 function Internal.renderRow(part, layout, contentAlpha, lineH, headerHeight)
+    local typingLayout
+    local typingX
+    local typingY
         local speaker = layout.message and layout.message.speaker or layout.speaker
         local player = speaker == "player"
         local x = player and (part.width - layout.width - 14) or 14
@@ -103,7 +106,8 @@ function Internal.renderRow(part, layout, contentAlpha, lineH, headerHeight)
                         { r = 0.93, g = 0.95, b = 0.92 },
                         accent,
                         contentAlpha,
-                        layout.lines[lineIndex].kind
+                        type(layout.lines[lineIndex]) == "table"
+                            and layout.lines[lineIndex].kind or nil
                     )
                 end
             end

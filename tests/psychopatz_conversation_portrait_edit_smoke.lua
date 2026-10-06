@@ -159,6 +159,9 @@ getMouseY = function() return 100 end
 
 dofile(ROOT .. "UI/Conversation/Parts/PsychopatzConversationPortrait.lua")
 
+assertTrue(type(PsychopatzConversationPortrait.render) == "function",
+    "portrait modular renderer is wired to the native render callback")
+
 local part = PsychopatzConversationPortrait:new(10, 20, 200, 200, {
     owner = {
         spec = {},

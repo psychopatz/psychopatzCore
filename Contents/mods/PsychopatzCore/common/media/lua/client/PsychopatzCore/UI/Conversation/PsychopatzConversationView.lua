@@ -9,6 +9,7 @@ require "PsychopatzCore/UI/Conversation/PsychopatzConversationTheme"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationText"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationOpacity"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationOpacityControl"
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationDebugOverlay"
 require "PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPortrait"
 require "PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChat"
 require "PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationChoices"
@@ -62,9 +63,31 @@ function PsychopatzConversationView:createChildren()
     local accent = Theme.Resolve(self.spec)
     Internal.buildParts(self)
     Internal.buildControls(self, accent)
+    local runtimeDebugEnabled = self.spec.runtimeDebug == true
+    if type(Conversation.IsRuntimeDebugEnabled) == "function" then
+        runtimeDebugEnabled = Conversation.IsRuntimeDebugEnabled(self.spec)
+    end
+    if runtimeDebugEnabled then
+        self.debugOverlay = PsychopatzConversationDebugOverlay:new(self)
+        self.debugOverlay:initialise()
+        self.debugOverlay:instantiate()
+        -- Keep diagnostics outside the part tree. The conversation parts
+        -- may use clipping/stencils; the audit must remain readable while it
+        -- reports those parts, even when one is mis-sized or hidden.
+        self.debugOverlay:addToUIManager()
+        if self.debugOverlay.setAlwaysOnTop then
+            self.debugOverlay:setAlwaysOnTop(true)
+        end
+        if self.debugOverlay.bringToTop then
+            self.debugOverlay:bringToTop()
+        end
+    end
     self:refreshCRTDebugButton()
     self:attachOpacityControls()
     self:refreshOpacityControls()
+    if self.debugOverlay and self.debugOverlay.bringToTop then
+        self.debugOverlay:bringToTop()
+    end
 end
 
 function PsychopatzConversationView:attachOpacityControls()
@@ -165,6 +188,25 @@ function PsychopatzConversationView:start()
     end
     self.session = Conversation.Session.New(self, self.spec)
     self.session:start()
+    -- Full integrations may opt out of the staged opening animation.  The
+    -- conversation remains usable even when the game is paused or the UI
+    -- manager does not advance an animation frame immediately after opening.
+    if self.spec.animateOpening ~= true then
+        self.openingAnimationSkipped = true
+        Animator.SkipOpen(self.animator)
+        self.animationInteractive = true
+        self.portraitPart:setReveal(1)
+        self.historyPart:setReveal(1)
+        self.choicesPart:setReveal(1)
+        for _, part in pairs(self.extensionParts or {}) do
+            if part.setReveal then part:setReveal(1) end
+        end
+        local inputPart = self.extensionParts
+            and self.extensionParts.llmInput or nil
+        if inputPart and inputPart.refreshControls then
+            inputPart:refreshControls()
+        end
+    end
     return true
 end
 
@@ -277,6 +319,13 @@ function PsychopatzConversationView:update()
         self:setHeight(getCore():getScreenHeight())
         self:applySavedLayout()
     end
+    if self.openingAnimationSkipped and not self.closing then
+        -- Animator.Get is authoritative for normal staged openings.  A
+        -- caller that opts out must remain authoritative on every update;
+        -- otherwise the first tick can put the view back into portrait-only
+        -- reveal state after start() already exposed every modular part.
+        Animator.SkipOpen(self.animator)
+    end
     local state = Animator.Get(self.animator)
     self.animationInteractive = state.interactive
     self.portraitPart:setReveal(state.portrait)
@@ -323,6 +372,14 @@ end
 
 function PsychopatzConversationView:destroy()
     Lifecycle.Finish(self, self.closeReason or "replaced")
+    if self.debugOverlay and self.debugOverlay.removeFromUIManager then
+        self.debugOverlay:removeFromUIManager()
+    end
+    if self.pncRuntimeDebugOverlay
+        and self.pncRuntimeDebugOverlay.removeFromUIManager
+    then
+        self.pncRuntimeDebugOverlay:removeFromUIManager()
+    end
     if Conversation.instance == self then Conversation.instance = nil end
     self:setVisible(false)
     self:removeFromUIManager()

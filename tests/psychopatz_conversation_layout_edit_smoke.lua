@@ -33,6 +33,7 @@ end
 
 function Panel:initialise() end
 function Panel:createChildren() end
+function Panel:update() end
 function Panel:instantiate()
     if self.createChildren then self:createChildren() end
 end
@@ -52,7 +53,7 @@ function Panel:getX() return self.x end
 function Panel:getY() return self.y end
 function Panel:getWidth() return self.width end
 function Panel:getHeight() return self.height end
-function Panel:setReveal() end
+function Panel:setReveal(value) self.reveal = value end
 function Panel:setEditMode() end
 function Panel:onPartResize() end
 function Panel:addToUIManager() end
@@ -97,7 +98,7 @@ PsychopatzCore = {
     Debug = {
         CanUse = function() return debugAuthorized end,
     },
-    Conversation = {
+        Conversation = {
         Settings = {
             Get = function(key, fallback)
                 if key == "showEditorButton" then return true end
@@ -118,8 +119,28 @@ PsychopatzCore = {
         Animator = {
             New = function() return {} end,
             SkipOpen = function() end,
+            Get = function()
+                return {
+                    portrait = 1,
+                    history = 1,
+                    choices = 1,
+                    interactive = true,
+                    done = true,
+                }
+            end,
         },
-        Lifecycle = {},
+        Lifecycle = {
+            Begin = function() return true end,
+            Update = function() return nil end,
+        },
+        Session = {
+            New = function()
+                return {
+                    start = function() end,
+                    update = function() end,
+                }
+            end,
+        },
     },
 }
 
@@ -186,10 +207,37 @@ dofile(ROOT .. "UI/Conversation/PsychopatzConversationView.lua")
 
 local Conversation = PsychopatzCore.Conversation
 local Layout = Conversation.Layout
-local view = PsychopatzConversationView:new({})
+local view = PsychopatzConversationView:new({
+    animateOpening = false,
+    runtimeDebug = true,
+})
 view:initialise()
 view:instantiate()
 Conversation.instance = view
+
+assertEqual(view.debugOverlay.owner, view,
+    "conversation debug overlay is mounted on the live view")
+
+assertEqual(view:start(), true,
+    "conversation start succeeds without the staged opening animation")
+assertEqual(view.animationInteractive, true,
+    "conversation is interactive immediately after opening")
+assertEqual(view.portraitPart.reveal, 1,
+    "portrait is revealed immediately after opening")
+assertEqual(view.historyPart.reveal, 1,
+    "history is revealed immediately after opening")
+assertEqual(view.choicesPart.reveal, 1,
+    "choices are revealed immediately after opening")
+view:update()
+assertEqual(view.historyPart.reveal, 1,
+    "update does not collapse the modular history after opening")
+assertEqual(view.choicesPart.reveal, 1,
+    "update does not collapse the modular choices after opening")
+local debugLines = table.concat(view.debugOverlay:buildLines(), "\n")
+assert(debugLines:find("part portrait", 1, true),
+    "conversation debug overlay reports the portrait part")
+assert(debugLines:find("control close", 1, true),
+    "conversation debug overlay reports the close control")
 
 assertEqual(view.layoutButton.x, 830, "save button stays at the right")
 assertEqual(view.resetLayoutButton.x, 680,

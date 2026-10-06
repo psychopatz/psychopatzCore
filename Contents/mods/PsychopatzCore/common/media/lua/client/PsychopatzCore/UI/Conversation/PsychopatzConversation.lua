@@ -6,6 +6,25 @@ require "PsychopatzCore/UI/Conversation/PsychopatzConversationSession"
 
 local Conversation = PsychopatzCore.Conversation
 
+function Conversation.IsRuntimeDebugEnabled(spec)
+    if type(spec) == "table" and spec.runtimeDebug == true then
+        return true
+    end
+    return Conversation.Settings
+        and type(Conversation.Settings.Get) == "function"
+        and Conversation.Settings.Get("showRuntimeDebug", false) == true
+end
+
+function Conversation.SetRuntimeDebug(enabled)
+    if not Conversation.Settings
+        or type(Conversation.Settings.Set) ~= "function"
+    then
+        return false
+    end
+    Conversation.Settings.Set("showRuntimeDebug", enabled == true, true)
+    return enabled == true
+end
+
 function Conversation.Open(spec)
     spec = spec or {}
     if Conversation.instance then Conversation.instance:destroy() end
@@ -13,6 +32,11 @@ function Conversation.Open(spec)
     view:initialise()
     view:instantiate()
     view:addToUIManager()
+    -- A conversation is a modal full-screen surface.  Put it above the
+    -- vanilla speed controls and other previously-open UI so the close
+    -- control and the conversation diagnostics cannot be occluded.
+    if view.setAlwaysOnTop then view:setAlwaysOnTop(true) end
+    if view.bringToTop then view:bringToTop() end
     Conversation.instance = view
     view:start()
     if spec.editMode then view:toggleEditMode() end

@@ -6,6 +6,13 @@ local traceEnabled = Internal.traceEnabled
 local fontHeight = Internal.fontHeight
 local wrap = Internal.wrap
 
+local function runStage(part, stage, callback)
+    if type(part.runRenderStage) == "function" then
+        return part:runRenderStage(stage, callback)
+    end
+    return callback()
+end
+
 function Chat:setMessages(messages)
     self.messages = messages or {}
     self.scrollOffset = 0
@@ -103,8 +110,10 @@ function Chat:buildLayout()
 end
 
 function Chat:prerender()
-    PsychopatzConversationPart.prerender(self)
-    if self.layoutDirty then self:buildLayout() end
+    runStage(self, "prerender", function()
+        PsychopatzConversationPart.prerender(self)
+        if self.layoutDirty then self:buildLayout() end
+    end)
 end
 
 function Chat:onMouseWheel(del)

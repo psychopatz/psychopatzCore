@@ -7,6 +7,13 @@ PsychopatzConversationChoices = PsychopatzConversationPart:derive(
 local Conversation = PsychopatzCore.Conversation
 local Text = Conversation.Text
 
+local function runStage(part, stage, callback)
+    if type(part.runRenderStage) == "function" then
+        return part:runRenderStage(stage, callback)
+    end
+    return callback()
+end
+
 local function fontHeight()
     return getTextManager and getTextManager():getFontHeight(UIFont.Small) or 16
 end
@@ -109,25 +116,29 @@ function PsychopatzConversationChoices:choiceAt(x, y)
 end
 
 function PsychopatzConversationChoices:prerender()
-    PsychopatzConversationPart.prerender(self)
-    if self.layoutDirty then self:buildLayout() end
+    runStage(self, "prerender", function()
+        PsychopatzConversationPart.prerender(self)
+        if self.layoutDirty then self:buildLayout() end
+    end)
 end
 
 function PsychopatzConversationChoices:render()
-    if self.reveal <= 0 then return end
-    local contentAlpha = self:getContentOpacity()
-    local accent = self:getAccentColor()
-    local headerHeight = self.headerHeight or 24
-    self:setStencilRect(
-        2,
-        headerHeight + 2,
-        self.width - 5,
-        self.height - headerHeight - 5
-    )
-    Internal.renderChoices(self, contentAlpha, accent, headerHeight)
-    self:clearStencilRect()
-    Internal.renderScrollbar(self, contentAlpha, accent, headerHeight)
-    self:updateChoiceTooltip()
+    runStage(self, "render", function()
+        if self.reveal <= 0 then return end
+        local contentAlpha = self:getContentOpacity()
+        local accent = self:getAccentColor()
+        local headerHeight = self.headerHeight or 24
+        self:setStencilRect(
+            2,
+            headerHeight + 2,
+            self.width - 5,
+            self.height - headerHeight - 5
+        )
+        Internal.renderChoices(self, contentAlpha, accent, headerHeight)
+        self:clearStencilRect()
+        Internal.renderScrollbar(self, contentAlpha, accent, headerHeight)
+        self:updateChoiceTooltip()
+    end)
 end
 -- A disabled entry can explain why it is disabled: the reason shows on hover
 -- instead of the row silently doing nothing. Follows the shared list-tooltip

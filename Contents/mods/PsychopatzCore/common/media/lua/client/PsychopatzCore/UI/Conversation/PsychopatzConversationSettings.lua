@@ -33,6 +33,7 @@ Settings.defaults = Settings.defaults or {
     choicesBackgroundOpacity = 0.82,
     choicesContentOpacity = 1.0,
     showEditorButton = true,
+    showRuntimeDebug = false,
     layout_portrait_x = 0.08,
     layout_portrait_y = 0.12,
     layout_portrait_w = 0.24,

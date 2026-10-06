@@ -12,6 +12,13 @@ local Typing = Conversation.Typing
 local Markdown = PsychopatzCore.Markdown
 local DebugTrace = PsychopatzCore.DebugTrace
 
+local function runStage(part, stage, callback)
+    if type(part.runRenderStage) == "function" then
+        return part:runRenderStage(stage, callback)
+    end
+    return callback()
+end
+
 local function traceEnabled()
     return DebugTrace and DebugTrace.IsEnabled
         and DebugTrace.IsEnabled() == true
@@ -119,7 +126,9 @@ local Internal = {
 PsychopatzConversationChat.Internal = Internal
 
 function PsychopatzConversationChat:render()
-    Internal.render(self)
+    runStage(self, "render", function()
+        Internal.render(self)
+    end)
 end
 
 function PsychopatzConversationChat:new(x, y, width, height, options)

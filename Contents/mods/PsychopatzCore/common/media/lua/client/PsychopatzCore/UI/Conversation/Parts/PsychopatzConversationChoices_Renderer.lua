@@ -5,6 +5,7 @@ local fontHeight = Internal.fontHeight
 function Internal.renderChoice(part, index, contentAlpha, accent, headerHeight)
         local choice = part.choices[index]
         local layout = part.choiceLayout[index]
+        if not choice or not layout then return end
         local y = layout.y - (part.maximumScroll - (part.scrollOffset or 0))
         local enabled = choice.enabled ~= false
             and part.owner

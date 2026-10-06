@@ -6,6 +6,13 @@ local Opacity = Internal.Opacity
 local optionTitle = Internal.optionTitle
 local applyControlOpacity = Internal.applyControlOpacity
 
+local function runStage(part, stage, callback)
+    if type(part.runRenderStage) == "function" then
+        return part:runRenderStage(stage, callback)
+    end
+    return callback()
+end
+
 function LLMInput:refreshOpacity()
     local signature = Opacity.GetSignature()
     local reveal = tonumber(self.reveal) or 1
@@ -34,8 +41,10 @@ function LLMInput:refreshOpacity()
 end
 
 function LLMInput:prerender()
-    PsychopatzConversationPart.prerender(self)
-    self:refreshOpacity()
+    runStage(self, "prerender", function()
+        PsychopatzConversationPart.prerender(self)
+        self:refreshOpacity()
+    end)
 end
 
 function LLMInput:update()
@@ -97,21 +106,23 @@ function LLMInput:refreshTheme()
 end
 
 function LLMInput:render()
-    ISPanel.render(self)
-    local accent = self:getAccentColor()
-    self:drawText(
-        tostring(self.statusText or ""),
-        11,
-        math.max(
-            (self.inputY or 30) + (self.inputHeight or 26) + 4,
-            self.height - 20
-        ),
-        accent.r,
-        accent.g,
-        accent.b,
-        self:getContentOpacity() * 0.9,
-        UIFont.Small
-    )
+    runStage(self, "render", function()
+        ISPanel.render(self)
+        local accent = self:getAccentColor()
+        self:drawText(
+            tostring(self.statusText or ""),
+            11,
+            math.max(
+                (self.inputY or 30) + (self.inputHeight or 26) + 4,
+                self.height - 20
+            ),
+            accent.r,
+            accent.g,
+            accent.b,
+            self:getContentOpacity() * 0.9,
+            UIFont.Small
+        )
+    end)
 end
 
 return Internal

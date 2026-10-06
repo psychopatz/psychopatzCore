@@ -4,6 +4,7 @@ require "PsychopatzCore/UI/Conversation/PsychopatzConversationText"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationTheme"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationOpacity"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationOpacityControl"
+require "PsychopatzCore/UI/Conversation/PsychopatzConversationRenderDiagnostics"
 
 PsychopatzConversationPart = ISPanel:derive("PsychopatzConversationPart")
 
@@ -12,11 +13,13 @@ local Text = Conversation.Text
 local Theme = Conversation.Theme
 local Opacity = Conversation.Opacity
 local OpacityControl = Conversation.OpacityControl
+local RenderDiagnostics = Conversation.RenderDiagnostics
 
 local ACCENTS = {
     portrait = { r = 0.94, g = 0.53, b = 0.22 },
     history = { r = 0.28, g = 0.76, b = 0.62 },
     choices = { r = 0.20, g = 0.86, b = 0.68 },
+    llmInput = { r = 0.20, g = 0.86, b = 0.68 },
 }
 
 local function accentFor(partID)
@@ -125,6 +128,10 @@ end
 
 function PsychopatzConversationPart:setReveal(value)
     self.reveal = math.max(0, math.min(1, tonumber(value) or 0))
+end
+
+function PsychopatzConversationPart:runRenderStage(stage, callback)
+    return RenderDiagnostics.Run(self, stage, callback)
 end
 
 function PsychopatzConversationPart:setEditMode(enabled)

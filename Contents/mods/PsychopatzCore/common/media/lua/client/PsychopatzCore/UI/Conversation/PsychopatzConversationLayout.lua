@@ -14,6 +14,7 @@ Layout.defaults = Layout.defaults or {
     relationship = { x = 0.08, y = 0.51, w = 0.16, h = 0.35 },
     history = { x = 0.40, y = 0.13, w = 0.50, h = 0.41 },
     choices = { x = 0.26, y = 0.64, w = 0.43, h = 0.27 },
+    llmInput = { x = 0.26, y = 0.918, w = 0.43, h = 0.085 },
 }
 
 local function key(part, field)
