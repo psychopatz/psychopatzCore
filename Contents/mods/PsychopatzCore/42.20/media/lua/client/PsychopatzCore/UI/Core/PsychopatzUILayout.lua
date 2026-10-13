@@ -300,6 +300,46 @@ function Layout.Grid(controls, rect, options)
     }
 end
 
+function Layout.HorizontalSplit(rect, options)
+    options = options or {}
+    local scale = options.scale or Layout.Scale()
+    local gap = Layout.Pixels(options.gap or Theme.metrics.spacing, scale)
+    local available = math.max(2, (tonumber(rect.width) or 0) - gap)
+    local minimumFirst = math.max(1, Layout.Pixels(options.minFirst
+        or options.minimumFirst or 1, scale))
+    local minimumSecond = math.max(1, Layout.Pixels(options.minSecond
+        or options.minimumSecond or 1, scale))
+    if minimumFirst + minimumSecond > available then
+        local firstRatio = minimumFirst / (minimumFirst + minimumSecond)
+        minimumFirst = math.max(1, math.floor(available * firstRatio))
+        minimumSecond = math.max(1, available - minimumFirst)
+    end
+    local maximumFirst = math.max(minimumFirst, available - minimumSecond)
+    local desired = tonumber(options.firstWidth)
+    if desired == nil then
+        desired = available * (tonumber(options.firstRatio) or 0.4)
+    end
+    local firstWidth = clamp(math.floor(desired + 0.5),
+        minimumFirst, maximumFirst)
+    local secondWidth = math.max(1, available - firstWidth)
+    return {
+        compact = false,
+        gap = gap,
+        available = available,
+        first = {
+            x = rect.x, y = rect.y,
+            width = firstWidth, height = rect.height,
+        },
+        second = {
+            x = rect.x + firstWidth + gap, y = rect.y,
+            width = secondWidth, height = rect.height,
+        },
+        minimumFirst = minimumFirst,
+        minimumSecond = minimumSecond,
+        maximumFirst = maximumFirst,
+    }
+end
+
 function Layout.Split(rect, options)
     options = options or {}
     local scale = options.scale or Layout.Scale()
@@ -313,13 +353,7 @@ function Layout.Split(rect, options)
             second = { x = rect.x, y = rect.y + topHeight + gap, width = rect.width, height = rect.height - topHeight - gap },
         }
     end
-    local firstRatio = tonumber(options.firstRatio) or 0.4
-    local firstWidth = math.floor((rect.width - gap) * firstRatio)
-    return {
-        compact = false,
-        first = { x = rect.x, y = rect.y, width = firstWidth, height = rect.height },
-        second = { x = rect.x + firstWidth + gap, y = rect.y, width = rect.width - firstWidth - gap, height = rect.height },
-    }
+    return Layout.HorizontalSplit(rect, options)
 end
 
 local function utf8Prefix(value, byteCount)

@@ -21,6 +21,14 @@ local function iconFor(window)
         and WidgetWindow.DETACHED_ICON or WidgetWindow.ATTACHED_ICON
 end
 
+local function syncKey(window)
+    local theme = UI.Theme
+    local revision = theme and theme.GetRevision
+        and theme.GetRevision() or 0
+    return tostring(window.psychopatzWidgetDetached == true)
+        .. ":" .. tostring(revision)
+end
+
 local function syncTooltip(window)
     local button = window.psychopatzWidgetButton
     if not button then return end
@@ -61,8 +69,8 @@ function WidgetWindow.SetDetached(window, detached)
     local value = detached == true
     local changed = window.psychopatzWidgetDetached ~= value
     window.psychopatzWidgetDetached = value
-    syncIcon(window)
-    if Toolbar then Toolbar.Sync(window) end
+    if changed then window.psychopatzWidgetSyncKey = nil end
+    WidgetWindow.Sync(window)
     if changed then
         if window.saveGeometry then window:saveGeometry(true) end
         if window.psychopatzWidgetOnChanged then
@@ -77,10 +85,13 @@ function WidgetWindow.Toggle(window)
     return WidgetWindow.SetDetached(window, not WidgetWindow.IsDetached(window))
 end
 
-function WidgetWindow.Sync(window)
+function WidgetWindow.Sync(window, force)
     if not window or window.psychopatzWidgetEnabled ~= true then return false end
+    local key = syncKey(window)
+    if not force and window.psychopatzWidgetSyncKey == key then return true end
     syncIcon(window)
     if Toolbar then Toolbar.Sync(window) end
+    window.psychopatzWidgetSyncKey = key
     return true
 end
 
@@ -94,6 +105,7 @@ function WidgetWindow.Install(window, definition)
     definition = definition or {}
     window.psychopatzWidgetEnabled = true
     window.psychopatzWidgetDetached = window.psychopatzWidgetDetached == true
+    window.psychopatzWidgetSyncKey = nil
     window.psychopatzWidgetOnChanged = definition.onDetachedChanged
 
     local button = Toolbar and Toolbar.Add(window, {

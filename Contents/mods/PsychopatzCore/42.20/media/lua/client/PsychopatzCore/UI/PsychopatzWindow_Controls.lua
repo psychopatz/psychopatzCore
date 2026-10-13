@@ -37,6 +37,18 @@ function Window:installRenderClip()
     end
 end
 
+-- Derived windows may need a final overlay after their child controls render.
+-- The normal PsychopatzWindow render path intentionally keeps the parent
+-- stencil active while a derived render method adds content. Expose the
+-- matching cleanup as a shared primitive so overlays can draw in the parent
+-- pass without being clipped or leaving render state behind.
+function Window:finishRenderClip()
+    if self.psychopatzStencilActive then
+        self:clearStencilRect()
+        self.psychopatzStencilActive = false
+    end
+end
+
 function Window:syncWindowControls()
     local collapseButton = self.psychopatzTitlebarCollapseButton or self.collapseButton
     local pinButton = self.psychopatzTitlebarPinButton or self.pinButton
