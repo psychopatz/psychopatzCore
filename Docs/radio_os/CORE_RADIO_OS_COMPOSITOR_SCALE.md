@@ -1,5 +1,8 @@
 # PsychopatzCore Radio OS — Compositor, Fidelity and Scaling Gate (C0–C6)
 
+> **Asset architecture update (2026-10-15):** Current compositing, LCD sandwich, zoom, texture sampling and UV-gutter fixes remain valid. The next **art-production phase** is [CORE_RADIO_DEVICE_ASSETS.md](CORE_RADIO_DEVICE_ASSETS.md) (A0–A8): individual high-resolution **walkie, HAM and manpack** shell assets/manifests, with shared UI widget atlases and optional condition variants. The old 341×341 compact sheet is a historical compatibility fallback, **not** the new art source. Do not restart C0–C6 or regenerate approved artwork without model-by-model review.
+
+
 **Status: current priority, 2026-10-15.** The user supplied two new screenshots of the working-but-flawed US Army walkie on a normal Project Zomboid Build 42 session. This plan supplements the existing U0–U7 stabilization contract. Preserve already completed source/offline U0–U4 work; native acceptance remains open. No gameplay code is changed by the documentation update.
 
 **Absolute restriction:** DO NOT USE, INSTALL, REPAIR, LAUNCH, INVESTIGATE OR DEPEND ON THE **PZ HEADLESS HARNESS**. It is broken. Offline Lua/Pillow tests and normal real-game SP/MP (user-run if needed) are the only supported paths here. Never label mocks as native.

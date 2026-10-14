@@ -1,5 +1,7 @@
 # PsychopatzCore Radio OS — Reusable Platform Contract
 
+> **Asset update:** The canonical skin-art plan is [CORE_RADIO_DEVICE_ASSETS.md](CORE_RADIO_DEVICE_ASSETS.md). Walkie, HAM and manpack are all first-class device families. Per-device high-resolution transparent shell assets and optional condition variants replace the prior **one low-resolution six-walkie shell atlas** approach; UI widgets and OS apps remain shared. Existing legacy manifest/atlases must remain compatible until migration is tested. No headless harness.
+
 Status (updated 2026-10-15): **a Core Radio OS foundation and provider adapters are implemented**, but user-supplied Build 42 screenshot shows the window is rigid and the LCD presentation incomplete. Native functional acceptance has NOT passed. The immediate binding stabilization specification is [CORE_RADIO_OS_UI_STABILIZATION.md](CORE_RADIO_OS_UI_STABILIZATION.md).
 
 ## Vision
@@ -100,3 +102,7 @@ and `RADIO_OS_GOAL_PROMPT.md`. This Core contract governs reusable framework own
 Core Radio OS still derives its window from `ISPanel`, while existing Core window geometry/persistence/resize helpers are not integrated. The latest user screenshot demonstrates major functionality/UI problems. Before extending radio features, implement the ordered **U0–U7** milestones in [`CORE_RADIO_OS_UI_STABILIZATION.md`](CORE_RADIO_OS_UI_STABILIZATION.md). The initial foundation R0–R7 exists; reopen the renderer/window acceptance gate rather than rebuilding consumer integrations.
 
 **Absolute testing prohibition:** the PZ Headless Harness is known broken and must not be used, installed, fixed, or considered as evidence. Use offline Lua/atlas tests plus **normal Project Zomboid gameplay** for native acceptance. If agent lacks game GUI capability, provide a single manual test handoff and leave native status pending.
+
+## New per-device-family shell contract
+
+For the current architecture and detailed A0–A8 art-production gates, see [`CORE_RADIO_DEVICE_ASSETS.md`](CORE_RADIO_DEVICE_ASSETS.md). The shared `RegisterDeviceSkin` interface must evolve from required three hardware controls/256×432 shell atlas assumptions to per-model full-texture coordinates and optional variable controls, while retaining old provider compatibility. A placed HAM radio's visual UI must not automatically require `getIsPortable()`, and displayable device status does not grant server-authorized remote trade. Walkie/HAM/manpack source art must be independently editable and transparent; reusable buttons, icons, indicator and other UI atlases remain unified.
