@@ -133,7 +133,7 @@ def validate(atlas,layout):
 
 def main():
     p=argparse.ArgumentParser()
-    p.add_argument("--output",default="DTA_Walkie_Buttons.png")
+    p.add_argument("--output",default="Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/ui/DTA_Walkie_Buttons.png")
     p.add_argument("--preview",default=None)
     p.add_argument("--map",default=None)
     args=p.parse_args()

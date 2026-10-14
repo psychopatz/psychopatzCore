@@ -180,7 +180,7 @@ def validate(img,layout):
 
 def main():
     p=argparse.ArgumentParser()
-    p.add_argument("--output",default="DTA_Walkie_Icons.png")
+    p.add_argument("--output",default="Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/ui/DTA_Walkie_Icons.png")
     p.add_argument("--preview",default=None)
     p.add_argument("--layout",default=None)
     args=p.parse_args()
