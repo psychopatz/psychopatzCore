@@ -137,6 +137,29 @@ truthy(OS.RegisterContactProvider({
         return true
     end,
 }), "window provider")
+local pagedCalls = {}
+truthy(OS.RegisterContactProvider({
+    id = "mock:paged",
+    ownerModID = "MockPlugin",
+    list = function(_, page)
+        pagedCalls[#pagedCalls + 1] = page.offset
+        if page.offset == 0 then
+            return {
+                contacts = {
+                    { id = "paged-1", title = "Yankee", status = "known",
+                        actions = {} },
+                },
+                nextOffset = 1,
+            }
+        end
+        return {
+            contacts = {
+                { id = "paged-2", title = "Zulu", status = "unknown",
+                    actions = {} },
+            },
+        }
+    end,
+}), "paged window provider")
 
 local window = assert(OS.Open(0, device, { scale = 1 }))
 equal(window.page, "home", "initial page")
@@ -144,6 +167,10 @@ window:prerender()
 window:render()
 truthy((window.draws or 0) >= 5, "atlas rendering")
 truthy((window.textDraws or 0) >= 1, "screen text rendering")
+truthy(window._spriteDefinitions["icon_contacts"],
+    "home icon atlas sprite is rendered")
+truthy(window._spriteDefinitions["btn_sq_green_idle"],
+    "physical button atlas state is rendered")
 
 local homeLayout = window:screenListLayout(#OS.ListApps(window.context), 3,
     window.homeIndex, window:headerLayout(window:statusLine()))
@@ -170,6 +197,15 @@ equal(window.page, "contacts", "detail back navigation")
 window:back()
 equal(window.page, "home", "home back navigation")
 
+local callsBeforeRefresh = #pagedCalls
+window:ensureContacts(true)
+equal(#pagedCalls - callsBeforeRefresh, 2,
+    "contact provider pagination is bounded and followed")
+truthy(window.contacts[1] and window.contacts[2]
+    and window.contacts[3], "paged contacts are collected")
+equal(window.selectedContact and window.selectedContact.id, "npc-1",
+    "selected contact survives provider refresh")
+
 local beforeX, beforeY = window:getX(), window:getY()
 window:onMouseDown(10, 200)
 window:onMouseMove(24, 13)
@@ -194,6 +230,19 @@ equal(restored:getY(), savedY, "player-local position y persists")
 equal(restored.scale, savedScale, "player-local scale persists")
 restored:close()
 
+local otherDevice = {}
+for key, value in pairs(device) do otherDevice[key] = value end
+otherDevice.fullType = "Base.WalkieTalkie1"
+local otherWindow = assert(OS.Open(0, otherDevice, { scale = 0.9 }))
+otherWindow:moveBy(17, 0)
+otherWindow:close()
+local firstSkinAgain = assert(OS.Open(0, device))
+equal(firstSkinAgain:getX(), savedX,
+    "radio geometry is scoped by device skin")
+equal(firstSkinAgain.scale, savedScale,
+    "radio scale is scoped by device skin")
+firstSkinAgain:close()
+
 local host = { visible = true }
 function host:setVisible(value) self.visible = value end
 function host:bringToTop() self.broughtToTop = true end
@@ -203,6 +252,7 @@ hosted:close()
 equal(host.visible, true, "native host is restored on close")
 
 OS.UnregisterContactProvider("mock:contacts")
+OS.UnregisterContactProvider("mock:paged")
 
 local customWindow = assert(OS.Open(0, device, { scale = 1 }))
 customWindow:pressControl("right")

@@ -15,17 +15,8 @@ local function tr(key, fallback)
     return Text.Get(key, fallback)
 end
 
-local function text(value, fallback)
-    value = tostring(value or "")
-    return value ~= "" and value or fallback
-end
-
-local function safeCall(target, method, ...)
-    if not target or type(target[method]) ~= "function" then
-        return false, nil
-    end
-    return pcall(target[method], target, ...)
-end
+local MAX_PROVIDER_PAGES = math.ceil(Model.MAX_CONTACTS
+    / Model.MAX_PAGE_SIZE) + 1
 
 function Window:ensureContacts(force)
     local revision = OS.GetRegistryRevision()
@@ -33,19 +24,36 @@ function Window:ensureContacts(force)
         return
     end
     local contacts = {}
+    local seen = {}
+    local selectedKey = self.selectedContact
+        and Model.ContactKey(self.selectedContact) or nil
     local failed = false
     for _, provider in ipairs(OS.ListContactProviders(self.context)) do
         if #contacts >= Model.MAX_CONTACTS then break end
-        local ok, page = OS.ListContacts(provider.id, self.context, {
-            offset = 0, limit = Model.MAX_PAGE_SIZE, sort = "title",
-        })
-        if ok and page then
-            for _, entry in ipairs(page.contacts or {}) do
-                if #contacts >= Model.MAX_CONTACTS then break end
-                contacts[#contacts + 1] = entry
+        local offset = 0
+        for _ = 1, MAX_PROVIDER_PAGES do
+            if #contacts >= Model.MAX_CONTACTS then break end
+            local ok, page = OS.ListContacts(provider.id, self.context, {
+                offset = offset, limit = Model.MAX_PAGE_SIZE, sort = "title",
+            })
+            if not ok or not page then
+                failed = true
+                break
             end
-        else
-            failed = true
+            local rows = page.contacts or {}
+            for _, entry in ipairs(rows) do
+                if #contacts >= Model.MAX_CONTACTS then break end
+                local key = Model.ContactKey(entry)
+                if not seen[key] then
+                    seen[key] = true
+                    contacts[#contacts + 1] = entry
+                end
+            end
+            local nextOffset = tonumber(page.nextOffset)
+            if #rows == 0 or not nextOffset or nextOffset <= offset then
+                break
+            end
+            offset = math.floor(nextOffset)
         end
     end
     Model.SortContacts(contacts)
@@ -56,7 +64,18 @@ function Window:ensureContacts(force)
         or (#contacts == 0
             and tr("UI_PsychopatzCore_Radio_NoContacts", "NO CONTACTS")
             or nil)
-    self.contactIndex = clamp(self.contactIndex, 1, math.max(1, #contacts))
+    local selectedIndex
+    if selectedKey then
+        for index, entry in ipairs(contacts) do
+            if Model.ContactKey(entry) == selectedKey then
+                selectedIndex = index
+                break
+            end
+        end
+    end
+    self.contactIndex = selectedIndex or clamp(self.contactIndex, 1,
+        math.max(1, #contacts))
+    self.selectedContact = selectedIndex and contacts[selectedIndex] or nil
 end
 
 function Window:drawContacts()
@@ -114,76 +133,6 @@ function Window:contactRowAt(x, y)
     return nil
 end
 
-function Window:updatePortrait()
-    local panel = self.portraitPanel
-    local entry = self.selectedContact
-    if not panel or not entry or not entry.portraitDescriptor then
-        if panel then panel:setVisible(false) end
-        return
-    end
-    local ok = safeCall(panel, "setTarget", nil,
-        entry.portraitDescriptor, true)
-    if ok then panel:setVisible(true) else panel:setVisible(false) end
-end
-
-function Window:layoutPortrait()
-    local panel = self.portraitPanel
-    if not panel then return end
-    local screen = self:screenRect()
-    local metrics = self:screenMetrics()
-    local height = math.max(1, math.floor(screen.h - metrics.lineHeight * 2
-        - metrics.padding * 2))
-    local width = math.max(1, math.min(math.floor(screen.w * 0.38), height))
-    if panel.setPortraitBounds then
-        panel:setPortraitBounds(screen.x + 2 * self.scale,
-            screen.y + metrics.lineHeight * 2, width, height)
-    else
-        panel:setX(screen.x + 2 * self.scale)
-        panel:setY(screen.y + metrics.lineHeight * 2)
-        panel:setWidth(width)
-        panel:setHeight(height)
-    end
-end
-
-function Window:drawContactDetail()
-    local entry = self.selectedContact
-    local screen = self:screenRect()
-    local color = self:screenColors()
-    local header = self:drawScreenHeader(entry and entry.title
-        or tr("UI_PsychopatzCore_Radio_Contact", "CONTACT"),
-        text(entry and entry.status,
-            tr("UI_PsychopatzCore_Radio_Unknown", "unknown")))
-    local x = header.metrics.x
-    local y = header.contentY
-    if entry and entry.portraitDescriptor then
-        x = screen.x + math.floor(screen.w * 0.42)
-    end
-    self:drawTextClipped(Text.Format("UI_PsychopatzCore_Radio_StatusValue",
-        "STATUS: %s", text(entry and entry.status,
-            tr("UI_PsychopatzCore_Radio_Unknown", "unknown"))),
-        x, y, screen.w - (x - screen.x) - header.metrics.padding, color)
-    local actions = entry and entry.actions or {}
-    if #actions > 0 then
-        self:drawTextClipped(Text.Format("UI_PsychopatzCore_Radio_CenterAction",
-            "CENTER: %s", actions[1].label),
-            x, y + header.metrics.lineHeight,
-            screen.w - (x - screen.x) - header.metrics.padding, color)
-    else
-        self:drawTextClipped(
-            tr("UI_PsychopatzCore_Radio_NoAction", "NO ACTION"),
-            x, y + header.metrics.lineHeight,
-            screen.w - (x - screen.x) - header.metrics.padding, color)
-    end
-end
-
-function Window:contactDetailActionAt(x, y)
-    if not self.selectedContact then return nil end
-    local header = self:headerLayout(text(self.selectedContact.status,
-        tr("UI_PsychopatzCore_Radio_Unknown", "unknown")))
-    if y >= header.contentY and self:isInside(header.metrics.screen, x, y) then
-        return { kind = "contact_action" }
-    end
-    return nil
-end
+require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_ContactDetail"
 
 return Window

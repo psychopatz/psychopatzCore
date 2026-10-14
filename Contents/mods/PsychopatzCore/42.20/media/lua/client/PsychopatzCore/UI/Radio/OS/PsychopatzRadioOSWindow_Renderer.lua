@@ -58,8 +58,19 @@ function Window:atlasTexture(path)
     return self._textures[path]
 end
 
+function Window:spriteDefinition(id)
+    if not id then return nil, nil, nil end
+    local cached = self._spriteDefinitions[id]
+    if cached then return cached.path, cached.rect, cached.capInsets end
+    local path, rect, capInsets = Manifest.GetSprite(id)
+    if not path or not rect then return nil, nil, nil end
+    cached = { path = path, rect = rect, capInsets = capInsets }
+    self._spriteDefinitions[id] = cached
+    return path, rect, capInsets
+end
+
 function Window:drawSprite(id, x, y, width, height, alpha)
-    local path, rect = Manifest.GetSprite(id)
+    local path, rect = self:spriteDefinition(id)
     local texture = path and self:atlasTexture(path) or nil
     if not texture or not rect or not self.drawSubTexture then return false end
     self:drawSubTexture(texture, rect.x, rect.y, rect.w, rect.h,
@@ -70,7 +81,7 @@ end
 function Window:drawShell()
     local skin = self.skin
     local base = skin and skin.baseSize or {}
-    local path, rect = Manifest.GetSprite(skin and skin.sprite)
+    local path, rect = self:spriteDefinition(skin and skin.sprite)
     local texture = path and self:atlasTexture(path) or nil
     if texture and rect and self.drawSubTexture then
         self:drawSubTexture(texture, rect.x, rect.y, rect.w, rect.h,
@@ -91,21 +102,6 @@ function Window:screenColors()
         return { r = 1, g = 0.78, b = 0.32, a = 1 }
     end
     return { r = 0.65, g = 1, b = 0.65, a = 1 }
-end
-
-function Window:headerLayout(subtitle, options)
-    options = options or {}
-    local metrics = self:screenMetrics()
-    local screen = metrics.screen
-    local lines = 1
-    if subtitle and options.showSubtitle ~= false and metrics.lineCount >= 3 then
-        lines = 2
-    end
-    return {
-        contentY = screen.y + metrics.padding + lines * metrics.lineHeight,
-        metrics = metrics,
-        lines = lines,
-    }
 end
 
 function Window:drawScreenHeader(title, subtitle, options)

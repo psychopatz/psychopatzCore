@@ -24,6 +24,7 @@ function Window:new(x, y, width, height, context, options)
     object.geometryKey = options.geometryKey
     object.owner = options.owner
     object.hostWindow = options.hostWindow
+    object.geometryIdentity = options.geometryIdentity
     object.skin = object.context.skin
     object.page = "home"
     object.homeIndex = 1
@@ -36,6 +37,7 @@ function Window:new(x, y, width, height, context, options)
     object.customState = {}
     object.statusText = nil
     object._textures = {}
+    object._spriteDefinitions = {}
     object._closed = false
     object._hoverControl = nil
     object._hoverScreenAction = nil

@@ -151,9 +151,15 @@ function OS.Open(playerNum, device, options)
     end
     context.hostWindow = options.hostWindow
     local Window = require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow"
+    local geometryIdentity = {
+        family = context.skin.family or context.fullType,
+        id = context.skin.id,
+        fullType = context.fullType,
+    }
+    local geometryKey = Geometry.MakeKey(playerNum, geometryIdentity)
     local savedState, savedScale
     if options.persistGeometry ~= false then
-        savedState, savedScale = Geometry.Load(playerNum)
+        savedState, savedScale = Geometry.Load(playerNum, geometryIdentity)
     end
     local scale = tonumber(options.scale) or savedScale or OS.GetDefaultScale()
     scale = Geometry.ClampScale(scale, 0.75, 2.25)
@@ -170,7 +176,8 @@ function OS.Open(playerNum, device, options)
             scale = scale,
             owner = options.owner,
             hostWindow = options.hostWindow,
-            geometryKey = "PsychopatzCore.RadioOS.Player." .. tostring(playerNum),
+            geometryKey = geometryKey,
+            geometryIdentity = geometryIdentity,
             persistGeometry = options.persistGeometry,
         })
     window:initialise()

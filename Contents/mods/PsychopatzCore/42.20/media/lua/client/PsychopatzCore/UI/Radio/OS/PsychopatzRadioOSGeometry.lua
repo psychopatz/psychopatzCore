@@ -39,8 +39,47 @@ local function playerKey(playerNum)
     return "PsychopatzCore.RadioOS.Player." .. tostring(tonumber(playerNum) or 0)
 end
 
-local function scaleKey(playerNum)
-    return playerKey(playerNum) .. ".Scale"
+local function sanitizeKeyPart(value)
+    value = tostring(value or "unknown")
+    value = string.gsub(value, "[^%w_%-]", "_")
+    return value ~= "" and value or "unknown"
+end
+
+local function identityParts(identity)
+    if type(identity) == "table" then
+        local family = identity.family or identity.deviceFamily
+            or identity.fullType
+        local skin = identity.id or identity.skinID or identity.skin
+            or identity.fullType
+        return family, skin
+    end
+    if identity ~= nil then
+        local value = tostring(identity)
+        return value, value
+    end
+    return "unknown", "unknown"
+end
+
+function Geometry.MakeKey(playerNum, identity)
+    local family, skin = identityParts(identity)
+    return playerKey(playerNum) .. ".Device."
+        .. sanitizeKeyPart(family) .. "." .. sanitizeKeyPart(skin)
+end
+
+local function readState(activeStore, key)
+    if type(activeStore.GetWindowState) ~= "function" then return nil end
+    return activeStore:GetWindowState(key)
+end
+
+local function readScale(activeStore, key, state)
+    local savedScale
+    if type(activeStore.Get) == "function" then
+        savedScale = tonumber(activeStore:Get(key .. ".Scale", nil))
+    end
+    if not savedScale and state and tonumber(state.w) then
+        savedScale = tonumber(state.w) / 256
+    end
+    return savedScale
 end
 
 local function screenSize()
@@ -82,32 +121,32 @@ function Geometry.ClampPosition(x, y, width, height)
         math.floor(clamp(y, 0, maxY) + 0.5)
 end
 
-function Geometry.Load(playerNum)
+function Geometry.Load(playerNum, identity)
     local activeStore = settingsStore()
     if not activeStore then return nil, nil end
-    local state
-    if type(activeStore.GetWindowState) == "function" then
-        state = activeStore:GetWindowState(playerKey(playerNum))
-    end
-    local savedScale
-    if type(activeStore.Get) == "function" then
-        savedScale = tonumber(activeStore:Get(scaleKey(playerNum), nil))
-    end
-    if not savedScale and state and tonumber(state.w) then
-        savedScale = tonumber(state.w) / 256
+    local scopedKey = Geometry.MakeKey(playerNum, identity)
+    local state = readState(activeStore, scopedKey)
+    local savedScale = readScale(activeStore, scopedKey, state)
+    -- Migrate the pre-U0 player-only slot when the scoped slot is absent.
+    -- New saves always use the device-family/skin key above.
+    if not state and not savedScale and identity ~= nil then
+        state = readState(activeStore, playerKey(playerNum))
+        savedScale = readScale(activeStore, playerKey(playerNum), state)
     end
     return state, savedScale
 end
 
-function Geometry.Save(playerNum, state)
+function Geometry.Save(playerNum, state, identity)
     local activeStore = settingsStore()
     if not activeStore or type(state) ~= "table" then return false end
     if type(activeStore.SetWindowState) ~= "function" then return false end
-    local ok = activeStore:SetWindowState(playerKey(playerNum),
+    local scopedKey = Geometry.MakeKey(playerNum, identity)
+    local ok = activeStore:SetWindowState(scopedKey,
         state.x, state.y, state.w, state.h, false)
     if ok == false then return false end
     if type(activeStore.Set) == "function" then
-        activeStore:Set(scaleKey(playerNum), tonumber(state.scale) or 1, false)
+        activeStore:Set(scopedKey .. ".Scale", tonumber(state.scale) or 1,
+            false)
     end
     if type(activeStore.Save) == "function" then
         return activeStore:Save()
@@ -115,14 +154,15 @@ function Geometry.Save(playerNum, state)
     return true
 end
 
-function Geometry.Clear(playerNum)
+function Geometry.Clear(playerNum, identity)
     local activeStore = settingsStore()
     if not activeStore then return false end
+    local scopedKey = Geometry.MakeKey(playerNum, identity)
     if type(activeStore.ClearWindowState) == "function" then
-        activeStore:ClearWindowState(playerKey(playerNum), false)
+        activeStore:ClearWindowState(scopedKey, false)
     end
     if type(activeStore.Set) == "function" then
-        activeStore:Set(scaleKey(playerNum), nil, false)
+        activeStore:Set(scopedKey .. ".Scale", nil, false)
     end
     if type(activeStore.Save) == "function" then
         return activeStore:Save()

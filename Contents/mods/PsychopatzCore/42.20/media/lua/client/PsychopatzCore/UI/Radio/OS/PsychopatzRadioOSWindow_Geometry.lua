@@ -99,7 +99,7 @@ function Window:saveGeometry(force)
         w = width,
         h = height,
         scale = self:currentScale(),
-    })
+    }, self.geometryIdentity)
     if ok then
         self._savedGeometrySignature = signature
         self._geometryDirty = false

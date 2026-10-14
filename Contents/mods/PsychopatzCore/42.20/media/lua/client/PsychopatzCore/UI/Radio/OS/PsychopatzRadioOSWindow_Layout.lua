@@ -26,6 +26,9 @@ function Window:fitText(value, width, maxChars)
     value = tostring(value or "")
     local available = math.max(1, tonumber(width) or 1)
     local font = self:screenFont()
+    local fallbackCharWidth = safeMeasure("MeasureStringX", font, "M")
+        or 6
+    fallbackCharWidth = math.max(1, tonumber(fallbackCharWidth) or 6)
     local measured = safeMeasure("MeasureStringX", font, value)
     if measured and measured > available then
         local suffix = "..."
@@ -34,7 +37,7 @@ function Window:fitText(value, width, maxChars)
             local middle = math.ceil((low + high) / 2)
             local candidate = string.sub(value, 1, middle) .. suffix
             local candidateWidth = safeMeasure("MeasureStringX", font,
-                candidate) or (#candidate * 7)
+                candidate) or (#candidate * fallbackCharWidth)
             if candidateWidth <= available then
                 low = middle
             else
@@ -44,7 +47,7 @@ function Window:fitText(value, width, maxChars)
         return low > 0 and string.sub(value, 1, low) .. suffix or suffix
     end
     local fallbackChars = math.max(1, math.floor(tonumber(maxChars)
-        or available / 7))
+        or available / fallbackCharWidth))
     if not measured and #value > fallbackChars then
         return string.sub(value, 1, math.max(1, fallbackChars - 3)) .. "..."
     end
