@@ -71,7 +71,7 @@ def build(source, output):
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--source",required=True)
-    p.add_argument("--output",default="Contents/mods/PsychopatzCore/42.20/media/ui/psychopatz/radio/shells/DTA_Walkie_Shells.png")
+    p.add_argument("--output",default="Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/shells/DTA_Walkie_Shells.png")
     p.add_argument("--layout",help="Optional JSON verification report")
     args=p.parse_args()
     layout=build(args.source,args.output)

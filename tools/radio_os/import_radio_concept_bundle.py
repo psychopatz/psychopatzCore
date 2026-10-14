@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import original generated radio concept PNGs from the chat bundle into Core.
+"""Import original generated radio concept PNGs from the chat bundle into Core's common/media/ui staging path.
 
 Never downscale, requantize or overwrite an existing mismatching art source.
 Use --commit --push only in a regular local git checkout with Git credentials.
@@ -36,19 +36,22 @@ def main():
         if staged:
             raise SystemExit("Index is not empty; commit or unstage unrelated work first. No files changed.")
     with ZipFile(a.bundle) as z:
-        expected = {row["target_path"] for row in rows}
+        expected = {row["archive_path"] for row in rows}
         archive = {n for n in z.namelist() if n.startswith("art_source/radio/device_concepts/")}
         if archive != expected:
             raise SystemExit("Bundle contains missing or unknown image paths; stopping")
         validated = []
         for row in rows:
             rel = row["target_path"]
-            if Path(rel).is_absolute() or ".." in Path(rel).parts:
-                raise SystemExit(f"Unsafe target path: {rel}")
-            info = z.getinfo(rel)
+            source_name = row["archive_path"]
+            if Path(rel).is_absolute() or ".." in Path(rel).parts or not rel.startswith("Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceConcepts/"):
+                raise SystemExit(f"Unsafe/non-Core target path: {rel}")
+            if Path(source_name).is_absolute() or ".." in Path(source_name).parts:
+                raise SystemExit(f"Unsafe archive path: {source_name}")
+            info = z.getinfo(source_name)
             if info.file_size > 12_000_000:
                 raise SystemExit(f"Asset exceeds source size cap: {rel}")
-            data = z.read(rel)
+            data = z.read(source_name)
             if hashlib.sha256(data).hexdigest() != row["sha256"]:
                 raise SystemExit(f"SHA-256 mismatch: {rel}")
             if data[:8] != b"\x89PNG\r\n\x1a\n":
@@ -84,6 +87,6 @@ def main():
         print(r.stdout or r.stderr)
     print(f"Validated {len(validated)} original full-resolution files, added {len(created)}.")
     if not a.commit:
-        print("To publish: git add art_source/radio/device_concepts && git commit -m 'art(radio): add labeled concept sources' && git push")
+        print("To publish: git add Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceConcepts && git commit -m 'art(radio): add labeled concept sources' && git push")
 if __name__ == "__main__":
     main()

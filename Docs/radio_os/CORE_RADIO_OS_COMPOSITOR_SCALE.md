@@ -94,3 +94,7 @@ The U0–U7 UI stabilization plan remains valid. Current screenshots **supersede
 Work unattended in small coherent, verified, fast-forward-safe commits, recording changed owning repo, tests, artifacts, actual screenshot/native status and next chunk in `DynamicTrading/Docs/radio_os/DT_RADIO_OS_PROGRESS.md`. Preserve user worktrees, installs/saves and all unrelated gameplay. No destructive resets or force pushes.
 
 **Important limitation:** no high-fidelity replacement shell is guaranteed until its authentic source is located. Report that separately; compositor/scaling work must proceed regardless.
+
+## Packaging correction: Core common/media/ui (2026-10-15)
+
+Production walkie shell and shared-UI PNGs have been moved (same blob hashes) to `PsychopatzCore/common/media/ui/psychopatz/radio`. The Lua manifest still uses valid game-relative `media/ui/psychopatz/radio/...` paths and remains under the existing version-specific Lua folder. The 341px builder source is at `art_source/radio/legacy/`. New standalone model shells and animated LED frames also export into `common/media/ui` after art validation. Native texture resolution is pending normal gameplay testing.

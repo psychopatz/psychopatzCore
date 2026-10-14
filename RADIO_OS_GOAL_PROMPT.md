@@ -15,6 +15,8 @@ Read in order:
 5. DynamicTrading/Docs/radio_os/DT_RADIO_OS_ROADMAP.md
 6. DynamicTrading/Docs/radio_os/DT_RADIO_OS_PROGRESS.md
 
+Packaging rule verified from Core: all game-loadable shell, LCD, LED-frame, button and widget PNG outputs MUST live under Contents/mods/PsychopatzCore/common/media/ui/ (the shared Radio OS virtual paths can remain media/ui/psychopatz/radio/...). Do not export new runtime images into 42.20/media/ui. Keep unsliced concept art separate from approved runtime skins, and never reference a full concept sheet directly from the renderer. Preserve the legacy six PNGs now migrated to common/media/ui.
+
 Architecture: Core owns device-model shells, art export pipeline, family-specific manifest/geometry, variant selection, generic renderer, UI widgets, apps/contacts SDK. ProjectHoomans owns NPC contacts and actual conversation. DTCommon/DTAbstract/DTHoomans own trade authorization and existing V2 commerce. No Core dependency on consumer mods.
 
 Split physical shell art ONE MODEL PER EDITABLE SOURCE AND TRANSPARENT HIGH-RES PNG, organized under walkie, HAM, and manpack families. Do NOT stretch or bundle new model sources into one low-res 341x341 sheet. Keep the five shared UI widget atlases for LCD components, icons, buttons, signal/battery indicators and effects. No thumbnail backgrounds, baked NPC portraits, name/status text, second trading screen, non-PZ hyperrealistic rendering, or clone/recolor placeholders passed off as unique devices.

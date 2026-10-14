@@ -44,7 +44,7 @@ PsychopatzCore/
     devices/                                 <- manifests or authoring metadata
     build_device_shells.py                   <- reproducible per-model export
     audit_device_assets.py                   <- per-skin alpha/dimensions/coverage
-  Contents/mods/PsychopatzCore/42.20/media/
+  Contents/mods/PsychopatzCore/common/media/
     ui/psychopatz/radio/
       common/
         UI_Core.png
@@ -173,3 +173,13 @@ Normal installed Project Zomboid Build42: all verified walkie/HAM/manpack models
 - Work unattended on safe source audits, manifests, tests and scripts; commit/push verified in-scope changes to PsychopatzCore, updating `DynamicTrading/Docs/radio_os/DT_RADIO_OS_PROGRESS.md`. Do not ask repeated permission for routine coding steps. A visual-art approval is appropriate before replacing production imagery with newly drawn content.
 - No force push, unsafe resets, unrelated modifications, user-save changes, unexpected changes to Hoomans or trading settlement. Never use the **PZ Headless Harness** (known broken); use offline Lua/Pillow tests and normal user-operated game SP/MP for native evidence. Don't claim native success from synthetic RGBA composites.
 - Preserve ongoing C0–C6 compositor work as upstream prerequisites/foundations; asset A0–A8 is a new stage addressing the source-resolution and per-device-family limitations. Do not undo successful compositor/zoom patches.
+
+## Verified Project Zomboid asset installation convention (2026-10-15)
+
+PsychopatzCore already stores shared radio-signal frames in `Contents/mods/PsychopatzCore/common/media/ui/Radio/Signal_found/`, and its conversation background loader resolves `media/ui/Conversation/Backgrounds/*.png` from `common/media/ui`. Therefore place **all Radio OS game-loadable texture exports** in `Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/` (or another established `common/media/ui/Radio/` subtree when the relevant Lua virtual texture path is updated together). Client Lua can remain under `42.20/media/lua` if B42-specific.
+
+The current six legacy production PNGs were moved byte-for-byte from `42.20/media/ui/psychopatz/radio/` to that matching `common/media/ui/psychopatz/radio/` path; existing `getTexture("media/ui/psychopatz/radio/...")` virtual paths remain unchanged. Do not keep identical virtual texture names in both common and version-specific directories, which would introduce ambiguous resolution. Future walkie, HAM and manpack **runtime shell/LED/glass/condition** PNG exports must use `common/media/ui` as well.
+
+**Important separate concern:** full multi-component 1254×1254 concept sheets are *unsliced art references*, not a PZ-renderable radio skin. The importer stores those labeled reference sheets in `common/media/ui/Radio/DeviceConcepts/` for discovery and review, but they must **not be referenced by the live renderer**. Device-specific production assets are cropped/validated into `common/media/ui/psychopatz/radio/devices/<family>/<model>/` only after approval. The compact 341px legacy **builder input** is kept separately at `art_source/radio/legacy/`, not treated as a game texture.
+
+Offline and source-level path checks are possible; only normal Project Zomboid Build 42 use confirms actual engine texture resolution. The PZ Headless Harness is not permitted.

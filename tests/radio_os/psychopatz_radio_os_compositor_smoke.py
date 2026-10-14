@@ -17,15 +17,15 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 ATLAS = ROOT / (
-    "Contents/mods/PsychopatzCore/42.20/media/ui/psychopatz/radio/"
+    "Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/"
     "shells/DTA_Walkie_Shells.png"
 )
 CORE_ATLAS = ROOT / (
-    "Contents/mods/PsychopatzCore/42.20/media/ui/psychopatz/radio/ui/"
+    "Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/ui/"
     "DTA_Walkie_UI_Core.png"
 )
 OVERLAY_ATLAS = ROOT / (
-    "Contents/mods/PsychopatzCore/42.20/media/ui/psychopatz/radio/ui/"
+    "Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/ui/"
     "DTA_Walkie_Overlays.png"
 )
 MANIFEST = ROOT / (

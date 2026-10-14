@@ -1,30 +1,50 @@
-# Radio device concept source sheets — labeled inventory
+# Radio art: verified Core paths and import staging
 
-These are **11 generated full-resolution PNG concept sheets**, not final sliced textures. All originals are **1254 × 1254 RGBA**, and the intended LCD/buttons/LED frames still need individually measured crop coordinates and alpha validation. Core owns the future runtime assets; this folder contains human-editable reference/source sheets only.
+**All game-loadable Radio OS textures belong under PsychopatzCore's existing `common/media/ui` convention.** This was verified against existing `common/media/ui/Radio/Signal_found` files and the conversation background texture loader. Earlier instructions placing game PNGs under `42.20/media/ui` were incorrect for this project's preferred layout.
 
-**GitHub publication status:** the catalog and reproducible import tool are committed here. The **PNG bytes are not in this commit** because the connected GitHub writer does not accept local image-file references; they must be imported from the original asset bundle via the script below. Do not report images as published until each target PNG exists in the Git tree and matches SHA-256.
+## Production (game-loadable) radio textures
 
-## Upload the original full-size files
-
-Download the accompanying original concept-sheet bundle from the conversation, then on a workstation with a clone of `psychopatzCore` run:
-
-```sh
-python tools/radio_os/import_radio_concept_bundle.py /path/to/psychopatz_radio_concept_sheets_2026-10-15.zip --commit --push
+```text
+Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/
+  shells/DTA_Walkie_Shells.png        # legacy approved shell atlas; fallback
+  ui/DTA_Walkie_UI_Core.png           # shared reusable LCD/UI chrome
+  ui/DTA_Walkie_Buttons.png           # shared button states
+  ui/DTA_Walkie_Icons.png             # shared icons
+  ui/DTA_Walkie_Indicators.png        # shared battery/signal art
+  ui/DTA_Walkie_Overlays.png          # shared visual effects
+  devices/walkie/<model>/             # FUTURE approved individual shells/LEDs/wear
+  devices/ham/<model>/                # FUTURE approved HAM shells/LEDs/wear
+  devices/manpack/<model>/            # FUTURE approved manpack shells/LEDs/wear
 ```
 
-The importer checks PNG size/format/alpha, exact SHA-256, safe archive paths, and preexisting files. It commits **only** new concept images, refuses to overwrite any different art, and performs a normal non-force Git push. If source files already match, importing again is safe. To review without Git write operations, omit `--commit --push`; it still copies files after verification.
+The six **existing** runtime PNGs were moved byte-for-byte to this directory. The Lua `getTexture` virtual texture names remain `media/ui/psychopatz/radio/...`; Lua source can stay under `42.20/media/lua`. The **legacy compact builder source** moved to `art_source/radio/legacy/` because it is an offline tool input, not a game image.
 
-## Classification rules
+## Eleven unsliced concept sheets: staging only
 
-- `walkie/us_army`: four **alternative** military handheld studies, **not** four separate vanilla devices and not separate finalized clean/worn source layers.
-- `walkie/makeshift`: two taped/exposed-wire handheld concepts. The generated filename `post_apocalyptic_ham_radio_sprite_sheet.png` is visually a handheld and is therefore organized under makeshift **walkie**, not HAM.
-- `walkie/tactical`, `walkie/rugged`, `walkie/unassigned`: additional handheld studies; **no confirmed Base fullType** until game-art audit.
-- `ham/desktop`: one horizontal desktop HAM visual concept. HAM models and placed-radio behavior are not exhaustively represented.
-- **Manpack: not generated.** Do not label any existing handheld as a manpack. Create and approve manpack art separately.
-- Within each concept sheet, shells, glass overlays, hardware buttons and LED/glow frames are *visual regions*, not prevalidated runtime animation assets. Slice and label exact regions before integration.
+The generated 1254x1254 concept-sheet **originals are not game-ready sprites**. They contain multiple mixed visual objects and unmeasured LCD/button/LED parts. For convenient browsing alongside your Core radio assets, the importer stages them at:
 
-For each future production device, use `Docs/radio_os/CORE_RADIO_DEVICE_ASSETS.md` and keep independent transparent shell art, measured display and control geometry, overlay variants, static shared UI atlases, and time-driven LED state selection in Core. No baked NPC names, text, contact images, or trading UI screens.
+```text
+Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceConcepts/
+  walkie/us_army/...
+  walkie/makeshift/...
+  walkie/tactical/...
+  walkie/rugged/...
+  walkie/unassigned/...
+  ham/desktop/...
+```
 
-## Integrity
+The catalog lives at `art_source/radio/device_concepts/catalog.json`. Its `archive_path` points to each original ZIP member; `target_path` points to the Core common-media staging destination. They are **labeled unapproved source concepts**, not wired to the renderer, not sliced/validated, and not a full HAM or manpack set. **No manpack sheet is in the ZIP.** Keep their full original resolution and transparency. Large unsliced sources should not be registered as a game-facing skin.
 
-`catalog.json` records every original image name, intended staging path and exact SHA-256. Imported files are intentionally not attached to the game-loaded `media/ui` directory until each model is individually reviewed, sliced and validated.
+## Import (not yet uploaded to GitHub)
+
+In your cloned `psychopatzCore` folder, run:
+
+```powershell
+py tools/radio_os/import_radio_concept_bundle.py "$env:USERPROFILE\Downloads\psychopatz_radio_concept_sheets_2026-10-15.zip" --commit --push
+```
+
+This validates exact SHA-256, PNG alpha/dimensions, names and any existing destination before adding files. It does not change the active Radio OS. Do not claim that the 11 binary images have been pushed before this command succeeds. The importer commits and pushes only the staged images; all runtime skins must be individually reviewed and exported afterward.
+
+## Future image production
+
+Follow `Docs/radio_os/CORE_RADIO_DEVICE_ASSETS.md`: per-model high-resolution independent shell/art sources, correct LCD alpha hole and backdrop, animation-ready separated LED states and condition overlays; shared UI widget atlases remain unified. Test all future exports using normal game Build 42 and offline alpha/geometry validation. **PZ Headless Harness must not be used.**

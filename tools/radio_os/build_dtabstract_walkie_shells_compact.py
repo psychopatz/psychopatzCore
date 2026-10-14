@@ -114,9 +114,9 @@ def validate(image):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--source',
-        default='Contents/mods/PsychopatzCore/42.20/media/ui/psychopatz/radio/shells/DTA_Walkie_Shells_CompactSource.png')
+        default='art_source/radio/legacy/DTA_Walkie_Shells_CompactSource.png')
     p.add_argument('--output',
-        default='Contents/mods/PsychopatzCore/42.20/media/ui/psychopatz/radio/shells/DTA_Walkie_Shells.png')
+        default='Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/shells/DTA_Walkie_Shells.png')
     p.add_argument('--preview', default=None)
     args = p.parse_args()
     atlas = compose(args.source)

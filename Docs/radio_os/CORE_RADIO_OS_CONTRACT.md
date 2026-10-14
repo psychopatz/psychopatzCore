@@ -106,3 +106,7 @@ Core Radio OS still derives its window from `ISPanel`, while existing Core windo
 ## New per-device-family shell contract
 
 For the current architecture and detailed A0–A8 art-production gates, see [`CORE_RADIO_DEVICE_ASSETS.md`](CORE_RADIO_DEVICE_ASSETS.md). The shared `RegisterDeviceSkin` interface must evolve from required three hardware controls/256×432 shell atlas assumptions to per-model full-texture coordinates and optional variable controls, while retaining old provider compatibility. A placed HAM radio's visual UI must not automatically require `getIsPortable()`, and displayable device status does not grant server-authorized remote trade. Walkie/HAM/manpack source art must be independently editable and transparent; reusable buttons, icons, indicator and other UI atlases remain unified.
+
+## Corrected packaging convention (2026-10-15)
+
+Repository audit established PsychopatzCore's convention: reusable radio and conversation art already lives under `common/media/ui`. All game-loadable Radio OS PNGs therefore belong in `Contents/mods/PsychopatzCore/common/media/ui/...` rather than `42.20/media/ui`. The six existing runtime radio atlases have been transferred intact, and the renderer's relative `media/ui/psychopatz/radio/...` texture lookups are preserved. Separate version-specific Lua may remain in `42.20/media/lua`. Concept/source image catalogs and full unsliced sheets are explicitly distinguished from validated runtime device skins.
