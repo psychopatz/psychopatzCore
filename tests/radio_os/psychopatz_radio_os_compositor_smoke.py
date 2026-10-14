@@ -20,6 +20,14 @@ ATLAS = ROOT / (
     "Contents/mods/PsychopatzCore/42.20/media/ui/psychopatz/radio/"
     "shells/DTA_Walkie_Shells.png"
 )
+CORE_ATLAS = ROOT / (
+    "Contents/mods/PsychopatzCore/42.20/media/ui/psychopatz/radio/ui/"
+    "DTA_Walkie_UI_Core.png"
+)
+OVERLAY_ATLAS = ROOT / (
+    "Contents/mods/PsychopatzCore/42.20/media/ui/psychopatz/radio/ui/"
+    "DTA_Walkie_Overlays.png"
+)
 MANIFEST = ROOT / (
     "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
     "PsychopatzCore/UI/Radio/OS/PsychopatzRadioManifest.lua"
@@ -166,7 +174,33 @@ def assert_alpha_and_uv_contract(atlas):
     # The source builder reserves the right and bottom atlas gutters.
     assert atlas.crop((896, 0, 1024, 1024)).getchannel("A").getbbox() is None
     assert atlas.crop((0, 960, 1024, 1024)).getchannel("A").getbbox() is None
+    # Shell cells have deliberate 32px gutters, preventing linear filtering
+    # from sampling a neighboring radio when the exact UV rect is drawn.
+    for gap in ((288, 32, 32, 432), (576, 32, 32, 432),
+                (864, 32, 32, 432), (288, 496, 32, 432),
+                (576, 496, 32, 432), (864, 496, 32, 432),
+                (32, 464, 832, 32)):
+        assert atlas.crop(rect_box(gap)).getchannel("A").getbbox() is None
     return cells
+
+
+def assert_background_alpha_contract():
+    core = Image.open(CORE_ATLAS).convert("RGBA")
+    for name, rect in (
+        ("green", (16, 16, 224, 128)),
+        ("amber", (256, 16, 224, 128)),
+        ("dark", (496, 16, 224, 128)),
+        ("noise", (736, 16, 224, 128)),
+    ):
+        alpha = core.crop(rect_box(rect)).getchannel("A")
+        low, high = alpha.getextrema()
+        assert low == 0 and high == 255, (
+            f"screen_bg_{name}: expected transparent and opaque pixels"
+        )
+    overlays = Image.open(OVERLAY_ATLAS).convert("RGBA")
+    scanlines = overlays.crop((16, 16, 176, 176)).getchannel("A")
+    assert scanlines.getextrema()[0] == 0
+    assert scanlines.getextrema()[1] < 255
 
 
 def synthetic_composite(atlas, item):
@@ -263,6 +297,7 @@ def main():
     assert_manifest_geometry()
     atlas = Image.open(ATLAS).convert("RGBA")
     assert_alpha_and_uv_contract(atlas)
+    assert_background_alpha_contract()
     samples = [synthetic_composite(atlas, item) for item in SHELLS]
     assert_scaling_and_hitboxes()
     assert_draw_order_contract()

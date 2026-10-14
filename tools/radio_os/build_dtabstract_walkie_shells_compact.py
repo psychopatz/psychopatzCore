@@ -38,6 +38,13 @@ LCD_BACKDROPS = [
     (83, 231, 99, 81),
 ]
 
+ATLAS_GUTTERS = [
+    (288, 32, 32, 896),
+    (576, 32, 32, 896),
+    (864, 32, 32, 896),
+    (32, 464, 832, 32),
+]
+
 
 def compose(source):
     image = Image.open(source).convert("RGBA")
@@ -51,6 +58,11 @@ def compose(source):
         sx, sy, sw, sh = screen
         draw.rectangle((cx + sx, cy + sy,
                         cx + sx + sw - 1, cy + sy + sh - 1), fill=0)
+    # Keep every UV cell isolated.  The compact source has one fringe pixel
+    # below the first row; leaving it in the inter-row gutter makes linear
+    # filtering able to sample a neighboring shell at the cell boundary.
+    for x, y, w, h in ATLAS_GUTTERS:
+        draw.rectangle((x, y, x + w - 1, y + h - 1), fill=0)
     full.putalpha(alpha)
     return full
 
