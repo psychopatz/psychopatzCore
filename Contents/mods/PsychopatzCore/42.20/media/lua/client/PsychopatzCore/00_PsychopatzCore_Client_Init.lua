@@ -1,5 +1,6 @@
 -- Thin early-loading client anchor. Keep composition order explicit.
 require "PsychopatzCore/Input/PsychopatzKeybinds"
+require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOS"
 require "PsychopatzCore/UI/PsychopatzAudioSettings"
 require "PsychopatzCore/Conversation/PsychopatzSocialFlavorClient"
 require "PsychopatzCore/Compatibility/PsychopatzWalkieHotbarGuard"
