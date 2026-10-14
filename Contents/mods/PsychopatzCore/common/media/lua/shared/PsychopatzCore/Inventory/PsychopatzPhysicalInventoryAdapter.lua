@@ -267,6 +267,20 @@ function Physical:restoreRemoved(removed)
     return true
 end
 
+-- Reverse a successful add using the exact native objects returned by add().
+-- Transaction owners use this when a later operation in the same basket
+-- fails; it avoids removing an unrelated item of the same full type.
+function Physical:removeAdded(added)
+    if type(added) ~= "table" then return false end
+    for index = #added, 1, -1 do
+        local entry = added[index]
+        local item = type(entry) == "table" and entry.item or entry
+        if not item or not self:_nativeRemove(item) then return false end
+    end
+    if #added > 0 then self.revision = self.revision + 1 end
+    return true
+end
+
 function Physical:clear()
     local items = self:_items()
     for i = #items, 1, -1 do if not self:_nativeRemove(items[i]) then return false end end

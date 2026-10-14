@@ -20,12 +20,24 @@ local function rollbackSource(source, removed)
 end
 
 local function rollbackDestination(destination, added)
+    local ok = true
     for i = #added, 1, -1 do
         local entry = added[i]
-        if type(entry.result) == "table" and entry.result[1]
+        if type(destination._nativeRemove) == "function"
+            and entry.result ~= nil and not (type(entry.result) == "table"
+                and entry.result[1])
+        then
+            if not destination:_nativeRemove(entry.result) then
+                ok = false
+            end
+        elseif type(entry.result) == "table" and entry.result[1]
             and destination._nativeRemove
         then
-            for j = #entry.result, 1, -1 do destination:_nativeRemove(entry.result[j]) end
+            for j = #entry.result, 1, -1 do
+                if not destination:_nativeRemove(entry.result[j]) then
+                    ok = false
+                end
+            end
         else
             local key = ItemRecord.stackKey(entry.record)
             local resultRecord = entry.result
@@ -33,9 +45,35 @@ local function rollbackDestination(destination, added)
                 if key then return ItemRecord.stackKey(candidate) == key end
                 return candidate == resultRecord
             end }
-            destination:remove(query, entry.record[C.QUANTITY], { includeReserved = true })
+            local removed = destination:remove(
+                query,
+                entry.record[C.QUANTITY],
+                { includeReserved = true }
+            )
+            if not removed then ok = false end
         end
     end
+    return ok
+end
+
+local function transferHandle(source, destination, removed, added)
+    local handle = {
+        source = source,
+        destination = destination,
+        removed = removed,
+        added = added,
+        rolledBack = false,
+    }
+    function handle:rollback()
+        local destinationOK
+        local sourceOK
+        if self.rolledBack then return true end
+        destinationOK = rollbackDestination(self.destination, self.added)
+        sourceOK = rollbackSource(self.source, self.removed)
+        if destinationOK and sourceOK then self.rolledBack = true end
+        return destinationOK and sourceOK
+    end
+    return handle
 end
 
 function Transaction.transfer(source, destination, query, quantity, options)
@@ -66,6 +104,9 @@ function Transaction.transfer(source, destination, query, quantity, options)
             return false, result or "destination_add_failed"
         end
         added[#added + 1] = { result = result, record = removed[i] }
+    end
+    if options and options.reversible == true then
+        return true, transferHandle(source, destination, removed, added)
     end
     return true, removed
 end
