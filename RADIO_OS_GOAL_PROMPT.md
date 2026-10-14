@@ -2,7 +2,7 @@
 
 **Current stage:** per-device, per-family transparent radio shell source/art architecture, covering **walkie, HAM and manpack**. This supersedes the previous walkie-atlas-only image-production assumption; the existing Core OS and shared widget atlases remain.
 
-\`\`\`text
+```text
 /goal
 
 Prepare and implement a **device-family radio shell asset architecture in PsychopatzCore**, covering individual high-resolution walkie, HAM and manpack models. This is NOT a new Radio OS, nor another Dynamic Trading UI, and it must preserve current compositor, adaptive scaling, NPC contacts, and the existing V2 trade handoff.
@@ -32,4 +32,4 @@ This turn's scope is DOCUMENTATION FIRST. Do not silently replace production PNG
 The **PZ Headless Harness is prohibited**: do not install, use, repair or investigate. Offline Lua/Pillow tests and actual normal Project Zomboid for native verification only. No claims of native success from mocks. Update DynamicTrading/Docs/radio_os/DT_RADIO_OS_PROGRESS.md with A milestone, exact tests, asset source provenance, Core/DT commits, blocker and next step; commit/push safely without overwriting unrelated edits, force pushes or destructive resets. Preserve old approved artwork and settings as fallback.
 
 Begin A0 now, then A1–A2 automatically. Present the US Army pilot's image requirements and explicit art approval gate before production asset substitution; continue any independent safe stages while waiting for actual source art.
-\`\`\`
+```

@@ -12,11 +12,11 @@ A unified atlas is not intrinsically low-quality. The **specific current pipelin
 
 ## Actual audited starting point
 
-At planning audit, PsychopatzCore main HEAD \`13d8aefbd23b17b41cac5f5e7cebe48a5e61626e\`:
-- \`.../UI/Radio/OS/PsychopatzRadioManifest.lua\` is walkie-only, with \`M.family="walkie"\`, 256×432 shell cells, shared \`sheets.shells\`, \`skin.sprite\` and uniform **three** \`controls.left/center/right\` registrations.
-- \`PsychopatzRadioOSDevice.lua\` exposes \`RegisterDeviceSkin\`/ \`GetDeviceSkin\`, but \`validateSkin\` currently requires \`sprite\`, \`screen\` and **all three** rectangular controls. This is too rigid for HAM/manpack consoles; preserve old API while extending validation and input dispatch to variable control layouts.
-- \`PsychopatzRadioOSWindow_Renderer.lua\` already performs LCD matte/background + content + effects + front shell composition with pixel-snapped geometry. There is a recorded six-walkie alpha aperture audit and isolated atlas UV gutters. **Do not rebuild compositor from scratch**; generalize texture resolution and geometry per skin.
-- \`RadioDeviceState\` currently validates **portable, two-way, powered, audible, unmuted** radios. A stationary HAM radio may not pass portable validation: visual UI availability and actual transmission/trade permission are **different** gates. Inspect base-game item script/DeviceData and world-vs-inventory interaction methods for each HAM/manpack model before making promises.
+At planning audit, PsychopatzCore main HEAD `13d8aefbd23b17b41cac5f5e7cebe48a5e61626e`:
+- `.../UI/Radio/OS/PsychopatzRadioManifest.lua` is walkie-only, with `M.family="walkie"`, 256×432 shell cells, shared `sheets.shells`, `skin.sprite` and uniform **three** `controls.left/center/right` registrations.
+- `PsychopatzRadioOSDevice.lua` exposes `RegisterDeviceSkin`/ `GetDeviceSkin`, but `validateSkin` currently requires `sprite`, `screen` and **all three** rectangular controls. This is too rigid for HAM/manpack consoles; preserve old API while extending validation and input dispatch to variable control layouts.
+- `PsychopatzRadioOSWindow_Renderer.lua` already performs LCD matte/background + content + effects + front shell composition with pixel-snapped geometry. There is a recorded six-walkie alpha aperture audit and isolated atlas UV gutters. **Do not rebuild compositor from scratch**; generalize texture resolution and geometry per skin.
+- `RadioDeviceState` currently validates **portable, two-way, powered, audible, unmuted** radios. A stationary HAM radio may not pass portable validation: visual UI availability and actual transmission/trade permission are **different** gates. Inspect base-game item script/DeviceData and world-vs-inventory interaction methods for each HAM/manpack model before making promises.
 - Source PNGs/manifest, builder scripts and full Core radio tests exist. Normal-game native acceptance is still pending. Historical DTAbstract asset copies are not production owners.
 
 Reinspect HEAD, mods, device IDs, sprite artwork and normal-game API before implementing.
@@ -25,18 +25,18 @@ Reinspect HEAD, mods, device IDs, sprite artwork and normal-game API before impl
 
 | Family | Current planned models | Core source status |
 |---|---|---|
-| Walkie | \`Base.WalkieTalkie1\`, \`2\`, \`3\`, \`4\`, \`5\`, \`Base.WalkieTalkieMakeShift\` | Six legacy PNG cells exist; **no approved individual high-detail shell source** in the audited repos |
-| HAM | \`Base.HamRadio1\`, \`Base.HamRadio2\`, \`Base.HamRadioMakeShift\` | **No production shell assets yet**; verify fullTypes, portable/placed variants and controls |
-| Manpack | \`Base.ManPackRadio\` | **No production shell asset yet**; verify exact case-sensitive fullType and in-world/portable usage |
+| Walkie | `Base.WalkieTalkie1`, `2`, `3`, `4`, `5`, `Base.WalkieTalkieMakeShift` | Six legacy PNG cells exist; **no approved individual high-detail shell source** in the audited repos |
+| HAM | `Base.HamRadio1`, `Base.HamRadio2`, `Base.HamRadioMakeShift` | **No production shell assets yet**; verify fullTypes, portable/placed variants and controls |
+| Manpack | `Base.ManPackRadio` | **No production shell asset yet**; verify exact case-sensitive fullType and in-world/portable usage |
 | Receive-only / vehicle / future | Not part of this asset completion gate | Registerable later; don't pretend receive-only supports two-way calls or remote trade |
 
-**Do not assume** list entry is valid or two-way/transmitting merely because a texture exists. Record verified vanilla \`fullType\`, capability flags, actual item sprite/icon and use context for each device in the A0 inventory. No HAM/manpack designs can be marked complete before their authentic device-specific artwork and measured geometry exist.
+**Do not assume** list entry is valid or two-way/transmitting merely because a texture exists. Record verified vanilla `fullType`, capability flags, actual item sprite/icon and use context for each device in the A0 inventory. No HAM/manpack designs can be marked complete before their authentic device-specific artwork and measured geometry exist.
 
 ## File ownership and proposed structure
 
 Keep the original authoring masters separate from game-runtime exports. Paths below are **proposals**, not already existing files:
 
-\`\`\`text
+```text
 PsychopatzCore/
   Docs/radio_os/
     CORE_RADIO_DEVICE_ASSETS.md              <- this contract
@@ -72,11 +72,11 @@ PsychopatzCore/
     lua/client/PsychopatzCore/UI/Radio/OS/
       PsychopatzRadioDeviceSkins.lua           <- registry/schema module
       Skins/                                  <- per-model registered definitions
-\`\`\`
+```
 
-Current \`DTA_Walkie_UI_Core.png\`, \`DTA_Walkie_Buttons.png\`, \`DTA_Walkie_Icons.png\`, \`DTA_Walkie_Indicators.png\`, \`DTA_Walkie_Overlays.png\` **remain shared and functional** during migration. Do not duplicate them for every model or break existing texture paths; optional renaming only after compatibility testing.
+Current `DTA_Walkie_UI_Core.png`, `DTA_Walkie_Buttons.png`, `DTA_Walkie_Icons.png`, `DTA_Walkie_Indicators.png`, `DTA_Walkie_Overlays.png` **remain shared and functional** during migration. Do not duplicate them for every model or break existing texture paths; optional renaming only after compatibility testing.
 
-Authoring masters may live in a dedicated \`art_source/radio/devices/<family>/<model>/\` folder with layered masters/source attribution/exports. They are not necessarily all copied to the game runtime. No font files should be distributed.
+Authoring masters may live in a dedicated `art_source/radio/devices/<family>/<model>/` folder with layered masters/source attribution/exports. They are not necessarily all copied to the game runtime. No font files should be distributed.
 
 ## Per-model high-resolution art specification
 
@@ -91,7 +91,7 @@ Authoring masters may live in a dedicated \`art_source/radio/devices/<family>/<m
 
 ## Device skin schema v2 — proposed (do not call implemented)
 
-\`\`\`lua
+```lua
 -- Pseudocode / declarative contract, not immediately usable code
 {
   id = "psychopatz:walkie_usarmy",
@@ -118,13 +118,13 @@ Authoring masters may live in a dedicated \`art_source/radio/devices/<family>/<m
   },
   preferredTheme = "green",
 }
-\`\`\`
+```
 
-All coordinates are **local to that model's own source canvas**, top-left origin. The aperture, matte/backing, content and control rectangles must be measured **from actual art** after creation, not invented beforehand. Runtime draws using a single physical-to-screen transform, with correct hit-testing and aspect-preserving user zoom. The real schema should permit zero/variable/mappable controls and optional analog knobs, and validate required capabilities without making existing \`RegisterDeviceSkin\` consumers fail.
+All coordinates are **local to that model's own source canvas**, top-left origin. The aperture, matte/backing, content and control rectangles must be measured **from actual art** after creation, not invented beforehand. Runtime draws using a single physical-to-screen transform, with correct hit-testing and aspect-preserving user zoom. The real schema should permit zero/variable/mappable controls and optional analog knobs, and validate required capabilities without making existing `RegisterDeviceSkin` consumers fail.
 
 ## Condition / cosmetic variants — keep modular and economical
 
-- Author baseline **pristine** shell, then independent alpha overlays \`scratched\`, \`worn\`, \`dirty\`, \`damaged\` as appropriate; model-specific finish, palette and markings are part of the base model identity. Do **not** stamp random scratches all over screens, fake controls, or NPC content.
+- Author baseline **pristine** shell, then independent alpha overlays `scratched`, `worn`, `dirty`, `damaged` as appropriate; model-specific finish, palette and markings are part of the base model identity. Do **not** stamp random scratches all over screens, fake controls, or NPC content.
 - Build pipeline can offline-precompose combined condition variants when the actual runtime render/caching cost warrants it; source stays layered and editable. Avoid a combinatorial runtime explosion (wear x dirt x decals x paint). Prefer one resolved primary condition state plus at most a few bounded lightweight overlays.
 - Derive appearance from **the real InventoryItem condition** if a stable mapping makes sense (illustrative thresholds only; agent must decide after source audit), with optional cosmetic seed when genuinely stable item identity is available. No new save-wide variant table, no per-frame randomization, and no ModData inflation. Condition variants are cosmetic and **never** imply enhanced/reduced radio power, access, battery level or merchant authorization.
 - Item-specific variants are OPTIONAL if no art exists: clean default remains valid, no missing-texture crashes. Use lazy texture caching for active shell/needed variant, shared UI texture caches once, no per-frame file searches/recompositing on CPU.
@@ -132,16 +132,16 @@ All coordinates are **local to that model's own source canvas**, top-left origin
 
 ## Manifest and runtime compatibility
 
-- Refactor from monolithic \`M.sheets.shells\`/ \`skin.sprite\`/ 256×432 assumptions to per-device full texture or optional subtexture references. **Full transparent shell PNGs need not live in an atlas**. Existing widgets can stay in their shared atlases.
-- Keep compatibility for all six existing walkie IDs, old \`GetSkin\`, \`GetSprite\`, \`GetDeviceSkin\`, app/contacts providers, and old test fixtures while migrating. A v1 wrapper or adapter may still resolve the legacy atlas during a transitional phase. Never force Core to require DynamicTrading.
+- Refactor from monolithic `M.sheets.shells`/ `skin.sprite`/ 256×432 assumptions to per-device full texture or optional subtexture references. **Full transparent shell PNGs need not live in an atlas**. Existing widgets can stay in their shared atlases.
+- Keep compatibility for all six existing walkie IDs, old `GetSkin`, `GetSprite`, `GetDeviceSkin`, app/contacts providers, and old test fixtures while migrating. A v1 wrapper or adapter may still resolve the legacy atlas during a transitional phase. Never force Core to require DynamicTrading.
 - Do not require exactly 3 hardware controls for HAM/manpack; renderer, input, focus, hotboxes and test fixtures must dispatch a registered control schema. The OS can provide on-screen and keyboard equivalents even if a radio lacks buttons.
-- Distinguish \`visualCapability\` / \`interaction\` / \`remoteTradeCapability\`. An existing validation routine requiring a portable two-way microphone must not accidentally prevent a placed HAM radio's legitimate UI **or** grant remote trade access to an unauthorized device. Feature actions stay server-authoritative in Hoomans and DTCommon.
+- Distinguish `visualCapability` / `interaction` / `remoteTradeCapability`. An existing validation routine requiring a portable two-way microphone must not accidentally prevent a placed HAM radio's legitimate UI **or** grant remote trade access to an unauthorized device. Feature actions stay server-authoritative in Hoomans and DTCommon.
 - No per-frame asset scanning, manifest rebuild, cropping or noise generation. Texture budgets are validated: a 1024×1728 RGBA shell costs ~6.75 MiB uncompressed before mipmaps, and multiplying by many loaded condition variants becomes significant; measure and cap concurrent texture residency where APIs permit.
 
 ## Ordered production and integration milestones (A0–A8)
 
 ### A0 — Fresh device/item/source inventory (next engineering step)
-Audit latest Core manifests/rendering, B42 vanilla item script \`fullType\`, sprite/icon source and actual device capabilities of walkie, HAM and manpack; identify placed vs carried variants; locate any genuine high-resolution approved masters; audit legacy compatibility and shell PNG alpha. Produce a source/evidence table for every model. **Do not edit PNGs yet**.
+Audit latest Core manifests/rendering, B42 vanilla item script `fullType`, sprite/icon source and actual device capabilities of walkie, HAM and manpack; identify placed vs carried variants; locate any genuine high-resolution approved masters; audit legacy compatibility and shell PNG alpha. Produce a source/evidence table for every model. **Do not edit PNGs yet**.
 
 ### A1 — Establish versioned skin schema and model-local coordinates
 Design v2 manifest, family/model registry, texture lookup, variable controls, skin fallback, display aperture/backing/content geometry, optional variants; tests and a compatibility adapter for all six walkies. Do not change visual output in this phase. Gate: Core-only registration and existing provider smokes stay green.
@@ -150,7 +150,7 @@ Design v2 manifest, family/model registry, texture lookup, variable controls, sk
 Create per-model input/output structure, manifest checker, pixel/alpha mask tests, high-res source integrity checks, optional preview against opaque synthetic LCD sandwich, sampled condition overlay alignment and normal-game review instructions. **No fake upscaling or auto-generated substitute source art.** Gate: per-model file generation and validation works from an authentic source, and shared UI atlases untouched.
 
 ### A3 — US Army walkie pilot (first art approval checkpoint)
-Create/retrieve **genuinely detailed original** \`Base.WalkieTalkie5\` art in the agreed Zomboid-like style, own high-resolution transparent PNG, proper LCD aperture and accurate per-skin controls; optional one wear overlay. Require user visual approval **before replacing production skin for everyone**. Confirm normal-game zoom/backplate/portrait/navigation after integration. Missing master or art input is an honest art blocker, not permission to upscale old PNG.
+Create/retrieve **genuinely detailed original** `Base.WalkieTalkie5` art in the agreed Zomboid-like style, own high-resolution transparent PNG, proper LCD aperture and accurate per-skin controls; optional one wear overlay. Require user visual approval **before replacing production skin for everyone**. Confirm normal-game zoom/backplate/portrait/navigation after integration. Missing master or art input is an honest art blocker, not permission to upscale old PNG.
 
 ### A4 — Other five walkies
 One model at a time: Toys-R-Mine, ValuTech, Premium, Tactical, Makeshift. Each model has its own edited master/PNG, geometry tests and game screenshot. Do not automatically clone one silhouette and recolor it as six different devices.
@@ -159,7 +159,7 @@ One model at a time: Toys-R-Mine, ValuTech, Premium, Tactical, Makeshift. Each m
 Audit vanilla models first; create civilian, military and makeshift HAM shells as actually existing in B42, with accurate casing/controls/single integrated screen approach, distinct aspect/interaction policy and optional wear variants. Verify portable vs world-placed/device data and screen clipping in a real game. No new radio UI or economy fork.
 
 ### A6 — Manpack family production
-Audit actual \`Base.ManPackRadio\` type and wear/equipment access; author high-resolution manpack chassis, straps/antenna/knobs, its own aspect, single integrated OS display and control mapping. Test scale and real item use; no walkie 3-button template forced.
+Audit actual `Base.ManPackRadio` type and wear/equipment access; author high-resolution manpack chassis, straps/antenna/knobs, its own aspect, single integrated OS display and control mapping. Test scale and real item use; no walkie 3-button template forced.
 
 ### A7 — Condition variants and extension SDK
 Finalize optional pristine/scratched/worn/damaged overlays, realistic selection/fallback, bounded caching and mod-agnostic skin registration documentation. Add third-party family example using the same Core OS without consumer dependencies.
@@ -170,6 +170,6 @@ Normal installed Project Zomboid Build42: all verified walkie/HAM/manpack models
 ## Checkpoint, safety and pause boundary
 
 - Current user request was **documentation first**. Do not replace or generate shell artwork as part of the documentation commit. Begin real image-asset production **after** A0–A2 decisions and device-by-device art direction are ready. For significant creative changes, present transparent shell preview for approval; existing approved assets remain fallback until then.
-- Work unattended on safe source audits, manifests, tests and scripts; commit/push verified in-scope changes to PsychopatzCore, updating \`DynamicTrading/Docs/radio_os/DT_RADIO_OS_PROGRESS.md\`. Do not ask repeated permission for routine coding steps. A visual-art approval is appropriate before replacing production imagery with newly drawn content.
+- Work unattended on safe source audits, manifests, tests and scripts; commit/push verified in-scope changes to PsychopatzCore, updating `DynamicTrading/Docs/radio_os/DT_RADIO_OS_PROGRESS.md`. Do not ask repeated permission for routine coding steps. A visual-art approval is appropriate before replacing production imagery with newly drawn content.
 - No force push, unsafe resets, unrelated modifications, user-save changes, unexpected changes to Hoomans or trading settlement. Never use the **PZ Headless Harness** (known broken); use offline Lua/Pillow tests and normal user-operated game SP/MP for native evidence. Don't claim native success from synthetic RGBA composites.
 - Preserve ongoing C0–C6 compositor work as upstream prerequisites/foundations; asset A0–A8 is a new stage addressing the source-resolution and per-device-family limitations. Do not undo successful compositor/zoom patches.
