@@ -13,6 +13,17 @@ local function tr(key, fallback)
     return Text.Get(key, fallback)
 end
 
+local SETTINGS_ACTIONS = {
+    { id = "zoom_in", icon = "icon_plus",
+        key = "UI_PsychopatzCore_Radio_ZoomIn", fallback = "ZOOM +" },
+    { id = "zoom_out", icon = "icon_minus",
+        key = "UI_PsychopatzCore_Radio_ZoomOut", fallback = "ZOOM -" },
+    { id = "reset", icon = "icon_home",
+        key = "UI_PsychopatzCore_Radio_ResetZoom", fallback = "RESET ZOOM" },
+    { id = "fit", icon = "icon_settings",
+        key = "UI_PsychopatzCore_Radio_FitScreen", fallback = "FIT SCREEN" },
+}
+
 function Window:drawHome()
     local apps = OS.ListApps(self.context)
     local color = self:screenColors()
@@ -73,15 +84,56 @@ end
 
 function Window:drawSettings()
     local color = self:screenColors()
+    local actions = self:settingsActions()
     local header = self:drawScreenHeader(
-        tr("UI_PsychopatzCore_Radio_Settings", "SETTINGS"), nil,
-        { showSubtitle = false })
-    self:drawTextClipped(Text.Format("UI_PsychopatzCore_Radio_Scale",
-        "SCALE %.1f", self.scale),
-        header.metrics.x, header.contentY, header.metrics.width, color)
-    self:drawTextClipped(tr("UI_PsychopatzCore_Radio_LeftBack", "LEFT: BACK"),
-        header.metrics.x, header.contentY + header.metrics.lineHeight,
-        header.metrics.width, color)
+        tr("UI_PsychopatzCore_Radio_Settings", "SETTINGS"),
+        Text.Format("UI_PsychopatzCore_Radio_Scale", "SCALE %.1f",
+            self.scale))
+    self.settingsIndex = clamp(self.settingsIndex or 1, 1, #actions)
+    local layout = self:screenListLayout(#actions, #actions,
+        self.settingsIndex, header)
+    local rowTheme = self.skin and self.skin.theme == "dark"
+        and "dark" or "green"
+    for offset = 0, layout.visible - 1 do
+        local index = layout.first + offset
+        local action = actions[index]
+        local row = self:screenRowRect(layout, offset)
+        if not action or not row then break end
+        local selected = index == self.settingsIndex
+        local rowColor = selected and color
+            or { r = color.r * 0.62, g = color.g * 0.62,
+                b = color.b * 0.62, a = 1 }
+        self:drawSprite("listrow_" .. rowTheme .. "_"
+            .. (selected and "selected" or "idle"),
+            row.x, row.y, row.w, row.h, selected and 0.9 or 0.65)
+        local inset = math.max(1, math.floor(row.h * 0.12))
+        self:drawSprite(action.icon, row.x + inset, row.y + inset,
+            row.h - inset * 2, row.h - inset * 2, selected and 1 or 0.75)
+        self:drawTextClipped(tr(action.key, action.fallback),
+            row.x + row.h + math.max(2, math.floor(layout.metrics.scale)),
+            row.y, row.w - row.h - math.max(2, math.floor(layout.metrics.scale)),
+            rowColor)
+    end
+end
+
+function Window:settingsActions()
+    return SETTINGS_ACTIONS
+end
+
+function Window:settingsRowAt(x, y)
+    local actions = self:settingsActions()
+    local header = self:headerLayout(Text.Format(
+        "UI_PsychopatzCore_Radio_Scale", "SCALE %.1f", self.scale))
+    local layout = self:screenListLayout(#actions, #actions,
+        self.settingsIndex or 1, header)
+    for offset = 0, layout.visible - 1 do
+        local row = self:screenRowRect(layout, offset)
+        if self:isInside(row, x, y) then
+            return { kind = "settings", index = layout.first + offset,
+                id = actions[layout.first + offset].id }
+        end
+    end
+    return nil
 end
 
 function Window:drawCustom()

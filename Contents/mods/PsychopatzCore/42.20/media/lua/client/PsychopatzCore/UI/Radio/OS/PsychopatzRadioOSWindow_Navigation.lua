@@ -16,6 +16,9 @@ function Window:setPage(page)
     end
     self.page = page
     self._pressedControl = nil
+    if page == "settings" then
+        self.settingsIndex = math.max(1, tonumber(self.settingsIndex) or 1)
+    end
     if page == "contacts" then
         self:ensureContacts(true)
     elseif page == "contact_detail" then
@@ -36,6 +39,12 @@ function Window:moveSelection(delta)
         if #self.contacts > 0 then
             self.contactIndex = ((self.contactIndex - 1 + delta)
                 % #self.contacts) + 1
+        end
+    elseif self.page == "settings" then
+        local count = #(self:settingsActions())
+        if count > 0 then
+            self.settingsIndex = ((self.settingsIndex - 1 + delta)
+                % count) + 1
         end
     elseif self.page == "custom" and self.activeApp
         and type(self.activeApp.onMove) == "function"
@@ -100,6 +109,26 @@ function Window:invokeSelectedContact()
     return ok
 end
 
+function Window:activateSettingsAction(action)
+    local id = type(action) == "table" and action.id or action
+    local changed
+    if id == "zoom_in" then
+        changed = self:zoomBy(1)
+    elseif id == "zoom_out" then
+        changed = self:zoomBy(-1)
+    elseif id == "reset" then
+        changed = self:resetScale()
+    elseif id == "fit" then
+        changed = self:fitToScreen()
+    else
+        return false
+    end
+    self:saveGeometry(true)
+    self.statusText = Text.Format("UI_PsychopatzCore_Radio_Scale",
+        "SCALE %.1f", changed)
+    return true
+end
+
 function Window:select()
     if self.page == "home" then return self:openSelectedApp() end
     if self.page == "contacts" then
@@ -109,6 +138,11 @@ function Window:select()
         return self.selectedContact ~= nil
     end
     if self.page == "contact_detail" then return self:invokeSelectedContact() end
+    if self.page == "settings" then
+        local actions = self:settingsActions()
+        local action = actions[self.settingsIndex or 1]
+        return self:activateSettingsAction(action)
+    end
     if self.page == "custom" and self.activeApp
         and type(self.activeApp.onSelect) == "function"
     then
@@ -122,11 +156,6 @@ function Window:select()
             return false
         end
         return result ~= false
-    end
-    if self.page == "settings" then
-        self.statusText = Text.Get(
-            "UI_PsychopatzCore_Radio_SettingsReadOnly", "SETTINGS READ ONLY")
-        return true
     end
     return false
 end
@@ -169,6 +198,8 @@ function Window:pressControl(name)
         end
     elseif name == "right" then
         if self.page == "home" or self.page == "contacts" then
+            self:moveSelection(1)
+        elseif self.page == "settings" then
             self:moveSelection(1)
         elseif self.page == "custom" and self.activeApp
             and type(self.activeApp.onMove) == "function"

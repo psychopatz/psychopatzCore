@@ -15,6 +15,8 @@ function Window:hitScreenAction(x, y)
         return self:contactRowAt(x, y)
     elseif self.page == "contact_detail" and self.contactDetailActionAt then
         return self:contactDetailActionAt(x, y)
+    elseif self.page == "settings" and self.settingsRowAt then
+        return self:settingsRowAt(x, y)
     elseif self.page == "custom" and self.activeApp
         and type(self.activeApp.hitTest) == "function"
     then
@@ -45,6 +47,9 @@ function Window:activateScreenAction(action)
         return self.selectedContact ~= nil
     elseif action.kind == "contact_action" then
         return self:invokeSelectedContact()
+    elseif action.kind == "settings" then
+        self.settingsIndex = tonumber(action.index) or self.settingsIndex
+        return self:activateSettingsAction(action)
     elseif action.kind == "custom" and self.activeApp then
         local value = action.value
         if type(self.activeApp.onScreenClick) == "function" then

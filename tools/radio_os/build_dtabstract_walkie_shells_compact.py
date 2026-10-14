@@ -8,6 +8,7 @@ compact source and the generated production atlas are BOTH stored in GitHub.
 Build time only: requires Pillow; game does not load this script.
 """
 import argparse
+from collections import deque
 from pathlib import Path
 from PIL import Image, ImageDraw
 
@@ -22,6 +23,19 @@ SCREENS = [
     ("walkie_tactical_shell",   (99, 246, 81, 55)),
     ("walkie_usarmy_shell",    (107, 247, 72, 55)),
     ("walkie_makeshift_shell",  (86, 247, 79, 55)),
+]
+
+# Measured connected alpha-zero apertures in the checked-in compact source
+# after the 1024px atlas transform.  These are intentionally larger than the
+# safe content viewports above; the runtime matte must cover this complete
+# opening without filling the shell's unrelated exterior transparency.
+LCD_BACKDROPS = [
+    (88, 232, 90, 81),
+    (82, 232, 96, 81),
+    (80, 232, 102, 81),
+    (97, 231, 93, 81),
+    (97, 234, 93, 81),
+    (83, 231, 99, 81),
 ]
 
 
@@ -56,6 +70,29 @@ def validate(image):
             raise AssertionError(f"{name}: screen is not fully transparent")
         if sx < 0 or sy < 0 or sx + sw > 256 or sy + sh > 432:
             raise AssertionError(f"{name}: screen out of cell bounds")
+        aperture = LCD_BACKDROPS[index]
+        pixels = sprite.getchannel("A").load()
+        start = (sx + sw // 2, sy + sh // 2)
+        queue = deque([start])
+        seen = {start}
+        while queue:
+            x, y = queue.popleft()
+            for nx, ny in ((x - 1, y), (x + 1, y),
+                           (x, y - 1), (x, y + 1)):
+                if not (0 <= nx < 256 and 0 <= ny < 432):
+                    continue
+                if (nx, ny) in seen or pixels[nx, ny] != 0:
+                    continue
+                seen.add((nx, ny))
+                queue.append((nx, ny))
+        xs = [point[0] for point in seen]
+        ys = [point[1] for point in seen]
+        measured = (min(xs), min(ys), max(xs) - min(xs) + 1,
+                    max(ys) - min(ys) + 1)
+        if measured != aperture:
+            raise AssertionError(
+                f"{name}: LCD aperture drifted: {measured} != {aperture}"
+            )
     if image.crop((896, 0, 1024, 1024)).getchannel("A").getbbox():
         raise AssertionError("atlas bleeds into right reserve")
     if image.crop((0, 960, 1024, 1024)).getchannel("A").getbbox():

@@ -50,6 +50,12 @@ local function validateSkin(skin)
     then
         return false
     end
+    -- Older third-party skins may not have measured aperture metadata yet.
+    -- Keep them usable with the safe content viewport while Core-owned skins
+    -- use the larger, alpha-audited lcdBackdrop rectangle.
+    if skin.lcdBackdrop and not validRect(skin.lcdBackdrop) then
+        return false
+    end
     if type(skin.controls) ~= "table" then return false end
     for _, name in ipairs({ "left", "center", "right" }) do
         if not validRect(skin.controls[name]) then return false end
@@ -131,8 +137,21 @@ function OS.GetDeviceContext(playerNum, device)
 end
 
 function OS.GetDefaultScale()
-    local _, height = Geometry.GetScreenSize()
-    return math.max(1, math.min(1.75, height * 0.78 / 432))
+    return Geometry.GetPreferredScale()
+end
+
+-- Development-only compositor probe.  It is deliberately not persisted and
+-- has no normal-game UI toggle, so production gameplay stays unchanged.
+function OS.SetCompositorDebug(enabled)
+    OS._compositorDebug = enabled == true
+    for _, window in pairs(registry.windows) do
+        if window then window.debugCompositor = OS._compositorDebug end
+    end
+    return OS._compositorDebug
+end
+
+function OS.IsCompositorDebugEnabled()
+    return OS._compositorDebug == true
 end
 
 function OS.GetOpenWindow(playerNum)
@@ -161,8 +180,9 @@ function OS.Open(playerNum, device, options)
     if options.persistGeometry ~= false then
         savedState, savedScale = Geometry.Load(playerNum, geometryIdentity)
     end
+    local minimumScale, maximumScale = Geometry.GetScaleLimits()
     local scale = tonumber(options.scale) or savedScale or OS.GetDefaultScale()
-    scale = Geometry.ClampScale(scale, 0.75, 2.25)
+    scale = Geometry.ClampScale(scale, minimumScale, maximumScale)
     local width = context.skin.baseSize.w * scale
     local height = context.skin.baseSize.h * scale
     local screenWidth, screenHeight = Geometry.GetScreenSize()
@@ -179,6 +199,10 @@ function OS.Open(playerNum, device, options)
             geometryKey = geometryKey,
             geometryIdentity = geometryIdentity,
             persistGeometry = options.persistGeometry,
+            minScale = minimumScale,
+            maxScale = maximumScale,
+            debugCompositor = options.debugCompositor
+                or OS._compositorDebug == true,
         })
     window:initialise()
     window:instantiate()

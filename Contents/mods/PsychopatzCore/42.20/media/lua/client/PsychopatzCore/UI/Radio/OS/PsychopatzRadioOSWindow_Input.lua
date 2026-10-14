@@ -128,6 +128,12 @@ function Window:onKeyPress(key)
         elseif key == Keyboard.KEY_RIGHT then
             self:pressControl("right")
             return true
+        elseif key == Keyboard.KEY_UP then
+            self:moveSelection(-1)
+            return true
+        elseif key == Keyboard.KEY_DOWN then
+            self:moveSelection(1)
+            return true
         elseif key == Keyboard.KEY_RETURN or key == Keyboard.KEY_SPACE then
             self:pressControl("center")
             return true

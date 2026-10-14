@@ -12,6 +12,8 @@ local Geometry = PsychopatzCore.RadioOS.Geometry or {}
 PsychopatzCore.RadioOS.Geometry = Geometry
 
 local store
+local BASE_SHELL_WIDTH = 256
+local BASE_SHELL_HEIGHT = 432
 
 local function settingsStore()
     if store then return store end
@@ -109,8 +111,38 @@ function Geometry.GetScreenSize()
     return screenSize()
 end
 
+-- The limits are derived from the active viewport instead of a fixed global
+-- ceiling.  The margins leave room for the game UI and keep the device fully
+-- visible when a user opens it on a small monitor.
+function Geometry.GetScaleLimits(width, height)
+    if width == nil or height == nil then
+        width, height = screenSize()
+    end
+    width = math.max(1, tonumber(width) or 1)
+    height = math.max(1, tonumber(height) or 1)
+    local usableWidth = width * 0.90
+    local usableHeight = height * 0.82
+    local maximum = math.min(usableWidth / BASE_SHELL_WIDTH,
+        usableHeight / BASE_SHELL_HEIGHT)
+    maximum = math.max(0.5, maximum)
+    local minimum = math.max(0.5, math.min(0.75, maximum * 0.5))
+    if minimum > maximum then minimum = maximum end
+    return minimum, maximum
+end
+
+function Geometry.GetPreferredScale(width, height)
+    if width == nil or height == nil then
+        width, height = screenSize()
+    end
+    local minimum, maximum = Geometry.GetScaleLimits(width, height)
+    local preferred = (tonumber(height) or 1) * 0.78 / BASE_SHELL_HEIGHT
+    return clamp(preferred, minimum, maximum)
+end
+
 function Geometry.ClampScale(value, minimum, maximum)
-    return clamp(value, minimum or 0.75, maximum or 2.25)
+    local automaticMinimum, automaticMaximum = Geometry.GetScaleLimits()
+    return clamp(value, minimum or automaticMinimum,
+        maximum or automaticMaximum)
 end
 
 function Geometry.ClampPosition(x, y, width, height)

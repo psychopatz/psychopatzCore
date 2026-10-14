@@ -29,7 +29,7 @@ function Base:derive(name)
 end
 function Base:new(x, y, width, height)
     return setmetatable({ x = x, y = y, width = width, height = height,
-        visible = true, children = {} }, self)
+        visible = true, children = {}, events = {} }, self)
 end
 function Base:initialise() end
 function Base:createChildren() end
@@ -52,12 +52,31 @@ function Base:getY() return self.y end
 function Base:getWidth() return self.width end
 function Base:getHeight() return self.height end
 function Base:setCapture(value) self.captured = value end
-function Base:drawSubTexture(...) self.draws = (self.draws or 0) + 1 end
-function Base:drawText(...) self.textDraws = (self.textDraws or 0) + 1 end
-function Base:drawRect(...) end
-function Base:drawRectBorder(...) end
-function Base:setStencilRect(...) self.stenciled = true end
-function Base:clearStencilRect() self.stenciled = false end
+function Base:drawSubTexture(texture, sx, sy, sw, sh, ...)
+    self.draws = (self.draws or 0) + 1
+    self.events[#self.events + 1] = {
+        kind = "sprite", path = texture and texture.path,
+        x = sx, y = sy, w = sw, h = sh,
+    }
+end
+function Base:drawText(...)
+    self.textDraws = (self.textDraws or 0) + 1
+    self.events[#self.events + 1] = { kind = "text" }
+end
+function Base:drawRect(...)
+    self.events[#self.events + 1] = { kind = "matte" }
+end
+function Base:drawRectBorder(...)
+    self.events[#self.events + 1] = { kind = "border" }
+end
+function Base:setStencilRect(...)
+    self.stenciled = true
+    self.events[#self.events + 1] = { kind = "stencil_on" }
+end
+function Base:clearStencilRect()
+    self.stenciled = false
+    self.events[#self.events + 1] = { kind = "stencil_off" }
+end
 function Base:prerender() end
 function Base:render() end
 
@@ -73,6 +92,7 @@ package.preload["ISUI/ISContextMenu"] = function() return true end
 package.preload["RadioCom/ISRadioWindow"] = function() return true end
 
 UIFont = { Tiny = 1, Small = 2 }
+local viewportWidth, viewportHeight = 1280, 900
 getTextManager = function()
     return {
         MeasureStringX = function(_, _, value) return #tostring(value) * 6 end,
@@ -81,8 +101,8 @@ getTextManager = function()
 end
 getCore = function()
     return {
-        getScreenWidth = function() return 1280 end,
-        getScreenHeight = function() return 900 end,
+        getScreenWidth = function() return viewportWidth end,
+        getScreenHeight = function() return viewportHeight end,
     }
 end
 getTexture = function(path) return { path = path } end
@@ -171,6 +191,93 @@ truthy(window._spriteDefinitions["icon_contacts"],
     "home icon atlas sprite is rendered")
 truthy(window._spriteDefinitions["btn_sq_green_idle"],
     "physical button atlas state is rendered")
+local function firstEvent(kind, start)
+    for index = start or 1, #window.events do
+        if window.events[index].kind == kind then return index end
+    end
+    return nil
+end
+equal(window.events[1].kind, "matte", "opaque LCD matte is first")
+local stencilOn = firstEvent("stencil_on")
+local stencilOff = firstEvent("stencil_off")
+truthy(stencilOn and stencilOff and stencilOn < stencilOff,
+    "screen stencil is reset")
+truthy(window:lcdBackdropRect().w >= window:screenRect().w,
+    "LCD aperture contains content viewport")
+truthy(window:lcdBackdropRect().h >= window:screenRect().h,
+    "LCD aperture height contains content viewport")
+local shellEvent
+for index = stencilOff + 1, #window.events do
+    local event = window.events[index]
+    if event.kind == "sprite"
+        and event.path
+        and string.find(event.path, "DTA_Walkie_Shells", 1, true)
+    then
+        shellEvent = index
+        break
+    end
+end
+truthy(shellEvent and shellEvent > stencilOff,
+    "shell is composited after clipped content")
+local integerScreen = window:screenRect()
+truthy(integerScreen.x == math.floor(integerScreen.x)
+    and integerScreen.y == math.floor(integerScreen.y)
+    and integerScreen.w == math.floor(integerScreen.w)
+    and integerScreen.h == math.floor(integerScreen.h),
+    "screen transform is pixel snapped")
+
+local Geometry = require
+    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSGeometry"
+local minimum720, maximum720 = Geometry.GetScaleLimits(1280, 720)
+local minimum1080, maximum1080 = Geometry.GetScaleLimits(1920, 1080)
+local minimum1440, maximum1440 = Geometry.GetScaleLimits(2560, 1440)
+local minimum4K, maximum4K = Geometry.GetScaleLimits(3840, 2160)
+truthy(minimum720 <= maximum720 and maximum720 < maximum1080
+    and maximum1080 < maximum1440 and maximum1440 < maximum4K,
+    "scale limits follow available viewport")
+
+local settingsIndex
+for index, app in ipairs(OS.ListApps(window.context)) do
+    if app.id == "psychopatzcore:settings" then
+        settingsIndex = index
+        break
+    end
+end
+truthy(settingsIndex, "settings app is discoverable")
+window.homeIndex = settingsIndex
+truthy(window:openSelectedApp(), "settings app opens")
+equal(window.page, "settings", "settings page")
+local settingsScale = window.scale
+window.settingsIndex = 1
+truthy(window:select(), "zoom in action")
+truthy(window.scale > settingsScale, "zoom in changes scale")
+window.settingsIndex = 2
+truthy(window:select(), "zoom out action")
+near(window.scale, settingsScale, 0.001, "zoom out restores scale")
+window.settingsIndex = 4
+truthy(window:select(), "fit action")
+equal(window.scale, window.maxScale, "fit uses viewport maximum")
+window.settingsIndex = 3
+truthy(window:select(), "reset action")
+near(window.scale, Geometry.GetPreferredScale(), 0.001,
+    "reset uses responsive default")
+window:back()
+equal(window.page, "home", "settings back navigation")
+window.homeIndex = 1
+OS.SetCompositorDebug(true)
+window:prerender()
+window:render()
+truthy(window.debugCompositor, "debug compositor can be enabled")
+OS.SetCompositorDebug(false)
+viewportWidth, viewportHeight = 1280, 720
+window:prerender()
+equal(window.maxScale, maximum720, "resolution change updates max scale")
+truthy(window:getX() + window:getWidth() <= viewportWidth
+    and window:getY() + window:getHeight() <= viewportHeight,
+    "resolution change clamps radio into viewport")
+viewportWidth, viewportHeight = 1920, 1080
+window:prerender()
+equal(window.maxScale, maximum1080, "larger resolution restores scale ceiling")
 
 local homeLayout = window:screenListLayout(#OS.ListApps(window.context), 3,
     window.homeIndex, window:headerLayout(window:statusLine()))
@@ -265,6 +372,13 @@ truthy(customSelected, "custom app selection")
 local customScreen = customWindow:screenRect()
 customWindow:onMouseDown(customScreen.x + 4, customScreen.y + 30)
 truthy(customScreenSelected, "custom app screen click")
+customWindow.page = "custom"
+customWindow.drawScreenContent = function()
+    error("intentional compositor smoke failure")
+end
+customWindow:drawScreen()
+truthy(customWindow.stenciled == false,
+    "stencil resets after screen render failure")
 customWindow:back()
 equal(customWindow.page, "home", "custom app back navigation")
 customWindow:close()

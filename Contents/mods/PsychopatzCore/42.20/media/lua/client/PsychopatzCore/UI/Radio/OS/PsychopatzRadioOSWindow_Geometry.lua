@@ -24,6 +24,33 @@ function Window:currentScale()
     return tonumber(self.scale) or 1
 end
 
+function Window:reconcileScreenGeometry()
+    local screenWidth, screenHeight = Geometry.GetScreenSize()
+    if self._lastScreenWidth == screenWidth
+        and self._lastScreenHeight == screenHeight
+    then
+        return false
+    end
+    local hadViewport = self._lastScreenWidth ~= nil
+    self._lastScreenWidth = screenWidth
+    self._lastScreenHeight = screenHeight
+    local minimum, maximum = Geometry.GetScaleLimits(screenWidth,
+        screenHeight)
+    self.minScale = minimum
+    self.maxScale = maximum
+    if not hadViewport then return false end
+
+    local beforeScale = self:currentScale()
+    local nextScale = Geometry.ClampScale(beforeScale, minimum, maximum)
+    if math.abs(nextScale - beforeScale) > 0.0001 then
+        self:applyScale(nextScale)
+    else
+        self:clampToScreen()
+    end
+    self:markGeometryChanged()
+    return true
+end
+
 function Window:clampToScreen()
     local width, height = dimensions(self)
     local x, y = Geometry.ClampPosition(
@@ -62,6 +89,26 @@ function Window:applyScale(scale)
     self.resizeHandleSize = math.max(12, math.floor(18 * nextScale))
     self:markGeometryChanged()
     return nextScale
+end
+
+function Window:scaleStep()
+    -- A fixed tenth keeps adjacent Zoom In/Out actions reversible and easy to
+    -- understand at every monitor size; Fit remains the fast large-jump path.
+    return 0.1
+end
+
+function Window:zoomBy(direction)
+    local delta = (tonumber(direction) or 0) * self:scaleStep()
+    return self:applyScale(self:currentScale() + delta)
+end
+
+function Window:resetScale()
+    return self:applyScale(Geometry.GetPreferredScale())
+end
+
+function Window:fitToScreen()
+    return self:applyScale(self.maxScale or select(2,
+        Geometry.GetScaleLimits()))
 end
 
 function Window:moveBy(dx, dy)

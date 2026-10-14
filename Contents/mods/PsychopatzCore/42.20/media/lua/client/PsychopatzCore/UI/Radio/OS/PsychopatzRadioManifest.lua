@@ -3,8 +3,10 @@
 --
 -- AUTHORING CONTRACT, not evidence that any atlas artwork has been sliced yet.
 -- Atlas coordinates are top-left-origin PNG pixels: x, y, w, h.
--- Each radio shell has an alpha=0 cutout covering its entire screen rectangle.
--- At runtime: draw LCD background -> app/portrait -> effects -> shell -> controls.
+-- Each radio shell has a small safe content viewport and a separately measured
+-- alpha-hole backdrop.  The backdrop covers the complete intended LCD aperture
+-- while the content viewport keeps text and portraits inside the bezel.
+-- At runtime: matte -> LCD background -> app/portrait -> effects -> shell -> controls.
 -- Do not persist these tables into world ModData.
 
 local M = {
@@ -59,7 +61,7 @@ local function add(id, sheet, x, y, w, h, caps)
     if caps then M.sprites[id].capInsets = caps end
 end
 
-local function skin(id, fullType, x, y, screen, buttons, theme)
+local function skin(id, fullType, x, y, screen, lcdBackdrop, buttons, theme)
     local model = {
         id = id,
         fullType = fullType,
@@ -67,6 +69,8 @@ local function skin(id, fullType, x, y, screen, buttons, theme)
         sprite = id,
         baseSize = { w = M.baseShellWidth, h = M.baseShellHeight },
         screen = rect(screen[1], screen[2], screen[3], screen[4]),
+        lcdBackdrop = rect(lcdBackdrop[1], lcdBackdrop[2],
+            lcdBackdrop[3], lcdBackdrop[4]),
         controls = {
             left   = rect(buttons[1][1], buttons[1][2], buttons[1][3], buttons[1][4]),
             center = rect(buttons[2][1], buttons[2][2], buttons[2][3], buttons[2][4]),
@@ -83,21 +87,27 @@ end
 
 skin("walkie_toys_shell", "Base.WalkieTalkie1", 32, 32,
     { 90, 236, 81, 61 },
+    { 88, 232, 90, 81 },
     { {75,326,31,26}, {115,326,31,26}, {154,326,31,26} }, "green")
 skin("walkie_valutech_shell", "Base.WalkieTalkie2", 320, 32,
     { 85, 236, 82, 61 },
+    { 82, 232, 96, 81 },
     { {74,326,31,26}, {112,326,31,26}, {150,326,31,26} }, "dark")
 skin("walkie_premium_shell", "Base.WalkieTalkie3", 608, 32,
     { 81, 236, 83, 61 },
+    { 80, 232, 102, 81 },
     { {68,326,31,26}, {108,326,31,26}, {149,326,31,26} }, "amber")
 skin("walkie_tactical_shell", "Base.WalkieTalkie4", 32, 496,
     { 99, 246, 81, 55 },
+    { 97, 231, 93, 81 },
     { {85,326,31,26}, {123,326,31,26}, {161,326,31,26} }, "dark")
 skin("walkie_usarmy_shell", "Base.WalkieTalkie5", 320, 496,
     { 107, 247, 72, 55 },
+    { 97, 234, 93, 81 },
     { {85,326,31,26}, {122,326,31,26}, {160,326,31,26} }, "green")
 skin("walkie_makeshift_shell", "Base.WalkieTalkieMakeShift", 608, 496,
     { 86, 247, 79, 55 },
+    { 83, 231, 99, 81 },
     { {72,326,31,26}, {116,326,31,26}, {157,326,31,26} }, "amber")
 
 -- Core UI: resizable panel backgrounds use capInsets; icons/text are separate.
@@ -234,6 +244,21 @@ function M.ScreenBounds(skinID, scale, windowX, windowY)
         s.screen.w * scale, s.screen.h * scale)
 end
 
+-- Returns the scaled, window-local LCD matte bounds.  This is deliberately
+-- distinct from ScreenBounds: app content uses the inset safe viewport, while
+-- the matte and themed backing cover the measured transparent aperture.
+function M.LCDBounds(skinID, scale, windowX, windowY)
+    local s = M.GetSkin(skinID)
+    if not s then return nil end
+    scale = math.max(0.1, tonumber(scale) or 1)
+    windowX = tonumber(windowX) or 0
+    windowY = tonumber(windowY) or 0
+    local aperture = s.lcdBackdrop or s.screen
+    return rect(windowX + aperture.x * scale,
+        windowY + aperture.y * scale,
+        aperture.w * scale, aperture.h * scale)
+end
+
 -- This validates CONTRACT rectangles; it does not verify actual PNG artwork.
 -- A separate authoring-time tool should check atlas dimensions and alpha holes.
 function M.Validate()
@@ -274,9 +299,20 @@ function M.Validate()
     for id, s in pairs(M.skins) do
         local b = s.baseSize
         local r = s.screen
+        local aperture = s.lcdBackdrop or s.screen
         if r.x < 0 or r.y < 0 or r.w <= 0 or r.h <= 0
             or r.x + r.w > b.w or r.y + r.h > b.h then
             err(id .. ": screen outside shell")
+        end
+        if aperture.x < 0 or aperture.y < 0 or aperture.w <= 0
+            or aperture.h <= 0 or aperture.x + aperture.w > b.w
+            or aperture.y + aperture.h > b.h then
+            err(id .. ": LCD backdrop outside shell")
+        end
+        if r.x < aperture.x or r.y < aperture.y
+            or r.x + r.w > aperture.x + aperture.w
+            or r.y + r.h > aperture.y + aperture.h then
+            err(id .. ": screen is outside LCD backdrop")
         end
         for controlId, c in pairs(s.controls) do
             if c.x < 0 or c.y < 0 or c.w <= 0 or c.h <= 0

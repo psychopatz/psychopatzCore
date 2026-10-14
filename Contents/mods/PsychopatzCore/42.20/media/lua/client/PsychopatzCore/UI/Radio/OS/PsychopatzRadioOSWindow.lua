@@ -7,6 +7,8 @@ PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.RadioOS = PsychopatzCore.RadioOS or {}
 
 local OS = PsychopatzCore.RadioOS
+local Geometry = require
+    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSGeometry"
 local Window = ISPanel:derive("PsychopatzRadioOSWindow")
 OS.Window = Window
 
@@ -18,8 +20,9 @@ function Window:new(x, y, width, height, context, options)
     object.context = context or {}
     object.playerNum = tonumber(object.context.playerNum) or 0
     object.scale = tonumber(options.scale) or 1
-    object.minScale = tonumber(options.minScale) or 0.75
-    object.maxScale = tonumber(options.maxScale) or 2.25
+    local automaticMinimum, automaticMaximum = Geometry.GetScaleLimits()
+    object.minScale = tonumber(options.minScale) or automaticMinimum
+    object.maxScale = tonumber(options.maxScale) or automaticMaximum
     object.persistGeometry = options.persistGeometry ~= false
     object.geometryKey = options.geometryKey
     object.owner = options.owner
@@ -45,6 +48,11 @@ function Window:new(x, y, width, height, context, options)
     object._pressedControl = nil
     object._dragging = false
     object._resizing = false
+    object.debugCompositor = options.debugCompositor == true
+    object.screenEffects = options.screenEffects ~= false
+    object.settingsIndex = 1
+    object._lastScreenWidth = nil
+    object._lastScreenHeight = nil
     object.resizeHandleSize = math.max(12, math.floor(18 * object.scale))
     object._geometryDirty = false
     object._savedGeometrySignature = nil
