@@ -1,4 +1,3 @@
-require "ISUI/ISTextEntryBox"
 require "PsychopatzCore/UI/PsychopatzUI"
 require "PsychopatzCore/UI/PsychopatzDebugHubWindow"
 
@@ -69,12 +68,12 @@ end
 
 function PsychopatzItemTypeLedgerWindow:createChildren()
     PsychopatzWindow.createChildren(self)
-    self.search = ISTextEntryBox:new("", 0, 0, 100, 28)
-    self.search:initialise()
-    self.search:instantiate()
-    if self.search.setClearButton then self.search:setClearButton(true) end
-    self.search.onTextChange = function() self:rebuildLedger() end
-    self:addChild(self.search)
+    self.search = UI.CreateSearchEntry(self, {
+        width = 100,
+        height = 28,
+        clearButton = true,
+        onTextChange = function() self:rebuildLedger() end,
+    })
     self.filterMode = "all"
     self.filterButton = UI.CreateButton(self, {
         id = "filter",

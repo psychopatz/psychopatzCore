@@ -44,7 +44,54 @@ function ISTextEntryBox:instantiate() self.instantiated = true end
 function ISTextEntryBox:setClearButton(value) self.clearButton = value end
 function ISTextEntryBox:setOnlyNumbers(value) self.onlyNumbers = value end
 function ISTextEntryBox:setMaxTextLength(value) self.maxTextLength = value end
+function ISTextEntryBox:getText() return self.text or "" end
+function ISTextEntryBox:setText(value) self.text = value or "" end
+function ISTextEntryBox:clear() self.text = "" end
+function ISTextEntryBox:getWidth() return self.width end
+function ISTextEntryBox:getHeight() return self.height end
+function ISTextEntryBox:setX(value) self.x = value end
+function ISTextEntryBox:setY(value) self.y = value end
+function ISTextEntryBox:setWidth(value) self.width = value end
+function ISTextEntryBox:setHeight(value) self.height = value end
+function ISTextEntryBox:focus() self.focused = true end
+function ISTextEntryBox:unfocus() self.focused = false end
+function ISTextEntryBox:isFocused() return self.focused == true end
 package.preload["ISUI/ISTextEntryBox"] = function() return ISTextEntryBox end
+
+ISPanel = {}
+function ISPanel:new(x, y, width, height)
+    return setmetatable({
+        x = x, y = y, width = width, height = height, children = {},
+    }, { __index = self })
+end
+function ISPanel:initialise() self.initialised = true end
+function ISPanel:instantiate() self.instantiated = true end
+function ISPanel:noBackground() self.noBackgroundCalled = true end
+function ISPanel:setWantMouseEvents(value) self.wantMouseEvents = value end
+function ISPanel:addChild(child) self.children[#self.children + 1] = child end
+function ISPanel:getWidth() return self.width end
+function ISPanel:getHeight() return self.height end
+function ISPanel:setX(value) self.x = value end
+function ISPanel:setY(value) self.y = value end
+function ISPanel:setWidth(value) self.width = value end
+function ISPanel:setHeight(value) self.height = value end
+package.preload["ISUI/ISPanel"] = function() return ISPanel end
+
+ISImage = {}
+function ISImage:new(x, y, width, height, texture)
+    return setmetatable({
+        x = x, y = y, width = width, height = height, texture = texture,
+    }, { __index = self })
+end
+function ISImage:initialise() end
+function ISImage:instantiate() end
+function ISImage:setWantMouseEvents(value) self.wantMouseEvents = value end
+function ISImage:setX(value) self.x = value end
+function ISImage:setY(value) self.y = value end
+function ISImage:setWidth(value) self.width = value end
+function ISImage:setHeight(value) self.height = value end
+package.preload["ISUI/ISImage"] = function() return ISImage end
+function getTexture(path) return { path = path } end
 
 dofile(ROOT .. "Components/PsychopatzTextEntry.lua")
 local changed = false
@@ -66,6 +113,31 @@ equal(entry.psychopatzPreferredWidth, 86, "text entry preferred width")
 equal(parent.children[1], entry, "text entry parent")
 entry.onTextChange()
 equal(changed, true, "text entry callback")
+
+local searchChanged = false
+local search = UI.CreateSearchEntry(parent, {
+    width = 120,
+    height = 28,
+    clearButton = true,
+    onTextChange = function() searchChanged = true end,
+})
+equal(search.psychopatzSearchIconPath,
+    "media/ui/Search_Icon_On.png", "search icon path")
+equal(search.psychopatzSearchEntry.clearButton, true,
+    "search clear button")
+search.psychopatzSearchEntry.onTextChangeFunction(nil,
+    search.psychopatzSearchEntry)
+equal(searchChanged, true, "search factory callback")
+
+local legacyChanged = false
+search.onTextChangeFunction = function() legacyChanged = true end
+search.psychopatzSearchEntry.onTextChangeFunction(nil,
+    search.psychopatzSearchEntry)
+equal(legacyChanged, true, "legacy search callback bridge")
+
+search:setWidth(200)
+equal(search.psychopatzSearchEntry:getWidth(), 168,
+    "search text width follows container")
 
 function UI.CreateList(listParent, options)
     local list = {
