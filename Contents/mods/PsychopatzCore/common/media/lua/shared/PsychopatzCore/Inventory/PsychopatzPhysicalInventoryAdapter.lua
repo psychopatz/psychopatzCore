@@ -300,6 +300,90 @@ function Physical:getWeight()
     return weight
 end
 
+-- Return the exact per-item weight used by the native destination checks.
+-- Keep this in the Core adapter so callers do not reimplement InventoryItem
+-- weight fallbacks for Java-backed and compact-record values.
+function Physical:weightOf(value)
+    local weight
+    if type(value) == "table" and tonumber(value[C.TYPE_ID]) then
+        return math.max(0, Util.number(value[C.UNIT_WEIGHT], 0))
+    end
+    weight = Util.call(value, "getUnequippedWeight")
+    if weight == nil then weight = Util.call(value, "getActualWeight") end
+    if weight == nil then weight = Util.call(value, "getWeight") end
+    return math.max(0, Util.number(weight, 0))
+end
+
+local function previewItem(self, value)
+    local record
+    local item
+    local reason
+    if type(value) == "table" and tonumber(value[C.TYPE_ID]) then
+        record = ItemRecord.clone(value, 1)
+    else
+        record, reason = ItemRecord.encode(value, 1)
+    end
+    if not record then return nil, reason or "item_record_unavailable" end
+    item, reason = ItemRecord.decode(record, self.options.factory)
+    if not item then return nil, reason or "item_type_unavailable" end
+    return item, nil
+end
+
+-- Preflight a physical destination without mutating it.  `capacityAdjustment`
+-- accounts for sell-side weight released before the buy-side additions and
+-- for earlier buy-side weight already reserved by the same basket.  It may
+-- therefore be positive or negative.
+function Physical:canAdd(value, quantity, character, capacityAdjustment)
+    local item
+    local reason
+    local allowed
+    local room
+    local roomCalled
+    local available
+    local availableCalled
+    local required
+    local unitWeight
+    local relief = Util.number(capacityAdjustment, 0)
+    quantity = math.max(1, math.floor(tonumber(quantity) or 1))
+    character = character or self.options.character
+    item, reason = previewItem(self, value)
+    if not item then return false, reason end
+
+    allowed, availableCalled = Util.call(
+        self.container, "isItemAllowed", item)
+    if availableCalled and allowed == false then
+        return false, "destination_item_not_allowed"
+    end
+
+    room, roomCalled = Util.call(
+        self.container, "hasRoomFor", character, item)
+    if roomCalled and room ~= true and relief <= 0 then
+        return false, "destination_capacity"
+    end
+
+    unitWeight = self:weightOf(item)
+    required = unitWeight * quantity
+    available, availableCalled = Util.call(
+        self.container, "getAvailableWeightCapacity")
+    if not availableCalled then
+        local used = Util.call(self.container, "getCapacityWeight")
+        local maximum = Util.call(self.container, "getMaxWeight")
+        if maximum == nil then maximum = Util.call(self.container, "getCapacity") end
+        if used ~= nil and maximum ~= nil then
+            available = Util.number(maximum, 0) - Util.number(used, 0)
+            availableCalled = true
+        end
+    end
+    if availableCalled then
+        if required > Util.number(available, 0) + relief + 0.000001 then
+            return false, "destination_capacity"
+        end
+        return true
+    end
+    if roomCalled then return room == true end
+    return false, "destination_capacity_unavailable"
+end
+
 function Physical:getRecordCount() return #self:_items() end
 function Physical:getLogicalItemCount() return #self:_items() end
 

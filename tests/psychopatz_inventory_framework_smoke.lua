@@ -252,6 +252,49 @@ local virtualized = Inventory.virtualize(container)
 truthy(virtualized, "physical to virtual")
 equal(virtualized:getLogicalItemCount(), 2, "physical conversion count")
 
+-- Physical destinations expose the native capacity APIs through Core.  The
+-- preflight must account for the whole requested quantity and for weight
+-- released by the sell side without mutating the container.
+local capacityItems = {}
+local capacityContainer = { capacity = 2, used = 1 }
+function capacityContainer:getItems() return list(capacityItems) end
+function capacityContainer:getAvailableWeightCapacity()
+    return self.capacity - self.used
+end
+function capacityContainer:getCapacityWeight() return self.used end
+function capacityContainer:getMaxWeight() return self.capacity end
+function capacityContainer:isItemAllowed() return true end
+function capacityContainer:hasRoomFor(_, item)
+    return self:getAvailableWeightCapacity() >= item:getActualWeight()
+end
+function capacityContainer:AddItem(item)
+    capacityItems[#capacityItems + 1] = item
+    return item
+end
+function capacityContainer:DoRemoveItem(item)
+    for index = #capacityItems, 1, -1 do
+        if capacityItems[index] == item then
+            table.remove(capacityItems, index)
+            return
+        end
+    end
+end
+local capacityPhysical = Inventory.wrapPhysicalInventory(capacityContainer, {
+    factory = factory,
+})
+local capacityRecord = Inventory.encodeItem(makeItem("Base.Axe", {
+    condition = 10, weight = 1,
+}))
+truthy(capacityPhysical:canAdd(capacityRecord, 1),
+    "one item fits physical capacity")
+local tooMany, tooManyReason = capacityPhysical:canAdd(capacityRecord, 2)
+equal(tooMany, false, "whole quantity capacity is prevalidated")
+equal(tooManyReason, "destination_capacity",
+    "capacity rejection reason")
+truthy(capacityPhysical:canAdd(capacityRecord, 2, nil, 1),
+    "released sell weight makes room for buy quantity")
+equal(#capacityItems, 0, "capacity preflight does not mutate")
+
 Types.getId("Base.Money", true)
 local nestedItems = {}
 local nestedContainer = {}
