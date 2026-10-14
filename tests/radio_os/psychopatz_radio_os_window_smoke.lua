@@ -13,6 +13,13 @@ local function truthy(value, label)
     if not value then error(label or "expected truthy", 2) end
 end
 
+local function near(actual, expected, tolerance, label)
+    if math.abs(actual - expected) > (tolerance or 0.01) then
+        error((label or "near") .. ": expected=" .. tostring(expected)
+            .. " actual=" .. tostring(actual), 2)
+    end
+end
+
 local Base = {}
 Base.__index = Base
 function Base:derive(name)
@@ -40,6 +47,11 @@ function Base:setX(value) self.x = value end
 function Base:setY(value) self.y = value end
 function Base:setWidth(value) self.width = value end
 function Base:setHeight(value) self.height = value end
+function Base:getX() return self.x end
+function Base:getY() return self.y end
+function Base:getWidth() return self.width end
+function Base:getHeight() return self.height end
+function Base:setCapture(value) self.captured = value end
 function Base:drawSubTexture(...) self.draws = (self.draws or 0) + 1 end
 function Base:drawText(...) self.textDraws = (self.textDraws or 0) + 1 end
 function Base:drawRect(...) end
@@ -60,7 +72,13 @@ package.preload["ISUI/ISButton"] = function() return true end
 package.preload["ISUI/ISContextMenu"] = function() return true end
 package.preload["RadioCom/ISRadioWindow"] = function() return true end
 
-UIFont = { Small = 1 }
+UIFont = { Tiny = 1, Small = 2 }
+getTextManager = function()
+    return {
+        MeasureStringX = function(_, _, value) return #tostring(value) * 6 end,
+        MeasureStringY = function() return 10 end,
+    }
+end
 getCore = function()
     return {
         getScreenWidth = function() return 1280 end,
@@ -89,6 +107,7 @@ local OS = dofile(CLIENT
     .. "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOS.lua")
 local customMoves = 0
 local customSelected = false
+local customScreenSelected = false
 truthy(OS.RegisterApp({
     id = "mock:custom",
     ownerModID = "MockPlugin",
@@ -97,6 +116,11 @@ truthy(OS.RegisterApp({
     open = function() return "custom" end,
     onMove = function(_, _, delta) customMoves = customMoves + delta end,
     onSelect = function() customSelected = true; return true end,
+    hitTest = function() return { row = 1 } end,
+    onScreenClick = function(_, _, value)
+        customScreenSelected = value and value.row == 1
+        return customScreenSelected
+    end,
 }), "custom app registration")
 local requested = 0
 truthy(OS.RegisterContactProvider({
@@ -121,21 +145,63 @@ window:render()
 truthy((window.draws or 0) >= 5, "atlas rendering")
 truthy((window.textDraws or 0) >= 1, "screen text rendering")
 
+local homeLayout = window:screenListLayout(#OS.ListApps(window.context), 3,
+    window.homeIndex, window:headerLayout(window:statusLine()))
+local homeRow = window:screenRowRect(homeLayout, 0)
+truthy(window:homeRowAt(homeRow.x + 1, homeRow.y + 1),
+    "home row hit-test")
+window:onMouseDown(homeRow.x + 1, homeRow.y + 1)
+equal(window.page, "contacts", "home row navigation")
+
+local contactRow = window:screenRowRect(
+    window:screenListLayout(#window.contacts, 2, window.contactIndex,
+        window:headerLayout(window.contactStatus or window:statusLine())), 0)
+truthy(window:contactRowAt(contactRow.x + 1, contactRow.y + 1),
+    "contact row hit-test")
+window:onMouseDown(contactRow.x + 1, contactRow.y + 1)
+equal(window.page, "contact_detail", "contact row navigation")
+window:onMouseDown(window:screenRect().x + 2, window:screenRect().y + 40)
+equal(requested, 1, "direct contact action dispatch")
+
 local center = window:controlRect("center")
-window:onMouseDown(center.x + 1, center.y + 1)
-equal(window.page, "contacts", "contacts navigation")
-window:prerender()
-window:onMouseDown(center.x + 1, center.y + 1)
-equal(window.page, "contact_detail", "contact navigation")
-window:onMouseDown(center.x + 1, center.y + 1)
-equal(requested, 1, "provider action dispatch")
 window:onMouseDown(window:controlRect("left").x + 1,
     window:controlRect("left").y + 1)
 equal(window.page, "contacts", "detail back navigation")
 window:back()
 equal(window.page, "home", "home back navigation")
+
+local beforeX, beforeY = window:getX(), window:getY()
+window:onMouseDown(10, 200)
+window:onMouseMove(24, 13)
+window:onMouseUp()
+truthy(window:getX() ~= beforeX or window:getY() ~= beforeY,
+    "shell drag moves the window")
+
+local beforeScale = window.scale
+window:onMouseDown(window:getWidth() - 2, window:getHeight() - 2)
+window:onMouseMove(24, 24)
+window:onMouseUp()
+truthy(window.scale > beforeScale, "resize grip changes uniform scale")
+near(window:getWidth() / window:getHeight(), 256 / 432, 0.01,
+    "resize preserves shell aspect ratio")
+local savedX, savedY, savedScale = window:getX(), window:getY(), window.scale
 window:close()
 equal(OS.GetOpenWindow(0), nil, "window cleanup")
+
+local restored = assert(OS.Open(0, device))
+equal(restored:getX(), savedX, "player-local position x persists")
+equal(restored:getY(), savedY, "player-local position y persists")
+equal(restored.scale, savedScale, "player-local scale persists")
+restored:close()
+
+local host = { visible = true }
+function host:setVisible(value) self.visible = value end
+function host:bringToTop() self.broughtToTop = true end
+local hosted = assert(OS.Open(0, device, { scale = 1, hostWindow = host }))
+equal(host.visible, false, "native host is hidden while OS is open")
+hosted:close()
+equal(host.visible, true, "native host is restored on close")
+
 OS.UnregisterContactProvider("mock:contacts")
 
 local customWindow = assert(OS.Open(0, device, { scale = 1 }))
@@ -146,6 +212,9 @@ customWindow:pressControl("right")
 equal(customMoves, 1, "custom app movement")
 customWindow:pressControl("center")
 truthy(customSelected, "custom app selection")
+local customScreen = customWindow:screenRect()
+customWindow:onMouseDown(customScreen.x + 4, customScreen.y + 30)
+truthy(customScreenSelected, "custom app screen click")
 customWindow:back()
 equal(customWindow.page, "home", "custom app back navigation")
 customWindow:close()

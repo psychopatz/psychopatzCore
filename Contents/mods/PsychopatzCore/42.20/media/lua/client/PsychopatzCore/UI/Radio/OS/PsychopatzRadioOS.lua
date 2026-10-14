@@ -38,6 +38,7 @@ then
             local device = window and (window.device or window.deviceData)
             local opened = OS.Open(playerNum, device, {
                 owner = "PsychopatzCore",
+                hostWindow = window,
             })
             return opened ~= nil
         end,

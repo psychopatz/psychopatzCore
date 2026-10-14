@@ -61,37 +61,57 @@ end
 
 function Window:drawContacts()
     self:ensureContacts(false)
-    local screen = self:screenRect()
-    local scale = self.scale
     local color = self:screenColors()
-    self:drawScreenHeader(tr("UI_PsychopatzCore_Radio_Contacts", "CONTACTS"),
+    local header = self:drawScreenHeader(
+        tr("UI_PsychopatzCore_Radio_Contacts", "CONTACTS"),
         self.contactStatus or self:statusLine())
     if #self.contacts == 0 then
         self:drawTextClipped(
             tr("UI_PsychopatzCore_Radio_NoContacts", "NO CONTACTS"),
-            screen.x + 4 * scale,
-            screen.y + 33 * scale, screen.w - 8 * scale, color)
+            header.metrics.x, header.contentY, header.metrics.width, color)
         return
     end
     self.contactIndex = clamp(self.contactIndex, 1, #self.contacts)
-    local first = math.floor((self.contactIndex - 1) / 2) * 2 + 1
-    for row = 0, 1 do
+    local layout = self:screenListLayout(#self.contacts, 2,
+        self.contactIndex, header)
+    local first = layout.first
+    for row = 0, layout.visible - 1 do
         local entry = self.contacts[first + row]
-        if not entry then break end
-        local y = screen.y + (29 + row * 13) * scale
+        local rect = self:screenRowRect(layout, row)
+        if not entry or not rect then break end
         local selected = first + row == self.contactIndex
         if selected then
-            self:drawRect(screen.x + 2 * scale, y - scale,
-                screen.w - 4 * scale, 12 * scale, 0.3,
-                color.r * 0.2, color.g * 0.2, color.b * 0.2)
+            self:drawSprite("listrow_green_selected", rect.x, rect.y,
+                rect.w, rect.h, 0.9)
         end
         local rowColor = selected and color
             or { r = color.r * 0.62, g = color.g * 0.62,
                 b = color.b * 0.62, a = 1 }
+        if not selected then
+            self:drawSprite("listrow_green_idle", rect.x, rect.y,
+                rect.w, rect.h, 0.65)
+        end
         self:drawTextClipped(entry.title,
-            screen.x + 5 * scale, y, screen.w - 10 * scale,
-            rowColor, math.floor(screen.w / (7 * scale)))
+            rect.x + math.max(2, math.floor(layout.metrics.scale)), rect.y,
+            rect.w - math.max(2, math.floor(layout.metrics.scale)) * 2,
+            rowColor)
     end
+end
+
+function Window:contactRowAt(x, y)
+    self:ensureContacts(false)
+    if #self.contacts == 0 then return nil end
+    self.contactIndex = clamp(self.contactIndex, 1, #self.contacts)
+    local header = self:headerLayout(self.contactStatus or self:statusLine())
+    local layout = self:screenListLayout(#self.contacts, 2,
+        self.contactIndex, header)
+    for offset = 0, layout.visible - 1 do
+        local rect = self:screenRowRect(layout, offset)
+        if self:isInside(rect, x, y) then
+            return { kind = "contact", index = layout.first + offset }
+        end
+    end
+    return nil
 end
 
 function Window:updatePortrait()
@@ -110,14 +130,16 @@ function Window:layoutPortrait()
     local panel = self.portraitPanel
     if not panel then return end
     local screen = self:screenRect()
-    local width = math.max(1, math.floor(screen.w * 0.38))
-    local height = math.max(1, math.floor(screen.h - 22 * self.scale))
+    local metrics = self:screenMetrics()
+    local height = math.max(1, math.floor(screen.h - metrics.lineHeight * 2
+        - metrics.padding * 2))
+    local width = math.max(1, math.min(math.floor(screen.w * 0.38), height))
     if panel.setPortraitBounds then
         panel:setPortraitBounds(screen.x + 2 * self.scale,
-            screen.y + 20 * self.scale, width, height)
+            screen.y + metrics.lineHeight * 2, width, height)
     else
         panel:setX(screen.x + 2 * self.scale)
-        panel:setY(screen.y + 20 * self.scale)
+        panel:setY(screen.y + metrics.lineHeight * 2)
         panel:setWidth(width)
         panel:setHeight(height)
     end
@@ -126,32 +148,42 @@ end
 function Window:drawContactDetail()
     local entry = self.selectedContact
     local screen = self:screenRect()
-    local scale = self.scale
     local color = self:screenColors()
-    self:drawScreenHeader(entry and entry.title
+    local header = self:drawScreenHeader(entry and entry.title
         or tr("UI_PsychopatzCore_Radio_Contact", "CONTACT"),
-        entry and entry.status
-        or tr("UI_PsychopatzCore_Radio_Unknown", "unknown"))
-    local x = screen.x + 4 * scale
-    local y = screen.y + 31 * scale
-    if entry and entry.portraitDescriptor then x = screen.x + screen.w * 0.42 end
+        text(entry and entry.status,
+            tr("UI_PsychopatzCore_Radio_Unknown", "unknown")))
+    local x = header.metrics.x
+    local y = header.contentY
+    if entry and entry.portraitDescriptor then
+        x = screen.x + math.floor(screen.w * 0.42)
+    end
     self:drawTextClipped(Text.Format("UI_PsychopatzCore_Radio_StatusValue",
         "STATUS: %s", text(entry and entry.status,
             tr("UI_PsychopatzCore_Radio_Unknown", "unknown"))),
-        x, y, screen.w - (x - screen.x) - 4 * scale,
-        color, math.floor((screen.w - (x - screen.x)) / (7 * scale)))
+        x, y, screen.w - (x - screen.x) - header.metrics.padding, color)
     local actions = entry and entry.actions or {}
     if #actions > 0 then
         self:drawTextClipped(Text.Format("UI_PsychopatzCore_Radio_CenterAction",
             "CENTER: %s", actions[1].label),
-            x, y + 14 * scale, screen.w - (x - screen.x) - 4 * scale,
-            color, math.floor((screen.w - (x - screen.x)) / (7 * scale)))
+            x, y + header.metrics.lineHeight,
+            screen.w - (x - screen.x) - header.metrics.padding, color)
     else
         self:drawTextClipped(
             tr("UI_PsychopatzCore_Radio_NoAction", "NO ACTION"),
-            x, y + 14 * scale,
-            screen.w - (x - screen.x) - 4 * scale, color)
+            x, y + header.metrics.lineHeight,
+            screen.w - (x - screen.x) - header.metrics.padding, color)
     end
+end
+
+function Window:contactDetailActionAt(x, y)
+    if not self.selectedContact then return nil end
+    local header = self:headerLayout(text(self.selectedContact.status,
+        tr("UI_PsychopatzCore_Radio_Unknown", "unknown")))
+    if y >= header.contentY and self:isInside(header.metrics.screen, x, y) then
+        return { kind = "contact_action" }
+    end
+    return nil
 end
 
 return Window

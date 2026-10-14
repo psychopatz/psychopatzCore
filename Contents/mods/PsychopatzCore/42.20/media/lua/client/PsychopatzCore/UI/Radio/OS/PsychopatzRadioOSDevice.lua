@@ -9,6 +9,8 @@ PsychopatzCore.RadioOS = PsychopatzCore.RadioOS or {}
 local OS = PsychopatzCore.RadioOS
 local Manifest = require
     "PsychopatzCore/UI/Radio/OS/PsychopatzRadioManifest"
+local Geometry = require
+    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSGeometry"
 local RadioDeviceState = PsychopatzCore.RadioDeviceState
 local registry = OS._registry or {
     skins = {},
@@ -129,13 +131,7 @@ function OS.GetDeviceContext(playerNum, device)
 end
 
 function OS.GetDefaultScale()
-    local height = 900
-    if getCore then
-        local core = getCore()
-        if core and core.getScreenHeight then
-            height = tonumber(core:getScreenHeight()) or height
-        end
-    end
+    local _, height = Geometry.GetScreenSize()
     return math.max(1, math.min(1.75, height * 0.78 / 432))
 end
 
@@ -153,31 +149,42 @@ function OS.Open(playerNum, device, options)
         if existing.bringToTop then existing:bringToTop() end
         return existing
     end
+    context.hostWindow = options.hostWindow
     local Window = require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow"
-    local scale = tonumber(options.scale) or OS.GetDefaultScale()
-    scale = math.max(0.75, math.min(2.25, scale))
+    local savedState, savedScale
+    if options.persistGeometry ~= false then
+        savedState, savedScale = Geometry.Load(playerNum)
+    end
+    local scale = tonumber(options.scale) or savedScale or OS.GetDefaultScale()
+    scale = Geometry.ClampScale(scale, 0.75, 2.25)
     local width = context.skin.baseSize.w * scale
     local height = context.skin.baseSize.h * scale
-    local screenWidth = 1280
-    local screenHeight = 900
-    if getCore then
-        local core = getCore()
-        if core then
-            screenWidth = tonumber(core.getScreenWidth
-                and core:getScreenWidth() or screenWidth) or screenWidth
-            screenHeight = tonumber(core.getScreenHeight
-                and core:getScreenHeight() or screenHeight) or screenHeight
-        end
-    end
+    local screenWidth, screenHeight = Geometry.GetScreenSize()
+    local x = savedState and tonumber(savedState.x)
+        or (screenWidth - width) / 2
+    local y = savedState and tonumber(savedState.y)
+        or (screenHeight - height) / 2
+    x, y = Geometry.ClampPosition(x, y, width, height)
     local window = Window:new(
-        math.max(0, (screenWidth - width) / 2),
-        math.max(0, (screenHeight - height) / 2),
-        width, height, context, { scale = scale, owner = options.owner })
+        x, y, width, height, context, {
+            scale = scale,
+            owner = options.owner,
+            hostWindow = options.hostWindow,
+            geometryKey = "PsychopatzCore.RadioOS.Player." .. tostring(playerNum),
+            persistGeometry = options.persistGeometry,
+        })
     window:initialise()
     window:instantiate()
+    window:clampToScreen()
     if window.addToUIManager then window:addToUIManager() end
     window:setVisible(true)
     registry.windows[playerNum] = window
+    -- Radio OS replaces the native radio surface while open.  Keeping the
+    -- host object alive lets close() restore the vanilla interface without
+    -- leaving two interactive radio windows stacked on one another.
+    if options.hostWindow and options.hostWindow.setVisible then
+        options.hostWindow:setVisible(false)
+    end
     return window
 end
 

@@ -18,7 +18,12 @@ function Window:new(x, y, width, height, context, options)
     object.context = context or {}
     object.playerNum = tonumber(object.context.playerNum) or 0
     object.scale = tonumber(options.scale) or 1
+    object.minScale = tonumber(options.minScale) or 0.75
+    object.maxScale = tonumber(options.maxScale) or 2.25
+    object.persistGeometry = options.persistGeometry ~= false
+    object.geometryKey = options.geometryKey
     object.owner = options.owner
+    object.hostWindow = options.hostWindow
     object.skin = object.context.skin
     object.page = "home"
     object.homeIndex = 1
@@ -33,7 +38,14 @@ function Window:new(x, y, width, height, context, options)
     object._textures = {}
     object._closed = false
     object._hoverControl = nil
+    object._hoverScreenAction = nil
+    object._hoverResize = false
     object._pressedControl = nil
+    object._dragging = false
+    object._resizing = false
+    object.resizeHandleSize = math.max(12, math.floor(18 * object.scale))
+    object._geometryDirty = false
+    object._savedGeometrySignature = nil
     object.background = false
     object.backgroundColor = { r = 0, g = 0, b = 0, a = 0 }
     object.borderColor = { r = 0, g = 0, b = 0, a = 0 }
@@ -43,6 +55,7 @@ end
 
 function Window:initialise()
     ISPanel.initialise(self)
+    if self.setWantMouseEvents then self:setWantMouseEvents(true) end
     self.background = false
     self:createPortraitPanel()
 end
@@ -75,14 +88,21 @@ end
 
 function Window:close()
     if self._closed then return end
+    self:saveGeometry(true)
     self._closed = true
     if self.portraitPanel then self.portraitPanel:setVisible(false) end
     if self.removeFromUIManager then self:removeFromUIManager() end
     self:setVisible(false)
+    if self.hostWindow and self.hostWindow.setVisible then
+        self.hostWindow:setVisible(true)
+        if self.hostWindow.bringToTop then self.hostWindow:bringToTop() end
+    end
     if OS._ForgetWindow then OS._ForgetWindow(self) end
 end
 
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Navigation"
+require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Interaction"
+require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Geometry"
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Input"
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Renderer"
 

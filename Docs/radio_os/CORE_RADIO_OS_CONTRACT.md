@@ -27,6 +27,14 @@ Core owns and exports:
 
 Suggested namespace: `PsychopatzCore.RadioOS`, with `RegisterApp`, `UnregisterApp`, `RegisterContactProvider`, `UnregisterContactProvider`, `RegisterDeviceSkin`, `Open`, `Close` and `GetDeviceContext`. These are **proposed APIs**; audit and evolve against actual Core conventions before freezing. Provider callbacks must be bounded and fail closed (safe error results, no implicit authorization). UI display flags/capabilities are **not security checks**.
 
+The current UI implementation also accepts optional app callbacks `render`, `onMove`,
+`onSelect`, `onBack`, `hitTest` and `onScreenClick`.  The last two are presentation
+hooks for direct LCD-row activation; consequential work still belongs to the owning
+provider.  The frameless window persists position and uniform scale per local player,
+clamps geometry to the current resolution, and consumes shell/LCD mouse events so
+input cannot fall through to the world.  Native Build 42 SP/MP acceptance remains a
+separate gate.
+
 Proposed contact list entry:
 ```lua
 {

@@ -7,6 +7,7 @@ local Manifest = require
     "PsychopatzCore/UI/Radio/OS/PsychopatzRadioManifest"
 local Text = require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSTranslation"
 local Window = OS.Window
+require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Layout"
 
 local function text(value, fallback)
     value = tostring(value or "")
@@ -78,13 +79,10 @@ function Window:drawShell()
 end
 
 function Window:drawTextClipped(value, x, y, width, color, maxChars)
-    value = tostring(value or "")
-    maxChars = math.max(1, math.floor(tonumber(maxChars) or width / 7))
-    if #value > maxChars then
-        value = string.sub(value, 1, math.max(1, maxChars - 3)) .. "..."
-    end
+    value = self:fitText(value, width, maxChars)
+    local font = self:screenFont()
     color = color or { r = 0.75, g = 1, b = 0.75, a = 1 }
-    self:drawText(value, x, y, color.r, color.g, color.b, color.a, self._font)
+    self:drawText(value, x, y, color.r, color.g, color.b, color.a, font)
 end
 
 function Window:screenColors()
@@ -95,20 +93,50 @@ function Window:screenColors()
     return { r = 0.65, g = 1, b = 0.65, a = 1 }
 end
 
-function Window:drawScreenHeader(title, subtitle)
-    local screen = self:screenRect()
-    local scale = self.scale
+function Window:headerLayout(subtitle, options)
+    options = options or {}
+    local metrics = self:screenMetrics()
+    local screen = metrics.screen
+    local lines = 1
+    if subtitle and options.showSubtitle ~= false and metrics.lineCount >= 3 then
+        lines = 2
+    end
+    return {
+        contentY = screen.y + metrics.padding + lines * metrics.lineHeight,
+        metrics = metrics,
+        lines = lines,
+    }
+end
+
+function Window:drawScreenHeader(title, subtitle, options)
+    options = options or {}
+    local metrics = self:screenMetrics()
+    local screen = metrics.screen
     local color = self:screenColors()
-    self:drawTextClipped(string.upper(title), screen.x + 4 * scale,
-        screen.y + 3 * scale, screen.w - 8 * scale, color,
-        math.floor(screen.w / (7 * scale)))
-    if subtitle then
+    local y = screen.y + metrics.padding
+    self:drawTextClipped(string.upper(text(title, "RADIO OS")), metrics.x,
+        y, metrics.width, color)
+    local header = self:headerLayout(subtitle, options)
+    if header.lines == 2 then
         local muted = { r = color.r * 0.75, g = color.g * 0.75,
             b = color.b * 0.75, a = 1 }
-        self:drawTextClipped(subtitle, screen.x + 4 * scale,
-            screen.y + 15 * scale, screen.w - 8 * scale, muted,
-            math.floor(screen.w / (7 * scale)))
+        self:drawTextClipped(subtitle, metrics.x,
+            y + metrics.lineHeight, metrics.width, muted)
     end
+    self._headerLayout = header
+    return self._headerLayout
+end
+
+function Window:drawStatusWidget()
+    local context = self.context or {}
+    local id = context.active and (context.audible and "ind_rx"
+        or "chip_standby") or "ind_offline"
+    local screen = self:screenRect()
+    local scale = tonumber(self.scale) or 1
+    local width = math.max(6, math.floor(14 * scale))
+    local height = math.max(3, math.floor(5 * scale))
+    self:drawSprite(id, screen.x + screen.w - width - 2 * scale,
+        screen.y + screen.h - height - 2 * scale, width, height, 0.9)
 end
 
 function Window:drawScreen()
@@ -130,6 +158,9 @@ function Window:drawScreen()
     else
         self:drawCustom()
     end
+    self:drawStatusWidget()
+    self:drawSprite("overlay_scanlines_" .. theme, screen.x, screen.y,
+        screen.w, screen.h, 0.16)
     if self.clearStencilRect then self:clearStencilRect() end
 end
 
@@ -137,10 +168,25 @@ function Window:drawControls()
     local theme = self.skin and self.skin.theme or "green"
     for _, name in ipairs({ "left", "center", "right" }) do
         local rect = self:controlRect(name)
+        if not rect then return end
         local state = self._pressedControl == name and "pressed"
             or self._hoverControl == name and "hover" or "idle"
         self:drawSprite("btn_sq_" .. theme .. "_" .. state,
             rect.x, rect.y, rect.w, rect.h, 1)
+        local icon = ({ left = "icon_left", center = "icon_radio_call",
+            right = "icon_right" })[name]
+        if icon then
+            local inset = math.max(2, math.floor(math.min(rect.w, rect.h) * 0.18))
+            self:drawSprite(icon, rect.x + inset, rect.y + inset,
+                rect.w - inset * 2, rect.h - inset * 2, 0.95)
+        end
+    end
+    if self._hoverResize or self._resizing then
+        local width = self.getWidth and self:getWidth() or self.width or 0
+        local height = self.getHeight and self:getHeight() or self.height or 0
+        local size = math.max(8, math.floor((self.resizeHandleSize or 14) * 0.6))
+        self:drawRectBorder(width - size, height - size, size, size,
+            0.9, 0.75, 1, 0.75)
     end
 end
 
