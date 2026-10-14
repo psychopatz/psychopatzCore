@@ -1,6 +1,8 @@
 # PsychopatzCore Radio OS — UI Stabilization Contract (U0–U7)
 
-**Priority:** mandatory current implementation gate, dated 2026-10-15. Applies to the existing Core Radio OS implementation, **not** a proposal to rewrite its registry, device state, trading or NPC providers.
+> **Current priority update (2026-10-15):** Later normal-game screenshots show remaining low-detail/cropped shell art, visible transparency through the LCD and undiscoverable/limited zoom **after** the U0–U4 source changes. Execute [CORE_RADIO_OS_COMPOSITOR_SCALE.md](CORE_RADIO_OS_COMPOSITOR_SCALE.md) **C0–C6** now. U0–U7 remains as historical acceptance/compatibility gates, not an instruction to roll back new window drag/layout code. The PZ Headless Harness remains strictly prohibited.
+
+**Priority:** prerequisite implementation gate, dated 2026-10-15. Applies to the existing Core Radio OS implementation, **not** a proposal to rewrite its registry, device state, trading or NPC providers.
 
 **Critical testing constraint:** the PZ Headless Harness is broken/unusable and **STRICTLY EXCLUDED**. No PZ Headless Harness setup, install, investigation, repair, launch, commands, examples, acceptance evidence or dependencies. Do not substitute a homegrown "headless native test" and call it a real game run. Only normal Project Zomboid Build 42 in-game execution (user-run when the agent has no desktop/game access) counts as native SP/MP visual acceptance; collect screenshots/console.txt/user feedback. Offline Lua, deterministic PIL/PNG inspection and ordinary unit tests remain allowed.
 

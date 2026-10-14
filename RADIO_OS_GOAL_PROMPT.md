@@ -1,33 +1,37 @@
-# Radio OS UI Stabilization — Luna/Codex /goal (current priority)
+# Radio OS Compositor and Scaling — Luna/Codex /goal (current priority)
 
-**Use with the current PsychopatzCore, ProjectHoomans and DynamicTrading checkouts.** The initial framework and provider integrations exist already. Do not restart the original implementation roadmap.
+Use this goal with the current `psychopatzCore`, `DynamicTrading`, and `ProjectHoomans` checkouts. The core Radio OS already has a window, app/provider SDK, geometry/drag hooks and six atlases. **Do not rebuild them from scratch**.
 
 ```text
 /goal
 
-Stabilize and complete the existing **PsychopatzCore Radio OS UI**. The user has tested it in real Build 42 and shown that the physical radio shell draws, but the window is rigid, cannot be dragged or interactively resized/persisted, LCD text is crowded/clipped, actual icon atlas artwork is not rendered on Home, and app rows are not directly clickable. This is a UI FOUNDATION CORRECTION, not a new trade or NPC system.
+Fix the existing PsychopatzCore Radio OS's low-quality shell presentation, seemingly transparent LCD, inconsistent crop/composition, and undiscoverable/limited scaling, based on the user's two latest real Project Zomboid Build 42 screenshots. This is a focused COMPOSITOR / ASSET FIDELITY / ADAPTIVE ZOOM task, not new NPC or trading functionality.
 
 Read in order:
-1. psychopatzCore/Docs/radio_os/CORE_RADIO_OS_UI_STABILIZATION.md
-2. psychopatzCore/Docs/radio_os/CORE_RADIO_OS_CONTRACT.md
-3. DynamicTrading/Docs/radio_os/DT_RADIO_OS_AGENT_RUNBOOK.md
-4. DynamicTrading/Docs/radio_os/DT_RADIO_OS_CONTRACT.md
+1. psychopatzCore/Docs/radio_os/CORE_RADIO_OS_COMPOSITOR_SCALE.md
+2. psychopatzCore/Docs/radio_os/CORE_RADIO_OS_UI_STABILIZATION.md
+3. psychopatzCore/Docs/radio_os/CORE_RADIO_OS_CONTRACT.md
+4. DynamicTrading/Docs/radio_os/DT_RADIO_OS_AGENT_RUNBOOK.md
 5. DynamicTrading/Docs/radio_os/DT_RADIO_OS_ROADMAP.md
 6. DynamicTrading/Docs/radio_os/DT_RADIO_OS_PROGRESS.md
 
-NONNEGOTIABLE: DO NOT USE THE PZ HEADLESS HARNESS. It is broken and explicitly excluded. Do not install, repair, configure, run, query, depend on or create tasks involving that harness. Ordinary isolated offline Lua tests, assets checks, syntax/regressions and normal Project Zomboid Build42 launches are allowed. If you cannot operate normal PZ, label native tests pending and provide one concise manual in-game test checklist. Never claim mocks as in-game verification.
+IMPORTANT: ABSOLUTELY NO PZ HEADLESS HARNESS. Do not install, run, repair, inspect or use it. Use normal Project Zomboid Build 42 gameplay for native verification, offline Lua/Pillow tests for reproducible checks. If you cannot operate the actual game, finish safe offline tasks and provide one final manual screenshot/console.txt checklist. Never label mock tests as native.
 
-Start U0 (fresh read-only source re-audit, failing tests), then implement U1 movable/persisted uniform-scale frameless radio via existing Core window geometry helpers, U2 reliable layout/font measurement/clipping/paging, U3 actual atlas icons/button states/UI chrome, U4 clickable LCD apps/contact rows plus physical buttons/keyboard, U5 safe portrait/contact view, U6 integration regression and U7 native handoff/acceptance. These U0–U7 priority gates supersede the older R8/R9 completion sequence; previously implemented R0–R7 adapters should be preserved, not duplicated.
+Begin C0 by reviewing latest code/HEAD and comparing the actual alpha-zero screen opening in each PNG shell to the manifest's LCD rect, backing sprite alpha, render phases/stencil and child portrait order. Current renderer ALREADY tries drawing screen_bg_<theme> in prerender; don't simply assume no backing exists. Test whether its opaque coverage is smaller than the visible cutout or gets lost/covered due to blending, wrong UV/path or ISUI layering. Add exact atlas-alpha and synthetic layered-frame smoke tests plus optional in-game debug colored backplate/tint/bounds outlines (off by default).
 
-Critical affected Core files: PsychopatzRadioOSWindow.lua, _Input.lua, _Renderer.lua, _Pages.lua, _Contacts.lua, _Navigation.lua, PsychopatzRadioOSDevice.lua, PsychopatzRadioManifest.lua, and PsychopatzWindow geometry/resize/persistence helpers. Verify their actual interfaces; do not blindly subclass PsychopatzWindow if that forces an opaque generic titlebar. Keep the actual device casing frameless; drag only noninteractive shell regions, provide a visible resize grip, fixed 256:432 proportion, min/max and offscreen clamping, save player-specific position/scale across reopen and UI-resolution changes, and update all LCD/hardware hitboxes after rescaling. Clicking a screen row must select it; dragging must never trigger keys.
+C1: implement a correct skin-driven sandwich: optional shadow/back body; an actually OPAQUE matte LCD backplate fully covering only the intended aperture; themed LCD texture; clipped dynamic app content and provider portrait; optional low-alpha effects; front shell and physical keys/highlights. Ensure parent/child render stages and stencil do not leak; clear state even on render errors. Do not paint behind antenna/transparent outer body. Use shared transforms and declarative aperture/backplate/content inset per skin so future radio device families work.
 
-Do not change source radio PNGs merely to paper over broken layout. Existing six Core atlases should supply real app icons, buttons, statuses, and screen furniture dynamically. The LCD is ~72–83x55–61 source pixels; derive row fit from measured font and available space, paginate/zoom, and strictly clip text/portraits. No generic green placeholder bars as final UI. Keep portrait panels inside LCD, avoid per-frame texture reload or scans, keep runtime scalable and reusable for future mods.
+C2: recover the best actual approved source assets without inventing them. Current shell atlas was downsized to a 341x341 compact source and then blown back up to 1024x1024 (confirmed in the builder), irreversibly discarding detail; do not call that high-res. Seek the genuine high-fidelity master already accessible in the project before changing art. If unavailable, note that limitation explicitly and retain approved style, while correcting texture sampling, UVs, alpha fringes and pixel-snapped drawing. Never replace art with generic or hyper-realistic radios.
 
-Maintain Core-only module independence and extension APIs. ProjectHoomans owns NPC knowledge/portrait/conversation/discovery; DTCommon owns V2 trade UI/MarketSense/trader transactions; DTAbstract owns server-authorized remote trader access without spawned body, DTHoomans owns actual nearby merchant checks. No second radio trading basket/UI and no new fake conversational backend. Preserve and test these existing integrations while fixing presentation.
+C3: implement discoverable zoom in/out/reset/fit (mouse/UI and optionally keyboard), plus usable resize affordance, automatically fit to small and large real screen viewports, stable aspect ratio and one transform shared by shell, LCD, buttons and pointer hitboxes. Current opening clamp 0.75–2.25 and default max 1.75 are too rigid; derive limits from viewport with safety margin and preserve saved per-player/per-device preference using existing Core settings. Test 720p, 1080p, 1440p, 4K, UI scale, resolution changes and split-screen as possible. Bigger monitors may scale up; smaller ones can scale down. Do not distort 256:432 shell proportions.
 
-Work unattended, in small safe chunks. Run fail-first regression tests, scoped Lua/mock/PNG checks and all applicable existing unit suites; safely commit/push coherent changes to each owning repo and update DynamicTrading/Docs/radio_os/DT_RADIO_OS_PROGRESS.md with exact stage, evidence, regressions, SHAs, blockers and next step. Continue automatically rather than repeatedly asking for permission. Preserve unrelated edits, saves, installed mods and user's Git changes. No force-push or destructive reset.
+C4: verify geometry, opacity and layering with deterministic offline composite/alpha-mask smoke tests for all six skins. Test per-skin transparent-hole coverage and sprite rect/cell mapping, pixel-snapped scale transformations, nonleaking clipping, hitboxes/resize control and overlay. Add a debug-only in-game backplate probe that colors each layer distinctly, proving the sandwich visually in normal gameplay. Native acceptance must be separately evidenced.
 
-Only mark U1–U7 'native passed' after evidence from a normal PZ Build42 SP/MP run (screenshots, actual interactions and logs). If native UI isn't accessible, finish safe offline work, provide one concise in-game reproduction/acceptance script, and explicitly leave native gates open. Don't claim production readiness until manual/native acceptance is real.
+C5: make LCD content intentional and legible: page-fit text, paging, buttons/icons/indicators already present in the atlases, clipped portraits and actual provider actions. Don't cram big portraits and long contact names into the 72x55 content region; preserve Core generic API and use existing Hoomans portrait if authorized. No baked content, no new LLM/dialogue backend and no duplicate trade screen. Trade still hands off to existing V2.
 
-Begin U0 NOW, then continue through U1–U7 without waiting for routine approvals.
+C6: preserve all Core/Hoomans/DT functionality, radio-device authorization and server-side merchant security. Test Core only, combined mods, six radios, existing price/quote/settlement and abstract-without-NPC vs physical-nearby-NPC rules. Native SP/MP evidence requires a real normal game run; profiler measurements must also be genuine.
+
+Work unattended in small validated changes. Commit and safely push coherent patches to each owning repo; log C phase, evidence classes (source/alpha image/Lua/native SP/native MP/profiler), test commands, SHAs, blockers and next chunk in DynamicTrading/Docs/radio_os/DT_RADIO_OS_PROGRESS.md. Preserve user code, saves, settings, installed mods and unrelated branches; never force push or destructively reset. Keep running independent safe tasks without recurring requests for permission. If high-resolution approved master is absent, record art limitation and still fix the compositor/scale.
+
+Start C0 now and proceed automatically through C1–C6 as safely as possible, without falsely claiming native readiness.
 ```
