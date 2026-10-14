@@ -1,6 +1,6 @@
 # PsychopatzCore Radio OS — Reusable Platform Contract
 
-Status: planning contract, **not a claim that the Radio OS has already been implemented**. Applies to Build 42.20+ after native verification.
+Status (updated 2026-10-15): **a Core Radio OS foundation and provider adapters are implemented**, but user-supplied Build 42 screenshot shows the window is rigid and the LCD presentation incomplete. Native functional acceptance has NOT passed. The immediate binding stabilization specification is [CORE_RADIO_OS_UI_STABILIZATION.md](CORE_RADIO_OS_UI_STABILIZATION.md).
 
 ## Vision
 
@@ -60,7 +60,7 @@ Provider owns acquisition, authorization, server validation and sensitive inform
 
 ## Committed visual assets and migration plan
 
-The **six walkie production PNG atlases**, the manifest and the opt-in preview currently live in `psychopatz/DynamicTrading` under `DTAbstract/42.20/media/ui/dtabstract/radio` and `DTAbstract/UI`:
+The six walkie PNGs were originally authored in `psychopatz/DynamicTrading` under `DTAbstract`. **The production copies, manifest, build tools and current Radio OS window are now Core-owned**; consult current `PsychopatzCore/42.20/media/ui/psychopatz/radio` and `PsychopatzCore/UI/Radio/OS` files rather than the historical source paths:
 - DTA_Walkie_Shells.png — 1024×1024, 6 handheld skins; color-reduced approved artwork.
 - DTA_Walkie_UI_Core.png — 1024×1024, 25 UI sprites.
 - DTA_Walkie_Buttons.png — 1024×512, 36 button-state backgrounds.
@@ -68,7 +68,7 @@ The **six walkie production PNG atlases**, the manifest and the opt-in preview c
 - DTA_Walkie_Indicators.png — 512×256, 25 indicators.
 - DTA_Walkie_Overlays.png — 512×512, 8 optional transparent effects.
 
-**Mandatory:** migrate these unchanged game textures/manifest and associated atlas generation/validation tools into Core-owned paths, e.g. `PsychopatzCore/42.20/media/ui/psychopatz/radio/` and `PsychopatzCore/UI/Radio/OS/`. Update `getTexture` paths, registration and CI, verify PNG byte equivalence (or explicitly document regeneration), six alpha-zero LCD cutouts, actual size/coordinates, and test Core without DTAbstract. Keep thin compatibility redirects in DTAbstract if justified; never create two loaded atlas copies or have Core `require` DTAbstract.
+**Migration status:** Core has production atlases and the six-skin manifest. Keep a thin DTAbstract compatibility shim only as needed. The next phase is **UI stabilization U0–U7**: ensure correct drag/resize/geometry/persistence/viewport layout/icons/clicks and actual in-game acceptance, not another atlas ownership migration.
 
 Existing shell LCD openings range ~72–83 × 55–61 source pixels: a serious legibility and portrait constraint. Solve by measured uniform scaling, compact pagination/zoom or redesigned coordinated art/manifest—not stretching a finished shell or overflowing text. HAM/manpack/receive-only art does not yet exist as production atlases. Do not claim those device families are done; leave their extension hooks open.
 
@@ -86,3 +86,9 @@ The up-to-date plan and pasteable Luna/Codex goal are in `psychopatz/DynamicTrad
 `Docs/radio_os/DT_RADIO_OS_ROADMAP.md`,
 `Docs/radio_os/DT_RADIO_OS_PROGRESS.md`,
 and `RADIO_OS_GOAL_PROMPT.md`. This Core contract governs reusable framework ownership when implementation work touches Core. Keep those goal documents synchronized; do not allow Domain modules to own the shared UI.
+
+## Current mandatory UI stabilization gate
+
+Core Radio OS still derives its window from `ISPanel`, while existing Core window geometry/persistence/resize helpers are not integrated. The latest user screenshot demonstrates major functionality/UI problems. Before extending radio features, implement the ordered **U0–U7** milestones in [`CORE_RADIO_OS_UI_STABILIZATION.md`](CORE_RADIO_OS_UI_STABILIZATION.md). The initial foundation R0–R7 exists; reopen the renderer/window acceptance gate rather than rebuilding consumer integrations.
+
+**Absolute testing prohibition:** the PZ Headless Harness is known broken and must not be used, installed, fixed, or considered as evidence. Use offline Lua/atlas tests plus **normal Project Zomboid gameplay** for native acceptance. If agent lacks game GUI capability, provide a single manual test handoff and leave native status pending.
