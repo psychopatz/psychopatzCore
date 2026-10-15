@@ -242,3 +242,14 @@ Date / HEAD: 2026-10-16 / `7b29929` (`feat(asset-harness): record manual reconst
 - Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, and `git diff --check` passed. Canonical source hashes remain unchanged; no runtime Lua, legacy atlas, save, or production export changes were made.
 
 Next authorized action remains conditional on an external reviewed modular W5 master: author the real pristine/worn chassis, source-space socket masks, keyed controls, states, and source-to-idle diff, then visually review before any device can leave `blocked`.
+
+## Blocked diff evidence checkpoint
+
+Date / HEAD: 2026-10-16 / `ad937ca` (`feat(asset-harness): add blocked radio diff reports`), pushed cleanly to `origin/main` after `1209dab`.
+
+- `assets audit --write-artifacts` now emits ten per-device `diff/<device>_source_to_idle.json` records. They preserve the copied source SHA-256 and alpha-preview SHA-256 while explicitly setting `status: blocked`, `after: null`, `metrics: null`, and `fake_idle_generated: false` until reviewed modular idle art exists.
+- W5 blocked source-to-idle report: `walkie_5_source_to_idle.json`, SHA-256 `55ebb7c1654d3cedd3ad8bb5005c5dbecc34f7843141b1387718d50a3b3bce58`. The tracked audit report is [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `405442fcca018d1494ef7142a5c1db0bcde375c1cd09eb46321ef501052058f3`.
+- The W5 pilot sheet remains blocked and unchanged at SHA-256 `183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb`; its checklist now records the diff-report hash and remains `accepted: false`.
+- Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, `git diff --check`, and refactor-binding smoke passed. No production export, runtime Lua, legacy atlas, save, or canonical source change occurred.
+
+The diff reports improve auditability but do not satisfy the art gate. The next production milestone still requires authentic reviewed modular W5 masters and visual reconstruction acceptance.
