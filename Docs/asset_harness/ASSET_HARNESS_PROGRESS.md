@@ -132,6 +132,14 @@ Source/master provenance and approval state: legacy atlas input is fallback/refe
 
 Native SP / Native MP / profiler: native SP pending; native MP pending; profiler regression suite passes, but the asset harness has no profiler/bridge runtime dependency. PZ Headless Harness was not used.
 
-Git commit SHA / push state: commit and push pending this final regression/documentation checkpoint. Only harness files and this ledger are intended for the commit; pre-existing untracked PNGs must remain untracked.
+Git commit SHA / push state: implementation commit `f87bf62` (`feat(asset-harness): add offline agent-first image pipeline`) was pushed to `origin/main` as a clean fast-forward from `d2705f8`. This docs-only follow-up records the final state. Pre-existing untracked PNGs remain untracked.
 
 Blockers / exact next action: review staged file list, commit the offline harness and ledger, fetch/check the owning branch, and push only if the update is a fast-forward. After push, append the resulting commit SHA and push status here in a docs-only checkpoint.
+
+## Post-push verification checkpoint
+
+Date / HEAD: 2026-10-15 / implementation commit `f87bf62` pushed; this ledger checkpoint records the final state.
+
+Final state: the offline agent-first pipeline is available under `tools/asset_harness/` with no runtime art replacement. H7 remains an explicit external gate for authentic approved art and native SP/MP acceptance; H9 remains optional bridge/native capability review.
+
+Exact next action: no further implementation is required for the offline goal. If approved high-resolution source art becomes available, register it with provenance, review it, validate it, and perform a separately reviewed runtime export; do not approve the existing concept sheets.
