@@ -1,5 +1,7 @@
 # PsychopatzCore Radio Device Skin Architecture — Per-Device High-Fidelity Assets
 
+> **Canonical path + scope correction (2026-10-16):** For the active **harness-only** modular-radio work, follow [Radio Modular Asset Production](../asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md). New reviewed radio component PNGs belong **alongside existing sources** under `Contents/mods/PsychopatzCore/common/media/ui/Radio/{WalkieTalkie,Ham,ManPack}/<existing device basename>/`, with separate `Chassis/Pristine.png` and `Chassis/Worn.png`. Older proposed `art_source/radio/devices` and `common/media/ui/psychopatz/radio/devices` examples below are historical, **not** authoring/export targets for this task. Existing legacy runtime textures remain intact. No mod Lua/runtime integration or production export in this goal.
+
 > **Interaction and art-production refinement (2026-10-15):** User chose the **gameplay-first radio-shaped mini-computer**, not a strict radio-only interface or smartphone. See [Interaction v2](CORE_RADIO_OS_INTERACTION_V2.md) and [Device Art Spec v2](CORE_RADIO_OS_DEVICE_ART_SPEC_V2.md) before producing or approving any new model. Each actual radio must have a generous clickable LCD **and** recognizable tactile radio hardware, a discoverable BACK/HOME/OK path, and separately animated knobs/PTT/LEDs. The A0–A8 fidelity/family/provenance requirements below remain, but a static flattened shell or phone silhouette no longer passes A3–A8 acceptance. New I0–I9 interaction milestones are documented [here](CORE_RADIO_OS_INTERACTION_ROADMAP.md). **No production art was changed by this notice.**
 
 
@@ -37,49 +39,37 @@ Reinspect HEAD, mods, device IDs, sprite artwork and normal-game API before impl
 
 ## File ownership and proposed structure
 
-Keep the original authoring masters separate from game-runtime exports. Paths below are **proposals**, not already existing files:
+**Current proposed structure (2026-10-16):** Build the editable mask/layer projects with the existing `tools/asset_harness/` system. The canonical image files are grouped under the established Project Zomboid `common/media/ui/Radio` tree; do not create another new image destination.
 
 ```text
 PsychopatzCore/
-  Docs/radio_os/
-    CORE_RADIO_DEVICE_ASSETS.md              <- this contract
-  tools/radio_os/
-    devices/                                 <- manifests or authoring metadata
-    build_device_shells.py                   <- reproducible per-model export
-    audit_device_assets.py                   <- per-skin alpha/dimensions/coverage
-  Contents/mods/PsychopatzCore/common/media/
-    ui/psychopatz/radio/
-      common/
-        UI_Core.png
-        Buttons.png
-        Icons.png
-        Indicators.png
-        Overlays.png
-      devices/
-        walkie/
-          us_army/
-            shell_front.png
-            wear_light.png                  <- only if actually authored
-            wear_heavy.png
-          toys_r_mine/
-          valutech/
-          premium/
-          tactical/
-          makeshift/
-        ham/
-          civilian/
-          military/
-          makeshift/
-        manpack/
-          army/
-    lua/client/PsychopatzCore/UI/Radio/OS/
-      PsychopatzRadioDeviceSkins.lua           <- registry/schema module
-      Skins/                                  <- per-model registered definitions
+  tools/asset_harness/
+    core/                                    # reusable processing and compositing
+    projects/radio/                          # authoring JSON and metadata, NOT game-loaded
+    workspace/                               # ignored QA/masks/previews/intermediates
+  Contents/mods/PsychopatzCore/common/media/ui/
+    Radio/
+      WalkieTalkie/
+        Base.WalkieTalkie5.png               # existing immutable reference
+        Base.WalkieTalkie5/
+          Chassis/Pristine.png               # independent base, empty sockets
+          Chassis/Worn.png                   # separate weathered base, same anchors
+          Buttons/<control>/Idle.png
+          Buttons/<control>/Pressed.png
+          PTT/Idle.png
+          PTT/Held.png
+          Knobs/<knob>/Frame_00.png
+          Switches/Power/Off.png
+          Switches/Power/On.png
+          LEDs/<indicator>/Off.png
+          LEDs/<indicator>/On.png
+          LCD/Glass.png
+      Ham/                                   # separate per-HAM files and components
+      ManPack/                               # separate per-manpack files/components
+      RadioMenu/                             # shared source UI, unchanged in this goal
 ```
 
-Current `DTA_Walkie_UI_Core.png`, `DTA_Walkie_Buttons.png`, `DTA_Walkie_Icons.png`, `DTA_Walkie_Indicators.png`, `DTA_Walkie_Overlays.png` **remain shared and functional** during migration. Do not duplicate them for every model or break existing texture paths; optional renaming only after compatibility testing.
-
-Authoring masters may live in a dedicated `art_source/radio/devices/<family>/<model>/` folder with layered masters/source attribution/exports. They are not necessarily all copied to the game runtime. No font files should be distributed.
+The directories for reviewed modular components are **targets**, not evidence that accurate sprites have already been produced. Avoid shipping authoring masks, intermediate art, tests or JSON manifests in the runtime media image tree. No live Lua, legacy atlas or production texture modifications are authorized during this harness-first task.
 
 ## Per-model high-resolution art specification
 
@@ -89,7 +79,7 @@ Authoring masters may live in a dedicated `art_source/radio/devices/<family>/<mo
 - Asset IDs, names and exported dimensions must be stable, versioned, and verified by tests. Pixel art may require explicit point filtering; verify actual B42 subtexture/full texture sampling rather than globally changing vanilla filtering. Prevent alpha fringes, straight/premultiplied blending mismatches and texture bleeding.
 - Shell composition: matte/opaque LCD backing, optional genuine themed LCD background, clipped dynamic app/portrait, optional effects, **shell front including authored physical wear**, hardware highlights. Art that covers the LCD/glass must be a distinct optional glass overlay and respect content clipping; scratches on chassis must not cover interactive content or fill the clear window.
 - Cutout must be **truly alpha-zero** across the entire designated visible screen aperture. Store a separate, slightly inset content safe rect. Do not fill all alpha-zero pixels indiscriminately: outer body and antenna gaps remain transparent.
-- Use simple consistent visual cues and condition wear aligned to item art; never put item/game status as static image text. Buttons can remain physically on the shell, with independent clickable hit regions and dynamic highlighted states.
+- Use simple consistent visual cues and condition wear aligned to item art; never put item/game status as static image text. For the new modular project, buttons must be isolated independently from reconstructed physical sockets; separate clickable hit regions are metadata, not substitutes for real idle/pressed art.
 - Do not automatically create fake LCDs or second merchant/trading panels just to fit an app. If a vanilla HAM model's interface is analog, propose a plausible **single** integrated communication display or OS attachment for review, rather than asserting a base-game feature. Keep trader basket in the existing V2 UI.
 
 ## Device skin schema v2 — proposed (do not call implemented)
@@ -102,11 +92,11 @@ Authoring masters may live in a dedicated `art_source/radio/devices/<family>/<mo
   fullType = "Base.WalkieTalkie5",
   artwork = {
     sourceSize = { w = 768, h = 1296 }, -- example only
-    shell = "media/ui/psychopatz/radio/devices/walkie/us_army/shell_front.png",
+    shell = "media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png", -- example only; future Lua adapter
     variants = {
-      pristine = nil, -- implicit clean baseline
-      scratched = "media/ui/psychopatz/radio/devices/walkie/us_army/wear_light.png",
-      worn = "media/ui/psychopatz/radio/devices/walkie/us_army/wear_heavy.png",
+      pristine = "media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
+      -- scratched condition is optional and must be independently authored/reviewed
+      worn = "media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Worn.png",
     }
   },
   lcd = {
@@ -179,14 +169,14 @@ Normal installed Project Zomboid Build42: all verified walkie/HAM/manpack models
 
 ## Verified Project Zomboid asset installation convention (2026-10-15)
 
-PsychopatzCore already stores shared radio-signal frames in `Contents/mods/PsychopatzCore/common/media/ui/Radio/Signal_found/`, and its conversation background loader resolves `media/ui/Conversation/Backgrounds/*.png` from `common/media/ui`. Therefore place **all Radio OS game-loadable texture exports** in `Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/` (or another established `common/media/ui/Radio/` subtree when the relevant Lua virtual texture path is updated together). Client Lua can remain under `42.20/media/lua` if B42-specific.
+PsychopatzCore already stores shared radio-signal frames in `Contents/mods/PsychopatzCore/common/media/ui/Radio/Signal_found/`, and its conversation background loader resolves `media/ui/Conversation/Backgrounds/*.png` from `common/media/ui`. For **new modular device sprites** in this harness-only plan, the selected canonical path is `Contents/mods/PsychopatzCore/common/media/ui/Radio/` under its existing family folders. **Existing active legacy** textures in `common/media/ui/psychopatz/radio/` remain in place, with their existing virtual paths unchanged. Do not update Lua virtual references in this phase. Client Lua can remain under `42.20/media/lua` if B42-specific.
 
 The current six legacy production PNGs were moved byte-for-byte from `42.20/media/ui/psychopatz/radio/` to that matching `common/media/ui/psychopatz/radio/` path; existing `getTexture("media/ui/psychopatz/radio/...")` virtual paths remain unchanged. Do not keep identical virtual texture names in both common and version-specific directories, which would introduce ambiguous resolution. Future walkie, HAM and manpack **runtime shell/LED/glass/condition** PNG exports must use `common/media/ui` as well.
 
-**Important separate concern:** full multi-component 1254×1254 concept sheets are *unsliced art references*, not a PZ-renderable radio skin. The importer stores those labeled reference sheets in `common/media/ui/Radio/DeviceConcepts/` for discovery and review, but they must **not be referenced by the live renderer**. Device-specific production assets are cropped/validated into `common/media/ui/psychopatz/radio/devices/<family>/<model>/` only after approval. The compact 341px legacy **builder input** is kept separately at `art_source/radio/legacy/`, not treated as a game texture.
+**Important separate concern:** full multi-component 1254×1254 concept sheets are *unsliced art references*, not a PZ-renderable radio skin. The importer stores those labeled reference sheets in `common/media/ui/Radio/DeviceConcepts/` for discovery and review, but they must **not be referenced by the live renderer**. New reviewed modular production assets are placed under `common/media/ui/Radio/{WalkieTalkie,Ham,ManPack}/<existing device basename>/` only after per-device approval. They remain offline/staged until later integration. The compact 341px legacy **builder input** is kept separately at `art_source/radio/legacy/`, not treated as a game texture.
 
 Offline and source-level path checks are possible; only normal Project Zomboid Build 42 use confirms actual engine texture resolution. The PZ Headless Harness is not permitted.
 
 ## Agent-first implementation tool (2026-10-15)
 
-The reusable CLI that will author, slice, assemble, validate and export these individual radio-model sources is specified in [`../asset_harness/ASSET_HARNESS_CONTRACT.md`](../asset_harness/ASSET_HARNESS_CONTRACT.md), with H0–H9 implementation stages and its own [Codex /goal](../../ASSET_HARNESS_GOAL_PROMPT.md). **This is a developer asset harness, not the broken PZ Headless Harness.** It has no required Flask/browser/Qt interface; the agent operates JSON CLI plus full-resolution PNG previews. Current per-model A0–A8 art goals remain valid, and live game acceptance remains separate. No new images are included by this documentation cross-link.
+The reusable CLI that will author, slice, assemble, validate and export these individual radio-model sources is specified in [`../asset_harness/ASSET_HARNESS_CONTRACT.md`](../asset_harness/ASSET_HARNESS_CONTRACT.md), with H0–H9 implementation stages and its own [Codex /goal](../../ASSET_HARNESS_GOAL_PROMPT.md). **This is a developer asset harness, not the broken PZ Headless Harness.** It has no required Flask/browser/Qt interface; the agent operates JSON CLI plus full-resolution PNG previews. Current per-model A0–A8 fidelity goals remain valid, but this harness-only production task uses the AH-R0–AH-R6 QA plan and forbids runtime integration; live game acceptance remains separate. No new images are included by this documentation cross-link.
