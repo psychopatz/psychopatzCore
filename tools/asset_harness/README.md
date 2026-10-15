@@ -1,8 +1,25 @@
 # Psychopatz Asset Harness
 
-This is the offline, agent-operated asset pipeline for PsychopatzCore. It uses
-Python and Pillow only; it does not import Tk, start a server, contact the PZ
-bridge, or use the prohibited PZ Headless Harness.
+This is the offline, agent-operated asset pipeline for PsychopatzCore. The
+agent-facing CLI and core use Python and Pillow only; ordinary CLI operations
+do not import Tk, start a server, contact the PZ bridge, or use the prohibited
+PZ Headless Harness.
+
+An optional Tk/Pillow viewer is provided as a thin client for people who want
+to look at the same PNGs and project renders visually. It does not replace the
+CLI or change the validation/export rules:
+
+```sh
+./run.sh
+# or, from the repository root:
+./tools/asset_harness/run.sh
+```
+
+The viewer opens the tracked legacy walkie shell atlas by default. Use `Open
+PNG` for another image, `Open Project` and `Render` for an asset-harness
+project, and `Validate` to inspect its diagnostics. `Save Preview` writes a
+PNG only when you explicitly choose a destination. Set `PYTHON_BIN` when a
+different Python interpreter provides Tkinter and Pillow.
 
 The entry point always emits one bounded JSON object on stdout by default.
 Human-readable progress belongs on stderr. Image files are referenced by path

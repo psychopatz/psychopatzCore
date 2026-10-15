@@ -8,6 +8,18 @@ Reusable client-local preview/debug framework: [docs/preview-framework.md](docs/
 
 Shared Project Zomboid Build 42 library for Psychopatz mods.
 
+## Asset Harness preview
+
+The optional asset-harness viewer can be launched from the repository root:
+
+```bash
+./run.sh
+```
+
+It opens the tracked fallback radio atlas by default and can load PNGs or
+asset-harness project JSON files. The agent-facing CLI remains documented in
+[`tools/asset_harness/README.md`](tools/asset_harness/README.md).
+
 ## Refactor smoke test
 
 After splitting Lua modules, run the private-helper binding smoke test from
