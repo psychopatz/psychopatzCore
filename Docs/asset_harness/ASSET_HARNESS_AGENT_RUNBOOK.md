@@ -13,6 +13,18 @@
 6. `docs/preview-framework.md`, `tools/radio_os/` and `tests/radio_os/` — actual snapshot and asset pipeline.
 7. Recheck actual repo HEAD/worktree and test suites before edits.
 
+## Active radio priority — author an actual visual pilot
+
+**Current stage (2026-10-16, after e8ad4d9):** The mask, modular, simulator and LCD contract tooling already exists. Treat audit inventories, immutable SHA evidence, `blocked=10`, placeholder `after: null` reports and copied-source contact sheets as **completed diagnostic groundwork**, not current deliverables. The canonical [radio production contract](RADIO_MODULAR_ASSET_PRODUCTION.md#current-execution-correction--visual-art-first-2026-10-16-audit-of-commits-through-e8ad4d9) gives the precise next chunk.
+
+**Execute the W5 visual vertical slice first:** Inspect the real W5 image, pick one actual easy-to-identify control, author and view its silhouette mask, face, reconstructed socket, idle/pressed states, and rendered idle comparison. Iterate against actual visual preview at native and UI scale; a successful unit test or input SHA does **not** substitute for opening and judging the edited image. Save curated image review output in `tools/asset_harness/review/radio/walkie_5/` for visible GitHub verification, in addition to scratch artifacts.
+
+If the image editing/viewing tool genuinely cannot accomplish one region, provide the precise attempted asset/mask and one localized blocker, not a new global "all sources flattened" gate. Keep W5 status proposed/blocked until actual art review; **do not** mark accepted based on synthetic fixtures. Complete independent W5 `Chassis/Pristine.png` and `Chassis/Worn.png` after the real component path works.
+
+**State-machine/tests correction:** Update stale `blocked == 10` and null-diff expectations to assert blocked when no art exists but allow proposed/verified when real image files, accurate masks, sockets, state transitions and human/agent visual review evidence exist. Remove unconditional source-format/provenance blocker branches; replace with conditional, evidence-backed diagnostics. Do not disable safety gates. Retain SHA checking as an inexpensive immutability assertion, not a repeated deliverable or endless audit task.
+
+**Test cadence:** Focused harness image/mask/render/CLI tests while authoring; broader suites at true integration checkpoints. No unrelated profiler test suite on every edit. No production export, game Lua modification, original texture overwrite, or old DTA fallback build. Report image paths, actual opened-view findings and pixel-diff changes before test counts or hashes.
+
 ## Unattended execution
 
 - **Historical generic harness scaffold instructions, not the current radio modular scope:** Start H0 with read-only audit, identify existing implementation before writing new functions, establish baseline tests and CLI user stories. Then proceed H1 onwards in **small deterministic testable chunks**, without stopping for routine approval after a passing chunk.
@@ -20,8 +32,8 @@
 - Use Python standard library for CLI, JSON, hashes, temporary paths, safety and IO; Pillow for image operations. Reuse concepts/functions where stable, but do not import Tk GUI or pull profiler process-monitoring dependencies into every image operation. No web server as runtime requirement.
 - First build the complete vertical slice with genuine/synthetic **test fixtures**: inspect -> select/edit exact regions -> compose -> render -> JSON validate. Add animation & variant states, then export. Fixtures do not count as authentic vanilla artwork.
 - Preserve and report missing image binaries and missing reliable item icon/3D art references; no guessing/clone-colors substituted for a real game's device.
-- Keep old six-atlas runtime compatibility, image source immutability, existing geometry/UI providers and optional game bridge semantics. When changing a file owned by an existing script, run its tests as well.
-- Each phase: run scoped pytest/unittest, CLI subprocess/error-path fixtures, image-pixel/alpha tests, and applicable Core radio Lua smokes; collect minimal repeatable test command and files. Update progress; commit/push without force; continue safe work automatically.
+- Preserve current game Lua and existing source image bytes during this harness-only goal; **do not rebuild or require the missing DTA atlases**. The old references are runtime-cutover debt, not another fallback texture system. Keep unaffected harness CLI APIs and simulator contracts stable.
+- Each meaningful authoring chunk: inspect and refine its real image output, run scoped harness/CLI/alpha tests, and record before/after visuals. Run broad or unrelated regression suites only at appropriate integration milestones; do not run removed-DTA compositor smokes as an art acceptance gate. Commit/push verified scoped progress without force.
 - Use image previews to self-correct with CLI commands. Never require the agent to click browser UI, interact with a native Python GUI or access a GPU/display for ordinary tasks.
 - Failure handling: emit structured `error.code`/diagnostics with exact source paths, image rectangles and remedial action. Stop a **dangerous specific export**, not unrelated safe phases. Never silently relax integrity checks.
 - Permission boundary: routine files/tests/dev artifacts are preauthorized under scoped ownership; editing unrelated user's files, replacing approved production sprites without sign-off, modifying live game saves, or taking privileged/network actions is not. Provide one consolidated user action checklist for any genuine missing input/approval.
