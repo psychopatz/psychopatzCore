@@ -125,6 +125,12 @@ current canonical files are single full-front canvases; `clean`/`worn` aliases
 must not be implemented by cropping their two sides. The literal filename
 `Base.HamRadioMakeShift .png` is preserved and reported as-is.
 
+When the W5 source is in scope, `--write-artifacts` also writes
+`walkie_5_pilot_acceptance.png` and `walkie_5_pilot_acceptance.json` under the
+ignored review workspace. These are blocked evidence only: they show the
+immutable source, full-resolution alpha, and human review gates, but they do
+not create chassis, sockets, component states, or runtime approval.
+
 Source-space masks are imported losslessly and remain proposed until visually
 reviewed. A `verified` mask also needs explicit `--reviewed-by` or
 `--review-artifact` evidence; status alone cannot approve it. Rectangle

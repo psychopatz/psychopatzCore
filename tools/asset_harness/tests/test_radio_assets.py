@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -46,16 +47,29 @@ class RadioAssetAuditTests(unittest.TestCase):
 
     def test_audit_artifacts_preserve_sources_and_block_unavailable_diffs(self) -> None:
         report = audit_radio_sources(ROOT, family="walkie")
+        walkie5_source = ROOT / "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png"
+        walkie5_before = hashlib.sha256(walkie5_source.read_bytes()).hexdigest()
         with tempfile.TemporaryDirectory() as directory:
             paths = write_radio_audit_artifacts(report, Path(directory), columns=3)
             self.assertTrue((Path(directory) / "source_contact_sheet.png").is_file())
-            self.assertEqual(len(paths), 15)
+            self.assertEqual(len(paths), 17)
             self.assertEqual(report["regressions"]["walkie_4"]["legacy_crop_size"], [512, 1536])
             self.assertTrue((Path(directory) / "walkie_4_bad_cut_diff.png").is_file())
+            pilot_sheet = Path(directory) / "walkie_5_pilot_acceptance.png"
+            pilot_checklist = Path(directory) / "walkie_5_pilot_acceptance.json"
+            self.assertTrue(pilot_sheet.is_file())
+            self.assertTrue(pilot_checklist.is_file())
+            pilot = json.loads(pilot_checklist.read_text(encoding="utf-8"))
+            self.assertEqual(pilot["status"], "blocked")
+            self.assertFalse(pilot["accepted"])
+            self.assertFalse(pilot["scope"]["modular_artwork_created"])
+            self.assertEqual(hashlib.sha256(walkie5_source.read_bytes()).hexdigest(), walkie5_before)
             walkie5_qa = {item["id"]: item for item in report["devices"][4]["verification"]["qa_requirements"]}
             self.assertEqual(walkie5_qa["full_resolution_source_copy"]["status"], "complete")
             self.assertEqual(walkie5_qa["alpha_preview"]["status"], "complete")
             self.assertEqual(walkie5_qa["pristine_chassis"]["status"], "blocked")
+            self.assertEqual(walkie5_qa["pilot_acceptance_sheet"]["status"], "blocked")
+            self.assertEqual(walkie5_qa["pilot_acceptance_sheet"]["evidence_status"], "generated_not_acceptance")
             for device in report["devices"]:
                 source = device["source"]
                 source_copy = Path(directory) / "sources" / f"{device['id']}.png"

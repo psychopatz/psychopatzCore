@@ -10,11 +10,12 @@ present.
 from __future__ import annotations
 
 import json
+import textwrap
 from io import BytesIO
 from pathlib import Path
 from typing import Any, Iterable
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 from .errors import AssetHarnessError
 from .paths import atomic_write_bytes, atomic_write_text
@@ -496,6 +497,192 @@ def _write_walkie4_bad_cut_regression(source_path: Path, output_root: Path) -> t
     }
 
 
+def write_radio_pilot_acceptance_artifacts(report: dict[str, Any], output_root: Path) -> list[Path]:
+    """Write a blocked, inspectable W5 pilot review sheet and checklist.
+
+    The sheet is evidence for the human art-review boundary, not an approval
+    artifact.  It only displays the immutable W5 source and its alpha channel;
+    it never synthesizes a chassis, socket, control state, or worn variant.
+    """
+
+    device = next((item for item in report.get("devices") or [] if item.get("id") == "walkie_5"), None)
+    if not isinstance(device, dict):
+        return []
+    source = device.get("source") or {}
+    source_value = source.get("absolute_path")
+    if not source_value or not Path(source_value).is_file():
+        return []
+    source_path = Path(source_value).resolve()
+    output_root = Path(output_root).expanduser().resolve()
+    source_copy = output_root / "sources" / "walkie_5.png"
+    alpha_path = output_root / "alpha" / "walkie_5.png"
+    sheet_path = output_root / "walkie_5_pilot_acceptance.png"
+    checklist_path = output_root / "walkie_5_pilot_acceptance.json"
+    source_copy.parent.mkdir(parents=True, exist_ok=True)
+    alpha_path.parent.mkdir(parents=True, exist_ok=True)
+    if not source_copy.exists() or source_copy.read_bytes() != source_path.read_bytes():
+        atomic_write_bytes(source_copy, source_path.read_bytes())
+
+    with Image.open(source_path) as image:
+        image.load()
+        rgba = image.convert("RGBA")
+        alpha = rgba.getchannel("A")
+        _write_png(alpha, alpha_path)
+        alpha_display = Image.merge("RGBA", (alpha, alpha, alpha, Image.new("L", alpha.size, 255)))
+
+    qa_requirements = [
+        item for item in device.get("verification", {}).get("qa_requirements") or []
+        if isinstance(item, dict)
+    ]
+    qa_by_id = {str(item.get("id")): item for item in qa_requirements}
+    required_visual_checks = [
+        "Pristine chassis preserves the complete W5 silhouette and design.",
+        "Worn chassis is a separately authored condition, not a crop or filter.",
+        "Socket masks are pixel-tight and do not select transparent exterior pixels or neighbors.",
+        "Back/Home/Up/Down/Left/Right/OK, PTT, Power, Volume, and Channel are independently authored.",
+        "PWR/RX/TX LEDs and LCD glass/bezel have reviewed off/on or idle/held state evidence.",
+        "A reviewed source-to-idle diff documents reconstruction fidelity at full resolution.",
+    ]
+    checklist = {
+        "schema_version": 1,
+        "acceptance_kind": "radio_modular_pilot_evidence",
+        "status": "blocked",
+        "accepted": False,
+        "reason": "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW",
+        "device": {
+            "id": device.get("id"),
+            "full_type": device.get("full_type"),
+            "family": device.get("family"),
+        },
+        "source": {
+            "path": source.get("path"),
+            "absolute_path": str(source_path),
+            "filename": source.get("filename"),
+            "sha256": source.get("sha256"),
+            "size": source.get("size"),
+            "mode": source.get("mode"),
+            "immutable": True,
+        },
+        "qa_requirements": qa_requirements,
+        "required_visual_checks": [
+            {"id": f"visual_{index + 1}", "status": "blocked", "description": description}
+            for index, description in enumerate(required_visual_checks)
+        ],
+        "artifacts": {
+            "source_full_resolution": {"path": str(source_copy), "sha256": sha256_path(source_copy)},
+            "alpha_preview": {"path": str(alpha_path), "sha256": sha256_path(alpha_path)},
+            "acceptance_sheet": {"path": str(sheet_path), "sha256": None},
+        },
+        "scope": {
+            "source_mutation": False,
+            "modular_artwork_created": False,
+            "production_export_apply": False,
+            "accepted_for_runtime": False,
+        },
+    }
+
+    font = ImageFont.load_default()
+    title_font = ImageFont.load_default()
+    panel_width, panel_height = 500, 820
+    info_width = 470
+    gap = 16
+    sheet_width = panel_width * 2 + info_width + gap * 2
+    sheet_height = 900
+    sheet = Image.new("RGBA", (sheet_width, sheet_height), (24, 28, 33, 255))
+    draw = ImageDraw.Draw(sheet, "RGBA")
+
+    def draw_panel(panel: Image.Image, label: str, x: int) -> None:
+        draw.rectangle((x, 46, x + panel_width - 1, panel_height), fill=(42, 48, 56, 255), outline=(112, 125, 138, 255))
+        draw.text((x + 10, 18), label, font=title_font, fill=(255, 240, 180, 255))
+        preview = panel.copy()
+        preview.thumbnail((panel_width - 24, panel_height - 66), Image.Resampling.LANCZOS)
+        px = x + (panel_width - preview.width) // 2
+        py = 55 + (panel_height - 46 - preview.height) // 2
+        sheet.alpha_composite(preview, (px, py))
+
+    draw_panel(rgba, "IMMUTABLE SOURCE", 0)
+    draw_panel(alpha_display, "FULL-RESOLUTION ALPHA", panel_width + gap)
+
+    info_x = panel_width * 2 + gap * 2
+    draw.rectangle((info_x, 0, sheet_width - 1, sheet_height - 1), fill=(34, 39, 46, 255), outline=(112, 125, 138, 255))
+    draw.text((info_x + 14, 16), "W5 PILOT", font=title_font, fill=(255, 240, 180, 255))
+    draw.text((info_x + 14, 34), "BLOCKED / NOT ACCEPTED", font=font, fill=(255, 104, 104, 255))
+    lines: list[tuple[str, tuple[int, int, int, int]]] = [
+        (f"source: {source.get('filename')}", (225, 230, 235, 255)),
+        (f"canvas: {source.get('size')}", (225, 230, 235, 255)),
+        (f"sha256: {str(source.get('sha256') or '')[:24]}...", (225, 230, 235, 255)),
+        ("", (225, 230, 235, 255)),
+        ("QA GATES", (255, 240, 180, 255)),
+    ]
+    gate_labels = {
+        "source_inventory": "source inventory",
+        "full_resolution_source_copy": "full-resolution source copy",
+        "alpha_preview": "alpha preview",
+        "pristine_chassis": "pristine chassis",
+        "worn_chassis": "worn chassis",
+        "socket_masks": "socket masks",
+        "component_state_sheets": "component state sheets",
+        "source_to_idle_diff": "source-to-idle diff",
+        "visual_review": "visual review",
+        "pilot_acceptance_sheet": "pilot acceptance",
+    }
+    for requirement_id, requirement in qa_by_id.items():
+        status = str(requirement.get("status") or "blocked").upper()
+        lines.append((f"{gate_labels.get(requirement_id, requirement_id)}: {status}", (225, 230, 235, 255)))
+    lines.extend([
+        ("", (225, 230, 235, 255)),
+        ("REVIEW BEFORE ACCEPTANCE", (255, 240, 180, 255)),
+    ])
+    for index, description in enumerate(required_visual_checks, start=1):
+        wrapped = textwrap.wrap(f"{index}. {description}", width=48) or [""]
+        lines.extend((line, (225, 230, 235, 255)) for line in wrapped)
+    lines.extend([
+        ("", (225, 230, 235, 255)),
+        ("This sheet is diagnostic evidence only.", (255, 180, 120, 255)),
+        ("No chassis, sockets, states, or runtime", (255, 180, 120, 255)),
+        ("export were authored by this artifact.", (255, 180, 120, 255)),
+    ])
+    cursor_y = 62
+    for line, color in lines:
+        draw.text((info_x + 14, cursor_y), line, font=font, fill=color)
+        cursor_y += 14
+    _write_png(sheet, sheet_path)
+    checklist["artifacts"]["acceptance_sheet"]["sha256"] = sha256_path(sheet_path)
+    atomic_write_text(checklist_path, json.dumps(checklist, ensure_ascii=True, sort_keys=True, indent=2) + "\n")
+
+    verification = device.setdefault("verification", {})
+    artifacts = verification.setdefault("artifacts", [])
+    artifacts.extend([
+        {
+            "kind": "pilot_acceptance_sheet",
+            "path": str(sheet_path),
+            "sha256": sha256_path(sheet_path),
+            "status": "blocked_evidence_only",
+        },
+        {
+            "kind": "pilot_acceptance_checklist",
+            "path": str(checklist_path),
+            "sha256": sha256_path(checklist_path),
+            "status": "blocked_evidence_only",
+        },
+    ])
+    pilot_requirement = qa_by_id.get("pilot_acceptance_sheet")
+    if pilot_requirement is not None:
+        pilot_requirement.update({
+            "status": "blocked",
+            "path": str(sheet_path),
+            "sha256": sha256_path(sheet_path),
+            "evidence_status": "generated_not_acceptance",
+        })
+    report.setdefault("pilot_evidence", {})["walkie_5"] = {
+        "status": "blocked",
+        "accepted": False,
+        "sheet": {"path": str(sheet_path), "sha256": sha256_path(sheet_path)},
+        "checklist": {"path": str(checklist_path), "sha256": sha256_path(checklist_path)},
+    }
+    return [sheet_path, checklist_path]
+
+
 def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, columns: int = 4) -> list[Path]:
     """Write review-only full-resolution source/alpha previews and a sheet.
 
@@ -567,6 +754,8 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
         _write_png(sheet, sheet_path)
         artifacts.append(sheet_path)
         report["contact_sheet"] = {"path": str(sheet_path), "sha256": sha256_path(sheet_path), "device_count": len(thumbs)}
+    if any(device.get("id") == "walkie_5" for device in report.get("devices") or []):
+        artifacts.extend(write_radio_pilot_acceptance_artifacts(report, output_root))
     report["artifact_summary"] = {
         "count": len(artifacts),
         "paths": [str(path) for path in artifacts],

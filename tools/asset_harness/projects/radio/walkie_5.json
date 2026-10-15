@@ -302,6 +302,18 @@
         "reason": "no reviewed modular chassis/idle layers exist",
         "sha256": null,
         "status": "blocked"
+      },
+      {
+        "kind": "pilot_acceptance_sheet",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
+        "sha256": "7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a",
+        "status": "blocked_evidence_only"
+      },
+      {
+        "kind": "pilot_acceptance_checklist",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json",
+        "sha256": "1ae65ee429aef8e0a78a767b49f2f37bc4a775818777ae17f4633ace34547e53",
+        "status": "blocked_evidence_only"
       }
     ],
     "qa_requirements": [
@@ -353,8 +365,11 @@
         "status": "blocked"
       },
       {
+        "evidence_status": "generated_not_acceptance",
         "id": "pilot_acceptance_sheet",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
         "reason": "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW",
+        "sha256": "7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a",
         "status": "blocked"
       }
     ],

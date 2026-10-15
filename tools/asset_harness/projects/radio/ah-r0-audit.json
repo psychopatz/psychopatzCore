@@ -1,6 +1,6 @@
 {
   "artifact_summary": {
-    "count": 23,
+    "count": 25,
     "paths": [
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_1.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_1.png",
@@ -24,7 +24,9 @@
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_makeshift.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/manpack.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/manpack.png",
-      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/source_contact_sheet.png"
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/source_contact_sheet.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json"
     ],
     "production_export_apply": false,
     "source_bytes_preserved": true
@@ -922,6 +924,18 @@
             "sha256": null,
             "status": "blocked"
           },
+          {
+            "kind": "pilot_acceptance_sheet",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
+            "sha256": "7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a",
+            "status": "blocked_evidence_only"
+          },
+          {
+            "kind": "pilot_acceptance_checklist",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json",
+            "sha256": "1ae65ee429aef8e0a78a767b49f2f37bc4a775818777ae17f4633ace34547e53",
+            "status": "blocked_evidence_only"
+          },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_5.json"
         ],
         "qa_requirements": [
@@ -973,8 +987,11 @@
             "status": "blocked"
           },
           {
+            "evidence_status": "generated_not_acceptance",
             "id": "pilot_acceptance_sheet",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
             "reason": "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW",
+            "sha256": "7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a",
             "status": "blocked"
           }
         ],
@@ -1918,6 +1935,20 @@
       }
     }
   ],
+  "pilot_evidence": {
+    "walkie_5": {
+      "accepted": false,
+      "checklist": {
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json",
+        "sha256": "1ae65ee429aef8e0a78a767b49f2f37bc4a775818777ae17f4633ace34547e53"
+      },
+      "sheet": {
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
+        "sha256": "7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a"
+      },
+      "status": "blocked"
+    }
+  },
   "regressions": {
     "walkie_4": {
       "corrected_crop_size": [
