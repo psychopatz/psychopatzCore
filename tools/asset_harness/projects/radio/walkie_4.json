@@ -313,6 +313,51 @@
       "width": 1024
     }
   },
+  "staged_authoring": {
+    "artifacts": [],
+    "authored": false,
+    "chassis": {},
+    "components": {},
+    "masks": {},
+    "missing_components": [
+      "back",
+      "home",
+      "up",
+      "down",
+      "left",
+      "right",
+      "ok",
+      "ptt",
+      "power",
+      "volume",
+      "channel",
+      "pwr_led",
+      "rx_led",
+      "tx_led",
+      "lcd"
+    ],
+    "project": null,
+    "reasons": [],
+    "required_components": [
+      "back",
+      "home",
+      "up",
+      "down",
+      "left",
+      "right",
+      "ok",
+      "ptt",
+      "power",
+      "volume",
+      "channel",
+      "pwr_led",
+      "rx_led",
+      "tx_led",
+      "lcd"
+    ],
+    "reviewed": false,
+    "status": "blocked"
+  },
   "variants": {
     "pristine": {
       "layers": []
@@ -471,13 +516,14 @@
     "reasons": [
       "NO_MODULAR_ARTWORK_DIRECTORY",
       "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
-      "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
-      "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION",
-      "KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION"
+      "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW"
     ],
     "reviewed": false,
     "status": "blocked",
-    "warnings": []
+    "warnings": [
+      "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION",
+      "KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION"
+    ]
   },
   "workspace_root": "."
 }

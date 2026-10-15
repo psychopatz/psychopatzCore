@@ -19,6 +19,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from .errors import AssetHarnessError
 from .paths import atomic_write_bytes, atomic_write_text
+from .project import project_workspace
 from .responses import sha256_path
 from .render import difference_image
 from .source import inspect_image
@@ -175,36 +176,264 @@ def _device_path(root: Path, definition: dict[str, str]) -> Path:
     return root / CANONICAL_IMAGE_ROOT / family_dir / definition["filename"]
 
 
+def _authoring_project_path(root: Path, definition: dict[str, str]) -> Path | None:
+    """Find a developer authoring project without confusing audit manifests.
+
+    ``<device>.json`` is also the generated audit-manifest destination.  The
+    explicit ``_pilot`` file is therefore preferred for durable authoring
+    evidence and remains safe to overwrite with a fresh audit report.
+    """
+
+    project_root = root / "tools/asset_harness/projects/radio"
+    for filename in (f"{definition['id']}_pilot.json", f"{definition['id']}.authoring.json"):
+        candidate = project_root / filename
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def _project_asset_path(project_path: Path, project: dict[str, Any], value: Any) -> Path | None:
+    if not value:
+        return None
+    candidate = Path(str(value)).expanduser()
+    if not candidate.is_absolute():
+        candidate = project_workspace(project_path, project) / candidate
+    return candidate.resolve()
+
+
+def _asset_record(project_path: Path, project: dict[str, Any], value: Any) -> dict[str, Any]:
+    path = _project_asset_path(project_path, project, value)
+    record: dict[str, Any] = {"path": str(path) if path else None, "exists": bool(path and path.is_file())}
+    if path and path.is_file():
+        try:
+            metadata = inspect_image(path)
+            record.update({
+                "sha256": metadata["sha256"],
+                "size": [metadata["width"], metadata["height"]],
+                "mode": metadata["mode"],
+            })
+        except Exception as error:
+            record.update({"readable": False, "error": str(error)})
+        else:
+            record["readable"] = True
+    else:
+        record["sha256"] = None
+    return record
+
+
+def _staged_authoring_evidence(root: Path, definition: dict[str, str]) -> dict[str, Any]:
+    """Collect evidence from an authoring project, never infer approval."""
+
+    project_path = _authoring_project_path(root, definition)
+    if project_path is None:
+        return {
+            "project": None,
+            "authored": False,
+            "status": "blocked",
+            "reviewed": False,
+            "reasons": [],
+            "required_components": list(REQUIRED_SEMANTIC_COMPONENTS),
+            "missing_components": list(REQUIRED_SEMANTIC_COMPONENTS),
+            "chassis": {},
+            "components": {},
+            "masks": {},
+            "artifacts": [],
+        }
+    try:
+        project = json.loads(project_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as error:
+        return {
+            "project": str(project_path),
+            "authored": False,
+            "status": "blocked",
+            "reviewed": False,
+            "reasons": ["AUTHORING_PROJECT_UNREADABLE"],
+            "error": str(error),
+            "required_components": list(REQUIRED_SEMANTIC_COMPONENTS),
+            "missing_components": list(REQUIRED_SEMANTIC_COMPONENTS),
+            "chassis": {},
+            "components": {},
+            "masks": {},
+            "artifacts": [],
+        }
+    if not isinstance(project, dict):
+        return {
+            "project": str(project_path),
+            "authored": False,
+            "status": "blocked",
+            "reviewed": False,
+            "reasons": ["AUTHORING_PROJECT_INVALID"],
+            "required_components": list(REQUIRED_SEMANTIC_COMPONENTS),
+            "missing_components": list(REQUIRED_SEMANTIC_COMPONENTS),
+            "chassis": {},
+            "components": {},
+            "masks": {},
+            "artifacts": [],
+        }
+
+    modular = project.get("modular") if isinstance(project.get("modular"), dict) else {}
+    chassis_value = modular.get("chassis") if isinstance(modular.get("chassis"), dict) else {}
+    chassis: dict[str, Any] = {}
+    for variant in ("pristine", "worn"):
+        entry = chassis_value.get(variant) if isinstance(chassis_value.get(variant), dict) else {}
+        image = _asset_record(project_path, project, entry.get("image"))
+        chassis[variant] = {
+            "image": image,
+            "status": str(entry.get("status") or "blocked"),
+            "reviewed": bool((entry.get("review") or {}).get("reviewed")) if isinstance(entry.get("review"), dict) else False,
+            "socket_mask": str(entry.get("socket_mask") or "") or None,
+            "anchors": entry.get("anchors") or {},
+        }
+
+    components_value = modular.get("components") if isinstance(modular.get("components"), dict) else {}
+    components: dict[str, Any] = {}
+    for component_id, raw in components_value.items():
+        if not isinstance(raw, dict):
+            continue
+        states_value = raw.get("states") if isinstance(raw.get("states"), dict) else {}
+        states = {
+            str(state_name): _asset_record(project_path, project, state.get("image") if isinstance(state, dict) else state)
+            for state_name, state in states_value.items()
+        }
+        components[str(component_id)] = {
+            "status": str(raw.get("status") or "blocked"),
+            "reviewed": bool((raw.get("review") or {}).get("reviewed")) if isinstance(raw.get("review"), dict) else False,
+            "mask": str(raw.get("mask") or "") or None,
+            "socket_mask": str(raw.get("socket_mask") or "") or None,
+            "states": states,
+        }
+
+    masks_value = project.get("masks") if isinstance(project.get("masks"), dict) else {}
+    masks: dict[str, Any] = {}
+    for mask_id, raw in masks_value.items():
+        if not isinstance(raw, dict):
+            continue
+        mask_path = _project_asset_path(project_path, project, raw.get("path"))
+        masks[str(mask_id)] = {
+            "path": str(mask_path) if mask_path else None,
+            "exists": bool(mask_path and mask_path.is_file()),
+            "status": str(raw.get("status") or "blocked"),
+            "reviewed": bool((raw.get("review") or {}).get("reviewed")) if isinstance(raw.get("review"), dict) else False,
+            "sha256": sha256_path(mask_path) if mask_path and mask_path.is_file() else None,
+        }
+
+    verification = modular.get("verification") if isinstance(modular.get("verification"), dict) else {}
+    artifacts = verification.get("artifacts") if isinstance(verification.get("artifacts"), list) else []
+    normalized_artifacts: list[dict[str, Any]] = []
+    for raw in artifacts:
+        if not isinstance(raw, dict):
+            continue
+        item = dict(raw)
+        for key in ("path", "before", "after", "diff", "report"):
+            if key in item:
+                item[f"{key}_path"] = str(_project_asset_path(project_path, project, item.get(key)) or item.get(key) or "")
+        normalized_artifacts.append(item)
+
+    required_components = [str(item) for item in (modular.get("required_components") or REQUIRED_SEMANTIC_COMPONENTS)]
+    missing_components = sorted(item for item in required_components if item not in components)
+    authored_states = any(
+        bool(state.get("exists"))
+        for component in components.values()
+        for state in (component.get("states") or {}).values()
+    )
+    authored = bool(chassis.get("pristine", {}).get("image", {}).get("exists")) or authored_states
+    diff_artifact = next((item for item in normalized_artifacts if item.get("kind") == "source_to_idle_diff"), None)
+    diff_after = diff_artifact.get("after_path") if diff_artifact else None
+    diff_image = diff_artifact.get("diff_path") if diff_artifact else None
+    diff_report = diff_artifact.get("report_path") if diff_artifact else None
+    diff_exists = bool(
+        diff_after and Path(diff_after).is_file()
+        and diff_image and Path(diff_image).is_file()
+        and diff_report and Path(diff_report).is_file()
+    )
+    reviewed = bool(verification.get("reviewed"))
+    complete = bool(
+        authored
+        and all(bool(chassis.get(variant, {}).get("image", {}).get("exists")) for variant in ("pristine", "worn"))
+        and not missing_components
+        and diff_exists
+        and reviewed
+        and all(bool(item.get("reviewed")) for item in chassis.values())
+        and all(bool(item.get("reviewed")) for item in components.values())
+    )
+    reasons: list[str] = []
+    if not chassis.get("pristine", {}).get("image", {}).get("exists"):
+        reasons.append("PRISTINE_CHASSIS_MISSING")
+    if not chassis.get("worn", {}).get("image", {}).get("exists"):
+        reasons.append("WORN_CHASSIS_PENDING")
+    if missing_components:
+        reasons.append("REMAINING_COMPONENTS_PENDING")
+    if not diff_exists:
+        reasons.append("SOURCE_TO_IDLE_DIFF_PENDING")
+    if not reviewed:
+        reasons.append("VISUAL_REVIEW_PENDING")
+    status = "verified" if complete else ("proposed" if authored else "blocked")
+    return {
+        "project": str(project_path),
+        "authored": authored,
+        "status": status,
+        "reviewed": reviewed,
+        "reasons": reasons,
+        "required_components": required_components,
+        "missing_components": missing_components,
+        "chassis": chassis,
+        "components": components,
+        "masks": masks,
+        "artifacts": normalized_artifacts,
+        "reconstruction_bounds": verification.get("reconstruction_bounds"),
+        "diff": {
+            "after_path": diff_after,
+            "image_path": diff_image,
+            "report_path": diff_report,
+            "exists": diff_exists,
+        },
+    }
+
+
 def _status_for(
     definition: dict[str, str],
     path: Path,
     layout: dict[str, Any] | None,
     modular_dir: Path,
     modular_files: list[str],
+    staged: dict[str, Any] | None = None,
 ) -> tuple[str, list[str], list[str]]:
     reasons: list[str] = []
     warnings: list[str] = []
+    staged = staged or {}
+    artwork_present = bool(modular_files) or bool(staged.get("authored"))
     if not path.exists():
         reasons.append("SOURCE_FILE_MISSING")
-    if not modular_dir.is_dir():
-        reasons.append("NO_MODULAR_ARTWORK_DIRECTORY")
-    elif not modular_files:
-        reasons.append("MODULAR_ARTWORK_DIRECTORY_EMPTY")
-    else:
+    if not artwork_present:
+        if not modular_dir.is_dir():
+            reasons.append("NO_MODULAR_ARTWORK_DIRECTORY")
+        elif not modular_files:
+            reasons.append("MODULAR_ARTWORK_DIRECTORY_EMPTY")
+    elif modular_files:
         missing = sorted(set(EXPECTED_COMPONENT_PATHS) - set(modular_files))
         if missing:
             reasons.append("MODULAR_ARTWORK_INCOMPLETE")
-    if layout and layout.get("kind") != "paired_sheet_proposal":
-        reasons.append("SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR")
-    if layout and layout.get("review_required"):
-        reasons.append("SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW")
-    reasons.append("SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION")
+    if artwork_present and staged.get("authored"):
+        reasons.extend(str(item) for item in staged.get("reasons") or [])
+        if staged.get("status") == "verified":
+            return "verified", reasons, warnings
+    else:
+        if layout and layout.get("kind") != "paired_sheet_proposal":
+            reasons.append("SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR")
+        if layout and layout.get("review_required"):
+            reasons.append("SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW")
+    # These are provenance/diagnostic facts, not permanent blockers for a
+    # carefully authored staged pilot.  Production approval remains a later
+    # export gate and is never implied by this audit status.
+    warnings.append("SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION")
     if definition["id"] == "walkie_4":
-        reasons.append("KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION")
-    if definition["id"] == "walkie_5":
+        warnings.append("KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION")
+    if definition["id"] == "walkie_5" and not staged.get("authored"):
         reasons.append("US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW")
     if path.name.endswith(" .png"):
         warnings.append("FILENAME_CONTAINS_LITERAL_SPACE_BEFORE_EXTENSION")
+    if artwork_present:
+        return "proposed", reasons, warnings
     if reasons:
         return "blocked", reasons, warnings
     return "proposed", reasons, warnings
@@ -231,9 +460,14 @@ def _modular_file_records(modular_dir: Path, modular_files: list[str]) -> list[d
     return records
 
 
-def _manual_reconstruction_record(layout: dict[str, Any] | None, source_exists: bool) -> dict[str, Any]:
+def _manual_reconstruction_record(
+    layout: dict[str, Any] | None,
+    source_exists: bool,
+    staged: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Describe the manual-art boundary without proposing pixels automatically."""
 
+    staged = staged or {}
     layout_kind = str((layout or {}).get("kind") or "unavailable")
     if not source_exists:
         reason = "SOURCE_FILE_MISSING"
@@ -247,6 +481,56 @@ def _manual_reconstruction_record(layout: dict[str, Any] | None, source_exists: 
     else:
         reason = "SOURCE_LAYOUT_UNAVAILABLE"
         next_action = "Resolve and visually review the source layout before modular authoring."
+    if staged.get("authored"):
+        pristine = staged.get("chassis", {}).get("pristine", {})
+        worn = staged.get("chassis", {}).get("worn", {})
+        socket_masks = [item for item in staged.get("masks", {}).values() if item.get("exists")]
+        authored_components = [item for item in staged.get("components", {}).values() if item.get("states")]
+        diff_exists = bool((staged.get("diff") or {}).get("exists"))
+        reviewed = bool(staged.get("reviewed"))
+
+        def gate_status(present: bool, gate_reviewed: bool = False) -> str:
+            return "verified" if present and gate_reviewed else ("proposed" if present else "blocked")
+
+        gates = [
+            {
+                "id": "chassis_reconstruction",
+                "status": gate_status(
+                    bool(pristine.get("image", {}).get("exists") and worn.get("image", {}).get("exists")),
+                    bool(pristine.get("reviewed") and worn.get("reviewed")),
+                ),
+                "reason": None if pristine.get("image", {}).get("exists") and worn.get("image", {}).get("exists") else "WORN_CHASSIS_PENDING",
+                "requirement": "complete pristine and worn chassis with real empty sockets",
+            },
+            {
+                "id": "socket_masks",
+                "status": gate_status(bool(socket_masks), all(item.get("reviewed") for item in socket_masks)),
+                "reason": None if socket_masks else "SOCKET_MASKS_PENDING",
+                "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+            },
+            {
+                "id": "component_state_art",
+                "status": gate_status(bool(authored_components), all(item.get("reviewed") for item in authored_components)),
+                "reason": None if authored_components else "COMPONENT_STATE_ART_PENDING",
+                "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+            },
+            {
+                "id": "reconstruction_review",
+                "status": gate_status(diff_exists, reviewed),
+                "reason": None if diff_exists else "SOURCE_TO_IDLE_DIFF_PENDING",
+                "requirement": "full-resolution visual review and source-to-idle diff",
+            },
+        ]
+        all_verified = all(gate["status"] == "verified" for gate in gates)
+        return {
+            "required": True,
+            "status": "verified" if all_verified else "proposed",
+            "reason": None if all_verified else "MODULAR_ARTWORK_REQUIRES_REVIEW",
+            "source_layout": layout_kind,
+            "next_action": "Complete the remaining W5 controls, worn chassis, and visual review before production approval." if not all_verified else "No manual reconstruction gate remains for this reviewed device.",
+            "gates": gates,
+        }
+
     return {
         "required": True,
         "status": "blocked",
@@ -287,35 +571,58 @@ def _qa_requirements(
     source_exists: bool,
     modular_files: list[str],
     manual_reconstruction: dict[str, Any],
+    staged: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
+    staged = staged or {}
     source_status = "complete" if source_exists else "blocked"
     source_reason = None if source_exists else "SOURCE_FILE_MISSING"
     modular_reason = "NO_REVIEWED_MODULAR_ARTWORK" if not modular_files else "MODULAR_ARTWORK_REQUIRES_REVIEW"
-    requirements = [
-        {"id": "source_inventory", "status": source_status, "reason": source_reason},
-        {"id": "full_resolution_source_copy", "status": "pending_artifact"},
-        {"id": "alpha_preview", "status": "pending_artifact"},
-        {
-            "id": "manual_reconstruction_plan",
-            "status": manual_reconstruction["status"],
-            "reason": manual_reconstruction["reason"],
-            "next_action": manual_reconstruction["next_action"],
-        },
-        {"id": "pristine_chassis", "status": "blocked", "reason": modular_reason},
-        {"id": "worn_chassis", "status": "blocked", "reason": modular_reason},
-        {"id": "socket_masks", "status": "blocked", "reason": modular_reason},
-        {"id": "component_state_sheets", "status": "blocked", "reason": modular_reason},
-        {"id": "source_to_idle_diff", "status": "blocked", "reason": "NO_REVIEWED_MODULAR_ARTWORK"},
-        {"id": "visual_review", "status": "blocked", "reason": "NO_REVIEWED_MODULAR_ARTWORK"},
-    ]
+    if staged.get("authored"):
+        gates = {str(item.get("id")): item for item in manual_reconstruction.get("gates") or [] if isinstance(item, dict)}
+        pristine = staged.get("chassis", {}).get("pristine", {})
+        worn = staged.get("chassis", {}).get("worn", {})
+        components = staged.get("components") or {}
+        component_status = "verified" if components and all(item.get("reviewed") and item.get("status") == "verified" for item in components.values()) else ("proposed" if components else "blocked")
+        diff_status = "proposed" if (staged.get("diff") or {}).get("exists") else "blocked"
+        visual_status = "verified" if staged.get("reviewed") else ("proposed" if staged.get("artifacts") else "blocked")
+        requirements = [
+            {"id": "source_inventory", "status": source_status, "reason": source_reason},
+            {"id": "full_resolution_source_copy", "status": "pending_artifact"},
+            {"id": "alpha_preview", "status": "pending_artifact"},
+            {"id": "manual_reconstruction_plan", "status": manual_reconstruction["status"], "reason": manual_reconstruction.get("reason"), "next_action": manual_reconstruction["next_action"]},
+            {"id": "pristine_chassis", "status": "verified" if pristine.get("image", {}).get("exists") and pristine.get("reviewed") else ("proposed" if pristine.get("image", {}).get("exists") else "blocked"), "reason": None if pristine.get("image", {}).get("exists") else "PRISTINE_CHASSIS_MISSING"},
+            {"id": "worn_chassis", "status": "verified" if worn.get("image", {}).get("exists") and worn.get("reviewed") else ("proposed" if worn.get("image", {}).get("exists") else "blocked"), "reason": None if worn.get("image", {}).get("exists") else "WORN_CHASSIS_PENDING"},
+            {"id": "socket_masks", "status": str(gates.get("socket_masks", {}).get("status") or "blocked"), "reason": gates.get("socket_masks", {}).get("reason")},
+            {"id": "component_state_sheets", "status": component_status, "reason": None if components else "COMPONENT_STATE_ART_PENDING"},
+            {"id": "source_to_idle_diff", "status": diff_status, "reason": None if diff_status != "blocked" else "SOURCE_TO_IDLE_DIFF_PENDING"},
+            {"id": "visual_review", "status": visual_status, "reason": None if visual_status == "verified" else "VISUAL_REVIEW_PENDING"},
+        ]
+    else:
+        requirements = [
+            {"id": "source_inventory", "status": source_status, "reason": source_reason},
+            {"id": "full_resolution_source_copy", "status": "pending_artifact"},
+            {"id": "alpha_preview", "status": "pending_artifact"},
+            {
+                "id": "manual_reconstruction_plan",
+                "status": manual_reconstruction["status"],
+                "reason": manual_reconstruction["reason"],
+                "next_action": manual_reconstruction["next_action"],
+            },
+            {"id": "pristine_chassis", "status": "blocked", "reason": modular_reason},
+            {"id": "worn_chassis", "status": "blocked", "reason": modular_reason},
+            {"id": "socket_masks", "status": "blocked", "reason": modular_reason},
+            {"id": "component_state_sheets", "status": "blocked", "reason": modular_reason},
+            {"id": "source_to_idle_diff", "status": "blocked", "reason": "NO_REVIEWED_MODULAR_ARTWORK"},
+            {"id": "visual_review", "status": "blocked", "reason": "NO_REVIEWED_MODULAR_ARTWORK"},
+        ]
     if definition["id"] == "walkie_4":
         requirements.append({"id": "bad_cut_regression", "status": "pending_artifact"})
     if definition["id"] == "walkie_5":
-        requirements.append({"id": "pilot_acceptance_sheet", "status": "blocked", "reason": "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW"})
+        requirements.append({"id": "pilot_acceptance_sheet", "status": "proposed" if staged.get("authored") else "blocked", "reason": "VISUAL_REVIEW_PENDING" if staged.get("authored") else "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW"})
     return requirements
 
 
-def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
+def _record_device(root: Path, definition: dict[str, str], *, include_staged: bool = True) -> dict[str, Any]:
     path = _device_path(root, definition)
     family_dir = FAMILY_DIRECTORIES[definition["family"]]
     owner_path = (CANONICAL_IMAGE_ROOT / family_dir / definition["filename"]).as_posix()
@@ -330,8 +637,9 @@ def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
     if path.is_file():
         metadata = inspect_image(path)
         layout = _source_layout(path)
-    status, reasons, warnings = _status_for(definition, path, layout, modular_dir, modular_files)
-    manual_reconstruction = _manual_reconstruction_record(layout, path.is_file())
+    staged = _staged_authoring_evidence(root, definition) if include_staged else {"authored": False}
+    status, reasons, warnings = _status_for(definition, path, layout, modular_dir, modular_files, staged)
+    manual_reconstruction = _manual_reconstruction_record(layout, path.is_file(), staged)
     missing_required_paths = sorted(set(EXPECTED_COMPONENT_PATHS) - set(modular_files))
     modular_file_records = _modular_file_records(modular_dir, modular_files) if modular_files else []
     unreadable_modular = [record for record in modular_file_records if not record.get("readable")]
@@ -373,6 +681,7 @@ def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
             "required_paths": list(EXPECTED_COMPONENT_PATHS),
             "missing_required_paths": missing_required_paths,
         },
+        "staged_authoring": staged,
         "verification": {
             "status": status,
             "reviewed": False,
@@ -385,19 +694,20 @@ def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
                 path.is_file(),
                 modular_files,
                 manual_reconstruction,
+                staged,
             ),
         },
     }
 
 
-def audit_radio_sources(root: Path, *, family: str | None = None) -> dict[str, Any]:
+def audit_radio_sources(root: Path, *, family: str | None = None, include_staged: bool = True) -> dict[str, Any]:
     """Audit the ten canonical radio sources without mutating any source PNG."""
 
     root = Path(root).expanduser().resolve()
     if family is not None and family not in FAMILY_DIRECTORIES:
         raise AssetHarnessError("INVALID_RADIO_FAMILY", f"unknown radio family: {family}")
     definitions = [item for item in RADIO_DEVICE_DEFINITIONS if family is None or item["family"] == family]
-    devices = [_record_device(root, item) for item in definitions]
+    devices = [_record_device(root, item, include_staged=include_staged) for item in definitions]
     statuses = [str(item["verification"]["status"]) for item in devices]
     return {
         "schema_version": 1,
@@ -490,6 +800,7 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
         },
         "owner_path": device["owner_path"],
         "source": source,
+        "staged_authoring": device.get("staged_authoring") or {"authored": False, "status": "blocked"},
         "modular_output": device["modular_output"],
         "manual_reconstruction": manual_reconstruction,
         "chassis": {
@@ -582,6 +893,126 @@ def _write_walkie4_bad_cut_regression(source_path: Path, output_root: Path) -> t
     }
 
 
+def _write_proposed_radio_pilot_artifacts(
+    report: dict[str, Any],
+    device: dict[str, Any],
+    output_root: Path,
+    source_path: Path,
+) -> list[Path]:
+    """Create a real, explicitly proposed W5 pilot sheet from staged art."""
+
+    staged = device.get("staged_authoring") or {}
+    output_root = Path(output_root).expanduser().resolve()
+    sheet_path = output_root / "walkie_5_pilot_acceptance.png"
+    checklist_path = output_root / "walkie_5_pilot_acceptance.json"
+    panels: list[tuple[str, Path]] = [("IMMUTABLE SOURCE", source_path)]
+    for item in staged.get("artifacts") or []:
+        if not isinstance(item, dict):
+            continue
+        kind = str(item.get("kind") or "").lower()
+        path_value = item.get("path_path") or item.get("diff_path")
+        if kind == "mask_overlay":
+            label = "BACK MASK OVERLAY"
+        elif kind == "socket_candidate":
+            label = "EMPTY SOCKET CANDIDATE"
+        elif kind == "idle_composite":
+            label = "ASSEMBLED IDLE"
+        elif kind == "pressed_composite":
+            label = "ASSEMBLED PRESSED"
+        elif kind == "source_to_idle_diff":
+            label = "SOURCE -> IDLE DIFF"
+            path_value = item.get("diff_path")
+        else:
+            continue
+        if path_value:
+            candidate = Path(str(path_value)).expanduser().resolve()
+            if candidate.is_file():
+                panels.append((label, candidate))
+    panels = panels[:6]
+
+    panel_width, panel_height, gap, columns = 360, 520, 12, 3
+    rows = max(1, (len(panels) + columns - 1) // columns)
+    sheet = Image.new("RGBA", (columns * panel_width + (columns - 1) * gap, rows * panel_height + (rows - 1) * gap), (25, 30, 36, 255))
+    draw = ImageDraw.Draw(sheet, "RGBA")
+    font = ImageFont.load_default()
+    for index, (label, path) in enumerate(panels):
+        x = (index % columns) * (panel_width + gap)
+        y = (index // columns) * (panel_height + gap)
+        draw.rectangle((x, y, x + panel_width - 1, y + panel_height - 1), fill=(42, 48, 56, 255), outline=(112, 125, 138, 255))
+        draw.text((x + 10, y + 10), label, font=font, fill=(255, 240, 180, 255))
+        try:
+            with Image.open(path) as image_file:
+                image = image_file.convert("RGBA")
+                image.thumbnail((panel_width - 24, panel_height - 52), Image.Resampling.LANCZOS)
+                px = x + (panel_width - image.width) // 2
+                py = y + 34 + (panel_height - 34 - image.height) // 2
+                sheet.alpha_composite(image, (px, py))
+        except (OSError, ValueError, UnicodeError):
+            draw.text((x + 10, y + 42), "unreadable", font=font, fill=(255, 104, 104, 255))
+    _write_png(sheet, sheet_path)
+
+    source = device.get("source") or {}
+    diff = staged.get("diff") or {}
+    checklist = {
+        "schema_version": 1,
+        "acceptance_kind": "radio_modular_pilot_evidence",
+        "status": "proposed",
+        "accepted": False,
+        "reason": "W5_BACK_CONTROL_PILOT_PROPOSED_REVIEW_PENDING",
+        "device": {"id": device.get("id"), "full_type": device.get("full_type"), "family": device.get("family")},
+        "source": {
+            "path": source.get("path"),
+            "absolute_path": str(source_path),
+            "filename": source.get("filename"),
+            "sha256": source.get("sha256"),
+            "size": source.get("size"),
+            "mode": source.get("mode"),
+            "immutable": True,
+        },
+        "artifacts": {
+            "acceptance_sheet": {"path": str(sheet_path), "sha256": sha256_path(sheet_path)},
+            "mask_overlay": next((item.get("path_path") for item in staged.get("artifacts") or [] if item.get("kind") == "mask_overlay"), None),
+            "socket_candidate": next((item.get("path_path") for item in staged.get("artifacts") or [] if item.get("kind") == "socket_candidate"), None),
+            "idle_composite": next((item.get("path_path") for item in staged.get("artifacts") or [] if item.get("kind") == "idle_composite"), None),
+            "pressed_composite": next((item.get("path_path") for item in staged.get("artifacts") or [] if item.get("kind") == "pressed_composite"), None),
+            "source_to_idle_diff": {
+                "path": diff.get("image_path"),
+                "report": diff.get("report_path"),
+                "status": "proposed" if diff.get("exists") else "blocked",
+            },
+        },
+        "scope": {
+            "source_mutation": False,
+            "modular_artwork_created": True,
+            "production_export_apply": False,
+            "accepted_for_runtime": False,
+        },
+        "review_notes": [
+            "The Back face mask was inspected at native resolution and excludes the visible green chassis strip.",
+            "The socket candidate is a localized reconstructed recess; it is proposed, not approved.",
+            "Idle preserves the source face; pressed uses registered inward travel and contact shadow.",
+            "The numeric diff is confined to the documented reconstruction bounds; remaining controls and worn chassis are pending.",
+        ],
+    }
+    atomic_write_text(checklist_path, json.dumps(checklist, ensure_ascii=True, sort_keys=True, indent=2) + "\n")
+    qa_by_id = {str(item.get("id")): item for item in device.get("verification", {}).get("qa_requirements") or [] if isinstance(item, dict)}
+    pilot_requirement = qa_by_id.get("pilot_acceptance_sheet")
+    if pilot_requirement is not None:
+        pilot_requirement.update({"status": "proposed", "path": str(sheet_path), "sha256": sha256_path(sheet_path), "evidence_status": "real_artwork_proposed"})
+    device.setdefault("verification", {}).setdefault("artifacts", []).extend([
+        {"kind": "pilot_acceptance_sheet", "path": str(sheet_path), "sha256": sha256_path(sheet_path), "status": "proposed_evidence"},
+        {"kind": "pilot_acceptance_checklist", "path": str(checklist_path), "sha256": sha256_path(checklist_path), "status": "proposed_evidence"},
+    ])
+    report.setdefault("pilot_evidence", {})["walkie_5"] = {
+        "status": "proposed",
+        "accepted": False,
+        "sheet": {"path": str(sheet_path), "sha256": sha256_path(sheet_path)},
+        "checklist": {"path": str(checklist_path), "sha256": sha256_path(checklist_path)},
+        "source_to_idle_diff": {"path": diff.get("image_path"), "report": diff.get("report_path"), "metrics": diff.get("metrics")},
+    }
+    return [sheet_path, checklist_path]
+
+
 def write_radio_pilot_acceptance_artifacts(report: dict[str, Any], output_root: Path) -> list[Path]:
     """Write a blocked, inspectable W5 pilot review sheet and checklist.
 
@@ -599,6 +1030,8 @@ def write_radio_pilot_acceptance_artifacts(report: dict[str, Any], output_root: 
         return []
     source_path = Path(source_value).resolve()
     output_root = Path(output_root).expanduser().resolve()
+    if (device.get("staged_authoring") or {}).get("authored"):
+        return _write_proposed_radio_pilot_artifacts(report, device, output_root, source_path)
     source_copy = output_root / "sources" / "walkie_5.png"
     alpha_path = output_root / "alpha" / "walkie_5.png"
     sheet_path = output_root / "walkie_5_pilot_acceptance.png"
@@ -807,6 +1240,65 @@ def _write_blocked_source_to_idle_diff(
     return diff_path
 
 
+def _write_source_to_idle_diff(
+    device: dict[str, Any],
+    source: dict[str, Any],
+    source_copy: Path,
+    alpha_path: Path,
+    output_root: Path,
+) -> tuple[list[Path], dict[str, Any]]:
+    """Write a real diff when an authored assembled idle exists."""
+
+    staged = device.get("staged_authoring") or {}
+    diff_info = staged.get("diff") or {}
+    after_value = diff_info.get("after_path")
+    after_path = Path(str(after_value)).expanduser().resolve() if after_value else None
+    if not after_path or not after_path.is_file():
+        blocked = _write_blocked_source_to_idle_diff(device, source, source_copy, alpha_path, output_root)
+        return [blocked], {"status": "blocked", "report_path": blocked, "diff_path": None, "record": None}
+
+    diff_root = output_root / "diff"
+    diff_root.mkdir(parents=True, exist_ok=True)
+    diff_image_path = diff_root / f"{device['id']}_source_to_idle.png"
+    diff_report_path = diff_root / f"{device['id']}_source_to_idle.json"
+    with Image.open(source_copy) as before_file, Image.open(after_path) as after_file:
+        before = before_file.convert("RGBA")
+        after = after_file.convert("RGBA")
+        diff_image, diff_metrics = difference_image(before, after)
+    _write_png(diff_image, diff_image_path)
+    status = "verified" if str(staged.get("status")) == "verified" else "proposed"
+    record = {
+        "schema_version": 1,
+        "diff_kind": "source_to_idle",
+        "device_id": device["id"],
+        "status": status,
+        "reason": "AUTHORED_MODULAR_IDLE_RECOMPOSITION",
+        "before": {
+            "path": str(source_copy),
+            "sha256": sha256_path(source_copy),
+            "source_owner": source.get("path"),
+            "source_sha256": source.get("sha256"),
+            "size": source.get("size"),
+            "alpha_preview": {"path": str(alpha_path), "sha256": sha256_path(alpha_path)},
+        },
+        "after": {
+            "path": str(after_path),
+            "sha256": sha256_path(after_path),
+            "size": [after.width, after.height],
+        },
+        "diff": {"path": str(diff_image_path), "sha256": sha256_path(diff_image_path)},
+        "metrics": diff_metrics,
+        "scope": {
+            "source_mutation": False,
+            "documented_reconstruction_bounds": staged.get("reconstruction_bounds"),
+            "fake_idle_generated": False,
+            "production_export_apply": False,
+        },
+    }
+    atomic_write_text(diff_report_path, json.dumps(record, ensure_ascii=True, sort_keys=True, indent=2) + "\n")
+    return [diff_image_path, diff_report_path], {"status": status, "report_path": diff_report_path, "diff_path": diff_image_path, "record": record}
+
+
 def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, columns: int = 4) -> list[Path]:
     """Write review-only full-resolution source/alpha previews and a sheet.
 
@@ -839,21 +1331,36 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
             thumb = rgba.copy()
             thumb.thumbnail((256, 256), Image.Resampling.LANCZOS)
             thumbs.append((str(device["id"]), thumb))
-        diff_path = _write_blocked_source_to_idle_diff(device, source, source_copy, alpha_path, output_root)
+        diff_paths, diff_evidence = _write_source_to_idle_diff(device, source, source_copy, alpha_path, output_root)
         artifacts.extend((source_copy, alpha_path))
-        artifacts.append(diff_path)
-        device.setdefault("verification", {}).setdefault("artifacts", []).extend([
+        artifacts.extend(diff_paths)
+        verification_artifacts = device.setdefault("verification", {}).setdefault("artifacts", [])
+        verification_artifacts.extend([
             {"kind": "source_full_resolution", "path": str(source_copy), "sha256": sha256_path(source_copy)},
             {"kind": "alpha_preview", "path": str(alpha_path), "sha256": sha256_path(alpha_path)},
-            {
+        ])
+        if diff_evidence.get("record"):
+            record = diff_evidence["record"]
+            verification_artifacts.append({
+                "kind": "source_to_idle_diff",
+                "status": diff_evidence["status"],
+                "sha256": record["diff"]["sha256"],
+                "report_path": str(diff_evidence["report_path"]),
+                "report_sha256": sha256_path(diff_evidence["report_path"]),
+                "diff_path": str(diff_evidence["diff_path"]),
+                "metrics": record["metrics"],
+                "reason": record["reason"],
+            })
+        else:
+            blocked_path = diff_evidence["report_path"]
+            verification_artifacts.append({
                 "kind": "source_to_idle_diff",
                 "status": "blocked",
                 "sha256": None,
-                "report_path": str(diff_path),
-                "report_sha256": sha256_path(diff_path),
+                "report_path": str(blocked_path),
+                "report_sha256": sha256_path(blocked_path),
                 "reason": "NO_REVIEWED_MODULAR_ARTWORK",
-            },
-        ])
+            })
         qa_requirements = device.setdefault("verification", {}).setdefault("qa_requirements", [])
         for requirement_id, artifact_path in (("full_resolution_source_copy", source_copy), ("alpha_preview", alpha_path)):
             requirement = next((item for item in qa_requirements if item.get("id") == requirement_id), None)
@@ -861,12 +1368,23 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
                 requirement.update({"status": "complete", "path": str(artifact_path), "sha256": sha256_path(artifact_path)})
         diff_requirement = next((item for item in qa_requirements if item.get("id") == "source_to_idle_diff"), None)
         if diff_requirement is not None:
-            diff_requirement.update({
-                "status": "blocked",
-                "path": str(diff_path),
-                "report_sha256": sha256_path(diff_path),
-                "reason": "NO_REVIEWED_MODULAR_ARTWORK",
-            })
+            if diff_evidence.get("record"):
+                diff_requirement.update({
+                    "status": diff_evidence["status"],
+                    "path": str(diff_evidence["diff_path"]),
+                    "report_path": str(diff_evidence["report_path"]),
+                    "report_sha256": sha256_path(diff_evidence["report_path"]),
+                    "sha256": sha256_path(diff_evidence["diff_path"]),
+                    "reason": diff_evidence["record"]["reason"],
+                    "metrics": diff_evidence["record"]["metrics"],
+                })
+            else:
+                diff_requirement.update({
+                    "status": "blocked",
+                    "path": str(diff_evidence["report_path"]),
+                    "report_sha256": sha256_path(diff_evidence["report_path"]),
+                    "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+                })
         if device.get("id") == "walkie_4":
             regression_paths, regression = _write_walkie4_bad_cut_regression(source_path, output_root)
             artifacts.extend(regression_paths)

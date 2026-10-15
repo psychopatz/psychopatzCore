@@ -324,7 +324,11 @@ def validate_mask(
             )
             if mask.size == source_image.size:
                 source_alpha = source_image.getchannel("A")
-                covered_transparent = _overlap_count(mask, ImageChops.invert(source_alpha))
+                # Antialiased source edges are legitimate artwork.  The
+                # contamination gate must reject only truly empty source
+                # pixels, not every alpha value below 255.
+                empty_source = source_alpha.point(lambda value: 255 if int(value) == 0 else 0)
+                covered_transparent = _overlap_count(mask, empty_source)
                 check(
                     covered_transparent == 0,
                     "MASK_SELECTS_TRANSPARENT_SOURCE",

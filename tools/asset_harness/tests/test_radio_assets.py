@@ -22,7 +22,7 @@ from asset_harness.simulator.render import render_device  # noqa: E402
 
 class RadioAssetAuditTests(unittest.TestCase):
     def test_audit_covers_ten_exact_canonical_sources_and_blocks_unreviewed_art(self) -> None:
-        report = audit_radio_sources(ROOT)
+        report = audit_radio_sources(ROOT, include_staged=False)
         self.assertEqual(report["summary"]["expected_devices"], 10)
         self.assertEqual(report["summary"]["sources_found"], 10)
         self.assertEqual(report["summary"]["blocked"], 10)
@@ -31,7 +31,7 @@ class RadioAssetAuditTests(unittest.TestCase):
         self.assertEqual(by_id["walkie_5"]["source"]["size"], [1024, 1535])
         self.assertEqual(by_id["ham_makeshift"]["source"]["filename"], "Base.HamRadioMakeShift .png")
         self.assertEqual(by_id["walkie_4"]["source"]["layout"]["kind"], "single_canvas")
-        self.assertIn("KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION", by_id["walkie_4"]["verification"]["reasons"])
+        self.assertIn("KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION", by_id["walkie_4"]["verification"]["warnings"])
         self.assertIn("US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW", by_id["walkie_5"]["verification"]["reasons"])
         for row in by_id.values():
             self.assertEqual(row["verification"]["manual_reconstruction"]["source_layout"], "single_canvas")
@@ -47,6 +47,21 @@ class RadioAssetAuditTests(unittest.TestCase):
             {"chassis_reconstruction", "socket_masks", "component_state_art", "reconstruction_review"},
         )
 
+    def test_authored_walkie5_pilot_transitions_to_proposed_without_runtime_approval(self) -> None:
+        report = audit_radio_sources(ROOT)
+        self.assertEqual(report["summary"]["blocked"], 9)
+        self.assertEqual(report["summary"]["proposed"], 1)
+        walkie5 = next(row for row in report["devices"] if row["id"] == "walkie_5")
+        self.assertEqual(walkie5["verification"]["status"], "proposed")
+        self.assertTrue(walkie5["staged_authoring"]["authored"])
+        self.assertEqual(walkie5["staged_authoring"]["status"], "proposed")
+        self.assertEqual(walkie5["verification"]["manual_reconstruction"]["status"], "proposed")
+        qa = {item["id"]: item for item in walkie5["verification"]["qa_requirements"]}
+        self.assertEqual(qa["pristine_chassis"]["status"], "proposed")
+        self.assertEqual(qa["worn_chassis"]["status"], "blocked")
+        self.assertEqual(qa["source_to_idle_diff"]["status"], "proposed")
+        self.assertEqual(qa["pilot_acceptance_sheet"]["status"], "proposed")
+
     def test_simulator_uses_full_source_canvas_and_does_not_mutate_pngs(self) -> None:
         for spec in list_devices():
             before = hashlib.sha256(spec.asset_path.read_bytes()).hexdigest()
@@ -59,7 +74,7 @@ class RadioAssetAuditTests(unittest.TestCase):
             self.assertEqual(hashlib.sha256(spec.asset_path.read_bytes()).hexdigest(), before)
 
     def test_audit_artifacts_preserve_sources_and_block_unavailable_diffs(self) -> None:
-        report = audit_radio_sources(ROOT, family="walkie")
+        report = audit_radio_sources(ROOT, family="walkie", include_staged=False)
         walkie5_source = ROOT / "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png"
         walkie5_before = hashlib.sha256(walkie5_source.read_bytes()).hexdigest()
         with tempfile.TemporaryDirectory() as directory:
@@ -107,6 +122,23 @@ class RadioAssetAuditTests(unittest.TestCase):
             self.assertTrue(regression_diff["sha256"])
             w4_qa = {item["id"]: item for item in report["devices"][3]["verification"]["qa_requirements"]}
             self.assertEqual(w4_qa["bad_cut_regression"]["status"], "complete")
+
+    def test_authored_pilot_artifacts_include_real_diff_and_remain_unaccepted(self) -> None:
+        report = audit_radio_sources(ROOT, family="walkie")
+        with tempfile.TemporaryDirectory() as directory:
+            paths = write_radio_audit_artifacts(report, Path(directory), columns=3)
+            pilot_checklist = json.loads((Path(directory) / "walkie_5_pilot_acceptance.json").read_text(encoding="utf-8"))
+            self.assertEqual(pilot_checklist["status"], "proposed")
+            self.assertFalse(pilot_checklist["accepted"])
+            self.assertTrue(pilot_checklist["scope"]["modular_artwork_created"])
+            self.assertFalse(pilot_checklist["scope"]["accepted_for_runtime"])
+            diff_report = json.loads((Path(directory) / "diff" / "walkie_5_source_to_idle.json").read_text(encoding="utf-8"))
+            self.assertEqual(diff_report["status"], "proposed")
+            self.assertIsNotNone(diff_report["after"])
+            self.assertFalse(diff_report["scope"]["fake_idle_generated"])
+            self.assertEqual(diff_report["metrics"]["changed_bounds"], [290, 920, 402, 1032])
+            self.assertTrue(Path(diff_report["diff"]["path"]).is_file())
+            self.assertGreaterEqual(len(paths), 24)
 
     def test_actual_walkie5_mask_qa_rejects_transparent_exterior_selection(self) -> None:
         source_path = ROOT / "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png"

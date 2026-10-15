@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "proposed",
+  "accepted_for_runtime": false,
+  "device": "Base.WalkieTalkie5",
+  "control": "back",
+  "source": {
+    "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+    "sha256": "2325d192eaf407bdfff634b1bb58e94b45d3b7e7e8f4da3d67bd0c32e1dc4fda",
+    "immutable": true
+  },
+  "source_face_bounds": [297, 925, 98, 101],
+  "source_face_polygon": [[311, 925], [382, 925], [394, 937], [394, 1013], [382, 1025], [309, 1025], [297, 1013], [297, 937]],
+  "socket_bounds": [290, 920, 112, 112],
+  "socket_polygon": [[303, 920], [390, 920], [401, 932], [401, 1017], [388, 1031], [303, 1031], [290, 1017], [290, 933]],
+  "mask_sha256": "ba94cd3eaa1aa27ffb66149cd44df29aff9f5a87e9d2f20f1ae1f06e424a3424",
+  "socket_mask_sha256": "25dbf2715768a27494797b92bf903303fcd7c88bf809e99cdf6c3411fd0702f6",
+  "artifacts": {
+    "idle_sha256": "7cced0c360659c7a5269f776f49a0eaedba7a4c42af573b298ef1fd8f6e9fd70",
+    "pressed_sha256": "2eb0b67676ba80a4ae3b3baef3eaf40f0cce739a6f88b3c30b9ba438e8b67ab4",
+    "socket_patch_sha256": "e18b821746ce15823ca9cc19a051c6202116374f7f706df7b73e4c79ad3ecfae",
+    "pristine_candidate_sha256": "cd5a562c0802d3a0ee695f0a453375ca1821e2a5cd20e929bffd89561d01e6bd",
+    "source_to_idle_diff_sha256": "d5f1a83341219e6325c5409d9ad756e42413634fd62354ce1f77810bbf4a7007"
+  },
+  "source_to_idle_diff": {
+    "changed_pixels": 12185,
+    "rgb_changed_pixels": 9532,
+    "alpha_changed_pixels": 12185,
+    "max_rgb_delta": 153,
+    "max_alpha_delta": 3,
+    "changed_bounds": [290, 920, 402, 112]
+  },
+  "pressed_state": {
+    "translation": [3, 4],
+    "scale": [0.94, 0.93],
+    "contact_shadow": true,
+    "independent_idle_and_pressed_art": true
+  },
+  "scope": {
+    "runtime_lua_changed": false,
+    "canonical_source_replaced": false,
+    "production_export_applied": false,
+    "modular_artwork_created": true,
+    "remaining_work": ["W5 remaining controls", "worn chassis variant", "full visual review"]
+  }
+}

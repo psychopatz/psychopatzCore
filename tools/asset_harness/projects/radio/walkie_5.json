@@ -22,91 +22,91 @@
   "component_inventory": {
     "back": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "channel": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "down": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "home": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "lcd": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "left": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "ok": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "power": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "ptt": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "pwr_led": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "right": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "rx_led": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "tx_led": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "up": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
     "volume": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     }
@@ -132,34 +132,34 @@
     "gates": [
       {
         "id": "chassis_reconstruction",
-        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "reason": "WORN_CHASSIS_PENDING",
         "requirement": "complete pristine and worn chassis with real empty sockets",
         "status": "blocked"
       },
       {
         "id": "socket_masks",
-        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "reason": null,
         "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
-        "status": "blocked"
+        "status": "proposed"
       },
       {
         "id": "component_state_art",
-        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "reason": null,
         "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
-        "status": "blocked"
+        "status": "proposed"
       },
       {
         "id": "reconstruction_review",
-        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "reason": null,
         "requirement": "full-resolution visual review and source-to-idle diff",
-        "status": "blocked"
+        "status": "proposed"
       }
     ],
-    "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
-    "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+    "next_action": "Complete the remaining W5 controls, worn chassis, and visual review before production approval.",
+    "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
     "required": true,
     "source_layout": "single_canvas",
-    "status": "blocked"
+    "status": "proposed"
   },
   "masks": {},
   "modular": {
@@ -188,7 +188,7 @@
     "verification": {
       "reasons": [
         "NO_REVIEWED_MODULAR_ARTWORK",
-        "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION"
+        "MODULAR_ARTWORK_REQUIRES_REVIEW"
       ],
       "reviewed": false,
       "status": "incomplete"
@@ -313,6 +313,217 @@
       "width": 1024
     }
   },
+  "staged_authoring": {
+    "artifacts": [
+      {
+        "kind": "mask_overlay",
+        "path": "source_inspection/back_mask_final_closeup.png",
+        "path_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/source_inspection/back_mask_final_closeup.png"
+      },
+      {
+        "kind": "socket_candidate",
+        "path": "source_inspection/back_socket_candidate_closeup_v2.png",
+        "path_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/source_inspection/back_socket_candidate_closeup_v2.png"
+      },
+      {
+        "kind": "idle_composite",
+        "path": "renders/back_idle_composite.png",
+        "path_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/renders/back_idle_composite.png"
+      },
+      {
+        "kind": "pressed_composite",
+        "path": "renders/back_pressed_composite.png",
+        "path_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/renders/back_pressed_composite.png"
+      },
+      {
+        "after": "renders/back_idle_composite.png",
+        "after_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/renders/back_idle_composite.png",
+        "before": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+        "before_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+        "diff": "pilot/artifacts/back_source_to_idle_diff.png",
+        "diff_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/pilot/artifacts/back_source_to_idle_diff.png",
+        "kind": "source_to_idle_diff",
+        "report": "pilot/artifacts/back_source_to_idle_diff.json",
+        "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/pilot/artifacts/back_source_to_idle_diff.json"
+      }
+    ],
+    "authored": true,
+    "chassis": {
+      "pristine": {
+        "anchors": {
+          "back_center": [
+            346,
+            975
+          ],
+          "back_socket": [
+            346,
+            975
+          ]
+        },
+        "image": {
+          "exists": true,
+          "mode": "RGBA",
+          "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/pilot/artifacts/back_chassis_pristine_candidate.png",
+          "readable": true,
+          "sha256": "cd5a562c0802d3a0ee695f0a453375ca1821e2a5cd20e929bffd89561d01e6bd",
+          "size": [
+            1024,
+            1535
+          ]
+        },
+        "reviewed": false,
+        "socket_mask": "back_socket",
+        "status": "proposed"
+      },
+      "worn": {
+        "anchors": {},
+        "image": {
+          "exists": false,
+          "path": null,
+          "sha256": null
+        },
+        "reviewed": false,
+        "socket_mask": null,
+        "status": "blocked"
+      }
+    },
+    "components": {
+      "back": {
+        "mask": "back_face_final",
+        "reviewed": false,
+        "socket_mask": "back_socket",
+        "states": {
+          "idle": {
+            "exists": true,
+            "mode": "RGBA",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/pilot/artifacts/back_idle.png",
+            "readable": true,
+            "sha256": "7cced0c360659c7a5269f776f49a0eaedba7a4c42af573b298ef1fd8f6e9fd70",
+            "size": [
+              1024,
+              1535
+            ]
+          },
+          "pressed": {
+            "exists": true,
+            "mode": "RGBA",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/pilot/artifacts/back_pressed.png",
+            "readable": true,
+            "sha256": "2eb0b67676ba80a4ae3b3baef3eaf40f0cce739a6f88b3c30b9ba438e8b67ab4",
+            "size": [
+              1024,
+              1535
+            ]
+          }
+        },
+        "status": "proposed"
+      }
+    },
+    "diff": {
+      "after_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/renders/back_idle_composite.png",
+      "exists": true,
+      "image_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/pilot/artifacts/back_source_to_idle_diff.png",
+      "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/pilot/artifacts/back_source_to_idle_diff.json"
+    },
+    "masks": {
+      "back_face": {
+        "exists": true,
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/masks/back_face.png",
+        "reviewed": false,
+        "sha256": "a3ec31abaf677385a746d76e88ba171167b86387aa16215949604f065a0a9d36",
+        "status": "proposed"
+      },
+      "back_face_alpha": {
+        "exists": true,
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/masks/back_face_alpha.png",
+        "reviewed": false,
+        "sha256": "f69b82494853556106478f66b84637f24417781ef1812e32302cd9ee166e3d0c",
+        "status": "proposed"
+      },
+      "back_face_alpha_v2": {
+        "exists": true,
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/masks/back_face_alpha_v2.png",
+        "reviewed": false,
+        "sha256": "6ff9999b42ffdd915d7f2c0e94a2918fb0dc2772c8d93cad37fecd692e63e451",
+        "status": "proposed"
+      },
+      "back_face_final": {
+        "exists": true,
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/masks/back_face_final.png",
+        "reviewed": true,
+        "sha256": "ba94cd3eaa1aa27ffb66149cd44df29aff9f5a87e9d2f20f1ae1f06e424a3424",
+        "status": "verified"
+      },
+      "back_face_v2": {
+        "exists": true,
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/masks/back_face_v2.png",
+        "reviewed": false,
+        "sha256": "f99e59aa3c27fae600cec95835b4e1b59426d6378a4267430df9f9372aa03b96",
+        "status": "proposed"
+      },
+      "back_face_v3": {
+        "exists": true,
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/masks/back_face_v3.png",
+        "reviewed": false,
+        "sha256": "c81ab184dfaccad023019e09def88251fde4f6ff70fe5474730018416a1c142a",
+        "status": "proposed"
+      },
+      "back_socket": {
+        "exists": true,
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/walkie_5/masks/back_socket.png",
+        "reviewed": false,
+        "sha256": "25dbf2715768a27494797b92bf903303fcd7c88bf809e99cdf6c3411fd0702f6",
+        "status": "proposed"
+      }
+    },
+    "missing_components": [
+      "channel",
+      "down",
+      "home",
+      "lcd",
+      "left",
+      "ok",
+      "power",
+      "ptt",
+      "pwr_led",
+      "right",
+      "rx_led",
+      "tx_led",
+      "up",
+      "volume"
+    ],
+    "project": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_5_pilot.json",
+    "reasons": [
+      "WORN_CHASSIS_PENDING",
+      "REMAINING_COMPONENTS_PENDING",
+      "VISUAL_REVIEW_PENDING"
+    ],
+    "reconstruction_bounds": [
+      290,
+      920,
+      112,
+      112
+    ],
+    "required_components": [
+      "back",
+      "home",
+      "up",
+      "down",
+      "left",
+      "right",
+      "ok",
+      "ptt",
+      "power",
+      "volume",
+      "channel",
+      "pwr_led",
+      "rx_led",
+      "tx_led",
+      "lcd"
+    ],
+    "reviewed": false,
+    "status": "proposed"
+  },
   "variants": {
     "pristine": {
       "layers": []
@@ -334,58 +545,77 @@
         "sha256": "90d9d0264493232d947bdafcffb89b052ec63810e620e39e728ca42d17fa67cd"
       },
       {
+        "diff_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_5_source_to_idle.png",
         "kind": "source_to_idle_diff",
-        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "metrics": {
+          "alpha_changed_pixels": 12185,
+          "changed_bounds": [
+            290,
+            920,
+            402,
+            1032
+          ],
+          "changed_pixels": 12185,
+          "channel_changed_pixels": {
+            "B": 9203,
+            "G": 9038,
+            "R": 9412
+          },
+          "max_alpha_delta": 3,
+          "max_rgb_delta": 153,
+          "rgb_changed_pixels": 9532
+        },
+        "reason": "AUTHORED_MODULAR_IDLE_RECOMPOSITION",
         "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_5_source_to_idle.json",
-        "report_sha256": "55ebb7c1654d3cedd3ad8bb5005c5dbecc34f7843141b1387718d50a3b3bce58",
-        "sha256": null,
-        "status": "blocked"
+        "report_sha256": "9201638ad20fa137b1d95a4bc7ec397eecc601e0a42c65435d6aaf06bc3de006",
+        "sha256": "d5f1a83341219e6325c5409d9ad756e42413634fd62354ce1f77810bbf4a7007",
+        "status": "proposed"
       },
       {
         "kind": "pilot_acceptance_sheet",
         "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
-        "sha256": "183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb",
-        "status": "blocked_evidence_only"
+        "sha256": "6fbfd5c89c9a2f7d4bdf6425a58778bfe94f67b0fc2f78e8856ebcc3a8d50596",
+        "status": "proposed_evidence"
       },
       {
         "kind": "pilot_acceptance_checklist",
         "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json",
-        "sha256": "cf1543cc51da7eac68ba50f441c8776e7bf4951836caf3134b052e68c1d01caf",
-        "status": "blocked_evidence_only"
+        "sha256": "964647d7e5ded98b8c67584721916f59f4d0f0ec3b4a359b9c60b846b0c99fae",
+        "status": "proposed_evidence"
       }
     ],
     "manual_reconstruction": {
       "gates": [
         {
           "id": "chassis_reconstruction",
-          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "reason": "WORN_CHASSIS_PENDING",
           "requirement": "complete pristine and worn chassis with real empty sockets",
           "status": "blocked"
         },
         {
           "id": "socket_masks",
-          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "reason": null,
           "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
-          "status": "blocked"
+          "status": "proposed"
         },
         {
           "id": "component_state_art",
-          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "reason": null,
           "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
-          "status": "blocked"
+          "status": "proposed"
         },
         {
           "id": "reconstruction_review",
-          "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+          "reason": null,
           "requirement": "full-resolution visual review and source-to-idle diff",
-          "status": "blocked"
+          "status": "proposed"
         }
       ],
-      "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "next_action": "Complete the remaining W5 controls, worn chassis, and visual review before production approval.",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "required": true,
       "source_layout": "single_canvas",
-      "status": "blocked"
+      "status": "proposed"
     },
     "qa_requirements": [
       {
@@ -407,61 +637,81 @@
       },
       {
         "id": "manual_reconstruction_plan",
-        "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
-        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-        "status": "blocked"
+        "next_action": "Complete the remaining W5 controls, worn chassis, and visual review before production approval.",
+        "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+        "status": "proposed"
       },
       {
         "id": "pristine_chassis",
-        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
-        "status": "blocked"
+        "reason": null,
+        "status": "proposed"
       },
       {
         "id": "worn_chassis",
-        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "reason": "WORN_CHASSIS_PENDING",
         "status": "blocked"
       },
       {
         "id": "socket_masks",
-        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
-        "status": "blocked"
+        "reason": null,
+        "status": "proposed"
       },
       {
         "id": "component_state_sheets",
-        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
-        "status": "blocked"
+        "reason": null,
+        "status": "proposed"
       },
       {
         "id": "source_to_idle_diff",
-        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_5_source_to_idle.json",
-        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
-        "report_sha256": "55ebb7c1654d3cedd3ad8bb5005c5dbecc34f7843141b1387718d50a3b3bce58",
-        "status": "blocked"
+        "metrics": {
+          "alpha_changed_pixels": 12185,
+          "changed_bounds": [
+            290,
+            920,
+            402,
+            1032
+          ],
+          "changed_pixels": 12185,
+          "channel_changed_pixels": {
+            "B": 9203,
+            "G": 9038,
+            "R": 9412
+          },
+          "max_alpha_delta": 3,
+          "max_rgb_delta": 153,
+          "rgb_changed_pixels": 9532
+        },
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_5_source_to_idle.png",
+        "reason": "AUTHORED_MODULAR_IDLE_RECOMPOSITION",
+        "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_5_source_to_idle.json",
+        "report_sha256": "9201638ad20fa137b1d95a4bc7ec397eecc601e0a42c65435d6aaf06bc3de006",
+        "sha256": "d5f1a83341219e6325c5409d9ad756e42413634fd62354ce1f77810bbf4a7007",
+        "status": "proposed"
       },
       {
         "id": "visual_review",
-        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
-        "status": "blocked"
+        "reason": "VISUAL_REVIEW_PENDING",
+        "status": "proposed"
       },
       {
-        "evidence_status": "generated_not_acceptance",
+        "evidence_status": "real_artwork_proposed",
         "id": "pilot_acceptance_sheet",
         "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
-        "reason": "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW",
-        "sha256": "183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb",
-        "status": "blocked"
+        "reason": "VISUAL_REVIEW_PENDING",
+        "sha256": "6fbfd5c89c9a2f7d4bdf6425a58778bfe94f67b0fc2f78e8856ebcc3a8d50596",
+        "status": "proposed"
       }
     ],
     "reasons": [
-      "NO_MODULAR_ARTWORK_DIRECTORY",
-      "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
-      "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
-      "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION",
-      "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW"
+      "WORN_CHASSIS_PENDING",
+      "REMAINING_COMPONENTS_PENDING",
+      "VISUAL_REVIEW_PENDING"
     ],
     "reviewed": false,
-    "status": "blocked",
-    "warnings": []
+    "status": "proposed",
+    "warnings": [
+      "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+    ]
   },
   "workspace_root": "."
 }
