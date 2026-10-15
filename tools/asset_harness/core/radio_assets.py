@@ -209,6 +209,49 @@ def _status_for(
     return "proposed", reasons, warnings
 
 
+def _modular_file_records(modular_dir: Path, modular_files: list[str]) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+    for relative in modular_files:
+        path = modular_dir / relative
+        record: dict[str, Any] = {"path": relative, "absolute_path": str(path.resolve())}
+        try:
+            metadata = inspect_image(path)
+            record.update({
+                "readable": True,
+                "sha256": metadata["sha256"],
+                "bytes": metadata["bytes"],
+                "size": [metadata["width"], metadata["height"]],
+                "mode": metadata["mode"],
+                "alpha": _alpha_summary(metadata),
+            })
+        except Exception as error:
+            record.update({"readable": False, "sha256": None, "error": str(error)})
+        records.append(record)
+    return records
+
+
+def _qa_requirements(definition: dict[str, str], source_exists: bool, modular_files: list[str]) -> list[dict[str, Any]]:
+    source_status = "complete" if source_exists else "blocked"
+    source_reason = None if source_exists else "SOURCE_FILE_MISSING"
+    modular_reason = "NO_REVIEWED_MODULAR_ARTWORK" if not modular_files else "MODULAR_ARTWORK_REQUIRES_REVIEW"
+    requirements = [
+        {"id": "source_inventory", "status": source_status, "reason": source_reason},
+        {"id": "full_resolution_source_copy", "status": "pending_artifact"},
+        {"id": "alpha_preview", "status": "pending_artifact"},
+        {"id": "pristine_chassis", "status": "blocked", "reason": modular_reason},
+        {"id": "worn_chassis", "status": "blocked", "reason": modular_reason},
+        {"id": "socket_masks", "status": "blocked", "reason": modular_reason},
+        {"id": "component_state_sheets", "status": "blocked", "reason": modular_reason},
+        {"id": "source_to_idle_diff", "status": "blocked", "reason": "NO_REVIEWED_MODULAR_ARTWORK"},
+        {"id": "visual_review", "status": "blocked", "reason": "NO_REVIEWED_MODULAR_ARTWORK"},
+    ]
+    if definition["id"] == "walkie_4":
+        requirements.append({"id": "bad_cut_regression", "status": "pending_artifact"})
+    if definition["id"] == "walkie_5":
+        requirements.append({"id": "pilot_acceptance_sheet", "status": "blocked", "reason": "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW"})
+    return requirements
+
+
 def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
     path = _device_path(root, definition)
     family_dir = FAMILY_DIRECTORIES[definition["family"]]
@@ -226,6 +269,11 @@ def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
         layout = _source_layout(path)
     status, reasons, warnings = _status_for(definition, path, layout, modular_dir, modular_files)
     missing_required_paths = sorted(set(EXPECTED_COMPONENT_PATHS) - set(modular_files))
+    modular_file_records = _modular_file_records(modular_dir, modular_files) if modular_files else []
+    unreadable_modular = [record for record in modular_file_records if not record.get("readable")]
+    if unreadable_modular:
+        status = "blocked"
+        reasons.append("MODULAR_FILE_UNREADABLE")
     source_record: dict[str, Any] = {
         "path": owner_path,
         "absolute_path": str(path.resolve()),
@@ -257,6 +305,7 @@ def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
             "directory": (modular_dir.relative_to(root)).as_posix(),
             "exists": modular_dir.is_dir(),
             "files": modular_files,
+            "file_records": modular_file_records,
             "required_paths": list(EXPECTED_COMPONENT_PATHS),
             "missing_required_paths": missing_required_paths,
         },
@@ -266,6 +315,7 @@ def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
             "reasons": reasons,
             "warnings": warnings,
             "artifacts": [],
+            "qa_requirements": _qa_requirements(definition, path.is_file(), modular_files),
         },
     }
 
@@ -484,6 +534,11 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
             {"kind": "alpha_preview", "path": str(alpha_path), "sha256": sha256_path(alpha_path)},
             {"kind": "source_to_idle_diff", "status": "blocked", "sha256": None, "reason": "no reviewed modular chassis/idle layers exist"},
         ])
+        qa_requirements = device.setdefault("verification", {}).setdefault("qa_requirements", [])
+        for requirement_id, artifact_path in (("full_resolution_source_copy", source_copy), ("alpha_preview", alpha_path)):
+            requirement = next((item for item in qa_requirements if item.get("id") == requirement_id), None)
+            if requirement is not None:
+                requirement.update({"status": "complete", "path": str(artifact_path), "sha256": sha256_path(artifact_path)})
         if device.get("id") == "walkie_4":
             regression_paths, regression = _write_walkie4_bad_cut_regression(source_path, output_root)
             artifacts.extend(regression_paths)
@@ -491,6 +546,9 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
                 {"kind": "bad_cut_regression_preview", "path": str(regression_paths[0]), "sha256": sha256_path(regression_paths[0])},
                 {"kind": "bad_cut_regression_diff", "path": str(regression_paths[1]), "sha256": sha256_path(regression_paths[1]), "metrics": regression["diff"]},
             ])
+            requirement = next((item for item in qa_requirements if item.get("id") == "bad_cut_regression"), None)
+            if requirement is not None:
+                requirement.update({"status": "complete", "path": str(regression_paths[1]), "sha256": sha256_path(regression_paths[1])})
             report.setdefault("regressions", {})["walkie_4"] = regression
     if thumbs:
         columns = max(1, min(8, int(columns)))

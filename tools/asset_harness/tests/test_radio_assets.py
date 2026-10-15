@@ -52,6 +52,10 @@ class RadioAssetAuditTests(unittest.TestCase):
             self.assertEqual(len(paths), 15)
             self.assertEqual(report["regressions"]["walkie_4"]["legacy_crop_size"], [512, 1536])
             self.assertTrue((Path(directory) / "walkie_4_bad_cut_diff.png").is_file())
+            walkie5_qa = {item["id"]: item for item in report["devices"][4]["verification"]["qa_requirements"]}
+            self.assertEqual(walkie5_qa["full_resolution_source_copy"]["status"], "complete")
+            self.assertEqual(walkie5_qa["alpha_preview"]["status"], "complete")
+            self.assertEqual(walkie5_qa["pristine_chassis"]["status"], "blocked")
             for device in report["devices"]:
                 source = device["source"]
                 source_copy = Path(directory) / "sources" / f"{device['id']}.png"
@@ -60,6 +64,8 @@ class RadioAssetAuditTests(unittest.TestCase):
                 self.assertIsNone(diff["sha256"])
             regression_diff = next(item for item in report["devices"][3]["verification"]["artifacts"] if item["kind"] == "bad_cut_regression_diff")
             self.assertTrue(regression_diff["sha256"])
+            w4_qa = {item["id"]: item for item in report["devices"][3]["verification"]["qa_requirements"]}
+            self.assertEqual(w4_qa["bad_cut_regression"]["status"], "complete")
 
     def test_actual_walkie5_mask_qa_rejects_transparent_exterior_selection(self) -> None:
         source_path = ROOT / "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png"

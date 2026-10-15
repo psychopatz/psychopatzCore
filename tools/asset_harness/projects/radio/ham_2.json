@@ -162,6 +162,7 @@
   "modular_output": {
     "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2",
     "exists": false,
+    "file_records": [],
     "files": [],
     "missing_required_paths": [
       "Buttons/Back/Idle.png",
@@ -305,6 +306,55 @@
         "kind": "source_to_idle_diff",
         "reason": "no reviewed modular chassis/idle layers exist",
         "sha256": null,
+        "status": "blocked"
+      }
+    ],
+    "qa_requirements": [
+      {
+        "id": "source_inventory",
+        "reason": null,
+        "status": "complete"
+      },
+      {
+        "id": "full_resolution_source_copy",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_2.png",
+        "sha256": "2aa74b80ab9bd0fe79adcac44e682a84d88df10c60e653eaa323b0623b57dad7",
+        "status": "complete"
+      },
+      {
+        "id": "alpha_preview",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_2.png",
+        "sha256": "1dfdfc0273a29b5d231b5832fb92b84ba6e60c3488b4df62c383b21bc42613bf",
+        "status": "complete"
+      },
+      {
+        "id": "pristine_chassis",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "worn_chassis",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "socket_masks",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "component_state_sheets",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "source_to_idle_diff",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "visual_review",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
         "status": "blocked"
       }
     ],

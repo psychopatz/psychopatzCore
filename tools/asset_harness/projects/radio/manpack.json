@@ -162,6 +162,7 @@
   "modular_output": {
     "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio",
     "exists": false,
+    "file_records": [],
     "files": [],
     "missing_required_paths": [
       "Buttons/Back/Idle.png",
@@ -300,6 +301,55 @@
         "kind": "source_to_idle_diff",
         "reason": "no reviewed modular chassis/idle layers exist",
         "sha256": null,
+        "status": "blocked"
+      }
+    ],
+    "qa_requirements": [
+      {
+        "id": "source_inventory",
+        "reason": null,
+        "status": "complete"
+      },
+      {
+        "id": "full_resolution_source_copy",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/manpack.png",
+        "sha256": "5c97028e2200cf7fdfad9b4f7fb99ebae00b82b9603efcfa4346e264d7d61c46",
+        "status": "complete"
+      },
+      {
+        "id": "alpha_preview",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/manpack.png",
+        "sha256": "2c3ff7a268551dabe71466150e643b035694a033f4619855de5f85159b7a5871",
+        "status": "complete"
+      },
+      {
+        "id": "pristine_chassis",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "worn_chassis",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "socket_masks",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "component_state_sheets",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "source_to_idle_diff",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "visual_review",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
         "status": "blocked"
       }
     ],

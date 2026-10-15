@@ -162,6 +162,7 @@
   "modular_output": {
     "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie2",
     "exists": false,
+    "file_records": [],
     "files": [],
     "missing_required_paths": [
       "Buttons/Back/Idle.png",
@@ -300,6 +301,55 @@
         "kind": "source_to_idle_diff",
         "reason": "no reviewed modular chassis/idle layers exist",
         "sha256": null,
+        "status": "blocked"
+      }
+    ],
+    "qa_requirements": [
+      {
+        "id": "source_inventory",
+        "reason": null,
+        "status": "complete"
+      },
+      {
+        "id": "full_resolution_source_copy",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_2.png",
+        "sha256": "8a1f12c4c4ee019a1187da7ed8d7b5ca2bb3363861b15e7f54d64f544bbf842d",
+        "status": "complete"
+      },
+      {
+        "id": "alpha_preview",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_2.png",
+        "sha256": "ca2691e6171a072667cffe8b738784a41dd5985e441a887f0de25ced3448e064",
+        "status": "complete"
+      },
+      {
+        "id": "pristine_chassis",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "worn_chassis",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "socket_masks",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "component_state_sheets",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "source_to_idle_diff",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "status": "blocked"
+      },
+      {
+        "id": "visual_review",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
         "status": "blocked"
       }
     ],
