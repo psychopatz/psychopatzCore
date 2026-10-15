@@ -218,3 +218,15 @@ Date / HEAD: 2026-10-16 / `4361cc6` (`feat(asset-harness): report per-device rad
 - Verification: 40 harness tests, CLI/core/simulator/test `py_compile`, and `git diff --check` passed. Production `export apply` remains unused; runtime Lua, existing sprites, legacy atlases and saves remain untouched.
 
 The only remaining production-art gate is still authentic, visually reviewed W5 modular artwork. Continue with harness-only evidence until that material approval boundary is supplied; do not mark any device complete from the QA matrix alone.
+
+## W5 pilot evidence checkpoint
+
+Date / HEAD: 2026-10-16 / `538adc8` (`feat(asset-harness): add blocked W5 pilot evidence`), pushed cleanly to `origin/main` after `49b93ba`.
+
+- `assets audit --write-artifacts` now emits `walkie_5_pilot_acceptance.png` and `walkie_5_pilot_acceptance.json` in the ignored review workspace. The sheet shows the immutable W5 source and full-resolution alpha beside the blocked QA matrix; the JSON records `accepted: false`, `modular_artwork_created: false`, and `accepted_for_runtime: false`.
+- Pilot evidence is explicitly not acceptance: the sheet/checklist remain `BLOCKED / NOT ACCEPTED`, and the W5 manifest keeps `pilot_acceptance_sheet` blocked with `evidence_status: generated_not_acceptance`. No chassis, socket mask, control state, worn variant, or source-to-idle diff was invented.
+- Tracked audit report: [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `5d30655bec14f270fe270ec8449dcf1970d3ba5db28910791fae6d00121fca68`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
+- Review artifacts: `walkie_5_pilot_acceptance.png` SHA-256 `7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a`; `walkie_5_pilot_acceptance.json` SHA-256 `1ae65ee429aef8e0a78a767b49f2f37bc4a775818777ae17f4633ace34547e53`.
+- Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, `git diff --check`, refactor-binding smoke, and Lua action/registry/window smokes passed. All ten canonical radio source hashes remain unchanged. No production `export apply`, runtime Lua edit, legacy atlas edit, or canonical source edit occurred.
+
+The production-art blocker remains unchanged: obtain authentic, visually reviewed W5 modular masters before authoring `Chassis/Pristine.png`, `Chassis/Worn.png`, socket masks, and keyed components. Keep all ten devices blocked.
