@@ -253,3 +253,14 @@ Date / HEAD: 2026-10-16 / `ad937ca` (`feat(asset-harness): add blocked radio dif
 - Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, `git diff --check`, and refactor-binding smoke passed. No production export, runtime Lua, legacy atlas, save, or canonical source change occurred.
 
 The diff reports improve auditability but do not satisfy the art gate. The next production milestone still requires authentic reviewed modular W5 masters and visual reconstruction acceptance.
+
+## Modular LCD layer contract checkpoint
+
+Date / HEAD: 2026-10-16 / `05ada94` (`feat(asset-harness): add modular LCD layer contract`), pushed cleanly to `origin/main` after `1cebac7`.
+
+- Added `modular lcd set` for independent `glass`, `bezel_overlay`, and optional `matte` layers. The existing modular compositor renders these layers separately, while dynamic LCD content remains outside the physical shell images.
+- Modular validation now requires both canvas-aligned LCD shell layers when the semantic `lcd` component is declared, and production status additionally requires explicit LCD visual-review evidence. Missing bezel/glass, unreadable layers, canvas mismatch, and unreviewed production LCD layers fail validation.
+- Synthetic modular coverage now exercises production-reviewed LCD compositing, contact-sheet rendering, the required semantic `lcd` mapping, missing-bezel rejection, and CLI registration. The harness suite is `41` passing tests; profiler suite remains `52` passing tests.
+- W5 manifest SHA-256 is `46d3811a760864d1b8770c583ce569d05e7dacb92766ac776df941f7a4ee7183`; the authoritative audit report remains SHA-256 `405442fcca018d1494ef7142a5c1db0bcde375c1cd09eb46321ef501052058f3`, with `blocked=10, complete=0`.
+
+This closes a tooling contract gap only; no real LCD art was authored. The W5 pilot still cannot pass until reviewed modular chassis, masks, controls, states, and LCD layers exist.
