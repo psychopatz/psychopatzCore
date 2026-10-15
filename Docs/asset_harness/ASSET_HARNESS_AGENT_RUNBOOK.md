@@ -1,7 +1,10 @@
 # Asset Harness — Unattended Codex/Luna Runbook
 
+> **2026-10-16 scoped radio-asset production:** For modular radio art, first read [RADIO_MODULAR_ASSET_PRODUCTION.md](RADIO_MODULAR_ASSET_PRODUCTION.md). Its AH-R0–AH-R6 phase plan and canonical `Contents/mods/PsychopatzCore/common/media/ui/Radio/` paths take priority over the historical scaffold-start instructions below. This goal may improve the **existing offline Asset Harness and its tests only**, with per-device reviewed art; it must not change gameplay/runtime Lua, active PNGs, or execute `export apply`. Do not restart completed H0–H6/H8 milestones. Historical text below is retained as earlier workflow evidence.
+
 ## Required reading
 
+0. `Docs/asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md` — **radio-only** source paths, modular chassis/controls, authoring QA and AH-R0–AH-R6 plan; read first for this goal.
 1. `Docs/asset_harness/ASSET_HARNESS_CONTRACT.md` — machine interface, security, persistence, compositor, export requirements.
 2. `Docs/asset_harness/ASSET_HARNESS_ROADMAP.md` — H0–H9 order/gates.
 3. `Docs/asset_harness/ASSET_HARNESS_PROGRESS.md` — next chunk and verified vs pending.
@@ -12,7 +15,7 @@
 
 ## Unattended execution
 
-- Start H0 now. Audit read-only, identify existing implementation before writing new functions, establish baseline tests and CLI user stories. Then proceed H1 onwards in **small deterministic testable chunks**, without stopping for routine approval after a passing chunk.
+- **Historical generic harness scaffold instructions, not the current radio modular scope:** Start H0 with read-only audit, identify existing implementation before writing new functions, establish baseline tests and CLI user stories. Then proceed H1 onwards in **small deterministic testable chunks**, without stopping for routine approval after a passing chunk.
 - Place new developer package at `tools/asset_harness/`, **outside** game-loaded `media/lua`. Retain `tools/radio_os` as a compatibility wrapper or move only when tests and downstream command references are updated.
 - Use Python standard library for CLI, JSON, hashes, temporary paths, safety and IO; Pillow for image operations. Reuse concepts/functions where stable, but do not import Tk GUI or pull profiler process-monitoring dependencies into every image operation. No web server as runtime requirement.
 - First build the complete vertical slice with genuine/synthetic **test fixtures**: inspect -> select/edit exact regions -> compose -> render -> JSON validate. Add animation & variant states, then export. Fixtures do not count as authentic vanilla artwork.
