@@ -165,3 +165,13 @@ socket masks, keyed button/PTT/power/LED states, rotary detents and integer
 hitboxes. `modular validate`, `modular render`, and `modular contact-sheet`
 are offline only; missing sockets, identical fake states, anchor drift, and
 unreviewed components remain failures or incomplete evidence.
+
+LCD shell layers are registered separately so the transparent glass and bezel
+overlay cannot be mistaken for baked dynamic content:
+
+```sh
+python3 tools/asset_harness/cli.py modular lcd set \
+  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --glass LCD/Glass.png --bezel-overlay LCD/BezelOverlay.png \
+  --status proposed
+```

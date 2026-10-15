@@ -56,6 +56,7 @@ from asset_harness.core.modular import (
     render_modular_contact_sheet,
     set_chassis,
     set_component,
+    set_lcd_layers,
     validate_modular,
 )
 from asset_harness.core.regions import (
@@ -236,6 +237,18 @@ def build_parser() -> argparse.ArgumentParser:
     modular_chassis_set.add_argument("--reviewed-by", default=None)
     modular_chassis_set.add_argument("--review-artifact", action="append", default=[])
     _add_output_args(modular_chassis_set)
+    modular_lcd = modular_sub.add_parser("lcd", help="register independent LCD glass/bezel layers")
+    modular_lcd_set = modular_lcd.add_subparsers(dest="modular_lcd_command", required=True)
+    modular_lcd_register = modular_lcd_set.add_parser("set", help="register LCD matte, glass, and bezel layers")
+    modular_lcd_register.add_argument("--project", type=Path, required=True)
+    modular_lcd_register.add_argument("--glass", required=True)
+    modular_lcd_register.add_argument("--bezel-overlay", required=True)
+    modular_lcd_register.add_argument("--matte", default=None)
+    modular_lcd_register.add_argument("--status", choices=("proposed", "verified", "blocked"), default="proposed")
+    modular_lcd_register.add_argument("--notes", default=None)
+    modular_lcd_register.add_argument("--reviewed-by", default=None)
+    modular_lcd_register.add_argument("--review-artifact", action="append", default=[])
+    _add_output_args(modular_lcd_register)
     modular_component = modular_sub.add_parser("component", help="register keyed states for one physical part")
     modular_component_sub = modular_component.add_subparsers(dest="modular_component_command", required=True)
     modular_component_set = modular_component_sub.add_parser("set", help="register a component and its state images")
@@ -610,6 +623,20 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
             )
             save_project(path, value)
             return command, {"variant": args.variant, "chassis": entry}, [artifact_descriptor(path, "project")], diagnostics, False
+        if args.modular_command == "lcd":
+            if args.modular_lcd_command != "set":
+                raise AssetHarnessError("COMMAND_UNSUPPORTED", "unsupported modular lcd command")
+            entry = set_lcd_layers(
+                value,
+                glass=args.glass,
+                bezel_overlay=args.bezel_overlay,
+                matte=args.matte,
+                status=args.status,
+                notes=args.notes,
+                review={"reviewed": bool(args.reviewed_by or args.review_artifact), "reviewed_by": args.reviewed_by, "artifacts": list(args.review_artifact)},
+            )
+            save_project(path, value)
+            return command, {"lcd_layers": entry}, [artifact_descriptor(path, "project")], diagnostics, False
         if args.modular_command == "component":
             if args.modular_component_command != "set":
                 raise AssetHarnessError("COMMAND_UNSUPPORTED", "unsupported modular component command")

@@ -10,7 +10,7 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from asset_harness.core.masks import register_mask, validate_mask  # noqa: E402
-from asset_harness.core.modular import render_modular, render_modular_contact_sheet, set_chassis, set_component, validate_modular  # noqa: E402
+from asset_harness.core.modular import render_modular, render_modular_contact_sheet, set_chassis, set_component, set_lcd_layers, validate_modular  # noqa: E402
 from asset_harness.core.project import default_project, save_project  # noqa: E402
 from asset_harness.core.source import register_source  # noqa: E402
 from asset_harness.simulator import RadioSimulator  # noqa: E402
@@ -33,6 +33,10 @@ class ModularRadioTests(unittest.TestCase):
             ("pressed.png", (220, 230, 240, 255)),
         ):
             Image.new("RGBA", (16, 16) if name in {"pristine.png", "worn.png"} else (4, 4), color).save(self.root / name, format="PNG", optimize=False, compress_level=9)
+        for name, pixel in (("glass.png", (0, 240, 255, 140)), ("bezel.png", (255, 180, 0, 180)), ("matte.png", (20, 30, 40, 160))):
+            layer = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+            layer.putpixel((1, 1), pixel)
+            layer.save(self.root / name, format="PNG", optimize=False, compress_level=9)
         mask = Image.new("L", (16, 16), 0)
         for y in range(4, 8):
             for x in range(4, 8):
@@ -62,6 +66,7 @@ class ModularRadioTests(unittest.TestCase):
         review = {"reviewed": True, "reviewed_by": "synthetic-test", "artifacts": ["fixture-contact-sheet.png"]}
         set_chassis(self.project, "pristine", image="pristine.png", socket_mask="socket", anchors={"lcd": [4, 4], "back": [4, 4]}, status="verified", review=review)
         set_chassis(self.project, "worn", image="worn.png", socket_mask="socket", anchors={"lcd": [4, 4], "back": [4, 4]}, status="verified", review=review)
+        set_lcd_layers(self.project, glass="glass.png", bezel_overlay="bezel.png", matte="matte.png", status="verified", review=review)
         set_component(
             self.project,
             "back",
@@ -83,9 +88,25 @@ class ModularRadioTests(unittest.TestCase):
         self.assertEqual(image.size, (16, 16))
         self.assertEqual(image.getpixel((5, 5)), (220, 230, 240, 255))
         self.assertEqual(metadata["variant"], "worn")
+        layer_ids = [layer["id"] for layer in metadata["layers"]]
+        self.assertIn("lcd.glass", layer_ids)
+        self.assertIn("lcd.bezel_overlay", layer_ids)
+        self.assertIn("lcd.matte", layer_ids)
         sheet, frames = render_modular_contact_sheet(self.project_path, self.project, columns=2, max_combinations=4)
         self.assertEqual(sheet.mode, "RGBA")
         self.assertEqual(len(frames), 4)
+
+    def test_lcd_layers_require_glass_and_bezel_and_support_required_semantic_id(self) -> None:
+        set_chassis(self.project, "pristine", image="pristine.png", anchors={"lcd": [4, 4]}, status="proposed")
+        set_chassis(self.project, "worn", image="worn.png", anchors={"lcd": [4, 4]}, status="proposed")
+        set_lcd_layers(self.project, glass="glass.png", bezel_overlay="bezel.png")
+        self.project["modular"]["required_components"] = ["lcd"]
+        result = validate_modular(self.project_path, self.project)
+        self.assertTrue(result["ok"], result["diagnostics"])
+        del self.project["modular"]["lcd_layers"]["bezel_overlay"]
+        result = validate_modular(self.project_path, self.project)
+        self.assertFalse(result["ok"])
+        self.assertIn("LCD_LAYER_MISSING", {item["code"] for item in result["diagnostics"]})
 
     def test_state_contract_rejects_identical_led_and_underprovisioned_rotary(self) -> None:
         set_component(

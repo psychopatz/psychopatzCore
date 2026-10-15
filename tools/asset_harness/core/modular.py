@@ -34,6 +34,7 @@ REQUIRED_STATES = {
     "knob": (),
     "led": ("off", "on"),
 }
+LCD_LAYER_KEYS = ("glass", "bezel_overlay")
 
 
 def ensure_modular(project: dict[str, Any]) -> dict[str, Any]:
@@ -76,6 +77,36 @@ def set_chassis(
         entry["notes"] = str(notes)
     modular = ensure_modular(project)
     modular.setdefault("chassis", {})[normalized] = entry
+    return entry
+
+
+def set_lcd_layers(
+    project: dict[str, Any],
+    *,
+    glass: str,
+    bezel_overlay: str,
+    matte: str | None = None,
+    status: str = "proposed",
+    notes: str | None = None,
+    review: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Register independent LCD shell layers without baking dynamic content."""
+
+    if status not in {"proposed", "verified", "blocked"}:
+        raise AssetHarnessError("INVALID_LCD_STATUS", f"unsupported LCD status: {status}")
+    if not glass or not bezel_overlay:
+        raise AssetHarnessError("LCD_LAYERS_REQUIRED", "LCD glass and bezel overlay are both required")
+    entry: dict[str, Any] = {
+        "glass": {"image": str(glass)},
+        "bezel_overlay": {"image": str(bezel_overlay)},
+        "status": status,
+        "review": dict(review or {}),
+    }
+    if matte:
+        entry["matte"] = {"image": str(matte)}
+    if notes:
+        entry["notes"] = str(notes)
+    ensure_modular(project)["lcd_layers"] = entry
     return entry
 
 
@@ -185,6 +216,21 @@ def render_modular(
     if canvas.size != (bounds[2], bounds[3]):
         raise AssetHarnessError("CHASSIS_CANVAS_MISMATCH", f"{normalized_variant} chassis must match project canvas")
     drawn = [{"id": f"chassis.{normalized_variant}", "path": str(chassis_path) if chassis_path else None, "state": normalized_variant, "x": 0, "y": 0, "width": canvas.width, "height": canvas.height}]
+    lcd_layers = modular.get("lcd_layers") or {}
+    if lcd_layers:
+        if not isinstance(lcd_layers, Mapping):
+            raise AssetHarnessError("LCD_LAYERS_INVALID", "modular LCD layers must be an object")
+        for layer_id in ("matte", "glass", "bezel_overlay"):
+            layer_entry = lcd_layers.get(layer_id)
+            if layer_entry is None:
+                continue
+            if isinstance(layer_entry, str):
+                layer_entry = {"image": layer_entry}
+            if not isinstance(layer_entry, Mapping):
+                raise AssetHarnessError("LCD_LAYER_INVALID", f"invalid LCD layer: {layer_id}")
+            image, image_path = _load_entry_image(project_path, project, layer_entry, label=f"lcd.{layer_id}")
+            placed = _paste(canvas, image, layer_entry)
+            drawn.append({"id": f"lcd.{layer_id}", "state": "static", "path": str(image_path) if image_path else None, **placed})
     selected = {str(key): str(value) for key, value in (states or {}).items()}
     for component_id, component in sorted((modular.get("components") or {}).items()):
         if not isinstance(component, dict):
@@ -261,7 +307,7 @@ def validate_modular(project_path: Path, project: dict[str, Any]) -> dict[str, A
         or not modular
         or (
             str(modular.get("status")) == "unconfigured"
-            and not (modular.get("chassis") or modular.get("components"))
+            and not (modular.get("chassis") or modular.get("components") or modular.get("lcd_layers"))
         )
     ):
         return {"ok": True, "summary": {"checks": 0, "passed": 0, "failed": 0, "warnings": 0}, "diagnostics": []}
@@ -331,9 +377,48 @@ def validate_modular(project_path: Path, project: dict[str, Any]) -> dict[str, A
     canvas = canvas_rect(project)
     components = modular.get("components") or {}
     required_components = modular.get("required_components") or []
+    lcd_layers = modular.get("lcd_layers")
+    lcd_required = (
+        isinstance(required_components, Sequence)
+        and not isinstance(required_components, (str, bytes))
+        and "lcd" in {str(item) for item in required_components}
+    )
+    if lcd_required or lcd_layers:
+        check(
+            isinstance(lcd_layers, Mapping),
+            "LCD_LAYERS_MISSING",
+            "LCD requires independent glass and bezel overlay layers",
+            remediation="register LCD/Glass.png and LCD/BezelOverlay.png",
+        )
+        if isinstance(lcd_layers, Mapping):
+            for layer_id in ("matte",) + LCD_LAYER_KEYS:
+                layer_entry = lcd_layers.get(layer_id)
+                if layer_id in LCD_LAYER_KEYS:
+                    check(layer_entry is not None, "LCD_LAYER_MISSING", f"LCD layer is missing: {layer_id}", asset=f"lcd.{layer_id}")
+                elif layer_entry is None:
+                    continue
+                if layer_entry is None:
+                    continue
+                if isinstance(layer_entry, str):
+                    layer_entry = {"image": layer_entry}
+                check(isinstance(layer_entry, Mapping), "LCD_LAYER_INVALID", f"LCD layer must be an image entry: {layer_id}", asset=f"lcd.{layer_id}")
+                if not isinstance(layer_entry, Mapping):
+                    continue
+                try:
+                    layer_image, _ = _load_entry_image(project_path, project, layer_entry, label=f"lcd.{layer_id}")
+                    check(layer_image.size == (canvas[2], canvas[3]), "LCD_LAYER_CANVAS_MISMATCH", f"LCD {layer_id} does not match project canvas", asset=f"lcd.{layer_id}")
+                except AssetHarnessError as error:
+                    diagnostics.append(diagnostic(error.code, error.message, asset=f"lcd.{layer_id}"))
+                    checks += 1
+            if production:
+                check(str(lcd_layers.get("status")) == "verified", "LCD_LAYERS_NOT_VISUALLY_VERIFIED", "production LCD layers are not visually verified", asset="lcd")
+                lcd_review = lcd_layers.get("review") if isinstance(lcd_layers.get("review"), Mapping) else {}
+                check(bool(lcd_review.get("reviewed")), "LCD_REVIEW_EVIDENCE_MISSING", "production LCD layers have no visual-review evidence", asset="lcd", remediation="record full-resolution glass/bezel previews")
     if isinstance(required_components, Sequence) and not isinstance(required_components, (str, bytes)):
         for required_id in required_components:
             required_name = str(required_id)
+            if required_name == "lcd" and isinstance(lcd_layers, Mapping):
+                continue
             check(required_name in components, "REQUIRED_COMPONENT_MISSING", "required semantic component is not authored", asset=required_name, remediation="add a reviewed device-local component or document why this model lacks it")
     for component_id, component in sorted(components.items()):
         if not isinstance(component, Mapping):

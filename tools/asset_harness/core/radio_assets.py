@@ -474,6 +474,7 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
             "status": "incomplete",
             "chassis": {},
             "components": {},
+            "lcd_layers": {},
             "required_components": list(REQUIRED_SEMANTIC_COMPONENTS),
             "verification": {
                 "reviewed": False,
