@@ -4,7 +4,7 @@
 
 ## Required reading
 
-0. `Docs/asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md` — **radio-only** source paths, modular chassis/controls, authoring QA and AH-R0–AH-R6 plan; read first for this goal.
+**For this radio-only goal, read first:** `Docs/asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md` — source paths, modular chassis/controls, authoring QA and AH-R0–AH-R6 plan.
 1. `Docs/asset_harness/ASSET_HARNESS_CONTRACT.md` — machine interface, security, persistence, compositor, export requirements.
 2. `Docs/asset_harness/ASSET_HARNESS_ROADMAP.md` — H0–H9 order/gates.
 3. `Docs/asset_harness/ASSET_HARNESS_PROGRESS.md` — next chunk and verified vs pending.
