@@ -1,5 +1,8 @@
 # Radio-Shaped Mini-Computer — Device Art Production Specification v2
 
+> **Single-system decision (2026-10-16):** The `common/media/ui/Radio/` family folders and separate per-device chassis/parts are the intended exclusive device-sprite system. Old `DTA_Walkie_*` sheets mentioned in historical v1 passages are referenced in Lua but absent from the current tracked image tree; do not author or preserve parallel fallback art. See the [harness-only modular production contract](../asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md) for the correct stage boundary and later clean-cutover requirement.
+
+
 **Status:** approved direction and **pre-production contract**; no new sprites created by this documentation change. **Do not generate a final uneditable full sprite sheet first.** Produce model-local editable masters and independent layered components so the game can animate individual parts. See [interaction v2](CORE_RADIO_OS_INTERACTION_V2.md) and [milestones](CORE_RADIO_OS_INTERACTION_ROADMAP.md).
 
 ## Visual brief
