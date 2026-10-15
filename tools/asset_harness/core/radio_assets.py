@@ -19,6 +19,7 @@ from PIL import Image, ImageDraw
 from .errors import AssetHarnessError
 from .paths import atomic_write_bytes, atomic_write_text
 from .responses import sha256_path
+from .render import difference_image
 from .source import inspect_image
 
 
@@ -54,6 +55,25 @@ EXPECTED_COMPONENT_PATHS = (
     "PTT/Idle.png",
     "PTT/Held.png",
     "LCD/Glass.png",
+    "LCD/BezelOverlay.png",
+)
+
+REQUIRED_SEMANTIC_COMPONENTS = (
+    "back",
+    "home",
+    "up",
+    "down",
+    "left",
+    "right",
+    "ok",
+    "ptt",
+    "power",
+    "volume",
+    "channel",
+    "pwr_led",
+    "rx_led",
+    "tx_led",
+    "lcd",
 )
 
 
@@ -325,6 +345,7 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
             "status": "incomplete",
             "chassis": {},
             "components": {},
+            "required_components": list(REQUIRED_SEMANTIC_COMPONENTS),
             "verification": {"reviewed": False, "status": "incomplete", "reasons": ["NO_REVIEWED_MODULAR_ARTWORK"]},
         },
         "export": {
@@ -341,6 +362,15 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
             "worn": {"status": "blocked", "image": None, "socket_mask": None, "anchors": {}},
         },
         "components": {},
+        "component_inventory": {
+            component_id: {
+                "status": "blocked",
+                "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+                "source_owner": device["owner_path"],
+                "coordinates": None,
+            }
+            for component_id in REQUIRED_SEMANTIC_COMPONENTS
+        },
         "verification": device["verification"],
         "notes": [
             "This manifest is an AH-R0 audit record, not an approval or runtime export declaration.",
@@ -362,6 +392,58 @@ def write_radio_manifests(report: dict[str, Any], output_root: Path) -> list[Pat
         atomic_write_text(target, content)
         paths.append(target)
     return paths
+
+
+def _write_png(image: Image.Image, path: Path) -> Path:
+    buffer = BytesIO()
+    image.save(buffer, format="PNG", optimize=False, compress_level=9)
+    atomic_write_bytes(path, buffer.getvalue())
+    return path
+
+
+def _write_walkie4_bad_cut_regression(source_path: Path, output_root: Path) -> tuple[list[Path], dict[str, Any]]:
+    """Create a visual/numeric record of the old half-crop failure.
+
+    This is diagnostic evidence only.  The legacy panels are deliberately
+    placed beside the immutable full canvas and never written over it.
+    """
+
+    with Image.open(source_path) as image:
+        image.load()
+        source = image.convert("RGBA")
+        width, height = source.size
+        half_width = width // 2
+        left = source.crop((0, 0, half_width, height))
+        right = source.crop((half_width, 0, width, height))
+        legacy_canvas = Image.new("RGBA", source.size, (0, 0, 0, 0))
+        legacy_canvas.alpha_composite(left, (0, 0))
+        diff, diff_metrics = difference_image(source, legacy_canvas)
+
+        panels = [("full_source", source), ("legacy_left_half", left), ("legacy_right_half", right)]
+        cell_width, cell_height = 320, 480
+        gap = 8
+        sheet = Image.new("RGBA", (cell_width * 3 + gap * 2, cell_height), (26, 30, 34, 255))
+        draw = ImageDraw.Draw(sheet, "RGBA")
+        for index, (label, panel) in enumerate(panels):
+            preview = panel.copy()
+            preview.thumbnail((cell_width - 12, cell_height - 28), Image.Resampling.LANCZOS)
+            x = index * (cell_width + gap) + (cell_width - preview.width) // 2
+            y = 24 + (cell_height - 24 - preview.height) // 2
+            sheet.alpha_composite(preview, (x, y))
+            draw.text((index * (cell_width + gap) + 6, 6), label, fill=(255, 240, 180, 255))
+
+    preview_path = output_root / "walkie_4_bad_cut_regression.png"
+    diff_path = output_root / "walkie_4_bad_cut_diff.png"
+    _write_png(sheet, preview_path)
+    _write_png(diff, diff_path)
+    return [preview_path, diff_path], {
+        "source_size": [width, height],
+        "legacy_crop_size": [half_width, height],
+        "corrected_crop_size": [width, height],
+        "legacy_crop_is_full_canvas": False,
+        "diff": {"path": str(diff_path), "sha256": sha256_path(diff_path), **diff_metrics},
+        "status": "blocked_regression_evidence",
+    }
 
 
 def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, columns: int = 4) -> list[Path]:
@@ -392,9 +474,7 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
             image.load()
             rgba = image.convert("RGBA")
             alpha = rgba.getchannel("A")
-            alpha_buffer = BytesIO()
-            alpha.save(alpha_buffer, format="PNG", optimize=False, compress_level=9)
-            atomic_write_bytes(alpha_path, alpha_buffer.getvalue())
+            _write_png(alpha, alpha_path)
             thumb = rgba.copy()
             thumb.thumbnail((256, 256), Image.Resampling.LANCZOS)
             thumbs.append((str(device["id"]), thumb))
@@ -404,6 +484,14 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
             {"kind": "alpha_preview", "path": str(alpha_path), "sha256": sha256_path(alpha_path)},
             {"kind": "source_to_idle_diff", "status": "blocked", "sha256": None, "reason": "no reviewed modular chassis/idle layers exist"},
         ])
+        if device.get("id") == "walkie_4":
+            regression_paths, regression = _write_walkie4_bad_cut_regression(source_path, output_root)
+            artifacts.extend(regression_paths)
+            device.setdefault("verification", {}).setdefault("artifacts", []).extend([
+                {"kind": "bad_cut_regression_preview", "path": str(regression_paths[0]), "sha256": sha256_path(regression_paths[0])},
+                {"kind": "bad_cut_regression_diff", "path": str(regression_paths[1]), "sha256": sha256_path(regression_paths[1]), "metrics": regression["diff"]},
+            ])
+            report.setdefault("regressions", {})["walkie_4"] = regression
     if thumbs:
         columns = max(1, min(8, int(columns)))
         gap = 8
@@ -418,9 +506,7 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
             sheet.alpha_composite(image, (x, y))
             draw.text((x + 6, y + 6), device_id, fill=(255, 240, 180, 255))
         sheet_path = output_root / "source_contact_sheet.png"
-        sheet_buffer = BytesIO()
-        sheet.save(sheet_buffer, format="PNG", optimize=False, compress_level=9)
-        atomic_write_bytes(sheet_path, sheet_buffer.getvalue())
+        _write_png(sheet, sheet_path)
         artifacts.append(sheet_path)
         report["contact_sheet"] = {"path": str(sheet_path), "sha256": sha256_path(sheet_path), "device_count": len(thumbs)}
     report["artifact_summary"] = {

@@ -139,7 +139,17 @@ class RadioSimulator:
             elif component_id in self.state.pressed_controls:
                 candidate = "pressed" if "pressed" in states else "idle"
             elif kind in {"led"}:
-                candidate = self.state.leds.get(str(component_id), "off")
+                led_id = str(component_id).strip().lower()
+                led_alias = {
+                    "pwr": "pwr",
+                    "power": "pwr",
+                    "pwr_led": "pwr",
+                    "rx": "rx",
+                    "rx_led": "rx",
+                    "tx": "tx",
+                    "tx_led": "tx",
+                }.get(led_id, led_id)
+                candidate = self.state.leds.get(led_alias, "off")
             else:
                 candidate = "idle"
             if candidate not in states:
@@ -233,6 +243,8 @@ class RadioSimulator:
                 self._pointer_down(event)
             elif event_type in {"pointer_up", "up"}:
                 self._pointer_up(event)
+            elif event_type in {"pointer_move", "move"}:
+                self._pointer_move(event)
             elif event_type in {"pointer_cancel", "cancel"}:
                 self._pointer_cancel(event)
             elif event_type == "wheel":
@@ -291,6 +303,10 @@ class RadioSimulator:
     def _is_hold_control(control: Any) -> bool:
         return control.kind in {"hold", "ptt"} or control.action in {"transmit_toggle", "ptt"}
 
+    @staticmethod
+    def _is_rotary_control(control: Any) -> bool:
+        return control.kind in {"rotary", "knob"} or int(getattr(control, "detents", 0) or 0) > 0
+
     def _pointer_down(self, event: Mapping[str, Any]) -> None:
         control_id = str(event.get("control", "")).strip()
         control = self._control(control_id)
@@ -316,8 +332,20 @@ class RadioSimulator:
             self.state.ptt_held = False
             self.state.transmitting = False
             self.state.leds["tx"] = "off"
-        elif was_pressed:
+        elif was_pressed and not self._is_rotary_control(control):
             self._apply_action(control.action)
+
+    def _pointer_move(self, event: Mapping[str, Any]) -> None:
+        control_id = str(event.get("control", "")).strip()
+        control = self._control(control_id)
+        if control is None:
+            raise ValueError(f"unknown control: {control_id}")
+        if control_id not in self.state.pressed_controls:
+            raise ValueError(f"pointer move requires captured control: {control_id}")
+        if not self._is_rotary_control(control):
+            return
+        delta_value = event.get("delta", event.get("steps", event.get("dx", event.get("dy", 0))))
+        self._wheel({"control": control_id, "delta": delta_value})
 
     def _pointer_cancel(self, event: Mapping[str, Any]) -> None:
         self.state.pressed_controls = []

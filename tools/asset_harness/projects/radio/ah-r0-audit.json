@@ -1,6 +1,6 @@
 {
   "artifact_summary": {
-    "count": 21,
+    "count": 23,
     "paths": [
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_1.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_1.png",
@@ -10,6 +10,8 @@
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_3.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_4.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_4.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_4_bad_cut_regression.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_4_bad_cut_diff.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_5.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_5.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_makeshift.png",
@@ -48,6 +50,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -63,7 +66,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie1.png",
@@ -178,6 +182,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -193,7 +198,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie2.png",
@@ -308,6 +314,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -323,7 +330,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
@@ -438,6 +446,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -453,7 +462,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4.png",
@@ -542,6 +552,36 @@
             "sha256": null,
             "status": "blocked"
           },
+          {
+            "kind": "bad_cut_regression_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_4_bad_cut_regression.png",
+            "sha256": "5114b811023129a116e631ba1f5c400ff97c507f3d4c9e0f19d038e7f8dab8ca"
+          },
+          {
+            "kind": "bad_cut_regression_diff",
+            "metrics": {
+              "alpha_changed_pixels": 376529,
+              "changed_bounds": [
+                0,
+                0,
+                1024,
+                1536
+              ],
+              "changed_pixels": 1078147,
+              "channel_changed_pixels": {
+                "B": 1007844,
+                "G": 1042727,
+                "R": 1062446
+              },
+              "max_alpha_delta": 254,
+              "max_rgb_delta": 255,
+              "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_4_bad_cut_diff.png",
+              "rgb_changed_pixels": 1069698,
+              "sha256": "c33ca61290f36db900ca5558fbc9262c50d5f920fe5cead565739d512d01d69e"
+            },
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_4_bad_cut_diff.png",
+            "sha256": "c33ca61290f36db900ca5558fbc9262c50d5f920fe5cead565739d512d01d69e"
+          },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_4.json"
         ],
         "reasons": [
@@ -569,6 +609,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -584,7 +625,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
@@ -700,6 +742,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -715,7 +758,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkieMakeShift.png",
@@ -830,6 +874,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -845,7 +890,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio1.png",
@@ -965,6 +1011,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -980,7 +1027,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2.png",
@@ -1100,6 +1148,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -1115,7 +1164,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadioMakeShift .png",
@@ -1237,6 +1287,7 @@
           "Buttons/Back/Pressed.png",
           "Chassis/Pristine.png",
           "Chassis/Worn.png",
+          "LCD/BezelOverlay.png",
           "LCD/Glass.png",
           "PTT/Held.png",
           "PTT/Idle.png",
@@ -1252,7 +1303,8 @@
           "Switches/Power/On.png",
           "PTT/Idle.png",
           "PTT/Held.png",
-          "LCD/Glass.png"
+          "LCD/Glass.png",
+          "LCD/BezelOverlay.png"
         ]
       },
       "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
@@ -1355,6 +1407,44 @@
       }
     }
   ],
+  "regressions": {
+    "walkie_4": {
+      "corrected_crop_size": [
+        1024,
+        1536
+      ],
+      "diff": {
+        "alpha_changed_pixels": 376529,
+        "changed_bounds": [
+          0,
+          0,
+          1024,
+          1536
+        ],
+        "changed_pixels": 1078147,
+        "channel_changed_pixels": {
+          "B": 1007844,
+          "G": 1042727,
+          "R": 1062446
+        },
+        "max_alpha_delta": 254,
+        "max_rgb_delta": 255,
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_4_bad_cut_diff.png",
+        "rgb_changed_pixels": 1069698,
+        "sha256": "c33ca61290f36db900ca5558fbc9262c50d5f920fe5cead565739d512d01d69e"
+      },
+      "legacy_crop_is_full_canvas": false,
+      "legacy_crop_size": [
+        512,
+        1536
+      ],
+      "source_size": [
+        1024,
+        1536
+      ],
+      "status": "blocked_regression_evidence"
+    }
+  },
   "root": "/home/psychopatz/Zomboid/Workshop/psychopatzCore",
   "schema_version": 1,
   "scope": {

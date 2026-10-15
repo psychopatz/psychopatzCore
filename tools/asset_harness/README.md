@@ -126,13 +126,19 @@ must not be implemented by cropping their two sides. The literal filename
 `Base.HamRadioMakeShift .png` is preserved and reported as-is.
 
 Source-space masks are imported losslessly and remain proposed until visually
-reviewed. Rectangle proposals cannot satisfy the production mask gate:
+reviewed. A `verified` mask also needs explicit `--reviewed-by` or
+`--review-artifact` evidence; status alone cannot approve it. Rectangle
+proposals cannot satisfy the production mask gate:
 
 ```sh
 python3 tools/asset_harness/cli.py masks import \
   --project tools/asset_harness/projects/radio/walkie_5.json \
   --id back_socket --input /path/to/back_socket.png \
   --source canonical --method hand_authored --status proposed
+python3 tools/asset_harness/cli.py masks polygon \
+  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --id back_socket_candidate --source canonical \
+  --points '300,600;340,590;380,620' --status proposed
 python3 tools/asset_harness/cli.py masks preview \
   --project tools/asset_harness/projects/radio/walkie_5.json \
   --id back_socket --source canonical --out tools/asset_harness/workspace/back_socket_preview.png

@@ -58,6 +58,7 @@ def set_chassis(
     anchors: Mapping[str, Any] | None = None,
     status: str = "proposed",
     notes: str | None = None,
+    review: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     normalized = str(variant).strip().lower()
     if normalized not in CHASSIS_VARIANTS:
@@ -69,6 +70,7 @@ def set_chassis(
         "socket_mask": str(socket_mask) if socket_mask else None,
         "anchors": dict(anchors or {}),
         "status": status,
+        "review": dict(review or {}),
     }
     if notes:
         entry["notes"] = str(notes)
@@ -91,6 +93,7 @@ def set_component(
     socket_mask: str | None = None,
     status: str = "proposed",
     notes: str | None = None,
+    review: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     if not component_id or any(character not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for character in component_id):
         raise AssetHarnessError("INVALID_COMPONENT_ID", f"invalid component ID: {component_id!r}")
@@ -99,10 +102,11 @@ def set_component(
     if status not in {"proposed", "verified", "blocked"}:
         raise AssetHarnessError("INVALID_COMPONENT_STATUS", f"unsupported component status: {status}")
     entry: dict[str, Any] = {
-        "kind": str(kind),
+        "kind": str(kind).strip().lower(),
         "action": str(action) if action is not None else None,
         "states": {str(name): value for name, value in states.items()},
         "status": status,
+        "review": dict(review or {}),
     }
     if hitbox is not None:
         entry["hitbox"] = parse_rect(hitbox, name=f"component {component_id} hitbox")
@@ -290,7 +294,23 @@ def validate_modular(project_path: Path, project: dict[str, Any]) -> dict[str, A
         except AssetHarnessError as error:
             diagnostics.append(diagnostic(error.code, error.message, asset=variant))
             checks += 1
+        anchors = entry.get("anchors")
+        if anchors is not None:
+            check(isinstance(anchors, Mapping), "CHASSIS_ANCHORS_INVALID", f"{variant} chassis anchors must be an object", asset=variant)
+            if isinstance(anchors, Mapping):
+                for anchor_id, point in anchors.items():
+                    valid_point = isinstance(point, (list, tuple)) and len(point) == 2
+                    if valid_point:
+                        try:
+                            x, y = int(point[0]), int(point[1])
+                            valid_point = 0 <= x < canvas_rect(project)[2] and 0 <= y < canvas_rect(project)[3]
+                        except (TypeError, ValueError):
+                            valid_point = False
+                    check(valid_point, "CHASSIS_ANCHOR_INVALID", "chassis anchor must be an integer point inside the canvas", asset=f"{variant}.{anchor_id}")
         if production:
+            check(str(entry.get("status")) == "verified", "CHASSIS_NOT_VISUALLY_VERIFIED", f"production {variant} chassis is not visually verified", asset=variant)
+            chassis_review = entry.get("review") if isinstance(entry.get("review"), Mapping) else {}
+            check(bool(chassis_review.get("reviewed")), "CHASSIS_REVIEW_EVIDENCE_MISSING", f"production {variant} chassis has no visual-review evidence", asset=variant, remediation="record reviewer identity and full-resolution chassis previews")
             check(bool(entry.get("socket_mask")), "SOCKET_MASK_MISSING", f"{variant} chassis has no reconstructed socket mask", asset=variant, remediation="author and visually verify every empty control socket")
             check(bool(entry.get("anchors")), "CHASSIS_ANCHORS_MISSING", f"{variant} chassis has no registered anchors", asset=variant)
             socket_mask = entry.get("socket_mask")
@@ -310,12 +330,17 @@ def validate_modular(project_path: Path, project: dict[str, Any]) -> dict[str, A
 
     canvas = canvas_rect(project)
     components = modular.get("components") or {}
+    required_components = modular.get("required_components") or []
+    if isinstance(required_components, Sequence) and not isinstance(required_components, (str, bytes)):
+        for required_id in required_components:
+            required_name = str(required_id)
+            check(required_name in components, "REQUIRED_COMPONENT_MISSING", "required semantic component is not authored", asset=required_name, remediation="add a reviewed device-local component or document why this model lacks it")
     for component_id, component in sorted(components.items()):
         if not isinstance(component, Mapping):
             diagnostics.append(diagnostic("COMPONENT_INVALID", "component must be an object", asset=str(component_id)))
             checks += 1
             continue
-        kind = str(component.get("kind") or "")
+        kind = str(component.get("kind") or "").strip().lower()
         state_map = component.get("states") or {}
         check(bool(kind), "COMPONENT_KIND_MISSING", "component kind is required", asset=str(component_id))
         check(isinstance(state_map, Mapping) and bool(state_map), "COMPONENT_STATES_REQUIRED", "component needs one or more keyed states", asset=str(component_id))
@@ -339,6 +364,8 @@ def validate_modular(project_path: Path, project: dict[str, Any]) -> dict[str, A
             check(bool(component.get("mask")), "COMPONENT_MASK_MISSING", "movable component has no independently authored silhouette mask", asset=str(component_id), remediation="register a source-canvas alpha/path mask for the moving face")
             check(bool(component.get("socket_mask")), "SOCKET_MASK_MISSING", "movable component has no socket mask", asset=str(component_id), remediation="author the empty recess separately from the moving part")
             check(str(component.get("status")) == "verified", "COMPONENT_NOT_VISUALLY_VERIFIED", "production component is not visually verified", asset=str(component_id))
+            component_review = component.get("review") if isinstance(component.get("review"), Mapping) else {}
+            check(bool(component_review.get("reviewed")), "COMPONENT_REVIEW_EVIDENCE_MISSING", "production component has no visual-review evidence", asset=str(component_id), remediation="record reviewer identity and full-resolution state previews")
             for mask_key in ("mask", "socket_mask"):
                 mask_id = component.get(mask_key)
                 if mask_id:

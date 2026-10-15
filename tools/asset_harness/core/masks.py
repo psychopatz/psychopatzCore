@@ -9,9 +9,9 @@ from __future__ import annotations
 
 from io import BytesIO
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
-from PIL import Image, ImageChops, ImageColor
+from PIL import Image, ImageChops, ImageColor, ImageDraw
 
 from .errors import AssetHarnessError, diagnostic
 from .paths import MAX_PIXELS, atomic_write_bytes, ensure_within, parse_rect, resolve_reference, relative_reference
@@ -87,6 +87,7 @@ def register_mask(
     provenance: str | None = None,
     bounds: Any = None,
     forbidden_mask_id: str | None = None,
+    review: Mapping[str, Any] | None = None,
     allow_external: bool = True,
 ) -> dict[str, Any]:
     if method not in MASK_METHODS:
@@ -113,6 +114,7 @@ def register_mask(
         "method": method,
         "status": status,
         "provenance": str(provenance or "unattributed"),
+        "review": dict(review or {}),
         "nonzero_bounds": metadata["nonzero_bounds"],
         "bbox_fill_ratio": metadata["bbox_fill_ratio"],
     }
@@ -122,6 +124,83 @@ def register_mask(
         record["forbidden_mask"] = str(forbidden_mask_id)
     project.setdefault("masks", {})[mask_id] = record
     return record
+
+
+def _parse_points(value: Any, *, name: str = "points") -> list[tuple[int, int]]:
+    if isinstance(value, str):
+        raw_points = [piece.strip() for piece in value.split(";") if piece.strip()]
+        points: list[tuple[int, int]] = []
+        for raw_point in raw_points:
+            pieces = [piece.strip() for piece in raw_point.split(",")]
+            if len(pieces) != 2:
+                raise AssetHarnessError("INVALID_POINTS", f"{name} points must be x,y pairs separated by semicolons")
+            try:
+                points.append((int(pieces[0]), int(pieces[1])))
+            except (TypeError, ValueError) as error:
+                raise AssetHarnessError("INVALID_POINTS", f"{name} contains a non-integer point") from error
+        value = points
+    if not isinstance(value, (list, tuple)) or len(value) < 3:
+        raise AssetHarnessError("INVALID_POINTS", f"{name} requires at least three points")
+    points = []
+    for point in value:
+        if not isinstance(point, (list, tuple)) or len(point) != 2:
+            raise AssetHarnessError("INVALID_POINTS", f"{name} contains an invalid point")
+        try:
+            points.append((int(point[0]), int(point[1])))
+        except (TypeError, ValueError) as error:
+            raise AssetHarnessError("INVALID_POINTS", f"{name} contains a non-integer point") from error
+    return points
+
+
+def write_polygon_mask(
+    project_path: Path,
+    project: dict[str, Any],
+    mask_id: str,
+    source_id: str,
+    points: Any,
+    *,
+    status: str = "proposed",
+    provenance: str = "manual polygon; pending visual review",
+    forbidden_mask_id: str | None = None,
+) -> dict[str, Any]:
+    """Create a source-canvas polygon mask without promoting its review status."""
+
+    source = (project.get("sources") or {}).get(source_id)
+    if not isinstance(source, dict):
+        raise AssetHarnessError("SOURCE_NOT_REGISTERED", f"source is not registered: {source_id}")
+    workspace = project_workspace(project_path, project)
+    source_value = str(source.get("path") or "")
+    source_path = resolve_reference(
+        workspace,
+        source_value,
+        allow_external=Path(source_value).is_absolute(),
+        must_exist=True,
+    )
+    source_image = load_rgba(source_path)
+    parsed = _parse_points(points)
+    if any(x < 0 or y < 0 or x >= source_image.width or y >= source_image.height for x, y in parsed):
+        raise AssetHarnessError("MASK_POINT_OUT_OF_BOUNDS", "manual polygon point is outside the source canvas")
+    mask = Image.new("L", source_image.size, 0)
+    ImageDraw.Draw(mask).polygon(parsed, fill=255)
+    destination = _mask_workspace_path(project_path, project, mask_id)
+    buffer = BytesIO()
+    mask.save(buffer, format="PNG", optimize=False, compress_level=9)
+    encoded = buffer.getvalue()
+    if destination.exists() and destination.read_bytes() != encoded:
+        raise AssetHarnessError("MASK_CONFLICT", f"mask already exists with different bytes: {destination}")
+    if not destination.exists():
+        atomic_write_bytes(destination, encoded)
+    return register_mask(
+        project_path,
+        project,
+        mask_id,
+        str(destination),
+        source_id=source_id,
+        method="manual_polygon",
+        status=status,
+        provenance=provenance,
+        forbidden_mask_id=forbidden_mask_id,
+    )
 
 
 def resolve_project_mask(project_path: Path, project: dict[str, Any], mask_id: str) -> tuple[dict[str, Any], Image.Image, Path]:
@@ -207,6 +286,13 @@ def validate_mask(
             "MASK_NOT_VISUALLY_VERIFIED",
             "production mask requires an explicit visual-review status",
             remediation="inspect the mask preview at full resolution and record reviewer evidence",
+        )
+        review = record.get("review") if isinstance(record.get("review"), dict) else {}
+        check(
+            bool(review.get("reviewed")),
+            "MASK_REVIEW_EVIDENCE_MISSING",
+            "verified mask requires explicit visual-review evidence",
+            remediation="record reviewer identity and the full-resolution preview/contact-sheet artifact",
         )
     forbidden_id = record.get("forbidden_mask")
     if forbidden_id:

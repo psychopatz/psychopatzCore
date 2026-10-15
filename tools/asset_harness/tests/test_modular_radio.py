@@ -10,7 +10,7 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from asset_harness.core.masks import register_mask, validate_mask  # noqa: E402
-from asset_harness.core.modular import render_modular, set_chassis, set_component, validate_modular  # noqa: E402
+from asset_harness.core.modular import render_modular, render_modular_contact_sheet, set_chassis, set_component, validate_modular  # noqa: E402
 from asset_harness.core.project import default_project, save_project  # noqa: E402
 from asset_harness.core.source import register_source  # noqa: E402
 from asset_harness.simulator import RadioSimulator  # noqa: E402
@@ -44,8 +44,9 @@ class ModularRadioTests(unittest.TestCase):
 
         register_source(self.project_path, self.project, "pristine", "pristine.png", provenance="synthetic chassis", approved=True)
         register_source(self.project_path, self.project, "worn", "worn.png", provenance="synthetic chassis", approved=True)
-        register_mask(self.project_path, self.project, "socket", "socket.png", source_id="pristine", method="hand_authored", status="verified", provenance="synthetic mask")
-        register_mask(self.project_path, self.project, "forbidden", "forbidden.png", method="hand_authored", status="verified", provenance="synthetic guard")
+        review = {"reviewed": True, "reviewed_by": "synthetic-test", "artifacts": ["fixture-preview.png"]}
+        register_mask(self.project_path, self.project, "socket", "socket.png", source_id="pristine", method="hand_authored", status="verified", provenance="synthetic mask", review=review)
+        register_mask(self.project_path, self.project, "forbidden", "forbidden.png", method="hand_authored", status="verified", provenance="synthetic guard", review=review)
         save_project(self.project_path, self.project)
 
     def tearDown(self) -> None:
@@ -58,8 +59,9 @@ class ModularRadioTests(unittest.TestCase):
         self.assertFalse(validate_mask(self.project_path, self.project, "rectangle", production=True)["ok"])
 
     def test_modular_contract_requires_two_chassis_and_composes_states(self) -> None:
-        set_chassis(self.project, "pristine", image="pristine.png", socket_mask="socket", anchors={"lcd": [4, 4], "back": [4, 4]}, status="verified")
-        set_chassis(self.project, "worn", image="worn.png", socket_mask="socket", anchors={"lcd": [4, 4], "back": [4, 4]}, status="verified")
+        review = {"reviewed": True, "reviewed_by": "synthetic-test", "artifacts": ["fixture-contact-sheet.png"]}
+        set_chassis(self.project, "pristine", image="pristine.png", socket_mask="socket", anchors={"lcd": [4, 4], "back": [4, 4]}, status="verified", review=review)
+        set_chassis(self.project, "worn", image="worn.png", socket_mask="socket", anchors={"lcd": [4, 4], "back": [4, 4]}, status="verified", review=review)
         set_component(
             self.project,
             "back",
@@ -70,6 +72,7 @@ class ModularRadioTests(unittest.TestCase):
             mask="socket",
             socket_mask="socket",
             status="verified",
+            review=review,
         )
         self.project["modular"]["status"] = "verified"
         self.project["modular"]["verification"] = {"status": "verified", "reviewed": True, "reasons": []}
@@ -80,6 +83,31 @@ class ModularRadioTests(unittest.TestCase):
         self.assertEqual(image.size, (16, 16))
         self.assertEqual(image.getpixel((5, 5)), (220, 230, 240, 255))
         self.assertEqual(metadata["variant"], "worn")
+        sheet, frames = render_modular_contact_sheet(self.project_path, self.project, columns=2, max_combinations=4)
+        self.assertEqual(sheet.mode, "RGBA")
+        self.assertEqual(len(frames), 4)
+
+    def test_state_contract_rejects_identical_led_and_underprovisioned_rotary(self) -> None:
+        set_component(
+            self.project,
+            "tx_led",
+            kind="led",
+            action=None,
+            states={"off": "idle.png", "on": "idle.png"},
+        )
+        set_component(
+            self.project,
+            "volume",
+            kind="rotary",
+            action="VOLUME",
+            states={"frame_00": "idle.png", "frame_01": "pressed.png"},
+            pivot=[4, 4],
+            detents=1,
+        )
+        result = validate_modular(self.project_path, self.project)
+        codes = {item["code"] for item in result["diagnostics"]}
+        self.assertIn("COMPONENT_STATES_IDENTICAL", codes)
+        self.assertIn("ROTARY_DETENTS_INVALID", codes)
 
     def test_missing_socket_fails_production_modular_validation(self) -> None:
         set_chassis(self.project, "pristine", image="pristine.png", anchors={"lcd": [4, 4]}, status="verified")
@@ -112,6 +140,16 @@ class ModularRadioTests(unittest.TestCase):
         image, metadata = render_device(simulator, zoom=1.0)
         self.assertEqual(image.size, (16, 16))
         self.assertEqual(metadata["variant"], "clean")
+
+    def test_project_led_alias_follows_power_state(self) -> None:
+        set_chassis(self.project, "pristine", image="pristine.png", socket_mask="socket", anchors={"lcd": [4, 4]}, status="proposed")
+        set_chassis(self.project, "worn", image="worn.png", socket_mask="socket", anchors={"lcd": [4, 4]}, status="proposed")
+        set_component(self.project, "pwr_led", kind="led", action=None, states={"off": "idle.png", "on": "pressed.png"})
+        save_project(self.project_path, self.project)
+        simulator = RadioSimulator(project_path=self.project_path)
+        self.assertEqual(simulator.modular_state_selection()["pwr_led"], "off")
+        simulator.dispatch({"event": "press", "control": "power"})
+        self.assertEqual(simulator.modular_state_selection()["pwr_led"], "on")
 
 
 if __name__ == "__main__":

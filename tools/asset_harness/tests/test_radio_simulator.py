@@ -71,6 +71,15 @@ class RadioSimulatorTests(unittest.TestCase):
         self.assertEqual(simulator.state.channel, 4)
         self.assertEqual(simulator.state.knobs["channel"], 4)
 
+    def test_pointer_move_drives_registered_rotary_without_click_on_release(self) -> None:
+        simulator = RadioSimulator("ham_1")
+        simulator.dispatch({"event": "press", "control": "power"})
+        simulator.dispatch({"event": "pointer_down", "control": "volume"})
+        simulator.dispatch({"event": "pointer_move", "control": "volume", "delta": 2})
+        simulator.dispatch({"event": "pointer_up", "control": "volume"})
+        self.assertEqual(simulator.state.volume, 7)
+        self.assertEqual(simulator.state.knobs["volume"], 7)
+
     def test_back_uses_bounded_page_stack(self) -> None:
         simulator = RadioSimulator("walkie_5")
         simulator.dispatch({"event": "press", "control": "power"})

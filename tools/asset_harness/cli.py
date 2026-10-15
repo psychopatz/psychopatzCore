@@ -48,6 +48,7 @@ from asset_harness.core.masks import (
     register_mask,
     resolve_project_mask,
     validate_mask,
+    write_polygon_mask,
     write_masked_extract,
 )
 from asset_harness.core.modular import (
@@ -184,7 +185,18 @@ def build_parser() -> argparse.ArgumentParser:
     mask_import.add_argument("--provenance", default="unattributed")
     mask_import.add_argument("--bounds", default=None)
     mask_import.add_argument("--forbidden-mask", default=None)
+    mask_import.add_argument("--reviewed-by", default=None)
+    mask_import.add_argument("--review-artifact", action="append", default=[])
     _add_output_args(mask_import)
+    mask_polygon = masks_sub.add_parser("polygon", help="author a bounded source-canvas polygon mask")
+    mask_polygon.add_argument("--project", type=Path, required=True)
+    mask_polygon.add_argument("--id", required=True)
+    mask_polygon.add_argument("--source", required=True)
+    mask_polygon.add_argument("--points", required=True, help="semicolon-separated x,y pairs")
+    mask_polygon.add_argument("--status", choices=("proposed", "verified", "blocked", "rejected"), default="proposed")
+    mask_polygon.add_argument("--provenance", default="manual polygon; pending visual review")
+    mask_polygon.add_argument("--forbidden-mask", default=None)
+    _add_output_args(mask_polygon)
     mask_inspect = masks_sub.add_parser("inspect", help="inspect a registered mask")
     mask_inspect.add_argument("--project", type=Path, required=True)
     mask_inspect.add_argument("--id", required=True)
@@ -221,6 +233,8 @@ def build_parser() -> argparse.ArgumentParser:
     modular_chassis_set.add_argument("--anchors", default=None, help="JSON object of integer anchor coordinates")
     modular_chassis_set.add_argument("--status", choices=("proposed", "verified", "blocked"), default="proposed")
     modular_chassis_set.add_argument("--notes", default=None)
+    modular_chassis_set.add_argument("--reviewed-by", default=None)
+    modular_chassis_set.add_argument("--review-artifact", action="append", default=[])
     _add_output_args(modular_chassis_set)
     modular_component = modular_sub.add_parser("component", help="register keyed states for one physical part")
     modular_component_sub = modular_component.add_subparsers(dest="modular_component_command", required=True)
@@ -238,6 +252,8 @@ def build_parser() -> argparse.ArgumentParser:
     modular_component_set.add_argument("--socket-mask", default=None)
     modular_component_set.add_argument("--status", choices=("proposed", "verified", "blocked"), default="proposed")
     modular_component_set.add_argument("--notes", default=None)
+    modular_component_set.add_argument("--reviewed-by", default=None)
+    modular_component_set.add_argument("--review-artifact", action="append", default=[])
     _add_output_args(modular_component_set)
     modular_validate = modular_sub.add_parser("validate", help="validate all modular chassis and component contracts")
     modular_validate.add_argument("--project", type=Path, required=True)
@@ -510,6 +526,19 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
     if args.command == "masks":
         path = _project_path(args)
         value = load_project(path)
+        if args.masks_command == "polygon":
+            record = write_polygon_mask(
+                path,
+                value,
+                args.id,
+                args.source,
+                args.points,
+                status=args.status,
+                provenance=args.provenance,
+                forbidden_mask_id=args.forbidden_mask,
+            )
+            save_project(path, value)
+            return command, {"mask_id": args.id, "mask": record}, [artifact_descriptor(path, "project")], diagnostics, False
         if args.masks_command == "import":
             record = register_mask(
                 path,
@@ -522,6 +551,11 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
                 provenance=args.provenance,
                 bounds=args.bounds,
                 forbidden_mask_id=args.forbidden_mask,
+                review={
+                    "reviewed": bool(args.reviewed_by or args.review_artifact),
+                    "reviewed_by": args.reviewed_by,
+                    "artifacts": list(args.review_artifact),
+                },
             )
             save_project(path, value)
             return command, {"mask_id": args.id, "mask": record}, [artifact_descriptor(path, "project")], diagnostics, False
@@ -564,7 +598,16 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
                     raise AssetHarnessError("INVALID_ANCHORS", "anchors must be a JSON object") from error
                 if not isinstance(anchors, dict):
                     raise AssetHarnessError("INVALID_ANCHORS", "anchors must be a JSON object")
-            entry = set_chassis(value, args.variant, image=args.image, socket_mask=args.socket_mask, anchors=anchors, status=args.status, notes=args.notes)
+            entry = set_chassis(
+                value,
+                args.variant,
+                image=args.image,
+                socket_mask=args.socket_mask,
+                anchors=anchors,
+                status=args.status,
+                notes=args.notes,
+                review={"reviewed": bool(args.reviewed_by or args.review_artifact), "reviewed_by": args.reviewed_by, "artifacts": list(args.review_artifact)},
+            )
             save_project(path, value)
             return command, {"variant": args.variant, "chassis": entry}, [artifact_descriptor(path, "project")], diagnostics, False
         if args.modular_command == "component":
@@ -582,7 +625,21 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
             pivot = None
             if args.pivot:
                 pivot = parse_rect(args.pivot + ",1,1", name="component pivot")[:2]
-            entry = set_component(value, args.id, kind=args.kind, action=args.action, states=states, hitbox=args.hitbox, pivot=pivot, detents=args.detents, mask=args.mask, socket_mask=args.socket_mask, status=args.status, notes=args.notes)
+            entry = set_component(
+                value,
+                args.id,
+                kind=args.kind,
+                action=args.action,
+                states=states,
+                hitbox=args.hitbox,
+                pivot=pivot,
+                detents=args.detents,
+                mask=args.mask,
+                socket_mask=args.socket_mask,
+                status=args.status,
+                notes=args.notes,
+                review={"reviewed": bool(args.reviewed_by or args.review_artifact), "reviewed_by": args.reviewed_by, "artifacts": list(args.review_artifact)},
+            )
             save_project(path, value)
             return command, {"component_id": args.id, "component": entry}, [artifact_descriptor(path, "project")], diagnostics, False
         if args.modular_command == "validate":

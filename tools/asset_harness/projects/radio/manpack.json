@@ -19,6 +19,98 @@
       "status": "blocked"
     }
   },
+  "component_inventory": {
+    "back": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "channel": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "down": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "home": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "lcd": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "left": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "ok": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "power": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "ptt": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "pwr_led": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "right": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "rx_led": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "tx_led": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "up": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    },
+    "volume": {
+      "coordinates": null,
+      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "status": "blocked"
+    }
+  },
   "components": {},
   "controls": [],
   "device": {
@@ -40,6 +132,23 @@
   "modular": {
     "chassis": {},
     "components": {},
+    "required_components": [
+      "back",
+      "home",
+      "up",
+      "down",
+      "left",
+      "right",
+      "ok",
+      "ptt",
+      "power",
+      "volume",
+      "channel",
+      "pwr_led",
+      "rx_led",
+      "tx_led",
+      "lcd"
+    ],
     "schema_version": 1,
     "status": "incomplete",
     "verification": {
@@ -59,6 +168,7 @@
       "Buttons/Back/Pressed.png",
       "Chassis/Pristine.png",
       "Chassis/Worn.png",
+      "LCD/BezelOverlay.png",
       "LCD/Glass.png",
       "PTT/Held.png",
       "PTT/Idle.png",
@@ -74,7 +184,8 @@
       "Switches/Power/On.png",
       "PTT/Idle.png",
       "PTT/Held.png",
-      "LCD/Glass.png"
+      "LCD/Glass.png",
+      "LCD/BezelOverlay.png"
     ]
   },
   "notes": [
