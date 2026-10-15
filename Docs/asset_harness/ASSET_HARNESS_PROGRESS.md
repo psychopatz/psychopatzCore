@@ -194,3 +194,16 @@ Verification:
 - `doctor`, `assets audit --write-manifests --write-artifacts`, and the W4 event scenario — passed; production `export apply` was not run.
 
 Exact next action / blocker: obtain authentic reviewed modular source art (begin with the US Army WalkieTalkie5 pilot), then author and visually verify both chassis conditions, socket masks, independent controls, and alpha/diff evidence. Keep all 10 devices blocked until those gates pass; do not repair W4 with approximate crops and do not apply a production export.
+
+## AH-R1/R3 QA strengthening checkpoint
+
+Date / HEAD: 2026-10-16 / `6871c2a` (`feat(asset-harness): strengthen radio mask and state QA`), pushed as a clean fast-forward after `9924673`.
+
+- Added bounded `masks polygon` source-canvas authoring with atomic writes, strict integer points, source-canvas bounds checks, proposed-by-default status, and conflict refusal. Actual `Base.WalkieTalkie5.png` mask QA rejects a selected transparent exterior pixel with `MASK_SELECTS_TRANSPARENT_SOURCE`.
+- A mask/chassis/component cannot become visually verified from a status string alone. Production validation now requires explicit review evidence (`reviewed`, reviewer identity and/or preview/contact-sheet artifacts), independent chassis review records, component review records, and required semantic-component inventory where declared.
+- Added rotary `pointer_down`/`pointer_move`/`pointer_up` capture behavior; rotary release no longer synthesizes an extra button click. LED IDs such as `pwr_led`, `rx_led`, and `tx_led` map to the simulator’s power/RX/TX state.
+- Added W4 diagnostic artifacts without modifying the source: `walkie_4_bad_cut_regression.png` SHA-256 `5114b811023129a116e631ba1f5c400ff97c507f3d4c9e0f19d038e7f8dab8ca` and `walkie_4_bad_cut_diff.png` SHA-256 `c33ca61290f36db900ca5558fbc9262c50d5f920fe5cead565739d512d01d69e`. The numeric diff reports 1,078,147 changed pixels, 376,529 alpha-changed pixels, and a full-canvas `[0,0,1024,1536]` changed bound for the half-crop regression.
+- Regenerated tracked audit/manifests: [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `f75780a339c54685b1a94f5cc4405ac362ac1b75b015e46d9b17fe78f3af82a3`; status remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
+- Verification after this chunk: `PYTHONPATH=tools python3 -m unittest discover -s tools/asset_harness/tests -q` — 40 passed; `py_compile` for CLI/core/simulator/tests — passed; `git diff --check` — passed. No production `export apply`; no runtime Lua or canonical source PNG changes.
+
+Next action remains an external art-review boundary: provide or approve authentic modular W5 pilot masters before creating `Chassis/Pristine.png`, `Chassis/Worn.png`, socket reconstructions, or keyed component PNGs. Until then, keep W5 and the other nine devices blocked and continue only with non-destructive harness evidence.
