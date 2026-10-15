@@ -1,5 +1,8 @@
 # Radio OS v2 — Interaction, Hardware Animation, and Asset Delivery (I0–I9)
 
+> **2026-10-16 end-state correction:** Once the harness-produced per-device modular art passes review, future I7 runtime work should perform a **single clean cutover** to `common/media/ui/Radio/`, migrate the live manifest/renderer/tests and remove stale DTA sheet references instead of maintaining permanent duplicate shell/controls stacks. The DTA PNGs are not present at the live Lua paths in tracked `main`. This harness goal still forbids runtime Lua edits. For the scoped plan see [Radio Modular Asset Production](../asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md).
+
+
 > **Scope guard (2026-10-16):** The active [Asset Harness modular-radio production contract](../asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md) defines a separate AH-R0–AH-R6 **offline authoring-only** track: precise masks, separate pristine/worn chassis PNGs, stateful components, simulator and visual QA. During this goal, work only on harness/tests, docs, staged assets and *new individually approved* modular artwork under `Contents/mods/PsychopatzCore/common/media/ui/Radio/`. Do **not** advance I7 game/Lua integration, replace existing textures, update runtime manifests or invoke production `export apply`. I0–I9 remain a future cross-runtime plan.
 
 
