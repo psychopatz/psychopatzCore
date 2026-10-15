@@ -65,7 +65,7 @@ class RadioAssetAuditTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             paths = write_radio_audit_artifacts(report, Path(directory), columns=3)
             self.assertTrue((Path(directory) / "source_contact_sheet.png").is_file())
-            self.assertEqual(len(paths), 17)
+            self.assertEqual(len(paths), 23)
             self.assertEqual(report["regressions"]["walkie_4"]["legacy_crop_size"], [512, 1536])
             self.assertTrue((Path(directory) / "walkie_4_bad_cut_diff.png").is_file())
             pilot_sheet = Path(directory) / "walkie_5_pilot_acceptance.png"
@@ -86,6 +86,13 @@ class RadioAssetAuditTests(unittest.TestCase):
                 "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
             )
             self.assertEqual(walkie5_qa["pristine_chassis"]["status"], "blocked")
+            diff_report_path = Path(directory) / "diff" / "walkie_5_source_to_idle.json"
+            self.assertTrue(diff_report_path.is_file())
+            diff_report = json.loads(diff_report_path.read_text(encoding="utf-8"))
+            self.assertEqual(diff_report["status"], "blocked")
+            self.assertIsNone(diff_report["after"])
+            self.assertFalse(diff_report["scope"]["fake_idle_generated"])
+            self.assertEqual(diff_report["before"]["sha256"], report["devices"][4]["source"]["sha256"])
             self.assertEqual(walkie5_qa["pilot_acceptance_sheet"]["status"], "blocked")
             self.assertEqual(walkie5_qa["pilot_acceptance_sheet"]["evidence_status"], "generated_not_acceptance")
             for device in report["devices"]:
@@ -94,6 +101,8 @@ class RadioAssetAuditTests(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(source_copy.read_bytes()).hexdigest(), source["sha256"])
                 diff = next(item for item in device["verification"]["artifacts"] if item["kind"] == "source_to_idle_diff")
                 self.assertIsNone(diff["sha256"])
+                self.assertTrue(Path(diff["report_path"]).is_file())
+                self.assertTrue(diff["report_sha256"])
             regression_diff = next(item for item in report["devices"][3]["verification"]["artifacts"] if item["kind"] == "bad_cut_regression_diff")
             self.assertTrue(regression_diff["sha256"])
             w4_qa = {item["id"]: item for item in report["devices"][3]["verification"]["qa_requirements"]}

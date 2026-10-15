@@ -1,29 +1,39 @@
 {
   "artifact_summary": {
-    "count": 25,
+    "count": 35,
     "paths": [
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_1.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_1.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_1_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_2.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_2.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_2_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_3.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_3.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_3_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_4.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_4.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_4_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_4_bad_cut_regression.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_4_bad_cut_diff.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_5.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_5.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_5_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_makeshift.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_makeshift.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_makeshift_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_1.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_1.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/ham_1_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_2.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_2.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/ham_2_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_makeshift.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_makeshift.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/ham_makeshift_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/manpack.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/manpack.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/manpack_source_to_idle.json",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/source_contact_sheet.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
       "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json"
@@ -155,7 +165,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_1_source_to_idle.json",
+            "report_sha256": "be8e10cb2da7c242c7e2be37d92674f97545bc6224924103a84f5fe65bc87c18",
             "sha256": null,
             "status": "blocked"
           },
@@ -240,7 +252,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_1_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "be8e10cb2da7c242c7e2be37d92674f97545bc6224924103a84f5fe65bc87c18",
             "status": "blocked"
           },
           {
@@ -376,7 +390,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_2_source_to_idle.json",
+            "report_sha256": "59c8c2596b611870e8f55a9d003bf661ce99e9db178046960dc521430bae5112",
             "sha256": null,
             "status": "blocked"
           },
@@ -461,7 +477,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_2_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "59c8c2596b611870e8f55a9d003bf661ce99e9db178046960dc521430bae5112",
             "status": "blocked"
           },
           {
@@ -597,7 +615,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_3_source_to_idle.json",
+            "report_sha256": "4fa86e7b4299cabea8ab070bc86f53ebd6e6a95c191b251c71338cdfe13bec3c",
             "sha256": null,
             "status": "blocked"
           },
@@ -682,7 +702,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_3_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "4fa86e7b4299cabea8ab070bc86f53ebd6e6a95c191b251c71338cdfe13bec3c",
             "status": "blocked"
           },
           {
@@ -818,7 +840,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_4_source_to_idle.json",
+            "report_sha256": "81285227d1a9a32f7883ca7e1b760df5aed903ddbf464d8a0caaf56bf1affd99",
             "sha256": null,
             "status": "blocked"
           },
@@ -933,7 +957,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_4_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "81285227d1a9a32f7883ca7e1b760df5aed903ddbf464d8a0caaf56bf1affd99",
             "status": "blocked"
           },
           {
@@ -1076,7 +1102,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_5_source_to_idle.json",
+            "report_sha256": "55ebb7c1654d3cedd3ad8bb5005c5dbecc34f7843141b1387718d50a3b3bce58",
             "sha256": null,
             "status": "blocked"
           },
@@ -1089,7 +1117,7 @@
           {
             "kind": "pilot_acceptance_checklist",
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json",
-            "sha256": "21b74406130e24b79f9c68ddf7ad514bbd9b30a14899d891e750cd2746140619",
+            "sha256": "cf1543cc51da7eac68ba50f441c8776e7bf4951836caf3134b052e68c1d01caf",
             "status": "blocked_evidence_only"
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_5.json"
@@ -1173,7 +1201,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_5_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "55ebb7c1654d3cedd3ad8bb5005c5dbecc34f7843141b1387718d50a3b3bce58",
             "status": "blocked"
           },
           {
@@ -1318,7 +1348,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_makeshift_source_to_idle.json",
+            "report_sha256": "1e03c7943baefd1449d1781403446eafb5da3ac4a9d088f685072b101fdb8c15",
             "sha256": null,
             "status": "blocked"
           },
@@ -1403,7 +1435,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_makeshift_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "1e03c7943baefd1449d1781403446eafb5da3ac4a9d088f685072b101fdb8c15",
             "status": "blocked"
           },
           {
@@ -1544,7 +1578,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/ham_1_source_to_idle.json",
+            "report_sha256": "0bb85f0810416a4aaf9126fba05a1732e80be4d25156f15fe1fdccf8f0f51bf8",
             "sha256": null,
             "status": "blocked"
           },
@@ -1629,7 +1665,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/ham_1_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "0bb85f0810416a4aaf9126fba05a1732e80be4d25156f15fe1fdccf8f0f51bf8",
             "status": "blocked"
           },
           {
@@ -1770,7 +1808,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/ham_2_source_to_idle.json",
+            "report_sha256": "1438cda3689af380314621e322e224c675e37f577f1080067c364805e37484ba",
             "sha256": null,
             "status": "blocked"
           },
@@ -1855,7 +1895,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/ham_2_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "1438cda3689af380314621e322e224c675e37f577f1080067c364805e37484ba",
             "status": "blocked"
           },
           {
@@ -1996,7 +2038,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/ham_makeshift_source_to_idle.json",
+            "report_sha256": "2ff756e9a3503e04068328e01f85d0f59a1e6659ea7341f6568e7d98ed00e27c",
             "sha256": null,
             "status": "blocked"
           },
@@ -2081,7 +2125,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/ham_makeshift_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "2ff756e9a3503e04068328e01f85d0f59a1e6659ea7341f6568e7d98ed00e27c",
             "status": "blocked"
           },
           {
@@ -2219,7 +2265,9 @@
           },
           {
             "kind": "source_to_idle_diff",
-            "reason": "no reviewed modular chassis/idle layers exist",
+            "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/manpack_source_to_idle.json",
+            "report_sha256": "c6ff7230d86e2fea4a1c22440c6b59e072225db5dda3062b851cf8262991c0cb",
             "sha256": null,
             "status": "blocked"
           },
@@ -2304,7 +2352,9 @@
           },
           {
             "id": "source_to_idle_diff",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/manpack_source_to_idle.json",
             "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            "report_sha256": "c6ff7230d86e2fea4a1c22440c6b59e072225db5dda3062b851cf8262991c0cb",
             "status": "blocked"
           },
           {
@@ -2330,7 +2380,7 @@
       "accepted": false,
       "checklist": {
         "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json",
-        "sha256": "21b74406130e24b79f9c68ddf7ad514bbd9b30a14899d891e750cd2746140619"
+        "sha256": "cf1543cc51da7eac68ba50f441c8776e7bf4951836caf3134b052e68c1d01caf"
       },
       "sheet": {
         "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",

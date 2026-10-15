@@ -334,7 +334,9 @@
       },
       {
         "kind": "source_to_idle_diff",
-        "reason": "no reviewed modular chassis/idle layers exist",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "report_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_3_source_to_idle.json",
+        "report_sha256": "4fa86e7b4299cabea8ab070bc86f53ebd6e6a95c191b251c71338cdfe13bec3c",
         "sha256": null,
         "status": "blocked"
       }
@@ -418,7 +420,9 @@
       },
       {
         "id": "source_to_idle_diff",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/diff/walkie_3_source_to_idle.json",
         "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "report_sha256": "4fa86e7b4299cabea8ab070bc86f53ebd6e6a95c191b251c71338cdfe13bec3c",
         "status": "blocked"
       },
       {

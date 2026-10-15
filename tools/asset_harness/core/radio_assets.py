@@ -768,6 +768,44 @@ def write_radio_pilot_acceptance_artifacts(report: dict[str, Any], output_root: 
     return [sheet_path, checklist_path]
 
 
+def _write_blocked_source_to_idle_diff(
+    device: dict[str, Any],
+    source: dict[str, Any],
+    source_copy: Path,
+    alpha_path: Path,
+    output_root: Path,
+) -> Path:
+    """Write a truthful diff record when no reviewed idle target exists."""
+
+    diff_root = output_root / "diff"
+    diff_root.mkdir(parents=True, exist_ok=True)
+    diff_path = diff_root / f"{device['id']}_source_to_idle.json"
+    record = {
+        "schema_version": 1,
+        "diff_kind": "source_to_idle",
+        "device_id": device["id"],
+        "status": "blocked",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "before": {
+            "path": str(source_copy),
+            "sha256": sha256_path(source_copy),
+            "source_owner": source.get("path"),
+            "source_sha256": source.get("sha256"),
+            "size": source.get("size"),
+            "alpha_preview": {"path": str(alpha_path), "sha256": sha256_path(alpha_path)},
+        },
+        "after": None,
+        "metrics": None,
+        "scope": {
+            "source_mutation": False,
+            "fake_idle_generated": False,
+            "production_export_apply": False,
+        },
+    }
+    atomic_write_text(diff_path, json.dumps(record, ensure_ascii=True, sort_keys=True, indent=2) + "\n")
+    return diff_path
+
+
 def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, columns: int = 4) -> list[Path]:
     """Write review-only full-resolution source/alpha previews and a sheet.
 
@@ -800,17 +838,34 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
             thumb = rgba.copy()
             thumb.thumbnail((256, 256), Image.Resampling.LANCZOS)
             thumbs.append((str(device["id"]), thumb))
+        diff_path = _write_blocked_source_to_idle_diff(device, source, source_copy, alpha_path, output_root)
         artifacts.extend((source_copy, alpha_path))
+        artifacts.append(diff_path)
         device.setdefault("verification", {}).setdefault("artifacts", []).extend([
             {"kind": "source_full_resolution", "path": str(source_copy), "sha256": sha256_path(source_copy)},
             {"kind": "alpha_preview", "path": str(alpha_path), "sha256": sha256_path(alpha_path)},
-            {"kind": "source_to_idle_diff", "status": "blocked", "sha256": None, "reason": "no reviewed modular chassis/idle layers exist"},
+            {
+                "kind": "source_to_idle_diff",
+                "status": "blocked",
+                "sha256": None,
+                "report_path": str(diff_path),
+                "report_sha256": sha256_path(diff_path),
+                "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            },
         ])
         qa_requirements = device.setdefault("verification", {}).setdefault("qa_requirements", [])
         for requirement_id, artifact_path in (("full_resolution_source_copy", source_copy), ("alpha_preview", alpha_path)):
             requirement = next((item for item in qa_requirements if item.get("id") == requirement_id), None)
             if requirement is not None:
                 requirement.update({"status": "complete", "path": str(artifact_path), "sha256": sha256_path(artifact_path)})
+        diff_requirement = next((item for item in qa_requirements if item.get("id") == "source_to_idle_diff"), None)
+        if diff_requirement is not None:
+            diff_requirement.update({
+                "status": "blocked",
+                "path": str(diff_path),
+                "report_sha256": sha256_path(diff_path),
+                "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+            })
         if device.get("id") == "walkie_4":
             regression_paths, regression = _write_walkie4_bad_cut_regression(source_path, output_root)
             artifacts.extend(regression_paths)

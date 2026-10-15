@@ -135,6 +135,8 @@ Every single-canvas source also carries a blocked `manual_reconstruction_plan`
 with explicit chassis, socket-mask, component-state, and visual-review gates.
 This records the concealed-pixel problem directly; it cannot be cleared by
 adding filenames or by promoting an automatic crop.
+Each device also receives a blocked source-to-idle JSON diff report with the
+immutable source hash and `after: null`; no fake idle image is generated.
 
 Source-space masks are imported losslessly and remain proposed until visually
 reviewed. A `verified` mask also needs explicit `--reviewed-by` or
