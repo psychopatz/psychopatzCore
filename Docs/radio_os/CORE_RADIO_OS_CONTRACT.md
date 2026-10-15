@@ -1,5 +1,8 @@
 # PsychopatzCore Radio OS — Reusable Platform Contract
 
+> **Approved UX direction (2026-10-15):** Radio OS is a **radio-shaped mini-computer**: gameplay-first integrated dynamic LCD with obvious tactile hardware. The universal Back/Home/Select and animated component contract is now specified in [CORE_RADIO_OS_INTERACTION_V2.md](CORE_RADIO_OS_INTERACTION_V2.md); device artists must follow [CORE_RADIO_OS_DEVICE_ART_SPEC_V2.md](CORE_RADIO_OS_DEVICE_ART_SPEC_V2.md). Prior v1 three-button control limitations are compatibility code, not the desired final design. The Python simulator and live Lua OS currently have different mappings; do not claim parity or native acceptance before I0–I9 tests.
+
+
 > **Asset update:** The canonical skin-art plan is [CORE_RADIO_DEVICE_ASSETS.md](CORE_RADIO_DEVICE_ASSETS.md). Walkie, HAM and manpack are all first-class device families. Per-device high-resolution transparent shell assets and optional condition variants replace the prior **one low-resolution six-walkie shell atlas** approach; UI widgets and OS apps remain shared. Existing legacy manifest/atlases must remain compatible until migration is tested. No headless harness.
 
 Status (updated 2026-10-15): **a Core Radio OS foundation and provider adapters are implemented**, but user-supplied Build 42 screenshot shows the window is rigid and the LCD presentation incomplete. Native functional acceptance has NOT passed. The immediate binding stabilization specification is [CORE_RADIO_OS_UI_STABILIZATION.md](CORE_RADIO_OS_UI_STABILIZATION.md).

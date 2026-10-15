@@ -1,5 +1,8 @@
 # Psychopatz Asset Harness — Agent-First Architecture Contract
 
+> **Current implementation note (2026-10-15):** This contract was initially written before the CLI/Pillow pipeline and optional Tk radio simulator landed. Those components **now exist** (see `tools/asset_harness/README.md` and the current progress ledger), so any following "planned / no CLI" language describes the original design baseline, **not the current repo**. New variable radio controls and component animation are specified in [Radio Interaction v2](../radio_os/CORE_RADIO_OS_INTERACTION_V2.md). Preserve existing harness commands and use the new I0–I9 track rather than restarting H0.
+
+
 **Status:** implementation design, 2026-10-15. **Documentation only:** there is no implemented Asset Harness CLI, HTTP service, or committed new image set in this planning commit. **Owner:** `psychopatz/psychopatzCore`, as reusable developer tooling for Psychopatz mods.
 
 ## Goal and non-goals

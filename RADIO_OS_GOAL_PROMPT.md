@@ -1,5 +1,8 @@
 # Radio Device Asset Refactor — Luna/Codex /goal
 
+> **Newer radio UX goal (2026-10-15):** For the approved **radio-shaped mini-computer** direction, universal Back/Home control and layered hardware animation, use [RADIO_OS_INTERACTION_GOAL_PROMPT.md](RADIO_OS_INTERACTION_GOAL_PROMPT.md) and [Interaction v2](Docs/radio_os/CORE_RADIO_OS_INTERACTION_V2.md). The A0–A8 art fidelity plan here remains for source provenance and device family coverage, but this older prompt was written before the working offline simulator and does not supersede I0–I9. Don't use it to rebuild the asset harness from zero.
+
+
 **Current stage:** per-device, per-family transparent radio shell source/art architecture, covering **walkie, HAM and manpack**. This supersedes the previous walkie-atlas-only image-production assumption; the existing Core OS and shared widget atlases remain.
 
 ```text

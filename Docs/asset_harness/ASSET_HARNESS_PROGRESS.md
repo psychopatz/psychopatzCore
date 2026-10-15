@@ -1,5 +1,8 @@
 # Psychopatz Asset Harness — Progress Ledger
 
+> **New UI/asset follow-up (2026-10-15; source-observed):** Main HEAD `0a86b2e` now includes `tools/asset_harness/simulator_cli.py`, `simulator_gui.py` and a 10-device offline simulator. They are **implemented**, but the current simulated hardware lacks a universal visible Back and event-driven rotary/PTT/LED parts, and game Lua still uses three-button v1 mappings. The new [Radio OS Interaction v2 plan](../radio_os/CORE_RADIO_OS_INTERACTION_V2.md), [art spec](../radio_os/CORE_RADIO_OS_DEVICE_ART_SPEC_V2.md) and [I0–I9 ledger](../radio_os/CORE_RADIO_OS_INTERACTION_PROGRESS.md) own this follow-up. Historic H checkpoints below are kept as evidence and must not be restarted as blank tasks. No art produced by this docs update.
+
+
 **Updated:** 2026-10-15. **Status:** H0–H6 and H8 offline pipeline complete with synthetic fixtures. H7 is blocked on authentic art/native acceptance; H9 is optional and pending capability review. No production artwork was replaced or approved.
 
 ## Immediate next task: commit/push the verified offline phases

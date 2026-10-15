@@ -1,5 +1,8 @@
 # PsychopatzCore Radio Device Skin Architecture — Per-Device High-Fidelity Assets
 
+> **Interaction and art-production refinement (2026-10-15):** User chose the **gameplay-first radio-shaped mini-computer**, not a strict radio-only interface or smartphone. See [Interaction v2](CORE_RADIO_OS_INTERACTION_V2.md) and [Device Art Spec v2](CORE_RADIO_OS_DEVICE_ART_SPEC_V2.md) before producing or approving any new model. Each actual radio must have a generous clickable LCD **and** recognizable tactile radio hardware, a discoverable BACK/HOME/OK path, and separately animated knobs/PTT/LEDs. The A0–A8 fidelity/family/provenance requirements below remain, but a static flattened shell or phone silhouette no longer passes A3–A8 acceptance. New I0–I9 interaction milestones are documented [here](CORE_RADIO_OS_INTERACTION_ROADMAP.md). **No production art was changed by this notice.**
+
+
 **Status:** approved architectural direction / implementation and art-production plan, updated 2026-10-15. **No new shell art is included by this documentation change.** Canonical source of truth for the next asset overhaul. Existing Core Radio OS, six legacy walkie shells, shared widget atlases, LCD compositor, adaptive zoom, Hoomans contacts, and Dynamic Trading integrations must remain functional during migration.
 
 ## Decision
