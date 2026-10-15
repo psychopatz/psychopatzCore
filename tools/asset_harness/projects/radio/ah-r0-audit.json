@@ -161,6 +161,39 @@
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_1.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -178,6 +211,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_1.png",
             "sha256": "0e468ff6d73a6926bb3b8547417b3fc44c6e2820ff39b0a3513d7e49600ab50c",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -343,6 +382,39 @@
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_2.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -360,6 +432,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_2.png",
             "sha256": "ca2691e6171a072667cffe8b738784a41dd5985e441a887f0de25ced3448e064",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -525,6 +603,39 @@
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_3.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -542,6 +653,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_3.png",
             "sha256": "2788e445bf9bc3796ab96fcaabd10bcd6ef754e456deba1b834bff701d91d197",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -737,6 +854,39 @@
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_4.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -754,6 +904,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_4.png",
             "sha256": "1067ebdcd089e6db26afbb51d33c711bf8aed83fd564ec2687855418e1b47767",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -927,17 +1083,50 @@
           {
             "kind": "pilot_acceptance_sheet",
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
-            "sha256": "7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a",
+            "sha256": "183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb",
             "status": "blocked_evidence_only"
           },
           {
             "kind": "pilot_acceptance_checklist",
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json",
-            "sha256": "1ae65ee429aef8e0a78a767b49f2f37bc4a775818777ae17f4633ace34547e53",
+            "sha256": "21b74406130e24b79f9c68ddf7ad514bbd9b30a14899d891e750cd2746140619",
             "status": "blocked_evidence_only"
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_5.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -955,6 +1144,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_5.png",
             "sha256": "90d9d0264493232d947bdafcffb89b052ec63810e620e39e728ca42d17fa67cd",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -991,7 +1186,7 @@
             "id": "pilot_acceptance_sheet",
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
             "reason": "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW",
-            "sha256": "7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a",
+            "sha256": "183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb",
             "status": "blocked"
           }
         ],
@@ -1129,6 +1324,39 @@
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_makeshift.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -1146,6 +1374,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_makeshift.png",
             "sha256": "ec0258247373378e687d92f454d901bbfda5fb84ef0ddca948efd58e140ef0f5",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -1316,6 +1550,39 @@
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/ham_1.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -1333,6 +1600,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_1.png",
             "sha256": "e871103d391eb0f895f55bea3c2df17f892566e02703808e108a63d70e7defbc",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -1503,6 +1776,39 @@
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/ham_2.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -1520,6 +1826,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_2.png",
             "sha256": "1dfdfc0273a29b5d231b5832fb92b84ba6e60c3488b4df62c383b21bc42613bf",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -1690,6 +2002,39 @@
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/ham_makeshift.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -1707,6 +2052,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_makeshift.png",
             "sha256": "62904d0e70757f01eca98f5f92b9dedd9a2e67c6ba400f5488779ab553d43e54",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -1874,6 +2225,39 @@
           },
           "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/manpack.json"
         ],
+        "manual_reconstruction": {
+          "gates": [
+            {
+              "id": "chassis_reconstruction",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "complete pristine and worn chassis with real empty sockets",
+              "status": "blocked"
+            },
+            {
+              "id": "socket_masks",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+              "status": "blocked"
+            },
+            {
+              "id": "component_state_art",
+              "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+              "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+              "status": "blocked"
+            },
+            {
+              "id": "reconstruction_review",
+              "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+              "requirement": "full-resolution visual review and source-to-idle diff",
+              "status": "blocked"
+            }
+          ],
+          "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "required": true,
+          "source_layout": "single_canvas",
+          "status": "blocked"
+        },
         "qa_requirements": [
           {
             "id": "source_inventory",
@@ -1891,6 +2275,12 @@
             "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/manpack.png",
             "sha256": "2c3ff7a268551dabe71466150e643b035694a033f4619855de5f85159b7a5871",
             "status": "complete"
+          },
+          {
+            "id": "manual_reconstruction_plan",
+            "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+            "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            "status": "blocked"
           },
           {
             "id": "pristine_chassis",
@@ -1940,11 +2330,11 @@
       "accepted": false,
       "checklist": {
         "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.json",
-        "sha256": "1ae65ee429aef8e0a78a767b49f2f37bc4a775818777ae17f4633ace34547e53"
+        "sha256": "21b74406130e24b79f9c68ddf7ad514bbd9b30a14899d891e750cd2746140619"
       },
       "sheet": {
         "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/walkie_5_pilot_acceptance.png",
-        "sha256": "7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a"
+        "sha256": "183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb"
       },
       "status": "blocked"
     }

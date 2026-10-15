@@ -231,7 +231,63 @@ def _modular_file_records(modular_dir: Path, modular_files: list[str]) -> list[d
     return records
 
 
-def _qa_requirements(definition: dict[str, str], source_exists: bool, modular_files: list[str]) -> list[dict[str, Any]]:
+def _manual_reconstruction_record(layout: dict[str, Any] | None, source_exists: bool) -> dict[str, Any]:
+    """Describe the manual-art boundary without proposing pixels automatically."""
+
+    layout_kind = str((layout or {}).get("kind") or "unavailable")
+    if not source_exists:
+        reason = "SOURCE_FILE_MISSING"
+        next_action = "Supply the canonical source before authoring any modular artwork."
+    elif layout_kind == "paired_sheet_proposal":
+        reason = "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW"
+        next_action = "Visually verify the proposed clean/worn split, then author reviewed chassis and sockets."
+    elif layout_kind == "single_canvas":
+        reason = "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION"
+        next_action = "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art."
+    else:
+        reason = "SOURCE_LAYOUT_UNAVAILABLE"
+        next_action = "Resolve and visually review the source layout before modular authoring."
+    return {
+        "required": True,
+        "status": "blocked",
+        "reason": reason,
+        "source_layout": layout_kind,
+        "next_action": next_action,
+        "gates": [
+            {
+                "id": "chassis_reconstruction",
+                "status": "blocked",
+                "reason": reason,
+                "requirement": "complete pristine and worn chassis with real empty sockets",
+            },
+            {
+                "id": "socket_masks",
+                "status": "blocked",
+                "reason": reason,
+                "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+            },
+            {
+                "id": "component_state_art",
+                "status": "blocked",
+                "reason": reason,
+                "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+            },
+            {
+                "id": "reconstruction_review",
+                "status": "blocked",
+                "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+                "requirement": "full-resolution visual review and source-to-idle diff",
+            },
+        ],
+    }
+
+
+def _qa_requirements(
+    definition: dict[str, str],
+    source_exists: bool,
+    modular_files: list[str],
+    manual_reconstruction: dict[str, Any],
+) -> list[dict[str, Any]]:
     source_status = "complete" if source_exists else "blocked"
     source_reason = None if source_exists else "SOURCE_FILE_MISSING"
     modular_reason = "NO_REVIEWED_MODULAR_ARTWORK" if not modular_files else "MODULAR_ARTWORK_REQUIRES_REVIEW"
@@ -239,6 +295,12 @@ def _qa_requirements(definition: dict[str, str], source_exists: bool, modular_fi
         {"id": "source_inventory", "status": source_status, "reason": source_reason},
         {"id": "full_resolution_source_copy", "status": "pending_artifact"},
         {"id": "alpha_preview", "status": "pending_artifact"},
+        {
+            "id": "manual_reconstruction_plan",
+            "status": manual_reconstruction["status"],
+            "reason": manual_reconstruction["reason"],
+            "next_action": manual_reconstruction["next_action"],
+        },
         {"id": "pristine_chassis", "status": "blocked", "reason": modular_reason},
         {"id": "worn_chassis", "status": "blocked", "reason": modular_reason},
         {"id": "socket_masks", "status": "blocked", "reason": modular_reason},
@@ -269,6 +331,7 @@ def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
         metadata = inspect_image(path)
         layout = _source_layout(path)
     status, reasons, warnings = _status_for(definition, path, layout, modular_dir, modular_files)
+    manual_reconstruction = _manual_reconstruction_record(layout, path.is_file())
     missing_required_paths = sorted(set(EXPECTED_COMPONENT_PATHS) - set(modular_files))
     modular_file_records = _modular_file_records(modular_dir, modular_files) if modular_files else []
     unreadable_modular = [record for record in modular_file_records if not record.get("readable")]
@@ -316,7 +379,13 @@ def _record_device(root: Path, definition: dict[str, str]) -> dict[str, Any]:
             "reasons": reasons,
             "warnings": warnings,
             "artifacts": [],
-            "qa_requirements": _qa_requirements(definition, path.is_file(), modular_files),
+            "manual_reconstruction": manual_reconstruction,
+            "qa_requirements": _qa_requirements(
+                definition,
+                path.is_file(),
+                modular_files,
+                manual_reconstruction,
+            ),
         },
     }
 
@@ -356,6 +425,15 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
     """Build a deterministic per-device developer manifest from an audit row."""
 
     source = device.get("source") or {}
+    verification = device.get("verification") or {}
+    manual_reconstruction = verification.get("manual_reconstruction") or {
+        "required": True,
+        "status": "blocked",
+        "reason": "MANUAL_RECONSTRUCTION_REQUIRED",
+        "source_layout": (source.get("layout") or {}).get("kind", "unavailable"),
+        "next_action": "Author and visually review modular artwork before approval.",
+        "gates": [],
+    }
     size = source.get("size") or [1, 1]
     family = str(device.get("family") or "radio")
     model = Path(str(device.get("filename") or device.get("owner_path") or device.get("id") or "radio")).stem
@@ -397,7 +475,11 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
             "chassis": {},
             "components": {},
             "required_components": list(REQUIRED_SEMANTIC_COMPONENTS),
-            "verification": {"reviewed": False, "status": "incomplete", "reasons": ["NO_REVIEWED_MODULAR_ARTWORK"]},
+            "verification": {
+                "reviewed": False,
+                "status": "incomplete",
+                "reasons": ["NO_REVIEWED_MODULAR_ARTWORK", manual_reconstruction["reason"]],
+            },
         },
         "export": {
             "runtime_root": "Contents/mods/PsychopatzCore/common/media/ui",
@@ -408,6 +490,7 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
         "owner_path": device["owner_path"],
         "source": source,
         "modular_output": device["modular_output"],
+        "manual_reconstruction": manual_reconstruction,
         "chassis": {
             "pristine": {"status": "blocked", "image": None, "socket_mask": None, "anchors": {}},
             "worn": {"status": "blocked", "image": None, "socket_mask": None, "anchors": {}},
@@ -416,7 +499,7 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
         "component_inventory": {
             component_id: {
                 "status": "blocked",
-                "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+                "reason": manual_reconstruction["reason"],
                 "source_owner": device["owner_path"],
                 "coordinates": None,
             }
@@ -426,6 +509,7 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
         "notes": [
             "This manifest is an AH-R0 audit record, not an approval or runtime export declaration.",
             "Rectangular crops and inferred component states are not production-ready evidence.",
+            "The current source layout requires manual reconstruction before chassis, sockets, or keyed states can be reviewed.",
         ],
     }
 
@@ -618,6 +702,7 @@ def write_radio_pilot_acceptance_artifacts(report: dict[str, Any], output_root: 
         "source_inventory": "source inventory",
         "full_resolution_source_copy": "full-resolution source copy",
         "alpha_preview": "alpha preview",
+        "manual_reconstruction_plan": "manual reconstruction plan",
         "pristine_chassis": "pristine chassis",
         "worn_chassis": "worn chassis",
         "socket_masks": "socket masks",

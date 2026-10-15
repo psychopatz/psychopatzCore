@@ -22,91 +22,91 @@
   "component_inventory": {
     "back": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "channel": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "down": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "home": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "lcd": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "left": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "ok": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "power": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "ptt": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "pwr_led": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "right": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "rx_led": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "tx_led": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "up": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     },
     "volume": {
       "coordinates": null,
-      "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
       "status": "blocked"
     }
@@ -128,6 +128,39 @@
   "layers": [],
   "lcd": {},
   "manifest_kind": "radio_modular_asset",
+  "manual_reconstruction": {
+    "gates": [
+      {
+        "id": "chassis_reconstruction",
+        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "requirement": "complete pristine and worn chassis with real empty sockets",
+        "status": "blocked"
+      },
+      {
+        "id": "socket_masks",
+        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+        "status": "blocked"
+      },
+      {
+        "id": "component_state_art",
+        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+        "status": "blocked"
+      },
+      {
+        "id": "reconstruction_review",
+        "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+        "requirement": "full-resolution visual review and source-to-idle diff",
+        "status": "blocked"
+      }
+    ],
+    "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+    "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+    "required": true,
+    "source_layout": "single_canvas",
+    "status": "blocked"
+  },
   "masks": {},
   "modular": {
     "chassis": {},
@@ -153,7 +186,8 @@
     "status": "incomplete",
     "verification": {
       "reasons": [
-        "NO_REVIEWED_MODULAR_ARTWORK"
+        "NO_REVIEWED_MODULAR_ARTWORK",
+        "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION"
       ],
       "reviewed": false,
       "status": "incomplete"
@@ -191,7 +225,8 @@
   },
   "notes": [
     "This manifest is an AH-R0 audit record, not an approval or runtime export declaration.",
-    "Rectangular crops and inferred component states are not production-ready evidence."
+    "Rectangular crops and inferred component states are not production-ready evidence.",
+    "The current source layout requires manual reconstruction before chassis, sockets, or keyed states can be reviewed."
   ],
   "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
   "project_id": "walkie_3",
@@ -304,6 +339,39 @@
         "status": "blocked"
       }
     ],
+    "manual_reconstruction": {
+      "gates": [
+        {
+          "id": "chassis_reconstruction",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "requirement": "complete pristine and worn chassis with real empty sockets",
+          "status": "blocked"
+        },
+        {
+          "id": "socket_masks",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
+          "status": "blocked"
+        },
+        {
+          "id": "component_state_art",
+          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+          "status": "blocked"
+        },
+        {
+          "id": "reconstruction_review",
+          "reason": "NO_REVIEWED_MODULAR_ARTWORK",
+          "requirement": "full-resolution visual review and source-to-idle diff",
+          "status": "blocked"
+        }
+      ],
+      "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "required": true,
+      "source_layout": "single_canvas",
+      "status": "blocked"
+    },
     "qa_requirements": [
       {
         "id": "source_inventory",
@@ -321,6 +389,12 @@
         "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_3.png",
         "sha256": "2788e445bf9bc3796ab96fcaabd10bcd6ef754e456deba1b834bff701d91d197",
         "status": "complete"
+      },
+      {
+        "id": "manual_reconstruction_plan",
+        "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
+        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "status": "blocked"
       },
       {
         "id": "pristine_chassis",

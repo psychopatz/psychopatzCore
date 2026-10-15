@@ -131,6 +131,11 @@ ignored review workspace. These are blocked evidence only: they show the
 immutable source, full-resolution alpha, and human review gates, but they do
 not create chassis, sockets, component states, or runtime approval.
 
+Every single-canvas source also carries a blocked `manual_reconstruction_plan`
+with explicit chassis, socket-mask, component-state, and visual-review gates.
+This records the concealed-pixel problem directly; it cannot be cleared by
+adding filenames or by promoting an automatic crop.
+
 Source-space masks are imported losslessly and remain proposed until visually
 reviewed. A `verified` mask also needs explicit `--reviewed-by` or
 `--review-artifact` evidence; status alone cannot approve it. Rectangle

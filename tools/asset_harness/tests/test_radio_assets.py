@@ -33,6 +33,19 @@ class RadioAssetAuditTests(unittest.TestCase):
         self.assertEqual(by_id["walkie_4"]["source"]["layout"]["kind"], "single_canvas")
         self.assertIn("KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION", by_id["walkie_4"]["verification"]["reasons"])
         self.assertIn("US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW", by_id["walkie_5"]["verification"]["reasons"])
+        for row in by_id.values():
+            self.assertEqual(row["verification"]["manual_reconstruction"]["source_layout"], "single_canvas")
+            self.assertEqual(
+                row["verification"]["manual_reconstruction"]["reason"],
+                "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            )
+        reconstruction = by_id["walkie_5"]["verification"]["manual_reconstruction"]
+        self.assertTrue(reconstruction["required"])
+        self.assertEqual(reconstruction["reason"], "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION")
+        self.assertEqual(
+            {gate["id"] for gate in reconstruction["gates"]},
+            {"chassis_reconstruction", "socket_masks", "component_state_art", "reconstruction_review"},
+        )
 
     def test_simulator_uses_full_source_canvas_and_does_not_mutate_pngs(self) -> None:
         for spec in list_devices():
@@ -67,6 +80,11 @@ class RadioAssetAuditTests(unittest.TestCase):
             walkie5_qa = {item["id"]: item for item in report["devices"][4]["verification"]["qa_requirements"]}
             self.assertEqual(walkie5_qa["full_resolution_source_copy"]["status"], "complete")
             self.assertEqual(walkie5_qa["alpha_preview"]["status"], "complete")
+            self.assertEqual(walkie5_qa["manual_reconstruction_plan"]["status"], "blocked")
+            self.assertEqual(
+                walkie5_qa["manual_reconstruction_plan"]["reason"],
+                "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+            )
             self.assertEqual(walkie5_qa["pristine_chassis"]["status"], "blocked")
             self.assertEqual(walkie5_qa["pilot_acceptance_sheet"]["status"], "blocked")
             self.assertEqual(walkie5_qa["pilot_acceptance_sheet"]["evidence_status"], "generated_not_acceptance")
