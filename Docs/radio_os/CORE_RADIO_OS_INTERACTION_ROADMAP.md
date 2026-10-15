@@ -1,5 +1,8 @@
 # Radio OS v2 — Interaction, Hardware Animation, and Asset Delivery (I0–I9)
 
+> **Scope guard (2026-10-16):** The active [Asset Harness modular-radio production contract](../asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md) defines a separate AH-R0–AH-R6 **offline authoring-only** track: precise masks, separate pristine/worn chassis PNGs, stateful components, simulator and visual QA. During this goal, work only on harness/tests, docs, staged assets and *new individually approved* modular artwork under `Contents/mods/PsychopatzCore/common/media/ui/Radio/`. Do **not** advance I7 game/Lua integration, replace existing textures, update runtime manifests or invoke production `export apply`. I0–I9 remain a future cross-runtime plan.
+
+
 **Status:** approved plan, 2026-10-15; **I0 next**. This is **not** the earlier `R0–R9` radio-integration work, `H0–H9` Asset Harness implementation, `A0–A8` art production, `C0–C6` compositor fixes or `U0–U7` stabilization. Those remain dependencies and compatibility gates; do not restart completed tasks unnecessarily.
 
 | Phase | Work / owning layer | Exit evidence |
