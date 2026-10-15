@@ -88,7 +88,14 @@ def bound_response(response: Mapping[str, Any], token_budget: int) -> dict[str, 
     bounded, truncated = _bounded(candidate, budget)
     if not isinstance(bounded, dict):
         bounded = {"value": bounded}
-    bounded["truncated"] = True or truncated
+    # Envelope metadata must remain trustworthy even when a large audit data
+    # payload is bounded.  In particular, dropping ``ok`` would make the text
+    # CLI report a successful audit as failed merely because its evidence was
+    # large.
+    for key in ("schema_version", "ok", "command", "project_id", "revision", "summary"):
+        if key in candidate:
+            bounded[key] = candidate[key]
+    bounded["truncated"] = True
     return bounded
 
 

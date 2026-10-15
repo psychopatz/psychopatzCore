@@ -1,6 +1,7 @@
 tools/profiler/logs/
 tools/profiler/profiler-recordings/
 tools/profiler/.venv/
+tools/asset_harness/workspace/
 *.profiler.csv
 __pycache__/
 *.pyc

@@ -8,6 +8,7 @@ from typing import Any, Iterable
 from .animations import timeline
 from .errors import diagnostic
 from .layers import layer_position, ordered_layers, resolve_layer_image
+from .modular import validate_modular
 from .paths import canvas_rect, parse_rect, rect_inside, rect_overlap, resolve_reference
 from .project import project_workspace
 from .render import parse_color
@@ -295,6 +296,10 @@ def validate_project(project_path: Path, project: dict[str, Any]) -> dict[str, A
             else:
                 _add(diagnostics, "VARIANT_UNDECLARED", "layer references an undeclared variant", asset=str(layer.get("id", "")))
 
+    modular_result = validate_modular(project_path, project)
+    diagnostics.extend(modular_result["diagnostics"])
+    checks += int(modular_result["summary"].get("checks", 0))
+    passed += int(modular_result["summary"].get("passed", 0))
     errors = [item for item in diagnostics if item.get("severity") == "error"]
     warnings = [item for item in diagnostics if item.get("severity") == "warning"]
     return {

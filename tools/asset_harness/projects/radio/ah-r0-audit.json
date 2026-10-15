@@ -1,0 +1,1373 @@
+{
+  "artifact_summary": {
+    "count": 21,
+    "paths": [
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_1.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_1.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_2.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_2.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_3.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_3.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_4.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_4.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_5.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_5.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_makeshift.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_makeshift.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_1.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_1.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_2.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_2.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_makeshift.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_makeshift.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/manpack.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/manpack.png",
+      "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/source_contact_sheet.png"
+    ],
+    "production_export_apply": false,
+    "source_bytes_preserved": true
+  },
+  "audit_kind": "radio_source_inventory",
+  "canonical_root": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio",
+  "contact_sheet": {
+    "device_count": 10,
+    "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/source_contact_sheet.png",
+    "sha256": "e3b8efcd84b067d42d5260bc8a4ddffbd85618f53901471270bf141f1e554018"
+  },
+  "devices": [
+    {
+      "family": "walkie",
+      "full_type": "Base.WalkieTalkie1",
+      "id": "walkie_1",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie1",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie1.png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie1.png",
+        "alpha": {
+          "nonzero_bounds": [
+            0,
+            9,
+            1006,
+            1527
+          ],
+          "nonzero_pixels": 720030,
+          "opaque_bounds": null,
+          "opaque_pixels": 0,
+          "partial_pixels": 720030,
+          "partial_ratio_of_nonzero": 1.0,
+          "transparent_pixels": 852834
+        },
+        "bytes": 2046737,
+        "filename": "Base.WalkieTalkie1.png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                0,
+                14,
+                512,
+                1511
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 364140,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 422292
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                9,
+                494,
+                1527
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 355890,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 430542
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie1.png",
+        "sha256": "d583b9b5203fa6d6ededd635cd4a5325f146372306f86c9c57dbfda22d2fc8a2",
+        "size": [
+          1024,
+          1536
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_1.png",
+            "sha256": "d583b9b5203fa6d6ededd635cd4a5325f146372306f86c9c57dbfda22d2fc8a2"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_1.png",
+            "sha256": "0e468ff6d73a6926bb3b8547417b3fc44c6e2820ff39b0a3513d7e49600ab50c"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_1.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": []
+      }
+    },
+    {
+      "family": "walkie",
+      "full_type": "Base.WalkieTalkie2",
+      "id": "walkie_2",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie2",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie2.png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie2.png",
+        "alpha": {
+          "nonzero_bounds": [
+            0,
+            0,
+            1023,
+            1536
+          ],
+          "nonzero_pixels": 776352,
+          "opaque_bounds": null,
+          "opaque_pixels": 0,
+          "partial_pixels": 776352,
+          "partial_ratio_of_nonzero": 1.0,
+          "transparent_pixels": 796512
+        },
+        "bytes": 2251927,
+        "filename": "Base.WalkieTalkie2.png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                0,
+                0,
+                512,
+                1520
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 388962,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 397470
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                19,
+                511,
+                1517
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 387390,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 399042
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie2.png",
+        "sha256": "8a1f12c4c4ee019a1187da7ed8d7b5ca2bb3363861b15e7f54d64f544bbf842d",
+        "size": [
+          1024,
+          1536
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_2.png",
+            "sha256": "8a1f12c4c4ee019a1187da7ed8d7b5ca2bb3363861b15e7f54d64f544bbf842d"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_2.png",
+            "sha256": "ca2691e6171a072667cffe8b738784a41dd5985e441a887f0de25ced3448e064"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_2.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": []
+      }
+    },
+    {
+      "family": "walkie",
+      "full_type": "Base.WalkieTalkie3",
+      "id": "walkie_3",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
+        "alpha": {
+          "nonzero_bounds": [
+            0,
+            12,
+            1023,
+            1524
+          ],
+          "nonzero_pixels": 735677,
+          "opaque_bounds": null,
+          "opaque_pixels": 0,
+          "partial_pixels": 735677,
+          "partial_ratio_of_nonzero": 1.0,
+          "transparent_pixels": 837187
+        },
+        "bytes": 2161594,
+        "filename": "Base.WalkieTalkie3.png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                0,
+                12,
+                512,
+                1524
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 369185,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 417247
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                31,
+                511,
+                1491
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 366492,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 419940
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie3.png",
+        "sha256": "fb923a82712b830f7bb559d1853d5da5f8994b6ceb85cce098f0b272454dd6ae",
+        "size": [
+          1024,
+          1536
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_3.png",
+            "sha256": "fb923a82712b830f7bb559d1853d5da5f8994b6ceb85cce098f0b272454dd6ae"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_3.png",
+            "sha256": "2788e445bf9bc3796ab96fcaabd10bcd6ef754e456deba1b834bff701d91d197"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_3.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": []
+      }
+    },
+    {
+      "family": "walkie",
+      "full_type": "Base.WalkieTalkie4",
+      "id": "walkie_4",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4.png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4.png",
+        "alpha": {
+          "nonzero_bounds": [
+            0,
+            0,
+            1000,
+            1474
+          ],
+          "nonzero_pixels": 763676,
+          "opaque_bounds": null,
+          "opaque_pixels": 0,
+          "partial_pixels": 763676,
+          "partial_ratio_of_nonzero": 1.0,
+          "transparent_pixels": 809188
+        },
+        "bytes": 2117894,
+        "filename": "Base.WalkieTalkie4.png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                0,
+                0,
+                512,
+                1474
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 387147,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 399285
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                27,
+                488,
+                1447
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 376529,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 409903
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4.png",
+        "sha256": "5811325ca5fe00d04efb464a79c30bda01147e475757a9c4f8b099b50bf535cb",
+        "size": [
+          1024,
+          1536
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_4.png",
+            "sha256": "5811325ca5fe00d04efb464a79c30bda01147e475757a9c4f8b099b50bf535cb"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_4.png",
+            "sha256": "1067ebdcd089e6db26afbb51d33c711bf8aed83fd564ec2687855418e1b47767"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_4.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION",
+          "KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": []
+      }
+    },
+    {
+      "family": "walkie",
+      "full_type": "Base.WalkieTalkie5",
+      "id": "walkie_5",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+        "alpha": {
+          "nonzero_bounds": [
+            0,
+            0,
+            1004,
+            1518
+          ],
+          "nonzero_pixels": 890433,
+          "opaque_bounds": null,
+          "opaque_pixels": 0,
+          "partial_pixels": 890433,
+          "partial_ratio_of_nonzero": 1.0,
+          "transparent_pixels": 681407
+        },
+        "bytes": 2151384,
+        "filename": "Base.WalkieTalkie5.png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                0,
+                0,
+                512,
+                1518
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 452979,
+              "size": [
+                512,
+                1535
+              ],
+              "transparent_pixels": 332941
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                39,
+                492,
+                1479
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 437454,
+              "size": [
+                512,
+                1535
+              ],
+              "transparent_pixels": 348466
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+        "sha256": "2325d192eaf407bdfff634b1bb58e94b45d3b7e7e8f4da3d67bd0c32e1dc4fda",
+        "size": [
+          1024,
+          1535
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_5.png",
+            "sha256": "2325d192eaf407bdfff634b1bb58e94b45d3b7e7e8f4da3d67bd0c32e1dc4fda"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_5.png",
+            "sha256": "90d9d0264493232d947bdafcffb89b052ec63810e620e39e728ca42d17fa67cd"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_5.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION",
+          "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": []
+      }
+    },
+    {
+      "family": "walkie",
+      "full_type": "Base.WalkieTalkieMakeShift",
+      "id": "walkie_makeshift",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkieMakeShift",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkieMakeShift.png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkieMakeShift.png",
+        "alpha": {
+          "nonzero_bounds": [
+            0,
+            0,
+            1014,
+            1520
+          ],
+          "nonzero_pixels": 785625,
+          "opaque_bounds": null,
+          "opaque_pixels": 0,
+          "partial_pixels": 785625,
+          "partial_ratio_of_nonzero": 1.0,
+          "transparent_pixels": 787239
+        },
+        "bytes": 2199964,
+        "filename": "Base.WalkieTalkieMakeShift.png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                0,
+                0,
+                512,
+                1520
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 379834,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 406598
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                49,
+                502,
+                1469
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 405791,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 380641
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkieMakeShift.png",
+        "sha256": "386b23bc354e6c90f0b0a9cec2db58f62885f24e9e68caadec8b0bf5ab5a6b5e",
+        "size": [
+          1024,
+          1536
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_makeshift.png",
+            "sha256": "386b23bc354e6c90f0b0a9cec2db58f62885f24e9e68caadec8b0bf5ab5a6b5e"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_makeshift.png",
+            "sha256": "ec0258247373378e687d92f454d901bbfda5fb84ef0ddca948efd58e140ef0f5"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/walkie_makeshift.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": []
+      }
+    },
+    {
+      "family": "ham",
+      "full_type": "Base.HamRadio1",
+      "id": "ham_1",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio1",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio1.png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio1.png",
+        "alpha": {
+          "nonzero_bounds": [
+            36,
+            9,
+            1708,
+            830
+          ],
+          "nonzero_pixels": 1089217,
+          "opaque_bounds": [
+            42,
+            80,
+            1696,
+            750
+          ],
+          "opaque_pixels": 1199,
+          "partial_pixels": 1088018,
+          "partial_ratio_of_nonzero": 0.998899,
+          "transparent_pixels": 484321
+        },
+        "bytes": 2140617,
+        "filename": "Base.HamRadio1.png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                36,
+                75,
+                851,
+                764
+              ],
+              "opaque_pixels": 661,
+              "partial_pixels": 532133,
+              "size": [
+                887,
+                887
+              ],
+              "transparent_pixels": 253975
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                9,
+                857,
+                830
+              ],
+              "opaque_pixels": 538,
+              "partial_pixels": 555885,
+              "size": [
+                887,
+                887
+              ],
+              "transparent_pixels": 230346
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio1.png",
+        "sha256": "13b5e274c368b38b27e2f07906b4126378de3d9196fcc4264292f0ba4a084bc6",
+        "size": [
+          1774,
+          887
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_1.png",
+            "sha256": "13b5e274c368b38b27e2f07906b4126378de3d9196fcc4264292f0ba4a084bc6"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_1.png",
+            "sha256": "e871103d391eb0f895f55bea3c2df17f892566e02703808e108a63d70e7defbc"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/ham_1.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": []
+      }
+    },
+    {
+      "family": "ham",
+      "full_type": "Base.HamRadio2",
+      "id": "ham_2",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2.png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2.png",
+        "alpha": {
+          "nonzero_bounds": [
+            21,
+            2,
+            1739,
+            885
+          ],
+          "nonzero_pixels": 1009945,
+          "opaque_bounds": [
+            32,
+            146,
+            1722,
+            656
+          ],
+          "opaque_pixels": 272,
+          "partial_pixels": 1009673,
+          "partial_ratio_of_nonzero": 0.999731,
+          "transparent_pixels": 563593
+        },
+        "bytes": 1909489,
+        "filename": "Base.HamRadio2.png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                21,
+                23,
+                866,
+                864
+              ],
+              "opaque_pixels": 166,
+              "partial_pixels": 498950,
+              "size": [
+                887,
+                887
+              ],
+              "transparent_pixels": 287653
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                2,
+                873,
+                885
+              ],
+              "opaque_pixels": 106,
+              "partial_pixels": 510723,
+              "size": [
+                887,
+                887
+              ],
+              "transparent_pixels": 275940
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2.png",
+        "sha256": "2aa74b80ab9bd0fe79adcac44e682a84d88df10c60e653eaa323b0623b57dad7",
+        "size": [
+          1774,
+          887
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_2.png",
+            "sha256": "2aa74b80ab9bd0fe79adcac44e682a84d88df10c60e653eaa323b0623b57dad7"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_2.png",
+            "sha256": "1dfdfc0273a29b5d231b5832fb92b84ba6e60c3488b4df62c383b21bc42613bf"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/ham_2.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": []
+      }
+    },
+    {
+      "family": "ham",
+      "full_type": "Base.HamRadioMakeShift",
+      "id": "ham_makeshift",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadioMakeShift ",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadioMakeShift .png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadioMakeShift .png",
+        "alpha": {
+          "nonzero_bounds": [
+            33,
+            1,
+            1721,
+            886
+          ],
+          "nonzero_pixels": 1083230,
+          "opaque_bounds": [
+            40,
+            31,
+            1687,
+            780
+          ],
+          "opaque_pixels": 698,
+          "partial_pixels": 1082532,
+          "partial_ratio_of_nonzero": 0.999356,
+          "transparent_pixels": 490308
+        },
+        "bytes": 2204430,
+        "filename": "Base.HamRadioMakeShift .png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                33,
+                1,
+                854,
+                886
+              ],
+              "opaque_pixels": 436,
+              "partial_pixels": 518091,
+              "size": [
+                887,
+                887
+              ],
+              "transparent_pixels": 268242
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                17,
+                867,
+                870
+              ],
+              "opaque_pixels": 262,
+              "partial_pixels": 564441,
+              "size": [
+                887,
+                887
+              ],
+              "transparent_pixels": 222066
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadioMakeShift .png",
+        "sha256": "9a38cc1de21c44d0247f74b91830c679de1cc40c421de35c66bcdde789f33252",
+        "size": [
+          1774,
+          887
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/ham_makeshift.png",
+            "sha256": "9a38cc1de21c44d0247f74b91830c679de1cc40c421de35c66bcdde789f33252"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/ham_makeshift.png",
+            "sha256": "62904d0e70757f01eca98f5f92b9dedd9a2e67c6ba400f5488779ab553d43e54"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/ham_makeshift.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": [
+          "FILENAME_CONTAINS_LITERAL_SPACE_BEFORE_EXTENSION"
+        ]
+      }
+    },
+    {
+      "family": "manpack",
+      "full_type": "Base.ManPackRadio",
+      "id": "manpack",
+      "modular_output": {
+        "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio",
+        "exists": false,
+        "files": [],
+        "missing_required_paths": [
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "LCD/Glass.png",
+          "PTT/Held.png",
+          "PTT/Idle.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png"
+        ],
+        "required_paths": [
+          "Chassis/Pristine.png",
+          "Chassis/Worn.png",
+          "Buttons/Back/Idle.png",
+          "Buttons/Back/Pressed.png",
+          "Switches/Power/Off.png",
+          "Switches/Power/On.png",
+          "PTT/Idle.png",
+          "PTT/Held.png",
+          "LCD/Glass.png"
+        ]
+      },
+      "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "source": {
+        "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+        "alpha": {
+          "nonzero_bounds": [
+            0,
+            0,
+            994,
+            1478
+          ],
+          "nonzero_pixels": 957553,
+          "opaque_bounds": null,
+          "opaque_pixels": 0,
+          "partial_pixels": 957553,
+          "partial_ratio_of_nonzero": 1.0,
+          "transparent_pixels": 615311
+        },
+        "bytes": 2430040,
+        "filename": "Base.ManPackRadio.png",
+        "format": "PNG",
+        "immutable": true,
+        "layout": {
+          "confidence": "high",
+          "halves": {
+            "left": {
+              "nonzero_bounds": [
+                0,
+                0,
+                512,
+                1478
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 486832,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 299600
+            },
+            "right": {
+              "nonzero_bounds": [
+                0,
+                19,
+                482,
+                1453
+              ],
+              "opaque_pixels": 0,
+              "partial_pixels": 470721,
+              "size": [
+                512,
+                1536
+              ],
+              "transparent_pixels": 315711
+            }
+          },
+          "kind": "single_canvas",
+          "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+          "review_required": true,
+          "variants": {}
+        },
+        "mode": "RGBA",
+        "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+        "sha256": "5c97028e2200cf7fdfad9b4f7fb99ebae00b82b9603efcfa4346e264d7d61c46",
+        "size": [
+          1024,
+          1536
+        ]
+      },
+      "verification": {
+        "artifacts": [
+          {
+            "kind": "source_full_resolution",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/manpack.png",
+            "sha256": "5c97028e2200cf7fdfad9b4f7fb99ebae00b82b9603efcfa4346e264d7d61c46"
+          },
+          {
+            "kind": "alpha_preview",
+            "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/manpack.png",
+            "sha256": "2c3ff7a268551dabe71466150e643b035694a033f4619855de5f85159b7a5871"
+          },
+          {
+            "kind": "source_to_idle_diff",
+            "reason": "no reviewed modular chassis/idle layers exist",
+            "sha256": null,
+            "status": "blocked"
+          },
+          "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/projects/radio/manpack.json"
+        ],
+        "reasons": [
+          "NO_MODULAR_ARTWORK_DIRECTORY",
+          "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+          "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+          "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+        ],
+        "reviewed": false,
+        "status": "blocked",
+        "warnings": []
+      }
+    }
+  ],
+  "root": "/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+  "schema_version": 1,
+  "scope": {
+    "native_pz_rendering": false,
+    "production_export_apply": false,
+    "source_mutation": false
+  },
+  "summary": {
+    "blocked": 10,
+    "complete": 0,
+    "expected_devices": 10,
+    "proposed": 0,
+    "sources_found": 10,
+    "verified": 0
+  }
+}

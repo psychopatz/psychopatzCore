@@ -8,6 +8,7 @@ from typing import Any
 
 from PIL import Image, ImageDraw, ImageFont
 
+from ..core.modular import render_modular
 from .catalog import DeviceSpec, Rect, normalize_variant
 from .model import RadioSimulator
 from .radio_ui import RADIO_UI_PATH, paste_cover, paste_scaled
@@ -103,7 +104,7 @@ def _draw_screen(
         text_x = cx + 5 if index < 2 else cx + 5 + line_height
         draw.text((text_x, text_y), line[:24], font=bold_font if index == 0 else text_font, fill=color)
         text_y += line_height
-    signal_width = int((cwidth - 30) * (0.25 if simulator.state.signal == "none" else 0.6 if simulator.state.signal == "search" else 0.95))
+    signal_width = max(1, int(max(1, cwidth - 30) * (0.25 if simulator.state.signal == "none" else 0.6 if simulator.state.signal == "search" else 0.95)))
     draw.rectangle((cx + 5, cy + cheight - 12, cx + 5 + signal_width, cy + cheight - 6), fill=(106, 176, 112, 255))
     signal_icon = "signal_low" if simulator.state.signal == "none" else "signal_medium" if simulator.state.signal == "search" else "signal_full"
     paste_scaled(canvas, signal_icon, (cx + cwidth - 25, cy + 2, 20, 19))
@@ -127,14 +128,64 @@ def _menu_icon(simulator: RadioSimulator, index: int) -> str | None:
 def render_device(simulator: RadioSimulator, *, zoom: float = 0.5, debug: bool = False) -> tuple[Image.Image, dict[str, Any]]:
     """Render one device and return image plus hit-test metadata."""
 
+    if simulator.project is not None and simulator.project_path is not None:
+        variant = "pristine" if normalize_variant(simulator.state.variant) == "clean" else "worn"
+        image, modular_metadata = render_modular(
+            simulator.project_path,
+            simulator.project,
+            variant=variant,
+            states=simulator.modular_state_selection(),
+        )
+        geometry = simulator.geometry
+        _draw_screen(image, simulator, geometry.screen_content_rect, geometry.screen_sprite)
+        if debug:
+            draw = ImageDraw.Draw(image, "RGBA")
+            ax, ay, aw, ah = geometry.lcd_rect
+            cx, cy, cw, ch = geometry.screen_content_rect
+            draw.rectangle((ax, ay, ax + aw - 1, ay + ah - 1), outline=(255, 176, 64, 225), width=2)
+            draw.rectangle((cx, cy, cx + cw - 1, cy + ch - 1), outline=(88, 190, 255, 225), width=2)
+        scale = max(0.2, min(2.0, float(zoom)))
+        size = (max(1, int(round(image.width * scale))), max(1, int(round(image.height * scale))))
+        image = image.resize(size, Image.Resampling.LANCZOS)
+        controls = []
+        for control in geometry.controls:
+            left, top, width, height = _rect_scale(control.rect, scale)
+            controls.append({"id": control.id, "label": control.label, "action": control.action, "rect": [left, top, width, height], "kind": control.kind, "pressed": control.id in simulator.state.pressed_controls})
+        metadata = {
+            **modular_metadata,
+            "device_id": simulator.device.id,
+            "full_type": simulator.device.full_type,
+            "family": simulator.device.family,
+            "variant": normalize_variant(simulator.state.variant),
+            "variant_art_status": "modular_project_preview",
+            "variant_is_authored": True,
+            "source": str(simulator.device.asset_path),
+            "image_size": list(image.size),
+            "source_size": [simulator.device.source_width, simulator.device.source_height],
+            "source_offset": [0, 0],
+            "source_seam_guard_left": 0,
+            "ui_atlas": str(RADIO_UI_PATH),
+            "ui_atlas_exists": RADIO_UI_PATH.is_file(),
+            "screen_sprite": geometry.screen_sprite,
+            "controls": controls,
+            "lcd_rect": list(_rect_scale(geometry.lcd_rect, scale)),
+            "screen_content_rect": list(_rect_scale(geometry.screen_content_rect, scale)),
+        }
+        return image, metadata
+
     spec = simulator.device
     variant = normalize_variant(simulator.state.variant)
     geometry = spec.geometry_for(variant)
     if not spec.asset_exists:
         raise FileNotFoundError(f"device artwork is missing: {spec.asset_path}")
     source = _source_image(str(spec.asset_path))
-    crop_left = 0 if variant == "clean" else source.width // 2
-    crop = source.crop((crop_left, 0, crop_left + min(spec.source_width, source.width // 2), min(spec.source_height, source.height)))
+    crop_left, crop_top, crop_width, crop_height = spec.variant_crop(variant)
+    crop = source.crop((
+        crop_left,
+        crop_top,
+        min(source.width, crop_left + crop_width),
+        min(source.height, crop_top + crop_height),
+    ))
     crop = crop.convert("RGBA")
     clip_left = spec.clip_left_for(variant)
     if clip_left:
@@ -166,7 +217,14 @@ def render_device(simulator: RadioSimulator, *, zoom: float = 0.5, debug: bool =
         geometry.screen_content_rect[3],
     )
     control_specs = tuple(
-        (control.id, control.label, control.action, (control.rect[0] - trim_left, control.rect[1] - trim_top, control.rect[2], control.rect[3]))
+        (
+            control.id,
+            control.label,
+            control.action,
+            (control.rect[0] - trim_left, control.rect[1] - trim_top, control.rect[2], control.rect[3]),
+            control.kind,
+            control.detents,
+        )
         for control in geometry.controls
     )
     _draw_screen(crop, simulator, screen_content_rect, geometry.screen_sprite)
@@ -182,9 +240,17 @@ def render_device(simulator: RadioSimulator, *, zoom: float = 0.5, debug: bool =
     size = (max(1, int(round(crop.width * scale))), max(1, int(round(crop.height * scale))))
     image = crop.resize(size, Image.Resampling.LANCZOS)
     control_metadata = []
-    for control_id, control_label, control_action, control_rect in control_specs:
+    for control_id, control_label, control_action, control_rect, control_kind, control_detents in control_specs:
         left, top, width, height = _rect_scale(control_rect, scale)
-        control_metadata.append({"id": control_id, "label": control_label, "action": control_action, "rect": [left, top, width, height]})
+        control_metadata.append({
+            "id": control_id,
+            "label": control_label,
+            "action": control_action,
+            "rect": [left, top, width, height],
+            "kind": control_kind,
+            "detents": control_detents or None,
+            "pressed": control_id in simulator.state.pressed_controls,
+        })
         if debug:
             draw = ImageDraw.Draw(image, "RGBA")
             draw.rounded_rectangle((left, top, left + width, top + height), radius=max(4, int(8 * scale)), outline=(88, 220, 145, 220), width=max(1, int(3 * scale)))
@@ -194,6 +260,8 @@ def render_device(simulator: RadioSimulator, *, zoom: float = 0.5, debug: bool =
         "full_type": spec.full_type,
         "family": spec.family,
         "variant": variant,
+        "variant_art_status": "blocked_source_alias" if spec.source_layout == "single_canvas" else "review_required_sheet_proposal",
+        "variant_is_authored": False,
         "source": str(spec.asset_path),
         "image_size": list(image.size),
         "source_size": [crop.width, crop.height],

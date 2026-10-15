@@ -37,6 +37,26 @@ from asset_harness.core.project import (
     project_workspace,
     save_project,
 )
+from asset_harness.core.radio_assets import (
+    audit_radio_sources,
+    write_radio_audit_artifacts,
+    write_radio_manifests,
+)
+from asset_harness.core.masks import (
+    inspect_mask,
+    mask_preview,
+    register_mask,
+    resolve_project_mask,
+    validate_mask,
+    write_masked_extract,
+)
+from asset_harness.core.modular import (
+    render_modular,
+    render_modular_contact_sheet,
+    set_chassis,
+    set_component,
+    validate_modular,
+)
 from asset_harness.core.regions import (
     add_proposals,
     detect_source_regions,
@@ -50,7 +70,7 @@ from asset_harness.core.responses import (
     envelope,
     sha256_path,
 )
-from asset_harness.core.source import import_source, inspect_image, register_source
+from asset_harness.core.source import import_source, inspect_image, load_rgba, register_source
 from asset_harness.core.validation import validate_project
 
 
@@ -79,6 +99,16 @@ def build_parser() -> argparse.ArgumentParser:
     assets_list.add_argument("--offset", type=int, default=0)
     assets_list.add_argument("--limit", type=int, default=100)
     _add_output_args(assets_list)
+    assets_audit = asset_sub.add_parser("audit", help="audit canonical radio sources without modifying them")
+    assets_audit.add_argument("--root", type=Path, default=REPO_ROOT)
+    assets_audit.add_argument("--family", choices=("walkie", "ham", "manpack"), default=None)
+    assets_audit.add_argument("--out", type=Path, default=None, help="optional JSON report path below --root")
+    assets_audit.add_argument("--write-manifests", action="store_true", help="write blocked/proposed per-device manifests")
+    assets_audit.add_argument("--manifests-root", type=Path, default=None)
+    assets_audit.add_argument("--write-artifacts", action="store_true", help="write review-only source and alpha artifacts")
+    assets_audit.add_argument("--artifacts-root", type=Path, default=None)
+    assets_audit.add_argument("--contact-sheet-columns", type=int, default=4)
+    _add_output_args(assets_audit)
 
     project = sub.add_parser("project", help="create or inspect resumable projects")
     project_sub = project.add_subparsers(dest="project_command", required=True)
@@ -141,6 +171,89 @@ def build_parser() -> argparse.ArgumentParser:
     slice_cmd.add_argument("--id", required=True)
     slice_cmd.add_argument("--out", type=Path, required=True)
     _add_output_args(slice_cmd)
+
+    masks = sub.add_parser("masks", help="register and QA source-space alpha masks")
+    masks_sub = masks.add_subparsers(dest="masks_command", required=True)
+    mask_import = masks_sub.add_parser("import", help="copy a lossless mask into the project workspace")
+    mask_import.add_argument("--project", type=Path, required=True)
+    mask_import.add_argument("--id", required=True)
+    mask_import.add_argument("--input", required=True)
+    mask_import.add_argument("--source", default=None)
+    mask_import.add_argument("--method", choices=("alpha", "manual_polygon", "manual_path", "hand_authored", "derived_proposal", "rectangle"), default="hand_authored")
+    mask_import.add_argument("--status", choices=("proposed", "verified", "blocked", "rejected"), default="proposed")
+    mask_import.add_argument("--provenance", default="unattributed")
+    mask_import.add_argument("--bounds", default=None)
+    mask_import.add_argument("--forbidden-mask", default=None)
+    _add_output_args(mask_import)
+    mask_inspect = masks_sub.add_parser("inspect", help="inspect a registered mask")
+    mask_inspect.add_argument("--project", type=Path, required=True)
+    mask_inspect.add_argument("--id", required=True)
+    _add_output_args(mask_inspect)
+    mask_validate = masks_sub.add_parser("validate", help="validate one registered mask")
+    mask_validate.add_argument("--project", type=Path, required=True)
+    mask_validate.add_argument("--id", required=True)
+    mask_validate.add_argument("--production", action="store_true")
+    _add_output_args(mask_validate)
+    mask_preview_cmd = masks_sub.add_parser("preview", help="write a full-resolution mask overlay")
+    mask_preview_cmd.add_argument("--project", type=Path, required=True)
+    mask_preview_cmd.add_argument("--id", required=True)
+    mask_preview_cmd.add_argument("--source", required=True)
+    mask_preview_cmd.add_argument("--out", type=Path, required=True)
+    mask_preview_cmd.add_argument("--color", default="#ff2abf")
+    mask_preview_cmd.add_argument("--opacity", type=int, default=120)
+    _add_output_args(mask_preview_cmd)
+    mask_extract_cmd = masks_sub.add_parser("extract", help="write a lossless alpha-masked component")
+    mask_extract_cmd.add_argument("--project", type=Path, required=True)
+    mask_extract_cmd.add_argument("--id", required=True)
+    mask_extract_cmd.add_argument("--source", required=True)
+    mask_extract_cmd.add_argument("--out", type=Path, required=True)
+    _add_output_args(mask_extract_cmd)
+
+    modular = sub.add_parser("modular", help="author and render versioned modular radio projects")
+    modular_sub = modular.add_subparsers(dest="modular_command", required=True)
+    modular_chassis = modular_sub.add_parser("chassis", help="set one independently authored chassis condition")
+    modular_chassis_sub = modular_chassis.add_subparsers(dest="modular_chassis_command", required=True)
+    modular_chassis_set = modular_chassis_sub.add_parser("set", help="register a pristine or worn chassis")
+    modular_chassis_set.add_argument("--project", type=Path, required=True)
+    modular_chassis_set.add_argument("--variant", choices=("pristine", "worn"), required=True)
+    modular_chassis_set.add_argument("--image", required=True)
+    modular_chassis_set.add_argument("--socket-mask", default=None)
+    modular_chassis_set.add_argument("--anchors", default=None, help="JSON object of integer anchor coordinates")
+    modular_chassis_set.add_argument("--status", choices=("proposed", "verified", "blocked"), default="proposed")
+    modular_chassis_set.add_argument("--notes", default=None)
+    _add_output_args(modular_chassis_set)
+    modular_component = modular_sub.add_parser("component", help="register keyed states for one physical part")
+    modular_component_sub = modular_component.add_subparsers(dest="modular_component_command", required=True)
+    modular_component_set = modular_component_sub.add_parser("set", help="register a component and its state images")
+    modular_component_set.add_argument("--project", type=Path, required=True)
+    modular_component_set.add_argument("--id", required=True)
+    modular_component_set.add_argument("--kind", required=True)
+    modular_component_set.add_argument("--action", default=None)
+    modular_component_set.add_argument("--states", default=None, help="JSON object mapping state names to image paths or objects")
+    modular_component_set.add_argument("--states-file", type=Path, default=None)
+    modular_component_set.add_argument("--hitbox", default=None)
+    modular_component_set.add_argument("--pivot", default=None)
+    modular_component_set.add_argument("--detents", type=int, default=None)
+    modular_component_set.add_argument("--mask", default=None, help="registered moving-face silhouette mask")
+    modular_component_set.add_argument("--socket-mask", default=None)
+    modular_component_set.add_argument("--status", choices=("proposed", "verified", "blocked"), default="proposed")
+    modular_component_set.add_argument("--notes", default=None)
+    _add_output_args(modular_component_set)
+    modular_validate = modular_sub.add_parser("validate", help="validate all modular chassis and component contracts")
+    modular_validate.add_argument("--project", type=Path, required=True)
+    _add_output_args(modular_validate)
+    modular_render = modular_sub.add_parser("render", help="render one modular chassis and keyed state combination")
+    modular_render.add_argument("--project", type=Path, required=True)
+    modular_render.add_argument("--variant", choices=("pristine", "worn"), default="pristine")
+    modular_render.add_argument("--state", action="append", default=[], help="component_id=state; repeatable")
+    modular_render.add_argument("--out", type=Path, required=True)
+    _add_output_args(modular_render)
+    modular_sheet = modular_sub.add_parser("contact-sheet", help="render a bounded state/variant contact sheet")
+    modular_sheet.add_argument("--project", type=Path, required=True)
+    modular_sheet.add_argument("--out", type=Path, required=True)
+    modular_sheet.add_argument("--columns", type=int, default=4)
+    modular_sheet.add_argument("--max-combinations", type=int, default=64)
+    _add_output_args(modular_sheet)
 
     layers = sub.add_parser("layers", help="set or remove device-local visual layers")
     layers_sub = layers.add_subparsers(dest="layers_command", required=True)
@@ -303,6 +416,37 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
 
     if args.command == "assets":
         root = Path(args.root).expanduser().resolve()
+        if args.asset_command == "audit":
+            report = audit_radio_sources(root, family=args.family)
+            if args.write_artifacts:
+                artifacts_root = args.artifacts_root or root / "tools/asset_harness/workspace/radio/ah-r0"
+                artifacts_root = artifacts_root.expanduser().resolve()
+                ensure_within(root, artifacts_root)
+                artifact_paths = write_radio_audit_artifacts(
+                    report,
+                    artifacts_root,
+                    columns=args.contact_sheet_columns,
+                )
+                for path in artifact_paths:
+                    artifacts.append(artifact_descriptor(path, "radio_audit_artifact"))
+            if args.write_manifests:
+                manifests_root = args.manifests_root or root / "tools/asset_harness/projects/radio"
+                manifests_root = manifests_root.expanduser().resolve()
+                ensure_within(root, manifests_root)
+                manifest_paths = write_radio_manifests(report, manifests_root)
+                for path in manifest_paths:
+                    artifacts.append(artifact_descriptor(path, "radio_manifest"))
+                for device in report["devices"]:
+                    matching = next((path for path in manifest_paths if path.stem == device.get("id")), None)
+                    if matching is not None:
+                        device.setdefault("verification", {}).setdefault("artifacts", []).append(str(matching))
+            if args.out is not None:
+                report_path = args.out.expanduser()
+                if not report_path.is_absolute():
+                    report_path = root / report_path
+                report_path = ensure_within(root, report_path)
+                artifacts.append(_save_report(report_path, report))
+            return command, report, artifacts, diagnostics, False
         roots: list[tuple[str, Path]] = []
         if args.family in (None, "walkie"):
             roots.append(("walkie", root / "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie"))
@@ -362,6 +506,112 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
         output = _output_path(path, value, args.out, f"{args.id}.png")
         slice_region(path, value, args.id, output)
         return command, {"region_id": args.id}, [artifact_descriptor(output, "png")], diagnostics, False
+
+    if args.command == "masks":
+        path = _project_path(args)
+        value = load_project(path)
+        if args.masks_command == "import":
+            record = register_mask(
+                path,
+                value,
+                args.id,
+                args.input,
+                source_id=args.source,
+                method=args.method,
+                status=args.status,
+                provenance=args.provenance,
+                bounds=args.bounds,
+                forbidden_mask_id=args.forbidden_mask,
+            )
+            save_project(path, value)
+            return command, {"mask_id": args.id, "mask": record}, [artifact_descriptor(path, "project")], diagnostics, False
+        if args.masks_command == "inspect":
+            record, _, mask_path = resolve_project_mask(path, value, args.id)
+            return command, {"mask_id": args.id, "mask": record, "inspection": inspect_mask(mask_path)}, artifacts, diagnostics, False
+        if args.masks_command == "validate":
+            result = validate_mask(path, value, args.id, production=args.production)
+            diagnostics.extend(result["diagnostics"])
+            if not result["ok"]:
+                raise AssetHarnessError("MASK_VALIDATION_FAILED", "mask validation failed", diagnostics=result["diagnostics"])
+            return command, {"validation": result["summary"]}, artifacts, diagnostics, False
+        source = (value.get("sources") or {}).get(args.source)
+        if not isinstance(source, dict):
+            raise AssetHarnessError("SOURCE_NOT_REGISTERED", f"source is not registered: {args.source}")
+        workspace = project_workspace(path, value)
+        source_value = str(source.get("path") or "")
+        source_path = resolve_reference(workspace, source_value, allow_external=Path(source_value).is_absolute(), must_exist=True)
+        source_image = load_rgba(source_path)
+        _, mask_image, _ = resolve_project_mask(path, value, args.id)
+        output = _output_path(path, value, args.out, f"{args.id}.png")
+        if args.masks_command == "preview":
+            image = mask_preview(source_image, mask_image, color=args.color, opacity=args.opacity)
+            save_png(image, output)
+            return command, {"mask_id": args.id, "source_id": args.source}, [artifact_descriptor(output, "png", width=image.width, height=image.height)], diagnostics, False
+        write_masked_extract(source_image, mask_image, output)
+        return command, {"mask_id": args.id, "source_id": args.source}, [artifact_descriptor(output, "png", width=source_image.width, height=source_image.height)], diagnostics, False
+
+    if args.command == "modular":
+        path = _project_path(args)
+        value = load_project(path)
+        if args.modular_command == "chassis":
+            if args.modular_chassis_command != "set":
+                raise AssetHarnessError("COMMAND_UNSUPPORTED", "unsupported modular chassis command")
+            anchors = None
+            if args.anchors:
+                try:
+                    anchors = json.loads(args.anchors)
+                except json.JSONDecodeError as error:
+                    raise AssetHarnessError("INVALID_ANCHORS", "anchors must be a JSON object") from error
+                if not isinstance(anchors, dict):
+                    raise AssetHarnessError("INVALID_ANCHORS", "anchors must be a JSON object")
+            entry = set_chassis(value, args.variant, image=args.image, socket_mask=args.socket_mask, anchors=anchors, status=args.status, notes=args.notes)
+            save_project(path, value)
+            return command, {"variant": args.variant, "chassis": entry}, [artifact_descriptor(path, "project")], diagnostics, False
+        if args.modular_command == "component":
+            if args.modular_component_command != "set":
+                raise AssetHarnessError("COMMAND_UNSUPPORTED", "unsupported modular component command")
+            if bool(args.states) == bool(args.states_file):
+                raise AssetHarnessError("COMPONENT_STATES_REQUIRED", "provide exactly one of --states or --states-file")
+            raw = args.states if args.states is not None else args.states_file.read_text(encoding="utf-8")
+            try:
+                states = json.loads(raw)
+            except json.JSONDecodeError as error:
+                raise AssetHarnessError("COMPONENT_STATES_INVALID", "component states must be valid JSON") from error
+            if not isinstance(states, dict):
+                raise AssetHarnessError("COMPONENT_STATES_INVALID", "component states must be a JSON object")
+            pivot = None
+            if args.pivot:
+                pivot = parse_rect(args.pivot + ",1,1", name="component pivot")[:2]
+            entry = set_component(value, args.id, kind=args.kind, action=args.action, states=states, hitbox=args.hitbox, pivot=pivot, detents=args.detents, mask=args.mask, socket_mask=args.socket_mask, status=args.status, notes=args.notes)
+            save_project(path, value)
+            return command, {"component_id": args.id, "component": entry}, [artifact_descriptor(path, "project")], diagnostics, False
+        if args.modular_command == "validate":
+            result = validate_modular(path, value)
+            diagnostics.extend(result["diagnostics"])
+            if not result["ok"]:
+                raise AssetHarnessError("MODULAR_VALIDATION_FAILED", "modular validation failed", diagnostics=result["diagnostics"])
+            return command, {"validation": result["summary"]}, artifacts, diagnostics, False
+        if args.modular_command == "render":
+            states: dict[str, str] = {}
+            for item in args.state:
+                if "=" not in item:
+                    raise AssetHarnessError("INVALID_COMPONENT_STATE", "--state must be component_id=state")
+                component_id, state_name = item.split("=", 1)
+                states[component_id] = state_name
+            image, metadata = render_modular(path, value, variant=args.variant, states=states)
+            output = _output_path(path, value, args.out, f"modular_{args.variant}.png")
+            save_png(image, output)
+            return command, {"render": metadata}, [artifact_descriptor(output, "png", width=image.width, height=image.height)], diagnostics, False
+        if args.modular_command == "contact-sheet":
+            if args.columns < 1 or args.columns > 16:
+                raise AssetHarnessError("CONTACT_SHEET_INVALID", "columns must be between 1 and 16")
+            if args.max_combinations < 1 or args.max_combinations > 64:
+                raise AssetHarnessError("CONTACT_SHEET_INVALID", "max combinations must be between 1 and 64")
+            sheet, frames = render_modular_contact_sheet(path, value, columns=args.columns, max_combinations=args.max_combinations)
+            output = _output_path(path, value, args.out, "modular_contact_sheet.png")
+            save_png(sheet, output)
+            return command, {"frames": frames, "frame_count": len(frames)}, [artifact_descriptor(output, "png", width=sheet.width, height=sheet.height)], diagnostics, False
+        raise AssetHarnessError("COMMAND_UNSUPPORTED", f"unsupported modular command: {args.modular_command}")
 
     if args.command == "layers":
         path = _project_path(args)
@@ -531,7 +781,7 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
         if not isinstance(operations, list) or len(operations) > 64:
             raise AssetHarnessError("BATCH_INVALID", "batch must contain at most 64 operations")
         results = []
-        allowed = {"doctor", "assets", "project", "source", "regions", "layers", "render", "animation", "diff", "validate", "export"}
+        allowed = {"doctor", "assets", "project", "source", "regions", "masks", "layers", "controls", "lcd", "variants", "render", "animation", "diff", "validate", "export", "modular"}
         for index, operation in enumerate(operations):
             if not isinstance(operation, dict) or not isinstance(operation.get("argv"), list) or not operation["argv"]:
                 raise AssetHarnessError("BATCH_INVALID", f"operation {index} must contain an argv array")
@@ -548,7 +798,7 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
 
 def _command_name(args: argparse.Namespace) -> str:
     parts = [str(args.command)]
-    for key in ("asset_command", "project_command", "source_command", "regions_command", "layers_command", "controls_command", "lcd_command", "variants_command", "animation_command", "export_command"):
+    for key in ("asset_command", "project_command", "source_command", "regions_command", "masks_command", "layers_command", "controls_command", "lcd_command", "variants_command", "animation_command", "export_command", "modular_command", "modular_chassis_command", "modular_component_command"):
         value = getattr(args, key, None)
         if value:
             parts.append(str(value))

@@ -105,3 +105,44 @@ Useful failure codes include `FILE_NOT_FOUND`, `IMAGE_UNREADABLE`,
 
 For repeated work, `batch --file batch.json` accepts a bounded list of argv
 arrays for the same whitelisted commands. It never executes shell text.
+
+## Radio modular audit and authoring
+
+`assets audit` is read-only with respect to the canonical Radio PNGs. It
+records exact owner paths, SHA-256, dimensions, alpha coverage, conservative
+paired-sheet detection, immutable-source status, and blocked/proposed reasons
+for all six walkies, three HAM radios, and the ManPack:
+
+```sh
+python3 tools/asset_harness/cli.py assets audit \
+  --write-manifests \
+  --write-artifacts \
+  --out tools/asset_harness/projects/radio/ah-r0-audit.json
+```
+
+The generated manifests are developer evidence, not runtime approvals. The
+current canonical files are single full-front canvases; `clean`/`worn` aliases
+must not be implemented by cropping their two sides. The literal filename
+`Base.HamRadioMakeShift .png` is preserved and reported as-is.
+
+Source-space masks are imported losslessly and remain proposed until visually
+reviewed. Rectangle proposals cannot satisfy the production mask gate:
+
+```sh
+python3 tools/asset_harness/cli.py masks import \
+  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --id back_socket --input /path/to/back_socket.png \
+  --source canonical --method hand_authored --status proposed
+python3 tools/asset_harness/cli.py masks preview \
+  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --id back_socket --source canonical --out tools/asset_harness/workspace/back_socket_preview.png
+python3 tools/asset_harness/cli.py masks validate \
+  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --id back_socket
+```
+
+Modular projects can register independent `pristine`/`worn` chassis images,
+socket masks, keyed button/PTT/power/LED states, rotary detents and integer
+hitboxes. `modular validate`, `modular render`, and `modular contact-sheet`
+are offline only; missing sockets, identical fake states, anchor drift, and
+unreviewed components remain failures or incomplete evidence.

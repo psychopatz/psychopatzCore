@@ -233,10 +233,28 @@ def difference_image(before: Image.Image, after: Image.Image) -> tuple[Image.Ima
     changed = rgb_diff.getchannel("R")
     for channel in rgb_diff.getbands()[1:]:
         changed = ImageChops.lighter(changed, rgb_diff.getchannel(channel))
-    changed = ImageChops.lighter(changed, raw.getchannel("A"))
+    alpha_diff = raw.getchannel("A")
+    changed = ImageChops.lighter(changed, alpha_diff)
     rgb = raw.convert("RGB")
     output = Image.new("RGBA", raw.size, (0, 0, 0, 0))
     output.paste(rgb, (0, 0), changed)
     bbox = changed.getbbox()
     count = sum(1 for value in changed.getdata() if value)
-    return output, {"changed_pixels": count, "changed_bounds": list(bbox) if bbox else None}
+    rgb_count = sum(1 for value in ImageChops.lighter(
+        ImageChops.lighter(rgb_diff.getchannel("R"), rgb_diff.getchannel("G")),
+        rgb_diff.getchannel("B"),
+    ).getdata() if value)
+    alpha_count = sum(1 for value in alpha_diff.getdata() if value)
+    channel_counts = {
+        channel: sum(1 for value in rgb_diff.getchannel(channel).getdata() if value)
+        for channel in ("R", "G", "B")
+    }
+    return output, {
+        "changed_pixels": count,
+        "rgb_changed_pixels": rgb_count,
+        "alpha_changed_pixels": alpha_count,
+        "changed_bounds": list(bbox) if bbox else None,
+        "channel_changed_pixels": channel_counts,
+        "max_rgb_delta": max((max(channel.getdata()) for channel in rgb_diff.split()), default=0),
+        "max_alpha_delta": max(alpha_diff.getdata(), default=0),
+    }

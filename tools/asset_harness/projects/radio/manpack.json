@@ -1,0 +1,206 @@
+{
+  "animations": {},
+  "canvas": {
+    "height": 1536,
+    "origin": "top_left",
+    "width": 1024
+  },
+  "chassis": {
+    "pristine": {
+      "anchors": {},
+      "image": null,
+      "socket_mask": null,
+      "status": "blocked"
+    },
+    "worn": {
+      "anchors": {},
+      "image": null,
+      "socket_mask": null,
+      "status": "blocked"
+    }
+  },
+  "components": {},
+  "controls": [],
+  "device": {
+    "family": "manpack",
+    "fullType": "Base.ManPackRadio",
+    "id": "manpack",
+    "model": "Base.ManPackRadio"
+  },
+  "export": {
+    "device_path": "Radio/ManPack/Base.ManPackRadio",
+    "manifest_filename": "skin.lua",
+    "runtime_root": "Contents/mods/PsychopatzCore/common/media/ui",
+    "textures": []
+  },
+  "layers": [],
+  "lcd": {},
+  "manifest_kind": "radio_modular_asset",
+  "masks": {},
+  "modular": {
+    "chassis": {},
+    "components": {},
+    "schema_version": 1,
+    "status": "incomplete",
+    "verification": {
+      "reasons": [
+        "NO_REVIEWED_MODULAR_ARTWORK"
+      ],
+      "reviewed": false,
+      "status": "incomplete"
+    }
+  },
+  "modular_output": {
+    "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio",
+    "exists": false,
+    "files": [],
+    "missing_required_paths": [
+      "Buttons/Back/Idle.png",
+      "Buttons/Back/Pressed.png",
+      "Chassis/Pristine.png",
+      "Chassis/Worn.png",
+      "LCD/Glass.png",
+      "PTT/Held.png",
+      "PTT/Idle.png",
+      "Switches/Power/Off.png",
+      "Switches/Power/On.png"
+    ],
+    "required_paths": [
+      "Chassis/Pristine.png",
+      "Chassis/Worn.png",
+      "Buttons/Back/Idle.png",
+      "Buttons/Back/Pressed.png",
+      "Switches/Power/Off.png",
+      "Switches/Power/On.png",
+      "PTT/Idle.png",
+      "PTT/Held.png",
+      "LCD/Glass.png"
+    ]
+  },
+  "notes": [
+    "This manifest is an AH-R0 audit record, not an approval or runtime export declaration.",
+    "Rectangular crops and inferred component states are not production-ready evidence."
+  ],
+  "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+  "project_id": "manpack",
+  "regions": {},
+  "schema_version": 1,
+  "source": {
+    "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+    "alpha": {
+      "nonzero_bounds": [
+        0,
+        0,
+        994,
+        1478
+      ],
+      "nonzero_pixels": 957553,
+      "opaque_bounds": null,
+      "opaque_pixels": 0,
+      "partial_pixels": 957553,
+      "partial_ratio_of_nonzero": 1.0,
+      "transparent_pixels": 615311
+    },
+    "bytes": 2430040,
+    "filename": "Base.ManPackRadio.png",
+    "format": "PNG",
+    "immutable": true,
+    "layout": {
+      "confidence": "high",
+      "halves": {
+        "left": {
+          "nonzero_bounds": [
+            0,
+            0,
+            512,
+            1478
+          ],
+          "opaque_pixels": 0,
+          "partial_pixels": 486832,
+          "size": [
+            512,
+            1536
+          ],
+          "transparent_pixels": 299600
+        },
+        "right": {
+          "nonzero_bounds": [
+            0,
+            19,
+            482,
+            1453
+          ],
+          "opaque_pixels": 0,
+          "partial_pixels": 470721,
+          "size": [
+            512,
+            1536
+          ],
+          "transparent_pixels": 315711
+        }
+      },
+      "kind": "single_canvas",
+      "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+      "review_required": true,
+      "variants": {}
+    },
+    "mode": "RGBA",
+    "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+    "sha256": "5c97028e2200cf7fdfad9b4f7fb99ebae00b82b9603efcfa4346e264d7d61c46",
+    "size": [
+      1024,
+      1536
+    ]
+  },
+  "sources": {
+    "canonical": {
+      "approved": false,
+      "bytes": 2430040,
+      "format": "PNG",
+      "height": 1536,
+      "mode": "RGBA",
+      "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
+      "provenance": "canonical concept/reference source; pending visual review",
+      "sha256": "5c97028e2200cf7fdfad9b4f7fb99ebae00b82b9603efcfa4346e264d7d61c46",
+      "width": 1024
+    }
+  },
+  "variants": {
+    "pristine": {
+      "layers": []
+    },
+    "worn": {
+      "layers": []
+    }
+  },
+  "verification": {
+    "artifacts": [
+      {
+        "kind": "source_full_resolution",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/manpack.png",
+        "sha256": "5c97028e2200cf7fdfad9b4f7fb99ebae00b82b9603efcfa4346e264d7d61c46"
+      },
+      {
+        "kind": "alpha_preview",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/manpack.png",
+        "sha256": "2c3ff7a268551dabe71466150e643b035694a033f4619855de5f85159b7a5871"
+      },
+      {
+        "kind": "source_to_idle_diff",
+        "reason": "no reviewed modular chassis/idle layers exist",
+        "sha256": null,
+        "status": "blocked"
+      }
+    ],
+    "reasons": [
+      "NO_MODULAR_ARTWORK_DIRECTORY",
+      "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+      "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+      "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION"
+    ],
+    "reviewed": false,
+    "status": "blocked",
+    "warnings": []
+  },
+  "workspace_root": "."
+}

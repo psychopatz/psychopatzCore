@@ -14,6 +14,23 @@ from .responses import canonical_json, revision_for
 PROJECT_SCHEMA_VERSION = 1
 
 
+def canonical_radio_device_path(family: str, model: str) -> str:
+    """Return the canonical developer/runtime-relative radio asset path.
+
+    Existing v1 projects may override ``export.device_path`` and continue to
+    do so.  New projects default to the source-of-truth Radio hierarchy so a
+    future reviewed export cannot accidentally target the superseded device
+    tree.
+    """
+
+    family_directory = {
+        "walkie": "WalkieTalkie",
+        "ham": "Ham",
+        "manpack": "ManPack",
+    }.get(str(family), str(family))
+    return f"Radio/{family_directory}/{model}"
+
+
 def default_project(
     project_id: str,
     *,
@@ -45,9 +62,17 @@ def default_project(
         "controls": [],
         "animations": {},
         "variants": {"pristine": {"layers": []}},
+        "masks": {},
+        "modular": {
+            "schema_version": 1,
+            "status": "unconfigured",
+            "chassis": {},
+            "components": {},
+            "verification": {"reviewed": False, "status": "incomplete", "reasons": []},
+        },
         "export": {
             "runtime_root": "Contents/mods/PsychopatzCore/common/media/ui",
-            "device_path": f"psychopatz/radio/devices/{family}/{model}",
+            "device_path": canonical_radio_device_path(family, model),
             "textures": [{
                 "name": "shell_front",
                 "filename": "shell_front.png",
@@ -77,9 +102,18 @@ def load_project(path: Path) -> dict[str, Any]:
     for key, default in (
         ("sources", {}), ("regions", {}), ("layers", []), ("lcd", {}),
         ("controls", []), ("animations", {}), ("variants", {}), ("export", {}),
+        ("masks", {}),
     ):
         if key not in value:
             value[key] = default
+    if "modular" not in value or not isinstance(value.get("modular"), dict):
+        value["modular"] = {
+            "schema_version": 1,
+            "status": "unconfigured",
+            "chassis": {},
+            "components": {},
+            "verification": {"reviewed": False, "status": "incomplete", "reasons": []},
+        }
     return value
 
 

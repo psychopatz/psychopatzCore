@@ -1,0 +1,207 @@
+{
+  "animations": {},
+  "canvas": {
+    "height": 1536,
+    "origin": "top_left",
+    "width": 1024
+  },
+  "chassis": {
+    "pristine": {
+      "anchors": {},
+      "image": null,
+      "socket_mask": null,
+      "status": "blocked"
+    },
+    "worn": {
+      "anchors": {},
+      "image": null,
+      "socket_mask": null,
+      "status": "blocked"
+    }
+  },
+  "components": {},
+  "controls": [],
+  "device": {
+    "family": "walkie",
+    "fullType": "Base.WalkieTalkie4",
+    "id": "walkie_4",
+    "model": "Base.WalkieTalkie4"
+  },
+  "export": {
+    "device_path": "Radio/WalkieTalkie/Base.WalkieTalkie4",
+    "manifest_filename": "skin.lua",
+    "runtime_root": "Contents/mods/PsychopatzCore/common/media/ui",
+    "textures": []
+  },
+  "layers": [],
+  "lcd": {},
+  "manifest_kind": "radio_modular_asset",
+  "masks": {},
+  "modular": {
+    "chassis": {},
+    "components": {},
+    "schema_version": 1,
+    "status": "incomplete",
+    "verification": {
+      "reasons": [
+        "NO_REVIEWED_MODULAR_ARTWORK"
+      ],
+      "reviewed": false,
+      "status": "incomplete"
+    }
+  },
+  "modular_output": {
+    "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4",
+    "exists": false,
+    "files": [],
+    "missing_required_paths": [
+      "Buttons/Back/Idle.png",
+      "Buttons/Back/Pressed.png",
+      "Chassis/Pristine.png",
+      "Chassis/Worn.png",
+      "LCD/Glass.png",
+      "PTT/Held.png",
+      "PTT/Idle.png",
+      "Switches/Power/Off.png",
+      "Switches/Power/On.png"
+    ],
+    "required_paths": [
+      "Chassis/Pristine.png",
+      "Chassis/Worn.png",
+      "Buttons/Back/Idle.png",
+      "Buttons/Back/Pressed.png",
+      "Switches/Power/Off.png",
+      "Switches/Power/On.png",
+      "PTT/Idle.png",
+      "PTT/Held.png",
+      "LCD/Glass.png"
+    ]
+  },
+  "notes": [
+    "This manifest is an AH-R0 audit record, not an approval or runtime export declaration.",
+    "Rectangular crops and inferred component states are not production-ready evidence."
+  ],
+  "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4.png",
+  "project_id": "walkie_4",
+  "regions": {},
+  "schema_version": 1,
+  "source": {
+    "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4.png",
+    "alpha": {
+      "nonzero_bounds": [
+        0,
+        0,
+        1000,
+        1474
+      ],
+      "nonzero_pixels": 763676,
+      "opaque_bounds": null,
+      "opaque_pixels": 0,
+      "partial_pixels": 763676,
+      "partial_ratio_of_nonzero": 1.0,
+      "transparent_pixels": 809188
+    },
+    "bytes": 2117894,
+    "filename": "Base.WalkieTalkie4.png",
+    "format": "PNG",
+    "immutable": true,
+    "layout": {
+      "confidence": "high",
+      "halves": {
+        "left": {
+          "nonzero_bounds": [
+            0,
+            0,
+            512,
+            1474
+          ],
+          "opaque_pixels": 0,
+          "partial_pixels": 387147,
+          "size": [
+            512,
+            1536
+          ],
+          "transparent_pixels": 399285
+        },
+        "right": {
+          "nonzero_bounds": [
+            0,
+            27,
+            488,
+            1447
+          ],
+          "opaque_pixels": 0,
+          "partial_pixels": 376529,
+          "size": [
+            512,
+            1536
+          ],
+          "transparent_pixels": 409903
+        }
+      },
+      "kind": "single_canvas",
+      "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
+      "review_required": true,
+      "variants": {}
+    },
+    "mode": "RGBA",
+    "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4.png",
+    "sha256": "5811325ca5fe00d04efb464a79c30bda01147e475757a9c4f8b099b50bf535cb",
+    "size": [
+      1024,
+      1536
+    ]
+  },
+  "sources": {
+    "canonical": {
+      "approved": false,
+      "bytes": 2117894,
+      "format": "PNG",
+      "height": 1536,
+      "mode": "RGBA",
+      "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4.png",
+      "provenance": "canonical concept/reference source; pending visual review",
+      "sha256": "5811325ca5fe00d04efb464a79c30bda01147e475757a9c4f8b099b50bf535cb",
+      "width": 1024
+    }
+  },
+  "variants": {
+    "pristine": {
+      "layers": []
+    },
+    "worn": {
+      "layers": []
+    }
+  },
+  "verification": {
+    "artifacts": [
+      {
+        "kind": "source_full_resolution",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/sources/walkie_4.png",
+        "sha256": "5811325ca5fe00d04efb464a79c30bda01147e475757a9c4f8b099b50bf535cb"
+      },
+      {
+        "kind": "alpha_preview",
+        "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/workspace/radio/ah-r0/alpha/walkie_4.png",
+        "sha256": "1067ebdcd089e6db26afbb51d33c711bf8aed83fd564ec2687855418e1b47767"
+      },
+      {
+        "kind": "source_to_idle_diff",
+        "reason": "no reviewed modular chassis/idle layers exist",
+        "sha256": null,
+        "status": "blocked"
+      }
+    ],
+    "reasons": [
+      "NO_MODULAR_ARTWORK_DIRECTORY",
+      "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
+      "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
+      "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION",
+      "KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION"
+    ],
+    "reviewed": false,
+    "status": "blocked",
+    "warnings": []
+  },
+  "workspace_root": "."
+}

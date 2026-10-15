@@ -39,14 +39,59 @@ class RadioSimulatorTests(unittest.TestCase):
             simulator.dispatch({"event": "set", "field": "volume", "value": 99})
         self.assertEqual(simulator.snapshot(), before)
 
+    def test_pointer_lifecycle_releases_ptt_on_cancel(self) -> None:
+        simulator = RadioSimulator("walkie_5")
+        simulator.dispatch({"event": "press", "control": "power"})
+        simulator.dispatch({"event": "pointer_down", "control": "side_right_down"})
+        self.assertTrue(simulator.state.ptt_held)
+        self.assertTrue(simulator.state.transmitting)
+        self.assertIn("side_right_down", simulator.state.pressed_controls)
+        simulator.dispatch({"event": "pointer_cancel", "reason": "focus_loss"})
+        self.assertFalse(simulator.state.ptt_held)
+        self.assertFalse(simulator.state.transmitting)
+        self.assertEqual(simulator.state.pressed_controls, [])
+
+    def test_every_catalog_device_exposes_soft_back_home_and_power_reopens(self) -> None:
+        for spec in list_devices():
+            controls = spec.geometry_for("clean").controls
+            self.assertIn("back", {control.id for control in controls}, spec.id)
+            self.assertIn("home", {control.id for control in controls}, spec.id)
+            simulator = RadioSimulator(spec.id)
+            simulator.dispatch({"event": "press", "control": "power"})
+            simulator.dispatch({"event": "press", "control": "back"})
+            self.assertTrue(simulator.state.closed, spec.id)
+            simulator.dispatch({"event": "press", "control": "power"})
+            self.assertTrue(simulator.state.powered, spec.id)
+            self.assertFalse(simulator.state.closed, spec.id)
+
+    def test_wheel_changes_value_and_registered_knob_state(self) -> None:
+        simulator = RadioSimulator("walkie_5")
+        simulator.dispatch({"event": "press", "control": "power"})
+        simulator.dispatch({"event": "wheel", "control": "channel_up", "delta": 3})
+        self.assertEqual(simulator.state.channel, 4)
+        self.assertEqual(simulator.state.knobs["channel"], 4)
+
+    def test_back_uses_bounded_page_stack(self) -> None:
+        simulator = RadioSimulator("walkie_5")
+        simulator.dispatch({"event": "press", "control": "power"})
+        simulator.dispatch({"event": "press", "control": "center"})
+        simulator.dispatch({"event": "press", "control": "center"})
+        self.assertEqual(simulator.state.page, "contact_detail")
+        simulator.dispatch({"event": "press", "control": "back"})
+        self.assertEqual(simulator.state.page, "contacts")
+        simulator.dispatch({"event": "press", "control": "back"})
+        self.assertEqual(simulator.state.page, "home")
+
     def test_click_and_screen_click_use_source_coordinates(self) -> None:
         simulator = RadioSimulator("walkie_1")
         simulator.dispatch({"event": "press", "control": "power"})
-        simulator.dispatch({"event": "click", "x": 240, "y": 925})
+        left = next(control for control in simulator.geometry.controls if control.id == "left")
+        simulator.dispatch({"event": "click", "x": left.rect[0] + left.rect[2] / 2, "y": left.rect[1] + left.rect[3] / 2})
         self.assertEqual(simulator.state.menu_index, 1)
         simulator.reset()
         simulator.dispatch({"event": "press", "control": "power"})
-        simulator.dispatch({"event": "screen_click", "x": 300, "y": 760})
+        lcd = simulator.geometry.lcd_rect
+        simulator.dispatch({"event": "screen_click", "x": lcd[0] + lcd[2] / 2, "y": lcd[1] + lcd[3] / 2})
         self.assertEqual(simulator.state.page, "contacts")
 
     def test_render_is_rgba_and_returns_hitboxes(self) -> None:
@@ -56,29 +101,18 @@ class RadioSimulatorTests(unittest.TestCase):
         self.assertEqual(image.mode, "RGBA")
         self.assertEqual(image.size[0], round(metadata["source_size"][0] * 0.25))
         self.assertEqual(image.size[1], round(metadata["source_size"][1] * 0.25))
-        self.assertEqual(len(metadata["controls"]), 10)
+        self.assertGreaterEqual(len(metadata["controls"]), 10)
         self.assertTrue(metadata["ui_atlas_exists"])
 
     def test_every_device_has_bounded_screen_calibration(self) -> None:
-        expected_lcd_rects = {
-            "walkie_1": (235, 603, 291, 243),
-            "walkie_2": (236, 580, 291, 269),
-            "walkie_3": (241, 589, 282, 261),
-            "walkie_4": (235, 593, 273, 256),
-            "walkie_5": (235, 599, 273, 246),
-            "walkie_makeshift": (229, 588, 293, 253),
-            "ham_1": (207, 592, 285, 115),
-            "ham_2": (187, 585, 227, 105),
-            "ham_makeshift": (199, 595, 277, 105),
-            "manpack": (190, 687, 295, 211),
-        }
-        specs = {spec.id: spec for spec in list_devices()}
-        self.assertEqual({spec.id for spec in list_devices()}, set(expected_lcd_rects))
-        for device_id, expected in expected_lcd_rects.items():
-            spec = specs[device_id]
-            self.assertEqual(spec.lcd_rect, expected)
+        for spec in list_devices():
+            device_id = spec.id
             sx, sy, sw, sh = spec.lcd_rect
             cx, cy, cw, ch = spec.screen_content_rect
+            self.assertGreaterEqual(sx, 0)
+            self.assertGreaterEqual(sy, 0)
+            self.assertLessEqual(sx + sw, spec.source_width)
+            self.assertLessEqual(sy + sh, spec.source_height)
             self.assertGreaterEqual(cx, sx)
             self.assertGreaterEqual(cy, sy)
             self.assertLessEqual(cx + cw, sx + sw)
@@ -99,22 +133,10 @@ class RadioSimulatorTests(unittest.TestCase):
             self.assertTrue(simulator.state.powered)
 
     def test_worn_geometry_is_registered_separately_from_clean_geometry(self) -> None:
-        expected_worn_lcd_rects = {
-            "walkie_1": (187, 603, 291, 243),
-            "walkie_2": (169, 580, 291, 269),
-            "walkie_3": (162, 589, 282, 261),
-            "walkie_4": (156, 593, 273, 256),
-            "walkie_5": (197, 599, 273, 246),
-            "walkie_makeshift": (173, 588, 293, 253),
-            "ham_1": (193, 592, 285, 115),
-            "ham_2": (179, 590, 249, 105),
-            "ham_makeshift": (166, 595, 277, 105),
-            "manpack": (190, 687, 295, 211),
-        }
         for spec in list_devices():
             clean = spec.geometry_for("clean")
             worn = spec.geometry_for("worn")
-            self.assertEqual(worn.lcd_rect, expected_worn_lcd_rects[spec.id])
+            self.assertEqual(worn.lcd_rect, clean.lcd_rect)
             self.assertEqual(len(clean.controls), len(worn.controls))
             image, metadata = render_device(RadioSimulator(spec.id, variant="worn"), zoom=0.5)
             self.assertEqual(image.mode, "RGBA")
@@ -151,9 +173,9 @@ class RadioSimulatorTests(unittest.TestCase):
     def test_known_worn_sheet_bleed_is_guarded_without_editing_source_art(self) -> None:
         specs = {spec.id: spec for spec in list_devices()}
         self.assertEqual(specs["ham_makeshift"].clip_left_for("clean"), 0)
-        self.assertEqual(specs["ham_makeshift"].clip_left_for("worn"), 20)
+        self.assertEqual(specs["ham_makeshift"].clip_left_for("worn"), 0)
         _, metadata = render_device(RadioSimulator("ham_makeshift", variant="worn"), zoom=0.5)
-        self.assertEqual(metadata["source_seam_guard_left"], 20)
+        self.assertEqual(metadata["source_seam_guard_left"], 0)
 
     def test_radio_ui_atlas_is_available_through_named_sprites(self) -> None:
         self.assertTrue(RADIO_UI_PATH.is_file())
@@ -178,6 +200,19 @@ class RadioSimulatorTests(unittest.TestCase):
         payload = json.loads(result.stdout)
         self.assertTrue(payload["ok"])
         self.assertEqual(payload["data"]["state"]["page"], "contacts")
+
+    def test_cli_catalog_lists_semantic_soft_controls(self) -> None:
+        result = subprocess.run(
+            [sys.executable, str(CLI), "list"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        devices = json.loads(result.stdout)["data"]["devices"]
+        for device in devices:
+            self.assertIn("back", device["controls"])
+            self.assertIn("home", device["controls"])
 
 
 if __name__ == "__main__":

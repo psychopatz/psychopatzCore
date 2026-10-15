@@ -36,7 +36,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def _add_device_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--device", default="walkie_1")
-    parser.add_argument("--variant", choices=("clean", "worn"), default="clean")
+    parser.add_argument("--variant", choices=("clean", "worn", "pristine", "damaged"), default="clean")
+    parser.add_argument("--project", type=Path, default=None, help="load a modular project JSON instead of the static catalog")
 
 
 def _success(data: Any) -> int:
@@ -63,14 +64,16 @@ def main(argv: list[str] | None = None) -> int:
                             "full_type": spec.full_type,
                             "asset": str(spec.asset_path),
                             "asset_exists": spec.asset_exists,
-                            "controls": [control.id for control in spec.controls],
+                            "source_layout": spec.source_layout,
+                            "variant_art_status": "blocked_source_alias" if spec.source_layout == "single_canvas" else "review_required_sheet_proposal",
+                            "controls": [control.id for control in spec.geometry_for("clean").controls],
                         }
                         for spec in list_devices()
                     ]
                 }
             )
 
-        simulator = RadioSimulator(args.device, variant=args.variant)
+        simulator = RadioSimulator(args.device, variant=args.variant, project_path=args.project)
         if args.command == "snapshot":
             return _success(simulator.snapshot())
         if args.command == "event":
