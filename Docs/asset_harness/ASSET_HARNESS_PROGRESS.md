@@ -230,3 +230,15 @@ Date / HEAD: 2026-10-16 / `538adc8` (`feat(asset-harness): add blocked W5 pilot 
 - Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, `git diff --check`, refactor-binding smoke, and Lua action/registry/window smokes passed. All ten canonical radio source hashes remain unchanged. No production `export apply`, runtime Lua edit, legacy atlas edit, or canonical source edit occurred.
 
 The production-art blocker remains unchanged: obtain authentic, visually reviewed W5 modular masters before authoring `Chassis/Pristine.png`, `Chassis/Worn.png`, socket masks, and keyed components. Keep all ten devices blocked.
+
+## Manual reconstruction blocker checkpoint
+
+Date / HEAD: 2026-10-16 / `7b29929` (`feat(asset-harness): record manual reconstruction blockers`), pushed cleanly to `origin/main` after `6ed51ca`.
+
+- Every audited device now carries a `manual_reconstruction` record and blocked `manual_reconstruction_plan` QA gate. All ten current sources are `single_canvas` and therefore explicitly require concealed chassis pixels, real empty sockets, independent component states, and full-resolution reconstruction review.
+- Each blocker is decomposed into `chassis_reconstruction`, `socket_masks`, `component_state_art`, and `reconstruction_review`; manifests use `FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION` rather than treating filenames or automatic crops as approval evidence.
+- Current audit report: [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `bdf6f6d5eb62b61a0a52896051fb79f82291046f26efc7b2c76af0ac2212019f`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
+- W5 pilot sheet SHA-256 `183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb`; checklist SHA-256 `21b74406130e24b79f9c68ddf7ad514bbd9b30a14899d891e750cd2746140619`. The pilot remains `BLOCKED / NOT ACCEPTED`.
+- Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, and `git diff --check` passed. Canonical source hashes remain unchanged; no runtime Lua, legacy atlas, save, or production export changes were made.
+
+Next authorized action remains conditional on an external reviewed modular W5 master: author the real pristine/worn chassis, source-space socket masks, keyed controls, states, and source-to-idle diff, then visually review before any device can leave `blocked`.
