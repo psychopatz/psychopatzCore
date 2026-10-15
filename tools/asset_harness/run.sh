@@ -36,7 +36,7 @@ find_gui_python() {
 }
 
 if [[ -z "${DISPLAY:-}" && -z "${WAYLAND_DISPLAY:-}" && "$(uname -s)" == "Linux" ]]; then
-    printf 'Asset Harness GUI needs a graphical display (DISPLAY or WAYLAND_DISPLAY).\n' >&2
+    printf 'Radio Simulator GUI needs a graphical display (DISPLAY or WAYLAND_DISPLAY).\n' >&2
     exit 2
 fi
 
@@ -48,4 +48,8 @@ if [[ -z "$PYTHON_BIN_RESOLVED" ]]; then
 fi
 
 export PYTHONPATH="$REPO_ROOT/tools${PYTHONPATH:+:$PYTHONPATH}"
-exec "$PYTHON_BIN_RESOLVED" "$SCRIPT_DIR/gui.py" "$@"
+if [[ "${1:-}" == "--asset-viewer" ]]; then
+    shift
+    exec "$PYTHON_BIN_RESOLVED" "$SCRIPT_DIR/gui.py" "$@"
+fi
+exec "$PYTHON_BIN_RESOLVED" "$SCRIPT_DIR/simulator_gui.py" "$@"

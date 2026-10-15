@@ -5,21 +5,40 @@ agent-facing CLI and core use Python and Pillow only; ordinary CLI operations
 do not import Tk, start a server, contact the PZ bridge, or use the prohibited
 PZ Headless Harness.
 
-An optional Tk/Pillow viewer is provided as a thin client for people who want
-to look at the same PNGs and project renders visually. It does not replace the
-CLI or change the validation/export rules:
+The default Tk/Pillow client is an interactive Radio OS simulator. It shares a
+deterministic state/event reducer with the JSON client, so human clicks and LLM
+commands exercise the same behavior. The legacy image viewer remains available
+with `--asset-viewer`:
 
 ```sh
 ./run.sh
 # or, from the repository root:
 ./tools/asset_harness/run.sh
+
+# Drive the same simulator without a GUI:
+python3 tools/asset_harness/simulator_cli.py snapshot
+python3 tools/asset_harness/simulator_cli.py event \
+  --json '{"event":"press","control":"power"}' \
+  --json '{"event":"press","control":"center"}'
 ```
 
-The viewer opens the tracked legacy walkie shell atlas by default. Use `Open
-PNG` for another image, `Open Project` and `Render` for an asset-harness
-project, and `Validate` to inspect its diagnostics. `Save Preview` writes a
-PNG only when you explicitly choose a destination. Set `PYTHON_BIN` when a
-different Python interpreter provides Tkinter and Pillow.
+The simulator opens the staged WalkieTalkie/Ham/ManPack artwork, provides
+clickable physical controls, renders the LCD state, and exposes a JSON event
+entry. Its LCD panels, selected rows, signal indicator, and app icons come from
+`Contents/mods/PsychopatzCore/common/media/ui/Radio/RadioMenu/radioUI.png`.
+All ten staged radio types have independent LCD-aperture/content calibration
+for both clean and worn sheet halves, plus an aspect-matched atlas screen
+texture; this avoids stretching one wide panel or a second bezel into every
+device. The `Show hitboxes` toggle exposes the measured
+source-coordinate placements (orange LCD aperture, blue content-safe area,
+green controls) when calibrating new device art. Known source-sheet seam bleed
+is guarded at render time without rewriting the staged PNGs. Set `PYTHON_BIN`
+when a different Python interpreter provides Tkinter and Pillow. To open the
+previous image viewer explicitly, run:
+
+```sh
+./run.sh --asset-viewer
+```
 
 The entry point always emits one bounded JSON object on stdout by default.
 Human-readable progress belongs on stderr. Image files are referenced by path
