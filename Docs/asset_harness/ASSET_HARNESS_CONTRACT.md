@@ -1,5 +1,7 @@
 # Psychopatz Asset Harness — Agent-First Architecture Contract
 
+> **2026-10-16 radio modular override:** For the current harness-only radio-asset goal, use [RADIO_MODULAR_ASSET_PRODUCTION.md](RADIO_MODULAR_ASSET_PRODUCTION.md) as the canonical precise-mask, two-chassis-variant and quality-gate contract. New per-device PNGs target `Contents/mods/PsychopatzCore/common/media/ui/Radio/{WalkieTalkie,Ham,ManPack}/<existing basename>/` **after review**; developer masks/projects/QA stay outside runtime media. No mod/game Lua or active texture changes and no `export apply` in this goal. Older alternate-path examples and hypothetical unimplemented commands below describe the initial harness design, not an instruction to restart H0.
+
 > **Current implementation note (2026-10-15):** This contract was initially written before the CLI/Pillow pipeline and optional Tk radio simulator landed. Those components **now exist** (see `tools/asset_harness/README.md` and the current progress ledger), so any following "planned / no CLI" language describes the original design baseline, **not the current repo**. New variable radio controls and component animation are specified in [Radio Interaction v2](../radio_os/CORE_RADIO_OS_INTERACTION_V2.md). Preserve existing harness commands and use the new I0–I9 track rather than restarting H0.
 
 
@@ -44,8 +46,11 @@ PsychopatzCore/
     tests/
   Docs/asset_harness/          # plan, runbook, roadmap, progress
   Contents/mods/PsychopatzCore/common/media/ui/
-    psychopatz/radio/devices/<family>/<model>/
-      ...                      # ONLY validated, approved runtime exports
+    Radio/{WalkieTalkie,Ham,ManPack}/
+      <existing-device-basename>/ # NEW per-model modular PNGs after visual approval
+        Chassis/Pristine.png
+        Chassis/Worn.png
+        ...                      # other independently verified components
 ```
 
 Editable JSON projects and intermediate generated previews/diff images live in a controlled **development work directory**, outside the `common/media/ui` runtime tree; actual runtime PNGs follow Core's established `Contents/mods/PsychopatzCore/common/media/ui/` convention. The `42.20/media/lua` directory may contain Build-42-specific Lua consumers. Do not create unrequested `42.20/media/ui` exports or duplicate virtual texture names.
