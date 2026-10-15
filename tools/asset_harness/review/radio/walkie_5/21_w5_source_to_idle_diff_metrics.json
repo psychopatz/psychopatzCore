@@ -1,0 +1,38 @@
+{
+  "device": "walkie_5",
+  "diff_kind": "source_to_idle",
+  "status": "proposed",
+  "before": {
+    "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+    "sha256": "2325d192eaf407bdfff634b1bb58e94b45d3b7e7e8f4da3d67bd0c32e1dc4fda",
+    "immutable": true
+  },
+  "after": {
+    "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/idle_pristine.png",
+    "sha256": "2982bc8ebff1890de08ab3b6d8585535a8a7515cd7df313ab9fcade5eaf6bd6f",
+    "staging_only": true
+  },
+  "diff_image": {
+    "path": "tools/asset_harness/review/radio/walkie_5/19_w5_source_to_idle_diff.png",
+    "sha256": "67faae7e353db9eebc7cea501d0e8e4342d327389398a4d43c89c7b208f08610"
+  },
+  "metrics": {
+    "changed_pixels": 258274,
+    "rgb_changed_pixels": 168385,
+    "alpha_changed_pixels": 258265,
+    "changed_bounds": [288, 230, 885, 1127],
+    "max_rgb_delta": 217,
+    "max_alpha_delta": 255,
+    "channel_changed_pixels": {
+      "R": 146185,
+      "G": 156796,
+      "B": 128922
+    }
+  },
+  "scope": {
+    "fake_idle_generated": false,
+    "source_mutation": false,
+    "production_export_apply": false,
+    "runtime_art_written": false
+  }
+}

@@ -58,7 +58,7 @@ class RadioAssetAuditTests(unittest.TestCase):
         self.assertEqual(walkie5["verification"]["manual_reconstruction"]["status"], "proposed")
         qa = {item["id"]: item for item in walkie5["verification"]["qa_requirements"]}
         self.assertEqual(qa["pristine_chassis"]["status"], "proposed")
-        self.assertEqual(qa["worn_chassis"]["status"], "blocked")
+        self.assertEqual(qa["worn_chassis"]["status"], "proposed")
         self.assertEqual(qa["source_to_idle_diff"]["status"], "proposed")
         self.assertEqual(qa["pilot_acceptance_sheet"]["status"], "proposed")
 
@@ -136,7 +136,7 @@ class RadioAssetAuditTests(unittest.TestCase):
             self.assertEqual(diff_report["status"], "proposed")
             self.assertIsNotNone(diff_report["after"])
             self.assertFalse(diff_report["scope"]["fake_idle_generated"])
-            self.assertEqual(diff_report["metrics"]["changed_bounds"], [290, 920, 402, 1032])
+            self.assertEqual(diff_report["metrics"]["changed_bounds"], [288, 230, 885, 1127])
             self.assertTrue(Path(diff_report["diff"]["path"]).is_file())
             self.assertGreaterEqual(len(paths), 24)
 

@@ -303,6 +303,29 @@ def _staged_authoring_evidence(root: Path, definition: dict[str, str]) -> dict[s
             "states": states,
         }
 
+    # LCD artwork is stored in the modular schema's dedicated ``lcd_layers``
+    # record rather than in ``components``.  Treat it as a semantic component
+    # for staged evidence so the required-component gate reflects the actual
+    # authored layer files instead of reporting a false missing ``lcd``.
+    lcd_layers = modular.get("lcd_layers") if isinstance(modular.get("lcd_layers"), dict) else None
+    if "lcd" not in components and lcd_layers is not None:
+        lcd_states: dict[str, dict[str, Any]] = {}
+        for state_name in ("glass", "bezel_overlay", "matte"):
+            layer = lcd_layers.get(state_name)
+            if isinstance(layer, dict):
+                layer_value = layer.get("image")
+            else:
+                layer_value = layer
+            lcd_states[state_name] = _asset_record(project_path, project, layer_value)
+        lcd_review = lcd_layers.get("review") if isinstance(lcd_layers.get("review"), dict) else {}
+        components["lcd"] = {
+            "status": str(lcd_layers.get("status") or "blocked"),
+            "reviewed": bool(lcd_review.get("reviewed")),
+            "mask": str(lcd_layers.get("mask") or "") or None,
+            "socket_mask": str(lcd_layers.get("socket_mask") or "") or None,
+            "states": lcd_states,
+        }
+
     masks_value = project.get("masks") if isinstance(project.get("masks"), dict) else {}
     masks: dict[str, Any] = {}
     for mask_id, raw in masks_value.items():

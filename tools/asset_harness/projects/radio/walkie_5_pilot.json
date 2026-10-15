@@ -343,6 +343,1110 @@
       "source": null,
       "status": "proposed",
       "width": 1024
+    },
+    "channel_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 14276,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/channel_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "882fd8bb7ee62b3e08b62db82a10684e7f6897b113e695507ea900c474fad97d",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "channel_face_v2": {
+      "bbox_fill_ratio": 0.044151,
+      "bytes": 4062,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        640,
+        274,
+        146,
+        99
+      ],
+      "path": "masks/channel_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "f1f2b5e386584c0ee862dd8866769275e7f4e575d7540efd88e22f56f28fd7ec",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "channel_socket_v2": {
+      "bbox_fill_ratio": 0.052131,
+      "bytes": 3381,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        635,
+        269,
+        156,
+        109
+      ],
+      "path": "masks/channel_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "b572b2ee0a9dcb70b18a32cfdc4ff32678335079854e1c1166163c5d5ef93c50",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "channel_socket_v3": {
+      "bbox_fill_ratio": 0.047659,
+      "bytes": 4647,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        639,
+        269,
+        152,
+        109
+      ],
+      "path": "masks/channel_socket_v3.png",
+      "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "15b466bfa6dd95f638e756bb2b67223b32f987764c651c5a99bc0374b80399ea",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "down_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 10134,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/down_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "7830da729968fc7fdb1510e0328d58304cd434c71b688173981f4f4827529e65",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "down_face_v2": {
+      "bbox_fill_ratio": 0.019505,
+      "bytes": 2189,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        439,
+        1030,
+        159,
+        92
+      ],
+      "path": "masks/down_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "cf294de5dfb4ab12113cce66a5e5265f674b931382d9b7eb2287cf5df0f144dc",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "down_socket_v2": {
+      "bbox_fill_ratio": 0.023098,
+      "bytes": 2253,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        434,
+        1025,
+        169,
+        102
+      ],
+      "path": "masks/down_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "2aad78dd621e7f45acc9d43d70f0e82ec06befec868b03aa410b52bd4a345470",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "home_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 10141,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/home_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "9199de2dfc7391132c263a5971d158042a5e0c0157efed631faa13b6a1bdb11d",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "home_face_v2": {
+      "bbox_fill_ratio": 0.012686,
+      "bytes": 2175,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        655,
+        925,
+        99,
+        103
+      ],
+      "path": "masks/home_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "e2c5a83844ddc51d03c20738d82c2036ae28c390118ffd521fcf4a13e78ea915",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "home_socket_v2": {
+      "bbox_fill_ratio": 0.015245,
+      "bytes": 2159,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        650,
+        920,
+        109,
+        113
+      ],
+      "path": "masks/home_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "0680a93d5dddcd318bae7dfaae3c8adbae59413581b837f1aec8dc5588d494dc",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "lcd_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 11003,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/lcd_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "45846e7ec8fda2fb32201e588e4042bf37c19b0c0140f3be4fe5b4c0aeda5644",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "lcd_face_v2": {
+      "bbox_fill_ratio": 0.143141,
+      "bytes": 3072,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        319,
+        610,
+        406,
+        211
+      ],
+      "path": "masks/lcd_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "d29ee1d175d8a128f988109cdf8f6d96e35d2c3fbf51edafe539ef4a71637169",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "lcd_socket_v2": {
+      "bbox_fill_ratio": 0.151698,
+      "bytes": 2406,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        314,
+        605,
+        416,
+        221
+      ],
+      "path": "masks/lcd_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "037417bac04210da19a2b28f55caf768cfa3c37655ac67048f6da04b3773884f",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "left_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 10317,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/left_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "6cd7e082078af3c19cfce5f95b3809968378cf40bb5fe733ea79c1fe01443c0a",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "left_face_v2": {
+      "bbox_fill_ratio": 0.014689,
+      "bytes": 2364,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        397,
+        925,
+        87,
+        118
+      ],
+      "path": "masks/left_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "8704e1c2f62741b42282a530cda571770edcfe6ff1bef4e79469fbe44780b247",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "left_socket_v2": {
+      "bbox_fill_ratio": 0.018664,
+      "bytes": 2336,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        392,
+        920,
+        97,
+        128
+      ],
+      "path": "masks/left_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "4d07052d5b9ba46f8b1464d21e2c44e24508054aaa58ed304c13528264b264d1",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ok_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 10012,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/ok_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "35b1df0555b2bfab740e10bedea898a292c2e67e4cafa64fce2aa6966fd95167",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ok_face_v2": {
+      "bbox_fill_ratio": 0.013267,
+      "bytes": 2029,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        478,
+        946,
+        98,
+        82
+      ],
+      "path": "masks/ok_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "c81a122aa4fdac64b43daf33d190e1dfa44a802f89a95978d21cb5640694c83e",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ok_socket_v2": {
+      "bbox_fill_ratio": 0.016255,
+      "bytes": 1979,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        473,
+        941,
+        108,
+        92
+      ],
+      "path": "masks/ok_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "052aeca867fef250a4f0130eeb3ee020bc7b439f878d85f5c6edbda9b232e4fa",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "power_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 10066,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/power_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "60a7d95925e7a2f24cf3f5d2f0f0b3c10a1bd8c8e1309f5982af35817eae30f0",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "power_face_v2": {
+      "bbox_fill_ratio": 0.020768,
+      "bytes": 1995,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        356,
+        368,
+        76,
+        56
+      ],
+      "path": "masks/power_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "4b39800fcf5ef5e7fe8597c57791cb31da12a5c66847ed1beef55d507f99c4bb",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "power_socket_v2": {
+      "bbox_fill_ratio": 0.027865,
+      "bytes": 1961,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        351,
+        363,
+        86,
+        66
+      ],
+      "path": "masks/power_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "3c2c86e1b5f21ad8c5fe0dd44ab579ca552540590628f8fa10202b671e1c3591",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "power_socket_v3": {
+      "bbox_fill_ratio": 0.027748,
+      "bytes": 2211,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        351,
+        363,
+        86,
+        66
+      ],
+      "path": "masks/power_socket_v3.png",
+      "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "1a9f4202bec1547b949b9c7ae4c5157089702a362ea58b0fab214f54ec78a915",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ptt_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 11589,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/ptt_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "fe16b01cc79f4664cfd146a4f631b4c742a29c16a837bf85ee965ec683ea8eb7",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ptt_face_v2": {
+      "bbox_fill_ratio": 0.015584,
+      "bytes": 3022,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        792,
+        823,
+        88,
+        163
+      ],
+      "path": "masks/ptt_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "cd81e34a61743693c76e559d4e3a560a3906fe484d867f04d0e1a6020f2932c0",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ptt_socket_v2": {
+      "bbox_fill_ratio": 0.018394,
+      "bytes": 2713,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        787,
+        818,
+        98,
+        173
+      ],
+      "path": "masks/ptt_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "76c617b1331a968b05f80b9d113cea81d0d4525afdd4b9f5870196bf412e05bf",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ptt_socket_v3": {
+      "bbox_fill_ratio": 0.017689,
+      "bytes": 3587,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        787,
+        818,
+        95,
+        173
+      ],
+      "path": "masks/ptt_socket_v3.png",
+      "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "18d17cc9e78c583b67b883367e1318c25e9f5281b5cdb996544d9be9cf8261c6",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "pwr_led_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 9855,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/pwr_led_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "dea0224712f4369c3fda4a034baa04dbe628a844a72f559f1b13bc5c96e8d580",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "pwr_led_face_v2": {
+      "bbox_fill_ratio": 0.010464,
+      "bytes": 1833,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        384,
+        478,
+        63,
+        43
+      ],
+      "path": "masks/pwr_led_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "85687ff56faae80db4aa144fe78ed99c550afa1a939366e14d3f2b26bcacbedd",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "pwr_led_socket_v2": {
+      "bbox_fill_ratio": 0.014144,
+      "bytes": 1858,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        380,
+        474,
+        71,
+        51
+      ],
+      "path": "masks/pwr_led_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "a91f0179b0d83c5019b1f93c760abcaf087dbe4e7d7c81f39711ac19c3af1fae",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "right_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 10311,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/right_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "52de358d8d8c263476463b6ea6360ddab969ba38c537cb7fbf24495df249f6b3",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "right_face_v2": {
+      "bbox_fill_ratio": 0.010869,
+      "bytes": 2362,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        563,
+        925,
+        86,
+        118
+      ],
+      "path": "masks/right_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "3007c983a7cdd63dfa4243c7a1ac36cad3a2af009c05c2e6c145d61d4b6637d3",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "right_socket_v2": {
+      "bbox_fill_ratio": 0.013856,
+      "bytes": 2294,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        558,
+        920,
+        96,
+        128
+      ],
+      "path": "masks/right_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "d5d26008b99b1057383ed4a83c4f74c32f10d15ed7706eaba1cef5e35173a4df",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "rx_led_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 9882,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/rx_led_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "a25e383db8e58619bf80a10be92a5da1cf8d898beb74cc897d149ce0be387e65",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "rx_led_face_v2": {
+      "bbox_fill_ratio": 0.008458,
+      "bytes": 1842,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        490,
+        478,
+        63,
+        43
+      ],
+      "path": "masks/rx_led_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "18ab11a43799e91e7520041b46583f9b41aa71d91255be718e692aa9d2b6cf43",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "rx_led_socket_v2": {
+      "bbox_fill_ratio": 0.011453,
+      "bytes": 1864,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        486,
+        474,
+        71,
+        51
+      ],
+      "path": "masks/rx_led_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "9773cfa81d6f9c583a4691532aa25d267772960aa0f0daf601bbe20ad51fa6e9",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "tx_led_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 9860,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/tx_led_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "db60bcdbf416d5a573ceaa62a046305ed6887cfed875477aaa01a30d2e7be001",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "tx_led_face_v2": {
+      "bbox_fill_ratio": 0.007098,
+      "bytes": 1829,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        596,
+        478,
+        63,
+        43
+      ],
+      "path": "masks/tx_led_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "1e9bca47c420349dc2d43ef3dbc539a609b71f3e40dc5554d6e4644e93cedc34",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "tx_led_socket_v2": {
+      "bbox_fill_ratio": 0.009621,
+      "bytes": 1868,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        592,
+        474,
+        71,
+        51
+      ],
+      "path": "masks/tx_led_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "cae86e859b76e83107185a029513d20bd5663cb613eda538295b5cc6bdccf557",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "up_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 10097,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/up_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "109f72f4f096877c24c5f7b54d3b7bb66390e5f83a00b1bedf1c8ba4f724d113",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "up_face_v2": {
+      "bbox_fill_ratio": 0.022127,
+      "bytes": 2159,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        439,
+        875,
+        159,
+        90
+      ],
+      "path": "masks/up_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "49f06adcb322d5d4c8e05742625740fb71cd37174b882614266b63460cce7885",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "up_socket_v2": {
+      "bbox_fill_ratio": 0.026259,
+      "bytes": 2204,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        434,
+        870,
+        169,
+        100
+      ],
+      "path": "masks/up_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "b4a69d4d2013884dce03073bfe2a3dfe4133c5f794d8eb6c2872d5161056aa75",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "volume_face": {
+      "bbox_fill_ratio": 1.0,
+      "bytes": 13353,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        0,
+        0,
+        1024,
+        1535
+      ],
+      "path": "masks/volume_face.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "1ef97462a7822fa5dcc0022ec1370f2013f7576f6caecccf31434fd449795fad",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "volume_face_v2": {
+      "bbox_fill_ratio": 0.082417,
+      "bytes": 3934,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        445,
+        235,
+        168,
+        116
+      ],
+      "path": "masks/volume_face_v2.png",
+      "provenance": "native-resolution W5 visual control polygon; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "fd49983659e3fdc4a1728c7bfb4c4af30a6f571b1be1b8114be48822009228da",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "volume_socket_v2": {
+      "bbox_fill_ratio": 0.094119,
+      "bytes": 3379,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        440,
+        230,
+        178,
+        126
+      ],
+      "path": "masks/volume_socket_v2.png",
+      "provenance": "native-resolution W5 localized socket envelope; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "7ac10955260021e37d152916f9c52962e1159f47ada7ceec6201e8bca8505a69",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "volume_socket_v3": {
+      "bbox_fill_ratio": 0.089933,
+      "bytes": 5102,
+      "height": 1535,
+      "method": "hand_authored",
+      "nonzero_bounds": [
+        440,
+        230,
+        173,
+        126
+      ],
+      "path": "masks/volume_socket_v3.png",
+      "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "a0a7eb2022fc0166a151aad1432fb4ee69274737849c2441661e1a88c091a088",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
     }
   },
   "modular": {
@@ -353,13 +1457,66 @@
             346,
             975
           ],
-          "back_socket": [
-            346,
-            975
+          "device_center": [
+            512,
+            768
+          ],
+          "home_center": [
+            704,
+            976
+          ],
+          "lcd_center": [
+            522,
+            715
+          ],
+          "ptt_center": [
+            836,
+            904
+          ],
+          "speaker_center": [
+            522,
+            1210
           ]
         },
-        "image": "pilot/artifacts/back_chassis_pristine_candidate.png",
-        "notes": "W5 Back one-control localized socket reconstruction candidate; distinct worn chassis and remaining controls intentionally pending.",
+        "image": "remaining/artifacts/chassis_pristine_full.png",
+        "notes": "Native-resolution W5 full-device pristine candidate with independently reconstructed empty sockets for remaining controls; visual acceptance pending.",
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "back_socket",
+        "status": "proposed"
+      },
+      "worn": {
+        "anchors": {
+          "back_center": [
+            346,
+            975
+          ],
+          "device_center": [
+            512,
+            768
+          ],
+          "home_center": [
+            704,
+            976
+          ],
+          "lcd_center": [
+            522,
+            715
+          ],
+          "ptt_center": [
+            836,
+            904
+          ],
+          "speaker_center": [
+            522,
+            1210
+          ]
+        },
+        "image": "remaining/artifacts/chassis_worn_full.png",
+        "notes": "Native-resolution W5 full-device worn candidate with independently reconstructed empty sockets for remaining controls; visual acceptance pending.",
         "review": {
           "artifacts": [],
           "reviewed": false,
@@ -404,9 +1561,504 @@
           }
         },
         "status": "proposed"
+      },
+      "channel": {
+        "action": "channel",
+        "detents": 4,
+        "hitbox": [
+          635,
+          274,
+          151,
+          99
+        ],
+        "kind": "rotary",
+        "mask": "channel_face_v2",
+        "notes": "Native-resolution W5 channel control; source rotary/switch frames authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          710,
+          323
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "channel_socket_v3",
+        "states": {
+          "frame_00": {
+            "image": "remaining/artifacts/channel_frame_00.png",
+            "x": 0,
+            "y": 0
+          },
+          "frame_01": {
+            "image": "remaining/artifacts/channel_frame_01.png",
+            "x": 0,
+            "y": 0
+          },
+          "frame_02": {
+            "image": "remaining/artifacts/channel_frame_02.png",
+            "x": 0,
+            "y": 0
+          },
+          "frame_03": {
+            "image": "remaining/artifacts/channel_frame_03.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "down": {
+        "action": "down",
+        "hitbox": [
+          439,
+          1030,
+          159,
+          92
+        ],
+        "kind": "button",
+        "mask": "down_face_v2",
+        "notes": "Native-resolution W5 down control; source face and pressed state authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          518,
+          1075
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "down_socket_v2",
+        "states": {
+          "idle": {
+            "image": "remaining/artifacts/down_idle.png",
+            "x": 0,
+            "y": 0
+          },
+          "pressed": {
+            "image": "remaining/artifacts/down_pressed.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "home": {
+        "action": "home",
+        "hitbox": [
+          655,
+          925,
+          99,
+          103
+        ],
+        "kind": "button",
+        "mask": "home_face_v2",
+        "notes": "Native-resolution W5 home control; source face and pressed state authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          704,
+          976
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "home_socket_v2",
+        "states": {
+          "idle": {
+            "image": "remaining/artifacts/home_idle.png",
+            "x": 0,
+            "y": 0
+          },
+          "pressed": {
+            "image": "remaining/artifacts/home_pressed.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "left": {
+        "action": "left",
+        "hitbox": [
+          397,
+          925,
+          87,
+          118
+        ],
+        "kind": "button",
+        "mask": "left_face_v2",
+        "notes": "Native-resolution W5 left control; source face and pressed state authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          440,
+          984
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "left_socket_v2",
+        "states": {
+          "idle": {
+            "image": "remaining/artifacts/left_idle.png",
+            "x": 0,
+            "y": 0
+          },
+          "pressed": {
+            "image": "remaining/artifacts/left_pressed.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "ok": {
+        "action": "select",
+        "hitbox": [
+          478,
+          946,
+          98,
+          82
+        ],
+        "kind": "button",
+        "mask": "ok_face_v2",
+        "notes": "Native-resolution W5 ok control; source face and pressed state authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          526,
+          986
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "ok_socket_v2",
+        "states": {
+          "idle": {
+            "image": "remaining/artifacts/ok_idle.png",
+            "x": 0,
+            "y": 0
+          },
+          "pressed": {
+            "image": "remaining/artifacts/ok_pressed.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "power": {
+        "action": "power",
+        "detents": 2,
+        "hitbox": [
+          356,
+          368,
+          76,
+          56
+        ],
+        "kind": "switch",
+        "mask": "power_face_v2",
+        "notes": "Native-resolution W5 power control; source rotary positions registered as off/on candidates in developer staging; visual acceptance pending.",
+        "pivot": [
+          394,
+          395
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "power_socket_v3",
+        "states": {
+          "off": {
+            "image": "remaining/artifacts/power_frame_00.png",
+            "x": 0,
+            "y": 0
+          },
+          "on": {
+            "image": "remaining/artifacts/power_frame_01.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "ptt": {
+        "action": "ptt",
+        "hitbox": [
+          792,
+          823,
+          88,
+          163
+        ],
+        "kind": "hold",
+        "mask": "ptt_face_v2",
+        "notes": "Native-resolution W5 right-side push-to-talk candidate; idle/held state art authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          836,
+          904
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "ptt_socket_v3",
+        "states": {
+          "held": {
+            "image": "remaining/artifacts/ptt_held.png",
+            "x": 0,
+            "y": 0
+          },
+          "idle": {
+            "image": "remaining/artifacts/ptt_idle.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "pwr_led": {
+        "action": "pwr_led",
+        "hitbox": [
+          384,
+          478,
+          63,
+          43
+        ],
+        "kind": "led",
+        "mask": "pwr_led_face_v2",
+        "notes": "Native-resolution W5 labeled indicator; actual source lens preserved for on state and localized dark off state authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          415,
+          503
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "pwr_led_socket_v2",
+        "states": {
+          "off": {
+            "image": "remaining/artifacts/pwr_led_off.png",
+            "x": 0,
+            "y": 0
+          },
+          "on": {
+            "image": "remaining/artifacts/pwr_led_on.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "right": {
+        "action": "right",
+        "hitbox": [
+          563,
+          925,
+          86,
+          118
+        ],
+        "kind": "button",
+        "mask": "right_face_v2",
+        "notes": "Native-resolution W5 right control; source face and pressed state authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          606,
+          984
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "right_socket_v2",
+        "states": {
+          "idle": {
+            "image": "remaining/artifacts/right_idle.png",
+            "x": 0,
+            "y": 0
+          },
+          "pressed": {
+            "image": "remaining/artifacts/right_pressed.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "rx_led": {
+        "action": "rx_led",
+        "hitbox": [
+          490,
+          478,
+          63,
+          43
+        ],
+        "kind": "led",
+        "mask": "rx_led_face_v2",
+        "notes": "Native-resolution W5 labeled indicator; actual source lens preserved for on state and localized dark off state authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          521,
+          503
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "rx_led_socket_v2",
+        "states": {
+          "off": {
+            "image": "remaining/artifacts/rx_led_off.png",
+            "x": 0,
+            "y": 0
+          },
+          "on": {
+            "image": "remaining/artifacts/rx_led_on.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "tx_led": {
+        "action": "tx_led",
+        "hitbox": [
+          596,
+          478,
+          63,
+          43
+        ],
+        "kind": "led",
+        "mask": "tx_led_face_v2",
+        "notes": "Native-resolution W5 labeled indicator; actual source lens preserved for on state and localized dark off state authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          627,
+          503
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "tx_led_socket_v2",
+        "states": {
+          "off": {
+            "image": "remaining/artifacts/tx_led_off.png",
+            "x": 0,
+            "y": 0
+          },
+          "on": {
+            "image": "remaining/artifacts/tx_led_on.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "up": {
+        "action": "up",
+        "hitbox": [
+          439,
+          875,
+          159,
+          90
+        ],
+        "kind": "button",
+        "mask": "up_face_v2",
+        "notes": "Native-resolution W5 up control; source face and pressed state authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          518,
+          920
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "up_socket_v2",
+        "states": {
+          "idle": {
+            "image": "remaining/artifacts/up_idle.png",
+            "x": 0,
+            "y": 0
+          },
+          "pressed": {
+            "image": "remaining/artifacts/up_pressed.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
+      },
+      "volume": {
+        "action": "volume",
+        "detents": 4,
+        "hitbox": [
+          445,
+          235,
+          171,
+          116
+        ],
+        "kind": "rotary",
+        "mask": "volume_face_v2",
+        "notes": "Native-resolution W5 volume control; source rotary/switch frames authored in developer staging; visual acceptance pending.",
+        "pivot": [
+          530,
+          293
+        ],
+        "review": {
+          "artifacts": [],
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "volume_socket_v3",
+        "states": {
+          "frame_00": {
+            "image": "remaining/artifacts/volume_frame_00.png",
+            "x": 0,
+            "y": 0
+          },
+          "frame_01": {
+            "image": "remaining/artifacts/volume_frame_01.png",
+            "x": 0,
+            "y": 0
+          },
+          "frame_02": {
+            "image": "remaining/artifacts/volume_frame_02.png",
+            "x": 0,
+            "y": 0
+          },
+          "frame_03": {
+            "image": "remaining/artifacts/volume_frame_03.png",
+            "x": 0,
+            "y": 0
+          }
+        },
+        "status": "proposed"
       }
     },
-    "lcd_layers": {},
+    "lcd_layers": {
+      "bezel_overlay": {
+        "image": "remaining/artifacts/lcd_bezel_overlay.png"
+      },
+      "glass": {
+        "image": "remaining/artifacts/lcd_glass.png"
+      },
+      "matte": {
+        "image": "remaining/artifacts/lcd_matte.png"
+      },
+      "notes": "Native-resolution W5 LCD surface, bezel overlay and matte extracted/reconstructed in developer staging; visual acceptance pending.",
+      "review": {
+        "artifacts": [],
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "status": "proposed"
+    },
     "required_components": [
       "back",
       "home",
@@ -445,23 +2097,74 @@
           "path": "renders/back_pressed_composite.png"
         },
         {
-          "after": "renders/back_idle_composite.png",
+          "kind": "remaining_controls_source",
+          "path": "source_inspection/remaining/01_top_controls.png"
+        },
+        {
+          "kind": "remaining_controls_source",
+          "path": "source_inspection/remaining/04_navigation.png"
+        },
+        {
+          "kind": "chassis_candidate",
+          "path": "remaining/artifacts/chassis_pristine_full.png"
+        },
+        {
+          "kind": "worn_chassis_candidate",
+          "path": "remaining/artifacts/chassis_worn_full.png"
+        },
+        {
+          "kind": "idle_composite",
+          "path": "remaining/renders/idle_pristine.png"
+        },
+        {
+          "kind": "pressed_composite",
+          "path": "remaining/renders/pressed_pristine.png"
+        },
+        {
+          "kind": "worn_composite",
+          "path": "remaining/renders/idle_worn.png"
+        },
+        {
+          "kind": "review_sheet",
+          "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/11_w5_remaining_source_controls.png"
+        },
+        {
+          "kind": "review_sheet",
+          "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/12_w5_remaining_mask_overlays.png"
+        },
+        {
+          "kind": "review_sheet",
+          "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/13_w5_assembly_closeups.png"
+        },
+        {
+          "kind": "review_sheet",
+          "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/20_w5_source_to_idle_diff_visible.png"
+        },
+        {
+          "kind": "review_notes",
+          "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/remaining_controls_notes.json"
+        },
+        {
+          "kind": "diff_metrics",
+          "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/21_w5_source_to_idle_diff_metrics.json"
+        },
+        {
+          "after": "remaining/renders/idle_pristine.png",
           "before": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
-          "diff": "pilot/artifacts/back_source_to_idle_diff.png",
+          "diff": "remaining/artifacts/w5_full_source_to_idle_diff.png",
           "kind": "source_to_idle_diff",
-          "report": "pilot/artifacts/back_source_to_idle_diff.json"
+          "report": "remaining/artifacts/w5_full_source_to_idle_diff.json"
         }
       ],
       "reasons": [
         "PILOT_ARTWORK_REQUIRES_REVIEW",
-        "WORN_CHASSIS_PENDING",
-        "REMAINING_COMPONENTS_PENDING"
+        "VISUAL_REVIEW_PENDING"
       ],
       "reconstruction_bounds": [
-        290,
-        920,
-        112,
-        112
+        288,
+        230,
+        597,
+        897
       ],
       "reviewed": false,
       "reviewed_by": null,
