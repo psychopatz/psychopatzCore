@@ -1,10 +1,10 @@
 # Asset Harness — Unattended Codex/Luna Runbook
 
-> **2026-10-16 scoped radio-asset production:** For modular radio art, first read [RADIO_MODULAR_ASSET_PRODUCTION.md](RADIO_MODULAR_ASSET_PRODUCTION.md). Its AH-R0–AH-R6 phase plan and canonical `Contents/mods/PsychopatzCore/common/media/ui/Radio/` paths take priority over the historical scaffold-start instructions below. This goal may improve the **existing offline Asset Harness and its tests only**, with per-device reviewed art; it must not change gameplay/runtime Lua, active PNGs, or execute `export apply`. Do not restart completed H0–H6/H8 milestones. Historical text below is retained as earlier workflow evidence.
+> **2026-10-16 updated scope:** For the live next task, read [RADIO_VISUAL_HARNESS_RECOVERY.md](RADIO_VISUAL_HARNESS_RECOVERY.md) FIRST, then [RADIO_MODULAR_ASSET_PRODUCTION.md](RADIO_MODULAR_ASSET_PRODUCTION.md). Its AH-R0–AH-R6 phase plan and canonical `Contents/mods/PsychopatzCore/common/media/ui/Radio/` paths take priority over the historical scaffold-start instructions below. This goal may improve the **existing offline Asset Harness and its tests only**, with per-device reviewed art; it must not change gameplay/runtime Lua, active PNGs, or execute `export apply`. Do not restart completed H0–H6/H8 milestones. Historical text below is retained as earlier workflow evidence.
 
 ## Required reading
 
-**For this radio-only goal, read first:** `Docs/asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md` — source paths, modular chassis/controls, authoring QA and AH-R0–AH-R6 plan.
+**For the active radio goal, read first:** `Docs/asset_harness/RADIO_VISUAL_HARNESS_RECOVERY.md` (simulator/visual loop/PNG publication). Then read `Docs/asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md` for fidelity, all ten models and scope.
 1. `Docs/asset_harness/ASSET_HARNESS_CONTRACT.md` — machine interface, security, persistence, compositor, export requirements.
 2. `Docs/asset_harness/ASSET_HARNESS_ROADMAP.md` — H0–H9 order/gates.
 3. `Docs/asset_harness/ASSET_HARNESS_PROGRESS.md` — next chunk and verified vs pending.
@@ -13,17 +13,15 @@
 6. `docs/preview-framework.md`, `tools/radio_os/` and `tests/radio_os/` — actual snapshot and asset pipeline.
 7. Recheck actual repo HEAD/worktree and test suites before edits.
 
-## Active radio priority — author an actual visual pilot
+## ACTIVE radio execution — unified visual harness, then real PZ PNGs
 
-**Current stage (2026-10-16, after e8ad4d9):** The mask, modular, simulator and LCD contract tooling already exists. Treat audit inventories, immutable SHA evidence, `blocked=10`, placeholder `after: null` reports and copied-source contact sheets as **completed diagnostic groundwork**, not current deliverables. The canonical [radio production contract](RADIO_MODULAR_ASSET_PRODUCTION.md#current-execution-correction--visual-art-first-2026-10-16-audit-of-commits-through-e8ad4d9) gives the precise next chunk.
+**Read FIRST:** [RADIO_VISUAL_HARNESS_RECOVERY.md](RADIO_VISUAL_HARNESS_RECOVERY.md) (VH1–VH4). Then [RADIO_MODULAR_ASSET_PRODUCTION.md](RADIO_MODULAR_ASSET_PRODUCTION.md) for per-device image fidelity and final canonical filesystem. Prior "W5 one-control first" wording is **fulfilled historical work**: commits `c272542` and `5523220` already created candidate W5 imagery and review PNGs.
 
-**Execute the W5 visual vertical slice first:** Inspect the real W5 image, pick one actual easy-to-identify control, author and view its silhouette mask, face, reconstructed socket, idle/pressed states, and rendered idle comparison. Iterate against actual visual preview at native and UI scale; a successful unit test or input SHA does **not** substitute for opening and judging the edited image. Save curated image review output in `tools/asset_harness/review/radio/walkie_5/` for visible GitHub verification, in addition to scratch artifacts.
+**New first deliverable:** Fix the actual `./run.sh` Tk simulator so it loads and previews the existing W5 modular project and its separate pristine/worn chassis; project LCD and hitboxes must land on the actual hardware. Bind pointer-down/up/move, wheel and PTT so physical states are visible. The CLI and GUI must show **the same** actual composition and source-to-idle image, not the static catalog source while the agent audits JSON. Capture/view an actual GUI screenshot or matched CLI PNG; correct pixels/hitboxes iteratively.
 
-If the image editing/viewing tool genuinely cannot accomplish one region, provide the precise attempted asset/mask and one localized blocker, not a new global "all sources flattened" gate. Keep W5 status proposed/blocked until actual art review; **do not** mark accepted based on synthetic fixtures. Complete independent W5 `Chassis/Pristine.png` and `Chassis/Worn.png` after the real component path works.
+**Publication after visual correction:** Promote **new** reviewed/inspectable modular PNGs and portable paths to `Contents/mods/PsychopatzCore/common/media/ui/Radio/{WalkieTalkie,Ham,ManPack}/<model>/`, commit those real PNG files and do not overwrite existing flat sources. Scratch masks and intermediate previews may remain gitignored; the **actual component/chassis PNGs required to reproduce** the authored model may not live *only* in ignored workspace. `proposed` still means not artist-approved and **not** activated in-game.
 
-**State-machine/tests correction:** Update stale `blocked == 10` and null-diff expectations to assert blocked when no art exists but allow proposed/verified when real image files, accurate masks, sockets, state transitions and human/agent visual review evidence exist. Remove unconditional source-format/provenance blocker branches; replace with conditional, evidence-backed diagnostics. Do not disable safety gates. Retain SHA checking as an inexpensive immutability assertion, not a repeated deliverable or endless audit task.
-
-**Test cadence:** Focused harness image/mask/render/CLI tests while authoring; broader suites at true integration checkpoints. No unrelated profiler test suite on every edit. No production export, game Lua modification, original texture overwrite, or old DTA fallback build. Report image paths, actual opened-view findings and pixel-diff changes before test counts or hashes.
+**Quota rule:** no audit-only, repeated hash-only, placeholder JSON, unrelated profiler test, or one-off device script milestone. Gate work by visible simulator behavior and pixel output. Focused regression checks as support; keep automatic safety tests. After W5, continue all other nine individual radios. Runtime Lua modifications and in-game acceptance remain a separate goal.
 
 ## Unattended execution
 
