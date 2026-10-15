@@ -183,3 +183,7 @@ The current six legacy production PNGs were moved byte-for-byte from `42.20/medi
 **Important separate concern:** full multi-component 1254×1254 concept sheets are *unsliced art references*, not a PZ-renderable radio skin. The importer stores those labeled reference sheets in `common/media/ui/Radio/DeviceConcepts/` for discovery and review, but they must **not be referenced by the live renderer**. Device-specific production assets are cropped/validated into `common/media/ui/psychopatz/radio/devices/<family>/<model>/` only after approval. The compact 341px legacy **builder input** is kept separately at `art_source/radio/legacy/`, not treated as a game texture.
 
 Offline and source-level path checks are possible; only normal Project Zomboid Build 42 use confirms actual engine texture resolution. The PZ Headless Harness is not permitted.
+
+## Agent-first implementation tool (2026-10-15)
+
+The reusable CLI that will author, slice, assemble, validate and export these individual radio-model sources is specified in [`../asset_harness/ASSET_HARNESS_CONTRACT.md`](../asset_harness/ASSET_HARNESS_CONTRACT.md), with H0–H9 implementation stages and its own [Codex /goal](../../ASSET_HARNESS_GOAL_PROMPT.md). **This is a developer asset harness, not the broken PZ Headless Harness.** It has no required Flask/browser/Qt interface; the agent operates JSON CLI plus full-resolution PNG previews. Current per-model A0–A8 art goals remain valid, and live game acceptance remains separate. No new images are included by this documentation cross-link.
