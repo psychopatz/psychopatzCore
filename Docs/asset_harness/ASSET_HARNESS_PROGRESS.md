@@ -207,3 +207,14 @@ Date / HEAD: 2026-10-16 / `6871c2a` (`feat(asset-harness): strengthen radio mask
 - Verification after this chunk: `PYTHONPATH=tools python3 -m unittest discover -s tools/asset_harness/tests -q` — 40 passed; `py_compile` for CLI/core/simulator/tests — passed; `git diff --check` — passed. No production `export apply`; no runtime Lua or canonical source PNG changes.
 
 Next action remains an external art-review boundary: provide or approve authentic modular W5 pilot masters before creating `Chassis/Pristine.png`, `Chassis/Worn.png`, socket reconstructions, or keyed component PNGs. Until then, keep W5 and the other nine devices blocked and continue only with non-destructive harness evidence.
+
+## AH-R6 status-matrix checkpoint
+
+Date / HEAD: 2026-10-16 / `4361cc6` (`feat(asset-harness): report per-device radio QA gates`), pushed cleanly after `489426c`.
+
+- The tracked audit and all ten manifests now carry per-device QA requirements rather than a single aggregate status: source inventory, full-resolution source copy, alpha preview, pristine chassis, worn chassis, socket masks, component state sheets, source-to-idle diff, and visual review. W4 additionally tracks its bad-cut regression; W5 additionally tracks its blocked pilot acceptance sheet.
+- Modular directories now expose readable-file records with dimensions, alpha summaries, SHA-256 and unreadable-file diagnostics, so future staged art cannot pass merely because filenames exist.
+- Current authoritative audit report: [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `e6cae60215b7372415bc98f42c7366c2991b3be7aa8b023a108216e4817b0d3c`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
+- Verification: 40 harness tests, CLI/core/simulator/test `py_compile`, and `git diff --check` passed. Production `export apply` remains unused; runtime Lua, existing sprites, legacy atlases and saves remain untouched.
+
+The only remaining production-art gate is still authentic, visually reviewed W5 modular artwork. Continue with harness-only evidence until that material approval boundary is supplied; do not mark any device complete from the QA matrix alone.
