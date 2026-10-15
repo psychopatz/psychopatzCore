@@ -14,6 +14,37 @@
 
 **Sequencing constraint:** This /goal makes the harness and modular images correct first, **not** the in-game runtime. When the per-device QA gates pass, launch a separate runtime integration/cutover assignment to switch the live manifest/renderer and smoke tests to the single `Radio/` asset scheme, eliminate obsolete DTA sheet references, and only then prune abandoned builders/tests/docs after reference checks. Do **not** leave ongoing compatibility fallback as a design requirement, but do **not** edit live code or delete anything in this harness-only goal either. Native game acceptance must be separately verified.
 
+## CURRENT EXECUTION CORRECTION — VISUAL ART FIRST (2026-10-16; audit of commits through e8ad4d9)
+
+**Immediate decision:** AH-R0/R1 and much of AH-R2/R3/R4 infrastructure already exist. The remaining product gap is **authored, inspected per-device bitmap artwork**, not another audit schema, JSON file recording a null render, SHA-256 checkpoint, synthetic test, or global blocker narrative. Continue the existing goal from the current implementation. Do not restart H0 or reimplement delivered CLI commands.
+
+**The tracked source PNGs are the authorized visual/design references** for authoring in this phase: `Base.WalkieTalkie1–5`, makeshift, three HAM and ManPack in the canonical `Radio/` folders. Preserve their original bytes and device identity. Lack of a separately supplied layered Photoshop/master file is **not a prerequisite to attempting** a careful local edit of the existing source. A single-canvas flattened source creates *specific obscured-socket reconstruction tasks*, not an automatic permanent failure for all ten models. Do not demand an unspecified external "authentic modular master" before trying the toolchain.
+
+**Confirmed as of e8ad4d9:**
+- The Asset Harness already supports mask import/polygon/preview/QA, separate chassis/component state configuration, modular rendering/contact sheets, interactive simulator event flow, and new LCD layer registration. Reuse these features; extend only where a concrete pilot is blocked by a missing operation.
+- `tools/asset_harness/core/radio_assets.py::_status_for` unconditionally appends `SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION` and a `single_canvas` source blocker. `_manual_reconstruction_record` writes four blocked gates without inspecting whether authored reconstruction files exist. `_qa_requirements` hardcodes blocked per-part gate states. These must become **evidence-driven** rather than fixed.
+- `test_radio_assets.py` currently asserts `blocked == 10`, null source-to-idle `after` and W5 blocked status. Keep a baseline test for truly unconfigured sources, but add real fixture/pilot transitions: blocked -> proposed -> reviewed/verified only when actual artifacts and visual evidence exist. Never relax masks/alpha/socket acceptance to manufacture a pass.
+- `write_radio_pilot_acceptance_artifacts` displays only the immutable W5 source and alpha; `_write_blocked_source_to_idle_diff` has `after: null`. These count as **diagnostics**, not new sprite production. If an authored composite exists, generate a real *before/after image diff* instead. Hashes belong in provenance/immutability checks, not the primary development loop.
+- Do not keep testing a removed, missing or superseded DTA texture as though it were the new authoritative source. Existing Lua references to absent DTA files are deferred **runtime cutover debt**, not part of this harness-only goal.
+
+### Immediate bounded delivery — W5 first visual vertical slice
+
+The next material agent commit/checkpoint **must include real edited PNGs** rather than just more blockers/tests. Start with `Base.WalkieTalkie5.png` (US Army pilot); only revisit WalkieTalkie4 bad-cut regression when it directly supports a real mask or visual fix.
+
+1. Open the original W5 image at native resolution through the agent's available image viewing capability and the harness's preview/contact-sheet output. Identify **one actual, visually easiest physical control** present in the source (do not invent generic BACK or POWER hardware). Record its precise source coordinates and a close-up annotated visual.
+2. Author a pixel-tight, model-specific **editable silhouette mask** for that control using the existing mask APIs; inspect overlays against adjacent hardware. Extract its **actual face pixels** as a separate transparent PNG in a non-game-loaded staging directory.
+3. Author the locally reconstructed **empty socket / underlying chassis patch** for precisely that control. The original flattened image does not expose hidden pixels: use bounded painterly reconstruction or explicit pixel-level editing of the small region, preserving casing design, labels, material, lighting and geometry. Never leave a rectangular transparency hole or pretend the source reveals concealed pixels. If artistic tools cannot finish that patch, produce a visible attempted patch, precise region/mask and concrete before/after for review; do not claim it passed.
+4. Author a **visible idle and pressed** state for that one control: the pressed state should have actual contact depth/shadow/recess behavior, not merely an offset/darkness change of a rectangular crop. Keep its original glyph/symbol and the same hardware identity.
+5. Use `modular render`, relevant mask commands and the simulator to build an assembled **idle composite** from the localized chassis candidate + extracted face. Inspect full-resolution and game-scale images for gaps/overlaps/alpha halos. Generate a real source-to-render diff heatmap with per-pixel/alpha metrics, and explain differences inside the *documented reconstructed patch* separately from unexplained changes elsewhere.
+6. Save reproducible project JSON, editable mask and authored layer PNGs in `tools/asset_harness/` developer staging. Commit a **small curated set of reviewable pilot artwork and before/after screenshots** under `tools/asset_harness/review/radio/walkie_5/` so GitHub reviewers can actually see image progress; keep bulk scratch data in ignored workspace. Never replace the original `Base.WalkieTalkie5.png` or ship incomplete experimental art as active game art.
+7. Run the **focused** relevant mask/render/state tests and targeted CLI scenarios. Adjust stale tests that force `blocked=10` unconditionally; retain safety/regression tests for missing or unreviewed components. Other full suites may be run at meaningful integration boundaries, not repeatedly for unrelated work.
+
+**Pilot evidence required in the next report:** at least the exact authored control PNG, mask PNG, socket/chassis candidate PNG, idle/pressed renders, a source-vs-recomposition visual diff and real image inspection notes. If the agent has no pixel-editing or image-viewing capability, show the specific tool limitation and *precise visible attempted output*; ask one consolidated question only if unavoidable. Never substitute `sha256sum`, `after: null`, a copied source, or a test count for those images.
+
+**After a successful one-control vertical slice:** complete the other W5 controls and LCD/LED states individually; then author **two distinct complete chassis files**, `Chassis/Pristine.png` and `Chassis/Worn.png` (same geometry/anchors; worn rendering specific to this model), and run composed-state acceptance. Only afterward scale to the other nine models, one by one, without guessing their control coordinates. A one-control pilot is a useful review checkpoint, **not** W5 or AH-R5 completion.
+
+**Progress discipline:** each consecutive coding milestone should deliver visibly new or improved authored artwork. A red/blocked QA gate is appropriate when pixels genuinely fail; an audit-only commit is not the product milestone. After two updates without a changed pilot image, halt peripheral documentation/hash infrastructure and focus on a specific mask/patch/state image. State clearly whether the image was opened and visually inspected, and don't claim a visual approval from tests alone.
+
 ## 1. Authoritative locations and source-of-truth rules
 
 **Canonical Project Zomboid image hierarchy (repo-relative):**
@@ -121,7 +152,7 @@ No art-style changes or redesign are authorized in this goal. All device silhoue
 | **AH-R5** | Use the known bad-cut `Base.WalkieTalkie4` as extraction/alpha regression, then the existing I6-designated US Army `Base.WalkieTalkie5` as the full production-quality pilot. | Human/vision inspectable per-part sheets, source-to-idle compositing diff, both chassis variants, no unverifiable 'passed' flags. |
 | **AH-R6** | Repeat individually for the other eight devices, preserving distinctive source designs and family controls. | Ten separate manifests, no guessed shared coordinates, per-device QA status and blockers. |
 
-Run safe phases without routine approval prompts. If a particular flattened image needs genuinely manual pixel artwork, record the precise mask and blocker, keep other tool work moving, and seek one consolidated art review at the material approval boundary. Do not lower QA to produce a superficial 10/10 complete report.
+Run safe phases without routine approval prompts. At current HEAD AH-R0/AH-R4 *tooling* are substantially implemented; **begin the W5 authoring slice above now** instead of repeating previously passed audits. If a specific concealed socket genuinely needs artistic reconstruction, attempt a bounded local repair, record visual evidence and exact blocker if it fails, then continue feasible components. Seek one consolidated review at the actual art-approval boundary. Do not lower QA to produce a superficial 10/10 complete report.
 
 ## 7. Hard QA gates and measurable acceptance
 
@@ -135,7 +166,7 @@ For each source/variant:
 - Preview pristine/worn, off/on, idle/pressed and combined state grids at 1:1 and representative downscaled UI sizes. No fictitious proof of actual PZ rendering.
 - JSON results contain per-device verified/proposed/blocked flags, reasons, file paths, SHA-256, exact test commands and image inspection artifacts.
 
-A 'complete' device must actually render and be visually reviewed. A technically valid mask, Pillow composition, simulator response or exported archive is **not** evidence that physical art is correct. It is acceptable and safer to mark a device incomplete.
+A 'complete' device must actually render and be visually reviewed. A technically valid mask, Pillow composition, simulator response or exported archive is **not** evidence that physical art is correct. A real **proposed** one-control slice may be valuable without being a completed device. Audit status must be computed from current artwork evidence and must not be permanently hardcoded by source format or frozen test baselines. It is acceptable and safer to mark unreviewed/failed artwork incomplete.
 
 ## 8. Scope safety, delivery and future runtime handoff
 
