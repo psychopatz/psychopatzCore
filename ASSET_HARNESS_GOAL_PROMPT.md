@@ -1,5 +1,8 @@
 # Psychopatz Asset Harness — Codex /goal
 
+> **2026-10-16 radio-only update:** This original `/goal` records the **historical initial harness build**, not the current modular-radio production assignment. For the present harness-first work (no mod code, no active texture replacement; canonical `Contents/mods/PsychopatzCore/common/media/ui/Radio/` path; independent Pristine/Worn chassis), use [RADIO_MODULAR_ASSET_PRODUCTION.md](Docs/asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md). Do not execute the legacy "START H0 NOW" instruction for this task.
+
+
 This is the **pasteable agent-first harness goal** for `psychopatz/psychopatzCore`. It supersedes suggestions to build Flask/UI first, but does not delete prior radio asset A0–A8 plans.
 
 ```text
