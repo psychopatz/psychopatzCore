@@ -1,5 +1,7 @@
 # Psychopatz Asset Harness — Progress Ledger
 
+> **ACTIVE NEXT CHUNK (2026-10-16; corrective audit at e8ad4d9): W5 actual visual authoring.** The harness mask, state, compositor, simulator and LCD tooling has already progressed; no newly authored modular radio control/chassis art is tracked yet. **Stop treating blocked=10, after:null, source hashes, and repeated full test runs as deliverables.** Read [the current execution correction](RADIO_MODULAR_ASSET_PRODUCTION.md#current-execution-correction--visual-art-first-2026-10-16-audit-of-commits-through-e8ad4d9), then produce the exact first W5 control face/mask/socket/idle/pressed images, real composite, visual diff and inspected preview in `tools/asset_harness/review/radio/walkie_5/`. Do not wait for external layered master art before attempting a bounded local reconstruction, but do not claim an unreviewed image accepted. Fix hardcoded blocked QA transitions when actual evidence exists. Runtime Lua and original PNGs remain untouched. Prior entries below are historical evidence, NOT standing instructions to run another blockers-only checkpoint.
+
 > **Scoped planning checkpoint (2026-10-16):** The user requested a harness-first modular radio production goal, separate `Chassis/Pristine.png` and `Chassis/Worn.png` per radio, and canonical image output within `Contents/mods/PsychopatzCore/common/media/ui/Radio/`. The detailed implementation/QA contract is [RADIO_MODULAR_ASSET_PRODUCTION.md](RADIO_MODULAR_ASSET_PRODUCTION.md) with AH-R0–AH-R6 phases. **No actual harness code, modular art, runtime Lua, manifests, legacy skins or in-game assets were changed by this documentation checkpoint.** The completed historical H milestones remain intact. Agent should record current HEAD and re-audit before starting AH-R0, then append execution evidence here.
 
 
@@ -264,3 +266,14 @@ Date / HEAD: 2026-10-16 / `05ada94` (`feat(asset-harness): add modular LCD layer
 - W5 manifest SHA-256 is `46d3811a760864d1b8770c583ce569d05e7dacb92766ac776df941f7a4ee7183`; the authoritative audit report remains SHA-256 `405442fcca018d1494ef7142a5c1db0bcde375c1cd09eb46321ef501052058f3`, with `blocked=10, complete=0`.
 
 This closes a tooling contract gap only; no real LCD art was authored. The W5 pilot still cannot pass until reviewed modular chassis, masks, controls, states, and LCD layers exist.
+
+## Visual-pilot course correction — documentation only
+
+Date: 2026-10-16. Baseline reviewed: `e8ad4d9` (modular LCD contract), before this documentation update.
+
+- Verified Git tree evidence: harness mask/modular/LCD tooling, simulator, and 10 JSON audit manifests exist; no newly authored modular device PNGs have been committed in `common/media/ui/Radio/` or `tools/asset_harness/`.
+- Identified stalling behavior: the W5 pilot image only displays original/alpha, ten blocked diff reports intentionally set `after: null`, and frozen tests assert all ten devices remain blocked. Hardcoded source-format/provenance reasons prevent clean advancement. These are legitimate baseline diagnostics, **not visual-art milestones**.
+- **Current stage / next work:** start W5 one-control pilot with precise authored mask, extracted face, localized empty socket/chassis candidate, idle/pressed appearance, native/game-scale previews and a real source/composition diff. Commit curated viewable PNGs so GitHub can show tangible progress. Test visual QA and dynamic blocked -> proposed -> verified transitions without auto-approving unchanged/poor art.
+- **Authoring input:** existing canonical W5 sprite is the immutable design source; absence of a separately provided layered master is a reason for specific socket painting, not an automatic project-wide stop. W4 historical half-crop diagnostics are not the next output.
+- **After pilot:** complete W5 including independent `Chassis/Pristine.png` and `Chassis/Worn.png`, then work one device at a time. Do not maintain old DTA atlas art, rewrite runtime Lua or apply a production export in this goal.
+- **Scope of this checkpoint:** this entry and linked contract/runbook/goal text only. No harness Python changes, masks, chassis, control PNGs or test suite runs were performed by the documentation editor. The next agent must produce and examine the actual images.
