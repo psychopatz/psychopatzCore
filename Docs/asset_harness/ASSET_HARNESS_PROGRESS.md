@@ -1,5 +1,8 @@
 # Psychopatz Asset Harness — Progress Ledger
 
+> **Scoped planning checkpoint (2026-10-16):** The user requested a harness-first modular radio production goal, separate `Chassis/Pristine.png` and `Chassis/Worn.png` per radio, and canonical image output within `Contents/mods/PsychopatzCore/common/media/ui/Radio/`. The detailed implementation/QA contract is [RADIO_MODULAR_ASSET_PRODUCTION.md](RADIO_MODULAR_ASSET_PRODUCTION.md) with AH-R0–AH-R6 phases. **No actual harness code, modular art, runtime Lua, manifests, legacy skins or in-game assets were changed by this documentation checkpoint.** The completed historical H milestones remain intact. Agent should record current HEAD and re-audit before starting AH-R0, then append execution evidence here.
+
+
 > **New UI/asset follow-up (2026-10-15; source-observed):** Main HEAD `0a86b2e` now includes `tools/asset_harness/simulator_cli.py`, `simulator_gui.py` and a 10-device offline simulator. They are **implemented**, but the current simulated hardware lacks a universal visible Back and event-driven rotary/PTT/LED parts, and game Lua still uses three-button v1 mappings. The new [Radio OS Interaction v2 plan](../radio_os/CORE_RADIO_OS_INTERACTION_V2.md), [art spec](../radio_os/CORE_RADIO_OS_DEVICE_ART_SPEC_V2.md) and [I0–I9 ledger](../radio_os/CORE_RADIO_OS_INTERACTION_PROGRESS.md) own this follow-up. Historic H checkpoints below are kept as evidence and must not be restarted as blank tasks. No art produced by this docs update.
 
 
