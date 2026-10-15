@@ -1,5 +1,7 @@
 # Psychopatz Asset Harness
 
+> **Known 2026-10-16 GUI gap:** The default `./run.sh` still opens **catalog source artwork**, despite new W5 modular PNG candidates in a gitignored workspace. It does NOT yet load the W5 project, correct its physical hitboxes/LCD, or display pressed/held states during mouse interaction. Do not treat unit-test or JSON success as a working radio GUI. **Current implementation priority:** [visual harness recovery contract](../../Docs/asset_harness/RADIO_VISUAL_HARNESS_RECOVERY.md). Deliver corrected GUI rendering and interaction, then real, portable, committed PZ radio PNGs; no runtime Lua changes. The `--project` support exists in `simulator_cli.py`, not the current GUI.
+
 This is the offline, agent-operated asset pipeline for PsychopatzCore. The
 agent-facing CLI and core use Python and Pillow only; ordinary CLI operations
 do not import Tk, start a server, contact the PZ bridge, or use the prohibited
