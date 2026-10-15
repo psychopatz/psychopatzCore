@@ -44,44 +44,30 @@ Do not accept a generated image simply because it looks stylish: test click/targ
 
 ## Authoring/source package (one independent model)
 
-```text
-art_source/radio/devices/<family>/<model>/
-  provenance.json                  # item/art references, original hash/size, approval
-  editable_master.*                # layered source if available (source editable file)
-  source_shell.png                 # high-res transparent, unmodified original
-  shell_front.png                  # opaque chassis/bezel with LCD alpha cutout
-  lcd/
-    glass.png                      # optional scuffs and optical tint
-    bezel_overlay.png              # optional front occlusion
-  controls/
-    back/idle.png
-    back/pressed.png
-    home/idle.png
-    home/pressed.png
-    select/idle.png
-    select/pressed.png
-    dpad/...                       # per direction if authored
-    channel_knob/frame_00.png      # local-pivot-registered turn frames
-    channel_knob/frame_01.png
-    volume_knob/frame_00.png
-    ptt/idle.png
-    ptt/held.png
-  indicators/
-    power_off.png
-    power_on.png
-    tx_off.png
-    tx_red.png
-    rx_green.png
-    glow_mask.png
-  variants/
-    wear_light.png
-    wear_heavy.png
-  device_project.json              # harness JSON, normalized controls/pivots and masks
-```
+**2026-10-16 filesystem correction:** The canonical Project Zomboid image hierarchy is `Contents/mods/PsychopatzCore/common/media/ui/Radio/`, with existing `WalkieTalkie/`, `Ham/`, `ManPack/` and `RadioMenu/` subdirectories. Earlier `art_source/radio/devices/<family>/<model>/` and `common/media/ui/psychopatz/radio/devices/<family>/<model>/` destinations are **superseded for new radio modular PNGs**. Read [Radio Modular Asset Production — Harness Only](../asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md) for the authoritative filesystem, state separation, and scoped production/QA plan.
 
-The folder is a **proposed authoring structure**, not a claim files exist. Alternate deterministic atlas packing is allowed for runtime economy if every part has stable subrects and no fidelity loss. Shared generic UI icons/fonts/screens remain in shared widget atlases. Do not duplicate full source images across dozens of control frames.
+For example, keep `Radio/WalkieTalkie/Base.WalkieTalkie4.png` unchanged and place future reviewed modular PNGs alongside it under `Radio/WalkieTalkie/Base.WalkieTalkie4/`:
 
-**Runtime destination (after validation/approval):** `Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/devices/<family>/<model>/`. Reference from Lua as `media/ui/psychopatz/radio/devices/...`. Never put gameplay-loading images in `42.20/media/ui`. Authoring masters, composites, concept sheets and debug previews must not be mistaken for production textures.
+~~~text
+Base.WalkieTalkie4/
+  Chassis/Pristine.png             # independently reconstructed base, empty sockets
+  Chassis/Worn.png                 # separate complete chassis; identical anchors
+  Buttons/<control>/Idle.png
+  Buttons/<control>/Pressed.png
+  PTT/Idle.png
+  PTT/Held.png
+  Knobs/<knob>/Frame_00.png
+  Switches/Power/Off.png
+  Switches/Power/On.png
+  LEDs/<indicator>/Off.png
+  LEDs/<indicator>/On.png
+  LCD/Glass.png
+  LCD/BezelOverlay.png
+~~~
+
+Only author controls actually verified on each model. Store harness project JSON, editable masks, source provenance, intermediate art masters, compositing/diff QA, previews, and contact sheets in the **developer harness workspace outside** game-loading `common/media/ui`. The original single/paired concept PNG remains immutable source/reference, not automatically approved production art. Avoid duplicating full source canvases for every control frame.
+
+**Harness-only production gate:** do not alter live game code, Lua manifests, legacy atlases, active textures, or the PZ UI. Stage and validate new modular artwork first; do not call runtime `export apply`. Actual binding/activation belongs to the separate I7+ integration work after art approval.
 
 ## Required component metadata
 
