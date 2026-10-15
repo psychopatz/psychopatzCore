@@ -1,5 +1,7 @@
 # Psychopatz Asset Harness
 
+> **CURRENT EXECUTION PRIORITY:** AH-R0/1 and offline component/LCD plumbing have already been implemented. The current Codex milestone is **the W5 one-control visual artwork pilot**, including a real face/mask/reconstructed socket, idle and pressed sprites, native-size inspection, and source-to-idle diff. Read the [production contract's current correction](RADIO_MODULAR_ASSET_PRODUCTION.md) and the [updated short /goal](../../RADIO_MODULAR_ASSET_GOAL_PROMPT.md). More hash-only/blocker-only checkpoints do not satisfy the next milestone.
+
 > **Radio modular-asset goal (2026-10-16):** Read [RADIO_MODULAR_ASSET_PRODUCTION.md](RADIO_MODULAR_ASSET_PRODUCTION.md) first. The active radio-art scope extends the implemented Asset Harness, uses the canonical `Contents/mods/PsychopatzCore/common/media/ui/Radio/` filesystem, stores `Chassis/Pristine.png` and `Chassis/Worn.png` separately, and must **not** change runtime code or activate new skins. The older scaffold H0–H9 and Radio OS I0–I9 text remains historical/next-stage context, not a command to rebuild or edit game Lua.
 
 
