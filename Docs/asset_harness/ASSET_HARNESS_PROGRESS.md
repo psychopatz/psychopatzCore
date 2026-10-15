@@ -161,3 +161,36 @@ Verification: `python3 -m py_compile tools/asset_harness/gui.py`, both launcher 
 The viewer is only a visual client. It does not approve art, perform runtime export automatically, or establish native Project Zomboid SP/MP acceptance. Existing untracked Ham/ManPack/WalkieTalkie concept PNGs remain untouched and unapproved.
 
 Git commit SHA / push state: `ffe92e3` (`feat(asset-harness): add optional preview GUI launcher`) was pushed as a clean fast-forward from `fa48fc1`. This ledger correction is the only remaining docs change.
+
+## AH-R0–AH-R6 harness implementation checkpoint
+
+Date / implementation HEAD: 2026-10-16 / `6a4cedf` (`feat(asset-harness): add modular radio audit and simulator`), rebased cleanly onto `origin/main` at `20c1759`. Scope is harness-only: `tools/asset_harness/`, its tests/README, developer radio manifests, and ignored review workspace artifacts. No Lua, gameplay, runtime renderer, legacy atlas, save, or canonical source PNG was edited.
+
+Implemented evidence and contracts:
+
+- AH-R0 canonical inventory covers exactly 10 sources under `Contents/mods/PsychopatzCore/common/media/ui/Radio/{WalkieTalkie,Ham,ManPack}`. The literal `Base.HamRadioMakeShift .png` filename is preserved and reported.
+- Source layout is conservative: all 10 current sources are `single_canvas`, so clean/worn halves are blocked rather than cropped. `assets audit` reports `blocked=10`, `proposed=0`, `verified=0`, `complete=0`.
+- AH-R1 mask registration is lossless and source-space; previews, extracts, forbidden-neighbor contamination, transparent-source coverage, rectangle rejection, provenance, and visual-review gates are implemented.
+- AH-R2/R3 modular projects require independent `Chassis/Pristine.png` and `Chassis/Worn.png`, socket masks, anchors, keyed button/PTT/power/LED states, and bounded rotary detents. Identical keyed state bytes and anchor drift fail validation.
+- AH-R4 offline simulator supports the catalog’s full immutable source canvases, semantic Back/Home soft hitboxes, Power, PTT pointer down/up/cancel, rotary wheel updates, LEDs, page stack, project-backed modular state selection, and debug metadata. Unauthored clean/worn aliases are explicitly marked `blocked_source_alias`.
+- AH-R5 records `KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION` and `US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW`; no inferred pilot sockets or fake states were generated.
+- AH-R6 report/manifests include exact source hashes, full-resolution source copies, full-resolution alpha previews, a labeled contact sheet, and per-device blocked source-to-idle diff records with `sha256: null` until reviewed idle layers exist.
+
+Tracked evidence:
+
+- Audit report: `tools/asset_harness/projects/radio/ah-r0-audit.json`, SHA-256 `f7b9ce99c32ddf9a74cd8431692224db6d474d1f67748355030f4d47b88ecb50`.
+- Ignored contact sheet: `tools/asset_harness/workspace/radio/ah-r0/source_contact_sheet.png`, SHA-256 `e3b8efcd84b067d42d5260bc8a4ddffbd85618f53901471270bf141f1e554018`.
+- Canonical source SHA-256s: W1 `d583b9b5203fa6d6ededd635cd4a5325f146372306f86c9c57dbfda22d2fc8a2`; W2 `8a1f12c4c4ee019a1187da7ed8d7b5ca2bb3363861b15e7f54d64f544bbf842d`; W3 `fb923a82712b830f7bb559d1853d5da5f8994b6ceb85cce098f0b272454dd6ae`; W4 `5811325ca5fe00d04efb464a79c30bda01147e475757a9c4f8b099b50bf535cb`; W5 `2325d192eaf407bdfff634b1bb58e94b45d3b7e7e8f4da3d67bd0c32e1dc4fda`; walkie makeshift `386b23bc354e6c90f0b0a9cec2db58f62885f24e9e68caadec8b0bf5ab5a6b5e`; Ham1 `13b5e274c368b38b27e2f07906b4126378de3d9196fcc4264292f0ba4a084bc6`; Ham2 `2aa74b80ab9bd0fe79adcac44e682a84d88df10c60e653eaa323b0623b57dad7`; Ham makeshift `9a38cc1de21c44d0247f74b91830c679de1cc40c421de35c66bcdde789f33252`; Manpack `5c97028e2200cf7fdfad9b4f7fb99ebae00b82b9603efcfa4346e264d7d61c46`.
+
+Verification:
+
+- `PYTHONPATH=tools python3 -m unittest discover -s tools/asset_harness/tests -q` — 35 passed.
+- `python3 -m py_compile tools/asset_harness/cli.py tools/asset_harness/core/*.py tools/asset_harness/simulator/*.py tools/asset_harness/tests/*.py` — passed.
+- `python3 -m unittest discover -s tools/profiler/tests -q` — 52 passed.
+- `python3 tests/refactor_binding_smoke.py` — passed; no changed Lua files.
+- Lua action, registry, and window smokes — passed; the window test contains its intentional compositor failure.
+- `python3 tests/radio_os/psychopatz_radio_os_compositor_smoke.py` — pre-existing/out-of-scope failure: missing `Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/shells/DTA_Walkie_Shells.png`.
+- Lua manifest smoke — pre-existing/out-of-scope failure: missing `DTA_Walkie_Manifest.lua`; current manifest is `PsychopatzRadioManifest.lua`.
+- `doctor`, `assets audit --write-manifests --write-artifacts`, and the W4 event scenario — passed; production `export apply` was not run.
+
+Exact next action / blocker: obtain authentic reviewed modular source art (begin with the US Army WalkieTalkie5 pilot), then author and visually verify both chassis conditions, socket masks, independent controls, and alpha/diff evidence. Keep all 10 devices blocked until those gates pass; do not repair W4 with approximate crops and do not apply a production export.
