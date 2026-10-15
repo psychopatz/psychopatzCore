@@ -2,6 +2,18 @@
 
 **Scope decision (2026-10-16):** Use the existing Psychopatz Asset Harness first to create trustworthy modular radio artwork. **No Project Zomboid runtime code, mod Lua, gameplay, installed mods or current game-loaded textures may be changed by this goal.** This file is the canonical detailed instruction for the scoped radio-asset production goal. Agent-facing /goal text should link here instead of repeating the specification.
 
+## 0. Canonical asset decision and verified stale references (2026-10-16)
+
+**Product decision:** The individual device files and their future modular per-device component/chassis sets under `Contents/mods/PsychopatzCore/common/media/ui/Radio/` are the **sole intended device-sprite architecture**. Do not build a second, competing `DTA_Walkie_*` device atlas pipeline or ship a permanent fallback selector. This is an *authoring-first, clean-cutover* strategy, not a dual-stack strategy.
+
+**Verified code/file gap at this review:** `42.20/media/lua/client/PsychopatzCore/UI/Radio/OS/PsychopatzRadioManifest.lua` still names `media/ui/psychopatz/radio/shells/DTA_Walkie_Shells.png` and five `media/ui/psychopatz/radio/ui/DTA_Walkie_*.png` sheets. The live renderer calls that manifest, but none of those six binaries exists in the tracked `main` image tree at the referenced paths. Therefore **do not describe them as present fallback PNGs**. Treat the Lua references as *stale integration debt*, to be removed/replaced during a distinct, explicitly authorized **runtime cutover** after harness art acceptance. The current goal must not modify those Lua files.
+
+**Simulator source-path defect:** `tools/asset_harness/simulator/catalog.py` currently names `Radio.WalkieTalkie*.png` while tracked walkies are `Base.WalkieTalkie*.png`; also verify the HAM makeshift trailing-space quirk. Fix these catalog paths inside **harness scope** as part of AH-R0/AH-R1, preserving provenance rather than renaming existing art.
+
+**Shared UI:** `Radio/RadioMenu/radioUI.png` already exists; it is the intended shared UI asset. Before runtime cutover, map its actual regions against required display/button/icon/indicator semantics and author missing parts only as needed. Do not claim automatic parity with the untracked DTA UI atlases.
+
+**Sequencing constraint:** This /goal makes the harness and modular images correct first, **not** the in-game runtime. When the per-device QA gates pass, launch a separate runtime integration/cutover assignment to switch the live manifest/renderer and smoke tests to the single `Radio/` asset scheme, eliminate obsolete DTA sheet references, and only then prune abandoned builders/tests/docs after reference checks. Do **not** leave ongoing compatibility fallback as a design requirement, but do **not** edit live code or delete anything in this harness-only goal either. Native game acceptance must be separately verified.
+
 ## 1. Authoritative locations and source-of-truth rules
 
 **Canonical Project Zomboid image hierarchy (repo-relative):**
@@ -127,7 +139,7 @@ A 'complete' device must actually render and be visually reviewed. A technically
 
 ## 8. Scope safety, delivery and future runtime handoff
 
-Allowed development: Python harness, harness tests/fixtures, staged per-device assets and documents. Legacy CLI, simulator, v1 manifests/atlases and unrelated mods must still work. Do not run/repair the PZ Headless Harness. Do not modify game code, live Radio OS renderer, navigation, Lua manifests, PZ saves or runtime integration. No destructive Git reset, force push, bulk replacement or unsafe file writes. Record exact HEAD/worktree, tests and commits. Prefer small verified, safely pushed commits for harness/docs and keep user work untouched.
+Allowed development: Python harness, harness tests/fixtures, staged per-device assets and documents. Preserve the existing CLI API and unrelated mods. Current v1 Lua/atlas references are known stale integration debt; leave the Lua untouched during this harness-only goal, but do not build, promise, or perpetuate an old-atlas fallback in the future single-system design. Do not run/repair the PZ Headless Harness. Do not modify game code, live Radio OS renderer, navigation, Lua manifests, PZ saves or runtime integration. No destructive Git reset, force push, bulk replacement or unsafe file writes. Record exact HEAD/worktree, tests and commits. Prefer small verified, safely pushed commits for harness/docs and keep user work untouched.
 
 Do **not** invoke `export apply` or automatically copy generated art into already-active game textures in this goal. Approved *new* per-model PNG files may be added at `common/media/ui/Radio/` once their per-file review gate passes; existing files remain immutable. I7+ runtime binding, performance/native SP/MP and Hoomans/DynamicTrading compatibility are separate future tasks.
 
