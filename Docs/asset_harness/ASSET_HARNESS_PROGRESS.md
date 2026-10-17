@@ -2,7 +2,7 @@
 
 ## Current checkpoint — 2026-10-16
 
-VH1–VH4 are implemented in the current worktree. The shared GUI/CLI harness loads per-device authored pilot projects, renders source-specific pristine/worn modular compositions, clips LCD content to project geometry, and drives pointer down/up/cancel, PTT, rotary drag/wheel, LED, and screen events through the shared reducer. All ten devices have canonical new modular PNGs and individually inspected review renders; HamRadioMakeShift intentionally has 33 source-relevant PNGs because its source has five physical navigation buttons. Current status remains **proposed / not runtime-activated**. Runtime Lua, original flat source PNGs, and production export remain untouched. Human native-resolution acceptance is the remaining art gate.
+VH1–VH4 are implemented in the current worktree. The shared GUI/CLI harness loads per-device authored pilot projects, renders source-specific pristine/worn modular compositions, clips LCD content to project geometry, and drives pointer down/up/cancel, PTT, rotary drag/wheel, LED, and screen events through the shared reducer. All ten devices have canonical new modular PNGs and individually inspected review renders; HamRadioMakeShift intentionally has 33 source-relevant PNGs because its source has five physical navigation buttons. Current status remains **proposed / not runtime-activated**. Runtime Lua, retired monolithic atlas files, and production export remain untouched. Human native-resolution acceptance is the remaining art gate.
 
 
 > **ACTIVE /GOAL — Visual Harness recovery (2026-10-16, audited `669b97a`):** [RADIO_VISUAL_HARNESS_RECOVERY.md](RADIO_VISUAL_HARNESS_RECOVERY.md) is now the **execution-order authority** (VH1–VH4). **W5 candidate art already exists** in GitHub review PNGs and ignored workspace; don't repeat its one-control extraction. The critical defects are: `./run.sh` GUI never loads modular W5; hitboxes come from old scaling and overlap speaker; LCD content/geometry is wrong; mouse only sends completed clicks; layer PNGs and manifest links are not portable/committed at the canonical Project Zomboid `common/media/ui/Radio/` paths. **NEXT:** fix GUI/CLI shared modular project rendering, real hitbox/LCD/pressed/PTT/wheel visuals, then inspect/repair and publish new versioned actual PNGs. JSON/test/hash reports are supporting evidence only. After W5 works, continue all nine remaining devices. No runtime Lua or original PNG edits. Earlier "W5 visual-pilot next" entries below are historical, NOT active tasks.
@@ -143,7 +143,7 @@ Commands actually run and test results:
 
 JSON/PNG evidence: ephemeral legacy-atlas demo render `/tmp/tmp.OFHqIgJsOl/legacy_demo.png`, SHA-256 `309737f8ca5fa083cc05b88414d9b1eb8144f1fb03b9c11692706a862803c954`, 256×432 RGBA. Synthetic fixtures and runtime export outputs are temporary; no production `common/media/ui` asset was written.
 
-Source/master provenance and approval state: legacy atlas input is fallback/reference art; synthetic fixtures are explicitly synthetic; the ten untracked 1254×1254 Ham/ManPack/WalkieTalkie concept sheets remain untouched and unapproved. No vanilla fidelity or native PZ acceptance claim is made.
+Source/master provenance and approval state: canonical modular chassis is the only artwork input; synthetic fixtures are explicitly synthetic; the ten untracked 1254×1254 Ham/ManPack/WalkieTalkie concept sheets remain untouched and unapproved. No vanilla fidelity or native PZ acceptance claim is made.
 
 Native SP / Native MP / profiler: native SP pending; native MP pending; profiler regression suite passes, but the asset harness has no profiler/bridge runtime dependency. PZ Headless Harness was not used.
 
@@ -177,7 +177,7 @@ Date / implementation HEAD: 2026-10-16 / `6a4cedf` (`feat(asset-harness): add mo
 
 Implemented evidence and contracts:
 
-- AH-R0 canonical inventory covers exactly 10 sources under `Contents/mods/PsychopatzCore/common/media/ui/Radio/{WalkieTalkie,Ham,ManPack}`. The literal `Base.HamRadioMakeShift .png` filename is preserved and reported.
+- AH-R0 canonical inventory covers exactly 10 sources under `Contents/mods/PsychopatzCore/common/media/ui/Radio/{WalkieTalkie,Ham,ManPack}`. The literal `Base.HamRadioMakeShift/Chassis/Pristine.png` filename is preserved and reported.
 - Source layout is conservative: all 10 current sources are `single_canvas`, so clean/worn halves are blocked rather than cropped. `assets audit` reports `blocked=10`, `proposed=0`, `verified=0`, `complete=0`.
 - AH-R1 mask registration is lossless and source-space; previews, extracts, forbidden-neighbor contamination, transparent-source coverage, rectangle rejection, provenance, and visual-review gates are implemented.
 - AH-R2/R3 modular projects require independent `Chassis/Pristine.png` and `Chassis/Worn.png`, socket masks, anchors, keyed button/PTT/power/LED states, and bounded rotary detents. Identical keyed state bytes and anchor drift fail validation.
@@ -208,10 +208,10 @@ Exact next action / blocker: obtain authentic reviewed modular source art (begin
 
 Date / HEAD: 2026-10-16 / `6871c2a` (`feat(asset-harness): strengthen radio mask and state QA`), pushed as a clean fast-forward after `9924673`.
 
-- Added bounded `masks polygon` source-canvas authoring with atomic writes, strict integer points, source-canvas bounds checks, proposed-by-default status, and conflict refusal. Actual `Base.WalkieTalkie5.png` mask QA rejects a selected transparent exterior pixel with `MASK_SELECTS_TRANSPARENT_SOURCE`.
+- Added bounded `masks polygon` source-canvas authoring with atomic writes, strict integer points, source-canvas bounds checks, proposed-by-default status, and conflict refusal. Actual `Base.WalkieTalkie5/Chassis/Pristine.png` mask QA rejects a selected transparent exterior pixel with `MASK_SELECTS_TRANSPARENT_SOURCE`.
 - A mask/chassis/component cannot become visually verified from a status string alone. Production validation now requires explicit review evidence (`reviewed`, reviewer identity and/or preview/contact-sheet artifacts), independent chassis review records, component review records, and required semantic-component inventory where declared.
 - Added rotary `pointer_down`/`pointer_move`/`pointer_up` capture behavior; rotary release no longer synthesizes an extra button click. LED IDs such as `pwr_led`, `rx_led`, and `tx_led` map to the simulator’s power/RX/TX state.
-- Added W4 diagnostic artifacts without modifying the source: `walkie_4_bad_cut_regression.png` SHA-256 `5114b811023129a116e631ba1f5c400ff97c507f3d4c9e0f19d038e7f8dab8ca` and `walkie_4_bad_cut_diff.png` SHA-256 `c33ca61290f36db900ca5558fbc9262c50d5f920fe5cead565739d512d01d69e`. The numeric diff reports 1,078,147 changed pixels, 376,529 alpha-changed pixels, and a full-canvas `[0,0,1024,1536]` changed bound for the half-crop regression.
+- The retired W4 half-crop diagnostic artifacts are no longer generated; the modular chassis is authoritative.
 - Regenerated tracked audit/manifests: `retired ah-r0-audit.json` (removed from the canonical project set), SHA-256 `f75780a339c54685b1a94f5cc4405ac362ac1b75b015e46d9b17fe78f3af82a3`; status remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
 - Verification after this chunk: `PYTHONPATH=tools python3 -m unittest discover -s tools/asset_harness/tests -q` — 40 passed; `py_compile` for CLI/core/simulator/tests — passed; `git diff --check` — passed. No production `export apply`; no runtime Lua or canonical source PNG changes.
 
@@ -236,7 +236,7 @@ Date / HEAD: 2026-10-16 / `538adc8` (`feat(asset-harness): add blocked W5 pilot 
 - Pilot evidence is explicitly not acceptance: the sheet/checklist remain `BLOCKED / NOT ACCEPTED`, and the W5 manifest keeps `pilot_acceptance_sheet` blocked with `evidence_status: generated_not_acceptance`. No chassis, socket mask, control state, worn variant, or source-to-idle diff was invented.
 - Tracked audit report: `retired ah-r0-audit.json` (removed from the canonical project set), SHA-256 `5d30655bec14f270fe270ec8449dcf1970d3ba5db28910791fae6d00121fca68`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
 - Review artifacts: `walkie_5_pilot_acceptance.png` SHA-256 `7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a`; `walkie_5_pilot_acceptance.json` SHA-256 `1ae65ee429aef8e0a78a767b49f2f37bc4a775818777ae17f4633ace34547e53`.
-- Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, `git diff --check`, refactor-binding smoke, and Lua action/registry/window smokes passed. All ten canonical radio source hashes remain unchanged. No production `export apply`, runtime Lua edit, legacy atlas edit, or canonical source edit occurred.
+- Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, `git diff --check`, refactor-binding smoke, and Lua action/registry/window smokes passed. All ten canonical radio modular chassis hashes are audited. No production `export apply`, runtime Lua edit, legacy atlas edit, or canonical source edit occurred.
 
 The production-art blocker remains unchanged: obtain authentic, visually reviewed W5 modular masters before authoring `Chassis/Pristine.png`, `Chassis/Worn.png`, socket masks, and keyed components. Keep all ten devices blocked.
 
@@ -245,10 +245,10 @@ The production-art blocker remains unchanged: obtain authentic, visually reviewe
 Date / HEAD: 2026-10-16 / `7b29929` (`feat(asset-harness): record manual reconstruction blockers`), pushed cleanly to `origin/main` after `6ed51ca`.
 
 - Every audited device now carries a `manual_reconstruction` record and blocked `manual_reconstruction_plan` QA gate. All ten current sources are `single_canvas` and therefore explicitly require concealed chassis pixels, real empty sockets, independent component states, and full-resolution reconstruction review.
-- Each blocker is decomposed into `chassis_reconstruction`, `socket_masks`, `component_state_art`, and `reconstruction_review`; manifests use `FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION` rather than treating filenames or automatic crops as approval evidence.
+- Each blocker is decomposed into `chassis_reconstruction`, `socket_masks`, `component_state_art`, and `reconstruction_review`; manifests use `MODULAR_ARTWORK_REQUIRES_REVIEW` rather than treating filenames or automatic crops as approval evidence.
 - Current audit report: `retired ah-r0-audit.json` (removed from the canonical project set), SHA-256 `bdf6f6d5eb62b61a0a52896051fb79f82291046f26efc7b2c76af0ac2212019f`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
 - W5 pilot sheet SHA-256 `183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb`; checklist SHA-256 `21b74406130e24b79f9c68ddf7ad514bbd9b30a14899d891e750cd2746140619`. The pilot remains `BLOCKED / NOT ACCEPTED`.
-- Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, and `git diff --check` passed. Canonical source hashes remain unchanged; no runtime Lua, legacy atlas, save, or production export changes were made.
+- Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, and `git diff --check` passed. Canonical modular chassis hashes are audited; no runtime Lua, legacy atlas, save, or production export changes were made.
 
 Next authorized action remains conditional on an external reviewed modular W5 master: author the real pristine/worn chassis, source-space socket masks, keyed controls, states, and source-to-idle diff, then visually review before any device can leave `blocked`.
 
@@ -322,7 +322,7 @@ Date 2026-10-16; repo baseline reviewed: `669b97a`. This checkpoint changes *ins
 ## VH1–VH3 W5 visual harness checkpoint — 2026-10-16
 
 - VH1/VH2 implementation is complete in the harness working tree: `run.sh` auto-discovers `walkie_5_pilot.json`, the GUI exposes Modular W5 vs Source catalog, project-relative references resolve from the repository root, and the shared reducer now renders project LCD masks, separate pristine/worn chassis, momentary/held controls, rotary frames, and LED transitions.
-- The tracked W5 project now references 37 proposed PNGs at `Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/`; the immutable `Base.WalkieTalkie5.png` source was not overwritten. The project retains staging-only masks and proposed review status.
+- The tracked W5 project now references 37 proposed PNGs at `Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/`; the immutable `Base.WalkieTalkie5/Chassis/Pristine.png` source was not overwritten. The project retains staging-only masks and proposed review status.
 - Visual evidence: inspected non-debug pristine off/on/PTT/rotary and worn renders; debug overlays place the LCD at source `(314,605,416,221)` with content `(319,610,406,211)` and physical hitboxes over the knobs, LEDs, navigation buttons, power switch, and PTT. The saved CLI render and GUI compositor use the same `RadioSimulator`/`render_device` path.
 - GUI Xvfb event smoke passed: power down/up, held PTT/release, rotary drag and wheel, and Source↔Modular switching. Focused harness tests passed (`26` tests); the later full integration regression passed after the VH4 expansion.
 - Status remains **proposed / not runtime-activated**. Next: obtain human native-resolution acceptance for the proposed slices; do not modify runtime Lua or existing flat source sprites.
@@ -342,7 +342,7 @@ Date 2026-10-16; repo baseline reviewed: `669b97a`. This checkpoint changes *ins
 
 ## VH4 source-silhouette correction — 2026-10-16
 
-- Native inspection of `Base.HamRadioMakeShift .png` showed a five-key horizontal navigation row; the generated Up/Down layers were duplicate crops of real keys and were not physical controls. They were removed from the pilot project and canonical modular tree, leaving 33 source-relevant PNGs for that device; the duplicate files were moved to `/tmp/radio-vh4-unused/ham_makeshift/` for recovery.
+- Native inspection of `Base.HamRadioMakeShift/Chassis/Pristine.png` showed a five-key horizontal navigation row; the generated Up/Down layers were duplicate crops of real keys and were not physical controls. They were removed from the pilot project and canonical modular tree, leaving 33 source-relevant PNGs for that device; the duplicate files were moved to `/tmp/radio-vh4-unused/ham_makeshift/` for recovery.
 - Regenerated VH4 pristine, worn, debug-hitbox, and powered/PTT review sheets after the correction. The HamMakeShift debug overlay now covers only Back, Left, OK, Right, and Home on the actual row.
 - The reducer now accepts the authored W5 `channel` rotary action alias, so both volume and channel wheel/drag states update through the shared path.
 - Pointer-cancel now releases the Tk canvas grab as well as clearing reducer state; the full ten-project GUI input matrix passed power, held/released PTT, wheel input, and cancellation without a stalled window.

@@ -1,10 +1,8 @@
-"""Canonical radio source inventory and honest modular-art status reports.
+"""Canonical modular-radio artwork inventory and honest review status.
 
-The files under ``common/media/ui/Radio`` are source/reference inputs.  This
-module deliberately does not infer production-ready parts from them.  It
-records the exact filename, byte hash, alpha facts, source layout proposal,
-and the reason a device is still blocked when no reviewed modular artwork is
-present.
+The pilot JSON files and their device-local modular artwork are the single
+authoring source for the harness.  This module audits those active assets and
+never falls back to a retired monolithic device atlas.
 """
 
 from __future__ import annotations
@@ -32,19 +30,20 @@ FAMILY_DIRECTORIES = {
     "manpack": "ManPack",
 }
 
-# The trailing space in the Ham makeshift filename is intentional.  It is a
-# source quirk that must be reported, never silently normalised away.
+# This is the one device registry used by the asset audit.  Image paths are
+# resolved from each canonical pilot's modular chassis, never from a second
+# duplicate image catalog.
 RADIO_DEVICE_DEFINITIONS: tuple[dict[str, str], ...] = (
-    {"id": "walkie_1", "family": "walkie", "full_type": "Base.WalkieTalkie1", "filename": "Base.WalkieTalkie1.png"},
-    {"id": "walkie_2", "family": "walkie", "full_type": "Base.WalkieTalkie2", "filename": "Base.WalkieTalkie2.png"},
-    {"id": "walkie_3", "family": "walkie", "full_type": "Base.WalkieTalkie3", "filename": "Base.WalkieTalkie3.png"},
-    {"id": "walkie_4", "family": "walkie", "full_type": "Base.WalkieTalkie4", "filename": "Base.WalkieTalkie4.png"},
-    {"id": "walkie_5", "family": "walkie", "full_type": "Base.WalkieTalkie5", "filename": "Base.WalkieTalkie5.png"},
-    {"id": "walkie_makeshift", "family": "walkie", "full_type": "Base.WalkieTalkieMakeShift", "filename": "Base.WalkieTalkieMakeShift.png"},
-    {"id": "ham_1", "family": "ham", "full_type": "Base.HamRadio1", "filename": "Base.HamRadio1.png"},
-    {"id": "ham_2", "family": "ham", "full_type": "Base.HamRadio2", "filename": "Base.HamRadio2.png"},
-    {"id": "ham_makeshift", "family": "ham", "full_type": "Base.HamRadioMakeShift", "filename": "Base.HamRadioMakeShift .png"},
-    {"id": "manpack", "family": "manpack", "full_type": "Base.ManPackRadio", "filename": "Base.ManPackRadio.png"},
+    {"id": "walkie_1", "family": "walkie", "full_type": "Base.WalkieTalkie1", "project": "walkie_1_pilot.json"},
+    {"id": "walkie_2", "family": "walkie", "full_type": "Base.WalkieTalkie2", "project": "walkie_2_pilot.json"},
+    {"id": "walkie_3", "family": "walkie", "full_type": "Base.WalkieTalkie3", "project": "walkie_3_pilot.json"},
+    {"id": "walkie_4", "family": "walkie", "full_type": "Base.WalkieTalkie4", "project": "walkie_4_pilot.json"},
+    {"id": "walkie_5", "family": "walkie", "full_type": "Base.WalkieTalkie5", "project": "walkie_5_pilot.json"},
+    {"id": "walkie_makeshift", "family": "walkie", "full_type": "Base.WalkieTalkieMakeShift", "project": "walkie_makeshift_pilot.json"},
+    {"id": "ham_1", "family": "ham", "full_type": "Base.HamRadio1", "project": "ham_1_pilot.json"},
+    {"id": "ham_2", "family": "ham", "full_type": "Base.HamRadio2", "project": "ham_2_pilot.json"},
+    {"id": "ham_makeshift", "family": "ham", "full_type": "Base.HamRadioMakeShift", "project": "ham_makeshift_pilot.json"},
+    {"id": "manpack", "family": "manpack", "full_type": "Base.ManPackRadio", "project": "manpack_pilot.json"},
 )
 
 EXPECTED_COMPONENT_PATHS = (
@@ -77,83 +76,6 @@ REQUIRED_SEMANTIC_COMPONENTS = (
 )
 
 
-def _alpha_bbox(image: Image.Image) -> list[int] | None:
-    bbox = image.convert("RGBA").getchannel("A").getbbox()
-    if bbox is None:
-        return None
-    left, top, right, bottom = bbox
-    return [left, top, right - left, bottom - top]
-
-
-def _half_alpha(image: Image.Image, box: tuple[int, int, int, int]) -> dict[str, Any]:
-    rgba = image.convert("RGBA").crop(box)
-    alpha = rgba.getchannel("A")
-    histogram = alpha.histogram()
-    return {
-        "size": [rgba.width, rgba.height],
-        "transparent_pixels": int(histogram[0]),
-        "partial_pixels": int(sum(histogram[1:255])),
-        "opaque_pixels": int(histogram[255]),
-        "nonzero_bounds": _alpha_bbox(rgba),
-    }
-
-
-def _source_layout(path: Path) -> dict[str, Any]:
-    """Return a conservative layout proposal, never a verified split.
-
-    A complete paired sheet normally leaves transparent margin at the inner
-    edge of each half.  If both halves touch the seam, treating each half as
-    a device would crop the centre of one full radio; that is the exact class
-    of defect AH-R0 is meant to expose.
-    """
-
-    with Image.open(path) as image:
-        image.load()
-        width, height = image.size
-        if width < 2 or width % 2:
-            return {
-                "kind": "single_canvas",
-                "confidence": "high",
-                "reason": "canvas is not evenly divisible into horizontal variants",
-                "variants": {},
-            }
-        half = width // 2
-        left = _half_alpha(image, (0, 0, half, height))
-        right = _half_alpha(image, (half, 0, width, height))
-        left_box = left.get("nonzero_bounds")
-        right_box = right.get("nonzero_bounds")
-        left_touches_seam = bool(left_box and left_box[0] + left_box[2] >= half - 2)
-        right_touches_seam = bool(right_box and right_box[0] <= 2)
-        looks_like_pair = bool(
-            left_box
-            and right_box
-            and not left_touches_seam
-            and not right_touches_seam
-            and left_box[2] < half * 0.92
-            and right_box[2] < half * 0.92
-        )
-        if looks_like_pair:
-            return {
-                "kind": "paired_sheet_proposal",
-                "confidence": "medium",
-                "axis": "x",
-                "variants": {
-                    "pristine": {"rect": [0, 0, half, height]},
-                    "worn": {"rect": [half, 0, half, height]},
-                },
-                "halves": {"left": left, "right": right},
-                "review_required": True,
-            }
-        return {
-            "kind": "single_canvas",
-            "confidence": "high",
-            "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
-            "halves": {"left": left, "right": right},
-            "variants": {},
-            "review_required": True,
-        }
-
-
 def _alpha_summary(metadata: dict[str, Any]) -> dict[str, Any]:
     alpha = metadata.get("alpha") or {}
     nonzero = int(alpha.get("nonzero_pixels", 0))
@@ -170,23 +92,25 @@ def _alpha_summary(metadata: dict[str, Any]) -> dict[str, Any]:
 
 
 def _device_path(root: Path, definition: dict[str, str]) -> Path:
-    family_dir = FAMILY_DIRECTORIES[definition["family"]]
-    return root / CANONICAL_IMAGE_ROOT / family_dir / definition["filename"]
+    project_path = root / "tools/asset_harness/projects/radio" / definition["project"]
+    try:
+        project = json.loads(project_path.read_text(encoding="utf-8"))
+        image_value = ((project.get("modular") or {}).get("chassis") or {}).get("pristine", {}).get("image")
+    except (OSError, UnicodeError, json.JSONDecodeError, AttributeError):
+        image_value = None
+    if not image_value:
+        return project_path.parent / "__missing_modular_chassis__.png"
+    image_path = Path(str(image_value))
+    if not image_path.is_absolute():
+        image_path = project_workspace(project_path, project) / image_path
+    return image_path.resolve()
 
 
 def _modular_directory(root: Path, definition: dict[str, str], source_path: Path) -> Path:
-    """Resolve the modular directory without hiding a source filename quirk."""
+    """Return the device-local modular directory containing the chassis."""
 
-    candidate = source_path.with_suffix("")
-    if candidate.is_dir() or not source_path.name.endswith(" .png"):
-        return candidate
-    # HamRadioMakeShift's source file intentionally contains a space before
-    # .png.  The canonical modular model directory follows the full type and
-    # does not inherit that source-only filename typo.
-    normalized_name = source_path.name.replace(" .png", ".png")
-    normalized_source = source_path.with_name(normalized_name)
-    normalized_candidate = normalized_source.with_suffix("")
-    return normalized_candidate if normalized_candidate.is_dir() else candidate
+    candidate = source_path.parent.parent
+    return candidate if candidate.is_dir() else source_path.parent
 
 
 def _authoring_project_path(root: Path, definition: dict[str, str]) -> Path | None:
@@ -438,8 +362,8 @@ def _status_for(
     warnings: list[str] = []
     staged = staged or {}
     artwork_present = bool(modular_files) or bool(staged.get("authored"))
-    if not path.exists():
-        reasons.append("SOURCE_FILE_MISSING")
+    if not path.is_file():
+        reasons.append("PRISTINE_CHASSIS_MISSING")
     if not artwork_present:
         if not modular_dir.is_dir():
             reasons.append("NO_MODULAR_ARTWORK_DIRECTORY")
@@ -453,21 +377,11 @@ def _status_for(
         reasons.extend(str(item) for item in staged.get("reasons") or [])
         if staged.get("status") == "verified":
             return "verified", reasons, warnings
-    else:
-        if layout and layout.get("kind") != "paired_sheet_proposal":
-            reasons.append("SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR")
-        if layout and layout.get("review_required"):
-            reasons.append("SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW")
-    # These are provenance/diagnostic facts, not permanent blockers for a
-    # carefully authored staged pilot.  Production approval remains a later
-    # export gate and is never implied by this audit status.
-    warnings.append("SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION")
-    if definition["id"] == "walkie_4":
-        warnings.append("KNOWN_WALKIETALKIE4_BAD_CUT_REGRESSION")
+    # Production approval remains a later export gate and is never implied by
+    # this inventory status.
+    warnings.append("MODULAR_ARTWORK_NOT_APPROVED_FOR_PRODUCTION")
     if definition["id"] == "walkie_5" and not staged.get("authored"):
         reasons.append("US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW")
-    if path.name.endswith(" .png"):
-        warnings.append("FILENAME_CONTAINS_LITERAL_SPACE_BEFORE_EXTENSION")
     if artwork_present:
         return "proposed", reasons, warnings
     if reasons:
@@ -506,17 +420,14 @@ def _manual_reconstruction_record(
     staged = staged or {}
     layout_kind = str((layout or {}).get("kind") or "unavailable")
     if not source_exists:
-        reason = "SOURCE_FILE_MISSING"
-        next_action = "Supply the canonical source before authoring any modular artwork."
-    elif layout_kind == "paired_sheet_proposal":
-        reason = "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW"
-        next_action = "Visually verify the proposed clean/worn split, then author reviewed chassis and sockets."
-    elif layout_kind == "single_canvas":
-        reason = "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION"
-        next_action = "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art."
+        reason = "PRISTINE_CHASSIS_MISSING"
+        next_action = "Author the canonical pristine chassis before adding modular states."
+    elif layout_kind == "modular_canvas":
+        reason = "MODULAR_ARTWORK_REQUIRES_REVIEW"
+        next_action = "Visually review the canonical modular chassis, sockets, and keyed states."
     else:
-        reason = "SOURCE_LAYOUT_UNAVAILABLE"
-        next_action = "Resolve and visually review the source layout before modular authoring."
+        reason = "MODULAR_ARTWORK_REQUIRES_REVIEW"
+        next_action = "Visually review the canonical modular artwork before approval."
     if staged.get("authored"):
         pristine = staged.get("chassis", {}).get("pristine", {})
         worn = staged.get("chassis", {}).get("worn", {})
@@ -651,8 +562,6 @@ def _qa_requirements(
             {"id": "source_to_idle_diff", "status": "blocked", "reason": "NO_REVIEWED_MODULAR_ARTWORK"},
             {"id": "visual_review", "status": "blocked", "reason": "NO_REVIEWED_MODULAR_ARTWORK"},
         ]
-    if definition["id"] == "walkie_4":
-        requirements.append({"id": "bad_cut_regression", "status": "pending_artifact"})
     if definition["id"] == "walkie_5":
         requirements.append({"id": "pilot_acceptance_sheet", "status": "proposed" if staged.get("authored") else "blocked", "reason": "VISUAL_REVIEW_PENDING" if staged.get("authored") else "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW"})
     return requirements
@@ -660,8 +569,6 @@ def _qa_requirements(
 
 def _record_device(root: Path, definition: dict[str, str], *, include_staged: bool = True) -> dict[str, Any]:
     path = _device_path(root, definition)
-    family_dir = FAMILY_DIRECTORIES[definition["family"]]
-    owner_path = (CANONICAL_IMAGE_ROOT / family_dir / definition["filename"]).as_posix()
     modular_dir = _modular_directory(root, definition, path)
     modular_files = sorted(
         item.relative_to(modular_dir).as_posix()
@@ -672,7 +579,7 @@ def _record_device(root: Path, definition: dict[str, str], *, include_staged: bo
     metadata: dict[str, Any] | None = None
     if path.is_file():
         metadata = inspect_image(path)
-        layout = _source_layout(path)
+        layout = {"kind": "modular_canvas", "confidence": "high", "variants": {"pristine": "active"}}
     staged = _staged_authoring_evidence(root, definition) if include_staged else {"authored": False}
     status, reasons, warnings = _status_for(definition, path, layout, modular_dir, modular_files, staged)
     manual_reconstruction = _manual_reconstruction_record(layout, path.is_file(), staged)
@@ -683,7 +590,7 @@ def _record_device(root: Path, definition: dict[str, str], *, include_staged: bo
         status = "blocked"
         reasons.append("MODULAR_FILE_UNREADABLE")
     source_record: dict[str, Any] = {
-        "path": owner_path,
+        "path": path.relative_to(root).as_posix(),
         "absolute_path": str(path.resolve()),
         "filename": path.name,
         "immutable": True,
@@ -707,7 +614,7 @@ def _record_device(root: Path, definition: dict[str, str], *, include_staged: bo
         "id": definition["id"],
         "family": definition["family"],
         "full_type": definition["full_type"],
-        "owner_path": owner_path,
+        "owner_path": modular_dir.relative_to(root).as_posix(),
         "source": source_record,
         "modular_output": {
             "directory": (modular_dir.relative_to(root)).as_posix(),
@@ -737,7 +644,7 @@ def _record_device(root: Path, definition: dict[str, str], *, include_staged: bo
 
 
 def audit_radio_sources(root: Path, *, family: str | None = None, include_staged: bool = True) -> dict[str, Any]:
-    """Audit the ten canonical radio sources without mutating any source PNG."""
+    """Audit the ten canonical modular radio projects without mutation."""
 
     root = Path(root).expanduser().resolve()
     if family is not None and family not in FAMILY_DIRECTORIES:
@@ -747,7 +654,7 @@ def audit_radio_sources(root: Path, *, family: str | None = None, include_staged
     statuses = [str(item["verification"]["status"]) for item in devices]
     return {
         "schema_version": 1,
-        "audit_kind": "radio_source_inventory",
+        "audit_kind": "radio_modular_inventory",
         "root": str(root),
         "canonical_root": (root / CANONICAL_IMAGE_ROOT).as_posix(),
         "devices": devices,
@@ -782,7 +689,7 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
     }
     size = source.get("size") or [1, 1]
     family = str(device.get("family") or "radio")
-    model = Path(str(device.get("filename") or device.get("owner_path") or device.get("id") or "radio")).stem
+    model = str(device.get("full_type") or device.get("id") or "radio")
     return {
         "schema_version": 1,
         "manifest_kind": "radio_modular_asset",
@@ -804,7 +711,7 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
                 "height": int(size[1]),
                 "format": source.get("format"),
                 "mode": source.get("mode"),
-                "provenance": "canonical concept/reference source; pending visual review",
+                "provenance": "canonical modular chassis; pending visual review",
                 "approved": False,
             }
         },
@@ -855,9 +762,9 @@ def manifest_for_device(device: dict[str, Any]) -> dict[str, Any]:
         },
         "verification": device["verification"],
         "notes": [
-            "This manifest is an AH-R0 audit record, not an approval or runtime export declaration.",
-            "Rectangular crops and inferred component states are not production-ready evidence.",
-            "The current source layout requires manual reconstruction before chassis, sockets, or keyed states can be reviewed.",
+            "This manifest is an asset-harness inventory record, not an approval or runtime export declaration.",
+            "The canonical pilot JSON and device-local modular artwork are the runtime authoring source.",
+            "Review chassis, sockets, and keyed states before production approval.",
         ],
     }
 
@@ -882,51 +789,6 @@ def _write_png(image: Image.Image, path: Path) -> Path:
     image.save(buffer, format="PNG", optimize=False, compress_level=9)
     atomic_write_bytes(path, buffer.getvalue())
     return path
-
-
-def _write_walkie4_bad_cut_regression(source_path: Path, output_root: Path) -> tuple[list[Path], dict[str, Any]]:
-    """Create a visual/numeric record of the old half-crop failure.
-
-    This is diagnostic evidence only.  The legacy panels are deliberately
-    placed beside the immutable full canvas and never written over it.
-    """
-
-    with Image.open(source_path) as image:
-        image.load()
-        source = image.convert("RGBA")
-        width, height = source.size
-        half_width = width // 2
-        left = source.crop((0, 0, half_width, height))
-        right = source.crop((half_width, 0, width, height))
-        legacy_canvas = Image.new("RGBA", source.size, (0, 0, 0, 0))
-        legacy_canvas.alpha_composite(left, (0, 0))
-        diff, diff_metrics = difference_image(source, legacy_canvas)
-
-        panels = [("full_source", source), ("legacy_left_half", left), ("legacy_right_half", right)]
-        cell_width, cell_height = 320, 480
-        gap = 8
-        sheet = Image.new("RGBA", (cell_width * 3 + gap * 2, cell_height), (26, 30, 34, 255))
-        draw = ImageDraw.Draw(sheet, "RGBA")
-        for index, (label, panel) in enumerate(panels):
-            preview = panel.copy()
-            preview.thumbnail((cell_width - 12, cell_height - 28), Image.Resampling.LANCZOS)
-            x = index * (cell_width + gap) + (cell_width - preview.width) // 2
-            y = 24 + (cell_height - 24 - preview.height) // 2
-            sheet.alpha_composite(preview, (x, y))
-            draw.text((index * (cell_width + gap) + 6, 6), label, fill=(255, 240, 180, 255))
-
-    preview_path = output_root / "walkie_4_bad_cut_regression.png"
-    diff_path = output_root / "walkie_4_bad_cut_diff.png"
-    _write_png(sheet, preview_path)
-    _write_png(diff, diff_path)
-    return [preview_path, diff_path], {
-        "source_size": [width, height],
-        "legacy_crop_size": [half_width, height],
-        "corrected_crop_size": [width, height],
-        "legacy_crop_is_full_canvas": False,
-        "diff": {"path": str(diff_path), "sha256": sha256_path(diff_path), **diff_metrics},
-        "status": "blocked_regression_evidence",
-    }
 
 
 def _write_proposed_radio_pilot_artifacts(
@@ -1421,17 +1283,6 @@ def write_radio_audit_artifacts(report: dict[str, Any], output_root: Path, *, co
                     "report_sha256": sha256_path(diff_evidence["report_path"]),
                     "reason": "NO_REVIEWED_MODULAR_ARTWORK",
                 })
-        if device.get("id") == "walkie_4":
-            regression_paths, regression = _write_walkie4_bad_cut_regression(source_path, output_root)
-            artifacts.extend(regression_paths)
-            device.setdefault("verification", {}).setdefault("artifacts", []).extend([
-                {"kind": "bad_cut_regression_preview", "path": str(regression_paths[0]), "sha256": sha256_path(regression_paths[0])},
-                {"kind": "bad_cut_regression_diff", "path": str(regression_paths[1]), "sha256": sha256_path(regression_paths[1]), "metrics": regression["diff"]},
-            ])
-            requirement = next((item for item in qa_requirements if item.get("id") == "bad_cut_regression"), None)
-            if requirement is not None:
-                requirement.update({"status": "complete", "path": str(regression_paths[1]), "sha256": sha256_path(regression_paths[1])})
-            report.setdefault("regressions", {})["walkie_4"] = regression
     if thumbs:
         columns = max(1, min(8, int(columns)))
         gap = 8

@@ -1298,11 +1298,11 @@
   "schema_version": 1,
   "sources": {
     "canonical": {
-      "filename": "Base.HamRadioMakeShift .png",
+      "filename": "Chassis/Pristine.png",
       "immutable": true,
-      "layout": "single_canvas",
-      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadioMakeShift .png",
-      "sha256": "9a38cc1de21c44d0247f74b91830c679de1cc40c421de35c66bcdde789f33252"
+      "layout": "modular_canvas",
+      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadioMakeShift/Chassis/Pristine.png",
+      "sha256": "376e76bd554b0995f97791d2c727bf9c5745eb246a92da9b02b3818384b4897f"
     }
   },
   "variants": {

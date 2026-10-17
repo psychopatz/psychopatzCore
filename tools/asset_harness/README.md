@@ -129,7 +129,7 @@ arrays for the same whitelisted commands. It never executes shell text.
 
 ## Radio modular audit and authoring
 
-`assets audit` is read-only with respect to the canonical Radio PNGs. It
+`assets audit` inventories the canonical modular Radio pilot projects read-only. It records active chassis/component paths, SHA-256 values, dimensions, alpha coverage, and proposed/blocked review status for all ten devices; it does not maintain a second source-atlas catalog.
 records exact owner paths, SHA-256, dimensions, alpha coverage, conservative
 paired-sheet detection, immutable-source status, and blocked/proposed reasons
 for all six walkies, three HAM radios, and the ManPack:
@@ -143,8 +143,8 @@ python3 tools/asset_harness/cli.py assets audit \
 
 The generated manifests are developer evidence, not runtime approvals. The
 current canonical files are single full-front canvases; `clean`/`worn` aliases
-must not be implemented by cropping their two sides. The literal filename
-`Base.HamRadioMakeShift .png` is preserved and reported as-is.
+The retired monolithic atlas filenames are intentionally absent; device-local `Chassis/Pristine.png` and `Chassis/Worn.png` files are the only canonical shells.
+`Base.HamRadioMakeShift/Chassis/Pristine.png` is preserved and reported as-is.
 
 When the W5 source is in scope, `--write-artifacts` also writes
 `walkie_5_pilot_acceptance.png` and `walkie_5_pilot_acceptance.json` under the
@@ -152,7 +152,7 @@ ignored review workspace. These are blocked evidence only: they show the
 immutable source, full-resolution alpha, and human review gates, but they do
 not create chassis, sockets, component states, or runtime approval.
 
-Every single-canvas source also carries a blocked `manual_reconstruction_plan`
+Each device carries a review gate for its modular chassis, sockets, component states, and visual evidence.
 with explicit chassis, socket-mask, component-state, and visual-review gates.
 This records the concealed-pixel problem directly; it cannot be cleared by
 adding filenames or by promoting an automatic crop.

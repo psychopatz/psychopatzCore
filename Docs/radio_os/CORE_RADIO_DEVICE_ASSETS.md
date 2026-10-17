@@ -53,7 +53,7 @@ PsychopatzCore/
   Contents/mods/PsychopatzCore/common/media/ui/
     Radio/
       WalkieTalkie/
-        Base.WalkieTalkie5.png               # existing immutable reference
+        Base.WalkieTalkie5/Chassis/Pristine.png               # existing immutable reference
         Base.WalkieTalkie5/
           Chassis/Pristine.png               # independent base, empty sockets
           Chassis/Worn.png                   # separate weathered base, same anchors
@@ -72,7 +72,7 @@ PsychopatzCore/
       RadioMenu/                             # shared source UI, unchanged in this goal
 ```
 
-The directories for reviewed modular components are **targets**, not evidence that accurate sprites have already been produced. Avoid shipping authoring masks, intermediate art, tests or JSON manifests in the runtime media image tree. No live Lua, legacy atlas or production texture modifications are authorized during this harness-first task.
+The directories for reviewed modular components are **targets**, not evidence that accurate sprites have already been produced. Avoid shipping authoring masks, intermediate art, tests or JSON manifests in the runtime media image tree. No live Lua, retired atlas recreation or production texture modifications are authorized during this harness-first task.
 
 ## Per-model high-resolution art specification
 
@@ -129,7 +129,7 @@ All coordinates are **local to that model's own source canvas**, top-left origin
 ## Manifest and runtime compatibility
 
 - Refactor from monolithic `M.sheets.shells`/ `skin.sprite`/ 256×432 assumptions to per-device full texture or optional subtexture references. **Full transparent shell PNGs need not live in an atlas**. Existing widgets can stay in their shared atlases.
-- Keep compatibility for all six existing walkie IDs, old `GetSkin`, `GetSprite`, `GetDeviceSkin`, app/contacts providers, and old test fixtures while migrating. A v1 wrapper or adapter may still resolve the legacy atlas during a transitional phase. Never force Core to require DynamicTrading.
+- Keep compatibility for all six existing walkie IDs, old `GetSkin`, `GetSprite`, `GetDeviceSkin`, app/contacts providers, and old test fixtures while migrating. The runtime adapter resolves the canonical modular manifest; no legacy atlas fallback is supported. Never force Core to require DynamicTrading.
 - Do not require exactly 3 hardware controls for HAM/manpack; renderer, input, focus, hotboxes and test fixtures must dispatch a registered control schema. The OS can provide on-screen and keyboard equivalents even if a radio lacks buttons.
 - Distinguish `visualCapability` / `interaction` / `remoteTradeCapability`. An existing validation routine requiring a portable two-way microphone must not accidentally prevent a placed HAM radio's legitimate UI **or** grant remote trade access to an unauthorized device. Feature actions stay server-authoritative in Hoomans and DTCommon.
 - No per-frame asset scanning, manifest rebuild, cropping or noise generation. Texture budgets are validated: a 1024×1728 RGBA shell costs ~6.75 MiB uncompressed before mipmaps, and multiplying by many loaded condition variants becomes significant; measure and cap concurrent texture residency where APIs permit.

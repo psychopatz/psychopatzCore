@@ -1361,11 +1361,11 @@
   "schema_version": 1,
   "sources": {
     "canonical": {
-      "filename": "Base.WalkieTalkieMakeShift.png",
+      "filename": "Chassis/Pristine.png",
       "immutable": true,
-      "layout": "single_canvas",
-      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkieMakeShift.png",
-      "sha256": "386b23bc354e6c90f0b0a9cec2db58f62885f24e9e68caadec8b0bf5ab5a6b5e"
+      "layout": "modular_canvas",
+      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkieMakeShift/Chassis/Pristine.png",
+      "sha256": "a74a303d27eb0a7677e7f6bbc06ebf385e7021cf06c0c4acadf834dcbd4edaab"
     }
   },
   "variants": {

@@ -49,7 +49,7 @@ Do not accept a generated image simply because it looks stylish: test click/targ
 
 **2026-10-16 filesystem correction:** The canonical Project Zomboid image hierarchy is `Contents/mods/PsychopatzCore/common/media/ui/Radio/`, with existing `WalkieTalkie/`, `Ham/`, `ManPack/` and `RadioMenu/` subdirectories. Earlier `art_source/radio/devices/<family>/<model>/` and `common/media/ui/psychopatz/radio/devices/<family>/<model>/` destinations are **superseded for new radio modular PNGs**. Read [Radio Modular Asset Production — Harness Only](../asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md) for the authoritative filesystem, state separation, and scoped production/QA plan.
 
-For example, keep `Radio/WalkieTalkie/Base.WalkieTalkie4.png` unchanged and place future reviewed modular PNGs alongside it under `Radio/WalkieTalkie/Base.WalkieTalkie4/`:
+For example, keep `Radio/WalkieTalkie/Base.WalkieTalkie4/Chassis/Pristine.png` unchanged and place future reviewed modular PNGs alongside it under `Radio/WalkieTalkie/Base.WalkieTalkie4/`:
 
 ~~~text
 Base.WalkieTalkie4/
@@ -68,7 +68,7 @@ Base.WalkieTalkie4/
   LCD/BezelOverlay.png
 ~~~
 
-Only author controls actually verified on each model. Store harness project JSON, editable masks, source provenance, intermediate art masters, compositing/diff QA, previews, and contact sheets in the **developer harness workspace outside** game-loading `common/media/ui`. The original single/paired concept PNG remains immutable source/reference, not automatically approved production art. Avoid duplicating full source canvases for every control frame.
+Only author controls actually verified on each model. Store harness project JSON, editable masks, source provenance, intermediate art masters, compositing/diff QA, previews, and contact sheets in the **developer harness workspace outside** game-loading `common/media/ui`. Retired monolithic atlases are not runtime inputs; modular artwork remains proposed until visual approval. Avoid duplicating full source canvases for every control frame.
 
 **Harness-only production gate:** do not alter live game code, Lua manifests, legacy atlases, active textures, or the PZ UI. Stage and validate new modular artwork first; do not call runtime `export apply`. Actual binding/activation belongs to the separate I7+ integration work after art approval.
 

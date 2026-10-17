@@ -22,80 +22,80 @@
   "component_inventory": {
     "back": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "down": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "home": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "lcd": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "left": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "ok": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "power": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "ptt": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "pwr_led": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "right": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "rx_led": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "tx_led": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     },
     "up": {
       "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
       "status": "blocked"
     }
   },
@@ -155,19 +155,19 @@
     "gates": [
       {
         "id": "chassis_reconstruction",
-        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
         "requirement": "complete pristine and worn chassis with real empty sockets",
         "status": "blocked"
       },
       {
         "id": "socket_masks",
-        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
         "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
         "status": "blocked"
       },
       {
         "id": "component_state_art",
-        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
         "requirement": "independent controls, states, LEDs, and LCD layers",
         "status": "blocked"
       },
@@ -178,10 +178,10 @@
         "status": "blocked"
       }
     ],
-    "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
-    "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+    "next_action": "Visually review the canonical modular chassis, sockets, and keyed states before approval.",
+    "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
     "required": true,
-    "source_layout": "single_canvas",
+    "source_layout": "modular_canvas",
     "status": "blocked"
   },
   "masks": {
@@ -1877,12 +1877,8 @@
           "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/20_w5_source_to_idle_diff_visible.png"
         },
         {
-          "kind": "diff_metrics",
-          "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/21_w5_source_to_idle_diff_metrics.json"
-        },
-        {
           "after": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/idle_pristine.png",
-          "before": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+          "before": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
           "diff": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/w5_full_source_to_idle_diff.png",
           "kind": "source_to_idle_diff",
           "report": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/w5_full_source_to_idle_diff.json"
@@ -1953,72 +1949,27 @@
     "Rectangular crops and inferred component states are not production-ready evidence.",
     "The current source layout requires manual reconstruction before chassis, sockets, or keyed states can be reviewed."
   ],
-  "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
+  "owner_path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5",
   "project_id": "walkie_5",
   "regions": {},
   "schema_version": 1,
   "source": {
-    "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
-    "alpha": {
-      "nonzero_bounds": [
-        0,
-        0,
-        1004,
-        1518
-      ],
-      "nonzero_pixels": 890433,
-      "opaque_bounds": null,
-      "opaque_pixels": 0,
-      "partial_pixels": 890433,
-      "partial_ratio_of_nonzero": 1,
-      "transparent_pixels": 681407
-    },
-    "bytes": 2151384,
-    "filename": "Base.WalkieTalkie5.png",
+    "absolute_path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
+    "bytes": 1548452,
+    "filename": "Chassis/Pristine.png",
     "format": "PNG",
     "immutable": true,
     "layout": {
+      "kind": "modular_canvas",
       "confidence": "high",
-      "halves": {
-        "left": {
-          "nonzero_bounds": [
-            0,
-            0,
-            512,
-            1518
-          ],
-          "opaque_pixels": 0,
-          "partial_pixels": 452979,
-          "size": [
-            512,
-            1535
-          ],
-          "transparent_pixels": 332941
-        },
-        "right": {
-          "nonzero_bounds": [
-            0,
-            39,
-            492,
-            1479
-          ],
-          "opaque_pixels": 0,
-          "partial_pixels": 437454,
-          "size": [
-            512,
-            1535
-          ],
-          "transparent_pixels": 348466
-        }
-      },
-      "kind": "single_canvas",
-      "reason": "alpha silhouette reaches the horizontal seam; halves would crop one full device",
-      "review_required": true,
-      "variants": {}
+      "variants": {
+        "pristine": "active",
+        "worn": "active"
+      }
     },
     "mode": "RGBA",
-    "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
-    "sha256": "2325d192eaf407bdfff634b1bb58e94b45d3b7e7e8f4da3d67bd0c32e1dc4fda",
+    "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
+    "sha256": "648f96e5feade244b6dacfe1effc2a2b829e6d557ed8ce4e615525de3dcd2c0d",
     "size": [
       1024,
       1535
@@ -2026,15 +1977,11 @@
   },
   "sources": {
     "canonical": {
-      "approved": false,
-      "bytes": 2151384,
-      "format": "PNG",
-      "height": 1535,
-      "mode": "RGBA",
-      "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
-      "provenance": "canonical concept/reference source; pending visual review",
-      "sha256": "2325d192eaf407bdfff634b1bb58e94b45d3b7e7e8f4da3d67bd0c32e1dc4fda",
-      "width": 1024
+      "filename": "Chassis/Pristine.png",
+      "immutable": true,
+      "layout": "modular_canvas",
+      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
+      "sha256": "648f96e5feade244b6dacfe1effc2a2b829e6d557ed8ce4e615525de3dcd2c0d"
     }
   },
   "variants": {
@@ -2082,19 +2029,19 @@
       "gates": [
         {
           "id": "chassis_reconstruction",
-          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
           "requirement": "complete pristine and worn chassis with real empty sockets",
           "status": "blocked"
         },
         {
           "id": "socket_masks",
-          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
           "requirement": "pixel-tight source-space masks with no transparent exterior or neighbor contamination",
           "status": "blocked"
         },
         {
           "id": "component_state_art",
-          "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+          "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
           "requirement": "independent controls, states, LEDs, and LCD layers",
           "status": "blocked"
         },
@@ -2106,7 +2053,7 @@
         }
       ],
       "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+      "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
       "required": true,
       "source_layout": "single_canvas",
       "status": "blocked"
@@ -2132,7 +2079,7 @@
       {
         "id": "manual_reconstruction_plan",
         "next_action": "Author concealed chassis pixels, precise sockets, and keyed states from reviewed source art.",
-        "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
+        "reason": "MODULAR_ARTWORK_REQUIRES_REVIEW",
         "status": "blocked"
       },
       {
@@ -2178,9 +2125,8 @@
     ],
     "reasons": [
       "NO_MODULAR_ARTWORK_DIRECTORY",
-      "SOURCE_IS_SINGLE_CANVAS_NOT_CLEAN_WORN_PAIR",
-      "SOURCE_LAYOUT_REQUIRES_MANUAL_REVIEW",
-      "SOURCE_PROVENANCE_NOT_APPROVED_FOR_PRODUCTION",
+      "MODULAR_ARTWORK_REQUIRES_REVIEW",
+      "MODULAR_ARTWORK_NOT_APPROVED_FOR_PRODUCTION",
       "US_ARMY_PILOT_PENDING_SOCKET_AND_MASK_REVIEW"
     ],
     "reviewed": false,

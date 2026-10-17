@@ -1372,11 +1372,11 @@
   "schema_version": 1,
   "sources": {
     "canonical": {
-      "filename": "Base.HamRadio2.png",
+      "filename": "Chassis/Pristine.png",
       "immutable": true,
-      "layout": "single_canvas",
-      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2.png",
-      "sha256": "2aa74b80ab9bd0fe79adcac44e682a84d88df10c60e653eaa323b0623b57dad7"
+      "layout": "modular_canvas",
+      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Chassis/Pristine.png",
+      "sha256": "2198957803e938e2c3bd3694d232fb76aed602fcbbaeefd518dfe776fea0c6c9"
     }
   },
   "variants": {

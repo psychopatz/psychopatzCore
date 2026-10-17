@@ -1450,11 +1450,11 @@
   "schema_version": 1,
   "sources": {
     "canonical": {
-      "filename": "Base.ManPackRadio.png",
+      "filename": "Chassis/Pristine.png",
       "immutable": true,
-      "layout": "single_canvas",
-      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio.png",
-      "sha256": "5c97028e2200cf7fdfad9b4f7fb99ebae00b82b9603efcfa4346e264d7d61c46"
+      "layout": "modular_canvas",
+      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Chassis/Pristine.png",
+      "sha256": "6d3668a2934865f5a99954893fa9ab1fcf5e4e20646ba932a78028b80e86b2e3"
     }
   },
   "variants": {
