@@ -38,12 +38,16 @@ function Router.New(spec)
         version = Router.VERSION,
         state = spec.state or State.New(spec.stateSpec),
         parser = spec.parser or Semantics.Parser.Parse,
+        candidateParser = spec.candidateParser,
+        candidateSelector = spec.candidateSelector,
         contextResolver = spec.contextResolver,
         policy = spec.policy,
         decide = spec.decide,
         context = spec.context or {},
         options = spec.options or {},
         lastResult = nil,
+        lastCandidateSet = nil,
+        lastCandidateDiagnostics = nil,
     }
     setmetatable(self, { __index = Router })
     return self
@@ -58,6 +62,22 @@ function Router:SetParser(parser)
     if type(parser) ~= "function" then return false, "invalid_parser" end
     self.parser = parser
     return true, parser
+end
+
+function Router:SetCandidateParser(parser)
+    if parser ~= nil and type(parser) ~= "function" then
+        return false, "invalid_candidate_parser"
+    end
+    self.candidateParser = parser
+    return true, parser
+end
+
+function Router:SetCandidateSelector(selector)
+    if selector ~= nil and type(selector) ~= "function" then
+        return false, "invalid_candidate_selector"
+    end
+    self.candidateSelector = selector
+    return true, selector
 end
 
 function Router:SetContextResolver(resolver)
@@ -88,6 +108,13 @@ function Router:Parse(text, options)
         return nil, "parser_unavailable"
     end
     return self.parser(text, options or self.options)
+end
+
+function Router:ParseCandidates(text, options)
+    if type(self.candidateParser) ~= "function" then
+        return nil, "candidate_parser_unavailable"
+    end
+    return self.candidateParser(text, options or self.options)
 end
 
 function Router:Decide(ir, context, options)
@@ -123,7 +150,41 @@ end
 
 function Router:Preview(text, context, options)
     options = options or self.options
-    local ir, parseReason = self:Parse(text, options)
+    local ir
+    local parseReason
+    local candidateSet
+    local candidateDiagnostics
+    local usedCandidates = false
+    local candidateSelectionAttempted = false
+    self.lastCandidateSet = nil
+    self.lastCandidateDiagnostics = nil
+    if type(self.candidateParser) == "function" then
+        candidateSet, parseReason = self:ParseCandidates(text, options)
+        if type(candidateSet) == "table"
+            and type(candidateSet.candidates) == "table"
+        then
+            usedCandidates = true
+            self.lastCandidateSet = candidateSet
+            if type(self.candidateSelector) == "function" then
+                candidateSelectionAttempted = true
+                ir, candidateDiagnostics = self.candidateSelector(
+                    candidateSet,
+                    self.state,
+                    context or self.context,
+                    options,
+                    self.contextResolver
+                )
+                self.lastCandidateDiagnostics = candidateDiagnostics
+            elseif candidateSet.selected then
+                ir = candidateSet.selected.ir
+            end
+        end
+    end
+    if not usedCandidates
+        or (not candidateSelectionAttempted and not ir)
+    then
+        ir, parseReason = self:Parse(text, options)
+    end
     if not ir then
         return {
             schemaVersion = Router.VERSION,
@@ -133,6 +194,11 @@ function Router:Preview(text, context, options)
             state = self.state,
         }
     end
+    if type(candidateDiagnostics) == "table"
+        and type(ir.diagnostics) == "table"
+    then
+        ir.diagnostics.candidateSelection = candidateDiagnostics
+    end
     ir = self:ResolveIR(ir, context, options)
     return {
         schemaVersion = Router.VERSION,
@@ -140,6 +206,8 @@ function Router:Preview(text, context, options)
         accepted = true,
         ir = ir,
         decision = self:Decide(ir, context, options),
+        candidates = candidateSet,
+        candidateDiagnostics = candidateDiagnostics,
         state = self.state,
         sequence = self.state.sequence,
     }
@@ -180,6 +248,8 @@ function Router:ProcessIR(ir, context, options)
         ir = ir,
         decision = decision,
         event = eventOrReason,
+        candidates = self.lastCandidateSet,
+        candidateDiagnostics = self.lastCandidateDiagnostics,
         state = self.state,
         sequence = self.state.sequence,
     }
@@ -208,6 +278,8 @@ end
 function Router:Reset()
     if self.state and self.state.Reset then self.state:Reset() end
     self.lastResult = nil
+    self.lastCandidateSet = nil
+    self.lastCandidateDiagnostics = nil
     return self.state
 end
 

@@ -92,10 +92,50 @@ assert(registry.RegisterPattern({
         object = "$capture.target.text",
     },
 }))
+assert(registry.RegisterPattern({
+    id = "inspect_alternative",
+    confidence = 0.50,
+    priority = 1,
+    match = {
+        { kind = "concept", id = "person", capture = "subject" },
+        {
+            kind = "any_phrase",
+            minTokens = 2,
+            maxTokens = 3,
+            capture = "target",
+        },
+    },
+    emit = {
+        intent = "inspect_alternative",
+    },
+}))
 local ir = semantics.Parse("bob medical supplies", { enableFuzzy = false })
 assertEqual(ir.intent, "inspect", "parser intent")
 assertEqual(ir.actor, "person", "parser actor")
 assertEqual(ir.object, "medical supplies", "parser phrase")
 assertEqual(ir.diagnostics.noMatch, false, "parser diagnostics")
+
+local candidates = semantics.Parser.ParseCandidates(
+    "bob medical supplies",
+    { enableFuzzy = false, maxCandidates = 4 }
+)
+assertEqual(candidates.kind, "semantic_parse_candidates",
+    "candidate result kind")
+assertEqual(candidates.diagnostics.candidateCount, 2,
+    "candidate count")
+assertEqual(#candidates.candidates, 2, "returned candidate count")
+assertEqual(candidates.selected.patternID, "inspect",
+    "selected candidate preserves Parse winner")
+assertEqual(candidates.selected.exact, true, "exact candidate marker")
+assertEqual(candidates.selected.typedCaptures.subject.id, "person",
+    "typed subject capture")
+assertEqual(candidates.selected.typedCaptures.target.kind, "phrase",
+    "typed phrase capture")
+assertEqual(candidates.candidates[2].patternID, "inspect_alternative",
+    "deterministic alternative ordering")
+assertEqual(ir.intent, candidates.selected.ir.intent,
+    "Parse and candidate winner intent")
+assertEqual(ir.object, candidates.selected.ir.object,
+    "Parse and candidate winner object")
 
 print("psychopatz semantic pattern matcher: ok")
