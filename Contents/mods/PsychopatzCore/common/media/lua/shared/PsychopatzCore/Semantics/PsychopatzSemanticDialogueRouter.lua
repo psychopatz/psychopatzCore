@@ -253,6 +253,19 @@ function Router:ProcessIR(ir, context, options)
         state = self.state,
         sequence = self.state.sequence,
     }
+    if self.policy and type(self.policy.CommitFlow) == "function" then
+        local committedFlow = self.policy.CommitFlow(
+            decision,
+            ir,
+            self.state,
+            context or self.context,
+            options
+        )
+        if type(committedFlow) == "table" then
+            result.flow = committedFlow
+            decision.flow = committedFlow
+        end
+    end
     if self.state and type(self.state.CompletePending) == "function" then
         -- Decide before completing so response composition can still use the
         -- request/question that this turn answers.
