@@ -7,6 +7,8 @@ PsychopatzCore = PsychopatzCore or {}
 
 local Core = PsychopatzCore
 local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
+local Manifest = require
+    "PsychopatzCore/Translation/PsychopatzCustomTranslationManifest"
 local Manager = type(CustomTranslationManager) == "table"
     and CustomTranslationManager or {}
 
@@ -150,6 +152,8 @@ local function registrationFrom(first, second, third)
         or not validIdentifier(source.modID)
         or not validIdentifier(source.systemName)
         or not validBasePath(source.basePath)
+        or source.manifestPath ~= nil
+            and not Manifest.IsSafePath(source.manifestPath)
     then
         return nil, "invalid_registration"
     end
@@ -157,6 +161,7 @@ local function registrationFrom(first, second, third)
         modID = source.modID,
         systemName = source.systemName,
         basePath = trimTrailingSlash(source.basePath),
+        manifestPath = source.manifestPath,
     }
 end
 
@@ -293,12 +298,100 @@ local function decodeCatalog(raw, path)
     return value
 end
 
+local function manifestPathFor(source)
+    return source.basePath .. "/" .. tostring(source.manifestPath)
+end
+
+local function decodeManifest(raw, path)
+    if type(raw) ~= "string" then
+        return nil, "manifest_text_missing:" .. tostring(path)
+    end
+    local value, reason = Json.Decode(raw, {
+        maxString = MAX_FILE_BYTES,
+        maxDepth = 4,
+        maxCollection = Manifest.MAX_SHARDS + 4,
+        preserveNull = true,
+    })
+    if type(value) ~= "table" then
+        return nil, "manifest_json_root_invalid:" .. tostring(reason or path)
+    end
+    local valid, normalized = Manifest.Validate(value)
+    if not valid then return nil, normalized end
+    return normalized
+end
+
+local function readManifest(source)
+    if source._manifestState == "loaded" then
+        return source._manifest, nil, source._manifestPath
+    end
+    if source._manifestState == "error" then
+        return nil, source._manifestReason, source._manifestPath
+    end
+
+    local path = manifestPathFor(source)
+    source._manifestPath = path
+    local raw, readReason = readText(source.modID, path)
+    if not raw then
+        source._manifestState = "error"
+        source._manifestReason = readReason
+        return nil, readReason, path
+    end
+    local manifest, reason = decodeManifest(raw, path)
+    if not manifest then
+        source._manifestState = "error"
+        source._manifestReason = reason
+        return nil, reason, path
+    end
+    source._manifestState = "loaded"
+    source._manifest = manifest
+    source._manifestReason = nil
+    return manifest, nil, path
+end
+
+local function mergeManifestShards(source, language)
+    local manifest, reason, manifestPath = readManifest(source)
+    if not manifest then return nil, reason, manifestPath end
+    local paths = manifest.languages[language]
+    if type(paths) ~= "table" then
+        return nil, "manifest_language_missing:" .. language, manifestPath
+    end
+
+    local catalog = {}
+    local relativePath
+    local shardPath
+    local raw
+    local readReason
+    local shard
+    local decodeReason
+    local key
+    local text
+    for index = 1, #paths do
+        relativePath = paths[index]
+        shardPath = source.basePath .. "/" .. relativePath
+        raw, readReason = readText(source.modID, shardPath)
+        if not raw then return nil, readReason, shardPath end
+        shard, decodeReason = decodeCatalog(raw, shardPath)
+        if not shard then return nil, decodeReason, shardPath end
+        for key, text in pairs(shard) do
+            if catalog[key] ~= nil then
+                return nil, "duplicate_key:" .. key, shardPath
+            end
+            catalog[key] = text
+        end
+    end
+    source._lastShardCount = #paths
+    return catalog, nil, manifestPath
+end
+
 local function isMissingReason(reason)
     return type(reason) == "string"
         and string.sub(reason, 1, 13) == "file_missing:"
 end
 
 local function readCatalog(source, language)
+    if source.manifestPath then
+        return mergeManifestShards(source, language)
+    end
     local nestedPath = pathFor(source, language)
     local raw, readReason = readText(source.modID, nestedPath)
     if raw then
@@ -349,6 +442,7 @@ local function loadSystem(source)
     source._localizedAvailable = false
     source._localizedReason = nil
     source._localizedPath = nil
+    source._lastShardCount = 0
     source._localizedKeys = {}
     source._untranslatedKeys = {}
     local english, englishReason, englishPath = readCatalog(source, ENGLISH)
@@ -358,6 +452,7 @@ local function loadSystem(source)
             state = "error",
             language = language,
             englishPath = englishPath or pathFor(source, ENGLISH),
+            manifestPath = source._manifestPath,
             reason = englishReason,
         })
         log("ERROR", "Unable to load " .. systemKey(source.modID,
@@ -376,6 +471,8 @@ local function loadSystem(source)
     if language ~= ENGLISH then
         local localized, reason, path = readCatalog(source, language)
         localizedPath = path
+        localizedReason = reason
+        source._localizedReason = reason
         if localized then
             source._localizedAvailable = true
             source._localizedKeys = localized
@@ -401,6 +498,8 @@ local function loadSystem(source)
         language = language,
         englishPath = englishPath or pathFor(source, ENGLISH),
         localizedPath = localizedPath or pathFor(source, language),
+        manifestPath = source._manifestPath,
+        shardCount = source._lastShardCount or 0,
         usedEnglishFallback = usedEnglishFallback,
         localizedReason = localizedReason,
         entryCount = 0,
@@ -701,7 +800,9 @@ function Manager.registerSystem(first, second, third)
     end
     local existing = systems[source.systemName]
     if existing then
-        if existing.basePath ~= source.basePath then
+        if existing.basePath ~= source.basePath
+            or existing.manifestPath ~= source.manifestPath
+        then
             log("ERROR", "Conflicting registration for "
                 .. systemKey(source.modID, source.systemName))
             return nil, "conflicting_registration"
@@ -725,11 +826,12 @@ function Manager.forMod(modID)
         modID = modID,
     }
 
-    function scope.registerSystem(systemName, basePath)
+    function scope.registerSystem(systemName, basePath, manifestPath)
         return Manager.registerSystem({
             modID = modID,
             systemName = systemName,
             basePath = basePath,
+            manifestPath = manifestPath,
         })
     end
 
