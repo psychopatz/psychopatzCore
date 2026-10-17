@@ -176,6 +176,21 @@ def _device_path(root: Path, definition: dict[str, str]) -> Path:
     return root / CANONICAL_IMAGE_ROOT / family_dir / definition["filename"]
 
 
+def _modular_directory(root: Path, definition: dict[str, str], source_path: Path) -> Path:
+    """Resolve the modular directory without hiding a source filename quirk."""
+
+    candidate = source_path.with_suffix("")
+    if candidate.is_dir() or not source_path.name.endswith(" .png"):
+        return candidate
+    # HamRadioMakeShift's source file intentionally contains a space before
+    # .png.  The canonical modular model directory follows the full type and
+    # does not inherit that source-only filename typo.
+    normalized_name = source_path.name.replace(" .png", ".png")
+    normalized_source = source_path.with_name(normalized_name)
+    normalized_candidate = normalized_source.with_suffix("")
+    return normalized_candidate if normalized_candidate.is_dir() else candidate
+
+
 def _authoring_project_path(root: Path, definition: dict[str, str]) -> Path | None:
     """Find a developer authoring project without confusing audit manifests.
 
@@ -649,7 +664,7 @@ def _record_device(root: Path, definition: dict[str, str], *, include_staged: bo
     path = _device_path(root, definition)
     family_dir = FAMILY_DIRECTORIES[definition["family"]]
     owner_path = (CANONICAL_IMAGE_ROOT / family_dir / definition["filename"]).as_posix()
-    modular_dir = path.with_suffix("")
+    modular_dir = _modular_directory(root, definition, path)
     modular_files = sorted(
         item.relative_to(modular_dir).as_posix()
         for item in modular_dir.rglob("*")

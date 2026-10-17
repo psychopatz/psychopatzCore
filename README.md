@@ -1,5 +1,16 @@
 # PsychopatzCore
 
+## Radio OS runtime source of truth
+
+The radio simulator, CLI, Core Lua Radio OS, and the DynamicTrading preview use the same canonical pilot projects and generated runtime manifest. Build it with:
+
+```bash
+PYTHONPATH=tools python3 tools/asset_harness/cli.py runtime-manifest \
+  --out Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceManifest.json
+```
+
+The retired atlas/source-catalog viewer is not part of the supported workflow. See [`Docs/radio_os/CORE_RADIO_OS_INTERACTION_ROADMAP.md`](Docs/radio_os/CORE_RADIO_OS_INTERACTION_ROADMAP.md) for the current ownership and native-acceptance boundary.
+
 Reusable inventory architecture and API: [docs/inventory-framework.md](docs/inventory-framework.md).
 
 Reusable current-player animation playback: [docs/player-animation-controller.md](docs/player-animation-controller.md).

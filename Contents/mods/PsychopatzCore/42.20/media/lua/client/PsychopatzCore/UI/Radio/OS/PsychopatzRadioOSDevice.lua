@@ -8,7 +8,7 @@ PsychopatzCore.RadioOS = PsychopatzCore.RadioOS or {}
 
 local OS = PsychopatzCore.RadioOS
 local Manifest = require
-    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioManifest"
+    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioRuntimeManifest"
 local Geometry = require
     "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSGeometry"
 local RadioDeviceState = PsychopatzCore.RadioDeviceState
@@ -43,22 +43,35 @@ end
 
 local function validateSkin(skin)
     if type(skin) ~= "table" or not validID(skin.id)
-        or not validID(skin.fullType) or not validID(skin.sprite)
-        or not validRect(skin.screen) or type(skin.baseSize) ~= "table"
-        or not validRect({ x = 0, y = 0,
-            w = skin.baseSize.w, h = skin.baseSize.h })
+        or not validID(skin.fullType) or type(skin.canvas) ~= "table"
+        or tonumber(skin.canvas.width) == nil
+        or tonumber(skin.canvas.height) == nil
+        or tonumber(skin.canvas.width) <= 0
+        or tonumber(skin.canvas.height) <= 0
+        or type(skin.chassis) ~= "table"
+        or type(skin.components) ~= "table"
     then
         return false
     end
-    -- Older third-party skins may not have measured aperture metadata yet.
-    -- Keep them usable with the safe content viewport while Core-owned skins
-    -- use the larger, alpha-audited lcdBackdrop rectangle.
-    if skin.lcdBackdrop and not validRect(skin.lcdBackdrop) then
+    for _, variant in ipairs({ "pristine", "worn" }) do
+        local chassis = skin.chassis[variant]
+        if type(chassis) ~= "table" or not validID(chassis.image) then
+            return false
+        end
+    end
+    if type(skin.lcd) ~= "table"
+        or not validRect(skin.lcd.aperture)
+        or not validRect(skin.lcd.content)
+    then
         return false
     end
-    if type(skin.controls) ~= "table" then return false end
-    for _, name in ipairs({ "left", "center", "right" }) do
-        if not validRect(skin.controls[name]) then return false end
+    for _, component in ipairs(skin.components) do
+        if type(component) ~= "table" or not validID(component.id)
+            or not validRect(component.hitbox)
+            or type(component.states) ~= "table"
+        then
+            return false
+        end
     end
     return true
 end
@@ -115,12 +128,17 @@ function OS.GetDeviceContext(playerNum, device)
         or device
     local active = false
     local audible = false
+    local powered = false
     local reason = "state_unavailable"
     if RadioDeviceState and data then
         local valid, validationReason = RadioDeviceState.Validate(data)
         active = valid == true
         reason = validationReason or (active and "ready" or reason)
         audible = RadioDeviceState.IsAudible(data) == true
+        if data.getIsTurnedOn then
+            local ok, value = pcall(data.getIsTurnedOn, data)
+            powered = ok and value == true or false
+        end
     end
     return {
         player = player,
@@ -129,15 +147,21 @@ function OS.GetDeviceContext(playerNum, device)
         deviceData = data,
         fullType = fullType,
         skin = skin,
+        supported = true,
+        canOpen = data ~= nil,
         active = active,
         audible = audible,
+        powered = powered,
         reason = reason,
         revision = registry.revision,
     }
 end
 
-function OS.GetDefaultScale()
-    return Geometry.GetPreferredScale()
+function OS.GetDefaultScale(skin)
+    local screenWidth, screenHeight = Geometry.GetScreenSize()
+    local canvas = skin and skin.canvas or {}
+    return Geometry.GetPreferredScale(screenWidth, screenHeight,
+        canvas.width, canvas.height)
 end
 
 -- Development-only compositor probe.  It is deliberately not persisted and
@@ -163,12 +187,15 @@ function OS.Open(playerNum, device, options)
     options = type(options) == "table" and options or {}
     local context, reason = OS.GetDeviceContext(playerNum, device)
     if not context then return nil, reason end
+    if context.canOpen ~= true then return nil, "device_data_unavailable" end
     local existing = registry.windows[playerNum]
     if existing and existing.getIsVisible and existing:getIsVisible() then
         if existing.bringToTop then existing:bringToTop() end
         return existing
     end
     context.hostWindow = options.hostWindow
+    context.variant = tostring(options.variant or context.variant or "pristine")
+    if context.variant ~= "worn" then context.variant = "pristine" end
     local Window = require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow"
     local geometryIdentity = {
         family = context.skin.family or context.fullType,
@@ -178,14 +205,20 @@ function OS.Open(playerNum, device, options)
     local geometryKey = Geometry.MakeKey(playerNum, geometryIdentity)
     local savedState, savedScale
     if options.persistGeometry ~= false then
-        savedState, savedScale = Geometry.Load(playerNum, geometryIdentity)
+        savedState, savedScale = Geometry.Load(playerNum, geometryIdentity,
+            tonumber(context.skin.canvas.width))
     end
-    local minimumScale, maximumScale = Geometry.GetScaleLimits()
-    local scale = tonumber(options.scale) or savedScale or OS.GetDefaultScale()
-    scale = Geometry.ClampScale(scale, minimumScale, maximumScale)
-    local width = context.skin.baseSize.w * scale
-    local height = context.skin.baseSize.h * scale
     local screenWidth, screenHeight = Geometry.GetScreenSize()
+    local canvasWidth = tonumber(context.skin.canvas.width)
+    local canvasHeight = tonumber(context.skin.canvas.height)
+    local minimumScale, maximumScale = Geometry.GetScaleLimits(
+        screenWidth, screenHeight, canvasWidth, canvasHeight)
+    local scale = tonumber(options.scale) or savedScale
+        or Geometry.GetPreferredScale(screenWidth, screenHeight,
+            canvasWidth, canvasHeight)
+    scale = Geometry.ClampScale(scale, minimumScale, maximumScale)
+    local width = canvasWidth * scale
+    local height = canvasHeight * scale
     local x = savedState and tonumber(savedState.x)
         or (screenWidth - width) / 2
     local y = savedState and tonumber(savedState.y)
@@ -194,6 +227,7 @@ function OS.Open(playerNum, device, options)
     local window = Window:new(
         x, y, width, height, context, {
             scale = scale,
+            variant = context.variant,
             owner = options.owner,
             hostWindow = options.hostWindow,
             geometryKey = geometryKey,
@@ -216,6 +250,9 @@ function OS.Open(playerNum, device, options)
     if options.hostWindow and options.hostWindow.setVisible then
         options.hostWindow:setVisible(false)
     end
+    log("window opened: fullType=" .. tostring(context.fullType)
+        .. " powered=" .. tostring(context.powered)
+        .. " scale=" .. tostring(scale))
     return window
 end
 
@@ -234,10 +271,10 @@ function OS._ForgetWindow(window)
 end
 
 if not registry.defaultsLoaded then
-    for id, skin in pairs(Manifest.skins or {}) do
+    for _, skin in ipairs(Manifest.ListDevices and Manifest.ListDevices() or {}) do
         if validateSkin(skin) then
-            registry.skins[id] = skin
-            registry.skinsByFullType[skin.fullType] = id
+            registry.skins[skin.id] = skin
+            registry.skinsByFullType[skin.fullType] = skin.id
         end
     end
     registry.defaultsLoaded = true

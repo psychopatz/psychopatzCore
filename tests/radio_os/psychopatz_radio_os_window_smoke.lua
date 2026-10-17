@@ -2,6 +2,15 @@ local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
 local COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
 package.path = CLIENT .. "?.lua;" .. COMMON .. "?.lua;" .. package.path
 
+getModFileReader = function(_, filename, _)
+    local handle = assert(io.open("Contents/mods/PsychopatzCore/common/"
+        .. filename, "r"))
+    return {
+        readLine = function() return handle:read("*l") end,
+        close = function() handle:close() end,
+    }
+end
+
 local function equal(actual, expected, label)
     if actual ~= expected then
         error((label or "equal") .. ": expected=" .. tostring(expected)
@@ -57,6 +66,13 @@ function Base:drawSubTexture(texture, sx, sy, sw, sh, ...)
     self.events[#self.events + 1] = {
         kind = "sprite", path = texture and texture.path,
         x = sx, y = sy, w = sw, h = sh,
+    }
+end
+function Base:drawTextureScaled(texture, x, y, w, h, ...)
+    self.draws = (self.draws or 0) + 1
+    self.events[#self.events + 1] = {
+        kind = "texture", path = texture and texture.path,
+        x = x, y = y, w = w, h = h,
     }
 end
 function Base:drawText(...)
@@ -117,7 +133,9 @@ local device = {
     getIsPortable = function() return true end,
     getIsTwoWay = function() return true end,
     getIsTelevision = function() return false end,
-    getIsTurnedOn = function() return true end,
+    powered = true,
+    getIsTurnedOn = function(self) return self.powered end,
+    setIsTurnedOn = function(self, value) self.powered = value end,
     getPower = function() return 1 end,
     getDeviceVolume = function() return 1 end,
     getMicIsMuted = function() return false end,
@@ -181,23 +199,58 @@ truthy(OS.RegisterContactProvider({
     end,
 }), "paged window provider")
 
-local window = assert(OS.Open(0, device, { scale = 1 }))
+local window = assert(OS.Open(0, device, { scale = 0.3 }))
 equal(window.page, "home", "initial page")
 window:prerender()
 window:render()
 truthy((window.draws or 0) >= 5, "atlas rendering")
 truthy((window.textDraws or 0) >= 1, "screen text rendering")
-truthy(window._spriteDefinitions["icon_contacts"],
-    "home icon atlas sprite is rendered")
-truthy(window._spriteDefinitions["btn_sq_green_idle"],
-    "physical button atlas state is rendered")
+truthy(window.skin.chassis.pristine.image
+    == "media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
+    "runtime chassis manifest is rendered")
+truthy(#window.skin.interactiveComponents == 8,
+    "runtime interactive control manifest is loaded")
+local iconPath, iconRect = window:spriteDefinition("icon_contacts")
+truthy(iconPath == "media/ui/Radio/OS/Icons.png" and iconRect
+    and iconRect.w == 64 and iconRect.h == 64,
+    "Core UI icon atlas is loaded from the runtime manifest")
+local wrapped = window:wrapText(
+    "A deliberately long radio status message that must stay inside the LCD",
+    54, 2)
+truthy(#wrapped <= 2, "screen text wrapping is bounded")
+for _, line in ipairs(wrapped) do
+    truthy(window:textWidth(line) <= 54,
+        "wrapped screen text fits its LCD width")
+end
+local powerRect = window:controlRect("power")
+window:onMouseDown(powerRect.x + 1, powerRect.y + 1)
+equal(device.powered, true, "power waits for pointer release")
+equal(window._pressedControl, "power", "power pressed state is captured")
+window:onMouseUp()
+equal(device.powered, false, "power toggles on pointer release")
+window:onMouseDown(powerRect.x + 1, powerRect.y + 1)
+window:onMouseUp()
+equal(device.powered, true, "power toggles back on")
 local function firstEvent(kind, start)
     for index = start or 1, #window.events do
         if window.events[index].kind == kind then return index end
     end
     return nil
 end
-equal(window.events[1].kind, "matte", "opaque LCD matte is first")
+truthy(firstEvent("texture") ~= nil, "authored modular layers are rendered")
+local glassEvent
+local firstTextEvent = firstEvent("text")
+for index = 1, #window.events do
+    local event = window.events[index]
+    if event.kind == "texture" and event.path
+        and string.find(event.path, "/LCD/Glass.png", 1, true)
+    then
+        glassEvent = index
+        break
+    end
+end
+truthy(glassEvent and firstTextEvent and glassEvent < firstTextEvent,
+    "LCD glass is composited below dynamic screen text")
 local stencilOn = firstEvent("stencil_on")
 local stencilOff = firstEvent("stencil_off")
 truthy(stencilOn and stencilOff and stencilOn < stencilOff,
@@ -207,18 +260,18 @@ truthy(window:lcdBackdropRect().w >= window:screenRect().w,
 truthy(window:lcdBackdropRect().h >= window:screenRect().h,
     "LCD aperture height contains content viewport")
 local shellEvent
-for index = stencilOff + 1, #window.events do
+for index = 1, stencilOn do
     local event = window.events[index]
-    if event.kind == "sprite"
+    if (event.kind == "texture" or event.kind == "sprite")
         and event.path
-        and string.find(event.path, "DTA_Walkie_Shells", 1, true)
+        and string.find(event.path, "Base.WalkieTalkie5/Chassis/Pristine.png", 1, true)
     then
         shellEvent = index
         break
     end
 end
-truthy(shellEvent and shellEvent > stencilOff,
-    "shell is composited after clipped content")
+truthy(shellEvent and shellEvent < stencilOn,
+    "shell is composited before clipped content")
 local integerScreen = window:screenRect()
 truthy(integerScreen.x == math.floor(integerScreen.x)
     and integerScreen.y == math.floor(integerScreen.y)
@@ -228,10 +281,10 @@ truthy(integerScreen.x == math.floor(integerScreen.x)
 
 local Geometry = require
     "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSGeometry"
-local minimum720, maximum720 = Geometry.GetScaleLimits(1280, 720)
-local minimum1080, maximum1080 = Geometry.GetScaleLimits(1920, 1080)
-local minimum1440, maximum1440 = Geometry.GetScaleLimits(2560, 1440)
-local minimum4K, maximum4K = Geometry.GetScaleLimits(3840, 2160)
+local minimum720, maximum720 = Geometry.GetScaleLimits(1280, 720, 1024, 1535)
+local minimum1080, maximum1080 = Geometry.GetScaleLimits(1920, 1080, 1024, 1535)
+local minimum1440, maximum1440 = Geometry.GetScaleLimits(2560, 1440, 1024, 1535)
+local minimum4K, maximum4K = Geometry.GetScaleLimits(3840, 2160, 1024, 1535)
 truthy(minimum720 <= maximum720 and maximum720 < maximum1080
     and maximum1080 < maximum1440 and maximum1440 < maximum4K,
     "scale limits follow available viewport")
@@ -259,7 +312,7 @@ truthy(window:select(), "fit action")
 equal(window.scale, window.maxScale, "fit uses viewport maximum")
 window.settingsIndex = 3
 truthy(window:select(), "reset action")
-near(window.scale, Geometry.GetPreferredScale(), 0.001,
+near(window.scale, Geometry.GetPreferredScale(1280, 900, 1024, 1535), 0.001,
     "reset uses responsive default")
 window:back()
 equal(window.page, "home", "settings back navigation")
@@ -300,6 +353,7 @@ equal(requested, 1, "direct contact action dispatch")
 local center = window:controlRect("center")
 window:onMouseDown(window:controlRect("left").x + 1,
     window:controlRect("left").y + 1)
+window:onMouseUp()
 equal(window.page, "contacts", "detail back navigation")
 window:back()
 equal(window.page, "home", "home back navigation")
@@ -325,7 +379,7 @@ window:onMouseDown(window:getWidth() - 2, window:getHeight() - 2)
 window:onMouseMove(24, 24)
 window:onMouseUp()
 truthy(window.scale > beforeScale, "resize grip changes uniform scale")
-near(window:getWidth() / window:getHeight(), 256 / 432, 0.01,
+near(window:getWidth() / window:getHeight(), 1024 / 1535, 0.01,
     "resize preserves shell aspect ratio")
 local savedX, savedY, savedScale = window:getX(), window:getY(), window.scale
 window:close()
@@ -362,12 +416,12 @@ OS.UnregisterContactProvider("mock:contacts")
 OS.UnregisterContactProvider("mock:paged")
 
 local customWindow = assert(OS.Open(0, device, { scale = 1 }))
-customWindow:pressControl("right")
-customWindow:pressControl("center")
+customWindow:triggerControl("right")
+customWindow:triggerControl("ok")
 equal(customWindow.page, "custom", "custom app navigation")
-customWindow:pressControl("right")
+customWindow:triggerControl("right")
 equal(customMoves, 1, "custom app movement")
-customWindow:pressControl("center")
+customWindow:triggerControl("ok")
 truthy(customSelected, "custom app selection")
 local customScreen = customWindow:screenRect()
 customWindow:onMouseDown(customScreen.x + 4, customScreen.y + 30)

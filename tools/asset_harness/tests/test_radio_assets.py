@@ -16,16 +16,17 @@ from asset_harness.core.radio_assets import audit_radio_sources, write_radio_aud
 from asset_harness.core.masks import register_mask, validate_mask, write_polygon_mask  # noqa: E402
 from asset_harness.core.project import default_project, save_project  # noqa: E402
 from asset_harness.core.source import register_source  # noqa: E402
-from asset_harness.simulator import RadioSimulator, list_devices  # noqa: E402
+from asset_harness.simulator import RadioSimulator, list_project_refs  # noqa: E402
 from asset_harness.simulator.render import render_device  # noqa: E402
 
 
 class RadioAssetAuditTests(unittest.TestCase):
-    def test_audit_covers_ten_exact_canonical_sources_and_blocks_unreviewed_art(self) -> None:
+    def test_audit_covers_ten_exact_canonical_sources_and_marks_unreviewed_art_proposed(self) -> None:
         report = audit_radio_sources(ROOT, include_staged=False)
         self.assertEqual(report["summary"]["expected_devices"], 10)
         self.assertEqual(report["summary"]["sources_found"], 10)
-        self.assertEqual(report["summary"]["blocked"], 10)
+        self.assertEqual(report["summary"]["blocked"], 0)
+        self.assertEqual(report["summary"]["proposed"], 10)
         by_id = {row["id"]: row for row in report["devices"]}
         self.assertEqual(by_id["walkie_4"]["source"]["size"], [1024, 1536])
         self.assertEqual(by_id["walkie_5"]["source"]["size"], [1024, 1535])
@@ -47,10 +48,10 @@ class RadioAssetAuditTests(unittest.TestCase):
             {"chassis_reconstruction", "socket_masks", "component_state_art", "reconstruction_review"},
         )
 
-    def test_authored_walkie5_pilot_transitions_to_proposed_without_runtime_approval(self) -> None:
+    def test_all_pilot_projects_transition_to_proposed_without_runtime_approval(self) -> None:
         report = audit_radio_sources(ROOT)
-        self.assertEqual(report["summary"]["blocked"], 9)
-        self.assertEqual(report["summary"]["proposed"], 1)
+        self.assertEqual(report["summary"]["blocked"], 0)
+        self.assertEqual(report["summary"]["proposed"], 10)
         walkie5 = next(row for row in report["devices"] if row["id"] == "walkie_5")
         self.assertEqual(walkie5["verification"]["status"], "proposed")
         self.assertTrue(walkie5["staged_authoring"]["authored"])
@@ -61,9 +62,13 @@ class RadioAssetAuditTests(unittest.TestCase):
         self.assertEqual(qa["worn_chassis"]["status"], "proposed")
         self.assertEqual(qa["source_to_idle_diff"]["status"], "proposed")
         self.assertEqual(qa["pilot_acceptance_sheet"]["status"], "proposed")
+        for device in report["devices"]:
+            self.assertTrue(device["staged_authoring"]["authored"], device["id"])
+            self.assertEqual(device["staged_authoring"]["status"], "proposed", device["id"])
 
     def test_simulator_uses_full_source_canvas_and_does_not_mutate_pngs(self) -> None:
-        for spec in list_devices():
+        for project in list_project_refs():
+            spec = RadioSimulator(project.device_id).device
             before = hashlib.sha256(spec.asset_path.read_bytes()).hexdigest()
             self.assertTrue(spec.asset_exists, spec.asset_path)
             self.assertEqual(spec.variant_crop("clean"), (0, 0, spec.source_width, spec.source_height))

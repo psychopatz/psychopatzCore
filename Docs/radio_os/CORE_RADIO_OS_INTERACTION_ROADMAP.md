@@ -1,33 +1,49 @@
-# Radio OS v2 — Interaction, Hardware Animation, and Asset Delivery (I0–I9)
+# Radio OS v2 — implementation roadmap
 
-> **2026-10-16 end-state correction:** Once the harness-produced per-device modular art passes review, future I7 runtime work should perform a **single clean cutover** to `common/media/ui/Radio/`, migrate the live manifest/renderer/tests and remove stale DTA sheet references instead of maintaining permanent duplicate shell/controls stacks. The DTA PNGs are not present at the live Lua paths in tracked `main`. This harness goal still forbids runtime Lua edits. For the scoped plan see [Radio Modular Asset Production](../asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md).
+**Updated:** 2026-10-17
 
+This roadmap describes the live implementation, not the retired atlas/source-catalog plan. The canonical device definitions are the ten `*_pilot.json` files in `tools/asset_harness/projects/radio/`. They compile to one packaged runtime projection:
 
-> **Scope guard (2026-10-16):** The active [Asset Harness modular-radio production contract](../asset_harness/RADIO_MODULAR_ASSET_PRODUCTION.md) defines a separate AH-R0–AH-R6 **offline authoring-only** track: precise masks, separate pristine/worn chassis PNGs, stateful components, simulator and visual QA. During this goal, work only on harness/tests, docs, staged assets and *new individually approved* modular artwork under `Contents/mods/PsychopatzCore/common/media/ui/Radio/`. Do **not** advance I7 game/Lua integration, replace existing textures, update runtime manifests or invoke production `export apply`. I0–I9 remain a future cross-runtime plan.
+`Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceManifest.json`
 
+The Python CLI, simulator GUI, Core Lua Radio OS, and the optional DynamicTrading preview all consume that same device definition and the same `common/media/ui/Radio/` assets. DynamicTrading owns no radio skin catalog or renderer.
 
-**Status:** approved plan, 2026-10-15; **I0 next**. This is **not** the earlier `R0–R9` radio-integration work, `H0–H9` Asset Harness implementation, `A0–A8` art production, `C0–C6` compositor fixes or `U0–U7` stabilization. Those remain dependencies and compatibility gates; do not restart completed tasks unnecessarily.
+## Phase status
 
-| Phase | Work / owning layer | Exit evidence |
+| Phase | Status | Evidence |
 |---|---|---|
-| **I0 — NEXT** | Source audit of simulator/catalog/reducer/renderer/CLI, real RadioOS Lua manifest/navigation/hitboxes/renderer/input, existing device assets and reference vanilla items. Record Back/PTT/knob/LED gaps and what is implemented vs merely simulated. | Verified file mapping, model list, legacy compatibility matrix, art salvage-vs-redraw inventory and test baseline. No new art. |
-| I1 | Freeze **semantic controller and manifest v2**: BACK/HOME/SELECT/directions/POWER/PTT/TUNE/VOLUME; per-model hitboxes, visible softkey fallback, family profiles and animation metadata. | Versioned JSON examples, strict validator, reusable Python/Lua fixture schema, v1 compatibility requirements. |
-| I2 | Make navigation good **before drawing buttons**: stack/back/home, obvious LCD Back, click-to-row, keyboard and joypad parity, disabled states; no wrong channel-key overloading. | Simulator tests: contact detail -> list -> home -> close, custom app Back, settings value focus, no trapped state. |
-| I3 | Gesture lifecycle and control reducer: pointer down/move/up/cancel, knob wheel/drag/detent, PTT hold with release on focus loss, no double dispatch. | Deterministic JSON scenario tests including outside-release and invalid inputs. |
-| I4 | Generic animation component system: registered pivots, indexed knob frames, mechanical keys, PTT, LEDs and screen transitions with conditional clocks, cached resources. | CLI rendered frame/contact sheets and strict frame/anchor tests; no per-device animation code forks. |
-| **I5 — ASSET PREP** | Extend existing `tools/asset_harness/` project/output schema and safe export for v2 component metadata, alpha masks, registered sprites, separate clean/worn pivots; audit current staged art. | Real actual-source/geometry audit, alpha/hitbox/knob validation and an **asset authoring template ready** for one device. |
-| **I6 — FIRST ART** | Build a **distinct radio-shaped US Army walkie** front shell, real LCD aperture, BACK/HOME/OK, navigation, volume/channel rotary, PTT, LEDs and wear layers; avoid phone silhouette. | Reviewable per-component PNGs and full-res in-scale composites, contact sheets, provenance/approval, no production replacement before gate. |
-| I7 | Integrate I1–I6 contract into Core's **actual Lua Radio OS**, while preserving v1 atlas fallback and unchanged provider authorization. | Real Lua tests for input/navigation and compositor; device skin v2 roundtrip; documented normal-game SP acceptance status. |
-| I8 | Convert all remaining **five** distinct walkies, all **three** distinct HAM models and manpack using v2 manifest, family-specific aspect/control groups, shared OS/app logic. | Per-model provenance, geometry and animation state contact sheets; genuine silhouette distinctions. No unreviewed mass-recolors. |
-| I9 | Hardening and normal-game acceptance: scale/zoom, mouse/wheel/keyboard/joypad, screen-reader clarity insofar supported, performance/profiler, paused/lost-focus PTT, hosted/dedicated MP and Hoomans/DT integrations. | Source/offline/image/native SP/native MP/profiler evidence separately; no unverified native pass. |
+| I0 — audit and contract | complete | Canonical pilots, asset roots, vanilla `DeviceData` power API, and legacy references audited. |
+| I1 — semantic manifest | complete | Deterministic schema-2 compiler and packaged `DeviceManifest.json`; duplicate full types and overlapping active hitboxes fail compilation. |
+| I2 — navigation contract | complete offline | Shared semantic controls: Back, Home, Up, Down, Left, Right, Select, Power. Python and Lua smoke coverage exists. |
+| I3 — gesture lifecycle | complete offline | Pointer down/up/cancel, pressed state, power toggle, and PTT release paths are covered by reducer/window tests. |
+| I4 — component projection | complete offline | Full-canvas pristine/worn chassis, LCD layers, keyed controls, LEDs, and hidden non-interactive rotary/PTT components render from the manifest. |
+| I5 — canonical asset package | complete for current staged pilots | All ten pilot projects compile and resolve to repository-relative `media/ui/Radio/...` paths. |
+| I6 — pilot art | complete for current staged assets | W5 and the other nine devices have native-size pristine/worn outputs; visual review remains separate from native-game acceptance. |
+| I7 — Core Lua integration | implemented; native gate pending | Core loads the JSON with `getModFileReader`, registers all ten devices, and renders the modular assets. Offline Lua smokes pass. |
+| I8 — family coverage | implemented in the manifest; native gate pending | Walkies, HAMs, and manpack are all in the same generated manifest. |
+| I9 — native hardening | pending | Requires a normal Project Zomboid SP/MP run for window placement, input, scale, focus-loss, and provider regression evidence. |
 
-**Pragmatic schedule:** Run I0/I1 first, immediately produce I5's art template and test pilot while I2–I4 advance in parallel **only when contracts are stable**. The user wants to **make assets next**; don't waste effort rebuilding Flask/Tk or generating all models. At I6 show US Army pilot asset parts & render states; iterate on appearance before repeating families. I7 production export waits for approval and compatibility verification, but safe art/tool/fixture work can continue unattended.
+## Ownership rule
 
-## Execution and safety
+Core owns the runtime loader, device registry, renderer, input lifecycle, and shared Radio OS actions. The asset harness owns authoring, validation, compilation, CLI, and GUI inspection. DynamicTrading and other mods may provide actions or use the preview adapter; they must not fork the device manifest, atlas, hitboxes, or Radio OS state machine.
 
-- Core owns all new interaction/controller/asset code. No duplicated OS in DynamicTrading or Hoomans; provider APIs remain separate.
-- `tools/asset_harness/` already has CLI, Pillow core, optional GUI and offline simulator; extend it, do not invent a new scaffold. CLI and screenshots must be usable by an LLM with image vision alone.
-- Use real source+RGB/alpha comparisons and independent control-layer rendering; don't declare phone-like art fixed by renaming the sprite. Correct screens in situ with dynamic content/alpha matte, preserve CRT/monochrome PZ-era look.
-- Stay within `common/media/ui` for *runtime* PNGs. Editable source/project and previews outside runtime image dir. Preserve legacy assets until proven safe to remove.
-- Test unit, integration, CLI and Lua smoke before committing; have explicit visual and native gates. Pause only for a real missing art input/visual acceptance or unsafe production overwrite; otherwise continue scoped engineering.
-- Update [I progress ledger](CORE_RADIO_OS_INTERACTION_PROGRESS.md) after every phase; record changes, commands, failures, SHA/branch and next step. No force pushes, destructive resets, game save edits, or broken PZ Headless Harness.
+The old `PsychopatzRadioManifest.lua`, `DTA_Walkie_Manifest.lua`, and atlas/source-catalog routes are retired. A missing or invalid generated manifest is an explicit load failure; there is no silent legacy fallback.
+
+## Verification commands
+
+```bash
+PYTHONPATH=tools python3 tools/asset_harness/cli.py runtime-manifest \
+  --out Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceManifest.json
+
+PYTHONPATH=tools python3 -m unittest \
+  tools.asset_harness.tests.test_runtime_manifest \
+  tools.asset_harness.tests.test_radio_simulator \
+  tools.asset_harness.tests.test_modular_radio
+
+lua tests/radio_os/psychopatz_radio_manifest_smoke.lua
+lua tests/radio_os/psychopatz_radio_os_registry_smoke.lua
+lua tests/radio_os/psychopatz_radio_os_action_smoke.lua
+lua tests/radio_os/psychopatz_radio_os_window_smoke.lua
+```
+
+Offline verification does not count as native Build 42 acceptance. The next gate is a normal game run using the exact packaged Core files, followed by console and screenshot evidence.

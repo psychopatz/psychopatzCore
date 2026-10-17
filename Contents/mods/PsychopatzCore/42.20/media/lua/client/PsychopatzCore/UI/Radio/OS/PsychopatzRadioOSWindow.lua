@@ -29,6 +29,7 @@ function Window:new(x, y, width, height, context, options)
     object.hostWindow = options.hostWindow
     object.geometryIdentity = options.geometryIdentity
     object.skin = object.context.skin
+    object.variant = options.variant or object.context.variant or "pristine"
     object.page = "home"
     object.homeIndex = 1
     object.contactIndex = 1
@@ -46,6 +47,9 @@ function Window:new(x, y, width, height, context, options)
     object._hoverScreenAction = nil
     object._hoverResize = false
     object._pressedControl = nil
+    object._pointerControl = nil
+    object._pointerCancelled = false
+    object._pttHeld = false
     object._dragging = false
     object._resizing = false
     object.debugCompositor = options.debugCompositor == true

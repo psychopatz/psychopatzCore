@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -15,6 +16,7 @@ from asset_harness.core.project import default_project, save_project  # noqa: E4
 from asset_harness.core.source import register_source  # noqa: E402
 from asset_harness.simulator import RadioSimulator  # noqa: E402
 from asset_harness.simulator.render import render_device  # noqa: E402
+from asset_harness.simulator_gui import RadioSimulatorApp  # noqa: E402
 
 
 class ModularRadioTests(unittest.TestCase):
@@ -171,6 +173,141 @@ class ModularRadioTests(unittest.TestCase):
         self.assertEqual(simulator.modular_state_selection()["pwr_led"], "off")
         simulator.dispatch({"event": "press", "control": "power"})
         self.assertEqual(simulator.modular_state_selection()["pwr_led"], "on")
+
+    def test_authored_w5_project_uses_lcd_masks_and_live_component_states(self) -> None:
+        project_path = Path(__file__).resolve().parents[1] / "projects" / "radio" / "walkie_5_pilot.json"
+        if not project_path.is_file():
+            self.skipTest("tracked W5 pilot project is unavailable")
+        simulator = RadioSimulator(project_path=project_path, variant="pristine")
+        if not simulator.device.asset_exists:
+            self.skipTest("ignored W5 pilot workspace is unavailable")
+
+        self.assertEqual(simulator.geometry.lcd_rect, (314, 605, 416, 221))
+        self.assertEqual(simulator.geometry.screen_content_rect, (319, 610, 406, 211))
+        self.assertEqual(
+            [control.id for control in simulator.geometry.controls],
+            ["back", "down", "home", "left", "ok", "power", "right", "up"],
+        )
+        self.assertNotIn("volume", simulator.modular_state_selection())
+        self.assertNotIn("channel", simulator.modular_state_selection())
+        self.assertNotIn("ptt", simulator.modular_state_selection())
+        self.assertEqual(simulator.modular_state_selection()["power"], "idle")
+
+        simulator.dispatch({"event": "pointer_down", "control": "power"})
+        self.assertEqual(simulator.modular_state_selection()["power"], "pressed")
+        self.assertFalse(simulator.state.powered)
+        simulator.dispatch({"event": "pointer_up", "control": "power"})
+        self.assertTrue(simulator.state.powered)
+        self.assertEqual(simulator.modular_state_selection()["power"], "idle")
+
+        image, metadata = render_device(simulator, zoom=0.5, debug=True)
+        self.assertEqual(image.size, (512, 768))
+        self.assertEqual(metadata["lcd_rect"], [157, 302, 208, 110])
+        self.assertEqual(metadata["screen_content_rect"], [160, 305, 203, 106])
+        self.assertEqual(metadata["hidden_components"], ["channel", "ptt", "volume"])
+        self.assertEqual(metadata["skipped_components"], ["channel", "ptt", "volume"])
+        self.assertEqual(
+            {layer["id"] for layer in metadata["layers"]} & {"channel", "ptt", "volume"},
+            set(),
+        )
+
+    def test_w5_geometry_and_pressed_layers_stay_on_the_face(self) -> None:
+        project_path = Path(__file__).resolve().parents[1] / "projects" / "radio" / "walkie_5_pilot.json"
+        simulator = RadioSimulator(project_path=project_path, variant="pristine")
+        controls = {control.id: control for control in simulator.geometry.controls}
+        self.assertNotIn("volume", controls)
+        self.assertNotIn("channel", controls)
+        self.assertNotIn("ptt", controls)
+        self.assertEqual(controls["up"].rect, (449, 883, 139, 61))
+        self.assertEqual(controls["down"].rect, (449, 1028, 139, 48))
+        self.assertEqual(controls["power"].kind, "button")
+
+        asset_root = project_path.parents[4] / "Contents" / "mods" / "PsychopatzCore" / "common" / "media" / "ui" / "Radio" / "WalkieTalkie" / "Base.WalkieTalkie5"
+        expected_bottoms = {"Up": 951, "Down": 1083, "OK": 1030}
+        for control_name, bottom in expected_bottoms.items():
+            alpha = Image.open(asset_root / "Buttons" / control_name / "Pressed.png").convert("RGBA").getchannel("A")
+            bbox = alpha.getbbox()
+            self.assertIsNotNone(bbox)
+            self.assertLessEqual(bbox[3], bottom, control_name)
+
+        source = Image.open(asset_root.parent / "Base.WalkieTalkie5.png").convert("RGBA")
+        power_idle = Image.open(asset_root / "Buttons" / "Power" / "Idle.png").convert("RGBA")
+        power_pressed = Image.open(asset_root / "Buttons" / "Power" / "Pressed.png").convert("RGBA")
+        self.assertEqual(power_idle.getpixel((394, 395)), source.getpixel((394, 395)))
+        self.assertNotEqual(power_pressed.getpixel((394, 398)), source.getpixel((394, 398)))
+        idle_bbox = power_idle.getchannel("A").getbbox()
+        pressed_bbox = power_pressed.getchannel("A").getbbox()
+        self.assertIsNotNone(idle_bbox)
+        self.assertIsNotNone(pressed_bbox)
+        self.assertEqual(pressed_bbox[1], idle_bbox[1] + 3)
+        self.assertEqual(pressed_bbox[3], idle_bbox[3] + 3)
+
+    def test_all_radio_pilot_projects_validate_and_render_individually(self) -> None:
+        project_root = Path(__file__).resolve().parents[1] / "projects" / "radio"
+        projects = sorted(project_root.glob("*_pilot.json"))
+        self.assertEqual(len(projects), 10)
+        for project_path in projects:
+            project = json.loads(project_path.read_text(encoding="utf-8"))
+            result = validate_modular(project_path, project)
+            self.assertTrue(result["ok"], f"{project_path.name}: {result['diagnostics']}")
+            self.assertEqual(result["summary"]["failed"], 0)
+            for variant in ("pristine", "worn"):
+                image, metadata = render_modular(project_path, project, variant=variant, states={})
+                self.assertEqual(image.size, (project["canvas"]["width"], project["canvas"]["height"]))
+            self.assertEqual(metadata["variant"], variant)
+            expected_min_layers = 4 + len(project["modular"]["components"])
+            self.assertGreaterEqual(len(metadata["layers"]), expected_min_layers, project_path.name)
+            simulator = RadioSimulator(project_path=project_path)
+            control_ids = {control.id for control in simulator.geometry.controls}
+            self.assertTrue(
+                control_ids <= {"back", "down", "home", "left", "ok", "power", "right", "up"},
+                project_path.name,
+            )
+            self.assertNotIn("channel", control_ids, project_path.name)
+            self.assertNotIn("volume", control_ids, project_path.name)
+            self.assertNotIn("ptt", control_ids, project_path.name)
+
+    def test_gui_discovers_only_the_canonical_pilot(self) -> None:
+        project_root = Path(__file__).resolve().parents[1] / "projects" / "radio"
+        for device_id in ("ham_2", "walkie_5"):
+            expected = (project_root / f"{device_id}_pilot.json").resolve()
+            self.assertEqual(RadioSimulatorApp._discover_project(device_id), expected)
+
+    def test_gui_rejects_the_retired_source_mode(self) -> None:
+        self.assertEqual(RadioSimulatorApp._resolve_mode("auto", None, "walkie_5"), "modular")
+        with self.assertRaises(ValueError):
+            RadioSimulatorApp._resolve_mode("source", None, "walkie_5")
+
+    def test_legacy_radio_project_cannot_reenter_the_shared_simulator(self) -> None:
+        legacy = Path(__file__).resolve().parents[1] / "projects" / "radio" / "walkie_1.json"
+        if legacy.is_file():
+            with self.assertRaises(ValueError):
+                RadioSimulator(project_path=legacy)
+
+    def test_project_registry_exposes_all_pilot_devices(self) -> None:
+        from asset_harness.simulator.registry import list_project_refs, project_path_for_device
+
+        projects = list_project_refs()
+        self.assertEqual(len(projects), 10)
+        self.assertEqual({project.device_id for project in projects}, {
+            "ham_1", "ham_2", "ham_makeshift", "manpack",
+            "walkie_1", "walkie_2", "walkie_3", "walkie_4", "walkie_5", "walkie_makeshift",
+        })
+        for project in projects:
+            self.assertEqual(project_path_for_device(project.device_id), project.path)
+
+    def test_all_pilot_power_controls_use_authored_pressed_lifecycle(self) -> None:
+        from asset_harness.simulator.registry import list_project_refs
+
+        for project in list_project_refs():
+            simulator = RadioSimulator(project_path=project.path)
+            power = (simulator.project.get("modular") or {}).get("components", {}).get("power", {})
+            self.assertNotIn("Antenna", " ".join(str(state.get("image", "")) for state in (power.get("states") or {}).values()), project.device_id)
+            self.assertIn("pressed", power.get("states", {}), project.device_id)
+            simulator.dispatch({"event": "pointer_down", "control": "power"})
+            self.assertEqual(simulator.modular_state_selection().get("power"), "pressed", project.device_id)
+            simulator.dispatch({"event": "pointer_up", "control": "power"})
+            self.assertTrue(simulator.state.powered, project.device_id)
 
 
 if __name__ == "__main__":

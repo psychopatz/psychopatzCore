@@ -113,6 +113,24 @@
   },
   "components": {},
   "controls": [],
+  "simulator": {
+    "hidden_components": [
+      "channel",
+      "ptt",
+      "volume"
+    ],
+    "interactive_controls": [
+      "back",
+      "down",
+      "home",
+      "left",
+      "ok",
+      "power",
+      "right",
+      "up"
+    ],
+    "notes": "The pilot simulator exposes the navigation cluster and momentary power button only; top knobs and PTT remain static source hardware."
+  },
   "device": {
     "family": "walkie",
     "fullType": "Base.WalkieTalkie5",
@@ -126,7 +144,26 @@
     "textures": []
   },
   "layers": [],
-  "lcd": {},
+  "lcd": {
+    "aperture": [
+      314,
+      605,
+      416,
+      221
+    ],
+    "backing": [
+      319,
+      610,
+      406,
+      211
+    ],
+    "content": [
+      319,
+      610,
+      406,
+      211
+    ]
+  },
   "manifest_kind": "radio_modular_asset",
   "manual_reconstruction": {
     "gates": [
@@ -173,7 +210,7 @@
         116,
         116
       ],
-      "path": "masks/back_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/back_face.png",
       "provenance": "hand-traced W5 Back face from native-resolution source inspection; proposed pending full-resolution edge review",
       "review": {},
       "schema_version": 1,
@@ -199,7 +236,7 @@
         1004,
         1518
       ],
-      "path": "masks/back_face_alpha.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/back_face_alpha.png",
       "provenance": "hand-traced Back face polygon intersected with immutable source alpha to exclude transparent socket/exterior pixels; proposed pending native-resolution review",
       "review": {
         "artifacts": [],
@@ -229,7 +266,7 @@
         110,
         108
       ],
-      "path": "masks/back_face_alpha_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/back_face_alpha_v2.png",
       "provenance": "hand-traced Back face polygon intersected with immutable source alpha to exclude transparent socket/exterior pixels; proposed after native-resolution overlay inspection",
       "review": {
         "artifacts": [],
@@ -259,7 +296,7 @@
         98,
         101
       ],
-      "path": "masks/back_face_final.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/back_face_final.png",
       "provenance": "hand-traced W5 Back moving-face silhouette; source-alpha intersection excludes true alpha-zero pixels; visually inspected at native resolution and close-up",
       "review": {
         "artifacts": [
@@ -285,7 +322,7 @@
         110,
         108
       ],
-      "path": "masks/back_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/back_face_v2.png",
       "provenance": "hand-traced W5 Back face v2 after overlay inspection; proposed pending native-resolution edge review",
       "review": {},
       "schema_version": 1,
@@ -305,7 +342,7 @@
         98,
         101
       ],
-      "path": "masks/back_face_v3.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/back_face_v3.png",
       "provenance": "hand-traced W5 Back moving-face silhouette v3 after source-alpha and crop inspection; excludes visible green chassis strip and outer socket shadow",
       "review": {},
       "schema_version": 1,
@@ -331,7 +368,7 @@
         112,
         112
       ],
-      "path": "masks/back_socket.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/back_socket.png",
       "provenance": "localized reconstructed Back empty-socket mask; includes concealed chassis region and may overlap source-alpha-zero pixels by design; proposed pending assembled review",
       "review": {
         "artifacts": [],
@@ -345,7 +382,7 @@
       "width": 1024
     },
     "channel_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 14276,
       "height": 1535,
       "method": "hand_authored",
@@ -355,7 +392,7 @@
         1024,
         1535
       ],
-      "path": "masks/channel_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/channel_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -379,7 +416,7 @@
         146,
         99
       ],
-      "path": "masks/channel_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/channel_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -403,7 +440,7 @@
         156,
         109
       ],
-      "path": "masks/channel_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/channel_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -427,7 +464,7 @@
         152,
         109
       ],
-      "path": "masks/channel_socket_v3.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/channel_socket_v3.png",
       "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
       "review": {
         "artifacts": [],
@@ -441,7 +478,7 @@
       "width": 1024
     },
     "down_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 10134,
       "height": 1535,
       "method": "hand_authored",
@@ -451,7 +488,7 @@
         1024,
         1535
       ],
-      "path": "masks/down_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/down_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -475,7 +512,7 @@
         159,
         92
       ],
-      "path": "masks/down_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/down_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -499,7 +536,7 @@
         169,
         102
       ],
-      "path": "masks/down_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/down_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -513,7 +550,7 @@
       "width": 1024
     },
     "home_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 10141,
       "height": 1535,
       "method": "hand_authored",
@@ -523,7 +560,7 @@
         1024,
         1535
       ],
-      "path": "masks/home_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/home_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -547,7 +584,7 @@
         99,
         103
       ],
-      "path": "masks/home_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/home_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -571,7 +608,7 @@
         109,
         113
       ],
-      "path": "masks/home_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/home_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -585,7 +622,7 @@
       "width": 1024
     },
     "lcd_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 11003,
       "height": 1535,
       "method": "hand_authored",
@@ -595,7 +632,7 @@
         1024,
         1535
       ],
-      "path": "masks/lcd_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/lcd_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -619,7 +656,7 @@
         406,
         211
       ],
-      "path": "masks/lcd_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/lcd_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -643,7 +680,7 @@
         416,
         221
       ],
-      "path": "masks/lcd_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/lcd_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -657,7 +694,7 @@
       "width": 1024
     },
     "left_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 10317,
       "height": 1535,
       "method": "hand_authored",
@@ -667,7 +704,7 @@
         1024,
         1535
       ],
-      "path": "masks/left_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/left_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -691,7 +728,7 @@
         87,
         118
       ],
-      "path": "masks/left_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/left_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -715,7 +752,7 @@
         97,
         128
       ],
-      "path": "masks/left_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/left_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -729,7 +766,7 @@
       "width": 1024
     },
     "ok_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 10012,
       "height": 1535,
       "method": "hand_authored",
@@ -739,7 +776,7 @@
         1024,
         1535
       ],
-      "path": "masks/ok_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/ok_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -763,7 +800,7 @@
         98,
         82
       ],
-      "path": "masks/ok_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/ok_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -787,7 +824,7 @@
         108,
         92
       ],
-      "path": "masks/ok_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/ok_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -801,7 +838,7 @@
       "width": 1024
     },
     "power_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 10066,
       "height": 1535,
       "method": "hand_authored",
@@ -811,7 +848,7 @@
         1024,
         1535
       ],
-      "path": "masks/power_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/power_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -835,7 +872,7 @@
         76,
         56
       ],
-      "path": "masks/power_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/power_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -859,7 +896,7 @@
         86,
         66
       ],
-      "path": "masks/power_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/power_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -883,7 +920,7 @@
         86,
         66
       ],
-      "path": "masks/power_socket_v3.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/power_socket_v3.png",
       "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
       "review": {
         "artifacts": [],
@@ -897,7 +934,7 @@
       "width": 1024
     },
     "ptt_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 11589,
       "height": 1535,
       "method": "hand_authored",
@@ -907,7 +944,7 @@
         1024,
         1535
       ],
-      "path": "masks/ptt_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/ptt_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -931,7 +968,7 @@
         88,
         163
       ],
-      "path": "masks/ptt_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/ptt_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -955,7 +992,7 @@
         98,
         173
       ],
-      "path": "masks/ptt_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/ptt_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -979,7 +1016,7 @@
         95,
         173
       ],
-      "path": "masks/ptt_socket_v3.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/ptt_socket_v3.png",
       "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
       "review": {
         "artifacts": [],
@@ -993,7 +1030,7 @@
       "width": 1024
     },
     "pwr_led_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 9855,
       "height": 1535,
       "method": "hand_authored",
@@ -1003,7 +1040,7 @@
         1024,
         1535
       ],
-      "path": "masks/pwr_led_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/pwr_led_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1027,7 +1064,7 @@
         63,
         43
       ],
-      "path": "masks/pwr_led_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/pwr_led_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1051,7 +1088,7 @@
         71,
         51
       ],
-      "path": "masks/pwr_led_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/pwr_led_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -1065,7 +1102,7 @@
       "width": 1024
     },
     "right_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 10311,
       "height": 1535,
       "method": "hand_authored",
@@ -1075,7 +1112,7 @@
         1024,
         1535
       ],
-      "path": "masks/right_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/right_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1099,7 +1136,7 @@
         86,
         118
       ],
-      "path": "masks/right_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/right_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1123,7 +1160,7 @@
         96,
         128
       ],
-      "path": "masks/right_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/right_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -1137,7 +1174,7 @@
       "width": 1024
     },
     "rx_led_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 9882,
       "height": 1535,
       "method": "hand_authored",
@@ -1147,7 +1184,7 @@
         1024,
         1535
       ],
-      "path": "masks/rx_led_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/rx_led_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1171,7 +1208,7 @@
         63,
         43
       ],
-      "path": "masks/rx_led_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/rx_led_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1195,7 +1232,7 @@
         71,
         51
       ],
-      "path": "masks/rx_led_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/rx_led_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -1209,7 +1246,7 @@
       "width": 1024
     },
     "tx_led_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 9860,
       "height": 1535,
       "method": "hand_authored",
@@ -1219,7 +1256,7 @@
         1024,
         1535
       ],
-      "path": "masks/tx_led_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/tx_led_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1243,7 +1280,7 @@
         63,
         43
       ],
-      "path": "masks/tx_led_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/tx_led_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1267,7 +1304,7 @@
         71,
         51
       ],
-      "path": "masks/tx_led_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/tx_led_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -1281,7 +1318,7 @@
       "width": 1024
     },
     "up_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 10097,
       "height": 1535,
       "method": "hand_authored",
@@ -1291,7 +1328,7 @@
         1024,
         1535
       ],
-      "path": "masks/up_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/up_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1315,7 +1352,7 @@
         159,
         90
       ],
-      "path": "masks/up_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/up_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1339,7 +1376,7 @@
         169,
         100
       ],
-      "path": "masks/up_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/up_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -1353,7 +1390,7 @@
       "width": 1024
     },
     "volume_face": {
-      "bbox_fill_ratio": 1.0,
+      "bbox_fill_ratio": 1,
       "bytes": 13353,
       "height": 1535,
       "method": "hand_authored",
@@ -1363,7 +1400,7 @@
         1024,
         1535
       ],
-      "path": "masks/volume_face.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/volume_face.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1387,7 +1424,7 @@
         168,
         116
       ],
-      "path": "masks/volume_face_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/volume_face_v2.png",
       "provenance": "native-resolution W5 visual control polygon; developer staging",
       "review": {
         "artifacts": [],
@@ -1411,7 +1448,7 @@
         178,
         126
       ],
-      "path": "masks/volume_socket_v2.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/volume_socket_v2.png",
       "provenance": "native-resolution W5 localized socket envelope; developer staging",
       "review": {
         "artifacts": [],
@@ -1435,7 +1472,7 @@
         173,
         126
       ],
-      "path": "masks/volume_socket_v3.png",
+      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/volume_socket_v3.png",
       "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
       "review": {
         "artifacts": [],
@@ -1478,7 +1515,7 @@
             1210
           ]
         },
-        "image": "remaining/artifacts/chassis_pristine_full.png",
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Pristine.png",
         "notes": "Native-resolution W5 full-device pristine candidate with independently reconstructed empty sockets for remaining controls; visual acceptance pending.",
         "review": {
           "artifacts": [],
@@ -1515,7 +1552,7 @@
             1210
           ]
         },
-        "image": "remaining/artifacts/chassis_worn_full.png",
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Chassis/Worn.png",
         "notes": "Native-resolution W5 full-device worn candidate with independently reconstructed empty sockets for remaining controls; visual acceptance pending.",
         "review": {
           "artifacts": [],
@@ -1550,12 +1587,12 @@
         "socket_mask": "back_socket",
         "states": {
           "idle": {
-            "image": "pilot/artifacts/back_idle.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Back/Idle.png",
             "x": 0,
             "y": 0
           },
           "pressed": {
-            "image": "pilot/artifacts/back_pressed.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Back/Pressed.png",
             "x": 0,
             "y": 0
           }
@@ -1566,9 +1603,9 @@
         "action": "channel",
         "detents": 4,
         "hitbox": [
-          635,
+          640,
           274,
-          151,
+          146,
           99
         ],
         "kind": "rotary",
@@ -1586,22 +1623,22 @@
         "socket_mask": "channel_socket_v3",
         "states": {
           "frame_00": {
-            "image": "remaining/artifacts/channel_frame_00.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Channel/Frame_00.png",
             "x": 0,
             "y": 0
           },
           "frame_01": {
-            "image": "remaining/artifacts/channel_frame_01.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Channel/Frame_01.png",
             "x": 0,
             "y": 0
           },
           "frame_02": {
-            "image": "remaining/artifacts/channel_frame_02.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Channel/Frame_02.png",
             "x": 0,
             "y": 0
           },
           "frame_03": {
-            "image": "remaining/artifacts/channel_frame_03.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Channel/Frame_03.png",
             "x": 0,
             "y": 0
           }
@@ -1611,10 +1648,10 @@
       "down": {
         "action": "down",
         "hitbox": [
-          439,
-          1030,
-          159,
-          92
+          449,
+          1028,
+          139,
+          48
         ],
         "kind": "button",
         "mask": "down_face_v2",
@@ -1631,12 +1668,12 @@
         "socket_mask": "down_socket_v2",
         "states": {
           "idle": {
-            "image": "remaining/artifacts/down_idle.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Down/Idle.png",
             "x": 0,
             "y": 0
           },
           "pressed": {
-            "image": "remaining/artifacts/down_pressed.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Down/Pressed.png",
             "x": 0,
             "y": 0
           }
@@ -1646,10 +1683,10 @@
       "home": {
         "action": "home",
         "hitbox": [
-          655,
-          925,
-          99,
-          103
+          661,
+          936,
+          87,
+          81
         ],
         "kind": "button",
         "mask": "home_face_v2",
@@ -1666,12 +1703,12 @@
         "socket_mask": "home_socket_v2",
         "states": {
           "idle": {
-            "image": "remaining/artifacts/home_idle.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Home/Idle.png",
             "x": 0,
             "y": 0
           },
           "pressed": {
-            "image": "remaining/artifacts/home_pressed.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Home/Pressed.png",
             "x": 0,
             "y": 0
           }
@@ -1681,10 +1718,10 @@
       "left": {
         "action": "left",
         "hitbox": [
-          397,
-          925,
-          87,
-          118
+          405,
+          949,
+          71,
+          69
         ],
         "kind": "button",
         "mask": "left_face_v2",
@@ -1701,12 +1738,12 @@
         "socket_mask": "left_socket_v2",
         "states": {
           "idle": {
-            "image": "remaining/artifacts/left_idle.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Left/Idle.png",
             "x": 0,
             "y": 0
           },
           "pressed": {
-            "image": "remaining/artifacts/left_pressed.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Left/Pressed.png",
             "x": 0,
             "y": 0
           }
@@ -1716,10 +1753,10 @@
       "ok": {
         "action": "select",
         "hitbox": [
-          478,
-          946,
-          98,
-          82
+          484,
+          951,
+          86,
+          72
         ],
         "kind": "button",
         "mask": "ok_face_v2",
@@ -1736,12 +1773,12 @@
         "socket_mask": "ok_socket_v2",
         "states": {
           "idle": {
-            "image": "remaining/artifacts/ok_idle.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/OK/Idle.png",
             "x": 0,
             "y": 0
           },
           "pressed": {
-            "image": "remaining/artifacts/ok_pressed.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/OK/Pressed.png",
             "x": 0,
             "y": 0
           }
@@ -1750,16 +1787,15 @@
       },
       "power": {
         "action": "power",
-        "detents": 2,
         "hitbox": [
           356,
           368,
           76,
           56
         ],
-        "kind": "switch",
+        "kind": "button",
         "mask": "power_face_v2",
-        "notes": "Native-resolution W5 power control; source rotary positions registered as off/on candidates in developer staging; visual acceptance pending.",
+        "notes": "Native-resolution W5 momentary power button; pressed state moves the source face inward and returns to idle after release.",
         "pivot": [
           394,
           395
@@ -1771,13 +1807,13 @@
         },
         "socket_mask": "power_socket_v3",
         "states": {
-          "off": {
-            "image": "remaining/artifacts/power_frame_00.png",
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Power/Idle.png",
             "x": 0,
             "y": 0
           },
-          "on": {
-            "image": "remaining/artifacts/power_frame_01.png",
+          "pressed": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Power/Pressed.png",
             "x": 0,
             "y": 0
           }
@@ -1807,12 +1843,12 @@
         "socket_mask": "ptt_socket_v3",
         "states": {
           "held": {
-            "image": "remaining/artifacts/ptt_held.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/PTT/Held.png",
             "x": 0,
             "y": 0
           },
           "idle": {
-            "image": "remaining/artifacts/ptt_idle.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/PTT/Idle.png",
             "x": 0,
             "y": 0
           }
@@ -1842,12 +1878,12 @@
         "socket_mask": "pwr_led_socket_v2",
         "states": {
           "off": {
-            "image": "remaining/artifacts/pwr_led_off.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/LEDs/PWR/Off.png",
             "x": 0,
             "y": 0
           },
           "on": {
-            "image": "remaining/artifacts/pwr_led_on.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/LEDs/PWR/On.png",
             "x": 0,
             "y": 0
           }
@@ -1857,10 +1893,10 @@
       "right": {
         "action": "right",
         "hitbox": [
-          563,
-          925,
-          86,
-          118
+          571,
+          949,
+          70,
+          69
         ],
         "kind": "button",
         "mask": "right_face_v2",
@@ -1877,12 +1913,12 @@
         "socket_mask": "right_socket_v2",
         "states": {
           "idle": {
-            "image": "remaining/artifacts/right_idle.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Right/Idle.png",
             "x": 0,
             "y": 0
           },
           "pressed": {
-            "image": "remaining/artifacts/right_pressed.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Right/Pressed.png",
             "x": 0,
             "y": 0
           }
@@ -1912,12 +1948,12 @@
         "socket_mask": "rx_led_socket_v2",
         "states": {
           "off": {
-            "image": "remaining/artifacts/rx_led_off.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/LEDs/RX/Off.png",
             "x": 0,
             "y": 0
           },
           "on": {
-            "image": "remaining/artifacts/rx_led_on.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/LEDs/RX/On.png",
             "x": 0,
             "y": 0
           }
@@ -1947,12 +1983,12 @@
         "socket_mask": "tx_led_socket_v2",
         "states": {
           "off": {
-            "image": "remaining/artifacts/tx_led_off.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/LEDs/TX/Off.png",
             "x": 0,
             "y": 0
           },
           "on": {
-            "image": "remaining/artifacts/tx_led_on.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/LEDs/TX/On.png",
             "x": 0,
             "y": 0
           }
@@ -1962,10 +1998,10 @@
       "up": {
         "action": "up",
         "hitbox": [
-          439,
-          875,
-          159,
-          90
+          449,
+          883,
+          139,
+          61
         ],
         "kind": "button",
         "mask": "up_face_v2",
@@ -1982,12 +2018,12 @@
         "socket_mask": "up_socket_v2",
         "states": {
           "idle": {
-            "image": "remaining/artifacts/up_idle.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Up/Idle.png",
             "x": 0,
             "y": 0
           },
           "pressed": {
-            "image": "remaining/artifacts/up_pressed.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Up/Pressed.png",
             "x": 0,
             "y": 0
           }
@@ -2000,7 +2036,7 @@
         "hitbox": [
           445,
           235,
-          171,
+          168,
           116
         ],
         "kind": "rotary",
@@ -2018,22 +2054,22 @@
         "socket_mask": "volume_socket_v3",
         "states": {
           "frame_00": {
-            "image": "remaining/artifacts/volume_frame_00.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Volume/Frame_00.png",
             "x": 0,
             "y": 0
           },
           "frame_01": {
-            "image": "remaining/artifacts/volume_frame_01.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Volume/Frame_01.png",
             "x": 0,
             "y": 0
           },
           "frame_02": {
-            "image": "remaining/artifacts/volume_frame_02.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Volume/Frame_02.png",
             "x": 0,
             "y": 0
           },
           "frame_03": {
-            "image": "remaining/artifacts/volume_frame_03.png",
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Volume/Frame_03.png",
             "x": 0,
             "y": 0
           }
@@ -2043,13 +2079,13 @@
     },
     "lcd_layers": {
       "bezel_overlay": {
-        "image": "remaining/artifacts/lcd_bezel_overlay.png"
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/LCD/BezelOverlay.png"
       },
       "glass": {
-        "image": "remaining/artifacts/lcd_glass.png"
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/LCD/Glass.png"
       },
       "matte": {
-        "image": "remaining/artifacts/lcd_matte.png"
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/LCD/Matte.png"
       },
       "notes": "Native-resolution W5 LCD surface, bezel overlay and matte extracted/reconstructed in developer staging; visual acceptance pending.",
       "review": {
@@ -2082,47 +2118,47 @@
       "artifacts": [
         {
           "kind": "mask_overlay",
-          "path": "source_inspection/back_mask_final_closeup.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/back_mask_final_closeup.png"
         },
         {
           "kind": "socket_candidate",
-          "path": "source_inspection/back_socket_candidate_closeup_v2.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/back_socket_candidate_closeup_v2.png"
         },
         {
           "kind": "idle_composite",
-          "path": "renders/back_idle_composite.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/renders/back_idle_composite.png"
         },
         {
           "kind": "pressed_composite",
-          "path": "renders/back_pressed_composite.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/renders/back_pressed_composite.png"
         },
         {
           "kind": "remaining_controls_source",
-          "path": "source_inspection/remaining/01_top_controls.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/remaining/01_top_controls.png"
         },
         {
           "kind": "remaining_controls_source",
-          "path": "source_inspection/remaining/04_navigation.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/remaining/04_navigation.png"
         },
         {
           "kind": "chassis_candidate",
-          "path": "remaining/artifacts/chassis_pristine_full.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/chassis_pristine_full.png"
         },
         {
           "kind": "worn_chassis_candidate",
-          "path": "remaining/artifacts/chassis_worn_full.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/chassis_worn_full.png"
         },
         {
           "kind": "idle_composite",
-          "path": "remaining/renders/idle_pristine.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/idle_pristine.png"
         },
         {
           "kind": "pressed_composite",
-          "path": "remaining/renders/pressed_pristine.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/pressed_pristine.png"
         },
         {
           "kind": "worn_composite",
-          "path": "remaining/renders/idle_worn.png"
+            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/idle_worn.png"
         },
         {
           "kind": "review_sheet",
@@ -2149,11 +2185,11 @@
           "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/21_w5_source_to_idle_diff_metrics.json"
         },
         {
-          "after": "remaining/renders/idle_pristine.png",
+          "after": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/idle_pristine.png",
           "before": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
-          "diff": "remaining/artifacts/w5_full_source_to_idle_diff.png",
+          "diff": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/w5_full_source_to_idle_diff.png",
           "kind": "source_to_idle_diff",
-          "report": "remaining/artifacts/w5_full_source_to_idle_diff.json"
+          "report": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/w5_full_source_to_idle_diff.json"
         }
       ],
       "reasons": [
@@ -2173,30 +2209,45 @@
   },
   "modular_output": {
     "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5",
-    "exists": false,
+    "exists": true,
     "file_records": [],
-    "files": [],
-    "missing_required_paths": [
-      "Buttons/Back/Idle.png",
-      "Buttons/Back/Pressed.png",
+    "files": [
       "Chassis/Pristine.png",
       "Chassis/Worn.png",
-      "LCD/BezelOverlay.png",
       "LCD/Glass.png",
-      "PTT/Held.png",
-      "PTT/Idle.png",
-      "Switches/Power/Off.png",
-      "Switches/Power/On.png"
+      "LCD/BezelOverlay.png",
+      "LCD/Matte.png",
+      "Buttons/Power/Idle.png",
+      "Buttons/Power/Pressed.png",
+      "LEDs/PWR/Off.png",
+      "LEDs/PWR/On.png",
+      "LEDs/RX/Off.png",
+      "LEDs/RX/On.png",
+      "LEDs/TX/Off.png",
+      "LEDs/TX/On.png",
+      "Buttons/Back/Idle.png",
+      "Buttons/Back/Pressed.png",
+      "Buttons/Home/Idle.png",
+      "Buttons/Home/Pressed.png",
+      "Buttons/Up/Idle.png",
+      "Buttons/Up/Pressed.png",
+      "Buttons/Down/Idle.png",
+      "Buttons/Down/Pressed.png",
+      "Buttons/Left/Idle.png",
+      "Buttons/Left/Pressed.png",
+      "Buttons/Right/Idle.png",
+      "Buttons/Right/Pressed.png",
+      "Buttons/OK/Idle.png",
+      "Buttons/OK/Pressed.png"
     ],
+    "missing_required_paths": [],
     "required_paths": [
       "Chassis/Pristine.png",
       "Chassis/Worn.png",
       "Buttons/Back/Idle.png",
       "Buttons/Back/Pressed.png",
-      "Switches/Power/Off.png",
-      "Switches/Power/On.png",
-      "PTT/Idle.png",
-      "PTT/Held.png",
+      "Buttons/Power/Idle.png",
+      "Buttons/Power/Pressed.png",
       "LCD/Glass.png",
       "LCD/BezelOverlay.png"
     ]
@@ -2223,7 +2274,7 @@
       "opaque_bounds": null,
       "opaque_pixels": 0,
       "partial_pixels": 890433,
-      "partial_ratio_of_nonzero": 1.0,
+      "partial_ratio_of_nonzero": 1,
       "transparent_pixels": 681407
     },
     "bytes": 2151384,
@@ -2440,5 +2491,5 @@
     "status": "blocked",
     "warnings": []
   },
-  "workspace_root": "../../workspace/radio/walkie_5"
+  "workspace_root": "../../../../"
 }

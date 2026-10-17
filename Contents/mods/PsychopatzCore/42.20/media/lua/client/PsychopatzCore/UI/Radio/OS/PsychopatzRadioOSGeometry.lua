@@ -73,13 +73,13 @@ local function readState(activeStore, key)
     return activeStore:GetWindowState(key)
 end
 
-local function readScale(activeStore, key, state)
+local function readScale(activeStore, key, state, baseWidth)
     local savedScale
     if type(activeStore.Get) == "function" then
         savedScale = tonumber(activeStore:Get(key .. ".Scale", nil))
     end
     if not savedScale and state and tonumber(state.w) then
-        savedScale = tonumber(state.w) / 256
+        savedScale = tonumber(state.w) / (tonumber(baseWidth) or BASE_SHELL_WIDTH)
     end
     return savedScale
 end
@@ -114,7 +114,7 @@ end
 -- The limits are derived from the active viewport instead of a fixed global
 -- ceiling.  The margins leave room for the game UI and keep the device fully
 -- visible when a user opens it on a small monitor.
-function Geometry.GetScaleLimits(width, height)
+function Geometry.GetScaleLimits(width, height, baseWidth, baseHeight)
     if width == nil or height == nil then
         width, height = screenSize()
     end
@@ -122,20 +122,24 @@ function Geometry.GetScaleLimits(width, height)
     height = math.max(1, tonumber(height) or 1)
     local usableWidth = width * 0.90
     local usableHeight = height * 0.82
-    local maximum = math.min(usableWidth / BASE_SHELL_WIDTH,
-        usableHeight / BASE_SHELL_HEIGHT)
-    maximum = math.max(0.5, maximum)
-    local minimum = math.max(0.5, math.min(0.75, maximum * 0.5))
+    baseWidth = math.max(1, tonumber(baseWidth) or BASE_SHELL_WIDTH)
+    baseHeight = math.max(1, tonumber(baseHeight) or BASE_SHELL_HEIGHT)
+    local maximum = math.min(usableWidth / baseWidth,
+        usableHeight / baseHeight)
+    maximum = math.max(0.2, maximum)
+    local minimum = math.max(0.2, math.min(0.75, maximum * 0.5))
     if minimum > maximum then minimum = maximum end
     return minimum, maximum
 end
 
-function Geometry.GetPreferredScale(width, height)
+function Geometry.GetPreferredScale(width, height, baseWidth, baseHeight)
     if width == nil or height == nil then
         width, height = screenSize()
     end
-    local minimum, maximum = Geometry.GetScaleLimits(width, height)
-    local preferred = (tonumber(height) or 1) * 0.78 / BASE_SHELL_HEIGHT
+    local minimum, maximum = Geometry.GetScaleLimits(
+        width, height, baseWidth, baseHeight)
+    local preferred = (tonumber(height) or 1) * 0.78
+        / (tonumber(baseHeight) or BASE_SHELL_HEIGHT)
     return clamp(preferred, minimum, maximum)
 end
 
@@ -153,17 +157,17 @@ function Geometry.ClampPosition(x, y, width, height)
         math.floor(clamp(y, 0, maxY) + 0.5)
 end
 
-function Geometry.Load(playerNum, identity)
+function Geometry.Load(playerNum, identity, baseWidth)
     local activeStore = settingsStore()
     if not activeStore then return nil, nil end
     local scopedKey = Geometry.MakeKey(playerNum, identity)
     local state = readState(activeStore, scopedKey)
-    local savedScale = readScale(activeStore, scopedKey, state)
+    local savedScale = readScale(activeStore, scopedKey, state, baseWidth)
     -- Migrate the pre-U0 player-only slot when the scoped slot is absent.
     -- New saves always use the device-family/skin key above.
     if not state and not savedScale and identity ~= nil then
         state = readState(activeStore, playerKey(playerNum))
-        savedScale = readScale(activeStore, playerKey(playerNum), state)
+        savedScale = readScale(activeStore, playerKey(playerNum), state, baseWidth)
     end
     return state, savedScale
 end

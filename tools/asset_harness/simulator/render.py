@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import OrderedDict
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -12,6 +13,51 @@ from ..core.modular import render_modular
 from .catalog import DeviceSpec, Rect, normalize_variant
 from .model import RadioSimulator
 from .radio_ui import RADIO_UI_PATH, paste_cover, paste_scaled
+
+
+_MODULAR_BASE_CACHE_LIMIT = 16
+_MODULAR_BASE_CACHE: OrderedDict[
+    tuple[str, int, str, tuple[tuple[str, str], ...], tuple[str, ...]],
+    tuple[Image.Image, dict[str, Any]],
+] = OrderedDict()
+
+
+def _cached_modular_base(
+    project_path: Path,
+    project: dict[str, Any],
+    *,
+    variant: str,
+    states: dict[str, str],
+    hidden_components: frozenset[str],
+) -> tuple[Image.Image, dict[str, Any]]:
+    """Return a copy of a cached modular composite before dynamic LCD/debug art.
+
+    Modular component images are native-resolution full-canvas PNGs.  Reading
+    and alpha-compositing all of them for every pointer event made the GUI
+    visibly stall.  The project is immutable while the simulator is open, so
+    the selected component state tuple is a sufficient bounded cache key.
+    """
+
+    state_key = tuple(sorted((str(key), str(value)) for key, value in states.items()))
+    hidden_key = tuple(sorted(hidden_components))
+    key = (str(project_path), id(project), str(variant), state_key, hidden_key)
+    cached = _MODULAR_BASE_CACHE.get(key)
+    if cached is not None:
+        _MODULAR_BASE_CACHE.move_to_end(key)
+        return cached[0].copy(), cached[1]
+
+    image, metadata = render_modular(
+        project_path,
+        project,
+        variant=variant,
+        states=states,
+        hidden_components=hidden_key,
+    )
+    _MODULAR_BASE_CACHE[key] = (image.copy(), metadata)
+    _MODULAR_BASE_CACHE.move_to_end(key)
+    while len(_MODULAR_BASE_CACHE) > _MODULAR_BASE_CACHE_LIMIT:
+        _MODULAR_BASE_CACHE.popitem(last=False)
+    return image, metadata
 
 
 def _font(size: int, *, bold: bool = False) -> ImageFont.ImageFont:
@@ -130,11 +176,12 @@ def render_device(simulator: RadioSimulator, *, zoom: float = 0.5, debug: bool =
 
     if simulator.project is not None and simulator.project_path is not None:
         variant = "pristine" if normalize_variant(simulator.state.variant) == "clean" else "worn"
-        image, modular_metadata = render_modular(
+        image, modular_metadata = _cached_modular_base(
             simulator.project_path,
             simulator.project,
             variant=variant,
             states=simulator.modular_state_selection(),
+            hidden_components=simulator.modular_hidden_components(),
         )
         geometry = simulator.geometry
         _draw_screen(image, simulator, geometry.screen_content_rect, geometry.screen_sprite)
@@ -144,13 +191,23 @@ def render_device(simulator: RadioSimulator, *, zoom: float = 0.5, debug: bool =
             cx, cy, cw, ch = geometry.screen_content_rect
             draw.rectangle((ax, ay, ax + aw - 1, ay + ah - 1), outline=(255, 176, 64, 225), width=2)
             draw.rectangle((cx, cy, cx + cw - 1, cy + ch - 1), outline=(88, 190, 255, 225), width=2)
+            for control in geometry.controls:
+                left, top, width, height = control.rect
+                color = (255, 176, 64, 235) if control.id in simulator.state.pressed_controls else (88, 220, 145, 220)
+                draw.rounded_rectangle(
+                    (left, top, left + width - 1, top + height - 1),
+                    radius=8,
+                    outline=color,
+                    width=3,
+                )
+                draw.text((left + 4, top + 4), control.id, font=_font(16, bold=True), fill=color)
         scale = max(0.2, min(2.0, float(zoom)))
         size = (max(1, int(round(image.width * scale))), max(1, int(round(image.height * scale))))
         image = image.resize(size, Image.Resampling.LANCZOS)
         controls = []
         for control in geometry.controls:
             left, top, width, height = _rect_scale(control.rect, scale)
-            controls.append({"id": control.id, "label": control.label, "action": control.action, "rect": [left, top, width, height], "kind": control.kind, "pressed": control.id in simulator.state.pressed_controls})
+            controls.append({"id": control.id, "label": control.label, "action": control.action, "rect": [left, top, width, height], "kind": control.kind, "detents": control.detents or None, "pressed": control.id in simulator.state.pressed_controls})
         metadata = {
             **modular_metadata,
             "device_id": simulator.device.id,

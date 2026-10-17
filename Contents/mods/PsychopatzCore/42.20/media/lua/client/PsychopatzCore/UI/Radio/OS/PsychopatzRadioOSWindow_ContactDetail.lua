@@ -61,21 +61,27 @@ function Window:drawContactDetail()
     if entry and entry.portraitDescriptor then
         x = screen.x + math.floor(screen.w * 0.42)
     end
-    self:drawTextClipped(Text.Format("UI_PsychopatzCore_Radio_StatusValue",
+    local width = screen.w - (x - screen.x) - header.metrics.padding
+    local availableLines = math.max(1, math.floor(
+        (screen.y + screen.h - y - header.metrics.padding)
+            / header.metrics.lineHeight))
+    local statusLines = self:drawTextClipped(Text.Format(
+        "UI_PsychopatzCore_Radio_StatusValue",
         "STATUS: %s", text(entry and entry.status,
             tr("UI_PsychopatzCore_Radio_Unknown", "unknown"))),
-        x, y, screen.w - (x - screen.x) - header.metrics.padding, color)
+        x, y, width, color, nil, math.min(2, availableLines))
     local actions = entry and entry.actions or {}
+    local actionY = y + (statusLines + 1) * header.metrics.lineHeight
+    local actionLines = math.max(1, availableLines - statusLines - 1)
     if #actions > 0 then
-        self:drawTextClipped(Text.Format("UI_PsychopatzCore_Radio_CenterAction",
+        self:drawTextClipped(Text.Format(
+            "UI_PsychopatzCore_Radio_CenterAction",
             "CENTER: %s", actions[1].label),
-            x, y + header.metrics.lineHeight,
-            screen.w - (x - screen.x) - header.metrics.padding, color)
+            x, actionY, width, color, nil, math.min(2, actionLines))
     else
         self:drawTextClipped(
             tr("UI_PsychopatzCore_Radio_NoAction", "NO ACTION"),
-            x, y + header.metrics.lineHeight,
-            screen.w - (x - screen.x) - header.metrics.padding, color)
+            x, actionY, width, color, nil, math.min(2, actionLines))
     end
 end
 

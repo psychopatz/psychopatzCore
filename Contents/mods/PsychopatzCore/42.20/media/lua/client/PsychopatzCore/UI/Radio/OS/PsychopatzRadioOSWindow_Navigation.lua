@@ -184,8 +184,45 @@ function Window:back()
     end
 end
 
-function Window:pressControl(name)
-    self._pressedControl = name
+function Window:togglePower()
+    local data = self.context and self.context.deviceData
+    if not data or type(data.setIsTurnedOn) ~= "function"
+        or type(data.getIsTurnedOn) ~= "function"
+    then
+        self.statusText = Text.Get(
+            "UI_PsychopatzCore_Radio_ActionUnavailable", "POWER UNAVAILABLE")
+        return false
+    end
+    local ok, current = pcall(data.getIsTurnedOn, data)
+    if not ok then return false end
+    local target = current ~= true
+    ok = pcall(data.setIsTurnedOn, data, target)
+    if not ok then return false end
+    local changed, actual = pcall(data.getIsTurnedOn, data)
+    if not changed or actual ~= target then
+        self.statusText = Text.Get(
+            "UI_PsychopatzCore_Radio_ActionUnavailable", "POWER UNAVAILABLE")
+        return false
+    end
+    self.context.powered = actual == true
+    self.context.active = PsychopatzCore.RadioDeviceState
+        and PsychopatzCore.RadioDeviceState.IsActive(data) == true
+        or false
+    self.context.audible = PsychopatzCore.RadioDeviceState
+        and PsychopatzCore.RadioDeviceState.IsAudible(data) == true
+        or false
+    self.statusText = nil
+    return true
+end
+
+function Window:activateControl(name)
+    name = tostring(name or "")
+    if name == "power" then return self:togglePower() end
+    if not (self.context and self.context.powered)
+        and name ~= "back" and name ~= "home"
+    then
+        return true
+    end
     if name == "left" then
         if self.page == "home" or self.page == "contacts" then
             self:moveSelection(-1)
@@ -208,10 +245,36 @@ function Window:pressControl(name)
         else
             self:select()
         end
-    elseif name == "center" then
+    elseif name == "up" then
+        self:moveSelection(-1)
+    elseif name == "down" then
+        self:moveSelection(1)
+    elseif name == "home" then
+        self:setPage("home")
+    elseif name == "ok" or name == "center" or name == "select" then
         self:select()
     end
     return true
+end
+
+function Window:pressControl(name)
+    name = tostring(name or "")
+    self._pressedControl = name
+    if name == "ptt" then self._pttHeld = true end
+    return true
+end
+
+function Window:releaseControl(name)
+    name = tostring(name or self._pressedControl or "")
+    if self._pressedControl ~= name then return false end
+    if name == "ptt" then self._pttHeld = false end
+    self._pressedControl = nil
+    return self:activateControl(name)
+end
+
+function Window:triggerControl(name)
+    self:pressControl(name)
+    return self:releaseControl(name)
 end
 
 return Window

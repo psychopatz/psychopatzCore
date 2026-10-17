@@ -47,10 +47,11 @@ DEFAULT_IMAGE = (
     / "common"
     / "media"
     / "ui"
-    / "psychopatz"
-    / "radio"
-    / "shells"
-    / "DTA_Walkie_Shells.png"
+    / "Radio"
+    / "WalkieTalkie"
+    / "Base.WalkieTalkie5"
+    / "Chassis"
+    / "Pristine.png"
 )
 
 

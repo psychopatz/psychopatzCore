@@ -62,3 +62,39 @@ Precise blockers and next safe tasks:
 ```
 
 Keep progress append-only; don't rewrite source evidence with optimistic claims. Never mistake a generated concept pair, a clicked GUI demo or an offline PNG composite for production-native acceptance.
+
+## 2026-10-17 — unified runtime integration audit
+
+- Canonical pilot JSON is now compiled into `Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceManifest.json` (schema 2, ten devices, deterministic output).
+- Core Lua loads that generated manifest through `getModFileReader`, indexes all ten vanilla full types, uses authored full-canvas pristine/worn assets, and no longer references the retired atlas manifest.
+- The simulator GUI/CLI and DynamicTrading preview consume the canonical pilot/Core manifest path; the retired source-catalog route is rejected/removed rather than kept as a second renderer.
+- Active controls compile to Back, Down, Home, Left, OK/Select, Power, Right, Up. Channel, volume, and PTT remain hidden/non-interactive in the current authored policy.
+- Verification: 39 focused Python tests, four Core Lua Radio OS smokes, DTAbstract preview smoke, Core/DTA Kahlua checks, deterministic manifest compile, stale-reference scan, and architecture rescan passed. Native SP/MP acceptance remains pending.
+
+## 2026-10-17 — native blank-LCD compositor fix
+
+- The native screenshot showed the canonical W5 shell loading while the LCD
+  appeared blank. The authored `LCD/Glass.png` layer was being composited
+  after dynamic OS text in both the Core window and the DTAbstract preview;
+  its mostly opaque pixels hid the entire screen content without raising a
+  Lua error.
+- Moved the glass/bezel pass below dynamic LCD content in both renderers and
+  added offline draw-order regressions. Core and DTAbstract Radio OS smokes,
+  Kahlua checks, and whitespace validation pass.
+- The currently running PZ process predates this patch, so native SP/MP
+  acceptance remains pending until the game is restarted and the W5 radio is
+  reopened. The runtime now emits manifest-load and window-open diagnostics to
+  make that handoff verifiable.
+
+## 2026-10-17 — Core UI chrome and LCD text bounds
+
+- Restored the authored 32-icon grid under Core ownership at
+  `common/media/ui/Radio/OS/Icons.png`. Its regions are generated into the
+  shared `DeviceManifest.json`; Core, DTCommon, and the optional preview all
+  resolve the same runtime icon contract.
+- Added word wrapping for multi-line headers/detail actions, character-safe
+  breaking for long unspaced values, and bounded ellipsis for single-line list
+  rows. No text draw can intentionally extend outside the LCD stencil.
+- Focused runtime-manifest, Core Radio OS, DTAbstract preview, Kahlua, and
+  whitespace checks pass. Native verification still requires a restart after
+  this manifest/renderer update.

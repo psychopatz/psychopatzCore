@@ -8,7 +8,9 @@ from typing import Any, Mapping
 
 from ..core.modular import render_modular
 from ..core.project import load_project, project_workspace
-from .catalog import ControlSpec, DeviceGeometry, DeviceSpec, get_device, normalize_variant, with_semantic_controls
+from ..core.runtime_manifest import default_interaction_policy, semantic_action
+from .catalog import ControlSpec, DeviceGeometry, DeviceSpec, normalize_variant, with_semantic_controls
+from .registry import PROJECT_ROOT, project_path_for_device
 
 
 SCHEMA_VERSION = 1
@@ -44,12 +46,97 @@ class RadioSimulator:
     """Owns all mutable simulator state and exposes command/query methods."""
 
     def __init__(self, device_id: str = "walkie_1", *, variant: str = "clean", project_path: Path | None = None) -> None:
+        if project_path is None:
+            project_path = project_path_for_device(device_id)
+            if project_path is None:
+                raise FileNotFoundError(
+                    f"no canonical radio pilot project exists for device {device_id!r}"
+                )
         self.project_path = Path(project_path).expanduser().resolve() if project_path is not None else None
+        if self.project_path is not None and self.project_path.parent == PROJECT_ROOT and not self.project_path.name.endswith("_pilot.json"):
+            raise ValueError(
+                f"legacy radio project is retired: {self.project_path.name}; "
+                "use the canonical *_pilot.json project"
+            )
         self.project = load_project(self.project_path) if self.project_path is not None else None
+        if self.project is None:
+            raise ValueError("RadioSimulator requires a canonical pilot project")
         if self.project is not None:
             device_id = str(self.project.get("project_id") or device_id)
         self.state = RadioState(device_id=device_id, variant=normalize_variant(variant))
         self._validate_state()
+
+    @staticmethod
+    def _rect_value(value: Any) -> tuple[int, int, int, int] | None:
+        """Read a project rectangle without making callers know its encoding."""
+
+        if isinstance(value, Mapping):
+            value = [value.get(key) for key in ("x", "y", "w", "h")]
+        if not isinstance(value, (list, tuple)) or len(value) != 4:
+            return None
+        try:
+            rect = tuple(int(item) for item in value)
+        except (TypeError, ValueError):
+            return None
+        if rect[2] <= 0 or rect[3] <= 0:
+            return None
+        return rect  # type: ignore[return-value]
+
+    def _mask_rect(self, *mask_ids: str) -> tuple[int, int, int, int] | None:
+        if self.project is None:
+            return None
+        masks = self.project.get("masks") or {}
+        for mask_id in mask_ids:
+            record = masks.get(mask_id)
+            if not isinstance(record, Mapping):
+                continue
+            rect = self._rect_value(record.get("nonzero_bounds") or record.get("declared_bounds"))
+            if rect is not None:
+                return rect
+        return None
+
+    def _project_lcd_geometry(self) -> tuple[tuple[int, int, int, int], tuple[int, int, int, int]]:
+        """Return physical aperture/content rectangles from the modular project.
+
+        W5's authored project predates the top-level ``lcd`` fields and stores
+        the precise source-canvas geometry in its LCD masks. Prefer explicit
+        project geometry, then the modular LCD component, then those masks so
+        the GUI and headless reducer consume the same source of truth.
+        """
+
+        if self.project is None:
+            raise ValueError("project LCD geometry requested without a project")
+        canvas = self.project.get("canvas") or {}
+        canvas_rect = (0, 0, int(canvas.get("width", 1)), int(canvas.get("height", 1)))
+        lcd = self.project.get("lcd") or {}
+        aperture = self._rect_value(lcd.get("aperture"))
+        content = self._rect_value(lcd.get("content"))
+
+        modular = self.project.get("modular") or {}
+        components = modular.get("components") or {}
+        lcd_component = components.get("lcd")
+        if isinstance(lcd_component, Mapping):
+            aperture = aperture or self._rect_value(lcd_component.get("hitbox") or lcd_component.get("rect"))
+            content = content or self._rect_value(lcd_component.get("content") or lcd_component.get("content_rect"))
+
+        aperture = aperture or self._mask_rect("lcd_socket_v2", "lcd_socket", "lcd_aperture")
+        content = content or self._mask_rect("lcd_face_v2", "lcd_face", "lcd_content")
+        aperture = aperture or content or canvas_rect
+        content = content or aperture
+        return aperture, content
+
+    def _project_simulator_policy(self) -> Mapping[str, Any]:
+        """Return optional simulator-only visibility and control policy."""
+
+        if self.project is None:
+            return {}
+        policy = self.project.get("simulator") or {}
+        if isinstance(policy, Mapping) and policy:
+            return policy
+
+        device = self.project.get("device") or {}
+        full_type = str(device.get("fullType") or device.get("model") or "")
+        return default_interaction_policy(full_type)
 
     @property
     def device(self) -> DeviceSpec:
@@ -64,78 +151,118 @@ class RadioSimulator:
                 asset_path = project_workspace(self.project_path, self.project) / asset_path
             if asset_path is None:
                 asset_path = project_workspace(self.project_path, self.project) / "__missing_modular_chassis__.png"
+            aperture, content = self._project_lcd_geometry()
             return DeviceSpec(
                 id=str(self.project.get("project_id") or self.state.device_id),
                 label=str(self.project.get("project_id") or self.state.device_id),
                 family=str(device.get("family") or "walkie"),
                 full_type=str(device.get("fullType") or ""),
                 asset_path=asset_path or Path("."),
-                lcd_rect=tuple((self.project.get("lcd") or {}).get("aperture") or (0, 0, int(canvas.get("width", 1)), int(canvas.get("height", 1)))),
-                screen_content_rect=tuple((self.project.get("lcd") or {}).get("content") or (0, 0, int(canvas.get("width", 1)), int(canvas.get("height", 1)))),
+                lcd_rect=aperture,
+                screen_content_rect=content,
                 screen_sprite="screen_panel_green_compact",
                 controls=self.geometry.controls if hasattr(self, "state") else (),
                 source_width=int(canvas.get("width", 1)),
                 source_height=int(canvas.get("height", 1)),
                 source_layout="single_canvas",
             )
-        return get_device(self.state.device_id)
+        raise RuntimeError("RadioSimulator has no canonical pilot project")
 
     @property
     def geometry(self) -> DeviceGeometry:
         """Return hitboxes and screen bounds for the active artwork half."""
 
         if self.project is not None:
-            lcd = self.project.get("lcd") or {}
-            canvas = self.project.get("canvas") or {}
-            aperture = tuple(lcd.get("aperture") or (0, 0, int(canvas.get("width", 1)), int(canvas.get("height", 1))))
-            content = tuple(lcd.get("content") or aperture)
+            aperture, content = self._project_lcd_geometry()
+            policy = self._project_simulator_policy()
+            interactive = {str(item) for item in (policy.get("interactive_controls") or ())}
             controls: list[ControlSpec] = []
             for component_id, component in sorted(((self.project.get("modular") or {}).get("components") or {}).items()):
                 if not isinstance(component, Mapping):
+                    continue
+                component_id = str(component_id)
+                kind = str(component.get("kind") or "")
+                if interactive and component_id not in interactive:
+                    continue
+                if kind == "led":
                     continue
                 rect = component.get("hitbox") or component.get("rect")
                 if rect is None:
                     continue
                 controls.append(ControlSpec(
-                    id=str(component_id),
+                    id=component_id,
                     label=str(component.get("label") or component_id),
-                    action=self._semantic_action(component.get("action") or component_id),
+                    action=self._semantic_action(
+                        component.get("action") or component_id,
+                        component_id,
+                    ),
                     rect=tuple(int(value) for value in rect),
-                    kind=str(component.get("kind") or "momentary"),
+                    kind=kind or "momentary",
                     detents=int(component.get("detents") or 0),
                 ))
-            return with_semantic_controls(DeviceGeometry(
+            geometry = with_semantic_controls(DeviceGeometry(
                 tuple(int(value) for value in aperture),
                 tuple(int(value) for value in content),
                 "screen_panel_green_compact",
                 tuple(controls),
             ))
-        return self.device.geometry_for(self.state.variant)
+            self._validate_control_geometry(geometry.controls)
+            return geometry
+        raise RuntimeError("RadioSimulator has no canonical pilot project")
 
     @staticmethod
-    def _semantic_action(value: Any) -> str:
-        normalized = str(value).strip()
-        aliases = {
-            "BACK": "back", "HOME": "home", "MENU": "menu", "UP": "previous",
-            "DOWN": "next", "LEFT": "previous", "RIGHT": "next", "SELECT": "select",
-            "OK": "select", "POWER": "power_toggle", "PTT": "transmit_toggle",
-            "TUNE": "channel_up", "VOLUME": "volume_up", "SCAN": "signal_cycle",
-        }
-        return aliases.get(normalized.upper(), normalized.lower())
+    def _semantic_action(value: Any, component_id: str | None = None) -> str:
+        normalized = semantic_action(value, component_id)
+        return {
+            "power": "power_toggle",
+            "ptt": "transmit_toggle",
+            "up": "previous",
+            "down": "next",
+            "left": "previous",
+            "right": "next",
+        }.get(normalized, normalized)
+
+    @staticmethod
+    def _validate_control_geometry(controls: tuple[ControlSpec, ...]) -> None:
+        """Reject ambiguous positive-area hitbox overlaps before dispatch."""
+
+        for index, first in enumerate(controls):
+            first_left, first_top, first_width, first_height = first.rect
+            for second in controls[index + 1:]:
+                second_left, second_top, second_width, second_height = second.rect
+                overlap_width = min(first_left + first_width, second_left + second_width) - max(first_left, second_left)
+                overlap_height = min(first_top + first_height, second_top + second_height) - max(first_top, second_top)
+                if overlap_width > 0 and overlap_height > 0:
+                    raise ValueError(
+                        f"overlapping interactive hitboxes: {first.id!r} and {second.id!r}"
+                    )
 
     def modular_state_selection(self) -> dict[str, str]:
         if self.project is None:
             return {}
+        hidden = self.modular_hidden_components()
         selected: dict[str, str] = {}
         for component_id, component in sorted(((self.project.get("modular") or {}).get("components") or {}).items()):
             if not isinstance(component, Mapping):
                 continue
+            component_id = str(component_id)
+            if component_id in hidden:
+                continue
             states = component.get("states") or {}
             kind = str(component.get("kind") or "")
             if kind in {"power", "switch"}:
-                candidate = "on" if self.state.powered else "off"
+                # A real rocker still has a transient depressed state while the
+                # pointer is down.  Keep the stable on/off state authoritative
+                # after release, but use an authored pressed overlay when the
+                # project provides one.
+                if component_id in self.state.pressed_controls and "pressed" in states:
+                    candidate = "pressed"
+                else:
+                    candidate = "on" if self.state.powered else "off"
             elif kind in {"hold", "ptt"}:
                 candidate = "held" if self.state.ptt_held else "idle"
+            elif kind in {"rotary", "knob"} or int(component.get("detents") or 0) > 0:
+                candidate = self._rotary_state_name(str(component_id), component, states)
             elif component_id in self.state.pressed_controls:
                 candidate = "pressed" if "pressed" in states else "idle"
             elif kind in {"led"}:
@@ -157,12 +284,31 @@ class RadioSimulator:
             selected[str(component_id)] = candidate
         return selected
 
+    def modular_hidden_components(self) -> frozenset[str]:
+        """Return components the active simulator policy excludes from art."""
+
+        if self.project is None:
+            return frozenset()
+        return frozenset(
+            str(item)
+            for item in (self._project_simulator_policy().get("hidden_components") or ())
+        )
+
+    def _rotary_state_name(self, component_id: str, component: Mapping[str, Any], states: Mapping[str, Any]) -> str:
+        """Select a keyed rotary frame so wheel/drag events are visible."""
+
+        frame_names = sorted(str(name) for name in states if str(name).startswith("frame_"))
+        if not frame_names:
+            return "idle" if "idle" in states else next(iter(states), "idle")
+        knob_name = "channel" if component_id == "channel" or str(component.get("action", "")).lower() == "channel" else "volume"
+        baseline = 1 if knob_name == "channel" else 5
+        value = int(self.state.knobs.get(knob_name, baseline))
+        return frame_names[(value - baseline) % len(frame_names)]
+
     def reset(self, *, device_id: str | None = None, variant: str | None = None) -> dict[str, Any]:
         next_device = device_id or self.state.device_id
         next_variant = normalize_variant(variant or self.state.variant)
-        if self.project is None:
-            get_device(next_device)
-        elif device_id and device_id != self.state.device_id:
+        if device_id and device_id != self.state.device_id:
             raise ValueError("a project-backed simulator cannot switch device IDs")
         self.state = RadioState(device_id=next_device, variant=next_variant)
         return self.snapshot()
@@ -280,6 +426,7 @@ class RadioSimulator:
         action = control.action if control else {
             "power": "power_toggle",
             "ok": "select",
+            "center": "select",
             "ptt": "transmit_toggle",
         }.get(value, value)
         if control is None and action not in {item.action for item in self.geometry.controls} and action not in {
@@ -305,7 +452,10 @@ class RadioSimulator:
 
     @staticmethod
     def _is_rotary_control(control: Any) -> bool:
-        return control.kind in {"rotary", "knob"} or int(getattr(control, "detents", 0) or 0) > 0
+        # Switches may expose two detents in project metadata, but they still
+        # complete a normal down/up lifecycle. Only explicitly rotary hardware
+        # captures drag/wheel input and suppresses the release action.
+        return control.kind in {"rotary", "knob"}
 
     def _pointer_down(self, event: Mapping[str, Any]) -> None:
         control_id = str(event.get("control", "")).strip()
@@ -367,13 +517,13 @@ class RadioSimulator:
         if not self.state.powered or delta == 0:
             return
         action = control.action
-        if action in {"volume_up", "volume_down"}:
+        if action in {"volume", "volume_up", "volume_down"}:
             direction = 1 if delta > 0 else -1
             for _ in range(abs(delta)):
                 self._apply_action("volume_up" if direction > 0 else "volume_down")
             self.state.knobs["volume"] = self.state.volume
             return
-        if action in {"channel_up", "channel_down"}:
+        if action in {"channel", "channel_up", "channel_down"}:
             direction = 1 if delta > 0 else -1
             for _ in range(abs(delta)):
                 self._apply_action("channel_up" if direction > 0 else "channel_down")
@@ -389,7 +539,7 @@ class RadioSimulator:
             raise ValueError("click requires numeric x and y in source-crop coordinates") from error
         for control in self.geometry.controls:
             left, top, width, height = control.rect
-            if left <= x <= left + width and top <= y <= top + height:
+            if left <= x < left + width and top <= y < top + height:
                 if self._is_hold_control(control):
                     self._pointer_down({"control": control.id})
                     self._pointer_up({"control": control.id})
@@ -430,6 +580,7 @@ class RadioSimulator:
                 self.state.ptt_held = False
                 self.state.leds["pwr"] = "off"
                 self.state.leds["tx"] = "off"
+                self.state.leds["rx"] = "off"
             elif field_name == "powered":
                 self.state.leds["pwr"] = "on"
             return
@@ -451,6 +602,7 @@ class RadioSimulator:
             if value not in {"none", "search", "found"}:
                 raise ValueError("signal must be none, search, or found")
             self.state.signal = value
+            self.state.leds["rx"] = "off" if value == "none" else "on"
             return
         if field_name == "page":
             value = str(event.get("value", "")).strip().lower()
@@ -483,6 +635,7 @@ class RadioSimulator:
         self.state.clock_ms += milliseconds
         if self.state.powered and self.state.signal == "search" and milliseconds >= 200:
             self.state.signal = "found"
+            self.state.leds["rx"] = "on"
 
     def _apply_action(self, action: str) -> None:
         if action == "power_toggle":
@@ -497,6 +650,7 @@ class RadioSimulator:
                 self.state.transmitting = False
                 self.state.ptt_held = False
                 self.state.leds["tx"] = "off"
+                self.state.leds["rx"] = "off"
             return
         if not self.state.powered:
             return
@@ -519,11 +673,16 @@ class RadioSimulator:
         if action == "signal_cycle":
             sequence = ("none", "search", "found")
             self.state.signal = sequence[(sequence.index(self.state.signal) + 1) % len(sequence)]
+            self.state.leds["rx"] = "off" if self.state.signal == "none" else "on"
             return
         if action == "transmit_toggle":
             self.state.transmitting = not self.state.transmitting if self.state.powered else False
             self.state.ptt_held = self.state.transmitting
             self.state.leds["tx"] = "on" if self.state.transmitting else "off"
+            return
+        if action in {"pwr_led", "rx_led", "tx_led"}:
+            led_id = {"pwr_led": "pwr", "rx_led": "rx", "tx_led": "tx"}[action]
+            self.state.leds[led_id] = "off" if self.state.leds.get(led_id, "off") != "off" else "on"
             return
         if action == "menu":
             self.state.page = "home"

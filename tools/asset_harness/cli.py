@@ -37,6 +37,10 @@ from asset_harness.core.project import (
     project_workspace,
     save_project,
 )
+from asset_harness.core.runtime_manifest import (
+    compile_runtime_manifest,
+    manifest_json,
+)
 from asset_harness.core.radio_assets import (
     audit_radio_sources,
     write_radio_audit_artifacts,
@@ -93,7 +97,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     doctor = sub.add_parser("doctor", help="report local harness capabilities")
     _add_output_args(doctor)
-    assets = sub.add_parser("assets", help="inspect registered/runtime asset files")
+    assets = sub.add_parser("assets", help="inspect canonical radio asset files")
     asset_sub = assets.add_subparsers(dest="asset_command", required=True)
     assets_list = asset_sub.add_parser("list", help="list runtime radio assets")
     assets_list.add_argument("--root", type=Path, default=REPO_ROOT)
@@ -397,6 +401,19 @@ def build_parser() -> argparse.ArgumentParser:
     export_apply.add_argument("--approved", action="store_true")
     _add_output_args(export_apply)
 
+    runtime_manifest = sub.add_parser(
+        "runtime-manifest",
+        help="compile canonical modular radio pilots for the Core Lua runtime",
+    )
+    runtime_manifest.add_argument(
+        "--project-root",
+        type=Path,
+        default=REPO_ROOT / "tools/asset_harness/projects/radio",
+    )
+    runtime_manifest.add_argument("--device", default=None)
+    runtime_manifest.add_argument("--out", type=Path, required=True)
+    _add_output_args(runtime_manifest)
+
     batch = sub.add_parser("batch", help="run a bounded list of whitelisted CLI argv operations")
     batch.add_argument("--file", type=Path, required=True)
     _add_output_args(batch)
@@ -405,6 +422,17 @@ def build_parser() -> argparse.ArgumentParser:
 
 def _project_path(args: argparse.Namespace) -> Path:
     return Path(args.project).expanduser().resolve()
+
+
+def _is_canonical_radio_pilot(path: Path, project: Mapping[str, Any]) -> bool:
+    """Keep the legacy generic exporter from creating a second radio runtime."""
+
+    return (
+        path.name.endswith("_pilot.json")
+        and path.parent.name == "radio"
+        and isinstance(project.get("device"), Mapping)
+        and isinstance(project.get("modular"), Mapping)
+    )
 
 
 def _output_path(project_path: Path, project: dict[str, Any], value: Path | None, default: str) -> Path:
@@ -483,7 +511,6 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
             roots.append(("ham", root / "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham"))
         if args.family in (None, "manpack"):
             roots.append(("manpack", root / "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack"))
-        roots.append(("runtime", root / "Contents/mods/PsychopatzCore/common/media/ui/psychopatz/radio/devices"))
         rows: list[dict[str, Any]] = []
         for family, directory in roots:
             if not directory.exists():
@@ -840,6 +867,12 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
     if args.command == "export":
         path = _project_path(args)
         value = load_project(path)
+        if _is_canonical_radio_pilot(path, value):
+            raise AssetHarnessError(
+                "RADIO_EXPORT_RETIRED",
+                "canonical radio pilots compile only through the runtime-manifest command; "
+                "the generic skin.lua exporter is retired for radio projects",
+            )
         if args.export_command == "plan":
             plan = build_export_plan(path, value)
             report_path = _output_path(path, value, None, "export-plan.json")
@@ -859,13 +892,28 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
             raise AssetHarnessError("EXPORT_VERIFY_FAILED", "export verification failed", diagnostics=result["diagnostics"])
         return command, {"verification": result["summary"]}, artifacts, result["diagnostics"], False
 
+    if args.command == "runtime-manifest":
+        project_root = Path(args.project_root).expanduser().resolve()
+        output = Path(args.out).expanduser()
+        if not output.is_absolute(): output = REPO_ROOT / output
+        output = ensure_within(REPO_ROOT, output)
+        manifest = compile_runtime_manifest(project_root, device_id=args.device)
+        atomic_write_text(output, manifest_json(manifest))
+        artifacts.append(artifact_descriptor(output, "radio_runtime_manifest"))
+        return command, {
+            "schema_version": manifest["schema_version"],
+            "manifest_kind": manifest["manifest_kind"],
+            "device_count": len(manifest["devices"]),
+            "output": str(output),
+        }, artifacts, diagnostics, False
+
     if args.command == "batch":
         raw = json.loads(Path(args.file).read_text(encoding="utf-8"))
         operations = raw.get("operations") if isinstance(raw, dict) else raw
         if not isinstance(operations, list) or len(operations) > 64:
             raise AssetHarnessError("BATCH_INVALID", "batch must contain at most 64 operations")
         results = []
-        allowed = {"doctor", "assets", "project", "source", "regions", "masks", "layers", "controls", "lcd", "variants", "render", "animation", "diff", "validate", "export", "modular"}
+        allowed = {"doctor", "assets", "project", "source", "regions", "masks", "layers", "controls", "lcd", "variants", "render", "animation", "diff", "validate", "export", "runtime-manifest", "modular"}
         for index, operation in enumerate(operations):
             if not isinstance(operation, dict) or not isinstance(operation.get("argv"), list) or not operation["argv"]:
                 raise AssetHarnessError("BATCH_INVALID", f"operation {index} must contain an argv array")

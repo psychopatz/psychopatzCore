@@ -4,7 +4,7 @@
 PsychopatzCore = PsychopatzCore or {}
 local OS = PsychopatzCore.RadioOS
 local Manifest = require
-    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioManifest"
+    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioRuntimeManifest"
 local Text = require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSTranslation"
 local Window = OS.Window
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Layout"
@@ -30,20 +30,20 @@ local function scaledRect(source, scale)
 end
 
 function Window:screenRect()
-    local screen = self.skin and self.skin.screen or {}
-    return scaledRect(screen, self.scale)
+    local lcd = self.skin and self.skin.lcd or {}
+    return scaledRect(lcd.content or lcd.backing or lcd.aperture, self.scale)
 end
 
 function Window:lcdBackdropRect()
-    local skin = self.skin or {}
-    return scaledRect(skin.lcdBackdrop or skin.screen, self.scale)
+    local lcd = self.skin and self.skin.lcd or {}
+    return scaledRect(lcd.aperture or lcd.backing or lcd.content, self.scale)
 end
 
 function Window:controlRect(name)
-    local control = self.skin and self.skin.controls
-        and self.skin.controls[name] or nil
-    if not control then return nil end
-    return scaledRect(control, self.scale)
+    for _, control in ipairs(self.skin and self.skin.interactiveComponents or {}) do
+        if control.id == name then return scaledRect(control.hitbox, self.scale) end
+    end
+    return nil
 end
 
 function Window:isInside(rect, x, y)
@@ -52,8 +52,10 @@ function Window:isInside(rect, x, y)
 end
 
 function Window:hitControl(x, y)
-    for _, name in ipairs({ "left", "center", "right" }) do
-        if self:isInside(self:controlRect(name), x, y) then return name end
+    for _, control in ipairs(self.skin and self.skin.interactiveComponents or {}) do
+        if self:isInside(scaledRect(control.hitbox, self.scale), x, y) then
+            return control.id
+        end
     end
     return nil
 end
@@ -67,14 +69,8 @@ function Window:atlasTexture(path)
 end
 
 function Window:spriteDefinition(id)
-    if not id then return nil, nil, nil end
-    local cached = self._spriteDefinitions[id]
-    if cached then return cached.path, cached.rect, cached.capInsets end
-    local path, rect, capInsets = Manifest.GetSprite(id)
-    if not path or not rect then return nil, nil, nil end
-    cached = { path = path, rect = rect, capInsets = capInsets }
-    self._spriteDefinitions[id] = cached
-    return path, rect, capInsets
+    local path, rect = Manifest.GetIcon(id)
+    return path, rect, nil
 end
 
 function Window:drawSprite(id, x, y, width, height, alpha)
@@ -87,27 +83,112 @@ function Window:drawSprite(id, x, y, width, height, alpha)
     return true
 end
 
-function Window:drawShell()
-    local skin = self.skin
-    local base = skin and skin.baseSize or {}
-    local path, rect = self:spriteDefinition(skin and skin.sprite)
-    local texture = path and self:atlasTexture(path) or nil
-    if texture and rect and self.drawSubTexture then
-        local width = self.getWidth and self:getWidth()
-            or snap((tonumber(base.w) or 256) * (tonumber(self.scale) or 1))
-        local height = self.getHeight and self:getHeight()
-            or snap((tonumber(base.h) or 432) * (tonumber(self.scale) or 1))
-        self:drawSubTexture(texture, rect.x, rect.y, rect.w, rect.h,
-            0, 0, math.max(1, snap(width)), math.max(1, snap(height)),
-            1, 1, 1, 1)
+function Window:drawAsset(entry, alpha)
+    if type(entry) ~= "table" or type(entry.image) ~= "string"
+        or (not self.drawTextureScaled and not self.drawSubTexture)
+    then
+        return false
+    end
+    local texture = self:atlasTexture(entry.image)
+    if not texture then return false end
+    local scale = tonumber(self.scale) or 1
+    local canvas = self.skin and self.skin.canvas or {}
+    local sourceWidth = tonumber(canvas.width) or 1
+    local sourceHeight = tonumber(canvas.height) or 1
+    local textureWidth = texture.getWidth and texture:getWidth() or sourceWidth
+    local textureHeight = texture.getHeight and texture:getHeight() or sourceHeight
+    local x = snap((tonumber(entry.x) or 0) * scale)
+    local y = snap((tonumber(entry.y) or 0) * scale)
+    local width = snap(textureWidth * scale)
+    local height = snap(textureHeight * scale)
+    if textureWidth == sourceWidth and textureHeight == sourceHeight
+        and x == 0 and y == 0
+    then
+        width = self.getWidth and self:getWidth() or snap(sourceWidth * scale)
+        height = self.getHeight and self:getHeight() or snap(sourceHeight * scale)
+    end
+    if self.drawTextureScaled then
+        self:drawTextureScaled(texture, x, y, math.max(1, width),
+            math.max(1, height), tonumber(alpha) or 1, 1, 1, 1)
+    else
+        self:drawSubTexture(texture, 0, 0, textureWidth, textureHeight,
+            x, y, math.max(1, width), math.max(1, height),
+            tonumber(alpha) or 1, 1, 1, 1)
+    end
+    return true
+end
+
+function Window:componentState(component)
+    if type(component) ~= "table" then return "idle" end
+    local states = component.states or {}
+    local id = tostring(component.id or "")
+    if self._pressedControl == id and states.pressed then return "pressed" end
+    local kind = tostring(component.kind or "")
+    if kind == "led" then
+        local lower = string.lower(id)
+        if string.find(lower, "pwr", 1, true)
+            or string.find(lower, "power", 1, true)
+        then
+            return self.context and self.context.powered and "on" or "off"
+        end
+        if string.find(lower, "rx", 1, true) then
+            return self.context and self.context.audible and "on" or "off"
+        end
+        return "off"
+    end
+    if kind == "hold" or kind == "ptt" then
+        return self._pttHeld and "held" or "idle"
+    end
+    if string.sub(kind, 1, 5) == "rotar" or kind == "knob" then
+        return states.frame_00 and "frame_00" or "idle"
+    end
+    if states.idle then return "idle" end
+    for stateName, _ in pairs(states) do return stateName end
+    return "idle"
+end
+
+function Window:drawComponents()
+    for _, component in ipairs(self.skin and self.skin.components or {}) do
+        if component.visible ~= false then
+            local stateName = self:componentState(component)
+            local state = (component.states or {})[stateName]
+            if not state then
+                for _, candidate in pairs(component.states or {}) do
+                    state = candidate
+                    break
+                end
+            end
+            self:drawAsset(state, 1)
+        end
     end
 end
 
-function Window:drawTextClipped(value, x, y, width, color, maxChars)
-    value = self:fitText(value, width, maxChars)
+function Window:drawShell()
+    local skin = self.skin
+    if not skin then return end
+    local variant = self.variant or skin.defaultVariant or "pristine"
+    self:drawAsset((skin.chassis or {})[variant], 1)
+    self:drawAsset((skin.lcd_layers or {}).matte, 1)
+    self:drawComponents()
+end
+
+function Window:drawLCDOverlays()
+    local layers = self.skin and self.skin.lcd_layers or {}
+    self:drawAsset(layers.glass, 1)
+    self:drawAsset(layers.bezel_overlay, 1)
+end
+
+function Window:drawTextClipped(value, x, y, width, color, maxChars,
+    maxLines)
     local font = self:screenFont()
     color = color or { r = 0.75, g = 1, b = 0.75, a = 1 }
-    self:drawText(value, x, y, color.r, color.g, color.b, color.a, font)
+    local lines = self:wrapText(value, width, maxLines or 1)
+    local lineHeight = self:screenMetrics().lineHeight
+    for index, line in ipairs(lines) do
+        self:drawText(line, x, y + (index - 1) * lineHeight,
+            color.r, color.g, color.b, color.a, font)
+    end
+    return #lines
 end
 
 function Window:screenColors()
@@ -123,15 +204,21 @@ function Window:drawScreenHeader(title, subtitle, options)
     local metrics = self:screenMetrics()
     local screen = metrics.screen
     local color = self:screenColors()
+    local header = self:headerLayout(subtitle, options)
     local y = screen.y + metrics.padding
     self:drawTextClipped(string.upper(text(title, "RADIO OS")), metrics.x,
         y, metrics.width, color)
-    local header = self:headerLayout(subtitle, options)
     if header.lines == 2 then
         local muted = { r = color.r * 0.75, g = color.g * 0.75,
             b = color.b * 0.75, a = 1 }
         self:drawTextClipped(subtitle, metrics.x,
-            y + metrics.lineHeight, metrics.width, muted)
+            y + metrics.lineHeight, metrics.width, muted, nil, 1)
+    elseif header.lines > 2 then
+        local muted = { r = color.r * 0.75, g = color.g * 0.75,
+            b = color.b * 0.75, a = 1 }
+        self:drawTextClipped(subtitle, metrics.x,
+            y + metrics.lineHeight, metrics.width, muted, nil,
+            header.lines - 1)
     end
     self._headerLayout = header
     return self._headerLayout
@@ -139,14 +226,17 @@ end
 
 function Window:drawStatusWidget()
     local context = self.context or {}
-    local id = context.active and (context.audible and "ind_rx"
-        or "chip_standby") or "ind_offline"
     local screen = self:screenRect()
     local scale = tonumber(self.scale) or 1
     local width = math.max(6, snap(14 * scale))
     local height = math.max(3, snap(5 * scale))
-    self:drawSprite(id, screen.x + screen.w - width - 2 * scale,
-        screen.y + screen.h - height - 2 * scale, width, height, 0.9)
+    if self.drawRect then
+        local color = context.active and { 0.35, 0.9, 0.45 }
+            or { 0.25, 0.35, 0.25 }
+        self:drawRect(screen.x + screen.w - width - 2 * scale,
+            screen.y + screen.h - height - 2 * scale, width, height,
+            0.9, color[1], color[2], color[3])
+    end
 end
 
 function Window:lcdMatteColor()
@@ -160,6 +250,11 @@ function Window:lcdMatteColor()
 end
 
 function Window:drawLCDMatte()
+    if self.skin and self.skin.lcd_layers
+        and self.skin.lcd_layers.matte
+    then
+        return
+    end
     if not self.drawRect then return end
     local aperture = self:lcdBackdropRect()
     local color = self:lcdMatteColor()
@@ -168,6 +263,17 @@ function Window:drawLCDMatte()
 end
 
 function Window:drawScreenContent()
+    if not (self.context and self.context.powered) then
+        local screen = self:screenRect()
+        local color = self:screenColors()
+        self:drawTextClipped("POWER OFF", screen.x + 4,
+            screen.y + screen.h * 0.42, screen.w - 8, color)
+        self:drawTextClipped("Press Power", screen.x + 4,
+            screen.y + screen.h * 0.58, screen.w - 8,
+            { r = color.r * 0.65, g = color.g * 0.65,
+                b = color.b * 0.65, a = 1 })
+        return
+    end
     if self.page == "home" then
         self:drawHome()
     elseif self.page == "contacts" then
@@ -187,12 +293,17 @@ function Window:drawScreen()
     local aperture = self:lcdBackdropRect()
     local theme = self.skin and self.skin.theme or "green"
 
-    -- The shell is intentionally transparent in the aperture.  Always lay an
-    -- opaque matte under the themed sprite before any dynamic content so a
-    -- transparent/low-alpha background atlas cannot reveal the world.
+    -- The modular shell pass already draws the authored matte when present.
+    -- Synthetic fill is retained only for a manifest that omits that layer.
     self:drawLCDMatte()
-    self:drawSprite("screen_bg_" .. theme, aperture.x, aperture.y,
-        aperture.w, aperture.h, 1)
+    if not (self.skin and self.skin.lcd_layers
+        and self.skin.lcd_layers.matte) and self.drawRect
+    then
+        local content = self:screenRect()
+        local color = self:lcdMatteColor()
+        self:drawRect(content.x, content.y, content.w, content.h,
+            color.a, color.r, color.g, color.b)
+    end
 
     local clipped = false
     if self.setStencilRect then
@@ -210,29 +321,11 @@ function Window:drawScreen()
             .. tostring(result))
     end
 
-    if self.screenEffects ~= false then
-        self:drawSprite("overlay_scanlines_" .. theme, aperture.x,
-            aperture.y, aperture.w, aperture.h, 0.16)
-    end
+    -- Scanline sprites belonged to the retired atlas.  The authored glass
+    -- layer owns the physical LCD finish; dynamic text remains uncluttered.
 end
 
 function Window:drawControls()
-    local theme = self.skin and self.skin.theme or "green"
-    for _, name in ipairs({ "left", "center", "right" }) do
-        local rect = self:controlRect(name)
-        if not rect then return end
-        local state = self._pressedControl == name and "pressed"
-            or self._hoverControl == name and "hover" or "idle"
-        self:drawSprite("btn_sq_" .. theme .. "_" .. state,
-            rect.x, rect.y, rect.w, rect.h, 1)
-        local icon = ({ left = "icon_left", center = "icon_radio_call",
-            right = "icon_right" })[name]
-        if icon then
-            local inset = math.max(2, math.floor(math.min(rect.w, rect.h) * 0.18))
-            self:drawSprite(icon, rect.x + inset, rect.y + inset,
-                rect.w - inset * 2, rect.h - inset * 2, 0.95)
-        end
-    end
     if self._hoverResize or self._resizing then
         local width = self.getWidth and self:getWidth() or self.width or 0
         local height = self.getHeight and self:getHeight() or self.height or 0
@@ -255,8 +348,8 @@ function Window:drawCompositorDebug()
         0.95, 1, 0.15, 0.85)
     self:drawRectBorder(screen.x, screen.y, screen.w, screen.h,
         0.95, 0.15, 1, 0.25)
-    for _, name in ipairs({ "left", "center", "right" }) do
-        local rect = self:controlRect(name)
+    for _, component in ipairs(self.skin and self.skin.interactiveComponents or {}) do
+        local rect = scaledRect(component.hitbox, self.scale)
         if rect then
             self:drawRectBorder(rect.x, rect.y, rect.w, rect.h,
                 0.95, 1, 0.85, 0.15)
@@ -280,6 +373,11 @@ function Window:prerender()
     if self.reconcileScreenGeometry then self:reconcileScreenGeometry() end
     ISPanel.prerender(self)
     if self._closed then return end
+    self:drawShell()
+    -- Glass is an authored, mostly opaque LCD layer.  It must be composited
+    -- before the dynamic OS content; drawing it after the child render hides
+    -- every label and makes the native window look like a blank green panel.
+    self:drawLCDOverlays()
     self:drawScreen()
     self:layoutPortrait()
 end
@@ -302,7 +400,6 @@ function Window:render()
         print("[PsychopatzCore][RadioOS] portrait render failed: "
             .. tostring(result))
     end
-    self:drawShell()
     self:drawControls()
     self:drawCompositorDebug()
 end

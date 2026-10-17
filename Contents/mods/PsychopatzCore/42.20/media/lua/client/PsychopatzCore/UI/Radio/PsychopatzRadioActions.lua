@@ -59,6 +59,10 @@ local function isOperational(window)
     return RadioDeviceState.IsActive(data)
 end
 
+local function requiresOperational(action)
+    return not action or action.requiresOperational ~= false
+end
+
 local function sortActions()
     table.sort(RadioActions._ordered, function(left, right)
         local leftOrder = tonumber(left.order) or 0
@@ -203,7 +207,8 @@ function RadioActions.BindButton(button, action, window, options)
         button:setTitle(tostring(options.title or action.shortLabel
             or action.label or action.id))
     end
-    button.enable = isOperational(window)
+    button.enable = (not requiresOperational(action)
+        or isOperational(window))
         and callPredicate(action, "isEnabled", getPlayer(window), window, true)
     button.psychopatzRadioActionID = action.id
     styleActionButton(button)
@@ -232,7 +237,8 @@ local function openMenu(window, actions)
         local option = context:addOption(tostring(action.label or action.id), window, function(target)
             invoke(action, target)
         end)
-        option.notAvailable = not isOperational(window)
+        option.notAvailable = (requiresOperational(action)
+            and not isOperational(window))
             or not callPredicate(action, "isEnabled", player, window, true)
         if action.tooltip and option.toolTip then
             option.toolTip.description = tostring(action.tooltip)
@@ -286,7 +292,8 @@ function RadioActions.Refresh(window)
             or standalone[1].id)
         or "Radio Services (" .. tostring(#standalone) .. ")"
     button:setTitle(title)
-    button.enable = isOperational(window)
+    button.enable = (not requiresOperational(standalone[1])
+        or isOperational(window))
     button:setX(math.max(4, (tonumber(window.width) or button:getWidth()) - button:getWidth() - 6))
     local titleHeight = window.titleBarHeight and window:titleBarHeight() or 18
     button:setY(titleHeight + 4)

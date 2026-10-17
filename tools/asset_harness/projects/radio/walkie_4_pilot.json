@@ -1,0 +1,1596 @@
+{
+  "animations": {},
+  "canvas": {
+    "height": 1536,
+    "origin": "top_left",
+    "width": 1024
+  },
+  "controls": [],
+  "device": {
+    "family": "walkie",
+    "fullType": "Base.WalkieTalkie4",
+    "id": "walkie_4",
+    "model": "Base.WalkieTalkie4"
+  },
+  "export": {
+    "device_path": "Radio/WalkieTalkie/Base.WalkieTalkie4",
+    "manifest_filename": "skin.lua",
+    "runtime_root": "Contents/mods/PsychopatzCore/common/media/ui",
+    "textures": []
+  },
+  "layers": [],
+  "lcd": {
+    "aperture": [
+      311,
+      575,
+      468,
+      300
+    ],
+    "backing": [
+      350,
+      618,
+      392,
+      215
+    ],
+    "content": [
+      350,
+      618,
+      392,
+      215
+    ]
+  },
+  "masks": {
+    "back_face": {
+      "bytes": 10344,
+      "declared_bounds": [
+        318,
+        938,
+        105,
+        108
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        318,
+        938,
+        105,
+        108
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/back_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "2ca7ad7d50e43ff0e8b23fbc8a1cd7d8cce5d151f2011540ededc9c48d435d90",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "back_socket": {
+      "bytes": 10225,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        314,
+        934,
+        113,
+        116
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/back_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "bb675d89af305f3416371cc3055b9df476f848cbd8d0eb49e27dacd6cbdf83f4",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "channel_face": {
+      "bytes": 12669,
+      "declared_bounds": [
+        640,
+        255,
+        118,
+        143
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        640,
+        255,
+        116,
+        143
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/channel_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "81af35bf396aeb800af4690a76b76e568f6c0b3b1f70aeaad41dce5d8896aa76",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "channel_socket": {
+      "bytes": 11882,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        636,
+        251,
+        124,
+        151
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/channel_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "df61ef46370905609fa101b5ee986dc321c4184446e7fda7f7b4ae4cd38d3a35",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "chassis_socket": {
+      "bytes": 24611,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        156,
+        203,
+        625,
+        917
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/chassis_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "8a61c660920df441a2ff4a5551236cf36c35da74d54be176accb94eadfc00faf",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "down_face": {
+      "bytes": 10393,
+      "declared_bounds": [
+        463,
+        1036,
+        132,
+        80
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        463,
+        1036,
+        132,
+        80
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/down_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "68528c3f0ba924096fed64784141f97e377dd74b731baf5d08f91b23209e72c4",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "down_socket": {
+      "bytes": 10215,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        459,
+        1032,
+        140,
+        88
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/down_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "0263b381e82b28f1bc9ada3683fa1e62d6ccd3bbe01761aba55e3911b81fca9a",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "home_face": {
+      "bytes": 10401,
+      "declared_bounds": [
+        674,
+        938,
+        103,
+        109
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        674,
+        938,
+        103,
+        109
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/home_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "d75bf2ea3de6878661ed1e4b363bef6323d3d287952b296526ac4dec23b60d4e",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "home_socket": {
+      "bytes": 10330,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        670,
+        934,
+        111,
+        117
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/home_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "4a24c7772e41f400cf31104800b063dafa22537e9ce2d4090d52f7d625536414",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "lcd_face": {
+      "bytes": 10811,
+      "declared_bounds": [
+        350,
+        618,
+        392,
+        215
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        350,
+        618,
+        392,
+        215
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/lcd_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "1df1be474b4450ba9f242bec70445e9a2e89b17dab46512a5bf008f333273a26",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "lcd_socket": {
+      "bytes": 12437,
+      "declared_bounds": [
+        311,
+        575,
+        468,
+        300
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        311,
+        575,
+        468,
+        300
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/lcd_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "f942fde61e3473bb09c7ef26f44d5b5e47166bcc9260ecc85c9e33ebabdb90b6",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "left_face": {
+      "bytes": 10185,
+      "declared_bounds": [
+        414,
+        943,
+        77,
+        112
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        414,
+        943,
+        77,
+        112
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/left_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "e9a84d13a134efd3a5beb4126e8d5b3a5a26caae662825cc41fe30a700a0779e",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "left_socket": {
+      "bytes": 10144,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        410,
+        939,
+        85,
+        120
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/left_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "15d3bd4f32adc39fa1bbd3ea48d844a819f342f36e01a0a2d8de850db654cbb6",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ok_face": {
+      "bytes": 10267,
+      "declared_bounds": [
+        490,
+        951,
+        92,
+        91
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        490,
+        951,
+        92,
+        91
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/ok_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "df12fe1af680b1ff582bcf41b16432775718e56e07c986ff0716b678453c677e",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ok_socket": {
+      "bytes": 10130,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        486,
+        947,
+        100,
+        99
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/ok_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "0b85a10eb513c895bbf9efc4bf0d97ae58c6825a4e487c6359cb53f50667e72e",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "power_face": {
+      "bytes": 10609,
+      "declared_bounds": [
+        269,
+        360,
+        100,
+        135
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        269,
+        360,
+        100,
+        135
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/power_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "20ee7232e16e68e600e020c5e7fdb932d73a717348e803730d7e39a2d3d9ff84",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "power_socket": {
+      "bytes": 10429,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        265,
+        356,
+        108,
+        143
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/power_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "de457b35e7ca9c3ae8b423c41a82a2f05ee3b5b94c696ea9da1db382a6dd7496",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ptt_face": {
+      "bytes": 15221,
+      "declared_bounds": [
+        162,
+        477,
+        93,
+        323
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        162,
+        477,
+        93,
+        323
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/ptt_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "2839c45e76e6e07d1fd7c0757cda2201a58deb1e27cb9ad6e0cb238233cf28a4",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "ptt_socket": {
+      "bytes": 12933,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        156,
+        471,
+        105,
+        335
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/ptt_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "08fa1540539f49a715eeaec2246f8154a2fb8e759a5ec0fc0cfa77741bf0cfdf",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "pwr_led_face": {
+      "bytes": 10180,
+      "declared_bounds": [
+        447,
+        456,
+        72,
+        51
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        447,
+        456,
+        72,
+        51
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/pwr_led_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "6486e49c59997792fcc6a0b9310636086c4ea9699e89cb796ea0ae140b8dc9b2",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "pwr_led_socket": {
+      "bytes": 10054,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        443,
+        452,
+        80,
+        59
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/pwr_led_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "9c1c79dbcf364eaaea0ae9dd64f3893fc66466828b37915bf9dfe7eb7005608c",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "right_face": {
+      "bytes": 10023,
+      "declared_bounds": [
+        581,
+        943,
+        78,
+        112
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        581,
+        943,
+        78,
+        112
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/right_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "62bee16ff60e55882f0cc1e090f9ddff387551142c88e31246bcfa025735e520",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "right_socket": {
+      "bytes": 10020,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        577,
+        939,
+        86,
+        120
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/right_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "ce44ffbbc4039b5434b65a3d8dfca524dcbe5dba3afc9950d2fab65b460632ad",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "rx_led_face": {
+      "bytes": 9968,
+      "declared_bounds": [
+        556,
+        456,
+        68,
+        51
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        556,
+        456,
+        68,
+        51
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/rx_led_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "c88cd66c9c89f7e0bc912ce40d5b1f051c4de2438ee9e5dfe1246be987f2beb3",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "rx_led_socket": {
+      "bytes": 9950,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        552,
+        452,
+        76,
+        59
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/rx_led_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "b00e9ae58ea14bd6394fa444246330b13e964e2e93553c5a72cf3c91cbb345bd",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "tx_led_face": {
+      "bytes": 10008,
+      "declared_bounds": [
+        667,
+        456,
+        67,
+        51
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        667,
+        456,
+        67,
+        51
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/tx_led_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "f09a8976f947711e566c8e0fb2eb0d1f768c277f2137eb8ad5d948e4ef0bb814",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "tx_led_socket": {
+      "bytes": 9986,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        663,
+        452,
+        75,
+        59
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/tx_led_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "c8ffefe7481acdb20784bb35662e6762f162a58105ec56f6134458a3605fdda2",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "up_face": {
+      "bytes": 10038,
+      "declared_bounds": [
+        462,
+        873,
+        132,
+        78
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        462,
+        873,
+        132,
+        78
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/up_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "6ee6e93a92ccc1b24417d570eb9c5cebeb283adad09e8019c3586eb5198f5cf6",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "up_socket": {
+      "bytes": 10010,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        458,
+        869,
+        140,
+        86
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/up_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "0a8f0d99860d39f7291ae0977d141c776e8cc6f648164a002e63314be3614081",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "volume_face": {
+      "bytes": 14085,
+      "declared_bounds": [
+        445,
+        207,
+        171,
+        157
+      ],
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        445,
+        207,
+        153,
+        157
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/volume_face.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "f7bc6b5f4d9331cf73f34cbd767577ba1f77e64266d819dcd9e1df6384cb5410",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    },
+    "volume_socket": {
+      "bytes": 13157,
+      "height": 1536,
+      "method": "derived_proposal",
+      "nonzero_bounds": [
+        441,
+        203,
+        161,
+        165
+      ],
+      "path": "tools/asset_harness/workspace/radio/vh4/walkie_4/masks/volume_socket.png",
+      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "schema_version": 1,
+      "sha256": "3152f9b013443ce48a0a3fc3e672dfd5c600939638e22baa24fc7bdc9ce9becb",
+      "source": "canonical",
+      "status": "proposed",
+      "width": 1024
+    }
+  },
+  "modular": {
+    "chassis": {
+      "pristine": {
+        "anchors": {
+          "back_center": [
+            370,
+            992
+          ],
+          "channel_center": [
+            699,
+            326
+          ],
+          "device_center": [
+            512,
+            768
+          ],
+          "down_center": [
+            529,
+            1076
+          ],
+          "home_center": [
+            725,
+            992
+          ],
+          "lcd_center": [
+            546,
+            725
+          ],
+          "left_center": [
+            452,
+            999
+          ],
+          "ok_center": [
+            536,
+            996
+          ],
+          "power_center": [
+            319,
+            427
+          ],
+          "ptt_center": [
+            208,
+            638
+          ],
+          "pwr_led_center": [
+            483,
+            481
+          ],
+          "right_center": [
+            620,
+            999
+          ],
+          "rx_led_center": [
+            590,
+            481
+          ],
+          "tx_led_center": [
+            700,
+            481
+          ],
+          "up_center": [
+            528,
+            912
+          ],
+          "volume_center": [
+            530,
+            285
+          ]
+        },
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Chassis/Pristine.png",
+        "notes": "Source-specific full-canvas chassis reconstruction; visual acceptance pending.",
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "chassis_socket",
+        "status": "proposed"
+      },
+      "worn": {
+        "anchors": {
+          "back_center": [
+            370,
+            992
+          ],
+          "channel_center": [
+            699,
+            326
+          ],
+          "device_center": [
+            512,
+            768
+          ],
+          "down_center": [
+            529,
+            1076
+          ],
+          "home_center": [
+            725,
+            992
+          ],
+          "lcd_center": [
+            546,
+            725
+          ],
+          "left_center": [
+            452,
+            999
+          ],
+          "ok_center": [
+            536,
+            996
+          ],
+          "power_center": [
+            319,
+            427
+          ],
+          "ptt_center": [
+            208,
+            638
+          ],
+          "pwr_led_center": [
+            483,
+            481
+          ],
+          "right_center": [
+            620,
+            999
+          ],
+          "rx_led_center": [
+            590,
+            481
+          ],
+          "tx_led_center": [
+            700,
+            481
+          ],
+          "up_center": [
+            528,
+            912
+          ],
+          "volume_center": [
+            530,
+            285
+          ]
+        },
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Chassis/Worn.png",
+        "notes": "Source-specific full-canvas chassis reconstruction; visual acceptance pending.",
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "chassis_socket",
+        "status": "proposed"
+      }
+    },
+    "components": {
+      "back": {
+        "action": "back",
+        "hitbox": [
+          311,
+          894,
+          82,
+          78
+        ],
+        "kind": "button",
+        "mask": "back_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          371,
+          991
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "back_socket",
+        "states": {
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Back/Idle.png",
+            "x": 318,
+            "y": 938
+          },
+          "pressed": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Back/Pressed.png",
+            "x": 318,
+            "y": 938
+          }
+        },
+        "status": "proposed"
+      },
+      "channel": {
+        "action": "channel_up",
+        "detents": 4,
+        "hitbox": [
+          640,
+          255,
+          118,
+          143
+        ],
+        "kind": "rotary",
+        "mask": "channel_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          699,
+          326
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "channel_socket",
+        "states": {
+          "frame_00": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Channel/Frame_00.png",
+            "x": 640,
+            "y": 255
+          },
+          "frame_01": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Channel/Frame_01.png",
+            "x": 640,
+            "y": 255
+          },
+          "frame_02": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Channel/Frame_02.png",
+            "x": 640,
+            "y": 255
+          },
+          "frame_03": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Channel/Frame_03.png",
+            "x": 640,
+            "y": 255
+          }
+        },
+        "status": "proposed"
+      },
+      "down": {
+        "action": "next",
+        "hitbox": [
+          480,
+          980,
+          88,
+          69
+        ],
+        "kind": "button",
+        "mask": "down_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          528,
+          1072
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "down_socket",
+        "states": {
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Down/Idle.png",
+            "x": 463,
+            "y": 1036
+          },
+          "pressed": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Down/Pressed.png",
+            "x": 463,
+            "y": 1036
+          }
+        },
+        "status": "proposed"
+      },
+      "home": {
+        "action": "home",
+        "hitbox": [
+          673,
+          892,
+          78,
+          80
+        ],
+        "kind": "button",
+        "mask": "home_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          725,
+          992
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "home_socket",
+        "states": {
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Home/Idle.png",
+            "x": 674,
+            "y": 938
+          },
+          "pressed": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Home/Pressed.png",
+            "x": 674,
+            "y": 938
+          }
+        },
+        "status": "proposed"
+      },
+      "left": {
+        "action": "previous",
+        "hitbox": [
+          416,
+          887,
+          58,
+          87
+        ],
+        "kind": "button",
+        "mask": "left_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          449,
+          1002
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "left_socket",
+        "states": {
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Left/Idle.png",
+            "x": 414,
+            "y": 943
+          },
+          "pressed": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Left/Pressed.png",
+            "x": 414,
+            "y": 943
+          }
+        },
+        "status": "proposed"
+      },
+      "ok": {
+        "action": "select",
+        "hitbox": [
+          487,
+          902,
+          72,
+          64
+        ],
+        "kind": "button",
+        "mask": "ok_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          536,
+          1000
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "ok_socket",
+        "states": {
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/OK/Idle.png",
+            "x": 490,
+            "y": 951
+          },
+          "pressed": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/OK/Pressed.png",
+            "x": 490,
+            "y": 951
+          }
+        },
+        "status": "proposed"
+      },
+      "power": {
+        "action": "power_toggle",
+        "hitbox": [
+          162,
+          477,
+          93,
+          323
+        ],
+        "kind": "button",
+        "mask": "ptt_face",
+        "notes": "Actual side power button; reuses the authored side-button idle/pressed art and hitbox.",
+        "pivot": [
+          208,
+          638
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "ptt_socket",
+        "states": {
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/PTT/Idle.png",
+            "x": 162,
+            "y": 477
+          },
+          "pressed": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/PTT/Held.png",
+            "x": 162,
+            "y": 477
+          }
+        },
+        "status": "proposed"
+      },
+      "ptt": {
+        "action": "transmit_toggle",
+        "hitbox": [
+          162,
+          477,
+          93,
+          323
+        ],
+        "kind": "ptt",
+        "mask": "ptt_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          208,
+          638
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "ptt_socket",
+        "states": {
+          "held": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/PTT/Held.png",
+            "x": 162,
+            "y": 477
+          },
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/PTT/Idle.png",
+            "x": 162,
+            "y": 477
+          }
+        },
+        "status": "proposed"
+      },
+      "pwr_led": {
+        "action": "pwr_led",
+        "hitbox": [
+          447,
+          456,
+          72,
+          51
+        ],
+        "kind": "led",
+        "mask": "pwr_led_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          483,
+          481
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "pwr_led_socket",
+        "states": {
+          "off": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/PWR/Off.png",
+            "x": 447,
+            "y": 456
+          },
+          "on": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/PWR/On.png",
+            "x": 447,
+            "y": 456
+          }
+        },
+        "status": "proposed"
+      },
+      "right": {
+        "action": "next",
+        "hitbox": [
+          588,
+          885,
+          58,
+          93
+        ],
+        "kind": "button",
+        "mask": "right_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          621,
+          1002
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "right_socket",
+        "states": {
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Right/Idle.png",
+            "x": 581,
+            "y": 943
+          },
+          "pressed": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Right/Pressed.png",
+            "x": 581,
+            "y": 943
+          }
+        },
+        "status": "proposed"
+      },
+      "rx_led": {
+        "action": "rx_led",
+        "hitbox": [
+          556,
+          456,
+          68,
+          51
+        ],
+        "kind": "led",
+        "mask": "rx_led_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          590,
+          481
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "rx_led_socket",
+        "states": {
+          "off": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/RX/Off.png",
+            "x": 556,
+            "y": 456
+          },
+          "on": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/RX/On.png",
+            "x": 556,
+            "y": 456
+          }
+        },
+        "status": "proposed"
+      },
+      "tx_led": {
+        "action": "tx_led",
+        "hitbox": [
+          667,
+          456,
+          67,
+          51
+        ],
+        "kind": "led",
+        "mask": "tx_led_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          700,
+          481
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "tx_led_socket",
+        "states": {
+          "off": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/TX/Off.png",
+            "x": 667,
+            "y": 456
+          },
+          "on": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/TX/On.png",
+            "x": 667,
+            "y": 456
+          }
+        },
+        "status": "proposed"
+      },
+      "up": {
+        "action": "previous",
+        "hitbox": [
+          486,
+          827,
+          84,
+          60
+        ],
+        "kind": "button",
+        "mask": "up_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          528,
+          906
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "up_socket",
+        "states": {
+          "idle": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Up/Idle.png",
+            "x": 462,
+            "y": 873
+          },
+          "pressed": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Up/Pressed.png",
+            "x": 462,
+            "y": 873
+          }
+        },
+        "status": "proposed"
+      },
+      "volume": {
+        "action": "volume_up",
+        "detents": 4,
+        "hitbox": [
+          445,
+          207,
+          171,
+          157
+        ],
+        "kind": "rotary",
+        "mask": "volume_face",
+        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
+        "pivot": [
+          530,
+          285
+        ],
+        "review": {
+          "reviewed": false,
+          "reviewed_by": null
+        },
+        "socket_mask": "volume_socket",
+        "states": {
+          "frame_00": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Volume/Frame_00.png",
+            "x": 445,
+            "y": 207
+          },
+          "frame_01": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Volume/Frame_01.png",
+            "x": 445,
+            "y": 207
+          },
+          "frame_02": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Volume/Frame_02.png",
+            "x": 445,
+            "y": 207
+          },
+          "frame_03": {
+            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Volume/Frame_03.png",
+            "x": 445,
+            "y": 207
+          }
+        },
+        "status": "proposed"
+      }
+    },
+    "lcd_layers": {
+      "bezel_overlay": {
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LCD/BezelOverlay.png"
+      },
+      "glass": {
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LCD/Glass.png"
+      },
+      "matte": {
+        "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LCD/Matte.png"
+      },
+      "notes": "Source-specific LCD proposal; human visual review pending.",
+      "review": {
+        "reviewed": false,
+        "reviewed_by": null
+      },
+      "status": "proposed"
+    },
+    "required_components": [
+      "back",
+      "home",
+      "up",
+      "down",
+      "left",
+      "right",
+      "ok",
+      "ptt",
+      "power",
+      "volume",
+      "channel",
+      "pwr_led",
+      "rx_led",
+      "tx_led",
+      "lcd"
+    ],
+    "schema_version": 1,
+    "status": "incomplete",
+    "verification": {
+      "artifacts": [],
+      "reasons": [
+        "SOURCE_SPECIFIC_VISUAL_REVIEW_PENDING"
+      ],
+      "reviewed": false,
+      "reviewed_by": null,
+      "status": "proposed"
+    }
+  },
+  "modular_output": {
+    "directory": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4",
+    "exists": true,
+    "files": [
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Back/Idle.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Back/Pressed.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Down/Idle.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Down/Pressed.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Home/Idle.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Home/Pressed.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Left/Idle.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Left/Pressed.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/OK/Idle.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/OK/Pressed.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Right/Idle.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Right/Pressed.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Up/Idle.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Buttons/Up/Pressed.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Chassis/Pristine.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Chassis/Worn.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Channel/Frame_00.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Channel/Frame_01.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Channel/Frame_02.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Channel/Frame_03.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Volume/Frame_00.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Volume/Frame_01.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Volume/Frame_02.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/Knobs/Volume/Frame_03.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LCD/BezelOverlay.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LCD/Glass.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LCD/Matte.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/PWR/Off.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/PWR/On.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/RX/Off.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/RX/On.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/TX/Off.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/LEDs/TX/On.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/PTT/Held.png",
+      "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4/PTT/Idle.png"
+    ],
+    "missing_required_paths": [],
+    "required_paths": [
+      "Chassis/Pristine.png",
+      "Chassis/Worn.png",
+      "Buttons/Back/Idle.png",
+      "Buttons/Back/Pressed.png",
+      "PTT/Idle.png",
+      "PTT/Held.png",
+      "LCD/Glass.png",
+      "LCD/BezelOverlay.png"
+    ]
+  },
+  "project_id": "walkie_4",
+  "regions": {},
+  "schema_version": 1,
+  "sources": {
+    "canonical": {
+      "filename": "Base.WalkieTalkie4.png",
+      "immutable": true,
+      "layout": "single_canvas",
+      "path": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie4.png",
+      "sha256": "5811325ca5fe00d04efb464a79c30bda01147e475757a9c4f8b099b50bf535cb"
+    }
+  },
+  "variants": {
+    "pristine": {
+      "layers": []
+    },
+    "worn": {
+      "layers": []
+    }
+  },
+  "workspace_root": "../../../../"
+}

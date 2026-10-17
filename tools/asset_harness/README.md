@@ -1,6 +1,19 @@
 # Psychopatz Asset Harness
 
-> **Known 2026-10-16 GUI gap:** The default `./run.sh` still opens **catalog source artwork**, despite new W5 modular PNG candidates in a gitignored workspace. It does NOT yet load the W5 project, correct its physical hitboxes/LCD, or display pressed/held states during mouse interaction. Do not treat unit-test or JSON success as a working radio GUI. **Current implementation priority:** [visual harness recovery contract](../../Docs/asset_harness/RADIO_VISUAL_HARNESS_RECOVERY.md). Deliver corrected GUI rendering and interaction, then real, portable, committed PZ radio PNGs; no runtime Lua changes. The `--project` support exists in `simulator_cli.py`, not the current GUI.
+## Current radio runtime contract
+
+The harness is the authoring/validation/CLI side of the unified radio system. It discovers only canonical `*_pilot.json` projects, and its GUI has no supported source-catalog mode. Compile the same data consumed by Core Lua with:
+
+```sh
+PYTHONPATH=tools python3 tools/asset_harness/cli.py runtime-manifest \
+  --out Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceManifest.json
+```
+
+The generated JSON and `Contents/mods/PsychopatzCore/common/media/ui/Radio/` assets are the runtime package. DynamicTrading's preview reads that Core manifest rather than maintaining a second catalog. Python/Lua smoke tests prove data and behavior parity; only a normal Project Zomboid run proves native acceptance.
+
+> **Offline harness status (2026-10-17):** `./run.sh` opens canonical pilot projects only and sends pointer, PTT, rotary, and LED events through the shared reducer. The old source-catalog mode is retired.
+>
+> **Runtime status:** Core Lua now consumes the generated `DeviceManifest.json`; the harness remains the authoring/validation/CLI side of that same contract. Native Project Zomboid acceptance is still a separate pending gate.
 
 This is the offline, agent-operated asset pipeline for PsychopatzCore. The
 agent-facing CLI and core use Python and Pillow only; ordinary CLI operations

@@ -1,5 +1,7 @@
 # Radio Visual Harness Recovery — Active Goal Contract
 
+> **Current harness rule (2026-10-16):** GUI, CLI, and direct simulator construction use the same canonical `<device>_pilot.json` registry. The retired Source catalog selector and static radio-device fallback are removed; older radio project JSONs are not accepted by the shared simulator.
+
 **Effective:** 2026-10-16. **Audited baseline:** `669b97a`. **Active priority:** make the existing Asset Harness a working visual authoring/simulator loop **for real Project Zomboid sprite PNGs**. This document overrides earlier "start another W5 extraction" and "collect more blocked JSON" next-step instructions. Keep `RADIO_MODULAR_ASSET_PRODUCTION.md` as the design/fidelity and full ten-device specification.
 
 ## 1. Product, not paperwork

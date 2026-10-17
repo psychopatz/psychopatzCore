@@ -24,6 +24,12 @@ function Window:currentScale()
     return tonumber(self.scale) or 1
 end
 
+function Window:baseDimensions()
+    local canvas = self.skin and self.skin.canvas or {}
+    return math.max(1, tonumber(canvas.width) or 256),
+        math.max(1, tonumber(canvas.height) or 432)
+end
+
 function Window:reconcileScreenGeometry()
     local screenWidth, screenHeight = Geometry.GetScreenSize()
     if self._lastScreenWidth == screenWidth
@@ -34,8 +40,9 @@ function Window:reconcileScreenGeometry()
     local hadViewport = self._lastScreenWidth ~= nil
     self._lastScreenWidth = screenWidth
     self._lastScreenHeight = screenHeight
+    local baseWidth, baseHeight = self:baseDimensions()
     local minimum, maximum = Geometry.GetScaleLimits(screenWidth,
-        screenHeight)
+        screenHeight, baseWidth, baseHeight)
     self.minScale = minimum
     self.maxScale = maximum
     if not hadViewport then return false end
@@ -75,10 +82,7 @@ function Window:markGeometryChanged()
 end
 
 function Window:applyScale(scale)
-    local skin = self.skin or {}
-    local base = skin.baseSize or {}
-    local baseWidth = tonumber(base.w) or 256
-    local baseHeight = tonumber(base.h) or 432
+    local baseWidth, baseHeight = self:baseDimensions()
     local nextScale = Geometry.ClampScale(scale, self.minScale, self.maxScale)
     self.scale = nextScale
     local width = math.max(1, math.floor(baseWidth * nextScale + 0.5))
@@ -103,7 +107,9 @@ function Window:zoomBy(direction)
 end
 
 function Window:resetScale()
-    return self:applyScale(Geometry.GetPreferredScale())
+    local baseWidth, baseHeight = self:baseDimensions()
+    return self:applyScale(Geometry.GetPreferredScale(nil, nil,
+        baseWidth, baseHeight))
 end
 
 function Window:fitToScreen()
@@ -123,9 +129,7 @@ end
 function Window:resizeBy(dx, dy)
     local horizontal = tonumber(dx) or 0
     local vertical = tonumber(dy) or 0
-    local base = self.skin and self.skin.baseSize or {}
-    local baseWidth = tonumber(base.w) or 256
-    local baseHeight = tonumber(base.h) or 432
+    local baseWidth, baseHeight = self:baseDimensions()
     local delta = math.abs(horizontal) >= math.abs(vertical)
         and horizontal / baseWidth or vertical / baseHeight
     return self:applyScale(self:currentScale() + delta)

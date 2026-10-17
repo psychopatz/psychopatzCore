@@ -22,36 +22,101 @@ function Window:screenFont()
     return (UIFont and UIFont.Small) or self._font
 end
 
-function Window:fitText(value, width, maxChars)
+function Window:textWidth(value)
     value = tostring(value or "")
-    local available = math.max(1, tonumber(width) or 1)
     local font = self:screenFont()
-    local fallbackCharWidth = safeMeasure("MeasureStringX", font, "M")
-        or 6
-    fallbackCharWidth = math.max(1, tonumber(fallbackCharWidth) or 6)
     local measured = safeMeasure("MeasureStringX", font, value)
-    if measured and measured > available then
-        local suffix = "..."
-        local low, high = 0, #value
-        while low < high do
-            local middle = math.ceil((low + high) / 2)
-            local candidate = string.sub(value, 1, middle) .. suffix
-            local candidateWidth = safeMeasure("MeasureStringX", font,
-                candidate) or (#candidate * fallbackCharWidth)
-            if candidateWidth <= available then
-                low = middle
+    if measured then return math.max(1, measured) end
+    return math.max(1, #value * 6)
+end
+
+function Window:ellipsizeText(value, width)
+    value = tostring(value or "")
+    width = math.max(1, tonumber(width) or 1)
+    if self:textWidth(value) <= width then return value end
+    local suffix = "..."
+    if self:textWidth(suffix) > width then
+        for length = #value, 1, -1 do
+            local candidate = string.sub(value, 1, length)
+            if self:textWidth(candidate) <= width then return candidate end
+        end
+        return ""
+    end
+    for length = #value, 0, -1 do
+        local candidate = string.sub(value, 1, length) .. suffix
+        if self:textWidth(candidate) <= width then return candidate end
+    end
+    return suffix
+end
+
+function Window:wrapText(value, width, maxLines)
+    value = tostring(value or "")
+    width = math.max(1, tonumber(width) or 1)
+    maxLines = math.max(1, math.floor(tonumber(maxLines) or 1))
+    if value == "" then return { "" } end
+
+    local lines = {}
+    local current = ""
+    local truncated = false
+    local function appendLine(line)
+        if line == "" then return end
+        lines[#lines + 1] = line
+    end
+    local function fitWord(word)
+        if self:textWidth(word) <= width then return { word } end
+        local chunks = {}
+        local chunk = ""
+        for index = 1, #word do
+            local candidate = chunk .. string.sub(word, index, index)
+            if chunk ~= "" and self:textWidth(candidate) > width then
+                chunks[#chunks + 1] = chunk
+                chunk = string.sub(word, index, index)
             else
-                high = middle - 1
+                chunk = candidate
             end
         end
-        return low > 0 and string.sub(value, 1, low) .. suffix or suffix
+        if chunk ~= "" then chunks[#chunks + 1] = chunk end
+        return chunks
     end
-    local fallbackChars = math.max(1, math.floor(tonumber(maxChars)
-        or available / fallbackCharWidth))
-    if not measured and #value > fallbackChars then
-        return string.sub(value, 1, math.max(1, fallbackChars - 3)) .. "..."
+
+    for word in string.gmatch(value, "%S+") do
+        local chunks = fitWord(word)
+        for _, chunk in ipairs(chunks) do
+            local candidate = current == "" and chunk
+                or current .. " " .. chunk
+            if current ~= "" and self:textWidth(candidate) > width then
+                appendLine(current)
+                current = chunk
+            else
+                current = candidate
+            end
+            if #lines >= maxLines then
+                truncated = true
+                break
+            end
+        end
+        if truncated then break end
     end
-    return value
+    if not truncated then appendLine(current) end
+    if #lines == 0 then lines[1] = "" end
+    if #lines > maxLines then
+        while #lines > maxLines do table.remove(lines) end
+        truncated = true
+    end
+    if truncated then
+        lines[maxLines] = self:ellipsizeText(lines[maxLines], width)
+    end
+    return lines
+end
+
+function Window:fitText(value, width, maxChars)
+    local lines = self:wrapText(value, width, 1)
+    local result = lines[1] or ""
+    if maxChars and #result > tonumber(maxChars) then
+        result = string.sub(result, 1, math.max(1, tonumber(maxChars) - 3))
+            .. "..."
+    end
+    return result
 end
 
 function Window:screenMetrics()
@@ -84,7 +149,9 @@ function Window:headerLayout(subtitle, options)
     local screen = metrics.screen
     local lines = 1
     if subtitle and options.showSubtitle ~= false and metrics.lineCount >= 3 then
-        lines = 2
+        local subtitleLines = self:wrapText(subtitle, metrics.width,
+            metrics.lineCount >= 4 and 2 or 1)
+        lines = 1 + math.max(1, #subtitleLines)
     end
     return {
         contentY = screen.y + metrics.padding + lines * metrics.lineHeight,

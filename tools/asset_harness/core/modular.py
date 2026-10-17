@@ -7,9 +7,10 @@ files exist; incomplete source audits stay visibly blocked.
 
 from __future__ import annotations
 
+from functools import lru_cache
 from pathlib import Path
 from itertools import islice, product
-from typing import Any, Mapping, Sequence
+from typing import Any, Iterable, Mapping, Sequence
 
 from PIL import Image
 
@@ -162,14 +163,22 @@ def _resolve_image_path(project_path: Path, project: dict[str, Any], value: str)
     return resolve_reference(workspace, value, allow_external=Path(value).is_absolute(), must_exist=True)
 
 
+@lru_cache(maxsize=64)
+def _cached_explicit_image(path_string: str, modified_ns: int, size: int) -> Image.Image:
+    """Load one immutable modular PNG once per process."""
+
+    with Image.open(path_string) as image:
+        image.load()
+        return image.convert("RGBA").copy()
+
+
 def _load_entry_image(project_path: Path, project: dict[str, Any], entry: Mapping[str, Any], *, label: str) -> tuple[Image.Image, Path | None]:
     image_value = entry.get("image")
     if image_value:
         path = _resolve_image_path(project_path, project, str(image_value))
         try:
-            with Image.open(path) as image:
-                image.load()
-                return image.convert("RGBA").copy(), path
+            stamp = path.stat()
+            return _cached_explicit_image(str(path), stamp.st_mtime_ns, stamp.st_size), path
         except (OSError, ValueError, UnicodeError) as error:
             raise AssetHarnessError("MODULAR_IMAGE_UNREADABLE", f"cannot load {label}: {path}: {error}") from error
     source_id = entry.get("source")
@@ -201,6 +210,7 @@ def render_modular(
     *,
     variant: str = "pristine",
     states: Mapping[str, str] | None = None,
+    hidden_components: Iterable[str] = (),
 ) -> tuple[Image.Image, dict[str, Any]]:
     modular = ensure_modular(project)
     normalized_variant = str(variant).strip().lower()
@@ -232,7 +242,13 @@ def render_modular(
             placed = _paste(canvas, image, layer_entry)
             drawn.append({"id": f"lcd.{layer_id}", "state": "static", "path": str(image_path) if image_path else None, **placed})
     selected = {str(key): str(value) for key, value in (states or {}).items()}
+    hidden = {str(component_id) for component_id in hidden_components}
+    skipped: list[str] = []
     for component_id, component in sorted((modular.get("components") or {}).items()):
+        component_id = str(component_id)
+        if component_id in hidden:
+            skipped.append(component_id)
+            continue
         if not isinstance(component, dict):
             raise AssetHarnessError("COMPONENT_INVALID", f"component is not an object: {component_id}")
         state_map = component.get("states") or {}
@@ -252,6 +268,8 @@ def render_modular(
         "height": canvas.height,
         "variant": normalized_variant,
         "states": selected,
+        "hidden_components": sorted(hidden),
+        "skipped_components": skipped,
         "layers": drawn,
         "status": modular.get("status"),
     }

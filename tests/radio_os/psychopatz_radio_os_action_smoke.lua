@@ -2,6 +2,15 @@ local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
 local COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
 package.path = CLIENT .. "?.lua;" .. COMMON .. "?.lua;" .. package.path
 
+getModFileReader = function(_, filename, _)
+    local handle = assert(io.open("Contents/mods/PsychopatzCore/common/"
+        .. filename, "r"))
+    return {
+        readLine = function() return handle:read("*l") end,
+        close = function() handle:close() end,
+    }
+end
+
 package.preload["ISUI/ISButton"] = function() return true end
 package.preload["ISUI/ISContextMenu"] = function() return true end
 package.preload["RadioCom/ISRadioWindow"] = function() return true end

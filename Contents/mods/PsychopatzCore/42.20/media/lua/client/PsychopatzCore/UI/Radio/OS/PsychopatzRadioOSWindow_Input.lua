@@ -43,7 +43,15 @@ function Window:finishPointer()
     self._resizing = false
     setCapture(self, false)
     if wasMoving then self:saveGeometry(true) end
-    self._pressedControl = nil
+    local control = self._pointerControl
+    self._pointerControl = nil
+    if control and not wasMoving and not self._pointerCancelled then
+        self:releaseControl(control)
+    else
+        self._pressedControl = nil
+        self._pttHeld = false
+    end
+    self._pointerCancelled = false
 end
 
 function Window:onMouseMove(dx, dy)
@@ -81,7 +89,11 @@ end
 function Window:onMouseDown(x, y)
     if self._closed then return true end
     local control = self:hitControl(x, y)
-    if control then return self:pressControl(control) end
+    if control then
+        self._pointerControl = control
+        self._pointerCancelled = false
+        return self:pressControl(control)
+    end
 
     local action = self.hitScreenAction and self:hitScreenAction(x, y)
     if action and self.activateScreenAction then
@@ -113,6 +125,7 @@ function Window:onMouseUp()
 end
 
 function Window:onMouseUpOutside()
+    self._pointerCancelled = true
     self:finishPointer()
     return true
 end
@@ -122,20 +135,20 @@ function Window:onKeyPress(key)
         if key == Keyboard.KEY_ESCAPE or key == Keyboard.KEY_BACK then
             self:back()
             return true
-        elseif key == Keyboard.KEY_LEFT then
-            self:pressControl("left")
+elseif key == Keyboard.KEY_LEFT then
+            self:triggerControl("left")
             return true
         elseif key == Keyboard.KEY_RIGHT then
-            self:pressControl("right")
+            self:triggerControl("right")
             return true
         elseif key == Keyboard.KEY_UP then
-            self:moveSelection(-1)
+            self:triggerControl("up")
             return true
         elseif key == Keyboard.KEY_DOWN then
-            self:moveSelection(1)
+            self:triggerControl("down")
             return true
         elseif key == Keyboard.KEY_RETURN or key == Keyboard.KEY_SPACE then
-            self:pressControl("center")
+            self:triggerControl("ok")
             return true
         end
     end
@@ -144,14 +157,14 @@ end
 
 function Window:onJoypadDown(button)
     if Joypad and button == Joypad.AButton then
-        return self:pressControl("center")
+        return self:triggerControl("ok")
     elseif Joypad and button == Joypad.BButton then
         self:back()
         return true
     elseif Joypad and button == Joypad.LBumper then
-        return self:pressControl("left")
+        return self:triggerControl("left")
     elseif Joypad and button == Joypad.RBumper then
-        return self:pressControl("right")
+        return self:triggerControl("right")
     end
     return false
 end

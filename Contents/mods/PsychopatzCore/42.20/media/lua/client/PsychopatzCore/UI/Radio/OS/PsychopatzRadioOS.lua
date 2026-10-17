@@ -18,7 +18,6 @@ pcall(require, "PsychopatzCore/UI/Radio/PsychopatzRadioSignalHost")
 if actionsLoaded and RadioActions and RadioActions.Register
     and not OS._coreRadioActionLoaded
 then
-    local RadioDeviceState = PsychopatzCore.RadioDeviceState
     RadioActions.Register({
         id = "psychopatzcore:radio_os",
         label = T("UI_PsychopatzCore_Radio_Open", "Radio OS"),
@@ -26,10 +25,14 @@ then
         placement = RadioActions.PLACEMENT_SIGNAL
             or "psychopatz.radio.signal",
         order = 5,
-        isAvailable = function(_, window)
-            local data = window and window.deviceData
-            if not data or not RadioDeviceState then return false end
-            return RadioDeviceState.IsActive(data) == true
+        requiresOperational = false,
+        isAvailable = function(player, window)
+            local playerNum = player and player.getPlayerNum
+                and tonumber(player:getPlayerNum())
+                or tonumber(window and window.playerNum) or 0
+            local device = window and (window.device or window.deviceData)
+            local context = OS.GetDeviceContext(playerNum, device)
+            return context ~= nil and context.canOpen == true
         end,
         onClick = function(player, window)
             local playerNum = player and player.getPlayerNum

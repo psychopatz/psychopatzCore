@@ -2,6 +2,16 @@ local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
 local COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
 package.path = CLIENT .. "?.lua;" .. COMMON .. "?.lua;" .. package.path
 
+local function manifestReader(_, filename, _)
+    local handle = assert(io.open("Contents/mods/PsychopatzCore/common/"
+        .. filename, "r"))
+    return {
+        readLine = function() return handle:read("*l") end,
+        close = function() handle:close() end,
+    }
+end
+getModFileReader = manifestReader
+
 local function equal(actual, expected, label)
     if actual ~= expected then
         error((label or "equal") .. ": expected=" .. tostring(expected)
@@ -16,15 +26,15 @@ end
 PsychopatzCore = {}
 dofile(COMMON .. "PsychopatzCore/Radio/PC_RadioDeviceState.lua")
 local Manifest = dofile(CLIENT
-    .. "PsychopatzCore/UI/Radio/OS/PsychopatzRadioManifest.lua")
+    .. "PsychopatzCore/UI/Radio/OS/PsychopatzRadioRuntimeManifest.lua")
 local OS = dofile(CLIENT
     .. "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSRegistry.lua")
 
-local validManifest, manifestErrors = Manifest.Validate()
-truthy(validManifest, table.concat(manifestErrors or {}, ","))
-equal(Manifest.GetSkin("Base.WalkieTalkie5").id,
-    "walkie_usarmy_shell", "manifest skin")
-equal(Manifest.GetSkin("Base.HamRadio1"), nil, "deferred HAM skin")
+truthy(Manifest.loaded and not Manifest.error, "runtime manifest loaded")
+equal(Manifest.GetDevice("Base.WalkieTalkie5").id,
+    "walkie_5", "manifest device")
+equal(Manifest.GetDevice("Base.HamRadio1").id,
+    "ham_1", "all canonical devices loaded")
 
 local device = {
     fullType = "Base.WalkieTalkie5",
@@ -43,7 +53,7 @@ getSpecificPlayer = function() return player end
 local context = assert(OS.GetDeviceContext(0, device))
 equal(context.active, true, "active device")
 equal(context.fullType, "Base.WalkieTalkie5", "device full type")
-equal(context.skin.id, "walkie_usarmy_shell", "device skin")
+equal(context.skin.id, "walkie_5", "device skin")
 
 local appID = "dummy:app"
 local callbackAppID = "dummy:callback"
