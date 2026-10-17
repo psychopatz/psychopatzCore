@@ -5,6 +5,7 @@ require "PsychopatzCore/UI/Conversation/PsychopatzConversationTheme"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationOpacity"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationOpacityControl"
 require "PsychopatzCore/UI/Conversation/PsychopatzConversationRenderDiagnostics"
+local LayoutPointer = require "PsychopatzCore/UI/PsychopatzLayoutPointer"
 
 PsychopatzConversationPart = ISPanel:derive("PsychopatzConversationPart")
 
@@ -136,6 +137,10 @@ end
 
 function PsychopatzConversationPart:setEditMode(enabled)
     self.editMode = enabled == true
+    if not self.editMode and self.layoutPointer then
+        LayoutPointer.Stop(self.layoutPointer)
+        self.layoutPointer = nil
+    end
     self.dragging = false
     self.resizing = false
     self:refreshOpacityControlVisibility()
@@ -219,9 +224,6 @@ end
 
 function PsychopatzConversationPart:onMouseDown(x, y)
     if not self.editMode then return false end
-    self.capture = true
-    self.mouseStartX = getMouseX and getMouseX() or x
-    self.mouseStartY = getMouseY and getMouseY() or y
     self.boundsStart = {
         x = self:getX(),
         y = self:getY(),
@@ -230,30 +232,35 @@ function PsychopatzConversationPart:onMouseDown(x, y)
     }
     self.resizing = x >= self.width - 20 and y >= self.height - 20
     self.dragging = not self.resizing
+    self.layoutPointer = LayoutPointer.Start(x, y, self.resizing)
+    self.capture = LayoutPointer.IsActive(self.layoutPointer)
     return true
 end
 
-function PsychopatzConversationPart:applyPointerMove()
+function PsychopatzConversationPart:applyPointerMove(dx, dy)
     if not self.capture or not self.boundsStart then return false end
-    local mouseX = getMouseX and getMouseX() or self.mouseStartX
-    local mouseY = getMouseY and getMouseY() or self.mouseStartY
-    local dx = mouseX - self.mouseStartX
-    local dy = mouseY - self.mouseStartY
+    local active, movedX, movedY = LayoutPointer.Move(
+        self.layoutPointer, dx, dy)
+    if not active then return false end
     local rootW = self.parent and self.parent:getWidth() or getCore():getScreenWidth()
     local rootH = self.parent and self.parent:getHeight() or getCore():getScreenHeight()
     if self.resizing then
-        self:setWidth(math.max(self.minimumWidth or 160, math.min(rootW - self:getX(), self.boundsStart.w + dx)))
-        self:setHeight(math.max(self.minimumHeight or 100, math.min(rootH - self:getY(), self.boundsStart.h + dy)))
+        self:setWidth(math.max(self.minimumWidth or 160,
+            math.min(rootW - self:getX(), self.boundsStart.w + movedX)))
+        self:setHeight(math.max(self.minimumHeight or 100,
+            math.min(rootH - self:getY(), self.boundsStart.h + movedY)))
         if self.onPartResize then self:onPartResize() end
     else
-        self:setX(math.max(0, math.min(rootW - self.width, self.boundsStart.x + dx)))
-        self:setY(math.max(0, math.min(rootH - self.height, self.boundsStart.y + dy)))
+        self:setX(math.max(0,
+            math.min(rootW - self.width, self.boundsStart.x + movedX)))
+        self:setY(math.max(0,
+            math.min(rootH - self.height, self.boundsStart.y + movedY)))
     end
     return true
 end
 
 function PsychopatzConversationPart:onMouseMove(dx, dy)
-    if self.capture then return self:applyPointerMove() end
+    if self.capture then return self:applyPointerMove(dx, dy) end
     return false
 end
 
@@ -263,6 +270,8 @@ end
 
 function PsychopatzConversationPart:finishPointer()
     if not self.capture then return false end
+    LayoutPointer.Stop(self.layoutPointer)
+    self.layoutPointer = nil
     self.capture = false
     self.dragging = false
     self.resizing = false
@@ -294,6 +303,7 @@ function PsychopatzConversationPart:new(x, y, width, height, options)
     o.minimumHeight = tonumber(options.minimumHeight) or 100
     o.reveal = 0
     o.editMode = false
+    o.layoutPointer = nil
     return o
 end
 

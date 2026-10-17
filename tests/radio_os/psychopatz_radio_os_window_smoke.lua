@@ -1,6 +1,8 @@
 local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
+local COMMON_CLIENT = "Contents/mods/PsychopatzCore/common/media/lua/client/"
 local COMMON = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
-package.path = CLIENT .. "?.lua;" .. COMMON .. "?.lua;" .. package.path
+package.path = CLIENT .. "?.lua;" .. COMMON_CLIENT .. "?.lua;"
+    .. COMMON .. "?.lua;" .. package.path
 
 getModFileReader = function(_, filename, _)
     local handle = assert(io.open("Contents/mods/PsychopatzCore/common/"
@@ -56,6 +58,8 @@ function Base:setX(value) self.x = value end
 function Base:setY(value) self.y = value end
 function Base:setWidth(value) self.width = value end
 function Base:setHeight(value) self.height = value end
+function Base:setMaxDrawHeight(value) self.maxDrawHeight = value end
+function Base:clearMaxDrawHeight() self.maxDrawHeight = nil end
 function Base:getX() return self.x end
 function Base:getY() return self.y end
 function Base:getWidth() return self.width end
@@ -143,6 +147,28 @@ local device = {
 
 local OS = dofile(CLIENT
     .. "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOS.lua")
+
+-- The real layout inspector uses the vanilla ISTextEntryBox.  Keep this
+-- smoke test headless while still exercising the debug-only absolute pixel
+-- path when it is enabled below.
+local TestTextEntry = {}
+TestTextEntry.__index = TestTextEntry
+function TestTextEntry:new(text, x, y, width, height)
+    return setmetatable({ text = tostring(text or ""), x = x, y = y,
+        width = width, height = height, visible = true }, self)
+end
+function TestTextEntry:initialise() end
+function TestTextEntry:instantiate() end
+function TestTextEntry:setMaxTextLength(value) self.maxTextLength = value end
+function TestTextEntry:setVisible(value) self.visible = value end
+function TestTextEntry:getText() return self.text end
+function TestTextEntry:setText(value) self.text = tostring(value or "") end
+function TestTextEntry:isFocused() return false end
+package.preload["ISUI/ISTextEntryBox"] = function()
+    _G.ISTextEntryBox = TestTextEntry
+    return TestTextEntry
+end
+
 local customMoves = 0
 local customSelected = false
 local customScreenSelected = false
@@ -200,7 +226,24 @@ truthy(OS.RegisterContactProvider({
 }), "paged window provider")
 
 local window = assert(OS.Open(0, device, { scale = 0.3 }))
+truthy(window.keepOnScreen == false,
+    "Radio OS root window must allow vanilla-style off-screen coordinates")
+local originalX, originalY = window:getX(), window:getY()
+window:setX(-64)
+window:setY(viewportHeight + 32)
+equal(window:getX(), -64, "root window x can move outside viewport")
+equal(window:getY(), viewportHeight + 32,
+    "root window y can move below viewport")
+window:setX(originalX)
+window:setY(originalY)
 equal(window.page, "home", "initial page")
+truthy(window._presentationVisibleHeight
+    and window._presentationVisibleHeight < window:getHeight(),
+    "immersive presentation records viewport visibility without cropping art")
+equal(window.maxDrawHeight, nil,
+    "immersive clip does not gate engine pointer release")
+truthy(window._radioOSEngineClipDisabled,
+    "engine max-draw input gate is disabled")
 window:prerender()
 window:render()
 truthy((window.draws or 0) >= 5, "atlas rendering")
@@ -222,6 +265,17 @@ for _, line in ipairs(wrapped) do
     truthy(window:textWidth(line) <= 54,
         "wrapped screen text fits its LCD width")
 end
+local powerSwitch = {
+    id = "power",
+    kind = "switch",
+    states = { off = {}, on = {}, pressed = {} },
+}
+window.context.powered = false
+equal(window:componentState(powerSwitch), "off",
+    "power switch renders its off state")
+window.context.powered = true
+equal(window:componentState(powerSwitch), "on",
+    "power switch preserves its on state")
 local powerRect = window:controlRect("power")
 window:onMouseDown(powerRect.x + 1, powerRect.y + 1)
 equal(device.powered, true, "power waits for pointer release")
@@ -238,19 +292,26 @@ local function firstEvent(kind, start)
     return nil
 end
 truthy(firstEvent("texture") ~= nil, "authored modular layers are rendered")
+local staticShellEvent
 local glassEvent
 local firstTextEvent = firstEvent("text")
 for index = 1, #window.events do
     local event = window.events[index]
     if event.kind == "texture" and event.path
+        and string.find(event.path, "/Shell/Pristine.png", 1, true)
+    then
+        staticShellEvent = index
+        break
+    end
+    if event.kind == "texture" and event.path
         and string.find(event.path, "/LCD/Glass.png", 1, true)
     then
         glassEvent = index
-        break
     end
 end
-truthy(glassEvent and firstTextEvent and glassEvent < firstTextEvent,
-    "LCD glass is composited below dynamic screen text")
+truthy((staticShellEvent or glassEvent) and firstTextEvent
+    and (staticShellEvent or glassEvent) < firstTextEvent,
+    "static shell/glass is composited below dynamic screen text")
 local stencilOn = firstEvent("stencil_on")
 local stencilOff = firstEvent("stencil_off")
 truthy(stencilOn and stencilOff and stencilOn < stencilOff,
@@ -260,18 +321,20 @@ truthy(window:lcdBackdropRect().w >= window:screenRect().w,
 truthy(window:lcdBackdropRect().h >= window:screenRect().h,
     "LCD aperture height contains content viewport")
 local shellEvent
-for index = 1, stencilOn do
+for index = 1, stencilOff do
     local event = window.events[index]
-    if (event.kind == "texture" or event.kind == "sprite")
-        and event.path
-        and string.find(event.path, "Base.WalkieTalkie5/Chassis/Pristine.png", 1, true)
+        if (event.kind == "texture" or event.kind == "sprite")
+            and event.path
+            and (string.find(event.path, "Base.WalkieTalkie5/Chassis/Pristine.png", 1, true)
+                or string.find(event.path, "Base.WalkieTalkie5/Shell/Pristine.png", 1, true))
     then
         shellEvent = index
         break
     end
 end
-truthy(shellEvent and shellEvent < stencilOn,
-    "shell is composited before clipped content")
+truthy(shellEvent and stencilOn and stencilOff
+    and shellEvent < stencilOn and stencilOn < stencilOff,
+    "full shell is composited before the LCD-only content stencil")
 local integerScreen = window:screenRect()
 truthy(integerScreen.x == math.floor(integerScreen.x)
     and integerScreen.y == math.floor(integerScreen.y)
@@ -301,19 +364,121 @@ window.homeIndex = settingsIndex
 truthy(window:openSelectedApp(), "settings app opens")
 equal(window.page, "settings", "settings page")
 local settingsScale = window.scale
-window.settingsIndex = 1
+window.settingsIndex = 2
 truthy(window:select(), "zoom in action")
 truthy(window.scale > settingsScale, "zoom in changes scale")
-window.settingsIndex = 2
+window.settingsIndex = 3
 truthy(window:select(), "zoom out action")
 near(window.scale, settingsScale, 0.001, "zoom out restores scale")
-window.settingsIndex = 4
+window.settingsIndex = 5
 truthy(window:select(), "fit action")
 equal(window.scale, window.maxScale, "fit uses viewport maximum")
-window.settingsIndex = 3
+window.settingsIndex = 4
 truthy(window:select(), "reset action")
 near(window.scale, Geometry.GetPreferredScale(1280, 900, 1024, 1535), 0.001,
     "reset uses responsive default")
+local savedXBeforeEditor, savedYBeforeEditor = window:getX(), window:getY()
+window.settingsIndex = 1
+truthy(window:select(), "layout editor action")
+truthy(window._layoutEditor and not window._layoutEditor.closed,
+    "layout editor opens from radio settings")
+local editor = window._layoutEditor
+editor:prerender()
+local editorControls = editor:controlRects()
+truthy(editorControls.save and editorControls.cancel and editorControls.reset,
+    "layout editor exposes save/cancel/reset controls")
+truthy(not editorControls.close,
+    "runtime radio layout editor does not expose a misleading close X")
+truthy(not editorControls.applyXY,
+    "absolute pixel inspector is debug-only")
+truthy((editor.textDraws or 0) >= 4,
+    "layout editor renders conversation-style labels")
+
+local debugSettings = PsychopatzCore.DebugSettings
+truthy(debugSettings.Set(OS.Diagnostics.LAYOUT_INSPECTOR_SETTING, true, false),
+    "layout inspector can be staged")
+truthy(debugSettings.ApplyConfigured(),
+    "layout inspector can be applied live")
+editor:prerender()
+local inspectorControls = editor:controlRects()
+truthy(inspectorControls.applyXY and editor.inspectorEntries,
+    "debug layout inspector exposes absolute pixel inputs")
+editor.inspectorEntries.x:setText("-42")
+editor.inspectorEntries.y:setText(tostring(viewportHeight + 36))
+truthy(editor:applyInspectorPosition(),
+    "absolute pixel inspector applies coordinates")
+equal(window:getX(), -42, "absolute pixel inspector preserves negative x")
+equal(window:getY(), viewportHeight + 36,
+    "absolute pixel inspector preserves below-viewport y")
+truthy(debugSettings.Set(OS.Diagnostics.LAYOUT_INSPECTOR_SETTING, false, false),
+    "layout inspector can be disabled live")
+truthy(debugSettings.ApplyConfigured(),
+    "disabled layout inspector can be applied live")
+editor:prerender()
+truthy(not editor:controlRects().applyXY,
+    "layout inspector controls disappear when disabled")
+local frame = editor:frameRect()
+local originalX, originalY = window:getX(), window:getY()
+local maxEditorX, maxEditorY = window:layoutEditorBounds()
+truthy(maxEditorX == viewportWidth - window:getWidth()
+    and maxEditorY == viewportHeight - window:layoutEditorGrip(),
+    "layout editor keeps only a recoverable grip inside the viewport")
+editor:onMouseDown(frame.x + 20, frame.y + 20)
+editor:onMouseMove(18, 22)
+editor:onMouseUp()
+truthy(window:getX() ~= originalX or window:getY() ~= originalY,
+    "layout editor drag moves the live radio surface")
+editor:perform("cancel")
+truthy(not window._layoutEditor and not window._layoutEditing,
+    "layout editor cancel restores radio interaction")
+truthy(window:getX() == savedXBeforeEditor
+    and window:getY() == savedYBeforeEditor,
+    "layout editor cancel restores the saved docked radio position")
+truthy(window:openLayoutEditor(), "layout editor reopens for resize")
+editor = window._layoutEditor
+frame = editor:frameRect()
+local _, editorMaxY = window:layoutEditorBounds()
+editor:onMouseDown(frame.x + 20, frame.y + 20)
+editor:onMouseMove(0, editorMaxY - frame.y + 40)
+editor:onMouseUp()
+equal(window:getY(), editorMaxY,
+    "layout editor permits the authored surface to cross the viewport edge")
+editor:perform("save")
+truthy(window.dockBottomOffset < 0,
+    "layout editor persists a signed below-viewport dock offset")
+truthy(window:openLayoutEditor(), "layout editor reopens after off-screen crop")
+editor = window._layoutEditor
+frame = editor:frameRect()
+equal(window:getY(), editorMaxY,
+    "off-screen chassis crop survives reopening the layout editor")
+editor:perform("cancel")
+truthy(window:openLayoutEditor(), "layout editor reopens for crop adjustment")
+editor = window._layoutEditor
+frame = editor:frameRect()
+local cropStartY = window:getY()
+editor:onMouseDown(frame.x + 20, frame.y + 20)
+editor:onMouseMove(0, -800)
+editor:onMouseUp()
+truthy(window:getY() < cropStartY,
+    "layout editor vertical drag changes the visible chassis crop")
+local croppedY = window:getY()
+editor:perform("save")
+truthy(window:getY() == croppedY and window.dockBottomOffset > 0,
+    "layout editor save persists the chosen chassis crop")
+truthy(window:openLayoutEditor(), "layout editor reopens after crop preview")
+editor = window._layoutEditor
+frame = editor:frameRect()
+local originalWidth = window:getWidth()
+local resizeHandle = editor:resizeHandleRect(frame)
+truthy(resizeHandle, "layout editor exposes visible resize handle")
+editor:onMouseDown(resizeHandle.x + 5, resizeHandle.y + 5)
+editor:onMouseMove(40, 20)
+editor:onMouseUp()
+truthy(window:getWidth() > originalWidth,
+    "layout editor bright corner resizes the live radio surface")
+editor:perform("save")
+truthy(not window._layoutEditor and not window._layoutEditing,
+    "layout editor save commits and closes the editor")
 window:back()
 equal(window.page, "home", "settings back navigation")
 window.homeIndex = 1
@@ -325,9 +490,10 @@ OS.SetCompositorDebug(false)
 viewportWidth, viewportHeight = 1280, 720
 window:prerender()
 equal(window.maxScale, maximum720, "resolution change updates max scale")
-truthy(window:getX() + window:getWidth() <= viewportWidth
-    and window:getY() + window:getHeight() <= viewportHeight,
-    "resolution change clamps radio into viewport")
+truthy(window:getY() + window:visibleBodyBottom() <= viewportHeight + 1
+    and window:getY() + window:visibleBodyBottom()
+        >= viewportHeight - window.dockBottomOffset - 1,
+    "resolution change preserves immersive dock body anchor")
 viewportWidth, viewportHeight = 1920, 1080
 window:prerender()
 equal(window.maxScale, maximum1080, "larger resolution restores scale ceiling")
@@ -375,12 +541,51 @@ truthy(window:getX() ~= beforeX or window:getY() ~= beforeY,
     "shell drag moves the window")
 
 local beforeScale = window.scale
+truthy(window:beginLayoutEdit(), "layout editor mode starts")
 window:onMouseDown(window:getWidth() - 2, window:getHeight() - 2)
 window:onMouseMove(24, 24)
 window:onMouseUp()
 truthy(window.scale > beforeScale, "resize grip changes uniform scale")
 near(window:getWidth() / window:getHeight(), 1024 / 1535, 0.01,
     "resize preserves shell aspect ratio")
+truthy(window:commitLayoutEdit(), "layout editor mode commits")
+
+local dockX = window:getX()
+window:onMouseDown(10, 200)
+window:onMouseMove(24, 0)
+window:onMouseUp()
+truthy(window:getX() ~= dockX,
+    "immersive drag moves horizontally while docked")
+
+window:onMouseDown(10, 200)
+window:onMouseMove(0, window:hiddenPositionY() - window:getY())
+window:onMouseUp()
+for _ = 1, 40 do window:stepPresentation() end
+truthy(window.presentationState == "hidden" and not window:getIsVisible(),
+    "downward drag hides the radio")
+
+-- A release below the visual clip must still reach Lua.  Recreate the
+-- failure that previously left _dragging=true, then verify hover motion is
+-- harmless and the stale state is recovered rather than moving the window.
+window = assert(OS.Open(0, device))
+window.presentationState = "docked"
+window:applyDockPosition()
+local staleX, staleY = window:getX(), window:getY()
+window._dragging = true
+window._pointerDown = false
+window:onMouseMove(80, 80)
+equal(window:getX(), staleX, "hover cannot move a stale drag")
+equal(window:getY(), staleY, "hover cannot move a stale drag vertically")
+equal(window._dragging, false, "stale drag is recovered")
+local reopenedHidden = assert(OS.Open(0, device))
+truthy(reopenedHidden == window and reopenedHidden:getIsVisible(),
+    "opening a hidden radio reuses and reveals it")
+truthy(reopenedHidden.chromeRect == nil,
+    "device does not expose a close chrome")
+reopenedHidden:back()
+equal(OS.GetOpenWindow(0), reopenedHidden,
+    "Back on home does not close the device")
+window = assert(OS.Open(0, device))
 local savedX, savedY, savedScale = window:getX(), window:getY(), window.scale
 window:close()
 equal(OS.GetOpenWindow(0), nil, "window cleanup")
@@ -403,6 +608,32 @@ equal(firstSkinAgain:getX(), savedX,
 equal(firstSkinAgain.scale, savedScale,
     "radio scale is scoped by device skin")
 firstSkinAgain:close()
+
+local animated = assert(OS.Open(0, device, { scale = 0.3 }))
+animated:showImmersive({ animate = false })
+local animatedDockY = animated:getY()
+local animatedHeight = animated:getHeight()
+animated:beginPresentationDrag(40, animatedDockY + 20)
+animated:trackPresentationDrag(0, 100000)
+truthy(animated:getY() > animatedDockY,
+    "swipe moves the complete radio surface toward the viewport bottom")
+animated:finishPresentationDrag()
+equal(animated.presentationState, "hiding",
+    "downward swipe enters the hiding animation")
+local animationSteps = 0
+while animated.presentationState == "hiding" and animationSteps < 40 do
+    animated:stepPresentation()
+    animationSteps = animationSteps + 1
+end
+equal(animated.presentationState, "hidden",
+    "hiding animation reaches the hidden state")
+truthy(not animated:getIsVisible(),
+    "radio becomes invisible only after the slide-away animation")
+truthy(animated:getY() >= viewportHeight
+    and animated:getHeight() == animatedHeight,
+    "slide-away keeps the full art dimensions and ends below the viewport")
+animated:showImmersive({ animate = false })
+animated:close()
 
 local host = { visible = true }
 function host:setVisible(value) self.visible = value end

@@ -126,6 +126,7 @@ local function normalizeDevice(raw)
         },
         lcd = {},
         chassis = {},
+        shell = {},
         lcd_layers = {},
         interaction = raw.interaction or {},
         components = {},
@@ -138,6 +139,8 @@ local function normalizeDevice(raw)
         local source = (raw.chassis or {})[variant]
         local normalized = normalizeLayer(source)
         if normalized then device.chassis[variant] = normalized end
+        local shell = normalizeLayer((raw.shell or {})[variant])
+        if shell then device.shell[variant] = shell end
     end
     for _, layerName in ipairs({ "matte", "glass", "bezel_overlay" }) do
         local normalized = normalizeLayer((raw.lcd_layers or {})[layerName])

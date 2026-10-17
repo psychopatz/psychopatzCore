@@ -53,7 +53,7 @@ class RuntimeManifestTests(unittest.TestCase):
             ["back", "down", "home", "left", "ok", "power", "right", "up"],
         )
         hidden = {component["id"] for component in device["components"] if not component["visible"]}
-        self.assertTrue({"channel", "ptt", "volume"}.issubset(hidden))
+        self.assertEqual(hidden, {"ptt"})
         self.assertEqual(next(item for item in device["components"] if item["id"] == "power")["action"], "power")
 
     def test_output_is_deterministic(self) -> None:
@@ -61,6 +61,20 @@ class RuntimeManifestTests(unittest.TestCase):
         second = manifest_json(compile_runtime_manifest(PROJECT_ROOT))
         self.assertEqual(first, second)
         self.assertEqual(json.loads(first)["manifest_kind"], RUNTIME_MANIFEST_KIND)
+
+    def test_optimized_runtime_assets_preserve_canvas_positions(self) -> None:
+        manifest = compile_runtime_manifest(
+            PROJECT_ROOT,
+            device_id="walkie_5",
+            optimize_assets=True,
+        )
+        device = manifest["devices"][0]
+        self.assertEqual(set(device["shell"]), {"pristine", "worn"})
+        power = next(item for item in device["components"] if item["id"] == "power")
+        idle = power["states"]["idle"]
+        self.assertIn("/Optimized/Components/power/", idle["image"])
+        self.assertGreater(idle["x"], 0)
+        self.assertGreater(idle["y"], 0)
 
 
 if __name__ == "__main__":

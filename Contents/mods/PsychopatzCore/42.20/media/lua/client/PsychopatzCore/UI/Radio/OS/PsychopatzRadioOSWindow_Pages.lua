@@ -14,6 +14,8 @@ local function tr(key, fallback)
 end
 
 local SETTINGS_ACTIONS = {
+    { id = "layout", icon = "icon_settings",
+        key = "UI_PsychopatzCore_Radio_ChangeLayout", fallback = "CHANGE LAYOUT" },
     { id = "zoom_in", icon = "icon_plus",
         key = "UI_PsychopatzCore_Radio_ZoomIn", fallback = "ZOOM +" },
     { id = "zoom_out", icon = "icon_minus",
@@ -22,6 +24,10 @@ local SETTINGS_ACTIONS = {
         key = "UI_PsychopatzCore_Radio_ResetZoom", fallback = "RESET ZOOM" },
     { id = "fit", icon = "icon_settings",
         key = "UI_PsychopatzCore_Radio_FitScreen", fallback = "FIT SCREEN" },
+    { id = "show_more", icon = "icon_plus",
+        key = "UI_PsychopatzCore_Radio_ShowMore", fallback = "SHOW MORE BODY" },
+    { id = "show_less", icon = "icon_minus",
+        key = "UI_PsychopatzCore_Radio_ShowLess", fallback = "HIDE MORE BODY" },
 }
 
 function Window:drawHome()

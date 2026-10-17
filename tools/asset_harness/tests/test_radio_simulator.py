@@ -286,7 +286,7 @@ class RadioSimulatorTests(unittest.TestCase):
             metadata = payload["data"]["metadata"]
             self.assertEqual(metadata["variant_art_status"], "modular_project_preview")
             self.assertTrue(metadata["source"].endswith("/Chassis/Pristine.png"))
-            self.assertEqual(metadata["skipped_components"], ["channel", "ptt", "volume"])
+            self.assertEqual(metadata["skipped_components"], ["ptt"])
             self.assertEqual(
                 {layer["id"] for layer in metadata["layers"]} & {"channel", "ptt", "volume"},
                 set(),

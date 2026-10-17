@@ -70,8 +70,6 @@ REQUIRED_SEMANTIC_COMPONENTS = (
     "ok",
     "ptt",
     "power",
-    "volume",
-    "channel",
     "pwr_led",
     "rx_led",
     "tx_led",
@@ -550,7 +548,7 @@ def _manual_reconstruction_record(
                 "id": "component_state_art",
                 "status": gate_status(bool(authored_components), all(item.get("reviewed") for item in authored_components)),
                 "reason": None if authored_components else "COMPONENT_STATE_ART_PENDING",
-                "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+                "requirement": "independent controls, states, LEDs, and LCD layers",
             },
             {
                 "id": "reconstruction_review",
@@ -592,7 +590,7 @@ def _manual_reconstruction_record(
                 "id": "component_state_art",
                 "status": "blocked",
                 "reason": reason,
-                "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+                "requirement": "independent controls, states, LEDs, and LCD layers",
             },
             {
                 "id": "reconstruction_review",
@@ -1095,7 +1093,7 @@ def write_radio_pilot_acceptance_artifacts(report: dict[str, Any], output_root: 
         "Pristine chassis preserves the complete W5 silhouette and design.",
         "Worn chassis is a separately authored condition, not a crop or filter.",
         "Socket masks are pixel-tight and do not select transparent exterior pixels or neighbors.",
-        "Back/Home/Up/Down/Left/Right/OK, PTT, Power, Volume, and Channel are independently authored.",
+        "Back/Home/Up/Down/Left/Right/OK, PTT, and Power are independently authored.",
         "PWR/RX/TX LEDs and LCD glass/bezel have reviewed off/on or idle/held state evidence.",
         "A reviewed source-to-idle diff documents reconstruction fidelity at full resolution.",
     ]

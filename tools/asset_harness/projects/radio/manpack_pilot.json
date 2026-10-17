@@ -90,56 +90,6 @@
       "status": "proposed",
       "width": 1024
     },
-    "channel_face": {
-      "bytes": 10562,
-      "declared_bounds": [
-        690,
-        795,
-        145,
-        190
-      ],
-      "height": 1536,
-      "method": "derived_proposal",
-      "nonzero_bounds": [
-        690,
-        795,
-        145,
-        190
-      ],
-      "path": "tools/asset_harness/workspace/radio/vh4/manpack/masks/channel_face.png",
-      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
-      "review": {
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "134f3b9799cb0c6ee619a2bc9436fd380a6419e13067340c19adb20d4c22433f",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
-    },
-    "channel_socket": {
-      "bytes": 10415,
-      "height": 1536,
-      "method": "derived_proposal",
-      "nonzero_bounds": [
-        686,
-        791,
-        153,
-        198
-      ],
-      "path": "tools/asset_harness/workspace/radio/vh4/manpack/masks/channel_socket.png",
-      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
-      "review": {
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "37f36ce46e248ccb9652610a99f98a4fc32eb06abcf1b0c88b6ad16bcc5c41d0",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
-    },
     "chassis_socket": {
       "bytes": 15647,
       "height": 1536,
@@ -845,56 +795,6 @@
       "source": "canonical",
       "status": "proposed",
       "width": 1024
-    },
-    "volume_face": {
-      "bytes": 10366,
-      "declared_bounds": [
-        700,
-        650,
-        130,
-        125
-      ],
-      "height": 1536,
-      "method": "derived_proposal",
-      "nonzero_bounds": [
-        700,
-        650,
-        130,
-        125
-      ],
-      "path": "tools/asset_harness/workspace/radio/vh4/manpack/masks/volume_face.png",
-      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
-      "review": {
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "2d7d41e8ede0ba29c7d248f092083ee725865b6ec730ad9d060988af29521bb1",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
-    },
-    "volume_socket": {
-      "bytes": 10350,
-      "height": 1536,
-      "method": "derived_proposal",
-      "nonzero_bounds": [
-        696,
-        646,
-        138,
-        133
-      ],
-      "path": "tools/asset_harness/workspace/radio/vh4/manpack/masks/volume_socket.png",
-      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
-      "review": {
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "42efbe78fb9b59050d367847eab1824a80eb0fec6eb43d9ba5c2c05308692fa0",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
     }
   },
   "modular": {
@@ -904,10 +804,6 @@
           "back_center": [
             346,
             910
-          ],
-          "channel_center": [
-            762,
-            890
           ],
           "device_center": [
             512,
@@ -960,10 +856,6 @@
           "up_center": [
             477,
             872
-          ],
-          "volume_center": [
-            765,
-            712
           ]
         },
         "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Chassis/Pristine.png",
@@ -981,10 +873,6 @@
             346,
             910
           ],
-          "channel_center": [
-            762,
-            890
-          ],
           "device_center": [
             512,
             768
@@ -1036,10 +924,6 @@
           "up_center": [
             477,
             872
-          ],
-          "volume_center": [
-            765,
-            712
           ]
         },
         "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Chassis/Worn.png",
@@ -1083,51 +967,6 @@
             "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Buttons/Back/Pressed.png",
             "x": 300,
             "y": 860
-          }
-        },
-        "status": "proposed"
-      },
-      "channel": {
-        "action": "channel_up",
-        "detents": 4,
-        "hitbox": [
-          690,
-          795,
-          145,
-          190
-        ],
-        "kind": "rotary",
-        "mask": "channel_face",
-        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
-        "pivot": [
-          762,
-          890
-        ],
-        "review": {
-          "reviewed": false,
-          "reviewed_by": null
-        },
-        "socket_mask": "channel_socket",
-        "states": {
-          "frame_00": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Channel/Frame_00.png",
-            "x": 690,
-            "y": 795
-          },
-          "frame_01": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Channel/Frame_01.png",
-            "x": 690,
-            "y": 795
-          },
-          "frame_02": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Channel/Frame_02.png",
-            "x": 690,
-            "y": 795
-          },
-          "frame_03": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Channel/Frame_03.png",
-            "x": 690,
-            "y": 795
           }
         },
         "status": "proposed"
@@ -1510,51 +1349,6 @@
           }
         },
         "status": "proposed"
-      },
-      "volume": {
-        "action": "volume_up",
-        "detents": 4,
-        "hitbox": [
-          700,
-          650,
-          130,
-          125
-        ],
-        "kind": "rotary",
-        "mask": "volume_face",
-        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
-        "pivot": [
-          765,
-          712
-        ],
-        "review": {
-          "reviewed": false,
-          "reviewed_by": null
-        },
-        "socket_mask": "volume_socket",
-        "states": {
-          "frame_00": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Volume/Frame_00.png",
-            "x": 700,
-            "y": 650
-          },
-          "frame_01": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Volume/Frame_01.png",
-            "x": 700,
-            "y": 650
-          },
-          "frame_02": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Volume/Frame_02.png",
-            "x": 700,
-            "y": 650
-          },
-          "frame_03": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Volume/Frame_03.png",
-            "x": 700,
-            "y": 650
-          }
-        },
-        "status": "proposed"
       }
     },
     "lcd_layers": {
@@ -1584,8 +1378,6 @@
       "ok",
       "ptt",
       "power",
-      "volume",
-      "channel",
       "pwr_led",
       "rx_led",
       "tx_led",
@@ -1623,14 +1415,6 @@
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Buttons/Up/Pressed.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Chassis/Pristine.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Chassis/Worn.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Channel/Frame_00.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Channel/Frame_01.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Channel/Frame_02.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Channel/Frame_03.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Volume/Frame_00.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Volume/Frame_01.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Volume/Frame_02.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/Knobs/Volume/Frame_03.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/LCD/BezelOverlay.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/LCD/Glass.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/ManPack/Base.ManPackRadio/LCD/Matte.png",

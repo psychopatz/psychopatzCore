@@ -13,8 +13,16 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .errors import AssetHarnessError
-from .paths import parse_rect, rect_inside, rect_overlap, resolve_reference
-from .project import load_project, project_workspace
+from .paths import (
+    atomic_write_bytes,
+    ensure_within,
+    parse_rect,
+    rect_inside,
+    rect_overlap,
+    relative_reference,
+    resolve_reference,
+)
+from .project import canonical_radio_device_path, load_project, project_workspace
 
 
 RUNTIME_MANIFEST_SCHEMA_VERSION = 2
@@ -30,7 +38,7 @@ DEFAULT_INTERACTIVE_CONTROLS = (
     "right",
     "up",
 )
-DEFAULT_HIDDEN_COMPONENTS = ("channel", "ptt", "volume")
+DEFAULT_HIDDEN_COMPONENTS = ("ptt",)
 
 UI_ICON_NAMES = (
     ("contacts", "radio_call", "trade", "dossier", "scan", "home", "back", "settings"),
@@ -214,6 +222,201 @@ def _layer_entry(
     }
 
 
+def _runtime_image_path(
+    project_path: Path,
+    project: Mapping[str, Any],
+    entry: Mapping[str, Any],
+    *,
+    label: str,
+) -> Path:
+    """Resolve an already-compiled ``media/ui/...`` image back to disk."""
+
+    image = entry.get("image")
+    if not isinstance(image, str) or not image.strip():
+        raise AssetHarnessError("RUNTIME_ASSET_MISSING", f"{label} has no compiled image path")
+    workspace = project_workspace(project_path, project)
+    runtime_root_value = str(
+        (project.get("export") or {}).get("runtime_root")
+        or "Contents/mods/PsychopatzCore/common/media/ui"
+    )
+    runtime_root = resolve_reference(workspace, runtime_root_value)
+    prefix = "media/ui/"
+    relative = image[len(prefix):] if image.startswith(prefix) else image
+    return resolve_reference(runtime_root, relative, must_exist=True)
+
+
+def _write_composited_shell(
+    project_path: Path,
+    project: Mapping[str, Any],
+    *,
+    device_id: str,
+    variant: str,
+    canvas_width: int,
+    canvas_height: int,
+    layers: list[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Bake static chassis/LCD artwork into one runtime texture.
+
+    This is a derived runtime cache, not a second authoring source.  The
+    canonical pilot still owns every input layer; the Lua renderer simply gets
+    one equivalent static draw instead of decoding and drawing several full
+    canvases every frame.
+    """
+
+    try:
+        from io import BytesIO
+
+        from PIL import Image
+    except ImportError as error:  # pragma: no cover - Pillow is a harness dependency
+        raise AssetHarnessError("PIL_UNAVAILABLE", "Pillow is required to optimize runtime radio assets") from error
+
+    workspace = project_workspace(project_path, project)
+    export = project.get("export") or {}
+    runtime_root_value = str(
+        export.get("runtime_root") or "Contents/mods/PsychopatzCore/common/media/ui"
+    )
+    runtime_root = resolve_reference(workspace, runtime_root_value)
+    device_path = str(
+        export.get("device_path")
+        or canonical_radio_device_path(
+            str((project.get("device") or {}).get("family") or "radio"),
+            str((project.get("device") or {}).get("model") or device_id),
+        )
+    )
+    output = ensure_within(
+        workspace,
+        runtime_root / device_path / "Shell" / f"{variant.capitalize()}.png",
+        code="RUNTIME_ASSET_OUTSIDE_WORKSPACE",
+    )
+
+    composite = Image.new("RGBA", (canvas_width, canvas_height), (0, 0, 0, 0))
+    for index, layer in enumerate(layers):
+        source = _runtime_image_path(
+            project_path,
+            project,
+            layer,
+            label=f"{device_id}.{variant}.shell.{index}",
+        )
+        with Image.open(source) as opened:
+            image = opened.convert("RGBA")
+        composite.alpha_composite(
+            image,
+            (int(layer.get("x", 0)), int(layer.get("y", 0))),
+        )
+
+    buffer = BytesIO()
+    composite.save(buffer, format="PNG", optimize=False, compress_level=6)
+    atomic_write_bytes(output, buffer.getvalue())
+    return {
+        "image": "media/ui/" + relative_reference(output, runtime_root),
+        "x": 0,
+        "y": 0,
+    }
+
+
+def _compile_shells(
+    project_path: Path,
+    project: Mapping[str, Any],
+    *,
+    device_id: str,
+    canvas_width: int,
+    canvas_height: int,
+    chassis: Mapping[str, Mapping[str, Any]],
+    lcd_layers: Mapping[str, Mapping[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    """Generate static shell entries for variants that have authored layers."""
+
+    shells: dict[str, dict[str, Any]] = {}
+    for variant in ("pristine", "worn"):
+        layers: list[Mapping[str, Any]] = [chassis[variant]]
+        for layer_name in ("matte", "glass", "bezel_overlay"):
+            layer = lcd_layers.get(layer_name)
+            if layer is not None:
+                layers.append(layer)
+        shells[variant] = _write_composited_shell(
+            project_path,
+            project,
+            device_id=device_id,
+            variant=variant,
+            canvas_width=canvas_width,
+            canvas_height=canvas_height,
+            layers=layers,
+        )
+    return shells
+
+
+def _safe_asset_segment(value: str) -> str:
+    """Keep generated cache paths deterministic and confined to one directory."""
+
+    return "".join(
+        character if character.isalnum() or character in "-_." else "_"
+        for character in str(value)
+    ) or "asset"
+
+
+def _optimize_component_state(
+    project_path: Path,
+    project: Mapping[str, Any],
+    entry: Mapping[str, Any],
+    *,
+    device_id: str,
+    component_id: str,
+    state_name: str,
+    canvas_width: int,
+    canvas_height: int,
+) -> dict[str, Any]:
+    """Crop a full-canvas component while retaining its original position."""
+
+    image_path = _runtime_image_path(
+        project_path,
+        project,
+        entry,
+        label=f"{device_id}.{component_id}.{state_name}",
+    )
+    try:
+        from io import BytesIO
+
+        from PIL import Image
+    except ImportError as error:  # pragma: no cover - Pillow is a harness dependency
+        raise AssetHarnessError("PIL_UNAVAILABLE", "Pillow is required to optimize runtime radio assets") from error
+
+    with Image.open(image_path) as opened:
+        if opened.size != (canvas_width, canvas_height):
+            return dict(entry)
+        image = opened.convert("RGBA")
+    bbox = image.getbbox()
+    if not bbox or bbox == (0, 0, canvas_width, canvas_height):
+        return dict(entry)
+
+    workspace = project_workspace(project_path, project)
+    export = project.get("export") or {}
+    runtime_root_value = str(
+        export.get("runtime_root") or "Contents/mods/PsychopatzCore/common/media/ui"
+    )
+    runtime_root = resolve_reference(workspace, runtime_root_value)
+    device_path = str(export.get("device_path") or "Radio/" + _safe_asset_segment(device_id))
+    output = ensure_within(
+        workspace,
+        runtime_root
+        / device_path
+        / "Optimized"
+        / "Components"
+        / _safe_asset_segment(component_id)
+        / f"{_safe_asset_segment(state_name)}.png",
+        code="RUNTIME_ASSET_OUTSIDE_WORKSPACE",
+    )
+    cropped = image.crop(bbox)
+    buffer = BytesIO()
+    cropped.save(buffer, format="PNG", optimize=False, compress_level=6)
+    atomic_write_bytes(output, buffer.getvalue())
+
+    result = dict(entry)
+    result["image"] = "media/ui/" + relative_reference(output, runtime_root)
+    result["x"] = int(entry.get("x", 0)) + bbox[0]
+    result["y"] = int(entry.get("y", 0)) + bbox[1]
+    return result
+
+
 def _compile_ui_manifest(
     project_path: Path,
     project: Mapping[str, Any],
@@ -240,7 +443,12 @@ def _compile_ui_manifest(
     }
 
 
-def _compile_device(project_path: Path, project: Mapping[str, Any]) -> dict[str, Any]:
+def _compile_device(
+    project_path: Path,
+    project: Mapping[str, Any],
+    *,
+    optimize_assets: bool = False,
+) -> dict[str, Any]:
     device = project.get("device") or {}
     if not isinstance(device, Mapping):
         raise AssetHarnessError("RUNTIME_DEVICE_INVALID", f"device must be an object: {project_path}")
@@ -310,6 +518,20 @@ def _compile_device(project_path: Path, project: Mapping[str, Any]) -> dict[str,
             )
             for state_name, state in sorted(states_source.items(), key=lambda item: str(item[0]))
         }
+        if optimize_assets:
+            states = {
+                state_name: _optimize_component_state(
+                    project_path,
+                    project,
+                    state,
+                    device_id=device_id,
+                    component_id=component_id,
+                    state_name=state_name,
+                    canvas_width=width,
+                    canvas_height=height,
+                )
+                for state_name, state in states.items()
+            }
         kind = str(source.get("kind") or "momentary").lower()
         is_interactive = component_id in interactive and kind != "led" and component_id not in hidden
         component: dict[str, Any] = {
@@ -339,7 +561,7 @@ def _compile_device(project_path: Path, project: Mapping[str, Any]) -> dict[str,
                     f"{device_id} interactive hitboxes overlap: {first['id']} and {second['id']}",
                 )
 
-    return {
+    result = {
         "id": device_id,
         "family": str(device.get("family") or "radio"),
         "model": str(device.get("model") or full_type),
@@ -355,12 +577,24 @@ def _compile_device(project_path: Path, project: Mapping[str, Any]) -> dict[str,
         "interaction": policy,
         "components": components,
     }
+    if optimize_assets:
+        result["shell"] = _compile_shells(
+            project_path,
+            project,
+            device_id=device_id,
+            canvas_width=width,
+            canvas_height=height,
+            chassis=chassis,
+            lcd_layers=lcd_layers,
+        )
+    return result
 
 
 def compile_runtime_manifest(
     project_root: Path,
     *,
     device_id: str | None = None,
+    optimize_assets: bool = False,
 ) -> dict[str, Any]:
     """Compile every canonical pilot, or one selected pilot, deterministically."""
 
@@ -378,7 +612,7 @@ def compile_runtime_manifest(
         raise AssetHarnessError("RUNTIME_PROJECT_NOT_FOUND", f"no canonical pilot found in {project_root}")
     first_project = load_project(paths[0])
     devices = [
-        _compile_device(path, load_project(path))
+        _compile_device(path, load_project(path), optimize_assets=optimize_assets)
         for path in paths
     ]
     full_types = [device["fullType"] for device in devices]

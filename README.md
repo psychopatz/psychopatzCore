@@ -9,6 +9,12 @@ PYTHONPATH=tools python3 tools/asset_harness/cli.py runtime-manifest \
   --out Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceManifest.json
 ```
 
+That build also emits derived runtime textures under each device's `Shell/`
+and `Optimized/Components/` directories. They are generated from the canonical
+pilot layers and positions; they are not a second device definition. In
+particular, full-canvas transparent button/LED states are cropped while their
+original canvas coordinates remain in `DeviceManifest.json`.
+
 The retired atlas/source-catalog viewer is not part of the supported workflow. See [`Docs/radio_os/CORE_RADIO_OS_INTERACTION_ROADMAP.md`](Docs/radio_os/CORE_RADIO_OS_INTERACTION_ROADMAP.md) for the current ownership and native-acceptance boundary.
 
 Reusable inventory architecture and API: [docs/inventory-framework.md](docs/inventory-framework.md).

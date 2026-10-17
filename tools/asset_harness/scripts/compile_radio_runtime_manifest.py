@@ -30,9 +30,18 @@ def main() -> int:
     )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--device", default=None, help="compile one project_id/device id")
+    parser.add_argument(
+        "--no-optimize-assets",
+        action="store_true",
+        help="keep separate authored shell layers instead of baking runtime shell textures",
+    )
     args = parser.parse_args()
     try:
-        manifest = compile_runtime_manifest(args.project_root, device_id=args.device)
+        manifest = compile_runtime_manifest(
+            args.project_root,
+            device_id=args.device,
+            optimize_assets=not args.no_optimize_assets,
+        )
         content = manifest_json(manifest)
         atomic_write_text(args.output, content)
     except (AssetHarnessError, OSError, ValueError) as error:

@@ -5,6 +5,19 @@
 local OS = require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSRegistry"
 local Text = require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSTranslation"
 
+-- Register the opt-in diagnostic switches before lifecycle/window modules are
+-- loaded so every later path can emit evidence without inventing a second
+-- debug configuration system.
+local diagnosticsLoaded, diagnosticsReason = pcall(require,
+    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSDiagnostics")
+if not diagnosticsLoaded then
+    print("[PsychopatzCore][RadioOS] diagnostics unavailable: "
+        .. tostring(diagnosticsReason))
+else
+    print("[PsychopatzCore][RadioOS] diagnostics registered: "
+        .. tostring(OS.Diagnostics ~= nil))
+end
+
 local function T(key, fallback)
     return Text.Get(key, fallback)
 end
@@ -67,6 +80,32 @@ if not OS._coreAppsLoaded then
         page = "settings",
     })
     OS._coreAppsLoaded = true
+end
+
+-- The editor depends on ISUI and the lifecycle depends on client Events.
+-- Keep the registry/action path usable in offline harnesses that intentionally
+-- omit those engine surfaces; the native client loads both modules.
+local editorLoaded, editorReason = pcall(require,
+    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSLayoutEditor")
+if not editorLoaded then
+    print("[PsychopatzCore][RadioOS] layout editor unavailable: "
+        .. tostring(editorReason))
+end
+local lifecycleLoaded, lifecycleReason = pcall(require,
+    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSLifecycle")
+if not lifecycleLoaded then
+    print("[PsychopatzCore][RadioOS] equipment lifecycle unavailable: "
+        .. tostring(lifecycleReason))
+end
+
+-- Install after ISRadioWindow and the lifecycle coordinator are available.
+-- The bridge removes only vanilla's automatic equip opener; explicit Device
+-- Options remains delegated to the native window.
+local bridgeLoaded, bridgeReason = pcall(require,
+    "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSVanillaBridge")
+if not bridgeLoaded then
+    print("[PsychopatzCore][RadioOS] vanilla bridge unavailable: "
+        .. tostring(bridgeReason))
 end
 
 return OS

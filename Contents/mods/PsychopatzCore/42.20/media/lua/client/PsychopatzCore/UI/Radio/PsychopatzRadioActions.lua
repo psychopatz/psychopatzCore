@@ -45,8 +45,10 @@ local function isUsableRadio(window)
         data = window.device:getDeviceData()
     end
     if not data or not RadioDeviceState then return false end
-    return data.getIsPortable and data:getIsPortable()
-        and data.getIsTwoWay and data:getIsTwoWay()
+    -- Ham radios are stationary Build 42 IsoWaveSignal devices and
+    -- intentionally report IsPortable=false. Radio OS is also the UI for
+    -- those devices, so portability must not be an access gate.
+    return data.getIsTwoWay and data:getIsTwoWay()
         and (not data.getIsTelevision or not data:getIsTelevision())
 end
 

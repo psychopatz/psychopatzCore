@@ -9,9 +9,15 @@ PYTHONPATH=tools python3 tools/asset_harness/cli.py runtime-manifest \
   --out Contents/mods/PsychopatzCore/common/media/ui/Radio/DeviceManifest.json
 ```
 
+The default build creates pixel-equivalent runtime composites in each device's
+`Shell/` directory and crops full-canvas component states into
+`Optimized/Components/`. The pilot JSON remains the only authoring source; the
+generated manifest carries the preserved positions consumed by Core Lua.
+Use `--no-optimize-assets` only when inspecting the unoptimized fallback path.
+
 The generated JSON and `Contents/mods/PsychopatzCore/common/media/ui/Radio/` assets are the runtime package. DynamicTrading's preview reads that Core manifest rather than maintaining a second catalog. Python/Lua smoke tests prove data and behavior parity; only a normal Project Zomboid run proves native acceptance.
 
-> **Offline harness status (2026-10-17):** `./run.sh` opens canonical pilot projects only and sends pointer, PTT, rotary, and LED events through the shared reducer. The old source-catalog mode is retired.
+> **Offline harness status (2026-10-17):** `./run.sh` opens canonical pilot projects only and sends pointer, PTT, and LED events through the shared reducer. The old source-catalog mode is retired.
 >
 > **Runtime status:** Core Lua now consumes the generated `DeviceManifest.json`; the harness remains the authoring/validation/CLI side of that same contract. Native Project Zomboid acceptance is still a separate pending gate.
 
@@ -132,7 +138,7 @@ for all six walkies, three HAM radios, and the ManPack:
 python3 tools/asset_harness/cli.py assets audit \
   --write-manifests \
   --write-artifacts \
-  --out tools/asset_harness/projects/radio/ah-r0-audit.json
+  --out /tmp/ah-r0-audit.json
 ```
 
 The generated manifests are developer evidence, not runtime approvals. The
@@ -160,18 +166,18 @@ proposals cannot satisfy the production mask gate:
 
 ```sh
 python3 tools/asset_harness/cli.py masks import \
-  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --project tools/asset_harness/projects/radio/walkie_5_pilot.json \
   --id back_socket --input /path/to/back_socket.png \
   --source canonical --method hand_authored --status proposed
 python3 tools/asset_harness/cli.py masks polygon \
-  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --project tools/asset_harness/projects/radio/walkie_5_pilot.json \
   --id back_socket_candidate --source canonical \
   --points '300,600;340,590;380,620' --status proposed
 python3 tools/asset_harness/cli.py masks preview \
-  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --project tools/asset_harness/projects/radio/walkie_5_pilot.json \
   --id back_socket --source canonical --out tools/asset_harness/workspace/back_socket_preview.png
 python3 tools/asset_harness/cli.py masks validate \
-  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --project tools/asset_harness/projects/radio/walkie_5_pilot.json \
   --id back_socket
 ```
 
@@ -186,7 +192,7 @@ overlay cannot be mistaken for baked dynamic content:
 
 ```sh
 python3 tools/asset_harness/cli.py modular lcd set \
-  --project tools/asset_harness/projects/radio/walkie_5.json \
+  --project tools/asset_harness/projects/radio/walkie_5_pilot.json \
   --glass LCD/Glass.png --bezel-overlay LCD/BezelOverlay.png \
   --status proposed
 ```

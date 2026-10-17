@@ -187,7 +187,7 @@ Implemented evidence and contracts:
 
 Tracked evidence:
 
-- Audit report: `tools/asset_harness/projects/radio/ah-r0-audit.json`, SHA-256 `f7b9ce99c32ddf9a74cd8431692224db6d474d1f67748355030f4d47b88ecb50`.
+- Audit report: `retired ah-r0-audit.json` (removed from the canonical project set), SHA-256 `f7b9ce99c32ddf9a74cd8431692224db6d474d1f67748355030f4d47b88ecb50`.
 - Ignored contact sheet: `tools/asset_harness/workspace/radio/ah-r0/source_contact_sheet.png`, SHA-256 `e3b8efcd84b067d42d5260bc8a4ddffbd85618f53901471270bf141f1e554018`.
 - Canonical source SHA-256s: W1 `d583b9b5203fa6d6ededd635cd4a5325f146372306f86c9c57dbfda22d2fc8a2`; W2 `8a1f12c4c4ee019a1187da7ed8d7b5ca2bb3363861b15e7f54d64f544bbf842d`; W3 `fb923a82712b830f7bb559d1853d5da5f8994b6ceb85cce098f0b272454dd6ae`; W4 `5811325ca5fe00d04efb464a79c30bda01147e475757a9c4f8b099b50bf535cb`; W5 `2325d192eaf407bdfff634b1bb58e94b45d3b7e7e8f4da3d67bd0c32e1dc4fda`; walkie makeshift `386b23bc354e6c90f0b0a9cec2db58f62885f24e9e68caadec8b0bf5ab5a6b5e`; Ham1 `13b5e274c368b38b27e2f07906b4126378de3d9196fcc4264292f0ba4a084bc6`; Ham2 `2aa74b80ab9bd0fe79adcac44e682a84d88df10c60e653eaa323b0623b57dad7`; Ham makeshift `9a38cc1de21c44d0247f74b91830c679de1cc40c421de35c66bcdde789f33252`; Manpack `5c97028e2200cf7fdfad9b4f7fb99ebae00b82b9603efcfa4346e264d7d61c46`.
 
@@ -212,7 +212,7 @@ Date / HEAD: 2026-10-16 / `6871c2a` (`feat(asset-harness): strengthen radio mask
 - A mask/chassis/component cannot become visually verified from a status string alone. Production validation now requires explicit review evidence (`reviewed`, reviewer identity and/or preview/contact-sheet artifacts), independent chassis review records, component review records, and required semantic-component inventory where declared.
 - Added rotary `pointer_down`/`pointer_move`/`pointer_up` capture behavior; rotary release no longer synthesizes an extra button click. LED IDs such as `pwr_led`, `rx_led`, and `tx_led` map to the simulator’s power/RX/TX state.
 - Added W4 diagnostic artifacts without modifying the source: `walkie_4_bad_cut_regression.png` SHA-256 `5114b811023129a116e631ba1f5c400ff97c507f3d4c9e0f19d038e7f8dab8ca` and `walkie_4_bad_cut_diff.png` SHA-256 `c33ca61290f36db900ca5558fbc9262c50d5f920fe5cead565739d512d01d69e`. The numeric diff reports 1,078,147 changed pixels, 376,529 alpha-changed pixels, and a full-canvas `[0,0,1024,1536]` changed bound for the half-crop regression.
-- Regenerated tracked audit/manifests: [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `f75780a339c54685b1a94f5cc4405ac362ac1b75b015e46d9b17fe78f3af82a3`; status remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
+- Regenerated tracked audit/manifests: `retired ah-r0-audit.json` (removed from the canonical project set), SHA-256 `f75780a339c54685b1a94f5cc4405ac362ac1b75b015e46d9b17fe78f3af82a3`; status remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
 - Verification after this chunk: `PYTHONPATH=tools python3 -m unittest discover -s tools/asset_harness/tests -q` — 40 passed; `py_compile` for CLI/core/simulator/tests — passed; `git diff --check` — passed. No production `export apply`; no runtime Lua or canonical source PNG changes.
 
 Next action remains an external art-review boundary: provide or approve authentic modular W5 pilot masters before creating `Chassis/Pristine.png`, `Chassis/Worn.png`, socket reconstructions, or keyed component PNGs. Until then, keep W5 and the other nine devices blocked and continue only with non-destructive harness evidence.
@@ -223,7 +223,7 @@ Date / HEAD: 2026-10-16 / `4361cc6` (`feat(asset-harness): report per-device rad
 
 - The tracked audit and all ten manifests now carry per-device QA requirements rather than a single aggregate status: source inventory, full-resolution source copy, alpha preview, pristine chassis, worn chassis, socket masks, component state sheets, source-to-idle diff, and visual review. W4 additionally tracks its bad-cut regression; W5 additionally tracks its blocked pilot acceptance sheet.
 - Modular directories now expose readable-file records with dimensions, alpha summaries, SHA-256 and unreadable-file diagnostics, so future staged art cannot pass merely because filenames exist.
-- Current authoritative audit report: [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `e6cae60215b7372415bc98f42c7366c2991b3be7aa8b023a108216e4817b0d3c`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
+- Current authoritative audit report: `retired ah-r0-audit.json` (removed from the canonical project set), SHA-256 `e6cae60215b7372415bc98f42c7366c2991b3be7aa8b023a108216e4817b0d3c`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
 - Verification: 40 harness tests, CLI/core/simulator/test `py_compile`, and `git diff --check` passed. Production `export apply` remains unused; runtime Lua, existing sprites, legacy atlases and saves remain untouched.
 
 The only remaining production-art gate is still authentic, visually reviewed W5 modular artwork. Continue with harness-only evidence until that material approval boundary is supplied; do not mark any device complete from the QA matrix alone.
@@ -234,7 +234,7 @@ Date / HEAD: 2026-10-16 / `538adc8` (`feat(asset-harness): add blocked W5 pilot 
 
 - `assets audit --write-artifacts` now emits `walkie_5_pilot_acceptance.png` and `walkie_5_pilot_acceptance.json` in the ignored review workspace. The sheet shows the immutable W5 source and full-resolution alpha beside the blocked QA matrix; the JSON records `accepted: false`, `modular_artwork_created: false`, and `accepted_for_runtime: false`.
 - Pilot evidence is explicitly not acceptance: the sheet/checklist remain `BLOCKED / NOT ACCEPTED`, and the W5 manifest keeps `pilot_acceptance_sheet` blocked with `evidence_status: generated_not_acceptance`. No chassis, socket mask, control state, worn variant, or source-to-idle diff was invented.
-- Tracked audit report: [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `5d30655bec14f270fe270ec8449dcf1970d3ba5db28910791fae6d00121fca68`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
+- Tracked audit report: `retired ah-r0-audit.json` (removed from the canonical project set), SHA-256 `5d30655bec14f270fe270ec8449dcf1970d3ba5db28910791fae6d00121fca68`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
 - Review artifacts: `walkie_5_pilot_acceptance.png` SHA-256 `7d6efe11e5b792b1345f43ab8ae4fd6ded2e8b0b1411ec1fcdde695f1181797a`; `walkie_5_pilot_acceptance.json` SHA-256 `1ae65ee429aef8e0a78a767b49f2f37bc4a775818777ae17f4633ace34547e53`.
 - Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, `git diff --check`, refactor-binding smoke, and Lua action/registry/window smokes passed. All ten canonical radio source hashes remain unchanged. No production `export apply`, runtime Lua edit, legacy atlas edit, or canonical source edit occurred.
 
@@ -246,7 +246,7 @@ Date / HEAD: 2026-10-16 / `7b29929` (`feat(asset-harness): record manual reconst
 
 - Every audited device now carries a `manual_reconstruction` record and blocked `manual_reconstruction_plan` QA gate. All ten current sources are `single_canvas` and therefore explicitly require concealed chassis pixels, real empty sockets, independent component states, and full-resolution reconstruction review.
 - Each blocker is decomposed into `chassis_reconstruction`, `socket_masks`, `component_state_art`, and `reconstruction_review`; manifests use `FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION` rather than treating filenames or automatic crops as approval evidence.
-- Current audit report: [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `bdf6f6d5eb62b61a0a52896051fb79f82291046f26efc7b2c76af0ac2212019f`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
+- Current audit report: `retired ah-r0-audit.json` (removed from the canonical project set), SHA-256 `bdf6f6d5eb62b61a0a52896051fb79f82291046f26efc7b2c76af0ac2212019f`; summary remains `expected=10, blocked=10, proposed=0, verified=0, complete=0`.
 - W5 pilot sheet SHA-256 `183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb`; checklist SHA-256 `21b74406130e24b79f9c68ddf7ad514bbd9b30a14899d891e750cd2746140619`. The pilot remains `BLOCKED / NOT ACCEPTED`.
 - Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, and `git diff --check` passed. Canonical source hashes remain unchanged; no runtime Lua, legacy atlas, save, or production export changes were made.
 
@@ -257,7 +257,7 @@ Next authorized action remains conditional on an external reviewed modular W5 ma
 Date / HEAD: 2026-10-16 / `ad937ca` (`feat(asset-harness): add blocked radio diff reports`), pushed cleanly to `origin/main` after `1209dab`.
 
 - `assets audit --write-artifacts` now emits ten per-device `diff/<device>_source_to_idle.json` records. They preserve the copied source SHA-256 and alpha-preview SHA-256 while explicitly setting `status: blocked`, `after: null`, `metrics: null`, and `fake_idle_generated: false` until reviewed modular idle art exists.
-- W5 blocked source-to-idle report: `walkie_5_source_to_idle.json`, SHA-256 `55ebb7c1654d3cedd3ad8bb5005c5dbecc34f7843141b1387718d50a3b3bce58`. The tracked audit report is [ah-r0-audit.json](../../tools/asset_harness/projects/radio/ah-r0-audit.json), SHA-256 `405442fcca018d1494ef7142a5c1db0bcde375c1cd09eb46321ef501052058f3`.
+- W5 blocked source-to-idle report: `walkie_5_source_to_idle.json`, SHA-256 `55ebb7c1654d3cedd3ad8bb5005c5dbecc34f7843141b1387718d50a3b3bce58`. The tracked audit report is `retired ah-r0-audit.json` (removed from the canonical project set), SHA-256 `405442fcca018d1494ef7142a5c1db0bcde375c1cd09eb46321ef501052058f3`.
 - The W5 pilot sheet remains blocked and unchanged at SHA-256 `183fccdc83c3dc64f42a7494d55dcac70e4be7610e60640d34771e2f9c9315bb`; its checklist now records the diff-report hash and remains `accepted: false`.
 - Verification: 40 asset-harness tests, 52 profiler tests, CLI/core/simulator/test `py_compile`, `git diff --check`, and refactor-binding smoke passed. No production export, runtime Lua, legacy atlas, save, or canonical source change occurred.
 
@@ -305,7 +305,7 @@ Date / HEAD: 2026-10-16 / `5523220` (`feat(asset-harness): author W5 remaining c
 - Tightened the four expanded knob/PTT socket envelopes after validator review. The active 14 face masks and 14 active socket masks now pass 140/140 structural checks; the rejected v2 knob/PTT candidates remain historical records only, with v3 masks active in the project.
 - Registered LCD layers as the semantic `lcd` component in staged evidence so the audit no longer reports a false missing component. Final local audit: W5 `proposed`, no missing components, real source-to-idle diff present, sole reason `VISUAL_REVIEW_PENDING`.
 - Full source-to-idle evidence is real and staging-only: `258,274` changed pixels, `168,385` RGB-changed pixels, `258,265` alpha-changed pixels, bounds `[288,230,885,1127]`, maximum RGB delta `217`, maximum alpha delta `255`; `fake_idle_generated=false`, `production_export_apply=false`. Canonical W5 SHA-256 remains `2325d192eaf407bdfff634b1bb58e94b45d3b7e7e8f4da3d67bd0c32e1dc4fda`.
-- Tracked review evidence now includes source-control and mask sheets, pristine/worn chassis candidates, assembled idle/pressed/worn renders, raw/visible diff images, and `remaining_controls_notes.json` plus diff metrics. Acceptance remains human-gated and runtime export remains disabled.
+- Tracked review evidence now includes source-control and mask sheets, pristine/worn chassis candidates, assembled idle/pressed/worn renders, raw/visible diff images, and `retired W5 rotary review note` (removed from the canonical project set) plus diff metrics. Acceptance remains human-gated and runtime export remains disabled.
 - Verification: `43` asset-harness unittests passed, `modular validate` passed `129/129` with no diagnostics, all active face/socket masks passed, `py_compile`, `jq`, and `git diff --check` passed. The three pre-existing unrelated `art_source` deletions remain unstaged.
 
 Next work: obtain/perform the required human visual acceptance for the proposed device slices without promoting any unreviewed reconstruction to runtime.

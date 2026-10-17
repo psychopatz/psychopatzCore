@@ -26,12 +26,6 @@
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
     },
-    "channel": {
-      "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
-      "status": "blocked"
-    },
     "down": {
       "coordinates": null,
       "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
@@ -103,21 +97,13 @@
       "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
       "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
       "status": "blocked"
-    },
-    "volume": {
-      "coordinates": null,
-      "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-      "source_owner": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5.png",
-      "status": "blocked"
     }
   },
   "components": {},
   "controls": [],
   "simulator": {
     "hidden_components": [
-      "channel",
-      "ptt",
-      "volume"
+      "ptt"
     ],
     "interactive_controls": [
       "back",
@@ -129,7 +115,7 @@
       "right",
       "up"
     ],
-    "notes": "The pilot simulator exposes the navigation cluster and momentary power button only; top knobs and PTT remain static source hardware."
+    "notes": "The pilot simulator exposes the navigation cluster and momentary power button only; PTT remains static source hardware."
   },
   "device": {
     "family": "walkie",
@@ -182,7 +168,7 @@
       {
         "id": "component_state_art",
         "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-        "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+        "requirement": "independent controls, states, LEDs, and LCD layers",
         "status": "blocked"
       },
       {
@@ -378,102 +364,6 @@
       "schema_version": 1,
       "sha256": "25dbf2715768a27494797b92bf903303fcd7c88bf809e99cdf6c3411fd0702f6",
       "source": null,
-      "status": "proposed",
-      "width": 1024
-    },
-    "channel_face": {
-      "bbox_fill_ratio": 1,
-      "bytes": 14276,
-      "height": 1535,
-      "method": "hand_authored",
-      "nonzero_bounds": [
-        0,
-        0,
-        1024,
-        1535
-      ],
-      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/channel_face.png",
-      "provenance": "native-resolution W5 visual control polygon; developer staging",
-      "review": {
-        "artifacts": [],
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "882fd8bb7ee62b3e08b62db82a10684e7f6897b113e695507ea900c474fad97d",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
-    },
-    "channel_face_v2": {
-      "bbox_fill_ratio": 0.044151,
-      "bytes": 4062,
-      "height": 1535,
-      "method": "hand_authored",
-      "nonzero_bounds": [
-        640,
-        274,
-        146,
-        99
-      ],
-      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/channel_face_v2.png",
-      "provenance": "native-resolution W5 visual control polygon; developer staging",
-      "review": {
-        "artifacts": [],
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "f1f2b5e386584c0ee862dd8866769275e7f4e575d7540efd88e22f56f28fd7ec",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
-    },
-    "channel_socket_v2": {
-      "bbox_fill_ratio": 0.052131,
-      "bytes": 3381,
-      "height": 1535,
-      "method": "hand_authored",
-      "nonzero_bounds": [
-        635,
-        269,
-        156,
-        109
-      ],
-      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/channel_socket_v2.png",
-      "provenance": "native-resolution W5 localized socket envelope; developer staging",
-      "review": {
-        "artifacts": [],
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "b572b2ee0a9dcb70b18a32cfdc4ff32678335079854e1c1166163c5d5ef93c50",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
-    },
-    "channel_socket_v3": {
-      "bbox_fill_ratio": 0.047659,
-      "bytes": 4647,
-      "height": 1535,
-      "method": "hand_authored",
-      "nonzero_bounds": [
-        639,
-        269,
-        152,
-        109
-      ],
-      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/channel_socket_v3.png",
-      "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
-      "review": {
-        "artifacts": [],
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "15b466bfa6dd95f638e756bb2b67223b32f987764c651c5a99bc0374b80399ea",
-      "source": "canonical",
       "status": "proposed",
       "width": 1024
     },
@@ -1388,102 +1278,6 @@
       "source": "canonical",
       "status": "proposed",
       "width": 1024
-    },
-    "volume_face": {
-      "bbox_fill_ratio": 1,
-      "bytes": 13353,
-      "height": 1535,
-      "method": "hand_authored",
-      "nonzero_bounds": [
-        0,
-        0,
-        1024,
-        1535
-      ],
-      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/volume_face.png",
-      "provenance": "native-resolution W5 visual control polygon; developer staging",
-      "review": {
-        "artifacts": [],
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "1ef97462a7822fa5dcc0022ec1370f2013f7576f6caecccf31434fd449795fad",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
-    },
-    "volume_face_v2": {
-      "bbox_fill_ratio": 0.082417,
-      "bytes": 3934,
-      "height": 1535,
-      "method": "hand_authored",
-      "nonzero_bounds": [
-        445,
-        235,
-        168,
-        116
-      ],
-      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/volume_face_v2.png",
-      "provenance": "native-resolution W5 visual control polygon; developer staging",
-      "review": {
-        "artifacts": [],
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "fd49983659e3fdc4a1728c7bfb4c4af30a6f571b1be1b8114be48822009228da",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
-    },
-    "volume_socket_v2": {
-      "bbox_fill_ratio": 0.094119,
-      "bytes": 3379,
-      "height": 1535,
-      "method": "hand_authored",
-      "nonzero_bounds": [
-        440,
-        230,
-        178,
-        126
-      ],
-      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/volume_socket_v2.png",
-      "provenance": "native-resolution W5 localized socket envelope; developer staging",
-      "review": {
-        "artifacts": [],
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "7ac10955260021e37d152916f9c52962e1159f47ada7ceec6201e8bca8505a69",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
-    },
-    "volume_socket_v3": {
-      "bbox_fill_ratio": 0.089933,
-      "bytes": 5102,
-      "height": 1535,
-      "method": "hand_authored",
-      "nonzero_bounds": [
-        440,
-        230,
-        173,
-        126
-      ],
-      "path": "tools/asset_harness/workspace/radio/walkie_5/masks/volume_socket_v3.png",
-      "provenance": "native-resolution W5 localized socket envelope constrained to immutable source alpha; developer staging",
-      "review": {
-        "artifacts": [],
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "a0a7eb2022fc0166a151aad1432fb4ee69274737849c2441661e1a88c091a088",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1024
     }
   },
   "modular": {
@@ -1593,52 +1387,6 @@
           },
           "pressed": {
             "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Buttons/Back/Pressed.png",
-            "x": 0,
-            "y": 0
-          }
-        },
-        "status": "proposed"
-      },
-      "channel": {
-        "action": "channel",
-        "detents": 4,
-        "hitbox": [
-          640,
-          274,
-          146,
-          99
-        ],
-        "kind": "rotary",
-        "mask": "channel_face_v2",
-        "notes": "Native-resolution W5 channel control; source rotary/switch frames authored in developer staging; visual acceptance pending.",
-        "pivot": [
-          710,
-          323
-        ],
-        "review": {
-          "artifacts": [],
-          "reviewed": false,
-          "reviewed_by": null
-        },
-        "socket_mask": "channel_socket_v3",
-        "states": {
-          "frame_00": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Channel/Frame_00.png",
-            "x": 0,
-            "y": 0
-          },
-          "frame_01": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Channel/Frame_01.png",
-            "x": 0,
-            "y": 0
-          },
-          "frame_02": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Channel/Frame_02.png",
-            "x": 0,
-            "y": 0
-          },
-          "frame_03": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Channel/Frame_03.png",
             "x": 0,
             "y": 0
           }
@@ -2029,52 +1777,6 @@
           }
         },
         "status": "proposed"
-      },
-      "volume": {
-        "action": "volume",
-        "detents": 4,
-        "hitbox": [
-          445,
-          235,
-          168,
-          116
-        ],
-        "kind": "rotary",
-        "mask": "volume_face_v2",
-        "notes": "Native-resolution W5 volume control; source rotary/switch frames authored in developer staging; visual acceptance pending.",
-        "pivot": [
-          530,
-          293
-        ],
-        "review": {
-          "artifacts": [],
-          "reviewed": false,
-          "reviewed_by": null
-        },
-        "socket_mask": "volume_socket_v3",
-        "states": {
-          "frame_00": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Volume/Frame_00.png",
-            "x": 0,
-            "y": 0
-          },
-          "frame_01": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Volume/Frame_01.png",
-            "x": 0,
-            "y": 0
-          },
-          "frame_02": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Volume/Frame_02.png",
-            "x": 0,
-            "y": 0
-          },
-          "frame_03": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/WalkieTalkie/Base.WalkieTalkie5/Knobs/Volume/Frame_03.png",
-            "x": 0,
-            "y": 0
-          }
-        },
-        "status": "proposed"
       }
     },
     "lcd_layers": {
@@ -2105,8 +1807,6 @@
       "ok",
       "ptt",
       "power",
-      "volume",
-      "channel",
       "pwr_led",
       "rx_led",
       "tx_led",
@@ -2118,47 +1818,47 @@
       "artifacts": [
         {
           "kind": "mask_overlay",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/back_mask_final_closeup.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/back_mask_final_closeup.png"
         },
         {
           "kind": "socket_candidate",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/back_socket_candidate_closeup_v2.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/back_socket_candidate_closeup_v2.png"
         },
         {
           "kind": "idle_composite",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/renders/back_idle_composite.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/renders/back_idle_composite.png"
         },
         {
           "kind": "pressed_composite",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/renders/back_pressed_composite.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/renders/back_pressed_composite.png"
         },
         {
           "kind": "remaining_controls_source",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/remaining/01_top_controls.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/remaining/01_top_controls.png"
         },
         {
           "kind": "remaining_controls_source",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/remaining/04_navigation.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/source_inspection/remaining/04_navigation.png"
         },
         {
           "kind": "chassis_candidate",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/chassis_pristine_full.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/chassis_pristine_full.png"
         },
         {
           "kind": "worn_chassis_candidate",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/chassis_worn_full.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/artifacts/chassis_worn_full.png"
         },
         {
           "kind": "idle_composite",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/idle_pristine.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/idle_pristine.png"
         },
         {
           "kind": "pressed_composite",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/pressed_pristine.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/pressed_pristine.png"
         },
         {
           "kind": "worn_composite",
-            "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/idle_worn.png"
+          "path": "tools/asset_harness/workspace/radio/walkie_5/remaining/renders/idle_worn.png"
         },
         {
           "kind": "review_sheet",
@@ -2175,10 +1875,6 @@
         {
           "kind": "review_sheet",
           "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/20_w5_source_to_idle_diff_visible.png"
-        },
-        {
-          "kind": "review_notes",
-          "path": "/home/psychopatz/Zomboid/Workshop/psychopatzCore/tools/asset_harness/review/radio/walkie_5/remaining_controls_notes.json"
         },
         {
           "kind": "diff_metrics",
@@ -2399,7 +2095,7 @@
         {
           "id": "component_state_art",
           "reason": "FLATTENED_SOURCE_REQUIRES_MANUAL_RECONSTRUCTION",
-          "requirement": "independent controls, states, LEDs, LCD layers, and rotary frames",
+          "requirement": "independent controls, states, LEDs, and LCD layers",
           "status": "blocked"
         },
         {

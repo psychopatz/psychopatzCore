@@ -204,8 +204,8 @@ class ModularRadioTests(unittest.TestCase):
         self.assertEqual(image.size, (512, 768))
         self.assertEqual(metadata["lcd_rect"], [157, 302, 208, 110])
         self.assertEqual(metadata["screen_content_rect"], [160, 305, 203, 106])
-        self.assertEqual(metadata["hidden_components"], ["channel", "ptt", "volume"])
-        self.assertEqual(metadata["skipped_components"], ["channel", "ptt", "volume"])
+        self.assertEqual(metadata["hidden_components"], ["ptt"])
+        self.assertEqual(metadata["skipped_components"], ["ptt"])
         self.assertEqual(
             {layer["id"] for layer in metadata["layers"]} & {"channel", "ptt", "volume"},
             set(),
@@ -279,10 +279,11 @@ class ModularRadioTests(unittest.TestCase):
             RadioSimulatorApp._resolve_mode("source", None, "walkie_5")
 
     def test_legacy_radio_project_cannot_reenter_the_shared_simulator(self) -> None:
-        legacy = Path(__file__).resolve().parents[1] / "projects" / "radio" / "walkie_1.json"
-        if legacy.is_file():
-            with self.assertRaises(ValueError):
-                RadioSimulator(project_path=legacy)
+        project_root = Path(__file__).resolve().parents[1] / "projects" / "radio"
+        self.assertEqual(
+            {path.name for path in project_root.glob("*.json")},
+            {path.name for path in project_root.glob("*_pilot.json")},
+        )
 
     def test_project_registry_exposes_all_pilot_devices(self) -> None:
         from asset_harness.simulator.registry import list_project_refs, project_path_for_device

@@ -124,6 +124,14 @@ function Window:componentState(component)
     local id = tostring(component.id or "")
     if self._pressedControl == id and states.pressed then return "pressed" end
     local kind = tostring(component.kind or "")
+    -- Switch art has an authored on/off state. Without this branch Lua's
+    -- pairs() order selects an arbitrary state, so a real power switch can
+    -- disagree with DeviceData after toggling or reopening.
+    if kind == "switch" or id == "power" then
+        local stateName = self.context and self.context.powered
+            and "on" or "off"
+        if states[stateName] then return stateName end
+    end
     if kind == "led" then
         local lower = string.lower(id)
         if string.find(lower, "pwr", 1, true)
@@ -138,9 +146,6 @@ function Window:componentState(component)
     end
     if kind == "hold" or kind == "ptt" then
         return self._pttHeld and "held" or "idle"
-    end
-    if string.sub(kind, 1, 5) == "rotar" or kind == "knob" then
-        return states.frame_00 and "frame_00" or "idle"
     end
     if states.idle then return "idle" end
     for stateName, _ in pairs(states) do return stateName end
@@ -163,16 +168,30 @@ function Window:drawComponents()
     end
 end
 
+function Window:hasStaticShell()
+    local skin = self.skin
+    if not skin then return false end
+    local variant = self.variant or skin.defaultVariant or "pristine"
+    return type(skin.shell) == "table"
+        and type(skin.shell[variant]) == "table"
+        and type(skin.shell[variant].image) == "string"
+end
+
 function Window:drawShell()
     local skin = self.skin
     if not skin then return end
     local variant = self.variant or skin.defaultVariant or "pristine"
-    self:drawAsset((skin.chassis or {})[variant], 1)
-    self:drawAsset((skin.lcd_layers or {}).matte, 1)
+    if self:hasStaticShell() then
+        self:drawAsset(skin.shell[variant], 1)
+    else
+        self:drawAsset((skin.chassis or {})[variant], 1)
+        self:drawAsset((skin.lcd_layers or {}).matte, 1)
+    end
     self:drawComponents()
 end
 
 function Window:drawLCDOverlays()
+    if self:hasStaticShell() then return end
     local layers = self.skin and self.skin.lcd_layers or {}
     self:drawAsset(layers.glass, 1)
     self:drawAsset(layers.bezel_overlay, 1)
@@ -341,13 +360,34 @@ function Window:drawCompositorDebug()
     local screen = self:screenRect()
     local width = self.getWidth and self:getWidth() or self.width or 0
     local height = self.getHeight and self:getHeight() or self.height or 0
-    -- Cyan = shell destination/UV cell, magenta = opaque LCD aperture,
-    -- green = clipped app viewport, yellow = physical hitboxes.
+    -- Cyan = full authored surface, magenta = opaque LCD aperture,
+    -- green = actual game viewport edge, yellow = physical hitboxes.
     self:drawRectBorder(0, 0, width, height, 0.95, 0.15, 0.85, 1)
     self:drawRectBorder(aperture.x, aperture.y, aperture.w, aperture.h,
         0.95, 1, 0.15, 0.85)
     self:drawRectBorder(screen.x, screen.y, screen.w, screen.h,
         0.95, 0.15, 1, 0.25)
+    -- This is a viewport diagnostic, not a clipping rectangle.  The full
+    -- radio surface remains drawable below it so the slide-away animation is
+    -- visible and the authored sprite is never cut internally.
+    local viewportHeight
+    if type(getCore) == "function" then
+        local ok, core = pcall(getCore)
+        if ok and core and type(core.getScreenHeight) == "function" then
+            local okHeight, screenHeight = pcall(core.getScreenHeight, core)
+            if okHeight and screenHeight ~= nil then
+                local windowY = self.getY and self:getY() or self.y or 0
+                viewportHeight = tonumber(screenHeight) - tonumber(windowY)
+            end
+        end
+    end
+    if viewportHeight and viewportHeight > 0 and viewportHeight < height then
+        self:drawRectBorder(0, snap(viewportHeight), width, 1,
+            0.95, 0.25, 1, 0.70)
+        self:drawText("GAME VIEWPORT EDGE", 2,
+            snap(viewportHeight) + 2, 0.55, 0.85, 1, 1,
+            self:screenFont())
+    end
     for _, component in ipairs(self.skin and self.skin.interactiveComponents or {}) do
         local rect = scaledRect(component.hitbox, self.scale)
         if rect then
@@ -370,9 +410,23 @@ function Window:statusLine()
 end
 
 function Window:prerender()
+    local diagnostics = OS.Diagnostics
+    local performanceToken = diagnostics and diagnostics.BeginFrame
+        and diagnostics.BeginFrame(self, "prerender") or nil
+    if self.stepPresentation then self:stepPresentation() end
+    if self.refreshPowerState then self:refreshPowerState(false) end
     if self.reconcileScreenGeometry then self:reconcileScreenGeometry() end
+    if self.applyPresentationClip then self:applyPresentationClip() end
     ISPanel.prerender(self)
-    if self._closed then return end
+    if self._closed then
+        if diagnostics and diagnostics.EndFrame then
+            diagnostics.EndFrame(self, performanceToken)
+        end
+        return
+    end
+    -- Draw the entire authored shell.  Immersive placement is an anchor
+    -- policy, not an image crop; the LCD content pass below remains clipped
+    -- to its physical aperture.
     self:drawShell()
     -- Glass is an authored, mostly opaque LCD layer.  It must be composited
     -- before the dynamic OS content; drawing it after the child render hides
@@ -380,10 +434,21 @@ function Window:prerender()
     self:drawLCDOverlays()
     self:drawScreen()
     self:layoutPortrait()
+    if diagnostics and diagnostics.EndFrame then
+        diagnostics.EndFrame(self, performanceToken)
+    end
 end
 
 function Window:render()
-    if self._closed then return end
+    local diagnostics = OS.Diagnostics
+    local performanceToken = diagnostics and diagnostics.BeginFrame
+        and diagnostics.BeginFrame(self, "render") or nil
+    if self._closed then
+        if diagnostics and diagnostics.EndFrame then
+            diagnostics.EndFrame(self, performanceToken)
+        end
+        return
+    end
     -- PortraitPanel is a child of the radio window.  Keep the actual stencil
     -- active across ISPanel.render so it cannot escape the LCD safe viewport.
     local screen = self:screenRect()
@@ -402,6 +467,9 @@ function Window:render()
     end
     self:drawControls()
     self:drawCompositorDebug()
+    if diagnostics and diagnostics.EndFrame then
+        diagnostics.EndFrame(self, performanceToken)
+    end
 end
 
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Pages"

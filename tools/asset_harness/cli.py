@@ -411,6 +411,11 @@ def build_parser() -> argparse.ArgumentParser:
         default=REPO_ROOT / "tools/asset_harness/projects/radio",
     )
     runtime_manifest.add_argument("--device", default=None)
+    runtime_manifest.add_argument(
+        "--no-optimize-assets",
+        action="store_true",
+        help="keep separate authored shell layers instead of baking runtime shell textures",
+    )
     runtime_manifest.add_argument("--out", type=Path, required=True)
     _add_output_args(runtime_manifest)
 
@@ -897,7 +902,11 @@ def _dispatch(args: argparse.Namespace) -> tuple[str, dict[str, Any] | None, lis
         output = Path(args.out).expanduser()
         if not output.is_absolute(): output = REPO_ROOT / output
         output = ensure_within(REPO_ROOT, output)
-        manifest = compile_runtime_manifest(project_root, device_id=args.device)
+        manifest = compile_runtime_manifest(
+            project_root,
+            device_id=args.device,
+            optimize_assets=not args.no_optimize_assets,
+        )
         atomic_write_text(output, manifest_json(manifest))
         artifacts.append(artifact_descriptor(output, "radio_runtime_manifest"))
         return command, {

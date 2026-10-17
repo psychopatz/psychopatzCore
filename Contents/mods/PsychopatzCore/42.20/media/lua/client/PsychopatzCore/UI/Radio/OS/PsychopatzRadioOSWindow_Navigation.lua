@@ -6,6 +6,22 @@ local Text = require
     "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSTranslation"
 local Window = OS.Window
 
+function Window:refreshPowerState(force)
+    local data = self.context and self.context.deviceData
+    if not data or type(data.getIsTurnedOn) ~= "function" then return false end
+    local now = getTimeInMillis and tonumber(getTimeInMillis()) or nil
+    if not force and now and self._lastPowerPoll
+        and now - self._lastPowerPoll < 250
+    then
+        return false
+    end
+    if now then self._lastPowerPoll = now end
+    local ok, actual = pcall(data.getIsTurnedOn, data)
+    if not ok then return false end
+    self.context.powered = actual == true
+    return true
+end
+
 function Window:setPage(page)
     page = tostring(page or "home")
     if page ~= "home" and page ~= "contacts"
@@ -120,12 +136,31 @@ function Window:activateSettingsAction(action)
         changed = self:resetScale()
     elseif id == "fit" then
         changed = self:fitToScreen()
+    elseif id == "show_more" then
+        changed = self:adjustVisibleFraction(0.05)
+    elseif id == "show_less" then
+        changed = self:adjustVisibleFraction(-0.05)
+    elseif id == "layout" then
+        if self.openLayoutEditor and self:openLayoutEditor() then
+            self.statusText = Text.Get(
+                "UI_PsychopatzCore_Radio_LayoutEditing", "LAYOUT EDITING")
+            return true
+        end
+        self.statusText = Text.Get(
+            "UI_PsychopatzCore_Radio_ActionUnavailable", "ACTION UNAVAILABLE")
+        return false
     else
         return false
     end
     self:saveGeometry(true)
-    self.statusText = Text.Format("UI_PsychopatzCore_Radio_Scale",
-        "SCALE %.1f", changed)
+    if id == "show_more" or id == "show_less" then
+        self.statusText = Text.Format(
+            "UI_PsychopatzCore_Radio_BodyVisible", "BODY %.0f%%",
+            (tonumber(changed) or 0) * 100)
+    else
+        self.statusText = Text.Format("UI_PsychopatzCore_Radio_Scale",
+            "SCALE %.1f", changed)
+    end
     return true
 end
 
@@ -162,7 +197,10 @@ end
 
 function Window:back()
     if self.page == "home" then
-        self:close()
+        -- The device has no close button.  On the home page Back is a
+        -- consumed no-op; the downward presentation swipe is the only user
+        -- dismissal gesture.
+        return false
     elseif self.page == "contact_detail" then
         self:setPage("contacts")
     elseif self.page == "custom" and self.activeApp
@@ -205,6 +243,8 @@ function Window:togglePower()
         return false
     end
     self.context.powered = actual == true
+    self._lastPowerPoll = getTimeInMillis
+        and tonumber(getTimeInMillis()) or self._lastPowerPoll
     self.context.active = PsychopatzCore.RadioDeviceState
         and PsychopatzCore.RadioDeviceState.IsActive(data) == true
         or false

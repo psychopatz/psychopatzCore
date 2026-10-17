@@ -96,6 +96,32 @@ function RadioDeviceState.GetPlayerDevices(player)
     return output
 end
 
+-- The immersive Radio OS must only react to an item physically held by the
+-- player.  GetPlayerDevices intentionally includes attached and equipped
+-- radios for audio/state queries, so keep this narrower query separate.
+function RadioDeviceState.GetHandheldDevices(player)
+    local output, seen = {}, {}
+    local function add(item)
+        if not isRadioItem(item) or seen[item] then return end
+        seen[item] = true
+        output[#output + 1] = item
+    end
+    if player and player.getPrimaryHandItem then
+        add(player:getPrimaryHandItem())
+    end
+    if player and player.getSecondaryHandItem then
+        add(player:getSecondaryHandItem())
+    end
+    return output
+end
+
+function RadioDeviceState.FindHandheldDevice(player)
+    for _, item in ipairs(RadioDeviceState.GetHandheldDevices(player)) do
+        return item
+    end
+    return nil
+end
+
 function RadioDeviceState.FindPlayerDevice(player)
     for _, item in ipairs(RadioDeviceState.GetPlayerDevices(player)) do
         return item

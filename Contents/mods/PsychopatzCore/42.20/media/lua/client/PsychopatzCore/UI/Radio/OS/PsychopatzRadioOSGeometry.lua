@@ -157,12 +157,80 @@ function Geometry.ClampPosition(x, y, width, height)
         math.floor(clamp(y, 0, maxY) + 0.5)
 end
 
+function Geometry.ClampX(x, width, screenWidth)
+    screenWidth = tonumber(screenWidth) or select(1, screenSize())
+    local maxX = math.max(0, screenWidth - math.max(1, tonumber(width) or 1))
+    return math.floor(clamp(x, 0, maxX) + 0.5)
+end
+
+function Geometry.NormalizeDockX(x, width, screenWidth)
+    screenWidth = tonumber(screenWidth) or select(1, screenSize())
+    local maxX = math.max(0, screenWidth - math.max(1, tonumber(width) or 1))
+    if maxX <= 0 then return 0.5 end
+    return clamp((tonumber(x) or 0) / maxX, 0, 1)
+end
+
+function Geometry.DockX(dockX, width, screenWidth)
+    screenWidth = tonumber(screenWidth) or select(1, screenSize())
+    local maxX = math.max(0, screenWidth - math.max(1, tonumber(width) or 1))
+    return math.floor(clamp(dockX, 0, 1) * maxX + 0.5)
+end
+
+-- The dock is anchored to the last visible LCD/control pixel rather than the
+-- full art canvas.  This lets tall antennas and lower chassis details pass
+-- beyond the viewport while keeping the usable radio controls visible.
+--
+-- bottomOffset is deliberately signed.  A negative value means the saved
+-- layout places the full artwork farther down than the normal dock anchor.
+-- The engine viewport clips genuinely off-screen pixels; this value must not
+-- be normalized back to zero or the editor cannot persist the chosen crop.
+function Geometry.DockPosition(screenWidth, screenHeight, width, height,
+        visibleBottom, dockX, bottomOffset)
+    screenWidth = tonumber(screenWidth) or select(1, screenSize())
+    screenHeight = tonumber(screenHeight) or select(2, screenSize())
+    width = math.max(1, tonumber(width) or 1)
+    height = math.max(1, tonumber(height) or 1)
+    visibleBottom = math.max(1, tonumber(visibleBottom) or height)
+    bottomOffset = clamp(tonumber(bottomOffset) or 0, -height, screenHeight)
+    local x = Geometry.DockX(dockX, width, screenWidth)
+    local y = math.floor(screenHeight - visibleBottom - bottomOffset + 0.5)
+    return x, y
+end
+
+function Geometry.HiddenY(screenHeight, peekHeight)
+    screenHeight = tonumber(screenHeight) or select(2, screenSize())
+    return math.floor(screenHeight - math.max(0, tonumber(peekHeight) or 0) + 0.5)
+end
+
+local function readExtra(activeStore, key, suffix)
+    if type(activeStore.Get) ~= "function" then return nil end
+    return activeStore:Get(key .. suffix, nil)
+end
+
 function Geometry.Load(playerNum, identity, baseWidth)
     local activeStore = settingsStore()
     if not activeStore then return nil, nil end
     local scopedKey = Geometry.MakeKey(playerNum, identity)
     local state = readState(activeStore, scopedKey)
     local savedScale = readScale(activeStore, scopedKey, state, baseWidth)
+    if state then
+        state.dockX = tonumber(readExtra(activeStore, scopedKey, ".DockX"))
+            or state.dockX
+        state.dockBottomOffset = tonumber(readExtra(
+            activeStore, scopedKey, ".DockBottomOffset"))
+            or state.dockBottomOffset
+        state.presentationVisibleFraction = tonumber(readExtra(
+            activeStore, scopedKey, ".PresentationVisibleFraction"))
+            or state.presentationVisibleFraction
+        state.presentationMode = readExtra(
+            activeStore, scopedKey, ".PresentationMode")
+            or state.presentationMode
+        state.hidden = readExtra(activeStore, scopedKey, ".Hidden")
+            == true or state.hidden == true
+        state.presentationVersion = tonumber(readExtra(
+            activeStore, scopedKey, ".PresentationVersion"))
+            or state.presentationVersion
+    end
     -- Migrate the pre-U0 player-only slot when the scoped slot is absent.
     -- New saves always use the device-family/skin key above.
     if not state and not savedScale and identity ~= nil then
@@ -183,6 +251,17 @@ function Geometry.Save(playerNum, state, identity)
     if type(activeStore.Set) == "function" then
         activeStore:Set(scopedKey .. ".Scale", tonumber(state.scale) or 1,
             false)
+        activeStore:Set(scopedKey .. ".DockX", tonumber(state.dockX) or 0.5,
+            false)
+        activeStore:Set(scopedKey .. ".DockBottomOffset",
+            tonumber(state.dockBottomOffset) or 12, false)
+        activeStore:Set(scopedKey .. ".PresentationVisibleFraction",
+            tonumber(state.presentationVisibleFraction) or 0.75, false)
+        activeStore:Set(scopedKey .. ".PresentationMode",
+            tostring(state.presentationMode or "immersive"), false)
+        activeStore:Set(scopedKey .. ".Hidden", state.hidden == true, false)
+        activeStore:Set(scopedKey .. ".PresentationVersion",
+            tonumber(state.presentationVersion) or 1, false)
     end
     if type(activeStore.Save) == "function" then
         return activeStore:Save()
@@ -199,6 +278,12 @@ function Geometry.Clear(playerNum, identity)
     end
     if type(activeStore.Set) == "function" then
         activeStore:Set(scopedKey .. ".Scale", nil, false)
+        activeStore:Set(scopedKey .. ".DockX", nil, false)
+        activeStore:Set(scopedKey .. ".DockBottomOffset", nil, false)
+        activeStore:Set(scopedKey .. ".PresentationVisibleFraction", nil, false)
+        activeStore:Set(scopedKey .. ".PresentationMode", nil, false)
+        activeStore:Set(scopedKey .. ".Hidden", nil, false)
+        activeStore:Set(scopedKey .. ".PresentationVersion", nil, false)
     end
     if type(activeStore.Save) == "function" then
         return activeStore:Save()

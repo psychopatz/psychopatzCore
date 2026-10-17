@@ -90,56 +90,6 @@
       "status": "proposed",
       "width": 1774
     },
-    "channel_face": {
-      "bytes": 13387,
-      "declared_bounds": [
-        1350,
-        430,
-        290,
-        280
-      ],
-      "height": 887,
-      "method": "derived_proposal",
-      "nonzero_bounds": [
-        1350,
-        430,
-        290,
-        280
-      ],
-      "path": "tools/asset_harness/workspace/radio/vh4/ham_2/masks/channel_face.png",
-      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
-      "review": {
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "ea43c14b179e11049594b73e72cd2de38a00232eb872a3eeadd7b6a5d6399d77",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1774
-    },
-    "channel_socket": {
-      "bytes": 10176,
-      "height": 887,
-      "method": "derived_proposal",
-      "nonzero_bounds": [
-        1346,
-        426,
-        298,
-        288
-      ],
-      "path": "tools/asset_harness/workspace/radio/vh4/ham_2/masks/channel_socket.png",
-      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
-      "review": {
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "0ffc86b1e5b3f9db3d0e6508ee307f6e68d5c26e80a738364a2fd8db939bd598",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1774
-    },
     "chassis_socket": {
       "bytes": 29896,
       "height": 887,
@@ -767,56 +717,6 @@
       "source": "canonical",
       "status": "proposed",
       "width": 1774
-    },
-    "volume_face": {
-      "bytes": 9138,
-      "declared_bounds": [
-        1380,
-        260,
-        135,
-        135
-      ],
-      "height": 887,
-      "method": "derived_proposal",
-      "nonzero_bounds": [
-        1380,
-        260,
-        135,
-        135
-      ],
-      "path": "tools/asset_harness/workspace/radio/vh4/ham_2/masks/volume_face.png",
-      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
-      "review": {
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "1d0f9e96d49bae50c43e6a936068456a58b5189b210da52680ab28b05b1090c2",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1774
-    },
-    "volume_socket": {
-      "bytes": 8885,
-      "height": 887,
-      "method": "derived_proposal",
-      "nonzero_bounds": [
-        1376,
-        256,
-        143,
-        143
-      ],
-      "path": "tools/asset_harness/workspace/radio/vh4/ham_2/masks/volume_socket.png",
-      "provenance": "source-specific proposed modular mask; pending human native-resolution review",
-      "review": {
-        "reviewed": false,
-        "reviewed_by": null
-      },
-      "schema_version": 1,
-      "sha256": "24f9430a27e3bdc9b4f191e6b46970e21c1ea21d50fef22c9eb3a52d2e236dd1",
-      "source": "canonical",
-      "status": "proposed",
-      "width": 1774
     }
   },
   "modular": {
@@ -826,10 +726,6 @@
           "back_center": [
             1325,
             597
-          ],
-          "channel_center": [
-            1495,
-            570
           ],
           "device_center": [
             887,
@@ -882,10 +778,6 @@
           "up_center": [
             1282,
             355
-          ],
-          "volume_center": [
-            1447,
-            327
           ]
         },
         "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Chassis/Pristine.png",
@@ -903,10 +795,6 @@
             1325,
             597
           ],
-          "channel_center": [
-            1495,
-            570
-          ],
           "device_center": [
             887,
             443
@@ -958,10 +846,6 @@
           "up_center": [
             1282,
             355
-          ],
-          "volume_center": [
-            1447,
-            327
           ]
         },
         "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Chassis/Worn.png",
@@ -1005,51 +889,6 @@
             "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Buttons/Back/Pressed.png",
             "x": 1280,
             "y": 550
-          }
-        },
-        "status": "proposed"
-      },
-      "channel": {
-        "action": "channel_up",
-        "detents": 4,
-        "hitbox": [
-          1350,
-          430,
-          290,
-          280
-        ],
-        "kind": "rotary",
-        "mask": "channel_face",
-        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
-        "pivot": [
-          1495,
-          570
-        ],
-        "review": {
-          "reviewed": false,
-          "reviewed_by": null
-        },
-        "socket_mask": "channel_socket",
-        "states": {
-          "frame_00": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Channel/Frame_00.png",
-            "x": 1350,
-            "y": 430
-          },
-          "frame_01": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Channel/Frame_01.png",
-            "x": 1350,
-            "y": 430
-          },
-          "frame_02": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Channel/Frame_02.png",
-            "x": 1350,
-            "y": 430
-          },
-          "frame_03": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Channel/Frame_03.png",
-            "x": 1350,
-            "y": 430
           }
         },
         "status": "proposed"
@@ -1432,51 +1271,6 @@
           }
         },
         "status": "proposed"
-      },
-      "volume": {
-        "action": "volume_up",
-        "detents": 4,
-        "hitbox": [
-          1380,
-          260,
-          135,
-          135
-        ],
-        "kind": "rotary",
-        "mask": "volume_face",
-        "notes": "Source-specific proposed component; native-resolution visual acceptance pending.",
-        "pivot": [
-          1447,
-          327
-        ],
-        "review": {
-          "reviewed": false,
-          "reviewed_by": null
-        },
-        "socket_mask": "volume_socket",
-        "states": {
-          "frame_00": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Volume/Frame_00.png",
-            "x": 1380,
-            "y": 260
-          },
-          "frame_01": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Volume/Frame_01.png",
-            "x": 1380,
-            "y": 260
-          },
-          "frame_02": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Volume/Frame_02.png",
-            "x": 1380,
-            "y": 260
-          },
-          "frame_03": {
-            "image": "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Volume/Frame_03.png",
-            "x": 1380,
-            "y": 260
-          }
-        },
-        "status": "proposed"
       }
     },
     "lcd_layers": {
@@ -1506,8 +1300,6 @@
       "ok",
       "ptt",
       "power",
-      "volume",
-      "channel",
       "pwr_led",
       "rx_led",
       "tx_led",
@@ -1545,14 +1337,6 @@
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Buttons/Up/Pressed.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Chassis/Pristine.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Chassis/Worn.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Channel/Frame_00.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Channel/Frame_01.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Channel/Frame_02.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Channel/Frame_03.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Volume/Frame_00.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Volume/Frame_01.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Volume/Frame_02.png",
-      "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/Knobs/Volume/Frame_03.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/LCD/BezelOverlay.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/LCD/Glass.png",
       "Contents/mods/PsychopatzCore/common/media/ui/Radio/Ham/Base.HamRadio2/LCD/Matte.png",

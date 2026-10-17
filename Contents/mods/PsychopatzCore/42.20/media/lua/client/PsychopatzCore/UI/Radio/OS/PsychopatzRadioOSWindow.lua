@@ -14,6 +14,14 @@ OS.Window = Window
 
 function Window:new(x, y, width, height, context, options)
     local object = ISPanel:new(x, y, width, height)
+    -- Vanilla UIDebugConsole is a root zombie.ui.NewWindow and therefore
+    -- allows its x/y to move outside the viewport.  ISUIElement instead
+    -- defaults root panels to keepOnScreen=true, which clamps setX/setY and
+    -- setWidth/setHeight at the screen edge.  Radio OS is an intentionally
+    -- off-screen-capable presentation surface: the viewport clips the
+    -- pixels, while the authored artwork remains intact for the swipe-away
+    -- animation and persisted crop.  Match the vanilla root-window model.
+    object.keepOnScreen = false
     options = type(options) == "table" and options or {}
     setmetatable(object, self)
     self.__index = self
@@ -26,8 +34,31 @@ function Window:new(x, y, width, height, context, options)
     object.persistGeometry = options.persistGeometry ~= false
     object.geometryKey = options.geometryKey
     object.owner = options.owner
+    object.openSource = options.source
+    object.autoDevice = options.autoDevice
     object.hostWindow = options.hostWindow
     object.geometryIdentity = options.geometryIdentity
+    object.presentationMode = options.presentationMode or "immersive"
+    object.presentationState = options.hidden == true and "hidden" or "docked"
+    object.dockX = tonumber(options.dockX) or 0.5
+    -- Keep the signed layout offset intact.  Geometry.DockPosition applies
+    -- the screen/height safety bounds after the actual surface dimensions are
+    -- known; clamping it to zero here would erase an intentional off-screen
+    -- chassis crop during reopen.
+    object.dockBottomOffset = tonumber(options.dockBottomOffset) or 12
+    object.presentationPeekHeight = math.max(
+        0, tonumber(options.presentationPeekHeight) or 0)
+    object.presentationVisibleFraction = math.max(0.35, math.min(1,
+        tonumber(options.presentationVisibleFraction) or 0.75))
+    object.animationDuration = math.max(
+        1, tonumber(options.animationDuration) or 360)
+    object.autoManaged = options.autoManaged == true
+    object._animationStartY = nil
+    object._animationTargetY = nil
+    object._animationElapsed = 0
+    object._layoutEditing = false
+    object._layoutEditor = nil
+    object._layoutSnapshot = nil
     object.skin = object.context.skin
     object.variant = options.variant or object.context.variant or "pristine"
     object.page = "home"
@@ -48,10 +79,13 @@ function Window:new(x, y, width, height, context, options)
     object._hoverResize = false
     object._pressedControl = nil
     object._pointerControl = nil
+    object._pointerDown = false
     object._pointerCancelled = false
     object._pttHeld = false
     object._dragging = false
     object._resizing = false
+    object._presentationVisibleHeight = nil
+    object._radioOSEngineClipDisabled = false
     object.debugCompositor = options.debugCompositor == true
     object.screenEffects = options.screenEffects ~= false
     object.settingsIndex = 1
@@ -70,6 +104,11 @@ end
 function Window:initialise()
     ISPanel.initialise(self)
     if self.setWantMouseEvents then self:setWantMouseEvents(true) end
+    -- The radio artwork is the top-level presentation surface.  Child
+    -- clipping belongs to authored LCD/control stencils, not the viewport.
+    if self.setRenderClippedChildren then
+        self:setRenderClippedChildren(false)
+    end
     self.background = false
     self:createPortraitPanel()
 end
@@ -100,10 +139,17 @@ function Window:createPortraitPanel()
     return panel
 end
 
-function Window:close()
+function Window:close(reason)
     if self._closed then return end
     self:saveGeometry(true)
+    self.closeReason = reason
+    self.presentationState = "closed"
     self._closed = true
+    if self._layoutEditor then
+        local editor = self._layoutEditor
+        self._layoutEditor = nil
+        if editor.close then editor:close("window_closed") end
+    end
     if self.portraitPanel then self.portraitPanel:setVisible(false) end
     if self.removeFromUIManager then self:removeFromUIManager() end
     self:setVisible(false)
@@ -111,12 +157,19 @@ function Window:close()
         self.hostWindow:setVisible(true)
         if self.hostWindow.bringToTop then self.hostWindow:bringToTop() end
     end
+    local diagnostics = OS.Diagnostics
+    if diagnostics and diagnostics.RecordWindow then
+        diagnostics.RecordWindow("window.closed", self, {
+            reason = reason or "unspecified",
+        })
+    end
     if OS._ForgetWindow then OS._ForgetWindow(self) end
 end
 
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Navigation"
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Interaction"
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Geometry"
+require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Presentation"
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Input"
 require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSWindow_Renderer"
 

@@ -51,6 +51,10 @@ function Window:reconcileScreenGeometry()
     local nextScale = Geometry.ClampScale(beforeScale, minimum, maximum)
     if math.abs(nextScale - beforeScale) > 0.0001 then
         self:applyScale(nextScale)
+    elseif self.presentationMode == "immersive"
+        and not self._layoutEditing and self.applyDockPosition
+    then
+        self:applyDockPosition()
     else
         self:clampToScreen()
     end
@@ -89,7 +93,16 @@ function Window:applyScale(scale)
     local height = math.max(1, math.floor(baseHeight * nextScale + 0.5))
     if self.setWidth then self:setWidth(width) else self.width = width end
     if self.setHeight then self:setHeight(height) else self.height = height end
-    self:clampToScreen()
+    if self.presentationMode == "immersive"
+        and not self._layoutEditing and self.applyDockPosition
+    then
+        self:applyDockPosition()
+    elseif self._layoutEditing and self.clampLayoutEditorPosition
+    then
+        self:clampLayoutEditorPosition()
+    else
+        self:clampToScreen()
+    end
     self.resizeHandleSize = math.max(12, math.floor(18 * nextScale))
     self:markGeometryChanged()
     return nextScale
@@ -120,6 +133,15 @@ end
 function Window:moveBy(dx, dy)
     local x = value(self, "getX", "x") + (tonumber(dx) or 0)
     local y = value(self, "getY", "y") + (tonumber(dy) or 0)
+    if self.presentationMode == "immersive"
+        and not self._layoutEditing and self.applyDockPosition
+    then
+        local width = dimensions(self)
+        self.dockX = Geometry.NormalizeDockX(x, width)
+        self:applyDockPosition()
+        self:markGeometryChanged()
+        return
+    end
     if self.setX then self:setX(x) else self.x = x end
     if self.setY then self:setY(y) else self.y = y end
     self:clampToScreen()
@@ -150,6 +172,12 @@ function Window:saveGeometry(force)
         w = width,
         h = height,
         scale = self:currentScale(),
+        dockX = self.dockX,
+        dockBottomOffset = self.dockBottomOffset,
+        presentationVisibleFraction = self.presentationVisibleFraction,
+        presentationMode = self.presentationMode,
+        hidden = self.presentationState == "hidden",
+        presentationVersion = 1,
     }, self.geometryIdentity)
     if ok then
         self._savedGeometrySignature = signature
