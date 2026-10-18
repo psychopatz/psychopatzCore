@@ -1,6 +1,8 @@
 # P0 — Extraction, Save-Schema and Generator Parity Audit
 
 Status: P0A formally closed; P0B active. Begin with actual checked-out sources.
+Latest bounded P0B evidence is Hoomans `72455cd1` and the focused suite is
+`PASS 6/6`; this remains source-harness evidence, not live-game acceptance.
 
 ## Mandatory evidence to collect
 ### Hoomans existing producers
@@ -54,6 +56,12 @@ The required P0A artifacts are now present in the local worktrees:
   executes the actual Hoomans persistence/identity/inventory bridge and passes
   `1/1`. It confirms custom-name and bounded modData preservation, and
   exposes the exact legacy-template metadata loss.
+- `ProjectHoomans/tests/pnc_npc_foundation_import_plan_smoke.lua` executes the
+  real Hoomans identity, appearance, inventory, persistence, and new
+  read-only import-plan modules. It passes the complete six-test focused
+  command, preserves the authored policy and all four voice fields from an
+  untouched source snapshot, and quarantines unsupported schema and
+  unrepresentable `legacyTemplateKey` item metadata.
 
 The baseline is intentionally bounded. It passes generated identity, seeded
 resolved appearance, personal inventory, equipment slots, directed social
@@ -82,8 +90,9 @@ separate from Steam Workshop publication.
 
 ## P0B active boundary — one next chunk
 
-Build only an in-memory, read-only import plan and decision log for the current
-versions. It must preserve raw source payloads, reject unsupported schemas,
-carry the authored appearance policy and complete voice profile, and classify
-`legacyTemplateKey` as represented or quarantined before a production writer
-or full P1 migration begins.
+Extend the in-memory, read-only import plan with explicit generator
+provenance/definition mismatch decisions and candidate serialize/deserialize
+canonical-hash checks. Review any remaining source fields against the matrix;
+preserve or quarantine anything not representable. Do not start the full P1
+production migration, rewrite saves, publish Workshop content, or claim live
+game acceptance.

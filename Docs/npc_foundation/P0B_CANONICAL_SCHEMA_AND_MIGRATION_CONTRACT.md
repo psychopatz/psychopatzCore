@@ -7,10 +7,11 @@ revision.
 
 Evidence heads:
 
-- PsychopatzCore: `8b8e0b7` (P0A documentation on `origin/main`).
-- ProjectHoomans production source: `d117d861`; the checked-out branch also
-  contains the P0A test `f647daea` and P0B characterization commit
-  `3f313b0b`.
+- PsychopatzCore: `ae32edd` (local P0B proof; `origin/main` remains
+  `8b8e0b7`).
+- ProjectHoomans P0B planner/test: `72455cd1`; the checked-out branch's
+  upstream source head remains `d117d861` and unrelated semantic commits are
+  preserved separately.
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and
   was not pulled or changed).
 
@@ -155,6 +156,25 @@ partially readable, or unsupported schema produces:
 The source payload remains unchanged. The normal Hoomans reset behavior is not
 an import adapter and must not be used as one.
 
+## Implemented read-only import plan
+
+Hoomans commit `72455cd1` registers
+`PNC.Persistence.ImportPlan`. `ImportPlan.Build` copies the raw payload,
+computes a deterministic source hash, checks the exact current persistence
+version, and returns a quarantined plan with the raw copy when the root is
+malformed, unsupported, or missing an actor ID. With a source snapshot it
+builds a canonical in-memory `PsychopatzCore.NPC` candidate and a decision log;
+it does not call reset, write ModData, or mutate the input/options.
+
+The field adapter requires and copies appearance policy schema 2, the full
+voice tuple (`voice`, `voicePrefix`, `voiceType`, `voicePitch`), inventory
+envelope/items/equipment state, directed social state, and location fields.
+An item carrying `legacyTemplateKey` is explicitly quarantined with
+`portable_metadata_unrepresentable`; no replacement template or invented
+state is supplied. `pnc_npc_foundation_import_plan_smoke.lua` proves these
+paths using the actual Hoomans identity, appearance, inventory, serializer,
+and persistence modules and passes in the focused six-test harness command.
+
 ## Non-destructive import and rollback
 
 The dry-run transaction is:
@@ -216,17 +236,19 @@ conflicting revisions are quarantined rather than merged by last writer.
 
 ## P0B exit gate and next chunk
 
-P0B is not complete until a read-only import-plan fixture proves:
+The bounded fixture now proves:
 
 1. current-version records are copied without mutating the source;
 2. authored appearance policy and all four voice values survive candidate
-   round-trip;
-3. `legacyTemplateKey` and every other item metadata field are either
-   represented or produce an opaque/quarantine decision;
-4. generator mismatch selects a source baseline/full path rather than replay;
-5. relationships and location/journey conflicts are explicit; and
-6. unsupported schemas preserve the raw source and fail closed.
+   construction;
+3. the known `legacyTemplateKey` discrepancy produces an explicit
+   opaque/quarantine decision rather than a replacement or discard;
+4. relationships and location/journey conflicts are explicit; and
+5. unsupported schemas preserve the raw source and fail closed.
 
-Next chunk: implement only that in-memory import-plan/decision-log fixture and
-the minimum schema/metadata adapters needed for it. Do not start the full P1
-production migration or live-game acceptance.
+Remaining P0B next chunk: add an explicit generator-provenance/definition
+mismatch decision and candidate serialize/deserialize canonical-hash checks,
+then review any remaining fields against the ownership matrix. A mismatch must
+select a source baseline/full/opaque path or quarantine; it must never rerun a
+changed generator as a silent default. Do not start the full P1 production
+migration or live-game acceptance.

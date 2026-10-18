@@ -1,8 +1,9 @@
 # NPC foundation migration risks
 
-Status: P0A audit artifact, 2026-10-18. These controls are prerequisites for
-any P0B import design. P0A does not migrate live saves, rewrite ModData, or
-change production ownership.
+Status: P0A audit artifact plus P0B implementation evidence, 2026-10-18.
+These controls remain prerequisites for any production import writer. P0A and
+the current P0B fixture do not migrate live saves, rewrite ModData, or change
+production ownership.
 
 ## Confirmed risks and current evidence
 
@@ -57,6 +58,23 @@ The adapter must refuse to commit if any required field is unknown,
 unrepresentable, colliding, or observed during an active transaction. A
 successful dry run is not manual SP/MP acceptance and does not authorize
 Workshop publication.
+
+## P0B fixture evidence
+
+Hoomans commit `72455cd1` adds a read-only `PNC.Persistence.ImportPlan` and
+`pnc_npc_foundation_import_plan_smoke.lua`. The fixture preserves a copied raw
+payload and source snapshot, builds a canonical in-memory candidate only when
+all required fields are representable, and records field-level actions. It
+quarantines missing authored appearance policy, incomplete voice profiles,
+missing relationship/location state, unsupported persistence versions, and
+items carrying `legacyTemplateKey`. It never calls the reset path or writes
+ModData. The focused source-backed suite passed `6/6`; this is harness
+evidence, not live-game acceptance.
+
+The remaining P0B gate is explicit generator provenance mismatch handling plus
+candidate round-trip canonical-hash verification. Until that is implemented
+and reviewed, a seed-only or definition-dependent record must remain
+source-authoritative or quarantined; no default or reroll is permitted.
 
 ## Explicit P0A boundary
 
