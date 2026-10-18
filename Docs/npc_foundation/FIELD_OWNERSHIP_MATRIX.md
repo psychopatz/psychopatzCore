@@ -1,8 +1,9 @@
 # NPC foundation field ownership matrix
 
-Status: P0A audit artifact, 2026-10-18. This is a source-backed extraction
-matrix, not an implementation approval. The checked-out source heads were
-PsychopatzCore `911d0bc`, Project Hoomans `cb2b07e7`, and Dynamic Trading
+Status: P0A audit artifact, 2026-10-18; P0B contract evidence appended below.
+This is a source-backed extraction matrix, not an implementation approval. The
+checked-out source heads were PsychopatzCore `8b8e0b7`, Project Hoomans
+`3f313b0b` (production source unchanged from `d117d861`), and Dynamic Trading
 `2b1975a2`. Dynamic Trading's and PsychopatzCore's media trees were excluded
 from the codebase graph coverage, and the Hoomans materialization source had a
 coverage freshness warning, so the media findings below were verified by direct
@@ -34,7 +35,7 @@ write path.
 | Authored appearance policy | `PNC_Identity_Appearance` schema 2 normalizes outfit/slot/voice modes. `PNC_Identity_Profile.RollAppearance` consumes `record.appearance`, but `PNC_Types.NormalizeDefinition` and `PNC_Persistence.SerializeRecord` do not currently carry that field. | Policy has `random`, `none`, and `item` modes, exact slots, worn slot, and item state. | Core appearance policy plus resolved projection. Import must preserve the policy before any resolved appearance is recomputed. | Confirmed gap: explicit authored policy is not serialized by the current Hoomans record path. |
 | Seeded clothing / worn visuals | Archetype look -> `PNC_Identity_Profile.RollAppearance` -> `PNC_Inventory_Templates` creates `tmpl:look:*` items with `wornSlot` and item state. | Deterministic from seed/archetype when no explicit policy exists; inventory item slots are the durable representation. | Core personal inventory and appearance projection. Inventory item identity/state is authoritative; body visuals are a lease. | `Base.Shirt` and its worn projection survive generated-record rehydration. |
 | Inventory baseline inputs | `PNC_Inventory_Templates.buildIdentityTemplate`; `PNC_Inventory_EquipmentGeneration`; `inventory.template` stores archetype, seed, generator version, equipment pool, weapon mode, and template ref. | Current generator version is `PNC.Const.GENERATOR_VERSION = 4`; NPC inventory schema is 2 with `SEED_ONLY`, `BASELINE_DELTA`, and `FULL`. | Core actor inventory template/baseline. A baseline is valid only when its generator and template reference are known; otherwise promote to full or quarantine. | Actual template creation and seed/delta persistence execute in the new smoke test's harness. |
-| Personal item identity and portable state | Hoomans CoreBridge maps compact items to PsychopatzCore virtual records; Core serializer uses virtual schema 1 / record schema 1; Hoomans delta schema is 1. | Server-authoritative dense item records; bounded portable state, quantities, metadata, and container relationships; no engine objects. | Core personal inventory. Preserve item IDs, type IDs, quantities, container, worn/equip slot, and representable portable state. Unrepresentable state requires a full fallback, not silent dropping. | Item IDs, stack, container, equipped slot, and bounded `modData` are checked. A generic custom-name fixture exposed a further codec follow-up. |
+| Personal item identity and portable state | Hoomans CoreBridge maps compact items to PsychopatzCore virtual records; Core serializer uses virtual schema 1 / record schema 1; Hoomans delta schema is 1. | Server-authoritative dense item records; bounded portable state, quantities, metadata, and container relationships; no engine objects. | Core personal inventory. Preserve item IDs, type IDs, quantities, container, worn/equip slot, `legacyTemplateKey`, and representable portable state. Unrepresentable state requires a full fallback, not silent dropping. | P0A checks item IDs, stack, container, equipped slot, and bounded `modData`. P0B characterization confirms `customName` and `modData` round-trip, but `legacyTemplateKey` is lost by current CoreBridge metadata. |
 | Equipped / worn / attached equipment | Hoomans keeps `record.equipment` summary plus inventory `equipped`, `worn`, and `attached`; persistence writes equipment summary and inventory payload. | The item ledger is the durable source; summary is derived/projection data. | Core item ledger owns personal equipment. Rebuild summary from the ledger and reject conflicting dual-authority values. | Equipped primary and worn slots are checked after inventory hydration. |
 | Directed relationships | `PNC_RelationshipTypes` and relationship service use `npc:<id>` and `player:<account>:<characterUUID>` keys; `record.social` persists schema 3. | Server-authoritative normalized scores, memories, bounded journals, personality and conduct projections. | Core relationship state. Preserve exact target keys and memory IDs; username-only aliases are not valid substitutes. | Directed approval, respect, and memory ID survive rehydration. |
 | NPC position / spawn / anchor | `PNC_Persistence.SerializeRecord` writes `position`, `spawn`, and `anchor`; deserializer restores all three. | Server-authoritative numeric coordinates; anchor is distinct from current position. | Core location state. If a journey is active, journey authority must define the next position; do not merge two writers. | Current position and anchor are checked. |
@@ -75,7 +76,10 @@ uses the actual Hoomans identity factory/profile, appearance resolver, record
 generator, inventory template/persistence/CoreBridge, relationship normalizer,
 and record serializer/deserializer. SurvivorFactory and native equipment
 construction are deterministic test doubles; this is not live SP/MP or
-Project Zomboid acceptance. The test intentionally reports the authored
-appearance-policy gap and does not claim full canonical parity until that field,
-the complete voice profile, and all portable item-state codecs have an import
-owner.
+Project Zomboid acceptance. The P0B characterization
+`pnc_npc_foundation_p0b_gap_characterization_smoke.lua` passes as well. It
+confirms the authored appearance policy and complete voice profile remain
+unserialized, and identifies `legacyTemplateKey` as the current portable
+metadata loss. It also confirms that `customName` and bounded `modData` are
+not losses in this path. No canonical parity claim is made until every
+representability decision has an import owner.

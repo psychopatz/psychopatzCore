@@ -1,6 +1,6 @@
 # P0 — Extraction, Save-Schema and Generator Parity Audit
 
-Status: P0A next chunk, no phase accepted. Begin with actual checked-out sources.
+Status: P0A formally closed; P0B active. Begin with actual checked-out sources.
 
 ## Mandatory evidence to collect
 ### Hoomans existing producers
@@ -35,7 +35,7 @@ Status: P0A next chunk, no phase accepted. Begin with actual checked-out sources
 ## P0B and handoff to P1
 P0B resolves schema conflict decisions; defines reversible import/dry-run boundary, stable actorId mapping, source-visibility and creator version policy; picks minimal Core ID/identity baseline. P1 writes an independent Core Create/Get/Save/Load vertical slice and a physical-free harness acceptance. Later phases move items, social and map; not in P0A.
 
-## P0A checkpoint — 2026-10-18
+## P0A closure checkpoint — 2026-10-18
 
 The required P0A artifacts are now present in the local worktrees:
 
@@ -47,6 +47,13 @@ The required P0A artifacts are now present in the local worktrees:
   runnable source-backed baseline. It passed `1/1` in the existing isolated Lua
   harness. It uses deterministic engine-boundary fixtures and makes no live
   Project Zomboid acceptance claim.
+- `P0B_CANONICAL_SCHEMA_AND_MIGRATION_CONTRACT.md` records the bounded
+  canonical schema, version gates, mapping ledger, rollback rules, and exact
+  discrepancy decisions.
+- `ProjectHoomans/tests/pnc_npc_foundation_p0b_gap_characterization_smoke.lua`
+  executes the actual Hoomans persistence/identity/inventory bridge and passes
+  `1/1`. It confirms custom-name and bounded modData preservation, and
+  exposes the exact legacy-template metadata loss.
 
 The baseline is intentionally bounded. It passes generated identity, seeded
 resolved appearance, personal inventory, equipment slots, directed social
@@ -58,3 +65,24 @@ persistence, map, pricing, or NPC lifecycle code changed in P0A.
 
 P0A evidence is sufficient to start P0B design, but P1 remains gated on the
 reversible no-loss import dry run and the confirmed field conflicts.
+
+## Commit and source-control proof
+
+- Core P0A documentation: `8b8e0b7`, already equal to `origin/main`.
+- Hoomans P0A baseline: `f647daea`, committed on the local documentation
+  branch and absent from GitHub `main`.
+- Hoomans P0B characterization: `3f313b0b`, committed on that same local
+  branch; unrelated semantic work remains untouched and uncommitted.
+- DynamicTrading local source: `2b1975a2`; local branch is one commit behind
+  its remote and was not changed.
+
+No repository was pushed during this chunk. GitHub source control was kept
+separate from Steam Workshop publication.
+
+## P0B active boundary — one next chunk
+
+Build only an in-memory, read-only import plan and decision log for the current
+versions. It must preserve raw source payloads, reject unsupported schemas,
+carry the authored appearance policy and complete voice profile, and classify
+`legacyTemplateKey` as represented or quarantined before a production writer
+or full P1 migration begins.
