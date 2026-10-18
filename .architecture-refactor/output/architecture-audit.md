@@ -9,17 +9,17 @@ Scoring scope: `production`
 
 | Metric | Value |
 |---|---:|
-| Production Health | 73.0/100 |
+| Production Health | 71.7/100 |
 | Coverage | 77.5% |
-| Confidence | 62.5% |
+| Confidence | 63.1% |
 | Max Refactor Pressure | 100.0/100 |
-| Production files | 299 |
-| Tests indexed | 126 |
+| Production files | 307 |
+| Tests indexed | 129 |
 | Tooling files indexed | 85 |
 | Generated files indexed | 0 |
-| Production LOC scored | 43837 |
+| Production LOC scored | 46319 |
 | Logical subsystems | 30 |
-| Production findings | 53 |
+| Production findings | 54 |
 | Test findings | 9 |
 
 ## Subsystems by refactor pressure
@@ -28,13 +28,13 @@ Scoring scope: `production`
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | (composition) | 100.0 | 61.1/100 | 73.1% | 59.7% | 3 | 13 | 8 | 8 | 6 |
 | Composition | 100.0 | 61.1/100 | 78.5% | 63.8% | 12 | 158 | 8 | 1 | 17 |
-| UI | 100.0 | 53.6/100 | 78.5% | 64.7% | 130 | 19053 | 13 | 4 | 10 |
+| UI | 100.0 | 53.0/100 | 78.5% | 65.8% | 138 | 21514 | 14 | 4 | 10 |
 | Debug | 87.4 | 63.2/100 | 79.3% | 64.2% | 14 | 1823 | 5 | 3 | 6 |
 | Bridge | 83.5 | 62.9/100 | 81.5% | 68.4% | 7 | 719 | 6 | 1 | 2 |
 | Profiler | 82.7 | 63.2/100 | 77.9% | 63.0% | 11 | 1608 | 5 | 2 | 1 |
 | Inventory | 20.9 | 88.2/100 | 81.5% | 66.1% | 26 | 4512 | 1 | 3 | 2 |
 | World | 20.2 | 88.2/100 | 81.5% | 66.1% | 14 | 2385 | 1 | 3 | 2 |
-| Radio | 19.1 | 87.5/100 | 76.3% | 61.9% | 10 | 764 | 1 | 2 | 2 |
+| Radio | 19.1 | 87.5/100 | 76.3% | 61.9% | 10 | 785 | 1 | 2 | 2 |
 | Economy | 18.5 | 87.5/100 | 74.4% | 60.3% | 7 | 1324 | 1 | 2 | 1 |
 | Preview | 18.1 | 87.5/100 | 77.1% | 62.6% | 8 | 1954 | 1 | 1 | 1 |
 | Traits | 17.6 | 87.5/100 | 67.0% | 54.1% | 3 | 475 | 1 | 1 | 1 |
@@ -65,6 +65,7 @@ Scoring scope: `production`
 | production | `CORE_DOMAIN_DEPENDENCY` | HIGH | 6 |
 | production | `HOT_PATH_EVENT_RISK` | LOW | 3 |
 | production | `CROSS_SUBSYSTEM_COUPLING` | MEDIUM | 2 |
+| production | `LARGE_FUNCTION` | MEDIUM | 1 |
 | test | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | 9 |
 
 ## Finding index
@@ -117,19 +118,20 @@ Query evidence with `architecture_audit finding <repo> <finding-id> --context 4`
 | `ARC-FE291A3A00` | `DEPENDENCY_CYCLE` | HIGH | DETERMINISTIC (99%) | Profiler | Subsystem participates in dependency cycle: (composition) -> Composition -> Bridge -> Profiler -> UI -> Debug -> (composition) |
 | `ARC-059B1384F8` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationPortrait.lua depends on non-core files. |
 | `ARC-292A1037C8` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationSettings.lua depends on non-core files. |
-| `ARC-5A613F2FEA` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationLLMInput.lua depends on non-core files. |
 | `ARC-6D526E986A` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationSettings_UI.lua depends on non-core files. |
+| `ARC-82F285D27E` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/Parts/PsychopatzConversationLLMInput.lua depends on non-core files. |
 | `ARC-A06BE1C2A3` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/PsychopatzAudioSettings.lua depends on non-core files. |
 | `ARC-BBDD52F84B` | `CORE_DOMAIN_DEPENDENCY` | HIGH | MEDIUM (70%) | UI | Core/shared-looking file Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Core/PsychopatzUITheme.lua depends on non-core files. |
 | `ARC-3CCF516BDE` | `CROSS_SUBSYSTEM_COUPLING` | MEDIUM | HIGH (82%) | (composition) | Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/00_PsychopatzCore_Client_Init.lua directly depends on 6 foreign subsystems. |
 | `ARC-976CD72A36` | `CROSS_SUBSYSTEM_COUPLING` | MEDIUM | HIGH (82%) | Composition | Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Composition/PC_SharedFoundation_Language.lua directly depends on 5 foreign subsystems. |
+| `ARC-E7AF9C127A` | `LARGE_FUNCTION` | MEDIUM | HIGH (90%) | UI | OS.Open spans 155 lines. |
 | `ARC-06FE02703D` | `HOT_PATH_EVENT_RISK` | LOW | LOW (52%) | Bridge | Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Bridge/PsychopatzBridge.lua publishes events and contains a recurring hot-path signal. |
 | `ARC-26CAED0862` | `HOT_PATH_EVENT_RISK` | LOW | LOW (52%) | Voice | Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Voice/PsychopatzVoiceGateway.lua publishes events and contains a recurring hot-path signal. |
 | `ARC-B488C6DD30` | `HOT_PATH_EVENT_RISK` | LOW | LOW (52%) | Conversation | Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/Conversation/PsychopatzSocialFlavorClient.lua publishes events and contains a recurring hot-path signal. |
 | `ARC-2808E9ADA6` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (80%) | Inventory | Repeated test setup appears across 7 tests (~84 repeated LOC). |
 | `ARC-6C5D369599` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (77%) | tools | Repeated test setup appears across 6 tests (~24 repeated LOC). |
 | `ARC-A18991104B` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (72%) | World | Repeated test setup appears across 4 tests (~36 repeated LOC). |
-| `ARC-AA585FCCAA` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | HIGH (95%) | tests | Repeated test setup appears across 43 tests (~636 repeated LOC). |
+| `ARC-AA585FCCAA` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | HIGH (95%) | tests | Repeated test setup appears across 44 tests (~606 repeated LOC). |
 | `ARC-B91DA22AEC` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (70%) | Bridge | Repeated test setup appears across 3 tests (~36 repeated LOC). |
 | `ARC-BA13AB613D` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (72%) | Debug | Repeated test setup appears across 4 tests (~96 repeated LOC). |
 | `ARC-CE287FEB58` | `TEST_HARNESS_EXTRACTION_CANDIDATE` | LOW | MEDIUM (70%) | Compatibility | Repeated test setup appears across 3 tests (~12 repeated LOC). |
@@ -147,6 +149,7 @@ Generated artifacts and tooling are indexed but excluded from this table and pro
 
 | ID | Function | File | Start | LOC |
 |---|---|---|---:|---:|
+| `ARC-E7AF9C127A` | `OS.Open` | `Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSDevice.lua` | 209 | 155 |
 
 ## Recommended workflow
 

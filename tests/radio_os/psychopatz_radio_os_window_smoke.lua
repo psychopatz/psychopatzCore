@@ -609,6 +609,44 @@ equal(firstSkinAgain.scale, savedScale,
     "radio scale is scoped by device skin")
 firstSkinAgain:close()
 
+local rubberBandDevice = {}
+for key, value in pairs(device) do rubberBandDevice[key] = value end
+rubberBandDevice.fullType = "Base.WalkieTalkie4"
+local rubberBand = assert(OS.Open(0, rubberBandDevice, {
+    scale = 0.3, persistGeometry = false,
+}))
+rubberBand:showImmersive({ animate = false })
+local rubberDockY = rubberBand:getY()
+local rubberDockX = rubberBand:getX()
+rubberBand:beginPresentationDrag(40, rubberDockY + 20)
+rubberBand:trackPresentationDrag(0, -1000)
+truthy(rubberBand:getY() < rubberDockY,
+    "upward drag temporarily pulls the radio above its dock")
+truthy(rubberBand:getY() >= rubberDockY
+    - rubberBand.rubberBandMaxDistance,
+    "upward drag is bounded by the rubber-band limit")
+truthy((rubberBand._dragOverscrollY or 0) > 0,
+    "upward drag records temporary overscroll")
+equal(rubberBand._dragProgress, 0,
+    "upward overscroll cannot trigger the put-away threshold")
+rubberBand:finishPresentationDrag()
+equal(rubberBand.presentationState, "showing",
+    "releasing upward overscroll starts the return animation")
+local rubberSteps = 0
+while rubberBand.presentationState == "showing" and rubberSteps < 40 do
+    rubberBand:stepPresentation()
+    rubberSteps = rubberSteps + 1
+end
+equal(rubberBand.presentationState, "docked",
+    "rubber-band return reaches the docked state")
+equal(rubberBand:getY(), rubberDockY,
+    "rubber-band return lands on the saved dock anchor")
+equal(rubberBand:getX(), rubberDockX,
+    "upward rubber-band feedback does not alter horizontal position")
+equal(rubberBand._dragOverscrollY, nil,
+    "temporary overscroll state is cleared after return")
+rubberBand:close()
+
 local animated = assert(OS.Open(0, device, { scale = 0.3 }))
 animated:showImmersive({ animate = false })
 local animatedDockY = animated:getY()

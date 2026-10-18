@@ -52,6 +52,15 @@ function Window:new(x, y, width, height, context, options)
         tonumber(options.presentationVisibleFraction) or 0.75))
     object.animationDuration = math.max(
         1, tonumber(options.animationDuration) or 360)
+    -- Runtime presentation gestures may overscroll the docked surface, but
+    -- this feedback is never part of persisted layout geometry.  The layout
+    -- editor remains the only owner allowed to change the vertical anchor.
+    object.rubberBandMaxDistance = math.max(24,
+        tonumber(options.rubberBandMaxDistance) or 120)
+    object.rubberBandResistance = math.max(0.05, math.min(1,
+        tonumber(options.rubberBandResistance) or 0.35))
+    object.rubberBandDuration = math.max(120,
+        tonumber(options.rubberBandDuration) or 280)
     object.autoManaged = options.autoManaged == true
     object._animationStartY = nil
     object._animationTargetY = nil
@@ -84,6 +93,7 @@ function Window:new(x, y, width, height, context, options)
     object._pttHeld = false
     object._dragging = false
     object._resizing = false
+    object._dragOverscrollY = nil
     object._presentationVisibleHeight = nil
     object._radioOSEngineClipDisabled = false
     object.debugCompositor = options.debugCompositor == true

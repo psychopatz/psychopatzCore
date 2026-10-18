@@ -242,6 +242,7 @@ function Window:onMouseDown(x, y)
         self._pointerDown = true
         self._dragging = true
         self._dragDistanceY = 0
+        self._dragOverscrollY = 0
         if self.beginPresentationDrag
             and self.presentationMode == "immersive"
             and not self._layoutEditing

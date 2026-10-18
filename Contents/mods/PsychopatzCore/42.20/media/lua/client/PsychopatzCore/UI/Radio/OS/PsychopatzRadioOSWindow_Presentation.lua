@@ -239,6 +239,14 @@ function Window:hiddenPositionY()
     return Geometry.HiddenY(screenHeight, self.presentationPeekHeight)
 end
 
+function Window:rubberBandOffset(distance)
+    local pull = math.max(0, numeric(distance))
+    local resistance = clamp(self.rubberBandResistance or 0.35, 0.05, 1)
+    local maximum = math.max(24,
+        tonumber(self.rubberBandMaxDistance) or 120)
+    return math.min(maximum, pull * resistance)
+end
+
 function Window:trackPresentationDrag(deltaX, deltaY)
     local screenWidth = Geometry.GetScreenSize()
     local width = dimensions(self)
@@ -260,10 +268,20 @@ function Window:trackPresentationDrag(deltaX, deltaY)
     local _, dockY = self:dockPosition()
     local hiddenY = self:hiddenPositionY()
     local nextX = Geometry.ClampX(x, width, screenWidth)
-    local nextY = clamp(y, dockY, hiddenY)
+    local nextY
+    if y < dockY then
+        -- Upward movement is deliberately temporary tactile feedback.  The
+        -- pointer can pull the radio above its dock, but resistance prevents
+        -- the full shell from flying away and finishPresentationDrag always
+        -- returns it to the saved anchor.
+        nextY = dockY - self:rubberBandOffset(dockY - y)
+    else
+        nextY = clamp(y, dockY, hiddenY)
+    end
     self.dockX = Geometry.NormalizeDockX(nextX, width, screenWidth)
     setPosition(self, nextX, nextY)
     self._dragDistanceY = math.max(0, nextY - dockY)
+    self._dragOverscrollY = math.max(0, dockY - nextY)
     self._dragTravelY = math.max(1, hiddenY - dockY)
     self._dragProgress = clamp(self._dragDistanceY / self._dragTravelY,
         0, 1)
@@ -298,9 +316,11 @@ end
 
 function Window:finishPresentationDrag()
     local progress = tonumber(self._dragProgress) or 0
+    local overscroll = tonumber(self._dragOverscrollY) or 0
     local _, dockY = self:dockPosition()
     local activeDiagnostics = diagnostics()
     self._dragDistanceY = nil
+    self._dragOverscrollY = nil
     self._dragTravelY = nil
     self._dragProgress = nil
     self._dragStartWindowX = nil
@@ -308,6 +328,15 @@ function Window:finishPresentationDrag()
     self._dragStartMouseX = nil
     self._dragStartMouseY = nil
     if progress <= 0.001 then
+        if overscroll > 0.001 then
+            if activeDiagnostics and activeDiagnostics.EndDrag then
+                activeDiagnostics.EndDrag(self, "rubber_band_back", 0,
+                    overscroll)
+            end
+            self:beginPresentationAnimation(dockY, "showing",
+                self.rubberBandDuration or 280)
+            return true
+        end
         if activeDiagnostics and activeDiagnostics.EndDrag then
             activeDiagnostics.EndDrag(self, "snap_back", progress)
         end

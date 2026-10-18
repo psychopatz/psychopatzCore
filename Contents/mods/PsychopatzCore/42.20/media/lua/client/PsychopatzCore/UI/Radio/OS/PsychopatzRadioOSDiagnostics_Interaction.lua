@@ -100,6 +100,9 @@ local function windowSnapshot(window)
         resizing = window._resizing == true,
         captured = captureState == true,
         pointerControl = window._pointerControl,
+        dragDistanceY = window._dragDistanceY,
+        dragOverscrollY = window._dragOverscrollY,
+        rubberBandActive = tonumber(window._dragOverscrollY or 0) > 0,
     }
 
     if window.hostWindow then
@@ -199,14 +202,16 @@ function Diagnostics.TrackDrag(window, deltaX, deltaY)
         deltaY = deltaY,
         progress = window._dragProgress,
         distanceY = window._dragDistanceY,
+        overscrollY = window._dragOverscrollY,
     }, { print = false })
 end
 
-function Diagnostics.EndDrag(window, decision, progress)
+function Diagnostics.EndDrag(window, decision, progress, overscroll)
     if not Diagnostics.IsPresentationEnabled() then return end
     Diagnostics.RecordWindow("pointer.drag_end", window, {
         decision = decision,
         progress = progress,
+        overscrollY = overscroll,
         threshold = 0.42,
     })
     if window then window._radioOSDiagnosticDrag = nil end
