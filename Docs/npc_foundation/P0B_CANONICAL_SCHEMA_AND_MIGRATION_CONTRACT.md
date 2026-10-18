@@ -7,8 +7,9 @@ revision.
 
 Evidence heads:
 
-- PsychopatzCore: `69af55e` (local P0B documentation head; prior risk-register
-  repair `1bd2625`; `origin/main` remains `8b8e0b7`).
+- PsychopatzCore: `afdc184` (local P0B documentation/evidence head; prior
+  serialized-root audit `69af55e` and risk-register repair `1bd2625`;
+  `origin/main` remains `8b8e0b7`).
 - ProjectHoomans P0B planner/test: `5efc66fe` (generation provenance
  preservation on top of `1310433a` definition-mismatch coverage and
  `75d127e1` identity-source fail-closed coverage; earlier metadata-schema-2

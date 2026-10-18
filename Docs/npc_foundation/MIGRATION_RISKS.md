@@ -54,7 +54,7 @@ fail-closed coverage in `75d127e1`, metadata-schema-2 inventory preservation in
 `f5326079`, deferred-root preservation in `cce488a6`, and the original planner,
 generator, and rollback work in `72455cd1`, `3b8404fb`, and `6ad89ab0`.
 
-The bounded focused suite passes `9/9` in `0.42s`. It executes the real
+The bounded focused suite passes `9/9` in `0.45s`. It executes the real
 Hoomans identity, appearance, inventory, relationship, travel, serializer,
 deserializer, and import-plan modules. It verifies raw/source non-mutation,
 authored appearance and complete voice preservation from the source snapshot,

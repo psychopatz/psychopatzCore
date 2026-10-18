@@ -5,8 +5,9 @@ production implementation or live-game acceptance is claimed.
 
 ## Planning input revisions
 
-- PsychopatzCore: `69af55e` (local P0B documentation head; prior risk-register
-  repair `1bd2625`; `origin/main` remains `8b8e0b7`).
+- PsychopatzCore: `afdc184` (local P0B documentation/evidence head; prior
+  serialized-root audit `69af55e` and risk-register repair `1bd2625`;
+  `origin/main` remains `8b8e0b7`).
 - ProjectHoomans P0B evidence: `5efc66fe` (generation provenance preservation
   on top of `1310433a` definition-mismatch coverage and `75d127e1`
   identity-source fail-closed coverage; earlier `f5326079` inventory,
@@ -60,7 +61,7 @@ python3 tests/run_tests.py \
   pnc_npc_foundation_import_plan_codec_smoke \
   pnc_seed_delta_smoke pnc_relationship_foundation_smoke \
   pnc_unique_npc_smoke --jobs 1
-PASS 9/9 in 0.42s
+PASS 9/9 in 0.45s
 ```
 
 The read-only planner was introduced in Hoomans `72455cd1`, extended with
