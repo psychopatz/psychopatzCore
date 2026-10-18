@@ -9,8 +9,8 @@ Evidence heads:
 
 - PsychopatzCore: `10206ae` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans P0B planner/test: `cce488a6` (extends `6ad89ab0`, `3b8404fb`,
-  and `72455cd1`); the
+- ProjectHoomans P0B planner/test: `f5326079` (metadata-schema-2 inventory
+  repair on `cce488a6`, extending `6ad89ab0`, `3b8404fb`, and `72455cd1`); the
   checked-out branch's upstream source head remains `d117d861` and unrelated
   semantic commits are preserved separately.
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and
@@ -105,6 +105,7 @@ is a contract shape, not a claim that production code already accepts it.
     },
     inventory = {
         sourceSchema = 2,
+        metadataSchema = 2,
         mode = "SEED_ONLY" | "BASELINE_DELTA" | "FULL" | "OPAQUE",
         baseline = <source-baseline>,
         items = <exact-portable-items>,
@@ -137,7 +138,7 @@ The current source-backed input set is intentionally narrow:
 | Hoomans NPC persistence | 16 | Read and preserve the raw root before any normal loader call. |
 | Hoomans appearance policy | 2 | Preserve the full policy, including slot mode, type, worn slot, and item state. |
 | Hoomans inventory envelope | 2 | Keep `SEED_ONLY`, `BASELINE_DELTA`, and `FULL` distinct. |
-| Hoomans CoreBridge / Core delta | 1 / 1 | Require exact nested schema and metadata validation. |
+| Hoomans CoreBridge / Core delta | envelope 1 / metadata 2 / delta 1 | Require exact nested schema and metadata validation; schema-1 metadata is read-compatible but not complete for legacy-template identity. |
 | PsychopatzCore virtual / dense item records | 1 / 1 | Require type, codec, state, quantity, and metadata representability. |
 | Hoomans directed social state | 3 | Preserve exact target keys and memory IDs. |
 | Core canonical NPC envelope | 1 (P0B contract) | Future writer only; no current runtime reader is implied. |
@@ -168,7 +169,7 @@ candidate codec unchanged in Hoomans `cce488a6`.
 
 ## Implemented read-only import plan
 
-Hoomans commits `72455cd1`, `3b8404fb`, `6ad89ab0`, and `cce488a6` register and extend
+Hoomans commits `72455cd1`, `3b8404fb`, `6ad89ab0`, `cce488a6`, and `f5326079` register and extend
 `PNC.Persistence.ImportPlan`. `ImportPlan.Build` copies the raw payload,
 computes a deterministic source hash, checks the exact current persistence
 version, and returns a quarantined plan with the raw copy when the root is
@@ -179,11 +180,13 @@ it does not call reset, write ModData, or mutate the input/options.
 The field adapter requires and copies appearance policy schema 2, the full
 voice tuple (`voice`, `voicePrefix`, `voiceType`, `voicePitch`), inventory
 envelope/items/equipment state, directed social state, and location fields.
-An item carrying `legacyTemplateKey` is explicitly quarantined with
-`portable_metadata_unrepresentable`; no replacement template or invented
-state is supplied. `pnc_npc_foundation_import_plan_smoke.lua` proves these
-paths using the actual Hoomans identity, appearance, inventory, serializer,
-and persistence modules. The focused source-backed suite passes `9/9`.
+The metadata-schema-2 bridge carries `legacyTemplateKey` at metadata index 17
+in FULL payloads and in each delta upsert; schema-1 reads remain supported but
+cannot reconstruct that field. `pnc_npc_foundation_import_plan_smoke.lua` and
+the gap characterization prove exact current-schema preservation and keep
+invalid metadata fail-closed. These paths use the actual Hoomans identity,
+appearance, inventory, serializer, and persistence modules. The focused
+source-backed suite passes `9/9`.
 
 The generator adapter checks current version `4`, seed, archetype, equipment
 pool, definition revision, and optional template reference. It marks a match
@@ -253,11 +256,12 @@ and source item ledger, not a replacement for them.
 | --- | --- | --- | --- | --- |
 | Authored appearance policy preservation | `record.appearance.schemaVersion = 2`; `slots.Torso_Upper = { mode = "item", type = "Base.Jacket", wornSlot = "Torso_Upper", itemState.modData.source = "authored" }`; `outfit = "none"`. | `PNC.Persistence.SerializeRecord` emits `payload.appearance = nil`; `DeserializeRecord` restores `record.appearance = nil`. | `PNC_Identity_Appearance.Normalize/Resolve` can consume the policy, but `PNC_Types_Normalization`, `PNC_Types_Record`, `PNC_Persistence_Serialize`, and `PNC_Persistence_Deserialize` do not carry it. | Add a versioned canonical policy field and preserve the raw policy until then. Do not fall back to the archetype look or reroll slots. |
 | Complete NPC voice profile | Factory source survivor fields: `voice = "parity_voice"`, `voicePrefix = "parity_voice"`, `voiceType = 3`, `voicePitch = 1.25`. | Payload keeps only `identity.survivor.voice = "parity_voice"`; `voicePrefix`, `voiceType`, and `voicePitch` are `nil`. | `PNC_Identity_Factory.GenerateResolvedIdentity` and `PNC_Identity_Profile.RollAppearance` produce all four; `PNC_Persistence_Primitives.sanitizeIdentity` writes only legacy `voice`. | Add a versioned voice object. Map old legacy voice only to the legacy/prefix slot when justified; missing type/pitch remains incomplete/opaque, never invented or factory-regenerated. |
-| Portable inventory metadata / codec parity | Source item: `id = "loot:p0b:01"`, `customName = "Ledger"`, `itemState.modData.source = "p0b"`, `legacyTemplateKey = "legacy:p0b:item"`. | `customName = "Ledger"` and `itemState.modData.source = "p0b"` survive; `legacyTemplateKey = nil` after serialization and rehydration. | Hoomans `PNC_Inventory_CoreBridge` and `PNC_Inventory_CoreDeltaCodec` call Core `encodeItem`; `PNC_Inventory_CoreStateCodec.metadata/applyMetadata` has no legacy-template field before `Internal.createItem`. | Extend the versioned metadata contract or keep an opaque/full source item envelope. Records with the missing field are not eligible for seed/delta-only import; do not replace the template or discard the record. |
+| Portable inventory metadata / codec parity | Source item: `id = "loot:p0b:01"`, `customName = "Ledger"`, `itemState.modData.source = "p0b"`, `legacyTemplateKey = "legacy:p0b:item"`. | Before `f5326079`, schema-1 metadata dropped `legacyTemplateKey`; current metadata schema 2 preserves it through delta and FULL rehydration. | Hoomans `PNC_Inventory_CoreBridge` and `PNC_Inventory_CoreDeltaCodec` call Core `encodeItem`; `PNC_Inventory_CoreStateCodec.metadata/applyMetadata` now carries index 17 under metadata schema 2. | Require metadata schema 2 for complete parity. Old schema-1 records carrying legacy-only identity remain source-authoritative/opaque; do not replace the template or discard the record. |
 
-The generic custom-name concern is therefore narrowed: the current path
-preserves the canonical flat `customName` field. The confirmed loss is the
-separate `legacyTemplateKey` metadata field.
+The generic custom-name concern is therefore narrowed: the current metadata
+schema 2 preserves the canonical flat `customName` field, bounded `modData`,
+and the separate `legacyTemplateKey` field. The remaining compatibility gap is
+explicitly limited to older metadata-schema-1 payloads.
 
 ## Relationship and location continuity
 
@@ -277,18 +281,17 @@ The bounded fixture now proves:
 1. current-version records are copied without mutating the source;
 2. authored appearance policy and all four voice values survive candidate
    construction;
-3. the known `legacyTemplateKey` discrepancy produces an explicit
-   opaque/quarantine decision rather than a replacement or discard;
+3. metadata schema 2 preserves `legacyTemplateKey` through both delta and FULL
+   paths, while schema-1 reads remain explicitly incomplete for that field;
 4. relationships and location/journey conflicts are explicit; and
 5. personality, relationship memories, and journey provenance are explicit;
 6. opaque nested journey fields and location conflicts quarantine without loss;
 7. rollback metadata records source preservation and no writes; and
 8. unsupported schemas preserve the raw source and fail closed.
 
-Remaining P0B next chunk: reconcile every portable item metadata field against
-the CoreBridge, CoreStateCodec, and Core item-record schemas, starting with
-`legacyTemplateKey`. Add only the versioned metadata or opaque/full-item
-fallback needed to prove exact restoration. A
+Remaining P0B next chunk: define and test versioned restoration for authored
+appearance policy and the complete SurvivorFactory voice profile while keeping
+schema-16 unknown/old inputs source-preserving and fail-closed. A
 mismatch must select a source baseline/full/opaque path or quarantine; it must
 never rerun a changed generator as a silent default. Do not start the full P1
 production migration or live-game acceptance.

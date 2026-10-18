@@ -7,7 +7,8 @@ production implementation or live-game acceptance is claimed.
 
 - PsychopatzCore: `10206ae` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans: `cce488a6` (read-only P0B continuity, journey provenance,
+- ProjectHoomans: `f5326079` (P0B metadata-schema-2 inventory codec repair on
+  top of `cce488a6`; read-only P0B continuity, journey provenance,
   rollback, generator, candidate-hash, and deferred-root preservation tests;
   upstream remains `d117d861`).
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and was
@@ -57,19 +58,21 @@ python3 tests/run_tests.py \
   pnc_npc_foundation_import_plan_codec_smoke \
   pnc_seed_delta_smoke pnc_relationship_foundation_smoke \
   pnc_unique_npc_smoke --jobs 1
-PASS 9/9 in 0.40s
+PASS 9/9 in 0.45s
 ```
 
 The read-only planner was introduced in Hoomans `72455cd1`, extended with
 generator provenance and candidate hashing in `3b8404fb`, and extended with
 this bounded continuity/rollback audit in `6ad89ab0`, followed by deferred
-serialized-root preservation in `cce488a6`.
+serialized-root preservation in `cce488a6`, followed by metadata schema 2
+inventory preservation in `f5326079`.
 
 `pnc_npc_foundation_import_plan_smoke.lua` uses real Hoomans identity,
 appearance, inventory, serializer, deserializer, and import-plan modules. It
 preserves the authored appearance policy, all four voice values, exact item
-state, and generator provenance. It quarantines `legacyTemplateKey` instead
-of replacing or discarding it.
+state, and generator provenance. Current metadata schema 2 preserves
+`legacyTemplateKey` in both baseline-delta and FULL payloads; schema-1 payloads
+remain explicitly incompatible with that field.
 
 `pnc_npc_foundation_import_plan_continuity_smoke.lua` uses the real Hoomans
 relationship and travel constructors. It verifies generated personality,
@@ -90,10 +93,11 @@ known false positive for the harness helper's `T.load` calls.
 
 The result is not live SP/MP acceptance. Confirmed no-loss blockers remain:
 authored appearance-policy persistence, the complete SurvivorFactory voice
-profile in the normal Hoomans payload, and the portable `legacyTemplateKey`
-inventory metadata field. Deferred serialized roots now remain visible in the
-opaque source envelope, but their canonical owners are not yet established.
-No silent fallback is accepted.
+profile in the normal Hoomans payload. Deferred serialized roots now remain
+visible in the opaque source envelope, but their canonical owners are not yet
+established. A legacy metadata-schema-1 payload still cannot claim complete
+item parity and must remain source-authoritative or opaque. No silent fallback
+is accepted.
 
 ## Verified ownership boundary
 
@@ -114,12 +118,12 @@ canonical field shape, source-preserving rollback, deterministic generator
 compatibility, appearance/voice/inventory/relationship continuity, and
 explicit unsupported-schema behavior.
 
-The current next chunk is one bounded inventory-codec audit: reconcile every
-portable item metadata field against the CoreBridge/CoreStateCodec/Core item
-record schemas, starting with `legacyTemplateKey`, and add only the versioned
-metadata or opaque/full-item fallback needed for exact restoration. Do not
-start the full P1 production migration, rewrite saves, publish Workshop
-content, or claim live-game acceptance.
+The current next chunk is one bounded producer-persistence audit: define and
+test versioned restoration for authored appearance policy and the complete
+SurvivorFactory voice profile while keeping schema-16 unknown/old inputs
+source-preserving and fail-closed. Do not start the full P1 production
+migration, rewrite saves, publish Workshop content, or claim live-game
+acceptance.
 
 ## Evidence remaining open
 
