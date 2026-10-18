@@ -61,8 +61,8 @@ Workshop publication.
 
 ## P0B fixture evidence
 
-Hoomans commit `72455cd1` adds a read-only `PNC.Persistence.ImportPlan` and
-`pnc_npc_foundation_import_plan_smoke.lua`. The fixture preserves a copied raw
+Hoomans commits `72455cd1` and `3b8404fb` add a read-only
+`PNC.Persistence.ImportPlan` and focused smoke tests. The fixture preserves a copied raw
 payload and source snapshot, builds a canonical in-memory candidate only when
 all required fields are representable, and records field-level actions. It
 quarantines missing authored appearance policy, incomplete voice profiles,
@@ -71,10 +71,13 @@ items carrying `legacyTemplateKey`. It never calls the reset path or writes
 ModData. The focused source-backed suite passed `6/6`; this is harness
 evidence, not live-game acceptance.
 
-The remaining P0B gate is explicit generator provenance mismatch handling plus
-candidate round-trip canonical-hash verification. Until that is implemented
-and reviewed, a seed-only or definition-dependent record must remain
-source-authoritative or quarantined; no default or reroll is permitted.
+The focused source-backed suite now passes `8/8`. Generator provenance is
+classified as compatible, source-authoritative fallback, or quarantine; a
+candidate codec must also preserve its canonical hash. The remaining P0B gate
+is field-coverage and rollback-contract review for personality, relationship
+memory, journey provenance, opaque nested fields, and decision records. A
+seed-only or definition-dependent record must remain source-authoritative or
+quarantined; no default or reroll is permitted.
 
 ## Explicit P0A boundary
 

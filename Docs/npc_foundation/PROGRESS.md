@@ -6,8 +6,8 @@ inspection. No foundation production implementation is claimed.
 ## Planning input revisions
 
 - PsychopatzCore: `ae32edd` (local P0B proof; `origin/main` remains `8b8e0b7`)
-- ProjectHoomans: `72455cd1` (read-only P0B import planner and test; upstream
-  remains `d117d861`)
+- ProjectHoomans: `3b8404fb` (read-only P0B planner, generator provenance, and
+  candidate-hash tests; upstream remains `d117d861`)
 - DynamicTrading: `2b1975a2`
 - MarketSense dependency: not inspected in this P0A chunk.
 
@@ -38,8 +38,8 @@ PASS 5/5
 The source-backed P0B planner command also passes:
 
 ```text
-python3 tests/run_tests.py pnc_npc_foundation_parity_baseline_smoke pnc_npc_foundation_p0b_gap_characterization_smoke pnc_npc_foundation_import_plan_smoke pnc_seed_delta_smoke pnc_relationship_foundation_smoke pnc_unique_npc_smoke --jobs 1
-PASS 6/6 in 0.33s
+python3 tests/run_tests.py pnc_npc_foundation_parity_baseline_smoke pnc_npc_foundation_p0b_gap_characterization_smoke pnc_npc_foundation_import_plan_smoke pnc_npc_foundation_import_plan_generator_smoke pnc_npc_foundation_import_plan_codec_smoke pnc_seed_delta_smoke pnc_relationship_foundation_smoke pnc_unique_npc_smoke --jobs 1
+PASS 8/8 in 0.54s
 ```
 
 `pnc_npc_foundation_import_plan_smoke.lua` loads the real parity baseline and
@@ -51,6 +51,15 @@ fields; its inventory cases use actual Hoomans inventory mutations. The
 planner copies raw input, fails closed on unsupported schema versions, logs
 field-level decisions, and quarantines `legacyTemplateKey` rather than
 discarding or replacing it.
+
+Hoomans `3b8404fb` adds generator provenance checks for the actual current
+generator version (`4`), template seed/archetype/equipment-pool/definition
+revision, and optional template reference. A compatible source is marked
+`SEED_COMPATIBLE`; a changed generator falls back to
+`SOURCE_AUTHORITATIVE` when exact item state exists and quarantines when only
+seed replay remains. Candidate readiness requires a supplied deterministic
+codec whose post-deserialize canonical hash matches the pre-serialize hash;
+missing or mismatched codecs quarantine without changing the source.
 
 The result is not live SP/MP acceptance. Confirmed gaps are authored
 appearance-policy persistence, the complete SurvivorFactory voice profile, and
@@ -64,10 +73,11 @@ commits: Core documentation `8b8e0b7`, Hoomans baseline test `f647daea`.
 The P0B characterization is committed as Hoomans `3f313b0b`. These commits
 are local source-control history only; no Workshop publication occurred.
 The P0B canonical-schema contract is committed as Core `92be3e2`; the
-read-only import-plan implementation and smoke test are committed as Hoomans
-`72455cd1`. The Hoomans branch is ahead of its remote by unrelated semantic
-work as well; only the six P0B paths in that commit were staged. These commits
-are local source-control history only; no Workshop publication occurred.
+read-only import-plan implementation and follow-up provenance/hash tests are
+committed as Hoomans `72455cd1` and `3b8404fb`. The Hoomans branch is ahead of
+its remote by unrelated semantic work as well; only the eight P0B paths in
+`3b8404fb` were staged for this chunk. These commits are local source-control
+history only; no Workshop publication occurred.
 
 The broader legacy harness is not clean in this checkout: its first unrelated
 UI test, `pnc_building_catalog_local_recipes_smoke.lua`, cannot load
@@ -92,11 +102,14 @@ The contract is recorded in
 mapping, exact current source/component versions, a complete canonical field
 shape, source-preserving rollback, deterministic generator compatibility,
 appearance/voice/inventory/relationship continuity, and explicit unsupported
-schema behavior. The bounded in-memory import-plan and decision-log fixture is
-now implemented and verified. P0B remains active for the next single chunk:
-add explicit generator-provenance mismatch decisions and candidate
-serialize/deserialize hash checks, then review any remaining source fields
-before a Core production writer or P1 migration is introduced.
+schema behavior. The bounded in-memory import-plan and decision-log fixture,
+including generator provenance and candidate-hash verification, is now
+implemented and verified. P0B remains active for the next single chunk: audit
+the remaining canonical fields against the matrix, especially personality,
+relationship memory, journey provenance, opaque unsupported nested fields, and
+rollback decision records. Add only source-backed tests or adapters needed to
+prove those contracts before a Core production writer or P1 migration is
+introduced.
 
 ## Evidence remains open
 

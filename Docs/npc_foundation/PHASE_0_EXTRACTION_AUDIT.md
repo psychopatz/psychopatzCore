@@ -1,8 +1,8 @@
 # P0 — Extraction, Save-Schema and Generator Parity Audit
 
 Status: P0A formally closed; P0B active. Begin with actual checked-out sources.
-Latest bounded P0B evidence is Hoomans `72455cd1` and the focused suite is
-`PASS 6/6`; this remains source-harness evidence, not live-game acceptance.
+Latest bounded P0B evidence is Hoomans `3b8404fb` and the focused suite is
+`PASS 8/8`; this remains source-harness evidence, not live-game acceptance.
 
 ## Mandatory evidence to collect
 ### Hoomans existing producers
@@ -62,6 +62,11 @@ The required P0A artifacts are now present in the local worktrees:
   command, preserves the authored policy and all four voice fields from an
   untouched source snapshot, and quarantines unsupported schema and
   unrepresentable `legacyTemplateKey` item metadata.
+- `ProjectHoomans/tests/pnc_npc_foundation_import_plan_generator_smoke.lua`
+  verifies current generator compatibility, exact-item source-authoritative
+  fallback, and seed-only generator-mismatch quarantine.
+- `ProjectHoomans/tests/pnc_npc_foundation_import_plan_codec_smoke.lua`
+  verifies missing-codec and canonical-hash mismatch quarantine.
 
 The baseline is intentionally bounded. It passes generated identity, seeded
 resolved appearance, personal inventory, equipment slots, directed social
@@ -90,9 +95,9 @@ separate from Steam Workshop publication.
 
 ## P0B active boundary — one next chunk
 
-Extend the in-memory, read-only import plan with explicit generator
-provenance/definition mismatch decisions and candidate serialize/deserialize
-canonical-hash checks. Review any remaining source fields against the matrix;
-preserve or quarantine anything not representable. Do not start the full P1
-production migration, rewrite saves, publish Workshop content, or claim live
-game acceptance.
+Audit the remaining canonical fields against the ownership matrix, especially
+personality, relationship memory, journey provenance, opaque unsupported nested
+fields, and rollback decision records. Add only source-backed tests or
+adapters needed to prove those contracts. Do not start the full P1 production
+migration, rewrite saves, publish Workshop content, or claim live-game
+acceptance.

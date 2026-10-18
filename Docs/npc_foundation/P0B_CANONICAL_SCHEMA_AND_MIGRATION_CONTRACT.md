@@ -158,7 +158,7 @@ an import adapter and must not be used as one.
 
 ## Implemented read-only import plan
 
-Hoomans commit `72455cd1` registers
+Hoomans commits `72455cd1` and `3b8404fb` register and extend
 `PNC.Persistence.ImportPlan`. `ImportPlan.Build` copies the raw payload,
 computes a deterministic source hash, checks the exact current persistence
 version, and returns a quarantined plan with the raw copy when the root is
@@ -173,7 +173,15 @@ An item carrying `legacyTemplateKey` is explicitly quarantined with
 `portable_metadata_unrepresentable`; no replacement template or invented
 state is supplied. `pnc_npc_foundation_import_plan_smoke.lua` proves these
 paths using the actual Hoomans identity, appearance, inventory, serializer,
-and persistence modules and passes in the focused six-test harness command.
+and persistence modules. The focused source-backed suite passes `8/8`.
+
+The generator adapter checks current version `4`, seed, archetype, equipment
+pool, definition revision, and optional template reference. It marks a match
+`SEED_COMPATIBLE`; with exact item state present, a mismatch is
+`SOURCE_AUTHORITATIVE`; with seed-only state, it quarantines
+`generator_provenance_mismatch`. Candidate readiness requires an explicit
+deterministic codec and equal canonical hashes before and after the
+in-memory round trip; missing or changed codec content quarantines.
 
 ## Non-destructive import and rollback
 
@@ -246,9 +254,10 @@ The bounded fixture now proves:
 4. relationships and location/journey conflicts are explicit; and
 5. unsupported schemas preserve the raw source and fail closed.
 
-Remaining P0B next chunk: add an explicit generator-provenance/definition
-mismatch decision and candidate serialize/deserialize canonical-hash checks,
-then review any remaining fields against the ownership matrix. A mismatch must
-select a source baseline/full/opaque path or quarantine; it must never rerun a
-changed generator as a silent default. Do not start the full P1 production
-migration or live-game acceptance.
+Remaining P0B next chunk: audit the remaining canonical fields against the
+ownership matrix, especially personality, relationship memory, journey
+provenance, opaque unsupported nested fields, and rollback decision records.
+Add only source-backed tests or adapters needed to prove those contracts. A
+mismatch must select a source baseline/full/opaque path or quarantine; it must
+never rerun a changed generator as a silent default. Do not start the full P1
+production migration or live-game acceptance.
