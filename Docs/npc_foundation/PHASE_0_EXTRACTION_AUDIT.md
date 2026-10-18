@@ -87,6 +87,8 @@ reversible no-loss import dry run and the confirmed field conflicts.
   branch and absent from GitHub `main`.
 - Hoomans P0B characterization: `3f313b0b`, committed on that same local
   branch; unrelated semantic work remains untouched and uncommitted.
+- Hoomans P0B import planner: `72455cd1`; generator provenance and candidate
+  hash follow-up: `3b8404fb`.
 - DynamicTrading local source: `2b1975a2`; local branch is one commit behind
   its remote and was not changed.
 

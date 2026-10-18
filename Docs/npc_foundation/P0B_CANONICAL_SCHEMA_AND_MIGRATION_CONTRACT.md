@@ -9,9 +9,9 @@ Evidence heads:
 
 - PsychopatzCore: `ae32edd` (local P0B proof; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans P0B planner/test: `72455cd1`; the checked-out branch's
-  upstream source head remains `d117d861` and unrelated semantic commits are
-  preserved separately.
+- ProjectHoomans P0B planner/test: `3b8404fb` (extends `72455cd1`); the
+  checked-out branch's upstream source head remains `d117d861` and unrelated
+  semantic commits are preserved separately.
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and
   was not pulled or changed).
 
