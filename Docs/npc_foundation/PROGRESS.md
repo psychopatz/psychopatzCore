@@ -1,12 +1,12 @@
-# Core NPC Foundation — Current Progress Snapshot: 2026-10-18
+# Core NPC Foundation — Current Progress Snapshot: 2026-10-19
 
 Evidence is from the checked-out local source heads. No foundation
 production implementation or live-game acceptance is claimed.
 
 ## Planning input revisions
 
-- PsychopatzCore: `532be6c` (local P0B evidence head; `origin/main` remains
-  `8b8e0b7`).
+- PsychopatzCore: `69af55e` (local P0B documentation head; prior risk-register
+  repair `1bd2625`; `origin/main` remains `8b8e0b7`).
 - ProjectHoomans P0B evidence: `5efc66fe` (generation provenance preservation
   on top of `1310433a` definition-mismatch coverage and `75d127e1`
   identity-source fail-closed coverage; earlier `f5326079` inventory,
@@ -130,9 +130,10 @@ root emitted by the current Hoomans serializer is classified as an explicit
 foundation field or exact opaque source data; no root was promoted to a writer
 mapping. The next bounded chunk is the generator/provenance adapter contract
 for `generation`, definition/template references, equipment-pool provenance,
-and seed-only replay refusal, with one source-backed no-seed-replay test. Do
-not start the full P1 production migration, rewrite saves, publish Workshop
-content, or claim live-game acceptance.
+the currently absent independent appearance policy hash, and seed-only replay
+refusal, with one source-backed no-seed-replay test. Do not start the full P1
+production migration, rewrite saves, publish Workshop content, or claim
+live-game acceptance.
 
 ## Evidence remaining open
 

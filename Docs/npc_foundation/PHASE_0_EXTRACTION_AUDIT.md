@@ -91,6 +91,10 @@ reversible no-loss import dry run and the confirmed field conflicts.
 
 ## Commit and source-control proof
 
+Current Core P0B documentation commits are `1bd2625` (provenance and
+deferred-root evidence) and `69af55e` (serialized-root ownership audit); the
+local Core branch is 13 commits ahead of `origin/main` and no push was made.
+
 - Core P0A documentation: `8b8e0b7`, already equal to `origin/main`.
 - Core P0B canonical-schema contract: `92be3e2`, local and not pushed.
 - Hoomans P0A baseline: `f647daea`, committed on the local documentation

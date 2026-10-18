@@ -1,14 +1,14 @@
 # P0B — Canonical schema and safe migration contract
 
-Status: bounded P0B contract, 2026-10-18. This document defines the
+Status: bounded P0B contract, 2026-10-19. This document defines the
 preconditions for a future Core NPC import writer. It does not implement a
 writer, rewrite ModData, alter Hoomans ownership, or publish a Workshop
 revision.
 
 Evidence heads:
 
-- PsychopatzCore: `532be6c` (local P0B evidence head; `origin/main` remains
-  `8b8e0b7`).
+- PsychopatzCore: `69af55e` (local P0B documentation head; prior risk-register
+  repair `1bd2625`; `origin/main` remains `8b8e0b7`).
 - ProjectHoomans P0B planner/test: `5efc66fe` (generation provenance
  preservation on top of `1310433a` definition-mismatch coverage and
  `75d127e1` identity-source fail-closed coverage; earlier metadata-schema-2
@@ -227,9 +227,13 @@ appearance, inventory, serializer, and persistence modules. The focused
 source-backed suite passes `9/9`.
 
 The generator adapter checks current version `4`, seed, archetype, equipment
-pool, definition revision, and optional template reference. It marks a match
-`SEED_COMPATIBLE`; with exact item state present, a mismatch is
-`SOURCE_AUTHORITATIVE`; with seed-only state, it quarantines
+pool, definition revision, and optional template reference. It computes a
+source appearance `policyHash`, but the real Hoomans inventory template does
+not persist an independent policy hash, so the adapter cannot yet claim that
+seed-only appearance provenance is complete. It marks a matched, fully
+represented source `SEED_COMPATIBLE`; with exact item state present, a
+mismatch is `SOURCE_AUTHORITATIVE`; with seed-only state, missing or
+mismatched policy provenance must quarantine as
 `generator_provenance_mismatch`. Candidate readiness requires an explicit
 deterministic codec and equal canonical hashes before and after the
 in-memory round trip; missing or changed codec content quarantines.
@@ -279,11 +283,12 @@ Seed-only replay is valid only when all of these match the source baseline:
 - archetype ID and definition revision;
 - equipment pool ID and revision;
 - inventory template reference;
-- appearance policy schema and policy hash; and
+- appearance policy schema and an independently persisted policy hash; and
 - the source seed.
 
-If any provenance is missing or changed, the importer must use the source
-baseline/delta/full item representation or preserve an opaque source section.
+If any provenance is missing or changed—including the currently missing
+independent policy hash—the importer must use the source baseline/delta/full
+item representation or preserve an opaque source section.
 It must not rerun SurvivorFactory and silently accept a new name, voice,
 clothing, or face. Resolved appearance is a projection of the preserved policy
 and source item ledger, not a replacement for them.
