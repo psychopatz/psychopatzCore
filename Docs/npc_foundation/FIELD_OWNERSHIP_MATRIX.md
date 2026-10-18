@@ -84,6 +84,29 @@ Core ownership or write approval. Hoomans `cce488a6` tests exact preservation
 of `semanticCognition` and an unknown `futureRoot`; `5efc66fe` adds the real
 serialized `generation` root through the candidate codec.
 
+### Remaining serialized-root ownership audit
+
+The direct `PNC.Persistence.SerializeRecord` source audit (lines 194-323)
+compares every emitted root with the bounded `REPRESENTED` set in
+`PNC_Persistence_ImportPlan_Opaque.lua`. The following roots are deliberately
+not promoted into the Core candidate yet. They are exact source data with a
+`canonical_mapping_deferred` decision, not ignored fields or write authority.
+
+| Serialized roots | Current source authority | Intended canonical boundary | P0B disposition and required migration rule |
+| --- | --- | --- | --- |
+| `generation`, `uniqueDefinitionId`, `uniqueDefinitionVersion`, `inventoryTemplateRef`, `startingItems`, `equipmentPoolID`, `equipmentSpawnMode` | Hoomans generator/template and equipment-definition path; `ImportPlan_Generator.Check` reads the compatible provenance subset. | Core deterministic generation inputs plus the exact source baseline. | Preserve all roots together until owner/version/hash mapping is reviewed. `generation` is proven exact opaque by `5efc66fe`; any missing or mismatched provenance forbids seed-only replay. |
+| `recordRevision`, `repairVersions` | Hoomans persistence and repair ledger. | Migration ledger metadata, not actor identity. | Preserve raw values; do not treat Hoomans repair state as a Core schema version or apply repairs during import. |
+| `skillBaseLevels`, `tacticalClass`, `ownerUsername`, `orderSpec`, `patrolPoints`, `patrolIndex`, `hostility`, `health`, `stamina`, `weaponMode`, `attackType`, `equipment`, `allowedJobs`, `jobPriorities` | Hoomans physical/director/combat/job runtime. `equipment` is a summary beside the portable item ledger. | Hoomans runtime projection; only exact personal equipment/item state may later be adapted to Core inventory. | Keep opaque in P0B. A future adapter must declare authority for every field and reject conflicts with the item ledger, body lease, or live runtime; no defaults or body-derived identity. |
+| `m`, `semanticCognition`, `semanticActionPlan`, `progression`, `recipeKnowledge` | Hoomans memory-event, semantic, progression, and production subsystems. | Hoomans subsystem contracts; Core ownership is not established by NPC identity. | Preserve exact roots. `semanticCognition` and unknown roots are covered by `cce488a6`; do not synthesize cognition, action plans, progression, or recipe knowledge during identity migration. |
+| `followerAbandonment`, `colonistDeparture`, `affiliation`, `corpse`, `bodyHint` | Hoomans faction, colony, corpse, and physical-body projection paths. | Hoomans lifecycle/projection state. | Keep opaque until a lifecycle-specific adapter exists. Never promote a body hint, corpse, faction, or departure record to stable actor identity. |
+| `mapPresentation`, `vanillaTraits`, `vanillaTraitsAuthored`, `dynamicTraits`, `dynamicTraitsAuthored`, `npcTraits`, `conditionStats`, `npcJournal` | Hoomans map, traits/condition, and journal/presentation paths. | Hoomans presentation/physiology/journal contracts, with only generic presentation potentially shared later. | Preserve exact source roots and their authored flags. Do not infer traits or map knowledge from appearance, relationships, or body state; no P0B writer mapping yet. |
+
+This audit closes the “silently omitted root” question for the current
+serializer: every root outside the explicit foundation adapter is retained in
+the raw payload and candidate opaque envelope. It does not close canonical
+ownership or authorize production writes. The next bounded chunk is to specify
+the versioned generator/provenance adapter and its no-seed-replay test.
+
 ## Executable baseline
 
 Run from the Project Hoomans repository:

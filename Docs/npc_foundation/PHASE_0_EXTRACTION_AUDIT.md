@@ -111,10 +111,11 @@ separate from Steam Workshop publication.
 
 ## P0B active boundary — one next chunk
 
-Audit and classify the remaining serialized roots (`recordRevision`, repair
-versions, definition/template references, traits, health/combat/equipment
-summaries, cognition/action plans, faction/corpse, map/journal, and related
-roots) against the ownership matrix; add only exact opaque preservation or
-explicit quarantine decisions. Do not start the full P1 production
-migration, rewrite saves, publish Workshop content, or claim live-game
-acceptance.
+The deferred-root audit is recorded in `FIELD_OWNERSHIP_MATRIX.md`: all roots
+emitted by the current serializer are either in the explicit foundation set
+or retained as exact opaque source data. No remaining root received a Core
+writer mapping. The next bounded chunk is the generator/provenance adapter
+contract for definition/template/equipment-pool references and a
+source-backed seed-only replay refusal test. Do not start the full P1
+production migration, rewrite saves, publish Workshop content, or claim
+live-game acceptance.

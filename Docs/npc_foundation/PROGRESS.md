@@ -125,14 +125,14 @@ canonical field shape, source-preserving rollback, deterministic generator
 compatibility, appearance/voice/inventory/relationship continuity, and
 explicit unsupported-schema behavior.
 
-The current next chunk is one bounded deferred-root ownership audit: classify
-the remaining serialized roots (`recordRevision`, repair versions,
-definition/template references, traits, health/combat/equipment summaries,
-cognition/action plans, faction/corpse, map/journal, and related roots)
-against the ownership matrix; add only exact opaque preservation or explicit
-quarantine decisions. Do not start the full P1 production
-migration, rewrite saves, publish Workshop content, or claim live-game
-acceptance.
+The deferred-root ownership audit is now recorded in the field matrix. Every
+root emitted by the current Hoomans serializer is classified as an explicit
+foundation field or exact opaque source data; no root was promoted to a writer
+mapping. The next bounded chunk is the generator/provenance adapter contract
+for `generation`, definition/template references, equipment-pool provenance,
+and seed-only replay refusal, with one source-backed no-seed-replay test. Do
+not start the full P1 production migration, rewrite saves, publish Workshop
+content, or claim live-game acceptance.
 
 ## Evidence remaining open
 

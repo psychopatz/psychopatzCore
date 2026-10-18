@@ -174,6 +174,33 @@ that Core owns the field or may write it. The current source-backed fixture
 exercises `generation`, `semanticCognition`, and an unknown `futureRoot`; all
 survive the candidate codec unchanged in Hoomans `5efc66fe`.
 
+## Remaining serialized-root ownership decision
+
+The source audit of `PNC.Persistence.SerializeRecord` lines 194-323 is now
+complete. The bounded adapter explicitly represents only
+`schemaVersion`, `id`, `identity`, `inventory`, `social`, `position`, `spawn`,
+`anchor`, and `travel`; every other emitted root is copied to
+`candidate.source.opaque` with `canonical_mapping_deferred`. The exact grouped
+classification and current producer paths are recorded in the field matrix.
+
+The generator/provenance group is the next contract boundary:
+`generation`, `uniqueDefinitionId`, `uniqueDefinitionVersion`,
+`inventoryTemplateRef`, `startingItems`, `equipmentPoolID`, and
+`equipmentSpawnMode`. Hoomans remains source authority for the raw values;
+Core is only the future owner of deterministic generation inputs. The adapter
+must map the group atomically, compare generator/definition/template/policy
+versions and hashes, and refuse seed-only replay when any required value is
+missing or mismatched. `generation` is currently exact opaque source data,
+covered by `5efc66fe`.
+
+The remaining groups—persistence/repair metadata; physical, combat, job, and
+equipment runtime; memory/semantic/progression/recipe state; faction/colony,
+corpse, and body projections; and map, traits, condition, and journal roots—are
+also source-preserved but have no Core writer mapping in P0B. A future adapter
+must name one owner and version per field, reject dual-authority conflicts, and
+never derive identity, appearance, personality, inventory state, or location
+from these projections.
+
 ## Implemented read-only import plan
 
 Hoomans commits `72455cd1`, `3b8404fb`, `6ad89ab0`, `cce488a6`, `f5326079`,
