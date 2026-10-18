@@ -7,11 +7,12 @@ production implementation or live-game acceptance is claimed.
 
 - PsychopatzCore: `1b990938` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans: `75d127e1` (P0B fail-closed identity-source coverage on top of
-  `f5326079`; metadata-schema-2 inventory codec repair on
+- ProjectHoomans P0B evidence: `75d127e1` (fail-closed identity-source
+  coverage on top of `f5326079`; metadata-schema-2 inventory codec repair on
   top of `cce488a6`; read-only P0B continuity, journey provenance,
   rollback, generator, candidate-hash, and deferred-root preservation tests;
-  upstream remains `d117d861`).
+  checked-out branch now `90fd728c` with unrelated commits `77300f59` and
+  `90fd728c` preserved; upstream is `15fc79aa`).
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and was
   not pulled or changed).
 - MarketSense dependency: not inspected in this bounded P0B chunk.

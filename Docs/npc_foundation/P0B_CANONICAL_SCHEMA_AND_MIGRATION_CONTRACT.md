@@ -11,9 +11,9 @@ Evidence heads:
   `8b8e0b7`).
 - ProjectHoomans P0B planner/test: `75d127e1` (fail-closed identity-source
  coverage on top of `f5326079`; metadata-schema-2 inventory
-  repair on `cce488a6`, extending `6ad89ab0`, `3b8404fb`, and `72455cd1`); the
-  checked-out branch's upstream source head remains `d117d861` and unrelated
-  semantic commits are preserved separately.
+ repair on `cce488a6`, extending `6ad89ab0`, `3b8404fb`, and `72455cd1`); the
+  checked-out branch is now `90fd728c` with unrelated commits `77300f59` and
+  `90fd728c` preserved; its upstream is `15fc79aa`.
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and
   was not pulled or changed).
 
