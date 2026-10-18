@@ -45,6 +45,7 @@ P0A acceptance is supported and formally closed by the existing artifact
 commits: Core documentation `8b8e0b7`, Hoomans baseline test `f647daea`.
 The P0B characterization is committed as Hoomans `3f313b0b`. These commits
 are local source-control history only; no Workshop publication occurred.
+The P0B canonical-schema contract is committed as Core `92be3e2`.
 
 The broader legacy harness is not clean in this checkout: its first unrelated
 UI test, `pnc_building_catalog_local_recipes_smoke.lua`, cannot load

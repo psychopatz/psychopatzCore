@@ -69,6 +69,7 @@ reversible no-loss import dry run and the confirmed field conflicts.
 ## Commit and source-control proof
 
 - Core P0A documentation: `8b8e0b7`, already equal to `origin/main`.
+- Core P0B canonical-schema contract: `92be3e2`, local and not pushed.
 - Hoomans P0A baseline: `f647daea`, committed on the local documentation
   branch and absent from GitHub `main`.
 - Hoomans P0B characterization: `3f313b0b`, committed on that same local
