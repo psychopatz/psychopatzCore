@@ -55,14 +55,17 @@ This is a dry-run contract, not a production writer.
 
 ## P0B fixture evidence
 
-Hoomans `72455cd1`, `3b8404fb`, `6ad89ab0`, `cce488a6`, and `f5326079` add the read-only
+Hoomans `72455cd1`, `3b8404fb`, `6ad89ab0`, `cce488a6`, `f5326079`, and
+`75d127e1` add the read-only
 `PNC.Persistence.ImportPlan` and focused tests. The actual source-backed suite
-passes `9/9` in `0.45s`. It proves raw/source non-mutation, authored policy and
+passes `9/9` in `0.43s`. It proves raw/source non-mutation, authored policy and
 complete voice preservation from the source snapshot, exact personal item
 state, metadata-schema-2 delta/FULL restoration, generator compatibility and
 fallback, personality/memory continuity, journey provenance, opaque
 nested-field quarantine, deferred serialized-root preservation, candidate codec
-hash verification, and rollback metadata. It never calls reset, writes
+hash verification, rollback metadata, and fail-closed handling for raw schema-16
+records, unsupported appearance policy versions, and incomplete voice profiles.
+It never calls reset, writes
 ModData, overwrites saves, or claims live-game acceptance.
 
 ## Explicit P0A boundary

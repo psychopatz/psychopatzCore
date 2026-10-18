@@ -1,7 +1,7 @@
 # P0 — Extraction, Save-Schema and Generator Parity Audit
 
 Status: P0A formally closed; P0B active. Begin with actual checked-out sources.
-Latest bounded P0B evidence is Hoomans `f5326079` and the focused suite is
+Latest bounded P0B evidence is Hoomans `75d127e1` and the focused suite is
 `PASS 9/9`; this remains source-harness evidence, not live-game acceptance.
 
 ## Mandatory evidence to collect
@@ -60,7 +60,9 @@ The required P0A artifacts are now present in the local worktrees:
   real Hoomans identity, appearance, inventory, persistence, and new
   read-only import-plan modules. It passes the complete focused command,
   preserves the authored policy and all four voice fields from an untouched
-  source snapshot, and fail-closes unsupported schemas and invalid metadata;
+  source snapshot, fail-closes raw schema-16 records without that snapshot,
+  unsupported appearance-policy versions, incomplete voice profiles, and
+  invalid metadata;
   metadata schema 2 now preserves `legacyTemplateKey` in delta and FULL
   payloads.
 - `ProjectHoomans/tests/pnc_npc_foundation_import_plan_generator_smoke.lua`
@@ -96,7 +98,8 @@ reversible no-loss import dry run and the confirmed field conflicts.
 - Hoomans P0B import planner: `72455cd1`; generator provenance and candidate
   hash follow-up: `3b8404fb`; continuity and rollback follow-up: `6ad89ab0`;
   deferred serialized-root preservation: `cce488a6`; metadata-schema-2
-  inventory codec repair: `f5326079`.
+  inventory codec repair: `f5326079`; fail-closed identity-source coverage:
+ `75d127e1`.
 - DynamicTrading local source: `2b1975a2`; local branch is one commit behind
   its remote and was not changed.
 
@@ -105,8 +108,8 @@ separate from Steam Workshop publication.
 
 ## P0B active boundary — one next chunk
 
-Define and test versioned restoration for authored appearance policy and the
-complete SurvivorFactory voice profile while keeping schema-16 unknown/old
-inputs source-preserving and fail-closed. Do not start the full P1 production
+Specify the versioned writer/reader mapping for authored appearance policy and
+the complete SurvivorFactory voice profile, using the fail-closed source tests
+as the boundary for schema-16 unknown/old inputs. Do not start the full P1 production
 migration, rewrite saves, publish Workshop content, or claim live-game
 acceptance.

@@ -5,9 +5,10 @@ production implementation or live-game acceptance is claimed.
 
 ## Planning input revisions
 
-- PsychopatzCore: `10206ae` (local P0B evidence head; `origin/main` remains
+- PsychopatzCore: `1b990938` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans: `f5326079` (P0B metadata-schema-2 inventory codec repair on
+- ProjectHoomans: `75d127e1` (P0B fail-closed identity-source coverage on top of
+  `f5326079`; metadata-schema-2 inventory codec repair on
   top of `cce488a6`; read-only P0B continuity, journey provenance,
   rollback, generator, candidate-hash, and deferred-root preservation tests;
   upstream remains `d117d861`).
@@ -58,19 +59,22 @@ python3 tests/run_tests.py \
   pnc_npc_foundation_import_plan_codec_smoke \
   pnc_seed_delta_smoke pnc_relationship_foundation_smoke \
   pnc_unique_npc_smoke --jobs 1
-PASS 9/9 in 0.45s
+PASS 9/9 in 0.43s
 ```
 
 The read-only planner was introduced in Hoomans `72455cd1`, extended with
 generator provenance and candidate hashing in `3b8404fb`, and extended with
 this bounded continuity/rollback audit in `6ad89ab0`, followed by deferred
 serialized-root preservation in `cce488a6`, followed by metadata schema 2
-inventory preservation in `f5326079`.
+inventory preservation in `f5326079`, followed by fail-closed incomplete
+identity-source coverage in `75d127e1`.
 
 `pnc_npc_foundation_import_plan_smoke.lua` uses real Hoomans identity,
 appearance, inventory, serializer, deserializer, and import-plan modules. It
 preserves the authored appearance policy, all four voice values, exact item
-state, and generator provenance. Current metadata schema 2 preserves
+state, generator provenance, and fail-closed behavior for raw schema-16
+records without a source snapshot, unsupported appearance policy versions,
+and incomplete voice profiles. Current metadata schema 2 preserves
 `legacyTemplateKey` in both baseline-delta and FULL payloads; schema-1 payloads
 remain explicitly incompatible with that field.
 
@@ -118,10 +122,10 @@ canonical field shape, source-preserving rollback, deterministic generator
 compatibility, appearance/voice/inventory/relationship continuity, and
 explicit unsupported-schema behavior.
 
-The current next chunk is one bounded producer-persistence audit: define and
-test versioned restoration for authored appearance policy and the complete
-SurvivorFactory voice profile while keeping schema-16 unknown/old inputs
-source-preserving and fail-closed. Do not start the full P1 production
+The current next chunk is one bounded producer-persistence contract: specify
+the versioned writer/reader mapping for authored appearance policy and the
+complete SurvivorFactory voice profile, using the new fail-closed source
+tests as the boundary for schema-16 unknown/old inputs. Do not start the full P1 production
 migration, rewrite saves, publish Workshop content, or claim live-game
 acceptance.
 

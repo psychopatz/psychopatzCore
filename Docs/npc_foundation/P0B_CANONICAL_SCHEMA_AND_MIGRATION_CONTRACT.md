@@ -7,9 +7,10 @@ revision.
 
 Evidence heads:
 
-- PsychopatzCore: `10206ae` (local P0B evidence head; `origin/main` remains
+- PsychopatzCore: `1b990938` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans P0B planner/test: `f5326079` (metadata-schema-2 inventory
+- ProjectHoomans P0B planner/test: `75d127e1` (fail-closed identity-source
+ coverage on top of `f5326079`; metadata-schema-2 inventory
   repair on `cce488a6`, extending `6ad89ab0`, `3b8404fb`, and `72455cd1`); the
   checked-out branch's upstream source head remains `d117d861` and unrelated
   semantic commits are preserved separately.
@@ -287,11 +288,14 @@ The bounded fixture now proves:
 5. personality, relationship memories, and journey provenance are explicit;
 6. opaque nested journey fields and location conflicts quarantine without loss;
 7. rollback metadata records source preservation and no writes; and
-8. unsupported schemas preserve the raw source and fail closed.
+8. unsupported schemas, raw schema-16 payloads without a source snapshot,
+   unsupported appearance-policy versions, and incomplete voice profiles
+   preserve the raw source and fail closed.
 
-Remaining P0B next chunk: define and test versioned restoration for authored
-appearance policy and the complete SurvivorFactory voice profile while keeping
-schema-16 unknown/old inputs source-preserving and fail-closed. A
+Remaining P0B next chunk: specify the versioned writer/reader mapping for
+authored appearance policy and the complete SurvivorFactory voice profile,
+using the fail-closed source tests as the boundary for schema-16 unknown/old
+inputs. A
 mismatch must select a source baseline/full/opaque path or quarantine; it must
 never rerun a changed generator as a silent default. Do not start the full P1
 production migration or live-game acceptance.
