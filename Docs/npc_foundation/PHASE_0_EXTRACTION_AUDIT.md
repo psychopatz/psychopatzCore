@@ -92,8 +92,12 @@ reversible no-loss import dry run and the confirmed field conflicts.
 ## Commit and source-control proof
 
 Current Core P0B documentation commits are `1bd2625` (provenance and
-deferred-root evidence), `69af55e` (serialized-root ownership audit), and
-`afdc184` (provenance gate and verification state); no push was made.
+deferred-root evidence), `69af55e` (serialized-root ownership audit),
+`afdc184` (provenance gate), and `bf8bf19` (bounded verification state); no
+push was made.
+
+The Hoomans NPC-foundation evidence head remains `5efc66fe`; checked-out HEAD
+`51d7b585` is a later unrelated clinic-supplies commit and was preserved.
 
 - Core P0A documentation: `8b8e0b7`, already equal to `origin/main`.
 - Core P0B canonical-schema contract: `92be3e2`, local and not pushed.

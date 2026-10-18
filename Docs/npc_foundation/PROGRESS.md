@@ -5,15 +5,16 @@ production implementation or live-game acceptance is claimed.
 
 ## Planning input revisions
 
-- PsychopatzCore: `afdc184` (local P0B documentation/evidence head; prior
-  serialized-root audit `69af55e` and risk-register repair `1bd2625`;
-  `origin/main` remains `8b8e0b7`).
+- PsychopatzCore: `bf8bf19` (local P0B documentation/evidence head; prior
+  provenance gate `afdc184`, serialized-root audit `69af55e`, and risk-register
+  repair `1bd2625`; `origin/main` remains `8b8e0b7`).
 - ProjectHoomans P0B evidence: `5efc66fe` (generation provenance preservation
   on top of `1310433a` definition-mismatch coverage and `75d127e1`
   identity-source fail-closed coverage; earlier `f5326079` inventory,
   `cce488a6` deferred-root, and planner/generator/hash tests;
-  checked-out branch now `5efc66fe`; unrelated commits `77300f59` and
-  `90fd728c` remain preserved before it; upstream is `15fc79aa`).
+  foundation evidence remains `5efc66fe`; checked-out branch HEAD is the
+  later unrelated `51d7b585` clinic-supplies commit; earlier unrelated commits
+  `77300f59` and `90fd728c` remain preserved; upstream is `15fc79aa`).
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and was
   not pulled or changed).
 - MarketSense dependency: not inspected in this bounded P0B chunk.
