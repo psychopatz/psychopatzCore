@@ -34,3 +34,27 @@ Status: P0A next chunk, no phase accepted. Begin with actual checked-out sources
 
 ## P0B and handoff to P1
 P0B resolves schema conflict decisions; defines reversible import/dry-run boundary, stable actorId mapping, source-visibility and creator version policy; picks minimal Core ID/identity baseline. P1 writes an independent Core Create/Get/Save/Load vertical slice and a physical-free harness acceptance. Later phases move items, social and map; not in P0A.
+
+## P0A checkpoint — 2026-10-18
+
+The required P0A artifacts are now present in the local worktrees:
+
+- `FIELD_OWNERSHIP_MATRIX.md` records source paths, serialized keys, current
+  writers, target ownership, version policy, and test anchors.
+- `MIGRATION_RISKS.md` records confirmed reset/appearance/voice/item-state
+  hazards, conditional risks, and a reversible import protocol.
+- `ProjectHoomans/tests/pnc_npc_foundation_parity_baseline_smoke.lua` is a
+  runnable source-backed baseline. It passed `1/1` in the existing isolated Lua
+  harness. It uses deterministic engine-boundary fixtures and makes no live
+  Project Zomboid acceptance claim.
+
+The baseline is intentionally bounded. It passes generated identity, seeded
+resolved appearance, personal inventory, equipment slots, directed social
+state, position/anchor, and exact-version rejection. It does not claim parity
+for authored appearance policy, the complete factory voice profile, every
+portable item codec, journeys, DT merchant policy, map knowledge, or physical
+body leases. Those are explicit P0B or later gates. No production generation,
+persistence, map, pricing, or NPC lifecycle code changed in P0A.
+
+P0A evidence is sufficient to start P0B design, but P1 remains gated on the
+reversible no-loss import dry run and the confirmed field conflicts.

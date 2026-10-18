@@ -1,35 +1,76 @@
-# Core NPC Foundation — Current Progress
+# Core NPC Foundation — Current Progress Snapshot: 2026-10-18
 
-Snapshot: 2026-10-18. Evidence scope: remote GitHub main source inspection, no live runtime or local worktree validation. Goal docs are new; no foundation production implementation is claimed.
+Evidence is now from the checked-out local source heads, not only remote source
+inspection. No foundation production implementation is claimed.
 
-## Planning input revisions (recheck on agent entry)
-- PsychopatzCore main afbc668c8f5affc1f950dd9529604b548b747c6a
-- ProjectHoomans main a3eb2e4db553f9c03b7f66a6ff6717878e1668e0
-- DynamicTrading main 2b1975a213636095080b223bd3945007f42f86be
-- MarketSense dependency version: NOT INSPECTED here; must inspect on entry.
+## Planning input revisions
 
-## Verified source findings, not runtime acceptance
-- Hoomans identity producer has resolved SurvivorFactory name/voice/appearance; its profile normalizes seeds/archetypes and persisted visual fields.
-- Hoomans NewRecord already blends identity, equipment, initial inventory, social, health, presence and runtime data; cannot copy it into Core as-is.
-- Hoomans inventory templates generate clothing, bags, weapons and supplies and support SEED_ONLY, BASELINE_DELTA and FULL persistence; Core already has reusable portable inventory/transfer primitives.
-- Hoomans map registry patches ISWorldMap.render; travel layer projects markers; hover uses Core PortraitPanel. Map/hover provider still depends on PNC knowledge/faction systems.
-- Hoomans personal relationships are directed with canonical queries/commands; stored in Hoomans NPC social records.
-- Hoomans persistence docs specify unsupported schema versions are RESET, not migrated — a critical unsafe old-save path needing an explicit staged migrator.
-- DTCommon validates nearby/radio access on snapshots and transactions, but radio can currently authorize direct trade; strict physical fulfillment is NOT yet designed/accepted.
-- DTHoomans caravan lifecycle depends on PNC mobile factions, and settlement trader binding depends on Hoomans-generated faction staff.
-- DT trading MVP progress says native SP/MP final T6 acceptance remains open. Do not mark it closed or subsume it.
+- PsychopatzCore: `911d0bc`
+- ProjectHoomans: `cb2b07e7`
+- DynamicTrading: `2b1975a2`
+- MarketSense dependency: not inspected in this P0A chunk.
 
-## Current phase
-P0 — source ownership/extraction audit. Status NOT STARTED as implementation.
-Next Chunk EXACTLY P0A (see PHASE_0_EXTRACTION_AUDIT.md).
+## P0A checkpoint — audit complete, implementation still gated
 
-## Next Chunk: P0A
-Build a current-HEAD, field-level source→Core target matrix for NPC identity (including name/seed/voice), appearance/worn visuals, starter item generation, exact portable inventory identity/state, relationships/personality, journey/position and DT merchant linkage. Identify canonical writers, serialized keys, normalization/generator versions and load order. Create ONE runnable source-backed parity baseline using current modules/harness to capture one merchant/NPC before/after legacy serialize/deserialize, verifying no rerolls and enumerating currently failing parity gaps. No gameplay code migration in P0A.
+Changed only these scoped artifacts:
 
-Exit: provenance matrix and no-loss migration preconditions checked into architecture job docs; runnable parity test with honest pass/fail; explicit list of unsupported source versions and blocker/fallback. Only then advance P0B and P1.
+- `Docs/npc_foundation/FIELD_OWNERSHIP_MATRIX.md`
+- `Docs/npc_foundation/MIGRATION_RISKS.md`
+- `ProjectHoomans/tests/pnc_npc_foundation_parity_baseline_smoke.lua`
 
-## Evidence that remains OPEN
-Native SP/MP parity; portrait rendering and actual ISWorldMap interaction; mixed-mod load order; hot provider switch; old save migration; relationship price policy; settlement restock; real trader trade authorization after migration; performance. No tests were run while preparing these goal docs.
+The baseline uses the actual Hoomans identity factory/profile, appearance
+resolver, `Types.NewRecord`, inventory template/persistence/CoreBridge,
+relationship normalizer, and record serializer/deserializer. Its deterministic
+engine fixtures cover one generated NPC and verify stable ID, name/seed,
+persisted voice, resolved face fields, seeded clothing, portable item IDs/state,
+worn/equipped slots, directed relationship memory, position/anchor, and
+unsupported-version rejection.
+
+Focused command and result:
+
+```text
+python3 tests/run_tests.py pnc_npc_foundation_parity_baseline_smoke --jobs 1 --verbose
+PASS 1/1
+```
+
+The result is not live SP/MP acceptance. Confirmed gaps are authored
+appearance-policy persistence, the complete SurvivorFactory voice profile, and
+at least one generic portable item-state codec case. These remain explicit
+no-loss import blockers; no silent fallback is accepted.
+
+The broader legacy harness is not clean in this checkout: its first unrelated
+UI test, `pnc_building_catalog_local_recipes_smoke.lua`, cannot load
+`ISUI/ISPanel` outside the game UI runtime. This did not involve the new test;
+the four focused identity/inventory/relationship tests passed independently.
+
+## Verified source boundaries
+
+- Hoomans owns physical IsoZombie materialization, body lease, combat, needs,
+  jobs, faction/colony simulation, and live pathing.
+- PsychopatzCore is the intended owner of canonical actor identity, resolved
+  appearance, personal inventory, directed relationships, generic location /
+  journey state, and generic presentation contracts.
+- DTCommon owns merchant stock, budget, pricing, access, fulfillment, and
+  restock. Its current radio/abstract access path remains a later migration
+  blocker for physical item transfer.
+
+## Next bounded chunk: P0B
+
+Resolve the confirmed schema conflicts and design a read-only, reversible
+legacy-import dry run: preserve raw Hoomans payloads, define actor-ID mapping,
+carry authored appearance and full voice without reroll, classify portable item
+state representability, and emit conflict/quarantine decisions. Do not add a
+Core production writer or change DT/Hoomans runtime ownership until that dry run
+has a passing no-loss fixture.
+
+## Evidence remains open
+
+Native SP/MP parity; portrait rendering in actual `ISWorldMap`; mixed-mod load
+order; provider switching; old-save import; relationship/price policy;
+settlement restock; real trader authorization migration; and performance.
 
 ## Standing boundary
-No Workshop publication or republication. No silent destructive migration. No automated agent claim of manual live gameplay acceptance. Existing DT trading, Radio OS and semantic harness goals remain separate.
+
+No Workshop publication or republication. No silent destructive migration. No
+automated claim of manual live gameplay acceptance. Existing DT trading and
+Radio OS semantic harness goals remain separate.
