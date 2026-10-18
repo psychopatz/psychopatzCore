@@ -1,5 +1,9 @@
 # NPC foundation migration risks
 
+Latest P0B evidence: Hoomans `9f153c0e`; focused source suite `PASS 9/9` in
+`0.41s`. Seed-only policy provenance is now explicitly fail-closed; the
+appearance/voice serializer gap remains open.
+
 Status: P0A audit artifact plus bounded P0B evidence, 2026-10-19. These
 controls remain prerequisites for any production import writer. Nothing here
 migrates live saves, rewrites ModData, changes production ownership, or

@@ -1,5 +1,14 @@
 # P0B — Canonical schema and safe migration contract
 
+## Continuation evidence — 2026-10-19
+
+Hoomans `9f153c0e` now requires externally recorded policy provenance for
+seed-only replay: missing policy provenance quarantines as
+`generator_provenance_incomplete`, and a mismatched hash quarantines as
+`generator_provenance_mismatch`. Exact item state remains source-authoritative.
+The next bounded contract is versioned authored-appearance and complete voice
+serialization/deserialization; this remains read-only P0B work.
+
 Status: bounded P0B contract, 2026-10-19. This document defines the
 preconditions for a future Core NPC import writer. It does not implement a
 writer, rewrite ModData, alter Hoomans ownership, or publish a Workshop
@@ -278,6 +287,13 @@ conflict, active DT transaction, or uncertain body/journey lease aborts the
 candidate.
 
 ## Generator and appearance restoration rules
+
+Current implementation note: Hoomans `9f153c0e` makes the policy-provenance
+decision explicit. Missing `generatorProvenance.policyHash` in a zero-item
+`SEED_ONLY` source is `generator_provenance_incomplete`; a supplied hash that
+differs from the source appearance hash is `generator_provenance_mismatch`.
+Exact item state remains `SOURCE_AUTHORITATIVE`. This read-only gate does not
+claim that the normal Hoomans serializer now persists the policy hash.
 
 Seed-only replay is valid only when all of these match the source baseline:
 

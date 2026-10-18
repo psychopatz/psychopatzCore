@@ -1,5 +1,11 @@
 # P0 — Extraction, Save-Schema and Generator Parity Audit
 
+## Continuation evidence — 2026-10-19
+
+Hoomans foundation commit `9f153c0e` adds and tests the seed-only policy-hash
+gate. The bounded source suite is `PASS 9/9` in `0.41s`; the next P0B chunk is
+the authored-appearance and complete-voice serializer/deserializer contract.
+
 Status: P0A formally closed; P0B active. Begin with actual checked-out sources.
 Latest bounded P0B evidence is Hoomans `5efc66fe` and the focused suite is
 `PASS 9/9`; this remains source-harness evidence, not live-game acceptance.
@@ -118,6 +124,11 @@ No repository was pushed during this chunk. GitHub source control was kept
 separate from Steam Workshop publication.
 
 ## P0B active boundary — one next chunk
+
+Authoritative next chunk: define and test the source-backed serializer and
+deserializer contract for authored appearance policy and the complete voice
+profile. The seed-only policy-provenance gate is complete in Hoomans
+`9f153c0e`; this does not authorize a production writer.
 
 The deferred-root audit is recorded in `FIELD_OWNERSHIP_MATRIX.md`: all roots
 emitted by the current serializer are either in the explicit foundation set

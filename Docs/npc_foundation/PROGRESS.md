@@ -1,5 +1,15 @@
 # Core NPC Foundation — Current Progress Snapshot: 2026-10-19
 
+## Continuation update — 2026-10-19
+
+The latest foundation evidence is Hoomans `9f153c0e` (seed-only policy
+provenance gate) on top of `5efc66fe`; the current bounded suite is `PASS 9/9`
+in `0.41s`. Core documentation evidence is committed through `9e42af1`.
+The next bounded P0B chunk is the source-backed serializer/deserializer
+contract for authored appearance policy and the complete four-field voice
+profile. No P1 writer, save mutation, Workshop publication, or live-game claim
+is authorized.
+
 Evidence is from the checked-out local source heads. No foundation
 production implementation or live-game acceptance is claimed.
 
@@ -136,6 +146,13 @@ the currently absent independent appearance policy hash, and seed-only replay
 refusal, with one source-backed no-seed-replay test. Do not start the full P1
 production migration, rewrite saves, publish Workshop content, or claim
 live-game acceptance.
+
+## Current next chunk
+
+The policy-provenance gate is complete for this bounded chunk. The next P0B
+chunk is the source-backed serializer/deserializer contract for authored
+appearance policy and the complete four-field voice profile, including exact
+version gates, round-trip tests, and unsupported-schema behavior.
 
 ## Evidence remaining open
 
