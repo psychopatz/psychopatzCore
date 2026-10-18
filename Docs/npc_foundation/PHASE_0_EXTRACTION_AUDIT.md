@@ -54,8 +54,8 @@ The required P0A artifacts are now present in the local worktrees:
   discrepancy decisions.
 - `ProjectHoomans/tests/pnc_npc_foundation_p0b_gap_characterization_smoke.lua`
   executes the actual Hoomans persistence/identity/inventory bridge and passes
-  `1/1`. It confirms custom-name and bounded modData preservation, and
-  exposes the exact legacy-template metadata loss.
+  `1/1`. It confirms custom-name and bounded modData preservation, exposes the
+  schema-1 legacy-template loss, and pairs with the schema-2 delta/FULL repair.
 - `ProjectHoomans/tests/pnc_npc_foundation_import_plan_smoke.lua` executes the
   real Hoomans identity, appearance, inventory, persistence, and new
   read-only import-plan modules. It passes the complete focused command,

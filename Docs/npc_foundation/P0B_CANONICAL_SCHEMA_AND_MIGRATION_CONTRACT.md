@@ -151,7 +151,11 @@ partially readable, or unsupported schema produces:
 {
     status = "quarantined",
     reason = "unsupported_schema" | "malformed_record"
-        | "unrepresentable_field" | "identity_conflict",
+        | "unrepresentable_field" | "identity_conflict"
+        | "voice_profile_incomplete"
+        | "authored_appearance_policy_missing"
+        | "appearance_schema_unsupported"
+        | "portable_metadata_invalid",
     rawPayload = <untouched-copy>,
     sourceHash = <hash>,
 }
@@ -170,7 +174,8 @@ candidate codec unchanged in Hoomans `cce488a6`.
 
 ## Implemented read-only import plan
 
-Hoomans commits `72455cd1`, `3b8404fb`, `6ad89ab0`, `cce488a6`, and `f5326079` register and extend
+Hoomans commits `72455cd1`, `3b8404fb`, `6ad89ab0`, `cce488a6`, `f5326079`,
+and `75d127e1` register and extend
 `PNC.Persistence.ImportPlan`. `ImportPlan.Build` copies the raw payload,
 computes a deterministic source hash, checks the exact current persistence
 version, and returns a quarantined plan with the raw copy when the root is
@@ -185,7 +190,8 @@ The metadata-schema-2 bridge carries `legacyTemplateKey` at metadata index 17
 in FULL payloads and in each delta upsert; schema-1 reads remain supported but
 cannot reconstruct that field. `pnc_npc_foundation_import_plan_smoke.lua` and
 the gap characterization prove exact current-schema preservation and keep
-invalid metadata fail-closed. These paths use the actual Hoomans identity,
+raw schema-16 identity loss, unsupported appearance policy versions,
+incomplete voice profiles, and invalid metadata fail-closed. These paths use the actual Hoomans identity,
 appearance, inventory, serializer, and persistence modules. The focused
 source-backed suite passes `9/9`.
 
