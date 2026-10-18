@@ -7,13 +7,15 @@ revision.
 
 Evidence heads:
 
-- PsychopatzCore: `1b990938` (local P0B evidence head; `origin/main` remains
+- PsychopatzCore: `532be6c` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans P0B planner/test: `75d127e1` (fail-closed identity-source
- coverage on top of `f5326079`; metadata-schema-2 inventory
- repair on `cce488a6`, extending `6ad89ab0`, `3b8404fb`, and `72455cd1`); the
-  checked-out branch is now `90fd728c` with unrelated commits `77300f59` and
-  `90fd728c` preserved; its upstream is `15fc79aa`.
+- ProjectHoomans P0B planner/test: `5efc66fe` (generation provenance
+ preservation on top of `1310433a` definition-mismatch coverage and
+ `75d127e1` identity-source fail-closed coverage; earlier metadata-schema-2
+ inventory repair `f5326079`, deferred-root preservation `cce488a6`, and
+ planner/generator/hash commits `72455cd1`, `3b8404fb`, `6ad89ab0`); the
+  checked-out branch is now `5efc66fe`; unrelated commits `77300f59` and
+  `90fd728c` remain preserved before it; its upstream is `15fc79aa`.
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and
   was not pulled or changed).
 
@@ -165,17 +167,17 @@ The source payload remains unchanged. The normal Hoomans reset behavior is not
 an import adapter and must not be used as one.
 
 Every serialized root outside the explicit adapter set (`schemaVersion`, `id`,
-`identity`, `inventory`, `social`, `position`, `spawn`, `anchor`, `travel`, and
-`generation`) is projected into `source.opaque` with a
+`identity`, `inventory`, `social`, `position`, `spawn`, `anchor`, and `travel`)
+is projected into `source.opaque` with a
 `canonical_mapping_deferred` decision. This is source retention, not a claim
 that Core owns the field or may write it. The current source-backed fixture
-exercises `semanticCognition` and an unknown `futureRoot`; both survive the
-candidate codec unchanged in Hoomans `cce488a6`.
+exercises `generation`, `semanticCognition`, and an unknown `futureRoot`; all
+survive the candidate codec unchanged in Hoomans `5efc66fe`.
 
 ## Implemented read-only import plan
 
 Hoomans commits `72455cd1`, `3b8404fb`, `6ad89ab0`, `cce488a6`, `f5326079`,
-and `75d127e1` register and extend
+`75d127e1`, `1310433a`, and `5efc66fe` register and extend
 `PNC.Persistence.ImportPlan`. `ImportPlan.Build` copies the raw payload,
 computes a deterministic source hash, checks the exact current persistence
 version, and returns a quarantined plan with the raw copy when the root is
@@ -191,7 +193,9 @@ in FULL payloads and in each delta upsert; schema-1 reads remain supported but
 cannot reconstruct that field. `pnc_npc_foundation_import_plan_smoke.lua` and
 the gap characterization prove exact current-schema preservation and keep
 raw schema-16 identity loss, unsupported appearance policy versions,
-incomplete voice profiles, and invalid metadata fail-closed. These paths use the actual Hoomans identity,
+incomplete voice profiles, invalid metadata, and unmapped generation
+provenance fail-closed or source-preserve. These paths use the actual Hoomans
+identity,
 appearance, inventory, serializer, and persistence modules. The focused
 source-backed suite passes `9/9`.
 
@@ -297,11 +301,12 @@ The bounded fixture now proves:
 8. unsupported schemas, raw schema-16 payloads without a source snapshot,
    unsupported appearance-policy versions, and incomplete voice profiles
    preserve the raw source and fail closed.
+9. the serialized `generation` root remains exact opaque source data until a
+   reviewed canonical owner and version mapping exist.
 
-Remaining P0B next chunk: specify the versioned writer/reader mapping for
-authored appearance policy and the complete SurvivorFactory voice profile,
-using the fail-closed source tests as the boundary for schema-16 unknown/old
-inputs. A
-mismatch must select a source baseline/full/opaque path or quarantine; it must
-never rerun a changed generator as a silent default. Do not start the full P1
+Remaining P0B next chunk: audit and classify the remaining serialized roots
+(`recordRevision`, repair versions, definition/template references, traits,
+health/combat/equipment summaries, cognition/action plans, faction/corpse,
+map/journal, and related roots) against the ownership matrix; add only exact
+opaque preservation or explicit quarantine decisions. Do not start the full P1
 production migration or live-game acceptance.

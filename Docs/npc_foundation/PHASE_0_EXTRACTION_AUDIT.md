@@ -1,7 +1,7 @@
 # P0 — Extraction, Save-Schema and Generator Parity Audit
 
 Status: P0A formally closed; P0B active. Begin with actual checked-out sources.
-Latest bounded P0B evidence is Hoomans `75d127e1` and the focused suite is
+Latest bounded P0B evidence is Hoomans `5efc66fe` and the focused suite is
 `PASS 9/9`; this remains source-harness evidence, not live-game acceptance.
 
 ## Mandatory evidence to collect
@@ -67,14 +67,16 @@ The required P0A artifacts are now present in the local worktrees:
   payloads.
 - `ProjectHoomans/tests/pnc_npc_foundation_import_plan_generator_smoke.lua`
   verifies current generator compatibility, exact-item source-authoritative
-  fallback, and seed-only generator-mismatch quarantine.
+  fallback, definition-revision mismatch decisions, candidate canonical-hash
+  stability, source non-mutation, and seed-only generator-mismatch quarantine.
 - `ProjectHoomans/tests/pnc_npc_foundation_import_plan_codec_smoke.lua`
   verifies missing-codec and canonical-hash mismatch quarantine.
 - `ProjectHoomans/tests/pnc_npc_foundation_import_plan_continuity_smoke.lua`
   verifies real relationship/personality memory continuity, journey
   provenance, opaque nested-field quarantine, unsupported journey schema,
   deferred serialized-root preservation, metadata-schema-2 inventory
-  preservation, and source-preserving rollback metadata.
+  preservation, generation-root preservation, and source-preserving rollback
+  metadata.
 
 The baseline is intentionally bounded. It passes generated identity, seeded
 resolved appearance, personal inventory, equipment slots, directed social
@@ -99,7 +101,8 @@ reversible no-loss import dry run and the confirmed field conflicts.
   hash follow-up: `3b8404fb`; continuity and rollback follow-up: `6ad89ab0`;
   deferred serialized-root preservation: `cce488a6`; metadata-schema-2
   inventory codec repair: `f5326079`; fail-closed identity-source coverage:
- `75d127e1`.
+  `75d127e1`; definition-mismatch/hash coverage: `1310433a`; generation-root
+  source preservation: `5efc66fe`.
 - DynamicTrading local source: `2b1975a2`; local branch is one commit behind
   its remote and was not changed.
 
@@ -108,8 +111,10 @@ separate from Steam Workshop publication.
 
 ## P0B active boundary — one next chunk
 
-Specify the versioned writer/reader mapping for authored appearance policy and
-the complete SurvivorFactory voice profile, using the fail-closed source tests
-as the boundary for schema-16 unknown/old inputs. Do not start the full P1 production
+Audit and classify the remaining serialized roots (`recordRevision`, repair
+versions, definition/template references, traits, health/combat/equipment
+summaries, cognition/action plans, faction/corpse, map/journal, and related
+roots) against the ownership matrix; add only exact opaque preservation or
+explicit quarantine decisions. Do not start the full P1 production
 migration, rewrite saves, publish Workshop content, or claim live-game
 acceptance.

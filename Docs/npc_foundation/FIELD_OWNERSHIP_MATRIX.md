@@ -69,7 +69,7 @@ when its version or required fields are unknown.
 
 The read-only P0B planner explicitly projects serialized roots outside the
 bounded foundation adapter into `candidate.source.opaque`. The current raw
-roots include `recordRevision`, `repairVersions`, `uniqueDefinitionId`,
+roots include `generation`, `recordRevision`, `repairVersions`, `uniqueDefinitionId`,
 `uniqueDefinitionVersion`, `inventoryTemplateRef`, `startingItems`,
 `skillBaseLevels`, `tacticalClass`, `ownerUsername`, `m`, `orderSpec`,
 `patrolPoints`, `patrolIndex`, `hostility`, `health`, `stamina`, `weaponMode`,
@@ -81,7 +81,8 @@ roots include `recordRevision`, `repairVersions`, `uniqueDefinitionId`,
 `conditionStats`, `npcJournal`, and `bodyHint` when present. Each receives a
 `canonical_mapping_deferred` decision and remains source data; this is not a
 Core ownership or write approval. Hoomans `cce488a6` tests exact preservation
-of `semanticCognition` and an unknown `futureRoot` through the candidate codec.
+of `semanticCognition` and an unknown `futureRoot`; `5efc66fe` adds the real
+serialized `generation` root through the candidate codec.
 
 ## Executable baseline
 

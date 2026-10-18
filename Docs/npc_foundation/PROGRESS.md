@@ -5,14 +5,14 @@ production implementation or live-game acceptance is claimed.
 
 ## Planning input revisions
 
-- PsychopatzCore: `1b990938` (local P0B evidence head; `origin/main` remains
+- PsychopatzCore: `532be6c` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans P0B evidence: `75d127e1` (fail-closed identity-source
-  coverage on top of `f5326079`; metadata-schema-2 inventory codec repair on
-  top of `cce488a6`; read-only P0B continuity, journey provenance,
-  rollback, generator, candidate-hash, and deferred-root preservation tests;
-  checked-out branch now `90fd728c` with unrelated commits `77300f59` and
-  `90fd728c` preserved; upstream is `15fc79aa`).
+- ProjectHoomans P0B evidence: `5efc66fe` (generation provenance preservation
+  on top of `1310433a` definition-mismatch coverage and `75d127e1`
+  identity-source fail-closed coverage; earlier `f5326079` inventory,
+  `cce488a6` deferred-root, and planner/generator/hash tests;
+  checked-out branch now `5efc66fe`; unrelated commits `77300f59` and
+  `90fd728c` remain preserved before it; upstream is `15fc79aa`).
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and was
   not pulled or changed).
 - MarketSense dependency: not inspected in this bounded P0B chunk.
@@ -60,7 +60,7 @@ python3 tests/run_tests.py \
   pnc_npc_foundation_import_plan_codec_smoke \
   pnc_seed_delta_smoke pnc_relationship_foundation_smoke \
   pnc_unique_npc_smoke --jobs 1
-PASS 9/9 in 0.43s
+PASS 9/9 in 0.42s
 ```
 
 The read-only planner was introduced in Hoomans `72455cd1`, extended with
@@ -68,7 +68,8 @@ generator provenance and candidate hashing in `3b8404fb`, and extended with
 this bounded continuity/rollback audit in `6ad89ab0`, followed by deferred
 serialized-root preservation in `cce488a6`, followed by metadata schema 2
 inventory preservation in `f5326079`, followed by fail-closed incomplete
-identity-source coverage in `75d127e1`.
+identity-source coverage in `75d127e1`, definition-mismatch and hash stability
+coverage in `1310433a`, and generation-root source preservation in `5efc66fe`.
 
 `pnc_npc_foundation_import_plan_smoke.lua` uses real Hoomans identity,
 appearance, inventory, serializer, deserializer, and import-plan modules. It
@@ -89,7 +90,8 @@ are quarantined with the raw payload untouched.
 The same continuity test now proves that serialized roots outside the bounded
 canonical candidate—such as `semanticCognition` and an unknown future root—are
 copied exactly into `candidate.source.opaque` with
-`canonical_mapping_deferred` decisions. They remain projected source data; no
+`canonical_mapping_deferred` decisions. It now also preserves the real
+serialized `generation` root exactly. They remain projected source data; no
 default, writer, or silent discard is introduced.
 
 Static `pz_verify` checks report zero Kahlua errors on the planner modules and
@@ -123,10 +125,12 @@ canonical field shape, source-preserving rollback, deterministic generator
 compatibility, appearance/voice/inventory/relationship continuity, and
 explicit unsupported-schema behavior.
 
-The current next chunk is one bounded producer-persistence contract: specify
-the versioned writer/reader mapping for authored appearance policy and the
-complete SurvivorFactory voice profile, using the new fail-closed source
-tests as the boundary for schema-16 unknown/old inputs. Do not start the full P1 production
+The current next chunk is one bounded deferred-root ownership audit: classify
+the remaining serialized roots (`recordRevision`, repair versions,
+definition/template references, traits, health/combat/equipment summaries,
+cognition/action plans, faction/corpse, map/journal, and related roots)
+against the ownership matrix; add only exact opaque preservation or explicit
+quarantine decisions. Do not start the full P1 production
 migration, rewrite saves, publish Workshop content, or claim live-game
 acceptance.
 
