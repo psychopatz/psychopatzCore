@@ -1,8 +1,8 @@
 # P0 — Extraction, Save-Schema and Generator Parity Audit
 
 Status: P0A formally closed; P0B active. Begin with actual checked-out sources.
-Latest bounded P0B evidence is Hoomans `3b8404fb` and the focused suite is
-`PASS 8/8`; this remains source-harness evidence, not live-game acceptance.
+Latest bounded P0B evidence is Hoomans `6ad89ab0` and the focused suite is
+`PASS 9/9`; this remains source-harness evidence, not live-game acceptance.
 
 ## Mandatory evidence to collect
 ### Hoomans existing producers
@@ -67,6 +67,10 @@ The required P0A artifacts are now present in the local worktrees:
   fallback, and seed-only generator-mismatch quarantine.
 - `ProjectHoomans/tests/pnc_npc_foundation_import_plan_codec_smoke.lua`
   verifies missing-codec and canonical-hash mismatch quarantine.
+- `ProjectHoomans/tests/pnc_npc_foundation_import_plan_continuity_smoke.lua`
+  verifies real relationship/personality memory continuity, journey
+  provenance, opaque nested-field quarantine, unsupported journey schema, and
+  source-preserving rollback metadata.
 
 The baseline is intentionally bounded. It passes generated identity, seeded
 resolved appearance, personal inventory, equipment slots, directed social
@@ -88,7 +92,7 @@ reversible no-loss import dry run and the confirmed field conflicts.
 - Hoomans P0B characterization: `3f313b0b`, committed on that same local
   branch; unrelated semantic work remains untouched and uncommitted.
 - Hoomans P0B import planner: `72455cd1`; generator provenance and candidate
-  hash follow-up: `3b8404fb`.
+  hash follow-up: `3b8404fb`; continuity and rollback follow-up: `6ad89ab0`.
 - DynamicTrading local source: `2b1975a2`; local branch is one commit behind
   its remote and was not changed.
 
@@ -97,9 +101,8 @@ separate from Steam Workshop publication.
 
 ## P0B active boundary — one next chunk
 
-Audit the remaining canonical fields against the ownership matrix, especially
-personality, relationship memory, journey provenance, opaque unsupported nested
-fields, and rollback decision records. Add only source-backed tests or
-adapters needed to prove those contracts. Do not start the full P1 production
-migration, rewrite saves, publish Workshop content, or claim live-game
-acceptance.
+Reconcile remaining opaque/nested fields and canonical inventory codec mappings
+against the ownership matrix, especially fields outside the verified journey
+metadata/opaque path. Add only source-backed tests or adapters needed to prove
+those contracts. Do not start the full P1 production migration, rewrite
+saves, publish Workshop content, or claim live-game acceptance.

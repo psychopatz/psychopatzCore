@@ -1,117 +1,117 @@
 # Core NPC Foundation — Current Progress Snapshot: 2026-10-18
 
-Evidence is now from the checked-out local source heads, not only remote source
-inspection. No foundation production implementation is claimed.
+Evidence is from the checked-out local source heads. No foundation
+production implementation or live-game acceptance is claimed.
 
 ## Planning input revisions
 
-- PsychopatzCore: `ae32edd` (local P0B proof; `origin/main` remains `8b8e0b7`)
-- ProjectHoomans: `3b8404fb` (read-only P0B planner, generator provenance, and
-  candidate-hash tests; upstream remains `d117d861`)
-- DynamicTrading: `2b1975a2`
-- MarketSense dependency: not inspected in this P0A chunk.
+- PsychopatzCore: `3e35e5c` (local P0B evidence head; `origin/main` remains
+  `8b8e0b7`).
+- ProjectHoomans: `6ad89ab0` (read-only P0B continuity, journey provenance,
+  rollback, generator, and candidate-hash tests; upstream remains `d117d861`).
+- DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and was
+  not pulled or changed).
+- MarketSense dependency: not inspected in this bounded P0B chunk.
 
 ## P0A checkpoint — formally closed, implementation still gated
 
-Changed only these scoped artifacts:
+The required P0A artifacts are present locally: the Core ownership matrix and
+risk register, the Hoomans parity baseline, and the durable progress/audit
+documents. The baseline executes the real Hoomans identity factory/profile,
+appearance resolver, `Types.NewRecord`, inventory template/persistence and
+CoreBridge, relationship normalizer, and record serializer/deserializer.
+
+Verified local P0A deliverables:
 
 - `Docs/npc_foundation/FIELD_OWNERSHIP_MATRIX.md`
 - `Docs/npc_foundation/MIGRATION_RISKS.md`
 - `ProjectHoomans/tests/pnc_npc_foundation_parity_baseline_smoke.lua`
-- `ProjectHoomans/tests/pnc_npc_foundation_p0b_gap_characterization_smoke.lua`
+- Updated `PROGRESS.md` and `PHASE_0_EXTRACTION_AUDIT.md`
 
-The baseline uses the actual Hoomans identity factory/profile, appearance
-resolver, `Types.NewRecord`, inventory template/persistence/CoreBridge,
-relationship normalizer, and record serializer/deserializer. Its deterministic
-engine fixtures cover one generated NPC and verify stable ID, name/seed,
-persisted voice, resolved face fields, seeded clothing, portable item IDs/state,
-worn/equipped slots, directed relationship memory, position/anchor, and
-unsupported-version rejection.
+The baseline covers stable identity, name/seed, persisted voice, resolved face
+fields, seeded clothing, portable item IDs/state, worn/equipped slots,
+directed relationship memory, position/anchor, and unsupported-version
+rejection.
 
-Focused command and result:
+The broader legacy harness remains outside this goal: its first unrelated UI
+test cannot load `ISUI/ISPanel` outside the game UI runtime. That failure is
+not used to weaken or inflate the focused evidence.
+
+P0A acceptance is supported by the existing artifact commits: Core
+documentation `8b8e0b7`, Hoomans baseline `f647daea`, and Hoomans gap
+characterization `3f313b0b`. These are local source-control facts only; no
+Workshop publication occurred.
+
+## P0B evidence
+
+The focused source-backed command is:
 
 ```text
-python3 tests/run_tests.py pnc_npc_foundation_parity_baseline_smoke pnc_npc_foundation_p0b_gap_characterization_smoke pnc_seed_delta_smoke pnc_relationship_foundation_smoke pnc_unique_npc_smoke --jobs 1 --verbose
-PASS 5/5
+python3 tests/run_tests.py \
+  pnc_npc_foundation_parity_baseline_smoke \
+  pnc_npc_foundation_p0b_gap_characterization_smoke \
+  pnc_npc_foundation_import_plan_smoke \
+  pnc_npc_foundation_import_plan_continuity_smoke \
+  pnc_npc_foundation_import_plan_generator_smoke \
+  pnc_npc_foundation_import_plan_codec_smoke \
+  pnc_seed_delta_smoke pnc_relationship_foundation_smoke \
+  pnc_unique_npc_smoke --jobs 1
+PASS 9/9 in 0.56s
 ```
 
-The source-backed P0B planner command also passes:
+The read-only planner was introduced in Hoomans `72455cd1`, extended with
+generator provenance and candidate hashing in `3b8404fb`, and extended with
+this bounded continuity/rollback audit in `6ad89ab0`.
 
-```text
-python3 tests/run_tests.py pnc_npc_foundation_parity_baseline_smoke pnc_npc_foundation_p0b_gap_characterization_smoke pnc_npc_foundation_import_plan_smoke pnc_npc_foundation_import_plan_generator_smoke pnc_npc_foundation_import_plan_codec_smoke pnc_seed_delta_smoke pnc_relationship_foundation_smoke pnc_unique_npc_smoke --jobs 1
-PASS 8/8 in 0.54s
-```
+`pnc_npc_foundation_import_plan_smoke.lua` uses real Hoomans identity,
+appearance, inventory, serializer, deserializer, and import-plan modules. It
+preserves the authored appearance policy, all four voice values, exact item
+state, and generator provenance. It quarantines `legacyTemplateKey` instead
+of replacing or discarding it.
 
-`pnc_npc_foundation_import_plan_smoke.lua` loads the real parity baseline and
-then exercises `PNC.Types.NewRecord`, `PNC.Identity.Appearance.Normalize`,
-`PNC.Inventory.Internal.createBaseInventory`, `PNC.Inventory.ApplyDelta`,
-`PNC.Persistence.SerializeRecord`, and `PNC.Persistence.ImportPlan`. Its
-source snapshot carries the authored appearance policy and all four voice
-fields; its inventory cases use actual Hoomans inventory mutations. The
-planner copies raw input, fails closed on unsupported schema versions, logs
-field-level decisions, and quarantines `legacyTemplateKey` rather than
-discarding or replacing it.
+`pnc_npc_foundation_import_plan_continuity_smoke.lua` uses the real Hoomans
+relationship and travel constructors. It verifies generated personality,
+directed relationship memories, journey ID/revision/state, bounded metadata,
+and explicit rollback metadata. Journey revision conflicts, unsupported
+journey schemas, and opaque source fields omitted by the current serializer
+are quarantined with the raw payload untouched.
 
-Hoomans `3b8404fb` adds generator provenance checks for the actual current
-generator version (`4`), template seed/archetype/equipment-pool/definition
-revision, and optional template reference. A compatible source is marked
-`SEED_COMPATIBLE`; a changed generator falls back to
-`SOURCE_AUTHORITATIVE` when exact item state exists and quarantines when only
-seed replay remains. Candidate readiness requires a supplied deterministic
-codec whose post-deserialize canonical hash matches the pre-serialize hash;
-missing or mismatched codecs quarantine without changing the source.
+Static `pz_verify` checks report zero Kahlua errors on the planner modules and
+no token-bloat findings after the continuity split. Test-file warnings are the
+known false positive for the harness helper's `T.load` calls.
 
-The result is not live SP/MP acceptance. Confirmed gaps are authored
-appearance-policy persistence, the complete SurvivorFactory voice profile, and
-the `legacyTemplateKey` portable inventory metadata field. The focused P0B
-characterization also proves that canonical `customName` and bounded
-`modData` survive this path. The confirmed gaps remain explicit no-loss
-import blockers; no silent fallback is accepted.
+The result is not live SP/MP acceptance. Confirmed no-loss blockers remain:
+authored appearance-policy persistence, the complete SurvivorFactory voice
+profile in the normal Hoomans payload, and the portable `legacyTemplateKey`
+inventory metadata field. No silent fallback is accepted.
 
-P0A acceptance is supported and formally closed by the existing artifact
-commits: Core documentation `8b8e0b7`, Hoomans baseline test `f647daea`.
-The P0B characterization is committed as Hoomans `3f313b0b`. These commits
-are local source-control history only; no Workshop publication occurred.
-The P0B canonical-schema contract is committed as Core `92be3e2`; the
-read-only import-plan implementation and follow-up provenance/hash tests are
-committed as Hoomans `72455cd1` and `3b8404fb`. The Hoomans branch is ahead of
-its remote by unrelated semantic work as well; only the eight P0B paths in
-`3b8404fb` were staged for this chunk. These commits are local source-control
-history only; no Workshop publication occurred.
+## Verified ownership boundary
 
-The broader legacy harness is not clean in this checkout: its first unrelated
-UI test, `pnc_building_catalog_local_recipes_smoke.lua`, cannot load
-`ISUI/ISPanel` outside the game UI runtime. This did not involve the new test;
-the four focused identity/inventory/relationship tests passed independently.
-
-## Verified source boundaries
-
-- Hoomans owns physical IsoZombie materialization, body lease, combat, needs,
+- Hoomans owns physical IsoZombie materialization, body leases, combat, needs,
   jobs, faction/colony simulation, and live pathing.
 - PsychopatzCore is the intended owner of canonical actor identity, resolved
   appearance, personal inventory, directed relationships, generic location /
   journey state, and generic presentation contracts.
 - DTCommon owns merchant stock, budget, pricing, access, fulfillment, and
-  restock. Its current radio/abstract access path remains a later migration
-  blocker for physical item transfer.
+  restock. Its radio/abstract access path remains a later physical-transfer
+  blocker.
 
-## Active bounded chunk: P0B — Canonical Schema and Safe Migration Contract
+## Active bounded goal: P0B — Canonical Schema and Safe Migration Contract
 
-The contract is recorded in
-`P0B_CANONICAL_SCHEMA_AND_MIGRATION_CONTRACT.md`. It defines stable actor-ID
-mapping, exact current source/component versions, a complete canonical field
-shape, source-preserving rollback, deterministic generator compatibility,
-appearance/voice/inventory/relationship continuity, and explicit unsupported
-schema behavior. The bounded in-memory import-plan and decision-log fixture,
-including generator provenance and candidate-hash verification, is now
-implemented and verified. P0B remains active for the next single chunk: audit
-the remaining canonical fields against the matrix, especially personality,
-relationship memory, journey provenance, opaque unsupported nested fields, and
-rollback decision records. Add only source-backed tests or adapters needed to
-prove those contracts before a Core production writer or P1 migration is
-introduced.
+The contract is recorded in `P0B_CANONICAL_SCHEMA_AND_MIGRATION_CONTRACT.md`.
+It defines stable actor-ID mappings, exact current source/component versions,
+canonical field shape, source-preserving rollback, deterministic generator
+compatibility, appearance/voice/inventory/relationship continuity, and
+explicit unsupported-schema behavior.
 
-## Evidence remains open
+The current next chunk is one bounded audit: reconcile remaining opaque/nested
+fields and canonical inventory codec mappings against the ownership matrix,
+especially fields outside the verified journey metadata/opaque path. Close
+only source-backed gaps needed for a safe future writer. Do not start the full
+P1 production migration, rewrite saves, publish Workshop content, or claim
+live-game acceptance.
+
+## Evidence remaining open
 
 Native SP/MP parity; portrait rendering in actual `ISWorldMap`; mixed-mod load
 order; provider switching; old-save import; relationship/price policy;
@@ -121,4 +121,4 @@ settlement restock; real trader authorization migration; and performance.
 
 No Workshop publication or republication. No silent destructive migration. No
 automated claim of manual live gameplay acceptance. Existing DT trading and
-Radio OS semantic harness goals remain separate.
+Radio OS semantic-harness goals remain separate.

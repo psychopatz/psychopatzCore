@@ -7,19 +7,20 @@ revision.
 
 Evidence heads:
 
-- PsychopatzCore: `ae32edd` (local P0B proof; `origin/main` remains
+- PsychopatzCore: `3e35e5c` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans P0B planner/test: `3b8404fb` (extends `72455cd1`); the
+- ProjectHoomans P0B planner/test: `6ad89ab0` (extends `3b8404fb` and
+  `72455cd1`); the
   checked-out branch's upstream source head remains `d117d861` and unrelated
   semantic commits are preserved separately.
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and
   was not pulled or changed).
 
-The Hoomans identity, appearance, inventory, relationship, and persistence
-modules are executed by the two focused tests. SurvivorFactory and native
-equipment construction are deterministic test-boundary fixtures only. Core
-inventory media is excluded from the graph index, so the Core codec findings
-below are direct-source findings.
+The Hoomans identity, appearance, inventory, relationship, travel, and
+persistence modules are executed by the focused tests. SurvivorFactory and
+native equipment construction are deterministic test-boundary fixtures only.
+Core inventory media is excluded from the graph index, so the Core codec
+findings below are direct-source findings.
 
 ## Contract boundary
 
@@ -173,7 +174,7 @@ An item carrying `legacyTemplateKey` is explicitly quarantined with
 `portable_metadata_unrepresentable`; no replacement template or invented
 state is supplied. `pnc_npc_foundation_import_plan_smoke.lua` proves these
 paths using the actual Hoomans identity, appearance, inventory, serializer,
-and persistence modules. The focused source-backed suite passes `8/8`.
+and persistence modules. The focused source-backed suite passes `9/9`.
 
 The generator adapter checks current version `4`, seed, archetype, equipment
 pool, definition revision, and optional template reference. It marks a match
@@ -182,6 +183,16 @@ pool, definition revision, and optional template reference. It marks a match
 `generator_provenance_mismatch`. Candidate readiness requires an explicit
 deterministic codec and equal canonical hashes before and after the
 in-memory round trip; missing or changed codec content quarantines.
+
+The continuity follow-up in Hoomans `6ad89ab0` separates social and journey
+provenance. It requires normalized social `personality`,
+`personalityOverrides`, `recentEventIDs`, directed relationship entries, and
+each relationship's `memories` container. It requires journey `journeyId`,
+`schemaVersion`, `state`, and `revision`, copies bounded `metadata`, and
+quarantines persisted/source revision conflicts or a source `opaque` field
+omitted by the current travel serializer. Every ready or quarantined plan now
+includes a no-write rollback record with the source hash and
+`sourcePreserved = true`.
 
 ## Non-destructive import and rollback
 
@@ -238,9 +249,12 @@ separate `legacyTemplateKey` metadata field.
 
 Relationship entries retain exact directed keys such as `npc:<id>` and
 `player:<account>:<characterUUID>`, normalized scores, memory IDs, and
-bounded journals. A username-only alias is not an import key. Position, spawn,
-anchor, and active journey are separate fields with one declared authority;
-conflicting revisions are quarantined rather than merged by last writer.
+bounded journals. Personality and relationship memory are explicit canonical
+fields, not defaults derived during import. A username-only alias is not an
+import key. Position, spawn, anchor, and active journey are separate fields
+with one declared authority; conflicting revisions are quarantined rather than
+merged by last writer. The continuity smoke is source-backed by the real
+Hoomans relationship and travel constructors.
 
 ## P0B exit gate and next chunk
 
@@ -252,12 +266,15 @@ The bounded fixture now proves:
 3. the known `legacyTemplateKey` discrepancy produces an explicit
    opaque/quarantine decision rather than a replacement or discard;
 4. relationships and location/journey conflicts are explicit; and
-5. unsupported schemas preserve the raw source and fail closed.
+5. personality, relationship memories, and journey provenance are explicit;
+6. opaque nested journey fields and location conflicts quarantine without loss;
+7. rollback metadata records source preservation and no writes; and
+8. unsupported schemas preserve the raw source and fail closed.
 
-Remaining P0B next chunk: audit the remaining canonical fields against the
-ownership matrix, especially personality, relationship memory, journey
-provenance, opaque unsupported nested fields, and rollback decision records.
-Add only source-backed tests or adapters needed to prove those contracts. A
+Remaining P0B next chunk: reconcile opaque/nested fields outside the verified
+journey path and canonical inventory codec mappings against the ownership
+matrix. Add only source-backed tests or adapters needed to prove those
+contracts. A
 mismatch must select a source baseline/full/opaque path or quarantine; it must
 never rerun a changed generator as a silent default. Do not start the full P1
 production migration or live-game acceptance.
