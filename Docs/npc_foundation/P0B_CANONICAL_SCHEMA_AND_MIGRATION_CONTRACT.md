@@ -7,10 +7,10 @@ revision.
 
 Evidence heads:
 
-- PsychopatzCore: `3e35e5c` (local P0B evidence head; `origin/main` remains
+- PsychopatzCore: `10206ae` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans P0B planner/test: `6ad89ab0` (extends `3b8404fb` and
-  `72455cd1`); the
+- ProjectHoomans P0B planner/test: `cce488a6` (extends `6ad89ab0`, `3b8404fb`,
+  and `72455cd1`); the
   checked-out branch's upstream source head remains `d117d861` and unrelated
   semantic commits are preserved separately.
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and
@@ -73,6 +73,7 @@ is a contract shape, not a claim that production code already accepts it.
         sourceRecordHash = "<hash>",
         importedFromVersion = 16,
         decisionSet = "<dry-run-id>",
+        opaque = <exact-unmapped-serialized-roots>,
     },
     identity = {
         schemaVersion = 1,
@@ -157,9 +158,17 @@ partially readable, or unsupported schema produces:
 The source payload remains unchanged. The normal Hoomans reset behavior is not
 an import adapter and must not be used as one.
 
+Every serialized root outside the explicit adapter set (`schemaVersion`, `id`,
+`identity`, `inventory`, `social`, `position`, `spawn`, `anchor`, `travel`, and
+`generation`) is projected into `source.opaque` with a
+`canonical_mapping_deferred` decision. This is source retention, not a claim
+that Core owns the field or may write it. The current source-backed fixture
+exercises `semanticCognition` and an unknown `futureRoot`; both survive the
+candidate codec unchanged in Hoomans `cce488a6`.
+
 ## Implemented read-only import plan
 
-Hoomans commits `72455cd1` and `3b8404fb` register and extend
+Hoomans commits `72455cd1`, `3b8404fb`, `6ad89ab0`, and `cce488a6` register and extend
 `PNC.Persistence.ImportPlan`. `ImportPlan.Build` copies the raw payload,
 computes a deterministic source hash, checks the exact current persistence
 version, and returns a quarantined plan with the raw copy when the root is
@@ -193,6 +202,11 @@ quarantines persisted/source revision conflicts or a source `opaque` field
 omitted by the current travel serializer. Every ready or quarantined plan now
 includes a no-write rollback record with the source hash and
 `sourcePreserved = true`.
+
+The deferred-root follow-up in `cce488a6` makes otherwise-unmapped serialized
+roots explicit in the candidate's opaque source envelope and decision log. It
+does not make those fields importable by a future writer; each still requires
+an owner, version, and restoration contract.
 
 ## Non-destructive import and rollback
 
@@ -271,10 +285,10 @@ The bounded fixture now proves:
 7. rollback metadata records source preservation and no writes; and
 8. unsupported schemas preserve the raw source and fail closed.
 
-Remaining P0B next chunk: reconcile opaque/nested fields outside the verified
-journey path and canonical inventory codec mappings against the ownership
-matrix. Add only source-backed tests or adapters needed to prove those
-contracts. A
+Remaining P0B next chunk: reconcile every portable item metadata field against
+the CoreBridge, CoreStateCodec, and Core item-record schemas, starting with
+`legacyTemplateKey`. Add only the versioned metadata or opaque/full-item
+fallback needed to prove exact restoration. A
 mismatch must select a source baseline/full/opaque path or quarantine; it must
 never rerun a changed generator as a silent default. Do not start the full P1
 production migration or live-game acceptance.

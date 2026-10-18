@@ -36,6 +36,7 @@ write path.
 | Seeded clothing / worn visuals | Archetype look -> `PNC_Identity_Profile.RollAppearance` -> `PNC_Inventory_Templates` creates `tmpl:look:*` items with `wornSlot` and item state. | Deterministic from seed/archetype when no explicit policy exists; inventory item slots are the durable representation. | Core personal inventory and appearance projection. Inventory item identity/state is authoritative; body visuals are a lease. | `Base.Shirt` and its worn projection survive generated-record rehydration. |
 | Inventory baseline inputs | `PNC_Inventory_Templates.buildIdentityTemplate`; `PNC_Inventory_EquipmentGeneration`; `inventory.template` stores archetype, seed, generator version, equipment pool, weapon mode, and template ref. | Current generator version is `PNC.Const.GENERATOR_VERSION = 4`; NPC inventory schema is 2 with `SEED_ONLY`, `BASELINE_DELTA`, and `FULL`. | Core actor inventory template/baseline. A baseline is valid only when its generator and template reference are known; otherwise promote to full or quarantine. | Actual template creation and seed/delta persistence execute in the new smoke test's harness. |
 | Personal item identity and portable state | Hoomans CoreBridge maps compact items to PsychopatzCore virtual records; Core serializer uses virtual schema 1 / record schema 1; Hoomans delta schema is 1. | Server-authoritative dense item records; bounded portable state, quantities, metadata, and container relationships; no engine objects. | Core personal inventory. Preserve item IDs, type IDs, quantities, container, worn/equip slot, `legacyTemplateKey`, and representable portable state. Unrepresentable state requires a full fallback, not silent dropping. | P0A checks item IDs, stack, container, equipped slot, and bounded `modData`. P0B characterization confirms `customName` and `modData` round-trip, but `legacyTemplateKey` is lost by current CoreBridge metadata. |
+| Portable item metadata map | `PNC_Inventory_CoreStateCodec.metadata/applyMetadata` currently carries metadata indexes 1–16: `id`, `stack`, `container`, `bagContainer`, `maxWeight`, `weightReduction`, `wearableSlot`, `templateKey`, `preferredContainer`, `wornSlot`, `attachedSlot`, `equipSlot`, `interactionLocked`, `interactionLockReason`, `identityNPCId`, and `identityNPCName`. Core item flags/state carry `condition`, `uses`, `favorite`, `customName`, bounded `modData`, custom weight, food/fluid/ammo/clothing state. | Those listed fields are representable in the checked-out Core virtual record; Hoomans `legacyTemplateKey` is a separate source field and is not in the metadata tuple. | Add `legacyTemplateKey` to a versioned metadata schema or retain the full source item envelope as opaque/full. A candidate with that field is not eligible for seed/delta-only restoration until the mapping exists. | Hoomans `cce488a6` follows the actual `CoreBridge → CoreStateCodec → Core ItemRecord` path and retains the exact legacy item in the planner while returning `portable_metadata_unrepresentable`. |
 | Equipped / worn / attached equipment | Hoomans keeps `record.equipment` summary plus inventory `equipped`, `worn`, and `attached`; persistence writes equipment summary and inventory payload. | The item ledger is the durable source; summary is derived/projection data. | Core item ledger owns personal equipment. Rebuild summary from the ledger and reject conflicting dual-authority values. | Equipped primary and worn slots are checked after inventory hydration. |
 | Directed relationships | `PNC_RelationshipTypes` and relationship service use `npc:<id>` and `player:<account>:<characterUUID>` keys; `record.social` persists schema 3. | Server-authoritative normalized scores, memories, bounded journals, personality and conduct projections. | Core relationship state. Preserve exact target keys and memory IDs; username-only aliases are not valid substitutes. | Directed approval, respect, and memory ID survive rehydration. |
 | NPC position / spawn / anchor | `PNC_Persistence.SerializeRecord` writes `position`, `spawn`, and `anchor`; deserializer restores all three. | Server-authoritative numeric coordinates; anchor is distinct from current position. | Core location state. If a journey is active, journey authority must define the next position; do not merge two writers. | Current position and anchor are checked. |
@@ -62,6 +63,24 @@ audit. Hoomans' normal persistence loader performs an exact-version reset for
 unsupported records. An extraction adapter must inspect and copy the source
 payload before that reset path, retain the original unchanged, and fail closed
 when its version or required fields are unknown.
+
+## Deferred serialized-root mapping
+
+The read-only P0B planner explicitly projects serialized roots outside the
+bounded foundation adapter into `candidate.source.opaque`. The current raw
+roots include `recordRevision`, `repairVersions`, `uniqueDefinitionId`,
+`uniqueDefinitionVersion`, `inventoryTemplateRef`, `startingItems`,
+`skillBaseLevels`, `tacticalClass`, `ownerUsername`, `m`, `orderSpec`,
+`patrolPoints`, `patrolIndex`, `hostility`, `health`, `stamina`, `weaponMode`,
+`attackType`, `equipmentSpawnMode`, `equipmentPoolID`, `equipment`,
+`allowedJobs`, `jobPriorities`, `semanticCognition`, `semanticActionPlan`,
+`followerAbandonment`, `colonistDeparture`, `affiliation`, `progression`,
+`recipeKnowledge`, `corpse`, `mapPresentation`, `vanillaTraits`,
+`vanillaTraitsAuthored`, `dynamicTraits`, `dynamicTraitsAuthored`, `npcTraits`,
+`conditionStats`, `npcJournal`, and `bodyHint` when present. Each receives a
+`canonical_mapping_deferred` decision and remains source data; this is not a
+Core ownership or write approval. Hoomans `cce488a6` tests exact preservation
+of `semanticCognition` and an unknown `futureRoot` through the candidate codec.
 
 ## Executable baseline
 

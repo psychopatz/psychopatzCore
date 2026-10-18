@@ -13,6 +13,7 @@ publishes Workshop content.
 | Authored appearance policy is dropped by the normal payload | Hoomans appearance policy schema 2 is consumed by `RollAppearance`, but `Types.NormalizeDefinition` and `Persistence.SerializeRecord` do not carry `record.appearance`. | Preserve `record.appearance` as a versioned source field. Do not reroll slots or fall back to archetype appearance when authored policy is present. |
 | Complete SurvivorFactory voice profile is not serialized | Factory source fields are `identity.survivor.voice`, `voicePrefix`, `voiceType`, and `voicePitch`; the current identity sanitizer writes only legacy `voice`. | Add a versioned voice object. Missing type/pitch remains incomplete or opaque; never invent it or regenerate it from a new factory result. |
 | Portable inventory metadata is incomplete | `customName` and bounded `itemState.modData` survive the actual CoreBridge/delta path, but `legacyTemplateKey = "legacy:p0b:item"` is lost because the current metadata codec has no slot. | Add a versioned metadata field or retain the complete source item envelope. Quarantine unrepresentable records; never replace a legacy template with a current one. |
+| Deferred serialized roots can be silently omitted | Current `PNC.Persistence.SerializeRecord` emits roots including `semanticCognition`, `semanticActionPlan`, `progression`, `recipeKnowledge`, `mapPresentation`, `npcJournal`, and `bodyHint` that are outside the bounded Core candidate. | Hoomans `cce488a6` projects every unadapted serialized root into `candidate.source.opaque` with a `canonical_mapping_deferred` decision. Keep those exact roots until an owner/version mapping exists; do not treat projection as Core write eligibility. |
 | Seed-only inventory can change when definitions change | Hoomans `SEED_ONLY` replays current archetype/loadout/equipment definitions from seed and generator version. | Require generator version, archetype, equipment pool, definition revision, template reference, and policy hash compatibility. Otherwise use exact source state or quarantine. |
 | Personality and relationship memory can be lost in a blob mapping | `NormalizeSocialState` carries generated `personality`, `personalityOverrides`, `recentEventIDs`, directed target entries, and per-entry `memories`. | Map these fields separately. `6ad89ab0` requires their source containers and records copied/quarantine decisions; missing personality or memory containers never receive generated defaults. |
 | Journey provenance can diverge | Travel summaries carry `journeyId`, `schemaVersion = 2`, `state`, `revision`, bounded `metadata`, and route state. The continuity smoke proves revision conflict, unsupported journey schema, and serializer-dropped opaque data. | Compare ID/revision/state before import, preserve bounded metadata, and quarantine conflicts or opaque fields that cannot be represented. Never merge by last writer. |
@@ -54,14 +55,15 @@ This is a dry-run contract, not a production writer.
 
 ## P0B fixture evidence
 
-Hoomans `72455cd1`, `3b8404fb`, and `6ad89ab0` add the read-only
+Hoomans `72455cd1`, `3b8404fb`, `6ad89ab0`, and `cce488a6` add the read-only
 `PNC.Persistence.ImportPlan` and focused tests. The actual source-backed suite
-passes `9/9`. It proves raw/source non-mutation, authored policy and complete
-voice preservation from the source snapshot, exact personal item state,
-generator compatibility and fallback, personality/memory continuity, journey
-provenance, opaque nested-field quarantine, candidate codec hash verification,
-and rollback metadata. It never calls reset, writes ModData, overwrites saves,
-or claims live-game acceptance.
+passes `9/9` in `0.40s`. It proves raw/source non-mutation, authored policy and
+complete voice preservation from the source snapshot, exact personal item
+state, generator compatibility and fallback, personality/memory continuity,
+journey provenance, opaque nested-field quarantine, deferred serialized-root
+preservation, candidate codec hash verification, and rollback metadata. It
+never calls reset, writes ModData, overwrites saves, or claims live-game
+acceptance.
 
 ## Explicit P0A boundary
 

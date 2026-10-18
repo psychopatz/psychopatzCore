@@ -5,10 +5,11 @@ production implementation or live-game acceptance is claimed.
 
 ## Planning input revisions
 
-- PsychopatzCore: `3e35e5c` (local P0B evidence head; `origin/main` remains
+- PsychopatzCore: `10206ae` (local P0B evidence head; `origin/main` remains
   `8b8e0b7`).
-- ProjectHoomans: `6ad89ab0` (read-only P0B continuity, journey provenance,
-  rollback, generator, and candidate-hash tests; upstream remains `d117d861`).
+- ProjectHoomans: `cce488a6` (read-only P0B continuity, journey provenance,
+  rollback, generator, candidate-hash, and deferred-root preservation tests;
+  upstream remains `d117d861`).
 - DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and was
   not pulled or changed).
 - MarketSense dependency: not inspected in this bounded P0B chunk.
@@ -56,12 +57,13 @@ python3 tests/run_tests.py \
   pnc_npc_foundation_import_plan_codec_smoke \
   pnc_seed_delta_smoke pnc_relationship_foundation_smoke \
   pnc_unique_npc_smoke --jobs 1
-PASS 9/9 in 0.56s
+PASS 9/9 in 0.40s
 ```
 
 The read-only planner was introduced in Hoomans `72455cd1`, extended with
 generator provenance and candidate hashing in `3b8404fb`, and extended with
-this bounded continuity/rollback audit in `6ad89ab0`.
+this bounded continuity/rollback audit in `6ad89ab0`, followed by deferred
+serialized-root preservation in `cce488a6`.
 
 `pnc_npc_foundation_import_plan_smoke.lua` uses real Hoomans identity,
 appearance, inventory, serializer, deserializer, and import-plan modules. It
@@ -76,6 +78,12 @@ and explicit rollback metadata. Journey revision conflicts, unsupported
 journey schemas, and opaque source fields omitted by the current serializer
 are quarantined with the raw payload untouched.
 
+The same continuity test now proves that serialized roots outside the bounded
+canonical candidate—such as `semanticCognition` and an unknown future root—are
+copied exactly into `candidate.source.opaque` with
+`canonical_mapping_deferred` decisions. They remain projected source data; no
+default, writer, or silent discard is introduced.
+
 Static `pz_verify` checks report zero Kahlua errors on the planner modules and
 no token-bloat findings after the continuity split. Test-file warnings are the
 known false positive for the harness helper's `T.load` calls.
@@ -83,7 +91,9 @@ known false positive for the harness helper's `T.load` calls.
 The result is not live SP/MP acceptance. Confirmed no-loss blockers remain:
 authored appearance-policy persistence, the complete SurvivorFactory voice
 profile in the normal Hoomans payload, and the portable `legacyTemplateKey`
-inventory metadata field. No silent fallback is accepted.
+inventory metadata field. Deferred serialized roots now remain visible in the
+opaque source envelope, but their canonical owners are not yet established.
+No silent fallback is accepted.
 
 ## Verified ownership boundary
 
@@ -104,12 +114,12 @@ canonical field shape, source-preserving rollback, deterministic generator
 compatibility, appearance/voice/inventory/relationship continuity, and
 explicit unsupported-schema behavior.
 
-The current next chunk is one bounded audit: reconcile remaining opaque/nested
-fields and canonical inventory codec mappings against the ownership matrix,
-especially fields outside the verified journey metadata/opaque path. Close
-only source-backed gaps needed for a safe future writer. Do not start the full
-P1 production migration, rewrite saves, publish Workshop content, or claim
-live-game acceptance.
+The current next chunk is one bounded inventory-codec audit: reconcile every
+portable item metadata field against the CoreBridge/CoreStateCodec/Core item
+record schemas, starting with `legacyTemplateKey`, and add only the versioned
+metadata or opaque/full-item fallback needed for exact restoration. Do not
+start the full P1 production migration, rewrite saves, publish Workshop
+content, or claim live-game acceptance.
 
 ## Evidence remaining open
 
