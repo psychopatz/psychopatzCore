@@ -4,6 +4,7 @@ local Persistence = require "PsychopatzCore/Actors/PsychopatzActorPersistence"
 local ActorInventory = require "PsychopatzCore/Actors/PsychopatzActorInventory"
 local Social = require "PsychopatzCore/Actors/PsychopatzSocial"
 local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
+local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
 
 local Registry = {}
 Registry.__index = Registry
@@ -60,6 +61,11 @@ function Registry:Register(actor)
     if not copy.world then return nil, reason end
     valid, reason = World.Validate(copy.world)
     if not valid then return nil, reason end
+    copy.providerLease, reason = Provider.Normalize(
+        copy.providerLease, copy.actorId)
+    if not copy.providerLease then return nil, reason end
+    valid, reason = Provider.Validate(copy.providerLease, copy.actorId)
+    if not valid then return nil, reason end
     if self.records[actor.actorId] then return nil, "duplicate_actor_id" end
     self.records[actor.actorId] = copy
     self.revision = self.revision + 1
@@ -77,6 +83,7 @@ function Registry:Create(spec)
         })
     if not inventory then return nil, reason end
     actor.personalInventory = inventory:ToPayload("FULL")
+    actor.providerLease = Util.clone(spec.providerLease)
     return self:Register(actor)
 end
 
@@ -94,6 +101,9 @@ function Registry:Commit(actorId, patch, expectedRevision)
     if patch.extensions ~= nil then nextActor.extensions = Util.clone(patch.extensions) end
     if patch.social ~= nil then nextActor.social = Util.clone(patch.social) end
     if patch.world ~= nil then nextActor.world = Util.clone(patch.world) end
+    if patch.providerLease ~= nil then
+        nextActor.providerLease = Util.clone(patch.providerLease)
+    end
     if patch.personalInventory ~= nil then
         local inventoryValid, inventoryReason =
             ActorInventory.ValidatePayload(patch.personalInventory)
@@ -110,12 +120,63 @@ function Registry:Commit(actorId, patch, expectedRevision)
     if not nextActor.world then return nil, reason end
     valid, reason = World.Validate(nextActor.world)
     if not valid then return nil, reason end
+    nextActor.providerLease, reason = Provider.Normalize(
+        nextActor.providerLease, actorId)
+    if not nextActor.providerLease then return nil, reason end
+    valid, reason = Provider.Validate(nextActor.providerLease, actorId)
+    if not valid then return nil, reason end
     valid, reason = Factory.ValidateActor(nextActor)
     if not valid then return nil, reason end
 
     self.records[actorId] = nextActor
     self.revision = self.revision + 1
     return Util.clone(nextActor)
+end
+
+local function commitProvider(registry, actorId, operation, spec)
+    local current = registry.records[actorId]
+    local updated
+    local reason
+    if not current then return nil, "actor_not_found" end
+    if operation == "Materialize" and type(spec) == "table"
+        and spec.bodyID ~= nil
+    then
+        local bodyID = tostring(spec.bodyID)
+        for otherID, other in pairs(registry.records) do
+            local lease = other and other.providerLease or nil
+            if tostring(otherID) ~= tostring(actorId)
+                and lease and lease.state == "materialized"
+                and tostring(lease.bodyID or "") == bodyID
+            then
+                return nil, "body_lease_claimed"
+            end
+        end
+    end
+    updated, reason = Provider[operation](Util.clone(current), spec)
+    if not updated then return nil, reason end
+    return registry:Commit(actorId, {
+        providerLease = updated.providerLease,
+    }, current.revision)
+end
+
+function Registry:AcquireProvider(actorId, spec)
+    return commitProvider(self, actorId, "Acquire", spec)
+end
+
+function Registry:MaterializeProvider(actorId, spec)
+    return commitProvider(self, actorId, "Materialize", spec)
+end
+
+function Registry:DematerializeProvider(actorId, spec)
+    return commitProvider(self, actorId, "Dematerialize", spec)
+end
+
+function Registry:ReleaseProvider(actorId, spec)
+    return commitProvider(self, actorId, "Release", spec)
+end
+
+function Registry:SwitchProvider(actorId, spec)
+    return commitProvider(self, actorId, "Switch", spec)
 end
 
 function Registry:Save()
