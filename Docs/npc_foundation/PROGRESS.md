@@ -1,18 +1,15 @@
 # Core NPC Foundation — Progress
 
-Snapshot: 2026-10-20. This record covers developer-side source and Lua harness evidence only. Native Project Zomboid SP/MP live testing remains user-owned; no native game was launched, no Workshop content was published, and no user save was reset.
-
-## Current phase
-
-P8 — Provider switching and Hoomans integration: ACCEPTED developer-side evidence. P9 is the remaining mandatory phase.
+Snapshot: 2026-10-20. P1–P9 developer-implementable requirements are complete and source-backed. Status: READY FOR USER LIVE TEST. Native Project Zomboid SP/MP validation remains user-owned; no native game was launched, no Workshop content was published, and no user save was reset.
 
 ## Repository state
 
-- PsychopatzCore: `994ef44`, `main`, local branch ahead of `origin/main` by ten and behind by one.
-- ProjectHoomans: `ecedcad10`, `codex/contextual-dialogue-quest-framework-0a`, local branch ahead of its configured remote by four.
-- DynamicTrading: `7ddb972e`, `main`, local branch ahead of `origin/main` by two.
+- PsychopatzCore: `4cdd547` (`main`), local branch ahead of `origin/main` by twelve and behind by one.
+- ProjectHoomans: `9b123bd3` (`codex/contextual-dialogue-quest-framework-0a`), local branch ahead of its configured remote by five.
+- DynamicTrading: `2d1ee62a` (`main`), local branch ahead of `origin/main` by three.
+- Documentation commits: Core `a2862df` records P8; this P9 update follows the implementation commits above.
 
-All three worktrees were clean before and after the P8 commits. Existing unrelated history and changes were preserved. No force push, reset, discard, or Workshop publication was used.
+All three worktrees were checked clean before each phase commit and after the final changes. Existing unrelated history and changes were preserved. No force push, reset, discard, or Workshop publication was used.
 
 ## Accepted phase evidence
 
@@ -25,16 +22,15 @@ All three worktrees were clean before and after the P8 commits. Existing unrelat
 - P6: Core portrait projection, map registry and knowledge filtering, nearby conversation authorization, bounded notifications, and Hoomans presentation adapter.
 - P7: DynamicTrading Core actor policy with availability, settlement visits, earned/cooldown restocking, capped social pricing, authoritative basket fulfillment, and separate DT stock/budget.
 - P8: Core provider lease schema and registry operations; global single-body claim protection; DTAbstract projection/acquire/materialize/dematerialize/release adapter; DTHoomans callback-backed body lifecycle adapter; Hoomans Core projection into existing records and `PNC.BodyLifecycle`; DT trader policy provider/lease metadata. Canonical identity, appearance, personal inventory, social, and world state is projected without copying DT stock or budget into the actor.
+- P9: Core-only, Core+DT, Core+Hoomans, and combined configuration harnesses; explicit client/server provider authority rejection; stable actor/body uniqueness; migration, save/reload, inventory/social/journey continuity; merchant stock separation and relationship pricing; bounded actor creation/payload checks; focused compatibility and Kahlua verification.
 
 ## Validation evidence
 
-- Core: actor, inventory, journey/task, presentation, and provider lease smoke tests passed; P8 explicitly covers competing owners, duplicate body IDs, materialization, dematerialization, provider switching, and provider lease save/reload. Core Actors Kahlua verification reports zero errors.
-- ProjectHoomans: P8 provider bridge, migration, social, and presentation tests passed 4/4. The new provider adapter reports zero Kahlua errors. The unrelated existing `pnc_kahlua_persistence_smoke` still fails its `next()`-less deserialization assertion and was not changed by P8.
-- DynamicTrading: P8 provider adapter plus policy, service, pricing, seed, access, basket, rollback, and T0 tests passed 9/9. DTAbstract and DTHoomans adapter files report zero Kahlua errors. The unfiltered suite retains one pre-existing `dt_caravan_contract` failure for missing baseline text `groupSize = GROUP_SIZE`; no caravan source was changed for P8.
-- Codebase-memory coverage was checked for every operated source path. Core and DynamicTrading media trees are intentionally excluded from the graph, so their source was read and verified directly; Hoomans coverage reports no recorded parse gap but its media tree is also not tracked for freshness.
+- Core foundation/matrix tests passed, including actor, inventory, social, journey/task, presentation, provider lease, and acceptance matrix coverage. The Core Actors directory and provider files report zero Kahlua errors. The broad Core smoke sweep passed 95/103; the eight remaining failures are unrelated UI/native-fixture tests outside NPC Foundation paths.
+- ProjectHoomans foundation tests passed 5/5: combined end-to-end, provider bridge, migration, social, and presentation. The provider adapter reports zero Kahlua errors. The broad headless harness reports 14 failures outside this focused foundation set, including UI tests requiring the native `ISUI/ISPanel` module and the existing `next()`-less persistence assertion; none fail the new provider or combined acceptance tests.
+- DynamicTrading foundation/trading tests passed 9/9: provider adapter, policy, service, pricing, stock seed, basket, access, rollback, and T0 cases. DTAbstract and DTHoomans provider files report zero Kahlua errors. The unfiltered suite retains one unrelated `dt_caravan_contract` failure for missing baseline text `groupSize = GROUP_SIZE`; no caravan source was changed for P8/P9.
+- Codebase-memory coverage was checked for every operated source path. Core and DynamicTrading media trees are intentionally excluded from the graph, so those paths were read and verified directly; Hoomans coverage reports no recorded parse gap but its media tree is not tracked for freshness.
 
-## Remaining work
+## User-owned next action
 
-P9 must complete the developer-side configuration matrix and end-to-end acceptance evidence: Core-only, Core+DT, Core+Hoomans, combined modules, old-save/migration reload, inventory parity, unique actor/body identity, trading fulfillment, journey and relationship continuity, multiplayer authority boundaries, reconnect behavior, performance/memory bounds, and compatibility regressions. User-run native SP/MP acceptance remains explicitly outside this agent's authority.
-
-Next bounded chunk: add the P9 configuration/authority/continuity harnesses, run the full relevant regression sets, and record any source-backed blockers without stopping independent checks.
+Run the native compatibility matrix in a disposable/test save: Core-only; Core+DTCommon+DTAbstract; Core+DTCommon+Hoomans+DTHoomans; both provider frontends; Core+DTCommon alone; Hoomans without DT; save/restart provider switching; and a dedicated two-client multiplayer authority/reconnect pass. Confirm visual appearance, physical item parity, portrait/UI coexistence, body lifecycle behavior, and native performance. The developer-side implementation is ready for that live test.

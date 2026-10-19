@@ -1,6 +1,6 @@
 # Core NPC Foundation — Ordered Roadmap
 
-Snapshot: 2026-10-20. P0A–P8 have accepted developer-side source/harness evidence. P9 is the remaining mandatory developer phase; native SP/MP live acceptance is user-owned.
+Snapshot: 2026-10-20. P0A–P9 developer-implementable requirements have accepted source/harness evidence. Status: READY FOR USER LIVE TEST.
 
 | Phase | Status | Mandatory exit gate |
 | --- | --- | --- |
@@ -14,9 +14,9 @@ Snapshot: 2026-10-20. P0A–P8 have accepted developer-side source/harness evide
 | P6 Map and interaction | ACCEPTED | Core map/portrait/nearby conversation/notification contracts coexist with existing UI |
 | P7 DynamicTrading integration | ACCEPTED | Separate merchant stock/budget, availability, restocking, relationship pricing, and authoritative fulfillment |
 | P8 Provider switching and Hoomans integration | ACCEPTED | DTAbstract/DTHoomans adapters preserve canonical state and enforce one-body lease ownership |
-| P9 End-to-end developer acceptance | IN PROGRESS | Configuration matrix, old saves, authority/reconnect, performance/memory, and compatibility evidence; user-run SP/MP remains next user action |
+| P9 End-to-end developer acceptance | ACCEPTED — READY FOR USER LIVE TEST | Four configuration modes, old saves, authority/reconnect boundaries, continuity, bounded work, and compatibility evidence |
 
-## Required configuration matrix
+## User-owned live matrix
 
 Core-only; Core + DTCommon + DTAbstract; Core + DTCommon + Hoomans + DTHoomans; both provider frontends; Core + DTCommon alone; Hoomans without DT; save/restart provider switching; and a dedicated multiplayer authority/reconnect harness.
 
