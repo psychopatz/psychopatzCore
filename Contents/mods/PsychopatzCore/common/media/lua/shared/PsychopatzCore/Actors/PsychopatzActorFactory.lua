@@ -86,6 +86,7 @@ local function appearancePolicy(input)
     local mode = policy.mode or input.mode
     local authored = mode == "authored" or mode == "AUTHORED_POLICY"
         or policy.authority == "authored"
+        or (mode == nil and policy.schemaVersion ~= nil)
     if mode == "generated" or mode == "GENERATED_DEFAULT" then authored = false end
     return Util.clone(policy), authored
 end
@@ -207,7 +208,8 @@ function Factory.Generate(spec)
     local ownerMod = Util.text(spec.ownerMod, "PsychopatzCore")
     local suppliedId = Util.text(spec.actorId, nil)
     local identitySpec = type(spec.identity) == "table" and spec.identity or {}
-    local seed = Util.text(spec.identitySeed, Util.text(identitySpec.identitySeed, nil))
+    local seed = spec.identitySeed or identitySpec.identitySeed
+    if type(seed) ~= "string" and type(seed) ~= "number" then seed = nil end
     if not seed then seed = suppliedId or (ownerMod .. ":" .. tostring(Util.hash(spec.archetypeID))) end
     local actorId = suppliedId or "pnc:core:" .. tostring(Util.hash(ownerMod .. ":" .. seed))
     local identity = normalizeIdentity(spec, seed)
@@ -223,6 +225,9 @@ function Factory.Generate(spec)
         identity = identity,
         appearance = appearance,
         extensions = Util.clone(spec.extensions or {}),
+        source = Util.clone(spec.source),
+        social = Util.clone(spec.social),
+        world = Util.clone(spec.world),
     }
 end
 
@@ -239,7 +244,8 @@ function Factory.ValidateActor(actor)
     if type(actor.identity) ~= "table" or type(actor.appearance) ~= "table" then
         return false, "identity_appearance_required"
     end
-    if type(actor.identity.identitySeed) ~= "string"
+    if (type(actor.identity.identitySeed) ~= "string"
+        and type(actor.identity.identitySeed) ~= "number")
         or type(actor.identity.survivor) ~= "table"
     then
         return false, "identity_contract_invalid"

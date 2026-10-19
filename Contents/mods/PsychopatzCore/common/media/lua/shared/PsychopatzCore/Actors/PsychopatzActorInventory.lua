@@ -141,7 +141,8 @@ function ActorInventory.new(options)
     options = type(options) == "table" and options or {}
     local ownerActorId = text(options.actorId, nil)
     if not ownerActorId then return nil, "actor_id_required" end
-    local seed = text(options.seed, ownerActorId)
+    local seed = options.seed
+    if type(seed) ~= "string" and type(seed) ~= "number" then seed = ownerActorId end
     local starterVersion = tonumber(options.starterVersion)
         or ActorInventory.DEFAULT_STARTER_VERSION
     local self = setmetatable({
@@ -282,7 +283,9 @@ function Ledger:Validate()
     if tonumber(self.schemaVersion) ~= ActorInventory.SCHEMA_VERSION
         or tonumber(self.metadataSchema) ~= ActorInventory.METADATA_SCHEMA
     then return false, "inventory_schema_mismatch" end
-    if text(self.ownerActorId, nil) == nil or text(self.seed, nil) == nil then
+    if text(self.ownerActorId, nil) == nil
+        or (type(self.seed) ~= "string" and type(self.seed) ~= "number")
+    then
         return false, "inventory_identity_required"
     end
     local seen = {}

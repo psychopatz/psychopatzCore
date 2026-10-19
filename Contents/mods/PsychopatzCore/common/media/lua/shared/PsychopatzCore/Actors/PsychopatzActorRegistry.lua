@@ -20,6 +20,13 @@ function Registry:Has(actorId)
     return self.records[actorId] ~= nil
 end
 
+function Registry:Remove(actorId)
+    if not self.records[actorId] then return nil, "actor_not_found" end
+    self.records[actorId] = nil
+    self.revision = self.revision + 1
+    return true
+end
+
 function Registry:Get(actorId)
     local actor = self.records[actorId]
     if not actor then return nil, "actor_not_found" end
