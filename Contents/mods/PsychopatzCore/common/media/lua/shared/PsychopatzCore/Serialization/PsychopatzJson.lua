@@ -44,9 +44,6 @@ local function isArray(value)
         end
         count = math.max(count, key)
     end
-    for index = 1, count do
-        if value[index] == nil then return false, 0 end
-    end
     return true, count
 end
 

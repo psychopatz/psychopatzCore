@@ -1,14 +1,14 @@
 # Core NPC Foundation — Ordered Roadmap
 
-Status snapshot: 2026-10-20. P0A, P0B, and P1 are accepted from source-backed harness evidence; P2 is the next bounded chunk. P3–P9 remain open. Existing Dynamic Trading MVP T6 live SP/MP acceptance remains OPEN separately.
+Status snapshot: 2026-10-20. P0A, P0B, P1, and the Core P2 ledger slice are accepted from source-backed harness evidence; P3 is the next bounded chunk. The P2 physical-body gate remains part of P8 integration. P4–P9 remain open. Existing Dynamic Trading MVP T6 live SP/MP acceptance remains OPEN separately.
 
 | Phase | Status | Work | Mandatory exit gate |
 | --- | --- | --- | --- |
 | P0A Extraction audit | ACCEPTED (source/harness evidence) | Trace creators, normalized schemas, persistence, map/trade coupling; produce field matrix, risks and parity baseline | Ownership matrix + risk register + executable source-backed parity baseline with honest gaps |
 | P0B Canonical schema and safe migration contract | ACCEPTED (source/harness evidence) | Resolve no-loss schema decisions and repair current Hoomans persistence gaps needed for migration | Normal supported save/load retains shared identity presentation data; default vs authored appearance is explicit; read-only import remains fail-closed; one reversible migration contract |
 | P1 Core factory and actor registry | ACCEPTED (source/harness evidence) | Single authoritative identity generator, stable ID/seed, resolved name/gender/voice/appearance, extension contracts | Core-only NPC Create -> Save -> Reload -> Get remains identical without PNC and without duplicate IDs |
-| P2 Portable NPC personal inventory | OPEN (next bounded chunk) | Deterministic starter clothes/gear/bags plus exact portable items, worn/equipped slots, seed + deltas/full fallback | Same item IDs/state across regen-free save/load and body round trip; no duplication |
-| P3 Legacy import and compatibility | NOT STARTED | Read/validate Hoomans legacy data before exact-version reset; map identities/domains; wrappers | Non-destructive idempotent import, rollback/retry, source untouched until candidate commit |
+| P2 Portable NPC personal inventory | ACCEPTED (Core source/harness; body gate in P8) | Deterministic starter clothes/gear/bags plus exact portable items, worn/equipped slots, seed + deltas/full fallback | Same item IDs/state across regen-free save/load; no duplication; physical body parity verified in P8 |
+| P3 Legacy import and compatibility | OPEN (next bounded chunk) | Read/validate Hoomans legacy data before exact-version reset; map identities/domains; wrappers | Non-destructive idempotent import, rollback/retry, source untouched until candidate commit |
 | P4 Shared social | NOT STARTED | Core directional Approval/Respect/Familiarity/personality/memories, validators and revisioned reads | Existing Hoomans social state/player-character keys preserved; no double event credit |
 | P5 Generic agent/journey/anchors | NOT STARTED | Bounded scheduler/behavior registration, location anchors and A-to-B journeys | DT-only merchant travels and arrives once across restart without Hoomans mobile director |
 | P6 Map/portrait/notifications/interactions | NOT STARTED | Single Core map hook/layers, travel markers, filtered hover face, nearby floating portrait/Talk, notification variants | Core/DT/Hoomans layers coexist with no duplicate hooks and knowledge-gated actor discovery |

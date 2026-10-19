@@ -5,9 +5,9 @@ static verification; no live-game acceptance is claimed.
 
 ## Current phase
 
-**P1 — Core identity and appearance: ACCEPTED source/harness evidence.** P2
-is the next bounded implementation chunk. P3–P9 remain open and are not
-accepted.
+**P2 — Core portable personal inventory: ACCEPTED for the Core
+source/harness gate.** The physical Hoomans body round-trip remains a P8
+integration gate; P3 is the next bounded implementation chunk.
 
 ## Repository evidence
 
@@ -73,9 +73,17 @@ Production files: `Contents/mods/PsychopatzCore/common/media/lua/shared/Psychopa
 
 Adjacent Core inventory regressions (`psychopatz_inventory_framework_smoke.lua`, `psychopatz_inventory_defaults_smoke.lua`, `psychopatz_inventory_reversible_smoke.lua`) passed. No Hoomans or DynamicTrading module was loaded by the actor smoke.
 
-## ONE Next Chunk — P2 portable NPC personal inventory
+## P2 evidence — Core portable NPC personal inventory
 
-Extend the Core actor envelope with a reusable personal inventory ledger using the existing Core portable-item codecs. Add deterministic starter equipment, stable item IDs, container/worn/equipped references, seed/delta/full persistence, exact state restoration, and a Core-only actor inventory round trip. Keep DT merchant stock separate and do not materialize a Hoomans body in P2.
+- Production file: `Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Actors/PsychopatzActorInventory.lua`, exposed as `PsychopatzCore.Actors.Inventory` and persisted in the actor envelope as `personalInventory`.
+- `tests/psychopatz_npc_inventory_smoke.lua` passed with `/usr/bin/lua`: existing Core weapon codecs captured exact state; stable item IDs, containers, equipment slots, FULL, BASELINE_DELTA, and SEED_ONLY envelopes all restored; actor save/reload preserved the inventory payload and no merchant stock or budget fields were present.
+- Sparse JSON arrays now encode intentional null positions, preserving codec states such as weapon attachment payloads through actor persistence. Existing inventory framework/default/reversible smoke tests remained green.
+- Kahlua verification passed for the actor tree and `PsychopatzJson.lua`, with zero errors.
+- No physical engine item, Hoomans body, DT merchant stock, or DT budget is serialized in the personal ledger.
+
+## ONE Next Chunk — P3 non-destructive legacy migration
+
+Implement Core-owned, idempotent Hoomans legacy import and mapping. Read and validate source records before any exact-version reset path, preserve raw source and opaque roots, validate identity/appearance/voice/inventory/social/location ownership, commit candidates transactionally into a fresh Core registry, and provide rollback/retry evidence without mutating source saves.
 
 Standing boundaries: no destructive save migration, no force-push/reset, no
 ambiguous pull, no Workshop publication, and no automated claim of manual

@@ -3,11 +3,13 @@ PsychopatzCore = PsychopatzCore or {}
 local Factory = require "PsychopatzCore/Actors/PsychopatzActorFactory"
 local Registry = require "PsychopatzCore/Actors/PsychopatzActorRegistry"
 local Persistence = require "PsychopatzCore/Actors/PsychopatzActorPersistence"
+local ActorInventory = require "PsychopatzCore/Actors/PsychopatzActorInventory"
 
 local Actors = PsychopatzCore.Actors or {}
 Actors.Factory = Factory
 Actors.Registry = Registry
 Actors.Persistence = Persistence
+Actors.Inventory = ActorInventory
 Actors.DefaultRegistry = Actors.DefaultRegistry or Registry.new()
 
 function Actors.NewRegistry()

@@ -1,6 +1,7 @@
 local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Factory = require "PsychopatzCore/Actors/PsychopatzActorFactory"
+local ActorInventory = require "PsychopatzCore/Actors/PsychopatzActorInventory"
 
 local Persistence = {}
 
@@ -10,6 +11,10 @@ Persistence.SCHEMA_VERSION = 1
 local function cloneValidated(actor)
     local valid, reason = Factory.ValidateActor(actor)
     if not valid then return nil, reason end
+    if actor.personalInventory then
+        valid, reason = ActorInventory.ValidatePayload(actor.personalInventory)
+        if not valid then return nil, reason end
+    end
     return Util.clone(actor)
 end
 
