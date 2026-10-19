@@ -1,5 +1,7 @@
 # Core NPC Foundation — Ordered Roadmap
 
+**PARENT GOAL STATUS: IN PROGRESS until P1–P9 developer gates are complete.** One-chunk implementation is a safe unit of work, not a scope cap or permission to stop. After each accepted phase immediately continue to the next mandatory phase under the SAME /goal. Full acceptance includes actual cross-repository integration, Core-only persistence and adapter validation, not only isolated tests.
+
 Status snapshot: 2026-10-20. P0A and P0B are accepted from source-backed harness evidence; P1 is OPEN as one bounded next chunk. P2–P9 remain unstarted. Existing Dynamic Trading MVP T6 live SP/MP acceptance remains OPEN separately.
 
 | Phase | Status | Work | Mandatory exit gate |

@@ -1,5 +1,7 @@
 # Core NPC Foundation — Goal Navigation
 
+**PARENT GOAL IN PROGRESS** until every mandatory Foundation P1–P9 implementation and developer-side acceptance passes. P0A/P0B are only accepted subphases. P1 is the next chunk, and the agent must immediately continue after acceptance without requesting a new /goal.
+
 Status: P0A/P0B accepted from source/harness evidence; P1 open as the next bounded chunk. Current snapshot: 2026-10-20.
 PsychopatzCore is the target owner of shared canonical NPC state; ProjectHoomans and DynamicTrading are adopters. This job is separate from the Dynamic Trading trading-MVP, Radio OS, and Hoomans semantic-dialogue goals.
 

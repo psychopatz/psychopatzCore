@@ -3,6 +3,8 @@
 Snapshot: 2026-10-20. Evidence basis: source-backed Hoomans Lua harnesses and
 static verification; no live-game acceptance is claimed.
 
+**PARENT GOAL: IN PROGRESS — complete the entire Foundation P1–P9 roadmap.** P0B accepted is a subordinate checkpoint only. The automation must execute the next chunk P1, then continue through all remaining mandatory chunks after each is verified; do NOT exit after a successful P1 commit or ask the user for another /goal. All developer-implementable work precedes user-owned native PZ tests.
+
 ## Current phase
 
 **P0B — Canonical Schema and Safe Migration Contract: ACCEPTED from
@@ -61,7 +63,7 @@ not Core persistence acceptance. No in-place save migration, PsychopatzCore
 writer, DT behavior, Workshop publication, native SP/MP test, or live-game
 claim was made.
 
-## ONE Next Chunk — P1 Core-only identity/appearance vertical slice
+## ONE CURRENT EXECUTION CHUNK — P1 (automatic continuation through P2–P9 follows) Core-only identity/appearance vertical slice
 
 Implement the smallest real PsychopatzCore `Create -> Save -> Reload -> Get`
 codec/registry slice for stable actor identity and the already-defined
