@@ -1,167 +1,55 @@
-# Core NPC Foundation — Current Progress Snapshot: 2026-10-19
+# Core NPC Foundation — Current Progress
 
-## Continuation update — 2026-10-19
+Snapshot: 2026-10-19. Evidence basis: GitHub source/commit audit plus prior agent-recorded local test results. Remote GitHub does not prove local worktree cleanliness, and the reported test suite was not independently rerun in this audit.
 
-The latest foundation evidence is Hoomans `9f153c0e` (seed-only policy
-provenance gate) on top of `5efc66fe`; the current bounded suite is `PASS 9/9`
-in `0.41s`. Core documentation evidence is committed through `9e42af1`.
-The next bounded P0B chunk is the source-backed serializer/deserializer
-contract for authored appearance policy and the complete four-field voice
-profile. No P1 writer, save mutation, Workshop publication, or live-game claim
-is authorized.
+## Current phase
+**P0B — Canonical Schema and Safe Migration Contract: ACTIVE.**
+P0A is accepted from source-backed evidence. P1 has NOT started. There is no production Core NPC registry/factory yet.
 
-Evidence is from the checked-out local source heads. No foundation
-production implementation or live-game acceptance is claimed.
+## Repository evidence
+- PsychopatzCore main: `50022acf`. P0A/P0B durable docs, field matrix and migration-risk register are present.
+- ProjectHoomans main: `bc9c64d0`. NPC-foundation implementation/test commits exist on a divergent committed history through `9f153c0e`, including `f647daea` baseline, `72455cd1` read-only import planner, `f5326079` metadata-schema-2 item preservation, `5efc66fe` generation-root preservation, and `9f153c0e` seed-only policy-provenance gate.
+- DynamicTrading main: `d6fccc3d`. Only the adapter contract is present for this goal; merchant travel/restock/relationship pricing/provider switching are not implemented.
+- Hoomans foundation history and current `main` are divergent. This must be reconciled safely before cross-repo production migration; do not force-push/reset or overwrite unrelated work.
 
-## Planning input revisions
+## Accepted P0A foundation
+The ownership matrix, migration-risk register and source-backed baseline identify the current producers/writers for identity, appearance, personal inventory, social state, location/journey, map presentation and DT merchant linkage. Existing tests exercise real Hoomans identity, appearance, inventory, relationship, travel and persistence modules around deterministic engine-boundary fixtures.
 
-- PsychopatzCore: `bf8bf19` (local P0B documentation/evidence head; prior
-  provenance gate `afdc184`, serialized-root audit `69af55e`, and risk-register
-  repair `1bd2625`; `origin/main` remains `8b8e0b7`).
-- ProjectHoomans P0B evidence: `5efc66fe` (generation provenance preservation
-  on top of `1310433a` definition-mismatch coverage and `75d127e1`
-  identity-source fail-closed coverage; earlier `f5326079` inventory,
-  `cce488a6` deferred-root, and planner/generator/hash tests;
-  foundation evidence remains `5efc66fe`; checked-out branch HEAD is the
-  later unrelated `51d7b585` clinic-supplies commit; earlier unrelated commits
-  `77300f59` and `90fd728c` remain preserved; upstream is `15fc79aa`).
-- DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and was
-  not pulled or changed).
-- MarketSense dependency: not inspected in this bounded P0B chunk.
+The agent-reported focused suite is 9/9 passing and `pz_verify` reports zero Kahlua errors on the planner path. Treat that as recorded source-harness evidence, not live Project Zomboid acceptance.
 
-## P0A checkpoint — formally closed, implementation still gated
+## Implemented P0B safety work
+- Read-only `PNC.Persistence.ImportPlan` builds a no-write candidate, decision log, source hash and rollback metadata; malformed/unsupported records quarantine without mutating the source.
+- Generator provenance checks seed/archetype/generator/equipment/definition/template context and now fail closed for seed-only records when appearance-policy provenance is absent/mismatched.
+- Metadata schema 2 preserves `legacyTemplateKey` alongside supported custom name/modData in delta and FULL current-schema inventory paths.
+- Directed social personality/memories and journey ID/revision/state are represented in the planner; conflicts quarantine.
+- Unmapped serialized roots can be preserved in `candidate.source.opaque` rather than silently dropped.
 
-The required P0A artifacts are present locally: the Core ownership matrix and
-risk register, the Hoomans parity baseline, and the durable progress/audit
-documents. The baseline executes the real Hoomans identity factory/profile,
-appearance resolver, `Types.NewRecord`, inventory template/persistence and
-CoreBridge, relationship normalizer, and record serializer/deserializer.
+## What is NOT implemented/accepted
+- **Normal Hoomans persistence still drops shared presentation data.** Current `sanitizeIdentity` serializes only legacy `identity.survivor.voice`; normal persistence does not carry the complete four-field voice profile. Normal record serialization also does not carry the authored `record.appearance` policy.
+- The import-planner tests preserve those values only when an extra in-memory `sourceSnapshot` is supplied. That proves read-only planning behavior, not ordinary save/reload parity.
+- The planner's test `CandidateCodec()` is an in-memory echo/copy helper, not a real PsychopatzCore NPC persistence codec. It must not be cited as P1 Core save/load acceptance.
+- A missing authored appearance policy must be distinguished from a default/generated NPC that never had one. Default-generated actors must not be quarantined merely because `record.appearance` is absent.
+- No production Core actor record, Core NPC factory, Core social owner, journey service, shared map migration, DT settlement roaming/restock, relationship pricing or DTAbstract<->DTHoomans switching exists yet.
+- Native SP/MP, actual ISWorldMap rendering, mixed-mod load order, provider switching and performance remain open.
+- Broader Hoomans suite has an unrelated non-game UI harness dependency on `ISUI/ISPanel`; do not spend this chunk repairing that solely to claim full-suite green.
 
-Verified local P0A deliverables:
+## ONE Current Next Chunk — P0B production serializer/deserializer parity
+Implement a bounded **ProjectHoomans production persistence** slice for shared appearance/voice continuity.
 
-- `Docs/npc_foundation/FIELD_OWNERSHIP_MATRIX.md`
-- `Docs/npc_foundation/MIGRATION_RISKS.md`
-- `ProjectHoomans/tests/pnc_npc_foundation_parity_baseline_smoke.lua`
-- Updated `PROGRESS.md` and `PHASE_0_EXTRACTION_AUDIT.md`
+Required work:
+1. Add source-backed failing regressions using the normal record path (`Types.NewRecord` -> ordinary `PNC.Persistence.SerializeRecord` -> `DeserializeRecord`) with **no** planner `sourceSnapshot`.
+2. Introduce an explicit versioned representation that preserves the complete available voice profile: `voice`, `voicePrefix`, `voiceType`, `voicePitch`. Do not invent fields for old/incomplete saves or rerun SurvivorFactory to fill them.
+3. Persist and restore authored appearance policy schema 2 exactly when present, including slot mode/type/wornSlot/itemState.
+4. Represent the difference between:
+   - no authored policy ever existed -> deterministic generated/default appearance remains valid; and
+   - authored policy existed -> it must round-trip exactly and may not silently fall back to an archetype reroll.
+5. Carry or version the minimum generator/policy provenance needed so current supported records cannot silently seed-replay incompatible clothing/appearance.
+6. Re-run focused foundation tests and current identity/inventory/relationship regressions. Preserve older/unsupported input fail-closed/source-authoritative rules.
 
-The baseline covers stable identity, name/seed, persisted voice, resolved face
-fields, seeded clothing, portable item IDs/state, worn/equipped slots,
-directed relationship memory, position/anchor, and unsupported-version
-rejection.
+### Acceptance for this chunk
+A supported current-version generated NPC and a supported current-version authored-appearance NPC both pass normal SerializeRecord -> DeserializeRecord without a source snapshot. The authored case retains exact policy + full available voice fields; the generated/default case is not falsely quarantined. Existing metadata-schema-2 item parity remains green. No save is rewritten in place, no Core production writer is introduced, and no Workshop/live-game acceptance is claimed.
 
-The broader legacy harness remains outside this goal: its first unrelated UI
-test cannot load `ISUI/ISPanel` outside the game UI runtime. That failure is
-not used to weaken or inflate the focused evidence.
+After this acceptance, update P0B contract/evidence and decide whether only a small migration-compatibility closure remains or P0B can close. Then open exactly ONE P1 Next Chunk: real Core-only Create -> Save -> Reload -> Get for identity/appearance, using a real Core codec rather than the in-memory candidate echo helper.
 
-P0A acceptance is supported by the existing artifact commits: Core
-documentation `8b8e0b7`, Hoomans baseline `f647daea`, and Hoomans gap
-characterization `3f313b0b`. These are local source-control facts only; no
-Workshop publication occurred.
-
-## P0B evidence
-
-The focused source-backed command is:
-
-```text
-python3 tests/run_tests.py \
-  pnc_npc_foundation_parity_baseline_smoke \
-  pnc_npc_foundation_p0b_gap_characterization_smoke \
-  pnc_npc_foundation_import_plan_smoke \
-  pnc_npc_foundation_import_plan_continuity_smoke \
-  pnc_npc_foundation_import_plan_generator_smoke \
-  pnc_npc_foundation_import_plan_codec_smoke \
-  pnc_seed_delta_smoke pnc_relationship_foundation_smoke \
-  pnc_unique_npc_smoke --jobs 1
-PASS 9/9 in 0.45s
-```
-
-The read-only planner was introduced in Hoomans `72455cd1`, extended with
-generator provenance and candidate hashing in `3b8404fb`, and extended with
-this bounded continuity/rollback audit in `6ad89ab0`, followed by deferred
-serialized-root preservation in `cce488a6`, followed by metadata schema 2
-inventory preservation in `f5326079`, followed by fail-closed incomplete
-identity-source coverage in `75d127e1`, definition-mismatch and hash stability
-coverage in `1310433a`, and generation-root source preservation in `5efc66fe`.
-
-`pnc_npc_foundation_import_plan_smoke.lua` uses real Hoomans identity,
-appearance, inventory, serializer, deserializer, and import-plan modules. It
-preserves the authored appearance policy, all four voice values, exact item
-state, generator provenance, and fail-closed behavior for raw schema-16
-records without a source snapshot, unsupported appearance policy versions,
-and incomplete voice profiles. Current metadata schema 2 preserves
-`legacyTemplateKey` in both baseline-delta and FULL payloads; schema-1 payloads
-remain explicitly incompatible with that field.
-
-`pnc_npc_foundation_import_plan_continuity_smoke.lua` uses the real Hoomans
-relationship and travel constructors. It verifies generated personality,
-directed relationship memories, journey ID/revision/state, bounded metadata,
-and explicit rollback metadata. Journey revision conflicts, unsupported
-journey schemas, and opaque source fields omitted by the current serializer
-are quarantined with the raw payload untouched.
-
-The same continuity test now proves that serialized roots outside the bounded
-canonical candidate—such as `semanticCognition` and an unknown future root—are
-copied exactly into `candidate.source.opaque` with
-`canonical_mapping_deferred` decisions. It now also preserves the real
-serialized `generation` root exactly. They remain projected source data; no
-default, writer, or silent discard is introduced.
-
-Static `pz_verify` checks report zero Kahlua errors on the planner modules and
-no token-bloat findings after the continuity split. Test-file warnings are the
-known false positive for the harness helper's `T.load` calls.
-
-The result is not live SP/MP acceptance. Confirmed no-loss blockers remain:
-authored appearance-policy persistence, the complete SurvivorFactory voice
-profile in the normal Hoomans payload. Deferred serialized roots now remain
-visible in the opaque source envelope, but their canonical owners are not yet
-established. A legacy metadata-schema-1 payload still cannot claim complete
-item parity and must remain source-authoritative or opaque. No silent fallback
-is accepted.
-
-## Verified ownership boundary
-
-- Hoomans owns physical IsoZombie materialization, body leases, combat, needs,
-  jobs, faction/colony simulation, and live pathing.
-- PsychopatzCore is the intended owner of canonical actor identity, resolved
-  appearance, personal inventory, directed relationships, generic location /
-  journey state, and generic presentation contracts.
-- DTCommon owns merchant stock, budget, pricing, access, fulfillment, and
-  restock. Its radio/abstract access path remains a later physical-transfer
-  blocker.
-
-## Active bounded goal: P0B — Canonical Schema and Safe Migration Contract
-
-The contract is recorded in `P0B_CANONICAL_SCHEMA_AND_MIGRATION_CONTRACT.md`.
-It defines stable actor-ID mappings, exact current source/component versions,
-canonical field shape, source-preserving rollback, deterministic generator
-compatibility, appearance/voice/inventory/relationship continuity, and
-explicit unsupported-schema behavior.
-
-The deferred-root ownership audit is now recorded in the field matrix. Every
-root emitted by the current Hoomans serializer is classified as an explicit
-foundation field or exact opaque source data; no root was promoted to a writer
-mapping. The next bounded chunk is the generator/provenance adapter contract
-for `generation`, definition/template references, equipment-pool provenance,
-the currently absent independent appearance policy hash, and seed-only replay
-refusal, with one source-backed no-seed-replay test. Do not start the full P1
-production migration, rewrite saves, publish Workshop content, or claim
-live-game acceptance.
-
-## Current next chunk
-
-The policy-provenance gate is complete for this bounded chunk. The next P0B
-chunk is the source-backed serializer/deserializer contract for authored
-appearance policy and the complete four-field voice profile, including exact
-version gates, round-trip tests, and unsupported-schema behavior.
-
-## Evidence remaining open
-
-Native SP/MP parity; portrait rendering in actual `ISWorldMap`; mixed-mod load
-order; provider switching; old-save import; relationship/price policy;
-settlement restock; real trader authorization migration; and performance.
-
-## Standing boundary
-
-No Workshop publication or republication. No silent destructive migration. No
-automated claim of manual live gameplay acceptance. Existing DT trading and
-Radio OS semantic-harness goals remain separate.
+## Standing boundaries
+No Workshop publication/republication. No destructive save migration. No force-push/reset to reconcile Hoomans histories. No automated claim of manual live gameplay acceptance. Existing Dynamic Trading MVP, Radio OS and semantic goals remain separate.

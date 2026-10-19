@@ -1,14 +1,14 @@
 # P0 — Extraction, Save-Schema and Generator Parity Audit
 
-## Continuation evidence — 2026-10-19
+## Current transition — 2026-10-19
 
-Hoomans foundation commit `9f153c0e` adds and tests the seed-only policy-hash
-gate. The bounded source suite is `PASS 9/9` in `0.41s`; the next P0B chunk is
-the authored-appearance and complete-voice serializer/deserializer contract.
+Status: **P0A ACCEPTED; P0B ACTIVE; P0 overall OPEN.**
 
-Status: P0A formally closed; P0B active. Begin with actual checked-out sources.
-Latest bounded P0B evidence is Hoomans `5efc66fe` and the focused suite is
-`PASS 9/9`; this remains source-harness evidence, not live-game acceptance.
+P0A's ownership matrix, risk register and source-backed baseline are accepted as audit evidence. The P0B read-only planner and provenance gates provide useful no-write safety, but they do not yet prove ordinary Hoomans save/reload parity because the normal serializer still omits authored appearance policy and three of the four available voice-profile fields. The planner's extra source snapshot is therefore not an acceptable substitute for the next production persistence gate.
+
+The ONE current P0B Next Chunk is the normal serializer/deserializer appearance+voice parity slice defined in PROGRESS.md and P0B_CANONICAL_SCHEMA_AND_MIGRATION_CONTRACT.md. No P1 Core writer may begin until that gate is satisfied.
+
+Hoomans foundation evidence through `9f153c0e` exists on a Git history that is divergent from current Hoomans `main` `bc9c64d0`. Reconcile local histories safely; never force-push/reset or overwrite unrelated work.
 
 ## Mandatory evidence to collect
 ### Hoomans existing producers
@@ -138,3 +138,10 @@ contract for definition/template/equipment-pool references and a
 source-backed seed-only replay refusal test. Do not start the full P1
 production migration, rewrite saves, publish Workshop content, or claim
 live-game acceptance.
+
+
+## 2026-10-19 P0B execution correction
+
+Earlier continuation notes mentioned generator/provenance or deferred-root audits as the next chunk. Those are superseded by the current PROGRESS.md. Generator policy-hash gating and deferred-root classification already have committed source evidence. The remaining blocking product gap is ordinary save/load preservation of authored appearance policy and the complete available voice profile.
+
+Do not cite the test fixture CandidateCodec as a real Core persistence codec. P1 acceptance later requires an actual PsychopatzCore Create -> Save -> Reload -> Get path.

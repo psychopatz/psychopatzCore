@@ -1,40 +1,12 @@
 # P0B — Canonical schema and safe migration contract
 
-## Continuation evidence — 2026-10-19
+## Current execution state — 2026-10-19
 
-Hoomans `9f153c0e` now requires externally recorded policy provenance for
-seed-only replay: missing policy provenance quarantines as
-`generator_provenance_incomplete`, and a mismatched hash quarantines as
-`generator_provenance_mismatch`. Exact item state remains source-authoritative.
-The next bounded contract is versioned authored-appearance and complete voice
-serialization/deserialization; this remains read-only P0B work.
+P0A is accepted and P0B remains ACTIVE. Read-only import planning, metadata-schema-2 item preservation, deferred-root retention and seed-only policy-provenance gating have committed source evidence through Hoomans `9f153c0e`. They are not equivalent to normal game save/reload parity.
 
-Status: bounded P0B contract, 2026-10-19. This document defines the
-preconditions for a future Core NPC import writer. It does not implement a
-writer, rewrite ModData, alter Hoomans ownership, or publish a Workshop
-revision.
+The **ONE current P0B Next Chunk** is now production Hoomans serializer/deserializer parity for authored appearance policy and the complete available voice profile, with an explicit generated/default appearance case. The normal path must work without supplying the planner's extra `sourceSnapshot`. No Core writer is authorized in this chunk.
 
-Evidence heads:
-
-- PsychopatzCore: `bf8bf19` (local P0B documentation/evidence head; prior
-  provenance gate `afdc184`, serialized-root audit `69af55e`, and risk-register
-  repair `1bd2625`; `origin/main` remains `8b8e0b7`).
-- ProjectHoomans P0B planner/test: `5efc66fe` (generation provenance
- preservation on top of `1310433a` definition-mismatch coverage and
- `75d127e1` identity-source fail-closed coverage; earlier metadata-schema-2
- inventory repair `f5326079`, deferred-root preservation `cce488a6`, and
- planner/generator/hash commits `72455cd1`, `3b8404fb`, `6ad89ab0`); the
-  foundation evidence remains `5efc66fe`; checked-out branch HEAD is the later
-  unrelated `51d7b585` clinic-supplies commit; unrelated commits `77300f59`
-  and `90fd728c` remain preserved; its upstream is `15fc79aa`.
-- DynamicTrading: `2b1975a2` (local source; remote is one commit ahead and
-  was not pulled or changed).
-
-The Hoomans identity, appearance, inventory, relationship, travel, and
-persistence modules are executed by the focused tests. SurvivorFactory and
-native equipment construction are deterministic test-boundary fixtures only.
-Core inventory media is excluded from the graph index, so the Core codec
-findings below are direct-source findings.
+The existing foundation history is divergent from current Hoomans `main`; preserve unrelated work and reconcile safely before integrating production changes.
 
 ## Contract boundary
 
@@ -335,28 +307,34 @@ with one declared authority; conflicting revisions are quarantined rather than
 merged by last writer. The continuity smoke is source-backed by the real
 Hoomans relationship and travel constructors.
 
-## P0B exit gate and next chunk
+## P0B exit gate and ONE current next chunk
 
-The bounded fixture now proves:
+The read-only planner currently proves source-preserving classification, explicit conflicts, metadata-schema-2 item parity, relationship/journey continuity, rollback metadata, deferred-root preservation and seed-only provenance refusal. That evidence remains useful, but P0B is not closed because normal Hoomans persistence still drops shared presentation data.
 
-1. current-version records are copied without mutating the source;
-2. authored appearance policy and all four voice values survive candidate
-   construction;
-3. metadata schema 2 preserves `legacyTemplateKey` through both delta and FULL
-   paths, while schema-1 reads remain explicitly incomplete for that field;
-4. relationships and location/journey conflicts are explicit; and
-5. personality, relationship memories, and journey provenance are explicit;
-6. opaque nested journey fields and location conflicts quarantine without loss;
-7. rollback metadata records source preservation and no writes; and
-8. unsupported schemas, raw schema-16 payloads without a source snapshot,
-   unsupported appearance-policy versions, and incomplete voice profiles
-   preserve the raw source and fail closed.
-9. the serialized `generation` root remains exact opaque source data until a
-   reviewed canonical owner and version mapping exist.
+### Current production persistence gap
+- `PNC.Persistence.SerializeRecord` / `sanitizeIdentity` currently retain legacy `voice` but not the complete available `voicePrefix`, `voiceType` and `voicePitch`.
+- The normal record serializer/deserializer does not preserve authored `record.appearance` policy schema 2.
+- Planner tests can retain these values only when a separate source snapshot is supplied. That does not prove ordinary save/reload continuity.
+- Absence of an authored policy must not itself be treated as corruption: an NPC that always used deterministic generated/default appearance is a valid distinct source case.
+- The test fixture `CandidateCodec()` is an in-memory echo helper and does not satisfy future Core persistence acceptance.
 
-Remaining P0B next chunk: audit and classify the remaining serialized roots
-(`recordRevision`, repair versions, definition/template references, traits,
-health/combat/equipment summaries, cognition/action plans, faction/corpse,
-map/journal, and related roots) against the ownership matrix; add only exact
-opaque preservation or explicit quarantine decisions. Do not start the full P1
-production migration or live-game acceptance.
+### ONE current Next Chunk
+Implement and test an explicit versioned normal Hoomans persistence representation for:
+1. the complete available four-field voice profile;
+2. authored appearance policy schema 2 when present;
+3. an explicit generated/default appearance case when no authored policy exists; and
+4. the minimum generator/policy provenance required to prevent unsafe seed-only rerolls.
+
+Use normal `Types.NewRecord -> SerializeRecord -> DeserializeRecord` regression tests without `sourceSnapshot`. Preserve existing metadata-schema-2 personal item, relationship and journey behavior. Older unsupported/incomplete records remain fail-closed/source-authoritative; never invent missing voice values or authored appearance.
+
+### P0B exit
+P0B may close only when:
+- supported current generated/default and authored-appearance NPCs both round-trip through normal persistence without sourceSnapshot;
+- authored policy and all available voice fields survive exactly;
+- generated/default records are not falsely quarantined;
+- current item/social/location regressions remain green;
+- no silent reset/reroll path remains for the supported input;
+- Hoomans foundation history is safely reconciled with current work; and
+- durable docs identify one P1 Next Chunk.
+
+P1 then begins with a real PsychopatzCore Create -> Save -> Reload -> Get identity/appearance vertical slice using an actual Core codec/registry, not the planner's in-memory candidate helper.

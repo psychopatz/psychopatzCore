@@ -1,29 +1,41 @@
 # Core NPC Foundation — Ordered Roadmap
 
-Status: newly approved planning goal; NONE of P0–P9 accepted yet. Every phase needs code-path evidence plus its specific tests, not just documentation or mocked schemas. One bounded Next Chunk at a time. Existing DT MVP T6 acceptance stays OPEN separately.
+Status snapshot: 2026-10-19. P0A is accepted from source-backed audit evidence; P0B is ACTIVE and P0 as a whole is not yet accepted. P1–P9 remain unstarted. Existing Dynamic Trading MVP T6 live SP/MP acceptance remains OPEN separately.
 
-| Phase | Work | Mandatory exit gate |
-| --- | --- | --- |
-| P0 Extraction ledger and migration contract | Trace actual creators, normalized schemas, inventory and social persistence, map hooks, DT access and load order; baseline regression tests | Field-level source-to-target ownership table, missing-state/legacy-version policy, executable parity baseline, no silent-loss path |
-| P1 Core factory and actor registry | Single authoritative identity generator, stable ID/seed, resolved name/gender/voice/appearance, extension contracts | Core-only NPC created, saved/reloaded, identical without PNC or duplicate IDs |
-| P2 Portable NPC personal inventory | Deterministic starter clothes/gear/bags plus exact portable items, worn/equipped slots, seed + deltas/full fallback | Same item IDs/state across regen-free save/load and body round trip; no duplication |
-| P3 Legacy import and compatibility | Read/validate Hoomans legacy data before its exact-version reset; map identities and domains; wrappers | Non-destructive idempotent import, rollback/retry, old untouched during staged validation |
-| P4 Shared social | Core directional Approval/Respect/Familiarity/personality/memories, event validators and revisioned reads | Existing Hoomans social state and player-character keys preserved, no double event credit |
-| P5 Generic agent/journey/anchors | Bounded scheduler/behavior registration; location discovery, settlement anchors, A-to-B journeys | DT-only merchant travels, arrives exactly once and resumes across restart; no Hoomans mobile director |
-| P6 Map/portrait/notifications/interactions | Single Core map hook/layer registry, travel markers, filtered hover face, nearby floating portrait and Talk, notification variants | Core/DT/Hoomans map layers coexist, no duplicate renders; contact only if viewer eligible |
-| P7 DynamicTrading merchant policies | Settlement visiting/restock, availability, relationship-sensitive server quotes, remote communication vs trade fulfillment | One DT stock/budget, capped modifier, earned restock, no far-away magical trade |
-| P8 Provider switching and Hoomans physical adapter | DTHoomans live materialization from Core record; DTAbstract abstract contact; save/restart switch and loaded-provider swap | Stable ID/face/items/social/location/merchant data after both directions; one body lease, no orphan |
-| P9 Integration regression and user acceptance | Independent module matrices, older saves, MP authority/reconnect, performance, map UI and real game | All scoped tests and manual in-game SP/MP gates recorded with evidence; no implicit Workshop release |
+| Phase | Status | Work | Mandatory exit gate |
+| --- | --- | --- | --- |
+| P0A Extraction audit | ACCEPTED (source/harness evidence) | Trace creators, normalized schemas, persistence, map/trade coupling; produce field matrix, risks and parity baseline | Ownership matrix + risk register + executable source-backed parity baseline with honest gaps |
+| P0B Canonical schema and safe migration contract | ACTIVE | Resolve no-loss schema decisions and repair current Hoomans persistence gaps needed for migration | Normal supported save/load retains shared identity presentation data; default vs authored appearance is explicit; read-only import remains fail-closed; one reversible migration contract |
+| P1 Core factory and actor registry | NOT STARTED | Single authoritative identity generator, stable ID/seed, resolved name/gender/voice/appearance, extension contracts | Core-only NPC Create -> Save -> Reload -> Get remains identical without PNC and without duplicate IDs |
+| P2 Portable NPC personal inventory | NOT STARTED | Deterministic starter clothes/gear/bags plus exact portable items, worn/equipped slots, seed + deltas/full fallback | Same item IDs/state across regen-free save/load and body round trip; no duplication |
+| P3 Legacy import and compatibility | NOT STARTED | Read/validate Hoomans legacy data before exact-version reset; map identities/domains; wrappers | Non-destructive idempotent import, rollback/retry, source untouched until candidate commit |
+| P4 Shared social | NOT STARTED | Core directional Approval/Respect/Familiarity/personality/memories, validators and revisioned reads | Existing Hoomans social state/player-character keys preserved; no double event credit |
+| P5 Generic agent/journey/anchors | NOT STARTED | Bounded scheduler/behavior registration, location anchors and A-to-B journeys | DT-only merchant travels and arrives once across restart without Hoomans mobile director |
+| P6 Map/portrait/notifications/interactions | NOT STARTED | Single Core map hook/layers, travel markers, filtered hover face, nearby floating portrait/Talk, notification variants | Core/DT/Hoomans layers coexist with no duplicate hooks and knowledge-gated actor discovery |
+| P7 DynamicTrading merchant policies | NOT STARTED | Settlement visiting/restock, availability, relationship-sensitive server quotes, communication vs fulfillment | One DT stock/budget, capped relationship modifier, earned restock, no far-away magical transfer |
+| P8 Provider switching and Hoomans physical adapter | NOT STARTED | DTHoomans live materialization from Core; DTAbstract abstract presentation; provider switching | Stable identity/face/items/social/location/merchant data in both directions; one body lease |
+| P9 Integration regression and user acceptance | NOT STARTED | Module matrices, older saves, MP authority/reconnect, performance, map UI and real game | Scoped automated evidence plus USER-run manual SP/MP evidence; no implicit Workshop release |
 
-## Required implementation order
-- P0A: audit generation/schema and produce a field-by-field provenance/migration matrix and an executable *source-backed* parity baseline; commit it. See PHASE_0_EXTRACTION_AUDIT.md.
-- Then P0B: accept migration contract and failure cases, fix source fixture discrepancies, establish namespaced Core public schema plan.
-- P1: build only the minimal Core identity + canonical save/load vertical slice before moving heavy AI/UI.
-- P2–P8 each split into bounded chunks with truthful PROGRESS Next Chunk and code-level acceptance.
-- P9: user alone conducts final manual live-game playtesting; agents prepare exact steps and audit logs, not fabricated green gates.
+## Current mandatory sequence
+1. Finish P0B with the production Hoomans appearance/voice persistence slice described in PROGRESS.
+2. Re-run the focused NPC-foundation source suite plus the new normal save/load regression. Do not claim full-suite success when unrelated UI harness dependencies remain unavailable.
+3. Safely reconcile the Hoomans foundation history with current unrelated branch work. Divergence is a Git integration risk, not permission to force-push or discard work.
+4. When P0B exit is supported, update PROGRESS to one P1 Next Chunk and begin only the minimal Core Create/Get/Save/Load identity vertical slice.
+5. Continue P2–P8 only as bounded chunks with their own acceptance evidence.
+6. P9 live normal-game SP/MP acceptance belongs to the user.
 
-## Compatibility matrix (required)
-Core+DTCommon+DTAbstract without Hoomans; Core+DTCommon+Hoomans+DTHoomans without DTAbstract; both frontends; Core+DTCommon alone; Hoomans without DT; old save/restart without former adapter; MP dedicated with two clients and reconnect. Keep install/load dependency manifests accurate.
+## P0B production persistence acceptance
+A current supported Hoomans NPC must survive ordinary SerializeRecord -> DeserializeRecord without a test-only source snapshot while preserving:
+- stable identity/seed/name and resolved face fields;
+- complete available voice values (`voice`, `voicePrefix`, `voiceType`, `voicePitch`) under an explicit versioned contract;
+- authored appearance policy schema 2 exactly when it exists;
+- the distinction between "no authored appearance policy; use deterministic generated/default appearance" and "an authored policy existed but was lost";
+- current metadata-schema-2 personal item identity/state and existing relationship/location behavior.
+
+Unsupported/older incomplete data remains source-preserved or quarantined; values are never invented by rerunning SurvivorFactory.
+
+## Compatibility matrix (later mandatory gates)
+Core+DTCommon+DTAbstract without Hoomans; Core+DTCommon+Hoomans+DTHoomans without DTAbstract; both frontends; Core+DTCommon alone; Hoomans without DT; safe save/restart switch after migration; MP dedicated with two clients and reconnect.
 
 ## Explicit non-goals
-No Steam Workshop publishing/re-publishing, no automatic public mod release, no user save reset, no unrelated radio art/OS refactor, no synthetic-only acceptance of graphical/UI behavior, no duplication of MarketSense economy or full Hoomans needs/combat/colony/mobile director in Core.
+No Steam Workshop publishing/re-publishing, no user save reset, no unrelated Radio OS/semantic refactor, no synthetic-only claim for graphical UI, no duplication of MarketSense economy or Hoomans needs/combat/colony/mobile director inside Core.

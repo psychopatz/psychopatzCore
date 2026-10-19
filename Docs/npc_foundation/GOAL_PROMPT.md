@@ -1,26 +1,38 @@
 # Core NPC Foundation — Copyable Codex /goal
 
-Paste from the Core NPC foundation job, not the current Dynamic Trading root trading-MVP goal.
-
 ~~~text
 /goal
-Goal: Extract a canonical modular NPC foundation from ProjectHoomans into PsychopatzCore, preserving 100% canonical data parity and safe DTAbstract <-> DTHoomans presentation switching; DynamicTrading remains merchant authority. THIS IS AN IMPLEMENTATION JOB, NOT WORKSHOP PUBLICATION.
+Repository scope: psychopatzCore (canonical goal owner), ProjectHoomans (legacy generator/persistence + future physical adapter), DynamicTrading (DTCommon economy + DTAbstract/DTHoomans adapters).
 
-Repository scope (inspect current local worktrees and HEADs first):
-- psychopatzCore: Core owner; Docs/npc_foundation is the authoritative goal folder.
-- ProjectHoomans: legacy NPC factory, portrait, inventory, social, map and body adapter.
-- DynamicTrading: DTCommon economy plus optional DTAbstract and DTHoomans adapters.
-Do not assume published GitHub main is the local worktree state.
+Current audited remote heads: Core main 50022acf; Hoomans main bc9c64d0; DynamicTrading main d6fccc3d. Hoomans NPC-foundation evidence exists on a divergent committed history through 9f153c0e. Inspect actual LOCAL branches/status/upstreams before writes; preserve unrelated work and reconcile safely. Never force-push/reset just to align histories.
 
-Read in this order in psychopatzCore/Docs/npc_foundation:
-AGENT_RUNBOOK.md -> ARCHITECTURE.md -> ROADMAP.md -> PROGRESS.md -> PHASE_0_EXTRACTION_AUDIT.md -> PLAN.md.
-Also read ProjectHoomans/AGENTS.md and the latest Hoomans persistence/identity/inventory/relationships docs and DynamicTrading/Docs/trading/DT_TRADING_MVP_PROGRESS.md.
+Read in Core Docs/npc_foundation:
+AGENT_RUNBOOK.md -> ARCHITECTURE.md -> ROADMAP.md -> PROGRESS.md -> P0B_CANONICAL_SCHEMA_AND_MIGRATION_CONTRACT.md -> PHASE_0_EXTRACTION_AUDIT.md -> PLAN.md.
+Also read ProjectHoomans/AGENTS.md before Hoomans source edits.
 
-Start with exactly P0A from PROGRESS and PHASE_0_EXTRACTION_AUDIT: inspect current generation and persistence; write a field-level source-to-Core ownership matrix and reversible migration risks; create ONE source-backed executable legacy NPC serialize/deserialize parity baseline. No broad production refactor in P0A. When evidence passes the phase gate, update durable progress and proceed automatically in bounded ordered chunks P0B -> P1..P9 as documented.
+Current phase: P0B. P0A is accepted from source-backed evidence. P1 is NOT started.
+Accepted foundation includes: field ownership/risk audit; source-backed parity baseline; read-only PNC.Persistence.ImportPlan; fail-closed source preservation; metadata-schema-2 legacyTemplateKey preservation; relationship/journey continuity checks; seed-only generator policy-provenance gating. These are source/harness facts, not live-game acceptance.
 
-Critical invariants: Core owns actor ID, factory/resolved appearance, portable PERSONAL inventory, social records, travel, generic map and interaction presentation; DTCommon alone owns MERCHANT stock/budget/price/access/restock; Hoomans owns live body, combat, needs and colonies. Create identity/clothes/items only ONCE, never reroll on mode change. Preserve Hoomans original records with staged versioned import before its exact-version reset path; preserve player-character keys/memories and exact item state. One actor ID, inventory authority, journey owner and body lease. No PNC dependency in trading-only Core. A radio is communication, not automatic remote item teleportation. Keep existing DT trading MVP T6/manual acceptance OPEN.
+Start with ONE Next Chunk only: repair the NORMAL ProjectHoomans serializer/deserializer path for shared appearance + voice continuity. Do not begin the Core production registry yet.
 
-Verify actual PZ Lua behavior, source-backed harness integration, Kahlua, server authority, module combinations, save/restart, snapshots and regression tests. No meaningless JSON-only acceptance. Report static, harness and live-game evidence separately; USER owns final manual in-game SP/MP test. NEVER publish or republish Steam Workshop, alter unrelated Radio OS/semantic jobs, touch live saves, or claim missing runtime gates passed. Read Hoomans AGENTS.md before source edits.
+Required implementation:
+1. Write normal Types.NewRecord -> SerializeRecord -> DeserializeRecord regressions with NO import-planner sourceSnapshot.
+2. Persist/restore complete available survivor voice values: voice, voicePrefix, voiceType, voicePitch under an explicit versioned contract. Old/incomplete input must remain incomplete/source-preserved; never invent values or rerun SurvivorFactory.
+3. Persist/restore authored appearance policy schema 2 exactly when it exists, including outfit/slots/wornSlot/itemState.
+4. Explicitly distinguish "no authored policy; generated/default appearance is valid" from "authored policy existed and was lost." Default/generated NPCs must not be rejected merely because record.appearance is absent.
+5. Preserve the minimum generator/policy provenance needed to prevent incompatible seed-only rerolls.
+6. Keep current metadata-schema-2 item parity, relationships and journey tests green.
 
-Preserve user work; safe fetch/fast-forward checks, no force push or destructive reset; commit coherent verified source/docs only at authorized GitHub destinations. On genuine destructive data ambiguity/conflict ask instead of guessing; otherwise continue only to next coherent accepted phase chunk. At each checkpoint report files, executed checks, open failures, commits, exact next chunk.
+Next Chunk acceptance: supported current-version generated/default and authored-appearance NPCs both survive ordinary SerializeRecord -> DeserializeRecord without sourceSnapshot; authored appearance and all available voice fields remain identical; generated/default case remains valid; older unsupported/incomplete data fails closed or stays source-authoritative; no in-place save migration, Core writer, DT behavior, Workshop publication or live-game claim.
+
+Important evidence warning: tests/support CandidateCodec() is an in-memory echo/copy helper. It is useful for planner hashing but MUST NOT be cited as real PsychopatzCore persistence acceptance. P1 later requires a real Core Create -> Save -> Reload -> Get codec/registry.
+
+Hard ownership invariants: Core ultimately owns canonical actor identity/factory/resolved appearance/PERSONAL inventory/social/journey/generic map+interaction; DTCommon alone owns MERCHANT stock/budget/pricing/access/restock; Hoomans owns physical body/combat/needs/jobs/factions/colonies. Never merge merchant stock with personal inventory. One actor ID, one journey authority, one personal-item ledger, one body lease. Radio communication is not automatic remote item transfer. Existing DT MVP T6 manual SP/MP gate stays OPEN.
+
+Validation: use real PZ Lua modules and focused source-backed harness tests; run Kahlua/pz_verify and relevant identity/inventory/social regressions. The unrelated ISUI/ISPanel non-game harness failure is not this chunk; document it, do not inflate full-suite success. USER owns final normal-game SP/MP testing.
+
+Git/publication: preserve user work; fetch + fast-forward-safe checks only; no ambiguous pull, destructive reset, rebase across uncertain work or force push. Commit coherent code+tests+docs to authorized GitHub only. NEVER publish/re-publish Steam Workshop or touch workshop publication fields.
+
+After this chunk passes: update durable P0B evidence and choose one bounded follow-up only—either close a remaining migration-compatibility gate or, if P0B exit is fully supported, open P1 with a real Core-only Create -> Save -> Reload -> Get identity/appearance slice.
+Report exact files, test commands/results, commit SHAs, unverified/manual gates, and the ONE next chunk.
 ~~~
