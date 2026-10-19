@@ -7,7 +7,7 @@ Snapshot: 2026-10-19. Evidence basis: GitHub source/commit audit plus prior agen
 P0A is accepted from source-backed evidence. P1 has NOT started. There is no production Core NPC registry/factory yet.
 
 ## Repository evidence
-- PsychopatzCore main: `50022acf`. P0A/P0B durable docs, field matrix and migration-risk register are present.
+- PsychopatzCore source baseline audited at `50022acf`; subsequent commits in this goal refresh are documentation-only. P0A/P0B durable docs, field matrix and migration-risk register are present.
 - ProjectHoomans main: `bc9c64d0`. NPC-foundation implementation/test commits exist on a divergent committed history through `9f153c0e`, including `f647daea` baseline, `72455cd1` read-only import planner, `f5326079` metadata-schema-2 item preservation, `5efc66fe` generation-root preservation, and `9f153c0e` seed-only policy-provenance gate.
 - DynamicTrading main: `d6fccc3d`. Only the adapter contract is present for this goal; merchant travel/restock/relationship pricing/provider switching are not implemented.
 - Hoomans foundation history and current `main` are divergent. This must be reconciled safely before cross-repo production migration; do not force-push/reset or overwrite unrelated work.

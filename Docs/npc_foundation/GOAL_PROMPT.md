@@ -4,7 +4,7 @@
 /goal
 Repository scope: psychopatzCore (canonical goal owner), ProjectHoomans (legacy generator/persistence + future physical adapter), DynamicTrading (DTCommon economy + DTAbstract/DTHoomans adapters).
 
-Current audited remote heads: Core main 50022acf; Hoomans main bc9c64d0; DynamicTrading main d6fccc3d. Hoomans NPC-foundation evidence exists on a divergent committed history through 9f153c0e. Inspect actual LOCAL branches/status/upstreams before writes; preserve unrelated work and reconcile safely. Never force-push/reset just to align histories.
+Audited pre-refresh source heads: Core 50022acf (subsequent goal-package changes are documentation-only); Hoomans main bc9c64d0; DynamicTrading main d6fccc3d. Hoomans NPC-foundation evidence exists on a divergent committed history through 9f153c0e. Inspect actual LOCAL branches/status/upstreams before writes; preserve unrelated work and reconcile safely. Never force-push/reset just to align histories.
 
 Read in Core Docs/npc_foundation:
 AGENT_RUNBOOK.md -> ARCHITECTURE.md -> ROADMAP.md -> PROGRESS.md -> P0B_CANONICAL_SCHEMA_AND_MIGRATION_CONTRACT.md -> PHASE_0_EXTRACTION_AUDIT.md -> PLAN.md.

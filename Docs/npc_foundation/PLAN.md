@@ -22,8 +22,8 @@ A single Core-generated merchant has a stable identity, name, face, voice, cloth
 
 100% canonical data parity is required for common fields, not identical live combat, animation or needs behavior while abstract. Module install/uninstall switching first requires safe save/restart/load behavior; live provider switching is only for adapters already loaded.
 
-## Repositories and current remote heads audited
-- Core: psychopatz/psychopatzCore main `50022acf`
+## Repositories and audited pre-refresh source heads
+- Core: psychopatz/psychopatzCore source baseline `50022acf`; later commits in this goal refresh are documentation-only
 - Hoomans: psychopatz/ProjectHoomans main `bc9c64d0`; NPC-foundation evidence exists on a divergent committed history through `9f153c0e`
 - Trading: psychopatz/DynamicTrading main `d6fccc3d`
 
