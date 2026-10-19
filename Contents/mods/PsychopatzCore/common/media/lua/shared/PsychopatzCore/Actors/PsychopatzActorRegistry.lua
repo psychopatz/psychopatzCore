@@ -2,6 +2,7 @@ local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Factory = require "PsychopatzCore/Actors/PsychopatzActorFactory"
 local Persistence = require "PsychopatzCore/Actors/PsychopatzActorPersistence"
 local ActorInventory = require "PsychopatzCore/Actors/PsychopatzActorInventory"
+local Social = require "PsychopatzCore/Actors/PsychopatzSocial"
 
 local Registry = {}
 Registry.__index = Registry
@@ -49,8 +50,13 @@ function Registry:Register(actor)
         valid, reason = ActorInventory.ValidatePayload(actor.personalInventory)
         if not valid then return nil, reason end
     end
+    local copy = Util.clone(actor)
+    copy.social, reason = Social.NewState(copy.social)
+    if not copy.social then return nil, reason end
+    valid, reason = Social.Validate(copy.social)
+    if not valid then return nil, reason end
     if self.records[actor.actorId] then return nil, "duplicate_actor_id" end
-    self.records[actor.actorId] = Util.clone(actor)
+    self.records[actor.actorId] = copy
     self.revision = self.revision + 1
     return Util.clone(self.records[actor.actorId])
 end
@@ -81,6 +87,7 @@ function Registry:Commit(actorId, patch, expectedRevision)
     if patch.identity ~= nil then nextActor.identity = Util.clone(patch.identity) end
     if patch.appearance ~= nil then nextActor.appearance = Util.clone(patch.appearance) end
     if patch.extensions ~= nil then nextActor.extensions = Util.clone(patch.extensions) end
+    if patch.social ~= nil then nextActor.social = Util.clone(patch.social) end
     if patch.personalInventory ~= nil then
         local inventoryValid, inventoryReason =
             ActorInventory.ValidatePayload(patch.personalInventory)
@@ -88,7 +95,12 @@ function Registry:Commit(actorId, patch, expectedRevision)
         nextActor.personalInventory = Util.clone(patch.personalInventory)
     end
     nextActor.revision = current.revision + 1
-    local valid, reason = Factory.ValidateActor(nextActor)
+    local valid, reason = Social.NewState(nextActor.social)
+    nextActor.social = valid
+    if not nextActor.social then return nil, reason end
+    valid, reason = Social.Validate(nextActor.social)
+    if not valid then return nil, reason end
+    valid, reason = Factory.ValidateActor(nextActor)
     if not valid then return nil, reason end
 
     self.records[actorId] = nextActor

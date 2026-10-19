@@ -2,6 +2,7 @@ local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Factory = require "PsychopatzCore/Actors/PsychopatzActorFactory"
 local ActorInventory = require "PsychopatzCore/Actors/PsychopatzActorInventory"
+local Social = require "PsychopatzCore/Actors/PsychopatzSocial"
 
 local Persistence = {}
 
@@ -15,7 +16,12 @@ local function cloneValidated(actor)
         valid, reason = ActorInventory.ValidatePayload(actor.personalInventory)
         if not valid then return nil, reason end
     end
-    return Util.clone(actor)
+    local copy = Util.clone(actor)
+    if not copy.social then copy.social = Social.NewState() end
+    local socialValid
+    socialValid, reason = Social.Validate(copy.social)
+    if not socialValid then return nil, reason end
+    return copy
 end
 
 function Persistence.EncodeActor(actor)
