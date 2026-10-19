@@ -3,6 +3,7 @@ local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Factory = require "PsychopatzCore/Actors/PsychopatzActorFactory"
 local ActorInventory = require "PsychopatzCore/Actors/PsychopatzActorInventory"
 local Social = require "PsychopatzCore/Actors/PsychopatzSocial"
+local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
 
 local Persistence = {}
 
@@ -21,6 +22,11 @@ local function cloneValidated(actor)
     local socialValid
     socialValid, reason = Social.Validate(copy.social)
     if not socialValid then return nil, reason end
+    copy.world, reason = World.NewState(copy.world, copy.actorId)
+    if not copy.world then return nil, reason end
+    local worldValid
+    worldValid, reason = World.Validate(copy.world)
+    if not worldValid then return nil, reason end
     return copy
 end
 

@@ -3,6 +3,7 @@ local Factory = require "PsychopatzCore/Actors/PsychopatzActorFactory"
 local Persistence = require "PsychopatzCore/Actors/PsychopatzActorPersistence"
 local ActorInventory = require "PsychopatzCore/Actors/PsychopatzActorInventory"
 local Social = require "PsychopatzCore/Actors/PsychopatzSocial"
+local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
 
 local Registry = {}
 Registry.__index = Registry
@@ -55,6 +56,10 @@ function Registry:Register(actor)
     if not copy.social then return nil, reason end
     valid, reason = Social.Validate(copy.social)
     if not valid then return nil, reason end
+    copy.world, reason = World.NewState(copy.world, copy.actorId)
+    if not copy.world then return nil, reason end
+    valid, reason = World.Validate(copy.world)
+    if not valid then return nil, reason end
     if self.records[actor.actorId] then return nil, "duplicate_actor_id" end
     self.records[actor.actorId] = copy
     self.revision = self.revision + 1
@@ -88,6 +93,7 @@ function Registry:Commit(actorId, patch, expectedRevision)
     if patch.appearance ~= nil then nextActor.appearance = Util.clone(patch.appearance) end
     if patch.extensions ~= nil then nextActor.extensions = Util.clone(patch.extensions) end
     if patch.social ~= nil then nextActor.social = Util.clone(patch.social) end
+    if patch.world ~= nil then nextActor.world = Util.clone(patch.world) end
     if patch.personalInventory ~= nil then
         local inventoryValid, inventoryReason =
             ActorInventory.ValidatePayload(patch.personalInventory)
@@ -99,6 +105,10 @@ function Registry:Commit(actorId, patch, expectedRevision)
     nextActor.social = valid
     if not nextActor.social then return nil, reason end
     valid, reason = Social.Validate(nextActor.social)
+    if not valid then return nil, reason end
+    nextActor.world, reason = World.NewState(nextActor.world, actorId)
+    if not nextActor.world then return nil, reason end
+    valid, reason = World.Validate(nextActor.world)
     if not valid then return nil, reason end
     valid, reason = Factory.ValidateActor(nextActor)
     if not valid then return nil, reason end
