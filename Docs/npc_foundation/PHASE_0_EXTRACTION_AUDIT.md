@@ -131,13 +131,15 @@ profile. The seed-only policy-provenance gate is complete in Hoomans
 `9f153c0e`; this does not authorize a production writer.
 
 The deferred-root audit is recorded in `FIELD_OWNERSHIP_MATRIX.md`: all roots
-emitted by the current serializer are either in the explicit foundation set
+emitted by the audited serializer are either in the explicit foundation set
 or retained as exact opaque source data. No remaining root received a Core
-writer mapping. The next bounded chunk is the generator/provenance adapter
-contract for definition/template/equipment-pool references and a
-source-backed seed-only replay refusal test. Do not start the full P1
-production migration, rewrite saves, publish Workshop content, or claim
-live-game acceptance.
+writer mapping. Generator/provenance refusal evidence is also already
+committed. Those completed preparatory gates must not be repeated as the
+active task.
+
+Do not start the full P1 production migration, rewrite saves, publish Workshop
+content, or claim live-game acceptance until the normal appearance/voice
+serializer gate above passes.
 
 
 ## 2026-10-19 P0B execution correction

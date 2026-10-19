@@ -25,8 +25,10 @@ The contract must never:
 - use a new SurvivorFactory result to replace an authored or persisted value;
 - merge DT merchant stock with an NPC's personal inventory;
 - treat a physical IsoZombie or native inventory item as actor identity; or
-- overwrite the source save before a complete candidate and rollback record
-  exists.
+- overwrite legacy/source saves during migration planning before a complete
+  candidate and rollback record exists; or
+- treat the bounded current-version Hoomans serializer repair as permission to
+  bulk-rewrite existing saves or introduce a Core writer.
 
 ## Stable identity mapping
 
