@@ -12,6 +12,7 @@ end
 -- before identity-dependent feature registration and optional bootstraps run.
 require "PsychopatzCore/Composition/PC_SharedFoundation"
 require "PsychopatzCore/Composition/PC_CoreIdentity"
+require "PsychopatzCore/Actors/PsychopatzActors"
 require "PsychopatzCore/Compatibility/PsychopatzMoneyWeight"
 require "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory"
 require "PsychopatzCore/Economy/PsychopatzCurrency"

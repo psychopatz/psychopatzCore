@@ -5,9 +5,9 @@ static verification; no live-game acceptance is claimed.
 
 ## Current phase
 
-**P0B — Canonical Schema and Safe Migration Contract: ACCEPTED from
-source/harness evidence.** P1 is open as the next bounded implementation
-chunk; no production Core actor registry or writer has been started.
+**P1 — Core identity and appearance: ACCEPTED source/harness evidence.** P2
+is the next bounded implementation chunk. P3–P9 remain open and are not
+accepted.
 
 ## Repository evidence
 
@@ -61,15 +61,21 @@ not Core persistence acceptance. No in-place save migration, PsychopatzCore
 writer, DT behavior, Workshop publication, native SP/MP test, or live-game
 claim was made.
 
-## ONE Next Chunk — P1 Core-only identity/appearance vertical slice
+## P1 evidence — Core-only identity/appearance vertical slice
 
-Implement the smallest real PsychopatzCore `Create -> Save -> Reload -> Get`
-codec/registry slice for stable actor identity and the already-defined
-appearance/voice contract. It must not begin portable inventory, social,
-journey, DT, Hoomans body projection, or Workshop work. Acceptance must use a
-real Core codec/registry, not `CandidateCodec()`, and prove stable identity,
-resolved appearance/voice, generated/default-vs-authored state, duplicate-ID
-rejection, and no dependency on PNC or DT.
+Production files: `Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Actors/PsychopatzActorFactory.lua`, `PsychopatzActorRegistry.lua`, `PsychopatzActorPersistence.lua`, `PsychopatzActors.lua`, and `PsychopatzActorUtil.lua`.
+
+`tests/psychopatz_npc_actor_smoke.lua` passed with `/usr/bin/lua`: generated and authored actors both Create -> Save -> Reload into a fresh registry -> Get; names, seeds, voice tuples, resolved appearance, authored schema-2 slot/item state, and namespaced extensions remained stable; duplicate IDs and invalid IDs were rejected.
+
+`tests/psychopatz_core_composition_smoke.lua` passed after recording the existing eager currency-diagnostics debug-settings load order. Actor modules loaded through the shared Core composition only.
+
+`pz_verify.py --dir Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Actors --kahlua --severity ERROR --no-snippets` passed: 5 files, 0 compatibility errors.
+
+Adjacent Core inventory regressions (`psychopatz_inventory_framework_smoke.lua`, `psychopatz_inventory_defaults_smoke.lua`, `psychopatz_inventory_reversible_smoke.lua`) passed. No Hoomans or DynamicTrading module was loaded by the actor smoke.
+
+## ONE Next Chunk — P2 portable NPC personal inventory
+
+Extend the Core actor envelope with a reusable personal inventory ledger using the existing Core portable-item codecs. Add deterministic starter equipment, stable item IDs, container/worn/equipped references, seed/delta/full persistence, exact state restoration, and a Core-only actor inventory round trip. Keep DT merchant stock separate and do not materialize a Hoomans body in P2.
 
 Standing boundaries: no destructive save migration, no force-push/reset, no
 ambiguous pull, no Workshop publication, and no automated claim of manual

@@ -41,7 +41,6 @@ stub("PsychopatzCore/Bridge/PsychopatzBridgeBootstrap", {
 local features = {
     "PsychopatzCore/ZombieKillDetector/PsychopatzZombieKillDetector",
     "PsychopatzCore/Debug/PsychopatzDebug",
-    "PsychopatzCore/Debug/PsychopatzDebugSettings",
     "PsychopatzCore/Translation/PsychopatzCoreTranslationDiagnostics",
     "PsychopatzCore/Debug/PsychopatzDebugTrace",
     "PsychopatzCore/Radio/RadioFrequencies/PsychopatzRadioFrequencies",
@@ -49,6 +48,9 @@ local features = {
     "PsychopatzCore/Traits/PsychopatzTraitRegistry",
     "PsychopatzCore/Traits/PsychopatzTraitRecovery",
 }
+-- Currency diagnostics loads this dependency before the feature hub. Keep a
+-- stub for load-order observation, but do not count it as a feature callback.
+stub("PsychopatzCore/Debug/PsychopatzDebugSettings")
 for _, name in ipairs(features) do stub(name) end
 
 PsychopatzCore = {}
@@ -76,7 +78,13 @@ for index, name in ipairs(foundation) do
     assert(loadOrder[index] == name,
         "foundation load order changed at " .. tostring(index))
 end
-local bootstrapStart = #foundation + 1
+-- Currency diagnostics is eagerly loaded by the shared currency module and
+-- registers its debug-settings dependency before feature bootstraps.
+local debugSettingsStart = #foundation + 1
+assert(loadOrder[debugSettingsStart] ==
+    "PsychopatzCore/Debug/PsychopatzDebugSettings",
+    "currency diagnostics debug settings load order changed")
+local bootstrapStart = debugSettingsStart + 1
 assert(loadOrder[bootstrapStart] ==
     "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap",
     "profiler bootstrap load order changed")
