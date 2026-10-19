@@ -6,14 +6,14 @@ SP/MP or live-game acceptance is claimed.
 
 ## Current phase
 
-**P4 — Shared social system: ACCEPTED developer-side source/harness evidence.**
-P5 is the next bounded implementation phase. The P2 physical-body parity gate
-remains part of P8.
+**P5 — Generic tasks, anchors, and journeys: ACCEPTED developer-side
+source/harness evidence.** P6 is the next bounded implementation phase. The
+P2 physical-body parity gate remains part of P8.
 
 ## Repository evidence
 
-- PsychopatzCore is at `2a2eb15` on `main`, ahead of local `origin/main` by
-  four commits and one commit behind it. The upstream commit has not been
+- PsychopatzCore is at `445f0f9` on `main`, ahead of local `origin/main` by
+  six commits and one commit behind it. The upstream commit has not been
   force-merged, reset, or discarded.
 - ProjectHoomans is at `8de474cc` on
   `codex/contextual-dialogue-quest-framework-0a`, ahead of its configured
@@ -98,17 +98,34 @@ Evidence:
 - `pz_verify.py` reported zero Kahlua compatibility errors for the Core actor
   directory and the Hoomans social adapter.
 
+## P5 evidence — Generic tasks, anchors, and journeys
+
+The Core actor world now owns bounded location anchors, abstract A-to-B
+journeys, deterministic journey progress and arrival state, one-shot arrival
+handling, bounded persistent task queues, and bounded scheduler entries.
+Journey, task, scheduler, and actor-world state are normalized and validated
+through the same Core registry and JSON codec; no Hoomans or DynamicTrading
+runtime module is required.
+
+`tests/psychopatz_npc_journey_task_smoke.lua` passed with `/usr/bin/lua`:
+anchor creation, deterministic journey progress, task leasing, bounded
+scheduling, consumed schedule entries, actor save/reload, arrival position and
+anchor restoration, and rejection of a repeated arrival handler all passed.
+The P1–P4 Core suite, the four prior Hoomans foundation regressions plus the
+social adapter (5/5), and Core actor-directory Kahlua verification remained
+green after world normalization.
+
 ## Remaining boundaries
 
-P5–P9 production behavior remains open. DT merchant policy integration,
+P6–P9 production behavior remains open. DT merchant policy integration,
 generic journeys/scheduling, map and interaction UI, physical Hoomans body
 materialization, provider switching, multiplayer authority/reconnect,
 performance, and user-run native SP/MP acceptance are not claimed. No
 Workshop publication or live-game test was performed.
 
-## ONE next chunk — P5 generic tasks, anchors, and journeys
+## ONE next chunk — P6 shared map and interaction systems
 
-Implement a Core-owned bounded scheduler, location anchors, and abstract A-to-B
-journey state with deterministic save/reload continuity. Keep journey state
-independent from Hoomans mobile-director ownership and reserve merchant stock,
-budget, and fulfillment for DynamicTrading in P7.
+Implement Core map representation and coexistence hooks, portrait and nearby
+conversation access, travel markers, and notifications. Keep discovery
+knowledge-gated and leave merchant stock, budget, and fulfillment in
+DynamicTrading for P7.

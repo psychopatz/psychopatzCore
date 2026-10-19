@@ -1,7 +1,7 @@
 # Core NPC Foundation — Ordered Roadmap
 
-Status snapshot: 2026-10-20. P0A, P0B, P1, P2, P3, and P4 have accepted
-developer-side source/harness evidence. P5 is the next bounded phase. P2
+Status snapshot: 2026-10-20. P0A, P0B, P1, P2, P3, P4, and P5 have accepted
+developer-side source/harness evidence. P6 is the next bounded phase. P2
 physical-body parity remains a P8 integration gate. Existing DynamicTrading
 MVP T6 live SP/MP acceptance remains separate and open.
 
@@ -13,8 +13,8 @@ MVP T6 live SP/MP acceptance remains separate and open.
 | P2 Portable NPC personal inventory | ACCEPTED (body gate in P8) | Deterministic starter equipment and exact portable item state with seed/delta/full payloads | Stable item IDs/state across codec round-trip; no merchant-stock ownership |
 | P3 Legacy import compatibility | ACCEPTED | Validate and map Hoomans records without source mutation; preserve rollback state | Idempotent import, conflict quarantine, rollback/retry, source untouched |
 | P4 Shared social | ACCEPTED | Core directional Approval/Respect/Familiarity, personality, memories, validation, revisions | Hoomans social state projects once; authorized events cannot double-apply |
-| P5 Generic agent/journey/anchors | NEXT | Bounded scheduler, behavior registration, location anchors, abstract A-to-B journeys | Journey identity/state survives save/reload and arrival is applied once |
-| P6 Map/portrait/notifications/interactions | OPEN | Core map hooks/layers, travel markers, filtered portraits, nearby Talk, notifications | Core/DT/Hoomans UI layers coexist without duplicate hooks or ungated discovery |
+| P5 Generic agent/journey/anchors | ACCEPTED | Bounded scheduler, persistent tasks, location anchors, abstract A-to-B journeys | Journey identity/state survives save/reload and arrival is applied once |
+| P6 Map/portrait/notifications/interactions | NEXT | Core map hooks/layers, travel markers, filtered portraits, nearby Talk, notifications | Core/DT/Hoomans UI layers coexist without duplicate hooks or ungated discovery |
 | P7 DynamicTrading merchant policies | OPEN | Settlement visits, availability, restocking, relationship-sensitive server quotes, authoritative fulfillment | One DT stock/budget; capped social modifier; no far-away magical transfer |
 | P8 Provider switching and Hoomans physical adapter | OPEN | DTHoomans materialization, DTAbstract presentation, provider switching and body leases | Stable identity/face/items/social/location/merchant state; one body lease |
 | P9 Integration regression and user acceptance | OPEN | Module matrices, old saves, MP authority/reconnect, performance, map UI, real-game handoff | Developer evidence complete plus explicit user-run SP/MP acceptance |
