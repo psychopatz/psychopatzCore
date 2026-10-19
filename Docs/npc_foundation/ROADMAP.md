@@ -1,34 +1,31 @@
 # Core NPC Foundation — Ordered Roadmap
 
-Status snapshot: 2026-10-20. P0A, P0B, P1, P2, P3, P4, and P5 have accepted
-developer-side source/harness evidence. P6 is the next bounded phase. P2
-physical-body parity remains a P8 integration gate. Existing DynamicTrading
-MVP T6 live SP/MP acceptance remains separate and open.
+Status snapshot: 2026-10-20. P0A–P7 have accepted developer-side
+source/harness evidence. P8 is next; P9 includes explicit user-run live-game
+acceptance. The P2 physical-body gate remains part of P8.
 
-| Phase | Status | Work | Mandatory exit gate |
-| --- | --- | --- | --- |
-| P0A Extraction audit | ACCEPTED | Trace creators, schemas, persistence, map/trade coupling; produce ownership and risk evidence | Ownership matrix and executable source-backed parity baseline |
-| P0B Canonical schema and safe migration contract | ACCEPTED | Resolve no-loss schema decisions and fail-closed migration rules | Supported save/load retains shared presentation data; authored/default appearance is explicit |
-| P1 Core factory and actor registry | ACCEPTED | Core-owned identity, voice, appearance, registry, persistence, and extension contracts | Core-only Create → Save → Reload → Get with stable identity and no PNC/DT dependency |
-| P2 Portable NPC personal inventory | ACCEPTED (body gate in P8) | Deterministic starter equipment and exact portable item state with seed/delta/full payloads | Stable item IDs/state across codec round-trip; no merchant-stock ownership |
-| P3 Legacy import compatibility | ACCEPTED | Validate and map Hoomans records without source mutation; preserve rollback state | Idempotent import, conflict quarantine, rollback/retry, source untouched |
-| P4 Shared social | ACCEPTED | Core directional Approval/Respect/Familiarity, personality, memories, validation, revisions | Hoomans social state projects once; authorized events cannot double-apply |
-| P5 Generic agent/journey/anchors | ACCEPTED | Bounded scheduler, persistent tasks, location anchors, abstract A-to-B journeys | Journey identity/state survives save/reload and arrival is applied once |
-| P6 Map/portrait/notifications/interactions | NEXT | Core map hooks/layers, travel markers, filtered portraits, nearby Talk, notifications | Core/DT/Hoomans UI layers coexist without duplicate hooks or ungated discovery |
-| P7 DynamicTrading merchant policies | OPEN | Settlement visits, availability, restocking, relationship-sensitive server quotes, authoritative fulfillment | One DT stock/budget; capped social modifier; no far-away magical transfer |
-| P8 Provider switching and Hoomans physical adapter | OPEN | DTHoomans materialization, DTAbstract presentation, provider switching and body leases | Stable identity/face/items/social/location/merchant state; one body lease |
-| P9 Integration regression and user acceptance | OPEN | Module matrices, old saves, MP authority/reconnect, performance, map UI, real-game handoff | Developer evidence complete plus explicit user-run SP/MP acceptance |
+| Phase | Status | Mandatory exit gate |
+| --- | --- | --- |
+| P0A Extraction audit | ACCEPTED | Ownership matrix, risk register, executable parity baseline |
+| P0B Canonical schema and safe migration | ACCEPTED | No-loss supported save/load and fail-closed reversible import contract |
+| P1 Core identity and appearance | ACCEPTED | Core-only Create → Save → Reload → Get; stable identity and no PNC/DT dependency |
+| P2 Portable personal inventory | ACCEPTED; body gate P8 | Stable item IDs/state and no merchant-stock ownership |
+| P3 Legacy migration | ACCEPTED | Idempotent import, conflict quarantine, rollback/retry, source untouched |
+| P4 Shared social | ACCEPTED | Directed state preserved and authorized events cannot double-apply |
+| P5 Generic tasks, journeys, anchors | ACCEPTED | Bounded task/scheduler state and journey arrival survive save/reload once |
+| P6 Map and interaction systems | ACCEPTED | Knowledge-gated map/portrait/Talk/notification contracts coexist with UI providers |
+| P7 DynamicTrading merchant policies | ACCEPTED | Separate DT stock/budget, earned restock, capped social pricing, authoritative fulfillment |
+| P8 Provider switching and Hoomans physical adapter | NEXT | Stable state across DTAbstract/DTHoomans switching with one body lease |
+| P9 End-to-end developer acceptance | OPEN | Module matrix, old saves, authority/reconnect/performance evidence plus user-run SP/MP |
 
 ## Compatibility matrix
 
 Core+DTCommon+DTAbstract without Hoomans; Core+DTCommon+Hoomans+DTHoomans
 without DTAbstract; both frontends; Core+DTCommon alone; Hoomans without DT;
-safe save/restart provider switching; and dedicated MP with two clients and
-reconnect.
+save/restart switching; and dedicated MP with two clients and reconnect.
 
 ## Explicit non-goals
 
-No Steam Workshop publishing or republishing, no destructive user save reset,
-no unrelated Radio OS/semantic refactor, no synthetic-only claim for graphical
-UI, and no duplication in Core of MarketSense economy, Hoomans needs/combat/
-colony/mobile-director ownership, or DT merchant stock/budget.
+No Workshop publishing, destructive user save reset, unrelated subsystem
+refactor, synthetic-only graphical UI claim, or duplication in Core of DT stock/
+budget or Hoomans needs/combat/colony/mobile-director ownership.

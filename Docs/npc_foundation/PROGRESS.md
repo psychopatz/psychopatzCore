@@ -1,131 +1,76 @@
 # Core NPC Foundation — Current Progress
 
-Snapshot: 2026-10-20. Evidence basis: source-backed Lua harnesses, focused
-module regressions, and static Kahlua verification. No native Project Zomboid
-SP/MP or live-game acceptance is claimed.
+Snapshot: 2026-10-20. Evidence is limited to source-backed Lua harnesses,
+focused regressions, and static Kahlua verification. Native Project Zomboid
+SP/MP and live-game acceptance remain user-owned and unclaimed.
 
 ## Current phase
 
-**P5 — Generic tasks, anchors, and journeys: ACCEPTED developer-side
-source/harness evidence.** P6 is the next bounded implementation phase. The
-P2 physical-body parity gate remains part of P8.
+**P7 — DynamicTrading merchant policies: ACCEPTED developer-side evidence.**
+P8 is next. P2 physical-body parity remains a P8 gate.
 
-## Repository evidence
+## Repository state
 
-- PsychopatzCore is at `445f0f9` on `main`, ahead of local `origin/main` by
-  six commits and one commit behind it. The upstream commit has not been
-  force-merged, reset, or discarded.
-- ProjectHoomans is at `8de474cc` on
-  `codex/contextual-dialogue-quest-framework-0a`, ahead of its configured
-  documentation branch by two commits. Its unrelated branch history remains
-  intact.
-- DynamicTrading remains clean at `d6fccc3d` on `main`/`origin/main`; no DT
-  runtime behavior has been changed yet.
+- Core: `114e201`, main, local branch ahead of origin by eight and behind by
+  one; no upstream history was force-merged, reset, or discarded.
+- Hoomans: `e461ccaf`, contextual-dialogue branch, local branch ahead of its
+  configured documentation remote by three; unrelated history preserved.
+- DynamicTrading: `4fe28f55`, main, one commit ahead of origin; no Workshop
+  publication performed.
 
-## Accepted P0A/P0B foundation
+## Accepted foundation and phase evidence
 
-The ownership/risk audit, source-backed parity baseline, read-only
-`PNC.Persistence.ImportPlan`, fail-closed source preservation,
-metadata-schema-2 `legacyTemplateKey` preservation, relationship/journey
-continuity, deferred-root retention, and seed-only generator/policy
-provenance gates remain source/harness facts. Normal Hoomans persistence
-preserves the available versioned voice profile, authored appearance policy,
-generated/default provenance, portable item state, and existing social/location
-data without rerolling incomplete legacy values.
+- P0A/P0B: ownership/risk audit, parity baseline, fail-closed read-only import
+  planning, no-loss voice/appearance/inventory/social/location contracts, and
+  provenance gates remain source/harness evidence.
+- P1: Core actor factory, registry, JSON codec, deterministic identity/voice/
+  appearance, authored/generated policy distinction, extensions, duplicate-ID
+  rejection, and no PNC/DT runtime dependency. The Core actor smoke passed
+  Create → Save → Reload into a fresh registry → Get.
+- P2: Core personal inventory has deterministic starters, stable item IDs,
+  containers, equipment slots, exact item state, and FULL/BASELINE_DELTA/
+  SEED_ONLY payloads. It does not own merchant stock or budget.
+- P3: Core/Hoomans migration validates ownership and hashes, preserves source
+  payloads, quarantines conflicts, imports idempotently, and supports rollback
+  and retry. The focused Hoomans migration/continuity/parity/seed suite passed
+  4/4.
+- P4: Core directional social state stores bounded Approval, Respect,
+  Familiarity, personality, revisions, and event memories; explicit actor and
+  player keys, server authority, and event deduplication are enforced. The
+  Hoomans social adapter projects once without taking source ownership.
+- P5: Core actor-world state now persists bounded tasks, scheduler entries,
+  location anchors, abstract journeys, deterministic progress, and one-shot
+  arrival handling. Journey/task save-reload smoke passed.
+- P6: Core map entries are knowledge-gated and carry stable portraits,
+  capabilities, journeys, and provider metadata. Nearby Talk requests are
+  server-authorized; notifications are bounded and deduplicated. Hoomans has
+  an optional bridge that leaves existing map and portrait UI ownership intact.
+- P7: DT persists a compact Core actor merchant policy separately from DT
+  virtual stock/budget and Core personal inventory. It supports availability,
+  one-shot settlement visits, earned/cooldown restock, capped Core-social
+  buy/sell modifiers, authoritative basket fulfillment, and Core map trade
+  capability projection.
 
-## P1 evidence — Core identity and appearance
+## Validation evidence
 
-Core production files in `PsychopatzCore/Actors` provide a Core-owned actor
-factory, registry, persistence codec, deterministic generated identity and
-appearance, authored appearance policy handling, voice state, namespaced
-extensions, duplicate-ID rejection, and clone-on-read boundaries.
+- Core P1–P6 smoke/regression suite passed, including the composition smoke;
+  Core actor-directory Kahlua verification reports zero errors.
+- Hoomans focused foundation suite passed 6/6 after the P6 bridge and Core
+  world normalization; its new adapters report zero Kahlua errors.
+- DT focused P7 plus pricing, seed, access, basket, rollback, and T0 suites
+  passed 8/8; DTCommon Kahlua verification reports zero errors.
+- The unfiltered DT harness retains one pre-existing `dt_caravan_contract`
+  failure for missing baseline text `groupSize = GROUP_SIZE`; no caravan file
+  changed in P7.
 
-`tests/psychopatz_npc_actor_smoke.lua` passed with `/usr/bin/lua`: generated
-and authored actors both completed Create → Save → Reload into a fresh
-registry → Get; identity, names, voice, appearance, authored item state, and
-extensions remained stable. Invalid IDs and duplicate IDs were rejected. The
-test confirmed that Hoomans and DynamicTrading runtime modules were not
-loaded.
+## Boundaries and next chunk
 
-## P2 evidence — Portable personal inventory
+P8–P9 remain open: DTAbstract/DTHoomans provider switching, physical body
+leases, materialization/dematerialization, multiplayer authority/reconnect,
+performance, and user-run native SP/MP acceptance. No Workshop or live-game
+test was performed.
 
-`PsychopatzActorInventory.lua` provides deterministic starter equipment,
-stable item IDs, portable item records, container references, worn/equipped/
-attached slots, exact codec state, and FULL, BASELINE_DELTA, and SEED_ONLY
-payloads. Merchant stock and budget are not part of the personal ledger.
-
-`tests/psychopatz_npc_inventory_smoke.lua` and the existing Core inventory
-framework/default/reversible regressions passed. JSON sparse-array handling was
-updated so nil slots do not shift persisted item state.
-
-## P3 evidence — Non-destructive legacy migration
-
-`PsychopatzActorMigration.lua` and the optional Hoomans
-`PNC_Persistence_CoreMigration.lua` adapter implement source validation,
-field-ownership checks, source hashing and preservation, idempotent import,
-conflict quarantine, transactional registry registration, rollback, disabled
-mappings, and safe retry. The Hoomans adapter does not require Core; callers
-inject the loaded Core facade and registry.
-
-The focused Hoomans migration, import-plan continuity, parity-baseline, and
-seed/delta tests passed 4/4. Source payloads are copied and never rewritten by
-the developer-side migration harness.
-
-## P4 evidence — Shared social system
-
-`PsychopatzSocial.lua` is the Core-owned directional social ledger. It
-normalizes explicit `npc:`, `actor:`, `player:`, and `steam:` target keys;
-stores bounded Approval, Respect, Familiarity, personality, revisions, and
-bounded event memories; rejects malformed targets; and gates personality and
-event mutation on server authority. Event IDs are deduplicated and state is
-validated during actor registration, commit, save, and load.
-
-`PNC_Persistence_CoreSocial.lua` projects existing Hoomans directed social
-state into Core without taking ownership of Hoomans records. The adapter
-records only authorized Core events and rejects duplicate or client-forged
-events.
-
-Evidence:
-
-- `lua tests/psychopatz_npc_social_smoke.lua` passed, including social
-  save/reload parity, target validation, authority gating, score bounds,
-  memory preservation, and duplicate-event rejection.
-- The Hoomans social adapter smoke passed, including real parity fixtures,
-  directional relationship and memory projection, authorized event recording,
-  duplicate-event rejection, source immutability, and missing-source guards.
-- The focused Hoomans regression set passed 5/5: migration, import-plan
-  continuity, parity baseline, seed/delta, and social adapter.
-- `pz_verify.py` reported zero Kahlua compatibility errors for the Core actor
-  directory and the Hoomans social adapter.
-
-## P5 evidence — Generic tasks, anchors, and journeys
-
-The Core actor world now owns bounded location anchors, abstract A-to-B
-journeys, deterministic journey progress and arrival state, one-shot arrival
-handling, bounded persistent task queues, and bounded scheduler entries.
-Journey, task, scheduler, and actor-world state are normalized and validated
-through the same Core registry and JSON codec; no Hoomans or DynamicTrading
-runtime module is required.
-
-`tests/psychopatz_npc_journey_task_smoke.lua` passed with `/usr/bin/lua`:
-anchor creation, deterministic journey progress, task leasing, bounded
-scheduling, consumed schedule entries, actor save/reload, arrival position and
-anchor restoration, and rejection of a repeated arrival handler all passed.
-The P1–P4 Core suite, the four prior Hoomans foundation regressions plus the
-social adapter (5/5), and Core actor-directory Kahlua verification remained
-green after world normalization.
-
-## Remaining boundaries
-
-P6–P9 production behavior remains open. DT merchant policy integration,
-generic journeys/scheduling, map and interaction UI, physical Hoomans body
-materialization, provider switching, multiplayer authority/reconnect,
-performance, and user-run native SP/MP acceptance are not claimed. No
-Workshop publication or live-game test was performed.
-
-## ONE next chunk — P6 shared map and interaction systems
-
-Implement Core map representation and coexistence hooks, portrait and nearby
-conversation access, travel markers, and notifications. Keep discovery
-knowledge-gated and leave merchant stock, budget, and fulfillment in
-DynamicTrading for P7.
+**Next: P8 provider switching and Hoomans integration.** Complete DTAbstract
+and DTHoomans adapters, stable Core identity/appearance/inventory/social/world
+state across materialization and dematerialization, and single-body lease
+ownership.
