@@ -11,6 +11,10 @@ local Journey = require "PsychopatzCore/Actors/PsychopatzActorJourney"
 local Task = require "PsychopatzCore/Actors/PsychopatzActorTask"
 local Scheduler = require "PsychopatzCore/Actors/PsychopatzActorScheduler"
 local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
+local Presentation = require "PsychopatzCore/Actors/PsychopatzActorPresentation"
+local Map = require "PsychopatzCore/Actors/PsychopatzActorMap"
+local Interaction = require "PsychopatzCore/Actors/PsychopatzActorInteraction"
+local Notifications = require "PsychopatzCore/Actors/PsychopatzActorNotifications"
 
 local Actors = PsychopatzCore.Actors or {}
 Actors.Factory = Factory
@@ -24,6 +28,10 @@ Actors.Journey = Journey
 Actors.Task = Task
 Actors.Scheduler = Scheduler
 Actors.World = World
+Actors.Presentation = Presentation
+Actors.Map = Map
+Actors.Interaction = Interaction
+Actors.Notifications = Notifications
 Actors.DefaultRegistry = Actors.DefaultRegistry or Registry.new()
 
 function Actors.NewRegistry()
