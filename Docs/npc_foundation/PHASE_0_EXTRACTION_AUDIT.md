@@ -2,13 +2,16 @@
 
 ## Current transition — 2026-10-19
 
-Status: **P0A ACCEPTED; P0B ACTIVE; P0 overall OPEN.**
+Status: **P0A and P0B ACCEPTED from source/harness evidence; P1 OPEN.**
 
-P0A's ownership matrix, risk register and source-backed baseline are accepted as audit evidence. The P0B read-only planner and provenance gates provide useful no-write safety, but they do not yet prove ordinary Hoomans save/reload parity because the normal serializer still omits authored appearance policy and three of the four available voice-profile fields. The planner's extra source snapshot is therefore not an acceptable substitute for the next production persistence gate.
+P0A's ownership matrix, risk register and source-backed baseline are accepted as audit evidence. The P0B read-only planner, provenance gates, and normal Hoomans serializer/deserializer regression now prove the bounded supported source/harness parity gate. The planner's extra source snapshot remains a planning aid only and is not Core persistence acceptance.
 
-The ONE current P0B Next Chunk is the normal serializer/deserializer appearance+voice parity slice defined in PROGRESS.md and P0B_CANONICAL_SCHEMA_AND_MIGRATION_CONTRACT.md. No P1 Core writer may begin until that gate is satisfied.
+The normal serializer/deserializer appearance+voice parity slice is complete. The ONE next chunk is the minimal P1 Core-only identity/appearance Create -> Save -> Reload -> Get slice defined in PROGRESS.md. No broader P1/P2 work is included.
 
-Hoomans foundation evidence through `9f153c0e` exists on a Git history that is divergent from current Hoomans `main` `bc9c64d0`. Reconcile local histories safely; never force-push/reset or overwrite unrelated work.
+Hoomans foundation and this persistence slice are carried at `f7bfd6b6` on
+the clean contextual-dialogue integration branch, which remains divergent from
+Hoomans `origin/main`; preserve unrelated work and never force-push/reset or
+overwrite it.
 
 ## Mandatory evidence to collect
 ### Hoomans existing producers
@@ -120,15 +123,15 @@ The Hoomans NPC-foundation evidence head remains `5efc66fe`; checked-out HEAD
 - DynamicTrading local source: `2b1975a2`; local branch is one commit behind
   its remote and was not changed.
 
-No repository was pushed during this chunk. GitHub source control was kept
-separate from Steam Workshop publication.
+The Hoomans implementation/test commit `f7bfd6b6` was pushed to its matching
+authorized GitHub branch without force. Core documentation remains separate
+from Steam Workshop publication.
 
-## P0B active boundary — one next chunk
+## P0B closure and P1 handoff
 
-Authoritative next chunk: define and test the source-backed serializer and
-deserializer contract for authored appearance policy and the complete voice
-profile. The seed-only policy-provenance gate is complete in Hoomans
-`9f153c0e`; this does not authorize a production writer.
+The normal Hoomans serializer/deserializer contract is implemented in
+ProjectHoomans `f7bfd6b6`. The seed-only policy-provenance gate remains
+read-only evidence; it does not authorize a Core writer by itself.
 
 The deferred-root audit is recorded in `FIELD_OWNERSHIP_MATRIX.md`: all roots
 emitted by the audited serializer are either in the explicit foundation set
@@ -137,13 +140,18 @@ writer mapping. Generator/provenance refusal evidence is also already
 committed. Those completed preparatory gates must not be repeated as the
 active task.
 
-Do not start the full P1 production migration, rewrite saves, publish Workshop
-content, or claim live-game acceptance until the normal appearance/voice
-serializer gate above passes.
+P0B is accepted only for the bounded source/harness gate. Do not rewrite
+saves, publish Workshop content, or claim live-game acceptance. P1 begins with
+one Core-only codec/registry slice; it must use real Core persistence rather
+than the planner's `CandidateCodec()` helper.
 
 
-## 2026-10-19 P0B execution correction
+## 2026-10-20 P0B execution closure
 
-Earlier continuation notes mentioned generator/provenance or deferred-root audits as the next chunk. Those are superseded by the current PROGRESS.md. Generator policy-hash gating and deferred-root classification already have committed source evidence. The remaining blocking product gap is ordinary save/load preservation of authored appearance policy and the complete available voice profile.
+The ordinary save/load preservation gap is closed for supported current
+records. The normal contract stores a version-1 voice profile, schema-2
+authored appearance when present, and a version-1 generated/authored
+appearance provenance marker. Unsupported appearance contracts fail closed;
+legacy incomplete voice remains incomplete and is never factory-rerolled.
 
 Do not cite the test fixture CandidateCodec as a real Core persistence codec. P1 acceptance later requires an actual PsychopatzCore Create -> Save -> Reload -> Get path.

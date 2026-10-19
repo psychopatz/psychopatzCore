@@ -1,12 +1,12 @@
 # Core NPC Foundation — Ordered Roadmap
 
-Status snapshot: 2026-10-19. P0A is accepted from source-backed audit evidence; P0B is ACTIVE and P0 as a whole is not yet accepted. P1–P9 remain unstarted. Existing Dynamic Trading MVP T6 live SP/MP acceptance remains OPEN separately.
+Status snapshot: 2026-10-20. P0A and P0B are accepted from source-backed harness evidence; P1 is OPEN as one bounded next chunk. P2–P9 remain unstarted. Existing Dynamic Trading MVP T6 live SP/MP acceptance remains OPEN separately.
 
 | Phase | Status | Work | Mandatory exit gate |
 | --- | --- | --- | --- |
 | P0A Extraction audit | ACCEPTED (source/harness evidence) | Trace creators, normalized schemas, persistence, map/trade coupling; produce field matrix, risks and parity baseline | Ownership matrix + risk register + executable source-backed parity baseline with honest gaps |
-| P0B Canonical schema and safe migration contract | ACTIVE | Resolve no-loss schema decisions and repair current Hoomans persistence gaps needed for migration | Normal supported save/load retains shared identity presentation data; default vs authored appearance is explicit; read-only import remains fail-closed; one reversible migration contract |
-| P1 Core factory and actor registry | NOT STARTED | Single authoritative identity generator, stable ID/seed, resolved name/gender/voice/appearance, extension contracts | Core-only NPC Create -> Save -> Reload -> Get remains identical without PNC and without duplicate IDs |
+| P0B Canonical schema and safe migration contract | ACCEPTED (source/harness evidence) | Resolve no-loss schema decisions and repair current Hoomans persistence gaps needed for migration | Normal supported save/load retains shared identity presentation data; default vs authored appearance is explicit; read-only import remains fail-closed; one reversible migration contract |
+| P1 Core factory and actor registry | OPEN (next chunk only) | Single authoritative identity generator, stable ID/seed, resolved name/gender/voice/appearance, extension contracts | Core-only NPC Create -> Save -> Reload -> Get remains identical without PNC and without duplicate IDs |
 | P2 Portable NPC personal inventory | NOT STARTED | Deterministic starter clothes/gear/bags plus exact portable items, worn/equipped slots, seed + deltas/full fallback | Same item IDs/state across regen-free save/load and body round trip; no duplication |
 | P3 Legacy import and compatibility | NOT STARTED | Read/validate Hoomans legacy data before exact-version reset; map identities/domains; wrappers | Non-destructive idempotent import, rollback/retry, source untouched until candidate commit |
 | P4 Shared social | NOT STARTED | Core directional Approval/Respect/Familiarity/personality/memories, validators and revisioned reads | Existing Hoomans social state/player-character keys preserved; no double event credit |
@@ -17,12 +17,10 @@ Status snapshot: 2026-10-19. P0A is accepted from source-backed audit evidence; 
 | P9 Integration regression and user acceptance | NOT STARTED | Module matrices, older saves, MP authority/reconnect, performance, map UI and real game | Scoped automated evidence plus USER-run manual SP/MP evidence; no implicit Workshop release |
 
 ## Current mandatory sequence
-1. Finish P0B with the production Hoomans appearance/voice persistence slice described in PROGRESS.
-2. Re-run the focused NPC-foundation source suite plus the new normal save/load regression. Do not claim full-suite success when unrelated UI harness dependencies remain unavailable.
-3. Safely reconcile the Hoomans foundation history with current unrelated branch work. Divergence is a Git integration risk, not permission to force-push or discard work.
-4. When P0B exit is supported, update PROGRESS to one P1 Next Chunk and begin only the minimal Core Create/Get/Save/Load identity vertical slice.
-5. Continue P2–P8 only as bounded chunks with their own acceptance evidence.
-6. P9 live normal-game SP/MP acceptance belongs to the user.
+1. Keep the accepted P0B serializer/import evidence and its focused regressions green.
+2. Begin only the minimal P1 Core Create/Get/Save/Load identity/appearance slice.
+3. Continue P2–P8 only as bounded chunks with their own acceptance evidence.
+4. P9 live normal-game SP/MP acceptance belongs to the user.
 
 ## P0B production persistence acceptance
 A current supported Hoomans NPC must survive ordinary SerializeRecord -> DeserializeRecord without a test-only source snapshot while preserving:

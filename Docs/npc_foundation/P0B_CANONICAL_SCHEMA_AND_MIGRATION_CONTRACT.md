@@ -1,10 +1,10 @@
 # P0B — Canonical schema and safe migration contract
 
-## Current execution state — 2026-10-19
+## Current execution state — 2026-10-20
 
-P0A is accepted and P0B remains ACTIVE. Read-only import planning, metadata-schema-2 item preservation, deferred-root retention and seed-only policy-provenance gating have committed source evidence through Hoomans `9f153c0e`. They are not equivalent to normal game save/reload parity.
+P0A and P0B are accepted from source/harness evidence. Read-only import planning, metadata-schema-2 item preservation, deferred-root retention, seed-only policy-provenance gating, and the normal Hoomans presentation round-trip have committed source evidence through Hoomans `f7bfd6b6`. They are not equivalent to live-game acceptance.
 
-The **ONE current P0B Next Chunk** is now production Hoomans serializer/deserializer parity for authored appearance policy and the complete available voice profile, with an explicit generated/default appearance case. The normal path must work without supplying the planner's extra `sourceSnapshot`. No Core writer is authorized in this chunk.
+The normal Hoomans serializer/deserializer parity slice is complete. Its version-1 voice profile preserves the available four fields, its schema-2 authored appearance is copied exactly, and its version-1 appearance contract distinguishes authored policy from generated/default appearance while carrying generator/policy provenance. No Core writer was introduced in this phase.
 
 The existing foundation history is divergent from current Hoomans `main`; preserve unrelated work and reconcile safely before integrating production changes.
 
@@ -309,34 +309,32 @@ with one declared authority; conflicting revisions are quarantined rather than
 merged by last writer. The continuity smoke is source-backed by the real
 Hoomans relationship and travel constructors.
 
-## P0B exit gate and ONE current next chunk
+## P0B exit gate and P1 handoff
 
-The read-only planner currently proves source-preserving classification, explicit conflicts, metadata-schema-2 item parity, relationship/journey continuity, rollback metadata, deferred-root preservation and seed-only provenance refusal. That evidence remains useful, but P0B is not closed because normal Hoomans persistence still drops shared presentation data.
+The read-only planner and normal Hoomans tests now prove source-preserving classification, explicit conflicts, metadata-schema-2 item parity, relationship/journey continuity, rollback metadata, deferred-root preservation, seed-only provenance refusal, and supported normal presentation round-trip parity.
 
-### Current production persistence gap
-- `PNC.Persistence.SerializeRecord` / `sanitizeIdentity` currently retain legacy `voice` but not the complete available `voicePrefix`, `voiceType` and `voicePitch`.
-- The normal record serializer/deserializer does not preserve authored `record.appearance` policy schema 2.
-- Planner tests can retain these values only when a separate source snapshot is supplied. That does not prove ordinary save/reload continuity.
-- Absence of an authored policy must not itself be treated as corruption: an NPC that always used deterministic generated/default appearance is a valid distinct source case.
+### Implemented normal persistence contract
+- `identity.survivor.voiceProfile` schema 1 stores `voice`, `voicePrefix`, `voiceType`, `voicePitch`, and `complete`; incomplete legacy values remain incomplete and are restored only as supplied.
+- `appearance` is copied as authored policy schema 2, including outfit, slots, `wornSlot`, and `itemState`.
+- `appearanceContract` schema 1 records `AUTHORED_POLICY` or `GENERATED_DEFAULT`, generator seed/archetype/version/equipment context, and authored policy hash where available. Missing appearance without an authored marker is valid generated/default state.
+- Unsupported or contradictory presentation contracts fail closed before `Types.NewRecord`; no `SurvivorFactory` reroll fills missing values.
 - The test fixture `CandidateCodec()` is an in-memory echo helper and does not satisfy future Core persistence acceptance.
 
-### ONE current Next Chunk
-Implement and test an explicit versioned normal Hoomans persistence representation for:
-1. the complete available four-field voice profile;
-2. authored appearance policy schema 2 when present;
-3. an explicit generated/default appearance case when no authored policy exists; and
-4. the minimum generator/policy provenance required to prevent unsafe seed-only rerolls.
-
-Use normal `Types.NewRecord -> SerializeRecord -> DeserializeRecord` regression tests without `sourceSnapshot`. Preserve existing metadata-schema-2 personal item, relationship and journey behavior. Older unsupported/incomplete records remain fail-closed/source-authoritative; never invent missing voice values or authored appearance.
+### P1 Next Chunk
+Implement the smallest real PsychopatzCore Create -> Save -> Reload -> Get
+identity/appearance codec and registry slice. Use a real Core persistence
+codec, not the planner's `CandidateCodec()` helper. Keep portable inventory,
+social, journey, DT, Hoomans body projection, and Workshop work out of this
+chunk.
 
 ### P0B exit
-P0B may close only when:
-- supported current generated/default and authored-appearance NPCs both round-trip through normal persistence without sourceSnapshot;
-- authored policy and all available voice fields survive exactly;
-- generated/default records are not falsely quarantined;
-- current item/social/location regressions remain green;
-- no silent reset/reroll path remains for the supported input;
-- Hoomans foundation history is safely reconciled with current work; and
-- durable docs identify one P1 Next Chunk.
+P0B is accepted for the bounded source/harness gate: supported current
+generated/default and authored-appearance NPCs round-trip normally; authored
+policy and available voice fields survive exactly; generated/default records are
+valid; current item/social/location regressions remain green; and no supported
+input silently rerolls. The Hoomans change is committed as `f7bfd6b6` on the
+clean integration branch and pushed without force or reset.
 
-P1 then begins with a real PsychopatzCore Create -> Save -> Reload -> Get identity/appearance vertical slice using an actual Core codec/registry, not the planner's in-memory candidate helper.
+P1 now begins with one real PsychopatzCore Create -> Save -> Reload -> Get
+identity/appearance vertical slice using an actual Core codec/registry, not the
+planner's in-memory candidate helper.
