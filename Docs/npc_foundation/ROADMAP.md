@@ -1,31 +1,25 @@
 # Core NPC Foundation — Ordered Roadmap
 
-Status snapshot: 2026-10-20. P0A–P7 have accepted developer-side
-source/harness evidence. P8 is next; P9 includes explicit user-run live-game
-acceptance. The P2 physical-body gate remains part of P8.
+Snapshot: 2026-10-20. P0A–P8 have accepted developer-side source/harness evidence. P9 is the remaining mandatory developer phase; native SP/MP live acceptance is user-owned.
 
 | Phase | Status | Mandatory exit gate |
 | --- | --- | --- |
 | P0A Extraction audit | ACCEPTED | Ownership matrix, risk register, executable parity baseline |
-| P0B Canonical schema and safe migration | ACCEPTED | No-loss supported save/load and fail-closed reversible import contract |
-| P1 Core identity and appearance | ACCEPTED | Core-only Create → Save → Reload → Get; stable identity and no PNC/DT dependency |
-| P2 Portable personal inventory | ACCEPTED; body gate P8 | Stable item IDs/state and no merchant-stock ownership |
-| P3 Legacy migration | ACCEPTED | Idempotent import, conflict quarantine, rollback/retry, source untouched |
-| P4 Shared social | ACCEPTED | Directed state preserved and authorized events cannot double-apply |
-| P5 Generic tasks, journeys, anchors | ACCEPTED | Bounded task/scheduler state and journey arrival survive save/reload once |
-| P6 Map and interaction systems | ACCEPTED | Knowledge-gated map/portrait/Talk/notification contracts coexist with UI providers |
-| P7 DynamicTrading merchant policies | ACCEPTED | Separate DT stock/budget, earned restock, capped social pricing, authoritative fulfillment |
-| P8 Provider switching and Hoomans physical adapter | NEXT | Stable state across DTAbstract/DTHoomans switching with one body lease |
-| P9 End-to-end developer acceptance | OPEN | Module matrix, old saves, authority/reconnect/performance evidence plus user-run SP/MP |
+| P0B Canonical schema and safe migration | ACCEPTED | No-loss supported save/load, fail-closed, reversible import contract |
+| P1 Core identity and appearance | ACCEPTED | Core-only actor Create → Save → Reload → Get with stable identity, voice, appearance, policy, and duplicate rejection |
+| P2 Portable NPC inventory | ACCEPTED | Deterministic starter equipment, slots, seed/delta persistence, and exact item-state restoration |
+| P3 Legacy migration | ACCEPTED | Non-destructive, idempotent, ownership-validated Hoomans conversion with rollback |
+| P4 Shared social system | ACCEPTED | Authoritative directional relationships, bounded personality/memories, and event integration |
+| P5 Tasks and journeys | ACCEPTED | Bounded scheduling, anchors, abstract travel, and save/reload continuity |
+| P6 Map and interaction | ACCEPTED | Core map/portrait/nearby conversation/notification contracts coexist with existing UI |
+| P7 DynamicTrading integration | ACCEPTED | Separate merchant stock/budget, availability, restocking, relationship pricing, and authoritative fulfillment |
+| P8 Provider switching and Hoomans integration | ACCEPTED | DTAbstract/DTHoomans adapters preserve canonical state and enforce one-body lease ownership |
+| P9 End-to-end developer acceptance | IN PROGRESS | Configuration matrix, old saves, authority/reconnect, performance/memory, and compatibility evidence; user-run SP/MP remains next user action |
 
-## Compatibility matrix
+## Required configuration matrix
 
-Core+DTCommon+DTAbstract without Hoomans; Core+DTCommon+Hoomans+DTHoomans
-without DTAbstract; both frontends; Core+DTCommon alone; Hoomans without DT;
-save/restart switching; and dedicated MP with two clients and reconnect.
+Core-only; Core + DTCommon + DTAbstract; Core + DTCommon + Hoomans + DTHoomans; both provider frontends; Core + DTCommon alone; Hoomans without DT; save/restart provider switching; and a dedicated multiplayer authority/reconnect harness.
 
 ## Explicit non-goals
 
-No Workshop publishing, destructive user save reset, unrelated subsystem
-refactor, synthetic-only graphical UI claim, or duplication in Core of DT stock/
-budget or Hoomans needs/combat/colony/mobile-director ownership.
+No Workshop publishing, destructive save reset, unrelated subsystem refactor, synthetic-only graphical UI claim, or duplication in Core of DT stock/budget or Hoomans needs, combat, colony, faction, and body-lifecycle ownership.
