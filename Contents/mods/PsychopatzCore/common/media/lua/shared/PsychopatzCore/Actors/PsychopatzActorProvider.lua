@@ -50,6 +50,11 @@ local function active(lease)
     return lease and lease.state ~= "released"
 end
 
+local function authorityAllowed(spec)
+    return type(spec) ~= "table" or spec.authority == nil
+        or spec.authority == "server"
+end
+
 function Provider.New(actorID, spec)
     spec = type(spec) == "table" and spec or {}
     actorID = text(actorID or spec.actorID or spec.actorId, nil)
@@ -141,6 +146,7 @@ end
 
 function Provider.Acquire(actor, spec)
     spec = type(spec) == "table" and spec or {}
+    if not authorityAllowed(spec) then return nil, "server_authority_required" end
     local nextActor, reason = copyActor(actor)
     if not nextActor then return nil, reason end
     local current = currentLease(nextActor)
@@ -172,6 +178,7 @@ end
 
 function Provider.Materialize(actor, spec)
     spec = type(spec) == "table" and spec or {}
+    if not authorityAllowed(spec) then return nil, "server_authority_required" end
     local nextActor, reason = copyActor(actor)
     if not nextActor then return nil, reason end
     local current = currentLease(nextActor)
@@ -198,6 +205,7 @@ end
 
 function Provider.Dematerialize(actor, spec)
     spec = type(spec) == "table" and spec or {}
+    if not authorityAllowed(spec) then return nil, "server_authority_required" end
     local nextActor, reason = copyActor(actor)
     if not nextActor then return nil, reason end
     local current = currentLease(nextActor)
@@ -224,6 +232,7 @@ end
 
 function Provider.Release(actor, spec)
     spec = type(spec) == "table" and spec or {}
+    if not authorityAllowed(spec) then return nil, "server_authority_required" end
     local nextActor, reason = copyActor(actor)
     if not nextActor then return nil, reason end
     local current = currentLease(nextActor)
@@ -245,6 +254,7 @@ end
 
 function Provider.Switch(actor, spec)
     spec = type(spec) == "table" and spec or {}
+    if not authorityAllowed(spec) then return nil, "server_authority_required" end
     local nextActor, reason = copyActor(actor)
     if not nextActor then return nil, reason end
     local current = currentLease(nextActor)

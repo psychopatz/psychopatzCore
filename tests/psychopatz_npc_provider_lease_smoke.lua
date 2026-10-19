@@ -33,9 +33,18 @@ local actor, actorReason = registry:Create({
 truthy(actor, actorReason)
 equal(actor.providerLease.state, "released", "new actor lease state")
 
+local clientAttempt, clientReason = Provider.Acquire(actor, {
+    provider = "DTAbstract",
+    owner = "client:spoof",
+    authority = "client",
+})
+equal(clientAttempt, nil, "client cannot mutate provider lease")
+equal(clientReason, "server_authority_required", "provider authority boundary")
+
 local abstract, abstractReason = registry:AcquireProvider(actor.actorId, {
     provider = "DTAbstract",
     owner = "dtabstract:radio",
+    authority = "server",
     now = 1,
 })
 truthy(abstract, abstractReason)
