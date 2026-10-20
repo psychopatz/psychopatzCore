@@ -1,5 +1,8 @@
 # Core NPC Foundation — Agent Runbook
 
+> **2026-10-20 user-wide no-new-branches override:** Read root `AGENTS.md`. Never create new branches or agent scratch refs in Core, Hoomans or DynamicTrading. Use existing `main` for safely authorized work; legacy Hoomans PR #4 history requires source-backed, non-destructive reconciliation on the EXISTING main, not a new PR branch. The Core P0–P9 developer acceptance already exists; do not restart it absent a concrete regression. Do not conflate it with unfinished Hoomans Personal Dialogue B0–B6.
+
+
 Read this first, then ARCHITECTURE.md, ROADMAP.md, PROGRESS.md and current PHASE doc. This goal covers three repositories; inspect all checked-out branches, recent commits, working-tree statuses, dependency versions, upstream divergence and existing goal docs before any writes.
 
 ## Parent-goal completion contract (mandatory, supersedes any single-chunk stop rule)

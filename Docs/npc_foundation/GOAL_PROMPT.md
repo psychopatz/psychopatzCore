@@ -1,4 +1,5 @@
 # Core NPC Foundation — Continuous full-goal Codex /goal
+MANDATORY USER GIT RULE: NEVER create any new Git branch or scratch/PR branch in PsychopatzCore, ProjectHoomans or DynamicTrading. Use existing main for authorized new work only after safe HEAD/upstream/concurrent changes review. Preserve already-existing divergent Hoomans PR #4 and reconcile with existing main using inspected source/dry-run merge-tree and regression validation; no force/reset/rebase/blind pull. Never confuse the completed Core Foundation P1–P9 headless acceptance with the still-open Hoomans Grounded Personal Dialogue B0–B6 product.
 
 ```text
 /goal

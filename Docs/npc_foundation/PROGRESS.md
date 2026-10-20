@@ -1,5 +1,8 @@
 # Core NPC Foundation — Progress
 
+**Git and cross-goal clarification (2026-10-20):** Core Foundation P1–P9 remains recorded **READY FOR USER LIVE TEST** within its *headless developer acceptance* only. This does not establish native PZ world/save/network behavior, and does not complete Hoomans Grounded Personal Dialogue B0–B6 (still open on existing Hoomans PR #4). Git policy forbids **creation of any new branches**; new authorized Core/DT changes use existing main, Hoomans history integrates to existing main only after safe review. Earlier remote/local synchronization text below is a historical agent report and should not be taken as current local state.
+
+
 Snapshot: 2026-10-20. P1–P9 developer-implementable requirements are complete and source-backed. Status: READY FOR USER LIVE TEST. Native Project Zomboid SP/MP validation remains user-owned; no native game was launched, no Workshop content was published, and no user save was reset.
 
 ## Repository state
