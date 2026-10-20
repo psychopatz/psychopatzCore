@@ -4,7 +4,7 @@ Snapshot: 2026-10-20. P1–P9 developer-implementable requirements are complete 
 
 ## Repository state
 
-- PsychopatzCore: `4cdd547` (`main`), local branch ahead of `origin/main` by twelve and behind by one.
+- PsychopatzCore: `e19b517` (`main`), local branch ahead of `origin/main` by thirteen and behind by one before this merge.
 - ProjectHoomans: `9b123bd3` (`codex/contextual-dialogue-quest-framework-0a`), local branch ahead of its configured remote by five.
 - DynamicTrading: `2d1ee62a` (`main`), local branch ahead of `origin/main` by three.
 - Documentation commits: Core `a2862df` records P8; this P9 update follows the implementation commits above.

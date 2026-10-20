@@ -1,6 +1,8 @@
 # Core NPC Foundation — Goal Navigation
 
-Status: P0A/P0B accepted from source/harness evidence; P1 open as the next bounded chunk. Current snapshot: 2026-10-20.
+**PARENT GOAL STATUS: READY FOR USER LIVE TEST.** P0A–P9 developer implementation and acceptance are recorded in PROGRESS.md and ROADMAP.md. Native Project Zomboid SP/MP validation remains user-owned; do not restart an accepted phase without a concrete regression or new request.
+
+Status snapshot: 2026-10-20. P0A–P9 developer-side gates accepted from source/harness evidence.
 PsychopatzCore is the target owner of shared canonical NPC state; ProjectHoomans and DynamicTrading are adopters. This job is separate from the Dynamic Trading trading-MVP, Radio OS, and Hoomans semantic-dialogue goals.
 
 ## Read order
@@ -13,9 +15,9 @@ PsychopatzCore is the target owner of shared canonical NPC state; ProjectHoomans
 7. GOAL_PROMPT.md — compact autonomous bootstrap
 
 ## Current objective
-P0B's normal Hoomans serializer/deserializer now preserves authored appearance policy and the complete available voice profile, while generated/default appearance remains an explicit valid case. The evidence is source/harness only; no live-game or Core-writer claim is made.
+P1–P9 implementation and developer-side acceptance are complete per the source/harness evidence in PROGRESS.md. Native game compatibility and multiplayer validation remain user-owned; no live-game acceptance is claimed.
 
-The ONE next chunk is the smallest real PsychopatzCore actor Create -> Save -> Reload -> Get identity/appearance codec/registry slice.
+The next action is the user-owned native compatibility matrix listed in PROGRESS.md.
 
 ## Product acceptance
 A single Core-generated merchant has a stable identity, name, face, voice, clothing, personal items and exact portable state, directional relationships, world position and journey. DTAbstract can run it without ProjectHoomans. DTHoomans can project the SAME merchant into its live NPC simulation without rerolling, resetting or duplicating anything; returning to abstract retains canonical changes. One DTCommon stock/budget/transaction ledger is shared across modes. Known actors can use bounded map markers/hover portraits; nearby actors can expose Talk; travel between eligible settlements can earn restocks. SP and MP server authority remain intact.
