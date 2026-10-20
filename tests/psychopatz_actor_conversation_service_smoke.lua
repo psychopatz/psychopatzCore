@@ -87,6 +87,20 @@ local service, serviceReason = Service.New({
 })
 truthy(service, serviceReason)
 
+local injectedRouter = {
+    state = service.router.state,
+    Process = function() return { accepted = true } end,
+    ParseCandidates = function(_, text, options)
+        return service.router:ParseCandidates(text, options)
+    end,
+}
+local injected = Service.New({ actor = actor, router = injectedRouter })
+truthy(injected, "injected router service")
+equal(injected.router, injectedRouter, "production router is retained")
+local injectedTurn, injectedReason = injected:ParseTurn("answer, question")
+truthy(injectedTurn, injectedReason)
+equal(injectedTurn.compound, true, "injected router uses Core turn parser")
+
 local called = false
 truthy(service:RegisterCapability("test:notify", function()
     called = true

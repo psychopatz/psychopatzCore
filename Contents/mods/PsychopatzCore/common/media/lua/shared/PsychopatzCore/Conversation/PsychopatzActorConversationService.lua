@@ -105,18 +105,27 @@ function Service.New(spec)
     spec = tableValue(spec)
     if type(spec.actor) ~= "table" then return nil, "actor_required" end
     local parser = Semantics.Parser
-    local router = Router.New({
-        state = spec.state,
-        stateSpec = spec.stateSpec,
-        parser = spec.parser or parser.Parse,
-        candidateParser = spec.candidateParser or parser.ParseCandidates,
-        candidateSelector = spec.candidateSelector,
-        contextResolver = spec.contextResolver,
-        policy = spec.policy,
-        decide = spec.decide,
-        context = spec.context,
-        options = spec.options,
-    })
+    -- Adopters that already own a production router may inject that router
+    -- here.  This keeps the Core service as the shared actor boundary while
+    -- allowing an adopter to retain its existing response/effect lifecycle.
+    -- A missing router keeps the standalone Core-only path unchanged.
+    local router = spec.router
+    if type(router) ~= "table"
+        or type(router.Process) ~= "function"
+    then
+        router = Router.New({
+            state = spec.state,
+            stateSpec = spec.stateSpec,
+            parser = spec.parser or parser.Parse,
+            candidateParser = spec.candidateParser or parser.ParseCandidates,
+            candidateSelector = spec.candidateSelector,
+            contextResolver = spec.contextResolver,
+            policy = spec.policy,
+            decide = spec.decide,
+            context = spec.context,
+            options = spec.options,
+        })
+    end
     local self = setmetatable({
         version = Service.VERSION,
         actor = spec.actor,
@@ -131,6 +140,39 @@ function Service.New(spec)
         conversationID = spec.conversationID,
     }, { __index = Service })
     return self
+end
+
+-- Shared parser boundary for adopters that need Core's bounded compound-turn
+-- semantics while retaining their own presentation and effect pipeline.
+function Service:ParseTurn(text, options)
+    options = tableValue(options)
+    local parseOptions = copy(self.router.options or {})
+    for key, value in pairs(options) do parseOptions[key] = value end
+    return Turn.Parse(
+        text,
+        function(clause, clauseOptions)
+            return self.router:ParseCandidates(clause, clauseOptions)
+        end,
+        parseOptions
+    )
+end
+
+function Service:Preview(text, context, options)
+    return self.router:Preview(text, context, options)
+end
+
+function Service:ProcessIR(ir, context, options)
+    return self.router:ProcessIR(ir, context, options)
+end
+
+function Service:Process(text, context, options)
+    return self.router:Process(text, context, options)
+end
+
+function Service:ObserveResult(result)
+    self.lastResult = copy(result)
+    self.turnCount = math.min(Service.MAX_TURNS, self.turnCount + 1)
+    return self.lastResult
 end
 
 function Service:RegisterCapability(capabilityID, handler, metadata)
@@ -199,15 +241,7 @@ function Service:Submit(text, context, options)
         return nil, "utterance_required"
     end
     local effectiveContext = actorContext(self.actor, context)
-    local parseOptions = copy(self.router.options or {})
-    for key, value in pairs(options) do parseOptions[key] = value end
-    local parsed, parseReason = Turn.Parse(
-        text,
-        function(clause, clauseOptions)
-            return self.router:ParseCandidates(clause, clauseOptions)
-        end,
-        parseOptions
-    )
+    local parsed, parseReason = self:ParseTurn(text, options)
     if not parsed then return nil, parseReason end
 
     local results = {}
@@ -233,7 +267,12 @@ function Service:Submit(text, context, options)
         )
         if response then responses[1] = response end
     end
-    self.turnCount = math.min(Service.MAX_TURNS, self.turnCount + 1)
+    self:ObserveResult({
+        actorID = actorID(self.actor),
+        rawText = text,
+        parts = results,
+        responses = responses,
+    })
     return {
         schemaVersion = Service.VERSION,
         kind = "actor_conversation_result",
