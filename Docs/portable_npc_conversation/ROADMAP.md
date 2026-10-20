@@ -5,7 +5,7 @@
 | Phase | Status | Required result |
 | --- | --- | --- |
 | **C1 — actual worker conversation audit and correction baseline** | **COMPLETE** | Reusable Core-backed compound speech-act, pending-question binding, causal-reference uncertainty, interruption/resumption and EN/TL regression verified in the real Lua worker |
-| **C2 — Core portable persona and Knowledge authority** | **CURRENT / IMPLEMENTING** | Versioned Core seed/backstory/Knowledge contracts, idempotent Hoomans migration, 2-player privacy/dossier; Core-only independent save/reload |
+| **C2 — Core portable persona and Knowledge authority** | **CURRENT / IMPLEMENTING (C2-A COMPLETE)** | Core `223808f` and Hoomans `41a49775` provide versioned persona/Knowledge state, stable backstory migration, read-only dossier evidence bridge and Core-only save/reload; C2-B runtime authority/synchronization remains |
 | C3 — shared offline conversational competence | PLANNED | Core dialogue service over existing parser/router/state; pending acts, causal/referent resolution, localized response keys; same tests without Hoomans |
 | C4 — Hoomans/DT integration | PLANNED | Hoomans contextual providers plus authenticated DTAbstract/DTHoomans Talk over the same Core actor/conversation authority; trade/quest ownership preserved |
 | C5 — safe provider hot-swap and persistence | PLANNED | Actor/body/lease/trader ID invariant, bounded session carryover, restart continuity, no duplication, stale action or privacy leak |
