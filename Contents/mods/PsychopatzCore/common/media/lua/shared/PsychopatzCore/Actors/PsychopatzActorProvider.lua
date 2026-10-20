@@ -144,6 +144,13 @@ local function ownerMatches(lease, owner)
     return owner and lease.owner == owner
 end
 
+local function revisionMatches(lease, spec)
+    if type(spec) ~= "table" or spec.expectedRevision == nil then
+        return true
+    end
+    return integer(spec.expectedRevision, -1) == integer(lease.revision, 0)
+end
+
 function Provider.Acquire(actor, spec)
     spec = type(spec) == "table" and spec or {}
     if not authorityAllowed(spec) then return nil, "server_authority_required" end
@@ -154,6 +161,9 @@ function Provider.Acquire(actor, spec)
     local owner = text(spec.owner, nil)
     if not provider then return nil, "provider_invalid" end
     if not owner then return nil, "provider_owner_required" end
+    if not revisionMatches(current, spec) then
+        return nil, "provider_revision_conflict"
+    end
     if active(current) then
         if current.owner == owner and current.provider == provider then
             return nextActor
@@ -183,6 +193,9 @@ function Provider.Materialize(actor, spec)
     if not nextActor then return nil, reason end
     local current = currentLease(nextActor)
     local bodyID = text(spec.bodyID or spec.bodyId, nil)
+    if not revisionMatches(current, spec) then
+        return nil, "provider_revision_conflict"
+    end
     if not active(current) then return nil, "provider_lease_not_active" end
     if not ownerMatches(current, spec.owner) then
         return nil, "provider_owner_mismatch"
@@ -209,6 +222,9 @@ function Provider.Dematerialize(actor, spec)
     local nextActor, reason = copyActor(actor)
     if not nextActor then return nil, reason end
     local current = currentLease(nextActor)
+    if not revisionMatches(current, spec) then
+        return nil, "provider_revision_conflict"
+    end
     if not active(current) then return nil, "provider_lease_not_active" end
     if not ownerMatches(current, spec.owner) then
         return nil, "provider_owner_mismatch"
@@ -236,6 +252,9 @@ function Provider.Release(actor, spec)
     local nextActor, reason = copyActor(actor)
     if not nextActor then return nil, reason end
     local current = currentLease(nextActor)
+    if not revisionMatches(current, spec) then
+        return nil, "provider_revision_conflict"
+    end
     if not active(current) then return nextActor end
     if not ownerMatches(current, spec.owner) then
         return nil, "provider_owner_mismatch"
@@ -258,10 +277,13 @@ function Provider.Switch(actor, spec)
     local nextActor, reason = copyActor(actor)
     if not nextActor then return nil, reason end
     local current = currentLease(nextActor)
-    if current.state == "materialized" then return nil, "body_lease_active" end
-    if active(current) and not ownerMatches(current, spec.owner) then
-        return nil, "provider_owner_mismatch"
+    if not revisionMatches(current, spec) then
+        return nil, "provider_revision_conflict"
     end
+    if current.state == "materialized" then return nil, "body_lease_active" end
+    if active(current) and not ownerMatches(current, spec.owner)
+        and text(spec.handoffFrom, nil) ~= current.owner
+    then return nil, "provider_owner_mismatch" end
     if not active(current) then return Provider.Acquire(nextActor, spec) end
     local provider = providerName(spec.provider)
     local owner = text(spec.owner, current.owner)

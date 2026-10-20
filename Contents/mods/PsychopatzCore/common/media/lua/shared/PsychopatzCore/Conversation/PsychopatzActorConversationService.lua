@@ -299,6 +299,35 @@ function Service:Snapshot()
     }
 end
 
+-- Restore only the bounded conversational state snapshot emitted by this
+-- service.  Provider handoff callers must re-authorize the new channel and
+-- bind the restored state to the same actor ID before invoking this method.
+function Service:Restore(snapshot)
+    if type(snapshot) ~= "table"
+        or tonumber(snapshot.schemaVersion) ~= Service.VERSION
+    then return nil, "conversation_snapshot_invalid" end
+    if tostring(snapshot.actorID or "") ~= actorID(self.actor) then
+        return nil, "conversation_actor_mismatch"
+    end
+    local stateSnapshot = snapshot.state
+    if type(stateSnapshot) ~= "table" then
+        return nil, "conversation_state_missing"
+    end
+    local restored = State.New(stateSnapshot)
+    if not restored then return nil, "conversation_state_invalid" end
+    if not self.router or type(self.router.SetState) ~= "function" then
+        return nil, "conversation_state_unsupported"
+    end
+    local accepted, reason = self.router:SetState(restored)
+    if accepted == false then return nil, reason end
+    self.turnCount = math.max(0, math.min(Service.MAX_TURNS,
+        math.floor(tonumber(snapshot.turnCount) or 0)))
+    if snapshot.conversationID ~= nil then
+        self.conversationID = tostring(snapshot.conversationID)
+    end
+    return self:Snapshot()
+end
+
 function Service:Reset(keepParticipants)
     self.router.state:Reset(keepParticipants == true)
     self.router.lastResult = nil

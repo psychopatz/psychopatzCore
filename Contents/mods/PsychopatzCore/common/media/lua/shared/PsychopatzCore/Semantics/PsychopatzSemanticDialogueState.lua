@@ -116,6 +116,14 @@ function State.New(spec)
         participant = participants[index]
         self:AddParticipant(participant)
     end
+    local recent = spec.recentSemanticEvents
+    if type(recent) == "table" then
+        local first = math.max(1, #recent - self.maxEvents + 1)
+        for index = first, #recent do
+            self.recentSemanticEvents[#self.recentSemanticEvents + 1] =
+                copyValue(recent[index])
+        end
+    end
     return self
 end
 
