@@ -5,8 +5,8 @@
 | Phase | Status | Required result |
 | --- | --- | --- |
 | **C1 — actual worker conversation audit and correction baseline** | **COMPLETE** | Reusable Core-backed compound speech-act, pending-question binding, causal-reference uncertainty, interruption/resumption and EN/TL regression verified in the real Lua worker |
-| **C2 — Core portable persona and Knowledge authority** | **CURRENT / IMPLEMENTING (C2-A/B COMPLETE)** | Core `223808f`, Hoomans `41a49775` and Hoomans `beb65430` provide versioned persona/Knowledge state, stable backstory migration, read-only dossier evidence bridge and explicit server-only Core handoff; C2-C runtime/body/Dossier binding remains |
-| C3 — shared offline conversational competence | PLANNED | Core dialogue service over existing parser/router/state; pending acts, causal/referent resolution, localized response keys; same tests without Hoomans |
+| **C2 — Core portable persona and Knowledge authority** | **COMPLETE** | Core `223808f`, Hoomans `41a49775`, `beb65430` and `46c80d9c` provide versioned persona/Knowledge state, stable backstory migration, explicit server-only handoff, provider projection and read-only dossier continuity |
+| **C3 — shared offline conversational competence** | **CURRENT / IMPLEMENTING (C3-A COMPLETE)** | Core `f1e92b0` provides the shared offline actor conversation service over existing parser/router/state; C3-B Hoomans production boundary remains |
 | C4 — Hoomans/DT integration | PLANNED | Hoomans contextual providers plus authenticated DTAbstract/DTHoomans Talk over the same Core actor/conversation authority; trade/quest ownership preserved |
 | C5 — safe provider hot-swap and persistence | PLANNED | Actor/body/lease/trader ID invariant, bounded session carryover, restart continuity, no duplication, stale action or privacy leak |
 | C6 — full Semantic Lab matrix and handoff | PLANNED | Actual GUI/real Lua worker Core-only/Hoomans/DTAbstract/DTHoomans/combined, EN/TL, per-player privacy, footprint and full regressions; READY FOR USER LIVE TEST only after all pass |
