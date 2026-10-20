@@ -16,6 +16,8 @@ local Map = require "PsychopatzCore/Actors/PsychopatzActorMap"
 local Interaction = require "PsychopatzCore/Actors/PsychopatzActorInteraction"
 local Notifications = require "PsychopatzCore/Actors/PsychopatzActorNotifications"
 local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
+local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
+local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
 
 local Actors = PsychopatzCore.Actors or {}
 Actors.Factory = Factory
@@ -34,6 +36,8 @@ Actors.Map = Map
 Actors.Interaction = Interaction
 Actors.Notifications = Notifications
 Actors.Provider = Provider
+Actors.Persona = Persona
+Actors.Knowledge = Knowledge
 Actors.DefaultRegistry = Actors.DefaultRegistry or Registry.new()
 
 function Actors.NewRegistry()

@@ -5,6 +5,8 @@ local ActorInventory = require "PsychopatzCore/Actors/PsychopatzActorInventory"
 local Social = require "PsychopatzCore/Actors/PsychopatzSocial"
 local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
 local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
+local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
+local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
 
 local Registry = {}
 Registry.__index = Registry
@@ -66,6 +68,10 @@ function Registry:Register(actor)
     if not copy.providerLease then return nil, reason end
     valid, reason = Provider.Validate(copy.providerLease, copy.actorId)
     if not valid then return nil, reason end
+    copy.persona, reason = Persona.NewState(copy.persona)
+    if not copy.persona then return nil, reason end
+    copy.knowledge, reason = Knowledge.NewState(copy.knowledge)
+    if not copy.knowledge then return nil, reason end
     if self.records[actor.actorId] then return nil, "duplicate_actor_id" end
     self.records[actor.actorId] = copy
     self.revision = self.revision + 1
@@ -98,6 +104,8 @@ function Registry:Commit(actorId, patch, expectedRevision)
     local nextActor = Util.clone(current)
     if patch.identity ~= nil then nextActor.identity = Util.clone(patch.identity) end
     if patch.appearance ~= nil then nextActor.appearance = Util.clone(patch.appearance) end
+    if patch.persona ~= nil then nextActor.persona = Util.clone(patch.persona) end
+    if patch.knowledge ~= nil then nextActor.knowledge = Util.clone(patch.knowledge) end
     if patch.extensions ~= nil then nextActor.extensions = Util.clone(patch.extensions) end
     if patch.social ~= nil then nextActor.social = Util.clone(patch.social) end
     if patch.world ~= nil then nextActor.world = Util.clone(patch.world) end
@@ -125,6 +133,10 @@ function Registry:Commit(actorId, patch, expectedRevision)
     if not nextActor.providerLease then return nil, reason end
     valid, reason = Provider.Validate(nextActor.providerLease, actorId)
     if not valid then return nil, reason end
+    nextActor.persona, reason = Persona.NewState(nextActor.persona)
+    if not nextActor.persona then return nil, reason end
+    nextActor.knowledge, reason = Knowledge.NewState(nextActor.knowledge)
+    if not nextActor.knowledge then return nil, reason end
     valid, reason = Factory.ValidateActor(nextActor)
     if not valid then return nil, reason end
 

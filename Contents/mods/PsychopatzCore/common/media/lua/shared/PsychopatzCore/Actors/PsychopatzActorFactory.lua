@@ -1,5 +1,7 @@
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
+local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
+local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
 
 local Factory = {}
 
@@ -198,6 +200,16 @@ function Factory.ValidateSpec(spec)
     if spec.appearance ~= nil and type(spec.appearance) ~= "table" then
         return false, "appearance_required"
     end
+    if spec.persona ~= nil or spec.backstory ~= nil then
+        local persona, reason = Persona.NewState(spec.persona or {
+            backstory = spec.backstory,
+        })
+        if not persona then return false, reason end
+    end
+    if spec.knowledge ~= nil then
+        local knowledge, reason = Knowledge.NewState(spec.knowledge)
+        if not knowledge then return false, reason end
+    end
     return true
 end
 
@@ -215,6 +227,12 @@ function Factory.Generate(spec)
     local identity = normalizeIdentity(spec, seed)
     local appearance, appearanceReason = normalizeAppearance(spec.appearance, seed, identity)
     if not appearance then return nil, appearanceReason end
+    local persona, personaReason = Persona.NewState(spec.persona or {
+        backstory = spec.backstory,
+    })
+    if not persona then return nil, personaReason end
+    local knowledge, knowledgeReason = Knowledge.NewState(spec.knowledge)
+    if not knowledge then return nil, knowledgeReason end
 
     return {
         schema = Factory.SCHEMA,
@@ -224,6 +242,8 @@ function Factory.Generate(spec)
         revision = 1,
         identity = identity,
         appearance = appearance,
+        persona = persona,
+        knowledge = knowledge,
         extensions = Util.clone(spec.extensions or {}),
         source = Util.clone(spec.source),
         social = Util.clone(spec.social),
@@ -257,6 +277,14 @@ function Factory.ValidateActor(actor)
         or type(actor.appearance.contract) ~= "table"
     then
         return false, "appearance_contract_invalid"
+    end
+    if actor.persona ~= nil then
+        local personaValid, personaReason = Persona.Validate(actor.persona)
+        if not personaValid then return false, personaReason end
+    end
+    if actor.knowledge ~= nil then
+        local knowledgeValid, knowledgeReason = Knowledge.Validate(actor.knowledge)
+        if not knowledgeValid then return false, knowledgeReason end
     end
     if not Util.isSerializable(actor) then return false, "actor_not_serializable" end
     return true

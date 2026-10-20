@@ -291,6 +291,8 @@ function Provider.Project(actor, requestedProvider)
         actorId = tostring(actor.actorId),
         identity = Util.clone(actor.identity),
         appearance = Util.clone(actor.appearance),
+        persona = Util.clone(actor.persona),
+        knowledge = Util.clone(actor.knowledge),
         personalInventory = Util.clone(actor.personalInventory),
         social = Util.clone(actor.social),
         world = Util.clone(actor.world),

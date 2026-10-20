@@ -5,6 +5,8 @@ local ActorInventory = require "PsychopatzCore/Actors/PsychopatzActorInventory"
 local Social = require "PsychopatzCore/Actors/PsychopatzSocial"
 local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
 local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
+local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
+local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
 
 local Persistence = {}
 
@@ -35,6 +37,10 @@ local function cloneValidated(actor)
     providerValid, reason = Provider.Validate(
         copy.providerLease, copy.actorId)
     if not providerValid then return nil, reason end
+    copy.persona, reason = Persona.NewState(copy.persona)
+    if not copy.persona then return nil, reason end
+    copy.knowledge, reason = Knowledge.NewState(copy.knowledge)
+    if not copy.knowledge then return nil, reason end
     return copy
 end
 

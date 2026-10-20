@@ -199,6 +199,8 @@ local function buildActor(plan, raw, hash, options)
         },
         social = Util.clone(candidate.relationships),
         world = Util.clone(candidate.location),
+        persona = Util.clone(candidate.persona),
+        knowledge = Util.clone(candidate.knowledge),
         extensions = {
             ["ProjectHoomans:opaque"] = candidate.source
                 and Util.clone(candidate.source.opaque) or {},
