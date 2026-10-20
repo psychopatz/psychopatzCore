@@ -38,6 +38,7 @@ function Window:setPage(page)
     if page == "contacts" then
         self:ensureContacts(true)
     elseif page == "contact_detail" then
+        self.contactActionIndex = 1
         self:updatePortrait()
     elseif page ~= "custom" and self.portraitPanel then
         self.portraitPanel:setVisible(false)
@@ -61,6 +62,13 @@ function Window:moveSelection(delta)
         if count > 0 then
             self.settingsIndex = ((self.settingsIndex - 1 + delta)
                 % count) + 1
+        end
+    elseif self.page == "contact_detail" then
+        local actions = self.selectedContact
+            and self.selectedContact.actions or {}
+        if #actions > 0 then
+            self.contactActionIndex = ((self.contactActionIndex - 1 + delta)
+                % #actions) + 1
         end
     elseif self.page == "custom" and self.activeApp
         and type(self.activeApp.onMove) == "function"
@@ -110,7 +118,9 @@ end
 
 function Window:invokeSelectedContact()
     local entry = self.selectedContact
-    local action = entry and entry.actions and entry.actions[1] or nil
+    local actions = entry and entry.actions or {}
+    local actionIndex = math.max(1, tonumber(self.contactActionIndex) or 1)
+    local action = actions[actionIndex]
     if not entry or not action then
         self.statusText = Text.Get(
             "UI_PsychopatzCore_Radio_ActionUnavailable", "ACTION UNAVAILABLE")

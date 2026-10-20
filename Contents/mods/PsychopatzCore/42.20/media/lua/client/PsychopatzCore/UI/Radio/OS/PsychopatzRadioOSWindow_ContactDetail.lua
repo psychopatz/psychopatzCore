@@ -71,12 +71,14 @@ function Window:drawContactDetail()
             tr("UI_PsychopatzCore_Radio_Unknown", "unknown"))),
         x, y, width, color, nil, math.min(2, availableLines))
     local actions = entry and entry.actions or {}
+    local actionIndex = math.max(1, tonumber(self.contactActionIndex) or 1)
+    local action = actions[actionIndex]
     local actionY = y + (statusLines + 1) * header.metrics.lineHeight
     local actionLines = math.max(1, availableLines - statusLines - 1)
-    if #actions > 0 then
+    if action then
         self:drawTextClipped(Text.Format(
             "UI_PsychopatzCore_Radio_CenterAction",
-            "CENTER: %s", actions[1].label),
+            "CENTER: %s", action.label),
             x, actionY, width, color, nil, math.min(2, actionLines))
     else
         self:drawTextClipped(

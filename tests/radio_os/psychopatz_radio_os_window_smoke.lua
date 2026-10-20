@@ -187,17 +187,19 @@ truthy(OS.RegisterApp({
     end,
 }), "custom app registration")
 local requested = 0
+local requestedAction
 truthy(OS.RegisterContactProvider({
     id = "mock:contacts",
     ownerModID = "MockPlugin",
     list = function()
         return { contacts = {
             { id = "npc-1", title = "Riley", status = "known",
-                actions = { "mock:call" } },
+                actions = { "mock:call", "mock:talk" } },
         } }
     end,
-    invoke = function()
+    invoke = function(_, _, actionID)
         requested = requested + 1
+        requestedAction = actionID
         return true
     end,
 }), "window provider")
@@ -515,6 +517,11 @@ window:onMouseDown(contactRow.x + 1, contactRow.y + 1)
 equal(window.page, "contact_detail", "contact row navigation")
 window:onMouseDown(window:screenRect().x + 2, window:screenRect().y + 40)
 equal(requested, 1, "direct contact action dispatch")
+equal(requestedAction, "mock:call", "first contact action remains default")
+window:moveSelection(1)
+window:select()
+equal(requested, 2, "contact action selection dispatch")
+equal(requestedAction, "mock:talk", "selected contact action is dispatched")
 
 local center = window:controlRect("center")
 window:onMouseDown(window:controlRect("left").x + 1,
