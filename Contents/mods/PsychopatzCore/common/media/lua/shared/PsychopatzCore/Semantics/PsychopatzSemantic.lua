@@ -26,6 +26,8 @@ Semantics.Parser = require
     "PsychopatzCore/Semantics/PsychopatzSemanticParser"
 Semantics.DialogueRouter = require
     "PsychopatzCore/Semantics/PsychopatzSemanticDialogueRouter"
+Semantics.DialogueTurn = require
+    "PsychopatzCore/Semantics/PsychopatzSemanticDialogueTurn"
 
 Semantics.VERSION = Semantics.VERSION or 1
 
