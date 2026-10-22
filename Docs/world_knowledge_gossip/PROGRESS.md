@@ -79,3 +79,20 @@ lua tests/psychopatz_npc_provider_lease_smoke.lua                       PASS
 ```
 
 `tests/psychopatz_world_knowledge_smoke.lua` covers typed faction death, stable dedupe, Alice-known/Bob-unknown selection, grounded rendering, Alice-to-Bob told provenance, explainability, ephemeral save exclusion, and reload. `pz_verify.py` reports zero Kahlua errors for all four new Core WKG modules. The implementation is intentionally not a Hoomans faction/zombie policy and does not enumerate zombies.
+
+## W1 persistence correction and bounded stress evidence (2026-10-22)
+
+Commit `14d9188` closes the persistence edge discovered during W9 audit: actor references are now filtered against the same `Fact.ShouldPersist` retention policy as the global ledger. Ephemeral and derived-current facts cannot leave orphaned actor references in a save payload. The smoke fixture now verifies both payload filtering and reload filtering.
+
+Measured Core evidence:
+
+```text
+lua tests/psychopatz_world_knowledge_smoke.lua
+  PASS
+lua tests/psychopatz_world_knowledge_stress.lua
+  PASS elapsed=0.0335s ledger=256 actors=128 persistedFacts=254 payloadUnits=88165 deduped=19
+python3 skills/pz-verify/scripts/pz_verify.py --dir Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/WorldKnowledge --kahlua --no-snippets
+  4 files; 0 errors; 0 warnings
+```
+
+The stress fixture publishes 1,000 historical events and attempts acquisition for 500 actors under `maxFacts=256`, `maxActors=128`, `maxRefs=16`. It proves bounded eviction, dedupe, compact primitive persistence, no localized prose/transcripts, historical reload, and exclusion of ephemeral/derived facts and references. The timing is Lua-process fixture time, not native Project Zomboid tick time.
