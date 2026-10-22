@@ -1,7 +1,7 @@
 # Progress — Grounded World Knowledge & Gossip
 
 Updated: 2026-10-22
-Status: IN PROGRESS; W0 and W1 are complete, W2 is in adopter validation.
+Status: W0-W9 developer implementation/evidence complete; native PZ SP/MP remains reserved for user validation.
 
 ## Verified planning baseline
 
@@ -96,3 +96,36 @@ python3 skills/pz-verify/scripts/pz_verify.py --dir Contents/mods/PsychopatzCore
 ```
 
 The stress fixture publishes 1,000 historical events and attempts acquisition for 500 actors under `maxFacts=256`, `maxActors=128`, `maxRefs=16`. It proves bounded eviction, dedupe, compact primitive persistence, no localized prose/transcripts, historical reload, and exclusion of ephemeral/derived facts and references. The timing is Lua-process fixture time, not native Project Zomboid tick time.
+
+## W2-W9 cross-repository closeout (2026-10-22)
+
+The canonical developer phases are complete:
+
+- W0 — authority/source audit and contract freeze: complete. The source/authority matrix, real pre-WKG worker before-state, Build 42.20 API limitations, ModData boundaries, and the current cached zombie diagnostic path are recorded above and in adopter `AUDIT.md` files.
+- W1 — Core primitive: complete in `471b732`; persistence correction/stress evidence in `14d9188` and `5035a28`.
+- W2 — Hoomans producer/conversation adoption: complete in `dd13852f` and `d3d16a1a`.
+- W3/W4 — guarded PZ world-state readers and event-driven propagation: complete in `9b2a875b`; absent water/global authority remains explicit unknown.
+- W5/W6 — Semantic Lab production worker, inspection commands, offline EN/TL realization, and optional PBrainZ same-fact projection: complete in `d17da262`.
+- W7 — DynamicTrading Core+DT adapter, Talk integration, provider continuity, commerce non-authority and persistence: complete in `77c6f90b`; docs in `a7c1277c`.
+- W8 — existing Semantic Lab GUI World Knowledge pane and live-worker GUI evidence: complete in Hoomans `d1c642f0`.
+- W9 — persistence/performance/security regression evidence: complete in Core `14d9188`, Hoomans `ba9f32b8`/`c5fb01cc`, and DT `77c6f90b`/`a7c1277c`.
+
+Final focused evidence:
+
+```text
+Core: lua tests/psychopatz_world_knowledge_smoke.lua                         PASS
+Core: lua tests/psychopatz_world_knowledge_stress.lua                         PASS; latest run ~0.0375s, ledger=256, actors=128, persistedFacts=254, payloadUnits=88158, deduped=19
+Core: lua tests/psychopatz_core_composition_smoke.lua                          PASS (existing money/currency warnings only)
+Core: lua tests/psychopatz_npc_actor_smoke.lua                                 PASS
+Core: lua tests/psychopatz_actor_conversation_service_smoke.lua                PASS
+Core: lua tests/psychopatz_npc_provider_lease_smoke.lua                        PASS
+Hoomans: python3 tests/run_tests.py pnc_world_knowledge_smoke pbrainz_world_knowledge_smoke --verbose  PASS 2/2
+Hoomans: python3 -m unittest ...test_grounded_world_knowledge_gossip ...test_world_knowledge_inspector ...test_automatic_flow_generation.AutomaticFlowGenerationTests.test_authoritative_gossip_memory_reaches_response_selection_in_en_and_tl -v  PASS 4/4
+Hoomans: xvfb-run -a python3 -m unittest ...test_world_knowledge_gui -v  PASS
+Hoomans: python3 -m tools.semantic_harness.testing.performance --samples 2 --warmup 1 --serial-turns 8  PASS; bounded worker histories, measured non-native latency
+DT: python3 tests/run_tests.py dt_world_knowledge_smoke dt_talk_service dt_provider_hotswap_persistence dt_trade_access_security dt_npc_provider_adapter --verbose  PASS 5/5
+```
+
+No independent zombie enumeration, per-tick all-actor/all-fact scan, second gossip store, persisted localized statement, transcript or LLM-authored canonical fact was added. Coverage metadata was rechecked after the implementation: Core/DT runtime media are intentionally excluded and were read directly; Hoomans changed worker metadata was read directly; all coverage signals remain best-effort and not completeness proofs.
+
+Native Project Zomboid rows remain explicitly UNTESTED and reserved for the user: single-player and multiplayer live authority, exact Build 42.20 helicopter/power/water/season bindings, real-world zombie pressure crossing, faction/death events in gameplay, Workshop packaging/publish, and native save/reload footprint. No Workshop content was published, republished, installed or launched.
