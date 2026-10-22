@@ -211,6 +211,11 @@ function PsychopatzConversationView:start()
 end
 
 function PsychopatzConversationView:isConversationInteractive()
+    local guard = self.spec and self.spec.choiceInteractionGuard
+    if type(guard) == "function" then
+        local ok, allowed = pcall(guard, self)
+        if not ok or allowed == false then return false end
+    end
     return self.animationInteractive == true
         and self.editMode ~= true
         and self.closing ~= true

@@ -20,6 +20,22 @@ local function traceEnabled()
         and DebugTrace.IsEnabled() == true
 end
 
+local function choiceDiagnostic(session, event, data)
+    if not traceEnabled() or not DebugTrace
+        or type(DebugTrace.Record) ~= "function"
+    then
+        return
+    end
+    data = type(data) == "table" and data or {}
+    data.conversationID = session and session.conversationID or nil
+    data.npcID = session and session.npcID or nil
+    DebugTrace.Record({
+        source = "PsychopatzCore",
+        event = event,
+        data = data,
+    })
+end
+
 local function now()
     return getTimeInMillis and getTimeInMillis()
         or getTimestampMs and getTimestampMs()
@@ -234,6 +250,41 @@ function Session:queueMessage(speaker, payload, metadata)
     end
 end
 
+function Session:setPresentedChoices(choices, metadata)
+    if not self.view or not self.view.choicesPart
+        or type(self.view.choicesPart.setChoices) ~= "function"
+    then
+        return false, "choices_surface_unavailable"
+    end
+    choices = type(choices) == "table" and choices or {}
+    metadata = type(metadata) == "table" and metadata or {}
+    self.choicePresentationState = {
+        source = metadata.source or "session",
+        revision = metadata.revision,
+        authoredCount = tonumber(metadata.authoredCount),
+        presentedCount = #choices,
+        busy = self.busy == true,
+        pending = self.pendingChoices ~= nil,
+        presentationError = metadata.presentationError,
+    }
+    self.view.choicesPart:setChoices(choices)
+    choiceDiagnostic(self, "conversation.choices_presented", {
+        source = self.choicePresentationState.source,
+        revision = self.choicePresentationState.revision,
+        authoredCount = self.choicePresentationState.authoredCount,
+        presentedCount = self.choicePresentationState.presentedCount,
+        busy = self.choicePresentationState.busy,
+        pending = self.choicePresentationState.pending,
+    })
+    return true
+end
+
+function Session:clearChoices(reason)
+    return self:setPresentedChoices({}, {
+        source = reason or "clear",
+    })
+end
+
 function Session:setChoices(choices)
     local output = {}
     local index
@@ -267,6 +318,7 @@ function Session:setChoices(choices)
             }
         end
     end
+    local authoredCount = #output
     -- A conversation definition may adapt the normalized authored choices to
     -- another typed, presentation-only choice source. Core remains the owner
     -- of the native choice part and session lifecycle; the callback is a
@@ -275,22 +327,36 @@ function Session:setChoices(choices)
     -- presenter result keeps the authored output intact.
     local presenter = self.view and self.view.spec
         and self.view.spec.choicePresentation or nil
+    local presentationError
+    local presentedByCallback = false
     if type(presenter) == "function" then
         local ok, presented = pcall(
             presenter, self.view, output, choices, self
         )
         if ok and type(presented) == "table" then
             output = presented
+            presentedByCallback = true
+        elseif not ok then
+            presentationError = tostring(presented)
+            choiceDiagnostic(self, "conversation.choice_presentation_error", {
+                authoredCount = #output,
+                error = presentationError,
+            })
         end
     end
-    self.view.choicesPart:setChoices(output)
+    return self:setPresentedChoices(output, {
+        source = presentationError and "authored_fallback"
+            or presentedByCallback and "choice_presentation" or "session",
+        authoredCount = authoredCount,
+        presentationError = presentationError,
+    })
 end
 
 function Session:enterNode(nodeID)
     local node = self:getNode(nodeID)
     self.currentNodeID = nodeID
     self.currentNode = node
-    self.view.choicesPart:setChoices({})
+    self:clearChoices("enter_node")
     if not node then
         self.view:close("missing_node:" .. tostring(nodeID))
         return
@@ -310,7 +376,7 @@ end
 
 function Session:selectChoice(choice)
     if self.busy or not choice or choice.enabled == false then return false end
-    self.view.choicesPart:setChoices({})
+    self:clearChoices("select_choice")
     if choice.log ~= false then
         self:append(
             "player",

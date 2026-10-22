@@ -95,7 +95,7 @@ end
 
 function PsychopatzConversationDebugOverlay:new(owner)
     local width = 690
-    local height = 282
+    local height = 340
     local viewWidth = owner and number(owner.width, 1280) or 1280
     local viewHeight = owner and number(owner.height, 720) or 720
     local x = math.max(8, math.floor((viewWidth - width) / 2))
@@ -126,6 +126,10 @@ function PsychopatzConversationDebugOverlay:buildLines()
     local spec = owner.spec or {}
     local animator = owner.animator or {}
     local lifecycle = owner.lifecycleState
+    local session = owner.session
+    local choiceState = session and session.choicePresentationState or nil
+    local semantic = owner.semanticSuggestions
+    local nativeChoices = owner.choicesPart and owner.choicesPart.choices or {}
     local lines = {
         "CONVERSATION DEBUG  [runtime component audit]",
         string.format(
@@ -151,6 +155,22 @@ function PsychopatzConversationDebugOverlay:buildLines()
             owner:isConversationInteractive() and "Y" or "N",
             tostring(animator.mode or "-"),
             tostring(spec.animateOpening)
+        ),
+        string.format(
+            "choices native=%d busy=%s pending=%s source=%s revision=%s",
+            #(nativeChoices or {}),
+            session and session.busy and "Y" or "N",
+            session and session.pendingChoices and "Y" or "N",
+            tostring(choiceState and choiceState.source or "-"),
+            tostring(choiceState and choiceState.revision or "-")
+        ),
+        string.format(
+            "semantic projection=%s groups=%d current=%s rows=%s",
+            semantic and "Y" or "N",
+            semantic and #(semantic.groups or {}) or 0,
+            tostring(semantic and semantic.currentGroupID or "-"),
+            tostring(owner.semanticSuggestionRows
+                and #owner.semanticSuggestionRows or "-")
         ),
         string.format(
             "lifecycleState=%s token=%s",

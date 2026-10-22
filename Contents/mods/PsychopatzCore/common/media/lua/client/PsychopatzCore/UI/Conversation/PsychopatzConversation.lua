@@ -75,6 +75,11 @@ function Conversation.CreateHeadless(spec)
         self.choices = choices or {}
     end
     function host:isConversationInteractive()
+        local guard = self.spec and self.spec.choiceInteractionGuard
+        if type(guard) == "function" then
+            local ok, allowed = pcall(guard, self)
+            if not ok or allowed == false then return false end
+        end
         return self.closed ~= true
             and self.session ~= nil
             and self.session.busy ~= true
