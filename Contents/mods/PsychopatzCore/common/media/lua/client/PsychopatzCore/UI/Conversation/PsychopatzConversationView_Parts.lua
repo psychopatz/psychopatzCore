@@ -50,6 +50,13 @@ function Internal.buildParts(view)
             },
         }
     ))
+    -- Conversation definitions may opt out of the generic visual choice
+    -- surface while retaining choicesPart as the session compatibility
+    -- channel.  The choice renderer remains Core-owned; the definition owns
+    -- the policy for choosing another presentation surface.
+    if view.choicesPart and spec.choicePartVisible == false then
+        view.choicesPart:setVisible(false)
+    end
 
     view.extensionParts = {}
     for _, definition in ipairs(spec.extensionParts or {}) do
