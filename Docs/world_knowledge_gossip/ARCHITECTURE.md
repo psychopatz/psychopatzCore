@@ -124,3 +124,19 @@ Every rendered gossip statement must be explainable:
 fact ID/type -> authoritative producer -> subject/cause/location -> how actor learned it -> confidence/source -> why candidate ranked -> localization/realization selected.
 
 If diagnostics cannot answer "why does this actor know this?", acceptance fails.
+
+## W0 authority matrix
+
+| Domain | Current owner/source | Reusable boundary | W0 result |
+|---|---|---|---|
+| Zombie population/pressure | Hoomans `PNC_WorldCensus` → `PNC_SpatialIndex` → `PNC_Perception_Frame`; follower/combat caches and `PNC_SocialEventHooks.ObserveZombieHorde` | Hoomans emits normalized pressure/episode facts; Core stores typed facts and references | Established; no second enumeration |
+| User-visible density/debug | Hoomans `PNC_NameplateRenderer_DebugText` and combat tactical snapshot (`horde=visible/total`, `VIEW zombies=visible/nearby`) | Diagnostic-only source; not a new producer | Established; Director “Resolved density” is unrelated |
+| NPC death/cause | Hoomans `PNC_Health.ApplyDamage`/`Kill`, zombie wound damage events, corpse-awareness attribution | Hoomans publishes only when cause/actor is authoritative; Core does not infer | Zombie/player/NPC damage kinds exist; infection attribution remains limited; unknown is required |
+| Faction incidents/status | Hoomans `FactionIncidentService.AddIncident`, `FactionService_Lifecycle`, `FactionService_TreatyCommands` | Hoomans policy adapter | Established for member/death, severe attack/rescue, destruction, war/peace/truce/alliance |
+| Helicopter | PZ `IsoWorld.helicopter`/`Helicopter.isActive` candidate from local 42.21 Java baseline | Hoomans PZ adapter | No current 42.20-validated adapter; W3 only |
+| Electricity/water | PZ `IsoWorld.isHydroPowerOn`; `IsoGridSquare.haveElectricity` is local square state; water shutoff API not found | Hoomans PZ adapter | Global power candidate only; water and exact Lua binding unknown |
+| Season | Hoomans client environment reads `ClimateManager.getSeasonName`; PZ ClimateManager also has season ID | Hoomans authoritative/current-state adapter | Existing read is client context, not a historical fact producer |
+| Conversation | Hoomans `CognitionService` → `GOSSIP_RECEIVED` → bounded `npcGossip.statements`; optional PBrainZ `DialogueFacts` | Core WKG context provider feeds this path | Preserve path; no second dialogue engine |
+| Actor/provider | Core `Actors`, provider lease, persistence, personal `ActorKnowledge`, `Conversation.ActorService` | Separate world-fact references keyed by Core actorID | Established |
+| Commerce/provider | DTCommon `CoreActorPolicy`, `TalkService`, trader registry/service; DTAbstract/DTHoomans provider adapters | Shared actorID; DT traderID remains distinct | Established; no duplicate trader gossip store |
+| Persistence | Hoomans NPC/faction/community ModData and Core actor registry; current Census/perception/hazard state is runtime | Historical fact ledger + bounded actor references only | Save footprint must be measured in W9; no localized prose/transcripts |
