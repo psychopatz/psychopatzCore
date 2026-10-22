@@ -255,6 +255,70 @@ assertEqual(mappedChoices[1].text.args[1], "Alex", "choice text argument mapping
 assertEqual(mappedChoices[1].onHighlightChanged, mappedHighlightCallback,
     "choice highlight callback survives session mapping")
 
+local presentedChoices
+local presenterCalls = 0
+local presentedSession = Session.New({
+    choicesPart = {
+        setChoices = function(_, choices) presentedChoices = choices end,
+    },
+    historyPart = {
+        setTyping = function() end,
+    },
+    spec = {
+        choicePresentation = function(view, authoredChoices, originalChoices,
+            session)
+            presenterCalls = presenterCalls + 1
+            assertEqual(view.spec.choicePresentation ~= nil, true,
+                "choice presenter receives its Core view")
+            assertEqual(#authoredChoices, 1,
+                "choice presenter receives normalized authored choices")
+            assertEqual(#originalChoices, 1,
+                "choice presenter receives original choices")
+            assertEqual(session.view, view,
+                "choice presenter receives its Core session")
+            return {
+                {
+                    id = "semantic:hello",
+                    text = { text = "Semantic hello" },
+                    enabled = true,
+                },
+            }
+        end,
+    },
+}, { context = {} })
+presentedSession:setChoices({
+    { id = "authored", text = { text = "Authored hello" } },
+})
+assertEqual(presenterCalls, 1,
+    "choice presenter runs after Core choice normalization")
+assertEqual(presentedChoices[1].id, "semantic:hello",
+    "choice presenter replaces the native choice payload")
+presentedSession.pendingChoices = {
+    { id = "authored-after-reply", text = { text = "Authored after reply" } },
+}
+presentedSession:finishPending()
+assertEqual(presenterCalls, 2,
+    "pending response completion uses the choice presenter")
+assertEqual(presentedChoices[1].id, "semantic:hello",
+    "pending response completion does not restore authored choices")
+
+local fallbackChoices
+local fallbackSession = Session.New({
+    choicesPart = {
+        setChoices = function(_, choices) fallbackChoices = choices end,
+    },
+    spec = {
+        choicePresentation = function()
+            error("presenter failure should be contained")
+        end,
+    },
+}, { context = {} })
+fallbackSession:setChoices({
+    { id = "authored-fallback", text = { text = "Authored fallback" } },
+})
+assertEqual(fallbackChoices[1].id, "authored-fallback",
+    "presenter failure preserves authored choices")
+
 local selectedActions = 0
 local sessionMessages = {}
 local navigationChoices

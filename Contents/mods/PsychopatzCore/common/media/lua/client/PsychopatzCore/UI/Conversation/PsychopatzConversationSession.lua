@@ -267,6 +267,22 @@ function Session:setChoices(choices)
             }
         end
     end
+    -- A conversation definition may adapt the normalized authored choices to
+    -- another typed, presentation-only choice source. Core remains the owner
+    -- of the native choice part and session lifecycle; the callback is a
+    -- generic seam for integrations whose contextual choices must survive
+    -- pending-message completion and spec refreshes. A failing or non-table
+    -- presenter result keeps the authored output intact.
+    local presenter = self.view and self.view.spec
+        and self.view.spec.choicePresentation or nil
+    if type(presenter) == "function" then
+        local ok, presented = pcall(
+            presenter, self.view, output, choices, self
+        )
+        if ok and type(presented) == "table" then
+            output = presented
+        end
+    end
     self.view.choicesPart:setChoices(output)
 end
 
