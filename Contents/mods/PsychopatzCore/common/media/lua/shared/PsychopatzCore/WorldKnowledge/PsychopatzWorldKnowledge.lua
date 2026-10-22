@@ -72,7 +72,9 @@ function WKG.ToPayload(options)
         schema = "PsychopatzCore.WorldKnowledge",
         schemaVersion = WKG.VERSION,
         ledger = Ledger.ToPayload(WKG.LedgerState, options),
-        actors = ActorKnowledge.ToPayload(WKG.KnowledgeState, options),
+        actors = ActorKnowledge.ToPayload(
+            WKG.KnowledgeState, options, WKG.LedgerState
+        ),
     }
 end
 

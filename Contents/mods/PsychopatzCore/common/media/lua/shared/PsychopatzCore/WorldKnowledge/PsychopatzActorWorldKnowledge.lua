@@ -278,7 +278,7 @@ function Knowledge.Explain(state, ledger, id, factID, now)
     }
 end
 
-function Knowledge.ToPayload(state, options)
+function Knowledge.ToPayload(state, options, ledger)
     local output = {
         schema = Knowledge.SCHEMA,
         schemaVersion = Knowledge.SCHEMA_VERSION,
@@ -288,7 +288,10 @@ function Knowledge.ToPayload(state, options)
         output.byActor[id] = { refs = {} }
         for index = 1, #entry.order do
             local ref = entry.refs[entry.order[index]]
-            if ref then output.byActor[id].refs[#output.byActor[id].refs + 1] = copy(ref) end
+            local fact = ledger and Ledger.Get(ledger, ref and ref.factID)
+            if ref and (not ledger or Fact.ShouldPersist(fact, options)) then
+                output.byActor[id].refs[#output.byActor[id].refs + 1] = copy(ref)
+            end
         end
     end
     return output

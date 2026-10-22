@@ -86,14 +86,42 @@ local ephemeral = Ledger.Add(ledger, {
     occurredAt = 30, observedAt = 30, expiresAt = 31,
 })
 truthy(ephemeral, "ephemeral fact")
+truthy(WKG.Acquire("actor:alice", ephemeral.factID, {
+    authorized = true, provenance = "environmental", confidence = 0.4,
+    source = "runtime_probe", acquisitionPath = "runtime_probe",
+    learnedAt = 30,
+}), "ephemeral actor reference")
+local derived = Ledger.Add(ledger, {
+    producer = "hoomans:world", kind = "power.state",
+    subject = "world:power", eventID = "derived-current", retention = "derived_current",
+    occurredAt = 30, observedAt = 30,
+})
+truthy(derived, "derived current fact")
+truthy(WKG.Acquire("actor:alice", derived.factID, {
+    authorized = true, provenance = "public", confidence = 0.8,
+    source = "public_state", acquisitionPath = "public_state",
+    learnedAt = 30,
+}), "derived actor reference")
 payload = WKG.ToPayload()
 truthy(#payload.ledger.facts == 1, "ephemeral observation excluded from save")
 truthy(Fact.ShouldPersist(ephemeral) == false, "ephemeral persistence policy")
+for _, row in pairs(payload.actors.byActor or {}) do
+    for _, ref in ipairs(row.refs or {}) do
+        truthy(ref.factID ~= ephemeral.factID, "ephemeral actor ref excluded")
+        truthy(ref.factID ~= derived.factID, "derived actor ref excluded")
+    end
+end
 
 local restored, restoredReason = WKG.FromPayload(payload, { maxFacts = 3 })
 truthy(restored, restoredReason)
 truthy(WKG.Ledger.Get(WKG.LedgerState, first.factID), "fact reload")
 truthy(WKG.ActorKnowledge.Get(WKG.KnowledgeState, "actor:bob", first.factID),
     "actor reference reload")
+truthy(not WKG.ActorKnowledge.Get(
+    WKG.KnowledgeState, "actor:alice", ephemeral.factID
+), "ephemeral actor reference does not reload")
+truthy(not WKG.ActorKnowledge.Get(
+    WKG.KnowledgeState, "actor:alice", derived.factID
+), "derived actor reference does not reload")
 
 print("psychopatz_world_knowledge_smoke: PASS")
