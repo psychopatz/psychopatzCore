@@ -1,7 +1,7 @@
 # Progress — Grounded World Knowledge & Gossip
 
 Updated: 2026-10-22
-Status: IN PROGRESS / PLANNED; no implementation from this documentation commit.
+Status: IN PROGRESS; W0 and W1 are complete, W2 is in adopter validation.
 
 ## Verified planning baseline
 
@@ -58,3 +58,24 @@ Core seams are the existing `PsychopatzCore.Actors` identity/provider/persistenc
 DT authority is frozen at `DTCommon`: `traderID`/stock/budget/quotes/sessions/transactions remain commerce-owned; `DTCommon.CoreActorPolicy` resolves the shared Core `actorID`; `DTCommon.TalkService` owns bounded talk sessions and provider-revision checks; DTAbstract and DTHoomans only switch/project the same Core actor. Talk facts must never authorize trade or inventory mutation. DT has no WKG adoption/progress docs at this baseline; the missing adopter contract is a W0 documentation gap.
 
 Coverage evidence: codebase-memory generation `2026-10-07T23:10:40Z` reported no recorded issue for the indexed Hoomans authority paths, but marked the changed/missing semantic paths for direct-source fallback; Core and DT runtime media are deliberately excluded and were read directly. Java coverage generation `2026-10-05T23:31:01Z` reported no recorded issue for the candidate API classes. These are best-effort coverage signals, not completeness proofs.
+
+## W1 Core mechanism (2026-10-22)
+
+Core now owns the reusable, policy-free World Knowledge mechanism under `PsychopatzCore.WorldKnowledge`:
+
+- `PsychopatzWorldFact` provides versioned typed facts, stable IDs, primitive-only payloads, provenance vocabulary, confidence, producer/source fields, retention classes, expiry, and persistence filtering.
+- `PsychopatzWorldFactLedger` provides bounded dedupe, expiry, eviction, query and persistence metrics. Ephemeral facts and derived-current state are excluded from the default persisted payload.
+- `PsychopatzActorWorldKnowledge` stores bounded per-actor fact references, authorized acquisition metadata, relevance ranking, bounded event-driven sharing, explainability, and compact save/load payloads. It stores references, not localized prose or transcripts.
+- `PsychopatzWorldKnowledge` exposes the singleton ledger/actor/reference/provider seam and a portable conversation context with bounded `npcGossip.statements` only when an adopter supplies a renderer.
+
+Focused evidence:
+
+```text
+lua tests/psychopatz_world_knowledge_smoke.lua                         PASS
+lua tests/psychopatz_core_composition_smoke.lua                         PASS
+lua tests/psychopatz_npc_actor_smoke.lua                                PASS
+lua tests/psychopatz_actor_conversation_service_smoke.lua               PASS
+lua tests/psychopatz_npc_provider_lease_smoke.lua                       PASS
+```
+
+`tests/psychopatz_world_knowledge_smoke.lua` covers typed faction death, stable dedupe, Alice-known/Bob-unknown selection, grounded rendering, Alice-to-Bob told provenance, explainability, ephemeral save exclusion, and reload. `pz_verify.py` reports zero Kahlua errors for all four new Core WKG modules. The implementation is intentionally not a Hoomans faction/zombie policy and does not enumerate zombies.
