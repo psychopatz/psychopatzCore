@@ -5,5 +5,6 @@ PsychopatzCore = PsychopatzCore or {}
 require "PsychopatzCore/Composition/PC_SharedFoundation_Language"
 require "PsychopatzCore/Composition/PC_SharedFoundation_Conversation"
 require "PsychopatzCore/Composition/PC_SharedFoundation_World"
+require "PsychopatzCore/Content/PsychopatzDeterministicContent"
 
 return PsychopatzCore
