@@ -35,6 +35,33 @@ equal(first, Content.GenerateName({
 truthy(first == "Ada North" or first == "Bea North"
     or first == "Ada South" or first == "Bea South",
     "generated name uses the supplied catalog")
+local firstPart = string.match(first, "^(%S+)")
+local surnamePart = string.match(first, "%s+(%S+)%s*$")
+equal(Content.GenerateName({
+    saveSeed = "save-a",
+    identitySeed = "npc-a",
+    gender = "female",
+    namespace = "test.names",
+    surname = "Shared",
+}, catalog), firstPart .. " Shared",
+    "surname override keeps deterministic first name")
+equal(Content.GenerateName({
+    saveSeed = "save-a",
+    identitySeed = "npc-a",
+    gender = "female",
+    namespace = "test.names",
+    firstName = "Relative",
+}, catalog), "Relative " .. surnamePart,
+    "first-name override keeps deterministic surname")
+equal(Content.GenerateName({
+    saveSeed = "save-a",
+    identitySeed = "npc-a",
+    gender = "female",
+    namespace = "test.names",
+    forename = "Relative",
+    lastName = "Shared",
+}, catalog), "Relative Shared",
+    "SurvivorDesc override aliases are supported")
 local changedSave = Content.GenerateName({
     saveSeed = "save-b",
     identitySeed = "npc-a",

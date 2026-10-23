@@ -185,7 +185,19 @@ function Content.GenerateName(options, catalog)
         surnamePool = DEFAULT_SURNAMES
     end
     local namespace = tostring(options.namespace or "name")
-    local first = Content.Choose(
+    -- A caller may pin either component while retaining deterministic
+    -- generation for the other one.  `firstName`/`surname` are the canonical
+    -- names; `forename`/`lastName` are accepted aliases for mod integrations
+    -- that use SurvivorDesc terminology.
+    local firstOverride = text(
+        options.firstName or options.forename,
+        nil
+    )
+    local surnameOverride = text(
+        options.surname or options.lastName,
+        nil
+    )
+    local first = firstOverride or Content.Choose(
         firstPool,
         options.saveSeed,
         options.identitySeed,
@@ -193,7 +205,7 @@ function Content.GenerateName(options, catalog)
         "first:" .. tostring(options.archetypeID or "General"),
         options.version
     )
-    local surname = Content.Choose(
+    local surname = surnameOverride or Content.Choose(
         surnamePool,
         options.saveSeed,
         options.identitySeed,
