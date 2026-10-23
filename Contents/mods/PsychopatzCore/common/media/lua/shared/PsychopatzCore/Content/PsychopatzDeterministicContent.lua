@@ -9,11 +9,17 @@ local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Content = {}
 
 Content.VERSION = 1
+Content.PROJECTION_VERSION = 1
 Content.DEFAULT_SAVE_SEED = "PNC_DEFAULT_SAVE_SEED"
 Content.DEFAULT_NAMESPACE = "psychopatz.content"
 
 local function text(value, fallback)
     return Util.text(value, fallback)
+end
+
+local function scalarText(value, fallback)
+    if type(value) == "number" then return tostring(value) end
+    return text(value, fallback)
 end
 
 local function nativeSaveSeed()
@@ -44,6 +50,45 @@ function Content.ResolveSaveSeed(source)
         end
     end
     return nativeSaveSeed() or Content.DEFAULT_SAVE_SEED
+end
+
+function Content.ResolveIdentitySeed(source, fallback)
+    if type(source) == "table" then
+        local identity = type(source.identity) == "table"
+            and source.identity or {}
+        local value = scalarText(source.identitySeed, nil)
+            or scalarText(source.actorSeed, nil)
+            or scalarText(source.npcIdentitySeed, nil)
+            or scalarText(identity.seed, nil)
+            or scalarText(source.id, nil)
+        if value then return value end
+    elseif source ~= nil then
+        local value = scalarText(source, nil)
+        if value then return value end
+    end
+    return text(fallback, "content")
+end
+
+-- Resolve the complete deterministic projection boundary once.  Content
+-- providers pass this small value object to the weighted/index helpers so
+-- every projection uses the same save + actor identity inputs.
+function Content.ResolveProjection(source, namespace, salt, version)
+    local options = type(source) == "table" and source or {}
+    local actor = options.source or options.actor or options
+    return {
+        saveSeed = Content.ResolveSaveSeed(
+            options.saveSeed ~= nil and options.saveSeed or actor
+        ),
+        identitySeed = Content.ResolveIdentitySeed(
+            options.identitySeed ~= nil and options.identitySeed or actor,
+            options.fallbackIdentitySeed
+        ),
+        namespace = tostring(
+            namespace or options.namespace or Content.DEFAULT_NAMESPACE
+        ),
+        salt = tostring(salt or options.salt or "pick"),
+        version = version or options.version or Content.PROJECTION_VERSION,
+    }
 end
 
 local function canonicalPart(value)
@@ -97,6 +142,49 @@ function Content.Choose(values, saveSeed, identitySeed, namespace, salt, version
         saveSeed, identitySeed, namespace, #values, salt, version
     )
     return values[index or 1], index
+end
+
+function Content.WeightedIndex(values, source, namespace, salt, version)
+    if type(values) ~= "table" or #values == 0 then return nil end
+    local projection = Content.ResolveProjection(
+        source, namespace, salt, version
+    )
+    local totalWeight = 0
+    local weights = {}
+    local index
+    local entry
+    local weight
+    for index = 1, #values do
+        entry = values[index]
+        weight = type(entry) == "table" and entry.weight or nil
+        weight = math.max(1, math.floor(tonumber(weight) or 1))
+        weights[index] = weight
+        totalWeight = totalWeight + weight
+    end
+    local roll = Content.Range(
+        projection.saveSeed,
+        projection.identitySeed,
+        projection.namespace,
+        1,
+        totalWeight,
+        projection.salt,
+        projection.version
+    )
+    local cumulative = 0
+    for index = 1, #weights do
+        cumulative = cumulative + weights[index]
+        if roll <= cumulative then
+            return index, roll, totalWeight
+        end
+    end
+    return #values, roll, totalWeight
+end
+
+function Content.ChooseWeighted(values, source, namespace, salt, version)
+    local index, roll, totalWeight = Content.WeightedIndex(
+        values, source, namespace, salt, version
+    )
+    return index and values[index] or nil, index, roll, totalWeight
 end
 
 local DEFAULT_FEMALE = {

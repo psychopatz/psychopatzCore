@@ -4,6 +4,9 @@
 -- line is allowed to be presented; this module only selects an appropriate
 -- localized/fallback variant for a bounded context.
 
+local DeterministicContent = require
+    "PsychopatzCore/Content/PsychopatzDeterministicContent"
+
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.Conversation = PsychopatzCore.Conversation or {}
 PsychopatzCore.SocialFlavor = PsychopatzCore.SocialFlavor or {}
@@ -54,6 +57,30 @@ local function stableHash(value)
         hash = (hash * 33 + string.byte(value, index)) % 2147483647
     end
     return hash
+end
+
+local function contentIndex(flavorID, seed, context, count)
+    context = type(context) == "table" and context or {}
+    local identitySeed = context.identitySeed
+        or context.npcIdentitySeed
+        or context.speakerIdentitySeed
+        or context.speakerID
+        or context.npcID
+    local saveSeed = context.saveSeed
+        or context.worldSeedString
+        or context.worldSeed
+    if identitySeed == nil and saveSeed == nil then
+        return (stableHash(flavorID .. ":" .. tostring(seed or ""))
+            % count) + 1
+    end
+    return DeterministicContent.Index(
+        saveSeed,
+        identitySeed or seed,
+        context.contentNamespace or "psychopatz.social_flavor",
+        count,
+        flavorID .. ":" .. tostring(seed or ""),
+        context.contentVersion
+    )
 end
 
 local function lineValue(line)
@@ -135,8 +162,7 @@ function Flavor.ResolveDetailed(flavorID, speaker, seed, context)
         lines = speakerLines(definition, speaker)
     end
     if #lines == 0 then return nil end
-    local index = (stableHash(flavorID .. ":" .. tostring(seed or ""))
-        % #lines) + 1
+    local index = contentIndex(flavorID, seed, context, #lines)
     local line = lineValue(lines[index])
     local resolved = format(translate(line), context)
     if resolved == "" then return nil end

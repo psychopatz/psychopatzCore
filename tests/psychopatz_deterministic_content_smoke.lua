@@ -73,6 +73,43 @@ equal(Content.ResolveSaveSeed({ world = { seedString = "world-a" } }),
     "world-a", "scenario world seed is accepted")
 equal(Content.ResolveSaveSeed({ saveSeed = "explicit-a" }),
     "explicit-a", "explicit save seed takes precedence")
+equal(Content.ResolveIdentitySeed({ identity = { seed = 42 } }),
+    "42", "numeric actor identity seeds remain usable")
+
+local weightedValues = {
+    { id = "light", weight = 1 },
+    { id = "heavy", weight = 4 },
+}
+local weighted = Content.ChooseWeighted(
+    weightedValues,
+    { saveSeed = "save-a", identitySeed = "npc-a" },
+    "test.weighted",
+    "backstory"
+)
+equal(weighted.id, Content.ChooseWeighted(
+    weightedValues,
+    { saveSeed = "save-a", identitySeed = "npc-a" },
+    "test.weighted",
+    "backstory"
+).id, "weighted projections remain stable")
+local changedProjection = false
+for index = 1, 32 do
+    local value = Content.ChooseWeighted(
+        weightedValues,
+        {
+            saveSeed = "save-projection-" .. tostring(index),
+            identitySeed = "npc-a",
+        },
+        "test.weighted",
+        "backstory"
+    )
+    if value.id ~= weighted.id then
+        changedProjection = true
+        break
+    end
+end
+truthy(changedProjection,
+    "save seed participates in weighted content projections")
 
 local factoryCalls = 0
 SurvivorFactory = {
