@@ -76,6 +76,18 @@ equal(Content.ResolveSaveSeed({ saveSeed = "explicit-a" }),
 equal(Content.ResolveIdentitySeed({ identity = { seed = 42 } }),
     "42", "numeric actor identity seeds remain usable")
 
+local previousWorldGenParams = rawget(_G, "WorldGenParams")
+WorldGenParams = {
+    INSTANCE = {
+        getSeedString = function()
+            return "native-save-seed"
+        end,
+    },
+}
+equal(Content.ResolveSaveSeed({}), "native-save-seed",
+    "native WorldGenParams seed is used when no scenario seed is supplied")
+WorldGenParams = previousWorldGenParams
+
 local weightedValues = {
     { id = "light", weight = 1 },
     { id = "heavy", weight = 4 },
