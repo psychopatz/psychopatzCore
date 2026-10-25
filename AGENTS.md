@@ -1,13 +1,30 @@
-> **ACTIVE NEW CROSS-MOD GOAL — 2026-10-21:** `Docs/portable_npc_conversation/` is authoritative for full C1–C6 Core-owned portable persona, player Knowledge, shared contextual offline conversation and DTAbstract↔DTHoomans adapter portability. Read `PROGRESS.md` LAST. Core Foundation P1–P9 and Hoomans V1–V5 are existing developer-accepted foundations, NOT completion of new C1–C6. NO NEW BRANCHES, EXISTING MAIN ONLY, chat-only /goal prompt, no native PZ or Workshop action. Older historical "Hoomans PR #4 open" references are OBSOLETE and must not trigger a new integration.
-
 # PsychopatzCore — Agent Repository Instructions
 
-## Permanent Git policy (2026-10-20)
+## Durable-policy rule
 
-**DO NOT CREATE ANY NEW GIT BRANCHES** for audits, implementations, testing, documentation, integrations or Codex work. User explicitly requests no further branches in ProjectHoomans, PsychopatzCore or DynamicTrading. This prohibits `git checkout -b`, `git switch -c`, `git branch <new>`, scratch/worktree branches and automatic PR branches. Use existing `main` for authorized new changes after verifying local/remote HEAD, upstream, worktree and concurrent file ownership. Fast-forward-safe commits/pushes only; never blind `git pull`, force-push, discard, reset or rebase uncertain changes.
+Keep this file limited to repository-wide rules that remain useful across unrelated goals.
 
-ProjectHoomans PR #4 was already merged; do not rerun historical branch integration. The native Project Zomboid SP/MP testing and Workshop publication remain user-owned.
+- Do not place active goals, phases, Next Chunks, progress, completed-phase history, migration status, or superseded instructions in `AGENTS.md`.
+- Put goal-specific state in the appropriate `Docs/` roadmap, progress, runbook, and architecture documents.
+- Delete obsolete instructions instead of keeping historical goal text in this always-loaded file. Git history is the archive.
+- Keep executable `/goal` prompts in ChatGPT unless the user explicitly asks for a checked-in prompt.
 
-## Scope and acceptance
+## Git safety
 
-Core NPC Foundation P0–P9 developer scope is recorded accepted via Core source/headless tests. This does not certify native live gameplay, and it does **not** close the separate ProjectHoomans grounded personal dialogue B0–B6 goal. Source-backed regressions must be fixed where proved, without reopening every accepted phase or claiming unrelated old suite failures are verified harmless.
+- Do not create new Git branches for PsychopatzCore work. The same standing rule applies when coordinating ProjectHoomans and DynamicTrading.
+- Use existing `main` only after checking local and remote state, dirty work, worktrees, and concurrent edits.
+- Preserve unrelated work. Do not blind-pull, force-push, destructively reset/rebase, auto-stash/discard, or overwrite uncertain changes.
+- Remote GitHub state does not prove a local worktree is clean.
+- If integration safety is unclear, report the concrete conflict instead of creating another branch or discarding work.
+
+## Ownership boundary
+
+- PsychopatzCore owns reusable mechanisms and portable contracts.
+- Product-specific gameplay rules remain with the adopting repository unless an explicit shared contract moves that responsibility.
+- Reuse established public seams rather than duplicating adopter-owned state in Core.
+
+## Runtime and publication
+
+- A Git commit or push is not Steam Workshop publication.
+- Do not publish Workshop content or drive native Project Zomboid unless the user explicitly authorizes it.
+- When live SP/MP testing belongs to the user, finish all developer-side implementation and validation before handoff.
