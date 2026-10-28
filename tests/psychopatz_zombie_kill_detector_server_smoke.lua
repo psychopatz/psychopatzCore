@@ -73,6 +73,8 @@ local Detector = dofile(
     ROOT .. "PsychopatzCore/ZombieKillDetector/"
         .. "PsychopatzZombieKillDetector.lua"
 )
+assert(Detector.IsAuditEnabled() == false,
+    "kill detector hot-path audit is disabled by default")
 Detector.RegisterConsumer("CoreServerSmoke", {
     onServerHit = function() serverHits = serverHits + 1 end,
     onServerKill = function(_, _, context)

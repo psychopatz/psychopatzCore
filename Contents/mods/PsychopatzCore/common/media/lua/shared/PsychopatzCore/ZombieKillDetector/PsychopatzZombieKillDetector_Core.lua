@@ -15,6 +15,9 @@ Detector.COMMAND_MODULE = Detector.COMMAND_MODULE
 Detector.Consumers = Detector.Consumers or {}
 Detector.ClientKillReports = Detector.ClientKillReports or {}
 Detector.ProcessedThreatDeaths = Detector.ProcessedThreatDeaths or {}
+-- Hot-path kill/hit tracing is diagnostic only. Keep it opt-in so a reusable
+-- detector does not print on every melee hit in normal gameplay.
+Detector.AuditEnabled = Detector.AuditEnabled == true
 
 local REPORT_TTL_MS = 15000
 local DEATH_DEDUPE_TTL_MS = 15000
@@ -218,7 +221,9 @@ local function characterFields(prefix, character)
 end
 
 local function audit(fields)
+    if Detector.AuditEnabled ~= true then return false end
     print("[PsychopatzCore][ZombieKillDetector] " .. table.concat(fields, " "))
+    return true
 end
 
 function Internal.Now()
@@ -282,7 +287,16 @@ function Internal.CharacterFields(prefix, character)
 end
 
 function Internal.Audit(fields)
-    audit(fields)
+    return audit(fields)
+end
+
+function Detector.SetAuditEnabled(enabled)
+    Detector.AuditEnabled = enabled == true
+    return Detector.AuditEnabled
+end
+
+function Detector.IsAuditEnabled()
+    return Detector.AuditEnabled == true
 end
 
 function Internal.BuildContext(killer, zombie, source)
