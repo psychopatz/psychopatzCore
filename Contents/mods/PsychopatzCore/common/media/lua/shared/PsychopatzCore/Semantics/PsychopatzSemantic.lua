@@ -12,6 +12,8 @@ Semantics.Normalizer = require
     "PsychopatzCore/Semantics/PsychopatzSemanticNormalizer"
 Semantics.Registry = require
     "PsychopatzCore/Semantics/PsychopatzSemanticRegistry"
+Semantics.SurfaceRecovery = require
+    "PsychopatzCore/Semantics/PsychopatzSemanticSurfaceRecovery"
 Semantics.Confidence = require
     "PsychopatzCore/Semantics/PsychopatzSemanticConfidence"
 Semantics.Context = require
