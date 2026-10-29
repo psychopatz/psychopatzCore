@@ -50,6 +50,58 @@ Relation.DirectionLabelKeys = Relation.DirectionLabelKeys or {
     NORTHWEST = "UI_PsychopatzCore_Spatial_Direction_Northwest",
 }
 
+Relation.ClockLabelKeys = Relation.ClockLabelKeys or {
+    CLOCK_01 = "UI_PsychopatzCore_Spatial_Clock_01",
+    CLOCK_02 = "UI_PsychopatzCore_Spatial_Clock_02",
+    CLOCK_03 = "UI_PsychopatzCore_Spatial_Clock_03",
+    CLOCK_04 = "UI_PsychopatzCore_Spatial_Clock_04",
+    CLOCK_05 = "UI_PsychopatzCore_Spatial_Clock_05",
+    CLOCK_06 = "UI_PsychopatzCore_Spatial_Clock_06",
+    CLOCK_07 = "UI_PsychopatzCore_Spatial_Clock_07",
+    CLOCK_08 = "UI_PsychopatzCore_Spatial_Clock_08",
+    CLOCK_09 = "UI_PsychopatzCore_Spatial_Clock_09",
+    CLOCK_10 = "UI_PsychopatzCore_Spatial_Clock_10",
+    CLOCK_11 = "UI_PsychopatzCore_Spatial_Clock_11",
+    CLOCK_12 = "UI_PsychopatzCore_Spatial_Clock_12",
+}
+
+Relation.ClockFallbackLabels = Relation.ClockFallbackLabels or {
+    CLOCK_01 = "1 o'clock",
+    CLOCK_02 = "2 o'clock",
+    CLOCK_03 = "3 o'clock",
+    CLOCK_04 = "4 o'clock",
+    CLOCK_05 = "5 o'clock",
+    CLOCK_06 = "6 o'clock",
+    CLOCK_07 = "7 o'clock",
+    CLOCK_08 = "8 o'clock",
+    CLOCK_09 = "9 o'clock",
+    CLOCK_10 = "10 o'clock",
+    CLOCK_11 = "11 o'clock",
+    CLOCK_12 = "12 o'clock",
+}
+
+Relation.RelativeSectorLabelKeys = Relation.RelativeSectorLabelKeys or {
+    AHEAD = "UI_PsychopatzCore_Spatial_Relative_Ahead",
+    FRONT_RIGHT = "UI_PsychopatzCore_Spatial_Relative_FrontRight",
+    RIGHT = "UI_PsychopatzCore_Spatial_Relative_Right",
+    REAR_RIGHT = "UI_PsychopatzCore_Spatial_Relative_RearRight",
+    BEHIND = "UI_PsychopatzCore_Spatial_Relative_Behind",
+    REAR_LEFT = "UI_PsychopatzCore_Spatial_Relative_RearLeft",
+    LEFT = "UI_PsychopatzCore_Spatial_Relative_Left",
+    FRONT_LEFT = "UI_PsychopatzCore_Spatial_Relative_FrontLeft",
+}
+
+Relation.RelativeSectorFallbackLabels = Relation.RelativeSectorFallbackLabels or {
+    AHEAD = "ahead",
+    FRONT_RIGHT = "ahead, right side",
+    RIGHT = "to the right",
+    REAR_RIGHT = "behind us, right side",
+    BEHIND = "behind us",
+    REAR_LEFT = "behind us, left side",
+    LEFT = "to the left",
+    FRONT_LEFT = "ahead, left side",
+}
+
 local function finiteNumber(value)
     local number = tonumber(value)
     if not number or number ~= number
@@ -76,6 +128,29 @@ local function normalizePoint(point)
     return { x = x, y = y, z = z }
 end
 
+local function normalizeHeading(heading)
+    if type(heading) ~= "table" then
+        return nil, "HEADING_REQUIRED"
+    end
+
+    local x = finiteNumber(heading.x)
+    local y = finiteNumber(heading.y)
+    if x == nil or y == nil then
+        return nil, "HEADING_XY_REQUIRED"
+    end
+
+    local length = math.sqrt(x * x + y * y)
+    if length <= 0.000001 then
+        return nil, "HEADING_ZERO"
+    end
+
+    return {
+        x = x / length,
+        y = y / length,
+        sourceLength = length,
+    }
+end
+
 local function atan2(y, x)
     if math.atan2 then return math.atan2(y, x) end
     return math.atan(y, x)
@@ -99,6 +174,27 @@ local function directionForAngle(angleRadians)
         "SOUTH", "SOUTHWEST", "WEST", "NORTHWEST",
     }
     return directions[index + 1]
+end
+
+local function clockForRelativeDegrees(relativeDegrees)
+    local sector = math.floor((relativeDegrees + 15) / 30) % 12
+    local hour = sector == 0 and 12 or sector
+    return hour, string.format("CLOCK_%02d", hour)
+end
+
+local function relativeSectorForDegrees(relativeDegrees)
+    local index = math.floor((relativeDegrees + 22.5) / 45) % 8
+    local sectors = {
+        "AHEAD",
+        "FRONT_RIGHT",
+        "RIGHT",
+        "REAR_RIGHT",
+        "BEHIND",
+        "REAR_LEFT",
+        "LEFT",
+        "FRONT_LEFT",
+    }
+    return sectors[index + 1]
 end
 
 local function normalizeThreshold(value)
@@ -147,6 +243,42 @@ function Relation.GetDirectionLabel(direction, fallback)
     return fallback or string.lower(direction)
 end
 
+function Relation.GetClockLabelKey(clockToken)
+    return Relation.ClockLabelKeys[tostring(clockToken or "")]
+end
+
+function Relation.GetClockLabel(clockToken, fallback)
+    clockToken = tostring(clockToken or "")
+    local key = Relation.GetClockLabelKey(clockToken)
+    local default = fallback or Relation.ClockFallbackLabels[clockToken]
+        or string.lower(clockToken)
+    if not key then return default end
+
+    local translation = Core.Translation
+    if translation and type(translation.GetKey) == "function" then
+        return translation.GetKey(key, default)
+    end
+    return default
+end
+
+function Relation.GetRelativeSectorLabelKey(sector)
+    return Relation.RelativeSectorLabelKeys[tostring(sector or "")]
+end
+
+function Relation.GetRelativeSectorLabel(sector, fallback)
+    sector = tostring(sector or "")
+    local key = Relation.GetRelativeSectorLabelKey(sector)
+    local default = fallback or Relation.RelativeSectorFallbackLabels[sector]
+        or string.lower(sector)
+    if not key then return default end
+
+    local translation = Core.Translation
+    if translation and type(translation.GetKey) == "function" then
+        return translation.GetKey(key, default)
+    end
+    return default
+end
+
 function Relation.Opposite(direction)
     return Relation.Opposites[tostring(direction or "")]
 end
@@ -185,6 +317,40 @@ function Relation.Between(fromPoint, toPoint, options)
         sameAreaThreshold = threshold,
         distanceBand = distanceBand(distance, options.distanceBands),
     }
+end
+
+function Relation.RelativeToHeading(fromPoint, toPoint, heading, options)
+    local relation, relationError = Relation.Between(fromPoint, toPoint, options)
+    if not relation then return nil, relationError end
+
+    local normalizedHeading, headingError = normalizeHeading(heading)
+    if not normalizedHeading then return nil, headingError end
+
+    relation.headingX = normalizedHeading.x
+    relation.headingY = normalizedHeading.y
+    relation.headingSourceLength = normalizedHeading.sourceLength
+
+    if relation.sameArea then
+        return relation
+    end
+
+    -- PZ uses +Y south.  This determinant is positive when the target is
+    -- clockwise/right of the observer's heading in that coordinate system.
+    local cross = normalizedHeading.x * relation.dy
+        - normalizedHeading.y * relation.dx
+    local dot = normalizedHeading.x * relation.dx
+        + normalizedHeading.y * relation.dy
+    local signedRelativeRadians = atan2(cross, dot)
+    local relativeDegrees = normalizedDegrees(signedRelativeRadians)
+    local hour, clockToken = clockForRelativeDegrees(relativeDegrees)
+
+    relation.relativeAngleRadians = math.rad(relativeDegrees)
+    relation.relativeAngleDegrees = relativeDegrees
+    relation.clockHour = hour
+    relation.clockToken = clockToken
+    relation.relativeSector8 = relativeSectorForDegrees(relativeDegrees)
+
+    return relation
 end
 
 return Relation
