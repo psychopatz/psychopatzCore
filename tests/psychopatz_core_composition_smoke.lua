@@ -22,6 +22,7 @@ local foundation = {
     "PsychopatzCore/Voice/PsychopatzVoiceGateway",
     "PsychopatzCore/Journal/PC_JournalService",
     "PsychopatzCore/Radio/PC_RadioDeviceState",
+    "PsychopatzCore/Spatial/PsychopatzSpatialRelation",
     "PsychopatzCore/World/PC_GridRegion",
     "PsychopatzCore/World/PC_GridRegionEditor",
     "PsychopatzCore/World/PsychopatzSquareRules",
