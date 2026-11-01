@@ -2,61 +2,40 @@
 
 Snapshot: 2026-11-02  
 Parent status: **IN PROGRESS**  
-Current phase: **P1 — Minimal kernel** (P0 complete)  
-Verified Core revision: `c01daef545fe5a9d2742186eca2bc0aa911f99cc` on `main`, equal to `origin/main`.
+Current phase: **P2 — Composition inversion** (P0 and P1 complete)  
+Verified Core revision: `85fc009` on `main`, ahead of `origin/main` by 2 commits.
 
-## Accepted P0 Evidence (Baseline and Dependency Inventory)
+## Accepted P1 Evidence (Minimal Kernel)
 
-- **Dynamic Baseline Harness**: `tools/refactor_baseline/baseline_harness.lua` & `record_baseline.py` dynamically execute and instrument Core bootstraps without modifying production behavior.
-  - `shared`: 123 modules loaded, 243 require edges, 12 callbacks attributed.
-  - `client`: 153 modules loaded, 284 require edges, 16 callbacks attributed (including OnTick from Keybinds and RadioOS).
-  - `server`: 128 modules loaded, 254 require edges, 13 callbacks attributed.
-- **Require-Time Callback Attribution**: All 12 require-time callbacks on shared boot attributed to registering modules:
-  - `PsychopatzCustomTranslationManager` -> `OnGameBoot`
-  - `PsychopatzInventory` -> `OnInitGlobalModData`
-  - `PsychopatzMoneyWeight` -> `OnGameBoot`, `OnGameStart`
-  - `PsychopatzCurrencyCategory` -> `OnGameBoot`, `OnGameStart`, `OnCreatePlayer`
-  - `PsychopatzMoneyBundler` -> `OnGameBoot`, `OnGameStart`
-  - `PsychopatzTraitRegistry` -> `OnGameBoot`
-  - `PsychopatzTraitRecovery` -> `OnCreatePlayer`, `OnPlayerUpdate` (recurring player tick)
-- **Capability Contracts & Catalog**:
-  - `PsychopatzCore/Kernel/PC_CapabilityContract`: Validates capability descriptors (`id`, `domain`, `roles`, `depends`, `load`, `activate`, `deactivate`, `facade`) and capability packs.
-  - `PsychopatzCore/Kernel/PC_CapabilityCatalog`: 28 capability descriptors and 4 adopter packs (`pack.trading_common`, `pack.trading_abstract`, `pack.trading_hoomans`, `pack.core_legacy_full`).
-- **Dynamic Trading Source-Backed Capability Map**:
-  - `DTCommon`: Inventory, InventoryConstants, Currency (requires); Actors, DebugSettings, RadioDeviceState, RuntimeRole (globals).
-  - `DTAbstract`: RadioRuntimeManifest (requires); RadioDeviceState (globals).
-  - `DTHoomans`: DebugHubWindow (requires); Conversation, Debug, DebugHub, RuntimeRole, Teleport (globals).
-- **Test Suite Baseline**:
-  - 121 total tests, 114 passed, 7 pre-existing failures preserved, 0 regressions.
-  - `tests/psychopatz_baseline_smoke.lua` PASS.
-  - `tests/psychopatz_capability_contract_smoke.lua` PASS.
-- Machine-readable artifact `Docs/modular_capability_refactor/P0_BASELINE.json` and human-readable `Docs/modular_capability_refactor/P0_BASELINE.md` generated.
+- **Minimal Kernel Components Implemented**:
+  - `PsychopatzCore/Kernel/PC_CapabilityRegistry`: Registers capability descriptors without loading implementation modules; tracks state transitions (`REGISTERED`, `LOADED`, `ACTIVE`, `DORMANT`, `FAILED`); consumer reference counting.
+  - `PsychopatzCore/Kernel/PC_CapabilityResolver`: Resolves topological dependency closure; detects cycles with actionable error path; enforces role eligibility (client/server/shared).
+  - `PsychopatzCore/Kernel/PC_CapabilityLifecycle`: Manages lazy `load()` and `activate()`; prevents redundant loading; coordinates `deactivate()` upon final consumer release.
+  - `PsychopatzCore/Kernel/PC_Kernel`: Unified facade (`PsychopatzCore.Capabilities` and `Core.Kernel`) exposing `Require`, `RequirePack`, `Release`, `GetStatus`, `GetAllStatus`, `GetFacade`, `Register`, and `RegisterPack`.
+- **Harness & Contract Validation**:
+  - `tests/psychopatz_kernel_smoke.lua` PASS: Proves kernel boots with zero feature modules loaded and zero callbacks installed; validates topological load/activation ordering; multi-consumer refcounting (retaining ACTIVE until last consumer releases to DORMANT); cycle detection (rejecting A -> B -> C -> A); and role eligibility enforcement.
+  - `tests/refactor_binding_smoke.py` PASS: Zero private helper leaks.
+  - Regression test suite: 115 passed, 7 pre-existing failures preserved, 0 regressions.
 
-## Next Chunk — P1 Minimal Kernel
+## Next Chunk — P2 Composition Inversion
 
-Implement the minimal Core Kernel:
-1. `PC_CapabilityRegistry`:
-   - Registers capability descriptors without loading their implementation modules.
-   - Registers capability packs.
-   - Tracks lifecycle states (`REGISTERED`, `LOADED`, `ACTIVE`, `DORMANT`, `FAILED`).
-   - Consumer reference counting (`consumers[consumerId] = count`).
-2. `PC_CapabilityResolver`:
-   - Resolves transitive dependency closure for requested capabilities.
-   - Detects dependency cycles and reports actionable cycle paths.
-   - Enforces runtime-role eligibility (client vs server vs shared).
-3. `PC_CapabilityLifecycle`:
-   - Coordinates lazy loading (`load()`) and activation (`activate()`).
-   - Ensures implementation modules are required only once upon demand.
-   - Manages reference counts and deactivation (`deactivate()`) when all consumers release.
-4. `PC_Kernel`:
-   - Exposes clean public Core API: `Core.Capabilities.Require(capId, consumerId)`, `Core.Capabilities.RequirePack(packId, consumerId)`, `Core.Capabilities.GetStatus()`, `Core.Capabilities.Release(capId, consumerId)`.
-5. Harness verification:
-   - Smoke test proving kernel boots with zero feature modules loaded and zero callbacks installed.
-   - Smoke test verifying dependency closure, role filtering, and cycle detection.
+Invert Core's shared, client, and server root bootstraps so they initialize the minimal kernel rather than eagerly requiring broad feature groups.
+1. `PC_SharedComposition`:
+   - Initialize identity and kernel.
+   - Register capability descriptors/catalog.
+   - Do NOT eagerly require Actors, MoneyWeight, CurrencyCategory, Currency, MoneyBundler, Diagnostics, Radio, Traits, etc.
+   - Maintain backward compatibility: if `PsychopatzCore.RequireLegacySharedFull()` is called or if a legacy config requests it, activate `pack.core_legacy_full`.
+2. `00_PsychopatzCore_Client_Init` & `PC_ClientComposition`:
+   - Do not eagerly require Keybinds, RadioOS, AudioSettings, SocialFlavorClient, WalkieHotbarGuard, MoneyBundlerAction, MoneyBundlerUI.
+   - Register client capability descriptors.
+3. `00_PsychopatzCore_Server_Init` & `PC_ServerComposition`:
+   - Do not eagerly require CurrencyServer, MoneyBundlerServer.
+   - Register server capability descriptors.
+   - Preserve MapObjects sprite/chunk compatibility guards required by the engine at boot.
+4. Verify dynamic load reduction via `baseline_harness.lua` and update tests.
 
-### P1 Acceptance Criteria
-- Kernel boots independently with only RuntimeRole / registry / resolver / lifecycle / diagnostics.
-- Registered capabilities do NOT load feature implementation files until requested.
-- Dependency closure resolves dependencies in topological order.
-- Unknown dependency or cycle produces clear diagnostic error.
-- Role mismatch prevents activation with actionable reason.
+### P2 Acceptance Criteria
+- Shared root boot loads ONLY kernel + identity foundation, not broad feature capsules.
+- Dynamic modules loaded on bare Core boot drops drastically (target: < 25 modules vs 123 in P0).
+- Eager require-time callbacks on bare Core boot drops to 0 (except engine-required early hooks).
+- Any capability requested on-demand loads cleanly and provides its facade.
