@@ -117,4 +117,22 @@ function Resolver.ResolveClosure(registry, requestedIds, currentRoles)
     return ordered, nil
 end
 
+function Resolver.ResolvePackClosure(registry, packId, currentRoles)
+    currentRoles = currentRoles or getCurrentRoles()
+    local pack = registry.GetPack(packId)
+    if not pack then
+        return nil, "unknown capability pack: " .. tostring(packId)
+    end
+
+    local eligibleIds = {}
+    for _, capId in ipairs(pack.capabilities) do
+        local desc = registry.Get(capId)
+        if desc and Resolver.IsRoleEligible(desc, currentRoles) then
+            table.insert(eligibleIds, capId)
+        end
+    end
+
+    return Resolver.ResolveClosure(registry, eligibleIds, currentRoles)
+end
+
 return Resolver

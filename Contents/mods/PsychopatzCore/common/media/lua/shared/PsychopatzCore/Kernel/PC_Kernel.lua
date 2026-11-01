@@ -52,7 +52,7 @@ function Kernel.RequirePack(packId, consumerId, context)
     if not pack then
         return false, "unknown capability pack: " .. tostring(packId)
     end
-    return Lifecycle.Activate(Registry, Resolver, pack.capabilities, consumerId, context)
+    return Lifecycle.ActivatePack(Registry, Resolver, packId, consumerId, context)
 end
 
 function Kernel.Release(capId, consumerId, context)

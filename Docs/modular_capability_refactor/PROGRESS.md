@@ -2,34 +2,34 @@
 
 Snapshot: 2026-11-02  
 Parent status: **IN PROGRESS**  
-Current phase: **P7 — Runtime-role split** (P0 through P6 complete)  
-Verified Core revision: `1e9e273` on `main`, ahead of `origin/main` by 7 commits.
+Current phase: **P8 — Diagnostics and harness** (P0 through P7 complete)  
+Verified Core revision: `c4d3961` on `main`, ahead of `origin/main` by 8 commits.
 
-## Accepted P6 Evidence (Domain Capsule Refinement)
+## Accepted P7 Evidence (Runtime-Role Split)
 
-- **Unified Facade and Service Discovery**:
-  - Implemented `PsychopatzCore/Kernel/PC_Services`: Exposes `Core.Services.Get(serviceName, consumerId)` for on-demand activation and facade retrieval; `Core.Services.Has(serviceName)` for status query; `Core.Services.ListActive()` for active capability enumeration.
-  - Exposed `Core.Features = Core.Capabilities` as first-class alias.
-  - Attached `Inventory.Constants` directly onto `PsychopatzCore.Inventory` facade, eliminating the need for adopters to reach into private internal file paths.
+- **Role Eligibility Enforcement in Capability Graph**:
+  - `PC_CapabilityResolver.ResolveClosure`: Enforces declared `desc.roles` constraints against active runtime roles (`isClient`, `isServer`, singleplayer).
+  - Dedicated server rejects direct requests for client-only capabilities (`core.radio_os`, `core.preview`, `core.debug_hub`, `core.input_keybinds`, `core.audio_settings`) with actionable diagnostic error.
+  - Client context rejects direct requests for server-only capabilities (`core.currency_server`) with actionable diagnostic error.
+  - `PC_CapabilityResolver.ResolvePackClosure`: Filters capability packs by active runtime role, allowing multi-role packs (e.g. `pack.trading_abstract`) to activate safely on dedicated server without requiring client UI capsules.
 - **Automated Verification**:
-  - `tests/psychopatz_services_smoke.lua` PASS: Proves `Services.Has` reflects activation state; `Services.Get` retrieves `Inventory` and `Currency` facades; facade exposes `Constants` without private require; `Features.Require` works identically to `Capabilities.Require`.
+  - `tests/psychopatz_runtime_role_split_smoke.lua` PASS: Asserts server-only failure on client, client-only failure on server, and role-filtered pack activation on dedicated server.
 - **Zero Regressions**:
-  - `PsychopatzCore`: 119 passed, 6 pre-existing baseline failures preserved.
+  - `PsychopatzCore`: 120 passed, 6 pre-existing baseline failures preserved.
   - `DynamicTrading`: 41/41 passed.
   - `ProjectHoomans`: 982/982 passed.
-  - `tests/refactor_binding_smoke.py`: PASS with 0 leaks.
 
-## Next Chunk — P7 Runtime-Role Split
+## Next Chunk — P8 Diagnostics and Harness
 
-Enforce runtime-role eligibility in the capability graph:
-1. Validate capability activation under pure dedicated server role (`isServer=true, isClient=false`) and pure client role (`isClient=true, isServer=false`).
-2. Ensure client-only capsules (`core.radio_os`, `core.debug_hub`, `core.input_keybinds`, `core.audio_settings`, `core.preview`) never load or activate in dedicated server environments.
-3. Ensure server-only capsules (`core.currency_server`) never activate in client-only contexts.
-4. Support role filtering in pack activation so packs can be safely requested anywhere without activating invalid role modules.
-5. Create dedicated smoke test for runtime-role enforcement.
+Implement inspectable capability diagnostics and mechanical assertion harness:
+1. `PsychopatzCore/Kernel/PC_CapabilityDiagnostics`:
+   - `Report()`: Returns complete structured dictionary of all capability states, consumers, dependency reasons, and role eligibility.
+   - `Explain(capId)`: Returns human-readable diagnostic explanation of why a capability is loaded/active/dormant/failed and who requested it.
+   - `AssertActive(capId, consumerId)`, `AssertRegistered(capId)`, `AssertUnloaded(capId)`: Reusable assertion helpers for tests and debug inspection.
+2. Wire diagnostics into `Core.Diagnostics` and `Core.Capabilities.Diagnostics`.
+3. Create dedicated smoke test for diagnostic reporting and assertions.
 
-### P7 Acceptance Criteria
-- Dedicated server role rejects client-only activation with actionable reason.
-- Client role rejects server-only activation with actionable reason.
-- Pack activation automatically filters out role-ineligible capabilities without crashing.
+### P8 Acceptance Criteria
+- Diagnostics answer: who requested a feature, why it loaded, current state, and failure reasons.
+- Diagnostic assertions verify active vs dormant vs unrequested capabilities.
 - All test suites continue to pass with 0 regressions.

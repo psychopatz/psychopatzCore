@@ -77,6 +77,43 @@ function Lifecycle.Activate(registry, resolver, requestedIds, consumerId, contex
     return true, closure
 end
 
+function Lifecycle.ActivatePack(registry, resolver, packId, consumerId, context)
+    local closure, resolveErr = resolver.ResolvePackClosure(registry, packId)
+    if not closure then
+        return false, resolveErr
+    end
+
+    context = context or {}
+
+    for _, capId in ipairs(closure) do
+        local state = registry.GetState(capId)
+        local desc = registry.Get(capId)
+
+        if state.state == STATES.REGISTERED or state.state == STATES.FAILED then
+            local mod, loadErr = Lifecycle.Load(registry, capId)
+            if not mod then
+                return false, "Activation aborted for '" .. capId .. "': " .. tostring(loadErr)
+            end
+        end
+
+        if state.state ~= STATES.ACTIVE then
+            if desc.activate then
+                local ok, actErr = pcall(desc.activate, context)
+                if not ok then
+                    state.state = STATES.FAILED
+                    state.failureReason = "Activation callback failed: " .. tostring(actErr)
+                    return false, state.failureReason
+                end
+            end
+            state.state = STATES.ACTIVE
+        end
+
+        registry.AddConsumer(capId, consumerId)
+    end
+
+    return true, closure
+end
+
 function Lifecycle.Deactivate(registry, capId, consumerId, context)
     local state = registry.GetState(capId)
     if not state then
