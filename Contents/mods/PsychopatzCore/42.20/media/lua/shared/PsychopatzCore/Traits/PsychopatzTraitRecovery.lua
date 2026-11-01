@@ -292,6 +292,21 @@ function Recovery.Install()
     return true, "installed"
 end
 
+function Recovery.Uninstall()
+    if not Recovery.Installed then return false, "not_installed" end
+    if not Events then return false, "no_events" end
+
+    if Events.OnCreatePlayer and Events.OnCreatePlayer.Remove then
+        Events.OnCreatePlayer.Remove(sanitizePlayer)
+    end
+    if Events.OnPlayerUpdate and Events.OnPlayerUpdate.Remove then
+        Events.OnPlayerUpdate.Remove(Recovery.RetryPending)
+    end
+
+    Recovery.Installed = false
+    return true, "uninstalled"
+end
+
 Recovery.Install()
 
 return Recovery

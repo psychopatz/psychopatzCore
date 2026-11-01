@@ -275,6 +275,18 @@ addDescriptor({
         require "PsychopatzCore/Traits/PsychopatzTraitRegistry"
         return require "PsychopatzCore/Traits/PsychopatzTraitRecovery"
     end,
+    activate = function(context)
+        local Recovery = require "PsychopatzCore/Traits/PsychopatzTraitRecovery"
+        if type(Recovery) == "table" and Recovery.Install then
+            Recovery.Install()
+        end
+    end,
+    deactivate = function(context)
+        local Recovery = require "PsychopatzCore/Traits/PsychopatzTraitRecovery"
+        if type(Recovery) == "table" and Recovery.Uninstall then
+            Recovery.Uninstall()
+        end
+    end,
     facade = function()
         return PsychopatzCore.Traits
     end,
@@ -355,6 +367,18 @@ addDescriptor({
     roles = { client = true },
     load = function()
         return require "PsychopatzCore/Input/PsychopatzKeybinds"
+    end,
+    activate = function(context)
+        local Keybinds = require "PsychopatzCore/Input/PsychopatzKeybinds"
+        if type(Keybinds) == "table" and Keybinds.Install then
+            Keybinds.Install()
+        end
+    end,
+    deactivate = function(context)
+        local Keybinds = require "PsychopatzCore/Input/PsychopatzKeybinds"
+        if type(Keybinds) == "table" and Keybinds.Uninstall then
+            Keybinds.Uninstall()
+        end
     end,
     facade = function()
         return PsychopatzCore.Keybinds

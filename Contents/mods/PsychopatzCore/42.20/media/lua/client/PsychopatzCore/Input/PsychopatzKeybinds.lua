@@ -335,11 +335,6 @@ function Keybinds.OnTick()
     end
 end
 
-if Events and Events.OnTick and not Keybinds._tickHookRegistered then
-    Events.OnTick.Add(Keybinds.OnTick)
-    Keybinds._tickHookRegistered = true
-end
-
 local function loadOptions()
     if Keybinds._optionsLoaded then return end
     local modOptions = PZAPI and PZAPI.ModOptions
@@ -349,9 +344,32 @@ local function loadOptions()
     Keybinds._optionsLoaded = true
 end
 
-if Events and Events.OnGameBoot and not Keybinds._optionsLoadHookRegistered then
-    Events.OnGameBoot.Add(loadOptions)
-    Keybinds._optionsLoadHookRegistered = true
+function Keybinds.Install()
+    if Events and Events.OnTick and not Keybinds._tickHookRegistered then
+        Events.OnTick.Add(Keybinds.OnTick)
+        Keybinds._tickHookRegistered = true
+    end
+    if Events and Events.OnGameBoot and not Keybinds._optionsLoadHookRegistered then
+        Events.OnGameBoot.Add(loadOptions)
+        Keybinds._optionsLoadHookRegistered = true
+    end
 end
+
+function Keybinds.Uninstall()
+    if Events and Events.OnTick and Keybinds._tickHookRegistered then
+        if Events.OnTick.Remove then
+            Events.OnTick.Remove(Keybinds.OnTick)
+        end
+        Keybinds._tickHookRegistered = false
+    end
+    if Events and Events.OnGameBoot and Keybinds._optionsLoadHookRegistered then
+        if Events.OnGameBoot.Remove then
+            Events.OnGameBoot.Remove(loadOptions)
+        end
+        Keybinds._optionsLoadHookRegistered = false
+    end
+end
+
+Keybinds.Install()
 
 return Keybinds
