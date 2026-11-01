@@ -1,63 +1,8 @@
 {
-  "snapshot_revision": "064d25add727b539e5ad45d3714b51777eaf470b",
+  "snapshot_revision": "805ccc148a1c2cd2fe0c7b8533c5167da862c7f7",
   "dynamic": {
     "shared": {
-      "module_count": 10,
-      "edge_count": 14,
-      "event_count": 0,
-      "events": [],
-      "modules": [
-        {
-          "caller": "<root>",
-          "depth": 0,
-          "module": "PsychopatzCore/00_PsychopatzCore_Init"
-        },
-        {
-          "caller": "PsychopatzCore/00_PsychopatzCore_Init",
-          "depth": 1,
-          "module": "PsychopatzCore/Composition/PC_SharedComposition"
-        },
-        {
-          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "depth": 2,
-          "module": "PsychopatzCore/Composition/PC_CoreIdentity"
-        },
-        {
-          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "depth": 2,
-          "module": "PsychopatzCore/Runtime/PC_RuntimeRole"
-        },
-        {
-          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "depth": 2,
-          "module": "PsychopatzCore/Kernel/PC_Kernel"
-        },
-        {
-          "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "depth": 3,
-          "module": "PsychopatzCore/Kernel/PC_CapabilityContract"
-        },
-        {
-          "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "depth": 3,
-          "module": "PsychopatzCore/Kernel/PC_CapabilityRegistry"
-        },
-        {
-          "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "depth": 3,
-          "module": "PsychopatzCore/Kernel/PC_CapabilityResolver"
-        },
-        {
-          "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "depth": 3,
-          "module": "PsychopatzCore/Kernel/PC_CapabilityLifecycle"
-        },
-        {
-          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "depth": 2,
-          "module": "PsychopatzCore/Kernel/PC_CapabilityCatalog"
-        }
-      ],
+      "role": "shared",
       "edges": [
         {
           "caller": "<root>",
@@ -108,472 +53,324 @@
           "callee": "PsychopatzCore/Kernel/PC_CapabilityContract"
         },
         {
+          "caller": "PsychopatzCore/Kernel/PC_Kernel",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityDiagnostics"
+        },
+        {
           "caller": "PsychopatzCore/Composition/PC_SharedComposition",
           "callee": "PsychopatzCore/Kernel/PC_CapabilityCatalog"
         },
         {
           "caller": "PsychopatzCore/Kernel/PC_CapabilityCatalog",
           "callee": "PsychopatzCore/Kernel/PC_CapabilityContract"
+        },
+        {
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
+          "callee": "PsychopatzCore/Kernel/PC_Services"
         }
       ],
-      "success": true,
-      "role": "shared",
-      "target": "PsychopatzCore/00_PsychopatzCore_Init"
-    },
-    "client": {
-      "event_count": 2,
+      "events": [],
       "modules": [
         {
           "caller": "<root>",
-          "module": "PsychopatzCore/00_PsychopatzCore_Init",
-          "depth": 0
+          "depth": 0,
+          "module": "PsychopatzCore/00_PsychopatzCore_Init"
         },
         {
           "caller": "PsychopatzCore/00_PsychopatzCore_Init",
-          "module": "PsychopatzCore/Composition/PC_SharedComposition",
-          "depth": 1
+          "depth": 1,
+          "module": "PsychopatzCore/Composition/PC_SharedComposition"
         },
         {
           "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "module": "PsychopatzCore/Composition/PC_CoreIdentity",
-          "depth": 2
+          "depth": 2,
+          "module": "PsychopatzCore/Composition/PC_CoreIdentity"
         },
         {
           "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "module": "PsychopatzCore/Runtime/PC_RuntimeRole",
-          "depth": 2
+          "depth": 2,
+          "module": "PsychopatzCore/Runtime/PC_RuntimeRole"
         },
         {
           "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "module": "PsychopatzCore/Kernel/PC_Kernel",
-          "depth": 2
+          "depth": 2,
+          "module": "PsychopatzCore/Kernel/PC_Kernel"
         },
         {
           "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "module": "PsychopatzCore/Kernel/PC_CapabilityContract",
-          "depth": 3
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityContract"
         },
         {
           "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "module": "PsychopatzCore/Kernel/PC_CapabilityRegistry",
-          "depth": 3
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityRegistry"
         },
         {
           "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "module": "PsychopatzCore/Kernel/PC_CapabilityResolver",
-          "depth": 3
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityResolver"
         },
         {
           "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "module": "PsychopatzCore/Kernel/PC_CapabilityLifecycle",
-          "depth": 3
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityLifecycle"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_Kernel",
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityDiagnostics"
         },
         {
           "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "module": "PsychopatzCore/Kernel/PC_CapabilityCatalog",
-          "depth": 2
+          "depth": 2,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityCatalog"
         },
         {
-          "caller": "<root>",
-          "module": "PsychopatzCore/00_PsychopatzCore_Client_Init",
-          "depth": 0
-        },
-        {
-          "caller": "PsychopatzCore/00_PsychopatzCore_Client_Init",
-          "module": "PsychopatzCore/Composition/PC_ClientComposition",
-          "depth": 1
-        },
-        {
-          "caller": "PsychopatzCore/Composition/PC_ClientComposition",
-          "module": "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap",
-          "depth": 2
-        },
-        {
-          "caller": "PsychopatzCore/Composition/PC_ClientComposition",
-          "module": "PsychopatzCore/Profiler/PsychopatzProfilerClient",
-          "depth": 2
-        },
-        {
-          "caller": "PsychopatzCore/Profiler/PsychopatzProfilerClient",
-          "module": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager",
-          "depth": 3
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager",
-          "module": "PsychopatzCore/Serialization/PsychopatzJson",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/Serialization/PsychopatzJson",
-          "module": "PsychopatzCore/Serialization/PsychopatzJson_Parser",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager",
-          "module": "PsychopatzCore/Translation/PsychopatzCustomTranslationManifest",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/Profiler/PsychopatzProfilerClient",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 3
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 6
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 7
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 8
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 9
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 10
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 11
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 12
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 13
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 14
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 15
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 16
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 17
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 18
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 19
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 20
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 21
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 22
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 23
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 24
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 25
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 26
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 27
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 28
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 29
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 30
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 31
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 32
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 33
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 34
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 35
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 36
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 37
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 38
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 39
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 40
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 41
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 42
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 43
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 44
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 45
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 46
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 47
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 48
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "depth": 49
-        },
-        {
-          "caller": "PsychopatzCore/Composition/PC_ClientComposition",
-          "module": "PsychopatzCore/UI/PsychopatzDebugHubWindow",
-          "depth": 2
-        },
-        {
-          "caller": "PsychopatzCore/UI/PsychopatzDebugHubWindow",
-          "module": "PsychopatzCore/UI/PsychopatzDebugHubRegistry",
-          "depth": 3
-        },
-        {
-          "caller": "PsychopatzCore/UI/PsychopatzDebugHubWindow",
-          "module": "PsychopatzCore/UI/PsychopatzUI",
-          "depth": 3
-        },
-        {
-          "caller": "PsychopatzCore/UI/PsychopatzUI",
-          "module": "PsychopatzCore/UI/Core/PsychopatzUITheme",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/UI/Core/PsychopatzUITheme",
-          "module": "PsychopatzCore/Settings/PsychopatzSettings",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/UI/Core/PsychopatzUITheme",
-          "module": "PsychopatzCore/UI/Core/PsychopatzUITheme_Palette",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/UI/Core/PsychopatzUITheme",
-          "module": "PsychopatzCore/UI/Core/PsychopatzUITheme_State",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/UI/Core/PsychopatzUITheme",
-          "module": "PsychopatzCore/UI/Core/PsychopatzUITheme_Typography",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/UI/PsychopatzUI",
-          "module": "PsychopatzCore/UI/Core/PsychopatzUILayout",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/UI/PsychopatzUI",
-          "module": "PsychopatzCore/UI/Components/PsychopatzImageResolver",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/UI/PsychopatzUI",
-          "module": "PsychopatzCore/Radio/PC_RadioImageAnimation",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/UI/PsychopatzUI",
-          "module": "PsychopatzCore/UI/Components/PsychopatzUIControls",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls",
-          "module": "ISUI/ISButton",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls",
-          "module": "ISUI/ISPanel",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls",
-          "module": "ISUI/ISScrollingListBox",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls",
-          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList",
-          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList_Metrics",
-          "depth": 6
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList",
-          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList_Collections",
-          "depth": 6
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList",
-          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList_Navigation",
-          "depth": 6
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList",
-          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList_Renderer",
-          "depth": 6
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls",
-          "module": "PsychopatzCore/UI/Components/PsychopatzScrollPanel",
-          "depth": 5
-        },
-        {
-          "caller": "PsychopatzCore/UI/PsychopatzUI",
-          "module": "PsychopatzCore/UI/Components/PsychopatzLayoutHost",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/UI/PsychopatzUI",
-          "module": "PsychopatzCore/UI/Components/PsychopatzResizableDivider",
-          "depth": 4
-        },
-        {
-          "caller": "PsychopatzCore/UI/Components/PsychopatzResizableDivider",
-          "module": "ISUI/ISResizeableButton",
-          "depth": 5
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
+          "depth": 2,
+          "module": "PsychopatzCore/Kernel/PC_Services"
         }
       ],
+      "module_count": 12,
+      "edge_count": 16,
+      "event_count": 0,
+      "success": true,
+      "target": "PsychopatzCore/00_PsychopatzCore_Init"
+    },
+    "client": {
+      "modules": [
+        {
+          "depth": 0,
+          "module": "PsychopatzCore/00_PsychopatzCore_Init",
+          "caller": "<root>"
+        },
+        {
+          "depth": 1,
+          "module": "PsychopatzCore/Composition/PC_SharedComposition",
+          "caller": "PsychopatzCore/00_PsychopatzCore_Init"
+        },
+        {
+          "depth": 2,
+          "module": "PsychopatzCore/Composition/PC_CoreIdentity",
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition"
+        },
+        {
+          "depth": 2,
+          "module": "PsychopatzCore/Runtime/PC_RuntimeRole",
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition"
+        },
+        {
+          "depth": 2,
+          "module": "PsychopatzCore/Kernel/PC_Kernel",
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition"
+        },
+        {
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityContract",
+          "caller": "PsychopatzCore/Kernel/PC_Kernel"
+        },
+        {
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityRegistry",
+          "caller": "PsychopatzCore/Kernel/PC_Kernel"
+        },
+        {
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityResolver",
+          "caller": "PsychopatzCore/Kernel/PC_Kernel"
+        },
+        {
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityLifecycle",
+          "caller": "PsychopatzCore/Kernel/PC_Kernel"
+        },
+        {
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityDiagnostics",
+          "caller": "PsychopatzCore/Kernel/PC_Kernel"
+        },
+        {
+          "depth": 2,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityCatalog",
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition"
+        },
+        {
+          "depth": 2,
+          "module": "PsychopatzCore/Kernel/PC_Services",
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition"
+        },
+        {
+          "depth": 0,
+          "module": "PsychopatzCore/00_PsychopatzCore_Client_Init",
+          "caller": "<root>"
+        },
+        {
+          "depth": 1,
+          "module": "PsychopatzCore/Composition/PC_ClientComposition",
+          "caller": "PsychopatzCore/00_PsychopatzCore_Client_Init"
+        },
+        {
+          "depth": 2,
+          "module": "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap",
+          "caller": "PsychopatzCore/Composition/PC_ClientComposition"
+        },
+        {
+          "depth": 2,
+          "module": "PsychopatzCore/Profiler/PsychopatzProfilerClient",
+          "caller": "PsychopatzCore/Composition/PC_ClientComposition"
+        },
+        {
+          "depth": 3,
+          "module": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager",
+          "caller": "PsychopatzCore/Profiler/PsychopatzProfilerClient"
+        },
+        {
+          "depth": 4,
+          "module": "PsychopatzCore/Serialization/PsychopatzJson",
+          "caller": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
+        },
+        {
+          "depth": 5,
+          "module": "PsychopatzCore/Serialization/PsychopatzJson_Parser",
+          "caller": "PsychopatzCore/Serialization/PsychopatzJson"
+        },
+        {
+          "depth": 4,
+          "module": "PsychopatzCore/Translation/PsychopatzCustomTranslationManifest",
+          "caller": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
+        },
+        {
+          "depth": 3,
+          "module": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
+          "caller": "PsychopatzCore/Profiler/PsychopatzProfilerClient"
+        },
+        {
+          "depth": 2,
+          "module": "PsychopatzCore/UI/PsychopatzDebugHubWindow",
+          "caller": "PsychopatzCore/Composition/PC_ClientComposition"
+        },
+        {
+          "depth": 3,
+          "module": "PsychopatzCore/UI/PsychopatzDebugHubRegistry",
+          "caller": "PsychopatzCore/UI/PsychopatzDebugHubWindow"
+        },
+        {
+          "depth": 3,
+          "module": "PsychopatzCore/UI/PsychopatzUI",
+          "caller": "PsychopatzCore/UI/PsychopatzDebugHubWindow"
+        },
+        {
+          "depth": 4,
+          "module": "PsychopatzCore/UI/Core/PsychopatzUITheme",
+          "caller": "PsychopatzCore/UI/PsychopatzUI"
+        },
+        {
+          "depth": 5,
+          "module": "PsychopatzCore/Settings/PsychopatzSettings",
+          "caller": "PsychopatzCore/UI/Core/PsychopatzUITheme"
+        },
+        {
+          "depth": 5,
+          "module": "PsychopatzCore/UI/Core/PsychopatzUITheme_Palette",
+          "caller": "PsychopatzCore/UI/Core/PsychopatzUITheme"
+        },
+        {
+          "depth": 5,
+          "module": "PsychopatzCore/UI/Core/PsychopatzUITheme_State",
+          "caller": "PsychopatzCore/UI/Core/PsychopatzUITheme"
+        },
+        {
+          "depth": 5,
+          "module": "PsychopatzCore/UI/Core/PsychopatzUITheme_Typography",
+          "caller": "PsychopatzCore/UI/Core/PsychopatzUITheme"
+        },
+        {
+          "depth": 4,
+          "module": "PsychopatzCore/UI/Core/PsychopatzUILayout",
+          "caller": "PsychopatzCore/UI/PsychopatzUI"
+        },
+        {
+          "depth": 4,
+          "module": "PsychopatzCore/UI/Components/PsychopatzImageResolver",
+          "caller": "PsychopatzCore/UI/PsychopatzUI"
+        },
+        {
+          "depth": 4,
+          "module": "PsychopatzCore/Radio/PC_RadioImageAnimation",
+          "caller": "PsychopatzCore/UI/PsychopatzUI"
+        },
+        {
+          "depth": 4,
+          "module": "PsychopatzCore/UI/Components/PsychopatzUIControls",
+          "caller": "PsychopatzCore/UI/PsychopatzUI"
+        },
+        {
+          "depth": 5,
+          "module": "ISUI/ISButton",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls"
+        },
+        {
+          "depth": 5,
+          "module": "ISUI/ISPanel",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls"
+        },
+        {
+          "depth": 5,
+          "module": "ISUI/ISScrollingListBox",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls"
+        },
+        {
+          "depth": 5,
+          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls"
+        },
+        {
+          "depth": 6,
+          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList_Metrics",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList"
+        },
+        {
+          "depth": 6,
+          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList_Collections",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList"
+        },
+        {
+          "depth": 6,
+          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList_Navigation",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList"
+        },
+        {
+          "depth": 6,
+          "module": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList_Renderer",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzVirtualizedList"
+        },
+        {
+          "depth": 5,
+          "module": "PsychopatzCore/UI/Components/PsychopatzScrollPanel",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzUIControls"
+        },
+        {
+          "depth": 4,
+          "module": "PsychopatzCore/UI/Components/PsychopatzLayoutHost",
+          "caller": "PsychopatzCore/UI/PsychopatzUI"
+        },
+        {
+          "depth": 4,
+          "module": "PsychopatzCore/UI/Components/PsychopatzResizableDivider",
+          "caller": "PsychopatzCore/UI/PsychopatzUI"
+        },
+        {
+          "depth": 5,
+          "module": "ISUI/ISResizeableButton",
+          "caller": "PsychopatzCore/UI/Components/PsychopatzResizableDivider"
+        }
+      ],
+      "event_count": 2,
+      "role": "client",
       "success": false,
       "error": "...chopatzCore/tools/refactor_baseline/baseline_harness.lua:104: ...chopatzCore/tools/refactor_baseline/baseline_harness.lua:104: ...chopatzCore/tools/refactor_baseline/baseline_harness.lua:104: ...chopatzCore/tools/refactor_baseline/baseline_harness.lua:104: ...chopatzCore/tools/refactor_baseline/baseline_harness.lua:104: ...chopatzCore/tools/refactor_baseline/baseline_harness.lua:104: module 'ISUI/ISResizeableButton' not found:\n\tno field package.preload['ISUI/ISResizeableButton']\n\tno file 'Contents/mods/PsychopatzCore/common/media/lua/shared/ISUI/ISResizeableButton.lua'\n\tno file 'Contents/mods/PsychopatzCore/42.20/media/lua/shared/ISUI/ISResizeableButton.lua'\n\tno file 'Contents/mods/PsychopatzCore/common/media/lua/client/ISUI/ISResizeableButton.lua'\n\tno file 'Contents/mods/PsychopatzCore/42.20/media/lua/client/ISUI/ISResizeableButton.lua'\n\tno file 'Contents/mods/PsychopatzCore/42.20/media/lua/server/ISUI/ISResizeableButton.lua'\n\tno file '/usr/local/share/lua/5.3/ISUI/ISResizeableButton.lua'\n\tno file '/usr/local/share/lua/5.3/ISUI/ISResizeableButton/init.lua'\n\tno file '/usr/local/lib/lua/5.3/ISUI/ISResizeableButton.lua'\n\tno file '/usr/local/lib/lua/5.3/ISUI/ISResizeableButton/init.lua'\n\tno file '/usr/share/lua/5.3/ISUI/ISResizeableButton.lua'\n\tno file '/usr/share/lua/5.3/ISUI/ISResizeableButton/init.lua'\n\tno file './ISUI/ISResizeableButton.lua'\n\tno file './ISUI/ISResizeableButton/init.lua'\n\tno file '/usr/local/lib/lua/5.3/ISUI/ISResizeableButton.so'\n\tno file '/usr/lib/x86_64-linux-gnu/lua/5.3/ISUI/ISResizeableButton.so'\n\tno file '/usr/lib/lua/5.3/ISUI/ISResizeableButton.so'\n\tno file '/usr/local/lib/lua/5.3/loadall.so'\n\tno file './ISUI/ISResizeableButton.so'",
-      "role": "client",
-      "module_count": 89,
-      "edge_count": 191,
+      "module_count": 45,
       "target": "PsychopatzCore/00_PsychopatzCore_Client_Init",
       "edges": [
         {
@@ -625,12 +422,20 @@
           "callee": "PsychopatzCore/Kernel/PC_CapabilityContract"
         },
         {
+          "caller": "PsychopatzCore/Kernel/PC_Kernel",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityDiagnostics"
+        },
+        {
           "caller": "PsychopatzCore/Composition/PC_SharedComposition",
           "callee": "PsychopatzCore/Kernel/PC_CapabilityCatalog"
         },
         {
           "caller": "PsychopatzCore/Kernel/PC_CapabilityCatalog",
           "callee": "PsychopatzCore/Kernel/PC_CapabilityContract"
+        },
+        {
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
+          "callee": "PsychopatzCore/Kernel/PC_Services"
         },
         {
           "caller": "<root>",
@@ -671,554 +476,6 @@
         {
           "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
           "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager"
-        },
-        {
-          "caller": "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-          "callee": "PsychopatzCore/Translation/PsychopatzCoreTranslation"
         },
         {
           "caller": "PsychopatzCore/Composition/PC_ClientComposition",
@@ -1343,2013 +600,366 @@
       ],
       "events": [
         {
+          "role": "client",
           "action": "Add",
+          "attributed": true,
           "event": "OnGameBoot",
           "module": "PsychopatzCore/Translation/PsychopatzCustomTranslationManager",
-          "loc": "...zCore/Translation/PsychopatzCustomTranslationManager.lua:902",
-          "role": "client",
-          "attributed": true
+          "loc": "...zCore/Translation/PsychopatzCustomTranslationManager.lua:902"
         },
         {
+          "role": "client",
           "action": "Add",
+          "attributed": true,
           "event": "OnGameBoot",
           "module": "PsychopatzCore/Settings/PsychopatzSettings",
-          "loc": "...ua/client/PsychopatzCore/Settings/PsychopatzSettings.lua:228",
-          "role": "client",
-          "attributed": true
+          "loc": "...ua/client/PsychopatzCore/Settings/PsychopatzSettings.lua:228"
         }
-      ]
+      ],
+      "edge_count": 56
     },
     "server": {
       "success": true,
       "modules": [
         {
+          "depth": 0,
           "module": "PsychopatzCore/00_PsychopatzCore_Init",
-          "caller": "<root>",
-          "depth": 0
-        },
-        {
-          "module": "PsychopatzCore/Composition/PC_SharedComposition",
-          "caller": "PsychopatzCore/00_PsychopatzCore_Init",
-          "depth": 1
-        },
-        {
-          "module": "PsychopatzCore/Composition/PC_CoreIdentity",
-          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "depth": 2
-        },
-        {
-          "module": "PsychopatzCore/Runtime/PC_RuntimeRole",
-          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "depth": 2
-        },
-        {
-          "module": "PsychopatzCore/Kernel/PC_Kernel",
-          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "depth": 2
-        },
-        {
-          "module": "PsychopatzCore/Kernel/PC_CapabilityContract",
-          "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "depth": 3
-        },
-        {
-          "module": "PsychopatzCore/Kernel/PC_CapabilityRegistry",
-          "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "depth": 3
-        },
-        {
-          "module": "PsychopatzCore/Kernel/PC_CapabilityResolver",
-          "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "depth": 3
-        },
-        {
-          "module": "PsychopatzCore/Kernel/PC_CapabilityLifecycle",
-          "caller": "PsychopatzCore/Kernel/PC_Kernel",
-          "depth": 3
-        },
-        {
-          "module": "PsychopatzCore/Kernel/PC_CapabilityCatalog",
-          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
-          "depth": 2
-        },
-        {
-          "module": "PsychopatzCore/00_PsychopatzCore_Server_Init",
-          "caller": "<root>",
-          "depth": 0
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzCurrencyServer",
-          "caller": "PsychopatzCore/00_PsychopatzCore_Server_Init",
-          "depth": 1
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrencyServer",
-          "depth": 2
-        },
-        {
-          "module": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "depth": 3
-        },
-        {
-          "module": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "depth": 3
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "depth": 3
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 4
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 5
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 6
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 7
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 8
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 9
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 10
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 11
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 12
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 13
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 14
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 15
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 16
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 17
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 18
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 19
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 20
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 21
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 22
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 23
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 24
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 25
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 26
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 27
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 28
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 29
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 30
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 31
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 32
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 33
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 34
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 35
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 36
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 37
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 38
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 39
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 40
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 41
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 42
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 43
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 44
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 45
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 46
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 47
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 48
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "depth": 47
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "depth": 48
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzCurrencyDiagnostics",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "depth": 48
-        },
-        {
-          "module": "PsychopatzCore/Debug/PsychopatzDebugSettings",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrencyDiagnostics",
-          "depth": 49
-        },
-        {
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer",
-          "caller": "PsychopatzCore/00_PsychopatzCore_Server_Init",
-          "depth": 1
-        },
-        {
-          "module": "PsychopatzCore/Composition/PC_ServerComposition",
-          "caller": "PsychopatzCore/00_PsychopatzCore_Server_Init",
-          "depth": 1
-        },
-        {
-          "module": "PsychopatzCore/Compatibility/PsychopatzFeedingTroughGuard",
-          "caller": "PsychopatzCore/Composition/PC_ServerComposition",
-          "depth": 2
-        },
-        {
-          "module": "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap",
-          "caller": "PsychopatzCore/Composition/PC_ServerComposition",
-          "depth": 2
-        }
-      ],
-      "module_count": 69,
-      "role": "server",
-      "target": "PsychopatzCore/00_PsychopatzCore_Server_Init",
-      "events": [
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnCreatePlayer",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameBoot",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnGameStart",
-          "role": "server",
-          "loc": "[C]:-1",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "action": "Add",
-          "attributed": true
-        },
-        {
-          "event": "OnClientCommand",
-          "role": "server",
-          "loc": ".../PsychopatzCore/Economy/PsychopatzMoneyBundlerServer.lua:107",
-          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer",
-          "action": "Add",
-          "attributed": true
-        }
-      ],
-      "edges": [
-        {
-          "callee": "PsychopatzCore/00_PsychopatzCore_Init",
           "caller": "<root>"
         },
         {
-          "callee": "PsychopatzCore/Composition/PC_SharedComposition",
+          "depth": 1,
+          "module": "PsychopatzCore/Composition/PC_SharedComposition",
           "caller": "PsychopatzCore/00_PsychopatzCore_Init"
         },
         {
-          "callee": "PsychopatzCore/Composition/PC_CoreIdentity",
+          "depth": 2,
+          "module": "PsychopatzCore/Composition/PC_CoreIdentity",
           "caller": "PsychopatzCore/Composition/PC_SharedComposition"
         },
         {
-          "callee": "PsychopatzCore/Runtime/PC_RuntimeRole",
+          "depth": 2,
+          "module": "PsychopatzCore/Runtime/PC_RuntimeRole",
           "caller": "PsychopatzCore/Composition/PC_SharedComposition"
         },
         {
-          "callee": "PsychopatzCore/Kernel/PC_Kernel",
+          "depth": 2,
+          "module": "PsychopatzCore/Kernel/PC_Kernel",
           "caller": "PsychopatzCore/Composition/PC_SharedComposition"
         },
         {
-          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract",
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityContract",
           "caller": "PsychopatzCore/Kernel/PC_Kernel"
         },
         {
-          "callee": "PsychopatzCore/Kernel/PC_CapabilityRegistry",
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityRegistry",
           "caller": "PsychopatzCore/Kernel/PC_Kernel"
         },
         {
-          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract",
-          "caller": "PsychopatzCore/Kernel/PC_CapabilityRegistry"
-        },
-        {
-          "callee": "PsychopatzCore/Kernel/PC_CapabilityResolver",
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityResolver",
           "caller": "PsychopatzCore/Kernel/PC_Kernel"
         },
         {
-          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract",
-          "caller": "PsychopatzCore/Kernel/PC_CapabilityResolver"
-        },
-        {
-          "callee": "PsychopatzCore/Kernel/PC_CapabilityLifecycle",
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityLifecycle",
           "caller": "PsychopatzCore/Kernel/PC_Kernel"
         },
         {
-          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract",
-          "caller": "PsychopatzCore/Kernel/PC_CapabilityLifecycle"
+          "depth": 3,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityDiagnostics",
+          "caller": "PsychopatzCore/Kernel/PC_Kernel"
         },
         {
-          "callee": "PsychopatzCore/Kernel/PC_CapabilityCatalog",
+          "depth": 2,
+          "module": "PsychopatzCore/Kernel/PC_CapabilityCatalog",
           "caller": "PsychopatzCore/Composition/PC_SharedComposition"
         },
         {
-          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract",
-          "caller": "PsychopatzCore/Kernel/PC_CapabilityCatalog"
+          "depth": 2,
+          "module": "PsychopatzCore/Kernel/PC_Services",
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition"
         },
         {
-          "callee": "PsychopatzCore/00_PsychopatzCore_Server_Init",
+          "depth": 0,
+          "module": "PsychopatzCore/00_PsychopatzCore_Server_Init",
           "caller": "<root>"
         },
         {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrencyServer",
+          "depth": 1,
+          "module": "PsychopatzCore/Economy/PsychopatzCurrencyServer",
           "caller": "PsychopatzCore/00_PsychopatzCore_Server_Init"
         },
         {
-          "callee": "PsychopatzCore/00_PsychopatzCore_Init",
+          "depth": 2,
+          "module": "PsychopatzCore/Economy/PsychopatzCurrency",
           "caller": "PsychopatzCore/Economy/PsychopatzCurrencyServer"
         },
         {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrencyServer"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
+          "depth": 3,
+          "module": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
           "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
         },
         {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
+          "depth": 3,
+          "module": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
           "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
         },
         {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
+          "depth": 3,
+          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
           "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
         },
         {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
+          "depth": 3,
+          "module": "PsychopatzCore/Economy/PsychopatzCurrency",
           "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
         },
         {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
+          "depth": 4,
+          "module": "PsychopatzCore/Economy/PsychopatzCurrencyDiagnostics",
           "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
         },
         {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrencyDiagnostics",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
-        },
-        {
-          "callee": "PsychopatzCore/Debug/PsychopatzDebugSettings",
+          "depth": 5,
+          "module": "PsychopatzCore/Debug/PsychopatzDebugSettings",
           "caller": "PsychopatzCore/Economy/PsychopatzCurrencyDiagnostics"
         },
         {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrency",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrencyDiagnostics",
-          "caller": "PsychopatzCore/Economy/PsychopatzCurrency"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer",
+          "depth": 1,
+          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer",
           "caller": "PsychopatzCore/00_PsychopatzCore_Server_Init"
         },
         {
-          "callee": "PsychopatzCore/00_PsychopatzCore_Init",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzCurrencyServer",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer"
-        },
-        {
-          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
-          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer"
-        },
-        {
-          "callee": "PsychopatzCore/Composition/PC_ServerComposition",
+          "depth": 1,
+          "module": "PsychopatzCore/Composition/PC_ServerComposition",
           "caller": "PsychopatzCore/00_PsychopatzCore_Server_Init"
         },
         {
-          "callee": "PsychopatzCore/Compatibility/PsychopatzFeedingTroughGuard",
+          "depth": 2,
+          "module": "PsychopatzCore/Compatibility/PsychopatzFeedingTroughGuard",
           "caller": "PsychopatzCore/Composition/PC_ServerComposition"
         },
         {
-          "callee": "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap",
+          "depth": 2,
+          "module": "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap",
           "caller": "PsychopatzCore/Composition/PC_ServerComposition"
         }
       ],
-      "event_count": 96,
-      "edge_count": 215
+      "events": [
+        {
+          "module": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
+          "event": "OnGameBoot",
+          "role": "server",
+          "loc": "[C]:-1",
+          "action": "Add",
+          "attributed": true
+        },
+        {
+          "module": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight",
+          "event": "OnGameStart",
+          "role": "server",
+          "loc": "[C]:-1",
+          "action": "Add",
+          "attributed": true
+        },
+        {
+          "module": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
+          "event": "OnGameBoot",
+          "role": "server",
+          "loc": "[C]:-1",
+          "action": "Add",
+          "attributed": true
+        },
+        {
+          "module": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
+          "event": "OnGameStart",
+          "role": "server",
+          "loc": "[C]:-1",
+          "action": "Add",
+          "attributed": true
+        },
+        {
+          "module": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory",
+          "event": "OnCreatePlayer",
+          "role": "server",
+          "loc": "[C]:-1",
+          "action": "Add",
+          "attributed": true
+        },
+        {
+          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
+          "event": "OnGameBoot",
+          "role": "server",
+          "loc": "[C]:-1",
+          "action": "Add",
+          "attributed": true
+        },
+        {
+          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundler",
+          "event": "OnGameStart",
+          "role": "server",
+          "loc": "[C]:-1",
+          "action": "Add",
+          "attributed": true
+        },
+        {
+          "module": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer",
+          "event": "OnClientCommand",
+          "role": "server",
+          "loc": ".../PsychopatzCore/Economy/PsychopatzMoneyBundlerServer.lua:107",
+          "action": "Add",
+          "attributed": true
+        }
+      ],
+      "module_count": 25,
+      "role": "server",
+      "target": "PsychopatzCore/00_PsychopatzCore_Server_Init",
+      "edge_count": 34,
+      "edges": [
+        {
+          "caller": "<root>",
+          "callee": "PsychopatzCore/00_PsychopatzCore_Init"
+        },
+        {
+          "caller": "PsychopatzCore/00_PsychopatzCore_Init",
+          "callee": "PsychopatzCore/Composition/PC_SharedComposition"
+        },
+        {
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
+          "callee": "PsychopatzCore/Composition/PC_CoreIdentity"
+        },
+        {
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
+          "callee": "PsychopatzCore/Runtime/PC_RuntimeRole"
+        },
+        {
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
+          "callee": "PsychopatzCore/Kernel/PC_Kernel"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_Kernel",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_Kernel",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityRegistry"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_CapabilityRegistry",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_Kernel",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityResolver"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_CapabilityResolver",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_Kernel",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityLifecycle"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_CapabilityLifecycle",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_Kernel",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityDiagnostics"
+        },
+        {
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityCatalog"
+        },
+        {
+          "caller": "PsychopatzCore/Kernel/PC_CapabilityCatalog",
+          "callee": "PsychopatzCore/Kernel/PC_CapabilityContract"
+        },
+        {
+          "caller": "PsychopatzCore/Composition/PC_SharedComposition",
+          "callee": "PsychopatzCore/Kernel/PC_Services"
+        },
+        {
+          "caller": "<root>",
+          "callee": "PsychopatzCore/00_PsychopatzCore_Server_Init"
+        },
+        {
+          "caller": "PsychopatzCore/00_PsychopatzCore_Server_Init",
+          "callee": "PsychopatzCore/Economy/PsychopatzCurrencyServer"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzCurrencyServer",
+          "callee": "PsychopatzCore/00_PsychopatzCore_Init"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzCurrencyServer",
+          "callee": "PsychopatzCore/Economy/PsychopatzCurrency"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
+          "callee": "PsychopatzCore/Compatibility/PsychopatzMoneyWeight"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
+          "callee": "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
+          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
+          "callee": "PsychopatzCore/Economy/PsychopatzCurrency"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
+          "callee": "PsychopatzCore/Economy/PsychopatzCurrencyDiagnostics"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzCurrencyDiagnostics",
+          "callee": "PsychopatzCore/Debug/PsychopatzDebugSettings"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzCurrency",
+          "callee": "PsychopatzCore/Economy/PsychopatzCurrencyDiagnostics"
+        },
+        {
+          "caller": "PsychopatzCore/00_PsychopatzCore_Server_Init",
+          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer",
+          "callee": "PsychopatzCore/00_PsychopatzCore_Init"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer",
+          "callee": "PsychopatzCore/Economy/PsychopatzCurrencyServer"
+        },
+        {
+          "caller": "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer",
+          "callee": "PsychopatzCore/Economy/PsychopatzMoneyBundler"
+        },
+        {
+          "caller": "PsychopatzCore/00_PsychopatzCore_Server_Init",
+          "callee": "PsychopatzCore/Composition/PC_ServerComposition"
+        },
+        {
+          "caller": "PsychopatzCore/Composition/PC_ServerComposition",
+          "callee": "PsychopatzCore/Compatibility/PsychopatzFeedingTroughGuard"
+        },
+        {
+          "caller": "PsychopatzCore/Composition/PC_ServerComposition",
+          "callee": "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap"
+        }
+      ],
+      "event_count": 8
     }
   },
   "static": {
-    "file_count": 343,
+    "file_count": 345,
     "domain_count": 35,
     "domains": {
       "Actors": [
@@ -3488,10 +1098,12 @@
       "Kernel": [
         "PsychopatzCore/Kernel/PC_CapabilityCatalog",
         "PsychopatzCore/Kernel/PC_CapabilityContract",
+        "PsychopatzCore/Kernel/PC_CapabilityDiagnostics",
         "PsychopatzCore/Kernel/PC_CapabilityLifecycle",
         "PsychopatzCore/Kernel/PC_CapabilityRegistry",
         "PsychopatzCore/Kernel/PC_CapabilityResolver",
-        "PsychopatzCore/Kernel/PC_Kernel"
+        "PsychopatzCore/Kernel/PC_Kernel",
+        "PsychopatzCore/Kernel/PC_Services"
       ],
       "Other": [
         "CustomTranslationManager"
@@ -3766,8 +1378,8 @@
         "PsychopatzCore/ZombieKillDetector/PsychopatzZombieKillDetector_TransportValidation"
       ]
     },
-    "require_edge_count": 690,
-    "event_registration_count": 49,
+    "require_edge_count": 697,
+    "event_registration_count": 53,
     "event_registrations": [
       {
         "event": "OnTick",
@@ -3869,7 +1481,7 @@
         "event": "OnTick",
         "file": "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/Input/PsychopatzKeybinds.lua",
         "module": "PsychopatzCore/Input/PsychopatzKeybinds",
-        "line": 339,
+        "line": 349,
         "role": "client",
         "raw": "Events.OnTick.Add(Keybinds.OnTick)"
       },
@@ -3880,6 +1492,22 @@
         "line": 353,
         "role": "client",
         "raw": "Events.OnGameBoot.Add(loadOptions)"
+      },
+      {
+        "event": "OnTick",
+        "file": "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/Input/PsychopatzKeybinds.lua",
+        "module": "PsychopatzCore/Input/PsychopatzKeybinds",
+        "line": 361,
+        "role": "client",
+        "raw": "Events.OnTick.Remove(Keybinds.OnTick)"
+      },
+      {
+        "event": "OnGameBoot",
+        "file": "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/Input/PsychopatzKeybinds.lua",
+        "module": "PsychopatzCore/Input/PsychopatzKeybinds",
+        "line": 367,
+        "role": "client",
+        "raw": "Events.OnGameBoot.Remove(loadOptions)"
       },
       {
         "event": "OnServerCommand",
@@ -4026,6 +1654,22 @@
         "raw": "Events.OnPlayerUpdate.Add(Recovery.RetryPending)"
       },
       {
+        "event": "OnCreatePlayer",
+        "file": "Contents/mods/PsychopatzCore/42.20/media/lua/shared/PsychopatzCore/Traits/PsychopatzTraitRecovery.lua",
+        "module": "PsychopatzCore/Traits/PsychopatzTraitRecovery",
+        "line": 300,
+        "role": "shared",
+        "raw": "Events.OnCreatePlayer.Remove(sanitizePlayer)"
+      },
+      {
+        "event": "OnPlayerUpdate",
+        "file": "Contents/mods/PsychopatzCore/42.20/media/lua/shared/PsychopatzCore/Traits/PsychopatzTraitRecovery.lua",
+        "module": "PsychopatzCore/Traits/PsychopatzTraitRecovery",
+        "line": 303,
+        "role": "shared",
+        "raw": "Events.OnPlayerUpdate.Remove(Recovery.RetryPending)"
+      },
+      {
         "event": "OnGameBoot",
         "file": "Contents/mods/PsychopatzCore/42.20/media/lua/shared/PsychopatzCore/Traits/PsychopatzTraitRegistry.lua",
         "module": "PsychopatzCore/Traits/PsychopatzTraitRegistry",
@@ -4093,7 +1737,7 @@
         "event": "OnInitGlobalModData",
         "file": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Inventory/PsychopatzInventory.lua",
         "module": "PsychopatzCore/Inventory/PsychopatzInventory",
-        "line": 104,
+        "line": 106,
         "role": "shared",
         "raw": "Events.OnInitGlobalModData.Add(initialize)"
       },
@@ -5588,6 +3232,11 @@
         "role": "shared",
         "subsystem": "Kernel"
       },
+      "PsychopatzCore/Kernel/PC_CapabilityDiagnostics": {
+        "file": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Kernel/PC_CapabilityDiagnostics.lua",
+        "role": "shared",
+        "subsystem": "Kernel"
+      },
       "PsychopatzCore/Kernel/PC_CapabilityLifecycle": {
         "file": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Kernel/PC_CapabilityLifecycle.lua",
         "role": "shared",
@@ -5605,6 +3254,11 @@
       },
       "PsychopatzCore/Kernel/PC_Kernel": {
         "file": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Kernel/PC_Kernel.lua",
+        "role": "shared",
+        "subsystem": "Kernel"
+      },
+      "PsychopatzCore/Kernel/PC_Services": {
+        "file": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Kernel/PC_Services.lua",
         "role": "shared",
         "subsystem": "Kernel"
       },
@@ -5889,7 +3543,7 @@
             "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/DTCommon_TraderService.lua:8"
           ],
           "PsychopatzCore/Inventory/PsychopatzInventory": [
-            "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/00_DTCommon_Init.lua:3",
+            "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/00_DTCommon_Init.lua:6",
             "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/DTCommon_SettlementExchangeCandidates.lua:9",
             "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/DTCommon_Storage.lua:6",
             "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/DTCommon_TraderService.lua:6",
@@ -5902,7 +3556,7 @@
         },
         "DTHoomans": {
           "PsychopatzCore/UI/PsychopatzDebugHubWindow": [
-            "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:9"
+            "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:12"
           ]
         }
       },
@@ -5910,6 +3564,10 @@
         "DTAbstract": {
           "RadioDeviceState": [
             "Contents/mods/DTAbstract/42.20/media/lua/client/DTAbstract/DTAbstract_Client.lua:6"
+          ],
+          "Require": [
+            "Contents/mods/DTAbstract/42.20/media/lua/client/DTAbstract/00_DTAbstract_Client_Init.lua:1",
+            "Contents/mods/DTAbstract/42.20/media/lua/client/DTAbstract/00_DTAbstract_Client_Init.lua:2"
           ]
         },
         "DTCommon": {
@@ -5925,6 +3583,10 @@
           "RadioDeviceState": [
             "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/DTCommon_TraderService.lua:322"
           ],
+          "RequirePack": [
+            "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/00_DTCommon_Init.lua:3",
+            "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/00_DTCommon_Init.lua:4"
+          ],
           "RuntimeRole": [
             "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/DTCommon_Storage.lua:18"
           ]
@@ -5935,10 +3597,14 @@
             "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/DTHoomans_Client.lua:42"
           ],
           "Debug": [
-            "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:13"
+            "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:17"
           ],
           "DebugHub": [
-            "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:11"
+            "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:15"
+          ],
+          "Require": [
+            "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:9",
+            "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:10"
           ],
           "RuntimeRole": [
             "Contents/mods/DTHoomans/42.20/media/lua/server/DTHoomans/DTHoomans_CaravanLifecycle.lua:1",
@@ -5964,7 +3630,7 @@
         "DTCommon": [
           {
             "target": "PsychopatzCore/Inventory/PsychopatzInventory",
-            "location": "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/00_DTCommon_Init.lua:3",
+            "location": "Contents/mods/DTCommon/42.20/media/lua/shared/DTCommon/00_DTCommon_Init.lua:6",
             "kind": "public"
           },
           {
@@ -6006,7 +3672,7 @@
         "DTHoomans": [
           {
             "target": "PsychopatzCore/UI/PsychopatzDebugHubWindow",
-            "location": "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:9",
+            "location": "Contents/mods/DTHoomans/42.20/media/lua/client/DTHoomans/00_DTHoomans_Client_Init.lua:12",
             "kind": "internal"
           }
         ]
@@ -11354,8 +9020,8 @@
     }
   },
   "tests": {
-    "total": 122,
-    "passed_count": 116,
+    "total": 127,
+    "passed_count": 121,
     "failed_count": 6,
     "passed": [
       "tests/psychopatz_actor_conversation_restore_smoke.lua",
@@ -11400,6 +9066,8 @@
       "tests/psychopatz_debug_trace_smoke.lua",
       "tests/psychopatz_debug_window_smoke.lua",
       "tests/psychopatz_deterministic_content_smoke.lua",
+      "tests/psychopatz_diagnostics_smoke.lua",
+      "tests/psychopatz_dt_slice_smoke.lua",
       "tests/psychopatz_event_journal_smoke.lua",
       "tests/psychopatz_event_marker_smoke.lua",
       "tests/psychopatz_feeding_trough_guard_smoke.lua",
@@ -11417,6 +9085,7 @@
       "tests/psychopatz_kernel_smoke.lua",
       "tests/psychopatz_keybinds_smoke.lua",
       "tests/psychopatz_layout_host_smoke.lua",
+      "tests/psychopatz_lifecycle_smoke.lua",
       "tests/psychopatz_map_place_debug_context_smoke.lua",
       "tests/psychopatz_markdown_smoke.lua",
       "tests/psychopatz_material_transaction_smoke.lua",
@@ -11444,9 +9113,11 @@
       "tests/psychopatz_radio_frequencies_smoke.lua",
       "tests/psychopatz_radio_image_animation_smoke.lua",
       "tests/psychopatz_runtime_role_smoke.lua",
+      "tests/psychopatz_runtime_role_split_smoke.lua",
       "tests/psychopatz_semantic_dialogue_turn_smoke.lua",
       "tests/psychopatz_semantic_pattern_matcher_smoke.lua",
       "tests/psychopatz_semantic_surface_recovery_smoke.lua",
+      "tests/psychopatz_services_smoke.lua",
       "tests/psychopatz_sidebar_smoke.lua",
       "tests/psychopatz_slider_smoke.lua",
       "tests/psychopatz_spatial_relation_smoke.lua",
@@ -11482,7 +9153,7 @@
       },
       {
         "test": "tests/psychopatz_image_resolver_smoke.lua",
-        "error": "lua: tests/psychopatz_image_resolver_smoke.lua:5: instance-item icon fallback resolves: expected=table: 0x61e72a99d8c0 actual=nil"
+        "error": "lua: tests/psychopatz_image_resolver_smoke.lua:5: instance-item icon fallback resolves: expected=table: 0x5a0bd6ad18c0 actual=nil"
       },
       {
         "test": "tests/psychopatz_label_layout_smoke.lua",
