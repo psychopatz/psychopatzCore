@@ -1,45 +1,62 @@
 # PsychopatzCore Modular Capability & Composition Refactor — Progress
 
-Snapshot: 2026-11-01  
+Snapshot: 2026-11-02  
 Parent status: **IN PROGRESS**  
-Current phase: **P0 — Baseline and dependency inventory**  
-Verified Core revision at planning time: `c01daef545fe5a9d2742186eca2bc0aa911f99cc` on `main`, equal to `origin/main`.
+Current phase: **P1 — Minimal kernel** (P0 complete)  
+Verified Core revision: `c01daef545fe5a9d2742186eca2bc0aa911f99cc` on `main`, equal to `origin/main`.
 
-## Accepted starting evidence
+## Accepted P0 Evidence (Baseline and Dependency Inventory)
 
-- Root `AGENTS.md` is already lean and durable; no change is needed for this goal.
-- Existing Composition files provide useful boundaries but still eagerly require broad shared/client/server feature sets.
-- Checked-in architecture audit reports 307 production files, 46,319 scored production LOC, 30 logical subsystems, 54 production findings and 42 dependency-cycle findings; Composition/root composition and UI are the highest-pressure areas.
-- Source scan found 29 Core Lua files containing PZ event-hook registration surfaces; require-time/lifecycle ownership must be baselined before migration.
-- Dynamic Trading consumes a bounded but nontrivial subset of Core and is the first adopter proof target.
-- Individual systems such as Voice and Profiler already demonstrate useful opt-in/dormant patterns worth preserving rather than rewriting blindly.
+- **Dynamic Baseline Harness**: `tools/refactor_baseline/baseline_harness.lua` & `record_baseline.py` dynamically execute and instrument Core bootstraps without modifying production behavior.
+  - `shared`: 123 modules loaded, 243 require edges, 12 callbacks attributed.
+  - `client`: 153 modules loaded, 284 require edges, 16 callbacks attributed (including OnTick from Keybinds and RadioOS).
+  - `server`: 128 modules loaded, 254 require edges, 13 callbacks attributed.
+- **Require-Time Callback Attribution**: All 12 require-time callbacks on shared boot attributed to registering modules:
+  - `PsychopatzCustomTranslationManager` -> `OnGameBoot`
+  - `PsychopatzInventory` -> `OnInitGlobalModData`
+  - `PsychopatzMoneyWeight` -> `OnGameBoot`, `OnGameStart`
+  - `PsychopatzCurrencyCategory` -> `OnGameBoot`, `OnGameStart`, `OnCreatePlayer`
+  - `PsychopatzMoneyBundler` -> `OnGameBoot`, `OnGameStart`
+  - `PsychopatzTraitRegistry` -> `OnGameBoot`
+  - `PsychopatzTraitRecovery` -> `OnCreatePlayer`, `OnPlayerUpdate` (recurring player tick)
+- **Capability Contracts & Catalog**:
+  - `PsychopatzCore/Kernel/PC_CapabilityContract`: Validates capability descriptors (`id`, `domain`, `roles`, `depends`, `load`, `activate`, `deactivate`, `facade`) and capability packs.
+  - `PsychopatzCore/Kernel/PC_CapabilityCatalog`: 28 capability descriptors and 4 adopter packs (`pack.trading_common`, `pack.trading_abstract`, `pack.trading_hoomans`, `pack.core_legacy_full`).
+- **Dynamic Trading Source-Backed Capability Map**:
+  - `DTCommon`: Inventory, InventoryConstants, Currency (requires); Actors, DebugSettings, RadioDeviceState, RuntimeRole (globals).
+  - `DTAbstract`: RadioRuntimeManifest (requires); RadioDeviceState (globals).
+  - `DTHoomans`: DebugHubWindow (requires); Conversation, Debug, DebugHub, RuntimeRole, Teleport (globals).
+- **Test Suite Baseline**:
+  - 121 total tests, 114 passed, 7 pre-existing failures preserved, 0 regressions.
+  - `tests/psychopatz_baseline_smoke.lua` PASS.
+  - `tests/psychopatz_capability_contract_smoke.lua` PASS.
+- Machine-readable artifact `Docs/modular_capability_refactor/P0_BASELINE.json` and human-readable `Docs/modular_capability_refactor/P0_BASELINE.md` generated.
 
-## Immediate Next Chunk — P0A Baseline instrumentation and contracts
+## Next Chunk — P1 Minimal Kernel
 
-Create a read-only, repeatable developer baseline that records for representative configurations:
+Implement the minimal Core Kernel:
+1. `PC_CapabilityRegistry`:
+   - Registers capability descriptors without loading their implementation modules.
+   - Registers capability packs.
+   - Tracks lifecycle states (`REGISTERED`, `LOADED`, `ACTIVE`, `DORMANT`, `FAILED`).
+   - Consumer reference counting (`consumers[consumerId] = count`).
+2. `PC_CapabilityResolver`:
+   - Resolves transitive dependency closure for requested capabilities.
+   - Detects dependency cycles and reports actionable cycle paths.
+   - Enforces runtime-role eligibility (client vs server vs shared).
+3. `PC_CapabilityLifecycle`:
+   - Coordinates lazy loading (`load()`) and activation (`activate()`).
+   - Ensures implementation modules are required only once upon demand.
+   - Manages reference counts and deactivation (`deactivate()`) when all consumers release.
+4. `PC_Kernel`:
+   - Exposes clean public Core API: `Core.Capabilities.Require(capId, consumerId)`, `Core.Capabilities.RequirePack(packId, consumerId)`, `Core.Capabilities.GetStatus()`, `Core.Capabilities.Release(capId, consumerId)`.
+5. Harness verification:
+   - Smoke test proving kernel boots with zero feature modules loaded and zero callbacks installed.
+   - Smoke test verifying dependency closure, role filtering, and cycle detection.
 
-1. modules loaded by the Core shared/client/server roots
-2. feature/domain-to-feature dependency edges
-3. require-time event/callback/resource registrations
-4. runtime-role eligibility
-5. adopter imports of Core public versus internal implementation paths
-6. Dynamic Trading's current Core capability requirements
-
-Prefer reusable test/harness instrumentation over a hand-maintained snapshot.
-
-### P0A acceptance
-
-- no production behavior changes
-- focused baseline tests execute against actual Core bootstrap/composition modules
-- output identifies why a module/callback is present, or explicitly marks attribution unknown for later resolution
-- Dynamic Trading capability map is source-backed
-- current test baseline is recorded
-- `PROGRESS.md` is updated with evidence and the next P0 chunk
-
-After P0A passes, continue automatically through the remaining P0 outputs and then P1-P10. Do not return control merely because P0A or P0 completes.
-
-## Remaining mandatory gap
-
-The minimal kernel, feature registry/resolver, composition inversion, Dynamic Trading pilot, lifecycle migration, cycle removal, domain refinement, runtime-role enforcement, diagnostics, adopter migration and final developer acceptance are all still unimplemented for this goal.
-
-Native PZ SP/MP validation remains user-owned after developer-side completion.
+### P1 Acceptance Criteria
+- Kernel boots independently with only RuntimeRole / registry / resolver / lifecycle / diagnostics.
+- Registered capabilities do NOT load feature implementation files until requested.
+- Dependency closure resolves dependencies in topological order.
+- Unknown dependency or cycle produces clear diagnostic error.
+- Role mismatch prevents activation with actionable reason.
