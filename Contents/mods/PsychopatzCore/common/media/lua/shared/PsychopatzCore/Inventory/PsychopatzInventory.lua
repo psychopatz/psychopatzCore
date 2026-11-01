@@ -12,6 +12,7 @@ local MaterialTransaction = require "PsychopatzCore/Inventory/PsychopatzMaterial
 local Serializer = require "PsychopatzCore/Inventory/PsychopatzInventorySerializer"
 local Network = require "PsychopatzCore/Inventory/PsychopatzInventoryNetworkCodec"
 local Metrics = require "PsychopatzCore/Inventory/PsychopatzInventoryMetrics"
+local Constants = require "PsychopatzCore/Inventory/PsychopatzInventoryConstants"
 local Portable = require "PsychopatzCore/Inventory/PsychopatzPortableItemState"
 local ItemStateDefaults = require
     "PsychopatzCore/Inventory/PsychopatzItemStateDefaults"
@@ -29,6 +30,7 @@ Inventory.PortableItemState = Portable
 Inventory.ItemStateDefaults = ItemStateDefaults
 Inventory.DisplayState = DisplayState
 Inventory.MaterialTransaction = MaterialTransaction
+Inventory.Constants = Constants
 
 function Inventory.getItemTypeId(fullType, create) return Types.getId(fullType, create) end
 function Inventory.getItemFullType(typeId) return Types.getFullType(typeId) end

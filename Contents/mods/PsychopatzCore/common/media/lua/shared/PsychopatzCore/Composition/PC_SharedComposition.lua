@@ -17,8 +17,11 @@ local Kernel = require "PsychopatzCore/Kernel/PC_Kernel"
 Kernel.InitCatalog()
 
 -- 3. Top-level capability shortcuts on PsychopatzCore
+local Services = require "PsychopatzCore/Kernel/PC_Services"
 Core.Capabilities = Kernel
+Core.Features = Kernel
 Core.Kernel = Kernel
+Core.Services = Services
 
 Core.Require = function(capId, consumerId, context)
     return Kernel.Require(capId, consumerId, context)
