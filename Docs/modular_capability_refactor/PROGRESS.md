@@ -2,36 +2,39 @@
 
 Snapshot: 2026-11-02  
 Parent status: **IN PROGRESS**  
-Current phase: **P5 — Dependency-cycle elimination** (P0, P1, P2, P3, and P4 complete)  
-Verified Core revision: `a431005` on `main`, ahead of `origin/main` by 5 commits.
+Current phase: **P6 — Domain capsule refinement** (P0 through P5 complete)  
+Verified Core revision: `018e9f7` on `main`, ahead of `origin/main` by 6 commits.
 
-## Accepted P4 Evidence (Event & Lifecycle Ownership)
+## Accepted P5 Evidence (Dependency-Cycle Elimination)
 
-- **Lifecycle Ownership Enforced**:
-  - `PsychopatzTraitRecovery`: Implemented `Recovery.Uninstall()` and encapsulated `Recovery.Install()` within the `core.traits` capability lifecycle. When unrequested, traits contribute ZERO callbacks to `Events.OnPlayerUpdate` or `Events.OnCreatePlayer`.
-  - `PsychopatzKeybinds`: Encapsulated into `Keybinds.Install()` and `Keybinds.Uninstall()`, attached to `core.input_keybinds` activation/deactivation. When unrequested, contributes ZERO callbacks to `Events.OnTick` or `Events.OnGameBoot`.
-  - Type-safe callback invocation (`type(...) == "table"`) prevents errors when modules are stubbed or preloaded in testing.
-- **Automated Lifecycle Verification**:
-  - `tests/psychopatz_lifecycle_smoke.lua` PASS: Asserts 0 listeners initially on `OnPlayerUpdate`, `OnCreatePlayer`, and `OnTick`; confirms listeners are attached upon capability activation; verifies all listeners are cleanly detached upon deactivation.
+- **Architecture Rescan Confirms Complete Elimination of Cycles**:
+  - Re-scanned with `skills/architecture-audit/architecture_audit.py`.
+  - **Dependency Cycles**: Dropped from **42 findings** at baseline to **0 findings** (100% eliminated).
+  - **Production Findings**: Dropped from **54** to **5**.
+  - **Refactor Pressure**: Dropped from **100.0/100** (critical) to **16.7/100** (healthy).
+  - **Production Health**: Reached **93.0 / 100**.
+- **Resolver Cycle Rejection**:
+  - `PC_CapabilityResolver` performs DFS cycle detection with permanent/temporary markers.
+  - Verified by `tests/psychopatz_kernel_smoke.lua` rejecting cyclic graphs (`cycle.a -> cycle.b -> cycle.c -> cycle.a`) with explicit diagnostics.
 - **Zero Regressions Across All Repositories**:
   - `PsychopatzCore`: 118 passed, 6 pre-existing baseline failures preserved.
-  - `DynamicTrading`: 41/41 passed (`PASS 41/41`).
-  - `ProjectHoomans`: 982/982 passed (`PASS 982/982`).
-  - `tests/refactor_binding_smoke.py`: PASS with 0 leaks.
+  - `DynamicTrading`: 41/41 passed.
+  - `ProjectHoomans`: 982/982 passed.
 
-## Next Chunk — P5 Dependency-Cycle Elimination
+## Next Chunk — P6 Domain Capsule Refinement
 
-Audit and eliminate composition-driven dependency cycles in PsychopatzCore:
-1. Re-scan codebase using architecture tooling to measure cycle findings against the initial audit (42 cycle findings at baseline).
-2. Composition inversion (P2) already decoupled the major cycle where `00_PsychopatzCore_Init` -> `PC_SharedComposition` -> `PC_SharedFeatures` -> `PC_SharedFeatures_Diagnostics` -> `PsychopatzDebug` -> `00_PsychopatzCore_Init`.
-3. Check and decouple remaining cycles:
-   - Currency <-> MoneyBundler <-> CurrencyServer
-   - RadioOS <-> DeviceManifest <-> RadioImageAnimation
-   - Conversation <-> Semantic <-> PersonaKnowledge
-4. Ensure the Capability Resolver strictly rejects any new cycles with actionable diagnostics.
-5. Record architecture rescan report.
+Refine domain capsules and stable public facades:
+1. Ensure adopters access stable public facades (`Core.Inventory`, `Core.Currency`, `Core.Actors`, `Core.Conversation`, `Core.Translation`, `Core.Debug`, `Core.RadioOS`) rather than internal implementation paths.
+2. In P0 audit, `DTCommon` and `DTHoomans` had direct requires to:
+   - `PsychopatzCore/Inventory/PsychopatzInventory`
+   - `PsychopatzCore/Inventory/PsychopatzInventoryConstants`
+   - `PsychopatzCore/Economy/PsychopatzCurrency`
+   - `PsychopatzCore/UI/Radio/OS/PsychopatzRadioRuntimeManifest`
+   - `PsychopatzCore/UI/PsychopatzDebugHubWindow`
+3. Provide stable, documented facade exports and service lookups (`Core.Services.Get` / `Core.Capabilities.GetFacade`) so future adopters do not couple to internal file organization.
+4. Keep healthy implementations intact without unnecessary file splitting or abstraction chains.
 
-### P5 Acceptance Criteria
-- Architecture analyzer rescan confirms elimination or containment of composition-driven cycles.
-- Resolver cycle detection verified under complex graph structures.
+### P6 Acceptance Criteria
+- Stable facades provide complete access to all domain capabilities without requiring adopters to reach into private internal files.
+- Service accessor `Core.Services.Get(serviceName)` provides clean access to active facades.
 - All test suites continue to pass with 0 regressions.
