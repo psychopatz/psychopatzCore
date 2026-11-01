@@ -68,11 +68,17 @@ local PROPERTY_TO_CAP = {
     Translation = "core.translation",
 }
 
+local resolving = {}
 setmetatable(Core, {
     __index = function(t, key)
+        if resolving[key] then
+            return rawget(t, key)
+        end
         local capId = PROPERTY_TO_CAP[key]
         if capId then
+            resolving[key] = true
             local ok, facade = Kernel.Require(capId, "auto_access_" .. tostring(key))
+            resolving[key] = nil
             if ok then
                 local val = rawget(t, key) or facade
                 if val then
