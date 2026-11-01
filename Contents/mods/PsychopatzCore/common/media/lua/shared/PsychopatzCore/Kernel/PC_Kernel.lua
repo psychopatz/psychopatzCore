@@ -7,12 +7,14 @@ local Contract = require "PsychopatzCore/Kernel/PC_CapabilityContract"
 local Registry = require "PsychopatzCore/Kernel/PC_CapabilityRegistry"
 local Resolver = require "PsychopatzCore/Kernel/PC_CapabilityResolver"
 local Lifecycle = require "PsychopatzCore/Kernel/PC_CapabilityLifecycle"
+local Diagnostics = require "PsychopatzCore/Kernel/PC_CapabilityDiagnostics"
 
 local Kernel = {
     Contract = Contract,
     Registry = Registry,
     Resolver = Resolver,
     Lifecycle = Lifecycle,
+    Diagnostics = Diagnostics,
     STATES = Contract.STATES,
     catalogInitialized = false,
 }
@@ -83,6 +85,16 @@ end
 
 function Kernel.RegisterPack(pack)
     return Registry.RegisterPack(pack)
+end
+
+function Kernel.Report()
+    Kernel.InitCatalog()
+    return Diagnostics.Report()
+end
+
+function Kernel.Explain(capId)
+    Kernel.InitCatalog()
+    return Diagnostics.Explain(capId)
 end
 
 return Kernel
