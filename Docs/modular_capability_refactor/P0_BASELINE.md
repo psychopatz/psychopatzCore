@@ -1,32 +1,22 @@
 # PsychopatzCore Modular Capability & Composition Refactor — P0 Baseline
 
-- Git Revision: `805ccc148a1c2cd2fe0c7b8533c5167da862c7f7`
+- Git Revision: `0d8367e60ff7741ebcc11b352ce91f0268132332`
 - Scanned Core Files: 345
 - Scanned Core Subsystems/Domains: 35
-- Pre-refactor Tests: 121 passed / 6 failed (127 total)
+- Pre-refactor Tests: 120 passed / 7 failed (127 total)
 
 ## 1. Dynamic Boot Module Loads & Require-Time Callbacks
 
 | Runtime Role | Success | Unique Modules Loaded | Require Edges | Require-Time Callbacks |
 | --- | --- | --- | --- | --- |
 | `shared` | True | 12 | 16 | 0 |
-| `client` | False | 45 | 56 | 2 |
-| `server` | True | 25 | 34 | 8 |
+| `client` | False | 16 | 20 | 0 |
+| `server` | True | 15 | 19 | 0 |
 
 ### Require-Time Callbacks Observed (Eager Side Effects)
 
 | Role | Event | Registering Module | Attributed | Source Location |
 | --- | --- | --- | --- | --- |
-| `client` | `OnGameBoot` | `PsychopatzCore/Translation/PsychopatzCustomTranslationManager` | True | `...zCore/Translation/PsychopatzCustomTranslationManager.lua:902` |
-| `client` | `OnGameBoot` | `PsychopatzCore/Settings/PsychopatzSettings` | True | `...ua/client/PsychopatzCore/Settings/PsychopatzSettings.lua:228` |
-| `server` | `OnGameBoot` | `PsychopatzCore/Compatibility/PsychopatzMoneyWeight` | True | `[C]:-1` |
-| `server` | `OnGameStart` | `PsychopatzCore/Compatibility/PsychopatzMoneyWeight` | True | `[C]:-1` |
-| `server` | `OnGameBoot` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
-| `server` | `OnGameStart` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
-| `server` | `OnCreatePlayer` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
-| `server` | `OnGameBoot` | `PsychopatzCore/Economy/PsychopatzMoneyBundler` | True | `[C]:-1` |
-| `server` | `OnGameStart` | `PsychopatzCore/Economy/PsychopatzMoneyBundler` | True | `[C]:-1` |
-| `server` | `OnClientCommand` | `PsychopatzCore/Economy/PsychopatzMoneyBundlerServer` | True | `.../PsychopatzCore/Economy/PsychopatzMoneyBundlerServer.lua:107` |
 
 ## 2. Dynamic Trading Capability Requirements Map
 
@@ -77,17 +67,18 @@ Dynamic Trading requires only a bounded subset of PsychopatzCore, confirming the
 ## 3. Pre-Refactor Test Suite Baseline
 
 - Total tests: 127
-- Passing tests: 121
-- Pre-existing failing tests: 6
+- Passing tests: 120
+- Pre-existing failing tests: 7
 
 ### Pre-Existing Test Failures (Preserved Baseline)
 
 | Test File | Failure Reason |
 | --- | --- |
 | `tests/psychopatz_command_hub_callback_smoke.lua` | `lua: ...nt/PsychopatzCore/UI/Components/PsychopatzUIControls.lua:6: module 'PsychopatzCore/UI/Components/PsychopatzScrollPanel' not found:` |
-| `tests/psychopatz_image_resolver_smoke.lua` | `lua: tests/psychopatz_image_resolver_smoke.lua:5: instance-item icon fallback resolves: expected=table: 0x5a0bd6ad18c0 actual=nil` |
+| `tests/psychopatz_image_resolver_smoke.lua` | `lua: tests/psychopatz_image_resolver_smoke.lua:5: instance-item icon fallback resolves: expected=table: 0x5e78bccdb8c0 actual=nil` |
 | `tests/psychopatz_label_layout_smoke.lua` | `lua: ...nt/PsychopatzCore/UI/Components/PsychopatzUIControls.lua:6: module 'PsychopatzCore/UI/Components/PsychopatzScrollPanel' not found:` |
-| `tests/psychopatz_profiler_server_composition_smoke.lua` | `lua: tests/psychopatz_profiler_server_composition_smoke.lua:3: server role did not start after server loading: expected=1 actual=2` |
+| `tests/psychopatz_profiler_client_composition_smoke.lua` | `lua: ...hopatzCore/Compatibility/PsychopatzWalkieHotbarGuard.lua:1: module 'TimedActions/ISAttachItemHotbar' not found:` |
+| `tests/psychopatz_profiler_server_composition_smoke.lua` | `lua: tests/psychopatz_profiler_server_composition_smoke.lua:3: server role did not start after server loading: expected=1 actual=0` |
 | `tests/psychopatz_widget_window_smoke.lua` | `lua: tests/psychopatz_widget_window_smoke.lua:6: widget button follows resized title bar: expected=103 actual=83` |
 | `tests/psychopatz_world_inventory_smoke.lua` | `lua: tests/psychopatz_world_inventory_smoke.lua:9: single-player teleport: expected=true actual=false` |
 

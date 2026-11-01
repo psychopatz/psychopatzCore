@@ -1,4 +1,2 @@
--- Thin early-loading server anchor. Keep composition order explicit.
-require "PsychopatzCore/Economy/PsychopatzCurrencyServer"
-require "PsychopatzCore/Economy/PsychopatzMoneyBundlerServer"
+-- Thin early-loading server anchor.
 return require "PsychopatzCore/Composition/PC_ServerComposition"
