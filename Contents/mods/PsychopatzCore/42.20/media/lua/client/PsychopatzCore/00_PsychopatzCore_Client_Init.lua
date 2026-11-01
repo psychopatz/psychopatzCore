@@ -1,9 +1,2 @@
--- Thin early-loading client anchor. Keep composition order explicit.
-require "PsychopatzCore/Input/PsychopatzKeybinds"
-require "PsychopatzCore/UI/Radio/OS/PsychopatzRadioOS"
-require "PsychopatzCore/UI/PsychopatzAudioSettings"
-require "PsychopatzCore/Conversation/PsychopatzSocialFlavorClient"
-require "PsychopatzCore/Compatibility/PsychopatzWalkieHotbarGuard"
-require "PsychopatzCore/Economy/PsychopatzMoneyBundlerAction"
-require "PsychopatzCore/Economy/PsychopatzMoneyBundlerUI"
+-- Thin early-loading client anchor.
 return require "PsychopatzCore/Composition/PC_ClientComposition"

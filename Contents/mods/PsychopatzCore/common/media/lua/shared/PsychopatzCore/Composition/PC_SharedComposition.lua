@@ -8,16 +8,82 @@ if Composition.sharedLoaded then
     return Core
 end
 
--- Keep the shared entry point as an ordered hub. Providers must be available
--- before identity-dependent feature registration and optional bootstraps run.
-require "PsychopatzCore/Composition/PC_SharedFoundation"
+-- 1. Essential Core identity & Runtime role
 require "PsychopatzCore/Composition/PC_CoreIdentity"
-require "PsychopatzCore/Actors/PsychopatzActors"
-require "PsychopatzCore/Compatibility/PsychopatzMoneyWeight"
-require "PsychopatzCore/Compatibility/PsychopatzCurrencyCategory"
-require "PsychopatzCore/Economy/PsychopatzCurrency"
-require "PsychopatzCore/Economy/PsychopatzMoneyBundler"
-require "PsychopatzCore/Composition/PC_SharedFeatures"
+require "PsychopatzCore/Runtime/PC_RuntimeRole"
+
+-- 2. Minimal Capability Kernel initialization
+local Kernel = require "PsychopatzCore/Kernel/PC_Kernel"
+Kernel.InitCatalog()
+
+-- 3. Top-level capability shortcuts on PsychopatzCore
+Core.Capabilities = Kernel
+Core.Kernel = Kernel
+
+Core.Require = function(capId, consumerId, context)
+    return Kernel.Require(capId, consumerId, context)
+end
+
+Core.RequirePack = function(packId, consumerId, context)
+    return Kernel.RequirePack(packId, consumerId, context)
+end
+
+Core.Release = function(capId, consumerId, context)
+    return Kernel.Release(capId, consumerId, context)
+end
+
+Core.GetStatus = function(capId)
+    return Kernel.GetStatus(capId)
+end
+
+-- 4. Legacy full composition loader for backward compatibility / explicit requests
+function Core.RequireLegacySharedFull(consumerId)
+    return Kernel.RequirePack("pack.core_legacy_full", consumerId or "LegacySharedFull")
+end
+
+-- Property-to-capability map for on-demand resolution of PsychopatzCore.*
+local PROPERTY_TO_CAP = {
+    Actors = "core.actors",
+    Inventory = "core.inventory",
+    Currency = "core.currency",
+    Conversation = "core.conversation",
+    VoiceGateway = "core.voice",
+    Journal = "core.journal",
+    SpatialRelation = "core.spatial",
+    World = "core.world_region",
+    DeterministicContent = "core.deterministic_content",
+    RadioDeviceState = "core.radio_device_state",
+    RadioFrequencies = "core.radio_channels",
+    CustomRadio = "core.radio_channels",
+    Traits = "core.traits",
+    ZombieKillDetector = "core.zombie_kill_detector",
+    Debug = "core.debug",
+    Profiler = "core.profiler",
+    Bridge = "core.bridge",
+    Teleport = "core.teleport",
+    Preview = "core.preview",
+    Keybinds = "core.input_keybinds",
+    Audio = "core.audio_settings",
+    Semantics = "core.semantics",
+    Translation = "core.translation",
+}
+
+setmetatable(Core, {
+    __index = function(t, key)
+        local capId = PROPERTY_TO_CAP[key]
+        if capId then
+            local ok, facade = Kernel.Require(capId, "auto_access_" .. tostring(key))
+            if ok then
+                local val = rawget(t, key) or facade
+                if val then
+                    rawset(t, key, val)
+                    return val
+                end
+            end
+        end
+        return rawget(t, key)
+    end
+})
 
 Composition.sharedLoaded = true
 

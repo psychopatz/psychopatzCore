@@ -94,7 +94,7 @@ addDescriptor({
     load = function()
         require "PsychopatzCore/Conversation/PsychopatzSocialFlavor"
         require "PsychopatzCore/Conversation/PsychopatzNameParts"
-        return require "PsychopatzCore/Actors/PC_ActorConversationService"
+        return require "PsychopatzCore/Conversation/PsychopatzActorConversationService"
     end,
     facade = function()
         return PsychopatzCore.Conversation
@@ -242,6 +242,7 @@ addDescriptor({
     id = "core.radio_channels",
     domain = "Radio",
     roles = { shared = true, client = true, server = true },
+    depends = { "core.translation" },
     load = function()
         require "PsychopatzCore/Radio/RadioFrequencies/PsychopatzRadioFrequencies"
         return require "PsychopatzCore/Radio/CustomChannels/PsychopatzCustomRadio"

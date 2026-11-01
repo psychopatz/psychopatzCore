@@ -2,40 +2,43 @@
 
 Snapshot: 2026-11-02  
 Parent status: **IN PROGRESS**  
-Current phase: **P2 — Composition inversion** (P0 and P1 complete)  
-Verified Core revision: `85fc009` on `main`, ahead of `origin/main` by 2 commits.
+Current phase: **P3 — Dynamic Trading vertical slice** (P0, P1, and P2 complete)  
+Verified Core revision: `064d25a` on `main`, ahead of `origin/main` by 3 commits.
 
-## Accepted P1 Evidence (Minimal Kernel)
+## Accepted P2 Evidence (Composition Inversion)
 
-- **Minimal Kernel Components Implemented**:
-  - `PsychopatzCore/Kernel/PC_CapabilityRegistry`: Registers capability descriptors without loading implementation modules; tracks state transitions (`REGISTERED`, `LOADED`, `ACTIVE`, `DORMANT`, `FAILED`); consumer reference counting.
-  - `PsychopatzCore/Kernel/PC_CapabilityResolver`: Resolves topological dependency closure; detects cycles with actionable error path; enforces role eligibility (client/server/shared).
-  - `PsychopatzCore/Kernel/PC_CapabilityLifecycle`: Manages lazy `load()` and `activate()`; prevents redundant loading; coordinates `deactivate()` upon final consumer release.
-  - `PsychopatzCore/Kernel/PC_Kernel`: Unified facade (`PsychopatzCore.Capabilities` and `Core.Kernel`) exposing `Require`, `RequirePack`, `Release`, `GetStatus`, `GetAllStatus`, `GetFacade`, `Register`, and `RegisterPack`.
-- **Harness & Contract Validation**:
-  - `tests/psychopatz_kernel_smoke.lua` PASS: Proves kernel boots with zero feature modules loaded and zero callbacks installed; validates topological load/activation ordering; multi-consumer refcounting (retaining ACTIVE until last consumer releases to DORMANT); cycle detection (rejecting A -> B -> C -> A); and role eligibility enforcement.
-  - `tests/refactor_binding_smoke.py` PASS: Zero private helper leaks.
-  - Regression test suite: 115 passed, 7 pre-existing failures preserved, 0 regressions.
+- **Composition Roots Inverted**:
+  - `PsychopatzCore/00_PsychopatzCore_Init.lua` and `PC_SharedComposition`: Boots minimal identity + RuntimeRole + Kernel, registering all capability descriptors. Broad domains (Actors, Currency, MoneyBundler, Diagnostics, Traits, etc.) are NO LONGER eagerly required at boot.
+  - `00_PsychopatzCore_Client_Init.lua` and `PC_ClientComposition`: Removed eager requires of Keybinds, RadioOS, AudioSettings, SocialFlavorClient, MoneyBundlerAction, MoneyBundlerUI. Only engine-level walkie hotbar patch remains.
+  - `00_PsychopatzCore_Server_Init.lua` and `PC_ServerComposition`: Removed eager requires of CurrencyServer and MoneyBundlerServer. Only documented engine-required MapObjects compatibility guard (`PsychopatzFeedingTroughGuard`) loads early.
+- **Drastic Boot Load Reduction (Proven via baseline harness)**:
+  - `shared`: Dropped from **123 modules** to **10 modules** (-91.8%).
+  - `shared callbacks`: Dropped from **12 callbacks** to **0 callbacks** (-100%).
+  - `client`: Dropped from **153 modules** to **89 modules** (-41.8%); recurring callbacks dropped.
+- **On-Demand Facades & Compatibility**:
+  - `Core.Require(capId, consumerId)` and `Core.RequirePack(packId, consumerId)` provide clean demand-driven activation.
+  - `Core.RequireLegacySharedFull()` provides full capability activation for legacy suites.
+  - On-demand metatable fallback ensures accessing `PsychopatzCore.<Feature>` lazily activates only the required capability and its declared dependencies.
+- **Tests**:
+  - `tests/psychopatz_core_composition_smoke.lua` PASS: Proves unrequested features remain unloaded on boot and activate cleanly on demand.
+  - `tests/psychopatz_radio_frequencies_smoke.lua` PASS.
+  - `tests/psychopatz_custom_radio_smoke.lua` PASS.
+  - Overall test suite: 116 passed, 6 pre-existing failures preserved, 0 regressions (1 pre-existing failure fixed!).
+  - `tests/refactor_binding_smoke.py` PASS.
 
-## Next Chunk — P2 Composition Inversion
+## Next Chunk — P3 Dynamic Trading Vertical Slice
 
-Invert Core's shared, client, and server root bootstraps so they initialize the minimal kernel rather than eagerly requiring broad feature groups.
-1. `PC_SharedComposition`:
-   - Initialize identity and kernel.
-   - Register capability descriptors/catalog.
-   - Do NOT eagerly require Actors, MoneyWeight, CurrencyCategory, Currency, MoneyBundler, Diagnostics, Radio, Traits, etc.
-   - Maintain backward compatibility: if `PsychopatzCore.RequireLegacySharedFull()` is called or if a legacy config requests it, activate `pack.core_legacy_full`.
-2. `00_PsychopatzCore_Client_Init` & `PC_ClientComposition`:
-   - Do not eagerly require Keybinds, RadioOS, AudioSettings, SocialFlavorClient, WalkieHotbarGuard, MoneyBundlerAction, MoneyBundlerUI.
-   - Register client capability descriptors.
-3. `00_PsychopatzCore_Server_Init` & `PC_ServerComposition`:
-   - Do not eagerly require CurrencyServer, MoneyBundlerServer.
-   - Register server capability descriptors.
-   - Preserve MapObjects sprite/chunk compatibility guards required by the engine at boot.
-4. Verify dynamic load reduction via `baseline_harness.lua` and update tests.
+Prove demand-driven Core activation with representative configurations:
+1. Core alone: verifies minimal kernel boot (10 modules, 0 shared callbacks).
+2. Core + DTCommon: declares explicit requirement for `pack.trading_common` (or `core.inventory`, `core.currency`, `core.actors`, `core.conversation`, `core.runtime`, `core.debug`).
+3. Core + DTCommon + DTAbstract: activates `core.radio_device_state` and `core.radio_os`.
+4. Core + Hoomans without Dynamic Trading: activates full Hoomans requirements.
+5. In all DT-only configurations, verify unrelated Core systems (`core.traits`, `core.zombie_kill_detector`, `core.animation`, `core.world_loot`, etc.) remain strictly UNREQUESTED, UNLOADED, and INACTIVE.
+6. Verify and preserve unrelated user work in DynamicTrading (`DTHoomans_Conversation.lua`).
 
-### P2 Acceptance Criteria
-- Shared root boot loads ONLY kernel + identity foundation, not broad feature capsules.
-- Dynamic modules loaded on bare Core boot drops drastically (target: < 25 modules vs 123 in P0).
-- Eager require-time callbacks on bare Core boot drops to 0 (except engine-required early hooks).
-- Any capability requested on-demand loads cleanly and provides its facade.
+### P3 Acceptance Criteria
+- Adopter capability declaration verified for DTCommon and DTAbstract.
+- Harness mechanically asserts module and callback counts for each representative configuration.
+- DT-only configurations prove unrelated capsules (Traits, ZombieKillDetector, Animation, WorldLoot) contribute zero modules and zero callbacks.
+- Trading behavior and DT authority contracts remain unchanged.
+- Unrelated user edits in DynamicTrading are untouched.

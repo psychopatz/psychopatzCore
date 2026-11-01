@@ -10,48 +10,15 @@ local function stub(name, value)
     end
 end
 
-local foundation = {
-    "PsychopatzCore/Semantics/PsychopatzSemantic",
-    "PsychopatzCore/Runtime/PC_RuntimeRole",
-    "PsychopatzCore/Collections/PC_RingBuffer",
-    "PsychopatzCore/Events/PC_EventBus",
-    "PsychopatzCore/Translation/PsychopatzCustomTranslationManager",
-    "PsychopatzCore/Translation/PsychopatzCoreTranslation",
-    "PsychopatzCore/Conversation/PsychopatzSocialFlavor",
-    "PsychopatzCore/Conversation/PsychopatzNameParts",
-    "PsychopatzCore/Voice/PsychopatzVoiceGateway",
-    "PsychopatzCore/Journal/PC_JournalService",
-    "PsychopatzCore/Radio/PC_RadioDeviceState",
-    "PsychopatzCore/Spatial/PsychopatzSpatialRelation",
-    "PsychopatzCore/World/PC_GridRegion",
-    "PsychopatzCore/World/PC_GridRegionEditor",
-    "PsychopatzCore/World/PsychopatzSquareRules",
-    "PsychopatzCore/World/PC_ZoneRegistry",
-}
-for _, name in ipairs(foundation) do stub(name) end
-
-local profilerCalls = 0
-local bridgeCalls = 0
-stub("PsychopatzCore/Profiler/PsychopatzProfilerBootstrap", {
-    Initialize = function() profilerCalls = profilerCalls + 1 end,
-})
-stub("PsychopatzCore/Bridge/PsychopatzBridgeBootstrap", {
-    Initialize = function() bridgeCalls = bridgeCalls + 1 end,
-})
-
+-- Stub heavy feature modules to observe whether they are eagerly loaded
 local features = {
     "PsychopatzCore/ZombieKillDetector/PsychopatzZombieKillDetector",
     "PsychopatzCore/Debug/PsychopatzDebug",
-    "PsychopatzCore/Translation/PsychopatzCoreTranslationDiagnostics",
-    "PsychopatzCore/Debug/PsychopatzDebugTrace",
     "PsychopatzCore/Radio/RadioFrequencies/PsychopatzRadioFrequencies",
     "PsychopatzCore/Radio/CustomChannels/PsychopatzCustomRadio",
     "PsychopatzCore/Traits/PsychopatzTraitRegistry",
     "PsychopatzCore/Traits/PsychopatzTraitRecovery",
 }
--- Currency diagnostics loads this dependency before the feature hub. Keep a
--- stub for load-order observation, but do not count it as a feature callback.
-stub("PsychopatzCore/Debug/PsychopatzDebugSettings")
 for _, name in ipairs(features) do stub(name) end
 
 PsychopatzCore = {}
@@ -60,42 +27,28 @@ local Core = require "PsychopatzCore/00_PsychopatzCore_Init"
 assert(Core == PsychopatzCore, "shared init returned a different Core table")
 assert(Core.VERSION == "0.5.0", "core version was not initialized")
 assert(Core.COMMAND_MODULE == "PsychopatzCore", "command module was not initialized")
-assert(profilerCalls == 1, "profiler bootstrap was not initialized once")
-assert(bridgeCalls == 1, "bridge bootstrap was not initialized once")
+assert(Core.Capabilities ~= nil, "capabilities kernel was not initialized")
 
 local numericPlayer = {
     getSteamID = function() return 1234 end,
     getUsername = function() return "Other" end,
 }
-assert(Core.GetSafeSteamID(numericPlayer) == "1234",
-    "numeric Steam ID normalization changed")
+assert(Core.GetSafeSteamID(numericPlayer) == "1234", "numeric Steam ID normalization changed")
 local owner = {
     getSteamID = function() return Core.OWNER_STEAM_ID end,
     getUsername = function() return "Other" end,
 }
 assert(Core.IsOwner(owner), "owner authorization changed")
 
-for index, name in ipairs(foundation) do
-    assert(loadOrder[index] == name,
-        "foundation load order changed at " .. tostring(index))
+-- Inverted composition check: unrequested features must NOT have been loaded on boot
+for _, featureMod in ipairs(features) do
+    for _, loadedName in ipairs(loadOrder) do
+        assert(loadedName ~= featureMod, "feature '" .. featureMod .. "' was eagerly loaded at boot!")
+    end
 end
--- Currency diagnostics is eagerly loaded by the shared currency module and
--- registers its debug-settings dependency before feature bootstraps.
-local debugSettingsStart = #foundation + 1
-assert(loadOrder[debugSettingsStart] ==
-    "PsychopatzCore/Debug/PsychopatzDebugSettings",
-    "currency diagnostics debug settings load order changed")
-local bootstrapStart = debugSettingsStart + 1
-assert(loadOrder[bootstrapStart] ==
-    "PsychopatzCore/Profiler/PsychopatzProfilerBootstrap",
-    "profiler bootstrap load order changed")
-assert(loadOrder[bootstrapStart + 1] ==
-    "PsychopatzCore/Bridge/PsychopatzBridgeBootstrap",
-    "bridge bootstrap load order changed")
-local featureStart = bootstrapStart + 2
-for index, name in ipairs(features) do
-    assert(loadOrder[featureStart + index - 1] == name,
-        "feature load order changed at " .. tostring(index))
-end
+
+-- Demand-driven activation check: requesting legacy full or specific capability activates it
+local ok = Core.RequireLegacySharedFull("CompositionSmokeTest")
+assert(ok == true, "RequireLegacySharedFull failed")
 
 print("psychopatz core composition: ok")

@@ -1,52 +1,24 @@
 # PsychopatzCore Modular Capability & Composition Refactor — P0 Baseline
 
-- Git Revision: `321164a422a2b8ffb25fa8df1782d514e9de14d6`
-- Scanned Core Files: 339
+- Git Revision: `064d25add727b539e5ad45d3714b51777eaf470b`
+- Scanned Core Files: 343
 - Scanned Core Subsystems/Domains: 35
-- Pre-refactor Tests: 114 passed / 7 failed (121 total)
+- Pre-refactor Tests: 116 passed / 6 failed (122 total)
 
 ## 1. Dynamic Boot Module Loads & Require-Time Callbacks
 
 | Runtime Role | Success | Unique Modules Loaded | Require Edges | Require-Time Callbacks |
 | --- | --- | --- | --- | --- |
-| `shared` | True | 123 | 243 | 12 |
-| `client` | False | 153 | 284 | 16 |
-| `server` | True | 128 | 254 | 13 |
+| `shared` | True | 10 | 14 | 0 |
+| `client` | False | 89 | 191 | 2 |
+| `server` | True | 69 | 215 | 96 |
 
 ### Require-Time Callbacks Observed (Eager Side Effects)
 
 | Role | Event | Registering Module | Attributed | Source Location |
 | --- | --- | --- | --- | --- |
-| `shared` | `OnGameBoot` | `PsychopatzCore/Translation/PsychopatzCustomTranslationManager` | True | `...zCore/Translation/PsychopatzCustomTranslationManager.lua:902` |
-| `shared` | `OnInitGlobalModData` | `PsychopatzCore/Inventory/PsychopatzInventory` | True | `.../shared/PsychopatzCore/Inventory/PsychopatzInventory.lua:104` |
-| `shared` | `OnGameBoot` | `PsychopatzCore/Compatibility/PsychopatzMoneyWeight` | True | `[C]:-1` |
-| `shared` | `OnGameStart` | `PsychopatzCore/Compatibility/PsychopatzMoneyWeight` | True | `[C]:-1` |
-| `shared` | `OnGameBoot` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
-| `shared` | `OnGameStart` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
-| `shared` | `OnCreatePlayer` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
-| `shared` | `OnGameBoot` | `PsychopatzCore/Economy/PsychopatzMoneyBundler` | True | `[C]:-1` |
-| `shared` | `OnGameStart` | `PsychopatzCore/Economy/PsychopatzMoneyBundler` | True | `[C]:-1` |
-| `shared` | `OnGameBoot` | `PsychopatzCore/Traits/PsychopatzTraitRegistry` | True | `...shared/PsychopatzCore/Traits/PsychopatzTraitRegistry.lua:248` |
-| `shared` | `OnCreatePlayer` | `PsychopatzCore/Traits/PsychopatzTraitRecovery` | True | `...shared/PsychopatzCore/Traits/PsychopatzTraitRecovery.lua:285` |
-| `shared` | `OnPlayerUpdate` | `PsychopatzCore/Traits/PsychopatzTraitRecovery` | True | `...shared/PsychopatzCore/Traits/PsychopatzTraitRecovery.lua:288` |
 | `client` | `OnGameBoot` | `PsychopatzCore/Translation/PsychopatzCustomTranslationManager` | True | `...zCore/Translation/PsychopatzCustomTranslationManager.lua:902` |
-| `client` | `OnInitGlobalModData` | `PsychopatzCore/Inventory/PsychopatzInventory` | True | `.../shared/PsychopatzCore/Inventory/PsychopatzInventory.lua:104` |
-| `client` | `OnGameBoot` | `PsychopatzCore/Compatibility/PsychopatzMoneyWeight` | True | `[C]:-1` |
-| `client` | `OnGameStart` | `PsychopatzCore/Compatibility/PsychopatzMoneyWeight` | True | `[C]:-1` |
-| `client` | `OnGameBoot` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
-| `client` | `OnGameStart` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
-| `client` | `OnCreatePlayer` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
-| `client` | `OnGameBoot` | `PsychopatzCore/Economy/PsychopatzMoneyBundler` | True | `[C]:-1` |
-| `client` | `OnGameStart` | `PsychopatzCore/Economy/PsychopatzMoneyBundler` | True | `[C]:-1` |
-| `client` | `OnGameBoot` | `PsychopatzCore/Traits/PsychopatzTraitRegistry` | True | `...shared/PsychopatzCore/Traits/PsychopatzTraitRegistry.lua:248` |
-| `client` | `OnCreatePlayer` | `PsychopatzCore/Traits/PsychopatzTraitRecovery` | True | `...shared/PsychopatzCore/Traits/PsychopatzTraitRecovery.lua:285` |
-| `client` | `OnPlayerUpdate` | `PsychopatzCore/Traits/PsychopatzTraitRecovery` | True | `...shared/PsychopatzCore/Traits/PsychopatzTraitRecovery.lua:288` |
-| `client` | `OnTick` | `PsychopatzCore/Input/PsychopatzKeybinds` | True | `...a/lua/client/PsychopatzCore/Input/PsychopatzKeybinds.lua:339` |
-| `client` | `OnGameBoot` | `PsychopatzCore/Input/PsychopatzKeybinds` | True | `...a/lua/client/PsychopatzCore/Input/PsychopatzKeybinds.lua:353` |
-| `client` | `OnTick` | `PsychopatzCore/UI/Radio/OS/PsychopatzRadioOSLifecycle` | True | `...sychopatzCore/UI/Radio/OS/PsychopatzRadioOSLifecycle.lua:181` |
 | `client` | `OnGameBoot` | `PsychopatzCore/Settings/PsychopatzSettings` | True | `...ua/client/PsychopatzCore/Settings/PsychopatzSettings.lua:228` |
-| `server` | `OnGameBoot` | `PsychopatzCore/Translation/PsychopatzCustomTranslationManager` | True | `...zCore/Translation/PsychopatzCustomTranslationManager.lua:902` |
-| `server` | `OnInitGlobalModData` | `PsychopatzCore/Inventory/PsychopatzInventory` | True | `.../shared/PsychopatzCore/Inventory/PsychopatzInventory.lua:104` |
 | `server` | `OnGameBoot` | `PsychopatzCore/Compatibility/PsychopatzMoneyWeight` | True | `[C]:-1` |
 | `server` | `OnGameStart` | `PsychopatzCore/Compatibility/PsychopatzMoneyWeight` | True | `[C]:-1` |
 | `server` | `OnGameBoot` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
@@ -54,9 +26,6 @@
 | `server` | `OnCreatePlayer` | `PsychopatzCore/Compatibility/PsychopatzCurrencyCategory` | True | `[C]:-1` |
 | `server` | `OnGameBoot` | `PsychopatzCore/Economy/PsychopatzMoneyBundler` | True | `[C]:-1` |
 | `server` | `OnGameStart` | `PsychopatzCore/Economy/PsychopatzMoneyBundler` | True | `[C]:-1` |
-| `server` | `OnGameBoot` | `PsychopatzCore/Traits/PsychopatzTraitRegistry` | True | `...shared/PsychopatzCore/Traits/PsychopatzTraitRegistry.lua:248` |
-| `server` | `OnCreatePlayer` | `PsychopatzCore/Traits/PsychopatzTraitRecovery` | True | `...shared/PsychopatzCore/Traits/PsychopatzTraitRecovery.lua:285` |
-| `server` | `OnPlayerUpdate` | `PsychopatzCore/Traits/PsychopatzTraitRecovery` | True | `...shared/PsychopatzCore/Traits/PsychopatzTraitRecovery.lua:288` |
 | `server` | `OnClientCommand` | `PsychopatzCore/Economy/PsychopatzMoneyBundlerServer` | True | `.../PsychopatzCore/Economy/PsychopatzMoneyBundlerServer.lua:107` |
 
 ## 2. Dynamic Trading Capability Requirements Map
@@ -104,18 +73,17 @@ Dynamic Trading requires only a bounded subset of PsychopatzCore, confirming the
 
 ## 3. Pre-Refactor Test Suite Baseline
 
-- Total tests: 121
-- Passing tests: 114
-- Pre-existing failing tests: 7
+- Total tests: 122
+- Passing tests: 116
+- Pre-existing failing tests: 6
 
 ### Pre-Existing Test Failures (Preserved Baseline)
 
 | Test File | Failure Reason |
 | --- | --- |
 | `tests/psychopatz_command_hub_callback_smoke.lua` | `lua: ...nt/PsychopatzCore/UI/Components/PsychopatzUIControls.lua:6: module 'PsychopatzCore/UI/Components/PsychopatzScrollPanel' not found:` |
-| `tests/psychopatz_image_resolver_smoke.lua` | `lua: tests/psychopatz_image_resolver_smoke.lua:5: instance-item icon fallback resolves: expected=table: 0x56fc446888c0 actual=nil` |
+| `tests/psychopatz_image_resolver_smoke.lua` | `lua: tests/psychopatz_image_resolver_smoke.lua:5: instance-item icon fallback resolves: expected=table: 0x61e72a99d8c0 actual=nil` |
 | `tests/psychopatz_label_layout_smoke.lua` | `lua: ...nt/PsychopatzCore/UI/Components/PsychopatzUIControls.lua:6: module 'PsychopatzCore/UI/Components/PsychopatzScrollPanel' not found:` |
-| `tests/psychopatz_profiler_client_composition_smoke.lua` | `lua: .../client/PsychopatzCore/00_PsychopatzCore_Client_Init.lua:4: module 'PsychopatzCore/UI/PsychopatzAudioSettings' not found:` |
 | `tests/psychopatz_profiler_server_composition_smoke.lua` | `lua: tests/psychopatz_profiler_server_composition_smoke.lua:3: server role did not start after server loading: expected=1 actual=2` |
 | `tests/psychopatz_widget_window_smoke.lua` | `lua: tests/psychopatz_widget_window_smoke.lua:6: widget button follows resized title bar: expected=103 actual=83` |
 | `tests/psychopatz_world_inventory_smoke.lua` | `lua: tests/psychopatz_world_inventory_smoke.lua:9: single-player teleport: expected=true actual=false` |
