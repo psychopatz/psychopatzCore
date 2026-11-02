@@ -295,6 +295,10 @@ function Social.ToPayload(state)
     return normalized
 end
 
+function Social.FromPayload(payload)
+    return Social.NewState(payload)
+end
+
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.Social = Social
 return Social
