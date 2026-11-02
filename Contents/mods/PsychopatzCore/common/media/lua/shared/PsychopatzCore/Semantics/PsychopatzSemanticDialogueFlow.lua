@@ -15,7 +15,7 @@ local function compare(actual, op, expected)
     op = op or "=="
     if op == "==" then
         return tostring(actual or "") == tostring(expected or "")
-    elseif op == "~=" then
+    elseif op == "~=" or op == "!=" then
         return tostring(actual or "") ~= tostring(expected or "")
     end
 
