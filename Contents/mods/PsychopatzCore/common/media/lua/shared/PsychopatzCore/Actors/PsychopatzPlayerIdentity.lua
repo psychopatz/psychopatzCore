@@ -1,0 +1,233 @@
+-- PsychopatzPlayerIdentity: Canonical Cross-Adopter Player Social Target Identity
+--
+-- Owns the single persistent player-character identity contract for PsychopatzCore,
+-- DynamicTrading, and ProjectHoomans.
+--
+-- Ensures:
+-- 1. SP and MP player characters resolve to one durable target key:
+--    - MP: player:<accountIdentity>:<characterUUID>
+--    - SP: player:sp_slot_<slot>:<characterUUID>
+-- 2. Character UUID is persisted in player modData (Core_CharacterUUID & PNC_CharacterUUID).
+-- 3. Transient online reconnects/onlineID changes do NOT create new relationships.
+-- 4. Legacy DT (player:user:*, player:online:*) and legacy Hoomans keys converge.
+
+local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
+
+local PlayerIdentity = {}
+
+PlayerIdentity.UUID_PREFIX = "char_"
+PlayerIdentity.MODDATA_CORE_UUID = "Core_CharacterUUID"
+PlayerIdentity.MODDATA_PNC_UUID = "PNC_CharacterUUID"
+
+local function safeCall(obj, method, ...)
+    if not obj then return nil end
+    local fn = obj[method]
+    if type(fn) ~= "function" then return nil end
+    local ok, res = pcall(fn, obj, ...)
+    if ok then return res end
+    return nil
+end
+
+local function isSinglePlayerAuthority()
+    local server = isServer and isServer() == true
+    local client = isClient and isClient() == true
+    return not server and not client
+end
+
+local function randomHex(len)
+    local chars = "0123456789abcdef"
+    local result = {}
+    for i = 1, len do
+        local r = math.random(1, 16)
+        result[i] = string.sub(chars, r, r)
+    end
+    return table.concat(result)
+end
+
+function PlayerIdentity.GenerateUUID()
+    local seed = Util.hash(tostring(os.time() or 123456) .. tostring(math.random(100000, 999999)))
+    local hex = string.format("%08x", seed) .. randomHex(16)
+    return PlayerIdentity.UUID_PREFIX .. hex
+end
+
+function PlayerIdentity.NormalizeUUID(value)
+    if type(value) ~= "string" then return nil end
+    local trimmed = string.match(value, "^%s*(.-)%s*$")
+    if not trimmed or string.find(trimmed, ":", 1, true) then return nil end
+    if string.match(trimmed, "^char_[%w_%-]+$") then
+        return trimmed
+    end
+    return nil
+end
+
+function PlayerIdentity.GetCharacterUUID(player)
+    if not player then return nil end
+
+    -- Direct string candidate
+    if type(player) == "string" then
+        return PlayerIdentity.NormalizeUUID(player)
+    end
+
+    -- Object/table player candidate
+    local data = safeCall(player, "getModData") or (type(player) == "table" and player.modData)
+    if type(data) == "table" then
+        -- 1. Check Core UUID
+        local coreUUID = PlayerIdentity.NormalizeUUID(data[PlayerIdentity.MODDATA_CORE_UUID])
+        if coreUUID then
+            -- Mirror to PNC field if not set
+            if not data[PlayerIdentity.MODDATA_PNC_UUID] then
+                data[PlayerIdentity.MODDATA_PNC_UUID] = coreUUID
+            end
+            return coreUUID
+        end
+
+        -- 2. Check existing Hoomans PNC UUID
+        local pncUUID = PlayerIdentity.NormalizeUUID(data[PlayerIdentity.MODDATA_PNC_UUID])
+        if pncUUID then
+            data[PlayerIdentity.MODDATA_CORE_UUID] = pncUUID
+            return pncUUID
+        end
+
+        -- 3. If neither exists, generate and store in both fields
+        local newUUID = PlayerIdentity.GenerateUUID()
+        data[PlayerIdentity.MODDATA_CORE_UUID] = newUUID
+        data[PlayerIdentity.MODDATA_PNC_UUID] = newUUID
+        return newUUID
+    end
+
+    -- Direct field fallback on mock/fixture objects
+    if type(player) == "table" then
+        local direct = PlayerIdentity.NormalizeUUID(player.characterUUID or player.uuid)
+        if direct then return direct end
+    end
+
+    return nil
+end
+
+function PlayerIdentity.GetAccountKey(player)
+    if not player then return "player" end
+
+    if type(player) == "string" then
+        local account = string.match(player, "^player:([^:]+):")
+        if account then return account end
+        return player
+    end
+
+    -- Explicit override on mock/fixture
+    if type(player) == "table" and player.accountKey then
+        return tostring(player.accountKey)
+    end
+
+    if isSinglePlayerAuthority() or (player.isLocalPlayer and player:isLocalPlayer() and not isClient()) then
+        local slot = safeCall(player, "getPlayerNum")
+        if slot == nil then slot = safeCall(player, "getPlayerIndex") end
+        if slot ~= nil then
+            return "sp_slot_" .. tostring(math.max(0, math.floor(tonumber(slot) or 0)))
+        end
+        -- Fall through to username for test doubles and players without slot
+    end
+
+    local username = safeCall(player, "getUsername") or (type(player) == "table" and player.username)
+    if username and username ~= "" then
+        return tostring(username)
+    end
+
+    return "player"
+end
+
+function PlayerIdentity.GetTargetKey(player)
+    if not player then return nil end
+
+    if type(player) == "string" then
+        local trimmed = string.match(player, "^%s*(.-)%s*$")
+        if not trimmed or trimmed == "" then return nil end
+        -- Already canonical: player:<acc>:<uuid>
+        if string.match(trimmed, "^player:[^:]+:char_[%w_%-]+$") then
+            return trimmed
+        end
+        return trimmed
+    end
+
+    local uuid = PlayerIdentity.GetCharacterUUID(player)
+    local accountKey = PlayerIdentity.GetAccountKey(player)
+    if uuid and accountKey then
+        return "player:" .. accountKey .. ":" .. uuid
+    end
+
+    -- Fallback for uninitialized transient players
+    local username = safeCall(player, "getUsername") or (type(player) == "table" and player.username)
+    if username and username ~= "" then
+        return "player:user:" .. tostring(username)
+    end
+
+    return nil
+end
+
+function PlayerIdentity.GetLegacyKeys(player)
+    local keys = {}
+    if not player or type(player) == "string" then return keys end
+
+    local username = safeCall(player, "getUsername") or (type(player) == "table" and player.username)
+    if username and username ~= "" then
+        keys[#keys + 1] = "player:user:" .. tostring(username)
+        keys[#keys + 1] = "player:" .. tostring(username)
+    end
+
+    local onlineID = safeCall(player, "getOnlineID") or (type(player) == "table" and player.onlineID)
+    if onlineID and tonumber(onlineID) and tonumber(onlineID) > 0 then
+        keys[#keys + 1] = "player:online:" .. tostring(onlineID)
+    end
+
+    local slot = safeCall(player, "getPlayerNum") or (type(player) == "table" and player.playerNum)
+    if slot ~= nil then
+        keys[#keys + 1] = "player:sp_slot_" .. tostring(slot)
+    end
+
+    return keys
+end
+
+function PlayerIdentity.Parse(targetKey)
+    if type(targetKey) ~= "string" then return nil end
+    local account, uuid = string.match(targetKey, "^player:([^:]+):(char_[%w_%-]+)$")
+    if account and uuid then
+        return {
+            targetKey = targetKey,
+            kind = "player",
+            accountKey = account,
+            characterUUID = uuid,
+            isCanonical = true,
+        }
+    end
+
+    local user = string.match(targetKey, "^player:user:(.+)$")
+    if user then
+        return {
+            targetKey = targetKey,
+            kind = "player",
+            username = user,
+            isLegacy = true,
+        }
+    end
+
+    local online = string.match(targetKey, "^player:online:(.+)$")
+    if online then
+        return {
+            targetKey = targetKey,
+            kind = "player",
+            onlineID = online,
+            isLegacy = true,
+        }
+    end
+
+    return {
+        targetKey = targetKey,
+        kind = "unknown",
+    }
+end
+
+PsychopatzCore = PsychopatzCore or {}
+PsychopatzCore.Actors = PsychopatzCore.Actors or {}
+PsychopatzCore.Actors.PlayerIdentity = PlayerIdentity
+PsychopatzCore.PlayerIdentity = PlayerIdentity
+
+return PlayerIdentity

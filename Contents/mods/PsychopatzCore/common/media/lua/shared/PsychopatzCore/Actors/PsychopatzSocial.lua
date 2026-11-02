@@ -90,6 +90,7 @@ function Social.NewState(source)
         personalityOverrides = Util.clone(input.personalityOverrides or {}),
         recentEventIDs = {},
         relationships = {},
+        aliases = Util.clone(input.aliases or {}),
         extensions = normalizeExtensions(input.extensions),
     }
     for index = 1, math.min(#(input.recentEventIDs or {}), Social.MAX_RECENT_EVENTS) do
@@ -145,9 +146,61 @@ function Social.Validate(state)
     return true
 end
 
-function Social.Get(state, target)
+local function resolveTargetKey(target)
     local normalized = targetKey(target)
+    if not normalized and PsychopatzCore and PsychopatzCore.Actors
+        and PsychopatzCore.Actors.PlayerIdentity
+    then
+        normalized = targetKey(PsychopatzCore.Actors.PlayerIdentity.GetTargetKey(target))
+    end
+    return normalized
+end
+
+local function mergeRelationshipData(targetRel, sourceRel)
+    if not sourceRel then return targetRel end
+    if (sourceRel.familiarity or 0) > (targetRel.familiarity or 0)
+        or (targetRel.familiarity == 0 and (sourceRel.approval ~= 0 or sourceRel.respect ~= 0))
+    then
+        targetRel.approval = sourceRel.approval
+        targetRel.respect = sourceRel.respect
+        targetRel.familiarity = sourceRel.familiarity
+    end
+
+    local existingMemoryIDs = {}
+    for _, m in ipairs(targetRel.memories or {}) do
+        local id = m.id or m.eventID
+        if id then existingMemoryIDs[id] = true end
+    end
+    for _, m in ipairs(sourceRel.memories or {}) do
+        local id = m.id or m.eventID
+        if id and not existingMemoryIDs[id] then
+            existingMemoryIDs[id] = true
+            targetRel.memories[#targetRel.memories + 1] = Util.clone(m)
+        end
+    end
+
+    targetRel.extensions = targetRel.extensions or {}
+    for extID, extVal in pairs(sourceRel.extensions or {}) do
+        if targetRel.extensions[extID] == nil then
+            targetRel.extensions[extID] = Util.clone(extVal)
+        elseif type(extVal) == "table" and type(targetRel.extensions[extID]) == "table" then
+            for k, v in pairs(extVal) do
+                if targetRel.extensions[extID][k] == nil then
+                    targetRel.extensions[extID][k] = Util.clone(v)
+                end
+            end
+        end
+    end
+    targetRel.revision = math.max(targetRel.revision or 0, sourceRel.revision or 0) + 1
+    return targetRel
+end
+
+function Social.Get(state, target)
+    local normalized = resolveTargetKey(target)
     if not normalized then return nil, "target_key_invalid" end
+    if state and state.aliases and state.aliases[normalized] then
+        normalized = state.aliases[normalized]
+    end
     local relationship = state and state.relationships
         and state.relationships[normalized]
     if not relationship then return nil, "relationship_not_found" end
@@ -155,8 +208,11 @@ function Social.Get(state, target)
 end
 
 function Social.GetOrCreate(state, target)
-    local normalized = targetKey(target)
+    local normalized = resolveTargetKey(target)
     if not normalized then return nil, "target_key_invalid" end
+    if state and state.aliases and state.aliases[normalized] then
+        normalized = state.aliases[normalized]
+    end
     state.relationships = state.relationships or {}
     if not state.relationships[normalized] then
         state.relationships[normalized] = {
@@ -171,6 +227,96 @@ function Social.GetOrCreate(state, target)
     return state.relationships[normalized]
 end
 
+function Social.MigrateAliases(state, canonicalKey, aliasKeys)
+    if type(state) ~= "table" then return nil, "state_required" end
+    local normalizedCanonical = resolveTargetKey(canonicalKey)
+    if not normalizedCanonical then return nil, "canonical_key_invalid" end
+    if type(aliasKeys) ~= "table" then return true end
+
+    state.aliases = state.aliases or {}
+    state.relationships = state.relationships or {}
+
+    local mergedAny = false
+    for _, alias in ipairs(aliasKeys) do
+        local normalizedAlias = resolveTargetKey(alias)
+        if normalizedAlias and normalizedAlias ~= normalizedCanonical then
+            state.aliases[normalizedAlias] = normalizedCanonical
+            local legacyRel = state.relationships[normalizedAlias]
+            if legacyRel then
+                local canonicalRel = Social.GetOrCreate(state, normalizedCanonical)
+                mergeRelationshipData(canonicalRel, legacyRel)
+                state.relationships[normalizedAlias] = nil
+                mergedAny = true
+            end
+        end
+    end
+    if mergedAny then
+        state.revision = (tonumber(state.revision) or 0) + 1
+    end
+    return true
+end
+
+function Social.MutateRelationship(state, target, mutatorFn, authority, expectedRevision)
+    if authority ~= "server" then return nil, "server_authority_required" end
+    if type(state) ~= "table" then return nil, "state_required" end
+    if type(mutatorFn) ~= "function" then return nil, "mutator_fn_required" end
+
+    local normalized = resolveTargetKey(target)
+    if not normalized then return nil, "target_key_invalid" end
+    if state and state.aliases and state.aliases[normalized] then
+        normalized = state.aliases[normalized]
+    end
+
+    local rel = Social.GetOrCreate(state, normalized)
+    if expectedRevision ~= nil and tonumber(expectedRevision) ~= tonumber(rel.revision) then
+        return nil, "relationship_revision_conflict"
+    end
+
+    local cloneRel = Util.clone(rel)
+    local ok, mutated = pcall(mutatorFn, cloneRel)
+    if not ok or type(mutated) ~= "table" then
+        return nil, "mutation_failed"
+    end
+
+    if mutated.approval ~= nil then
+        rel.approval = bounded(mutated.approval, Social.MIN_APPROVAL, Social.MAX_APPROVAL)
+    end
+    if mutated.respect ~= nil then
+        rel.respect = bounded(mutated.respect, Social.MIN_RESPECT, Social.MAX_RESPECT)
+    end
+    if mutated.familiarity ~= nil then
+        rel.familiarity = bounded(mutated.familiarity, Social.MIN_FAMILIARITY, Social.MAX_FAMILIARITY)
+    end
+
+    local existingMemories = {}
+    for _, m in ipairs(rel.memories or {}) do
+        local id = m.id or m.eventID
+        if id then existingMemories[id] = true end
+    end
+    for _, m in ipairs(mutated.memories or {}) do
+        local id = m.id or m.eventID
+        if id and not existingMemories[id] then
+            existingMemories[id] = true
+            rel.memories[#rel.memories + 1] = Util.clone(m)
+        end
+    end
+
+    rel.extensions = rel.extensions or {}
+    if type(mutated.extensions) == "table" then
+        for extID, extVal in pairs(mutated.extensions) do
+            if type(extVal) == "table" then
+                rel.extensions[extID] = Util.clone(extVal)
+            elseif extVal == nil then
+                rel.extensions[extID] = nil
+            end
+        end
+    end
+
+    rel.revision = (tonumber(rel.revision) or 0) + 1
+    state.revision = (tonumber(state.revision) or 0) + 1
+    return Util.clone(rel)
+end
+
 function Social.GetExtension(state, target, extensionID)
     if type(state) ~= "table" then return nil, "state_required" end
     if type(extensionID) ~= "string" or extensionID == "" then
@@ -180,8 +326,11 @@ function Social.GetExtension(state, target, extensionID)
         local ext = state.extensions and state.extensions[extensionID]
         return ext and Util.clone(ext) or nil
     end
-    local normalized = targetKey(target)
+    local normalized = resolveTargetKey(target)
     if not normalized then return nil, "target_key_invalid" end
+    if state and state.aliases and state.aliases[normalized] then
+        normalized = state.aliases[normalized]
+    end
     local rel = state.relationships and state.relationships[normalized]
     if not rel then return nil, "relationship_not_found" end
     local ext = rel.extensions and rel.extensions[extensionID]
@@ -210,8 +359,11 @@ function Social.SetExtension(state, target, extensionID, payload, authority, exp
         state.revision = (tonumber(state.revision) or 0) + 1
         return Util.clone(state)
     end
-    local normalized = targetKey(target)
+    local normalized = resolveTargetKey(target)
     if not normalized then return nil, "target_key_invalid" end
+    if state and state.aliases and state.aliases[normalized] then
+        normalized = state.aliases[normalized]
+    end
     local rel, reason = Social.GetOrCreate(state, normalized)
     if not rel then return nil, reason end
     rel.extensions = rel.extensions or {}
@@ -244,9 +396,12 @@ function Social.RecordAuthorizedEvent(state, event)
     if event.authorized ~= true or event.authority ~= "server" then
         return nil, "server_authority_required"
     end
-    local normalized = targetKey(event.targetKey)
+    local normalized = resolveTargetKey(event.targetKey)
     local eventID = event.eventID
     if not normalized then return nil, "target_key_invalid" end
+    if state and state.aliases and state.aliases[normalized] then
+        normalized = state.aliases[normalized]
+    end
     if type(eventID) ~= "string" or eventID == "" then
         return nil, "event_id_required"
     end

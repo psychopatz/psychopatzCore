@@ -18,6 +18,7 @@ local Notifications = require "PsychopatzCore/Actors/PsychopatzActorNotification
 local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
 local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
 local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
+local PlayerIdentity = require "PsychopatzCore/Actors/PsychopatzPlayerIdentity"
 
 local Actors = PsychopatzCore.Actors or {}
 Actors.Factory = Factory
@@ -26,6 +27,7 @@ Actors.Persistence = Persistence
 Actors.Inventory = ActorInventory
 Actors.Migration = Migration
 Actors.Social = Social
+Actors.PlayerIdentity = PlayerIdentity
 Actors.Location = Location
 Actors.Journey = Journey
 Actors.Task = Task
