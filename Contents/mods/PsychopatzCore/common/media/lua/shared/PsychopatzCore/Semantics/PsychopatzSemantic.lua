@@ -30,6 +30,8 @@ Semantics.DialogueRouter = require
     "PsychopatzCore/Semantics/PsychopatzSemanticDialogueRouter"
 Semantics.DialogueTurn = require
     "PsychopatzCore/Semantics/PsychopatzSemanticDialogueTurn"
+Semantics.PackRegistry = require
+    "PsychopatzCore/Semantics/PsychopatzSemanticPackRegistry"
 
 Semantics.VERSION = Semantics.VERSION or 1
 
@@ -49,6 +51,30 @@ end
 
 function Semantics.Parse(text, options)
     return Semantics.Parser.Parse(text, options)
+end
+
+function Semantics.RegisterPack(spec)
+    return Semantics.PackRegistry.RegisterPack(spec)
+end
+
+function Semantics.UnregisterPack(packID)
+    return Semantics.PackRegistry.UnregisterPack(packID)
+end
+
+function Semantics.GetPack(packID)
+    return Semantics.PackRegistry.GetPack(packID)
+end
+
+function Semantics.ListPacks()
+    return Semantics.PackRegistry.ListPacks()
+end
+
+function Semantics.RegisterActionProvider(providerSpec)
+    return Semantics.PackRegistry.RegisterActionProvider(providerSpec)
+end
+
+function Semantics.CollectActions(context, options)
+    return Semantics.PackRegistry.CollectActions(context, options)
 end
 
 return Semantics

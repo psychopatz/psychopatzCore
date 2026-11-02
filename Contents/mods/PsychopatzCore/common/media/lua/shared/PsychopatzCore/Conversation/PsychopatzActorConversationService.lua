@@ -50,6 +50,15 @@ local function actorContext(actor, context)
             and actor.social.relationships),
         providerLease = copy(actor and actor.providerLease),
     }
+    local target = output.targetKey or output.playerKey or output.speakerKey
+    if target and actor and actor.social and actor.social.relationships then
+        local Social = PsychopatzCore and PsychopatzCore.Actors and PsychopatzCore.Actors.Social
+        local rel = Social and Social.Get and Social.Get(actor.social, target)
+            or actor.social.relationships[target]
+        if rel then
+            output.actor.relationship = copy(rel)
+        end
+    end
     return output
 end
 
@@ -235,6 +244,14 @@ function Service:GetKnowledge(playerKey, factID, authority)
     return Knowledge.Get(knowledge, playerKey, factID)
 end
 
+function Service:CollectActions(context, options)
+    local effectiveContext = actorContext(self.actor, context)
+    if Semantics and Semantics.CollectActions then
+        return Semantics.CollectActions(effectiveContext, options)
+    end
+    return {}
+end
+
 function Service:Submit(text, context, options)
     options = tableValue(options)
     if type(text) ~= "string" or text == "" then
@@ -273,6 +290,10 @@ function Service:Submit(text, context, options)
         parts = results,
         responses = responses,
     })
+    local actions = nil
+    if options.collectActions == true then
+        actions = self:CollectActions(effectiveContext, options)
+    end
     return {
         schemaVersion = Service.VERSION,
         kind = "actor_conversation_result",
@@ -282,6 +303,7 @@ function Service:Submit(text, context, options)
         compound = parsed.compound == true,
         parts = results,
         responses = responses,
+        actions = actions,
         pendingQuestion = copy(self.router.state.pendingQuestion),
         pendingRequest = copy(self.router.state.pendingRequest),
         state = self.router:Snapshot(),

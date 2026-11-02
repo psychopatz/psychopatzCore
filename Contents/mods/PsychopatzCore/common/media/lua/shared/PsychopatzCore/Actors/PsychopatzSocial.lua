@@ -44,6 +44,17 @@ local function copyMemory(memory, target)
     return output
 end
 
+local function normalizeExtensions(value)
+    if type(value) ~= "table" then return {} end
+    local output = {}
+    for extKey, extVal in pairs(value) do
+        if type(extVal) == "table" then
+            output[tostring(extKey)] = Util.clone(extVal)
+        end
+    end
+    return output
+end
+
 local function normalizeRelationship(target, value)
     value = type(value) == "table" and value or {}
     local output = {
@@ -55,6 +66,7 @@ local function normalizeRelationship(target, value)
         revision = math.max(0, math.floor(tonumber(value.revision) or 0)),
         lastEventAt = value.lastEventAt,
         memories = {},
+        extensions = normalizeExtensions(value.extensions),
     }
     for index = 1, math.min(#(value.memories or {}), Social.MAX_MEMORIES) do
         local memory, reason = copyMemory(value.memories[index], target)
@@ -78,6 +90,7 @@ function Social.NewState(source)
         personalityOverrides = Util.clone(input.personalityOverrides or {}),
         recentEventIDs = {},
         relationships = {},
+        extensions = normalizeExtensions(input.extensions),
     }
     for index = 1, math.min(#(input.recentEventIDs or {}), Social.MAX_RECENT_EVENTS) do
         output.recentEventIDs[index] = input.recentEventIDs[index]
@@ -101,6 +114,9 @@ function Social.Validate(state)
         or type(state.personalityOverrides) ~= "table"
         or type(state.recentEventIDs) ~= "table"
     then return false, "social_shape_invalid" end
+    if state.extensions ~= nil and type(state.extensions) ~= "table" then
+        return false, "social_extensions_invalid"
+    end
     for key, relationship in pairs(state.relationships) do
         if targetKey(key) ~= key or type(relationship) ~= "table" then
             return false, "relationship_target_invalid"
@@ -112,6 +128,11 @@ function Social.Validate(state)
             or bounded(relationship.familiarity, Social.MIN_FAMILIARITY,
                 Social.MAX_FAMILIARITY) ~= relationship.familiarity
         then return false, "relationship_score_invalid" end
+        if relationship.extensions ~= nil
+            and type(relationship.extensions) ~= "table"
+        then
+            return false, "relationship_extensions_invalid"
+        end
         local memoryIDs = {}
         for index = 1, #(relationship.memories or {}) do
             local memory = relationship.memories[index]
@@ -141,9 +162,68 @@ function Social.GetOrCreate(state, target)
         state.relationships[normalized] = {
             targetKey = normalized, approval = 0, respect = 0,
             familiarity = 0, revision = 0, memories = {},
+            extensions = {},
         }
+    else
+        state.relationships[normalized].extensions =
+            state.relationships[normalized].extensions or {}
     end
     return state.relationships[normalized]
+end
+
+function Social.GetExtension(state, target, extensionID)
+    if type(state) ~= "table" then return nil, "state_required" end
+    if type(extensionID) ~= "string" or extensionID == "" then
+        return nil, "extension_id_required"
+    end
+    if target == nil or target == "" then
+        local ext = state.extensions and state.extensions[extensionID]
+        return ext and Util.clone(ext) or nil
+    end
+    local normalized = targetKey(target)
+    if not normalized then return nil, "target_key_invalid" end
+    local rel = state.relationships and state.relationships[normalized]
+    if not rel then return nil, "relationship_not_found" end
+    local ext = rel.extensions and rel.extensions[extensionID]
+    return ext and Util.clone(ext) or nil
+end
+
+function Social.SetExtension(state, target, extensionID, payload, authority, expectedRevision)
+    if authority ~= "server" then return nil, "server_authority_required" end
+    if type(state) ~= "table" then return nil, "state_required" end
+    if type(extensionID) ~= "string" or extensionID == "" then
+        return nil, "extension_id_required"
+    end
+    if expectedRevision ~= nil
+        and tonumber(expectedRevision) ~= tonumber(state.revision)
+    then
+        return nil, "revision_conflict"
+    end
+    if target == nil or target == "" then
+        state.extensions = state.extensions or {}
+        if payload == nil then
+            state.extensions[extensionID] = nil
+        else
+            if type(payload) ~= "table" then return nil, "payload_table_required" end
+            state.extensions[extensionID] = Util.clone(payload)
+        end
+        state.revision = (tonumber(state.revision) or 0) + 1
+        return Util.clone(state)
+    end
+    local normalized = targetKey(target)
+    if not normalized then return nil, "target_key_invalid" end
+    local rel, reason = Social.GetOrCreate(state, normalized)
+    if not rel then return nil, reason end
+    rel.extensions = rel.extensions or {}
+    if payload == nil then
+        rel.extensions[extensionID] = nil
+    else
+        if type(payload) ~= "table" then return nil, "payload_table_required" end
+        rel.extensions[extensionID] = Util.clone(payload)
+    end
+    rel.revision = (tonumber(rel.revision) or 0) + 1
+    state.revision = (tonumber(state.revision) or 0) + 1
+    return Util.clone(state)
 end
 
 function Social.SetPersonality(state, personality, authority, expectedRevision)
