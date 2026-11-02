@@ -123,8 +123,12 @@ function PackRegistry.CollectActions(context, options)
                         local choiceAllowed = true
                         local choiceCap = choice.capabilityRequired
                             or provider.capabilityRequired
-                        if choiceCap and capabilities ~= nil then
-                            choiceAllowed = hasCapability(capabilities, choiceCap)
+                        if choiceCap then
+                            if capabilities ~= nil then
+                                choiceAllowed = hasCapability(capabilities, choiceCap)
+                            elseif options.strictCapabilities == true then
+                                choiceAllowed = false
+                            end
                         end
 
                         if choiceAllowed and not seenIDs[choice.id] then
