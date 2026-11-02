@@ -11,9 +11,11 @@ local PackRegistry = {}
 PsychopatzCore.Semantics.PackRegistry = PackRegistry
 
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
+local Flow = require "PsychopatzCore/Semantics/PsychopatzSemanticDialogueFlow"
 
 PackRegistry.Packs = PackRegistry.Packs or {}
 PackRegistry.ActionProviders = PackRegistry.ActionProviders or {}
+PackRegistry.DialogueBlocks = PackRegistry.DialogueBlocks or {}
 PackRegistry.Revision = PackRegistry.Revision or 0
 
 local function bumpRevision()
@@ -23,6 +25,7 @@ end
 function PackRegistry.Reset()
     PackRegistry.Packs = {}
     PackRegistry.ActionProviders = {}
+    PackRegistry.DialogueBlocks = {}
     bumpRevision()
 end
 
@@ -149,6 +152,94 @@ function PackRegistry.CollectActions(context, options)
     return choices
 end
 
+function PackRegistry.RegisterDialogueBlock(blockSpec)
+    if type(blockSpec) ~= "table" then
+        return nil, "block_spec_required"
+    end
+    local id = blockSpec.id
+    if type(id) ~= "string" or id == "" then
+        return nil, "block_id_required"
+    end
+    local block = {
+        id = id,
+        category = tostring(blockSpec.category or "general"),
+        ownerModID = blockSpec.ownerModID or "core",
+        priority = tonumber(blockSpec.priority) or 100,
+        weight = tonumber(blockSpec.weight) or 100,
+        gates = Util.clone(blockSpec.gates or {}),
+        entryNode = blockSpec.entryNode or "opening",
+        nodes = Util.clone(blockSpec.nodes or {}),
+        metadata = Util.clone(blockSpec.metadata or {}),
+        packID = blockSpec.packID,
+    }
+    PackRegistry.DialogueBlocks[id] = block
+    bumpRevision()
+    return Util.clone(block)
+end
+
+function PackRegistry.UnregisterDialogueBlock(blockID)
+    if not PackRegistry.DialogueBlocks[blockID] then
+        return false, "block_not_found"
+    end
+    PackRegistry.DialogueBlocks[blockID] = nil
+    bumpRevision()
+    return true
+end
+
+function PackRegistry.GetDialogueBlock(blockID)
+    local block = PackRegistry.DialogueBlocks[blockID]
+    return block and Util.clone(block) or nil
+end
+
+function PackRegistry.ListDialogueBlocks(category)
+    local output = {}
+    for _, block in pairs(PackRegistry.DialogueBlocks) do
+        if category == nil or block.category == category then
+            output[#output + 1] = Util.clone(block)
+        end
+    end
+    table.sort(output, function(left, right)
+        if left.priority ~= right.priority then
+            return left.priority > right.priority
+        end
+        return tostring(left.id) < tostring(right.id)
+    end)
+    return output
+end
+
+function PackRegistry.SelectDialogueBlock(category, context, seed)
+    local blocks = PackRegistry.ListDialogueBlocks(category)
+    local eligible = {}
+    for _, block in ipairs(blocks) do
+        if Flow.EvaluateGates(block.gates, context) then
+            eligible[#eligible + 1] = block
+        end
+    end
+    if #eligible == 0 then return nil, "no_eligible_blocks" end
+    if #eligible == 1 then return eligible[1] end
+
+    -- Highest priority tier
+    local topPriority = eligible[1].priority
+    local tier = {}
+    local totalWeight = 0
+    for _, block in ipairs(eligible) do
+        if block.priority == topPriority then
+            tier[#tier + 1] = block
+            totalWeight = totalWeight + math.max(1, tonumber(block.weight) or 100)
+        end
+    end
+    if #tier == 1 then return tier[1] end
+
+    local hash = Util.hash(tostring(seed or "flow_block") .. ":" .. tostring(category or ""))
+    local roll = (hash % totalWeight) + 1
+    local current = 0
+    for _, block in ipairs(tier) do
+        current = current + math.max(1, tonumber(block.weight) or 100)
+        if roll <= current then return block end
+    end
+    return tier[#tier]
+end
+
 function PackRegistry.RegisterPack(spec)
     if type(spec) ~= "table" then
         return nil, "pack_spec_required"
@@ -172,6 +263,7 @@ function PackRegistry.RegisterPack(spec)
         capabilitiesRequired = Util.clone(spec.capabilitiesRequired or {}),
         metadata = Util.clone(spec.metadata or {}),
         registeredActionProviders = {},
+        registeredDialogueBlocks = {},
         onRegister = spec.onRegister,
         onUnregister = spec.onUnregister,
     }
@@ -244,6 +336,22 @@ function PackRegistry.RegisterPack(spec)
         end
     end
 
+    -- 7. Dialogue Blocks
+    if type(spec.dialogueBlocks) == "table" then
+        for key, blockSpec in pairs(spec.dialogueBlocks) do
+            if type(blockSpec) == "table" then
+                local copy = Util.clone(blockSpec)
+                copy.id = copy.id or tostring(key)
+                copy.ownerModID = copy.ownerModID or spec.ownerModID
+                copy.packID = packID
+                local registered, reason = PackRegistry.RegisterDialogueBlock(copy)
+                if registered then
+                    pack.registeredDialogueBlocks[#pack.registeredDialogueBlocks + 1] = copy.id
+                end
+            end
+        end
+    end
+
     if type(spec.onRegister) == "function" then
         pcall(spec.onRegister, pack)
     end
@@ -260,6 +368,11 @@ function PackRegistry.UnregisterPack(packID)
     -- Unregister associated action providers
     for _, provID in ipairs(pack.registeredActionProviders or {}) do
         PackRegistry.UnregisterActionProvider(provID)
+    end
+
+    -- Unregister associated dialogue blocks
+    for _, blockID in ipairs(pack.registeredDialogueBlocks or {}) do
+        PackRegistry.UnregisterDialogueBlock(blockID)
     end
 
     if type(pack.onUnregister) == "function" then
@@ -290,12 +403,15 @@ end
 function PackRegistry.GetDiagnostics()
     local packList = PackRegistry.ListPacks()
     local providerList = PackRegistry.ListActionProviders()
+    local blockList = PackRegistry.ListDialogueBlocks()
     return {
         revision = PackRegistry.GetRevision(),
         packCount = #packList,
         packs = packList,
         actionProviderCount = #providerList,
         actionProviders = providerList,
+        dialogueBlockCount = #blockList,
+        dialogueBlocks = blockList,
     }
 end
 

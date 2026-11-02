@@ -32,6 +32,8 @@ Semantics.DialogueTurn = require
     "PsychopatzCore/Semantics/PsychopatzSemanticDialogueTurn"
 Semantics.PackRegistry = require
     "PsychopatzCore/Semantics/PsychopatzSemanticPackRegistry"
+Semantics.DialogueFlow = require
+    "PsychopatzCore/Semantics/PsychopatzSemanticDialogueFlow"
 
 Semantics.VERSION = Semantics.VERSION or 1
 
@@ -75,6 +77,22 @@ end
 
 function Semantics.CollectActions(context, options)
     return Semantics.PackRegistry.CollectActions(context, options)
+end
+
+function Semantics.RegisterDialogueBlock(blockSpec)
+    return Semantics.PackRegistry.RegisterDialogueBlock(blockSpec)
+end
+
+function Semantics.GetDialogueBlock(blockID)
+    return Semantics.PackRegistry.GetDialogueBlock(blockID)
+end
+
+function Semantics.ListDialogueBlocks(category)
+    return Semantics.PackRegistry.ListDialogueBlocks(category)
+end
+
+function Semantics.SelectDialogueBlock(category, context, seed)
+    return Semantics.PackRegistry.SelectDialogueBlock(category, context, seed)
 end
 
 return Semantics
