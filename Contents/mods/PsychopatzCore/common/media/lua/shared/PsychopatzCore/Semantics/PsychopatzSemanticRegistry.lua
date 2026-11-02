@@ -303,6 +303,87 @@ function Registry.RegisterPattern(definition)
     return true, pattern
 end
 
+function Registry.UnregisterConcept(id)
+    local existing = Registry.Concepts[id]
+    if not existing then return false, "concept_not_found" end
+
+    for _, oldAlias in ipairs(existing.aliases or {}) do
+        removeAlias(oldAlias, id)
+    end
+    Registry.Concepts[id] = nil
+
+    for surface, vf in pairs(Registry.VerbForms) do
+        if vf.concept == id then
+            Registry.VerbForms[surface] = nil
+        end
+    end
+
+    bumpRevision()
+    return true
+end
+
+function Registry.UnregisterSpeechAct(id)
+    if not Registry.SpeechActs[id] then return false, "speech_act_not_found" end
+    Registry.SpeechActs[id] = nil
+    bumpRevision()
+    return true
+end
+
+function Registry.UnregisterPattern(id)
+    if not Registry.Patterns[id] then return false, "pattern_not_found" end
+    Registry.Patterns[id] = nil
+
+    local newOrder = {}
+    for index = 1, #Registry.PatternOrder do
+        local pid = Registry.PatternOrder[index]
+        if pid ~= id then
+            newOrder[#newOrder + 1] = pid
+        end
+    end
+    Registry.PatternOrder = newOrder
+    refreshOrderedPatterns()
+    bumpRevision()
+    return true
+end
+
+function Registry.UnregisterVerbForm(surface)
+    surface = Normalizer.NormalizePhrase(surface)
+    if not Registry.VerbForms[surface] then return false, "verb_form_not_found" end
+    Registry.VerbForms[surface] = nil
+    bumpRevision()
+    return true
+end
+
+function Registry.UnregisterByOwner(ownerID)
+    if not ownerID or ownerID == "" then return false end
+    local count = 0
+    for id, concept in pairs(Registry.Concepts) do
+        if concept.owner == ownerID then
+            Registry.UnregisterConcept(id)
+            count = count + 1
+        end
+    end
+    for id, act in pairs(Registry.SpeechActs) do
+        if act.owner == ownerID then
+            Registry.UnregisterSpeechAct(id)
+            count = count + 1
+        end
+    end
+    for id, pat in pairs(Registry.Patterns) do
+        if pat.owner == ownerID then
+            Registry.UnregisterPattern(id)
+            count = count + 1
+        end
+    end
+    for surface, vf in pairs(Registry.VerbForms) do
+        if vf.owner == ownerID then
+            Registry.UnregisterVerbForm(surface)
+            count = count + 1
+        end
+    end
+    return true, count
+end
+
 function Registry.GetPatterns()
     return Registry.OrderedPatterns
 end

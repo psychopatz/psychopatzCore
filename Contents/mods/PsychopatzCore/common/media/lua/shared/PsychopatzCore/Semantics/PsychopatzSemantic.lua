@@ -51,6 +51,18 @@ function Semantics.RegisterPattern(definition)
     return Semantics.Registry.RegisterPattern(definition)
 end
 
+function Semantics.UnregisterConcept(id)
+    return Semantics.Registry.UnregisterConcept(id)
+end
+
+function Semantics.UnregisterSpeechAct(id)
+    return Semantics.Registry.UnregisterSpeechAct(id)
+end
+
+function Semantics.UnregisterPattern(id)
+    return Semantics.Registry.UnregisterPattern(id)
+end
+
 function Semantics.Parse(text, options)
     return Semantics.Parser.Parse(text, options)
 end

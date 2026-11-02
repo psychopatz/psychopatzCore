@@ -107,7 +107,8 @@ local function collectCandidates(
     normalized,
     pass,
     analysis,
-    recovery
+    recovery,
+    options
 )
     local output = {}
     local pattern
@@ -115,31 +116,58 @@ local function collectCandidates(
     local score
     local details
     local recoveryPenalty = recovery and tonumber(recovery.cost) or 0
+    local caps = options and (options.capabilities or (options.context and options.context.capabilities))
     for _, candidatePattern in ipairs(patterns) do
         pattern = candidatePattern
-        match = PatternMatcher.Match(pattern, symbols, normalized)
-        if match then
-            score, details = Confidence.Score(pattern, match)
-            if recoveryPenalty > 0 then
-                score = Confidence.Clamp(score - recoveryPenalty)
-                details.recoveryPenalty = recoveryPenalty
+        local allowed = true
+        local req = pattern.capabilityRequired or pattern.capabilitiesRequired
+        if req then
+            if type(req) == "string" then
+                if caps ~= nil then
+                    allowed = (caps[req] == true)
+                elseif options and options.strictCapabilities == true then
+                    allowed = false
+                end
+            elseif type(req) == "table" then
+                for _, capName in ipairs(req) do
+                    if caps ~= nil then
+                        if caps[capName] ~= true then
+                            allowed = false
+                            break
+                        end
+                    elseif options and options.strictCapabilities == true then
+                        allowed = false
+                        break
+                    end
+                end
             end
-            output[#output + 1] = {
-                pattern = pattern,
-                match = match,
-                score = score,
-                details = details,
-                pass = pass,
-                exact = pass == "exact",
-                fuzzy = pass == "fuzzy"
-                    or (tonumber(match.fuzzyCount) or 0) > 0
-                    or analysis.fuzzyMatch == true,
-                recovered = recovery ~= nil,
-                recovery = recovery,
-                normalized = normalized,
-                symbols = symbols,
-                analysis = analysis,
-            }
+        end
+
+        if allowed then
+            match = PatternMatcher.Match(pattern, symbols, normalized)
+            if match then
+                score, details = Confidence.Score(pattern, match)
+                if recoveryPenalty > 0 then
+                    score = Confidence.Clamp(score - recoveryPenalty)
+                    details.recoveryPenalty = recoveryPenalty
+                end
+                output[#output + 1] = {
+                    pattern = pattern,
+                    match = match,
+                    score = score,
+                    details = details,
+                    pass = pass,
+                    exact = pass == "exact",
+                    fuzzy = pass == "fuzzy"
+                        or (tonumber(match.fuzzyCount) or 0) > 0
+                        or analysis.fuzzyMatch == true,
+                    recovered = recovery ~= nil,
+                    recovery = recovery,
+                    normalized = normalized,
+                    symbols = symbols,
+                    analysis = analysis,
+                }
+            end
         end
     end
     return output
@@ -350,7 +378,7 @@ function Parser.ParseCandidates(text, options)
     local exactSymbols = ConceptMatcher.Build(normalized, exactOptions)
     local exactAnalysis = ConceptMatcher.Analysis(normalized, exactSymbols)
     local exactMatches = collectCandidates(
-        patterns, exactSymbols, normalized, "exact", exactAnalysis
+        patterns, exactSymbols, normalized, "exact", exactAnalysis, nil, options
     )
     local exactBest = bestCandidate(exactMatches)
 
@@ -362,7 +390,7 @@ function Parser.ParseCandidates(text, options)
         local fuzzySymbols = ConceptMatcher.Build(normalized, options)
         local fuzzyAnalysis = ConceptMatcher.Analysis(normalized, fuzzySymbols)
         fuzzyMatches = collectCandidates(
-            patterns, fuzzySymbols, normalized, "fuzzy", fuzzyAnalysis
+            patterns, fuzzySymbols, normalized, "fuzzy", fuzzyAnalysis, nil, options
         )
     end
 
@@ -387,7 +415,8 @@ function Parser.ParseCandidates(text, options)
                 recovered,
                 "recovered",
                 recoveredAnalysis,
-                recovery
+                recovery,
+                options
             )
             for _, candidate in ipairs(matches) do
                 recoveryMatches[#recoveryMatches + 1] = candidate

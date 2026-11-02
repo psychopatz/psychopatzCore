@@ -164,6 +164,12 @@ function PackRegistry.RegisterDialogueBlock(blockSpec)
     if type(id) ~= "string" or id == "" then
         return nil, "block_id_required"
     end
+    local pack = blockSpec.packID and PackRegistry.Packs[blockSpec.packID]
+    local reqCaps = blockSpec.capabilitiesRequired
+    if (not reqCaps or #reqCaps == 0) and pack and pack.capabilitiesRequired then
+        reqCaps = pack.capabilitiesRequired
+    end
+
     local block = {
         id = id,
         category = tostring(blockSpec.category or "general"),
@@ -174,6 +180,7 @@ function PackRegistry.RegisterDialogueBlock(blockSpec)
         entryNode = blockSpec.entryNode or "opening",
         nodes = Util.clone(blockSpec.nodes or {}),
         metadata = Util.clone(blockSpec.metadata or {}),
+        capabilitiesRequired = Util.clone(reqCaps or {}),
         packID = blockSpec.packID,
     }
     PackRegistry.DialogueBlocks[id] = block
@@ -214,8 +221,23 @@ end
 function PackRegistry.SelectDialogueBlock(category, context, seed)
     local blocks = PackRegistry.ListDialogueBlocks(category)
     local eligible = {}
+    local capabilities = context and (context.capabilities or (context.actor and context.actor.capabilities))
     for _, block in ipairs(blocks) do
-        if Flow.EvaluateGates(block.gates, context) then
+        local capsAllowed = true
+        if block.capabilitiesRequired and #block.capabilitiesRequired > 0 then
+            if capabilities ~= nil then
+                for _, cap in ipairs(block.capabilitiesRequired) do
+                    if capabilities[cap] ~= true then
+                        capsAllowed = false
+                        break
+                    end
+                end
+            elseif context and context.strictCapabilities == true then
+                capsAllowed = false
+            end
+        end
+
+        if capsAllowed and Flow.EvaluateGates(block.gates, context) then
             eligible[#eligible + 1] = block
         end
     end
@@ -266,6 +288,9 @@ function PackRegistry.RegisterPack(spec)
         version = tonumber(spec.version) or 1,
         capabilitiesRequired = Util.clone(spec.capabilitiesRequired or {}),
         metadata = Util.clone(spec.metadata or {}),
+        registeredConcepts = {},
+        registeredSpeechActs = {},
+        registeredPatterns = {},
         registeredActionProviders = {},
         registeredDialogueBlocks = {},
         onRegister = spec.onRegister,
@@ -279,7 +304,10 @@ function PackRegistry.RegisterPack(spec)
         for _, conceptDef in ipairs(spec.concepts) do
             if type(conceptDef) == "table" then
                 conceptDef.owner = packID
-                Semantics.Registry.RegisterConcept(conceptDef)
+                local registered = Semantics.Registry.RegisterConcept(conceptDef)
+                if registered and conceptDef.id then
+                    pack.registeredConcepts[#pack.registeredConcepts + 1] = conceptDef.id
+                end
             end
         end
     end
@@ -291,7 +319,11 @@ function PackRegistry.RegisterPack(spec)
                 local def = actEntry.definition or actEntry
                 local meta = actEntry.metadata or {}
                 meta.owner = packID
-                Semantics.Registry.RegisterSpeechAct(def, meta)
+                local registered = Semantics.Registry.RegisterSpeechAct(def, meta)
+                local actID = type(def) == "string" and def or (type(def) == "table" and def.id)
+                if registered and actID then
+                    pack.registeredSpeechActs[#pack.registeredSpeechActs + 1] = actID
+                end
             end
         end
     end
@@ -301,7 +333,13 @@ function PackRegistry.RegisterPack(spec)
         for _, patternDef in ipairs(spec.patterns) do
             if type(patternDef) == "table" then
                 patternDef.owner = packID
-                Semantics.Registry.RegisterPattern(patternDef)
+                if #pack.capabilitiesRequired > 0 and not patternDef.capabilitiesRequired then
+                    patternDef.capabilitiesRequired = Util.clone(pack.capabilitiesRequired)
+                end
+                local registered = Semantics.Registry.RegisterPattern(patternDef)
+                if registered and patternDef.id then
+                    pack.registeredPatterns[#pack.registeredPatterns + 1] = patternDef.id
+                end
             end
         end
     end
@@ -348,6 +386,9 @@ function PackRegistry.RegisterPack(spec)
                 copy.id = copy.id or tostring(key)
                 copy.ownerModID = copy.ownerModID or spec.ownerModID
                 copy.packID = packID
+                if #pack.capabilitiesRequired > 0 and not copy.capabilitiesRequired then
+                    copy.capabilitiesRequired = Util.clone(pack.capabilitiesRequired)
+                end
                 local registered, reason = PackRegistry.RegisterDialogueBlock(copy)
                 if registered then
                     pack.registeredDialogueBlocks[#pack.registeredDialogueBlocks + 1] = copy.id
@@ -377,6 +418,29 @@ function PackRegistry.UnregisterPack(packID)
     -- Unregister associated dialogue blocks
     for _, blockID in ipairs(pack.registeredDialogueBlocks or {}) do
         PackRegistry.UnregisterDialogueBlock(blockID)
+    end
+
+    -- Unregister associated concepts, speech acts, and patterns from Semantics.Registry
+    local Semantics = PsychopatzCore.Semantics
+    if Semantics and Semantics.Registry then
+        for _, conceptID in ipairs(pack.registeredConcepts or {}) do
+            if Semantics.Registry.UnregisterConcept then
+                Semantics.Registry.UnregisterConcept(conceptID)
+            end
+        end
+        for _, actID in ipairs(pack.registeredSpeechActs or {}) do
+            if Semantics.Registry.UnregisterSpeechAct then
+                Semantics.Registry.UnregisterSpeechAct(actID)
+            end
+        end
+        for _, patID in ipairs(pack.registeredPatterns or {}) do
+            if Semantics.Registry.UnregisterPattern then
+                Semantics.Registry.UnregisterPattern(patID)
+            end
+        end
+        if Semantics.Registry.UnregisterByOwner then
+            Semantics.Registry.UnregisterByOwner(packID)
+        end
     end
 
     if type(pack.onUnregister) == "function" then
