@@ -233,4 +233,35 @@ crossAccountPlayer.modData.Core_CharacterSignature = PlayerIdentity.SignProvenan
 local crossProv, crossReason = PlayerIdentity.VerifyProvenance(crossAccountPlayer, provUUID, "Attacker")
 falsy(crossProv, "Cross-account signature claim rejected")
 
+-- Forged well-formed claim with correctly computed signature (adversarial reproduction)
+local forgedPlayer = createMockPlayer({
+    username = "Attacker",
+    onlineID = 5,
+    playerNum = 0,
+})
+local forgedUUID = "char_forged_unknown_999"
+local forgedAccount = "Attacker"
+forgedPlayer.modData.Core_CharacterUUID = forgedUUID
+forgedPlayer.modData.PNC_CharacterUUID = forgedUUID
+forgedPlayer.modData.Core_CharacterAccountKey = forgedAccount
+forgedPlayer.modData.Core_CharacterSignature = PlayerIdentity.SignProvenance(forgedUUID, forgedAccount)
+
+local isIssued, issueReason = PlayerIdentity.IsIssuedIdentity(forgedUUID, forgedAccount)
+falsy(isIssued, "Forged UUID is not in Core authoritative issuance registry")
+equal(issueReason, "not_issued", "Reason is not_issued")
+
+local forgedProv, forgedReason = PlayerIdentity.VerifyProvenance(forgedPlayer, forgedUUID, forgedAccount)
+falsy(forgedProv, "Forged UUID with matching signature rejected because not issued")
+equal(forgedReason, "not_issued")
+
+print("--- Test 7: Core Authoritative Issuance Persistence ---")
+local savedState = PlayerIdentity.Save()
+truthy(savedState[provUUID], "Issued UUID present in saved state")
+PlayerIdentity.Reset()
+local afterReset, resetReason = PlayerIdentity.IsIssuedIdentity(provUUID, provAccount)
+falsy(afterReset, "After reset, identity is cleared")
+PlayerIdentity.Load(savedState)
+local afterLoad, loadReason = PlayerIdentity.IsIssuedIdentity(provUUID, provAccount)
+truthy(afterLoad, "After load, identity is restored as authoritative")
+
 print("psychopatz_player_identity_smoke: PASS")

@@ -46,6 +46,91 @@ local function randomHex(len)
     return table.concat(result)
 end
 
+PlayerIdentity.STORAGE_KEY = "PsychopatzCore.PlayerIdentity"
+
+function PlayerIdentity.GetStorage()
+    if ModData and type(ModData.getOrCreate) == "function" then
+        local root = ModData.getOrCreate(PlayerIdentity.STORAGE_KEY)
+        root.identities = root.identities or {}
+        return root
+    end
+    PlayerIdentity._inMemoryStorage = PlayerIdentity._inMemoryStorage or { identities = {} }
+    return PlayerIdentity._inMemoryStorage
+end
+
+function PlayerIdentity.RegisterIssuedIdentity(uuid, accountKey, options)
+    local normUUID = PlayerIdentity.NormalizeUUID(uuid)
+    if not normUUID then return nil, "malformed_uuid" end
+    local account = tostring(accountKey or "player")
+    local storage = PlayerIdentity.GetStorage()
+    local existing = storage.identities[normUUID]
+    if existing then
+        if tostring(existing.accountKey) == account then
+            return existing
+        else
+            return nil, "cross_account_conflict"
+        end
+    end
+    local record = {
+        uuid = normUUID,
+        accountKey = account,
+        source = options and options.source or "core_generated",
+        issuedAt = (os.time and os.time()) or 0,
+    }
+    storage.identities[normUUID] = record
+    return record
+end
+
+function PlayerIdentity.IsIssuedIdentity(uuid, accountKey)
+    local normUUID = PlayerIdentity.NormalizeUUID(uuid)
+    if not normUUID then return false, "malformed_uuid" end
+    local storage = PlayerIdentity.GetStorage()
+    local record = storage.identities[normUUID]
+    if not record then
+        return false, "not_issued"
+    end
+    if accountKey ~= nil and tostring(record.accountKey) ~= tostring(accountKey) then
+        return false, "account_mismatch"
+    end
+    return true, record
+end
+
+function PlayerIdentity.ResolveIssuedIdentity(uuid, accountKey)
+    local valid, res = PlayerIdentity.IsIssuedIdentity(uuid, accountKey)
+    if valid then return res end
+    return nil, res
+end
+
+function PlayerIdentity.Save()
+    local storage = PlayerIdentity.GetStorage()
+    return Util.clone(storage.identities)
+end
+
+function PlayerIdentity.Load(data)
+    local storage = PlayerIdentity.GetStorage()
+    storage.identities = {}
+    if type(data) == "table" then
+        local items = data.identities or data
+        for k, v in pairs(items) do
+            if type(v) == "table" and v.uuid then
+                storage.identities[v.uuid] = Util.clone(v)
+            elseif type(v) == "string" then
+                storage.identities[k] = { uuid = k, accountKey = v }
+            end
+        end
+    end
+    return true
+end
+
+function PlayerIdentity.Reset()
+    local storage = PlayerIdentity.GetStorage()
+    storage.identities = {}
+    if PlayerIdentity._inMemoryStorage then
+        PlayerIdentity._inMemoryStorage.identities = {}
+    end
+    return true
+end
+
 function PlayerIdentity.GenerateUUID()
     local seed = Util.hash(tostring(os.time() or 123456) .. tostring(math.random(100000, 999999)))
     local hex = string.format("%08x", seed) .. randomHex(16)
@@ -72,13 +157,20 @@ function PlayerIdentity.VerifyProvenance(player, claimedUUID, expectedAccountKey
     if not player or not claimedUUID then return false, "missing_parameters" end
     local normUUID = PlayerIdentity.NormalizeUUID(claimedUUID)
     if not normUUID then return false, "malformed_uuid" end
+    local accountKey = expectedAccountKey or PlayerIdentity.GetAccountKey(player)
+
+    -- Authoritative Issuance Check: Core must have actually issued or adopted this identity!
+    local issued, issueReason = PlayerIdentity.IsIssuedIdentity(normUUID, accountKey)
+    if not issued then
+        return false, issueReason or "not_issued"
+    end
+
     local data = safeCall(player, "getModData") or (type(player) == "table" and player.modData)
     if type(data) ~= "table" then return false, "no_moddata" end
     local coreUUID = PlayerIdentity.NormalizeUUID(data[PlayerIdentity.MODDATA_CORE_UUID])
     if not coreUUID or coreUUID ~= normUUID then
         return false, "untrusted_uuid_mismatch"
     end
-    local accountKey = expectedAccountKey or PlayerIdentity.GetAccountKey(player)
     local coreAccount = data[PlayerIdentity.MODDATA_CORE_ACCOUNT]
     if coreAccount and tostring(coreAccount) ~= tostring(accountKey) then
         return false, "account_mismatch"
@@ -105,39 +197,42 @@ function PlayerIdentity.GetCharacterUUID(player)
         -- 1. Check Core UUID
         local coreUUID = PlayerIdentity.NormalizeUUID(data[PlayerIdentity.MODDATA_CORE_UUID])
         if coreUUID then
-            -- Mirror to PNC field if not set
-            if not data[PlayerIdentity.MODDATA_PNC_UUID] then
-                data[PlayerIdentity.MODDATA_PNC_UUID] = coreUUID
-            end
             local accountKey = PlayerIdentity.GetAccountKey(player)
-            if not data[PlayerIdentity.MODDATA_CORE_ACCOUNT] then
-                data[PlayerIdentity.MODDATA_CORE_ACCOUNT] = accountKey
+            if PlayerIdentity.IsIssuedIdentity(coreUUID, accountKey) then
+                if not data[PlayerIdentity.MODDATA_PNC_UUID] then
+                    data[PlayerIdentity.MODDATA_PNC_UUID] = coreUUID
+                end
+                if not data[PlayerIdentity.MODDATA_CORE_ACCOUNT] then
+                    data[PlayerIdentity.MODDATA_CORE_ACCOUNT] = accountKey
+                end
+                if not data[PlayerIdentity.MODDATA_CORE_SIGNATURE] then
+                    data[PlayerIdentity.MODDATA_CORE_SIGNATURE] = PlayerIdentity.SignProvenance(coreUUID, accountKey)
+                end
+                if not data["PNC_CharacterAccountKey"] then
+                    data["PNC_CharacterAccountKey"] = accountKey
+                end
+                return coreUUID
             end
-            if not data[PlayerIdentity.MODDATA_CORE_SIGNATURE] then
-                data[PlayerIdentity.MODDATA_CORE_SIGNATURE] = PlayerIdentity.SignProvenance(coreUUID, accountKey)
-            end
-            if not data["PNC_CharacterAccountKey"] then
-                data["PNC_CharacterAccountKey"] = accountKey
-            end
-            return coreUUID
         end
 
         -- 2. Check existing Hoomans PNC UUID
         local pncUUID = PlayerIdentity.NormalizeUUID(data[PlayerIdentity.MODDATA_PNC_UUID])
         if pncUUID then
-            data[PlayerIdentity.MODDATA_CORE_UUID] = pncUUID
             local accountKey = PlayerIdentity.GetAccountKey(player)
+            data[PlayerIdentity.MODDATA_CORE_UUID] = pncUUID
             data[PlayerIdentity.MODDATA_CORE_ACCOUNT] = accountKey
             data[PlayerIdentity.MODDATA_CORE_SIGNATURE] = PlayerIdentity.SignProvenance(pncUUID, accountKey)
             if not data["PNC_CharacterAccountKey"] then
                 data["PNC_CharacterAccountKey"] = accountKey
             end
+            PlayerIdentity.RegisterIssuedIdentity(pncUUID, accountKey, { source = "hoom_adopted" })
             return pncUUID
         end
 
         -- 3. If neither exists, generate and store in both fields
         local newUUID = PlayerIdentity.GenerateUUID()
         local accountKey = PlayerIdentity.GetAccountKey(player)
+        PlayerIdentity.RegisterIssuedIdentity(newUUID, accountKey, { source = "core_generated" })
         data[PlayerIdentity.MODDATA_CORE_UUID] = newUUID
         data[PlayerIdentity.MODDATA_PNC_UUID] = newUUID
         data[PlayerIdentity.MODDATA_CORE_ACCOUNT] = accountKey
