@@ -200,4 +200,37 @@ Social.MigrateAliases(socialState, coreMPKey, legacyAliases)
 equal(socialState.revision, revisionBefore, "Second migration is strictly idempotent")
 equal(#canonicalRel.memories, 2, "Memories not duplicated on second migration")
 
+print("--- Test 6: Core Provenance & Tamper Resistance ---")
+local provPlayer = createMockPlayer({
+    username = "Alice",
+    onlineID = 2,
+    playerNum = 0,
+})
+local provUUID = PlayerIdentity.GetCharacterUUID(provPlayer)
+local provAccount = PlayerIdentity.GetAccountKey(provPlayer)
+local validProv, provReason = PlayerIdentity.VerifyProvenance(provPlayer, provUUID, provAccount)
+truthy(validProv, "Valid Core provenance verified")
+
+-- Untrusted arbitrary claim
+local untrustedPlayer = createMockPlayer({
+    username = "Attacker",
+    onlineID = 3,
+    playerNum = 0,
+})
+untrustedPlayer.modData.PNC_CharacterUUID = "char_untrusted"
+local invalidProv, invalidReason = PlayerIdentity.VerifyProvenance(untrustedPlayer, "char_untrusted", "Attacker")
+falsy(invalidProv, "Arbitrary untrusted UUID rejected")
+
+-- Cross-account signature spoofing
+local crossAccountPlayer = createMockPlayer({
+    username = "Attacker",
+    onlineID = 4,
+    playerNum = 0,
+})
+crossAccountPlayer.modData.Core_CharacterUUID = provUUID
+crossAccountPlayer.modData.Core_CharacterAccountKey = provAccount
+crossAccountPlayer.modData.Core_CharacterSignature = PlayerIdentity.SignProvenance(provUUID, provAccount)
+local crossProv, crossReason = PlayerIdentity.VerifyProvenance(crossAccountPlayer, provUUID, "Attacker")
+falsy(crossProv, "Cross-account signature claim rejected")
+
 print("psychopatz_player_identity_smoke: PASS")

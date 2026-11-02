@@ -18,6 +18,8 @@ local PlayerIdentity = {}
 PlayerIdentity.UUID_PREFIX = "char_"
 PlayerIdentity.MODDATA_CORE_UUID = "Core_CharacterUUID"
 PlayerIdentity.MODDATA_PNC_UUID = "PNC_CharacterUUID"
+PlayerIdentity.MODDATA_CORE_ACCOUNT = "Core_CharacterAccountKey"
+PlayerIdentity.MODDATA_CORE_SIGNATURE = "Core_CharacterSignature"
 
 local function safeCall(obj, method, ...)
     if not obj then return nil end
@@ -60,6 +62,35 @@ function PlayerIdentity.NormalizeUUID(value)
     return nil
 end
 
+function PlayerIdentity.SignProvenance(uuid, accountKey)
+    if not uuid or not accountKey then return nil end
+    local seed = "PsychopatzCore:PlayerIdentity:v1:" .. tostring(accountKey) .. ":" .. tostring(uuid)
+    return "sig_" .. string.format("%08x", Util.hash(seed))
+end
+
+function PlayerIdentity.VerifyProvenance(player, claimedUUID, expectedAccountKey)
+    if not player or not claimedUUID then return false, "missing_parameters" end
+    local normUUID = PlayerIdentity.NormalizeUUID(claimedUUID)
+    if not normUUID then return false, "malformed_uuid" end
+    local data = safeCall(player, "getModData") or (type(player) == "table" and player.modData)
+    if type(data) ~= "table" then return false, "no_moddata" end
+    local coreUUID = PlayerIdentity.NormalizeUUID(data[PlayerIdentity.MODDATA_CORE_UUID])
+    if not coreUUID or coreUUID ~= normUUID then
+        return false, "untrusted_uuid_mismatch"
+    end
+    local accountKey = expectedAccountKey or PlayerIdentity.GetAccountKey(player)
+    local coreAccount = data[PlayerIdentity.MODDATA_CORE_ACCOUNT]
+    if coreAccount and tostring(coreAccount) ~= tostring(accountKey) then
+        return false, "account_mismatch"
+    end
+    local sig = data[PlayerIdentity.MODDATA_CORE_SIGNATURE]
+    local expectedSig = PlayerIdentity.SignProvenance(normUUID, accountKey)
+    if not sig or sig ~= expectedSig then
+        return false, "invalid_signature"
+    end
+    return true, "valid_provenance"
+end
+
 function PlayerIdentity.GetCharacterUUID(player)
     if not player then return nil end
 
@@ -78,6 +109,16 @@ function PlayerIdentity.GetCharacterUUID(player)
             if not data[PlayerIdentity.MODDATA_PNC_UUID] then
                 data[PlayerIdentity.MODDATA_PNC_UUID] = coreUUID
             end
+            local accountKey = PlayerIdentity.GetAccountKey(player)
+            if not data[PlayerIdentity.MODDATA_CORE_ACCOUNT] then
+                data[PlayerIdentity.MODDATA_CORE_ACCOUNT] = accountKey
+            end
+            if not data[PlayerIdentity.MODDATA_CORE_SIGNATURE] then
+                data[PlayerIdentity.MODDATA_CORE_SIGNATURE] = PlayerIdentity.SignProvenance(coreUUID, accountKey)
+            end
+            if not data["PNC_CharacterAccountKey"] then
+                data["PNC_CharacterAccountKey"] = accountKey
+            end
             return coreUUID
         end
 
@@ -85,13 +126,24 @@ function PlayerIdentity.GetCharacterUUID(player)
         local pncUUID = PlayerIdentity.NormalizeUUID(data[PlayerIdentity.MODDATA_PNC_UUID])
         if pncUUID then
             data[PlayerIdentity.MODDATA_CORE_UUID] = pncUUID
+            local accountKey = PlayerIdentity.GetAccountKey(player)
+            data[PlayerIdentity.MODDATA_CORE_ACCOUNT] = accountKey
+            data[PlayerIdentity.MODDATA_CORE_SIGNATURE] = PlayerIdentity.SignProvenance(pncUUID, accountKey)
+            if not data["PNC_CharacterAccountKey"] then
+                data["PNC_CharacterAccountKey"] = accountKey
+            end
             return pncUUID
         end
 
         -- 3. If neither exists, generate and store in both fields
         local newUUID = PlayerIdentity.GenerateUUID()
+        local accountKey = PlayerIdentity.GetAccountKey(player)
         data[PlayerIdentity.MODDATA_CORE_UUID] = newUUID
         data[PlayerIdentity.MODDATA_PNC_UUID] = newUUID
+        data[PlayerIdentity.MODDATA_CORE_ACCOUNT] = accountKey
+        data[PlayerIdentity.MODDATA_CORE_SIGNATURE] = PlayerIdentity.SignProvenance(newUUID, accountKey)
+        data["PNC_CharacterAccountKey"] = accountKey
+        data["PNC_CharacterIdentityVersion"] = 2
         return newUUID
     end
 
