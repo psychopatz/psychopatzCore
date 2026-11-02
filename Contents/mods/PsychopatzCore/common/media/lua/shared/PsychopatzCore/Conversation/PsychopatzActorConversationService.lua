@@ -62,6 +62,46 @@ local function actorContext(actor, context)
     return output
 end
 
+local function normalizeCapabilities(caps)
+    if type(caps) ~= "table" then return nil end
+    local set = {}
+    for k, v in pairs(caps) do
+        if type(k) == "string" and v == true then
+            set[k] = true
+        elseif type(v) == "string" then
+            set[v] = true
+        end
+    end
+    return set
+end
+
+local function intersectCapabilities(effectiveCaps, optionCaps)
+    if effectiveCaps == nil then
+        return optionCaps
+    end
+    if optionCaps == nil then
+        return effectiveCaps
+    end
+    local result = {}
+    for cap, _ in pairs(effectiveCaps) do
+        if optionCaps[cap] == true then
+            result[cap] = true
+        end
+    end
+    return result
+end
+
+local function buildEffectiveOptions(effectiveContext, options)
+    local effOptions = copy(tableValue(options))
+    local effectiveCaps = normalizeCapabilities(effectiveContext and effectiveContext.capabilities)
+    if effectiveCaps ~= nil then
+        local optionCaps = normalizeCapabilities(options and options.capabilities)
+        effOptions.capabilities = intersectCapabilities(effectiveCaps, optionCaps)
+    end
+    effOptions.context = effectiveContext
+    return effOptions
+end
+
 local function responseFrom(decision)
     local response = decision and decision.response
     if type(response) ~= "table" then return nil end
@@ -157,6 +197,9 @@ function Service:ParseTurn(text, options)
     options = tableValue(options)
     local parseOptions = copy(self.router.options or {})
     for key, value in pairs(options) do parseOptions[key] = value end
+    if parseOptions.capabilities == nil and parseOptions.context and parseOptions.context.capabilities then
+        parseOptions.capabilities = normalizeCapabilities(parseOptions.context.capabilities)
+    end
     return Turn.Parse(
         text,
         function(clause, clauseOptions)
@@ -167,15 +210,21 @@ function Service:ParseTurn(text, options)
 end
 
 function Service:Preview(text, context, options)
-    return self.router:Preview(text, context, options)
+    local effectiveContext = actorContext(self.actor, context)
+    local effectiveOptions = buildEffectiveOptions(effectiveContext, options)
+    return self.router:Preview(text, effectiveContext, effectiveOptions)
 end
 
 function Service:ProcessIR(ir, context, options)
-    return self.router:ProcessIR(ir, context, options)
+    local effectiveContext = actorContext(self.actor, context)
+    local effectiveOptions = buildEffectiveOptions(effectiveContext, options)
+    return self.router:ProcessIR(ir, effectiveContext, effectiveOptions)
 end
 
 function Service:Process(text, context, options)
-    return self.router:Process(text, context, options)
+    local effectiveContext = actorContext(self.actor, context)
+    local effectiveOptions = buildEffectiveOptions(effectiveContext, options)
+    return self.router:Process(text, effectiveContext, effectiveOptions)
 end
 
 function Service:ObserveResult(result)
@@ -258,7 +307,8 @@ function Service:Submit(text, context, options)
         return nil, "utterance_required"
     end
     local effectiveContext = actorContext(self.actor, context)
-    local parsed, parseReason = self:ParseTurn(text, options)
+    local effectiveOptions = buildEffectiveOptions(effectiveContext, options)
+    local parsed, parseReason = self:ParseTurn(text, effectiveOptions)
     if not parsed then return nil, parseReason end
 
     local results = {}
@@ -266,21 +316,21 @@ function Service:Submit(text, context, options)
     if parsed.compound == true then
         for index, part in ipairs(parsed.parts or {}) do
             local result = processPart(
-                self, part.text, effectiveContext, options, index
+                self, part.text, effectiveContext, effectiveOptions, index
             )
             results[#results + 1] = result
             local response = buildResponse(
-                self, result, effectiveContext, options
+                self, result, effectiveContext, effectiveOptions
             )
             if response then responses[#responses + 1] = response end
         end
     else
         local result = processPart(
-            self, tostring(parsed.rawText or text), effectiveContext, options, 1
+            self, tostring(parsed.rawText or text), effectiveContext, effectiveOptions, 1
         )
         results[1] = result
         local response = buildResponse(
-            self, result, effectiveContext, options
+            self, result, effectiveContext, effectiveOptions
         )
         if response then responses[1] = response end
     end
@@ -292,12 +342,13 @@ function Service:Submit(text, context, options)
     })
     local actions = nil
     if options.collectActions == true then
-        actions = self:CollectActions(effectiveContext, options)
+        actions = self:CollectActions(effectiveContext, effectiveOptions)
     end
     return {
         schemaVersion = Service.VERSION,
         kind = "actor_conversation_result",
         actorID = actorID(self.actor),
+        accepted = true,
         rawText = text,
         parseReason = parseReason,
         compound = parsed.compound == true,

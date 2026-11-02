@@ -101,6 +101,15 @@ local function candidateLimit(options)
     return limit
 end
 
+local function hasCapability(caps, capName)
+    if not caps then return false end
+    if caps[capName] == true then return true end
+    for _, c in ipairs(caps) do
+        if c == capName then return true end
+    end
+    return false
+end
+
 local function collectCandidates(
     patterns,
     symbols,
@@ -124,14 +133,14 @@ local function collectCandidates(
         if req then
             if type(req) == "string" then
                 if caps ~= nil then
-                    allowed = (caps[req] == true)
+                    allowed = hasCapability(caps, req)
                 elseif options and options.strictCapabilities == true then
                     allowed = false
                 end
             elseif type(req) == "table" then
                 for _, capName in ipairs(req) do
                     if caps ~= nil then
-                        if caps[capName] ~= true then
+                        if not hasCapability(caps, capName) then
                             allowed = false
                             break
                         end

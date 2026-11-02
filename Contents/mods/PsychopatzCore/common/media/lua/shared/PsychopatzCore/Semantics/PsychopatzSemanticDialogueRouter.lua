@@ -149,7 +149,17 @@ function Router:ResolveIR(ir, context, options)
 end
 
 function Router:Preview(text, context, options)
+    context = context or self.context
     options = options or self.options
+    local parseOptions = options
+    if context and context.capabilities and (not options or not options.capabilities) then
+        parseOptions = {}
+        if options then
+            for k, v in pairs(options) do parseOptions[k] = v end
+        end
+        parseOptions.capabilities = context.capabilities
+        parseOptions.context = context
+    end
     local ir
     local parseReason
     local candidateSet
@@ -159,7 +169,7 @@ function Router:Preview(text, context, options)
     self.lastCandidateSet = nil
     self.lastCandidateDiagnostics = nil
     if type(self.candidateParser) == "function" then
-        candidateSet, parseReason = self:ParseCandidates(text, options)
+        candidateSet, parseReason = self:ParseCandidates(text, parseOptions)
         if type(candidateSet) == "table"
             and type(candidateSet.candidates) == "table"
         then
@@ -170,8 +180,8 @@ function Router:Preview(text, context, options)
                 ir, candidateDiagnostics = self.candidateSelector(
                     candidateSet,
                     self.state,
-                    context or self.context,
-                    options,
+                    context,
+                    parseOptions,
                     self.contextResolver
                 )
                 self.lastCandidateDiagnostics = candidateDiagnostics
@@ -183,7 +193,7 @@ function Router:Preview(text, context, options)
     if not usedCandidates
         or (not candidateSelectionAttempted and not ir)
     then
-        ir, parseReason = self:Parse(text, options)
+        ir, parseReason = self:Parse(text, parseOptions)
     end
     if not ir then
         return {
