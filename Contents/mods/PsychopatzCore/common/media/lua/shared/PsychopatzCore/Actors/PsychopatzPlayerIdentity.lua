@@ -215,18 +215,20 @@ function PlayerIdentity.GetCharacterUUID(player)
             end
         end
 
-        -- 2. Check existing Hoomans PNC UUID
+        -- 2. Check existing Hoomans PNC UUID ONLY if already Core-issued
         local pncUUID = PlayerIdentity.NormalizeUUID(data[PlayerIdentity.MODDATA_PNC_UUID])
         if pncUUID then
             local accountKey = PlayerIdentity.GetAccountKey(player)
-            data[PlayerIdentity.MODDATA_CORE_UUID] = pncUUID
-            data[PlayerIdentity.MODDATA_CORE_ACCOUNT] = accountKey
-            data[PlayerIdentity.MODDATA_CORE_SIGNATURE] = PlayerIdentity.SignProvenance(pncUUID, accountKey)
-            if not data["PNC_CharacterAccountKey"] then
-                data["PNC_CharacterAccountKey"] = accountKey
+            if PlayerIdentity.IsIssuedIdentity(pncUUID, accountKey) then
+                data[PlayerIdentity.MODDATA_CORE_UUID] = pncUUID
+                data[PlayerIdentity.MODDATA_CORE_ACCOUNT] = accountKey
+                data[PlayerIdentity.MODDATA_CORE_SIGNATURE] = PlayerIdentity.SignProvenance(pncUUID, accountKey)
+                if not data["PNC_CharacterAccountKey"] then
+                    data["PNC_CharacterAccountKey"] = accountKey
+                end
+                return pncUUID
             end
-            PlayerIdentity.RegisterIssuedIdentity(pncUUID, accountKey, { source = "hoom_adopted" })
-            return pncUUID
+            -- An unknown/unissued PNC mirror must NEVER be auto-registered into Core authority.
         end
 
         -- 3. If neither exists, generate and store in both fields

@@ -49,8 +49,9 @@ local function createMockPlayer(spec)
 end
 
 print("--- Test 1: Single Player Character Identity Convergence ---")
--- SP Player in slot 0 with existing UUID
+-- SP Player in slot 0 with existing Hoomans-registered UUID
 local spModData = { PNC_CharacterUUID = "char_sp_uuid_12345" }
+PlayerIdentity.RegisterIssuedIdentity("char_sp_uuid_12345", "sp_slot_0", { source = "hoom_created" })
 local spPlayer = createMockPlayer({
     playerNum = 0,
     username = "PlayerOne",
@@ -253,6 +254,28 @@ equal(issueReason, "not_issued", "Reason is not_issued")
 local forgedProv, forgedReason = PlayerIdentity.VerifyProvenance(forgedPlayer, forgedUUID, forgedAccount)
 falsy(forgedProv, "Forged UUID with matching signature rejected because not issued")
 equal(forgedReason, "not_issued")
+
+-- Test 6B: Lookup order can never manufacture authority (P18 bypass reproduction)
+local bootstrapPlayer = createMockPlayer({
+    username = "Attacker2",
+    onlineID = 6,
+    playerNum = 0,
+})
+local bootstrapAccount = PlayerIdentity.GetAccountKey(bootstrapPlayer)
+local bootstrapUUID = "char_forged_bootstrap_123"
+bootstrapPlayer.modData.PNC_CharacterUUID = bootstrapUUID
+local beforeIssued = PlayerIdentity.IsIssuedIdentity(bootstrapUUID, bootstrapAccount)
+falsy(beforeIssued, "Before lookup, bootstrapUUID is not issued")
+
+-- Trigger Core lookup FIRST:
+local targetKey = PlayerIdentity.GetTargetKey(bootstrapPlayer)
+local afterIssued, afterReason = PlayerIdentity.IsIssuedIdentity(bootstrapUUID, bootstrapAccount)
+falsy(afterIssued, "After Core GetTargetKey lookup, bootstrapUUID is STILL not issued!")
+equal(afterReason, "not_issued", "Reason remains not_issued")
+
+local resolvedUUID = PlayerIdentity.GetCharacterUUID(bootstrapPlayer)
+truthy(resolvedUUID ~= bootstrapUUID, "Resolved UUID is a newly generated Core UUID, NOT the forged bootstrap UUID")
+truthy(PlayerIdentity.IsIssuedIdentity(resolvedUUID, bootstrapAccount), "Newly generated Core UUID is authoritative")
 
 print("--- Test 7: Core Authoritative Issuance Persistence ---")
 local savedState = PlayerIdentity.Save()
