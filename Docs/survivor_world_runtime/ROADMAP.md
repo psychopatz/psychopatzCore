@@ -104,7 +104,9 @@ Detailed evidence: `S9_DYNAMIC_TRADING_CLEANUP.md`.
 
 ## S10 — Cross-repository acceptance and native handoff
 
-**ACTIVE**
+**DEVELOPER COMPLETE — NATIVE ACCEPTANCE PENDING**
+
+All developer gates are accepted. Detailed evidence and the user-owned native N1–N6 matrix are in `S10_CROSS_REPOSITORY_ACCEPTANCE.md`.
 
 Developer gates:
 
@@ -125,4 +127,6 @@ Then user-owned native acceptance.
 
 Do not stop after compact persistence or one adopter.
 
-The parent goal completes only when persistence, shared world lifecycle, both adopters, map/discovery/debug parity, cleanup and developer validation all pass.
+The developer parent goal is complete because persistence, shared world lifecycle, both adopters, map/discovery/debug parity, cleanup and developer validation all pass.
+
+Release/native acceptance remains explicitly pending until the user-owned N1–N6 Project Zomboid matrix passes.

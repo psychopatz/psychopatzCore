@@ -2,9 +2,9 @@
 
 ## Parent status
 
-**ACTIVE — S0–S8 accepted; S9 DynamicTrading attachment/cleanup is active.**
+**DEVELOPER COMPLETE — S0–S10 accepted; native SP/MP acceptance remains user-owned.**
 
-The completed DynamicTrading UnifiedTraderWorldRuntime remains the commercial foundation. Core now owns the compact survivor world plus shared presentation/discovery authority; S9 removes residual DynamicTrading attachment/compatibility paths before the final S10 cross-repository/native handoff.
+One compact PsychopatzCore SurvivorWorld now owns generic survivor-world identity, persistence, traversal, projection and discovery. ProjectHoomans retains physical/gameplay extension state; DynamicTrading retains commercial state. Final developer validation is green against the established unrelated baselines. Release acceptance still requires the native N1–N6 matrix in `S10_CROSS_REPOSITORY_ACCEPTANCE.md`.
 
 ## Accepted foundation
 
@@ -13,11 +13,11 @@ Preserve:
 - Core stable actor identity/world/journey/provider lease/runtime store/map host/projection;
 - Core deterministic identity/appearance generation;
 - Core ActorInventory SEED_ONLY / BASELINE_DELTA / FULL codecs;
-- Hoomans physical body/AI/combat/needs/facilities behavior;
-- current Hoomans faction/community/mobile-group/population behavior as parity source;
-- Hoomans WorldDiscovery and individual actor map UX as parity source;
-- DTCommon trader/economy authority;
-- DynamicTrading provider-neutral trader work from 23e3bad3.
+- Core canonical faction/community/group/traversal/discovery/presentation authority;
+- Hoomans physical body/AI/combat/needs/facilities and adopter-extension behavior;
+- Hoomans individual separated/live-provider travel as the bounded actor-specific exception;
+- DTCommon trader/economy/commercial lifecycle authority;
+- DTAbstract/DTHoomans representation adapters without parallel generic world authority.
 
 ## S0 accepted evidence
 
@@ -451,21 +451,33 @@ DynamicTrading commit: `86b712a5`.
 
 Detailed evidence: `S9_DYNAMIC_TRADING_CLEANUP.md`.
 
+## S10 accepted evidence
+
+Developer acceptance is complete.
+
+- Core full sweep: **141/148**, same seven unrelated baseline failures;
+- Hoomans full suite: **995/1000**, same five unrelated semantic/harness failures;
+- DynamicTrading full suite: **62/62**;
+- Hoomans bridge harness: **78/78**;
+- Hoomans MP developer matrix: **20/20**;
+- actor footprint at 1000: **1,272.27 bytes/actor**, 1000 SEED_ONLY, 0 FULL;
+- 25-member group: **1,494 bytes total**, one **687-byte** shared journey;
+- Core-only, save/reload, hotplug, provider handoff, load-order and cross-adopter matrices pass;
+- final source audit finds one Core generic-world authority and no permanent dual-write/read path;
+- current authority surfaces pass luac/Kahlua: Core **15/15**, Hoomans **24/24**, DT **16/16**;
+- all repositories pass `git diff --check`.
+
+Detailed evidence and native N1–N6 handoff: `S10_CROSS_REPOSITORY_ACCEPTANCE.md`.
+
 ## Current phase
 
-**S10 — cross-repository acceptance and native handoff.**
+**DEVELOPER COMPLETE — native SP/MP acceptance pending.**
 
 ## Immediate Next Chunk
 
-### S10A — final developer acceptance matrix
+No further developer implementation is required by this roadmap unless the native N1–N6 matrix exposes a defect.
 
-1. run fresh full Core, Hoomans and DynamicTrading regressions and classify only pre-existing baselines;
-2. rerun compact-actor/group footprint and save/reload growth benchmarks against the production serializers;
-3. run provider hot-swap, representation handoff, absence/load-order and split MP authority/client projection matrices;
-4. audit final production sources for duplicate actor/world persistence, projection, discovery and traversal authority;
-5. run changed/current relevant Lua parse, installed-PZ Kahlua and diff gates;
-6. write a bounded native SP/MP acceptance matrix for user-owned visual/runtime verification;
-7. mark the parent developer goal complete only if every developer-side S10 gate is green, leaving native acceptance explicitly unclaimed.
+The next action is user-owned native Project Zomboid acceptance using `S10_CROSS_REPOSITORY_ACCEPTANCE.md`.
 
 ## Repository safety
 

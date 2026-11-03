@@ -158,3 +158,29 @@ User-owned after developer gates:
 - discover-all debug tools;
 - no duplicate actor/body/group/faction;
 - actual ModData footprint on large/long-running saves.
+
+
+## S10 cross-repository developer gate — ACCEPTED 2026-11-04
+
+Developer-side acceptance is complete; native Project Zomboid SP/MP acceptance remains user-owned.
+
+Final evidence:
+
+- Core full sweep: **141/148**, same seven unrelated baseline failures;
+- Hoomans full suite: **995/1000**, same five unrelated semantic/harness failures;
+- DynamicTrading: **62/62**;
+- Hoomans bridge harness: **78/78**;
+- Hoomans MP developer matrix: **20/20**;
+- S10 footprint: **1,272.27 bytes/actor** at 1000 actors, **1000 SEED_ONLY**, **0 FULL**;
+- 25-member group: **1,494 bytes** total with one **687-byte** shared journey;
+- core-only, hotplug, save/reload, provider handoff, load-order and cross-adopter matrices pass;
+- final authority audit finds one Core generic-world authority and no permanent dual-write/read path;
+- current authority surfaces pass installed-PZ Kahlua and luac:
+  - Core **15/15**;
+  - Hoomans **24/24**;
+  - DynamicTrading **16/16**;
+- all repositories pass `git diff --check`.
+
+Use `S10_CROSS_REPOSITORY_ACCEPTANCE.md` for the bounded native N1–N6 handoff matrix.
+
+Until N1–N6 passes in the actual game, the release status is **developer complete / native acceptance pending**.
