@@ -62,6 +62,20 @@ Required:
 4. unsupported exact state -> FULL only when required;
 5. rematerialize -> same durable item/equipment state.
 
+## S3 inventory hydration/dehydration — ACCEPTED
+
+Verified developer-side:
+
+- untouched Core actor inventory is SEED_ONLY;
+- unchanged Core -> Hoomans logical hydration -> Core capture returns SEED_ONLY;
+- durable Hoomans item addition returns BASELINE_DELTA;
+- exact item IDs survive rehydration;
+- repeated capture does not accumulate prior delta history;
+- normal physical-provider dematerialization commits the captured payload;
+- missing-body recovery commits logical-record inventory before provider release;
+- changed/unsupported FULL preservation rules from S1 remain intact;
+- DynamicTrading merchant stock remains separate from actor personal inventory.
+
 ## Group traversal
 
 For N members:

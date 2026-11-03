@@ -44,13 +44,15 @@ Gate: same portrait signature across save/reload and abstract↔physical transit
 
 ## S3 — Lazy inventory hydration and durable deltas
 
-**ACTIVE**
+**COMPLETE**
 
 Use SEED_ONLY by default, BASELINE_DELTA for durable changes, FULL only when required.
 
 Gate: materialize/dematerialize round-trip preserves durable items/equipment and returns to smallest safe mode.
 
 ## S4 — Core Survivor World model
+
+**ACTIVE**
 
 Promote generic faction/community/mobile-group/population/discovery mechanisms from PNC into Core.
 

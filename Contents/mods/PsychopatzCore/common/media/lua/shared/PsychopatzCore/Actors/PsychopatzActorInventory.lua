@@ -244,12 +244,17 @@ function Ledger:Remove(itemId)
 end
 
 function Ledger:SetContainer(itemId, containerId)
-    local _, entry = self:_find(itemId)
+    local index, entry = self:_find(itemId)
     if not entry then return nil, "item_not_found" end
     if containerId ~= nil and not self:_find(containerId) then
         return nil, "container_not_found"
     end
-    return self:Update(itemId, { containerId = containerId })
+    local nextEntry = cloneEntry(entry)
+    nextEntry.containerId = text(containerId, nil)
+    self.items[index] = nextEntry
+    self:_appendDelta({ op = "upsert", item = nextEntry })
+    self.revision = self.revision + 1
+    return cloneEntry(nextEntry)
 end
 
 function Ledger:SetEquipment(itemId, slot, category)
@@ -279,6 +284,40 @@ function Ledger:SetEquipment(itemId, slot, category)
     self:_appendDelta({ op = "equipment", equipment = self.equipment })
     self.revision = self.revision + 1
     return cloneEntry(entry)
+end
+
+function Ledger:SetEquipmentState(state)
+    state = type(state) == "table" and state or {}
+    local nextState = { worn = {}, equipped = {}, attached = {} }
+    local byID = {}
+    for index = 1, #self.items do
+        local entry = self.items[index]
+        byID[entry.itemId] = entry
+        entry.wornSlot = nil
+        entry.equippedSlot = nil
+        entry.attachedSlot = nil
+    end
+    for _, category in ipairs({ "worn", "equipped", "attached" }) do
+        for slot, itemId in pairs(state[category] or {}) do
+            slot = text(slot, nil)
+            itemId = text(itemId, nil)
+            local entry = itemId and byID[itemId] or nil
+            if not slot or not entry then
+                return nil, "equipment_reference_invalid"
+            end
+            nextState[category][slot] = itemId
+            if category == "worn" then entry.wornSlot = slot end
+            if category == "equipped" then entry.equippedSlot = slot end
+            if category == "attached" then entry.attachedSlot = slot end
+        end
+    end
+    self.equipment = nextState
+    self:_appendDelta({
+        op = "equipment",
+        equipment = self.equipment,
+    })
+    self.revision = self.revision + 1
+    return true
 end
 
 function Ledger:Validate()
@@ -314,9 +353,63 @@ function Ledger:Validate()
     return true
 end
 
-function Ledger:_seedCompatible()
+local function sameValue(left, right, seen)
+    if type(left) ~= type(right) then return false end
+    if type(left) ~= "table" then return left == right end
+    seen = seen or {}
+    if seen[left] == right then return true end
+    seen[left] = right
+    for key, value in pairs(left) do
+        if not sameValue(value, right[key], seen) then return false end
+    end
+    for key in pairs(right) do
+        if left[key] == nil then return false end
+    end
+    return true
+end
+
+local function equipmentFromItems(items)
+    local equipment = { worn = {}, equipped = {}, attached = {} }
+    for index = 1, #(items or {}) do
+        local entry = items[index]
+        if entry.wornSlot then
+            equipment.worn[entry.wornSlot] = entry.itemId
+        end
+        if entry.equippedSlot then
+            equipment.equipped[entry.equippedSlot] = entry.itemId
+        end
+        if entry.attachedSlot then
+            equipment.attached[entry.attachedSlot] = entry.itemId
+        end
+    end
+    return equipment
+end
+
+local function refreshNextOrdinal(self)
+    local prefix = tostring(self.ownerActorId) .. ":item:"
+    local maximum = 0
     for index = 1, #self.items do
-        local entry = self.items[index]
+        local itemId = tostring(self.items[index].itemId or "")
+        if string.sub(itemId, 1, #prefix) == prefix then
+            local ordinal = tonumber(string.sub(itemId, #prefix + 1))
+            if ordinal and ordinal > maximum then maximum = ordinal end
+        end
+    end
+    self.nextItemOrdinal = math.max(self.nextItemOrdinal or 1, maximum + 1)
+end
+
+function Ledger:_seedCompatible()
+    if not sameValue(self:List(), self.baselineItems or {}) then
+        return false
+    end
+    if not sameValue(
+        self.equipment or {},
+        equipmentFromItems(self.baselineItems or {})
+    ) then
+        return false
+    end
+    for index = 1, #(self.baselineItems or {}) do
+        local entry = self.baselineItems[index]
         if tonumber(entry.record[C.FLAGS]) ~= 0
             or #(entry.record[C.STATE] or {}) > 0
         then return false end
@@ -356,7 +449,11 @@ function Ledger:ToPayload(mode)
             }
         end
     elseif mode == "BASELINE_DELTA" then
-        payload.baseline = { items = clone(self.baselineItems), definitions = clone(self.baselineDefinitions) }
+        payload.baseline = {
+            kind = self.baselineKind,
+            items = clone(self.baselineItems),
+            definitions = clone(self.baselineDefinitions),
+        }
         payload.deltas = clone(self.deltas)
     else
         payload.items = self:List()
@@ -444,16 +541,20 @@ function ActorInventory.Decode(payload)
         end
     elseif mode == "BASELINE_DELTA" then
         local ok
-        ok, reason = loadItems(self, baseline.items)
+        self.baselineItems = clone(baseline.items or {})
+        self.deltas = clone(payload.deltas or {})
+        ok, reason = loadItems(self, self.baselineItems)
         if not ok then return nil, reason end
-        for index = 1, #(payload.deltas or {}) do
-            ok, reason = applyDelta(self, payload.deltas[index])
+        for index = 1, #self.deltas do
+            ok, reason = applyDelta(self, self.deltas[index])
             if not ok then return nil, reason end
         end
+        refreshNextOrdinal(self)
     else
         local ok
         ok, reason = loadItems(self, payload.items)
         if not ok then return nil, reason end
+        refreshNextOrdinal(self)
     end
     self.equipment = clone(payload.equipment or self.equipment)
     self.revision = tonumber(payload.revision) or 0
@@ -469,25 +570,71 @@ function ActorInventory.ValidatePayload(payload)
     return ledger:Validate()
 end
 
-local function sameValue(left, right, seen)
-    if type(left) ~= type(right) then return false end
-    if type(left) ~= "table" then return left == right end
-    seen = seen or {}
-    if seen[left] == right then return true end
-    seen[left] = right
-    for key, value in pairs(left) do
-        if not sameValue(value, right[key], seen) then return false end
-    end
-    for key in pairs(right) do
-        if left[key] == nil then return false end
-    end
-    return true
-end
-
 local function baselineEquivalent(payload, ledger)
     if type(payload) ~= "table" or not ledger then return false end
     return sameValue(payload.items or {}, ledger:List())
         and sameValue(payload.equipment or {}, ledger.equipment or {})
+end
+
+function ActorInventory.CreateBaselineFromPayload(payload)
+    local valid, reason = ActorInventory.ValidatePayload(payload)
+    if not valid then return nil, reason end
+    local mode = normalizeMode(payload.mode)
+    if mode == "FULL" then
+        return nil, "full_baseline_not_proven"
+    end
+    if mode == "SEED_ONLY" then
+        local ledger
+        ledger, reason = ActorInventory.Decode(payload)
+        if not ledger then return nil, reason end
+        ledger.deltas = {}
+        ledger.revision = 1
+        return ledger
+    end
+
+    local baseline = type(payload.baseline) == "table"
+        and payload.baseline or {}
+    if type(baseline.items) ~= "table" then
+        return nil, "delta_baseline_missing"
+    end
+    local ledger
+    ledger, reason = ActorInventory.new({
+        actorId = payload.ownerActorId,
+        seed = payload.seed,
+        starterVersion = payload.starterVersion,
+        starterItems = {},
+    })
+    if not ledger then return nil, reason end
+    ledger.baselineKind = baseline.kind == "default"
+        and "default" or "explicit"
+    ledger.baselineDefinitions = clone(baseline.definitions or {})
+    ledger.baselineItems = clone(baseline.items)
+    local ok
+    ok, reason = loadItems(ledger, ledger.baselineItems)
+    if not ok then return nil, reason end
+    ledger.equipment = equipmentFromItems(ledger.baselineItems)
+    ledger.deltas = {}
+    ledger.revision = 1
+    refreshNextOrdinal(ledger)
+    ok, reason = ledger:Validate()
+    if not ok then return nil, reason end
+    return ledger
+end
+
+function ActorInventory.ToSmallestPayload(ledger)
+    if getmetatable(ledger) ~= Ledger then
+        return nil, "inventory_ledger_required"
+    end
+    local payload, reason = ledger:ToPayload("SEED_ONLY")
+    if payload then return payload, "SEED_ONLY" end
+    if reason ~= "seed_only_not_compatible" then return nil, reason end
+
+    payload, reason = ledger:ToPayload("BASELINE_DELTA")
+    if payload then return payload, "BASELINE_DELTA" end
+
+    payload, reason = ledger:ToPayload("FULL")
+    if payload then return payload, "FULL" end
+    return nil, reason
 end
 
 function ActorInventory.CompactPayload(payload)

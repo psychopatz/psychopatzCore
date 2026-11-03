@@ -2,7 +2,7 @@
 
 ## Parent status
 
-**ACTIVE — S0/S1/S2 accepted; S3 lazy inventory hydration is active.**
+**ACTIVE — S0–S3 accepted; S4 Core Survivor World model is active.**
 
 The completed DynamicTrading UnifiedTraderWorldRuntime remains accepted commercial foundation. This job owns the broader compact survivor-world parity migration.
 
@@ -144,23 +144,58 @@ This beats the locked <=1900 bytes/actor target by a wide margin and reduces unt
 
 Portrait/presentation/provider/projection regressions pass. A 900-actor **1,132,286-byte** registry still round-trips through the explicit actor-registry bound.
 
+## S3 accepted evidence
+
+Core inventory hardening:
+
+- SEED_ONLY now requires exact current item/equipment equality with deterministic baseline;
+- decoded BASELINE_DELTA payloads retain baseline and delta state across later mutations;
+- decoded ledgers recalculate item ordinals to avoid post-hydration ID collisions;
+- SetEquipmentState and explicit root-container clearing support lossless capture;
+- CreateBaselineFromPayload rebuilds a fresh bounded baseline for repeated physical captures;
+- ToSmallestPayload chooses SEED_ONLY when exact, otherwise BASELINE_DELTA, then FULL.
+
+ProjectHoomans integration:
+
+- new PNC ActorInventory bridge hydrates Core compact personal inventory into Hoomans logical inventory only at the physical-provider boundary;
+- runtime-only hydration provenance prevents Hoomans-derived profile metadata from creating false durable deltas;
+- unchanged hydrate/capture returns SEED_ONLY;
+- durable Hoomans item changes return BASELINE_DELTA with exact item IDs;
+- repeated capture does not accumulate historical delta bloat;
+- CoreProvider materialization hydrates logical inventory before body creation;
+- body-backed loose inventory is projected/captured when a real body inventory exists;
+- dematerialization returns the compact captured payload;
+- missing registered records fall back to safe rehydration rather than inventing unrelated inventory.
+
+DynamicTrading integration:
+
+- normal DTHoomans dematerialization commits returned personalInventory with providerLease;
+- missing-body recovery captures the surviving logical Hoomans inventory and commits it before returning abstract;
+- provider hot-swap and runtime tests use the public ActorInventory API rather than FULL-payload internals.
+
+Validation:
+
+- Core inventory/actor/provider/runtime focused matrix passes;
+- Hoomans bridge, seed/delta, Core provider, end-to-end and equipment regressions pass;
+- DynamicTrading full suite: **59/59**;
+- changed S3 production Lua passes installed-PZ Kahlua verification;
+- git diff checks pass.
+
 ## Current phase
 
-**S3 — Lazy inventory hydration and durable delta capture.**
+**S4 — Core Survivor World model.**
 
 ## Immediate Next Chunk
 
-### S3A — production Hoomans hydration/dehydration boundary
+### S4A — generic world schema extraction and fail-first parity fixtures
 
-1. audit the existing Core actor inventory ↔ PNC/Hoomans provider bridge;
-2. make compact Core payloads hydrate lazily only when physical gameplay requires an inventory;
-3. preserve exact item/equipment identity through materialization;
-4. on dematerialization, capture durable changes and choose the smallest safe Core mode;
-5. unchanged physical round-trip must return to SEED_ONLY;
-6. representable durable changes should return BASELINE_DELTA;
-7. unsupported exact state must remain FULL rather than lose data;
-8. add cross-repository provider regressions and footprint checks;
-9. then continue automatically into S4 Core Survivor World model.
+1. audit the current PNC faction/community/abstract-world/discovery schemas and generation dependencies at field/function level;
+2. define Core-generic Faction, Community, MobileGroup, PopulationSector and WorldDiscovery records without Hoomans body/gameplay policy;
+3. add deterministic ID/seed and bounded-registry tests in Core;
+4. add read-only migration/parity fixtures that import current PNC records into the Core schema without mutating PNC saves;
+5. establish one Core SurvivorWorld registry/persistence envelope with explicit bounds;
+6. keep Hoomans facilities/jobs/body policy as adopter extensions, not Core fields;
+7. continue into S4B generation contracts and then S5 group-shared traversal.
 
 ## Repository safety
 
