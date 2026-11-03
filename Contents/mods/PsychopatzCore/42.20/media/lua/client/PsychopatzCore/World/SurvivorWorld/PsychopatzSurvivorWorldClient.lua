@@ -27,6 +27,23 @@ Client.DiscoverySnapshot =
 Client.Selection =
     Client.Selection or Presentation.NewSelection()
 
+Client.DEFAULT_ACTOR_REFRESH_MS = 1000
+Client.DEFAULT_DISCOVERY_REFRESH_MS = 10000
+Client.LastActorRequestAt = Client.LastActorRequestAt or nil
+Client.LastDiscoveryRequestAt = Client.LastDiscoveryRequestAt or nil
+
+local function nowMs()
+    if type(getTimestampMs) == "function" then
+        local ok, value = pcall(getTimestampMs)
+        if ok and tonumber(value) then return tonumber(value) end
+    end
+    if type(getTimeInMillis) == "function" then
+        local ok, value = pcall(getTimeInMillis)
+        if ok and tonumber(value) then return tonumber(value) end
+    end
+    return nil
+end
+
 local function commandModule()
     return PsychopatzCore.COMMAND_MODULE or "PsychopatzCore"
 end
@@ -37,7 +54,24 @@ local function localPlayer()
 end
 
 function Client.RequestActors()
-    return ProjectionClient.Request(Client.SOURCE_ID)
+    local ok, reason = ProjectionClient.Request(Client.SOURCE_ID)
+    if ok then Client.LastActorRequestAt = nowMs() end
+    return ok, reason
+end
+
+function Client.RequestActorsIfDue(intervalMs, force)
+    intervalMs = math.max(
+        0,
+        tonumber(intervalMs) or Client.DEFAULT_ACTOR_REFRESH_MS
+    )
+    local now = nowMs()
+    if force ~= true and now ~= nil
+        and Client.LastActorRequestAt ~= nil
+        and now - Client.LastActorRequestAt < intervalMs
+    then
+        return false, "not_due"
+    end
+    return Client.RequestActors()
 end
 
 function Client.ListActors(raw)
@@ -51,6 +85,44 @@ function Client.GetActor(actorID)
     return ProjectionClient.Get(actorID)
 end
 
+
+function Client.GetPortraitSpec(actorOrID)
+    local entry = type(actorOrID) == "table"
+        and actorOrID
+        or Client.GetActor(actorOrID)
+    local portrait = entry and entry.portrait or nil
+    if type(portrait) ~= "table"
+        or type(portrait.face) ~= "table"
+    then
+        return nil
+    end
+    local face = portrait.face
+    local gender = tostring(
+        portrait.gender or face.gender or ""
+    ):lower()
+    return {
+        key = tostring(portrait.actorID or entry.actorID)
+            .. ":"
+            .. tostring(portrait.schemaVersion or 0),
+        actorID = portrait.actorID or entry.actorID,
+        identitySeed = portrait.actorID or entry.actorID,
+        isFemale = gender == "female"
+            or gender == "f",
+        preferDescriptor = true,
+        faceOnly = true,
+        includeCurrentClothing = false,
+        appearance = {
+            skinTexture = face.skinTexture,
+            skinColor = face.skinColor,
+            skinTone = face.skinTone,
+            hairModel = face.hairModel,
+            hairColor = face.hairColor,
+            beardModel = face.beardModel,
+        },
+        equipment = { worn = {} },
+    }
+end
+
 function Client.RequestDiscovery()
     local player = localPlayer()
     if not player or type(sendClientCommand) ~= "function" then
@@ -62,7 +134,43 @@ function Client.RequestDiscovery()
         Client.COMMAND_DISCOVERY_REQUEST,
         {}
     )
+    Client.LastDiscoveryRequestAt = nowMs()
     return true
+end
+
+function Client.RequestDiscoveryIfDue(intervalMs, force)
+    intervalMs = math.max(
+        0,
+        tonumber(intervalMs)
+            or Client.DEFAULT_DISCOVERY_REFRESH_MS
+    )
+    local now = nowMs()
+    if force ~= true and now ~= nil
+        and Client.LastDiscoveryRequestAt ~= nil
+        and now - Client.LastDiscoveryRequestAt < intervalMs
+    then
+        return false, "not_due"
+    end
+    return Client.RequestDiscovery()
+end
+
+function Client.RefreshIfDue(options)
+    options = type(options) == "table" and options or {}
+    local actorOK, actorReason = Client.RequestActorsIfDue(
+        options.actorIntervalMs,
+        options.force == true
+    )
+    local discoveryOK, discoveryReason =
+        Client.RequestDiscoveryIfDue(
+            options.discoveryIntervalMs,
+            options.force == true
+        )
+    return {
+        actors = actorOK == true,
+        actorReason = actorReason,
+        discovery = discoveryOK == true,
+        discoveryReason = discoveryReason,
+    }
 end
 
 function Client.DiscoveryAction(action, args)

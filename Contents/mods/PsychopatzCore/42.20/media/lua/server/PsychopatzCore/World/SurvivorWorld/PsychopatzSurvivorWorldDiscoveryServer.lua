@@ -188,6 +188,17 @@ function Server.ApplyAction(player, action, args)
         end
         result, reason, changed =
             Discovery.ResetPlayer(registry, key)
+    elseif action == "debug_reset_entity" then
+        if not canDebug(player) then
+            return false, "not_authorized"
+        end
+        result, reason, changed =
+            Discovery.ResetEntity(
+                registry,
+                key,
+                args.kind,
+                args.entityID
+            )
     elseif action == "debug_discover_all" then
         if not canDebug(player) then
             return false, "not_authorized"

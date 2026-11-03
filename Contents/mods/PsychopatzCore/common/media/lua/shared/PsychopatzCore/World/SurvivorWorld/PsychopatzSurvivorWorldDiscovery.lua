@@ -641,6 +641,30 @@ function Discovery.ResetPlayer(registry, key)
     )
 end
 
+function Discovery.ResetEntity(registry, key, kind, entityID)
+    kind = Discovery.Kind(kind)
+    entityID = safeID(entityID)
+    if not kind then return nil, "entity_kind_invalid" end
+    if not entityID then return nil, "entity_id_required" end
+    return mutateDiscovery(
+        registry,
+        key,
+        function(player)
+            player.entities = player.entities or {}
+            player.entities[kind] =
+                player.entities[kind] or {}
+            if player.entities[kind][entityID] == nil then
+                return nil, "unchanged", false
+            end
+            player.entities[kind][entityID] = nil
+            return {
+                kind = kind,
+                entityID = entityID,
+            }, "reset", true
+        end
+    )
+end
+
 local function scopeMatches(scope, kind)
     scope = tostring(scope or "all")
     if scope == "all" or scope == "signals" then

@@ -14,6 +14,8 @@ isServer = function() return true end
 local player = {
     getUsername = function() return "transport-user" end,
 }
+local currentMs = 1000
+getTimestampMs = function() return currentMs end
 getSpecificPlayer = function() return player end
 getPlayer = function() return player end
 getGameTime = function()
@@ -64,8 +66,11 @@ sendServerCommand = function(target, module, command, args)
         fn(module, command, args)
     end
 end
+local clientCommandCounts = {}
 sendClientCommand = function(current, module, command, args)
     assert(current == player, "wrong local player")
+    clientCommandCounts[command] =
+        (clientCommandCounts[command] or 0) + 1
     for _, fn in ipairs(serverHandlers) do
         fn(module, command, current, args)
     end
@@ -107,10 +112,49 @@ assert(#actors == Actors.DefaultRegistry:Count(),
     "SurvivorWorld actor projection transport incomplete")
 assert(actors[1].groupID or actors[1].communityID,
     "world context missing from transported actor")
+if actors[1].portrait then
+    local portraitSpec = Client.GetPortraitSpec(actors[1])
+    assert(portraitSpec
+        and portraitSpec.actorID == actors[1].actorID,
+        "Core portrait did not convert to client descriptor contract")
+    assert(portraitSpec.preferDescriptor == true
+        and portraitSpec.faceOnly == true,
+        "Core portrait descriptor policy changed")
+end
 
 assert(Client.RequestDiscovery())
 assert(Client.GetDiscoverySnapshot().state == "known",
     "initial discovery snapshot missing")
+
+local actorRequests =
+    clientCommandCounts["ActorProjectionRequest"] or 0
+local discoveryRequests =
+    clientCommandCounts["SurvivorWorldDiscoveryRequest"] or 0
+local due, dueReason = Client.RequestActorsIfDue(1000)
+assert(due == false and dueReason == "not_due",
+    "actor refresh ignored demand throttle")
+due, dueReason = Client.RequestDiscoveryIfDue(10000)
+assert(due == false and dueReason == "not_due",
+    "discovery refresh ignored demand throttle")
+assert((clientCommandCounts["ActorProjectionRequest"] or 0)
+        == actorRequests,
+    "throttled actor refresh sent transport")
+assert((clientCommandCounts["SurvivorWorldDiscoveryRequest"] or 0)
+        == discoveryRequests,
+    "throttled discovery refresh sent transport")
+
+currentMs = 12050
+local refresh = Client.RefreshIfDue()
+assert(refresh.actors == true,
+    "due actor projection did not refresh")
+assert(refresh.discovery == true,
+    "due discovery projection did not refresh")
+assert((clientCommandCounts["ActorProjectionRequest"] or 0)
+        == actorRequests + 1,
+    "due actor refresh transport count mismatch")
+assert((clientCommandCounts["SurvivorWorldDiscoveryRequest"] or 0)
+        == discoveryRequests + 1,
+    "due discovery refresh transport count mismatch")
 assert(#Client.GetDiscoverySnapshot().entities == 0,
     "new player should not know world entities")
 

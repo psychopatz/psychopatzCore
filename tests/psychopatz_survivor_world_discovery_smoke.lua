@@ -176,6 +176,24 @@ assert(player.entities.group[groupID].contactedAt == 14,
 assert(player.entities.signal["signal:fixture"],
     "signal discovery persisted")
 
+local resetSignal, resetSignalReason, resetSignalChanged =
+    Discovery.ResetEntity(
+        registry,
+        key,
+        "signal",
+        "signal:fixture"
+    )
+assert(resetSignal
+    and resetSignalReason == "reset"
+    and resetSignalChanged == true,
+    "single-entity discovery reset")
+local afterSignalReset =
+    registry:GetDiscovery().players[key]
+assert(afterSignalReset.entities.signal["signal:fixture"] == nil,
+    "single-entity reset left signal discovery")
+assert(afterSignalReset.entities.group[groupID] ~= nil,
+    "single-entity reset erased unrelated group discovery")
+
 local reset, resetReason, resetChanged =
     Discovery.ResetPlayer(registry, key)
 assert(reset and resetReason == "reset"
