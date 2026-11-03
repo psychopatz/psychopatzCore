@@ -91,4 +91,14 @@ function World.MarkArrivalHandled(state, handlerID)
     return nextState
 end
 
+function World.ProjectPosition(state, now)
+    if type(state) ~= "table" then return nil, "world_required" end
+    if state.journey then
+        return Journey.ProjectPosition(state.journey, now)
+    end
+    local location = state.location or {}
+    local point = Location.NormalizePoint(location.position)
+    return { x = point.x, y = point.y, z = point.z }
+end
+
 return World

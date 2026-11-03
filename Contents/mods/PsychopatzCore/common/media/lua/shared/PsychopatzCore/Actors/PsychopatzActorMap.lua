@@ -43,10 +43,11 @@ local function buildEntry(actor, spec)
     end
     local world = actor.world or {}
     local location = world.location or {}
-    local point = location.position or { x = 0, y = 0, z = 0 }
+    local journey = world.journey
+    local point = (journey and Journey.ProjectPosition and Journey.ProjectPosition(journey, spec.now))
+        or location.position or { x = 0, y = 0, z = 0 }
     local portrait, reason = Presentation.BuildPortrait(actor)
     if not portrait then return nil, reason end
-    local journey = world.journey
     local entry = {
         schemaVersion = Map.SCHEMA_VERSION,
         actorID = actor.actorId,

@@ -203,4 +203,40 @@ function Journey.Cancel(journey, reason)
     return nextJourney
 end
 
+function Journey.ProjectPosition(journey, now)
+    if type(journey) ~= "table" then return nil, "journey_required" end
+    local origin = Location.NormalizePoint(journey.origin)
+    local destination = Location.NormalizePoint(journey.destination, origin)
+    if journey.state == "arrived" then
+        return { x = destination.x, y = destination.y, z = destination.z }
+    end
+    if journey.state == "planned" then
+        if now == nil or now <= number(journey.startAt, 0) then
+            return { x = origin.x, y = origin.y, z = origin.z }
+        end
+    end
+    local progress = number(journey.progress, 0)
+    if now ~= nil and journey.startAt ~= nil and journey.speed ~= nil and journey.distanceTotal ~= nil then
+        now = number(now, journey.startAt)
+        if now >= journey.startAt and journey.distanceTotal > 0 then
+            local elapsed = math.max(0, now - journey.startAt)
+            local travelled = math.min(journey.distanceTotal, elapsed * journey.speed)
+            progress = travelled / journey.distanceTotal
+        elseif now < journey.startAt then
+            progress = 0
+        end
+    end
+    progress = math.max(0, math.min(1, progress))
+    if progress >= 1 or journey.state == "arrived" then
+        return { x = destination.x, y = destination.y, z = destination.z }
+    end
+    if progress <= 0 then
+        return { x = origin.x, y = origin.y, z = origin.z }
+    end
+    local x = origin.x + (destination.x - origin.x) * progress
+    local y = origin.y + (destination.y - origin.y) * progress
+    local z = origin.z + (destination.z - origin.z) * progress
+    return { x = x, y = y, z = z }
+end
+
 return Journey
