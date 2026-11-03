@@ -68,25 +68,19 @@ Gate met: route storage is O(1) per group, member projection is shared, actor se
 
 ## S6 — ProjectHoomans adopter migration
 
-**ACTIVE — S6A complete; S6B active.**
+**COMPLETE**
 
-### S6A — Core runtime persistence + one-way legacy import — COMPLETE
+S6A added Core runtime persistence and one-way legacy import. S6B cut generic faction/community/location/group state onto Core while retaining only Hoomans-specific extension state. S6C removed duplicate active generic save authority; legacy roots are read-only migration inputs and production saves use one Core + extension boundary.
 
-Core now owns a lazy server-authority SurvivorWorld RuntimeStore. ProjectHoomans can preview and explicitly import legacy PNC faction/community/abstract/discovery state into that store without automatic dual writes or overwriting an existing Core world.
-
-### S6B — canonical generic world cutover — ACTIVE
-
-Cut generic faction/community/location/group state and mutation authority over to Core. PNC may retain Hoomans-specific extension/runtime views, but generic canonical state must no longer have permanent duplicate persistence.
-
-### S6C — duplicate-authority cleanup
-
-Remove superseded active generic stores/writes and leave only bounded migration decoders/adopter extensions required for supported saves and Hoomans policy.
-
-Gate: no duplicate PNC world authority; physical behavior/appearance preserved; focused/full Hoomans regression.
+Gate met: no duplicate PNC generic-world persistence authority, Hoomans gameplay extensions remain durable, migration/reload works, and focused/full Hoomans regression is unchanged.
 
 ## S7 — DTAbstract adopter migration
 
-Remove parallel/static world behavior and consume Core Survivor World with no Hoomans dependency.
+**ACTIVE — S7A.**
+
+### S7A — canonical world adoption
+
+Remove parallel/static DTAbstract faction/community/group lifecycle state and consume the Core SurvivorWorld with ProjectHoomans absent. Preserve DTCommon economy/trader authority and DTAbstract notification interaction.
 
 Gate: same seed/config produces same canonical factions/communities/groups/actors as Hoomans composition; no bodies/full inventories for untouched abstract population.
 

@@ -311,22 +311,52 @@ Commits:
 - Core `d1e4a7b`;
 - ProjectHoomans `d42e4e50`.
 
+## S6B/S6C accepted evidence
+
+ProjectHoomans generic world authority is now cut over to Core.
+
+- faction/community/location/group generic fields persist only in Core SurvivorWorld;
+- PNC registries are rebuilt runtime compatibility views;
+- Hoomans-only policy/runtime fields persist in one bounded extension root;
+- legacy generic roots are captured once, then retired;
+- reload reconstructs PNC views from Core + extension state without resurrecting old roots;
+- generic mutation hooks update Core, including audited scavenging and casualty bypasses;
+- production persistence performs one SurvivorWorld save rather than three generic PNC writes;
+- direct legacy saves fail closed when Core authority is composed but cutover is unavailable.
+
+Validation:
+
+- Core S6B compatibility regressions pass;
+- Core full suite remains **137/144**, same seven unrelated failures;
+- Hoomans focused cutover/reload/mutation/save tests pass;
+- Hoomans full suite remains **991/996**, same five unrelated semantic/harness failures;
+- S6B production Lua: **11/11** luac + installed-PZ Kahlua;
+- S6C production Lua: **4/4** luac + installed-PZ Kahlua;
+- git diff checks pass.
+
+Detailed evidence: `S6_HOOMANS_ADOPTION.md`.
+
+Commits:
+
+- Core `4933793`;
+- ProjectHoomans `5d6e1e8e`, `ab19fe69`, `3f523dc8`.
+
 ## Current phase
 
-**S6 — ProjectHoomans adopter-world authority migration.**
+**S7 — DTAbstract adopter migration.**
 
 ## Immediate Next Chunk
 
-### S6B — canonical generic world cutover
+### S7A — DTAbstract canonical world adoption
 
-1. classify faction/community/location/group fields into Core-generic versus Hoomans extension state at the actual mutation/persistence boundaries;
-2. cut generic faction/community/location/group persistence over to the Core RuntimeStore without permanent dual writes;
-3. keep PNC registries only as compatibility/runtime extension views where Hoomans-specific policy requires them;
-4. migrate supported legacy PNC saves once, then stop writing generic world fields to legacy ModData;
-5. ensure all generic mutation paths update Core first and project the resulting canonical record back into Hoomans views;
-6. preserve facilities/jobs/combat/behavior/encounter policy in Hoomans-owned extension state;
-7. validate save/reload, generation, mobile travel, faction/community lifecycle and full Hoomans regression;
-8. then continue S6C cleanup/removal of duplicate active authority and proceed to S7.
+1. audit DTCommon/DTAbstract faction, settlement, trader-group, traversal, discovery and map state against Core SurvivorWorld;
+2. make DTAbstract activate/load the Core SurvivorWorld with ProjectHoomans absent;
+3. replace static/parallel DTAbstract faction/community/group lifecycle state with Core queries and mutations;
+4. preserve DTCommon trader/economy authority and DTAbstract notification interaction only;
+5. ensure untouched abstract actors remain compact with no live body/AI/full inventory requirements;
+6. prove same Core seed/config yields the same canonical world identities whether Hoomans is installed or absent;
+7. validate DTAbstract map/trader traversal and DynamicTrading regressions;
+8. then continue into S8 shared map/discovery/highlight/debug parity.
 
 ## Repository safety
 
