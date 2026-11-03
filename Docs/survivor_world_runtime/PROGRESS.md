@@ -216,21 +216,38 @@ Validation:
 
 Detailed evidence: `S4_SCHEMA_EXTRACTION.md`.
 
+## S4B accepted evidence
+
+Core now owns deterministic provider-neutral generation contracts for world/sector seeds, generation IDs, weighted choices, entity IDs, default faction/community names, community/group planning and bounded adopter policy extensions.
+
+The generic seed/name behavior is locked to the current PNC serialization-safe algorithms. Canonical plans are byte-identical for the same seed/request before and after registering an adopter policy. Body/equipment/facility/job/combat/behavior policy is not part of the canonical plan.
+
+Validation:
+
+- S4B generation smoke passes;
+- exact PNC-compatible seed/name fixtures pass;
+- adopter policy isolation/capacity passes;
+- full Core Lua sweep remains **135/142**, with only the same seven unrelated baseline failures;
+- installed-PZ Kahlua compiler: **6/6** changed S4B files;
+- git diff check passes.
+
+Detailed evidence: `S4_GENERATION_CONTRACTS.md`.
+
 ## Current phase
 
-**S4 — Core Survivor World model.**
+**S5 — Group-shared traversal and actor projection.**
 
 ## Immediate Next Chunk
 
-### S4B — deterministic generation contracts
+### S5A — canonical group journey contract
 
-1. audit current PNC faction-name/archetype and PopulationDirector settlement/group generation inputs;
-2. move generic deterministic naming, archetype/profile selection, sector seed derivation, and entity-ID generation into Core;
-3. define bounded generation-policy registration so Hoomans can add gameplay policy without becoming world owner;
-4. provide a Core default survivor-world generation profile usable with ProjectHoomans absent;
-5. prove same seed/config produces identical faction/community/group/actor generation plan independent of representation provider;
-6. keep body/equipment/facility/job/tactical generation outside Core;
-7. then continue into S5 shared group traversal.
+1. audit Core actor journey fields and current PNC mobile-group/TravelRepository journey duplication;
+2. define one bounded Core GroupJourney record owned by SurvivorWorld group state;
+3. project member actor positions from the shared group journey without copying route state into every actor;
+4. support intentional per-actor separation/override without duplicating the normal route;
+5. add save/reload, arrival/rebase and deterministic projection tests;
+6. measure N=1/5/10/25 serialized growth and lock the O(1)-journey footprint gate;
+7. then integrate Hoomans mobile travel and the shared actor projection path.
 
 ## Repository safety
 

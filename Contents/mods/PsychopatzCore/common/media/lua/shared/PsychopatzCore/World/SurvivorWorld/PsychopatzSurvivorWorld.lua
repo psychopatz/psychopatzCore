@@ -6,12 +6,15 @@ local Registry =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldRegistry"
 local Import =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldImport"
+local Generation =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldGeneration"
 
 local SurvivorWorld = {
     Types = Types,
     Persistence = Persistence,
     Registry = Registry,
     Import = Import,
+    Generation = Generation,
 }
 
 function SurvivorWorld.NewRegistry(spec)
