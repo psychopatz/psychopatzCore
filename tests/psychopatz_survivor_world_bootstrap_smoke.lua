@@ -48,6 +48,10 @@ assert(abstractPlan.groups[1].groupType == "CARAVAN",
 assert(abstractPlan.groups[1].factionID
     == abstractPlan.communities[1].factionID,
     "primary caravan must share trader-home faction")
+assert(abstractPlan.groups[2].groupType == "CARAVAN"
+    and abstractPlan.groups[2].factionID
+        == abstractPlan.communities[1].factionID,
+    "bootstrap must expose enough canonical caravans for roaming traders")
 
 local world = assert(Registry.new({
     worldSeed = abstractPlan.worldSeed,

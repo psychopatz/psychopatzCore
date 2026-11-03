@@ -7,6 +7,7 @@ local Bootstrap = {}
 Bootstrap.SCHEMA_VERSION = 1
 Bootstrap.DEFAULT_COMMUNITIES = 3
 Bootstrap.DEFAULT_GROUPS = 3
+Bootstrap.DEFAULT_TRADER_GROUPS = 2
 Bootstrap.MAX_COMMUNITIES = 8
 Bootstrap.MAX_GROUPS = 16
 Bootstrap.AFFILIATION_EXTENSION =
@@ -192,10 +193,17 @@ local function groupPlans(spec, sites, communities, worldSeed)
         Bootstrap.DEFAULT_GROUPS
     )
     local output = {}
+    local traderGroupCount = integer(
+        spec.traderGroupCount,
+        1,
+        math.min(count, Bootstrap.DEFAULT_TRADER_GROUPS),
+        math.min(count, Bootstrap.DEFAULT_TRADER_GROUPS)
+    )
     for index = 1, count do
         local site = sites[((index - 1) % #sites) + 1]
-        local home =
-            communities[((index - 1) % #communities) + 1]
+        local home = index <= traderGroupCount
+            and communities[1]
+            or communities[((index - 1) % #communities) + 1]
         local sectorID = site.sectorID
             or Generation.SectorID(
                 site.position.x,
@@ -220,7 +228,7 @@ local function groupPlans(spec, sites, communities, worldSeed)
             memberCount = spec.groupSize,
             createdAt = spec.createdAt,
         }
-        if index == 1 then
+        if index <= traderGroupCount then
             request.groupType =
                 tostring(spec.primaryGroupType or "CARAVAN")
             request.factionArchetypeID = "trader"
