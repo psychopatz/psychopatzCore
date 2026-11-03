@@ -88,7 +88,7 @@ function Registry:Create(spec)
             starterItems = spec.starterItems,
         })
     if not inventory then return nil, reason end
-    actor.personalInventory = inventory:ToPayload("FULL")
+    actor.personalInventory = inventory:ToPayload("SEED_ONLY")
     actor.providerLease = Util.clone(spec.providerLease)
     return self:Register(actor)
 end

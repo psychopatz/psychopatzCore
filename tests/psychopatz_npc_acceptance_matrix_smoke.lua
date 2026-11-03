@@ -20,6 +20,16 @@ end
 
 local Actors = require "PsychopatzCore/Actors/PsychopatzActors"
 local Provider = Actors.Provider
+local ActorInventory = Actors.Inventory
+
+local function firstInventoryItemID(payload)
+    local ledger, reason = ActorInventory.Decode(payload)
+    truthy(ledger, reason)
+    local items = ledger:List()
+    truthy(items[1], "inventory item required")
+    return items[1].itemId
+end
+
 local registry = Actors.NewRegistry()
 local actor, actorReason = registry:Create({
     actorId = "npc:p9:matrix",
@@ -91,8 +101,8 @@ equal(restored.identity.identitySeed, actor.identity.identitySeed,
     "identity continuity")
 equal(restored.appearance.contract.policyHash,
     actor.appearance.contract.policyHash, "appearance continuity")
-equal(restored.personalInventory.items[1].itemId,
-    actor.personalInventory.items[1].itemId, "inventory continuity")
+equal(firstInventoryItemID(restored.personalInventory),
+    firstInventoryItemID(actor.personalInventory), "inventory continuity")
 equal(restored.social.relationships["player:user:alice"].approval,
     actor.social.relationships["player:user:alice"].approval,
     "social continuity")
@@ -101,7 +111,7 @@ equal(restored.world.location.position.x, actor.world.location.position.x,
 equal(restored.providerLease.state, "released", "lease continuity")
 local projection, projectionReason = Provider.Project(restored, "DTAbstract")
 truthy(projection, projectionReason)
-equal(projection.personalInventory.items[1].itemId,
-    actor.personalInventory.items[1].itemId, "projection parity after reload")
+equal(firstInventoryItemID(projection.personalInventory),
+    firstInventoryItemID(actor.personalInventory), "projection parity after reload")
 
 print("psychopatz_npc_acceptance_matrix_smoke: PASS")

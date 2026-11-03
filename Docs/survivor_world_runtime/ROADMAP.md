@@ -6,7 +6,7 @@ One compact Core Survivor World drives ProjectHoomans and DTAbstract. Abstract m
 
 ## S0 — Baseline, ownership matrix, footprint budget
 
-**ACTIVE**
+**COMPLETE**
 
 Measure current Core/PNC/DT serialized footprint and classify every relevant field/module.
 
@@ -23,6 +23,8 @@ Gate: reproducible baseline, explicit byte budgets, migration ownership matrix, 
 
 ## S1 — Compact Core actor persistence
 
+**COMPLETE**
+
 Make default actor creation seed-first and sparse.
 
 Gate:
@@ -33,6 +35,8 @@ Gate:
 - supported old saves migrate without silent reset.
 
 ## S2 — Compact appearance and portrait contract
+
+**ACTIVE**
 
 Make portrait appearance reconstructable without live body or unnecessary resolved payload.
 

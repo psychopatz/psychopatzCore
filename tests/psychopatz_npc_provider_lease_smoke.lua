@@ -14,6 +14,16 @@ end
 
 local Actors = require "PsychopatzCore/Actors/PsychopatzActors"
 local Provider = Actors.Provider
+local ActorInventory = Actors.Inventory
+
+local function firstInventoryItemID(payload)
+    local ledger, reason = ActorInventory.Decode(payload)
+    truthy(ledger, reason)
+    local items = ledger:List()
+    truthy(items[1], "inventory item required")
+    return items[1].itemId
+end
+
 local registry = Actors.NewRegistry()
 local actor, actorReason = registry:Create({
     actorId = "npc:p8:provider",
@@ -109,8 +119,8 @@ equal(projection.identity.identitySeed, before.identity.identitySeed,
     "projection identity")
 equal(projection.appearance.contract.policyHash,
     before.appearance.contract.policyHash, "projection appearance")
-equal(projection.personalInventory.items[1].itemId,
-    before.personalInventory.items[1].itemId, "projection inventory")
+equal(firstInventoryItemID(projection.personalInventory),
+    firstInventoryItemID(before.personalInventory), "projection inventory")
 equal(projection.social.relationships["player:user:alice"].approval,
     before.social.relationships["player:user:alice"].approval,
     "projection social")
@@ -160,8 +170,8 @@ local restored = fresh:Get(actor.actorId)
 equal(restored.providerLease.provider, "DTHoomans", "provider survives reload")
 equal(restored.providerLease.bodyID, "body:p8:two", "body survives reload")
 local restoredProjection = Provider.Project(restored, "DTHoomans")
-equal(restoredProjection.personalInventory.items[1].itemId,
-    before.personalInventory.items[1].itemId, "inventory survives provider switch")
+equal(firstInventoryItemID(restoredProjection.personalInventory),
+    firstInventoryItemID(before.personalInventory), "inventory survives provider switch")
 equal(restoredProjection.social.relationships["player:user:alice"].respect,
     before.social.relationships["player:user:alice"].respect,
     "social survives provider switch")

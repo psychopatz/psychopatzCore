@@ -145,12 +145,14 @@ function ActorInventory.new(options)
     if type(seed) ~= "string" and type(seed) ~= "number" then seed = ownerActorId end
     local starterVersion = tonumber(options.starterVersion)
         or ActorInventory.DEFAULT_STARTER_VERSION
+    local usesDefaultStarters = options.starterItems == nil
     local self = setmetatable({
         schemaVersion = ActorInventory.SCHEMA_VERSION,
         metadataSchema = ActorInventory.METADATA_SCHEMA,
         ownerActorId = ownerActorId,
         seed = seed,
         starterVersion = starterVersion,
+        baselineKind = usesDefaultStarters and "default" or "explicit",
         revision = 0,
         nextItemOrdinal = 1,
         items = {},
@@ -342,7 +344,17 @@ function Ledger:ToPayload(mode)
         equipment = clone(self.equipment),
     }
     if mode == "SEED_ONLY" then
-        payload.baseline = { definitions = clone(self.baselineDefinitions) }
+        if self.baselineKind == "default"
+            and tonumber(self.starterVersion)
+                == ActorInventory.DEFAULT_STARTER_VERSION
+        then
+            payload.baseline = { kind = "default" }
+        else
+            payload.baseline = {
+                kind = "explicit",
+                definitions = clone(self.baselineDefinitions),
+            }
+        end
     elseif mode == "BASELINE_DELTA" then
         payload.baseline = { items = clone(self.baselineItems), definitions = clone(self.baselineDefinitions) }
         payload.deltas = clone(self.deltas)
@@ -399,17 +411,35 @@ function ActorInventory.Decode(payload)
     local mode = normalizeMode(payload.mode)
     if not mode then return nil, "inventory_mode_invalid" end
     local baseline = type(payload.baseline) == "table" and payload.baseline or {}
+    local seedUsesDefault = mode == "SEED_ONLY"
+        and baseline.kind == "default"
+        and baseline.definitions == nil
     local options = {
         actorId = payload.ownerActorId,
         seed = payload.seed,
         starterVersion = payload.starterVersion,
-        starterItems = mode == "SEED_ONLY" and baseline.definitions or {},
     }
+    if mode == "SEED_ONLY" then
+        if not seedUsesDefault then
+            options.starterItems = baseline.definitions or {}
+        end
+    else
+        options.starterItems = {}
+    end
     local self, reason = ActorInventory.new(options)
     if not self then return nil, reason end
-    self.baselineDefinitions = clone(baseline.definitions or {})
+    if seedUsesDefault then
+        self.baselineKind = "default"
+    else
+        self.baselineKind = baseline.kind == "explicit"
+            and "explicit" or self.baselineKind
+        self.baselineDefinitions = clone(
+            baseline.definitions or self.baselineDefinitions or {})
+    end
     if mode == "SEED_ONLY" then
-        if #self.items ~= #(baseline.definitions or {}) then
+        if not seedUsesDefault
+            and #self.items ~= #(baseline.definitions or {})
+        then
             return nil, "seed_baseline_mismatch"
         end
     elseif mode == "BASELINE_DELTA" then
@@ -437,6 +467,78 @@ function ActorInventory.ValidatePayload(payload)
     local ledger, reason = ActorInventory.Decode(payload)
     if not ledger then return false, reason end
     return ledger:Validate()
+end
+
+local function sameValue(left, right, seen)
+    if type(left) ~= type(right) then return false end
+    if type(left) ~= "table" then return left == right end
+    seen = seen or {}
+    if seen[left] == right then return true end
+    seen[left] = right
+    for key, value in pairs(left) do
+        if not sameValue(value, right[key], seen) then return false end
+    end
+    for key in pairs(right) do
+        if left[key] == nil then return false end
+    end
+    return true
+end
+
+local function baselineEquivalent(payload, ledger)
+    if type(payload) ~= "table" or not ledger then return false end
+    return sameValue(payload.items or {}, ledger:List())
+        and sameValue(payload.equipment or {}, ledger.equipment or {})
+end
+
+function ActorInventory.CompactPayload(payload)
+    local valid, reason = ActorInventory.ValidatePayload(payload)
+    if not valid then return nil, reason end
+    local mode = normalizeMode(payload.mode)
+    if mode ~= "FULL" then
+        return clone(payload), mode == "SEED_ONLY"
+            and "already_seed_only" or "already_delta"
+    end
+
+    -- Prefer the canonical default baseline when a legacy FULL payload exactly
+    -- matches it. This is the smallest representation and is safe only after
+    -- exact item/equipment equivalence is proven.
+    if tonumber(payload.starterVersion)
+        == ActorInventory.DEFAULT_STARTER_VERSION
+    then
+        local baseline, baselineReason = ActorInventory.new({
+            actorId = payload.ownerActorId,
+            seed = payload.seed,
+            starterVersion = payload.starterVersion,
+        })
+        if baseline and baselineEquivalent(payload, baseline) then
+            local compact, compactReason = baseline:ToPayload("SEED_ONLY")
+            if compact then return compact, "compacted_default_seed" end
+            return nil, compactReason
+        elseif not baseline and baselineReason then
+            -- Fall through to the explicit-baseline proof below. A failure to
+            -- reconstruct the current default must never discard FULL state.
+        end
+    end
+
+    local definitions = payload.baseline
+        and payload.baseline.definitions or nil
+    if type(definitions) == "table" and #definitions > 0 then
+        local baseline, baselineReason = ActorInventory.new({
+            actorId = payload.ownerActorId,
+            seed = payload.seed,
+            starterVersion = payload.starterVersion,
+            starterItems = definitions,
+        })
+        if baseline and baselineEquivalent(payload, baseline) then
+            local compact, compactReason = baseline:ToPayload("SEED_ONLY")
+            if compact then return compact, "compacted_explicit_seed" end
+            return nil, compactReason
+        elseif not baseline and baselineReason then
+            return clone(payload), "full_retained:" .. tostring(baselineReason)
+        end
+    end
+
+    return clone(payload), "full_retained"
 end
 
 function ActorInventory.CreateForActor(actorId, seed, options)
