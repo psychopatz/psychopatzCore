@@ -17,3 +17,9 @@
 Core stores a stable actor projection and one provider lease per actor. A lease has a deterministic lease ID, provider, owner, state (`released`, `abstract`, or `materialized`), optional body ID, revision, and transition timestamps. A materialized body ID cannot be claimed by another actor in the same Core registry. Provider adapters receive the projection and injected lifecycle callbacks; they do not import or initialize one another.
 
 DTAbstract is an abstract provider adapter. DTHoomans is a body-backed provider adapter. Project Hoomans maps the projection into its existing record and `PNC.BodyLifecycle`, using the Core lease ID as `runtime.bodyLease`, then releases the body before the Core lease returns to `abstract`.
+
+## Generated semantic asset ownership
+
+PsychopatzCore owns generated semantic assets whose canonical CodeBuilder source declares `source.owner = "PsychopatzCore"`. These artifacts live under the Core mod namespace and repository; adopters may compose or require them but must not carry duplicate generated copies.
+
+Project Hoomans remains the authoring-tool host and owns its adopter-specific generated dialogue/content. Canonical source ownership, not CodeBuilder's repository location, decides the generated package destination. The reviewed WordNet lexicon is Core-owned generic semantic infrastructure.
