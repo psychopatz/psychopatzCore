@@ -17,7 +17,7 @@ local Persistence =
     require "PsychopatzCore/Actors/PsychopatzActorPersistence"
 
 local registry = Actors.NewRegistry()
-local COUNT = 700
+local COUNT = 900
 
 for index = 1, COUNT do
     local actor, reason = registry:Create({
@@ -48,13 +48,13 @@ truthy(fresh:Load(serialized), "large compact registry reload")
 equal(fresh:Count(), COUNT, "reloaded actor count")
 
 local first = fresh:Get("large:actor:0001")
-local last = fresh:Get("large:actor:0700")
+local last = fresh:Get("large:actor:0900")
 truthy(first and last, "boundary actors restored")
 equal(first.personalInventory.mode, "SEED_ONLY",
     "first actor remains compact")
 equal(last.personalInventory.mode, "SEED_ONLY",
     "last actor remains compact")
-equal(last.world.location.position.x, 1700,
+equal(last.world.location.position.x, 1900,
     "last actor world state restored")
 
 print("psychopatz_actor_large_registry_smoke: PASS bytes=" .. #serialized)

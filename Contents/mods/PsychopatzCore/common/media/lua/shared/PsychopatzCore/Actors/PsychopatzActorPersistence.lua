@@ -14,7 +14,8 @@ Persistence.SCHEMA = "PsychopatzCore.NPC.Registry"
 Persistence.SCHEMA_VERSION = 2
 Persistence.LEGACY_SCHEMA_VERSION = 1
 Persistence.ACTOR_SCHEMA = "PsychopatzCore.NPC.ActorCompact"
-Persistence.ACTOR_SCHEMA_VERSION = 1
+Persistence.ACTOR_SCHEMA_VERSION = 2
+Persistence.LEGACY_ACTOR_SCHEMA_VERSION = 1
 Persistence.MAX_ACTORS = 4096
 Persistence.MAX_REGISTRY_BYTES = 16 * 1024 * 1024
 Persistence.REGISTRY_JSON_LIMITS = {
@@ -86,13 +87,18 @@ local function encodeCompact(actor)
     inventory, reason = compactInventory(copy)
     if not inventory then return nil, reason end
 
+    local compactAppearance
+    compactAppearance, reason = Factory.CompactAppearance(
+        copy.appearance, copy.identity)
+    if not compactAppearance then return nil, reason end
+
     local payload = {
         schema = Persistence.ACTOR_SCHEMA,
         schemaVersion = Persistence.ACTOR_SCHEMA_VERSION,
         actorId = copy.actorId,
         revision = copy.revision,
         identity = Util.clone(copy.identity),
-        appearance = Util.clone(copy.appearance),
+        appearance = compactAppearance,
         personalInventory = inventory,
     }
 
@@ -135,8 +141,12 @@ end
 local function decodeCompact(payload)
     if type(payload) ~= "table"
         or payload.schema ~= Persistence.ACTOR_SCHEMA
-        or tonumber(payload.schemaVersion)
-            ~= Persistence.ACTOR_SCHEMA_VERSION
+    then
+        return nil, "actor_compact_schema_mismatch"
+    end
+    local compactVersion = tonumber(payload.schemaVersion)
+    if compactVersion ~= Persistence.ACTOR_SCHEMA_VERSION
+        and compactVersion ~= Persistence.LEGACY_ACTOR_SCHEMA_VERSION
     then
         return nil, "actor_compact_schema_mismatch"
     end
@@ -149,6 +159,16 @@ local function decodeCompact(payload)
         return nil, "actor_compact_identity_required"
     end
 
+    local appearance
+    local reason
+    if compactVersion == Persistence.LEGACY_ACTOR_SCHEMA_VERSION then
+        appearance = Util.clone(payload.appearance)
+    else
+        appearance, reason = Factory.ExpandAppearance(
+            payload.appearance, payload.identity)
+        if not appearance then return nil, reason end
+    end
+
     local actor = {
         schema = Factory.SCHEMA,
         schemaVersion = Factory.SCHEMA_VERSION,
@@ -156,12 +176,11 @@ local function decodeCompact(payload)
         ownerMod = payload.ownerMod or "PsychopatzCore",
         revision = math.max(1, math.floor(tonumber(payload.revision) or 1)),
         identity = Util.clone(payload.identity),
-        appearance = Util.clone(payload.appearance),
+        appearance = appearance,
         extensions = Util.clone(payload.extensions or {}),
         source = Util.clone(payload.source),
     }
 
-    local reason
     actor.social, reason = Social.NewState(payload.social)
     if not actor.social then return nil, reason end
     actor.world, reason = World.NewState(payload.world, actor.actorId)

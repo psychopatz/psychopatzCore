@@ -36,13 +36,15 @@ Gate:
 
 ## S2 — Compact appearance and portrait contract
 
-**ACTIVE**
+**COMPLETE**
 
 Make portrait appearance reconstructable without live body or unnecessary resolved payload.
 
 Gate: same portrait signature across save/reload and abstract↔physical transitions.
 
 ## S3 — Lazy inventory hydration and durable deltas
+
+**ACTIVE**
 
 Use SEED_ONLY by default, BASELINE_DELTA for durable changes, FULL only when required.
 

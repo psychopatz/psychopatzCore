@@ -2,7 +2,7 @@
 
 ## Parent status
 
-**ACTIVE — S0/S1 accepted; S2 compact appearance is active.**
+**ACTIVE — S0/S1/S2 accepted; S3 lazy inventory hydration is active.**
 
 The completed DynamicTrading UnifiedTraderWorldRuntime remains accepted commercial foundation. This job owns the broader compact survivor-world parity migration.
 
@@ -118,22 +118,49 @@ Large-registry regression:
 
 Focused actor/provider/projection/runtime regression matrix passes.
 
+## S2 accepted evidence
+
+Implemented:
+
+- generated appearance algorithm is explicitly versioned (v1);
+- generated-default appearance compacts only after exact regeneration equality proof;
+- compact generated appearance payload is **59 bytes**;
+- authored appearance is retained as exact full state;
+- a durable modification to a generated appearance falls back to full state rather than being regenerated away;
+- unsupported generator versions fail explicitly;
+- S1 compact actor schema v1 remains readable;
+- runtime actors still expose full resolved appearance to portraits/providers.
+
+Measured post-S2 footprint:
+
+- 10 actors: **1276.70 bytes/actor**;
+- 100 actors: **1270.92 bytes/actor**;
+- 500 actors: **1272.11 bytes/actor**;
+- 1000 actors: **1272.27 bytes/actor**;
+- 1000/1000 untouched actors SEED_ONLY;
+- 0 FULL untouched actors.
+
+This beats the locked <=1900 bytes/actor target by a wide margin and reduces untouched actor storage by about 58% from the original ~3041 bytes/actor baseline.
+
+Portrait/presentation/provider/projection regressions pass. A 900-actor **1,132,286-byte** registry still round-trips through the explicit actor-registry bound.
+
 ## Current phase
 
-**S2 — Compact appearance and portrait contract.**
+**S3 — Lazy inventory hydration and durable delta capture.**
 
 ## Immediate Next Chunk
 
-### S2A — generated appearance persistence contract
+### S3A — production Hoomans hydration/dehydration boundary
 
-1. separate generated appearance's canonical seed/policy contract from resolved runtime/cache state;
-2. encode generated-default appearance in <= 180 canonical bytes/actor where practical;
-3. reconstruct the exact resolved generated appearance on load using the recorded generator version;
-4. preserve authored/custom appearance verbatim;
-5. prove portrait signature parity across save/reload;
-6. keep rich runtime actor appearance API compatible;
-7. rerun footprint and actor/projection regressions;
-8. then continue automatically into S3 lazy inventory hydration/delta capture.
+1. audit the existing Core actor inventory ↔ PNC/Hoomans provider bridge;
+2. make compact Core payloads hydrate lazily only when physical gameplay requires an inventory;
+3. preserve exact item/equipment identity through materialization;
+4. on dematerialization, capture durable changes and choose the smallest safe Core mode;
+5. unchanged physical round-trip must return to SEED_ONLY;
+6. representable durable changes should return BASELINE_DELTA;
+7. unsupported exact state must remain FULL rather than lose data;
+8. add cross-repository provider regressions and footprint checks;
+9. then continue automatically into S4 Core Survivor World model.
 
 ## Repository safety
 

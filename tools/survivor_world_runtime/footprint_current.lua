@@ -1,4 +1,5 @@
 local ROOT = "Contents/mods/PsychopatzCore/common/media/lua/shared/"
+local PHASE = tostring(arg and arg[1] or "CURRENT"):upper()
 package.path = ROOT .. "?.lua;" .. package.path
 
 local Actors = require "PsychopatzCore/Actors/PsychopatzActors"
@@ -55,13 +56,13 @@ end
 
 local encoded = assert(Json.Encode(report))
 local json = assert(io.open(
-    "Docs/survivor_world_runtime/S1_FOOTPRINT.json", "wb"))
+    "Docs/survivor_world_runtime/" .. PHASE .. "_FOOTPRINT.json", "wb"))
 json:write(encoded, "\n")
 json:close()
 
 local md = assert(io.open(
-    "Docs/survivor_world_runtime/S1_FOOTPRINT.md", "wb"))
-md:write("# S1 Compact Persistence Footprint\n\n")
+    "Docs/survivor_world_runtime/" .. PHASE .. "_FOOTPRINT.md", "wb"))
+md:write("# " .. PHASE .. " Compact Persistence Footprint\n\n")
 md:write("| Actors | Total bytes | Bytes/actor | SEED_ONLY | FULL |\n")
 md:write("| ---: | ---: | ---: | ---: | ---: |\n")
 for _, item in ipairs(report.scenarios) do

@@ -62,7 +62,7 @@ local function normalizeVoice(identity, seed)
     return generatedVoice(seed)
 end
 
-local function generatedAppearance(seed, identity)
+local function generatedAppearanceV1(seed, identity)
     local resolved = {
         skinTone = Util.pick(SKIN_TONES, seed, 3),
         hairModel = Util.pick(HAIR_MODELS, seed, 5),
@@ -75,9 +75,39 @@ local function generatedAppearance(seed, identity)
         schemaVersion = Factory.APPEARANCE_POLICY_SCHEMA,
         mode = "generated",
         seed = seed,
-        generatorVersion = Factory.GENERATOR_VERSION,
+        generatorVersion = 1,
     }
     return policy, resolved
+end
+
+local function generatedAppearanceForVersion(version, seed, identity)
+    version = Util.integer(version, 0)
+    if version ~= 1 then
+        return nil, nil, "appearance_generator_unsupported"
+    end
+    local policy, resolved = generatedAppearanceV1(seed, identity)
+    return policy, resolved
+end
+
+local function buildGeneratedAppearance(seed, identity, version)
+    local policy, resolved, reason = generatedAppearanceForVersion(
+        version, seed, identity)
+    if not policy then return nil, reason end
+    return {
+        policySchemaVersion = Factory.APPEARANCE_POLICY_SCHEMA,
+        policy = policy,
+        resolved = resolved,
+        contract = {
+            schemaVersion = Factory.APPEARANCE_CONTRACT_SCHEMA,
+            mode = "GENERATED_DEFAULT",
+            generator = {
+                seed = seed,
+                version = version,
+                archetypeID = identity.archetypeID,
+            },
+            policyHash = Json.Fingerprint(Json.Encode(policy)),
+        },
+    }
 end
 
 local function appearancePolicy(input)
@@ -96,22 +126,8 @@ end
 local function normalizeAppearance(input, seed, identity)
     local policy, authored = appearancePolicy(input)
     if not authored then
-        policy, input = generatedAppearance(seed, identity)
-        return {
-            policySchemaVersion = Factory.APPEARANCE_POLICY_SCHEMA,
-            policy = policy,
-            resolved = input,
-            contract = {
-                schemaVersion = Factory.APPEARANCE_CONTRACT_SCHEMA,
-                mode = "GENERATED_DEFAULT",
-                generator = {
-                    seed = seed,
-                    version = Factory.GENERATOR_VERSION,
-                    archetypeID = identity.archetypeID,
-                },
-                policyHash = Json.Fingerprint(Json.Encode(policy)),
-            },
-        }
+        return buildGeneratedAppearance(
+            seed, identity, Factory.GENERATOR_VERSION)
     end
 
     if Util.integer(policy.schemaVersion, 0) ~= Factory.APPEARANCE_POLICY_SCHEMA then
@@ -148,6 +164,69 @@ local function normalizeAppearance(input, seed, identity)
             policyHash = Json.Fingerprint(Json.Encode(policy)),
         },
     }
+end
+
+function Factory.CompactAppearance(appearance, identity)
+    if type(appearance) ~= "table" or type(identity) ~= "table" then
+        return nil, "appearance_identity_required"
+    end
+    local contract = type(appearance.contract) == "table"
+        and appearance.contract or {}
+    local generator = type(contract.generator) == "table"
+        and contract.generator or {}
+    if contract.mode == "GENERATED_DEFAULT" then
+        local version = Util.integer(
+            generator.version,
+            Factory.GENERATOR_VERSION
+        )
+        local rebuilt, reason = buildGeneratedAppearance(
+            identity.identitySeed,
+            identity,
+            version
+        )
+        if not rebuilt then return nil, reason end
+        if Json.Encode(rebuilt) == Json.Encode(appearance) then
+            return {
+                schemaVersion = 1,
+                mode = "generated",
+                generatorVersion = version,
+            }
+        end
+    end
+    return {
+        schemaVersion = 1,
+        mode = "full",
+        value = Util.clone(appearance),
+    }
+end
+
+function Factory.ExpandAppearance(compact, identity)
+    if type(identity) ~= "table" then
+        return nil, "appearance_identity_required"
+    end
+    if type(compact) == "table"
+        and type(compact.policy) == "table"
+        and type(compact.resolved) == "table"
+        and type(compact.contract) == "table"
+    then
+        return Util.clone(compact)
+    end
+    if type(compact) ~= "table"
+        or tonumber(compact.schemaVersion) ~= 1
+    then
+        return nil, "appearance_compact_schema_mismatch"
+    end
+    if compact.mode == "generated" then
+        return buildGeneratedAppearance(
+            identity.identitySeed,
+            identity,
+            compact.generatorVersion
+        )
+    end
+    if compact.mode == "full" and type(compact.value) == "table" then
+        return Util.clone(compact.value)
+    end
+    return nil, "appearance_compact_mode_invalid"
 end
 
 local function normalizeIdentity(spec, seed)
