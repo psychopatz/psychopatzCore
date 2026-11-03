@@ -414,22 +414,58 @@ Commits:
 - ProjectHoomans `5c9988e8`;
 - DynamicTrading `dc13226b`.
 
+## S9 accepted evidence
+
+DynamicTrading no longer carries a second generic survivor-world authority.
+
+Removed or retired from active runtime:
+
+- the `DynamicTrading` actor projection source and `DTCommon_TraderProjectionServer.lua`;
+- actor/world projection APIs from `DTCommon_TraderPresentation.lua`;
+- the self-only DT map projection helper;
+- built-in Kentucky settlement geography and `EnsureDefaults`;
+- the projection-only trader-world change-listener bus;
+- live `coreActorID/coreProvider*` aliases and old `BindCore*/SetCore*` service names.
+
+Accepted ownership:
+
+- Core SurvivorWorld owns actor/faction/community/group geography, group routes and generic presentation/discovery;
+- DTCommon owns commercial actor binding, stock/budget, destination intent, visits/exchange/restock/cooldown and compact commercial lifecycle metadata;
+- DTAbstract/DTHoomans own representation execution;
+- provider `getPosition` exists only for bounded representation switching/handoff;
+- retired pre-S7 actor IDs are isolated in one-way `DTAbstract_TraderWorldMigration.lua`;
+- old DT save aliases are accepted only by `CoreActorPolicy.Normalize` and immediately canonicalized.
+
+Validation:
+
+- DynamicTrading full suite: **62/62**;
+- changed S9 production Lua: **16/16** luac;
+- installed-PZ Kahlua: **16/16**;
+- DynamicTrading `git diff --check`: pass;
+- Core focused SurvivorWorld presentation/transport/discovery/group-journey regressions: pass;
+- Hoomans focused Core travel-directory/live-body/discovery/map regressions: pass;
+- source audit: no DT actor projection feed, no built-in settlement geography, no permanent dual world authority;
+- the two unrelated DynamicTrading `mod.info` edits remain outside the commit.
+
+DynamicTrading commit: `86b712a5`.
+
+Detailed evidence: `S9_DYNAMIC_TRADING_CLEANUP.md`.
+
 ## Current phase
 
-**S9 — DynamicTrading attachment and cleanup.**
+**S10 — cross-repository acceptance and native handoff.**
 
 ## Immediate Next Chunk
 
-### S9A — residual DynamicTrading world-attachment audit and cleanup
+### S10A — final developer acceptance matrix
 
-1. audit DTCommon/DTAbstract/DTHoomans for residual static settlement, actor/group projection, travel, discovery, bootstrap or persistence authority that duplicates Core SurvivorWorld;
-2. classify each remaining path as commercial policy, adopter representation, migration-only compatibility, or redundant generic world authority;
-3. route DTCommon world queries through canonical Core communities/actors/groups without moving merchant stock/budget/economy ownership into Core;
-4. remove redundant active world paths and permanent dual-write/read authority while preserving supported one-way migration inputs only where still required;
-5. verify DTHoomans provider handoff, exactly-once trader invariants, settlement identity and GroupJourney semantics remain unchanged;
-6. keep the two unrelated DynamicTrading `mod.info` edits untouched;
-7. run focused authority/source audits, DynamicTrading full regression, affected Core/Hoomans regressions, luac/Kahlua/diff gates;
-8. continue automatically into S10 once the S9 duplicate-authority gate is clean.
+1. run fresh full Core, Hoomans and DynamicTrading regressions and classify only pre-existing baselines;
+2. rerun compact-actor/group footprint and save/reload growth benchmarks against the production serializers;
+3. run provider hot-swap, representation handoff, absence/load-order and split MP authority/client projection matrices;
+4. audit final production sources for duplicate actor/world persistence, projection, discovery and traversal authority;
+5. run changed/current relevant Lua parse, installed-PZ Kahlua and diff gates;
+6. write a bounded native SP/MP acceptance matrix for user-owned visual/runtime verification;
+7. mark the parent developer goal complete only if every developer-side S10 gate is green, leaving native acceptance explicitly unclaimed.
 
 ## Repository safety
 

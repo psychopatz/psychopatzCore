@@ -94,13 +94,17 @@ Detailed evidence: `S8_SHARED_PRESENTATION_DISCOVERY.md`.
 
 ## S9 — DynamicTrading attachment and cleanup
 
-**ACTIVE**
+**COMPLETE**
 
-DTCommon queries Core communities/actors/groups; remove active static settlement authority and redundant world paths while preserving trader/economy invariants.
+DTCommon now queries canonical Core communities/actors/groups without a second actor projection feed or built-in settlement geography. Commercial stock/budget/lifecycle ownership remains DT-owned; retired world/schema inputs are one-way migration only.
 
-Gate: DynamicTrading full regression, no duplicate world authority, no permanent dual writes.
+Gate met: DynamicTrading full regression is green, duplicate world authority is absent, and no permanent dual write/read path remains.
+
+Detailed evidence: `S9_DYNAMIC_TRADING_CLEANUP.md`.
 
 ## S10 — Cross-repository acceptance and native handoff
+
+**ACTIVE**
 
 Developer gates:
 
