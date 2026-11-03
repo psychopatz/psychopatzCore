@@ -1,6 +1,8 @@
 require "PsychopatzCore/00_PsychopatzCore_Init"
 require "PsychopatzCore/World/PsychopatzTeleport"
 
+local MapHost = require "PsychopatzCore/UI/Map/PsychopatzMapHost"
+
 PsychopatzCore = PsychopatzCore or {}
 
 local Core = PsychopatzCore
@@ -14,9 +16,7 @@ local function tr(key, fallback)
         return Translation.GetKey(key, fallback)
     end
     local value = getText and getText(key) or nil
-    if not value or value == "" or value == key then
-        return fallback
-    end
+    if not value or value == "" or value == key then return fallback end
     return value
 end
 
@@ -27,129 +27,54 @@ local function call(object, method, ...)
     return ok and value or nil
 end
 
-local function canUseDebug(player)
-    return Teleport.CanUse(player)
-end
-
-local function resolvePlayer(map)
+local function resolveState(map, x, y)
     local playerNum = tonumber(map and map.playerNum) or 0
-    if getSpecificPlayer then
-        return getSpecificPlayer(playerNum), playerNum
+    local player = getSpecificPlayer and getSpecificPlayer(playerNum)
+        or (getPlayer and getPlayer() or nil)
+    if not player or not Teleport or not Teleport.CanUse(player)
+        or not map or not map.mapAPI
+    then
+        return nil
     end
-    return getPlayer and getPlayer() or nil, playerNum
+
+    local worldX = call(map.mapAPI, "uiToWorldX", x, y)
+    local worldY = call(map.mapAPI, "uiToWorldY", x, y)
+    if worldX == nil or worldY == nil then return nil end
+
+    return {
+        player = player,
+        worldX = worldX,
+        worldY = worldY,
+        z = call(player, "getZ") or 0,
+    }
 end
 
-local function addTeleportOptionUnsafe(state)
-    if not state or not state.context then return false end
+local function addTeleportOption(context, state)
+    if not context or not state then return false end
+    local label = tr(
+        "ContextMenu_Psychopatz_TeleportHere",
+        "[Debug] Teleport Here"
+    ) .. " (" .. math.floor(state.worldX)
+        .. ", " .. math.floor(state.worldY) .. ")"
 
-    -- Coordinates are echoed in the label so a tester can see the resolved
-    -- destination before committing to it.
-    local label = tr("ContextMenu_Psychopatz_TeleportHere",
-        "[Debug] Teleport Here") .. " ("
-        .. math.floor(state.worldX) .. ", "
-        .. math.floor(state.worldY) .. ")"
-
-    state.context:addOption(label, nil, function()
-        -- The world map is a top-down view, so ground level is the intended
-        -- destination; the player's own level is only the second candidate and
-        -- ResolveDestination falls back from there. Never touches the base
-        -- game option, which keeps using ISWorldMap:onTeleport.
+    context:addOption(label, nil, function()
         pcall(Teleport.ToCoordinates,
-            state.player,
-            state.worldX,
-            state.worldY,
-            state.z)
+            state.player, state.worldX, state.worldY, state.z)
     end)
     return true
 end
 
---- Fault containment: a defect in this option must never break the base-game
--- map context menu, which is built by the handler this module wraps.
-local function addTeleportOption(state)
-    local ok, added = pcall(addTeleportOptionUnsafe, state)
-    if not ok then return false end
-    return added == true
-end
-
-local loadedMap = pcall(require, "ISUI/Maps/ISWorldMap")
-local loadedContextMenu = pcall(require, "ISUI/ISContextMenu")
-
-if not loadedMap or not loadedContextMenu
-    or not ISWorldMap
-    or type(ISWorldMap.onRightMouseUp) ~= "function"
-    or not ISContextMenu
-    or type(ISContextMenu.get) ~= "function"
-then
-    return MapContext
-end
-
-if ISWorldMap._psychopatzTeleportDebugMapInstalled then
-    return MapContext
-end
-ISWorldMap._psychopatzTeleportDebugMapInstalled = true
-
-local originalRightMouseUp = ISWorldMap.onRightMouseUp
-local activeState
-local originalContextGet = ISContextMenu.get
-
--- The vanilla handler builds its context menu internally. Capture that menu
--- while it runs so this option is appended next to the base-game entries
--- instead of replacing the handler or the vanilla teleport option.
-ISContextMenu.get = function(playerNum, x, y, ...)
-    local context = originalContextGet(playerNum, x, y, ...)
-    if activeState then
-        activeState.context = context
-    end
-    return context
-end
-
-function ISWorldMap:onRightMouseUp(x, y)
-    local player, playerNum = resolvePlayer(self)
-    local state
-    local worldX
-    local worldY
-    local z
-    local previousState = activeState
-
-    if canUseDebug(player) and self.mapAPI then
-        worldX = call(self.mapAPI, "uiToWorldX", x, y)
-        worldY = call(self.mapAPI, "uiToWorldY", x, y)
-        z = call(player, "getZ")
-        if z == nil then z = 0 end
-        if worldX ~= nil and worldY ~= nil then
-            state = {
-                player = player,
-                playerNum = playerNum,
-                worldX = worldX,
-                worldY = worldY,
-                z = z,
-            }
-            activeState = state
-        end
-    end
-
-    local ok, result = pcall(originalRightMouseUp, self, x, y)
-    activeState = previousState
-    if not ok then
-        error(result)
-    end
-
-    if state and state.context then
-        addTeleportOption(state)
-    elseif state and result ~= true then
-        -- The core debug gate can be open while the engine's global debug flag
-        -- is off, in which case vanilla returns before creating a menu.
-        state.context = ISContextMenu.get(
-            state.playerNum,
-            x + (call(self, "getAbsoluteX") or 0),
-            y + (call(self, "getAbsoluteY") or 0)
-        )
-        addTeleportOption(state)
-        result = true
-    end
-
-    return result
-end
+MapHost.Contexts.Register("PsychopatzCore:teleport_debug", {
+    order = 20,
+    available = function(map, x, y)
+        return resolveState(map, x, y) ~= nil
+    end,
+    augment = function(map, context, x, y)
+        local ok, added = pcall(
+            addTeleportOption, context, resolveState(map, x, y))
+        return ok and added == true
+    end,
+})
 
 MapContext.Installed = true
 

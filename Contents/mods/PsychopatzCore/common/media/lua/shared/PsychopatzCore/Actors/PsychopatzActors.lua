@@ -16,6 +16,8 @@ local Map = require "PsychopatzCore/Actors/PsychopatzActorMap"
 local Interaction = require "PsychopatzCore/Actors/PsychopatzActorInteraction"
 local Notifications = require "PsychopatzCore/Actors/PsychopatzActorNotifications"
 local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
+local Projection = require "PsychopatzCore/Actors/PsychopatzActorProjection"
+local RuntimeStore = require "PsychopatzCore/Actors/PsychopatzActorRuntimeStore"
 local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
 local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
 local PlayerIdentity = require "PsychopatzCore/Actors/PsychopatzPlayerIdentity"
@@ -38,9 +40,12 @@ Actors.Map = Map
 Actors.Interaction = Interaction
 Actors.Notifications = Notifications
 Actors.Provider = Provider
+Actors.Projection = Projection
+Actors.RuntimeStore = RuntimeStore
 Actors.Persona = Persona
 Actors.Knowledge = Knowledge
 Actors.DefaultRegistry = Actors.DefaultRegistry or Registry.new()
+RuntimeStore.Attach(Actors.DefaultRegistry)
 
 function Actors.NewRegistry()
     return Registry.new()
