@@ -76,15 +76,15 @@ Gate met: no duplicate PNC generic-world persistence authority, Hoomans gameplay
 
 ## S7 — DTAbstract adopter migration
 
-**ACTIVE — S7A.**
+**COMPLETE**
 
-### S7A — canonical world adoption
+DTAbstract now consumes Core SurvivorWorld with ProjectHoomans absent. It binds DTCommon commercial roles to existing canonical trader-group actors, uses Core communities for settlement identity, moves through Core GroupJourney, and preserves compact abstract actors. DTHoomans materialization/dematerialization keeps the same actor/group identity.
 
-Remove parallel/static DTAbstract faction/community/group lifecycle state and consume the Core SurvivorWorld with ProjectHoomans absent. Preserve DTCommon economy/trader authority and DTAbstract notification interaction.
-
-Gate: same seed/config produces same canonical factions/communities/groups/actors as Hoomans composition; no bodies/full inventories for untouched abstract population.
+Gate met: same seed/anchor/config matches Core canonical identities, untouched abstract actors require no bodies/FULL inventory, static Kentucky world authority is inactive, and DynamicTrading regression is green.
 
 ## S8 — Shared map, discovery, highlight and debug parity
+
+**ACTIVE — S8A.**
 
 Move reusable PNC travel-map/discovery behavior into Core.
 

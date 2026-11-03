@@ -341,22 +341,53 @@ Commits:
 - Core `4933793`;
 - ProjectHoomans `5d6e1e8e`, `ab19fe69`, `3f523dc8`.
 
+## S7 accepted evidence
+
+DTAbstract now adopts Core SurvivorWorld as its only survivor-world authority.
+
+- standalone composition bootstraps Core with no ProjectHoomans dependency;
+- DTCommon settlement identity comes from Core communities;
+- commercial trader records bind existing canonical trader-group leaders;
+- binding creates no extra actor or group;
+- abstract movement uses Core GroupJourney, not actor-owned duplicate travel;
+- DTHoomans handoff preserves the same actor/group and rebases group movement from the physical body's final position;
+- the former DTHoomans settlement-directory authority is removed;
+- recognized pre-S7 standalone abstract traders rebind once to canonical actors/groups while preserving merchant stock/budget;
+- static Kentucky settlements are no longer auto-registered;
+- untouched abstract actors require no body/AI/FULL inventory.
+
+Validation:
+
+- DynamicTrading full suite: **62/62**;
+- changed DynamicTrading production Lua: **11/11** luac + installed-PZ Kahlua;
+- Core SurvivorWorld-focused tests pass;
+- Core full suite: **138/145**, same seven unrelated baseline failures;
+- Core bootstrap Lua passes luac + installed-PZ Kahlua;
+- duplicate-authority source audit passes.
+
+Detailed evidence: `S7_DTABSTRACT_ADOPTION.md`.
+
+Commits:
+
+- PsychopatzCore `5045522`;
+- DynamicTrading `bbd14454`.
+
 ## Current phase
 
-**S7 — DTAbstract adopter migration.**
+**S8 — shared map, discovery, highlight and debug parity.**
 
 ## Immediate Next Chunk
 
-### S7A — DTAbstract canonical world adoption
+### S8A — provider-neutral Core presentation/discovery contract
 
-1. audit DTCommon/DTAbstract faction, settlement, trader-group, traversal, discovery and map state against Core SurvivorWorld;
-2. make DTAbstract activate/load the Core SurvivorWorld with ProjectHoomans absent;
-3. replace static/parallel DTAbstract faction/community/group lifecycle state with Core queries and mutations;
-4. preserve DTCommon trader/economy authority and DTAbstract notification interaction only;
-5. ensure untouched abstract actors remain compact with no live body/AI/full inventory requirements;
-6. prove same Core seed/config yields the same canonical world identities whether Hoomans is installed or absent;
-7. validate DTAbstract map/trader traversal and DynamicTrading regressions;
-8. then continue into S8 shared map/discovery/highlight/debug parity.
+1. audit Hoomans PNC map layers, mobile-group track model, discovery storage/signals, highlight/tracking, portraits/hover and debug discover-all tools against DTAbstract map/debug code;
+2. define one Core provider-neutral presentation model keyed by canonical actor/group/community/signal IDs;
+3. move generic actor-dot/group-route/overlap/selection/highlight/tracking logic into Core without pulling Hoomans policy/runtime dependencies;
+4. move generic discovery entity/signal state and discover-all/debug inspection contracts into Core;
+5. adapt ProjectHoomans and DTAbstract to the same Core presentation/discovery API while preserving physical-only detail as an adopter extension;
+6. ensure disabled debug/inspection paths have no continuous runtime overhead;
+7. validate identity/interaction parity across abstract and physical provider states;
+8. continue automatically through S8 cleanup and then S9 DynamicTrading attachment/cleanup.
 
 ## Repository safety
 
