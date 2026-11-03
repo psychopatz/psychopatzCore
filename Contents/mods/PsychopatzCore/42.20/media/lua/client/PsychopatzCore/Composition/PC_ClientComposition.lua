@@ -19,6 +19,7 @@ end
 
 -- Walkie hotbar guard is an engine-level patch for Build 42 timed actions on hotbar
 require "PsychopatzCore/Compatibility/PsychopatzWalkieHotbarGuard"
+require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"
 
 Composition.clientLoaded = true
 

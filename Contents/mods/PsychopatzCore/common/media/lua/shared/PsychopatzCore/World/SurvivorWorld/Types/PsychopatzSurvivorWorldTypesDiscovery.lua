@@ -47,6 +47,14 @@ local function normalizeEntry(kind, id, value)
             32,
             "unchecked"
         ),
+        searchedAt = math.max(
+            0,
+            I.Finite(value.searchedAt, 0)
+        ),
+        contactedAt = math.max(
+            0,
+            I.Finite(value.contactedAt, 0)
+        ),
         presenceStatus = I.BoundedText(
             value.presenceStatus,
             32,

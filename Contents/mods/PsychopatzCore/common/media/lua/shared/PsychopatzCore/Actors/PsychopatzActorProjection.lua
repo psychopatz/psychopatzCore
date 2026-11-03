@@ -3,6 +3,9 @@
 -- consumers; private actor state and adopter gameplay data stay server-owned.
 
 local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
+local Presentation = require
+    "PsychopatzCore/Actors/PsychopatzActorPresentation"
+local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
 
 local Projection = {}
@@ -37,17 +40,47 @@ local function boundedText(value, limit)
     return value
 end
 
+local function cloneRoute(route)
+    route = type(route) == "table" and route or {}
+    local source = type(route.points) == "table"
+        and route.points or route
+    local points = {}
+    for index = 1, math.min(#source, 32) do
+        local value = source[index]
+        local projected = point(value)
+        if projected then
+            projected.waitHours = math.max(
+                0,
+                finite(value and value.waitHours) or 0
+            )
+            points[#points + 1] = projected
+        end
+    end
+    return #points >= 2 and { points = points } or nil
+end
+
 local function cloneJourney(journey)
     if type(journey) ~= "table" then return nil end
     local output = {
         journeyID = boundedText(journey.journeyID, 160),
+        groupID = boundedText(journey.groupID, 192),
+        ownerMod = boundedText(journey.ownerMod, 96),
+        ownerRef = boundedText(journey.ownerRef, 192),
         state = boundedText(journey.state, 32),
+        mode = boundedText(journey.mode, 32),
         origin = point(journey.origin),
         destination = point(journey.destination),
+        originAnchorID = boundedText(journey.originAnchorID, 192),
+        destinationAnchorID = boundedText(
+            journey.destinationAnchorID,
+            192
+        ),
+        route = cloneRoute(journey.route),
         startAt = finite(journey.startAt or journey.startedAt),
         eta = finite(journey.eta),
         speed = finite(journey.speed),
         distanceTotal = finite(journey.distanceTotal),
+        distanceTravelled = finite(journey.distanceTravelled),
         lastAdvancedAt = finite(journey.lastAdvancedAt),
         progress = finite(journey.progress) or 0,
     }
@@ -64,11 +97,10 @@ function Projection.ProjectActor(actor, now, spec)
     local world = actor.world
     if type(world) ~= "table" then return nil, "actor_world_required" end
 
-    local position = World.ProjectPosition(world, now)
-    position = point(position)
-    if not position then return nil, "actor_position_required" end
-
     spec = type(spec) == "table" and spec or {}
+    local position = point(spec.position)
+        or point(World.ProjectPosition(world, now))
+    if not position then return nil, "actor_position_required" end
     local lease = actor.providerLease or {}
     local journey = cloneJourney(world.journey)
 
@@ -88,6 +120,27 @@ function Projection.ProjectActor(actor, now, spec)
     if spec.sourceID then
         entry.sourceID = boundedText(spec.sourceID, 96)
     end
+    entry.groupID = boundedText(spec.groupID, 192)
+    entry.communityID = boundedText(spec.communityID, 192)
+    entry.factionID = boundedText(spec.factionID, 192)
+    entry.role = boundedText(spec.role, 64)
+    entry.markerID = boundedText(spec.markerID, 64)
+    entry.label = boundedText(
+        spec.label
+            or actor.identity and actor.identity.displayName
+            or actorID,
+        192
+    )
+    if type(spec.capabilities) == "table" then
+        entry.capabilities = Util.clone(spec.capabilities)
+    end
+    if type(spec.portrait) == "table" then
+        local valid = Presentation.ValidatePortrait(spec.portrait)
+        if valid then entry.portrait = Util.clone(spec.portrait) end
+    end
+    if type(spec.journey) == "table" then
+        entry.journey = cloneJourney(spec.journey)
+    end
     return entry
 end
 
@@ -105,6 +158,22 @@ function Projection.ValidateEntry(entry)
     if not actorID then return nil, "actor_id_required" end
     local position = point(entry.position)
     if not position then return nil, "position_required" end
+    local portrait
+    if entry.portrait ~= nil then
+        local valid, reason =
+            Presentation.ValidatePortrait(entry.portrait)
+        if not valid then return nil, reason end
+        portrait = Util.clone(entry.portrait)
+    end
+    local capabilities
+    if entry.capabilities ~= nil then
+        if type(entry.capabilities) ~= "table"
+            or not Util.isSerializable(entry.capabilities)
+        then
+            return nil, "projection_capabilities_invalid"
+        end
+        capabilities = Util.clone(entry.capabilities)
+    end
 
     return {
         actorID = actorID,
@@ -115,6 +184,14 @@ function Projection.ValidateEntry(entry)
         position = position,
         journey = cloneJourney(entry.journey),
         sourceID = boundedText(entry.sourceID, 96),
+        groupID = boundedText(entry.groupID, 192),
+        communityID = boundedText(entry.communityID, 192),
+        factionID = boundedText(entry.factionID, 192),
+        role = boundedText(entry.role, 64),
+        markerID = boundedText(entry.markerID, 64),
+        label = boundedText(entry.label, 192),
+        capabilities = capabilities,
+        portrait = portrait,
         updatedAt = finite(entry.updatedAt),
     }
 end

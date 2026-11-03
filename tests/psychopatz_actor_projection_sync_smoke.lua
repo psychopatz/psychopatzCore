@@ -33,10 +33,23 @@ assert(committed)
 
 -- Authority projection. This is the only object the client will receive.
 local serverActor = authorityRegistry:Get(actor.actorId)
+local Presentation =
+    require "PsychopatzCore/Actors/PsychopatzActorPresentation"
 local projected = assert(Projection.ProjectActor(serverActor, 5, {
     sourceID = "fixture",
     provider = "DTAbstract",
     providerState = "abstract",
+    groupID = "agroup:projection",
+    communityID = "community:projection",
+    factionID = "faction:projection",
+    role = "trader",
+    markerID = "npc",
+    label = "Projection Trader",
+    portrait = Presentation.BuildPortrait(serverActor),
+    capabilities = {
+        select = true,
+        track = true,
+    },
 }))
 assert(projected.position.x == 200 and projected.position.y == 200,
     "authority projection did not use canonical journey position")
@@ -61,6 +74,19 @@ assert(clientActor.journey.state == "en_route",
 assert(clientActor.provider == "DTAbstract"
     and clientActor.providerState == "abstract",
     "provider presentation state was lost")
+assert(clientActor.groupID == "agroup:projection"
+    and clientActor.communityID == "community:projection"
+    and clientActor.factionID == "faction:projection",
+    "survivor-world context was lost in projection transport")
+assert(clientActor.role == "trader"
+    and clientActor.markerID == "npc",
+    "role/marker metadata was lost")
+assert(clientActor.portrait
+    and clientActor.portrait.actorID == actor.actorId,
+    "portrait metadata was lost")
+assert(clientActor.capabilities
+    and clientActor.capabilities.track == true,
+    "capabilities were lost")
 
 -- Advance only the authority. Client must remain unchanged until a new
 -- projection revision is delivered.

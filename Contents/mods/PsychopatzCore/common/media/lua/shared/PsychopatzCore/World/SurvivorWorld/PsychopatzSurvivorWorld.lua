@@ -14,6 +14,10 @@ local RuntimeStore =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldRuntimeStore"
 local Bootstrap =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldBootstrap"
+local Presentation =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPresentation"
+local Discovery =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldDiscovery"
 
 local SurvivorWorld = {
     Types = Types,
@@ -24,6 +28,8 @@ local SurvivorWorld = {
     Traversal = Traversal,
     RuntimeStore = RuntimeStore,
     Bootstrap = Bootstrap,
+    Presentation = Presentation,
+    Discovery = Discovery,
 }
 
 function SurvivorWorld.NewRegistry(spec)
