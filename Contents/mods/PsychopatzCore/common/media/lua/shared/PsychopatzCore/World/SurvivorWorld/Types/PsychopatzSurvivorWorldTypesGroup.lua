@@ -1,5 +1,7 @@
 local Types = require
     "PsychopatzCore/World/SurvivorWorld/Types/PsychopatzSurvivorWorldTypesCore"
+local GroupJourney = require
+    "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldGroupJourney"
 local I = Types.Internal
 
 function Types.NormalizeGroup(value, worldSeed, groupID)
@@ -20,6 +22,18 @@ function Types.NormalizeGroup(value, worldSeed, groupID)
             or value.memberIds,
         Types.MAX_GROUP_MEMBERS
     )
+    local journey
+    local rawJourney = value.journey or value.groupJourney
+    if type(rawJourney) == "table" then
+        local reason
+        journey, reason = GroupJourney.Normalize(
+            rawJourney,
+            id,
+            rawJourney.lastAdvancedAt
+                or rawJourney.lastAdvancedWorldHour
+        )
+        if not journey then return nil, reason end
+    end
 
     return {
         schemaVersion = Types.SCHEMA_VERSION,
@@ -47,6 +61,7 @@ function Types.NormalizeGroup(value, worldSeed, groupID)
         targetLocation = I.NormalizeLocation(
             value.targetLocation or value.destination
         ),
+        journey = journey,
         stateStartedAt = math.max(
             0,
             I.Finite(value.stateStartedAt, 0)

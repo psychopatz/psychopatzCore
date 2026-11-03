@@ -60,11 +60,17 @@ Gate met: Core can deterministically plan/load a survivor world with ProjectHoom
 
 ## S5 — Group-shared traversal and actor projection
 
-**ACTIVE**
+**ACTIVE — S5A complete; S5B active.**
 
-One group journey, member references, per-actor exception only when separated.
+### S5A — canonical Core group journey — COMPLETE
 
-Gate: no N-fold route serialization; all member actor projections work; IDs survive save/reload/provider switches.
+One bounded GroupJourney is serialized per mobile group. Member actors store references only; normal projections use the shared journey and intentional actor separation may use an actor-owned journey override. The 1/5/10/25-member footprint gate proves O(1) route storage.
+
+### S5B — ProjectHoomans travel adoption — ACTIVE
+
+Migrate PNC mobile-group abstract travel and map/member projection onto the Core GroupJourney while retaining Hoomans body/pathing/live-provider policy and individual actor travel where it is genuinely actor-specific.
+
+Gate: no N-fold route serialization; all member actor projections work; IDs survive save/reload/provider switches; Hoomans no longer owns a parallel canonical mobile-group route.
 
 ## S6 — ProjectHoomans adopter migration
 

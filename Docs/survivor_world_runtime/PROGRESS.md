@@ -233,21 +233,46 @@ Validation:
 
 Detailed evidence: `S4_GENERATION_CONTRACTS.md`.
 
+## S5A accepted evidence
+
+Core SurvivorWorld mobile groups now own one bounded shared GroupJourney. Normal members project from that journey; an intentionally separated actor may use its existing ActorWorld journey as a per-actor override.
+
+Measured serialized group footprint with the same shared route:
+
+- 1 member: **1,110 bytes**;
+- 5 members: **1,174 bytes**;
+- 10 members: **1,254 bytes**;
+- 25 members: **1,494 bytes**;
+- shared journey: **687 bytes** at every member count.
+
+Only **384 bytes** are added from 1 to 25 members, proving route/journey storage is O(1) while member IDs are O(N).
+
+Validation:
+
+- six SurvivorWorld focused tests pass;
+- save/reload, route waits, rebase, arrival, planned-departure timing and actor-override projection pass;
+- full Core Lua sweep: **136/143**, with the same seven unrelated clean-HEAD failures;
+- changed production Lua: **8/8** luac;
+- installed-PZ Kahlua compiler: **8/8**;
+- git diff check passes.
+
+Detailed evidence: `S5_GROUP_SHARED_TRAVERSAL.md`.
+
 ## Current phase
 
 **S5 — Group-shared traversal and actor projection.**
 
 ## Immediate Next Chunk
 
-### S5A — canonical group journey contract
+### S5B — ProjectHoomans shared-group travel adapter
 
-1. audit Core actor journey fields and current PNC mobile-group/TravelRepository journey duplication;
-2. define one bounded Core GroupJourney record owned by SurvivorWorld group state;
-3. project member actor positions from the shared group journey without copying route state into every actor;
-4. support intentional per-actor separation/override without duplicating the normal route;
-5. add save/reload, arrival/rebase and deterministic projection tests;
-6. measure N=1/5/10/25 serialized growth and lock the O(1)-journey footprint gate;
-7. then integrate Hoomans mobile travel and the shared actor projection path.
+1. map current PNC mobile-group TRAVELING state/location/target timing into Core GroupJourney without changing Hoomans body/pathing policy;
+2. make Core SurvivorWorld group journey the canonical abstract mobile-group travel state;
+3. route Hoomans group/map member projections through Core shared projection;
+4. retain PNC individual TravelRepository only for intentional actor-level travel and live-provider movement handoff;
+5. add read-only migration for existing PNC mobile-group travel state, then bounded authority cutover with no permanent dual writes;
+6. validate Hoomans abstract group travel, map projection, save/reload and full regression;
+7. then complete S5 and advance to S6 adopter-world authority migration.
 
 ## Repository safety
 

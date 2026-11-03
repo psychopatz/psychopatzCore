@@ -121,6 +121,17 @@ function Types.ValidateInputBounds(value)
         then
             return false, "survivor_world_group_member_capacity"
         end
+        local journey = type(group) == "table"
+            and (group.journey or group.groupJourney) or nil
+        local route = type(journey) == "table"
+            and journey.route or nil
+        local points = type(route) == "table"
+            and (route.points or route) or nil
+        if type(points) == "table"
+            and #points > Types.MAX_GROUP_ROUTE_POINTS
+        then
+            return false, "survivor_world_group_route_capacity"
+        end
     end
 
     local population =

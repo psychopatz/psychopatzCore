@@ -3,6 +3,8 @@ local Types =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldTypes"
 local Persistence =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPersistence"
+local Traversal =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldTraversal"
 
 local Registry = {}
 Registry.__index = Registry
@@ -29,6 +31,15 @@ end
 
 local function count(map)
     return Types.CountMap(map)
+end
+
+local function routePointCount(value)
+    value = type(value) == "table" and value or {}
+    local journey = value.journey or value.groupJourney
+    local route = type(journey) == "table" and journey.route or nil
+    local points = type(route) == "table"
+        and (route.points or route) or nil
+    return type(points) == "table" and #points or 0
 end
 
 local function touch(self)
@@ -254,6 +265,9 @@ function Registry:UpsertGroup(value)
     then
         return nil, "survivor_world_group_member_capacity"
     end
+    if routePointCount(value) > Types.MAX_GROUP_ROUTE_POINTS then
+        return nil, "survivor_world_group_route_capacity"
+    end
     local exists = self.snapshot.groups[id] ~= nil
     if not exists and count(self.snapshot.groups) >= Types.MAX_GROUPS then
         return nil, "survivor_world_capacity_exceeded"
@@ -275,6 +289,78 @@ function Registry:UpsertGroup(value)
     self.snapshot.groups[id] = normalized
     touch(self)
     return Util.clone(normalized)
+end
+
+function Registry:StartGroupJourney(groupID, spec, now)
+    groupID = Types.SafeID(groupID)
+    local group = groupID and self.snapshot.groups[groupID] or nil
+    if not group then return nil, "group_not_found" end
+    local updated, reason = Traversal.Start(group, spec, now)
+    if not updated then return nil, reason end
+    self.snapshot.groups[groupID] = updated
+    touch(self)
+    return Util.clone(updated)
+end
+
+function Registry:AdvanceGroupJourney(groupID, now)
+    groupID = Types.SafeID(groupID)
+    local group = groupID and self.snapshot.groups[groupID] or nil
+    if not group then return nil, "group_not_found" end
+    local updated, reason = Traversal.Advance(group, now)
+    if not updated then return nil, reason end
+    self.snapshot.groups[groupID] = updated
+    touch(self)
+    return Util.clone(updated)
+end
+
+function Registry:RebaseGroupJourney(groupID, origin, now)
+    groupID = Types.SafeID(groupID)
+    local group = groupID and self.snapshot.groups[groupID] or nil
+    if not group then return nil, "group_not_found" end
+    local updated, reason = Traversal.Rebase(
+        group,
+        origin,
+        now
+    )
+    if not updated then return nil, reason end
+    self.snapshot.groups[groupID] = updated
+    touch(self)
+    return Util.clone(updated)
+end
+
+function Registry:CancelGroupJourney(groupID, reason)
+    groupID = Types.SafeID(groupID)
+    local group = groupID and self.snapshot.groups[groupID] or nil
+    if not group then return nil, "group_not_found" end
+    local updated, failure = Traversal.Cancel(group, reason)
+    if not updated then return nil, failure end
+    self.snapshot.groups[groupID] = updated
+    touch(self)
+    return Util.clone(updated)
+end
+
+function Registry:ProjectGroupPosition(groupID, now)
+    groupID = Types.SafeID(groupID)
+    local group = groupID and self.snapshot.groups[groupID] or nil
+    if not group then return nil, "group_not_found" end
+    return Traversal.ProjectGroupPosition(group, now)
+end
+
+function Registry:ProjectGroupMemberPosition(
+    groupID,
+    actorID,
+    actorWorld,
+    now
+)
+    groupID = Types.SafeID(groupID)
+    local group = groupID and self.snapshot.groups[groupID] or nil
+    if not group then return nil, "group_not_found" end
+    return Traversal.ProjectMemberPosition(
+        group,
+        actorID,
+        actorWorld,
+        now
+    )
 end
 
 function Registry:RemoveGroup(id)

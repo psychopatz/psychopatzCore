@@ -8,6 +8,8 @@ local Import =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldImport"
 local Generation =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldGeneration"
+local Traversal =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldTraversal"
 
 local SurvivorWorld = {
     Types = Types,
@@ -15,6 +17,7 @@ local SurvivorWorld = {
     Registry = Registry,
     Import = Import,
     Generation = Generation,
+    Traversal = Traversal,
 }
 
 function SurvivorWorld.NewRegistry(spec)
