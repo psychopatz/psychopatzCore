@@ -4,6 +4,7 @@ local I = Types.Internal
 
 local VALID_STATUS = {
     active = true,
+    inactive = true,
     archived = true,
     destroyed = true,
 }

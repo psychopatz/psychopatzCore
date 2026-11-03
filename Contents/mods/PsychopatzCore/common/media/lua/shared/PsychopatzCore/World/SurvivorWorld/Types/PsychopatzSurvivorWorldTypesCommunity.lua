@@ -85,8 +85,8 @@ function Types.NormalizeCommunity(value, worldSeed, communityID)
         ),
         security = math.max(0, I.Finite(value.security, 0)),
         morale = math.max(
-            0,
-            math.min(1, I.Finite(value.morale, 0))
+            -100,
+            math.min(100, I.Finite(value.morale, 0))
         ),
         resources = I.NormalizeResources(
             value.resources or value.supplies

@@ -142,7 +142,10 @@ function I.NormalizeResources(value)
     return {
         food = math.max(0, I.Finite(value.food, 0)),
         water = math.max(0, I.Finite(value.water, 0)),
-        ammo = math.max(0, I.Finite(value.ammo, 0)),
+        ammo = math.max(
+            0,
+            I.Finite(value.ammo or value.ammunition, 0)
+        ),
         medical = math.max(
             0,
             I.Finite(value.medical or value.medicine, 0)

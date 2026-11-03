@@ -40,6 +40,16 @@ local sameFaction = assert(sameSeedRegistry:UpsertFaction({
 }))
 equal(sameFaction.seed, faction.seed, "same world deterministic seed")
 
+local statusRegistry = assert(World.NewRegistry({ worldSeed = 424242 }))
+local inactiveFaction = assert(statusRegistry:UpsertFaction({
+    id = "faction_inactive",
+    name = "Inactive Faction",
+    archetypeID = "community",
+    status = "inactive",
+}))
+equal(inactiveFaction.status, "inactive",
+    "inactive faction status must survive Core normalization")
+
 local community = assert(registry:UpsertCommunity({
     id = "community_alpha",
     factionID = "faction_alpha",

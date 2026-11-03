@@ -82,8 +82,8 @@ local pncFixture = {
                 security = 42,
                 morale = 0.7,
                 supplies = {
-                    food = 30, water = 40, ammo = 12,
-                    medical = 8, materials = 20, weapons = 4,
+                    food = 30, water = 40, ammunition = 12,
+                    medicine = 8, materials = 20, weapons = 4,
                 },
                 facilities = { workshop = true },
                 jobs = { guard = "npc_guard" },
@@ -248,6 +248,8 @@ equal(community.population, 3, "community member population summary")
 equal(community.security, 42, "generic community security retained")
 equal(community.morale, 0.7, "generic community morale retained")
 equal(community.resources.food, 30, "generic community supplies retained")
+equal(community.resources.ammo, 12, "PNC ammunition alias retained")
+equal(community.resources.medical, 8, "PNC medicine alias retained")
 equal(community.facilities, nil, "Hoomans facilities excluded")
 equal(community.jobs, nil, "Hoomans jobs excluded")
 
