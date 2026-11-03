@@ -84,24 +84,17 @@ Gate met: same seed/anchor/config matches Core canonical identities, untouched a
 
 ## S8 — Shared map, discovery, highlight and debug parity
 
-**ACTIVE — S8A.**
+**COMPLETE**
 
-Move reusable PNC travel-map/discovery behavior into Core.
+Core now owns provider-neutral actor projection, overlap spreading, group-route presentation, portrait conversion/hover, selection/highlight/tracking and community/group/signal discovery. ProjectHoomans and DTAbstract consume the same canonical actor/group/community identities while retaining only adopter-specific policy/presentation.
 
-Required:
+Gate met: abstract and physical representations keep the same entity identity and interaction model; generic discovery/debug actions are Core-authoritative; disabled debug/portrait paths add no continuous runtime work.
 
-- per-actor dots;
-- overlap spreading;
-- routes;
-- portrait/hover;
-- selection/highlight/tracking;
-- settlement/group/signal discovery;
-- discover-all debug tools;
-- raw overlays/inspectors.
-
-Gate: identical entity identity and interaction in abstract/physical modes.
+Detailed evidence: `S8_SHARED_PRESENTATION_DISCOVERY.md`.
 
 ## S9 — DynamicTrading attachment and cleanup
+
+**ACTIVE**
 
 DTCommon queries Core communities/actors/groups; remove active static settlement authority and redundant world paths while preserving trader/economy invariants.
 

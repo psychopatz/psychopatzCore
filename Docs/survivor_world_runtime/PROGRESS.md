@@ -2,9 +2,9 @@
 
 ## Parent status
 
-**ACTIVE — S0–S3 accepted; S4 Core Survivor World model is active.**
+**ACTIVE — S0–S8 accepted; S9 DynamicTrading attachment/cleanup is active.**
 
-The completed DynamicTrading UnifiedTraderWorldRuntime remains accepted commercial foundation. This job owns the broader compact survivor-world parity migration.
+The completed DynamicTrading UnifiedTraderWorldRuntime remains the commercial foundation. Core now owns the compact survivor world plus shared presentation/discovery authority; S9 removes residual DynamicTrading attachment/compatibility paths before the final S10 cross-repository/native handoff.
 
 ## Accepted foundation
 
@@ -372,22 +372,64 @@ Commits:
 - PsychopatzCore `5045522`;
 - DynamicTrading `bbd14454`.
 
+## S8 accepted evidence
+
+Core provider-neutral presentation/discovery authority is now shared by ProjectHoomans and DTAbstract.
+
+Accepted behavior:
+
+- canonical per-actor dots and actor/group/community/faction IDs;
+- one Core group-route/progress/ETA source;
+- deterministic Core overlap spreading;
+- provider-neutral portrait payload -> client descriptor conversion;
+- shared selection/highlight/tracking state;
+- server-authoritative community/group/signal discovery;
+- discover-all/reset debug actions, including per-entity reset;
+- Hoomans physical bodies override only canonical actor position through a Core provider hook;
+- Hoomans generic discovery snapshots/debug actions use Core while Hoomans radio/contact policy stays adopter-owned;
+- Hoomans compatibility saves preserve Core-only signal discovery;
+- DTAbstract no longer owns transient trader discovery truth;
+- DTAbstract map/nearby/debug surfaces read Core actor/discovery state;
+- portrait UI is lazy-loaded and refresh is demand-throttled rather than a new background world tick.
+
+Validation:
+
+- Core focused S8 tests pass;
+- Core full suite: **141/148**;
+- detached clean HEAD `cae306c`: **141/148** with the exact same seven unrelated failures;
+- Hoomans focused S8 cutover/map/MP-loader tests pass;
+- Hoomans full suite: **995/1000**, same five unrelated semantic/harness failures;
+- DynamicTrading full suite: **62/62**;
+- changed production Lua: Core **4/4**, Hoomans **10/10**, DTAbstract **3/3** luac;
+- installed-PZ Kahlua: Core **4/4**, Hoomans **10/10**, DTAbstract **3/3**;
+- S8 slices pass `git diff --check`;
+- DynamicTrading's two unrelated `mod.info` edits remain outside the S8 commit.
+
+Detailed evidence: `S8_SHARED_PRESENTATION_DISCOVERY.md`.
+
+Commits:
+
+- existing Core S8A foundation `cae306c`;
+- PsychopatzCore `baaf075`;
+- ProjectHoomans `5c9988e8`;
+- DynamicTrading `dc13226b`.
+
 ## Current phase
 
-**S8 — shared map, discovery, highlight and debug parity.**
+**S9 — DynamicTrading attachment and cleanup.**
 
 ## Immediate Next Chunk
 
-### S8A — provider-neutral Core presentation/discovery contract
+### S9A — residual DynamicTrading world-attachment audit and cleanup
 
-1. audit Hoomans PNC map layers, mobile-group track model, discovery storage/signals, highlight/tracking, portraits/hover and debug discover-all tools against DTAbstract map/debug code;
-2. define one Core provider-neutral presentation model keyed by canonical actor/group/community/signal IDs;
-3. move generic actor-dot/group-route/overlap/selection/highlight/tracking logic into Core without pulling Hoomans policy/runtime dependencies;
-4. move generic discovery entity/signal state and discover-all/debug inspection contracts into Core;
-5. adapt ProjectHoomans and DTAbstract to the same Core presentation/discovery API while preserving physical-only detail as an adopter extension;
-6. ensure disabled debug/inspection paths have no continuous runtime overhead;
-7. validate identity/interaction parity across abstract and physical provider states;
-8. continue automatically through S8 cleanup and then S9 DynamicTrading attachment/cleanup.
+1. audit DTCommon/DTAbstract/DTHoomans for residual static settlement, actor/group projection, travel, discovery, bootstrap or persistence authority that duplicates Core SurvivorWorld;
+2. classify each remaining path as commercial policy, adopter representation, migration-only compatibility, or redundant generic world authority;
+3. route DTCommon world queries through canonical Core communities/actors/groups without moving merchant stock/budget/economy ownership into Core;
+4. remove redundant active world paths and permanent dual-write/read authority while preserving supported one-way migration inputs only where still required;
+5. verify DTHoomans provider handoff, exactly-once trader invariants, settlement identity and GroupJourney semantics remain unchanged;
+6. keep the two unrelated DynamicTrading `mod.info` edits untouched;
+7. run focused authority/source audits, DynamicTrading full regression, affected Core/Hoomans regressions, luac/Kahlua/diff gates;
+8. continue automatically into S10 once the S9 duplicate-authority gate is clean.
 
 ## Repository safety
 
