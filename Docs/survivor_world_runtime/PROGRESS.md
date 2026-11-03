@@ -258,21 +258,75 @@ Validation:
 
 Detailed evidence: `S5_GROUP_SHARED_TRAVERSAL.md`.
 
+## S5B accepted evidence
+
+ProjectHoomans now adopts Core GroupJourney for abstract mobile-group travel.
+
+- legacy PNC TRAVELING groups migrate lazily to Core GroupJourney;
+- AbstractTraversal advances and decides arrival from Core journey state, not stateEndsAt;
+- stateEndsAt remains compatibility summary only;
+- group journey survives PNC normalization/reload with stable journey identity/progress;
+- director debug snapshots carry the Core journey;
+- mobile-group map presentation consumes Core route/progress when present and keeps the old straight-line interpolation only for legacy snapshots;
+- normal members project from the group journey while intentionally separated actors retain ActorWorld journey overrides;
+- individual PNC TravelRepository remains actor-specific/live-provider travel only.
+
+Validation:
+
+- six S5B-focused Hoomans tests pass;
+- Hoomans full suite: **986/991** at S5B, with only the same five unrelated semantic/harness failures;
+- changed S5B production Lua: **5/5** luac and installed-PZ Kahlua;
+- git diff check passes.
+
+ProjectHoomans commit: `191ee26e`.
+
+## S6A accepted evidence
+
+Core now provides a lazy server-authority SurvivorWorld RuntimeStore at `PsychopatzCore.SurvivorWorld`.
+
+- no GlobalModData root is allocated merely by loading Core;
+- Hoomans explicitly activates the capability;
+- Core persists one bounded serialized SurvivorWorld root;
+- pre-OnInit mutations remain dirty and survive first save;
+- clean saves do not rewrite unchanged data.
+
+ProjectHoomans adds a one-way migration authority:
+
+- builds a read-only snapshot of legacy faction/community/abstract/discovery stores;
+- previews PNC → Core conversion without mutation;
+- does not auto-import or continuously dual-write;
+- explicit import persists only the Core SurvivorWorld root;
+- accidental import over a non-empty Core world is rejected.
+
+Validation:
+
+- seven Core SurvivorWorld tests pass;
+- Core full suite: **137/144**, with the same seven unrelated clean-HEAD failures;
+- Hoomans full suite: **987/992**, with only the same five unrelated semantic/harness failures;
+- S6A changed production Lua passes installed-PZ Kahlua;
+- composition-order and MP server-file gates pass.
+
+Commits:
+
+- Core `d1e4a7b`;
+- ProjectHoomans `d42e4e50`.
+
 ## Current phase
 
-**S5 — Group-shared traversal and actor projection.**
+**S6 — ProjectHoomans adopter-world authority migration.**
 
 ## Immediate Next Chunk
 
-### S5B — ProjectHoomans shared-group travel adapter
+### S6B — canonical generic world cutover
 
-1. map current PNC mobile-group TRAVELING state/location/target timing into Core GroupJourney without changing Hoomans body/pathing policy;
-2. make Core SurvivorWorld group journey the canonical abstract mobile-group travel state;
-3. route Hoomans group/map member projections through Core shared projection;
-4. retain PNC individual TravelRepository only for intentional actor-level travel and live-provider movement handoff;
-5. add read-only migration for existing PNC mobile-group travel state, then bounded authority cutover with no permanent dual writes;
-6. validate Hoomans abstract group travel, map projection, save/reload and full regression;
-7. then complete S5 and advance to S6 adopter-world authority migration.
+1. classify faction/community/location/group fields into Core-generic versus Hoomans extension state at the actual mutation/persistence boundaries;
+2. cut generic faction/community/location/group persistence over to the Core RuntimeStore without permanent dual writes;
+3. keep PNC registries only as compatibility/runtime extension views where Hoomans-specific policy requires them;
+4. migrate supported legacy PNC saves once, then stop writing generic world fields to legacy ModData;
+5. ensure all generic mutation paths update Core first and project the resulting canonical record back into Hoomans views;
+6. preserve facilities/jobs/combat/behavior/encounter policy in Hoomans-owned extension state;
+7. validate save/reload, generation, mobile travel, faction/community lifecycle and full Hoomans regression;
+8. then continue S6C cleanup/removal of duplicate active authority and proceed to S7.
 
 ## Repository safety
 

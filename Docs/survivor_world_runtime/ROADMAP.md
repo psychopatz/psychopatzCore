@@ -60,21 +60,27 @@ Gate met: Core can deterministically plan/load a survivor world with ProjectHoom
 
 ## S5 — Group-shared traversal and actor projection
 
-**ACTIVE — S5A complete; S5B active.**
+**COMPLETE**
 
-### S5A — canonical Core group journey — COMPLETE
+S5A established one bounded Core GroupJourney per mobile group. S5B migrated ProjectHoomans abstract group progression and map projection onto that shared journey while preserving actor-specific/live-provider travel as an intentional exception.
 
-One bounded GroupJourney is serialized per mobile group. Member actors store references only; normal projections use the shared journey and intentional actor separation may use an actor-owned journey override. The 1/5/10/25-member footprint gate proves O(1) route storage.
-
-### S5B — ProjectHoomans travel adoption — ACTIVE
-
-Migrate PNC mobile-group abstract travel and map/member projection onto the Core GroupJourney while retaining Hoomans body/pathing/live-provider policy and individual actor travel where it is genuinely actor-specific.
-
-Gate: no N-fold route serialization; all member actor projections work; IDs survive save/reload/provider switches; Hoomans no longer owns a parallel canonical mobile-group route.
+Gate met: route storage is O(1) per group, member projection is shared, actor separation overrides remain bounded, and Hoomans no longer uses stateEndsAt as canonical abstract-travel authority.
 
 ## S6 — ProjectHoomans adopter migration
 
-Hoomans consumes Core world, hydrates/dehydrates compact actors, keeps physical gameplay/runtime policy.
+**ACTIVE — S6A complete; S6B active.**
+
+### S6A — Core runtime persistence + one-way legacy import — COMPLETE
+
+Core now owns a lazy server-authority SurvivorWorld RuntimeStore. ProjectHoomans can preview and explicitly import legacy PNC faction/community/abstract/discovery state into that store without automatic dual writes or overwriting an existing Core world.
+
+### S6B — canonical generic world cutover — ACTIVE
+
+Cut generic faction/community/location/group state and mutation authority over to Core. PNC may retain Hoomans-specific extension/runtime views, but generic canonical state must no longer have permanent duplicate persistence.
+
+### S6C — duplicate-authority cleanup
+
+Remove superseded active generic stores/writes and leave only bounded migration decoders/adopter extensions required for supported saves and Hoomans policy.
 
 Gate: no duplicate PNC world authority; physical behavior/appearance preserved; focused/full Hoomans regression.
 
