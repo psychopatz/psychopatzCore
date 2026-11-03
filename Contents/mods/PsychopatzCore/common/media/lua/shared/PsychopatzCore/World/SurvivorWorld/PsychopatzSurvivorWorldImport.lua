@@ -47,8 +47,7 @@ local function communitySpec(id, source)
         memberActorIDs = source.memberActorIDs
             or source.memberIDs,
         population = source.population
-            or (type(source.capacity) == "table"
-                and source.capacity.population),
+            or source.currentPopulation,
         security = source.security,
         morale = source.morale,
         resources = source.resources or source.supplies,

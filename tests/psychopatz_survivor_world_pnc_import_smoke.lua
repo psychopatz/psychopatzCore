@@ -149,7 +149,7 @@ local community = snapshot.communities.community_rose
 truthy(community, "community imported")
 equal(community.factionID, "faction_rose", "community faction")
 equal(community.home.x, 4000, "community home")
-equal(community.population, 12, "community population summary")
+equal(community.population, 2, "community member population summary")
 
 local group = snapshot.groups.agroup_rose
 truthy(group, "group imported")

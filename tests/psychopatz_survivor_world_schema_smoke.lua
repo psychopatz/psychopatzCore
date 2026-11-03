@@ -244,7 +244,7 @@ equal(faction.relations.faction_rival.trust, -20,
 local community = snapshot.communities.community_fixture
 truthy(community, "community imported")
 equal(community.home.x, 100, "community X")
-equal(community.population, 12, "community population capacity summary")
+equal(community.population, 3, "community member population summary")
 equal(community.security, 42, "generic community security retained")
 equal(community.morale, 0.7, "generic community morale retained")
 equal(community.resources.food, 30, "generic community supplies retained")

@@ -78,7 +78,7 @@ function Types.NormalizeCommunity(value, worldSeed, communityID)
         ),
         memberActorIDs = memberActorIDs,
         population = I.Integer(
-            value.population or capacity.population,
+            value.population or value.currentPopulation,
             0,
             Types.MAX_COMMUNITY_MEMBERS,
             #memberActorIDs
