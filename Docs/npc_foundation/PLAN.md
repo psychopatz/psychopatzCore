@@ -1,32 +1,50 @@
 # Core NPC Foundation — Goal Navigation
 
-**PARENT GOAL STATUS: READY FOR USER LIVE TEST.** P0A–P9 developer implementation and acceptance are recorded in PROGRESS.md and ROADMAP.md. Native Project Zomboid SP/MP validation remains user-owned; do not restart an accepted phase without a concrete regression or new request.
+**PARENT GOAL STATUS: REOPENED FOR PRESENTATION/INTEGRATION RECOVERY.**
 
-Status snapshot: 2026-10-20. P0A–P9 developer-side gates accepted from source/harness evidence.
-PsychopatzCore is the target owner of shared canonical NPC state; ProjectHoomans and DynamicTrading are adopters. This job is separate from the Dynamic Trading trading-MVP, Radio OS, and Hoomans semantic-dialogue goals.
+A 2026-11-03 audit of DynamicTrading + PsychopatzCore + ProjectHoomans found that the earlier P6/P9 headless acceptance did not satisfy the intended production map architecture.
+
+## Current regression evidence
+
+The original adopter contract required:
+
+> Register Hoomans map layers through one Core registry; avoid duplicate ISWorldMap monkey patches.
+
+Current source instead has:
+
+- active ProjectHoomans `PNC.MapLayers` / map-toolbar host that patches the vanilla map;
+- no production `PsychopatzCore.MapOverlayRegistry`;
+- DTAbstract code that checks for that nonexistent Core registry and otherwise installs another direct map patch;
+- no generic Core authority→client actor/world projection for DTAbstract map/discovery/debug consumers.
+
+Therefore P6/P9 are reopened.
 
 ## Read order
-1. AGENT_RUNBOOK.md — durable safety, Git and validation policy
-2. ARCHITECTURE.md — target ownership and invariants
-3. ROADMAP.md — ordered phases and acceptance gates
-4. PROGRESS.md — current verified state and the ONE active Next Chunk
-5. P0B_CANONICAL_SCHEMA_AND_MIGRATION_CONTRACT.md — current phase contract
-6. PHASE_0_EXTRACTION_AUDIT.md — accepted P0A evidence and historical P0 details
-7. GOAL_PROMPT.md — compact autonomous bootstrap
+
+1. `AGENT_RUNBOOK.md`
+2. `ARCHITECTURE.md`
+3. `ROADMAP.md`
+4. DynamicTrading `Docs/Jobs/DTAbstractWorldSimulationPresentation/AUDIT.md`
+5. DynamicTrading `.../ARCHITECTURE.md`
+6. `PROGRESS.md` last
 
 ## Current objective
-P1–P9 implementation and developer-side acceptance are complete per the source/harness evidence in PROGRESS.md. Native game compatibility and multiplayer validation remain user-owned; no live-game acceptance is claimed.
 
-The next action is the user-owned native compatibility matrix listed in PROGRESS.md.
+Finish the missing reusable Core production seams:
+
+- one generic world-map host;
+- adopter overlay/tool registration;
+- bounded actor presentation synchronization;
+- real actor-registry persistence integration;
+- production provider orchestration support where Core ownership applies.
+
+ProjectHoomans keeps Hoomans-specific map layers/policy.
+DynamicTrading keeps DT-specific trader/settlement presentation and economic policy.
 
 ## Product acceptance
-A single Core-generated merchant has a stable identity, name, face, voice, clothing, personal items and exact portable state, directional relationships, world position and journey. DTAbstract can run it without ProjectHoomans. DTHoomans can project the SAME merchant into its live NPC simulation without rerolling, resetting or duplicating anything; returning to abstract retains canonical changes. One DTCommon stock/budget/transaction ledger is shared across modes. Known actors can use bounded map markers/hover portraits; nearby actors can expose Talk; travel between eligible settlements can earn restocks. SP and MP server authority remain intact.
 
-100% canonical data parity is required for common fields, not identical live combat, animation or needs behavior while abstract. Module install/uninstall switching first requires safe save/restart/load behavior; live provider switching is only for adapters already loaded.
+No duplicate actors, inventories, provider leases, bodies, economy owners, or map hosts.
 
-## Repositories and audited pre-refresh source heads
-- Core: psychopatz/psychopatzCore source baseline `50022acf`; later commits in this goal refresh are documentation-only
-- Hoomans: psychopatz/ProjectHoomans main `bc9c64d0`; NPC-foundation evidence exists on a divergent committed history through `9f153c0e`
-- Trading: psychopatz/DynamicTrading main `d6fccc3d`
+The same canonical actor/journey state must be visible to authorized clients through a bounded read-only projection and survive production save/reload.
 
-Do not infer local worktree cleanliness from these remote heads. Before editing Hoomans, inspect the actual local branch and safely reconcile the divergent foundation history with unrelated current work. Never force-push, reset or overwrite user changes merely to make histories match.
+Only after the recovery roadmap is accepted should native SP/MP become the remaining user-owned action.

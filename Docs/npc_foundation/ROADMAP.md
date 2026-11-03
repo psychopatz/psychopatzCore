@@ -1,25 +1,62 @@
 # Core NPC Foundation — Ordered Roadmap
 
-Snapshot: 2026-10-20. P0A–P9 developer-implementable requirements have accepted source/harness evidence. Status: READY FOR USER LIVE TEST.
+Snapshot: 2026-11-03.
 
-| Phase | Status | Mandatory exit gate |
+The earlier 2026-10-20 headless P1–P9 acceptance remains useful historical evidence, but the parent goal is **REOPENED for map/presentation integration recovery** after native/source audit exposed a contract violation.
+
+| Phase | Current status | Mandatory exit gate |
 | --- | --- | --- |
-| P0A Extraction audit | ACCEPTED | Ownership matrix, risk register, executable parity baseline |
-| P0B Canonical schema and safe migration | ACCEPTED | No-loss supported save/load, fail-closed, reversible import contract |
-| P1 Core identity and appearance | ACCEPTED | Core-only actor Create → Save → Reload → Get with stable identity, voice, appearance, policy, and duplicate rejection |
-| P2 Portable NPC inventory | ACCEPTED | Deterministic starter equipment, slots, seed/delta persistence, and exact item-state restoration |
-| P3 Legacy migration | ACCEPTED | Non-destructive, idempotent, ownership-validated Hoomans conversion with rollback |
-| P4 Shared social system | ACCEPTED | Authoritative directional relationships, bounded personality/memories, and event integration |
-| P5 Tasks and journeys | ACCEPTED | Bounded scheduling, anchors, abstract travel, and save/reload continuity |
-| P6 Map and interaction | ACCEPTED | Core map/portrait/nearby conversation/notification contracts coexist with existing UI |
-| P7 DynamicTrading integration | ACCEPTED | Separate merchant stock/budget, availability, restocking, relationship pricing, and authoritative fulfillment |
-| P8 Provider switching and Hoomans integration | ACCEPTED | DTAbstract/DTHoomans adapters preserve canonical state and enforce one-body lease ownership |
-| P9 End-to-end developer acceptance | ACCEPTED — READY FOR USER LIVE TEST | Four configuration modes, old saves, authority/reconnect boundaries, continuity, bounded work, and compatibility evidence |
+| P0A Extraction audit | ACCEPTED FOUNDATION | ownership matrix/risk baseline retained |
+| P0B Canonical schema/migration | ACCEPTED FOUNDATION | no-loss/reversible contract retained |
+| P1 Identity/appearance | ACCEPTED | no regression |
+| P2 Portable inventory | ACCEPTED | no regression |
+| P3 Legacy migration | ACCEPTED | no regression |
+| P4 Shared social | ACCEPTED | no regression |
+| P5 Tasks/journeys | ACCEPTED | projected-position follow-up already added |
+| P6 Map/interaction | **REOPENED** | one Core production map host; Hoomans/DT register through it; no duplicate adopter `ISWorldMap` hooks; authoritative client presentation projection |
+| P7 DynamicTrading integration | PARTIAL FOLLOW-UP | DT economics preserved; DTAbstract presentation/persistence integration must use the repaired Core seams |
+| P8 Provider switching/Hoomans | **REOPENED FOLLOW-UP** | production orchestration, not only adapter compatibility |
+| P9 End-to-end acceptance | **REOPENED** | split client/server, production persistence, Core map host, cross-adopter regression all green before native handoff |
 
-## User-owned live matrix
+## Active recovery sequence
 
-Core-only; Core + DTCommon + DTAbstract; Core + DTCommon + Hoomans + DTHoomans; both provider frontends; Core + DTCommon alone; Hoomans without DT; save/restart provider switching; and a dedicated multiplayer authority/reconnect harness.
+### C1 — Generic Core map host
+- one deterministic vanilla map hook;
+- ordered overlay register/unregister;
+- generic map tool/toolbar seam if required;
+- load-order safe;
+- consumer failure isolation.
 
-## Explicit non-goals
+### C2 — Migrate adopters
+- Hoomans generic map host/toolbar responsibilities register through Core;
+- Hoomans-specific layers/policy stay in Hoomans;
+- DTAbstract registers through Core;
+- remove duplicate active map monkey patches.
 
-No Workshop publishing, destructive save reset, unrelated subsystem refactor, synthetic-only graphical UI claim, or duplication in Core of DT stock/budget or Hoomans needs, combat, colony, faction, and body-lifecycle ownership.
+### C3 — Actor presentation sync
+- bounded authority→client actor/world projection;
+- revisioned/stale-safe;
+- reconnect/full resync;
+- map/debug/discovery consume client projection.
+
+### C4 — Production persistence
+- wire real Core actor registry save/load lifecycle;
+- preserve journey/provider state;
+- deterministic missing-link recovery.
+
+### C5 — Provider orchestration
+- production DTAbstract↔DTHoomans transition policy;
+- same actor, one body, no duplicate stock/arrival.
+
+### C6 — Cross-repository acceptance
+- Core/Hoomans/DT/DTHoomans regression;
+- no duplicate map hooks;
+- split client/server acceptance;
+- production persistence evidence;
+- then native user-owned matrix.
+
+## Completion rule
+
+Do not return to **READY FOR USER LIVE TEST** until C1–C6 developer gates pass.
+
+The earlier headless evidence remains historical foundation, not current completion proof.
