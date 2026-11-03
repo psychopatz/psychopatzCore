@@ -181,21 +181,56 @@ Validation:
 - changed S3 production Lua passes installed-PZ Kahlua verification;
 - git diff checks pass.
 
+## S4A accepted evidence
+
+Core now has one standalone, bounded SurvivorWorld schema and persistence envelope for factions, communities, abstract locations, mobile groups, population metadata and player-scoped discovery.
+
+The read-only PNC importer:
+
+- accepts plain serialization-safe tables;
+- preserves legacy entity IDs;
+- maps generic faction/community/location/group/population/discovery state;
+- excludes Hoomans body/AI/facility/job/combat/behavior policy;
+- rejects over-capacity source data;
+- does not require PNC or DynamicTrading.
+
+Bounds:
+
+- 256 factions;
+- 512 communities;
+- 4096 abstract locations;
+- 1024 groups;
+- 4096 sectors;
+- 256 discovery players;
+- 128 group members;
+- 4096 discovery entries/player;
+- 32 MiB world envelope.
+
+Validation:
+
+- four SurvivorWorld focused tests pass;
+- full Core Lua sweep remains **134/141**, with exactly the same seven unrelated failures verified on clean HEAD;
+- changed production Lua passes luac;
+- installed-PZ Kahlua compiler: **14/14**;
+- git diff check passes.
+
+Detailed evidence: `S4_SCHEMA_EXTRACTION.md`.
+
 ## Current phase
 
 **S4 — Core Survivor World model.**
 
 ## Immediate Next Chunk
 
-### S4A — generic world schema extraction and fail-first parity fixtures
+### S4B — deterministic generation contracts
 
-1. audit the current PNC faction/community/abstract-world/discovery schemas and generation dependencies at field/function level;
-2. define Core-generic Faction, Community, MobileGroup, PopulationSector and WorldDiscovery records without Hoomans body/gameplay policy;
-3. add deterministic ID/seed and bounded-registry tests in Core;
-4. add read-only migration/parity fixtures that import current PNC records into the Core schema without mutating PNC saves;
-5. establish one Core SurvivorWorld registry/persistence envelope with explicit bounds;
-6. keep Hoomans facilities/jobs/body policy as adopter extensions, not Core fields;
-7. continue into S4B generation contracts and then S5 group-shared traversal.
+1. audit current PNC faction-name/archetype and PopulationDirector settlement/group generation inputs;
+2. move generic deterministic naming, archetype/profile selection, sector seed derivation, and entity-ID generation into Core;
+3. define bounded generation-policy registration so Hoomans can add gameplay policy without becoming world owner;
+4. provide a Core default survivor-world generation profile usable with ProjectHoomans absent;
+5. prove same seed/config produces identical faction/community/group/actor generation plan independent of representation provider;
+6. keep body/equipment/facility/job/tactical generation outside Core;
+7. then continue into S5 shared group traversal.
 
 ## Repository safety
 

@@ -52,11 +52,17 @@ Gate: materialize/dematerialize round-trip preserves durable items/equipment and
 
 ## S4 — Core Survivor World model
 
-**ACTIVE**
+**ACTIVE — S4A complete; S4B active.**
 
-Promote generic faction/community/mobile-group/population/discovery mechanisms from PNC into Core.
+### S4A — schema/persistence/import contract — COMPLETE
 
-Gate: Core can generate/load a survivor world without ProjectHoomans or DynamicTrading.
+Core now owns a bounded generic SurvivorWorld envelope for factions, communities, abstract locations, groups, population metadata and discovery. Read-only PNC import parity is covered without loading PNC.
+
+### S4B — deterministic generation contracts — ACTIVE
+
+Move generic world-seed derivation, IDs, names/profiles and generation planning into Core behind bounded provider/policy registration. Hoomans policy may extend generation but cannot own the canonical world.
+
+Gate: Core can deterministically generate/load the same canonical survivor-world plan without ProjectHoomans or DynamicTrading, and adopter presence does not change canonical IDs for the same seed/config.
 
 ## S5 — Group-shared traversal and actor projection
 
