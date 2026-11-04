@@ -547,6 +547,39 @@ result is two canonical trader bindings available immediately, real Core actor
 coordinates/portraits for Talk, Core-owned NPC dots on the map, and zero visible
 NPC bodies.
 
+### Native follow-up — non-blocking DTAbstract debug spawn
+
+The first fresh-save retest exposed a main-thread stall when invoking the shared
+Spawn Trader debug action in single-player. The command previously performed
+provider selection, canonical group generation/binding, persistence, projection
+broadcast, and a client projection refresh synchronously inside the click's
+client-command callback.
+
+The follow-up keeps the same ownership boundaries but changes execution:
+
+- DTCommon validates and queues the debug request immediately; provider selection
+  and spawn execution run one request at a time from the server tick;
+- the client receives an immediate queued acknowledgement, then a separate final
+  success/failure notification;
+- shared trader creation only marks the Core actor projection dirty; the
+  trader-world runtime coalesces and publishes it on the next tick instead of
+  broadcasting inside SpawnTrader;
+- DTAbstract no longer sends a nested projection request from the spawn-result
+  callback;
+- DTCommon debug and DTAbstract nearby-discovery clients explicitly load the Core
+  notification UI so abstract nearby/spawn feedback is visible;
+- spawn logging now exposes debug_spawn_queued, debug_spawn_processing, and
+  debug_spawn_completed phases for native diagnosis.
+
+Validation for this follow-up: DynamicTrading **68/68**, focused queued-spawn /
+projection-coalescing / nearby-discovery regressions pass, changed production Lua
+**6/6** installed-PZ Kahlua, and git diff --check is clean.
+
+A second native fresh-save retest is required. Spawn Trader should return control
+immediately, show a queued notification, then show the final DTAbstract result;
+the canonical abstract actor dot should appear from the coalesced Core projection
+without any visible world NPC body.
+
 ## Current phase
 
 **DEVELOPER COMPLETE — native SP/MP acceptance pending.**
