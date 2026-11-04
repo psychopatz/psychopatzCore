@@ -100,6 +100,26 @@ function Client.GetPortraitSpec(actorOrID)
     local gender = tostring(
         portrait.gender or face.gender or ""
     ):lower()
+    local appearance = type(portrait.appearance) == "table"
+        and portrait.appearance or {}
+    if appearance.skinTexture == nil then
+        appearance.skinTexture = face.skinTexture
+    end
+    if appearance.skinColor == nil then
+        appearance.skinColor = face.skinColor
+    end
+    if appearance.skinTone == nil then
+        appearance.skinTone = face.skinTone
+    end
+    if appearance.hairModel == nil then
+        appearance.hairModel = face.hairModel
+    end
+    if appearance.hairColor == nil then
+        appearance.hairColor = face.hairColor
+    end
+    if appearance.beardModel == nil then
+        appearance.beardModel = face.beardModel
+    end
     return {
         key = tostring(portrait.actorID or entry.actorID)
             .. ":"
@@ -110,16 +130,11 @@ function Client.GetPortraitSpec(actorOrID)
             or gender == "f",
         preferDescriptor = true,
         faceOnly = true,
-        includeCurrentClothing = false,
-        appearance = {
-            skinTexture = face.skinTexture,
-            skinColor = face.skinColor,
-            skinTone = face.skinTone,
-            hairModel = face.hairModel,
-            hairColor = face.hairColor,
-            beardModel = face.beardModel,
-        },
-        equipment = { worn = {} },
+        includeCurrentClothing = true,
+        clothingMode = "current",
+        appearance = appearance,
+        equipment = type(portrait.equipment) == "table"
+            and portrait.equipment or { worn = {} },
     }
 end
 

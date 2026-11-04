@@ -74,6 +74,14 @@ for _, actorID in ipairs(group.memberActorIDs) do
     assert(entry.portrait
         and entry.portrait.actorID == actorID,
         "portrait contract missing")
+    assert(entry.portrait.appearance,
+        "portrait appearance contract missing")
+    assert(entry.portrait.equipment
+        and entry.portrait.equipment.worn
+        and entry.portrait.equipment.worn.Torso_Upper == "Base.Tshirt"
+        and entry.portrait.equipment.worn.Legs == "Base.Trousers"
+        and entry.portrait.equipment.worn.Shoes == "Base.Shoes",
+        "portrait must project canonical Core worn clothing")
 end
 
 local first = byID[group.memberActorIDs[1]]
