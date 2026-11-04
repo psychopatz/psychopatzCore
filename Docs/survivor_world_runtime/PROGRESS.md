@@ -580,6 +580,12 @@ immediately, show a queued notification, then show the final DTAbstract result;
 the canonical abstract actor dot should appear from the coalesced Core projection
 without any visible world NPC body.
 
+### Native follow-up — bounded MarketSense-backed stock seeding
+
+A second native retest still showed severe lag during trader creation. Audit isolated the remaining hotspot to DTCommon trader inventory seeding rather than SurvivorWorld actor generation: each Stock.New() previously iterated the full MarketSense known-item registry and performed availability plus price evaluation for every obtainable item. With the observed 4,412-item MarketSense catalog, one trader spawn could issue thousands of MarketSense calls.
+
+DTCommon MarketCatalog now caches a bounded stock-seed universe during its existing one-time catalog build. TraderStock.New() samples at most 32 cached candidates and prices only until the bounded 8-slot stock is filled. Subsequent traders reuse the same catalog cache and do not rescan MarketSense. A dedicated 4,412-item regression verifies one catalog build, zero catalog rescans for the second trader, and at most eight price evaluations per seeded trader. DynamicTrading full suite is 69/69 and changed production Lua is 2/2 Kahlua.
+
 ## Current phase
 
 **DEVELOPER COMPLETE — native SP/MP acceptance pending.**
