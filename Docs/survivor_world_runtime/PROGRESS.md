@@ -511,6 +511,9 @@ Remediation now preserves one authority per concern:
 - DTAbstract only decorates canonical trader actors with commercial labels and
   renders community/group/signal discovery; it has no second actor hit/hover/
   tracking renderer;
+- DTAbstract debug Talk reports the final Core conversation-open result back to
+  its manager, so server authorization is no longer misreported as successful
+  UI opening;
 - DTCommon owns the single DynamicTrading debug-spawn client/server contract and
   provider selection; the former DTHoomans-only spawn menu and DTAbstract-only
   spawn commands are removed;
