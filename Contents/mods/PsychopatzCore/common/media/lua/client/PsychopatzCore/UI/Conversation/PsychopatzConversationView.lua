@@ -241,6 +241,13 @@ function PsychopatzConversationView:refreshConversationSpec(spec)
     if self.session then
         self.session.spec = spec
         self.session.context = spec.context or {}
+        -- Shared conversations may rotate between members of one actor
+        -- group without opening a second UI.  Keep the session's identity in
+        -- sync so history, diagnostics, and semantic messages are attributed
+        -- to the person currently shown in the portrait.
+        self.session.npcID = spec.npcID or spec.id or self.session.npcID
+        self.session.characterUUID = spec.characterUUID
+            or self.session.characterUUID
         local nodeID = self.session.currentNodeID
         local node = nodeID and spec.nodes and spec.nodes[nodeID] or nil
         if node then
@@ -342,6 +349,17 @@ function PsychopatzConversationView:update()
     local interruption = Lifecycle.Update(self)
     if interruption and not self.closing then
         self:close(interruption)
+    end
+    if not self.closing and not self.editMode
+        and type(self.spec.refreshPresentation) == "function"
+    then
+        local ok, refreshed = pcall(
+            self.spec.refreshPresentation,
+            self
+        )
+        if ok and type(refreshed) == "table" and refreshed ~= self.spec then
+            self:refreshConversationSpec(refreshed)
+        end
     end
     if self.session and not self.editMode then self.session:update() end
     if self.closing and state.done then self:destroy() end

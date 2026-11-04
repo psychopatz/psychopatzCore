@@ -31,6 +31,9 @@ Client.DEFAULT_ACTOR_REFRESH_MS = 1000
 Client.DEFAULT_DISCOVERY_REFRESH_MS = 10000
 Client.LastActorRequestAt = Client.LastActorRequestAt or nil
 Client.LastDiscoveryRequestAt = Client.LastDiscoveryRequestAt or nil
+Client.ActorKnowledgeProviders = Client.ActorKnowledgeProviders or {}
+Client.ActorKnowledgeRequestAt = Client.ActorKnowledgeRequestAt or {}
+Client.ACTOR_KNOWLEDGE_REQUEST_MS = 2000
 
 local function nowMs()
     if type(getTimestampMs) == "function" then
@@ -83,6 +86,99 @@ end
 
 function Client.GetActor(actorID)
     return ProjectionClient.Get(actorID)
+end
+
+-- Provider-neutral identity knowledge seam.  Core owns the bounded request
+-- lifecycle; an optional provider supplies only its transport/cache adapter.
+-- This is deliberately independent of Project Hoomans so DTAbstract can use
+-- the same conversation shell with only its canonical Core projection.
+function Client.RegisterActorKnowledgeProvider(providerID, adapter)
+    providerID = tostring(providerID or "")
+    if providerID == "" or type(adapter) ~= "table"
+        or (type(adapter.get) ~= "function"
+            and type(adapter.request) ~= "function")
+    then
+        return false, "actor_knowledge_provider_invalid"
+    end
+    Client.ActorKnowledgeProviders[providerID] = adapter
+    return true, providerID
+end
+
+local function knowledgeProvider(providerID)
+    return Client.ActorKnowledgeProviders[tostring(providerID or "")]
+end
+
+function Client.GetActorKnowledge(actorID, options)
+    options = type(options) == "table" and options or {}
+    actorID = tostring(actorID or "")
+    if actorID == "" then return nil, "actor_required" end
+    local projection = Client.GetActor(actorID)
+    local providerID = tostring(options.provider
+        or projection and projection.provider or "Core")
+    local provider = knowledgeProvider(providerID)
+    if provider and type(provider.get) == "function" then
+        local ok, value = pcall(provider.get, actorID, options)
+        if ok and type(value) == "table" then
+            value.actorID = actorID
+            value.provider = value.provider or providerID
+            return value
+        end
+    end
+    if not projection then return nil, "actor_projection_unavailable" end
+    local knownName = projection.displayName
+        or projection.label
+        or projection.identity and projection.identity.displayName
+    return {
+        actorID = actorID,
+        provider = providerID,
+        state = "known",
+        nameKnown = knownName ~= nil and knownName ~= "",
+        knownName = knownName,
+        factionKnown = projection.factionID ~= nil,
+        factionID = projection.factionID,
+        factionName = projection.factionName,
+        factionPresentation = projection.factionPresentation,
+        revision = tonumber(projection.revision) or 0,
+    }
+end
+
+function Client.RequestActorKnowledge(actorID, options)
+    options = type(options) == "table" and options or {}
+    actorID = tostring(actorID or "")
+    if actorID == "" then return false, "actor_required" end
+    local projection = Client.GetActor(actorID)
+    local providerID = tostring(options.provider
+        or projection and projection.provider or "Core")
+    local provider = knowledgeProvider(providerID)
+    local current = Client.GetActorKnowledge(actorID, {
+        provider = providerID,
+    })
+    if current and (current.pending == true or current.knowledgePending == true
+        or current.state == "loading")
+    then
+        return false, "actor_knowledge_pending"
+    end
+    if current and current.state == "known"
+        and current.nameKnown ~= false
+    then
+        return true, "actor_knowledge_known"
+    end
+    if not provider or type(provider.request) ~= "function" then
+        return true, "core_projection_used"
+    end
+    local now = nowMs()
+    local last = tonumber(Client.ActorKnowledgeRequestAt[actorID])
+    if now ~= nil and last ~= nil
+        and now - last < Client.ACTOR_KNOWLEDGE_REQUEST_MS
+    then
+        return false, "actor_knowledge_request_throttled"
+    end
+    local ok, accepted, reason = pcall(
+        provider.request, actorID, options)
+    if not ok then return false, "actor_knowledge_request_failed" end
+    if accepted == false then return false, reason end
+    Client.ActorKnowledgeRequestAt[actorID] = now or 0
+    return true, reason or "actor_knowledge_requested"
 end
 
 

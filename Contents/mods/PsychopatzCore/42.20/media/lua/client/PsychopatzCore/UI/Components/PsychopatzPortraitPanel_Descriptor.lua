@@ -66,7 +66,15 @@ local function addWornItem(wornItems, fullType, explicitLocation, visualState)
         pcall(equipment.Internal.applyItemVisualState, item, visualState)
     end
     local location = explicitLocation
-    if not location or location == "" then
+    if location and location ~= "" then
+        -- Actor records intentionally use compact, provider-neutral slot
+        -- aliases in a few older saves (for example Torso_Upper and Legs).
+        -- Build 42's WornItems API only accepts native ItemBodyLocation
+        -- values, so an unknown explicit slot must defer to the item
+        -- metadata instead of making the whole portrait lose that garment.
+        location = resolveBodyLocation(location)
+    end
+    if not location then
         local _, resolved = safeCall(item, "getBodyLocation")
         location = resolved
     end

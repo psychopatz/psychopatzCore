@@ -98,6 +98,9 @@ ResourceLocation = {
 ItemBodyLocation = {
     get = function(resource)
         local id = resource and resource.id or ""
+        -- Compact actor records use these aliases; Build 42 does not expose
+        -- them as native ItemBodyLocation values.
+        if id == "Torso_Upper" or id == "Legs" then return nil end
         bodyLocations[id] = bodyLocations[id] or setmetatable({ id = id }, {
             __tostring = function(value) return value.id end,
         })
@@ -130,9 +133,16 @@ function descriptor:resetModel() self.reset = true end
 SurvivorType = { Neutral = "neutral" }
 SurvivorFactory = { CreateSurvivor = function() return descriptor end }
 instanceItem = function(fullType)
+    local nativeLocations = {
+        ["Base.Shirt"] = "Shirt",
+        ["Base.Jacket"] = "Jacket",
+        ["Base.Trousers_Suit"] = "Pants",
+    }
     return {
         fullType = fullType,
-        getBodyLocation = function() return "Shirt" end,
+        getBodyLocation = function()
+            return nativeLocations[fullType] or "Shirt"
+        end,
     }
 end
 
@@ -156,6 +166,25 @@ assertEqual(lastModel.descriptor, descriptor, "descriptor applied")
 assertEqual(descriptor.female, true, "descriptor gender")
 assertEqual(visual.hair, "Long", "descriptor hair")
 assertEqual(worn.values.Jacket.fullType, "Base.Jacket", "equipment clothing applied")
+
+assert(panel:setTarget(nil, {
+    id = "npc_native_slot_migration",
+    identitySeed = 13,
+    preferDescriptor = true,
+    appearance = { outfitItems = { "Base.Shirt" } },
+    equipment = {
+        -- Existing actor records use these compact aliases.  The descriptor
+        -- portrait must still render the complete body from them.
+        worn = {
+            Torso_Upper = "Base.Shirt",
+            Legs = "Base.Trousers_Suit",
+        },
+    },
+}), "legacy actor clothing target failed")
+assertEqual(worn.values.Shirt.fullType, "Base.Shirt",
+    "legacy torso alias normalized to native shirt slot")
+assertEqual(worn.values.Pants.fullType, "Base.Trousers_Suit",
+    "legacy legs alias normalized to native pants slot")
 
 local character = { getHumanVisual = function() return visual end }
 assert(panel:setTarget(character, { id = "npc_live", key = "live" }), "live target failed")
