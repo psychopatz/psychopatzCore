@@ -5,6 +5,8 @@
 local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
 local Presentation = require
     "PsychopatzCore/Actors/PsychopatzActorPresentation"
+local FactionPresentation = require
+    "PsychopatzCore/Actors/PsychopatzActorFactionPresentation"
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
 
@@ -123,6 +125,20 @@ function Projection.ProjectActor(actor, now, spec)
     entry.groupID = boundedText(spec.groupID, 192)
     entry.communityID = boundedText(spec.communityID, 192)
     entry.factionID = boundedText(spec.factionID, 192)
+    entry.factionName = boundedText(spec.factionName, 128)
+    entry.factionArchetypeID = boundedText(
+        spec.factionArchetypeID or spec.factionArchetypeId,
+        96
+    )
+    local factionPresentation = FactionPresentation.Build({
+        factionID = entry.factionID,
+        factionName = entry.factionName,
+        factionArchetypeID = entry.factionArchetypeID,
+        factionPresentation = spec.factionPresentation,
+    })
+    if factionPresentation then
+        entry.factionPresentation = factionPresentation
+    end
     entry.role = boundedText(spec.role, 64)
     entry.markerID = boundedText(spec.markerID, 64)
     entry.label = boundedText(
@@ -165,6 +181,14 @@ function Projection.ValidateEntry(entry)
         if not valid then return nil, reason end
         portrait = Util.clone(entry.portrait)
     end
+    local factionPresentation
+    if entry.factionPresentation ~= nil then
+        local valid, factionReason = FactionPresentation.Validate(
+            entry.factionPresentation
+        )
+        if not valid then return nil, factionReason end
+        factionPresentation = Util.clone(entry.factionPresentation)
+    end
     local capabilities
     if entry.capabilities ~= nil then
         if type(entry.capabilities) ~= "table"
@@ -187,6 +211,12 @@ function Projection.ValidateEntry(entry)
         groupID = boundedText(entry.groupID, 192),
         communityID = boundedText(entry.communityID, 192),
         factionID = boundedText(entry.factionID, 192),
+        factionName = boundedText(entry.factionName, 128),
+        factionArchetypeID = boundedText(
+            entry.factionArchetypeID or entry.factionArchetypeId,
+            96
+        ),
+        factionPresentation = factionPresentation,
         role = boundedText(entry.role, 64),
         markerID = boundedText(entry.markerID, 64),
         label = boundedText(entry.label, 192),

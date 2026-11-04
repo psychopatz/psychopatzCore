@@ -154,6 +154,13 @@ local function metadata(actor, group)
         communityID = group and group.homeCommunityID
             or ext.communityID,
         factionID = group and group.factionID or ext.factionID,
+        factionName = group and group.factionName or ext.factionName,
+        factionArchetypeID = group
+            and group.factionArchetypeID
+            or ext.factionArchetypeID,
+        factionPresentation = group
+            and group.factionPresentation
+            or ext.factionPresentation,
         role = roleFor(actor, group),
     }
 end
@@ -182,6 +189,19 @@ function Presentation.BuildActorEntry(
     end
 
     local meta = metadata(actor, group)
+    if worldRegistry
+        and type(worldRegistry.GetFaction) == "function"
+        and meta.factionID
+    then
+        local faction = worldRegistry:GetFaction(meta.factionID)
+        if type(faction) == "table" then
+            meta.factionName = meta.factionName or faction.name
+            meta.factionArchetypeID = meta.factionArchetypeID
+                or faction.archetypeID
+            meta.factionPresentation = meta.factionPresentation
+                or faction
+        end
+    end
     local portrait = ActorPresentation.BuildPortrait(actor)
     local entry, reason = ActorProjection.ProjectActor(
         actor,
@@ -201,6 +221,9 @@ function Presentation.BuildActorEntry(
             groupID = meta.groupID,
             communityID = meta.communityID,
             factionID = meta.factionID,
+            factionName = meta.factionName,
+            factionArchetypeID = meta.factionArchetypeID,
+            factionPresentation = meta.factionPresentation,
             role = meta.role,
             markerID = spec.markerID or "npc",
             label = actor.identity

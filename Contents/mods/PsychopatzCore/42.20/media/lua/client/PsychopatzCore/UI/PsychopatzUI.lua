@@ -23,6 +23,7 @@ require "PsychopatzCore/UI/Components/PsychopatzWindowToolbar"
 require "PsychopatzCore/UI/Components/PsychopatzWidgetWindow"
 require "PsychopatzCore/UI/PsychopatzCommandHub"
 require "PsychopatzCore/UI/PsychopatzNotificationWindow"
+require "PsychopatzCore/UI/PsychopatzActorNotificationToast"
 require "PsychopatzCore/UI/PsychopatzSettingsWindow"
 require "PsychopatzCore/UI/World/PsychopatzGridRegionSelector"
 

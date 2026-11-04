@@ -126,6 +126,12 @@ assert(ActorMap.RegisterDecorator("test", {
         if entry.actorID == "actor:map:a" then
             style.label = "Ada [Trader]"
             style.size = 11
+            style.icon = { id = "trader", glyph = "T" }
+            style.badge = {
+                factionID = "faction:map:test",
+                glyph = "F",
+                color = { r = 0.8, g = 0.4, b = 0.2, a = 1 },
+            }
         end
         return style
     end,
@@ -136,6 +142,13 @@ assert(markers[1].label == "Ada [Trader]",
     "actor map decorator did not enrich presentation")
 assert(markers[1].size == 11,
     "actor map decorator size was ignored")
+assert(markers[1].icon and markers[1].icon.glyph == "T",
+    "actor map decorator icon contract was ignored")
+assert(markers[1].badge and markers[1].badge.factionID
+        == "faction:map:test",
+    "actor map decorator faction badge contract was ignored")
+assert(#markers == 2,
+    "one canonical actor produced more than one actor marker")
 
 local rects = {}
 local lines = {}

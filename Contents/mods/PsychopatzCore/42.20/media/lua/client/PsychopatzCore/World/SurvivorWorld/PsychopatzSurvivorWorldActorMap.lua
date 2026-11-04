@@ -90,6 +90,11 @@ local function decorate(entry, decorators)
         color = copyColor(DEFAULT_COLOR, DEFAULT_COLOR),
         size = ActorMap.MarkerSize,
         visible = true,
+        icon = entry.icon,
+        emblem = entry.emblem,
+        badge = entry.badge,
+        subtitle = entry.subtitle,
+        hoverMetadata = entry.hoverMetadata,
     }
     for _, definition in ipairs(decorators or {}) do
         local ok, result = pcall(
@@ -143,6 +148,11 @@ function ActorMap.BuildMarkers()
                     position = position,
                     label = style.label,
                     color = color,
+                    icon = style.icon,
+                    emblem = style.emblem,
+                    badge = style.badge,
+                    subtitle = style.subtitle,
+                    hoverMetadata = style.hoverMetadata,
                     size = isTracked and math.max(style.size, 13)
                         or isSelected and math.max(style.size, 12)
                         or style.size,
@@ -228,6 +238,50 @@ local function drawDot(map, marker, sx, sy)
             0.05,
             0.05,
             0.05
+        )
+    end
+
+    local icon = marker.icon or marker.emblem
+    if type(icon) == "table" then
+        local texture = icon.texture
+        if texture and map.drawTextureScaledAspect then
+            local iconSize = math.max(8, math.min(size, tonumber(icon.size) or size))
+            map:drawTextureScaledAspect(
+                texture,
+                sx - iconSize / 2,
+                sy - iconSize / 2,
+                iconSize,
+                iconSize,
+                tonumber(icon.alpha) or 1,
+                tonumber(icon.r) or 1,
+                tonumber(icon.g) or 1,
+                tonumber(icon.b) or 1
+            )
+        elseif icon.glyph and map.drawTextCentre then
+            map:drawTextCentre(
+                tostring(icon.glyph),
+                sx,
+                sy - math.max(6, size / 2),
+                tonumber(icon.r) or 1,
+                tonumber(icon.g) or 1,
+                tonumber(icon.b) or 1,
+                tonumber(icon.a) or 1,
+                UIFont.Small
+            )
+        end
+    end
+
+    local badge = marker.badge
+    if type(badge) == "table" and badge.glyph and map.drawTextCentre then
+        map:drawTextCentre(
+            tostring(badge.glyph),
+            sx + size / 2,
+            sy - size / 2,
+            tonumber(badge.r) or 1,
+            tonumber(badge.g) or 1,
+            tonumber(badge.b) or 1,
+            tonumber(badge.a) or 1,
+            UIFont.Small
         )
     end
 end
