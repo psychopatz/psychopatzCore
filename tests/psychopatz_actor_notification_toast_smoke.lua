@@ -22,6 +22,13 @@ local shown, reason = Notifications.Show({
         factionID = "faction:toast:one",
         glyph = "T",
     },
+    actions = {
+        {
+            id = "talk",
+            label = "Talk",
+            callback = function() end,
+        },
+    },
 })
 assert(shown == true, reason)
 assert(Notifications.Queue[1].actorID == "actor:toast:one",
@@ -30,6 +37,8 @@ assert(Notifications.Queue[1].portraitSpec.actorID == "actor:toast:one",
     "toast did not retain canonical portrait input")
 assert(Notifications.Queue[1].factionBadge.glyph == "T",
     "toast did not retain optional faction badge")
+assert(Notifications.Queue[1].actions[1].id == "talk",
+    "toast did not retain optional action")
 
 local duplicate, duplicateReason = Notifications.Show({
     id = "toast:actor:one",

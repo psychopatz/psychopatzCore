@@ -68,6 +68,9 @@ local function createWindowSupport()
         "PsychopatzCore/UI/Components/PsychopatzPortraitPanel"
     )
     if not portraitOK or not PortraitPanel then return nil end
+    if type(ISButton) ~= "table" and type(ISButton) ~= "function" then
+        pcall(require, "ISUI/ISButton")
+    end
 
     local ToastWindow = UI.Window:derive(
         "PsychopatzActorNotificationToastWindow")
@@ -81,6 +84,9 @@ local function createWindowSupport()
                 showBackground = true,
                 showBorder = true,
                 animate = false,
+                animSetName = false,
+                includeCurrentClothing = true,
+                clothingMode = "current",
                 zoom = 16,
                 yOffset = -0.9,
             }
@@ -89,6 +95,48 @@ local function createWindowSupport()
         if self.portrait.instantiate then self.portrait:instantiate() end
         self:addChild(self.portrait)
         self:requestResponsiveLayout(true)
+    end
+
+    function ToastWindow:buildActions(actions)
+        self.actionButtons = self.actionButtons or {}
+        for _, button in ipairs(self.actionButtons) do
+            if button.setVisible then button:setVisible(false) end
+        end
+        if type(ISButton) ~= "table" and type(ISButton) ~= "function" then
+            return
+        end
+        for index = 1, math.min(#(actions or {}), 2) do
+            local action = actions[index]
+            local width = 92
+            local x = 100 + (index - 1) * (width + 6)
+            local button = ISButton:new(
+                x,
+                78,
+                width,
+                24,
+                tostring(action.label),
+                self,
+                ToastWindow.onActionButton
+            )
+            button.internal = index
+            if button.initialise then button:initialise() end
+            if button.instantiate then button:instantiate() end
+            self:addChild(button)
+            self.actionButtons[#self.actionButtons + 1] = button
+        end
+    end
+
+    function ToastWindow:onActionButton(button)
+        local index = tonumber(button and button.internal)
+        local action = self.notification and self.notification.actions
+            and self.notification.actions[index] or nil
+        if action and type(action.callback) == "function" then
+            pcall(action.callback, self.notification)
+        end
+        Notifications.Dismiss(
+            self.notification and self.notification.id,
+            self
+        )
     end
 
     function ToastWindow:onResponsiveLayout()
@@ -107,6 +155,7 @@ local function createWindowSupport()
         if self.portrait and self.portrait.setTarget then
             self.portrait:setTarget(nil, definition.portraitSpec, true)
         end
+        self:buildActions(definition.actions)
         self.startedAt = nowMs()
         self.expiresAt = self.startedAt > 0
             and self.startedAt + Notifications.DISPLAY_MS or 0
@@ -189,8 +238,23 @@ function Notifications.Show(definition)
         ),
         factionBadge = type(definition.factionBadge) == "table"
             and definition.factionBadge or nil,
+        actions = {},
         createdAt = nowMs(),
     }
+
+    for index = 1, math.min(#(definition.actions or {}), 2) do
+        local action = definition.actions[index]
+        if type(action) == "table"
+            and tostring(action.label or "") ~= ""
+            and type(action.callback or action.onSelect) == "function"
+        then
+            item.actions[#item.actions + 1] = {
+                id = boundedText(action.id, 64, "action:" .. tostring(index)),
+                label = boundedText(action.label, 32, "Action"),
+                callback = action.callback or action.onSelect,
+            }
+        end
+    end
 
     while #Notifications.Queue >= Notifications.MAX_QUEUE do
         local removed = table.remove(Notifications.Queue, 1)
@@ -213,18 +277,24 @@ function Notifications.ShowNext()
     local definition = table.remove(Notifications.Queue, 1)
     local Layout = support.Layout
     local bounds
+    local hasActions = definition.actions and #definition.actions > 0
     if Layout and Layout.ResolveWindow then
         bounds = Layout.ResolveWindow({
             width = 430,
-            height = 116,
+            height = hasActions and 146 or 116,
             minWidth = 340,
-            minHeight = 100,
+            minHeight = hasActions and 130 or 100,
             maxWidth = 620,
-            maxHeight = 160,
+            maxHeight = 180,
             anchor = "top_right",
         })
     else
-        bounds = { x = 20, y = 20, width = 430, height = 116 }
+        bounds = {
+            x = 20,
+            y = 20,
+            width = 430,
+            height = hasActions and 146 or 116,
+        }
     end
     local window = support.Window:new(
         bounds.x, bounds.y, bounds.width, bounds.height)

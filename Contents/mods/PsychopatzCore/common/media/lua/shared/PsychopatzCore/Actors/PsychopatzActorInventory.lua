@@ -13,9 +13,31 @@ ActorInventory.METADATA_SCHEMA = 2
 ActorInventory.DEFAULT_STARTER_VERSION = 1
 
 local DEFAULT_STARTERS = {
-    { fullType = "Base.Tshirt", quantity = 1, wornSlot = "Torso_Upper" },
-    { fullType = "Base.Trousers", quantity = 1, wornSlot = "Legs" },
-    { fullType = "Base.Shoes", quantity = 1, wornSlot = "Shoes" },
+    {
+        fullType = "Base.Tshirt_DefaultTEXTURE_TINT",
+        quantity = 1,
+        wornSlot = "Torso_Upper",
+    },
+    {
+        fullType = "Base.Trousers_Denim",
+        quantity = 1,
+        wornSlot = "Legs",
+    },
+    {
+        fullType = "Base.Shoes_Random",
+        quantity = 1,
+        wornSlot = "Shoes",
+    },
+}
+
+-- These aliases were used by the original Core actor starter payload.  They
+-- are valid symbolic registry keys, but are not concrete PZ item types.  Keep
+-- the migration in Core so providers never need to know how an actor was
+-- persisted.
+ActorInventory.LEGACY_RUNTIME_TYPE_REPLACEMENTS = {
+    ["Base.Tshirt"] = "Base.Tshirt_DefaultTEXTURE_TINT",
+    ["Base.Trousers"] = "Base.Trousers_Denim",
+    ["Base.Shoes"] = "Base.Shoes_Random",
 }
 
 local function clone(value)
@@ -223,6 +245,23 @@ function Ledger:Update(itemId, patch)
     if nextEntry.fullType == "" or type(nextEntry.fullType) ~= "string" then
         return nil, "full_type_required"
     end
+    self.items[index] = nextEntry
+    self:_appendDelta({ op = "upsert", item = nextEntry })
+    self.revision = self.revision + 1
+    return cloneEntry(nextEntry)
+end
+
+function Ledger:ReplaceItemType(itemId, fullType)
+    local index, entry = self:_find(itemId)
+    if not entry then return nil, "item_not_found" end
+    fullType = text(fullType, nil)
+    if not fullType then return nil, "full_type_required" end
+    local typeId = Types.getId(fullType, true)
+    if not typeId then return nil, "item_type_unavailable" end
+
+    local nextEntry = cloneEntry(entry)
+    nextEntry.fullType = fullType
+    nextEntry.record[C.TYPE_ID] = typeId
     self.items[index] = nextEntry
     self:_appendDelta({ op = "upsert", item = nextEntry })
     self.revision = self.revision + 1
@@ -568,6 +607,29 @@ function ActorInventory.ValidatePayload(payload)
     local ledger, reason = ActorInventory.Decode(payload)
     if not ledger then return false, reason end
     return ledger:Validate()
+end
+
+function ActorInventory.SanitizePayload(payload)
+    if type(payload) ~= "table" then return nil, "inventory_payload_required" end
+    local ledger, reason = ActorInventory.Decode(payload)
+    if not ledger then return nil, reason end
+    local changed = false
+    local items = ledger:List()
+    for index = 1, #items do
+        local replacement = ActorInventory.LEGACY_RUNTIME_TYPE_REPLACEMENTS[
+            items[index].fullType
+        ]
+        if replacement then
+            local replaced, replaceReason = ledger:ReplaceItemType(
+                items[index].itemId,
+                replacement
+            )
+            if not replaced then return nil, replaceReason end
+            changed = true
+        end
+    end
+    if not changed then return clone(payload) end
+    return ActorInventory.ToSmallestPayload(ledger)
 end
 
 local function baselineEquivalent(payload, ledger)

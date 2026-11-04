@@ -365,7 +365,8 @@ function ActorMap.Render(map)
                 map,
                 hovered.marker.entry,
                 hovered.x,
-                hovered.y
+                hovered.y,
+                hovered.marker
             )
         end
     else

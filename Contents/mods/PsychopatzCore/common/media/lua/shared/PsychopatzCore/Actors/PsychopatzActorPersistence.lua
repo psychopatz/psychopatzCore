@@ -27,11 +27,20 @@ Persistence.REGISTRY_JSON_LIMITS = {
 local function cloneValidated(actor)
     local valid, reason = Factory.ValidateActor(actor)
     if not valid then return nil, reason end
-    if actor.personalInventory then
-        valid, reason = ActorInventory.ValidatePayload(actor.personalInventory)
+    local copy = Util.clone(actor)
+    copy.appearance, reason = Factory.UpgradeAppearance(
+        copy.appearance,
+        copy.identity
+    )
+    if not copy.appearance then return nil, reason end
+    if copy.personalInventory then
+        copy.personalInventory, reason = ActorInventory.SanitizePayload(
+            copy.personalInventory
+        )
+        if not copy.personalInventory then return nil, reason end
+        valid, reason = ActorInventory.ValidatePayload(copy.personalInventory)
         if not valid then return nil, reason end
     end
-    local copy = Util.clone(actor)
     if not copy.social then copy.social = Social.NewState() end
     local socialValid
     socialValid, reason = Social.Validate(copy.social)
@@ -56,7 +65,9 @@ local function cloneValidated(actor)
 end
 
 local function empty(value)
-    return type(value) == "table" and next(value) == nil
+    if type(value) ~= "table" then return false end
+    for _ in pairs(value) do return false end
+    return true
 end
 
 local function same(left, right)

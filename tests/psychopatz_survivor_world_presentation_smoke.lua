@@ -78,9 +78,10 @@ for _, actorID in ipairs(group.memberActorIDs) do
         "portrait appearance contract missing")
     assert(entry.portrait.equipment
         and entry.portrait.equipment.worn
-        and entry.portrait.equipment.worn.Torso_Upper == "Base.Tshirt"
-        and entry.portrait.equipment.worn.Legs == "Base.Trousers"
-        and entry.portrait.equipment.worn.Shoes == "Base.Shoes",
+        and entry.portrait.equipment.worn.Torso_Upper
+            == "Base.Tshirt_DefaultTEXTURE_TINT"
+        and entry.portrait.equipment.worn.Legs == "Base.Trousers_Denim"
+        and entry.portrait.equipment.worn.Shoes == "Base.Shoes_Random",
         "portrait must project canonical Core worn clothing")
 end
 

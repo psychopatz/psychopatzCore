@@ -15,11 +15,90 @@ local FORENAMES = { "Alex", "Avery", "Casey", "Drew", "Jordan", "Morgan" }
 local SURNAMES = { "Bennett", "Carter", "Hayes", "Marlow", "Parker", "Reed" }
 local GENDERS = { "female", "male" }
 local VOICES = { "calm", "gruff", "warm", "clear" }
-local HAIR_MODELS = { "short", "long", "messy", "shaved" }
-local HAIR_COLORS = { "black", "brown", "blonde", "red" }
+local MALE_HAIR_MODELS = {
+    "Baldspot", "Messy", "Short", "Recede",
+}
+local FEMALE_HAIR_MODELS = {
+    "Ponytail", "Long2", "Bob", "StraightLong",
+}
+local HAIR_COLORS = {
+    { r = 0.08, g = 0.05, b = 0.03 },
+    { r = 0.25, g = 0.12, b = 0.05 },
+    { r = 0.72, g = 0.55, b = 0.25 },
+    { r = 0.48, g = 0.08, b = 0.03 },
+}
 local SKIN_TONES = { "light", "tan", "olive", "dark" }
-local BEARDS = { "none", "stubble", "short", "full" }
-local OUTFITS = { "casual", "workwear", "survival", "formal" }
+local SKIN_COLORS = {
+    { r = 0.86, g = 0.68, b = 0.53 },
+    { r = 0.72, g = 0.50, b = 0.36 },
+    { r = 0.58, g = 0.38, b = 0.25 },
+    { r = 0.38, g = 0.23, b = 0.15 },
+}
+local BEARDS = { "FullBeard", "Goatee", "Moustache", "ShortBoxedBeard" }
+-- Keep the visual contract provider-neutral: Core supplies a base-game named
+-- outfit plus concrete item specs.  Providers may materialize those specs,
+-- while portrait panels can render the same data without a body.
+local OUTFIT_LOADOUTS = {
+    {
+        profile = "caravan_casual",
+        outfit = "Survivor",
+        items = {
+            "Base.Tshirt_DefaultTEXTURE_TINT",
+            "Base.Trousers_Denim",
+            "Base.Shoes_Random",
+        },
+        specs = {
+            {
+                type = "Base.Tshirt_DefaultTEXTURE_TINT",
+                wornSlot = "Torso_Upper",
+            },
+            { type = "Base.Trousers_Denim", wornSlot = "Legs" },
+            { type = "Base.Shoes_Random", wornSlot = "Shoes" },
+        },
+    },
+    {
+        profile = "caravan_workwear",
+        outfit = "Survivor",
+        items = {
+            "Base.Shirt_Workman",
+            "Base.Trousers_JeanBaggy",
+            "Base.Shoes_WorkBoots",
+        },
+        specs = {
+            { type = "Base.Shirt_Workman", wornSlot = "Torso_Upper" },
+            { type = "Base.Trousers_JeanBaggy", wornSlot = "Legs" },
+            { type = "Base.Shoes_WorkBoots", wornSlot = "Shoes" },
+        },
+    },
+    {
+        profile = "caravan_field",
+        outfit = "Survivor",
+        items = {
+            "Base.HoodieDOWN_WhiteTINT",
+            "Base.Trousers_Padded",
+            "Base.Shoes_HikingBoots",
+        },
+        specs = {
+            { type = "Base.HoodieDOWN_WhiteTINT", wornSlot = "Torso_Upper" },
+            { type = "Base.Trousers_Padded", wornSlot = "Legs" },
+            { type = "Base.Shoes_HikingBoots", wornSlot = "Shoes" },
+        },
+    },
+    {
+        profile = "caravan_formal",
+        outfit = "Survivor",
+        items = {
+            "Base.Shirt_FormalWhite",
+            "Base.Trousers_Suit",
+            "Base.Shoes_Black",
+        },
+        specs = {
+            { type = "Base.Shirt_FormalWhite", wornSlot = "Torso_Upper" },
+            { type = "Base.Trousers_Suit", wornSlot = "Legs" },
+            { type = "Base.Shoes_Black", wornSlot = "Shoes" },
+        },
+    },
+}
 
 local function generatedVoice(seed)
     local voice = Util.pick(VOICES, seed, 1)
@@ -63,12 +142,24 @@ local function normalizeVoice(identity, seed)
 end
 
 local function generatedAppearanceV1(seed, identity)
+    local loadout = Util.pick(OUTFIT_LOADOUTS, seed, 13)
+    local isFemale = identity.gender == "female"
     local resolved = {
         skinTone = Util.pick(SKIN_TONES, seed, 3),
-        hairModel = Util.pick(HAIR_MODELS, seed, 5),
-        hairColor = Util.pick(HAIR_COLORS, seed, 7),
-        beardModel = Util.pick(BEARDS, seed, 11),
-        outfit = Util.pick(OUTFITS, seed, 13),
+        skinTexture = isFemale and "FemaleBody01" or "MaleBody01",
+        skinColor = Util.clone(Util.pick(SKIN_COLORS, seed, 9)),
+        hairModel = Util.pick(
+            isFemale and FEMALE_HAIR_MODELS or MALE_HAIR_MODELS,
+            seed,
+            5
+        ),
+        hairColor = Util.clone(Util.pick(HAIR_COLORS, seed, 7)),
+        beardModel = isFemale and "" or Util.pick(BEARDS, seed, 11),
+        outfit = loadout.outfit,
+        outfitMode = "item",
+        outfitProfile = loadout.profile,
+        outfitItems = Util.clone(loadout.items),
+        outfitItemSpecs = Util.clone(loadout.specs),
         gender = identity.gender,
     }
     local policy = {
@@ -108,6 +199,54 @@ local function buildGeneratedAppearance(seed, identity, version)
             policyHash = Json.Fingerprint(Json.Encode(policy)),
         },
     }
+end
+
+local LEGACY_GENERATED_OUTFITS = {
+    casual = true,
+    workwear = true,
+    survival = true,
+    formal = true,
+}
+
+local function upgradeLegacyGeneratedAppearance(appearance, identity)
+    if type(appearance) ~= "table"
+        or type(appearance.contract) ~= "table"
+        or appearance.contract.mode ~= "GENERATED_DEFAULT"
+        or type(appearance.resolved) ~= "table"
+    then
+        return Util.clone(appearance)
+    end
+    local resolved = appearance.resolved
+    if type(resolved.outfitItemSpecs) == "table"
+        and #resolved.outfitItemSpecs > 0
+    then
+        return Util.clone(appearance)
+    end
+    if not LEGACY_GENERATED_OUTFITS[resolved.outfit] then
+        return Util.clone(appearance)
+    end
+
+    local upgraded, reason = buildGeneratedAppearance(
+        identity.identitySeed,
+        identity,
+        Factory.GENERATOR_VERSION
+    )
+    if not upgraded then return nil, reason end
+    for _, key in ipairs({
+        "skinTone", "hairModel", "hairColor", "beardModel", "gender",
+    }) do
+        if resolved[key] ~= nil then
+            upgraded.resolved[key] = Util.clone(resolved[key])
+        end
+    end
+    return upgraded
+end
+
+function Factory.UpgradeAppearance(appearance, identity)
+    if type(identity) ~= "table" then
+        return nil, "appearance_identity_required"
+    end
+    return upgradeLegacyGeneratedAppearance(appearance, identity)
 end
 
 local function appearancePolicy(input)
@@ -224,7 +363,7 @@ function Factory.ExpandAppearance(compact, identity)
         )
     end
     if compact.mode == "full" and type(compact.value) == "table" then
-        return Util.clone(compact.value)
+        return Factory.UpgradeAppearance(compact.value, identity)
     end
     return nil, "appearance_compact_mode_invalid"
 end

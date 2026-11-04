@@ -3,7 +3,7 @@
 
 local Client = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"
-local PortraitPanel
+local PortraitCard
 
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.SurvivorWorldMapHover =
@@ -11,7 +11,8 @@ PsychopatzCore.SurvivorWorldMapHover =
 
 local Hover = PsychopatzCore.SurvivorWorldMapHover
 
-Hover.SIZE = 120
+Hover.SIZE = 128
+Hover.NAME_HEIGHT = 24
 Hover.GAP = 8
 Hover.DELAY_MS = 90
 
@@ -36,16 +37,16 @@ local function visible(panel, value)
     end
 end
 
-local function portraitPanel()
-    if PortraitPanel then return PortraitPanel end
+local function portraitCard()
+    if PortraitCard then return PortraitCard end
     local ok, value = pcall(
         require,
-        "PsychopatzCore/UI/Components/PsychopatzPortraitPanel"
+        "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldMapHoverCard"
     )
     if ok and type(value) == "table" then
-        PortraitPanel = value
+        PortraitCard = value
     end
-    return PortraitPanel
+    return PortraitCard
 end
 
 function Hover.Ensure(map)
@@ -53,26 +54,20 @@ function Hover.Ensure(map)
     if map.psychopatzSurvivorWorldHover then
         return map.psychopatzSurvivorWorldHover
     end
-    local panelType = portraitPanel()
+    local panelType = portraitCard()
     if not panelType or not panelType.new
         or type(map.addChild) ~= "function"
     then
         return nil
     end
-    local size = Hover.SIZE
     local panel = panelType:new(
         0,
         0,
-        size,
-        size,
+        Hover.SIZE,
         {
-            faceOnly = true,
-            showBackground = true,
-            showBorder = true,
-            animate = false,
-            animSetName = false,
-            zoom = 18,
-            yOffset = -0.92,
+            nameHeight = Hover.NAME_HEIGHT,
+            badgeSize = 24,
+            badgeInset = 5,
         }
     )
     if panel.initialise then panel:initialise() end
@@ -94,7 +89,7 @@ function Hover.Hide(map, resetCandidate)
     return true
 end
 
-function Hover.Update(map, entry, markerX, markerY)
+function Hover.Update(map, entry, markerX, markerY, marker)
     local actorID = entry and entry.actorID
     if not map or not actorID then
         Hover.Hide(map)
@@ -131,6 +126,7 @@ function Hover.Update(map, entry, markerX, markerY)
 
     local panel = Hover.Ensure(map)
     if not panel then return false end
+    if panel.setContext then panel:setContext(entry, marker) end
     if map._psychopatzSurvivorWorldHoverActorID
         ~= actorID
     then
@@ -143,6 +139,8 @@ function Hover.Update(map, entry, markerX, markerY)
     end
 
     local size = Hover.SIZE
+    local totalHeight = tonumber(panel.height)
+        or size + Hover.NAME_HEIGHT
     local width = tonumber(map.width)
         or (map.getWidth and map:getWidth())
         or size
@@ -155,10 +153,10 @@ function Hover.Update(map, entry, markerX, markerY)
     )
     local y = math.max(
         4,
-        (tonumber(markerY) or 0) - size - Hover.GAP
+        (tonumber(markerY) or 0) - totalHeight - Hover.GAP
     )
-    if panel.setPortraitBounds then
-        panel:setPortraitBounds(x, y, size, size)
+    if panel.setCardPosition then
+        panel:setCardPosition(x, y)
     else
         panel.x = x
         panel.y = y
