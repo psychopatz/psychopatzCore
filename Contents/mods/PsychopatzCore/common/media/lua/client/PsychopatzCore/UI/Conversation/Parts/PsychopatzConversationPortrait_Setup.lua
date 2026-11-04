@@ -16,9 +16,9 @@ function Portrait:createChildren()
             faceOnly = true,
             animate = true,
             portraitAnimation = true,
-            -- Portraits intentionally use the zombie anim-set family: it is
-            -- the family containing the close-up emote nodes (including
-            -- WaveHi). Camera framing remains face-only below.
+            -- Core ships the shared human survivor portrait nodes in the
+            -- zombie anim-set family so DTAbstract has them without loading
+            -- Project Hoomans. Camera framing remains face-only below.
             animSetName = "zombie",
             stateName = "idle",
             zoom = 14,

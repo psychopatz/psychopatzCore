@@ -2,6 +2,43 @@ local ROOT =
     "Contents/mods/PsychopatzCore/42.20/media/lua/client/PsychopatzCore/"
 package.path = "Contents/mods/PsychopatzCore/42.20/media/lua/client/?.lua;" .. package.path
 
+local portraitAnimationAssets = {
+    {
+        path = "Contents/mods/PsychopatzCore/common/media/AnimSets/zombie/idle/PNC_PortraitIdle.xml",
+        animation = "Bob_Idle",
+        state = "idle",
+    },
+    {
+        path = "Contents/mods/PsychopatzCore/common/media/AnimSets/zombie/idle/PNC_PortraitSpeech.xml",
+        animation = "Bob_Idle",
+        state = "speech",
+    },
+    {
+        path = "Contents/mods/PsychopatzCore/common/media/AnimSets/zombie/idle/PNC_PortraitGreetingWaveHi.xml",
+        animation = "Bob_EmoteWaveHi",
+        state = "wavehi",
+    },
+    {
+        path = "Contents/mods/PsychopatzCore/common/media/AnimSets/zombie/idle/PNC_PortraitDeclineThumbsDown.xml",
+        animation = "Bob_EmoteThumbsDown",
+        state = "thumbsdown",
+    },
+}
+for _, asset in ipairs(portraitAnimationAssets) do
+    local file = io.open(asset.path, "r")
+    if not file then
+        error("Core is missing the shared portrait animation asset: " .. asset.path)
+    end
+    local xml = file:read("*a")
+    file:close()
+    if not string.find(xml, asset.animation, 1, true)
+        or not string.find(xml, "PNCPortraitState", 1, true)
+        or not string.find(xml, asset.state, 1, true)
+    then
+        error("Core portrait animation asset is not bound to the shared portrait state: " .. asset.path)
+    end
+end
+
 local function assertEqual(actual, expected, label)
     if actual ~= expected then
         error((label or "assertEqual") .. ": expected=" .. tostring(expected) .. " actual=" .. tostring(actual))
