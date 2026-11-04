@@ -105,11 +105,15 @@ end
 local function normalizeWeights(value, fallback)
     local source = type(value) == "table" and value or fallback
     local output = {}
+    local hasWeight = false
     for key, weight in pairs(source) do
         weight = math.max(0, tonumber(weight) or 0)
-        if weight > 0 then output[tostring(key)] = weight end
+        if weight > 0 then
+            output[tostring(key)] = weight
+            hasWeight = true
+        end
     end
-    if next(output) == nil then
+    if not hasWeight then
         for key, weight in pairs(fallback) do
             output[key] = weight
         end

@@ -486,7 +486,7 @@ Post-migration consolidation is complete.
 - DynamicTrading full suite: **62/62**; bridge harness **78/78**.
 - changed production Lua parses: Core **1/1**, Hoomans **103/103**, DynamicTrading **6/6**.
 - all repositories pass `git diff --check`.
-- installed-PZ Kahlua was not rerun for S11; S10 Kahlua evidence remains historical, while S11 changed files are covered by luac plus full/focused regression matrices.
+- native feedback triggered a real Kahlua re-audit: `pz_verify.py --kahlua` passes **121/121** surviving S11 production/native-fixture files after removing one Core `next()` use, eight native-fixture `next()` uses, and one DT `os.time()` fallback.
 
 Detailed evidence: `S11_POST_MIGRATION_CONSOLIDATION.md`.
 

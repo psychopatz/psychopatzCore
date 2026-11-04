@@ -115,7 +115,9 @@ DynamicTrading:
 
 All three repositories pass git diff --check.
 
-Installed-PZ Kahlua verification was not rerun in this consolidation session; the accepted S10 Kahlua evidence remains historical evidence, while the current changed files are covered by luac plus the full/focused runtime test matrices above.
+Native testing subsequently exposed a Kahlua-incompatible `next()` call in the Core generation profile normalizer and `next()` uses in eight native acceptance fixtures. The production call and native fixtures were replaced with Kahlua-safe iteration/`ModDataStore.IsEmpty` checks. A complete post-fix `pz_verify.py --kahlua` sweep over every surviving S11 production Lua file plus the eight affected native fixtures passed **121/121 with 0 errors**. The same audit also found and fixed one sandboxed `os.time()` fallback in `DTCommon_CoreActorPolicy.lua`.
+
+The same native run exposed two transport/logging defects. `PsychopatzMoneyBundlerServer.lua` logged every command in the shared `PsychopatzCore` command module before checking whether it was a money command, so normal `ActorProjectionRequest` traffic appeared as MoneyBundler spam. The handler now logs only `BundleMoney`/`UnbundleMoney`. `PsychopatzSurvivorWorldClient.lua` also duplicated ActorProjectionClient's startup projection request; its startup hook now owns discovery bootstrap only. Focused money-bundler and SurvivorWorld transport smokes cover both regressions.
 
 ## Completion boundary
 

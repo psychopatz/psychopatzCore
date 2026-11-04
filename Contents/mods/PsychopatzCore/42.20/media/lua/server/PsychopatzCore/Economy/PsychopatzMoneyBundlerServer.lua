@@ -94,11 +94,13 @@ end
 
 local function onClientCommand(module, command, player)
     if module ~= MoneyBundler.COMMAND_MODULE or not player then return end
-    print("[PsychopatzCore][MoneyBundler][INFO] command="
-        .. tostring(command or "unknown") .. " received")
     if command == MoneyBundler.BUNDLE_COMMAND then
+        print("[PsychopatzCore][MoneyBundler][INFO] command="
+            .. MoneyBundler.BUNDLE_COMMAND .. " received")
         bundleMoney(player)
     elseif command == MoneyBundler.UNBUNDLE_COMMAND then
+        print("[PsychopatzCore][MoneyBundler][INFO] command="
+            .. MoneyBundler.UNBUNDLE_COMMAND .. " received")
         unbundleMoney(player)
     end
 end

@@ -35,6 +35,8 @@ ModData = {
 
 local serverHandlers = {}
 local clientHandlers = {}
+local gameStartHandlers = {}
+local createPlayerHandlers = {}
 Events = {
     OnClientCommand = {
         Add = function(fn)
@@ -46,8 +48,16 @@ Events = {
             clientHandlers[#clientHandlers + 1] = fn
         end,
     },
-    OnGameStart = { Add = function() end },
-    OnCreatePlayer = { Add = function() end },
+    OnGameStart = {
+        Add = function(fn)
+            gameStartHandlers[#gameStartHandlers + 1] = fn
+        end,
+    },
+    OnCreatePlayer = {
+        Add = function(fn)
+            createPlayerHandlers[#createPlayerHandlers + 1] = fn
+        end,
+    },
     OnInitGlobalModData = { Add = function() end },
     OnSave = { Add = function() end },
 }
@@ -105,6 +115,13 @@ local DiscoveryServer = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldDiscoveryServer"
 local Client = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"
+
+for _, handler in ipairs(gameStartHandlers) do handler() end
+assert((clientCommandCounts["ActorProjectionRequest"] or 0) == 1,
+    "startup registered duplicate actor projection requests")
+assert((clientCommandCounts["SurvivorWorldDiscoveryRequest"] or 0) == 1,
+    "startup discovery request count mismatch")
+clientCommandCounts = {}
 
 assert(Client.RequestActors())
 local actors = Client.ListActors(true)

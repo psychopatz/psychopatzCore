@@ -263,7 +263,9 @@ local function onServerCommand(module, command, args)
 end
 
 local function requestInitial()
-    Client.RequestActors()
+    -- ActorProjectionClient already requests all projection sources on
+    -- OnGameStart/OnCreatePlayer. Avoid issuing a duplicate SurvivorWorld
+    -- actor request here; this client owns only its discovery bootstrap.
     Client.RequestDiscovery()
 end
 
