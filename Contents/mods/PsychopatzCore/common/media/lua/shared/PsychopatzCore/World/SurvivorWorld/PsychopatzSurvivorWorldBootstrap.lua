@@ -302,19 +302,37 @@ local function ensureActor(
     seed,
     archetypeID,
     position,
-    extension
+    extension,
+    memberSpec
 )
     if not actorRegistry then return true end
     local existing = actorRegistry:Get(actorID)
     if existing then return existing end
-    return actorRegistry:Create({
+    local actorSpec = {
         actorId = actorID,
         identitySeed = seed,
         archetypeID = archetypeID or "core.survivor",
         ownerMod = "PsychopatzCore",
         world = { position = Util.clone(position) },
         extensions = extension,
-    })
+    }
+    if type(memberSpec) == "table" then
+        actorSpec.identitySeed = memberSpec.identitySeed or seed
+        actorSpec.archetypeID = memberSpec.archetypeID
+            or actorSpec.archetypeID
+        actorSpec.identity = Util.clone(memberSpec.identity)
+        actorSpec.appearance = Util.clone(memberSpec.appearance)
+        actorSpec.starterItems = Util.clone(memberSpec.startingItems)
+        actorSpec.source = Util.clone(memberSpec.source)
+        actorSpec.extensions = Util.clone(extension or {})
+        actorSpec.extensions["dynamictrading.traderPreset"] = {
+            schemaVersion = tonumber(memberSpec.schemaVersion) or 1,
+            presetID = memberSpec.presetID,
+            role = memberSpec.role,
+            visualProfile = memberSpec.visualProfile,
+        }
+    end
+    return actorRegistry:Create(actorSpec)
 end
 
 function Bootstrap.CommitGroupPlan(registry, item, actorRegistry)
@@ -400,7 +418,8 @@ function Bootstrap.CommitGroupPlan(registry, item, actorRegistry)
                 item.actorCommunityID,
                 item.groupID,
                 index == 1 and "leader" or "member"
-            )
+            ),
+            item.memberSpecs and item.memberSpecs[index] or nil
         )
         if not actor then return nil, reason end
     end
@@ -486,7 +505,8 @@ function Bootstrap.Commit(registry, plan, actorRegistry)
                     item.communityID,
                     nil,
                     index == 1 and "leader" or "resident"
-                )
+                ),
+                item.memberSpecs and item.memberSpecs[index] or nil
             )
             if not actor then return nil, reason end
         end

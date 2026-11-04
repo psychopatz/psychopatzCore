@@ -262,6 +262,31 @@ local function appearancePolicy(input)
     return Util.clone(policy), authored
 end
 
+local function authoredSlotSpecs(policy)
+    local specs = {}
+    local slots = type(policy) == "table" and policy.slots or nil
+    local keys = {}
+    if type(slots) ~= "table" then return specs end
+    for key in pairs(slots) do keys[#keys + 1] = key end
+    table.sort(keys, function(left, right)
+        return tostring(left) < tostring(right)
+    end)
+    for _, key in ipairs(keys) do
+        local slot = slots[key]
+        if type(slot) == "table"
+            and (slot.mode == "item" or slot.mode == "selected")
+            and (slot.type or slot.fullType)
+        then
+            specs[#specs + 1] = {
+                type = slot.type or slot.fullType,
+                wornSlot = slot.wornSlot or slot.bodyLocation or key,
+                itemState = Util.clone(slot.itemState),
+            }
+        end
+    end
+    return specs
+end
+
 local function normalizeAppearance(input, seed, identity)
     local policy, authored = appearancePolicy(input)
     if not authored then
@@ -287,6 +312,34 @@ local function normalizeAppearance(input, seed, identity)
     else
         resolved = Util.clone(resolved)
     end
+
+    if type(resolved.outfitItemSpecs) ~= "table"
+        or #resolved.outfitItemSpecs <= 0
+    then
+        resolved.outfitItemSpecs = authoredSlotSpecs(policy)
+    end
+    if type(resolved.outfitItems) ~= "table"
+        or #resolved.outfitItems <= 0
+    then
+        resolved.outfitItems = {}
+        for index, spec in ipairs(resolved.outfitItemSpecs) do
+            resolved.outfitItems[index] = spec.type
+        end
+    end
+    resolved.outfit = resolved.outfit or Util.clone(policy.outfit)
+    resolved.outfitMode = resolved.outfitMode
+        or (policy.outfit and policy.outfit.mode)
+    resolved.skinTone = resolved.skinTone or policy.skinTone
+    resolved.skinTexture = resolved.skinTexture
+        or policy.skinTexture
+        or (identity.survivor and identity.survivor.skinTexture)
+    resolved.skinColor = resolved.skinColor
+        or Util.clone(policy.skinColor)
+    resolved.hairModel = resolved.hairModel or policy.hairModel
+    resolved.hairColor = resolved.hairColor
+        or Util.clone(policy.hairColor)
+    resolved.beardModel = resolved.beardModel or policy.beardModel
+    resolved.gender = resolved.gender or identity.gender
 
     return {
         policySchemaVersion = Factory.APPEARANCE_POLICY_SCHEMA,
