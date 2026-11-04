@@ -123,6 +123,26 @@ Developer gates:
 
 Then user-owned native acceptance.
 
+## S11 — Post-migration consolidation
+
+**COMPLETE**
+
+After developer acceptance, remove migration-era fallback authority and misleading adopter names without changing the accepted ownership model.
+
+Completed:
+
+- retired PNC generic roots are known only by one bounded pre-SurvivorWorld import reader;
+- faction/community/Hoomans abstract state are explicit runtime views, not standalone storage authorities;
+- detached/partial Hoomans compositions cannot resurrect old generic ModData writes;
+- PNC-only community/group generation-plan modules are removed and automatic generation consumes Core plans;
+- Core supports bounded existing-member group plans;
+- DT retired schema aliases and pre-SurvivorWorld actor IDs are isolated behind explicit one-way import modules;
+- DTHoomans uses Core generic faction naming and Hoomans-only population policy tags.
+
+Gate met: Core **141/148** with the same seven unrelated failures, Hoomans **995/1000** with the same five unrelated failures, DynamicTrading **62/62**, bridge harness **78/78**, changed production Lua parses cleanly, and source/diff audits show no active duplicate generic-world authority.
+
+Detailed evidence: S11_POST_MIGRATION_CONSOLIDATION.md.
+
 ## Stop condition
 
 Do not stop after compact persistence or one adopter.

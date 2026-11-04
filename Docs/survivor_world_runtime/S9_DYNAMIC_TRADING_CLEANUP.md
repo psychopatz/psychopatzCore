@@ -48,9 +48,9 @@ Live DT records use:
 - `providerLeaseID`;
 - `providerBodyID`.
 
-Retired `coreActorID/coreProvider` keys are accepted only by `CoreActorPolicy.Normalize` as one-way save inputs and are immediately rewritten to the canonical shape.
+Retired `coreActorID/coreActorId/coreProvider` keys are decoded only by `DTCommon_PreSurvivorWorldImport.lua` as one-way save inputs and are immediately rewritten to the canonical shape before active policy logic consumes the record.
 
-Pre-S7 standalone actor IDs are isolated in `DTAbstract_TraderWorldMigration.lua`. The migration:
+Pre-SurvivorWorld standalone actor IDs are isolated in `DTAbstract_PreSurvivorWorldImport.lua`. The import:
 
 - recognizes only retired `actor:dt:world:*` / `actor:abstract:*` inputs;
 - selects an existing canonical SurvivorWorld trader actor/group;
@@ -97,7 +97,7 @@ DynamicTrading:
 
 - full suite: **62/62**;
 - settlement-directory/Core identity parity focused tests: pass;
-- provider hot-swap, hybrid handoff, group-journey handoff, persistence, nearby/map and retired-world migration regressions: pass;
+- provider hot-swap, hybrid handoff, group-journey handoff, persistence, nearby/map and pre-SurvivorWorld import regressions: pass;
 - changed S9 production Lua: **16/16** luac;
 - installed-PZ Kahlua: **16/16**;
 - `git diff --check`: pass.
@@ -107,7 +107,7 @@ Cross-repository focused validation:
 - Core SurvivorWorld presentation, transport, discovery and group-journey tests: pass;
 - ProjectHoomans Core travel-directory, live-body projection, discovery client/server cutover and map-layer tests: pass.
 
-Historical DynamicTrading job docs were reconciled so they no longer advertise the deleted projection server or retired service API names.
+Historical DynamicTrading job docs were reconciled so they no longer advertise the deleted projection server or retired service API names. S11 subsequently moved the remaining retired policy aliases out of `CoreActorPolicy` and into the explicit one-way import module named above.
 
 ## Commit
 

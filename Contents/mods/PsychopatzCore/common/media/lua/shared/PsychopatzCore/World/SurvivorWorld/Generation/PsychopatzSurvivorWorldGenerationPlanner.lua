@@ -35,6 +35,27 @@ local function actorIDs(
     return output
 end
 
+local function suppliedActorIDs(value)
+    if type(value) ~= "table" then return nil end
+    local output = {}
+    local seen = {}
+    for index = 1, math.min(
+        #value,
+        Generation.MAX_PLAN_MEMBERS
+    ) do
+        local actorID = Types.SafeID(value[index])
+        if not actorID or seen[actorID] then
+            return nil, "group_plan_member_ids_invalid"
+        end
+        seen[actorID] = true
+        output[#output + 1] = actorID
+    end
+    if #output == 0 or #output ~= #value then
+        return nil, "group_plan_member_ids_invalid"
+    end
+    return output
+end
+
 local function generationMetadata(
     generationID,
     sectorID,
@@ -260,23 +281,32 @@ function Planner.BuildGroupPlan(request)
         }
     end
 
-    local count = math.max(
-        1,
-        math.min(
-            Generation.MAX_PLAN_MEMBERS,
-            math.floor(
-                tonumber(request.memberCount)
-                    or boundedCount(profile.groupSize, seed)
+    local members
+    local memberReason
+    if request.memberActorIDs ~= nil then
+        members, memberReason =
+            suppliedActorIDs(request.memberActorIDs)
+        if not members then return nil, memberReason end
+    else
+        local count = math.max(
+            1,
+            math.min(
+                Generation.MAX_PLAN_MEMBERS,
+                math.floor(
+                    tonumber(request.memberCount)
+                        or boundedCount(profile.groupSize, seed)
+                )
             )
         )
-    )
-    local members = actorIDs(
-        worldSeed,
-        sectorID,
-        serial,
-        count,
-        "group"
-    )
+        members = actorIDs(
+            worldSeed,
+            sectorID,
+            serial,
+            count,
+            "group"
+        )
+    end
+    local count = #members
 
     return {
         schemaVersion = Generation.SCHEMA_VERSION,

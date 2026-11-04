@@ -130,7 +130,7 @@ DynamicTrading focused gates pass:
 - provider runtime handoff;
 - abstract <-> physical hybrid handoff;
 - canonical group-journey handoff/rebase;
-- retired pre-S7 world migration;
+- pre-SurvivorWorld standalone-actor import;
 - trader-world persistence/performance;
 - Core SurvivorWorld identity parity;
 - Core-backed settlement directory;
@@ -176,11 +176,12 @@ Canonical SurvivorWorld ModData is owned by:
 
 - `PsychopatzSurvivorWorldRuntimeStore.lua`.
 
-Hoomans faction/community/abstract-world/discovery stores are compatibility/adopter boundaries:
+Hoomans faction/community/abstract-world/discovery surfaces are runtime compatibility/adopter views, not generic persistence authorities:
 
-- when `PNC.SurvivorWorldExtensions` / Core cutover is active, saves route into Core + Hoomans extension state;
-- if Core authority exists but the cutover adapter is unavailable, those saves fail closed;
-- direct old-root writes are fallback/migration behavior only, not a permanent dual-write path.
+- faction/community view commits route into Core + Hoomans extension state;
+- `PNC.HoomansWorldView` has no public Save authority;
+- if the cutover boundary is unavailable, generic view commits fail closed;
+- retired PNC generic roots are read/retired only by the bounded `PNC_SurvivorWorldImportSource.lua` one-way import path and are never runtime fallback stores.
 
 DynamicTrading has no generic SurvivorWorld ModData root; its persistence remains commercial trader/market/event state.
 
@@ -214,18 +215,20 @@ DynamicTrading contains:
 
 - no built-in Kentucky settlement list;
 - no `EnsureDefaults` world bootstrap;
-- no live `coreActorID/coreProvider*` aliases outside one-way normalization;
+- no live `coreActorID/coreActorId/coreProvider` aliases outside `DTCommon_PreSurvivorWorldImport.lua`;
 - no permanent retired-world subsystem.
 
-Pre-S7 actor IDs are recognized only by bounded `DTAbstract_TraderWorldMigration.lua`.
+Pre-SurvivorWorld actor IDs are recognized only by bounded `DTAbstract_PreSurvivorWorldImport.lua`.
 
 ## Parser and source-quality gates
 
-Current authority surfaces:
+At S10 acceptance, the then-current authority surfaces passed:
 
 - Core SurvivorWorld: **15/15 luac**, **15/15 installed-PZ Kahlua**;
 - ProjectHoomans cutover/persistence surfaces: **24/24 luac**, **24/24 installed-PZ Kahlua**;
 - DynamicTrading S9 authority surfaces: **16/16 luac**, **16/16 installed-PZ Kahlua**.
+
+S11 later changed additional consolidation files; its current parse/regression evidence and explicit Kahlua status are recorded in `S11_POST_MIGRATION_CONSOLIDATION.md`.
 
 All three repositories pass `git diff --check`.
 
@@ -310,6 +313,6 @@ Pass condition: no unexplained save growth or duplicate authority.
 
 ## Completion boundary
 
-All developer-side S0-S10 requirements are accepted.
+All developer-side S0-S10 requirements are accepted. S11 post-migration consolidation subsequently removed the remaining migration-era fallback/name residue without changing this native acceptance matrix.
 
 The remaining release gate is the native N1-N6 matrix above. Until that user-owned native run is complete, status is **developer complete / native acceptance pending**, not fully release-accepted.

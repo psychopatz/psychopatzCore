@@ -97,6 +97,49 @@ for _, actorID in ipairs(groupA.memberActorIDs) do
     truthy(actorID:match("^npc_"), "actor id prefix")
 end
 
+local existingMemberPlan = assert(Generation.BuildGroupPlan({
+    worldSeed = seedA,
+    sectorID = sectorID,
+    serial = 12,
+    source = "community_formation",
+    factionID = communityA.factionID,
+    factionArchetypeID = communityA.factionArchetypeID,
+    groupType = "SCAVENGER",
+    locationID = communityA.locationID,
+    location = communityA.location,
+    memberActorIDs = {
+        "npc_existing_one",
+        "npc_existing_two",
+    },
+}))
+equal(existingMemberPlan.memberCount, 2,
+    "existing-member group count")
+equal(existingMemberPlan.memberActorIDs[1],
+    "npc_existing_one", "existing member one preserved")
+equal(existingMemberPlan.memberActorIDs[2],
+    "npc_existing_two", "existing member two preserved")
+equal(existingMemberPlan.factionPlan, nil,
+    "existing faction does not create duplicate faction plan")
+local invalidMemberPlan, invalidMemberReason =
+    Generation.BuildGroupPlan({
+        worldSeed = seedA,
+        sectorID = sectorID,
+        serial = 13,
+        source = "community_formation",
+        factionID = communityA.factionID,
+        locationID = communityA.locationID,
+        location = communityA.location,
+        memberActorIDs = {
+            "npc_duplicate",
+            "npc_duplicate",
+        },
+    })
+equal(invalidMemberPlan, nil,
+    "duplicate supplied members rejected")
+equal(invalidMemberReason,
+    "group_plan_member_ids_invalid",
+    "duplicate supplied-member reason")
+
 local canonicalBefore = Json.Encode(groupA)
 truthy(Generation.Policies.Register("fixture.policy", {
     BuildExtension = function(plan)

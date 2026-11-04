@@ -49,17 +49,19 @@ Group travel already uses Core GroupJourney from S5.
 
 ## Save authority cleanup
 
-The production persistence coordinator now performs one SurvivorWorld save for the generic world plus Hoomans extension state.
+The production persistence coordinator performs one SurvivorWorld save for the generic world plus Hoomans extension state.
 
-Legacy result names for factions/communities/abstractWorld remain diagnostic aliases only; they do not trigger separate writes.
+Faction/community/abstract-world result names remain diagnostic aliases only; they do not trigger separate generic writes.
 
-Legacy generic Save methods:
+S11 later removed the temporary migration-era Save facade entirely:
 
-- delegate to the active SurvivorWorld cutover;
-- fail closed when Core authority is present but cutover is unavailable;
-- retain isolated legacy fallback only when the Core authority module is not composed.
+- faction and community gameplay views expose `Commit`, which delegates to the active Core + Hoomans-extension boundary;
+- `PNC.HoomansWorldView` has no public Save authority;
+- missing/inactive cutover fails closed;
+- there is no detached/partial-runtime fallback that can recreate old generic ModData roots;
+- retired PNC generic root keys are known only by `PNC_SurvivorWorldImportSource.lua` as one-way pre-SurvivorWorld import inputs.
 
-Legacy generic roots are therefore read-only migration sources in production.
+The retired generic roots are therefore import sources only, never active runtime persistence.
 
 ## Validation
 

@@ -2,9 +2,9 @@
 
 ## Parent status
 
-**DEVELOPER COMPLETE — S0–S10 accepted; native SP/MP acceptance remains user-owned.**
+**DEVELOPER COMPLETE — S0–S11 accepted; native SP/MP acceptance remains user-owned.**
 
-One compact PsychopatzCore SurvivorWorld now owns generic survivor-world identity, persistence, traversal, projection and discovery. ProjectHoomans retains physical/gameplay extension state; DynamicTrading retains commercial state. Final developer validation is green against the established unrelated baselines. Release acceptance still requires the native N1–N6 matrix in `S10_CROSS_REPOSITORY_ACCEPTANCE.md`.
+One compact PsychopatzCore SurvivorWorld now owns generic survivor-world identity, persistence, traversal, projection and discovery. ProjectHoomans retains physical/gameplay extension state; DynamicTrading retains commercial state. S11 additionally removes migration-era fallback authority and misleading adopter storage/identity names while preserving one-way old-save import. Final developer validation is green against the established unrelated baselines. Release acceptance still requires the native N1–N6 matrix in `S10_CROSS_REPOSITORY_ACCEPTANCE.md`.
 
 ## Accepted foundation
 
@@ -322,7 +322,7 @@ ProjectHoomans generic world authority is now cut over to Core.
 - reload reconstructs PNC views from Core + extension state without resurrecting old roots;
 - generic mutation hooks update Core, including audited scavenging and casualty bypasses;
 - production persistence performs one SurvivorWorld save rather than three generic PNC writes;
-- direct legacy saves fail closed when Core authority is composed but cutover is unavailable.
+- the temporary S6 Save redirect failed closed when Core authority was composed but cutover was unavailable; S11 later removed that facade in favor of explicit view `Commit` boundaries with no detached fallback.
 
 Validation:
 
@@ -433,8 +433,8 @@ Accepted ownership:
 - DTCommon owns commercial actor binding, stock/budget, destination intent, visits/exchange/restock/cooldown and compact commercial lifecycle metadata;
 - DTAbstract/DTHoomans own representation execution;
 - provider `getPosition` exists only for bounded representation switching/handoff;
-- retired pre-S7 actor IDs are isolated in one-way `DTAbstract_TraderWorldMigration.lua`;
-- old DT save aliases are accepted only by `CoreActorPolicy.Normalize` and immediately canonicalized.
+- retired pre-SurvivorWorld actor IDs are isolated in one-way `DTAbstract_PreSurvivorWorldImport.lua`;
+- old DT save aliases are decoded by `DTCommon_PreSurvivorWorldImport.lua` and immediately canonicalized before active policy logic.
 
 Validation:
 
@@ -469,13 +469,34 @@ Developer acceptance is complete.
 
 Detailed evidence and native N1–N6 handoff: `S10_CROSS_REPOSITORY_ACCEPTANCE.md`.
 
+## S11 accepted evidence
+
+Post-migration consolidation is complete.
+
+- Core group planning now supports bounded caller-supplied existing actor IDs; duplicate/invalid supplied IDs fail closed.
+- ProjectHoomans retired generic ModData keys are isolated in one frozen pre-SurvivorWorld import reader.
+- `PNC_AbstractWorldStore` is removed; `PNC_HoomansWorldView` is explicitly a Core + Hoomans-extension runtime view and has no public Save authority.
+- faction/community persistence modules are now world-view modules; public write boundaries are `Commit`, with no detached old-root fallback.
+- `PNC_GroupGenerationPlan.lua` and `PNC_SettlementGenerationPlan.lua` are removed; automatic population generation consumes Core plans and passes planned faction/community/group/actor IDs into Hoomans materialization.
+- `PNC_PopulationIdentity.lua` is replaced by Hoomans-only `PNC_PopulationHoomansPolicy.lua`.
+- DynamicTrading old schema aliases live only in `DTCommon_PreSurvivorWorldImport.lua`; pre-SurvivorWorld standalone actor rebinding lives only in `DTAbstract_PreSurvivorWorldImport.lua`.
+- DTHoomans caravan naming now uses Core generation profiles while Hoomans-specific tags use `PNC.PopulationHoomansPolicy`.
+- Core full sweep: **141/148**, same seven unrelated failures.
+- Hoomans full suite: **995/1000**, same five unrelated semantic/harness failures.
+- DynamicTrading full suite: **62/62**; bridge harness **78/78**.
+- changed production Lua parses: Core **1/1**, Hoomans **103/103**, DynamicTrading **6/6**.
+- all repositories pass `git diff --check`.
+- installed-PZ Kahlua was not rerun for S11; S10 Kahlua evidence remains historical, while S11 changed files are covered by luac plus full/focused regression matrices.
+
+Detailed evidence: `S11_POST_MIGRATION_CONSOLIDATION.md`.
+
 ## Current phase
 
 **DEVELOPER COMPLETE — native SP/MP acceptance pending.**
 
 ## Immediate Next Chunk
 
-No further developer implementation is required by this roadmap unless the native N1–N6 matrix exposes a defect.
+No further developer implementation is required by this roadmap unless the native N1–N6 matrix exposes a defect. S11 consolidation has already removed the remaining migration-era fallback/name residue found by the post-S10 audit.
 
 The next action is user-owned native Project Zomboid acceptance using `S10_CROSS_REPOSITORY_ACCEPTANCE.md`.
 
