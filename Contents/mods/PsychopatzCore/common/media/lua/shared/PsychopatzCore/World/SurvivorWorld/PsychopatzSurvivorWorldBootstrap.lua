@@ -317,6 +317,97 @@ local function ensureActor(
     })
 end
 
+function Bootstrap.CommitGroupPlan(registry, item, actorRegistry)
+    if type(registry) ~= "table"
+        or type(registry.UpsertGroup) ~= "function"
+    then
+        return nil, "survivor_world_registry_required"
+    end
+    if type(item) ~= "table"
+        or tostring(item.groupID or "") == ""
+        or tostring(item.factionID or "") == ""
+        or type(item.location) ~= "table"
+    then
+        return nil, "survivor_world_group_plan_invalid"
+    end
+
+    local reason
+    if item.factionPlan then
+        local faction
+        faction, reason = registry:UpsertFaction(item.factionPlan)
+        if not faction then return nil, reason end
+    end
+
+    if item.locationID
+        and type(registry.UpsertLocation) == "function"
+    then
+        local location
+        location, reason = registry:UpsertLocation({
+            id = item.locationID,
+            kind = item.location.kind,
+            x = item.location.x,
+            y = item.location.y,
+            z = item.location.z,
+            generation = {
+                source = item.source,
+                generationID = item.generationID,
+                sectorID = item.sectorID,
+                seed = item.seed,
+            },
+        })
+        if not location then return nil, reason end
+    end
+
+    local group
+    group, reason = registry:UpsertGroup({
+        id = item.groupID,
+        seed = item.seed,
+        factionID = item.factionID,
+        homeCommunityID = item.homeCommunityID,
+        groupType = item.groupType,
+        leaderActorID = item.leaderActorID,
+        memberActorIDs = item.memberActorIDs,
+        mission = item.initialMission,
+        state = "IDLE",
+        location = item.location,
+        resources = {
+            food = 50,
+            water = 50,
+            ammo = item.factionArchetypeID == "looter"
+                and 50 or 15,
+            medical = 10,
+            materials = 0,
+        },
+        generation = {
+            source = item.source,
+            generationID = item.generationID,
+            sectorID = item.sectorID,
+            seed = item.seed,
+        },
+    })
+    if not group then return nil, reason end
+
+    for index, actorID in ipairs(item.memberActorIDs or {}) do
+        local actor
+        actor, reason = ensureActor(
+            actorRegistry,
+            actorID,
+            tostring(item.seed) .. ":" .. actorID,
+            item.factionArchetypeID,
+            item.location,
+            actorExtension(
+                item.factionID,
+                item.actorCommunityID,
+                item.groupID,
+                index == 1 and "leader" or "member"
+            )
+        )
+        if not actor then return nil, reason end
+    end
+
+    return group
+end
+
 function Bootstrap.Commit(registry, plan, actorRegistry)
     if type(registry) ~= "table"
         or type(registry.UpsertFaction) ~= "function"
@@ -402,52 +493,12 @@ function Bootstrap.Commit(registry, plan, actorRegistry)
     end
 
     for _, item in ipairs(plan.groups or {}) do
-        local group, reason = registry:UpsertGroup({
-            id = item.groupID,
-            seed = item.seed,
-            factionID = item.factionID,
-            homeCommunityID = item.homeCommunityID,
-            groupType = item.groupType,
-            leaderActorID = item.leaderActorID,
-            memberActorIDs = item.memberActorIDs,
-            mission = item.initialMission,
-            state = "IDLE",
-            location = item.location,
-            resources = {
-                food = 50,
-                water = 50,
-                ammo = item.factionArchetypeID == "looter"
-                    and 50 or 15,
-                medical = 10,
-                materials = 0,
-            },
-            generation = {
-                source = item.source,
-                generationID = item.generationID,
-                sectorID = item.sectorID,
-                seed = item.seed,
-            },
-        })
+        local group, reason = Bootstrap.CommitGroupPlan(
+            registry,
+            item,
+            actorRegistry
+        )
         if not group then return nil, reason end
-        for index, actorID in ipairs(
-            item.memberActorIDs or {}
-        ) do
-            local actor
-            actor, reason = ensureActor(
-                actorRegistry,
-                actorID,
-                tostring(item.seed) .. ":" .. actorID,
-                item.factionArchetypeID,
-                item.location,
-                actorExtension(
-                    item.factionID,
-                    nil,
-                    item.groupID,
-                    index == 1 and "leader" or "member"
-                )
-            )
-            if not actor then return nil, reason end
-        end
     end
 
     local population = registry:GetPopulation()

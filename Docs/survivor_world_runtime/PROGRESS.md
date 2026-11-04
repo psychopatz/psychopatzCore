@@ -490,15 +490,74 @@ Post-migration consolidation is complete.
 
 Detailed evidence: `S11_POST_MIGRATION_CONSOLIDATION.md`.
 
+## Native remediation — fresh-save trader creation and actor-map ownership
+
+Native DTAbstract acceptance exposed that developer-side S8 coverage had not actually
+made Core the renderer of canonical per-actor map dots, and that DynamicTrading's
+debug spawn UX was still split between adopters. The user explicitly chose a fresh
+save rather than migration of the old `actor:dtabstract:*` save records, so no
+additional old-save repair path was added.
+
+Remediation now preserves one authority per concern:
+
+- PsychopatzCore owns the provider-neutral SurvivorWorld actor-dot renderer,
+  hover, selection, tracking and selected/tracked route presentation;
+- Core server composition now gates on `RuntimeRole.AllowsServerCode()` rather
+  than dedicated-server identity, so single-player correctly registers the
+  SurvivorWorld projection/discovery server handlers;
+- ProjectHoomans only decorates Core actor dots with its visibility,
+  tactical color and identity policy, while retaining its renderer only for
+  genuinely Hoomans-only/non-Core entries;
+- DTAbstract only decorates canonical trader actors with commercial labels and
+  renders community/group/signal discovery; it has no second actor hit/hover/
+  tracking renderer;
+- DTCommon owns the single DynamicTrading debug-spawn client/server contract and
+  provider selection; the former DTHoomans-only spawn menu and DTAbstract-only
+  spawn commands are removed;
+- DTAbstract debug spawn first repositions/binds an unused canonical Core
+  trader-group actor; when no unused canonical trader group remains, DTCommon
+  asks Core to generate one bounded canonical caravan group at the requested
+  position, then binds only the commercial trader role; DTAbstract still
+  creates no body and owns no actor/group identity;
+- DTHoomans consumes the same DTCommon debug command and materializes through
+  its physical provider;
+- the forced startup trader-world tick fills the bounded two-trader target on a
+  fresh save immediately, publishes the Core actor projection, then returns to
+  the normal one-spawn-per-cadence replacement policy.
+
+Developer validation after remediation:
+
+- Core full sweep: **144/151**, with the same seven unrelated baseline failures;
+- ProjectHoomans full suite: **996/1001**, with the same five unrelated
+  semantic/harness failures;
+- DynamicTrading full suite: **68/68**;
+- DTHoomans bridge harness: **78/78**;
+- focused Core actor-map, shared DTCommon debug spawn, DTAbstract map/debug/Talk
+  binding and startup-population regressions pass;
+- changed production Lua: **18/18** installed-PZ Kahlua;
+- all three repositories pass `git diff --check`;
+- source audit finds no surviving provider-specific DT debug-spawn path and no
+  adopter-owned canonical actor-map event/context.
+
+A fresh-save native retest remains required. In DTAbstract, the expected native
+result is two canonical trader bindings available immediately, real Core actor
+coordinates/portraits for Talk, Core-owned NPC dots on the map, and zero visible
+NPC bodies.
+
 ## Current phase
 
 **DEVELOPER COMPLETE — native SP/MP acceptance pending.**
 
 ## Immediate Next Chunk
 
-No further developer implementation is required by this roadmap unless the native N1–N6 matrix exposes a defect. S11 consolidation has already removed the remaining migration-era fallback/name residue found by the post-S10 audit.
+The current native defect remediation is developer-complete. No additional
+old-save migration work is required for this acceptance cycle.
 
-The next action is user-owned native Project Zomboid acceptance using `S10_CROSS_REPOSITORY_ACCEPTANCE.md`.
+The next action is a user-owned **fresh-save** Project Zomboid acceptance pass:
+verify immediate trader generation, DTCommon shared debug spawn, Core-owned NPC
+map dots, DTAbstract Talk/portrait opening, and absence of visible NPC bodies.
+The broader N1–N6 matrix in `S10_CROSS_REPOSITORY_ACCEPTANCE.md` remains the
+release gate.
 
 ## Repository safety
 
@@ -506,7 +565,7 @@ PsychopatzCore: existing main only.
 
 ProjectHoomans: existing main only; preserve unrelated semantic/harness work.
 
-DynamicTrading: existing main only; preserve the two unrelated unstaged mod.info edits.
+DynamicTrading: existing main only; preserve unrelated user work.
 
 No blind pull/reset/rebase/stash.
 

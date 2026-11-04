@@ -9,11 +9,14 @@ if Composition.serverLoaded then
 end
 
 local RuntimeRole = PsychopatzCore.RuntimeRole
-local isServer = RuntimeRole
-    and RuntimeRole.IsServer
-    and RuntimeRole.IsServer()
+local allowsServer = RuntimeRole
+    and RuntimeRole.AllowsServerCode
+    and RuntimeRole.AllowsServerCode()
 
-if not isServer then
+-- Single-player runs both client and server-authoritative Lua in one process.
+-- Gate on authority capability, not dedicated-server identity, otherwise Core
+-- projection/discovery request handlers never register in SP.
+if not allowsServer then
     return Composition
 end
 
