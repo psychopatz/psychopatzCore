@@ -133,10 +133,12 @@ local function createWindowSupport()
         if action and type(action.callback) == "function" then
             pcall(action.callback, self.notification)
         end
-        Notifications.Dismiss(
-            self.notification and self.notification.id,
-            self
-        )
+        if not (self.notification and self.notification.persistent == true) then
+            Notifications.Dismiss(
+                self.notification and self.notification.id,
+                self
+            )
+        end
     end
 
     function ToastWindow:onResponsiveLayout()
@@ -157,8 +159,15 @@ local function createWindowSupport()
         end
         self:buildActions(definition.actions)
         self.startedAt = nowMs()
-        self.expiresAt = self.startedAt > 0
-            and self.startedAt + Notifications.DISPLAY_MS or 0
+        if definition.persistent == true then
+            self.expiresAt = 0
+        else
+            local duration = tonumber(definition.durationMs)
+                or Notifications.DISPLAY_MS
+            duration = math.max(0, duration)
+            self.expiresAt = self.startedAt > 0
+                and self.startedAt + duration or 0
+        end
         self:requestResponsiveLayout(true)
     end
 
@@ -210,17 +219,17 @@ local function createWindowSupport()
     return Notifications._windowSupport
 end
 
-function Notifications.Show(definition)
+local function notificationID(definition, fallback)
     definition = type(definition) == "table" and definition or {}
-    local id = boundedText(
+    return boundedText(
         definition.id or definition.notificationID,
         192,
-        "actor-toast:" .. tostring(nowMs())
+        fallback or ("actor-toast:" .. tostring(nowMs()))
     )
-    if Notifications.QueuedIDs[id] then
-        return false, "duplicate"
-    end
+end
 
+local function buildItem(definition, id)
+    definition = type(definition) == "table" and definition or {}
     local item = {
         id = id,
         actorID = boundedText(
@@ -238,6 +247,12 @@ function Notifications.Show(definition)
         ),
         factionBadge = type(definition.factionBadge) == "table"
             and definition.factionBadge or nil,
+        persistent = definition.persistent == true,
+        durationMs = math.max(
+            0,
+            tonumber(definition.durationMs)
+                or Notifications.DISPLAY_MS
+        ),
         actions = {},
         createdAt = nowMs(),
     }
@@ -255,6 +270,17 @@ function Notifications.Show(definition)
             }
         end
     end
+    return item
+end
+
+function Notifications.Show(definition)
+    definition = type(definition) == "table" and definition or {}
+    local id = notificationID(definition)
+    if Notifications.QueuedIDs[id] then
+        return false, "duplicate"
+    end
+
+    local item = buildItem(definition, id)
 
     while #Notifications.Queue >= Notifications.MAX_QUEUE do
         local removed = table.remove(Notifications.Queue, 1)
@@ -266,6 +292,31 @@ function Notifications.Show(definition)
     Notifications.QueuedIDs[id] = true
     Notifications.ShowNext()
     return true, item
+end
+
+function Notifications.Update(id, definition)
+    id = notificationID({ id = id }, "")
+    if id == "" then return false, "notification_id_required" end
+
+    definition = type(definition) == "table" and definition or {}
+    local item = buildItem(definition, id)
+    for index = 1, #Notifications.Queue do
+        if tostring(Notifications.Queue[index].id or "") == id then
+            Notifications.Queue[index] = item
+            Notifications.QueuedIDs[id] = true
+            Notifications.ShowNext()
+            return true, item
+        end
+    end
+
+    local window = Notifications.instance
+    if window and window.notification
+        and tostring(window.notification.id or "") == id
+    then
+        window:applyNotification(item)
+        return true, item
+    end
+    return false, "notification_not_found"
 end
 
 function Notifications.ShowNext()

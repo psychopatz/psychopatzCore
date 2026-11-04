@@ -6,6 +6,41 @@ PsychopatzCore = {}
 local Notifications = require
     "PsychopatzCore/UI/PsychopatzActorNotificationToast"
 
+Notifications.Clear()
+
+local persistent, persistentReason = Notifications.Show({
+    id = "toast:actor:persistent",
+    actorID = "actor:toast:persistent",
+    name = "Trader Persistent",
+    message = "A trader is operating nearby.",
+    persistent = true,
+    portraitSpec = {
+        actorID = "actor:toast:persistent",
+        face = {},
+    },
+})
+assert(persistent == true, persistentReason)
+assert(Notifications.Queue[1].persistent == true,
+    "proximity actor notifications must opt into persistent presentation")
+assert(type(Notifications.Update) == "function",
+    "actor notifications need an in-place update API for proximity refresh")
+local updated, updateReason = Notifications.Update(
+    "toast:actor:persistent",
+    {
+        id = "toast:actor:persistent",
+        actorID = "actor:toast:persistent",
+        name = "Trader Persistent",
+        message = "The trader is still operating nearby.",
+        persistent = true,
+    }
+)
+assert(updated == true, updateReason)
+assert(Notifications.Queue[1].message
+        == "The trader is still operating nearby.",
+    "persistent actor notifications did not refresh in place")
+assert(Notifications.Dismiss("toast:actor:persistent") == true,
+    "persistent actor notification did not dismiss explicitly")
+
 assert(Notifications.MAX_QUEUE >= 4,
     "actor notification queue must be bounded but usable")
 
