@@ -15,6 +15,8 @@ Hover.SIZE = 128
 Hover.NAME_HEIGHT = 24
 Hover.GAP = 8
 Hover.DELAY_MS = 90
+Hover.KNOWLEDGE_CACHE_MS = 250
+Hover.Providers = Hover.Providers or {}
 
 local function nowMs()
     if type(getTimestampMs) == "function" then
@@ -47,6 +49,147 @@ local function portraitCard()
         PortraitCard = value
     end
     return PortraitCard
+end
+
+local function actorIDFor(entry)
+    if type(entry) ~= "table" then return nil end
+    local actorID = entry.actorID or entry.id or entry.npcId
+    actorID = tostring(actorID or "")
+    return actorID ~= "" and actorID or nil
+end
+
+local function providerFor(entry)
+    local providerID = entry and (
+        entry.knowledgeProvider or entry.hoverProvider or entry.provider
+    ) or nil
+    return Hover.Providers[tostring(providerID or "")]
+end
+
+function Hover.RegisterProvider(providerID, adapter)
+    providerID = tostring(providerID or "")
+    if providerID == "" or type(adapter) ~= "table" then
+        return false, "invalid_map_hover_provider"
+    end
+    if type(adapter.getPortraitSpec) ~= "function"
+        and type(adapter.getContext) ~= "function"
+    then
+        return false, "map_hover_provider_has_no_presentation"
+    end
+    Hover.Providers[providerID] = adapter
+    return true, providerID
+end
+
+function Hover.UnregisterProvider(providerID)
+    providerID = tostring(providerID or "")
+    if providerID == "" or Hover.Providers[providerID] == nil then
+        return false
+    end
+    Hover.Providers[providerID] = nil
+    return true
+end
+
+local function actorKnowledge(map, entry, actorID)
+    if type(Client.GetActorKnowledge) ~= "function" then return nil end
+    local now = nowMs()
+    if map
+        and map._psychopatzSurvivorWorldHoverKnowledgeID == actorID
+        and now > 0
+        and now - (tonumber(
+            map._psychopatzSurvivorWorldHoverKnowledgeAt
+        ) or 0)
+            < Hover.KNOWLEDGE_CACHE_MS
+    then
+        return map._psychopatzSurvivorWorldHoverKnowledge
+    end
+    local providerID = entry and (
+        entry.knowledgeProvider or entry.provider
+    ) or nil
+    local ok, value = pcall(
+        Client.GetActorKnowledge,
+        actorID,
+        {
+            provider = providerID,
+            source = "map_hover",
+            entry = entry,
+        }
+    )
+    if ok and type(value) == "table" then
+        if map then
+            map._psychopatzSurvivorWorldHoverKnowledgeID = actorID
+            map._psychopatzSurvivorWorldHoverKnowledgeAt = now
+            map._psychopatzSurvivorWorldHoverKnowledge = value
+        end
+        return value
+    end
+    return nil
+end
+
+local function requestKnowledge(map, entry, actorID)
+    if map._psychopatzSurvivorWorldHoverKnowledgeRequestedID == actorID then
+        return
+    end
+    map._psychopatzSurvivorWorldHoverKnowledgeRequestedID = actorID
+    if type(Client.RequestActorKnowledge) == "function" then
+        pcall(
+            Client.RequestActorKnowledge,
+            actorID,
+            {
+                provider = entry and (
+                    entry.knowledgeProvider or entry.provider
+                ) or nil,
+                source = "map_hover",
+                entry = entry,
+            }
+        )
+    end
+end
+
+local function identityReady(map, entry, actorID)
+    if entry and entry.identityKnown == false then
+        requestKnowledge(map, entry, actorID)
+        return false
+    end
+    if entry and entry.nameKnown == false then
+        requestKnowledge(map, entry, actorID)
+        return false
+    end
+
+    local knowledge = actorKnowledge(map, entry, actorID)
+    if not knowledge then return true end
+    local state = string.lower(tostring(knowledge.state or ""))
+    if knowledge.pending == true
+        or knowledge.knowledgePending == true
+        or state == "loading"
+        or state == "pending"
+    then
+        requestKnowledge(map, entry, actorID)
+        return false
+    end
+    if knowledge.nameKnown == false or state == "unknown" then
+        requestKnowledge(map, entry, actorID)
+        return false
+    end
+    if knowledge.nameKnown == nil and state ~= "known" then
+        requestKnowledge(map, entry, actorID)
+        return false
+    end
+    return true
+end
+
+local function portraitSpec(entry, adapter)
+    if adapter and type(adapter.getPortraitSpec) == "function" then
+        local ok, value = pcall(adapter.getPortraitSpec, entry)
+        if ok and type(value) == "table" then return value end
+    end
+    return Client.GetPortraitSpec(entry)
+end
+
+local function hoverContext(entry, marker, adapter)
+    if adapter and type(adapter.getContext) == "function" then
+        local ok, value = pcall(adapter.getContext, entry, marker)
+        if ok and type(value) == "table" then return value end
+    end
+    return nil
 end
 
 function Hover.Ensure(map)
@@ -85,17 +228,26 @@ function Hover.Hide(map, resetCandidate)
     if resetCandidate ~= false then
         map._psychopatzSurvivorWorldHoverCandidateID = nil
         map._psychopatzSurvivorWorldHoverCandidateAt = nil
+        map._psychopatzSurvivorWorldHoverKnowledgeRequestedID = nil
+        map._psychopatzSurvivorWorldHoverKnowledgeID = nil
+        map._psychopatzSurvivorWorldHoverKnowledgeAt = nil
+        map._psychopatzSurvivorWorldHoverKnowledge = nil
     end
     return true
 end
 
 function Hover.Update(map, entry, markerX, markerY, marker)
-    local actorID = entry and entry.actorID
+    local actorID = actorIDFor(entry)
     if not map or not actorID then
         Hover.Hide(map)
         return false
     end
-    local spec = Client.GetPortraitSpec(entry)
+    local adapter = providerFor(entry)
+    if not identityReady(map, entry, actorID) then
+        Hover.Hide(map, false)
+        return false
+    end
+    local spec = portraitSpec(entry, adapter)
     if not spec then
         Hover.Hide(map)
         return false
@@ -126,7 +278,9 @@ function Hover.Update(map, entry, markerX, markerY, marker)
 
     local panel = Hover.Ensure(map)
     if not panel then return false end
-    if panel.setContext then panel:setContext(entry, marker) end
+    if panel.setContext then
+        panel:setContext(entry, marker, hoverContext(entry, marker, adapter))
+    end
     if map._psychopatzSurvivorWorldHoverActorID
         ~= actorID
     then

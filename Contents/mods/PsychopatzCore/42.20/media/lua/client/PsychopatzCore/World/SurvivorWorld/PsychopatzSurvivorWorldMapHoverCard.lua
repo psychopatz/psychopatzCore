@@ -86,20 +86,36 @@ function Card:setTarget(character, spec)
     return self.portrait:setTarget(nil, spec) == true
 end
 
-function Card:setContext(entry, marker)
-    local metadata = type(marker) == "table"
-        and type(marker.hoverMetadata) == "table"
-        and marker.hoverMetadata or {}
+function Card:setContext(entry, marker, suppliedMetadata)
+    local metadata = type(suppliedMetadata) == "table"
+        and suppliedMetadata
+        or type(marker) == "table"
+            and type(marker.hoverMetadata) == "table"
+            and marker.hoverMetadata or {}
+    local factionSource = metadata.factionPresentation
+        or metadata.organizationalFaction
+        or entry and (entry.factionPresentation
+            or entry.organizationalFaction
+            or entry.affiliation)
+        or nil
     local name = metadata.name or metadata.displayName
-        or entry and (entry.label or entry.displayName or entry.actorID)
+        or entry and (
+            entry.label or entry.displayName or entry.name or entry.actorID
+                or entry.id or entry.npcId
+        )
         or "Survivor"
-    local faction = metadata.factionName or entry and entry.factionName or ""
-    local role = metadata.role or metadata.factionRole or ""
+    local faction = metadata.factionName
+        or factionSource and (factionSource.name or factionSource.id)
+        or entry and entry.factionName or ""
+    local role = metadata.role or metadata.factionRole
+        or factionSource and (factionSource.role or factionSource.rank)
+        or entry and (entry.role or entry.roleTag) or ""
     local presence = normalizePresence(
         metadata.presence or metadata.providerState
             or entry and entry.providerState
     )
     local factionBadge = metadata.factionBadge or metadata.badge
+        or factionSource and (factionSource.badge or factionSource.emblem)
     local actorIcon = metadata.actorIcon or metadata.icon
     local factionGlyph = factionBadge and factionBadge.glyph
         or metadata.factionGlyph or faction

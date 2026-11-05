@@ -108,6 +108,24 @@ local function knowledgeProvider(providerID)
     return Client.ActorKnowledgeProviders[tostring(providerID or "")]
 end
 
+local function discoveryFor(projection)
+    if type(Client.FindDiscovery) ~= "function"
+        or type(projection) ~= "table"
+    then
+        return nil
+    end
+    local groupID = tostring(projection.groupID or "")
+    if groupID ~= "" then
+        local group = Client.FindDiscovery("group", groupID)
+        if group then return group end
+    end
+    local communityID = tostring(projection.communityID or "")
+    if communityID ~= "" then
+        return Client.FindDiscovery("community", communityID)
+    end
+    return nil
+end
+
 function Client.GetActorKnowledge(actorID, options)
     options = type(options) == "table" and options or {}
     actorID = tostring(actorID or "")
@@ -128,6 +146,27 @@ function Client.GetActorKnowledge(actorID, options)
     local knownName = projection.displayName
         or projection.label
         or projection.identity and projection.identity.displayName
+    local discovery = discoveryFor(projection)
+    if discovery then
+        local phase = tonumber(discovery.phase) or 0
+        local contacted = phase >= 3
+        return {
+            actorID = actorID,
+            provider = providerID,
+            state = contacted and "known" or "unknown",
+            nameKnown = contacted and knownName ~= nil
+                and knownName ~= "" or false,
+            knownName = contacted and knownName or nil,
+            factionKnown = contacted and projection.factionID ~= nil
+                or false,
+            factionID = contacted and projection.factionID or nil,
+            factionName = contacted and projection.factionName or nil,
+            factionPresentation = contacted
+                and projection.factionPresentation or nil,
+            discoveryPhase = phase,
+            revision = tonumber(projection.revision) or 0,
+        }
+    end
     return {
         actorID = actorID,
         provider = providerID,
