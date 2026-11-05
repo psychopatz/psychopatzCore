@@ -26,6 +26,7 @@ local selected
 local highlighted
 local tracked
 local refreshes = 0
+local listCalls = 0
 local Client
 Client = {
     Selection = { selectedActorID = nil },
@@ -35,6 +36,7 @@ Client = {
         return true
     end,
     ListActors = function()
+        listCalls = listCalls + 1
         return actors
     end,
     SetSelected = function(actorID)
@@ -110,6 +112,7 @@ package.preload[
 
 PsychopatzCore = {}
 UIFont = { Small = {} }
+getTimestampMs = function() return 1000 end
 
 local ActorMap = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldActorMap"
@@ -189,6 +192,10 @@ assert(highlighted == "actor:map:a",
     "Core actor hover did not publish canonical identity")
 assert(hoverUpdates == 1,
     "Core actor hover portrait was not invoked")
+local listCallsAfterFirstRender = listCalls
+overlay.render(map)
+assert(listCalls == listCallsAfterFirstRender,
+    "Core actor map rebuilt the full projection on every map render")
 
 local event = assert(
     registered.events["PsychopatzCore:SurvivorWorldActors"],

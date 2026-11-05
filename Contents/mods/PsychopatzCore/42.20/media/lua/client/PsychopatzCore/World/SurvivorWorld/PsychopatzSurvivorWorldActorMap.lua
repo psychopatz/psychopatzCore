@@ -20,6 +20,8 @@ ActorMap.MarkerSize = tonumber(ActorMap.MarkerSize) or 9
 ActorMap.RefreshMs = tonumber(ActorMap.RefreshMs) or 500
 ActorMap.Decorators = ActorMap.Decorators or {}
 ActorMap.LastMarkers = ActorMap.LastMarkers or {}
+ActorMap.EntryCache = ActorMap.EntryCache or nil
+ActorMap.EntryCacheAt = ActorMap.EntryCacheAt or nil
 ActorMap.DotTexture = ActorMap.DotTexture
     or (getTexture and getTexture("media/ui/circle.png") or nil)
 
@@ -32,6 +34,35 @@ local SELECTED_COLOR = {
 local TRACKED_COLOR = {
     r = 0.45, g = 1.0, b = 0.55, a = 1.0,
 }
+
+local function nowMs()
+    if type(getTimestampMs) == "function" then
+        local ok, value = pcall(getTimestampMs)
+        if ok and tonumber(value) then return tonumber(value) end
+    end
+    if type(getTimeInMillis) == "function" then
+        local ok, value = pcall(getTimeInMillis)
+        if ok and tonumber(value) then return tonumber(value) end
+    end
+    return nil
+end
+
+local function projectedEntries()
+    local now = nowMs()
+    local cached = ActorMap.EntryCache
+    local cachedAt = tonumber(ActorMap.EntryCacheAt)
+    local refreshMs = math.max(0, tonumber(ActorMap.RefreshMs) or 500)
+    if cached and now ~= nil and cachedAt ~= nil
+        and now >= cachedAt and now - cachedAt < refreshMs
+    then
+        return cached
+    end
+
+    cached = Client.ListActors(false) or {}
+    ActorMap.EntryCache = cached
+    ActorMap.EntryCacheAt = now
+    return cached
+end
 
 local function copyColor(value, fallback)
     value = type(value) == "table" and value or fallback
@@ -131,7 +162,7 @@ function ActorMap.BuildMarkers()
     local selected = selectionID()
     local tracked = trackedID()
     local decorators = decoratorList()
-    for _, entry in ipairs(Client.ListActors(false) or {}) do
+    for _, entry in ipairs(projectedEntries()) do
         local position = entry and entry.position or nil
         if position and tonumber(position.x) and tonumber(position.y) then
             local style = decorate(entry, decorators)
