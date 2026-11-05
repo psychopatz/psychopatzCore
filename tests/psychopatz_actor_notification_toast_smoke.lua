@@ -75,6 +75,40 @@ assert(Notifications.Queue[1].factionBadge.glyph == "T",
 assert(Notifications.Queue[1].actions[1].id == "talk",
     "toast did not retain optional action")
 
+local actionCalls = 0
+local actionAccepted, actionReason = Notifications.InvokeAction({
+    id = "toast:actor:action",
+    actions = {
+        {
+            id = "talk",
+            label = "Talk",
+            callback = function()
+                actionCalls = actionCalls + 1
+                return false, "conversation_denied"
+            end,
+        },
+    },
+}, 1)
+assert(actionAccepted == false and actionReason == "conversation_denied",
+    "toast action result was not returned to the caller")
+assert(actionCalls == 1, "toast action callback was not invoked exactly once")
+
+local callbackAccepted, callbackReason = Notifications.InvokeAction({
+    id = "toast:actor:error",
+    actions = {
+        {
+            id = "talk",
+            label = "Talk",
+            callback = function()
+                error("callback exploded")
+            end,
+        },
+    },
+}, 1)
+assert(callbackAccepted == false
+        and callbackReason == "notification_action_callback_error",
+    "toast callback errors were not contained and surfaced")
+
 local duplicate, duplicateReason = Notifications.Show({
     id = "toast:actor:one",
     actorID = "actor:toast:one",

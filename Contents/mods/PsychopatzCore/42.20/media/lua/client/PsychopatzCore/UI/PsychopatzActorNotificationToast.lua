@@ -128,11 +128,7 @@ local function createWindowSupport()
 
     function ToastWindow:onActionButton(button)
         local index = tonumber(button and button.internal)
-        local action = self.notification and self.notification.actions
-            and self.notification.actions[index] or nil
-        if action and type(action.callback) == "function" then
-            pcall(action.callback, self.notification)
-        end
+        Notifications.InvokeAction(self.notification, index)
         if not (self.notification and self.notification.persistent == true) then
             Notifications.Dismiss(
                 self.notification and self.notification.id,
@@ -271,6 +267,40 @@ local function buildItem(definition, id)
         end
     end
     return item
+end
+
+function Notifications.InvokeAction(definition, index)
+    definition = type(definition) == "table" and definition or {}
+    index = tonumber(index)
+    local action = index and definition.actions
+        and definition.actions[index] or nil
+    if type(action) ~= "table" or type(action.callback) ~= "function" then
+        return false, "notification_action_unavailable"
+    end
+
+    local ok, accepted, reason = pcall(
+        action.callback,
+        definition
+    )
+    if not ok then
+        print(
+            "[PsychopatzCore][WARN] actor_notification_action_failed"
+                .. " id=" .. tostring(definition.id or "")
+                .. " action=" .. tostring(action.id or index)
+                .. " error=" .. tostring(accepted)
+        )
+        return false, "notification_action_callback_error"
+    end
+    if accepted == false then
+        print(
+            "[PsychopatzCore][WARN] actor_notification_action_rejected"
+                .. " id=" .. tostring(definition.id or "")
+                .. " action=" .. tostring(action.id or index)
+                .. " reason=" .. tostring(reason or "rejected")
+        )
+        return false, reason or "notification_action_rejected"
+    end
+    return true, reason
 end
 
 function Notifications.Show(definition)
