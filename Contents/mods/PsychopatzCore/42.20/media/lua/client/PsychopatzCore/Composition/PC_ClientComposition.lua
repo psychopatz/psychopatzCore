@@ -21,6 +21,8 @@ end
 require "PsychopatzCore/Compatibility/PsychopatzWalkieHotbarGuard"
 require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"
 require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldActorMap"
+require "PsychopatzCore/UI/Map/PsychopatzMapToolsMenu"
+require "PsychopatzCore/UI/Map/PsychopatzMapDebugTools"
 
 Composition.clientLoaded = true
 
