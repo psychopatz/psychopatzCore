@@ -14,6 +14,19 @@ from .provider_registry import (
 )
 from .process import HarnessError, LuaProcess, WorkerLaunchSpec
 from .repository_layout import RepositoryLayout, RepositoryLayoutError
+from .scenario import (
+    deep_merge,
+    derive_actor_identifier,
+    derive_display_name,
+    load_json_document,
+    save_json_document,
+)
+from .worker_session import (
+    SessionClosedError,
+    WorkerReady,
+    WorkerResult,
+    WorkerSession,
+)
 
 __all__ = [
     "CORE_PROVIDER_ID",
@@ -22,9 +35,18 @@ __all__ = [
     "ProviderRegistry",
     "HarnessError",
     "LuaProcess",
+    "SessionClosedError",
+    "WorkerReady",
+    "WorkerResult",
+    "WorkerSession",
+    "deep_merge",
+    "derive_actor_identifier",
+    "derive_display_name",
+    "load_json_document",
     "RepositoryLayout",
     "RepositoryLayoutError",
     "ResolvedProfile",
+    "save_json_document",
     "WorkerLaunchSpec",
 ]
 
