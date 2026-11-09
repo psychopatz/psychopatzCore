@@ -165,6 +165,21 @@ local function metadata(actor, group)
     }
 end
 
+local function isExplicitlyProjectable(actor)
+    local lease = actor and actor.providerLease or nil
+    if lease and (lease.state == "abstract"
+        or lease.state == "materialized"
+        or lease.state == "live"
+    ) then
+        return true
+    end
+    local extensions = actor
+        and type(actor.extensions) == "table"
+        and actor.extensions or {}
+    local identity = extensions["PsychopatzCore.ActorIdentity"]
+    return type(identity) == "table" and identity.project == true
+end
+
 function Presentation.BuildActorEntry(
     worldRegistry,
     actor,
@@ -189,6 +204,16 @@ function Presentation.BuildActorEntry(
     end
 
     local meta = metadata(actor, group)
+    local extensions = actor
+        and type(actor.extensions) == "table"
+        and actor.extensions or {}
+    local identity = extensions["PsychopatzCore.ActorIdentity"]
+    local lease = actor.providerLease or {}
+    local provider = type(identity) == "table"
+        and (identity.providerID or identity.provider) or nil
+    local providerState = lease.state ~= "released"
+        and lease.state or type(identity) == "table"
+        and (identity.presenceState or identity.presenceMode) or lease.state
     if worldRegistry
         and type(worldRegistry.GetFaction) == "function"
         and meta.factionID
@@ -209,13 +234,9 @@ function Presentation.BuildActorEntry(
         {
             sourceID = spec.sourceID
                 or Presentation.SOURCE_ID,
-            provider = actor.providerLease
-                and actor.providerLease.provider
-                or actor.ownerMod,
-            providerState = actor.providerLease
-                and actor.providerLease.state,
-            bodyID = actor.providerLease
-                and actor.providerLease.bodyID,
+            provider = provider or lease.provider or actor.ownerMod,
+            providerState = providerState,
+            bodyID = lease.bodyID,
             position = position,
             journey = group and group.journey or nil,
             groupID = meta.groupID,
@@ -255,6 +276,8 @@ function Presentation.BuildActorEntries(
         return {}
     end
 
+    spec = type(spec) == "table" and spec or {}
+
     local groupsByActor = contextIndex(worldRegistry)
     local output = {}
     for _, actor in ipairs(actorRegistry:List()) do
@@ -264,7 +287,10 @@ function Presentation.BuildActorEntries(
             or ext.groupID ~= nil
             or ext.communityID ~= nil
             or ext.factionID ~= nil
-        if isSurvivorWorldActor then
+        local includeUnscoped = spec.includeUnscoped ~= false
+        if isSurvivorWorldActor
+            or (includeUnscoped and isExplicitlyProjectable(actor))
+        then
             local entry = Presentation.BuildActorEntry(
                 worldRegistry,
                 actor,

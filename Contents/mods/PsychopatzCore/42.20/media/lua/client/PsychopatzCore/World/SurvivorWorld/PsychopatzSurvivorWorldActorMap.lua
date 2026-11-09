@@ -19,10 +19,16 @@ local ActorMap = PsychopatzCore.SurvivorWorldActorMap
 ActorMap.Enabled = ActorMap.Enabled ~= false
 ActorMap.MarkerSize = tonumber(ActorMap.MarkerSize) or 9
 ActorMap.RefreshMs = tonumber(ActorMap.RefreshMs) or 500
+-- Screen projection may refresh twice per second, but the map must not turn
+-- every render pass into a network roster request.  Keep transport cadence
+-- explicit so Hoomans and DynamicTrading share one bounded request policy.
+ActorMap.NetworkRefreshMs = tonumber(ActorMap.NetworkRefreshMs) or 1000
 ActorMap.Decorators = ActorMap.Decorators or {}
+ActorMap.Sources = ActorMap.Sources or {}
 ActorMap.LastMarkers = ActorMap.LastMarkers or {}
 ActorMap.EntryCache = ActorMap.EntryCache or nil
 ActorMap.EntryCacheAt = ActorMap.EntryCacheAt or nil
+ActorMap.MarkerCache = ActorMap.MarkerCache or nil
 ActorMap.DotTexture = ActorMap.DotTexture
     or (getTexture and getTexture("media/ui/circle.png") or nil)
 
@@ -38,31 +44,66 @@ local TRACKED_COLOR = {
 
 local function nowMs()
     if type(getTimestampMs) == "function" then
-        local ok, value = pcall(getTimestampMs)
-        if ok and tonumber(value) then return tonumber(value) end
+        local value = getTimestampMs()
+        if tonumber(value) then return tonumber(value) end
     end
     if type(getTimeInMillis) == "function" then
-        local ok, value = pcall(getTimeInMillis)
-        if ok and tonumber(value) then return tonumber(value) end
+        local value = getTimeInMillis()
+        if tonumber(value) then return tonumber(value) end
     end
     return nil
 end
+
+local sourceList
 
 local function projectedEntries()
     local now = nowMs()
     local cached = ActorMap.EntryCache
     local cachedAt = tonumber(ActorMap.EntryCacheAt)
     local refreshMs = math.max(0, tonumber(ActorMap.RefreshMs) or 500)
-    if cached and now ~= nil and cachedAt ~= nil
+    if cached and type(cached.entries) == "table"
+        and now ~= nil and cachedAt ~= nil
         and now >= cachedAt and now - cachedAt < refreshMs
     then
-        return cached
+        return cached.entries
     end
 
-    cached = Client.ListActors(false) or {}
-    ActorMap.EntryCache = cached
+    local entries = {}
+    local seen = {}
+    local function append(entry)
+        if type(entry) ~= "table" then return end
+        local actorID = tostring(
+            entry.actorID or entry.id or entry.npcId or ""
+        )
+        if actorID == "" or seen[actorID] then return end
+        seen[actorID] = true
+        entries[#entries + 1] = entry
+    end
+
+    -- Core's canonical source always wins a duplicate supplied by an
+    -- optional adopter. Registered sources are integration boundaries: a
+    -- failed optional provider must not break the shared actor map.
+    for _, entry in ipairs(Client.ListActors(false) or {}) do
+        append(entry)
+    end
+    for _, source in ipairs(sourceList()) do
+        local ok, rows = pcall(source.list)
+        if ok and type(rows) == "table" then
+            for _, entry in ipairs(rows) do append(entry) end
+        elseif not ok and PsychopatzCore and PsychopatzCore.LogWarn then
+            PsychopatzCore.LogWarn(
+                "Actor map source failed id=" .. tostring(source.id)
+                    .. " error=" .. tostring(rows)
+            )
+        end
+    end
+
+    ActorMap.EntryCache = {
+        entries = entries,
+        at = now,
+    }
     ActorMap.EntryCacheAt = now
-    return cached
+    return entries
 end
 
 local function copyColor(value, fallback)
@@ -93,6 +134,56 @@ local function decoratorList()
     return output
 end
 
+sourceList = function()
+    local output = {}
+    for id, definition in pairs(ActorMap.Sources) do
+        output[#output + 1] = {
+            id = id,
+            priority = tonumber(definition.priority) or 0,
+            list = definition.list,
+        }
+    end
+    table.sort(output, function(left, right)
+        if left.priority == right.priority then
+            return tostring(left.id) < tostring(right.id)
+        end
+        return left.priority > right.priority
+    end)
+    return output
+end
+
+function ActorMap.InvalidateCache()
+    ActorMap.EntryCache = nil
+    ActorMap.EntryCacheAt = nil
+    ActorMap.MarkerCache = nil
+    return true
+end
+
+function ActorMap.RegisterSource(id, definition)
+    id = tostring(id or "")
+    if id == "" or type(definition) ~= "table"
+        or type(definition.list) ~= "function"
+    then
+        return false, "invalid_actor_map_source"
+    end
+    ActorMap.Sources[id] = {
+        priority = tonumber(definition.priority) or 0,
+        list = definition.list,
+    }
+    ActorMap.InvalidateCache()
+    return true, id
+end
+
+function ActorMap.UnregisterSource(id)
+    id = tostring(id or "")
+    if id == "" or ActorMap.Sources[id] == nil then
+        return false
+    end
+    ActorMap.Sources[id] = nil
+    ActorMap.InvalidateCache()
+    return true
+end
+
 function ActorMap.RegisterDecorator(id, definition)
     id = tostring(id or "")
     if id == "" or type(definition) ~= "table"
@@ -119,11 +210,18 @@ function ActorMap.UnregisterDecorator(id)
 end
 
 local function decorate(entry, decorators)
+    local actorID = entry and (
+        entry.actorID or entry.id or entry.npcId
+    ) or nil
     local style = {
-        label = tostring(entry.label or entry.actorID or "Survivor"),
+        label = tostring(
+            entry.label or entry.displayName or entry.name
+                or actorID or "Survivor"
+        ),
         color = copyColor(DEFAULT_COLOR, DEFAULT_COLOR),
         size = ActorMap.MarkerSize,
         visible = true,
+        showLabel = entry.showLabel == true,
         icon = entry.icon,
         emblem = entry.emblem,
         badge = entry.badge,
@@ -142,7 +240,10 @@ local function decorate(entry, decorators)
     end
     style.color = copyColor(style.color, DEFAULT_COLOR)
     style.size = math.max(5, tonumber(style.size) or ActorMap.MarkerSize)
-    style.label = tostring(style.label or entry.label or entry.actorID)
+    style.label = tostring(
+        style.label or entry.label or entry.displayName
+            or entry.name or actorID
+    )
     return style
 end
 
@@ -159,7 +260,7 @@ end
 
 function ActorMap.BuildMarkers()
     if Client.RequestActorsIfDue then
-        Client.RequestActorsIfDue(ActorMap.RefreshMs)
+        Client.RequestActorsIfDue(ActorMap.NetworkRefreshMs)
     end
     local selected = selectionID()
     local tracked = trackedID()
@@ -179,10 +280,21 @@ function ActorMap.BuildMarkers()
     local decorators = decoratorList()
     for _, entry in ipairs(entries) do
         local position = entry and entry.position or nil
+        if not position and entry
+            and tonumber(entry.x) and tonumber(entry.y)
+        then
+            position = {
+                x = tonumber(entry.x),
+                y = tonumber(entry.y),
+                z = tonumber(entry.z) or 0,
+            }
+        end
         if position and tonumber(position.x) and tonumber(position.y) then
             local style = decorate(entry, decorators)
             if style.visible ~= false then
-                local actorID = tostring(entry.actorID or "")
+                local actorID = tostring(
+                    entry.actorID or entry.id or entry.npcId or ""
+                )
                 local isSelected = selected == actorID
                 local isTracked = tracked == actorID
                 local color = isTracked and TRACKED_COLOR
@@ -199,6 +311,7 @@ function ActorMap.BuildMarkers()
                     badge = style.badge,
                     subtitle = style.subtitle,
                     hoverMetadata = style.hoverMetadata,
+                    showLabel = style.showLabel == true,
                     size = isTracked and math.max(style.size, 13)
                         or isSelected and math.max(style.size, 12)
                         or style.size,
@@ -218,14 +331,82 @@ function ActorMap.BuildMarkers()
     return markers
 end
 
+local function markerPresence(entry, metadata)
+    local state = string.lower(tostring(
+        entry and entry.providerState
+            or metadata and metadata.providerState or ""
+    ))
+    if state == "materialized" or state == "physical"
+        or state == "live"
+    then
+        return "materialized"
+    end
+    if state == "abstract" or state == "remote"
+        or state == "virtual"
+    then
+        return "abstract"
+    end
+    if entry and entry.bodyID then return "materialized" end
+    return "unknown"
+end
+
+function ActorMap.DescribeMarker(marker)
+    if type(marker) ~= "table" then return nil end
+    local entry = marker.entry or marker
+    local metadata = type(marker.hoverMetadata) == "table"
+        and marker.hoverMetadata or {}
+    local actorID = tostring(marker.actorID or entry.actorID
+        or entry.id or entry.npcId or "")
+    if actorID == "" then return nil end
+    local presence = markerPresence(entry, metadata)
+    local journey = entry.journey or {}
+    local route = journey.route or entry.route
+    local routePoints = route and route.points or route
+    return {
+        kind = "actor",
+        source = "PsychopatzCore:SurvivorWorldActors",
+        actorID = actorID,
+        id = actorID,
+        label = marker.label or entry.label or entry.displayName
+            or entry.name or actorID,
+        position = entry.position or marker.position,
+        provider = entry.provider or metadata.provider,
+        providerState = entry.providerState or metadata.providerState,
+        presence = presence,
+        materialized = presence == "materialized",
+        bodyID = entry.bodyID or metadata.bodyID,
+        traderID = metadata.traderID,
+        groupID = entry.groupID or metadata.groupID,
+        communityID = entry.communityID or metadata.communityID,
+        actorSource = entry.sourceID or metadata.sourceID,
+        journeyID = journey.id or journey.journeyID or entry.journeyID,
+        journeyState = journey.state or entry.journeyState,
+        routeAvailable = type(routePoints) == "table"
+            and #routePoints > 0,
+        rendered = marker.visible ~= false,
+    }
+end
+
+function ActorMap.ListDiagnostics()
+    local output = {}
+    for _, marker in ipairs(ActorMap.BuildMarkers() or {}) do
+        local row = ActorMap.DescribeMarker(marker)
+        if row then output[#output + 1] = row end
+    end
+    return output
+end
+
 local function drawRoute(map, marker)
     if not marker or not (marker.selected or marker.tracked
         or Client.IsDebugPresentationEnabled and Client.IsDebugPresentationEnabled())
     then return end
-    local points = marker.entry
-        and marker.entry.journey
-        and marker.entry.journey.route
-        and marker.entry.journey.route.points or nil
+    local journey = marker.entry and marker.entry.journey or nil
+    local route = journey and journey.route or marker.entry
+        and marker.entry.route or nil
+    local points = route and route.points or nil
+    if type(points) ~= "table" and type(route) == "table" then
+        points = route
+    end
     if type(points) ~= "table" or #points < 2
         or not map.javaObject
         or not map.javaObject.DrawLine
@@ -395,7 +576,7 @@ function ActorMap.Render(map)
                     and math.abs(mouseY - sy) <= half + 4
                 then
                     hovered = ActorMap.LastMarkers[marker.actorID]
-                elseif (marker.selected or marker.tracked)
+                elseif (marker.selected or marker.tracked or marker.showLabel)
                     and map.drawTextCentre
                 then
                     map:drawTextCentre(

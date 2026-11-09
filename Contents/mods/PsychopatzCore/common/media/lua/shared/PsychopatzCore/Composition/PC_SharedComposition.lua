@@ -47,6 +47,7 @@ end
 -- Property-to-capability map for on-demand resolution of PsychopatzCore.*
 local PROPERTY_TO_CAP = {
     Actors = "core.actors",
+    Travel = "core.travel",
     Inventory = "core.inventory",
     Currency = "core.currency",
     Conversation = "core.conversation",

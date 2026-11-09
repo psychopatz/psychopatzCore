@@ -10,6 +10,7 @@ local SERVICE_MAP = {
     inventory = "core.inventory",
     currency = "core.currency",
     actors = "core.actors",
+    travel = "core.travel",
     conversation = "core.conversation",
     translation = "core.translation",
     debug = "core.debug",

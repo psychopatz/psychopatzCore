@@ -182,7 +182,21 @@ addDescriptor({
     end,
 })
 
--- 13. Inventory
+-- 13. Provider-neutral travel
+addDescriptor({
+    id = "core.travel",
+    domain = "Travel",
+    roles = { shared = true, client = true, server = true },
+    depends = { "core.actors" },
+    load = function()
+        return require "PsychopatzCore/Travel/PsychopatzTravel"
+    end,
+    facade = function()
+        return PsychopatzCore.Travel
+    end,
+})
+
+-- 14. Inventory
 addDescriptor({
     id = "core.inventory",
     domain = "Inventory",
@@ -432,6 +446,7 @@ addPack({
         "core.inventory",
         "core.currency",
         "core.actors",
+        "core.travel",
         "core.conversation",
         "core.debug",
     },
@@ -444,6 +459,7 @@ addPack({
         "core.inventory",
         "core.currency",
         "core.actors",
+        "core.travel",
         "core.conversation",
         "core.debug",
         "core.radio_device_state",
@@ -458,6 +474,7 @@ addPack({
         "core.inventory",
         "core.currency",
         "core.actors",
+        "core.travel",
         "core.conversation",
         "core.debug",
         "core.radio_device_state",
@@ -482,6 +499,7 @@ addPack({
         "core.world_region",
         "core.deterministic_content",
         "core.actors",
+        "core.travel",
         "core.inventory",
         "core.currency",
         "core.radio_device_state",

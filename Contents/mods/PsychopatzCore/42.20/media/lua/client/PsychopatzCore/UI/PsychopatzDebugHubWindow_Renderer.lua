@@ -1,6 +1,7 @@
 require "PsychopatzCore/UI/PsychopatzUI"
 
 local Renderer = {}
+local Hub = PsychopatzCore.DebugHub
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
@@ -19,8 +20,7 @@ function Renderer.Format(key, fallback, args)
 end
 
 function Renderer.IsAvailable(definition)
-    local ok, available = pcall(definition.available)
-    return ok and not not available
+    return Hub.IsAvailable(definition)
 end
 
 local function drawGroupItem(list, y, entry, alternate)

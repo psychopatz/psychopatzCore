@@ -1,15 +1,23 @@
--- Provider-neutral discovery, actor-tracking, and Debug Hub actions exposed
--- through the shared map-tools surface.
+-- Provider-neutral discovery and actor inspection controls.
+-- Core owns the map toolbar and scoped Debug Hub surfaces; adopters contribute
+-- only provider-specific map-debug tools.
 
+local Host = require "PsychopatzCore/UI/Map/PsychopatzMapHost"
 local Menu = require "PsychopatzCore/UI/Map/PsychopatzMapToolsMenu"
+local DebugMenu = require "PsychopatzCore/UI/Map/PsychopatzMapDebugMenu"
+local MarkerDiagnostics = require
+    "PsychopatzCore/UI/Map/PsychopatzMapMarkerDiagnostics"
+local MarkerDiagnosticsWindow
+local ActorMap
+local Hub = require "PsychopatzCore/UI/PsychopatzDebugHubRegistry"
 local Client = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"
 
 local function tr(key, fallback)
     local translation = PsychopatzCore and PsychopatzCore.Translation
     if translation and type(translation.GetKey) == "function" then
-        local ok, value = pcall(translation.GetKey, key, fallback)
-        if ok and type(value) == "string" and value ~= "" then
+        local value = translation.GetKey(key, fallback)
+        if type(value) == "string" and value ~= "" then
             return value
         end
     end
@@ -47,10 +55,6 @@ local function trackedActorID()
     return value ~= "" and value or nil
 end
 
-local function closeMenu()
-    if Menu and type(Menu.Close) == "function" then Menu.Close() end
-end
-
 local function discoveryAction(action, args)
     if not Client or type(Client.DiscoveryAction) ~= "function" then
         return false, "core_discovery_unavailable"
@@ -58,182 +62,223 @@ local function discoveryAction(action, args)
     return Client.DiscoveryAction(action, args or {})
 end
 
-local function register(id, definition)
-    Menu.Register("PsychopatzCore:" .. id, definition)
-end
-
-register("actor_debug_presentation", {
-    order = 39,
-    visible = canUseDebug,
-    title = function()
-        return Client.IsDebugPresentationEnabled()
-            and tr("UI_PsychopatzMapTools_ActorDebugOff", "Hide survivor debug inspection")
-            or tr("UI_PsychopatzMapTools_ActorDebugOn", "Show survivor debug inspection")
-    end,
-    tooltip = function()
-        return tr("UI_PsychopatzMapTools_ActorDebugHelp",
-            "Show routes and undiscovered overlays. Portraits require learned identity.")
-    end,
-    onActivate = function()
-        return Client.SetDebugPresentationEnabled(not Client.IsDebugPresentationEnabled())
+MarkerDiagnostics.RegisterSource("PsychopatzCore:SurvivorWorldActors", {
+    kind = "actor",
+    priority = 100,
+    list = function()
+        ActorMap = ActorMap or require
+            "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldActorMap"
+        return ActorMap.ListDiagnostics()
     end,
 })
 
-register("discovery_refresh", {
-    order = 10,
-    title = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryRefresh_Title",
-            "Refresh survivor discovery")
+local function registerDebug(id, titleKey, titleFallback, helpKey,
+    helpFallback, order, action, menuTitle, menuTooltip)
+    local definition = {
+        id = "psychopatz.map." .. id,
+        title = tr(titleKey, titleFallback),
+        description = tr(helpKey, helpFallback),
+        source = "Map Debug",
+        surface = "map",
+        order = order,
+        available = canUseDebug,
+        action = action,
+    }
+    if menuTitle then definition.menuTitle = menuTitle end
+    if menuTooltip then definition.menuTooltip = menuTooltip end
+    return Hub.RegisterTool(definition)
+end
+
+registerDebug(
+    "actor_debug_presentation",
+    "UI_PsychopatzMapTools_ActorDebugOn",
+    "Toggle survivor debug inspection",
+    "UI_PsychopatzMapTools_ActorDebugHelp",
+    "Show routes and undiscovered overlays. Portraits require learned identity.",
+    10,
+    function()
+        return Client.SetDebugPresentationEnabled(
+            not Client.IsDebugPresentationEnabled())
     end,
-    tooltip = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryRefresh_Help",
-            "Request the latest Core survivor-world discovery snapshot.")
+    function()
+        local state = Client.IsDebugPresentationEnabled()
+        return tr("UI_PsychopatzMapTools_DebugLabel", "SURVIVOR DEBUG")
+            .. (state and ": ON" or ": OFF")
     end,
-    onActivate = function()
+    function()
+        return tr("UI_PsychopatzMapTools_ActorDebugHelp",
+            "Toggle survivor routes and undiscovered overlays.")
+    end
+)
+
+registerDebug(
+    "marker_diagnostics",
+    "UI_PsychopatzMapTools_MarkerDiagnostics_Title",
+    "Marker diagnostics",
+    "UI_PsychopatzMapTools_MarkerDiagnostics_Help",
+    "Inspect actor, abstract group, discovery signal, and settlement markers.",
+    15,
+    function()
+        MarkerDiagnostics.SetEnabled(
+            not MarkerDiagnostics.IsEnabled())
+        if MarkerDiagnostics.IsEnabled() then
+            MarkerDiagnosticsWindow = MarkerDiagnosticsWindow
+                or require
+                    "PsychopatzCore/UI/Map/PsychopatzMapMarkerDiagnostics_UI"
+            MarkerDiagnosticsWindow.Open()
+        elseif MarkerDiagnosticsWindow then
+            MarkerDiagnosticsWindow.Close()
+        end
+        return true
+    end,
+    function()
+        return tr("UI_PsychopatzMapTools_MarkerDiagnostics_Label",
+            "MARKER DIAGNOSTICS")
+            .. (MarkerDiagnostics.IsEnabled() and ": ON" or ": OFF")
+    end,
+    function()
+        return tr("UI_PsychopatzMapTools_MarkerDiagnostics_Help",
+            "Inspect shared marker presence and provider state.")
+    end
+)
+
+registerDebug(
+    "discovery_refresh",
+    "UI_PsychopatzMapTools_DiscoveryRefresh_Title",
+    "Refresh survivor discovery",
+    "UI_PsychopatzMapTools_DiscoveryRefresh_Help",
+    "Request the latest Core survivor-world discovery snapshot.",
+    20,
+    function()
         if not Client or type(Client.RequestDiscovery) ~= "function" then
             return false, "core_discovery_unavailable"
         end
         return Client.RequestDiscovery()
-    end,
-})
+    end
+)
 
-register("discovery_all_signals", {
-    order = 21,
-    visible = canUseDebug,
-    title = function()
-        return tr("UI_PsychopatzMapTools_DiscoverySignals_Title",
-            "Discover all signals")
-    end,
-    tooltip = function()
-        return tr("UI_PsychopatzMapTools_DiscoverySignals_Help",
-            "Reveal every Core survivor-world signal to this player.")
-    end,
-    onActivate = function()
+registerDebug(
+    "discovery_all_signals",
+    "UI_PsychopatzMapTools_DiscoverySignals_Title",
+    "Discover all signals",
+    "UI_PsychopatzMapTools_DiscoverySignals_Help",
+    "Reveal every Core survivor-world signal to this player.",
+    30,
+    function()
         return discoveryAction("debug_discover_all", { scope = "signals" })
-    end,
-})
+    end
+)
 
-register("discovery_all", {
-    order = 20,
-    visible = canUseDebug,
-    title = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryAll_Title",
-            "Discover all survivor-world entities")
-    end,
-    tooltip = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryAll_Help",
-            "Reveal every Core survivor-world signal, group, and community.")
-    end,
-    onActivate = function()
+registerDebug(
+    "discovery_all",
+    "UI_PsychopatzMapTools_DiscoveryAll_Title",
+    "Discover all survivor-world entities",
+    "UI_PsychopatzMapTools_DiscoveryAll_Help",
+    "Reveal every Core survivor-world signal, group, and community.",
+    40,
+    function()
         return discoveryAction("debug_discover_all", { scope = "all" })
-    end,
-})
+    end
+)
 
-register("discovery_all_groups", {
-    order = 22,
-    visible = canUseDebug,
-    title = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryGroups_Title",
-            "Discover all mobile groups")
-    end,
-    tooltip = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryGroups_Help",
-            "Reveal every Core survivor-world mobile group.")
-    end,
-    onActivate = function()
+registerDebug(
+    "discovery_all_groups",
+    "UI_PsychopatzMapTools_DiscoveryGroups_Title",
+    "Discover all mobile groups",
+    "UI_PsychopatzMapTools_DiscoveryGroups_Help",
+    "Reveal every Core survivor-world mobile group.",
+    50,
+    function()
         return discoveryAction(
-            "debug_discover_all", { scope = "mobile_groups" }
-        )
-    end,
-})
+            "debug_discover_all", { scope = "mobile_groups" })
+    end
+)
 
-register("discovery_all_communities", {
-    order = 23,
-    visible = canUseDebug,
-    title = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryCommunities_Title",
-            "Discover all communities")
-    end,
-    tooltip = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryCommunities_Help",
-            "Reveal every Core survivor-world community.")
-    end,
-    onActivate = function()
+registerDebug(
+    "discovery_all_communities",
+    "UI_PsychopatzMapTools_DiscoveryCommunities_Title",
+    "Discover all communities",
+    "UI_PsychopatzMapTools_DiscoveryCommunities_Help",
+    "Reveal every Core survivor-world community.",
+    60,
+    function()
         return discoveryAction(
-            "debug_discover_all", { scope = "settlements" }
-        )
-    end,
-})
+            "debug_discover_all", { scope = "settlements" })
+    end
+)
 
-register("discovery_reset", {
-    order = 24,
-    visible = canUseDebug,
-    title = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryReset_Title",
-            "Reset discovery")
-    end,
-    tooltip = function()
-        return tr("UI_PsychopatzMapTools_DiscoveryReset_Help",
-            "Clear this player's Core survivor-world discovery state.")
-    end,
-    onActivate = function()
-        return discoveryAction("debug_reset", {})
-    end,
-})
+registerDebug(
+    "discovery_reset",
+    "UI_PsychopatzMapTools_DiscoveryReset_Title",
+    "Reset discovery",
+    "UI_PsychopatzMapTools_DiscoveryReset_Help",
+    "Clear this player's Core survivor-world discovery state.",
+    70,
+    function() return discoveryAction("debug_reset", {}) end
+)
 
-register("track_selected", {
+if Host and Host.Tools and Host.Tools.Register then
+    Host.Tools.Register("PsychopatzCore:track_selected", {
+        order = 40,
+        field = "psychopatzTrackSelectedButton",
+        width = 120,
+        visible = function()
+            return selectedActorID() ~= nil or trackedActorID() ~= nil
+        end,
+        title = function()
+            return trackedActorID() ~= nil
+                and tr("UI_PsychopatzMapTools_TrackingStop_Title",
+                    "Stop tracking survivor")
+                or tr("UI_PsychopatzMapTools_TrackingStart_Title",
+                    "Track selected survivor")
+        end,
+        tooltip = function()
+            return trackedActorID() ~= nil
+                and tr("UI_PsychopatzMapTools_TrackingStop_Help",
+                    "Clear the current Core survivor tracking target.")
+                or tr("UI_PsychopatzMapTools_TrackingStart_Help",
+                    "Track the selected Core survivor actor.")
+        end,
+        onActivate = function()
+            local current = trackedActorID()
+            local target
+            if not current then target = selectedActorID() end
+            if not current and not target then return false end
+            if not Client or type(Client.SetTracked) ~= "function" then
+                return false, "core_tracking_unavailable"
+            end
+            return Client.SetTracked(target) ~= nil
+        end,
+    })
+
+end
+
+local function closeMapToolsMenu()
+    if Menu.instance and type(Menu.instance.close) == "function" then
+        Menu.instance:close()
+    end
+end
+
+Menu.Register("PsychopatzCore:map_debug", {
     order = 40,
-    visible = function()
-        return selectedActorID() ~= nil or trackedActorID() ~= nil
-    end,
-    title = function()
-        return trackedActorID() ~= nil
-            and tr("UI_PsychopatzMapTools_TrackingStop_Title",
-                "Stop tracking survivor")
-            or tr("UI_PsychopatzMapTools_TrackingStart_Title",
-                "Track selected survivor")
-    end,
-    tooltip = function()
-        return trackedActorID() ~= nil
-            and tr("UI_PsychopatzMapTools_TrackingStop_Help",
-                "Clear the current Core survivor tracking target.")
-            or tr("UI_PsychopatzMapTools_TrackingStart_Help",
-                "Track the selected Core survivor actor.")
-    end,
-    onActivate = function()
-        local current = trackedActorID()
-        local target
-        if not current then target = selectedActorID() end
-        if not current and not target then return false end
-        if not Client or type(Client.SetTracked) ~= "function" then
-            return false, "core_tracking_unavailable"
-        end
-        return Client.SetTracked(target) ~= nil
-    end,
-})
-
-register("debug_hub", {
-    order = 90,
     visible = canUseDebug,
+    enabled = canUseDebug,
     title = function()
-        return tr("UI_PsychopatzMapTools_DebugHub_Title", "Debug Hub")
+        return tr("UI_PsychopatzMapTools_DebugHub_Title", "Debug")
     end,
     tooltip = function()
         return tr("UI_PsychopatzMapTools_DebugHub_Help",
-            "Open the shared Psychopatz Debug Hub.")
+            "Open map debug tools.")
     end,
-    onActivate = function()
-        closeMenu()
-        local hub = PsychopatzCore and PsychopatzCore.DebugHub
-        if not hub or type(hub.Open) ~= "function" then
-            local ok, loaded = pcall(require,
-                "PsychopatzCore/UI/PsychopatzDebugHubWindow")
-            if not ok then return false, tostring(loaded) end
-            hub = PsychopatzCore and PsychopatzCore.DebugHub
-        end
-        return hub and type(hub.Open) == "function"
-            and hub.Open() ~= nil
+    onActivate = function(map)
+        closeMapToolsMenu()
+        return DebugMenu.Open(map) ~= nil
+    end,
+    onMapClose = function()
+        DebugMenu.Close()
+        if MarkerDiagnosticsWindow then MarkerDiagnosticsWindow.Close() end
+        Hub.Close("map")
     end,
 })
 
-return Menu
+return Hub

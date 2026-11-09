@@ -11,17 +11,21 @@ PsychopatzCore.MapOverlayRegistry = PsychopatzCore.MapOverlayRegistry or {}
 PsychopatzCore.MapToolRegistry = PsychopatzCore.MapToolRegistry or {}
 PsychopatzCore.MapEventRegistry = PsychopatzCore.MapEventRegistry or {}
 PsychopatzCore.MapContextRegistry = PsychopatzCore.MapContextRegistry or {}
+PsychopatzCore.MapInputRegistry = PsychopatzCore.MapInputRegistry or {}
 
 local Overlays = PsychopatzCore.MapOverlayRegistry
 local Tools = PsychopatzCore.MapToolRegistry
 local MapEvents = PsychopatzCore.MapEventRegistry
 local Contexts = PsychopatzCore.MapContextRegistry
+local Input = PsychopatzCore.MapInputRegistry
 
 Overlays.ByID = Overlays.ByID or {}
 Overlays.Ordered = Overlays.Ordered or {}
 Tools.ByID = Tools.ByID or {}
 MapEvents.ByID = MapEvents.ByID or {}
 Contexts.ByID = Contexts.ByID or {}
+Input.ByID = Input.ByID or {}
+Input.Serial = tonumber(Input.Serial) or 0
 
 local function resolve(definition, field, fallback)
     local value = definition and definition[field]
@@ -178,6 +182,63 @@ end
 
 function MapEvents.List()
     return listMapEvents()
+end
+
+-- A modal world interaction must be able to own the map input stream before
+-- provider event handlers or vanilla panning/selection see it.  The host owns
+-- this arbitration; providers only register a bounded capture definition.
+function Input.Register(id, definition)
+    id = tostring(id or "")
+    if id == "" or type(definition) ~= "table" then
+        return false, "invalid_map_input_capture"
+    end
+    Input.Serial = Input.Serial + 1
+    definition.id = id
+    definition.order = tonumber(definition.order) or 100
+    definition.serial = Input.Serial
+    Input.ByID[id] = definition
+    return true
+end
+
+function Input.Unregister(id)
+    id = tostring(id or "")
+    if id == "" or not Input.ByID[id] then return false end
+    Input.ByID[id] = nil
+    return true
+end
+
+function Input.Get()
+    local active
+    for _, definition in pairs(Input.ByID) do
+        if not active
+            or (tonumber(definition.order) or 100) > (tonumber(active.order) or 100)
+            or ((tonumber(definition.order) or 100) == (tonumber(active.order) or 100)
+                and (tonumber(definition.serial) or 0) > (tonumber(active.serial) or 0))
+        then
+            active = definition
+        end
+    end
+    return active
+end
+
+function Input.Dispatch(method, map, ...)
+    local definition = Input.Get()
+    if not definition then return false end
+    local handler = definition[method]
+    if type(handler) == "function" then
+        local ok, err = pcall(handler, map, ...)
+        if not ok and PsychopatzCore and PsychopatzCore.LogWarn then
+            PsychopatzCore.LogWarn(
+                "Map input capture failed id=" .. tostring(definition.id)
+                    .. " method=" .. tostring(method)
+                    .. " error=" .. tostring(err)
+            )
+        end
+    end
+    -- An active capture owns the stream even when it has no handler for this
+    -- particular event.  This prevents vanilla map input from leaking through
+    -- a modal selector while it is being dragged.
+    return true
 end
 
 function MapEvents.Dispatch(method, map, ...)
@@ -428,18 +489,23 @@ if ISWorldMap and not ISWorldMap._psychopatzCoreMapHostPatched then
     end
 
     function ISWorldMap:onMouseDown(x, y)
+        if Input.Dispatch("onMouseDown", self, x, y) then return true end
         if MapEvents.Dispatch("onMouseDown", self, x, y) then return true end
         if originalMouseDown then return originalMouseDown(self, x, y) end
         return false
     end
 
     function ISWorldMap:onMouseMove(dx, dy)
+        if Input.Dispatch("onMouseMove", self, dx, dy) then return true end
         if MapEvents.Dispatch("onMouseMove", self, dx, dy) then return true end
         if originalMouseMove then return originalMouseMove(self, dx, dy) end
         return false
     end
 
     function ISWorldMap:onMouseMoveOutside(dx, dy)
+        if Input.Dispatch("onMouseMoveOutside", self, dx, dy) then
+            return true
+        end
         if MapEvents.Dispatch("onMouseMoveOutside", self, dx, dy) then
             return true
         end
@@ -450,12 +516,16 @@ if ISWorldMap and not ISWorldMap._psychopatzCoreMapHostPatched then
     end
 
     function ISWorldMap:onMouseUp(x, y)
+        if Input.Dispatch("onMouseUp", self, x, y) then return true end
         if MapEvents.Dispatch("onMouseUp", self, x, y) then return true end
         if originalMouseUp then return originalMouseUp(self, x, y) end
         return false
     end
 
     function ISWorldMap:onMouseUpOutside(x, y)
+        if Input.Dispatch("onMouseUpOutside", self, x, y) then
+            return true
+        end
         if MapEvents.Dispatch("onMouseUpOutside", self, x, y) then
             return true
         end
@@ -466,6 +536,9 @@ if ISWorldMap and not ISWorldMap._psychopatzCoreMapHostPatched then
     end
 
     function ISWorldMap:onRightMouseDown(x, y)
+        if Input.Dispatch("onRightMouseDown", self, x, y) then
+            return true
+        end
         if MapEvents.Dispatch("onRightMouseDown", self, x, y) then
             return true
         end
@@ -476,6 +549,9 @@ if ISWorldMap and not ISWorldMap._psychopatzCoreMapHostPatched then
     end
 
     function ISWorldMap:onRightMouseUp(x, y)
+        if Input.Dispatch("onRightMouseUp", self, x, y) then
+            return true
+        end
         if MapEvents.Dispatch("onRightMouseUp", self, x, y) then
             return true
         end
@@ -519,6 +595,7 @@ end
 return {
     Overlays = Overlays,
     Tools = Tools,
+    Input = Input,
     Events = MapEvents,
     Contexts = Contexts,
 }

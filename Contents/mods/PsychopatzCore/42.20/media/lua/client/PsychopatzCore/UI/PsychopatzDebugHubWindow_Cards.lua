@@ -8,8 +8,8 @@ function Cards.Rebuild(window)
     local selected = window.toolList:getItem()
     local selectedId = window.selectedToolId or (selected and selected.item
         and selected.item.kind ~= "group" and selected.item.id or nil)
-    window.definitions = Hub.GetTools()
-    window.groups = Hub.GetToolGroups()
+    window.definitions = Hub.GetTools(window.surface)
+    window.groups = Hub.GetToolGroups(window.surface)
     window.toolList:clear()
     local restoredSelection = false
     for _, group in ipairs(window.groups) do

@@ -125,6 +125,23 @@ window:onToolListMouseDoubleClick(list, 0, 0)
 assert(launched.coreOne == 1,
     "double-clicking a group header launched a tool")
 
+Hub.RegisterTool({
+    id = "map.one",
+    surface = "map",
+    source = "Map Debug",
+    order = 5,
+    title = "Map One",
+    action = function() launched.mapOne = (launched.mapOne or 0) + 1 end,
+})
+window.surface = "map"
+window:rebuildCards()
+assert(#window.definitions == 1 and window.definitions[1].id == "map.one",
+    "map debug window retained non-map tools")
+assert(#list.items == 2 and list.items[1].item.kind == "group"
+    and list.items[2].item.id == "map.one",
+    "map debug window rendered the wrong scoped rows")
+Hub.UnregisterTool("map.one")
+
 Hub.Window.instance = nil
 
 print("psychopatz_debug_hub_groups_smoke: ok")

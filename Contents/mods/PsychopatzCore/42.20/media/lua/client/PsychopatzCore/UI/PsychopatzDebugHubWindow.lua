@@ -8,6 +8,19 @@ local UI = PsychopatzCore.UI
 local Layout = UI.Layout
 local tr = Renderer.Translate
 
+local function surfaceOf(options)
+    if type(options) ~= "table" then return nil end
+    local surface = tostring(options.surface or "")
+    return surface ~= "" and surface or nil
+end
+
+local function titleFor(options)
+    if surfaceOf(options) == "map" then
+        return tr("UI_PsychopatzMapTools_DebugWindow_Title", "Map Debug Tools")
+    end
+    return tr("UI_PsychopatzDebugHub_Title", "Psychopatz Debug Hub")
+end
+
 PsychopatzDebugHubWindow = PsychopatzWindow:derive("PsychopatzDebugHubWindow")
 Hub.Window = PsychopatzDebugHubWindow
 
@@ -23,6 +36,13 @@ end
 
 function PsychopatzDebugHubWindow:initialise()
     PsychopatzWindow.initialise(self)
+end
+
+function PsychopatzDebugHubWindow:applyOpenOptions(options)
+    self.surface = surfaceOf(options)
+    local title = titleFor(options)
+    if self.setTitle then self:setTitle(title) end
+    self.title = title
 end
 
 function PsychopatzDebugHubWindow:createChildren()
@@ -74,8 +94,11 @@ end
 function PsychopatzDebugHubWindow:render()
     PsychopatzWindow.render(self)
     local rect = self:getContentRect({ top = 55, bottom = 48 })
-    UI.DrawSectionTitle(self, tr("UI_PsychopatzDebugHub_Section",
-        "Development tools"), rect.x, rect.y - Layout.Pixels(22, self.uiScale),
+    local section = self.surface == "map"
+        and tr("UI_PsychopatzMapTools_DebugSection", "Map debug tools")
+        or tr("UI_PsychopatzDebugHub_Section", "Development tools")
+    UI.DrawSectionTitle(self, section, rect.x,
+        rect.y - Layout.Pixels(22, self.uiScale),
         rect.width, tostring(#(self.definitions or {})))
 end
 
@@ -84,8 +107,10 @@ function PsychopatzDebugHubWindow:prerender()
     self:refreshAvailability()
 end
 
-function PsychopatzDebugHubWindow.Open()
+function PsychopatzDebugHubWindow.Open(options)
+    options = options or {}
     if PsychopatzDebugHubWindow.instance then
+        PsychopatzDebugHubWindow.instance:applyOpenOptions(options)
         PsychopatzDebugHubWindow.instance:setVisible(true)
         PsychopatzDebugHubWindow.instance:bringToTop()
         PsychopatzDebugHubWindow.instance:rebuildCards()
@@ -93,7 +118,7 @@ function PsychopatzDebugHubWindow.Open()
     end
 
     local window = UI.NewWindow(PsychopatzDebugHubWindow, {
-        title = tr("UI_PsychopatzDebugHub_Title", "Psychopatz Debug Hub"),
+        title = titleFor(options),
         resizable = true,
         responsiveSpec = {
             width = 720,
@@ -104,6 +129,7 @@ function PsychopatzDebugHubWindow.Open()
             maxHeight = 760,
         },
     })
+    window:applyOpenOptions(options)
     window:initialise()
     window:instantiate()
     window:addToUIManager()
@@ -118,8 +144,8 @@ function PsychopatzDebugHubWindow:new(x, y, width, height, options)
     return o
 end
 
-function Hub.Open()
-    return PsychopatzDebugHubWindow.Open()
+function Hub.Open(options)
+    return PsychopatzDebugHubWindow.Open(options)
 end
 
 return Hub

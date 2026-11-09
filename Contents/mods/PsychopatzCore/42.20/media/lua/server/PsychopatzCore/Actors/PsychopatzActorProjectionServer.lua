@@ -9,6 +9,8 @@ Sync.COMMAND_SNAPSHOT = "ActorProjectionSnapshot"
 Sync.COMMAND_REQUEST = "ActorProjectionRequest"
 Sync.Providers = Sync.Providers or {}
 Sync.Revisions = Sync.Revisions or {}
+Sync.Dirty = Sync.Dirty == true
+Sync.LastDirtyReason = Sync.LastDirtyReason or nil
 
 local function commandModule()
     return PsychopatzCore.COMMAND_MODULE or "PsychopatzCore"
@@ -59,6 +61,23 @@ local function eachPlayer(callback)
         local player = getSpecificPlayer(0)
         if player then callback(player) end
     end
+end
+
+function Sync.MarkDirty(reason)
+    Sync.Dirty = true
+    Sync.LastDirtyReason = tostring(reason or "unspecified")
+    return true
+end
+
+function Sync.ConsumeDirty()
+    if Sync.Dirty ~= true then return false end
+    Sync.Dirty = false
+    Sync.LastDirtyReason = nil
+    return true
+end
+
+function Sync.IsDirty()
+    return Sync.Dirty == true
 end
 
 function Sync.RegisterProvider(sourceID, provider)

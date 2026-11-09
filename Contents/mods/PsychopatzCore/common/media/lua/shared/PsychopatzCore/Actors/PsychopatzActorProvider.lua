@@ -7,6 +7,7 @@ Provider.SCHEMA_VERSION = 1
 Provider.DEFAULT_PROVIDER = "PsychopatzCore"
 Provider.PROVIDERS = {
     PsychopatzCore = true,
+    ProjectHoomans = true,
     DTAbstract = true,
     DTHoomans = true,
 }

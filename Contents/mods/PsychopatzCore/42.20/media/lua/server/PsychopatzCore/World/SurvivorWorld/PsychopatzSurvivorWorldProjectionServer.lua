@@ -34,6 +34,7 @@ function Server.BuildEntries()
         worldHour(),
         {
             sourceID = Server.SOURCE_ID,
+            includeUnscoped = true,
         }
     )
 end

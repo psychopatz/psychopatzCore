@@ -20,6 +20,7 @@ local Interaction = require "PsychopatzCore/Actors/PsychopatzActorInteraction"
 local Notifications = require "PsychopatzCore/Actors/PsychopatzActorNotifications"
 local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
 local Projection = require "PsychopatzCore/Actors/PsychopatzActorProjection"
+local Identity = require "PsychopatzCore/Actors/PsychopatzActorIdentity"
 local RuntimeStore = require "PsychopatzCore/Actors/PsychopatzActorRuntimeStore"
 local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
 local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
@@ -47,6 +48,7 @@ Actors.Interaction = Interaction
 Actors.Notifications = Notifications
 Actors.Provider = Provider
 Actors.Projection = Projection
+Actors.Identity = Identity
 Actors.RuntimeStore = RuntimeStore
 Actors.Persona = Persona
 Actors.Knowledge = Knowledge
@@ -63,6 +65,18 @@ end
 
 function Actors.Get(actorId)
     return Actors.DefaultRegistry:Get(actorId)
+end
+
+function Actors.Resolve(reference)
+    return Actors.DefaultRegistry:Resolve(reference)
+end
+
+function Actors.AttachIdentity(actorID, spec)
+    return Actors.DefaultRegistry:AttachIdentity(actorID, spec)
+end
+
+function Actors.AttachExtension(actorID, extensionID, value)
+    return Actors.DefaultRegistry:AttachExtension(actorID, extensionID, value)
 end
 
 function Actors.Save()

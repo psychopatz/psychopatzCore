@@ -7,9 +7,94 @@ local World = require "PsychopatzCore/Actors/PsychopatzActorWorld"
 local Provider = require "PsychopatzCore/Actors/PsychopatzActorProvider"
 local Persona = require "PsychopatzCore/Actors/PsychopatzActorPersona"
 local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
+local Identity = require "PsychopatzCore/Actors/PsychopatzActorIdentity"
 
 local Registry = {}
 Registry.__index = Registry
+
+local function markProjectionDirty(reason)
+    local core = PsychopatzCore
+    local sync = core and core.ActorProjectionSync or nil
+    if sync and type(sync.MarkDirty) == "function" then
+        sync.MarkDirty(reason)
+    end
+end
+
+local function rebuildIdentityIndex(registry)
+    if not registry.identityResolver then
+        registry.identityResolver = Identity.NewResolver()
+    end
+    return registry.identityResolver:Rebuild(registry.records)
+end
+
+local function mergeIdentityMetadata(base, patch)
+    base = type(base) == "table" and base or {}
+    patch = type(patch) == "table" and patch or {}
+    local output = Util.clone(base)
+    local aliases = {}
+    local aliasSeen = {}
+    local capabilities = {}
+    local capabilityCount = 0
+
+    local function addAlias(value)
+        if #aliases >= Identity.MAX_ALIASES then return end
+        if type(value) == "table" then
+            if #value > 0 then
+                for _, child in ipairs(value) do
+                    addAlias(child)
+                    if #aliases >= Identity.MAX_ALIASES then return end
+                end
+            else
+                for child, enabled in pairs(value) do
+                    if enabled == true then addAlias(child) end
+                    if #aliases >= Identity.MAX_ALIASES then return end
+                end
+            end
+            return
+        end
+        value = Util.text(value, nil)
+        if value and not aliasSeen[value] then
+            aliasSeen[value] = true
+            aliases[#aliases + 1] = value
+        end
+    end
+
+    local function addCapability(key, enabled)
+        if capabilityCount >= Identity.MAX_CAPABILITIES
+            or enabled ~= true
+        then
+            return
+        end
+        key = Util.text(key, nil)
+        if key and not capabilities[key] then
+            capabilities[key] = true
+            capabilityCount = capabilityCount + 1
+        end
+    end
+
+    addAlias(base.aliases)
+    addAlias(patch.aliases)
+    for key, enabled in pairs(base.capabilities or {}) do
+        addCapability(key, enabled)
+    end
+    for key, enabled in pairs(patch.capabilities or {}) do
+        addCapability(key, enabled)
+    end
+
+    if #aliases > 0 then output.aliases = aliases end
+    if capabilityCount > 0 then
+        output.capabilities = capabilities
+    end
+    for _, key in ipairs({
+        "canonicalActorID", "canonicalActorId", "providerID", "provider",
+        "presenceState", "presenceMode", "bodyID", "bodyId", "project",
+    }) do
+        if patch[key] ~= nil then output[key] = Util.clone(patch[key]) end
+    end
+    output.schema = Identity.SCHEMA
+    output.schemaVersion = Identity.SCHEMA_VERSION
+    return output
+end
 
 local function resolvedSpec(spec)
     local actors = PsychopatzCore and PsychopatzCore.Actors or nil
@@ -52,7 +137,9 @@ local function resolvedSpec(spec)
 end
 
 function Registry.new()
-    return setmetatable({ records = {}, revision = 0 }, Registry)
+    local registry = setmetatable({ records = {}, revision = 0 }, Registry)
+    registry.identityResolver = Identity.NewResolver()
+    return registry
 end
 
 function Registry:Count()
@@ -65,10 +152,32 @@ function Registry:Has(actorId)
     return self.records[actorId] ~= nil
 end
 
+function Registry:HasReference(reference)
+    if not self.identityResolver then rebuildIdentityIndex(self) end
+    return self.identityResolver:Has(reference)
+end
+
+function Registry:Resolve(reference)
+    if not self.identityResolver then rebuildIdentityIndex(self) end
+    local resolved, reason = self.identityResolver:Resolve(reference)
+    if not resolved then return nil, reason end
+    local actor = self.records[resolved.recordID]
+    if not actor then return nil, "actor_not_found" end
+    return Util.clone(actor), resolved
+end
+
 function Registry:Remove(actorId)
-    if not self.records[actorId] then return nil, "actor_not_found" end
+    local removed = self.records[actorId]
+    if not removed then return nil, "actor_not_found" end
     self.records[actorId] = nil
+    local indexed, indexReason = rebuildIdentityIndex(self)
+    if not indexed then
+        self.records[actorId] = removed
+        rebuildIdentityIndex(self)
+        return nil, indexReason
+    end
     self.revision = self.revision + 1
+    markProjectionDirty("actor_removed")
     return true
 end
 
@@ -76,6 +185,34 @@ function Registry:Get(actorId)
     local actor = self.records[actorId]
     if not actor then return nil, "actor_not_found" end
     return Util.clone(actor)
+end
+
+-- Attach provider-neutral identity metadata without replacing the actor or
+-- changing its opaque canonical ID. Adopters use this seam to publish aliases,
+-- capabilities, and presence hints after they claim an actor.
+function Registry:AttachIdentity(actorId, spec)
+    actorId = tostring(actorId or "")
+    local current = self.records[actorId]
+    if not current then return nil, "actor_not_found" end
+    spec = type(spec) == "table" and spec or {}
+
+    local extensions = Util.clone(current.extensions or {})
+    extensions[Identity.EXTENSION] = mergeIdentityMetadata(
+        extensions[Identity.EXTENSION], spec
+    )
+    return self:Commit(actorId, { extensions = extensions }, current.revision)
+end
+
+function Registry:AttachExtension(actorId, extensionID, value)
+    actorId = tostring(actorId or "")
+    extensionID = Util.text(extensionID, nil)
+    local current = self.records[actorId]
+    if not current then return nil, "actor_not_found" end
+    if not extensionID then return nil, "extension_id_required" end
+
+    local extensions = Util.clone(current.extensions or {})
+    extensions[extensionID] = Util.clone(value)
+    return self:Commit(actorId, { extensions = extensions }, current.revision)
 end
 
 function Registry:List()
@@ -114,7 +251,14 @@ function Registry:Register(actor)
     if not copy.knowledge then return nil, reason end
     if self.records[actor.actorId] then return nil, "duplicate_actor_id" end
     self.records[actor.actorId] = copy
+    local indexed, indexReason = rebuildIdentityIndex(self)
+    if not indexed then
+        self.records[actor.actorId] = nil
+        rebuildIdentityIndex(self)
+        return nil, indexReason
+    end
     self.revision = self.revision + 1
+    markProjectionDirty("actor_registered")
     return Util.clone(self.records[actor.actorId])
 end
 
@@ -182,7 +326,14 @@ function Registry:Commit(actorId, patch, expectedRevision)
     if not valid then return nil, reason end
 
     self.records[actorId] = nextActor
+    local indexed, indexReason = rebuildIdentityIndex(self)
+    if not indexed then
+        self.records[actorId] = current
+        rebuildIdentityIndex(self)
+        return nil, indexReason
+    end
     self.revision = self.revision + 1
+    markProjectionDirty("actor_committed")
     return Util.clone(nextActor)
 end
 
@@ -245,8 +396,18 @@ function Registry:Load(serialized)
         if replacement[actor.actorId] then return nil, "duplicate_actor_id" end
         replacement[actor.actorId] = actor
     end
+    local previousRecords = self.records
+    local previousResolver = self.identityResolver
     self.records = replacement
+    self.identityResolver = Identity.NewResolver()
+    local indexed, indexReason = rebuildIdentityIndex(self)
+    if not indexed then
+        self.records = previousRecords
+        self.identityResolver = previousResolver
+        return nil, indexReason
+    end
     self.revision = revision
+    markProjectionDirty("actors_loaded")
     return true
 end
 

@@ -1,23 +1,66 @@
 local CLIENT = "Contents/mods/PsychopatzCore/42.20/media/lua/client/"
 package.path = CLIENT .. "?.lua;" .. package.path
 
-local registered = {}
+local toolbar = {}
+local debugTools = {}
 local actions = {}
 local requests = 0
+local inspection = false
+local authorized = true
+local debugMenuOpens = 0
+local debugMenuMap = nil
+local mapMenuEntries = {}
+local mapMenuCloses = 0
 
-local Menu = {
+local Host = {
+    Tools = {
+        Register = function(id, definition)
+            toolbar[id] = definition
+            return true
+        end,
+    },
+}
+package.preload["PsychopatzCore/UI/Map/PsychopatzMapHost"] =
+    function() return Host end
+
+local MapMenu = {
     Register = function(id, definition)
-        registered[id] = definition
+        mapMenuEntries[id] = definition
         return true
+    end,
+    Close = function()
+        mapMenuCloses = mapMenuCloses + 1
     end,
 }
 package.preload["PsychopatzCore/UI/Map/PsychopatzMapToolsMenu"] =
-    function() return Menu end
+    function() return MapMenu end
 
-local inspection = false
+local DebugMenu = {
+    Open = function(map)
+        debugMenuOpens = debugMenuOpens + 1
+        debugMenuMap = map
+        return true
+    end,
+    Close = function() end,
+}
+package.preload["PsychopatzCore/UI/Map/PsychopatzMapDebugMenu"] =
+    function() return DebugMenu end
+
+local Hub = {
+    RegisterTool = function(definition)
+        debugTools[definition.id] = definition
+        return true
+    end,
+}
+package.preload["PsychopatzCore/UI/PsychopatzDebugHubRegistry"] =
+    function() return Hub end
+
 local Client = {
     IsDebugPresentationEnabled = function() return inspection end,
-    SetDebugPresentationEnabled = function(value) inspection = value return true end,
+    SetDebugPresentationEnabled = function(value)
+        inspection = value
+        return true
+    end,
     Selection = { selectedActorID = "actor:selected", trackedActorID = nil },
 }
 function Client.RequestDiscovery()
@@ -37,39 +80,44 @@ package.preload[
 ] = function() return Client end
 
 PsychopatzCore = {
-    Debug = { CanUse = function() return true end },
-    DebugHub = { Open = function() return true end },
+    Debug = { CanUse = function() return authorized end },
+    DebugHub = {},
 }
 getSpecificPlayer = function() return {} end
 
 local loaded = dofile(
     CLIENT .. "PsychopatzCore/UI/Map/PsychopatzMapDebugTools.lua"
 )
-assert(loaded == Menu, "Core map debug tools did not return the shared menu")
+assert(loaded == Hub, "Core map debug tools did not return the Debug Hub")
 
-assert(registered["PsychopatzCore:discovery_refresh"],
-    "Core discovery refresh entry was not registered")
-assert(registered["PsychopatzCore:discovery_all_signals"],
-    "Core signal discovery entry was not registered")
-assert(registered["PsychopatzCore:discovery_all"],
-    "Core all-discovery entry was not registered")
-assert(registered["PsychopatzCore:discovery_all_groups"],
-    "Core group discovery entry was not registered")
-assert(registered["PsychopatzCore:discovery_all_communities"],
-    "Core community discovery entry was not registered")
-assert(registered["PsychopatzCore:discovery_reset"],
-    "Core discovery reset entry was not registered")
-assert(registered["PsychopatzCore:track_selected"],
-    "Core actor tracking entry was not registered")
-assert(registered["PsychopatzCore:debug_hub"],
-    "Core Debug Hub entry was not registered")
+local function debug(id)
+    return assert(debugTools["psychopatz.map." .. id],
+        "missing Debug Hub tool: " .. id)
+end
 
-registered["PsychopatzCore:discovery_refresh"].onActivate()
-registered["PsychopatzCore:discovery_all"].onActivate()
-registered["PsychopatzCore:discovery_all_signals"].onActivate()
-registered["PsychopatzCore:discovery_all_groups"].onActivate()
-registered["PsychopatzCore:discovery_all_communities"].onActivate()
-registered["PsychopatzCore:discovery_reset"].onActivate()
+debug("discovery_refresh")
+debug("discovery_all_signals")
+debug("discovery_all")
+debug("discovery_all_groups")
+debug("discovery_all_communities")
+debug("discovery_reset")
+debug("actor_debug_presentation")
+debug("marker_diagnostics")
+assert(toolbar["PsychopatzCore:track_selected"],
+    "Core actor tracking was not registered as a toolbar tool")
+assert(not toolbar["PsychopatzCore:debug"],
+    "Core Debug button still leaked into the map toolbar")
+local debugMenu = assert(mapMenuEntries["PsychopatzCore:map_debug"],
+    "Core Debug entry was not registered inside Map Tools")
+assert(debugMenu.visible() and debugMenu.enabled(),
+    "authorized map Debug entry was not available")
+
+debug("discovery_refresh").action()
+debug("discovery_all").action()
+debug("discovery_all_signals").action()
+debug("discovery_all_groups").action()
+debug("discovery_all_communities").action()
+debug("discovery_reset").action()
 assert(requests == 1, "Core discovery refresh did not use Core transport")
 assert(#actions == 5, "Core discovery debug actions did not use Core transport")
 assert(actions[1].action == "debug_discover_all"
@@ -85,18 +133,38 @@ assert(actions[4].args.scope == "settlements",
 assert(actions[5].action == "debug_reset",
     "Core discovery reset action changed")
 
-registered["PsychopatzCore:track_selected"].onActivate()
+local tracking = toolbar["PsychopatzCore:track_selected"]
+tracking.onActivate()
 assert(Client.Selection.trackedActorID == "actor:selected",
-    "Core tracking entry did not track selected actor")
-assert(registered["PsychopatzCore:track_selected"].title() == "Stop tracking survivor",
+    "Core tracking button did not track selected actor")
+assert(tracking.title() == "Stop tracking survivor",
     "Core tracking title did not reflect active tracking")
-registered["PsychopatzCore:track_selected"].onActivate()
+tracking.onActivate()
 assert(Client.Selection.trackedActorID == nil,
-    "Core tracking entry did not clear active tracking")
+    "Core tracking button did not clear active tracking")
 
-local debugEntry = assert(registered["PsychopatzCore:actor_debug_presentation"])
-assert(debugEntry.visible(), "authorized shared inspection entry hidden")
-assert(debugEntry.onActivate() and inspection, "shared map menu did not enable inspection")
-assert(debugEntry.title() == "Hide survivor debug inspection")
-assert(debugEntry.onActivate() and not inspection, "shared map menu did not disable inspection")
+local inspectionTool = debug("actor_debug_presentation")
+assert(inspectionTool.available(), "authorized Debug Hub tool hidden")
+assert(inspectionTool.menuTitle() == "SURVIVOR DEBUG: OFF",
+    "map debug toggle did not expose its OFF state")
+assert(inspectionTool.action() and inspection,
+    "Debug Hub inspection tool did not enable inspection")
+assert(inspectionTool.menuTitle() == "SURVIVOR DEBUG: ON",
+    "map debug toggle did not expose its ON state")
+assert(inspectionTool.action() and not inspection,
+    "Debug Hub inspection tool did not disable inspection")
+
+authorized = false
+assert(not inspectionTool.available(),
+    "Debug Hub tool remained available without permission")
+assert(debugMenu.visible() == false and debugMenu.enabled() == false,
+    "map Debug entry remained available without permission")
+authorized = true
+assert(debugMenu.onActivate(),
+    "Map Tools Debug entry did not open the map debug menu")
+assert(debugMenuOpens == 1, "map Debug opened the wrong surface")
+assert(debugMenuMap == nil,
+    "map Debug passed an unexpected map object in the isolated smoke")
+assert(mapMenuCloses == 0,
+    "map Debug used the broad menu close lifecycle instead of closing its window")
 print("psychopatz_map_debug_tools_smoke: PASS")

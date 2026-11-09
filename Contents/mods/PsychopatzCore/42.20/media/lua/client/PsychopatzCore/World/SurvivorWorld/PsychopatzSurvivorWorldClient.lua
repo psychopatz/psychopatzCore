@@ -28,21 +28,23 @@ Client.Selection =
     Client.Selection or Presentation.NewSelection()
 
 Client.DEFAULT_ACTOR_REFRESH_MS = 1000
+Client.ACTOR_PRESENTATION_REFRESH_MS = 500
 Client.DEFAULT_DISCOVERY_REFRESH_MS = 10000
 Client.LastActorRequestAt = Client.LastActorRequestAt or nil
 Client.LastDiscoveryRequestAt = Client.LastDiscoveryRequestAt or nil
 Client.ActorKnowledgeProviders = Client.ActorKnowledgeProviders or {}
 Client.ActorKnowledgeRequestAt = Client.ActorKnowledgeRequestAt or {}
 Client.ACTOR_KNOWLEDGE_REQUEST_MS = 2000
+Client.ActorPresentationCache = Client.ActorPresentationCache or nil
 
 local function nowMs()
     if type(getTimestampMs) == "function" then
-        local ok, value = pcall(getTimestampMs)
-        if ok and tonumber(value) then return tonumber(value) end
+        local value = getTimestampMs()
+        if tonumber(value) then return tonumber(value) end
     end
     if type(getTimeInMillis) == "function" then
-        local ok, value = pcall(getTimeInMillis)
-        if ok and tonumber(value) then return tonumber(value) end
+        local value = getTimeInMillis()
+        if tonumber(value) then return tonumber(value) end
     end
     return nil
 end
@@ -99,9 +101,24 @@ function Client.IsDebugPresentationEnabled()
 end
 
 function Client.ListActors(raw)
-    local entries =
-        ProjectionClient.List(Client.SOURCE_ID)
+    local entries = ProjectionClient.List(Client.SOURCE_ID)
     if raw == true then return entries end
+
+    local now = nowMs()
+    local sourceRevision = ProjectionClient.GetSourceRevision
+        and ProjectionClient.GetSourceRevision(Client.SOURCE_ID) or -1
+    local cached = Client.ActorPresentationCache
+    local refreshMs = math.max(
+        0,
+        tonumber(Client.ACTOR_PRESENTATION_REFRESH_MS) or 500
+    )
+    if cached and cached.sourceRevision == sourceRevision
+        and now ~= nil and cached.at ~= nil
+        and now >= cached.at and now - cached.at < refreshMs
+    then
+        return cached.entries
+    end
+
     local time = getGameTime and getGameTime() or nil
     local hour = time and time.getWorldAgeHours and time:getWorldAgeHours() or nil
     if hour and Presentation.ProjectActorPosition then
@@ -115,7 +132,18 @@ function Client.ListActors(raw)
         end
         entries = projected
     end
-    return Presentation.SpreadOverlaps(entries)
+    entries = Presentation.SpreadOverlaps(entries)
+    Client.ActorPresentationCache = {
+        sourceRevision = sourceRevision,
+        at = now,
+        entries = entries,
+    }
+    return entries
+end
+
+function Client.InvalidateActorPresentationCache()
+    Client.ActorPresentationCache = nil
+    return true
 end
 
 function Client.GetActor(actorID)

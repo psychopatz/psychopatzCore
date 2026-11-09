@@ -32,7 +32,9 @@ end
 
 function Window:onLauncherClick(id)
     local definition = Hub.tools[id]
-    if not definition or not Renderer.IsAvailable(definition) then
+    if not definition
+        or not Hub.MatchesSurface(definition, self.surface)
+        or not Renderer.IsAvailable(definition) then
         local player = getPlayer and getPlayer() or nil
         if player and definition then
             player:Say(Renderer.Format("UI_PsychopatzDebugHub_ToolUnavailable",

@@ -31,7 +31,7 @@ local Client
 Client = {
     Selection = { selectedActorID = nil },
     RequestActorsIfDue = function(interval)
-        assert(interval == 500, "actor map refresh cadence changed")
+        assert(interval == 1000, "actor map network cadence changed")
         refreshes = refreshes + 1
         return true
     end,
@@ -124,6 +124,36 @@ assert(#markers == 2,
     "Core actor map did not expose every canonical actor")
 assert(markers[1].actorID == "actor:map:a",
     "actor map ordering/identity changed")
+
+assert(ActorMap.RegisterSource("test:legacy", {
+    priority = 10,
+    list = function()
+        return {
+            {
+                id = "actor:map:legacy",
+                name = "Legacy",
+                x = 700,
+                y = 800,
+            },
+            {
+                id = "actor:map:a",
+                name = "Duplicate Ada",
+                x = 900,
+                y = 1000,
+            },
+        }
+    end,
+}), "actor map source registration failed")
+markers = ActorMap.BuildMarkers()
+assert(#markers == 3,
+    "Core actor map did not merge an optional actor source")
+assert(markers[3].actorID == "actor:map:legacy",
+    "optional actor source ordering/identity changed")
+assert(ActorMap.UnregisterSource("test:legacy"),
+    "actor map source unregistration failed")
+markers = ActorMap.BuildMarkers()
+assert(#markers == 2,
+    "removed actor source remained in the canonical marker set")
 
 assert(ActorMap.RegisterDecorator("test", {
     priority = 10,

@@ -1,6 +1,7 @@
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Generation = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldGeneration"
+local Identity = require "PsychopatzCore/Actors/PsychopatzActorIdentity"
 
 local Bootstrap = {}
 
@@ -307,7 +308,19 @@ local function ensureActor(
 )
     if not actorRegistry then return true end
     local existing = actorRegistry:Get(actorID)
-    if existing then return existing end
+    if existing then
+        local memberExtensions = type(memberSpec) == "table"
+            and memberSpec.extensions or nil
+        local identity = type(memberExtensions) == "table"
+            and memberExtensions[Identity.EXTENSION] or nil
+        if type(identity) == "table"
+            and type(actorRegistry.AttachIdentity) == "function"
+        then
+            local updated = actorRegistry:AttachIdentity(actorID, identity)
+            if updated then return updated end
+        end
+        return existing
+    end
     local actorSpec = {
         actorId = actorID,
         identitySeed = seed,
@@ -325,6 +338,14 @@ local function ensureActor(
         actorSpec.starterItems = Util.clone(memberSpec.startingItems)
         actorSpec.source = Util.clone(memberSpec.source)
         actorSpec.extensions = Util.clone(extension or {})
+        for extensionID, extensionValue in pairs(
+            memberSpec.extensions or {}
+        ) do
+            if actorSpec.extensions[extensionID] == nil then
+                actorSpec.extensions[extensionID] =
+                    Util.clone(extensionValue)
+            end
+        end
         actorSpec.extensions["dynamictrading.traderPreset"] = {
             schemaVersion = tonumber(memberSpec.schemaVersion) or 1,
             presetID = memberSpec.presetID,

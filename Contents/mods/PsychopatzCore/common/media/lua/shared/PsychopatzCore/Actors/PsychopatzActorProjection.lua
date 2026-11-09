@@ -7,6 +7,7 @@ local Presentation = require
     "PsychopatzCore/Actors/PsychopatzActorPresentation"
 local FactionPresentation = require
     "PsychopatzCore/Actors/PsychopatzActorFactionPresentation"
+local Identity = require "PsychopatzCore/Actors/PsychopatzActorIdentity"
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
 
@@ -40,6 +41,28 @@ local function boundedText(value, limit)
     limit = tonumber(limit) or 128
     if #value > limit then value = string.sub(value, 1, limit) end
     return value
+end
+
+local function boundedAliases(value, canonical, sourceID)
+    local output = {}
+    local seen = {}
+    local function add(alias)
+        alias = boundedText(alias, 192)
+        if not alias or alias == canonical or seen[alias]
+            or #output >= Identity.MAX_ALIASES
+        then
+            return
+        end
+        seen[alias] = true
+        output[#output + 1] = alias
+    end
+    if type(value) == "table" then
+        for index = 1, #value do add(value[index]) end
+    elseif value ~= nil then
+        add(value)
+    end
+    add(sourceID)
+    return output
 end
 
 local function cloneRoute(route)
@@ -95,7 +118,9 @@ end
 
 function Projection.ProjectActor(actor, now, spec)
     if type(actor) ~= "table" then return nil, "actor_required" end
-    local actorID = boundedText(actor.actorId or actor.actorID, 192)
+    local identity, identityReason = Identity.DescribeActor(actor, spec)
+    if not identity then return nil, identityReason end
+    local actorID = boundedText(identity.canonicalActorID, 192)
     if not actorID then return nil, "actor_id_required" end
 
     local world = actor.world
@@ -110,12 +135,19 @@ function Projection.ProjectActor(actor, now, spec)
 
     local entry = {
         actorID = actorID,
+        canonicalActorID = actorID,
+        aliases = Util.clone(identity.aliases),
         revision = math.max(0, math.floor(tonumber(actor.revision) or 0)),
         provider = boundedText(
-            spec.provider or lease.provider or "PsychopatzCore", 64),
+            spec.provider or identity.providerID or lease.provider
+                or "PsychopatzCore", 64),
         providerState = boundedText(
-            spec.providerState or lease.state or "released", 32),
-        bodyID = boundedText(spec.bodyID or lease.bodyID, 192),
+            spec.providerState or identity.presenceState or lease.state
+                or "released", 32),
+        presenceState = boundedText(
+            spec.presenceState or identity.presenceState or lease.state
+                or "released", 32),
+        bodyID = boundedText(spec.bodyID or identity.bodyID or lease.bodyID, 192),
         position = position,
         journey = journey,
         updatedAt = finite(now),
@@ -149,8 +181,8 @@ function Projection.ProjectActor(actor, now, spec)
             or actorID,
         192
     )
-    if type(spec.capabilities) == "table" then
-        entry.capabilities = Util.clone(spec.capabilities)
+    if type(identity.capabilities) == "table" then
+        entry.capabilities = Util.clone(identity.capabilities)
     end
     if type(spec.portrait) == "table" then
         local valid = Presentation.ValidatePortrait(spec.portrait)
@@ -172,8 +204,14 @@ end
 
 function Projection.ValidateEntry(entry)
     if type(entry) ~= "table" then return nil, "entry_required" end
-    local actorID = boundedText(entry.actorID, 192)
-    if not actorID then return nil, "actor_id_required" end
+    local sourceActorID = boundedText(entry.actorID, 192)
+    local actorID = boundedText(
+        entry.canonicalActorID or entry.actorID,
+        192
+    )
+    if not actorID or not sourceActorID then
+        return nil, "actor_id_required"
+    end
     local position = point(entry.position)
     if not position then return nil, "position_required" end
     local portrait
@@ -203,9 +241,16 @@ function Projection.ValidateEntry(entry)
 
     return {
         actorID = actorID,
+        canonicalActorID = actorID,
+        sourceActorID = sourceActorID ~= actorID and sourceActorID or nil,
+        aliases = boundedAliases(entry.aliases, actorID, sourceActorID),
         revision = math.max(0, math.floor(tonumber(entry.revision) or 0)),
         provider = boundedText(entry.provider, 64),
         providerState = boundedText(entry.providerState, 32),
+        presenceState = boundedText(
+            entry.presenceState or entry.providerState,
+            32
+        ),
         bodyID = boundedText(entry.bodyID, 192),
         position = position,
         positionSource = boundedText(entry.positionSource, 96),
@@ -237,11 +282,60 @@ function Projection.NewStore()
         entries = {},
         sourceActors = {},
         sourceRevisions = {},
+        aliasActors = {},
+        ambiguousAliases = {},
     }, Store)
 end
 
+function Store:RebuildReferenceIndex()
+    local aliases = {}
+    local ambiguous = {}
+    for actorID, entry in pairs(self.entries) do
+        for _, alias in ipairs(entry.aliases or {}) do
+            alias = tostring(alias or "")
+            if alias ~= "" and alias ~= actorID then
+                local previous = aliases[alias]
+                if previous and previous ~= actorID then
+                    ambiguous[alias] = true
+                    aliases[alias] = nil
+                elseif not ambiguous[alias] then
+                    aliases[alias] = actorID
+                end
+            end
+        end
+    end
+    self.aliasActors = aliases
+    self.ambiguousAliases = ambiguous
+    return true
+end
+
+function Store:Resolve(reference)
+    local value = Identity.ReferenceValue(reference)
+    if not value then return nil, "actor_reference_required" end
+    local direct = self.entries[value]
+    if direct then
+        return direct, {
+            canonicalActorID = direct.actorID,
+            aliasKind = "canonical",
+            sourceReference = value,
+        }
+    end
+    if self.ambiguousAliases[value] then
+        return nil, "actor_reference_ambiguous"
+    end
+    local actorID = self.aliasActors[value]
+    local entry = actorID and self.entries[actorID] or nil
+    if not entry then return nil, "actor_not_found" end
+    return entry, {
+        canonicalActorID = entry.actorID,
+        aliasKind = "alias",
+        sourceReference = value,
+    }
+end
+
 function Store:Get(actorID)
-    return self.entries[tostring(actorID or "")]
+    local entry = self:Resolve(actorID)
+    return entry
 end
 
 function Store:List(sourceID)
@@ -271,6 +365,7 @@ function Store:ClearSource(sourceID)
         for actorID in pairs(members) do self.entries[actorID] = nil end
     end
     self.sourceActors[sourceID] = {}
+    self:RebuildReferenceIndex()
     return true
 end
 
@@ -320,6 +415,7 @@ function Store:ApplySnapshot(payload)
     end
     self.sourceActors[sourceID] = nextMembers
     self.sourceRevisions[sourceID] = revision
+    self:RebuildReferenceIndex()
     return true
 end
 

@@ -34,12 +34,12 @@ end
 
 local function nowMs()
     if type(getTimestampMs) == "function" then
-        local ok, value = pcall(getTimestampMs)
-        if ok and tonumber(value) then return tonumber(value) end
+        local value = getTimestampMs()
+        if tonumber(value) then return tonumber(value) end
     end
     if type(getTimeInMillis) == "function" then
-        local ok, value = pcall(getTimeInMillis)
-        if ok and tonumber(value) then return tonumber(value) end
+        local value = getTimeInMillis()
+        if tonumber(value) then return tonumber(value) end
     end
     return 0
 end

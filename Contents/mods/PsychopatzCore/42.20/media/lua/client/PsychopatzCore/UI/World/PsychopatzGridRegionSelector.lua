@@ -4,6 +4,7 @@ require "PsychopatzCore/UI/Components/PsychopatzUIControls"
 local GridRegion = require "PsychopatzCore/World/PC_GridRegion"
 local Editor = require "PsychopatzCore/World/PC_GridRegionEditor"
 local SquareRules = require "PsychopatzCore/World/PsychopatzSquareRules"
+local MapHost = require "PsychopatzCore/UI/Map/PsychopatzMapHost"
 local UI = PsychopatzCore.UI
 local Theme = UI.Theme
 local Layout = UI.Layout
@@ -181,6 +182,15 @@ function Selector:updateHoverValidation(square, x, y, z)
         square, x, y, z)
 end
 
+local INPUT_CAPTURE_ID = "PsychopatzCore.GridRegionSelector"
+
+local function mapAbsolute(map, axis, fallback)
+    if map and type(map[axis]) == "function" then
+        return tonumber(map[axis](map)) or fallback
+    end
+    return fallback
+end
+
 function Selector:pushUndo()
     self.undo[#self.undo + 1] = clone(self.region)
     if #self.undo > 20 then table.remove(self.undo, 1) end
@@ -301,26 +311,27 @@ function Selector:layoutControls()
     end
 end
 
-function Selector:onMouseDownOutside(x, y)
-    local square, worldX, worldY, z = self:pickSquare(
-        x + self:getAbsoluteX(), y + self:getAbsoluteY())
+function Selector:beginWorldSelection(screenX, screenY)
+    local square, worldX, worldY, z = self:pickSquare(screenX, screenY)
     if not square then return end
     self.dragging = true
     self.dragX, self.dragY, self.dragZ = worldX, worldY, z
     self.preview = Editor.point(worldX, worldY, z)
     self:refreshTileValidation(self.preview, "preview")
+    return true
 end
 
-function Selector:onMouseMoveOutside()
+function Selector:updateWorldSelection(screenX, screenY)
     if not self.dragging then return end
-    local square, x, y, z = self:pickSquare(getMouseX(), getMouseY())
+    local square, x, y, z = self:pickSquare(screenX, screenY)
     if square then
         self.preview = Editor.rectangle(self.dragX, self.dragY, x, y, z)
         self:refreshTileValidation(self.preview, "preview")
     end
+    return true
 end
 
-function Selector:onMouseUpOutside()
+function Selector:finishWorldSelection()
     if not self.dragging then return end
     self.dragging = false
     if self.preview then self:applyPatch(self.preview) end
@@ -328,6 +339,67 @@ function Selector:onMouseUpOutside()
     self.previewInvalidRegion = nil
     self.previewInvalidCount = 0
     self.previewInvalidReason = nil
+    return true
+end
+
+function Selector:onMouseDownOutside(x, y)
+    return self:beginWorldSelection(
+        x + self:getAbsoluteX(), y + self:getAbsoluteY())
+end
+
+function Selector:onMouseMoveOutside()
+    return self:updateWorldSelection(getMouseX(), getMouseY())
+end
+
+function Selector:onMouseUpOutside()
+    return self:finishWorldSelection()
+end
+
+function Selector:onWorldMouseDown(map, x, y)
+    return self:beginWorldSelection(
+        mapAbsolute(map, "getAbsoluteX", 0) + x,
+        mapAbsolute(map, "getAbsoluteY", 0) + y)
+end
+
+function Selector:onWorldMouseMove()
+    return self:updateWorldSelection(getMouseX(), getMouseY())
+end
+
+function Selector:onWorldMouseUp()
+    return self:finishWorldSelection()
+end
+
+local function installInputCapture(selector)
+    local input = MapHost and MapHost.Input
+    if not input or type(input.Register) ~= "function" then return false end
+    input.Register(INPUT_CAPTURE_ID, {
+        order = 1000,
+        owner = selector.inputOwner,
+        onMouseDown = function(map, x, y)
+            return selector:onWorldMouseDown(map, x, y)
+        end,
+        onMouseMove = function(map, x, y)
+            return selector:onWorldMouseMove(map, x, y)
+        end,
+        onMouseMoveOutside = function(map, x, y)
+            return selector:onWorldMouseMove(map, x, y)
+        end,
+        onMouseUp = function(map, x, y)
+            return selector:onWorldMouseUp(map, x, y)
+        end,
+        onMouseUpOutside = function(map, x, y)
+            return selector:onWorldMouseUp(map, x, y)
+        end,
+        onRightMouseDown = function() return true end,
+        onRightMouseUp = function() return true end,
+    })
+    return true
+end
+
+local function removeInputCapture()
+    local input = MapHost and MapHost.Input
+    if not input or type(input.Unregister) ~= "function" then return false end
+    return input.Unregister(INPUT_CAPTURE_ID)
 end
 
 function Selector:tooltipDrawer()
@@ -485,6 +557,7 @@ function Selector:close(confirmed)
     ISWorldObjectContextMenu.disableWorldMenu = self.previousWorldMenuDisabled == true
     self:setVisible(false)
     self:removeFromUIManager()
+    removeInputCapture()
     Selector.instance = nil
     self.validationTooltipDrawer = nil
     self:restoreOwner()
@@ -559,6 +632,7 @@ function Selector.Open(options)
     end
     selector:addToUIManager(); selector:bringToTop(); selector:validateSelection()
     Selector.instance = selector
+    installInputCapture(selector)
     return selector
 end
 

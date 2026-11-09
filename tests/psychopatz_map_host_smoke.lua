@@ -113,6 +113,22 @@ assert(map.lastContext.options[1] == "vanilla"
     and map.lastContext.options[2] == "extension",
     "map context extension order changed")
 
+local captured = 0
+assert(Host.Input.Register("test.capture", {
+    order = 1000,
+    onMouseDown = function(_, x, y)
+        captured = x + y
+        return true
+    end,
+}), "map input capture registration failed")
+assert(map:onMouseDown(20, 30) == true,
+    "active map input capture did not consume world input")
+assert(captured == 50, "map input capture did not receive world coordinates")
+assert(Host.Input.Unregister("test.capture"),
+    "map input capture unregistration failed")
+assert(map:onMouseDown(20, 30) == false,
+    "map input capture leaked after unregistration")
+
 local renderIndex = {}
 for i, value in ipairs(calls) do renderIndex[value] = i end
 assert(renderIndex.vanilla_render

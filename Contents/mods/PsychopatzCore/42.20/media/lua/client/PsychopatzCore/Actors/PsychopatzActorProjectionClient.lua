@@ -38,6 +38,10 @@ function Client.Get(actorID)
     return Client.Store:Get(actorID)
 end
 
+function Client.Resolve(reference)
+    return Client.Store:Resolve(reference)
+end
+
 function Client.List(sourceID)
     return Client.Store:List(sourceID)
 end
