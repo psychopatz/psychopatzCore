@@ -14,6 +14,16 @@ from typing import Iterable, Mapping
 
 CORE_PROVIDER_ID = "PsychopatzCore"
 VALID_MATERIALIZATION_MODES = frozenset({"none", "abstract", "physical"})
+SEMANTIC_EXECUTION_SCHEMA = "semantic.harness_execution.v1"
+SEMANTIC_EXECUTION_SCHEMA_VERSION = 1
+SEMANTIC_EXECUTION_CALLBACKS = (
+    "buildContext",
+    "submitText",
+    "previewText",
+    "submitFrame",
+    "snapshot",
+    "interaction",
+)
 
 
 class ProviderContractError(ValueError):
@@ -40,6 +50,8 @@ class ProviderDescriptor:
     capabilities: tuple[str, ...] = ()
     materialization_modes: tuple[str, ...] = ("abstract",)
     optional: bool = True
+    execution_callbacks: tuple[str, ...] = ()
+    execution_schema: str = SEMANTIC_EXECUTION_SCHEMA
 
     def __post_init__(self) -> None:
         provider_id = str(self.provider_id).strip()
@@ -63,6 +75,23 @@ class ProviderDescriptor:
             self.materialization_modes,
             f"{provider_id}.materialization_modes",
         )
+        execution_callbacks = _unique_strings(
+            self.execution_callbacks,
+            f"{provider_id}.execution_callbacks",
+        )
+        unknown_callbacks = set(execution_callbacks) - set(
+            SEMANTIC_EXECUTION_CALLBACKS
+        )
+        if unknown_callbacks:
+            raise ProviderContractError(
+                f"{provider_id}: unknown semantic execution callback(s): "
+                + ", ".join(sorted(unknown_callbacks))
+            )
+        execution_schema = str(self.execution_schema).strip()
+        if not execution_schema:
+            raise ProviderContractError(
+                f"{provider_id}: execution_schema is required"
+            )
         unknown_modes = set(modes) - VALID_MATERIALIZATION_MODES
         if unknown_modes:
             raise ProviderContractError(
@@ -79,6 +108,8 @@ class ProviderDescriptor:
         object.__setattr__(self, "requires", requires)
         object.__setattr__(self, "capabilities", capabilities)
         object.__setattr__(self, "materialization_modes", modes)
+        object.__setattr__(self, "execution_callbacks", execution_callbacks)
+        object.__setattr__(self, "execution_schema", execution_schema)
 
     def to_dict(self) -> dict[str, object]:
         return {
@@ -89,6 +120,11 @@ class ProviderDescriptor:
             "capabilities": list(self.capabilities),
             "materializationModes": list(self.materialization_modes),
             "optional": self.optional,
+            "semanticExecution": {
+                "schema": self.execution_schema,
+                "schemaVersion": SEMANTIC_EXECUTION_SCHEMA_VERSION,
+                "callbacks": list(self.execution_callbacks),
+            },
         }
 
 

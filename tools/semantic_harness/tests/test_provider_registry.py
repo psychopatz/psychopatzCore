@@ -8,6 +8,8 @@ from semantic_harness.provider_registry import (
     ProviderContractError,
     ProviderDescriptor,
     ProviderRegistry,
+    SEMANTIC_EXECUTION_CALLBACKS,
+    SEMANTIC_EXECUTION_SCHEMA,
     core_registry,
     register_provider_profile,
 )
@@ -36,6 +38,13 @@ class ProviderRegistryTests(unittest.TestCase):
                 requires=(CORE_PROVIDER_ID,),
                 capabilities=("trading.conversation",),
                 materialization_modes=("abstract", "physical"),
+                execution_callbacks=(
+                    "buildContext",
+                    "submitText",
+                    "previewText",
+                    "submitFrame",
+                    "snapshot",
+                ),
             ),
             profile_id="dtabstract",
             profile_name="Dynamic Trading abstract",
@@ -48,6 +57,33 @@ class ProviderRegistryTests(unittest.TestCase):
             resolved.provider_ids,
             (CORE_PROVIDER_ID, "DTCommon"),
         )
+        execution = registry.provider("DTCommon").to_dict()[
+            "semanticExecution"
+        ]
+        self.assertEqual(execution["schema"], SEMANTIC_EXECUTION_SCHEMA)
+        self.assertEqual(
+            execution["callbacks"],
+            [
+                "buildContext",
+                "submitText",
+                "previewText",
+                "submitFrame",
+                "snapshot",
+            ],
+        )
+
+    def test_execution_callbacks_are_bounded_by_core_contract(self) -> None:
+        with self.assertRaisesRegex(
+            ProviderContractError,
+            r"unknown semantic execution callback",
+        ):
+            ProviderDescriptor(
+                provider_id="invalid",
+                display_name="Invalid provider",
+                execution_callbacks=("submitText", "notAContractCallback"),
+            )
+
+        self.assertIn("interaction", SEMANTIC_EXECUTION_CALLBACKS)
 
     def test_profile_missing_provider_fails_closed(self) -> None:
         registry = core_registry()

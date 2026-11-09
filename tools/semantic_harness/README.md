@@ -5,6 +5,9 @@ This is the Core-owned home of the provider-neutral semantic harness.
 The first migration slice establishes the contract boundary only:
 
 - `provider_registry.py` owns provider and profile composition;
+  `ProviderDescriptor` also carries the bounded
+  `semantic.harness_execution.v1` callback declaration, so adopters can
+  register abstract and physical profiles without adding another worker;
 - `repository_layout.py` discovers Core as required and adopters as optional;
 - `protocol.py` and `lua/worker.lua` provide the Core-only bounded worker seam;
 - `process.py` owns the bounded Python worker lifecycle and request correlation;
@@ -35,6 +38,12 @@ deterministic pattern/response ordering, plus reusable structural validation
 for source references, predicates, typed arguments, and scalar conditions.
 Adopters retain their source manifests, semantic allowlists, policy callbacks,
 package ownership, and output routing.
+
+Dynamic Trading's provider manifest is an adopter boundary: DTCommon owns
+merchant policy and declares the shared conversation/identity/interaction
+surface, DTAbstract composes the `abstract` profile, and DTHoomans composes
+the `physical` profile. Core validates those declarations but never imports
+Dynamic Trading or Project Hoomans.
 
 Run the contract tests from the Core repository with:
 

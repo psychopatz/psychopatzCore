@@ -11,6 +11,8 @@ from .provider_registry import (
     ProviderDescriptor,
     ProviderRegistry,
     ResolvedProfile,
+    SEMANTIC_EXECUTION_CALLBACKS,
+    SEMANTIC_EXECUTION_SCHEMA,
 )
 from .codebuilder import CatalogNameError, CompileError
 from .process import HarnessError, LuaProcess, WorkerLaunchSpec
@@ -49,6 +51,8 @@ __all__ = [
     "RepositoryLayout",
     "RepositoryLayoutError",
     "ResolvedProfile",
+    "SEMANTIC_EXECUTION_CALLBACKS",
+    "SEMANTIC_EXECUTION_SCHEMA",
     "save_json_document",
     "WorkerLaunchSpec",
 ]
