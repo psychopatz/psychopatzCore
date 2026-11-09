@@ -32,6 +32,7 @@ local Values = require "worker/Values"
 local SessionEnvelope = require "worker/SessionEnvelope"
 local WorkingWorld = require "worker/WorkingWorld"
 local Router = require "worker/Router"
+local WorkerLoop = require "worker/WorkerLoop"
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
 
 local Runtime = RuntimeState.new()
@@ -97,19 +98,4 @@ local function dispatch(request)
     return nil, "unknown_command:" .. tostring(request.command), false
 end
 
-Protocol.emit(hello(), "__hello__")
-
-for line in io.lines() do
-    local request, reason = Protocol.readRequest(line)
-    if not request then
-        io.stderr:write("protocol error: " .. tostring(reason) .. "\n")
-        break
-    end
-    local response, failure, shouldQuit = dispatch(request)
-    if failure then
-        Protocol.fail(request.id, failure)
-    else
-        Protocol.emit(response, request.id)
-    end
-    if shouldQuit then break end
-end
+WorkerLoop.run(Protocol, dispatch, { hello = hello })
