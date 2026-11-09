@@ -6,6 +6,7 @@ The first migration slice establishes the contract boundary only:
 
 - `provider_registry.py` owns provider and profile composition;
 - `repository_layout.py` discovers Core as required and adopters as optional;
+- `protocol.py` and `lua/worker.lua` provide the Core-only bounded worker seam;
 - no Core harness module imports Project Hoomans or Dynamic Trading;
 - `core_registry()` boots a standalone Core-only profile.
 
