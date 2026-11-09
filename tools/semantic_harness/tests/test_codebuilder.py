@@ -6,6 +6,7 @@ from semantic_harness.codebuilder import (
     CatalogNameError,
     CompileError,
     ModuleNameRegistry,
+    compile_typed_dataset,
     merge_language_sets,
     module_path,
     normalize_language,
@@ -15,6 +16,56 @@ from semantic_harness.codebuilder import (
 
 
 class CoreCodeBuilderTests(unittest.TestCase):
+    def test_typed_dataset_compiler_owns_envelope_and_ordering(self) -> None:
+        document = {
+            "schemaVersion": 1,
+            "source": {
+                "name": "Fixture",
+                "version": "1",
+                "contentLicense": "CC0",
+                "references": [{
+                    "name": "Fixture source",
+                    "url": "https://example.test/fixture",
+                    "use": "contract test",
+                    "license": "CC0",
+                    "reviewedOn": "2026-11-10",
+                }],
+            },
+            "patterns": [
+                {"id": "pattern.b", "utterance": "second"},
+                {"id": "pattern.a", "utterance": "first"},
+            ],
+            "responsePools": [
+                {"id": "pool.b", "variants": [{"id": "reply.b"}]},
+                {"id": "pool.a", "variants": [{"id": "reply.a"}]},
+            ],
+        }
+
+        def compile_pattern(value, source_names):
+            self.assertEqual(source_names, {"Fixture source"})
+            return {"id": value["id"]}, []
+
+        def compile_pool(value, source_names):
+            self.assertEqual(source_names, {"Fixture source"})
+            return (
+                {"id": value["id"], "variants": value["variants"]},
+                {},
+            )
+
+        compiled = compile_typed_dataset(
+            document,
+            pattern_compiler=compile_pattern,
+            response_compiler=compile_pool,
+        )
+        self.assertEqual(
+            [item["id"] for item in compiled["patterns"]],
+            ["pattern.a", "pattern.b"],
+        )
+        self.assertEqual(
+            [item["id"] for item in compiled["responsePools"]],
+            ["pool.a", "pool.b"],
+        )
+
     def test_translation_helpers_are_deterministic_and_fail_closed(self) -> None:
         self.assertEqual(normalize_language(" tl "), "TL")
         self.assertEqual(

@@ -12,7 +12,8 @@ The first migration slice establishes the contract boundary only:
   bounded actor identifier helpers;
 - `worker_session.py` owns serialized worker queue lifecycle and shutdown;
 - `codebuilder/` owns provider-neutral compiler errors, locale normalization,
-  and deterministic generated-module naming;
+  deterministic generated-module naming, typed dataset envelopes, and the
+  callback-based dataset compiler;
 - no Core harness module imports Project Hoomans or Dynamic Trading;
 - `core_registry()` boots a standalone Core-only profile.
 
@@ -23,10 +24,11 @@ document, and session mechanics delegate here. CodeBuilder and provider
 adapters move in later slices. Each subsequent slice should move one coherent
 boundary and retain a focused compatibility test.
 
-The first CodeBuilder seam is now Core-owned as well: compiler errors,
-translation-locale normalization, and deterministic generated-module naming.
-Adopters retain their source manifests, semantic policy, package ownership,
-and output routing.
+The CodeBuilder foundation and typed dataset compiler seam are Core-owned:
+compiler errors, translation-locale normalization, deterministic generated-
+module naming, provenance validation, bounded utterance normalization, and
+deterministic pattern/response ordering. Adopters retain their source
+manifests, semantic policy callbacks, package ownership, and output routing.
 
 Run the contract tests from the Core repository with:
 

@@ -32,13 +32,19 @@ Implemented in commits `7364cab`, `ebd7844a`, `0115bddc`, `846b943`,
 - Hoomans CodeBuilder import paths now delegate those generic helpers to Core;
 - Hoomans lexicon compiler now uses the Core compiler-error contract while
   retaining its WordNet allowlist and Hoomans concept policy.
+- Core-owned typed dataset contract/compiler: provenance validation, bounded
+  utterance normalization, duplicate detection, deterministic ordering, and
+  callback-based adopter policy;
+- Hoomans dialogue dataset compilation now delegates envelope mechanics to
+  Core while retaining its semantic pattern/response validators.
 
 Verification:
 
-- `PYTHONPATH=tools python3 -W error -m unittest discover -s tools/semantic_harness/tests -q` — 24 passed;
+- `PYTHONPATH=tools python3 -W error -m unittest discover -s tools/semantic_harness/tests -q` — 25 passed;
 - Hoomans runtime/config/profile tests — 6 passed;
 - Hoomans Core-ownership/session/scenario compatibility tests — 7 passed;
 - Hoomans CodeBuilder boundary/compiler/dataset/conversation tests — passed;
+- Core typed-dataset and Hoomans dialogue-adapter tests — passed;
 - Hoomans process correlation/timeout tests — passed;
 - Hoomans production worker startup and restart compatibility — passed;
 - `python3 -W error -m py_compile tools/semantic_harness/*.py tools/semantic_harness/tests/*.py` — passed;
@@ -50,5 +56,6 @@ profile. Its process lifecycle, protocol, generic document mechanics,
 serialized session lifecycle, and CodeBuilder foundation are delegated to
 Core, while its production module loader, scenario defaults, health
 normalization, validation, source manifests, package ownership, and output
-routing remain Hoomans-owned. The next safe chunk is extracting the typed
-dialogue dataset contract/compiler seam.
+routing remain Hoomans-owned. The next safe chunk is extracting the remaining
+provider-neutral dialogue pattern/response validation primitives without
+moving Hoomans semantic policy sets into Core.

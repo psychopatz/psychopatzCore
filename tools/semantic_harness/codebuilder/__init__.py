@@ -15,6 +15,13 @@ from .catalog_naming import (
     pascal_segment,
     source_owned_module,
 )
+from .dataset_compiler import compile_typed_dataset
+from .dataset_contract import (
+    DATASET_UTTERANCE,
+    load_dataset_document,
+    normalize_utterance,
+    validate_source_metadata,
+)
 from .errors import CompileError
 from .translation_support import (
     DEFAULT_LANGUAGE,
@@ -27,16 +34,21 @@ from .translation_support import (
 __all__ = [
     "CatalogNameError",
     "CompileError",
+    "DATASET_UTTERANCE",
     "DEFAULT_LANGUAGE",
     "ModuleNameRegistry",
     "compact_hash",
     "compact_segment",
+    "compile_typed_dataset",
+    "load_dataset_document",
     "merge_language_sets",
     "module_file",
     "module_path",
     "normalize_language",
+    "normalize_utterance",
     "normalize_translations",
     "pascal_segment",
     "pretty_json",
     "source_owned_module",
+    "validate_source_metadata",
 ]
