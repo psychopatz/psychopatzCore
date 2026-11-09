@@ -26,6 +26,10 @@ assert(#decoded.emoji == 4, "surrogate pair should produce UTF-8")
 local encoded = Json.Encode({ b = "line\n", a = 2 })
 assertEqual(encoded, '{"a":2,"b":"line\\n"}', "stable object encoding")
 
+local nullEncoded = Json.Encode({ value = Json.NULL, nested = { Json.NULL } })
+assertEqual(nullEncoded, '{"nested":[null],"value":null}',
+    "null marker encoding")
+
 local _, duplicateReason = Json.Decode('{"a":1,"a":2}')
 assert(string.find(duplicateReason, "duplicate key", 1, true),
     "duplicate key rejection")

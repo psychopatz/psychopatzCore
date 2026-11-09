@@ -9,6 +9,9 @@ local Protocol = {
     VERSION = 1,
     MAX_MESSAGE_BYTES = 1024 * 1024,
 }
+-- Keep the explicit null marker available to provider harness adapters. The
+-- Core JSON codec recognizes it both at the root and inside nested records.
+Protocol.NULL = Json.NULL
 
 local JSON_LIMITS = {
     maxString = Protocol.MAX_MESSAGE_BYTES,
@@ -18,6 +21,14 @@ local JSON_LIMITS = {
 
 local function encoded(value)
     return Json.Encode(value, JSON_LIMITS)
+end
+
+function Protocol.encode(value)
+    return encoded(value)
+end
+
+function Protocol.decode(source)
+    return Json.Decode(source, JSON_LIMITS)
 end
 
 function Protocol.emit(value, requestID)

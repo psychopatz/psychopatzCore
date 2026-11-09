@@ -49,6 +49,7 @@ end
 
 local function encode(value, depth, limits)
     if depth > limits.maxDepth then return '"[depth-limit]"' end
+    if value == Json.NULL then return "null" end
     local kind = type(value)
     if kind == "nil" then return "null" end
     if kind == "boolean" then return value and "true" or "false" end
