@@ -30,6 +30,8 @@ class CoreWorkerTests(unittest.TestCase):
             self.assertTrue(hello["ok"])
             self.assertEqual(hello["profile"], "core")
             self.assertEqual(hello["providers"], ["PsychopatzCore"])
+            self.assertIn("harness.runtime_state", hello["capabilities"])
+            self.assertIn("harness.value_projection", hello["capabilities"])
 
             process.stdin.write(encode_request("request-1", "PING"))
             process.stdin.flush()

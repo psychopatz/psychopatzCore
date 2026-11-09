@@ -27,7 +27,11 @@ end
 package.path = table.concat(packagePaths, ";") .. ";" .. package.path
 
 local Protocol = require "Protocol"
+local RuntimeState = require "worker/RuntimeState"
+local Values = require "worker/Values"
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
+
+local Runtime = RuntimeState.new()
 
 local function hello()
     return {
@@ -39,6 +43,8 @@ local function hello()
             "semantic.parse",
             "semantic.ir",
             "semantic.conversation",
+            "harness.runtime_state",
+            "harness.value_projection",
         },
     }
 end
