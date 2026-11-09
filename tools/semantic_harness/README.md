@@ -16,6 +16,8 @@ The first migration slice establishes the contract boundary only:
 - `scenario.py` owns provider-neutral document merge, JSON persistence, and
   bounded actor identifier helpers;
 - `worker_session.py` owns serialized worker queue lifecycle and shutdown;
+- `activity.py` owns the bounded cross-process activity stream used by
+  harness clients;
 - `codebuilder/` owns provider-neutral compiler errors, locale normalization,
   deterministic generated-module naming, typed dataset envelopes, and the
   callback-based dataset compiler. Its `rule_contract.py` module also owns
