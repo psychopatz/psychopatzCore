@@ -30,6 +30,12 @@ from .translation_support import (
     normalize_translations,
     pretty_json,
 )
+from .rule_contract import (
+    validate_predicate,
+    validate_scalar_conditions,
+    validate_source_refs,
+    validate_typed_arguments,
+)
 
 __all__ = [
     "CatalogNameError",
@@ -50,5 +56,9 @@ __all__ = [
     "pascal_segment",
     "pretty_json",
     "source_owned_module",
+    "validate_predicate",
+    "validate_scalar_conditions",
+    "validate_source_refs",
     "validate_source_metadata",
+    "validate_typed_arguments",
 ]

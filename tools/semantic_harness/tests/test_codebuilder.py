@@ -12,6 +12,10 @@ from semantic_harness.codebuilder import (
     normalize_language,
     normalize_translations,
     pascal_segment,
+    validate_predicate,
+    validate_scalar_conditions,
+    validate_source_refs,
+    validate_typed_arguments,
 )
 
 
@@ -95,6 +99,53 @@ class CoreCodeBuilderTests(unittest.TestCase):
 
     def test_catalog_name_errors_use_the_core_compile_contract(self) -> None:
         self.assertTrue(issubclass(CatalogNameError, CompileError))
+
+    def test_typed_rule_validators_are_bounded_and_policy_parameterized(self) -> None:
+        self.assertEqual(
+            validate_source_refs(
+                ["Fixture source", "Fixture source"],
+                {"Fixture source"},
+                "response sourceRefs",
+            ),
+            ["Fixture source"],
+        )
+        predicate = {
+            "all": [
+                {"path": "relationship.state", "op": "eq", "value": "trusted"},
+                {"not": {"field": "busy", "op": "eq", "value": True}},
+            ]
+        }
+        self.assertIs(validate_predicate(predicate, "offer.constraints"), predicate)
+        self.assertEqual(
+            validate_typed_arguments(
+                {"zulu": "string", "alpha": "number"},
+                "translationArgs",
+                {"string", "number"},
+            ),
+            {"alpha": "number", "zulu": "string"},
+        )
+        self.assertEqual(
+            validate_scalar_conditions(
+                {"topic": ["weather", "wellbeing"], "raining": True},
+                "semantic.pool:reply",
+                {"topic", "raining"},
+            ),
+            {"topic": ["weather", "wellbeing"], "raining": True},
+        )
+        with self.assertRaises(CompileError):
+            validate_predicate({"all": []}, "offer.constraints")
+        with self.assertRaises(CompileError):
+            validate_typed_arguments(
+                {"unsupported": "object"},
+                "translationArgs",
+                {"string"},
+            )
+        with self.assertRaises(CompileError):
+            validate_scalar_conditions(
+                {"unsupported": "value"},
+                "semantic.pool:reply",
+                {"topic"},
+            )
 
 
 if __name__ == "__main__":
