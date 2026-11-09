@@ -18,6 +18,8 @@ The first migration slice establishes the contract boundary only:
 - `worker_session.py` owns serialized worker queue lifecycle and shutdown;
 - `activity.py` owns the bounded cross-process activity stream used by
   harness clients;
+- `runtime_discovery.py` owns numeric runtime selection and Lua executable
+  probing without importing an adopter;
 - `codebuilder/` owns provider-neutral compiler errors, locale normalization,
   deterministic generated-module naming, typed dataset envelopes, and the
   callback-based dataset compiler. Its `rule_contract.py` module also owns
