@@ -8,27 +8,6 @@ local coreRepository = arg[1]
     or os.getenv("SEMANTIC_HARNESS_CORE_REPOSITORY")
     or "."
 local coreRuntime = os.getenv("PZ_TEST_CORE_RUNTIME")
-local profileID = tostring(
-    os.getenv("SEMANTIC_HARNESS_PROFILE") or "core"
-)
-local materializationMode = tostring(
-    os.getenv("SEMANTIC_HARNESS_MATERIALIZATION_MODE") or "none"
-)
-
-local function providerIDs()
-    local value = os.getenv("SEMANTIC_HARNESS_PROVIDER_IDS")
-    if not value or value == "" then return { "PsychopatzCore" } end
-    local result = {}
-    for providerID in string.gmatch(value, "[^,]+") do
-        providerID = string.gsub(providerID, "^%s+", "")
-        providerID = string.gsub(providerID, "%s+$", "")
-        if providerID ~= "" then result[#result + 1] = providerID end
-    end
-    if #result == 0 then result[1] = "PsychopatzCore" end
-    return result
-end
-
-local selectedProviders = providerIDs()
 
 local function path(root, relative)
     return root .. "/" .. relative
@@ -48,6 +27,7 @@ end
 package.path = table.concat(packagePaths, ";") .. ";" .. package.path
 
 local Protocol = require "Protocol"
+local LaunchMetadata = require "worker/LaunchMetadata"
 local RuntimeState = require "worker/RuntimeState"
 local Values = require "worker/Values"
 local SessionEnvelope = require "worker/SessionEnvelope"
@@ -57,6 +37,15 @@ local WorkerLoop = require "worker/WorkerLoop"
 local SemanticExecution = require "worker/SemanticExecution"
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
 
+local launch = LaunchMetadata.read({
+    profile = "core",
+    providers = { "PsychopatzCore" },
+    materializationMode = "none",
+})
+local profileID = launch.profile
+local selectedProviders = launch.providers
+local materializationMode = launch.materializationMode
+
 local Runtime = RuntimeState.new()
 
 local function hello()
@@ -65,6 +54,7 @@ local function hello()
         type = "hello",
         profile = profileID,
         providers = selectedProviders,
+        materializationMode = materializationMode,
         capabilities = {
             "semantic.parse",
             "semantic.ir",

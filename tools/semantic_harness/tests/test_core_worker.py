@@ -30,6 +30,7 @@ class CoreWorkerTests(unittest.TestCase):
             self.assertTrue(hello["ok"])
             self.assertEqual(hello["profile"], "core")
             self.assertEqual(hello["providers"], ["PsychopatzCore"])
+            self.assertEqual(hello["materializationMode"], "none")
             self.assertIn("harness.runtime_state", hello["capabilities"])
             self.assertIn("harness.value_projection", hello["capabilities"])
             self.assertIn("harness.session_envelope", hello["capabilities"])
@@ -105,6 +106,7 @@ class CoreWorkerTests(unittest.TestCase):
                 hello["providers"],
                 ["PsychopatzCore", "DTCommon", "DTAbstract"],
             )
+            self.assertEqual(hello["materializationMode"], "abstract")
             self.assertEqual(
                 hello["semanticExecution"]["materializationMode"],
                 "abstract",

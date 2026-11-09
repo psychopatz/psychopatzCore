@@ -23,6 +23,11 @@ end
 
 function RuntimeState.new()
     return {
+        -- Neutral launch selection advertised by every adopter worker.
+        launchProfile = "core",
+        launchProviders = { "PsychopatzCore" },
+        launchMaterializationMode = "none",
+
         -- Core-owned source/working-world and diagnostic state.
         scenario = nil,
         sourceSnapshot = nil,
