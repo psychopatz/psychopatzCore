@@ -30,6 +30,9 @@ the current `Conversation_Context_Builder.lua`, `Conversation_Turn.lua`,
 `OutputProjection.lua`, and `CommandRouter_InteractionLifecycle.lua` are
 mixed files and must not be moved wholesale.
 
-The first implementation chunk is a Core typed execution contract plus an
-Hoomans adapter. Only after both can run through that contract may generic
-turn/result or interaction modules move and Hoomans duplicates be deleted.
+The first implementation chunk is now Core `worker/SemanticExecution.lua` plus
+the Hoomans adapter wiring. It covers context, text, preview, frame, and
+snapshot callbacks. Interaction is intentionally optional and currently fails
+closed when an adopter has not registered that callback. Only after both
+providers can run through the contract may generic turn/result or interaction
+modules move and Hoomans duplicates be deleted.

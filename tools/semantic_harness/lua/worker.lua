@@ -33,6 +33,7 @@ local SessionEnvelope = require "worker/SessionEnvelope"
 local WorkingWorld = require "worker/WorkingWorld"
 local Router = require "worker/Router"
 local WorkerLoop = require "worker/WorkerLoop"
+local SemanticExecution = require "worker/SemanticExecution"
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
 
 local Runtime = RuntimeState.new()
@@ -52,6 +53,7 @@ local function hello()
             "harness.session_envelope",
             "harness.working_world",
             "harness.router",
+            "harness.semantic_execution",
         },
         sessionEnvelope = {
             schema = SessionEnvelope.SCHEMA,
@@ -62,6 +64,10 @@ local function hello()
         },
         router = {
             dispatch = type(Router.dispatch) == "function",
+        },
+        semanticExecution = {
+            schema = SemanticExecution.SCHEMA,
+            schemaVersion = SemanticExecution.SCHEMA_VERSION,
         },
     }
 end
