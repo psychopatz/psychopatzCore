@@ -40,6 +40,38 @@ class WorkerLaunchSpec:
     shutdown_timeout: float = 1.0
     max_message_bytes: int = DEFAULT_MAX_MESSAGE_BYTES
 
+    @classmethod
+    def from_profile_selection(
+        cls,
+        selection: Any,
+        **values: Any,
+    ) -> "WorkerLaunchSpec":
+        """Create a launch spec from Core's validated profile metadata.
+
+        Adopters may supply repository paths, worker arguments, and their
+        private environment aliases, but profile identity and materialization
+        metadata always come from the validated Core selection.
+        """
+
+        values = dict(values)
+        values.update(
+            {
+                "profile": selection.profile_id,
+                "provider_ids": tuple(selection.provider_ids),
+                "materialization_mode": selection.materialization_mode,
+            }
+        )
+        return cls(**values)
+
+    def neutral_environment(self) -> dict[str, str]:
+        """Return only provider-neutral metadata for the worker process."""
+
+        return {
+            "SEMANTIC_HARNESS_PROFILE": self.profile,
+            "SEMANTIC_HARNESS_PROVIDER_IDS": ",".join(self.provider_ids),
+            "SEMANTIC_HARNESS_MATERIALIZATION_MODE": self.materialization_mode,
+        }
+
     def __post_init__(self) -> None:
         profile = str(self.profile).strip()
         if not profile:
@@ -168,13 +200,7 @@ class LuaProcess:
                 "SEMANTIC_HARNESS_CORE_REPOSITORY": str(
                     self.config.core_repository
                 ),
-                "SEMANTIC_HARNESS_PROFILE": self.config.profile,
-                "SEMANTIC_HARNESS_PROVIDER_IDS": ",".join(
-                    self.config.provider_ids
-                ),
-                "SEMANTIC_HARNESS_MATERIALIZATION_MODE": (
-                    self.config.materialization_mode
-                ),
+                **self.config.neutral_environment(),
             }
         )
         environment.update(self.config.environment)

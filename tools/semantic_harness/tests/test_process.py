@@ -5,6 +5,7 @@ import tempfile
 import textwrap
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 
 from semantic_harness.process import HarnessError, LuaProcess, WorkerLaunchSpec
 
@@ -13,6 +14,30 @@ CORE_ROOT = Path(__file__).resolve().parents[3]
 
 
 class ProcessTests(unittest.TestCase):
+    def test_launch_spec_accepts_validated_profile_metadata(self) -> None:
+        selection = SimpleNamespace(
+            profile_id="dtabstract",
+            provider_ids=("PsychopatzCore", "DTCommon", "DTAbstract"),
+            materialization_mode="abstract",
+        )
+        spec = WorkerLaunchSpec.from_profile_selection(
+            selection,
+            lua_bin=Path(sys.executable),
+            worker_script=CORE_ROOT / "tools/semantic_harness/lua/worker.lua",
+            core_repository=CORE_ROOT,
+        )
+        self.assertEqual(spec.profile, "dtabstract")
+        self.assertEqual(
+            spec.neutral_environment(),
+            {
+                "SEMANTIC_HARNESS_PROFILE": "dtabstract",
+                "SEMANTIC_HARNESS_PROVIDER_IDS": (
+                    "PsychopatzCore,DTCommon,DTAbstract"
+                ),
+                "SEMANTIC_HARNESS_MATERIALIZATION_MODE": "abstract",
+            },
+        )
+
     def fake_worker(self, directory: Path) -> Path:
         script = directory / "worker.py"
         script.write_text(
