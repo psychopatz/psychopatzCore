@@ -31,6 +31,7 @@ local RuntimeState = require "worker/RuntimeState"
 local Values = require "worker/Values"
 local SessionEnvelope = require "worker/SessionEnvelope"
 local WorkingWorld = require "worker/WorkingWorld"
+local Router = require "worker/Router"
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
 
 local Runtime = RuntimeState.new()
@@ -49,6 +50,7 @@ local function hello()
             "harness.value_projection",
             "harness.session_envelope",
             "harness.working_world",
+            "harness.router",
         },
         sessionEnvelope = {
             schema = SessionEnvelope.SCHEMA,
@@ -56,6 +58,9 @@ local function hello()
         },
         workingWorld = {
             maxPatches = WorkingWorld.MAX_PATCHES,
+        },
+        router = {
+            dispatch = type(Router.dispatch) == "function",
         },
     }
 end

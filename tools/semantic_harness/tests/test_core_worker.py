@@ -34,11 +34,13 @@ class CoreWorkerTests(unittest.TestCase):
             self.assertIn("harness.value_projection", hello["capabilities"])
             self.assertIn("harness.session_envelope", hello["capabilities"])
             self.assertIn("harness.working_world", hello["capabilities"])
+            self.assertIn("harness.router", hello["capabilities"])
             self.assertEqual(
                 hello["sessionEnvelope"]["schema"],
                 "semantic.harness_session_envelope.v1",
             )
             self.assertEqual(hello["workingWorld"]["maxPatches"], 512)
+            self.assertTrue(hello["router"]["dispatch"])
 
             process.stdin.write(encode_request("request-1", "PING"))
             process.stdin.flush()
