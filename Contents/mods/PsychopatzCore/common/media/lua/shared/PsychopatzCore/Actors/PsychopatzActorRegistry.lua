@@ -11,6 +11,46 @@ local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"
 local Registry = {}
 Registry.__index = Registry
 
+local function resolvedSpec(spec)
+    local actors = PsychopatzCore and PsychopatzCore.Actors or nil
+    local archetypes = actors and actors.Archetypes or nil
+    local archetypeID = type(spec) == "table"
+        and (spec.coreArchetypeID or spec.archetypeID) or nil
+    local plan
+    local output
+    local identity
+
+    if not archetypes or type(archetypes.ResolvePlan) ~= "function"
+        or not archetypeID
+    then
+        return spec
+    end
+    plan = archetypes:ResolvePlan(archetypeID, {
+        actorId = spec.actorId,
+        identitySeed = spec.identitySeed,
+        identity = spec.identity,
+    })
+    if not plan then return spec end
+
+    output = Util.clone(spec)
+    output.archetypeID = plan.archetypeID
+    identity = type(output.identity) == "table"
+        and output.identity or Util.clone(plan.identity)
+    identity.archetypeID = plan.archetypeID
+    identity.identitySeed = identity.identitySeed
+        or plan.identity.identitySeed
+    if not identity.gender then identity.gender = plan.identity.gender end
+    if type(identity.survivor) ~= "table" then
+        identity.survivor = Util.clone(plan.identity.survivor or {})
+    end
+    output.identity = identity
+    if output.appearance == nil then output.appearance = plan.appearance end
+    if output.starterItems == nil then
+        output.starterItems = plan.starterItems
+    end
+    return output
+end
+
 function Registry.new()
     return setmetatable({ records = {}, revision = 0 }, Registry)
 end
@@ -79,17 +119,18 @@ function Registry:Register(actor)
 end
 
 function Registry:Create(spec)
-    local actor, reason = Factory.Generate(spec)
+    local normalizedSpec = resolvedSpec(spec)
+    local actor, reason = Factory.Generate(normalizedSpec)
     if not actor then return nil, reason end
     local inventory
     inventory, reason = ActorInventory.CreateForActor(actor.actorId,
         actor.identity.identitySeed, {
-            starterVersion = spec.starterVersion,
-            starterItems = spec.starterItems,
+            starterVersion = normalizedSpec.starterVersion,
+            starterItems = normalizedSpec.starterItems,
         })
     if not inventory then return nil, reason end
     actor.personalInventory = inventory:ToPayload("SEED_ONLY")
-    actor.providerLease = Util.clone(spec.providerLease)
+    actor.providerLease = Util.clone(normalizedSpec.providerLease)
     return self:Register(actor)
 end
 

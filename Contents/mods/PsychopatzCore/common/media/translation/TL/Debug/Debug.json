@@ -108,5 +108,8 @@
     "UI_PsychopatzWorldMetadata_Include_Nav": "Mga Nav zone",
     "UI_PsychopatzWorldMetadata_Include_ForagingNav": "Mga ForagingNav zone",
     "UI_PsychopatzWorldMetadata_Include_SpawnPoint": "Mga SpawnPoint zone",
-    "UI_PsychopatzWorldMetadata_Include_OtherZones": "Iba pang uri ng zone"
+    "UI_PsychopatzWorldMetadata_Include_OtherZones": "Iba pang uri ng zone",
+    "UI_PsychopatzMapTools_ActorDebugOff": "Itago ang debug na inspeksiyon ng mga survivor",
+    "UI_PsychopatzMapTools_ActorDebugOn": "Ipakita ang debug na inspeksiyon ng mga survivor",
+    "UI_PsychopatzMapTools_ActorDebugHelp": "Ipakita ang mga ruta at hindi pa natutuklasang overlay. Kailangan munang makilala ang tao para makita ang larawan."
 }

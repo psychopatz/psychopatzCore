@@ -4,8 +4,11 @@ package.path = CLIENT .. "?.lua;" .. package.path
 local requestCount = 0
 local targetCount = 0
 local visibleCount = 0
+local hiddenCount = 0
 
+local debugEnabled = false
 local Client = {
+    IsDebugPresentationEnabled = function() return debugEnabled end,
     GetActorKnowledge = function(actorID)
         if tostring(actorID) == "actor:hover:unknown" then
             return {
@@ -52,8 +55,13 @@ package.preload[
                     return true
                 end,
                 setCardPosition = function() end,
-                setVisible = function(_, value)
-                    if value == true then visibleCount = visibleCount + 1 end
+                setVisible = function(panel, value)
+                    panel.visible = value == true
+                    if value == true then
+                        visibleCount = visibleCount + 1
+                    else
+                        hiddenCount = hiddenCount + 1
+                    end
                 end,
             }
         end,
@@ -87,9 +95,49 @@ local known = {
     actorID = "actor:hover:known",
     label = "Known survivor",
 }
-assert(Hover.Update(map, known, 100, 100, {}) == true,
+assert(Hover.Update(
+    map,
+    known,
+    100,
+    100,
+    {},
+    "PsychopatzCore:SurvivorWorldActors"
+) == true,
     "known actor map hover did not display the shared portrait card")
 assert(targetCount == 1 and visibleCount == 1,
     "known actor map hover did not bind the shared portrait card")
+assert(
+    map._psychopatzSurvivorWorldHoverOwner
+        == "PsychopatzCore:SurvivorWorldActors",
+    "known actor map hover did not claim its shared hover owner"
+)
+assert(
+    Hover.Hide(map, true, "ProjectHoomans:pnc_travel") == false,
+    "a different map overlay was allowed to hide the Core hover card"
+)
+assert(map.child.visible ~= false,
+    "a different map overlay hid the Core hover card")
+assert(Hover.Hide(map, true, "PsychopatzCore:SurvivorWorldActors"),
+    "the owning map overlay could not hide its shared hover card")
+assert(map.child.visible == false,
+    "the owning map overlay did not hide its shared hover card")
+assert(hiddenCount > 0, "shared hover card visibility was never cleared")
 
+debugEnabled = true
+Hover.DELAY_MS = 0
+assert(not Hover.Update(map, unknown, 100, 100, {}, "shared"),
+    "debug exposed an unknown non-colonist portrait")
+known.nameKnown = false
+known.identityKnown = false
+assert(Hover.Update(map, known, 100, 100, {}, "shared"),
+    "stale projection flags hid a learned non-colonist")
+local binds = targetCount
+local refreshed = { actorID = known.actorID, label = "Updated" }
+assert(Hover.Update(map, refreshed, 100, 100, {}, "shared"))
+assert(targetCount == binds + 1, "new projection retained stale hovered portrait")
+debugEnabled = false
+assert(Hover.Update(map, known, 100, 100, {}, "shared"), "known hover required debug")
+Client.GetActorKnowledge = function() return nil end
+assert(not Hover.Update(map, unknown, 100, 100, {}, "shared"),
+    "missing knowledge exposed an unknown actor")
 print("psychopatz_survivor_world_map_hover_knowledge_smoke: PASS")

@@ -12,6 +12,7 @@ local projection = {
     displayName = "Roaming Trader",
     factionID = "faction:knowledge:one",
 }
+local listCalls = 0
 local discovery
 
 package.preload[
@@ -19,7 +20,7 @@ package.preload[
 ] = function()
     return {
         Get = function() return projection end,
-        List = function() return { projection } end,
+        List = function() listCalls = listCalls + 1 return { projection } end,
         Request = function() return true end,
     }
 end
@@ -54,6 +55,9 @@ Client.FindDiscovery = function(kind, entityID)
     return nil
 end
 
+local undiscovered = assert(Client.GetActorKnowledge(projection.actorID))
+assert(undiscovered.state == "unknown" and not undiscovered.nameKnown,
+    "missing discovery disclosed an unknown group member")
 discovery = { phase = 2 }
 local unknown = assert(Client.GetActorKnowledge(projection.actorID))
 assert(unknown.state == "unknown" and unknown.nameKnown == false,
@@ -69,4 +73,25 @@ assert(known.knownName == projection.displayName
     and known.factionID == projection.factionID,
     "contacted Core actor lost canonical identity/faction data")
 
+Client.RegisterActorKnowledgeProvider("Unavailable", { get = function() return nil end })
+assert(Client.GetActorKnowledge(projection.actorID, { provider = "Unavailable" }) == nil,
+    "unavailable knowledge adapter fell back to a raw name")
+local before = listCalls
+assert(Client.GetTracked() == nil, "untracked map resolved an actor")
+Client.Selection.trackedActorID = projection.actorID
+for frame = 1, 120 do
+    assert(Client.GetTracked() == projection, "tracked actor lookup changed")
+end
+assert(listCalls == before, "tracking sorted the full population per frame")
+projection.sourceID = "OtherProvider"
+assert(Client.GetTracked() == nil, "tracking admitted a different projection source")
+local authorized = false
+PsychopatzCore.Debug = { CanUse = function() return authorized end }
+assert(Client.SetDebugPresentationEnabled(true) == false, "unauthorized debug enabled")
+authorized = true
+assert(Client.SetDebugPresentationEnabled(true))
+assert(Client.IsDebugPresentationEnabled(), "authorized shared debug did not enable")
+authorized = false
+assert(not Client.IsDebugPresentationEnabled(), "revoked permission retained debug")
+assert(Client.SetDebugPresentationEnabled(false), "debug could not disable after revoke")
 print("psychopatz_survivor_world_client_knowledge_smoke: PASS")

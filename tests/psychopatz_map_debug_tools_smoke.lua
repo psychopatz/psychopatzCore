@@ -14,7 +14,10 @@ local Menu = {
 package.preload["PsychopatzCore/UI/Map/PsychopatzMapToolsMenu"] =
     function() return Menu end
 
+local inspection = false
 local Client = {
+    IsDebugPresentationEnabled = function() return inspection end,
+    SetDebugPresentationEnabled = function(value) inspection = value return true end,
     Selection = { selectedActorID = "actor:selected", trackedActorID = nil },
 }
 function Client.RequestDiscovery()
@@ -91,4 +94,9 @@ registered["PsychopatzCore:track_selected"].onActivate()
 assert(Client.Selection.trackedActorID == nil,
     "Core tracking entry did not clear active tracking")
 
+local debugEntry = assert(registered["PsychopatzCore:actor_debug_presentation"])
+assert(debugEntry.visible(), "authorized shared inspection entry hidden")
+assert(debugEntry.onActivate() and inspection, "shared map menu did not enable inspection")
+assert(debugEntry.title() == "Hide survivor debug inspection")
+assert(debugEntry.onActivate() and not inspection, "shared map menu did not disable inspection")
 print("psychopatz_map_debug_tools_smoke: PASS")

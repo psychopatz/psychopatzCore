@@ -84,6 +84,8 @@ local function cloneJourney(journey)
         distanceTotal = finite(journey.distanceTotal),
         distanceTravelled = finite(journey.distanceTravelled),
         lastAdvancedAt = finite(journey.lastAdvancedAt),
+        waitRemainingHours = finite(journey.waitRemainingHours),
+        arrivalRadius = finite(journey.arrivalRadius),
         progress = finite(journey.progress) or 0,
     }
     if output.progress < 0 then output.progress = 0 end
@@ -206,6 +208,7 @@ function Projection.ValidateEntry(entry)
         providerState = boundedText(entry.providerState, 32),
         bodyID = boundedText(entry.bodyID, 192),
         position = position,
+        positionSource = boundedText(entry.positionSource, 96),
         journey = cloneJourney(entry.journey),
         sourceID = boundedText(entry.sourceID, 96),
         groupID = boundedText(entry.groupID, 192),

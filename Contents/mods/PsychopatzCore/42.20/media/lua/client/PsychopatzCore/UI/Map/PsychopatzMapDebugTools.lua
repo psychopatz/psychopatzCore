@@ -62,6 +62,23 @@ local function register(id, definition)
     Menu.Register("PsychopatzCore:" .. id, definition)
 end
 
+register("actor_debug_presentation", {
+    order = 39,
+    visible = canUseDebug,
+    title = function()
+        return Client.IsDebugPresentationEnabled()
+            and tr("UI_PsychopatzMapTools_ActorDebugOff", "Hide survivor debug inspection")
+            or tr("UI_PsychopatzMapTools_ActorDebugOn", "Show survivor debug inspection")
+    end,
+    tooltip = function()
+        return tr("UI_PsychopatzMapTools_ActorDebugHelp",
+            "Show routes and undiscovered overlays. Portraits require learned identity.")
+    end,
+    onActivate = function()
+        return Client.SetDebugPresentationEnabled(not Client.IsDebugPresentationEnabled())
+    end,
+})
+
 register("discovery_refresh", {
     order = 10,
     title = function()

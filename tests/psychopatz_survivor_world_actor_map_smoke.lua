@@ -112,11 +112,13 @@ package.preload[
 
 PsychopatzCore = {}
 UIFont = { Small = {} }
-getTimestampMs = function() return 1000 end
+local now = 1000
+getTimestampMs = function() return now end
 
 local ActorMap = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldActorMap"
 
+local decorations = 0
 local markers = ActorMap.BuildMarkers()
 assert(#markers == 2,
     "Core actor map did not expose every canonical actor")
@@ -126,6 +128,7 @@ assert(markers[1].actorID == "actor:map:a",
 assert(ActorMap.RegisterDecorator("test", {
     priority = 10,
     decorate = function(entry, style)
+        decorations = decorations + 1
         if entry.actorID == "actor:map:a" then
             style.label = "Ada [Trader]"
             style.size = 11
@@ -249,4 +252,31 @@ assert(tracked == "actor:map:a",
 assert(hoverHides >= 1, "map close did not hide hover")
 assert(refreshes >= 1, "Core actor map never refreshed projections")
 
+-- Rendering unchanged data at 60 FPS must not rerun adopter decorators.
+ActorMap.BuildMarkers()
+local before = decorations
+for frame = 1, 120 do ActorMap.BuildMarkers() end
+assert(decorations == before, "unchanged frames rebuilt decorated markers")
+now = 1500
+ActorMap.BuildMarkers()
+assert(decorations == before + #actors, "expired styles did not refresh")
+Client.Selection.selectedActorID = actors[2].actorID
+local changed = ActorMap.BuildMarkers()
+assert(changed[2].selected == true, "selection waited for cache TTL")
+assert(decorations == before + #actors * 2, "selection did not invalidate")
+now = 900
+ActorMap.BuildMarkers()
+assert(decorations == before + #actors * 3, "clock rollback retained stale cache")
+assert(ActorMap.UnregisterDecorator("test"))
+assert(ActorMap.BuildMarkers()[1].label == "Ada", "removed decorator remained cached")
+Client.Selection.selectedActorID = nil
+tracked = nil
+local debugRoutes = false
+Client.IsDebugPresentationEnabled = function() return debugRoutes end
+local lineCount = #lines
+overlay.render(map)
+assert(#lines == lineCount, "normal unselected actor exposed debug route")
+debugRoutes = true
+overlay.render(map)
+assert(#lines > lineCount, "shared debug omitted actor traversal route")
 print("psychopatz_survivor_world_actor_map_smoke: PASS")

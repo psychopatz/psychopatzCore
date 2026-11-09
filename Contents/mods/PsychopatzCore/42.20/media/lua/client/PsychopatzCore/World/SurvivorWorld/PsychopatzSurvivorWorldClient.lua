@@ -77,10 +77,44 @@ function Client.RequestActorsIfDue(intervalMs, force)
     return Client.RequestActors()
 end
 
+-- Explicit inspection state shared by all map adopters. It never grants
+-- discovery/identity facts and is checked again when permissions change.
+function Client.CanUseDebugPresentation()
+    local debugAPI = PsychopatzCore.Debug
+    return debugAPI and type(debugAPI.CanUse) == "function"
+        and debugAPI.CanUse(localPlayer()) == true or false
+end
+
+function Client.SetDebugPresentationEnabled(enabled)
+    if enabled == true and not Client.CanUseDebugPresentation() then
+        return false, "not_authorized"
+    end
+    Client.DebugPresentationEnabled = enabled == true
+    return true
+end
+
+function Client.IsDebugPresentationEnabled()
+    return Client.DebugPresentationEnabled == true
+        and Client.CanUseDebugPresentation()
+end
+
 function Client.ListActors(raw)
     local entries =
         ProjectionClient.List(Client.SOURCE_ID)
     if raw == true then return entries end
+    local time = getGameTime and getGameTime() or nil
+    local hour = time and time.getWorldAgeHours and time:getWorldAgeHours() or nil
+    if hour and Presentation.ProjectActorPosition then
+        local projected = {}
+        for _, entry in ipairs(entries) do
+            local copy = {}
+            for key, value in pairs(entry) do copy[key] = value end
+            copy.position = Presentation.ProjectActorPosition(entry, hour)
+                or entry.position
+            projected[#projected + 1] = copy
+        end
+        entries = projected
+    end
     return Presentation.SpreadOverlaps(entries)
 end
 
@@ -141,14 +175,19 @@ function Client.GetActorKnowledge(actorID, options)
             value.provider = value.provider or providerID
             return value
         end
+        -- An unavailable player-knowledge adapter must not fall back to
+        -- the actor's raw display name and disclose an unknown identity.
+        return nil, "actor_knowledge_unavailable"
     end
     if not projection then return nil, "actor_projection_unavailable" end
     local knownName = projection.displayName
         or projection.label
         or projection.identity and projection.identity.displayName
     local discovery = discoveryFor(projection)
-    if discovery then
-        local phase = tonumber(discovery.phase) or 0
+    if discovery or tostring(projection.groupID or "") ~= ""
+        or tostring(projection.communityID or "") ~= ""
+    then
+        local phase = discovery and tonumber(discovery.phase) or 0
         local contacted = phase >= 3
         return {
             actorID = actorID,
@@ -256,9 +295,8 @@ function Client.GetPortraitSpec(actorOrID)
         appearance.beardModel = face.beardModel
     end
     return {
-        key = tostring(portrait.actorID or entry.actorID)
-            .. ":"
-            .. tostring(portrait.schemaVersion or 0),
+        -- PortraitPanel keys the actual appearance/equipment; actor+schema
+        -- alone would retain an old outfit forever after a new projection.
         actorID = portrait.actorID or entry.actorID,
         identitySeed = portrait.actorID or entry.actorID,
         isFemale = gender == "female"
@@ -390,10 +428,15 @@ function Client.SetTracked(actorID)
 end
 
 function Client.GetTracked()
-    return Presentation.ResolveTracked(
-        Client.ListActors(true),
-        Client.Selection
-    )
+    local id = Client.Selection and Client.Selection.trackedActorID
+    if id == nil or tostring(id) == "" then return nil end
+    -- The projection store already indexes actors. Listing here sorted the
+    -- whole population on every map frame, including when nothing was tracked.
+    local entry = Client.GetActor(id)
+    if entry and (entry.sourceID == nil or entry.sourceID == Client.SOURCE_ID) then
+        return entry
+    end
+    return nil
 end
 
 local function applyDiscovery(args)

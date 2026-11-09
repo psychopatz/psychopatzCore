@@ -108,5 +108,8 @@
     "UI_PsychopatzWorldMetadata_Include_Nav": "Nav zones",
     "UI_PsychopatzWorldMetadata_Include_ForagingNav": "ForagingNav zones",
     "UI_PsychopatzWorldMetadata_Include_SpawnPoint": "SpawnPoint zones",
-    "UI_PsychopatzWorldMetadata_Include_OtherZones": "Other zone types"
+    "UI_PsychopatzWorldMetadata_Include_OtherZones": "Other zone types",
+    "UI_PsychopatzMapTools_ActorDebugOff": "Hide survivor debug inspection",
+    "UI_PsychopatzMapTools_ActorDebugOn": "Show survivor debug inspection",
+    "UI_PsychopatzMapTools_ActorDebugHelp": "Show routes and undiscovered overlays. Portraits require learned identity."
 }

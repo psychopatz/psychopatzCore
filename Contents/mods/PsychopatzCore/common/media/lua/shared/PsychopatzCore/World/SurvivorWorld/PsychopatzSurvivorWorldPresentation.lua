@@ -281,6 +281,34 @@ function Presentation.BuildActorEntries(
     return output
 end
 
+-- Reuse authoritative journey math for display only. Provider-owned physical
+-- bodies never extrapolate from a group journey. Anchor the delta at the
+-- snapshot time to preserve the server's per-member position/offset.
+function Presentation.ProjectActorPosition(entry, now)
+    local base = point(entry and entry.position)
+    local raw = entry and entry.journey
+    local at = finite(entry and entry.updatedAt)
+    now = finite(now)
+    if not base or entry.positionSource ~= "group"
+        or entry.providerState == "materialized" or entry.providerState == "live"
+        or type(raw) ~= "table" or at == nil or now == nil or now < at
+        or type(raw.route) ~= "table" or finite(raw.distanceTotal) == nil
+        or finite(raw.speed) == nil or raw.speed <= 0
+    then return base end
+    local Journey = require
+        "PsychopatzCore/World/SurvivorWorld/Traversal/PsychopatzSurvivorWorldGroupJourney"
+    local journey = Journey.Normalize(raw, raw.groupID or entry.groupID, at)
+    if not journey or (finite(raw.distanceTotal) ~= nil
+        and math.abs(journey.distanceTotal - raw.distanceTotal) > 0.01)
+    then return base end -- A bounded/truncated route cannot be extrapolated safely.
+    local previous = Journey.ProjectPosition(journey, at)
+    local current = Journey.ProjectPosition(journey, now)
+    if not previous or not current then return base end
+    return { x = base.x + current.x - previous.x,
+        y = base.y + current.y - previous.y,
+        z = base.z + current.z - previous.z }
+end
+
 local function positionKey(position, precision)
     precision = math.max(1, math.floor(tonumber(precision) or 100))
     return tostring(math.floor(position.x * precision + 0.5))

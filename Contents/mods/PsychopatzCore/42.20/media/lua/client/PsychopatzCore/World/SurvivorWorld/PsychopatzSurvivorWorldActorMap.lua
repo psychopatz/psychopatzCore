@@ -8,6 +8,7 @@ local Client = require
 local Hover = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldMapHover"
 local Host = require "PsychopatzCore/UI/Map/PsychopatzMapHost"
+local HOVER_OWNER = "PsychopatzCore:SurvivorWorldActors"
 
 PsychopatzCore = PsychopatzCore or {}
 PsychopatzCore.SurvivorWorldActorMap =
@@ -99,6 +100,7 @@ function ActorMap.RegisterDecorator(id, definition)
     then
         return false, "invalid_actor_map_decorator"
     end
+    ActorMap.MarkerCache = nil
     ActorMap.Decorators[id] = {
         priority = tonumber(definition.priority) or 0,
         decorate = definition.decorate,
@@ -112,6 +114,7 @@ function ActorMap.UnregisterDecorator(id)
         return false
     end
     ActorMap.Decorators[id] = nil
+    ActorMap.MarkerCache = nil
     return true
 end
 
@@ -158,11 +161,23 @@ function ActorMap.BuildMarkers()
     if Client.RequestActorsIfDue then
         Client.RequestActorsIfDue(ActorMap.RefreshMs)
     end
-    local markers = {}
     local selected = selectionID()
     local tracked = trackedID()
+    local entries = projectedEntries()
+    local now = nowMs()
+    local cache = ActorMap.MarkerCache
+    -- World coordinates/styles only change at projection cadence. Screen
+    -- coordinates and hover hit tests still run every render for smooth pan.
+    if cache and cache.entries == entries and cache.selected == selected
+        and cache.tracked == tracked and now ~= nil and cache.at ~= nil
+        and now >= cache.at
+        and now - cache.at < math.max(0, tonumber(ActorMap.RefreshMs) or 500)
+    then
+        return cache.markers
+    end
+    local markers = {}
     local decorators = decoratorList()
-    for _, entry in ipairs(projectedEntries()) do
+    for _, entry in ipairs(entries) do
         local position = entry and entry.position or nil
         if position and tonumber(position.x) and tonumber(position.y) then
             local style = decorate(entry, decorators)
@@ -196,11 +211,17 @@ function ActorMap.BuildMarkers()
     table.sort(markers, function(left, right)
         return left.actorID < right.actorID
     end)
+    ActorMap.MarkerCache = {
+        entries = entries, selected = selected, tracked = tracked,
+        at = now, markers = markers,
+    }
     return markers
 end
 
 local function drawRoute(map, marker)
-    if not marker or not (marker.selected or marker.tracked) then return end
+    if not marker or not (marker.selected or marker.tracked
+        or Client.IsDebugPresentationEnabled and Client.IsDebugPresentationEnabled())
+    then return end
     local points = marker.entry
         and marker.entry.journey
         and marker.entry.journey.route
@@ -337,7 +358,9 @@ end
 
 function ActorMap.Render(map)
     if not ActorMap.Enabled or not map or not map.mapAPI then
-        if Hover and Hover.Hide then Hover.Hide(map) end
+        if Hover and Hover.Hide then
+            Hover.Hide(map, true, HOVER_OWNER)
+        end
         return
     end
 
@@ -397,12 +420,15 @@ function ActorMap.Render(map)
                 hovered.marker.entry,
                 hovered.x,
                 hovered.y,
-                hovered.marker
+                hovered.marker,
+                HOVER_OWNER
             )
         end
     else
         if Client.SetHighlighted then Client.SetHighlighted(nil) end
-        if Hover and Hover.Hide then Hover.Hide(map) end
+        if Hover and Hover.Hide then
+            Hover.Hide(map, true, HOVER_OWNER)
+        end
     end
 end
 

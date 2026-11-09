@@ -18,6 +18,20 @@ Hover.DELAY_MS = 90
 Hover.KNOWLEDGE_CACHE_MS = 250
 Hover.Providers = Hover.Providers or {}
 
+local function normalizeOwner(owner)
+    owner = tostring(owner or "")
+    return owner ~= "" and owner or nil
+end
+
+local function clearCandidateState(map)
+    map._psychopatzSurvivorWorldHoverCandidateID = nil
+    map._psychopatzSurvivorWorldHoverCandidateAt = nil
+    map._psychopatzSurvivorWorldHoverKnowledgeRequestedID = nil
+    map._psychopatzSurvivorWorldHoverKnowledgeID = nil
+    map._psychopatzSurvivorWorldHoverKnowledgeAt = nil
+    map._psychopatzSurvivorWorldHoverKnowledge = nil
+end
+
 local function nowMs()
     if type(getTimestampMs) == "function" then
         local ok, value = pcall(getTimestampMs)
@@ -37,6 +51,20 @@ local function visible(panel, value)
     else
         panel.visible = value == true
     end
+end
+
+local function claimOwner(map, owner)
+    owner = normalizeOwner(owner)
+    if not owner or map._psychopatzSurvivorWorldHoverOwner == owner then
+        return owner
+    end
+
+    visible(map.psychopatzSurvivorWorldHover, false)
+    map._psychopatzSurvivorWorldHoverOwner = owner
+    map._psychopatzSurvivorWorldHoverActorID = nil
+    map._psychopatzSurvivorWorldHoverEntry = nil
+    clearCandidateState(map)
+    return owner
 end
 
 local function portraitCard()
@@ -145,35 +173,19 @@ local function requestKnowledge(map, entry, actorID)
 end
 
 local function identityReady(map, entry, actorID)
-    if entry and entry.identityKnown == false then
-        requestKnowledge(map, entry, actorID)
-        return false
-    end
-    if entry and entry.nameKnown == false then
-        requestKnowledge(map, entry, actorID)
-        return false
-    end
-
+    -- Knowledge is player-specific and can arrive before the next actor
+    -- projection. Neither stale marker flags nor debug geometry override it.
     local knowledge = actorKnowledge(map, entry, actorID)
-    if not knowledge then return true end
-    local state = string.lower(tostring(knowledge.state or ""))
-    if knowledge.pending == true
-        or knowledge.knowledgePending == true
-        or state == "loading"
-        or state == "pending"
-    then
-        requestKnowledge(map, entry, actorID)
-        return false
+    if knowledge then
+        local state = string.lower(tostring(knowledge.state or ""))
+        if knowledge.nameKnown == true
+            or knowledge.nameKnown == nil and state == "known"
+        then
+            return true
+        end
     end
-    if knowledge.nameKnown == false or state == "unknown" then
-        requestKnowledge(map, entry, actorID)
-        return false
-    end
-    if knowledge.nameKnown == nil and state ~= "known" then
-        requestKnowledge(map, entry, actorID)
-        return false
-    end
-    return true
+    requestKnowledge(map, entry, actorID)
+    return false
 end
 
 local function portraitSpec(entry, adapter)
@@ -221,35 +233,41 @@ function Hover.Ensure(map)
     return panel
 end
 
-function Hover.Hide(map, resetCandidate)
+function Hover.Hide(map, resetCandidate, owner)
     if not map then return false end
+
+    owner = normalizeOwner(owner)
+    local currentOwner = map._psychopatzSurvivorWorldHoverOwner
+    if owner and currentOwner and currentOwner ~= owner then
+        return false
+    end
+
     visible(map.psychopatzSurvivorWorldHover, false)
     map._psychopatzSurvivorWorldHoverActorID = nil
+    map._psychopatzSurvivorWorldHoverEntry = nil
     if resetCandidate ~= false then
-        map._psychopatzSurvivorWorldHoverCandidateID = nil
-        map._psychopatzSurvivorWorldHoverCandidateAt = nil
-        map._psychopatzSurvivorWorldHoverKnowledgeRequestedID = nil
-        map._psychopatzSurvivorWorldHoverKnowledgeID = nil
-        map._psychopatzSurvivorWorldHoverKnowledgeAt = nil
-        map._psychopatzSurvivorWorldHoverKnowledge = nil
+        clearCandidateState(map)
+        map._psychopatzSurvivorWorldHoverOwner = nil
     end
     return true
 end
 
-function Hover.Update(map, entry, markerX, markerY, marker)
+function Hover.Update(map, entry, markerX, markerY, marker, owner)
     local actorID = actorIDFor(entry)
+    owner = normalizeOwner(owner)
     if not map or not actorID then
-        Hover.Hide(map)
+        Hover.Hide(map, nil, owner)
         return false
     end
+    claimOwner(map, owner)
     local adapter = providerFor(entry)
     if not identityReady(map, entry, actorID) then
-        Hover.Hide(map, false)
+        Hover.Hide(map, false, owner)
         return false
     end
     local spec = portraitSpec(entry, adapter)
     if not spec then
-        Hover.Hide(map)
+        Hover.Hide(map, nil, owner)
         return false
     end
 
@@ -261,7 +279,7 @@ function Hover.Update(map, entry, markerX, markerY, marker)
         map._psychopatzSurvivorWorldHoverCandidateID =
             actorID
         map._psychopatzSurvivorWorldHoverCandidateAt = now
-        Hover.Hide(map, false)
+        Hover.Hide(map, false, owner)
         if now > 0 and Hover.DELAY_MS > 0 then
             return false
         end
@@ -281,15 +299,15 @@ function Hover.Update(map, entry, markerX, markerY, marker)
     if panel.setContext then
         panel:setContext(entry, marker, hoverContext(entry, marker, adapter))
     end
-    if map._psychopatzSurvivorWorldHoverActorID
-        ~= actorID
+    if map._psychopatzSurvivorWorldHoverActorID ~= actorID
+        or map._psychopatzSurvivorWorldHoverEntry ~= entry
     then
         if panel:setTarget(nil, spec, true) ~= true then
-            Hover.Hide(map, false)
+            Hover.Hide(map, false, owner)
             return false
         end
-        map._psychopatzSurvivorWorldHoverActorID =
-            actorID
+        map._psychopatzSurvivorWorldHoverActorID = actorID
+        map._psychopatzSurvivorWorldHoverEntry = entry
     end
 
     local size = Hover.SIZE
