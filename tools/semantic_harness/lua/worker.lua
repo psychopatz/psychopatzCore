@@ -29,6 +29,7 @@ package.path = table.concat(packagePaths, ";") .. ";" .. package.path
 local Protocol = require "Protocol"
 local RuntimeState = require "worker/RuntimeState"
 local Values = require "worker/Values"
+local SessionEnvelope = require "worker/SessionEnvelope"
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
 
 local Runtime = RuntimeState.new()
@@ -45,6 +46,11 @@ local function hello()
             "semantic.conversation",
             "harness.runtime_state",
             "harness.value_projection",
+            "harness.session_envelope",
+        },
+        sessionEnvelope = {
+            schema = SessionEnvelope.SCHEMA,
+            schemaVersion = SessionEnvelope.SCHEMA_VERSION,
         },
     }
 end
