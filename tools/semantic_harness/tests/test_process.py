@@ -1,0 +1,90 @@
+from __future__ import annotations
+
+import sys
+import tempfile
+import textwrap
+import unittest
+from pathlib import Path
+
+from semantic_harness.process import HarnessError, LuaProcess, WorkerLaunchSpec
+
+
+CORE_ROOT = Path(__file__).resolve().parents[3]
+
+
+class ProcessTests(unittest.TestCase):
+    def fake_worker(self, directory: Path) -> Path:
+        script = directory / "worker.py"
+        script.write_text(
+            textwrap.dedent(
+                """
+                import json
+                import sys
+                import time
+
+                print(json.dumps({"protocolVersion": 1, "id": "__hello__", "ok": True, "type": "hello", "profile": "test"}), flush=True)
+                for line in sys.stdin:
+                    request = json.loads(line)
+                    if request.get("command") == "SLEEP":
+                        time.sleep(0.2)
+                    if request.get("command") == "QUIT":
+                        print(json.dumps({"protocolVersion": 1, "id": request["id"], "ok": True, "type": "goodbye"}), flush=True)
+                        break
+                    print(json.dumps({"protocolVersion": 1, "id": request["id"], "ok": True, "type": "echo", "payload": request.get("payload")}), flush=True)
+                """
+            ).strip()
+            + "\n",
+            encoding="utf-8",
+        )
+        return script
+
+    def spec(self, script: Path, **overrides: object) -> WorkerLaunchSpec:
+        values: dict[str, object] = {
+            "lua_bin": Path(sys.executable),
+            "worker_script": script,
+            "core_repository": CORE_ROOT,
+            "working_directory": CORE_ROOT,
+            "profile": "test",
+            "worker_arguments": (),
+            "startup_timeout": 1.0,
+            "request_timeout": 1.0,
+            "shutdown_timeout": 0.2,
+        }
+        values.update(overrides)
+        return WorkerLaunchSpec(**values)
+
+    def test_process_correlates_requests(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            script = self.fake_worker(Path(directory))
+            runtime = LuaProcess(self.spec(script))
+            try:
+                hello = runtime.start()
+                self.assertEqual(hello["profile"], "test")
+                response = runtime.request("ECHO", {"value": 7})
+                self.assertEqual(response["payload"]["value"], 7)
+            finally:
+                runtime.close()
+
+    def test_process_rejects_profile_mismatch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            script = self.fake_worker(Path(directory))
+            runtime = LuaProcess(self.spec(script, profile="core"))
+            with self.assertRaisesRegex(HarnessError, "profile mismatch"):
+                runtime.start()
+            runtime.close()
+
+    def test_process_timeout_contains_worker(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            script = self.fake_worker(Path(directory))
+            runtime = LuaProcess(self.spec(script, request_timeout=0.02))
+            try:
+                runtime.start()
+                with self.assertRaises(HarnessError):
+                    runtime.request("SLEEP")
+                self.assertEqual(runtime.state, "FAILED")
+            finally:
+                runtime.close()
+
+
+if __name__ == "__main__":
+    unittest.main()

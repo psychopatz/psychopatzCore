@@ -12,6 +12,7 @@ from .provider_registry import (
     ProviderRegistry,
     ResolvedProfile,
 )
+from .process import HarnessError, LuaProcess, WorkerLaunchSpec
 from .repository_layout import RepositoryLayout, RepositoryLayoutError
 
 __all__ = [
@@ -19,9 +20,12 @@ __all__ = [
     "ProfileDescriptor",
     "ProviderDescriptor",
     "ProviderRegistry",
+    "HarnessError",
+    "LuaProcess",
     "RepositoryLayout",
     "RepositoryLayoutError",
     "ResolvedProfile",
+    "WorkerLaunchSpec",
 ]
 
 __version__ = "0.1.0"

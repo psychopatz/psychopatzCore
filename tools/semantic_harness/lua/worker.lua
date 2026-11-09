@@ -43,6 +43,12 @@ local function hello()
     }
 end
 
+local function capabilities()
+    local result = hello()
+    result.type = "capabilities"
+    return result
+end
+
 local function dispatch(request)
     local command = string.upper(request.command)
     local payload = type(request.payload) == "table" and request.payload or {}
@@ -50,7 +56,7 @@ local function dispatch(request)
         return { ok = true, type = "pong", profile = "core" }, nil, false
     end
     if command == "CAPABILITIES" then
-        return hello(), nil, false
+        return capabilities(), nil, false
     end
     if command == "PARSE" then
         if type(payload.text) ~= "string" or payload.text == "" then
