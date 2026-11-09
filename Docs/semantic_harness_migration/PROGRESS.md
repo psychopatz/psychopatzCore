@@ -26,12 +26,19 @@ Implemented in commits `7364cab`, `ebd7844a`, `0115bddc`, `846b943`, and
 - Hoomans scenario and worker-session modules reduced to compatibility paths;
 - Hoomans defaults, health normalization, validation, and PNC worker remain
   adopter-owned.
+- Core-owned CodeBuilder foundation: shared `CompileError`, locale
+  normalization, deterministic JSON formatting, and collision-safe generated
+  module naming;
+- Hoomans CodeBuilder import paths now delegate those generic helpers to Core;
+- Hoomans lexicon compiler now uses the Core compiler-error contract while
+  retaining its WordNet allowlist and Hoomans concept policy.
 
 Verification:
 
-- `PYTHONPATH=tools python3 -W error -m unittest discover -s tools/semantic_harness/tests -q` — 21 passed;
+- `PYTHONPATH=tools python3 -W error -m unittest discover -s tools/semantic_harness/tests -q` — 24 passed;
 - Hoomans runtime/config/profile tests — 6 passed;
 - Hoomans Core-ownership/session/scenario compatibility tests — 7 passed;
+- Hoomans CodeBuilder boundary/compiler/dataset/conversation tests — passed;
 - Hoomans process correlation/timeout tests — passed;
 - Hoomans production worker startup and restart compatibility — passed;
 - `python3 -W error -m py_compile tools/semantic_harness/*.py tools/semantic_harness/tests/*.py` — passed;
@@ -39,8 +46,9 @@ Verification:
 - `git diff --check` — passed.
 
 The Project Hoomans production worker remains the default compatibility
-profile. Its process lifecycle, protocol, generic document mechanics, and
-serialized session lifecycle are delegated to Core, while its production
-module loader, scenario defaults, health normalization, and validation remain
-Hoomans-owned. The next safe chunk is extracting the provider-neutral
-CodeBuilder contract and compiler seam.
+profile. Its process lifecycle, protocol, generic document mechanics,
+serialized session lifecycle, and CodeBuilder foundation are delegated to
+Core, while its production module loader, scenario defaults, health
+normalization, validation, source manifests, package ownership, and output
+routing remain Hoomans-owned. The next safe chunk is extracting the typed
+dialogue dataset contract/compiler seam.

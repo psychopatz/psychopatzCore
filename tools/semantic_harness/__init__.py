@@ -12,6 +12,7 @@ from .provider_registry import (
     ProviderRegistry,
     ResolvedProfile,
 )
+from .codebuilder import CatalogNameError, CompileError
 from .process import HarnessError, LuaProcess, WorkerLaunchSpec
 from .repository_layout import RepositoryLayout, RepositoryLayoutError
 from .scenario import (
@@ -30,6 +31,8 @@ from .worker_session import (
 
 __all__ = [
     "CORE_PROVIDER_ID",
+    "CatalogNameError",
+    "CompileError",
     "ProfileDescriptor",
     "ProviderDescriptor",
     "ProviderRegistry",
