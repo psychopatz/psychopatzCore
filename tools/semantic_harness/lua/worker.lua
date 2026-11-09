@@ -8,6 +8,27 @@ local coreRepository = arg[1]
     or os.getenv("SEMANTIC_HARNESS_CORE_REPOSITORY")
     or "."
 local coreRuntime = os.getenv("PZ_TEST_CORE_RUNTIME")
+local profileID = tostring(
+    os.getenv("SEMANTIC_HARNESS_PROFILE") or "core"
+)
+local materializationMode = tostring(
+    os.getenv("SEMANTIC_HARNESS_MATERIALIZATION_MODE") or "none"
+)
+
+local function providerIDs()
+    local value = os.getenv("SEMANTIC_HARNESS_PROVIDER_IDS")
+    if not value or value == "" then return { "PsychopatzCore" } end
+    local result = {}
+    for providerID in string.gmatch(value, "[^,]+") do
+        providerID = string.gsub(providerID, "^%s+", "")
+        providerID = string.gsub(providerID, "%s+$", "")
+        if providerID ~= "" then result[#result + 1] = providerID end
+    end
+    if #result == 0 then result[1] = "PsychopatzCore" end
+    return result
+end
+
+local selectedProviders = providerIDs()
 
 local function path(root, relative)
     return root .. "/" .. relative
@@ -42,8 +63,8 @@ local function hello()
     return {
         ok = true,
         type = "hello",
-        profile = "core",
-        providers = { "PsychopatzCore" },
+        profile = profileID,
+        providers = selectedProviders,
         capabilities = {
             "semantic.parse",
             "semantic.ir",
@@ -68,6 +89,7 @@ local function hello()
         semanticExecution = {
             schema = SemanticExecution.SCHEMA,
             schemaVersion = SemanticExecution.SCHEMA_VERSION,
+            materializationMode = materializationMode,
         },
     }
 end
@@ -82,7 +104,7 @@ local function dispatch(request)
     local command = string.upper(request.command)
     local payload = type(request.payload) == "table" and request.payload or {}
     if command == "PING" then
-        return { ok = true, type = "pong", profile = "core" }, nil, false
+        return { ok = true, type = "pong", profile = profileID }, nil, false
     end
     if command == "CAPABILITIES" then
         return capabilities(), nil, false
@@ -99,7 +121,7 @@ local function dispatch(request)
         }, nil, false
     end
     if command == "QUIT" then
-        return { ok = true, type = "goodbye", profile = "core" }, nil, true
+        return { ok = true, type = "goodbye", profile = profileID }, nil, true
     end
     return nil, "unknown_command:" .. tostring(request.command), false
 end

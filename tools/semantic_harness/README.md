@@ -8,6 +8,8 @@ The first migration slice establishes the contract boundary only:
   `ProviderDescriptor` also carries the bounded
   `semantic.harness_execution.v1` callback declaration, so adopters can
   register abstract and physical profiles without adding another worker;
+- `profile_loader.py` composes optional adopter registrars and emits neutral
+  launch metadata for the Core worker;
 - `repository_layout.py` discovers Core as required and adopters as optional;
 - `protocol.py` and `lua/worker.lua` provide the Core-only bounded worker seam;
 - `process.py` owns the bounded Python worker lifecycle and request correlation;

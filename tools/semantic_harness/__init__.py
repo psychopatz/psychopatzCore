@@ -16,6 +16,7 @@ from .provider_registry import (
 )
 from .codebuilder import CatalogNameError, CompileError
 from .process import HarnessError, LuaProcess, WorkerLaunchSpec
+from .profile_loader import ProfileSelection, ProviderRegistrar, compose_profile
 from .repository_layout import RepositoryLayout, RepositoryLayoutError
 from .scenario import (
     deep_merge,
@@ -38,6 +39,9 @@ __all__ = [
     "ProfileDescriptor",
     "ProviderDescriptor",
     "ProviderRegistry",
+    "ProfileSelection",
+    "ProviderRegistrar",
+    "compose_profile",
     "HarnessError",
     "LuaProcess",
     "SessionClosedError",

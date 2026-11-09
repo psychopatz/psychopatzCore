@@ -31,6 +31,8 @@ class WorkerLaunchSpec:
     core_repository: Path
     working_directory: Path | None = None
     profile: str = "core"
+    provider_ids: tuple[str, ...] = ()
+    materialization_mode: str = "none"
     worker_arguments: tuple[str, ...] = ()
     environment: Mapping[str, str] = field(default_factory=dict)
     startup_timeout: float = 8.0
@@ -42,6 +44,14 @@ class WorkerLaunchSpec:
         profile = str(self.profile).strip()
         if not profile:
             raise ValueError("worker profile must be non-empty")
+        provider_ids = tuple(str(value).strip() for value in self.provider_ids)
+        if any(not value for value in provider_ids):
+            raise ValueError("provider IDs must be non-empty")
+        if len(set(provider_ids)) != len(provider_ids):
+            raise ValueError("provider IDs must be unique")
+        materialization_mode = str(self.materialization_mode).strip().lower()
+        if materialization_mode not in {"none", "abstract", "physical"}:
+            raise ValueError("invalid materialization mode")
         if self.startup_timeout <= 0:
             raise ValueError("startup timeout must be positive")
         if self.request_timeout <= 0:
@@ -51,6 +61,8 @@ class WorkerLaunchSpec:
         if self.max_message_bytes <= 0:
             raise ValueError("message limit must be positive")
         object.__setattr__(self, "profile", profile)
+        object.__setattr__(self, "provider_ids", provider_ids)
+        object.__setattr__(self, "materialization_mode", materialization_mode)
         object.__setattr__(self, "lua_bin", Path(self.lua_bin).expanduser().resolve())
         object.__setattr__(
             self,
@@ -157,6 +169,12 @@ class LuaProcess:
                     self.config.core_repository
                 ),
                 "SEMANTIC_HARNESS_PROFILE": self.config.profile,
+                "SEMANTIC_HARNESS_PROVIDER_IDS": ",".join(
+                    self.config.provider_ids
+                ),
+                "SEMANTIC_HARNESS_MATERIALIZATION_MODE": (
+                    self.config.materialization_mode
+                ),
             }
         )
         environment.update(self.config.environment)
