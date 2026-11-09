@@ -4,8 +4,8 @@
 
 Status: complete for the first two bounded implementation slices.
 
-Implemented in commits `7364cab`, `ebd7844a`, `0115bddc`, `846b943`, and
-`22c084aa`:
+Implemented in commits `7364cab`, `ebd7844a`, `0115bddc`, `846b943`,
+`22c084aa`, `188487f`, and `1f3b4c0e`:
 
 - Core-owned provider and profile descriptors;
 - fail-closed profile resolution and dependency validation;
