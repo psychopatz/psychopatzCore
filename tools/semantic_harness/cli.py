@@ -9,7 +9,8 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any, Sequence
 
-from .runtime.config import PROFILE_ALIASES, HarnessConfig
+from .mod_manager import ModManager, ModManagerError
+from .runtime.config import PROFILE_ALIASES, HarnessConfig, discover_core_repository
 from .runtime.worker import LuaSemanticWorker
 from .scenario import load_json_document
 
@@ -40,8 +41,23 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--profile",
         default="core",
-        choices=tuple(dict.fromkeys(PROFILE_ALIASES)),
+        help="compatibility preset alias; use --preset or --mods for new selections",
     )
+    parser.add_argument("--preset", help="named manifest-driven selection preset")
+    parser.add_argument(
+        "--mods",
+        action="append",
+        help="provider IDs to enable; repeat or provide a comma-separated list",
+    )
+    parser.add_argument(
+        "--provider-root",
+        action="append",
+        type=Path,
+        help="repository root to scan for provider manifests",
+    )
+    parser.add_argument("--list-mods", action="store_true")
+    parser.add_argument("--list-presets", action="store_true")
+    parser.add_argument("--show-selection", action="store_true")
     parser.add_argument("--repository", type=Path)
     parser.add_argument("--core-repository", type=Path)
     parser.add_argument("--dynamic-trading-repository", type=Path)
@@ -76,10 +92,50 @@ def _emit(value: Any, *, jsonl: bool) -> None:
 
 
 def cli(arguments: argparse.Namespace) -> int:
+    provider_roots = tuple(arguments.provider_root or ())
+    if arguments.list_mods or arguments.list_presets:
+        try:
+            core = discover_core_repository(
+                arguments.core_repository,
+                cwd=Path(arguments.repository).expanduser().resolve()
+                if arguments.repository is not None
+                else None,
+            )
+            roots = list(provider_roots)
+            if arguments.repository is not None:
+                roots.append(arguments.repository)
+            if arguments.dynamic_trading_repository is not None:
+                roots.append(arguments.dynamic_trading_repository)
+            manager = ModManager.discover(
+                core_repository=core,
+                repository_roots=roots,
+                cwd=Path.cwd(),
+            )
+        except (ModManagerError, ValueError) as error:
+            raise SystemExit(str(error)) from error
+        _emit(
+            manager.describe()
+            if arguments.list_mods
+            else {"schema": "semantic.harness.selection_presets.v1", "presets": list(manager.presets())},
+            jsonl=arguments.jsonl,
+        )
+        return 0
+
+    mods: tuple[str, ...] | None = None
+    if arguments.mods:
+        mods = tuple(
+            item.strip()
+            for value in arguments.mods
+            for item in str(value).split(",")
+            if item.strip()
+        )
     config = HarnessConfig.discover(
         repository=arguments.repository,
         core_repository=arguments.core_repository,
         dynamic_trading_repository=arguments.dynamic_trading_repository,
+        provider_roots=provider_roots,
+        mods=mods,
+        preset=arguments.preset,
         lua_bin=arguments.lua,
         worker_script=arguments.worker_script,
         profile=arguments.profile,
@@ -87,6 +143,9 @@ def cli(arguments: argparse.Namespace) -> int:
         request_timeout=arguments.timeout,
         shutdown_timeout=arguments.shutdown_timeout,
     )
+    if arguments.show_selection:
+        _emit(config.activation_plan or {}, jsonl=arguments.jsonl)
+        return 0
     with LuaSemanticWorker(_scenario(arguments, config), config=config) as worker:
         if arguments.ping:
             _emit(worker.ping(), jsonl=arguments.jsonl)

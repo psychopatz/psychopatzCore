@@ -1,32 +1,56 @@
-"""Provider-neutral configuration for the Core-owned semantic harness."""
+"""Provider-neutral configuration backed by the Core mod manager."""
 
 from __future__ import annotations
 
 import json
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
+from ..mod_manager import ModManager, ModManagerError
 from ..process import WorkerLaunchSpec
 from ..protocol import DEFAULT_MAX_MESSAGE_BYTES
-from ..runtime_discovery import ConfigurationError, discover_lua, discover_newest_runtime
+from ..runtime_discovery import (
+    ConfigurationError,
+    discover_lua,
+    discover_newest_runtime,
+    discover_shared_runtime,
+)
 
 
-PROFILE_ALIASES = {
-    "pnc": "pnc",
-    "core": "core",
-    "dtabstract": "dtabstract",
-    "dthoomans": "dthoomans",
-    "combined": "combined",
-}
+def _preset_names() -> tuple[str, ...]:
+    path = Path(__file__).resolve().parents[1] / "selection_presets.json"
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+        presets = document.get("presets", {})
+        if isinstance(presets, dict):
+            return tuple(sorted(str(name) for name in presets))
+    except (OSError, json.JSONDecodeError):
+        pass
+    return ("core",)
+
+
+# Compatibility aliases remain data-defined. Core does not branch on adopter
+# names; the manager resolves the selected preset/provider manifests.
+PROFILE_ALIASES = {name: name for name in _preset_names()}
 
 
 def _repository_marker(repository: Path, marker: str) -> bool:
     return (repository / "Contents/mods" / marker).is_dir()
 
 
-def discover_core_repository(explicit: str | Path | None = None, *, cwd: Path | None = None) -> Path:
+def _looks_like_core(repository: Path) -> bool:
+    return _repository_marker(repository, "PsychopatzCore") or (
+        repository / "tools/semantic_harness/lua/worker.lua"
+    ).is_file()
+
+
+def discover_core_repository(
+    explicit: str | Path | None = None,
+    *,
+    cwd: Path | None = None,
+) -> Path:
     candidates: list[Path] = []
     if explicit is not None:
         candidates.append(Path(explicit))
@@ -40,7 +64,7 @@ def discover_core_repository(explicit: str | Path | None = None, *, cwd: Path | 
     candidates.extend((current, current.parent / "psychopatzCore"))
     for candidate in candidates:
         resolved = candidate.expanduser().resolve()
-        if _repository_marker(resolved, "PsychopatzCore"):
+        if _looks_like_core(resolved):
             return resolved
     raise ConfigurationError(
         "could not locate PsychopatzCore repository; checked: "
@@ -48,109 +72,75 @@ def discover_core_repository(explicit: str | Path | None = None, *, cwd: Path | 
     )
 
 
-def discover_repository(explicit: str | Path | None, *, marker: str, environment_name: str, core_repository: Path) -> Path:
-    candidates: list[Path] = []
-    if explicit is not None:
-        candidates.append(Path(explicit))
-    environment = os.environ.get(environment_name)
-    if environment:
-        candidates.append(Path(environment))
-    candidates.extend(
-        child
-        for child in sorted(core_repository.parent.iterdir())
-        if child.is_dir() and child != core_repository
-    )
-    for candidate in candidates:
-        resolved = candidate.expanduser().resolve()
-        if _repository_marker(resolved, marker):
-            return resolved
-    raise ConfigurationError(
-        f"could not locate {marker} repository; checked: "
-        + ", ".join(str(item.expanduser()) for item in candidates)
-    )
+def _runtime_if_present(repository: Path | None, mod_id: str) -> str | None:
+    if repository is None:
+        return None
+    mod_root = repository / "Contents/mods" / mod_id
+    if not mod_root.is_dir():
+        return None
+    return discover_newest_runtime(mod_root)
 
 
-def _provider_manifest(repository: Path, provider_id: str) -> dict[str, Any]:
-    root = repository / "tools" / "providers"
-    for path in sorted(root.glob("*/provider.json")) if root.is_dir() else []:
-        try:
-            document = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as error:
-            raise ConfigurationError(f"invalid provider manifest: {path}") from error
-        identifiers = set(document.get("providerIDs", []))
-        if document.get("providerID"):
-            identifiers.add(document["providerID"])
-        if provider_id in identifiers:
-            return document
-    raise ConfigurationError(f"provider manifest for {provider_id} was not found under {repository}")
+def _provider_environment(config: "HarnessConfig") -> dict[str, str]:
+    """Resolve provider-declared environment templates without provider branches."""
 
+    plan = config.activation_plan or {}
+    templates = plan.get("environment", {})
+    repositories = plan.get("repositories", {})
+    providers = plan.get("providers", [])
+    if not isinstance(templates, dict) or not isinstance(repositories, dict):
+        return {}
 
-def _manifest_repository(
-    explicit: str | Path | None,
-    *,
-    profile: str,
-    environment_name: str,
-    core_repository: Path,
-) -> Path:
-    """Find a provider repository by its declared Core profile membership."""
+    runtimes: dict[str, str] = {}
+    for provider in providers if isinstance(providers, list) else []:
+        if not isinstance(provider, dict):
+            continue
+        provider_id = str(provider.get("providerID", ""))
+        repository_value = repositories.get(provider_id)
+        if not provider_id or not repository_value:
+            continue
+        repository = Path(str(repository_value)).expanduser().resolve()
+        module_ids = tuple(
+            str(value)
+            for value in provider.get("runtimeModules", [])
+            if str(value).strip()
+        )
+        if provider_id == "PsychopatzCore":
+            runtime = _runtime_if_present(repository, "PsychopatzCore")
+        elif module_ids:
+            runtime = discover_shared_runtime(repository, module_ids)
+        else:
+            runtime = None
+        if runtime is None:
+            continue
+        runtimes[provider_id] = runtime
+        for module_id in module_ids:
+            runtimes[module_id] = runtime
 
-    candidates: list[Path] = []
-    if explicit is not None:
-        candidates.append(Path(explicit))
-    environment = os.environ.get(environment_name)
-    if environment:
-        candidates.append(Path(environment))
-    candidates.extend(
-        child
-        for child in sorted(core_repository.parent.iterdir())
-        if child.is_dir() and child != core_repository
-    )
-    for candidate in candidates:
-        resolved = candidate.expanduser().resolve()
-        manifests = sorted((resolved / "tools/providers").glob("*/provider.json"))
-        for path in manifests:
-            try:
-                document = json.loads(path.read_text(encoding="utf-8"))
-            except (OSError, json.JSONDecodeError) as error:
-                raise ConfigurationError(f"invalid provider manifest: {path}") from error
-            if profile in document.get("profiles", []):
-                return resolved
-    raise ConfigurationError(
-        f"no provider repository declares profile {profile!r}; checked: "
-        + ", ".join(str(item.expanduser()) for item in candidates)
-    )
-
-
-def _manifest_for_profile(repository: Path, profile: str) -> dict[str, Any]:
-    manifests = sorted((repository / "tools/providers").glob("*/provider.json"))
-    for path in manifests:
-        try:
-            document = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as error:
-            raise ConfigurationError(f"invalid provider manifest: {path}") from error
-        if profile in document.get("profiles", []):
-            return document
-    raise ConfigurationError(
-        f"provider repository {repository} has no manifest for profile {profile}"
-    )
-
-
-def _expand_paths(values: list[str], repository: Path) -> tuple[str, ...]:
-    return tuple(
-        value.replace("${repository}", str(repository)).replace("${repo}", str(repository))
-        for value in values
-    )
+    resolved: dict[str, str] = {}
+    for key, raw_value in templates.items():
+        value = str(raw_value)
+        for runtime_key, runtime in runtimes.items():
+            value = value.replace(
+                "${runtime:" + runtime_key + "}",
+                runtime,
+            )
+        if "${runtime:" in value:
+            raise ConfigurationError(
+                f"provider environment {key} references an unavailable runtime"
+            )
+        resolved[str(key)] = value
+    return resolved
 
 
 @dataclass(frozen=True)
 class HarnessConfig:
-    """Resolved Core launch configuration plus explicit provider metadata."""
+    """Resolved Core launch configuration and immutable activation plan."""
 
     repository: Path
     core_repository: Path
     lua_bin: Path
     worker_script: Path
-    dynamic_trading_repository: Path | None = None
     profile: str = "core"
     provider_ids: tuple[str, ...] = ("PsychopatzCore",)
     materialization_mode: str = "none"
@@ -161,165 +151,131 @@ class HarnessConfig:
     provider_python_scenario: str | None = None
     provider_worker_script: Path | None = None
     provider_worker_profile: str | None = None
+    activation_plan: dict[str, Any] | None = None
+    route_table: dict[str, str] | None = None
+    candidate_overlay_root: Path | None = None
+    candidate_overlay_module: str | None = None
     startup_timeout: float = 8.0
     request_timeout: float = 5.0
     shutdown_timeout: float = 1.0
     max_message_bytes: int = DEFAULT_MAX_MESSAGE_BYTES
 
     @classmethod
-    def discover(cls, *, repository: str | Path | None = None, core_repository: str | Path | None = None, dynamic_trading_repository: str | Path | None = None, lua_bin: str | Path | None = None, worker_script: str | Path | None = None, profile: str = "core", startup_timeout: float = 8.0, request_timeout: float = 5.0, shutdown_timeout: float = 1.0) -> "HarnessConfig":
-        normalized = PROFILE_ALIASES.get(str(profile or "core").strip().lower())
-        if normalized is None:
-            raise ConfigurationError(f"unsupported semantic harness profile: {profile}")
-        core_hint = core_repository
+    def discover(
+        cls,
+        *,
+        repository: str | Path | None = None,
+        core_repository: str | Path | None = None,
+        dynamic_trading_repository: str | Path | None = None,
+        provider_roots: Sequence[str | Path] = (),
+        mods: Sequence[str] | None = None,
+        preset: str | None = None,
+        lua_bin: str | Path | None = None,
+        worker_script: str | Path | None = None,
+        profile: str | None = "core",
+        startup_timeout: float = 8.0,
+        request_timeout: float = 5.0,
+        shutdown_timeout: float = 1.0,
+    ) -> "HarnessConfig":
         sibling_hint = repository or dynamic_trading_repository
+        core_hint = core_repository
         if core_hint is None and sibling_hint is not None:
             core_hint = Path(sibling_hint).expanduser().resolve().parent / "psychopatzCore"
-        core = discover_core_repository(core_hint, cwd=Path(sibling_hint).expanduser().resolve() if sibling_hint is not None else None)
-        repo = core
-        dt_repository = None
-        provider_ids = ["PsychopatzCore"]
-        module_paths: list[str] = []
-        modules: list[str] = []
-        execution_provider_id = None
-        python_worker = None
-        python_scenario = None
-        provider_worker_script = None
-        provider_worker_profile = None
-        materialization = "none"
-        if normalized == "pnc":
-            repo = _manifest_repository(
-                repository,
-                profile=normalized,
-                environment_name="SEMANTIC_HARNESS_PNC_REPOSITORY",
+        core = discover_core_repository(
+            core_hint,
+            cwd=Path(sibling_hint).expanduser().resolve() if sibling_hint is not None else None,
+        )
+        roots: list[str | Path] = list(provider_roots)
+        if repository is not None:
+            roots.append(repository)
+        if dynamic_trading_repository is not None:
+            roots.append(dynamic_trading_repository)
+        try:
+            manager = ModManager.discover(
                 core_repository=core,
+                repository_roots=roots,
+                cwd=sibling_hint or Path.cwd(),
             )
-            manifest = _manifest_for_profile(repo, normalized)
-            provider_ids.extend(
-                manifest.get("providerIDsByProfile", {}).get(
-                    normalized,
-                    manifest.get("providerIDs", [manifest["providerID"]]),
-                )
+            selected = tuple(mods) if mods else None
+            plan = manager.resolve(
+                provider_ids=selected,
+                preset=preset,
+                alias=None if selected or preset else (profile or "core"),
             )
-            module_paths.extend(_expand_paths(manifest.get("luaModulePaths", []), repo))
-            modules.extend(manifest.get("luaModules", []))
-            python_worker = manifest.get("pythonWorker")
-            python_scenario = manifest.get("pythonScenario")
-            worker_value = manifest.get("workerScript")
-            if isinstance(worker_value, str) and worker_value:
-                provider_worker_script = Path(
-                    _expand_paths([worker_value], repo)[0]
-                ).expanduser().resolve()
-            provider_worker_profile = manifest.get("workerProfile")
-            materialization = manifest.get("materializationByProfile", {}).get(
-                normalized, "physical"
-            )
-        elif normalized in {"dtabstract", "dthoomans"}:
-            repo = _manifest_repository(
-                dynamic_trading_repository,
-                profile=normalized,
-                environment_name="SEMANTIC_HARNESS_DT_REPOSITORY",
-                core_repository=core,
-            )
-            manifest = _manifest_for_profile(repo, normalized)
-            dt_repository = repo
-            provider_ids.extend(
-                manifest.get("providerIDsByProfile", {}).get(
-                    normalized,
-                    manifest.get("providerIDs", [manifest["providerID"]]),
-                )
-            )
-            module_paths.extend(_expand_paths(manifest.get("luaModulePaths", []), repo))
-            selected = manifest.get("executionProviderByProfile", {}).get(normalized)
-            if selected is None:
-                selected = (manifest.get("providerIDs", []) or [manifest["providerID"]])[-1]
-            selected_module = manifest.get("luaModulesByProvider", {}).get(selected)
-            modules.append(selected_module or manifest.get("luaModules", [])[0])
-            execution_provider_id = selected
-            materialization = manifest.get("materializationByProfile", {}).get(
-                normalized, "physical"
-            )
-        elif normalized == "combined":
-            pnc = _manifest_repository(
-                repository,
-                profile=normalized,
-                environment_name="SEMANTIC_HARNESS_PNC_REPOSITORY",
-                core_repository=core,
-            )
-            dt = _manifest_repository(
-                dynamic_trading_repository,
-                profile=normalized,
-                environment_name="SEMANTIC_HARNESS_DT_REPOSITORY",
-                core_repository=core,
-            )
-            pnc_manifest = _manifest_for_profile(pnc, normalized)
-            dt_manifest = _manifest_for_profile(dt, normalized)
-            dt_repository = dt
-            provider_ids.extend(
-                pnc_manifest.get("providerIDsByProfile", {}).get(
-                    normalized,
-                    pnc_manifest.get("providerIDs", [pnc_manifest["providerID"]]),
-                )
-            )
-            provider_ids.extend(
-                item for item in dt_manifest.get("providerIDsByProfile", {}).get(
-                    normalized,
-                    dt_manifest.get("providerIDs", [dt_manifest["providerID"]]),
-                )
-                if item not in provider_ids
-            )
-            module_paths.extend(_expand_paths(pnc_manifest.get("luaModulePaths", []), pnc))
-            module_paths.extend(_expand_paths(dt_manifest.get("luaModulePaths", []), dt))
-            modules.extend(pnc_manifest.get("luaModules", []))
-            dt_provider = dt_manifest.get("executionProviderByProfile", {}).get(
-                normalized, dt_manifest.get("providerID")
-            )
-            dt_module = dt_manifest.get("luaModulesByProvider", {}).get(dt_provider)
-            if dt_module is None:
-                dt_module = (dt_manifest.get("luaModules", []) or [None])[0]
-            if dt_module:
-                modules.append(dt_module)
-            python_worker = pnc_manifest.get("pythonWorker")
-            python_scenario = pnc_manifest.get("pythonScenario")
-            worker_value = pnc_manifest.get("workerScript")
-            if isinstance(worker_value, str) and worker_value:
-                provider_worker_script = Path(
-                    _expand_paths([worker_value], pnc)[0]
-                ).expanduser().resolve()
-            provider_worker_profile = pnc_manifest.get("workerProfile")
-            materialization = pnc_manifest.get("materializationByProfile", {}).get(
-                normalized,
-                dt_manifest.get("materializationByProfile", {}).get(normalized, "physical"),
-            )
-            repo = pnc
+        except ModManagerError as error:
+            raise ConfigurationError(str(error)) from error
+
         lua = discover_lua(lua_bin)
-        worker = Path(worker_script) if worker_script else core / "tools/semantic_harness/lua/worker.lua"
-        worker = worker.expanduser().resolve()
-        if not worker.is_file():
-            raise ConfigurationError(f"Core worker script does not exist: {worker}")
-        return cls(repository=repo, core_repository=core, dynamic_trading_repository=dt_repository, lua_bin=lua, worker_script=worker, profile=normalized, provider_ids=tuple(provider_ids), materialization_mode=materialization, provider_module_paths=tuple(module_paths), provider_modules=tuple(modules), execution_provider_id=execution_provider_id, provider_python_worker=python_worker, provider_python_scenario=python_scenario, provider_worker_script=provider_worker_script, provider_worker_profile=provider_worker_profile, startup_timeout=float(startup_timeout), request_timeout=float(request_timeout), shutdown_timeout=float(shutdown_timeout))
+        core_worker = Path(worker_script) if worker_script else core / "tools/semantic_harness/lua/worker.lua"
+        core_worker = core_worker.expanduser().resolve()
+        if not core_worker.is_file():
+            raise ConfigurationError(f"Core worker script does not exist: {core_worker}")
+
+        config = cls(
+            repository=plan.primary_repository,
+            core_repository=core,
+            lua_bin=lua,
+            worker_script=core_worker,
+            profile=plan.selection_id,
+            provider_ids=plan.provider_ids,
+            materialization_mode=plan.materialization_mode,
+            provider_module_paths=plan.module_paths,
+            provider_modules=plan.modules,
+            execution_provider_id=plan.execution_provider_id,
+            provider_python_worker=plan.python_worker,
+            provider_python_scenario=plan.python_scenario,
+            provider_worker_script=plan.worker_script,
+            provider_worker_profile=plan.worker_profile,
+            activation_plan=plan.to_dict(),
+            route_table=dict(plan.routes),
+            startup_timeout=float(startup_timeout),
+            request_timeout=float(request_timeout),
+            shutdown_timeout=float(shutdown_timeout),
+        )
+        activation_plan = dict(config.activation_plan or {})
+        activation_plan["environment"] = _provider_environment(config)
+        return replace(config, activation_plan=activation_plan)
 
 
 def build_worker_launch_spec(config: HarnessConfig) -> WorkerLaunchSpec:
-    environment = {
+    """Create the neutral process spec shared by every selection."""
+
+    environment: dict[str, str] = {
         "SEMANTIC_HARNESS_REPOSITORY": str(config.repository),
         "SEMANTIC_HARNESS_CORE_REPOSITORY": str(config.core_repository),
+        "SEMANTIC_HARNESS_ACTIVATION_PLAN": json.dumps(
+            config.activation_plan or {}, ensure_ascii=False, separators=(",", ":")
+        ),
+        "SEMANTIC_HARNESS_ROUTE_TABLE": ";".join(
+            f"{capability}={provider}"
+            for capability, provider in sorted((config.route_table or {}).items())
+        ),
     }
-    if config.dynamic_trading_repository is not None:
-        environment["SEMANTIC_HARNESS_DT_REPOSITORY"] = str(
-            config.dynamic_trading_repository
-        )
-    core_mod = config.core_repository / "Contents/mods/PsychopatzCore"
-    if core_mod.is_dir():
-        environment["PZ_TEST_CORE_RUNTIME"] = discover_newest_runtime(core_mod)
-    pnc_mod = config.repository / "Contents/mods/ProjectHoomans"
-    if pnc_mod.is_dir():
-        environment["PZ_TEST_HOOMANS_RUNTIME"] = discover_newest_runtime(pnc_mod)
-    dt_root = config.dynamic_trading_repository or config.repository
-    dt_mod = dt_root / "Contents/mods/DTCommon"
-    if dt_mod.is_dir():
-        environment["PZ_TEST_DYNAMIC_TRADING_RUNTIME"] = discover_newest_runtime(dt_mod)
-    return WorkerLaunchSpec(lua_bin=config.lua_bin, worker_script=config.worker_script, core_repository=config.core_repository, working_directory=config.repository, profile=config.profile, provider_ids=config.provider_ids, materialization_mode=config.materialization_mode, provider_module_paths=config.provider_module_paths, provider_modules=config.provider_modules, execution_provider_id=config.execution_provider_id, environment=environment, startup_timeout=config.startup_timeout, request_timeout=config.request_timeout, shutdown_timeout=config.shutdown_timeout, max_message_bytes=config.max_message_bytes)
+    environment.update(_provider_environment(config))
+
+    return WorkerLaunchSpec(
+        lua_bin=config.lua_bin,
+        worker_script=config.worker_script,
+        core_repository=config.core_repository,
+        working_directory=config.repository,
+        profile=config.profile,
+        provider_ids=config.provider_ids,
+        materialization_mode=config.materialization_mode,
+        provider_module_paths=config.provider_module_paths,
+        provider_modules=config.provider_modules,
+        execution_provider_id=config.execution_provider_id,
+        environment=environment,
+        startup_timeout=config.startup_timeout,
+        request_timeout=config.request_timeout,
+        shutdown_timeout=config.shutdown_timeout,
+        max_message_bytes=config.max_message_bytes,
+    )
 
 
-__all__ = ["ConfigurationError", "HarnessConfig", "build_worker_launch_spec", "discover_core_repository", "discover_newest_runtime"]
+__all__ = [
+    "ConfigurationError",
+    "HarnessConfig",
+    "PROFILE_ALIASES",
+    "build_worker_launch_spec",
+    "discover_core_repository",
+]

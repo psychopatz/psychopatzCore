@@ -3,7 +3,10 @@
 local Router = {}
 
 function Router.dispatch(handlers, context, request, transportEvidence)
-    local command = request and request.command
+    local command = tostring(request and request.command or "")
+    command = string.gsub(command, "^%s+", "")
+    command = string.gsub(command, "%s+$", "")
+    command = string.upper(command)
     local payload = request and request.payload
     for index = 1, #(handlers or {}) do
         local handler = handlers[index]

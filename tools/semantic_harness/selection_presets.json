@@ -1,0 +1,47 @@
+{
+  "schema": "semantic.harness.selection_presets.v1",
+  "presets": {
+    "core": {
+      "displayName": "PsychopatzCore only",
+      "providers": ["PsychopatzCore"],
+      "materializationMode": "none"
+    },
+    "pnc": {
+      "displayName": "Project Hoomans",
+      "providers": ["ProjectHoomans"],
+      "materializationMode": "physical",
+      "executionProviderID": "ProjectHoomans"
+    },
+    "dtabstract": {
+      "displayName": "Dynamic Trading abstract",
+      "providers": ["DTAbstract"],
+      "materializationMode": "abstract",
+      "executionProviderID": "DTAbstract"
+    },
+    "dthoomans": {
+      "displayName": "Dynamic Trading Hoomans",
+      "providers": ["DTHoomans"],
+      "materializationMode": "physical",
+      "executionProviderID": "DTHoomans"
+    },
+    "pnc-with-dthoomans": {
+      "displayName": "Project Hoomans with DTHoomans",
+      "providers": ["ProjectHoomans", "DTHoomans"],
+      "materializationMode": "physical",
+      "routes": {
+        "semantic.conversation": "ProjectHoomans",
+        "semantic.identity": "ProjectHoomans",
+        "semantic.interaction": "ProjectHoomans",
+        "world.discovery": "ProjectHoomans",
+        "world.radio": "ProjectHoomans",
+        "trading.conversation": "DTHoomans",
+        "trading.interaction": "DTHoomans",
+        "trading.physical": "DTHoomans"
+      }
+    },
+    "combined": {
+      "displayName": "Compatibility alias for Project Hoomans with DTHoomans",
+      "aliasOf": "pnc-with-dthoomans"
+    }
+  }
+}

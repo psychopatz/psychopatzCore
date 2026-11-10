@@ -16,6 +16,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_doctor(
             repository=arguments.repository,
             core_repository=arguments.core_repository,
+            dynamic_trading_repository=arguments.dynamic_trading_repository,
+            provider_roots=tuple(arguments.provider_root or ()),
+            mods=tuple(
+                item.strip()
+                for value in (arguments.mods or ())
+                for item in str(value).split(",")
+                if item.strip()
+            ) or None,
+            preset=arguments.preset,
             lua_bin=arguments.lua,
             profile=arguments.profile,
             startup_timeout=arguments.startup_timeout,

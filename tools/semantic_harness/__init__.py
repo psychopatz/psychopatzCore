@@ -18,13 +18,20 @@ from .provider_registry import (
 from .codebuilder import CatalogNameError, CompileError
 from .process import HarnessError, LuaProcess, WorkerLaunchSpec
 from .profile_loader import ProfileSelection, ProviderRegistrar, compose_profile
+from .mod_manager import (
+    ActivationPlan,
+    ModManager,
+    ModManagerError,
+    ProviderManifest,
+    ProviderSpec,
+)
 from .runtime_discovery import (
     ConfigurationError,
     discover_lua,
     discover_newest_runtime,
+    discover_shared_runtime,
     probe_lua,
 )
-from .repository_layout import RepositoryLayout, RepositoryLayoutError
 from .scenario import (
     deep_merge,
     derive_actor_identifier,
@@ -62,9 +69,15 @@ __all__ = [
     "ProfileSelection",
     "ProviderRegistrar",
     "compose_profile",
+    "ActivationPlan",
+    "ModManager",
+    "ModManagerError",
+    "ProviderManifest",
+    "ProviderSpec",
     "ConfigurationError",
     "discover_lua",
     "discover_newest_runtime",
+    "discover_shared_runtime",
     "probe_lua",
     "HarnessError",
     "LuaProcess",
@@ -76,8 +89,6 @@ __all__ = [
     "derive_actor_identifier",
     "derive_display_name",
     "load_json_document",
-    "RepositoryLayout",
-    "RepositoryLayoutError",
     "ResolvedProfile",
     "SEMANTIC_EXECUTION_CALLBACKS",
     "SEMANTIC_EXECUTION_SCHEMA",

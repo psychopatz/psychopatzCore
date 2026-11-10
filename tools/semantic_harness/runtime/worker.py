@@ -4,10 +4,11 @@ from __future__ import annotations
 
 import importlib
 import sys
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
-from .config import HarnessConfig
+from .config import HarnessConfig, build_worker_launch_spec
 from .core_worker import CoreLuaSemanticWorker
 
 
@@ -47,7 +48,14 @@ class LuaSemanticWorker:
         worker_class = _provider_worker_class(config)
         if worker_class is not None:
             provider_kwargs = dict(kwargs)
-            provider_kwargs.pop("config", None)
+            provider_kwargs["config"] = config
+            launch_spec = build_worker_launch_spec(config)
+            if config.provider_worker_script is not None:
+                launch_spec = replace(
+                    launch_spec,
+                    worker_script=config.provider_worker_script,
+                )
+            provider_kwargs["launch_spec"] = launch_spec
             provider_kwargs["repository"] = config.repository
             provider_kwargs["core_repository"] = config.core_repository
             provider_kwargs["lua_bin"] = config.lua_bin

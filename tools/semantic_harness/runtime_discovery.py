@@ -33,6 +33,35 @@ def discover_newest_runtime(mod_root: str | Path) -> str:
     return max(versions)[1]
 
 
+def discover_shared_runtime(
+    repository: str | Path,
+    module_ids: tuple[str, ...] | list[str],
+) -> str | None:
+    """Return the newest numeric runtime shared by every listed module."""
+
+    root = Path(repository).expanduser().resolve()
+    module_roots = [root / "Contents/mods" / str(module_id) for module_id in module_ids]
+    if not module_roots or not all(path.is_dir() for path in module_roots):
+        return None
+    version_sets = [
+        {
+            child.name
+            for child in module_root.iterdir()
+            if child.is_dir() and RUNTIME_DIRECTORY_PATTERN.fullmatch(child.name)
+        }
+        for module_root in module_roots
+    ]
+    compatible = set.intersection(*version_sets)
+    if not compatible:
+        raise ConfigurationError(
+            "modules do not share a numeric runtime under " + str(root)
+        )
+    return max(
+        compatible,
+        key=lambda value: tuple(int(part) for part in value.split(".")),
+    )
+
+
 def discover_lua(explicit: str | Path | None = None) -> Path:
     """Find an executable Lua interpreter from an explicit path or PATH."""
 
@@ -81,5 +110,6 @@ __all__ = [
     "RUNTIME_DIRECTORY_PATTERN",
     "discover_lua",
     "discover_newest_runtime",
+    "discover_shared_runtime",
     "probe_lua",
 ]

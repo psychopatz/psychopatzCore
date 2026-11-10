@@ -29,6 +29,23 @@ local function split(value, separator)
     return result
 end
 
+local function routes(value)
+    local result = {}
+    for _, entry in ipairs(split(value, ";")) do
+        local capability, providerID = string.match(entry, "^([^=]+)=(.+)$")
+        if capability and providerID then
+            capability = string.gsub(capability, "^%s+", "")
+            capability = string.gsub(capability, "%s+$", "")
+            providerID = string.gsub(providerID, "^%s+", "")
+            providerID = string.gsub(providerID, "%s+$", "")
+            if capability ~= "" and providerID ~= "" then
+                result[capability] = providerID
+            end
+        end
+    end
+    return result
+end
+
 function ProviderLoader.readConfiguration(defaults)
     defaults = type(defaults) == "table" and defaults or {}
     local modulePaths = split(
@@ -55,10 +72,16 @@ function ProviderLoader.readConfiguration(defaults)
             executionProviderID = nil
         end
     end
+    local routeTable = routes(environment("SEMANTIC_HARNESS_ROUTE_TABLE"))
+    if next(routeTable) == nil and type(defaults.routes) == "table" then
+        routeTable = defaults.routes
+    end
     return {
         modulePaths = modulePaths,
         modules = modules,
         executionProviderID = executionProviderID,
+        routes = routeTable,
+        activationPlan = environment("SEMANTIC_HARNESS_ACTIVATION_PLAN"),
     }
 end
 
@@ -167,10 +190,18 @@ function ProviderLoader.load(
     if executionProviderID == nil and #descriptions == 1 then
         executionProviderID = descriptions[1].providerID
     end
+    for capability, providerID in pairs(configuration.routes or {}) do
+        if providerID ~= "PsychopatzCore" and executions[providerID] == nil then
+            return nil, "route_provider_not_loaded:" .. tostring(capability)
+                .. ":" .. tostring(providerID)
+        end
+    end
     return {
         executions = executions,
         descriptions = descriptions,
         executionProviderID = executionProviderID,
+        routes = configuration.routes or {},
+        activationPlan = configuration.activationPlan,
     }
 end
 

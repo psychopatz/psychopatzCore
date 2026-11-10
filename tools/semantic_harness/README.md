@@ -8,21 +8,51 @@ Adopters register provider manifests from their own repositories. Project
 Hoomans/PNC and Dynamic Trading/DT provide policy, production adapters, and
 content; neither repository contains another harness package.
 
-## Profiles
+## Selection manager
 
-- `core` — Core-only parsing and worker contracts.
-- `pnc` — Core plus the Project Hoomans/PNC provider.
-- `dtabstract` — Core plus DTAbstract, without PNC.
-- `dthoomans` — Core plus DTHoomans, when explicitly selected.
-- `combined` — Core plus PNC and DT composition.
+The harness is composed from provider manifests. Compatibility profiles are
+data-defined presets; new providers can be added without changing Core code.
+
+```text
+core                  PsychopatzCore only
+pnc                   PsychopatzCore + ProjectHoomans
+dtabstract            PsychopatzCore + DTCommon + DTAbstract
+dthoomans             PsychopatzCore + DTCommon + DTHoomans
+pnc-with-dthoomans    ProjectHoomans conversation + DTHoomans trading
+```
+
+Inspect the available providers and presets:
+
+```bash
+bash tools/semantic_harness/run_harness.sh --list-mods --jsonl
+bash tools/semantic_harness/run_harness.sh --list-presets --jsonl
+```
 
 ## Running
 
 ```bash
 PYTHONPATH=/path/to/psychopatzCore \
-  python3 -m tools.semantic_harness --profile core --no-gui
+  python3 -m tools.semantic_harness --preset core --ping --no-gui
+```
+
+```bash
+# Project Hoomans only
+bash tools/semantic_harness/run_harness.sh --preset pnc --input "hello"
+
+# Dynamic Trading without Project Hoomans
+bash tools/semantic_harness/run_harness.sh --preset dtabstract --ping
+
+# Project Hoomans conversation plus DTHoomans trading
+bash tools/semantic_harness/run_harness.sh \
+  --preset pnc-with-dthoomans --show-selection --jsonl
+
+# Arbitrary future-provider composition
+bash tools/semantic_harness/run_harness.sh \
+  --mods ProjectHoomans,FutureExpansion --show-selection --jsonl
 ```
 
 The `semantic-lab` console entrypoint and `run_harness.sh` launcher are also
-owned by this Core package. Provider manifests are resolved explicitly from
-`tools/providers/<provider>/provider.json`.
+owned by this Core package. Provider manifests are discovered from configured
+repository roots and sibling workshop repositories. The resolver validates
+dependencies, conflicts, materialization mode, load order, and capability
+routes before starting a worker.

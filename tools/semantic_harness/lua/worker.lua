@@ -15,7 +15,6 @@ local function path(root, relative)
 end
 
 local packagePaths = {
-    path(coreRepository, "tools/semantic_harness/lua/?.lua"),
     path(coreRepository, "Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua"),
 }
 if coreRuntime and coreRuntime ~= "" then
@@ -25,6 +24,9 @@ if coreRuntime and coreRuntime ~= "" then
             .. "/media/lua/shared/?.lua"
     )
 end
+packagePaths[#packagePaths + 1] = path(coreRepository, "tools/semantic_harness/lua/?.lua")
+packagePaths[#packagePaths + 1] = path(coreRepository, "Contents/mods/PsychopatzCore/common/media/lua/client/?.lua")
+packagePaths[#packagePaths + 1] = path(coreRepository, "Contents/mods/PsychopatzCore/" .. (coreRuntime or "") .. "/media/lua/client/?.lua")
 package.path = table.concat(packagePaths, ";") .. ";" .. package.path
 
 local Protocol = require "Protocol"
@@ -160,6 +162,8 @@ local function hello()
         },
         providerAdapters = providerRuntime.descriptions,
         executionProviderID = providerRuntime.executionProviderID,
+        routes = providerRuntime.routes,
+        activationPlan = providerRuntime.activationPlan,
     }
 end
 
@@ -191,7 +195,16 @@ local function dispatch(request)
     end
     if command == "SEMANTIC_PROVIDER" then
         local operation = tostring(payload.operation or "")
+        local capability = payload.capability
+        if capability == nil then
+            if operation == "interaction" then
+                capability = "semantic.interaction"
+            else
+                capability = "semantic.conversation"
+            end
+        end
         local providerID = payload.providerID
+            or providerRuntime.routes[capability]
             or providerRuntime.executionProviderID
         local execution = providerID and providerRuntime.executions[providerID]
         if not execution then

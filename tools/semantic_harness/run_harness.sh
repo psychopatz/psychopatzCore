@@ -18,7 +18,9 @@ if ! "$BOOTSTRAP_PYTHON" -c 'import sys; raise SystemExit(0 if sys.version_info 
     exit 2
 fi
 
-if [ ! -x "$VENV_PYTHON" ]; then
+if [ ! -w "$HARNESS_DIR" ]; then
+    VENV_PYTHON="$BOOTSTRAP_PYTHON"
+elif [ ! -x "$VENV_PYTHON" ]; then
     if [ -e "$VENV_DIR" ]; then
         echo "semantic harness: incomplete venv at $VENV_DIR; remove it or repair it, then retry" >&2
         exit 2
@@ -27,7 +29,12 @@ if [ ! -x "$VENV_PYTHON" ]; then
     "$BOOTSTRAP_PYTHON" -m venv "$VENV_DIR"
 fi
 
-if [ ! -x "$VENV_PYTHON" ]; then
+if [ "$VENV_PYTHON" = "$BOOTSTRAP_PYTHON" ]; then
+    if ! command -v "$VENV_PYTHON" >/dev/null 2>&1; then
+        echo "semantic harness: Python executable is unavailable: $VENV_PYTHON" >&2
+        exit 2
+    fi
+elif [ ! -x "$VENV_PYTHON" ]; then
     echo "semantic harness: venv Python is unavailable: $VENV_PYTHON" >&2
     exit 2
 fi
@@ -35,5 +42,8 @@ fi
 HARNESS_ARGS=("$@")
 cd "$REPOSITORY_ROOT"
 export PYTHONPATH="$REPOSITORY_ROOT${PYTHONPATH:+:$PYTHONPATH}"
+if [ -z "${SEMANTIC_HARNESS_CORE_REPOSITORY:-}" ]; then
+    export SEMANTIC_HARNESS_CORE_REPOSITORY="$REPOSITORY_ROOT"
+fi
 
 exec "$VENV_PYTHON" -m tools.semantic_harness.app "${HARNESS_ARGS[@]}"

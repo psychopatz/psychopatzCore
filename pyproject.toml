@@ -22,10 +22,12 @@ namespaces = true
 "tools.semantic_harness" = [
     "*.md",
     "*.sh",
+    "*.json",
     "lua/*.lua",
     "lua/**/*.lua",
     "scenarios/*.json",
     "fixtures/**/*.json",
     "codebuilder/*.json",
     "codebuilder/sources/*.json",
+    "codebuilder/sources/**/*.json",
 ]
