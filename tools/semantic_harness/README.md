@@ -11,7 +11,8 @@ The first migration slice establishes the contract boundary only:
 - `profile_loader.py` composes optional adopter registrars and emits neutral
   launch metadata for the Core worker;
 - `repository_layout.py` discovers Core as required and adopters as optional;
-- `protocol.py` and `lua/worker.lua` provide the Core-only bounded worker seam;
+- `protocol.py`, `lua/worker.lua`, and `lua/worker/ProviderLoader.lua` provide
+  the bounded worker seam and optional-adopter loading contract;
 - `process.py` owns the bounded Python worker lifecycle and request correlation;
 - `scenario.py` owns provider-neutral document merge, JSON persistence, and
   bounded actor identifier helpers;
@@ -32,9 +33,11 @@ The first migration slice establishes the contract boundary only:
 The existing Hoomans Semantic Lab remains the adopter-facing authoring
 implementation. Its scenario defaults, health normalization, validation, and
 PNC production worker remain Hoomans-owned; its generic process, protocol,
-document, and session mechanics delegate here. CodeBuilder and provider
-adapters move in later slices. Each subsequent slice should move one coherent
-boundary and retain a focused compatibility test.
+document, and session mechanics delegate here. Provider adapters are loaded
+only when an adopter supplies neutral module-path and module-name metadata;
+Core never names an adopter or makes an optional adapter a startup dependency.
+Each subsequent slice should move one coherent boundary and retain a focused
+compatibility test.
 
 The CodeBuilder foundation, typed dataset compiler seam, and bounded rule
 validation primitives are Core-owned:
@@ -50,6 +53,28 @@ merchant policy and declares the shared conversation/identity/interaction
 surface, DTAbstract composes the `abstract` profile, and DTHoomans composes
 the `physical` profile. Core validates those declarations but never imports
 Dynamic Trading or Project Hoomans.
+
+## Optional provider worker loading
+
+`WorkerLaunchSpec` can carry three provider-neutral values:
+
+- `provider_module_paths`: Lua `package.path` templates;
+- `provider_modules`: comma-separated adopter module names; and
+- `execution_provider_id`: the selected provider that receives generic
+  `SEMANTIC_PROVIDER` operations.
+
+The worker exports these as `SEMANTIC_HARNESS_PROVIDER_MODULE_PATHS`,
+`SEMANTIC_HARNESS_PROVIDER_MODULES`, and
+`SEMANTIC_HARNESS_EXECUTION_PROVIDER_ID`. Each module must expose `New`,
+`new`, or `create(SemanticExecution, context, callbacks)` and return the Core
+execution contract. Missing or failed optional modules fail the selected
+worker launch with a bounded diagnostic; leaving the metadata empty preserves
+the standalone Core worker.
+
+Dynamic Trading's `provider_worker_launch_values()` supplies these values for
+DTAbstract and DTHoomans. The two profiles therefore use the same Core loader
+and operation dispatch; only their declared materialization mode and provider
+capabilities differ.
 
 Run the contract tests from the Core repository with:
 

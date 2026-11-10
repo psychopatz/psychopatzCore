@@ -38,6 +38,34 @@ class ProcessTests(unittest.TestCase):
             },
         )
 
+    def test_launch_spec_carries_optional_provider_loader_metadata(self) -> None:
+        spec = WorkerLaunchSpec(
+            lua_bin=Path(sys.executable),
+            worker_script=CORE_ROOT / "tools/semantic_harness/lua/worker.lua",
+            core_repository=CORE_ROOT,
+            profile="fixture",
+            provider_ids=("PsychopatzCore", "FixtureProvider"),
+            materialization_mode="abstract",
+            provider_module_paths=("/tmp/fixture/?.lua",),
+            provider_modules=("fixture_provider",),
+            execution_provider_id="FixtureProvider",
+        )
+        self.assertEqual(
+            spec.neutral_environment(),
+            {
+                "SEMANTIC_HARNESS_PROFILE": "fixture",
+                "SEMANTIC_HARNESS_PROVIDER_IDS": (
+                    "PsychopatzCore,FixtureProvider"
+                ),
+                "SEMANTIC_HARNESS_MATERIALIZATION_MODE": "abstract",
+                "SEMANTIC_HARNESS_PROVIDER_MODULE_PATHS": (
+                    "/tmp/fixture/?.lua"
+                ),
+                "SEMANTIC_HARNESS_PROVIDER_MODULES": "fixture_provider",
+                "SEMANTIC_HARNESS_EXECUTION_PROVIDER_ID": "FixtureProvider",
+            },
+        )
+
     def fake_worker(self, directory: Path) -> Path:
         script = directory / "worker.py"
         script.write_text(

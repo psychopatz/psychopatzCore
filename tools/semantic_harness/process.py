@@ -33,6 +33,9 @@ class WorkerLaunchSpec:
     profile: str = "core"
     provider_ids: tuple[str, ...] = ()
     materialization_mode: str = "none"
+    provider_module_paths: tuple[str, ...] = ()
+    provider_modules: tuple[str, ...] = ()
+    execution_provider_id: str | None = None
     worker_arguments: tuple[str, ...] = ()
     environment: Mapping[str, str] = field(default_factory=dict)
     startup_timeout: float = 8.0
@@ -66,11 +69,24 @@ class WorkerLaunchSpec:
     def neutral_environment(self) -> dict[str, str]:
         """Return only provider-neutral metadata for the worker process."""
 
-        return {
+        environment = {
             "SEMANTIC_HARNESS_PROFILE": self.profile,
             "SEMANTIC_HARNESS_PROVIDER_IDS": ",".join(self.provider_ids),
             "SEMANTIC_HARNESS_MATERIALIZATION_MODE": self.materialization_mode,
         }
+        if self.provider_module_paths:
+            environment["SEMANTIC_HARNESS_PROVIDER_MODULE_PATHS"] = ";".join(
+                self.provider_module_paths
+            )
+        if self.provider_modules:
+            environment["SEMANTIC_HARNESS_PROVIDER_MODULES"] = ",".join(
+                self.provider_modules
+            )
+        if self.execution_provider_id:
+            environment["SEMANTIC_HARNESS_EXECUTION_PROVIDER_ID"] = (
+                self.execution_provider_id
+            )
+        return environment
 
     def __post_init__(self) -> None:
         profile = str(self.profile).strip()
@@ -95,6 +111,26 @@ class WorkerLaunchSpec:
         object.__setattr__(self, "profile", profile)
         object.__setattr__(self, "provider_ids", provider_ids)
         object.__setattr__(self, "materialization_mode", materialization_mode)
+        provider_module_paths = tuple(
+            str(value).strip() for value in self.provider_module_paths
+        )
+        provider_modules = tuple(
+            str(value).strip() for value in self.provider_modules
+        )
+        if any(not value for value in provider_module_paths):
+            raise ValueError("provider module paths must be non-empty")
+        if any(not value for value in provider_modules):
+            raise ValueError("provider modules must be non-empty")
+        if len(set(provider_modules)) != len(provider_modules):
+            raise ValueError("provider modules must be unique")
+        execution_provider_id = self.execution_provider_id
+        if execution_provider_id is not None:
+            execution_provider_id = str(execution_provider_id).strip()
+            if not execution_provider_id:
+                raise ValueError("execution provider ID must be non-empty")
+        object.__setattr__(self, "provider_module_paths", provider_module_paths)
+        object.__setattr__(self, "provider_modules", provider_modules)
+        object.__setattr__(self, "execution_provider_id", execution_provider_id)
         object.__setattr__(self, "lua_bin", Path(self.lua_bin).expanduser().resolve())
         object.__setattr__(
             self,

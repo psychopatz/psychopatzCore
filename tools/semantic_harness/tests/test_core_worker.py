@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -124,6 +125,87 @@ class CoreWorkerTests(unittest.TestCase):
             process.stdout.close()
             process.stderr.close()
             self.assertEqual(stderr, "")
+
+    def test_core_worker_loads_external_provider_adapter(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            module = Path(directory) / "fixture_provider.lua"
+            module.write_text(
+                """
+local Provider = {}
+
+function Provider.New(SemanticExecution, context, callbacks)
+    return SemanticExecution.new({
+        providerID = "FixtureProvider",
+        materializationMode = "abstract",
+        capabilities = { "fixture.provider" },
+        context = context,
+        callbacks = callbacks,
+    })
+end
+
+return Provider
+""".lstrip(),
+                encoding="utf-8",
+            )
+            environment = {
+                **os.environ,
+                "SEMANTIC_HARNESS_CORE_REPOSITORY": str(CORE_ROOT),
+                "SEMANTIC_HARNESS_PROFILE": "fixture",
+                "SEMANTIC_HARNESS_PROVIDER_IDS": (
+                    "PsychopatzCore,FixtureProvider"
+                ),
+                "SEMANTIC_HARNESS_MATERIALIZATION_MODE": "abstract",
+                "SEMANTIC_HARNESS_PROVIDER_MODULE_PATHS": (
+                    f"{directory}/?.lua"
+                ),
+                "SEMANTIC_HARNESS_PROVIDER_MODULES": "fixture_provider",
+                "SEMANTIC_HARNESS_EXECUTION_PROVIDER_ID": "FixtureProvider",
+            }
+            process = subprocess.Popen(
+                ["lua", str(WORKER), str(CORE_ROOT)],
+                cwd=CORE_ROOT,
+                env=environment,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            assert process.stdin is not None
+            assert process.stdout is not None
+            assert process.stderr is not None
+            try:
+                hello = decode_message(process.stdout.readline())
+                self.assertEqual(hello["executionProviderID"], "FixtureProvider")
+                self.assertEqual(
+                    hello["providerAdapters"][0]["providerID"],
+                    "FixtureProvider",
+                )
+                process.stdin.write(
+                    encode_request(
+                        "request-1",
+                        "SEMANTIC_PROVIDER",
+                        {"operation": "submitText", "text": "hello"},
+                    )
+                )
+                process.stdin.flush()
+                response = decode_message(process.stdout.readline())
+                self.assertEqual(response["type"], "semantic_provider")
+                self.assertEqual(response["providerID"], "FixtureProvider")
+                self.assertEqual(response["result"]["text"], "hello")
+                process.stdin.write(encode_request("request-2", "QUIT"))
+                process.stdin.flush()
+                self.assertEqual(
+                    decode_message(process.stdout.readline())["type"],
+                    "goodbye",
+                )
+            finally:
+                if process.poll() is None:
+                    process.terminate()
+                process.wait(timeout=2)
+                stderr = process.stderr.read().decode("utf-8")
+                process.stdin.close()
+                process.stdout.close()
+                process.stderr.close()
+                self.assertEqual(stderr, "")
 
 
 if __name__ == "__main__":

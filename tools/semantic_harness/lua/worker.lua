@@ -35,7 +35,12 @@ local WorkingWorld = require "worker/WorkingWorld"
 local Router = require "worker/Router"
 local WorkerLoop = require "worker/WorkerLoop"
 local SemanticExecution = require "worker/SemanticExecution"
+local ProviderLoader = require "worker/ProviderLoader"
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
+
+local providerLaunch = ProviderLoader.readConfiguration()
+ProviderLoader.extendPackagePaths(packagePaths, providerLaunch.modulePaths)
+package.path = table.concat(packagePaths, ";") .. ";" .. package.path
 
 local launch = LaunchMetadata.read({
     profile = "core",
@@ -47,6 +52,73 @@ local selectedProviders = launch.providers
 local materializationMode = launch.materializationMode
 
 local Runtime = RuntimeState.new()
+local Context = {
+    Runtime = Runtime,
+    profile = profileID,
+    providers = selectedProviders,
+    materializationMode = materializationMode,
+}
+
+local function callbackContext(context)
+    return {
+        profile = context.profile,
+        providers = context.providers,
+        materializationMode = context.materializationMode,
+    }
+end
+
+local callbacks = {
+    buildContext = function(context)
+        return callbackContext(context)
+    end,
+    submitText = function(context, text)
+        return {
+            accepted = false,
+            reason = "provider_callback_unconfigured",
+            profile = context.profile,
+            text = text,
+        }
+    end,
+    previewText = function(context, text)
+        return {
+            accepted = false,
+            reason = "provider_callback_unconfigured",
+            profile = context.profile,
+            text = text,
+        }
+    end,
+    submitFrame = function(context, frame)
+        return {
+            accepted = false,
+            reason = "provider_callback_unconfigured",
+            profile = context.profile,
+            frame = frame,
+        }
+    end,
+    snapshot = function(context)
+        return callbackContext(context)
+    end,
+    interaction = function(context, operation, payload)
+        return {
+            accepted = false,
+            reason = "provider_callback_unconfigured",
+            profile = context.profile,
+            operation = operation,
+            payload = payload,
+        }
+    end,
+}
+
+local providerRuntime, providerLoadReason = ProviderLoader.load(
+    SemanticExecution,
+    providerLaunch,
+    Context,
+    callbacks,
+    selectedProviders
+)
+if not providerRuntime then
+    error(providerLoadReason)
+end
 
 local function hello()
     return {
@@ -65,6 +137,8 @@ local function hello()
             "harness.working_world",
             "harness.router",
             "harness.semantic_execution",
+            "harness.provider_loader",
+            "semantic.provider_execution",
         },
         sessionEnvelope = {
             schema = SessionEnvelope.SCHEMA,
@@ -81,6 +155,8 @@ local function hello()
             schemaVersion = SemanticExecution.SCHEMA_VERSION,
             materializationMode = materializationMode,
         },
+        providerAdapters = providerRuntime.descriptions,
+        executionProviderID = providerRuntime.executionProviderID,
     }
 end
 
@@ -107,6 +183,52 @@ local function dispatch(request)
         return {
             ok = true,
             type = "semantic_parse",
+            result = result,
+        }, nil, false
+    end
+    if command == "SEMANTIC_PROVIDER" then
+        local operation = tostring(payload.operation or "")
+        local providerID = payload.providerID
+            or providerRuntime.executionProviderID
+        local execution = providerID and providerRuntime.executions[providerID]
+        if not execution then
+            return nil, "provider_execution_unavailable", false
+        end
+        local ok, result, reason = pcall(function()
+            if operation == "buildContext" then
+                return execution:buildContext()
+            end
+            if operation == "submitText" then
+                return execution:submitText(payload.text)
+            end
+            if operation == "previewText" then
+                return execution:previewText(payload.text)
+            end
+            if operation == "submitFrame" then
+                return execution:submitFrame(payload.frame)
+            end
+            if operation == "snapshot" then
+                return execution:snapshot()
+            end
+            if operation == "interaction" then
+                return execution:interaction(
+                    payload.interaction,
+                    payload.value
+                )
+            end
+            return nil, "provider_operation_unknown:" .. operation
+        end)
+        if not ok then
+            return nil, "provider_callback_failed:" .. tostring(result), false
+        end
+        if result == nil and reason ~= nil then
+            return nil, tostring(reason), false
+        end
+        return {
+            ok = true,
+            type = "semantic_provider",
+            providerID = providerID,
+            operation = operation,
             result = result,
         }, nil, false
     end
