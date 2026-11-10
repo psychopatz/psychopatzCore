@@ -332,10 +332,11 @@ function ActorMap.BuildMarkers()
 end
 
 local function markerPresence(entry, metadata)
-    local state = string.lower(tostring(
-        entry and entry.providerState
-            or metadata and metadata.providerState or ""
-    ))
+    local state = entry and (entry.presenceState or entry.providerState)
+    if state == nil or tostring(state) == "" then
+        state = metadata and (metadata.presence or metadata.providerState)
+    end
+    state = string.lower(tostring(state or ""))
     if state == "materialized" or state == "physical"
         or state == "live"
     then

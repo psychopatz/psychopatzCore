@@ -52,7 +52,7 @@ local Card = require
 local card = Card:new(0, 0, 128, { nameHeight = 24 })
 card:createChildren()
 card:setContext(
-    { actorID = "actor:hover:one", providerState = "abstract" },
+    { actorID = "actor:hover:one", presenceState = "abstract" },
     {
         hoverMetadata = {
             name = "Trader Ada",
@@ -73,5 +73,12 @@ assert(card.contextRoleGlyph == "T",
     "hover card lost trader icon glyph")
 assert(card:setTarget(nil, { actorID = "actor:hover:one" }) == true,
     "hover card did not delegate the canonical portrait target")
+
+card:setContext(
+    { actorID = "actor:hover:two", presenceState = "live" },
+    { hoverMetadata = { name = "Live Ada" } }
+)
+assert(card.contextPresence == "LIVE",
+    "hover card ignored canonical presenceState for live actor")
 
 print("psychopatz_survivor_world_map_hover_card_smoke: PASS")

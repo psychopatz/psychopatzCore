@@ -5,6 +5,7 @@ local actors = {
     {
         actorID = "actor:map:a",
         label = "Ada",
+        presenceState = "abstract",
         position = { x = 100, y = 200, z = 0 },
         journey = {
             route = {
@@ -18,6 +19,7 @@ local actors = {
     {
         actorID = "actor:map:b",
         label = "Ben",
+        presenceState = "live",
         position = { x = 500, y = 600, z = 0 },
     },
 }
@@ -124,6 +126,10 @@ assert(#markers == 2,
     "Core actor map did not expose every canonical actor")
 assert(markers[1].actorID == "actor:map:a",
     "actor map ordering/identity changed")
+assert(ActorMap.DescribeMarker(markers[1]).presence == "abstract",
+    "actor map ignored canonical presenceState for abstract actor")
+assert(ActorMap.DescribeMarker(markers[2]).presence == "materialized",
+    "actor map ignored canonical presenceState for live actor")
 
 assert(ActorMap.RegisterSource("test:legacy", {
     priority = 10,

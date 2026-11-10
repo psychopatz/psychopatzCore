@@ -110,10 +110,13 @@ function Card:setContext(entry, marker, suppliedMetadata)
     local role = metadata.role or metadata.factionRole
         or factionSource and (factionSource.role or factionSource.rank)
         or entry and (entry.role or entry.roleTag) or ""
-    local presence = normalizePresence(
-        metadata.presence or metadata.providerState
-            or entry and entry.providerState
-    )
+    local presenceValue = metadata.presence or metadata.providerState
+    if presenceValue == nil or tostring(presenceValue) == "" then
+        presenceValue = entry and (
+            entry.presenceState or entry.providerState
+        ) or nil
+    end
+    local presence = normalizePresence(presenceValue)
     local factionBadge = metadata.factionBadge or metadata.badge
         or factionSource and (factionSource.badge or factionSource.emblem)
     local actorIcon = metadata.actorIcon or metadata.icon
