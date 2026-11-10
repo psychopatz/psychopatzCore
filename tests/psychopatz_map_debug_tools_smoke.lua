@@ -78,6 +78,11 @@ end
 package.preload[
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"
 ] = function() return Client end
+package.preload[
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPresence"
+] = function()
+    return { IsOverrideEnabled = function() return false end }
+end
 
 PsychopatzCore = {
     Debug = { CanUse = function() return authorized end },
@@ -102,6 +107,9 @@ debug("discovery_all_groups")
 debug("discovery_all_communities")
 debug("discovery_reset")
 debug("actor_debug_presentation")
+local presenceOverride = debug("actor_presence_override")
+assert(not presenceOverride.available(),
+    "presence override must stay gated when its Core setting is disabled")
 debug("marker_diagnostics")
 assert(toolbar["PsychopatzCore:track_selected"],
     "Core actor tracking was not registered as a toolbar tool")

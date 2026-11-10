@@ -209,8 +209,11 @@ function Presentation.BuildActorEntry(
         and actor.extensions or {}
     local identity = extensions["PsychopatzCore.ActorIdentity"]
     local lease = actor.providerLease or {}
-    local provider = type(identity) == "table"
-        and (identity.providerID or identity.provider) or nil
+    -- The canonical provider lease is mutable during a handoff. Identity
+    -- metadata is an adoption hint only and must not hide the current Core
+    -- provider from map/hover consumers.
+    local provider = lease.provider or (type(identity) == "table"
+        and (identity.providerID or identity.provider) or nil)
     local providerState = lease.state ~= "released"
         and lease.state or type(identity) == "table"
         and (identity.presenceState or identity.presenceMode) or lease.state

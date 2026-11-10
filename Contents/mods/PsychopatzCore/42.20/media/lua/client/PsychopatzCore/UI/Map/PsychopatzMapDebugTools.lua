@@ -12,6 +12,8 @@ local ActorMap
 local Hub = require "PsychopatzCore/UI/PsychopatzDebugHubRegistry"
 local Client = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldClient"
+local Presence = require
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPresence"
 
 local function tr(key, fallback)
     local translation = PsychopatzCore and PsychopatzCore.Translation
@@ -55,6 +57,16 @@ local function trackedActorID()
     return value ~= "" and value or nil
 end
 
+local function presenceActorID()
+    return selectedActorID() or trackedActorID()
+end
+
+local function presenceDebugAvailable()
+    return canUseDebug()
+        and Presence.IsOverrideEnabled()
+        and presenceActorID() ~= nil
+end
+
 local function discoveryAction(action, args)
     if not Client or type(Client.DiscoveryAction) ~= "function" then
         return false, "core_discovery_unavailable"
@@ -73,7 +85,7 @@ MarkerDiagnostics.RegisterSource("PsychopatzCore:SurvivorWorldActors", {
 })
 
 local function registerDebug(id, titleKey, titleFallback, helpKey,
-    helpFallback, order, action, menuTitle, menuTooltip)
+    helpFallback, order, action, menuTitle, menuTooltip, available)
     local definition = {
         id = "psychopatz.map." .. id,
         title = tr(titleKey, titleFallback),
@@ -81,7 +93,7 @@ local function registerDebug(id, titleKey, titleFallback, helpKey,
         source = "Map Debug",
         surface = "map",
         order = order,
-        available = canUseDebug,
+        available = available or canUseDebug,
         action = action,
     }
     if menuTitle then definition.menuTitle = menuTitle end
@@ -109,6 +121,37 @@ registerDebug(
         return tr("UI_PsychopatzMapTools_ActorDebugHelp",
             "Toggle survivor routes and undiscovered overlays.")
     end
+)
+
+registerDebug(
+    "actor_presence_override",
+    "UI_PsychopatzMapTools_PresenceOverride_Title",
+    "Force selected survivor live",
+    "UI_PsychopatzMapTools_PresenceOverride_Help",
+    "Materialize the selected Core actor through its registered provider, or release its debug body.",
+    12,
+    function()
+        local id = presenceActorID()
+        if not id then return false, "actor_required" end
+        local entry = Client.GetActor(id)
+        local state = entry and tostring(entry.providerState or "") or ""
+        local action = state == "materialized" and "force_abstract"
+            or "force_live"
+        return Client.RequestPresenceDebug(action, id)
+    end,
+    function()
+        local id = presenceActorID()
+        local entry = id and Client.GetActor(id) or nil
+        local state = entry and tostring(entry.providerState or "") or ""
+        return tr("UI_PsychopatzMapTools_PresenceOverride_Label",
+            "SURVIVOR BODY OVERRIDE")
+            .. (state == "materialized" and ": RELEASE" or ": FORCE LIVE")
+    end,
+    function()
+        return tr("UI_PsychopatzMapTools_PresenceOverride_Help",
+            "Materialize the selected Core actor through its provider, or release its debug body.")
+    end,
+    presenceDebugAvailable
 )
 
 registerDebug(

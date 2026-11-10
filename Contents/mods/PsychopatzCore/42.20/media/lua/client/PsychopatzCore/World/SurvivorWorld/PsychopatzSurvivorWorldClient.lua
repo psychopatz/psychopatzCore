@@ -4,6 +4,8 @@ local ProjectionClient = require
     "PsychopatzCore/Actors/PsychopatzActorProjectionClient"
 local Presentation = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPresentation"
+local Presence = require
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPresence"
 
 PsychopatzCore.SurvivorWorldClient =
     PsychopatzCore.SurvivorWorldClient or {}
@@ -17,6 +19,7 @@ Client.COMMAND_DISCOVERY_REQUEST =
     "SurvivorWorldDiscoveryRequest"
 Client.COMMAND_DISCOVERY_ACTION =
     "SurvivorWorldDiscoveryAction"
+Client.COMMAND_PRESENCE_DEBUG = Presence.COMMAND
 
 Client.DiscoverySnapshot =
     Client.DiscoverySnapshot or {
@@ -92,6 +95,34 @@ function Client.SetDebugPresentationEnabled(enabled)
         return false, "not_authorized"
     end
     Client.DebugPresentationEnabled = enabled == true
+    return true
+end
+
+function Client.CanUsePresenceDebug()
+    local debugAPI = PsychopatzCore.Debug
+    return Presence.IsOverrideEnabled()
+        and debugAPI and type(debugAPI.CanUse) == "function"
+        and debugAPI.CanUse(localPlayer()) == true or false
+end
+
+function Client.RequestPresenceDebug(action, actorID)
+    local player = localPlayer()
+    if not player or type(sendClientCommand) ~= "function" then
+        return false, "client_transport_unavailable"
+    end
+    if not Client.CanUsePresenceDebug() then
+        return false, "debug_not_authorized"
+    end
+    actorID = tostring(actorID or "")
+    if actorID == "" then return false, "actor_id_required" end
+    sendClientCommand(
+        player,
+        commandModule(),
+        Client.COMMAND_PRESENCE_DEBUG,
+        { action = tostring(action or ""), actorID = actorID }
+    )
+    Client.InvalidateActorPresentationCache()
+    Client.RequestActorsIfDue(0, true)
     return true
 end
 

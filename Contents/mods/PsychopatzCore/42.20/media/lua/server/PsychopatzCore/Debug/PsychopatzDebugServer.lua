@@ -1,5 +1,7 @@
 require "PsychopatzCore/00_PsychopatzCore_Init"
 require "PsychopatzCore/Inventory/PsychopatzItemTransfer"
+local SurvivorWorldPresence = require
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPresence"
 
 if PsychopatzCore._specialCommandHandlerInstalled then
     return PsychopatzCore
@@ -64,6 +66,23 @@ local function onPsychopatzCommand(module, command, player, args)
     if command == PsychopatzCore.DebugSettings.APPLY_COMMAND then
         if not PsychopatzCore.Debug.CanUse(player) then return end
         PsychopatzCore.DebugSettings.ApplyConfigured()
+        return
+    end
+
+    if command == SurvivorWorldPresence.COMMAND then
+        local result, reason = SurvivorWorldPresence.HandleDebugCommand(
+            player,
+            args
+        )
+        if (result == nil or result == false)
+            and reason and PsychopatzCore.LogWarn
+        then
+            PsychopatzCore.LogWarn(
+                "SurvivorWorld presence debug rejected actor="
+                    .. tostring(args.actorID or "")
+                    .. " reason=" .. tostring(reason)
+            )
+        end
         return
     end
 

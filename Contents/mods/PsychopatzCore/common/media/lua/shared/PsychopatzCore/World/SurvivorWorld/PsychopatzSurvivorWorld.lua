@@ -18,6 +18,8 @@ local Presentation =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPresentation"
 local Discovery =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldDiscovery"
+local Presence =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPresence"
 
 local SurvivorWorld = {
     Types = Types,
@@ -30,6 +32,7 @@ local SurvivorWorld = {
     Bootstrap = Bootstrap,
     Presentation = Presentation,
     Discovery = Discovery,
+    Presence = Presence,
 }
 
 function SurvivorWorld.NewRegistry(spec)
