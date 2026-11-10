@@ -37,6 +37,7 @@ from .worker_session import (
     WorkerResult,
     WorkerSession,
 )
+from .worker import SemanticWorker
 
 __all__ = [
     "CORE_PROVIDER_ID",
@@ -69,6 +70,7 @@ __all__ = [
     "SEMANTIC_EXECUTION_SCHEMA",
     "save_json_document",
     "WorkerLaunchSpec",
+    "SemanticWorker",
 ]
 
 __version__ = "0.1.0"
