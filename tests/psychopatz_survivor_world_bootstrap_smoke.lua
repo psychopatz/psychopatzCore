@@ -41,17 +41,30 @@ assert(same(abstractPlan, hoomansPlan),
 
 assert(#abstractPlan.communities == 3, "community count")
 assert(#abstractPlan.groups == 3, "group count")
-assert(abstractPlan.communities[1].factionArchetypeID == "trader",
-    "bootstrap must expose one trader home")
-assert(abstractPlan.groups[1].groupType == "CARAVAN",
-    "bootstrap must expose one trader caravan")
-assert(abstractPlan.groups[1].factionID
-    == abstractPlan.communities[1].factionID,
-    "primary caravan must share trader-home faction")
-assert(abstractPlan.groups[2].groupType == "CARAVAN"
-    and abstractPlan.groups[2].factionID
-        == abstractPlan.communities[1].factionID,
-    "bootstrap must expose enough canonical caravans for roaming traders")
+assert(abstractPlan.communities[1].factionArchetypeID == "settler",
+    "Core bootstrap uses its provider-neutral default archetype")
+assert(abstractPlan.groups[1].groupType ~= "CARAVAN",
+    "Core bootstrap does not invent a Dynamic Trading caravan")
+
+local traderPlan = assert(Bootstrap.BuildPlan({
+    seedString = request.seedString,
+    anchor = request.anchor,
+    communityCount = request.communityCount,
+    groupCount = request.groupCount,
+    source = request.source,
+    primaryArchetypeID = "DT.trader",
+    primaryGroupCount = 2,
+    primaryGroupType = "CARAVAN",
+    primaryMission = "TRADE",
+}))
+assert(traderPlan.communities[1].factionArchetypeID == "DT.trader",
+    "an adopter may opt into its canonical trader profile")
+assert(traderPlan.groups[1].groupType == "CARAVAN"
+    and traderPlan.groups[2].groupType == "CARAVAN",
+    "an adopter controls its primary caravan groups")
+assert(traderPlan.groups[1].factionID
+    == traderPlan.communities[1].factionID,
+    "adopter caravan shares its requested primary faction")
 
 local world = assert(Registry.new({
     worldSeed = abstractPlan.worldSeed,

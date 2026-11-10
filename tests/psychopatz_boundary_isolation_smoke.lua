@@ -28,8 +28,8 @@ PackRegistry.Reset()
 
 -- Register dummy DT provider
 PackRegistry.RegisterActionProvider({
-    id = "dynamictrading.trade",
-    capabilityRequired = "dynamictrading.trade",
+    id = "DT.trade",
+    capabilityRequired = "DT.trade",
     order = 10,
     collect = function(ctx)
         return {
@@ -63,11 +63,11 @@ PackRegistry.RegisterActionProvider({
     end,
 })
 
--- Case 1: Pure DT Trader (capabilities: only dynamictrading.trade)
+-- Case 1: Pure DT Trader (capabilities: only DT.trade)
 local dtContext = {
     actorID = "pure_dt_trader",
     capabilities = {
-        ["dynamictrading.trade"] = true,
+        ["DT.trade"] = true,
     },
 }
 local dtActions = PackRegistry.CollectActions(dtContext)
@@ -107,7 +107,7 @@ equal(#strictActions, 0, "Strict capabilities mode blocks ungated capability pro
 local hybridContext = {
     actorID = "hybrid_trader_companion",
     capabilities = {
-        ["dynamictrading.trade"] = true,
+        ["DT.trade"] = true,
         ["hoomans.companion"] = true,
         ["hoomans.command"] = true,
     },
@@ -126,7 +126,7 @@ PackRegistry.RegisterActionProvider({
 local faultyContext = {
     actorID = "faulty_test",
     capabilities = {
-        ["dynamictrading.trade"] = true,
+        ["DT.trade"] = true,
         ["faulty.cap"] = true,
     },
 }

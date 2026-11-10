@@ -22,10 +22,10 @@ equal(PackRegistry.GetRevision(), 1, "reset bumped revision")
 
 -- 1. Register a synthetic DynamicTrading pack
 local dtPack, dtReason = Semantics.RegisterPack({
-    id = "pack.dynamictrading.trader",
+    id = "pack.DT.trader",
     ownerModID = "DynamicTrading",
     version = 1,
-    capabilitiesRequired = { "dynamictrading.trade" },
+    capabilitiesRequired = { "DT.trade" },
     concepts = {
         {
             id = "concept.trade.open",
@@ -41,8 +41,8 @@ local dtPack, dtReason = Semantics.RegisterPack({
     },
     actionProviders = {
         {
-            id = "dynamictrading.trade_action",
-            capabilityRequired = "dynamictrading.trade",
+            id = "DT.trade_action",
+            capabilityRequired = "DT.trade",
             sourceKind = "dynamic_trading",
             order = 20,
             collect = function(ctx)
@@ -50,7 +50,7 @@ local dtPack, dtReason = Semantics.RegisterPack({
                     {
                         id = "dt_choice_trade",
                         topic = "trade",
-                        capabilityRequired = "dynamictrading.trade",
+                        capabilityRequired = "DT.trade",
                         textKey = "UI_DT_Trade",
                     },
                 }
@@ -112,7 +112,7 @@ equal(diag.actionProviderCount, 3, "3 action providers registered")
 -- Scenario A: DT standalone session (only DT trade capability, NO Hoomans capabilities)
 local dtOnlyActions = Semantics.CollectActions({
     capabilities = {
-        ["dynamictrading.trade"] = true,
+        ["DT.trade"] = true,
     },
 })
 equal(#dtOnlyActions, 1, "only 1 action in DT-only session")
@@ -137,7 +137,7 @@ equal(hoomansOnlyActions[1].id, "ph_choice_follow", "Hoomans follow action prese
 -- Scenario C: Combined session with both DT trade and Hoomans follow
 local combinedActions = Semantics.CollectActions({
     capabilities = {
-        ["dynamictrading.trade"] = true,
+        ["DT.trade"] = true,
         ["dynamictrading.commercial_info"] = true,
         ["projecthoomans.follow"] = true,
     },
@@ -197,7 +197,7 @@ truthy(service, servErr)
 -- Submit utterance with playerKey and DT capability
 local result = service:Submit("Hello there", {
     playerKey = "player:test:bob",
-    capabilities = { ["dynamictrading.trade"] = true },
+        capabilities = { ["DT.trade"] = true },
 }, {
     collectActions = true,
 })
@@ -209,10 +209,10 @@ equal(#result.actions, 1, "exactly 1 action collected")
 equal(result.actions[1].id, "dt_choice_trade", "DT action in conversation result")
 
 -- 6. UnregisterPack cleanup
-local unreg, unregReason = Semantics.UnregisterPack("pack.dynamictrading.trader")
+local unreg, unregReason = Semantics.UnregisterPack("pack.DT.trader")
 truthy(unreg, unregReason)
 local afterUnreg = Semantics.CollectActions({
-    capabilities = { ["dynamictrading.trade"] = true },
+        capabilities = { ["DT.trade"] = true },
 })
 equal(#afterUnreg, 0, "actions removed when pack unregistered")
 

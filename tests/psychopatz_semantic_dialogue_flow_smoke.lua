@@ -26,7 +26,7 @@ equal(Flow.Compare("trader", "~=", "guard"), true, "strings not equal")
 
 -- 2. Test Flow.EvaluateGate
 local context = {
-    capabilities = { ["core.conversation"] = true, ["dynamictrading.trade"] = true },
+    capabilities = { ["core.conversation"] = true, ["DT.trade"] = true },
     traderRole = "merchant",
     actor = {
         relationship = {
@@ -40,7 +40,7 @@ local context = {
 -- Passes
 equal(Flow.EvaluateGate({ field = "traderRole", op = "==", value = "merchant" }, context), true, "role gate passes")
 equal(Flow.EvaluateGate({ field = "relationship.approval", op = ">=", value = 30 }, context), true, "approval gate passes")
-equal(Flow.EvaluateGate({ capabilityRequired = "dynamictrading.trade" }, context), true, "capability gate passes")
+equal(Flow.EvaluateGate({ capabilityRequired = "DT.trade" }, context), true, "capability gate passes")
 
 -- Fails
 equal(Flow.EvaluateGate({ field = "relationship.approval", op = ">=", value = 50 }, context), false, "high approval gate fails")
@@ -66,7 +66,7 @@ local pack, packReason = Semantics.RegisterPack({
                         {
                             id = "choice_trade",
                             text = "Let us trade goods.",
-                            capabilityRequired = "dynamictrading.trade",
+                            capabilityRequired = "DT.trade",
                             outcomes = {
                                 { id = "outcome_trade", responseKey = "response.trade.open" },
                             },
@@ -117,7 +117,7 @@ equal(selectedBlock.entryNode, "node_welcome_friend", "entry node matches")
 local entryNode = selectedBlock.nodes[selectedBlock.entryNode]
 local filteredChoices = Flow.FilterChoices(entryNode.choices, context)
 -- In context:
--- choice_trade has capability dynamictrading.trade (present) -> PASS
+-- choice_trade has capability DT.trade (present) -> PASS
 -- choice_story has familiarity >= 10 (15 >= 10) -> PASS
 -- choice_forbidden has capability projecthoomans.follow (absent) -> DROPPED
 equal(#filteredChoices, 2, "2 choices eligible")

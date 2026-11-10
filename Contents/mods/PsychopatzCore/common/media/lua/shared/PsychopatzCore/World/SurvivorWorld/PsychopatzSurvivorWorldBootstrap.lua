@@ -10,7 +10,6 @@ local Bootstrap = {}
 Bootstrap.SCHEMA_VERSION = 1
 Bootstrap.DEFAULT_COMMUNITIES = 3
 Bootstrap.DEFAULT_GROUPS = 3
-Bootstrap.DEFAULT_TRADER_GROUPS = 2
 Bootstrap.MAX_COMMUNITIES = 8
 Bootstrap.MAX_GROUPS = 16
 Bootstrap.AFFILIATION_EXTENSION =
@@ -174,11 +173,11 @@ local function communityPlans(spec, sites, worldSeed)
             initialPopulation = spec.communityPopulation,
             createdAt = spec.createdAt,
         }
-        -- Guarantee one deterministic trader home without making every
-        -- survivor settlement trader-owned.
-        if index == 1 then
+        -- Adopters may request a deterministic primary archetype, but Core
+        -- never assumes that an optional product profile exists.
+        if index == 1 and spec.primaryArchetypeID then
             request.factionArchetypeID =
-                tostring(spec.primaryArchetypeID or "trader")
+                tostring(spec.primaryArchetypeID)
         end
         local plan, reason =
             Generation.BuildCommunityPlan(request)
@@ -196,15 +195,15 @@ local function groupPlans(spec, sites, communities, worldSeed)
         Bootstrap.DEFAULT_GROUPS
     )
     local output = {}
-    local traderGroupCount = integer(
-        spec.traderGroupCount,
-        1,
-        math.min(count, Bootstrap.DEFAULT_TRADER_GROUPS),
-        math.min(count, Bootstrap.DEFAULT_TRADER_GROUPS)
+    local primaryGroupCount = integer(
+        spec.primaryGroupCount,
+        0,
+        math.min(count, Bootstrap.MAX_GROUPS),
+        0
     )
     for index = 1, count do
         local site = sites[((index - 1) % #sites) + 1]
-        local home = index <= traderGroupCount
+        local home = index <= primaryGroupCount
             and communities[1]
             or communities[((index - 1) % #communities) + 1]
         local sectorID = site.sectorID
@@ -231,15 +230,20 @@ local function groupPlans(spec, sites, communities, worldSeed)
             memberCount = spec.groupSize,
             createdAt = spec.createdAt,
         }
-        if index <= traderGroupCount then
+        if index <= primaryGroupCount
+            and spec.primaryArchetypeID
+        then
             request.groupType =
-                tostring(spec.primaryGroupType or "CARAVAN")
-            request.factionArchetypeID = "trader"
+                tostring(spec.primaryGroupType or "MOBILE")
+            request.factionArchetypeID =
+                tostring(spec.primaryArchetypeID)
             request.factionID = communities[1].factionID
             request.factionName = communities[1].factionPlan
                 and communities[1].factionPlan.name
                 or communities[1].factionID
-            request.initialMission = "TRADE"
+            request.initialMission = tostring(
+                spec.primaryMission or "TRAVEL"
+            )
         end
         local plan, reason =
             Generation.BuildGroupPlan(request)
@@ -354,12 +358,6 @@ local function ensureActor(
                     Util.clone(extensionValue)
             end
         end
-        actorSpec.extensions["dynamictrading.traderPreset"] = {
-            schemaVersion = tonumber(memberSpec.schemaVersion) or 1,
-            presetID = memberSpec.presetID,
-            role = memberSpec.role,
-            visualProfile = memberSpec.visualProfile,
-        }
     end
     return actorRegistry:Create(actorSpec)
 end

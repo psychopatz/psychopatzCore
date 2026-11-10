@@ -12,6 +12,7 @@ Presentation.AFFILIATION_EXTENSION =
 Presentation.DEFAULT_OVERLAP_RADIUS = 3.0
 Presentation.PositionProviders =
     Presentation.PositionProviders or {}
+Presentation.EntryFilters = Presentation.EntryFilters or {}
 
 local function finite(value, fallback)
     value = tonumber(value)
@@ -94,6 +95,36 @@ function Presentation.UnregisterPositionProvider(id)
         return false
     end
     Presentation.PositionProviders[id] = nil
+    return true
+end
+
+function Presentation.RegisterEntryFilter(id, definition)
+    id = tostring(id or "")
+    if id == "" or type(definition) ~= "table"
+        or type(definition.filter) ~= "function"
+    then
+        return false, "invalid_entry_filter"
+    end
+    Presentation.EntryFilters[id] = definition.filter
+    return true, "registered"
+end
+
+function Presentation.UnregisterEntryFilter(id)
+    id = tostring(id or "")
+    if id == "" or not Presentation.EntryFilters[id] then
+        return false
+    end
+    Presentation.EntryFilters[id] = nil
+    return true
+end
+
+local function passesEntryFilters(entry, actor, group)
+    for _, filter in pairs(Presentation.EntryFilters) do
+        -- Entry filters are addon-owned callbacks. Keep one faulty optional
+        -- provider from breaking Core's presentation pipeline.
+        local ok, accepted = pcall(filter, entry, actor, group)
+        if not ok or accepted == false then return false end
+    end
     return true
 end
 
@@ -294,7 +325,9 @@ function Presentation.BuildActorEntries(
                 now,
                 spec
             )
-            if entry then output[#output + 1] = entry end
+            if entry and passesEntryFilters(entry, actor, group) then
+                output[#output + 1] = entry
+            end
         end
     end
     table.sort(output, function(left, right)

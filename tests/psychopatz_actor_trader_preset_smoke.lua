@@ -72,7 +72,7 @@ local actor, reason = registry:Create({
         },
     },
     extensions = {
-        ["dynamictrading.traderPreset"] = {
+        ["DT.traderPreset"] = {
             presetID = "dt.trader.caravan",
             role = "trader",
         },

@@ -30,18 +30,6 @@ local NAME_POOLS = {
         site = { "Den", "Hideout", "Hold", "Lair" },
         article = true,
     },
-    trader = {
-        first = {
-            "Bluegrass", "Bridgeway", "Crossroads", "Frontier",
-            "Iron Road", "Long Haul", "Northstar", "Riverside",
-            "Safe Passage", "Three Rivers", "Westbound",
-        },
-        second = {
-            "Caravan", "Exchange Caravan", "Mercantile Caravan",
-            "Supply Caravan", "Trading Caravan",
-        },
-        site = { "Depot", "Exchange", "Market", "Waystation" },
-    },
     refugee = {
         first = {
             "Dawn", "Eastbound", "Hope", "Lantern", "New Day",
@@ -60,8 +48,7 @@ Profiles.DEFAULT = {
     communitySize = { minimum = 4, maximum = 7 },
     groupSize = { minimum = 2, maximum = 4 },
     communityFactionWeights = {
-        settler = 0.55,
-        trader = 0.18,
+        settler = 0.73,
         refugee = 0.17,
         looter = 0.10,
     },

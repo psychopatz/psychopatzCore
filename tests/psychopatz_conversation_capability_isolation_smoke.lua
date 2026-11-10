@@ -54,11 +54,11 @@ Semantics.RegisterPack({
     },
 })
 
--- 2. Register Dynamic Trading pack (capabilitiesRequired = "dynamictrading.trade")
+-- 2. Register Dynamic Trading pack (capabilitiesRequired = "DT.trade")
 Semantics.RegisterPack({
-    id = "pack.dynamictrading.trade",
+    id = "pack.DT.trade",
     ownerModID = "DynamicTrading",
-    capabilitiesRequired = { "dynamictrading.trade" },
+    capabilitiesRequired = { "DT.trade" },
     concepts = {
         { id = "dt.concept.trade", aliases = { "trade", "barter", "deal" } },
     },
@@ -68,7 +68,7 @@ Semantics.RegisterPack({
     patterns = {
         {
             id = "dt.pattern.trade",
-            capabilitiesRequired = { "dynamictrading.trade" },
+            capabilitiesRequired = { "DT.trade" },
             match = { { concept = "dt.concept.trade" } },
             emit = { intent = "TRADE", speechAct = "act.dt.trade" },
         },
@@ -76,7 +76,7 @@ Semantics.RegisterPack({
     dialogueBlocks = {
         {
             id = "dt_block_trade",
-            capabilitiesRequired = { "dynamictrading.trade" },
+            capabilitiesRequired = { "DT.trade" },
             gates = {},
             entryNode = "node_trade",
             nodes = {
@@ -132,7 +132,7 @@ local convService = Service.New({
 print("=== Test 1: DT-only capability conversation cannot parse Hoomans COMMAND ===")
 do
     local dtContext = {
-        capabilities = { "core.conversation", "dynamictrading.trade" },
+        capabilities = { "core.conversation", "DT.trade" },
         targetKey = "player:user:Tester",
     }
     local res, why = convService:Submit("follow me", dtContext)
@@ -148,7 +148,7 @@ end
 print("=== Test 2: DT-only capability conversation allows DT trade grammar ===")
 do
     local dtContext = {
-        capabilities = { "core.conversation", "dynamictrading.trade" },
+        capabilities = { "core.conversation", "DT.trade" },
         targetKey = "player:user:Tester",
     }
     local res, why = convService:Submit("trade", dtContext)
@@ -192,7 +192,7 @@ end
 print("=== Test 5: Compound turn cannot smuggle forbidden adopter clause ===")
 do
     local dtContext = {
-        capabilities = { "core.conversation", "dynamictrading.trade" },
+        capabilities = { "core.conversation", "DT.trade" },
         targetKey = "player:user:Tester",
     }
     -- User attempts compound utterance with one allowed clause ("trade") and one forbidden ("follow me")
@@ -212,12 +212,12 @@ end
 print("=== Test 6: Explicit caller options cannot broaden effective capabilities ===")
 do
     local dtContext = {
-        capabilities = { "core.conversation", "dynamictrading.trade" },
+        capabilities = { "core.conversation", "DT.trade" },
         targetKey = "player:user:Tester",
     }
     -- Caller passes malicious or overly broad options.capabilities attempting to unlock hoomans.command
     local bypassOptions = {
-        capabilities = { ["hoomans.command"] = true, ["dynamictrading.trade"] = true },
+        capabilities = { ["hoomans.command"] = true, ["DT.trade"] = true },
     }
     local res, why = convService:Submit("follow me", dtContext, bypassOptions)
     local matchedPart = res and res.parts and res.parts[1]
@@ -230,9 +230,9 @@ end
 
 print("=== Test 7: Unregister/re-register remains residue-free ===")
 do
-    Semantics.UnregisterPack("pack.dynamictrading.trade")
+    Semantics.UnregisterPack("pack.DT.trade")
     local dtContext = {
-        capabilities = { "core.conversation", "dynamictrading.trade" },
+        capabilities = { "core.conversation", "DT.trade" },
         targetKey = "player:user:Tester",
     }
     local res, why = convService:Submit("trade", dtContext)

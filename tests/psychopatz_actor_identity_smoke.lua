@@ -25,7 +25,7 @@ local actor = assert(registry:Create({
             presenceState = "abstract",
             capabilities = {
                 ["conversation"] = true,
-                ["dynamictrading.trade"] = true,
+                ["DT.trade"] = true,
             },
         },
     },
@@ -50,7 +50,7 @@ local projected = assert(Projection.ProjectActor(actor, 0, {
     portrait = assert(Actors.Presentation.BuildPortrait(actor)),
     capabilities = {
         conversation = true,
-        ["dynamictrading.trade"] = true,
+        ["DT.trade"] = true,
     },
 }))
 assert(projected.actorID == "actor:identity:1",
@@ -94,7 +94,7 @@ local attached = assert(registry:AttachIdentity(actor.actorId, {
     aliases = { "attached:legacy" },
     providerID = "DTHoomans",
     project = true,
-    capabilities = { ["dynamictrading.trade"] = true },
+    capabilities = { ["DT.trade"] = true },
 }))
 assert(attached.extensions[Identity.EXTENSION].project == true,
     "identity attachment did not persist projection hint")
@@ -120,7 +120,7 @@ local entries = Presentation.BuildActorEntries(world, registry, 0, {
 assert(#entries == 1 and entries[1].actorID == "actor:identity:1",
     "ungrouped active actor was not projected")
 assert(entries[1].capabilities
-    and entries[1].capabilities["dynamictrading.trade"] == true,
+    and entries[1].capabilities["DT.trade"] == true,
     "projection dropped actor trading capability")
 
 print("psychopatz_actor_identity_smoke: PASS")
