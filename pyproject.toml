@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "psychopatz-semantic-harness"
+version = "0.2.0"
+description = "Core-owned semantic harness and shared semantic authoring tools"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+semantic-lab = "tools.semantic_harness.app:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tools.semantic_harness", "tools.semantic_harness.*"]
+exclude = ["tools.semantic_harness.tests", "tools.semantic_harness.tests.*"]
+namespaces = true
+
+[tool.setuptools.package-data]
+"tools.semantic_harness" = [
+    "*.md",
+    "*.sh",
+    "lua/*.lua",
+    "lua/**/*.lua",
+    "scenarios/*.json",
+    "fixtures/**/*.json",
+    "codebuilder/*.json",
+    "codebuilder/sources/*.json",
+]

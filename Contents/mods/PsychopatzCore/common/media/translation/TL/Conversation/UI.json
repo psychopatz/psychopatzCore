@@ -1,0 +1,22 @@
+{
+  "UI_PNC_Conversation_Suggestion_Activity_Label": "Itanong ang pinagkakaabalahan",
+  "UI_PNC_Conversation_Suggestion_Activity_Utterance": "Ano ang mga pinagkakaabalahan mo?",
+  "UI_PNC_Conversation_Suggestion_Date_Label": "Itanong ang petsa",
+  "UI_PNC_Conversation_Suggestion_Date_Utterance": "Ano ang petsa ngayon?",
+  "UI_PNC_Conversation_Suggestion_IdentityFaction_Label": "Itanong kung kanino siya kasama",
+  "UI_PNC_Conversation_Suggestion_IdentityFaction_Utterance": "Sino ang kasama mo?",
+  "UI_PNC_Conversation_Suggestion_IdentityNickname_Label": "Itanong kung ano ang tawag sa kanya",
+  "UI_PNC_Conversation_Suggestion_IdentityNickname_Utterance": "Ano ang tawag sa iyo ng mga tao?",
+  "UI_PNC_Conversation_Suggestion_IdentitySurname_Label": "Itanong ang apelyido niya",
+  "UI_PNC_Conversation_Suggestion_IdentitySurname_Utterance": "Ano ang apelyido mo?",
+  "UI_PNC_Conversation_Suggestion_Identity_Label": "Itanong kung sino siya",
+  "UI_PNC_Conversation_Suggestion_Identity_Utterance": "Sino ka?",
+  "UI_PNC_Conversation_Suggestion_Time_Label": "Itanong ang oras",
+  "UI_PNC_Conversation_Suggestion_Time_Utterance": "Anong oras na?",
+  "UI_PNC_Conversation_Suggestion_Weather_Label": "Itanong ang panahon",
+  "UI_PNC_Conversation_Suggestion_Weather_Utterance": "Kumusta ang panahon?",
+  "UI_PNC_Conversation_Suggestion_WellbeingDetail_Label": "Itanong kung ano ang problema",
+  "UI_PNC_Conversation_Suggestion_WellbeingDetail_Utterance": "Ano ang problema?",
+  "UI_PNC_Conversation_Suggestion_Wellbeing_Label": "Itanong ang kalagayan",
+  "UI_PNC_Conversation_Suggestion_Wellbeing_Utterance": "Kumusta ang pakiramdam mo?"
+}

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from semantic_harness.protocol import (
+from tools.semantic_harness.protocol import (
     ProtocolError,
     decode_message,
     encode_request,

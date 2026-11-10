@@ -2,8 +2,8 @@
 
 The executable worker lifecycle and reusable engine projections live here.
 Provider gameplay policy and authoring applications remain in adopters.
-This package intentionally contains no Project Hoomans or Dynamic Trading
-imports. Adopters register providers through :mod:`provider_registry`.
+This package intentionally contains no adopter imports. Providers register
+through :mod:`provider_registry`.
 """
 
 from .provider_registry import (

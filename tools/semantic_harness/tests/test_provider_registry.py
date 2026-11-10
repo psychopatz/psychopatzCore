@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from semantic_harness.provider_registry import (
+from tools.semantic_harness.provider_registry import (
     CORE_PROVIDER_ID,
     ProfileDescriptor,
     ProviderContractError,

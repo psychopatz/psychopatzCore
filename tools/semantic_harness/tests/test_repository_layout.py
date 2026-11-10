@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from semantic_harness.repository_layout import (
+from tools.semantic_harness.repository_layout import (
     DT_ABSTRACT_PROVIDER_ID,
     DT_HOOMANS_PROVIDER_ID,
     DT_COMMON_PROVIDER_ID,
@@ -65,19 +65,16 @@ class RepositoryLayoutTests(unittest.TestCase):
             self.assertIn(DT_ABSTRACT_PROVIDER_ID, available)
             self.assertIn(DT_HOOMANS_PROVIDER_ID, available)
 
-    def test_legacy_environment_is_reported_but_not_required(self) -> None:
+    def test_current_environment_selects_core_without_adopter_aliases(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             core = make_repository(root, "psychopatzCore", "PsychopatzCore")
             layout = discover_layout(
                 cwd=root,
-                environ={"PNC_HARNESS_CORE_REPOSITORY": str(core)},
+                environ={"SEMANTIC_HARNESS_CORE_REPOSITORY": str(core)},
             )
 
-            self.assertEqual(
-                layout.legacy_environment_names,
-                ("PNC_HARNESS_CORE_REPOSITORY",),
-            )
+            self.assertEqual(layout.core_repository, core.resolve())
 
     def test_invalid_core_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

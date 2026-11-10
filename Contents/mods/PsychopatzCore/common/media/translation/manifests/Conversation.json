@@ -1,0 +1,13 @@
+{
+  "languages": {
+    "EN": [
+      "EN/Conversation/Conversation.json",
+      "EN/Conversation/UI.json"
+    ],
+    "TL": [
+      "TL/Conversation/Conversation.json",
+      "TL/Conversation/UI.json"
+    ]
+  },
+  "version": 1
+}

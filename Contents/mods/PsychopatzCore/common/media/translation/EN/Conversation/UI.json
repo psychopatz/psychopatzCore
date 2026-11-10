@@ -1,0 +1,22 @@
+{
+  "UI_PNC_Conversation_Suggestion_Activity_Label": "Ask what they've been doing",
+  "UI_PNC_Conversation_Suggestion_Activity_Utterance": "What have you been doing?",
+  "UI_PNC_Conversation_Suggestion_Date_Label": "Ask about the date",
+  "UI_PNC_Conversation_Suggestion_Date_Utterance": "What's today's date?",
+  "UI_PNC_Conversation_Suggestion_IdentityFaction_Label": "Ask who they are with",
+  "UI_PNC_Conversation_Suggestion_IdentityFaction_Utterance": "Who are you with?",
+  "UI_PNC_Conversation_Suggestion_IdentityNickname_Label": "Ask what people call them",
+  "UI_PNC_Conversation_Suggestion_IdentityNickname_Utterance": "What do people call you?",
+  "UI_PNC_Conversation_Suggestion_IdentitySurname_Label": "Ask their surname",
+  "UI_PNC_Conversation_Suggestion_IdentitySurname_Utterance": "What's your surname?",
+  "UI_PNC_Conversation_Suggestion_Identity_Label": "Ask who they are",
+  "UI_PNC_Conversation_Suggestion_Identity_Utterance": "Who are you?",
+  "UI_PNC_Conversation_Suggestion_Time_Label": "Ask about the time",
+  "UI_PNC_Conversation_Suggestion_Time_Utterance": "What time is it?",
+  "UI_PNC_Conversation_Suggestion_Weather_Label": "Ask about the weather",
+  "UI_PNC_Conversation_Suggestion_Weather_Utterance": "How is the weather?",
+  "UI_PNC_Conversation_Suggestion_WellbeingDetail_Label": "Ask what is wrong",
+  "UI_PNC_Conversation_Suggestion_WellbeingDetail_Utterance": "What's wrong?",
+  "UI_PNC_Conversation_Suggestion_Wellbeing_Label": "Ask about wellbeing",
+  "UI_PNC_Conversation_Suggestion_Wellbeing_Utterance": "How are you feeling?"
+}

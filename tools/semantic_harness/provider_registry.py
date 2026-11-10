@@ -1,7 +1,7 @@
 """Provider and profile contracts for the Core semantic harness.
 
-Core owns the registry mechanism, not adopter policy. Project Hoomans and
-Dynamic Trading register descriptors from their own adapters; the Core worker
+Core owns the registry mechanism, not adopter policy. Providers register
+descriptors from their own adapters; the Core worker
 only consumes the resulting profile and never imports an adopter module by
 name.
 """
@@ -302,7 +302,7 @@ def core_registry() -> ProviderRegistry:
 
     Adopter packages extend this registry explicitly. Keeping this constructor
     Core-only is what allows the standalone Core and DTAbstract profiles to
-    boot without Project Hoomans.
+boot without optional providers.
     """
 
     registry = ProviderRegistry()

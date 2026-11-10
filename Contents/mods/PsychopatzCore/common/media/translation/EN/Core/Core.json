@@ -78,5 +78,6 @@
   "UI_PsychopatzCore_Radio_RequestSent": "REQUEST SENT",
   "UI_PsychopatzCore_Radio_Denied": "DENIED: %s",
   "UI_PsychopatzCore_Radio_SettingsReadOnly": "SETTINGS READ ONLY",
-  "UI_PsychopatzCore_Radio_App": "APP"
+  "UI_PsychopatzCore_Radio_App": "APP",
+  "UI_PsychopatzCore_Radio_WorldBroadcastChannel": "Open World Band"
 }

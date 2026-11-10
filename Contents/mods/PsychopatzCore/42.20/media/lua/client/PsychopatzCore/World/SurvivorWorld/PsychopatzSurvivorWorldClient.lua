@@ -2,6 +2,8 @@ require "PsychopatzCore/00_PsychopatzCore_Init"
 
 local ProjectionClient = require
     "PsychopatzCore/Actors/PsychopatzActorProjectionClient"
+local ActorNames = require
+    "PsychopatzCore/Actors/PsychopatzActorNames"
 local Presentation = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPresentation"
 local Presence = require
@@ -242,6 +244,11 @@ function Client.GetActorKnowledge(actorID, options)
     local knownName = projection.displayName
         or projection.label
         or projection.identity and projection.identity.displayName
+    local identity = ActorNames.ResolveParts(projection, {
+        resolveNickname = true,
+        includeNickname = true,
+    })
+    local knownDisplayName = identity.displayName or knownName
     local discovery = discoveryFor(projection)
     if discovery or tostring(projection.groupID or "") ~= ""
         or tostring(projection.communityID or "") ~= ""
@@ -252,9 +259,15 @@ function Client.GetActorKnowledge(actorID, options)
             actorID = actorID,
             provider = providerID,
             state = contacted and "known" or "unknown",
-            nameKnown = contacted and knownName ~= nil
-                and knownName ~= "" or false,
-            knownName = contacted and knownName or nil,
+            nameKnown = contacted and knownDisplayName ~= nil
+                and knownDisplayName ~= "" or false,
+            knownName = contacted and knownDisplayName or nil,
+            identity = contacted and identity or nil,
+            knownIdentity = contacted and identity or nil,
+            knownNickname = contacted and identity.nickname or nil,
+            nicknameKnown = contacted and identity.nickname ~= nil or false,
+            knownSurname = contacted and identity.surname or nil,
+            surnameKnown = contacted and identity.surname ~= nil or false,
             factionKnown = contacted and projection.factionID ~= nil
                 or false,
             factionID = contacted and projection.factionID or nil,
@@ -269,8 +282,14 @@ function Client.GetActorKnowledge(actorID, options)
         actorID = actorID,
         provider = providerID,
         state = "known",
-        nameKnown = knownName ~= nil and knownName ~= "",
-        knownName = knownName,
+        nameKnown = knownDisplayName ~= nil and knownDisplayName ~= "",
+        knownName = knownDisplayName,
+        identity = identity,
+        knownIdentity = identity,
+        knownNickname = identity.nickname,
+        nicknameKnown = identity.nickname ~= nil,
+        knownSurname = identity.surname,
+        surnameKnown = identity.surname ~= nil,
         factionKnown = projection.factionID ~= nil,
         factionID = projection.factionID,
         factionName = projection.factionName,

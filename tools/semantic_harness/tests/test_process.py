@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-from semantic_harness.process import HarnessError, LuaProcess, WorkerLaunchSpec
+from tools.semantic_harness.process import HarnessError, LuaProcess, WorkerLaunchSpec
 
 
 CORE_ROOT = Path(__file__).resolve().parents[3]

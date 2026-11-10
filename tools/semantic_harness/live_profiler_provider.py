@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .fixture_provider import ENGINE_FIXTURE_FIELDS
-from semantic_harness.state import Provenance
+from tools.semantic_harness.state import Provenance
 
 
 DEFAULT_SNAPSHOT_NAME = "PsychopatzCore_Profiler_latest.json"

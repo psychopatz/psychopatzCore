@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from semantic_harness.runtime_discovery import (
+from tools.semantic_harness.runtime_discovery import (
     ConfigurationError,
     discover_newest_runtime,
 )

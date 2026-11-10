@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from semantic_harness.protocol import decode_message, encode_request
+from tools.semantic_harness.protocol import decode_message, encode_request
 
 
 CORE_ROOT = Path(__file__).resolve().parents[3]

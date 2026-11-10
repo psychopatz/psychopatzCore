@@ -3,6 +3,7 @@ PsychopatzCore = PsychopatzCore or {}
 -- Provider-neutral semantic language. This module only defines data and
 -- parser APIs; it installs no callbacks and has no LLM dependency.
 require "PsychopatzCore/Semantics/PsychopatzSemantic"
+require "PsychopatzCore/Semantics/PsychopatzSemanticFoundation"
 
 require "PsychopatzCore/Runtime/PC_RuntimeRole"
 require "PsychopatzCore/Collections/PC_RingBuffer"

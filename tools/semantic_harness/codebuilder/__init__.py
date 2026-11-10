@@ -36,6 +36,23 @@ from .rule_contract import (
     validate_source_refs,
     validate_typed_arguments,
 )
+from .source_manifest import (
+    SourceManifestError,
+    load_external_shard_entries,
+    validate_relative_json_path,
+    validate_relative_repository_path,
+)
+from .conversation_model import (
+    canonical_json,
+    copy_json,
+    fingerprint,
+    merge_source_metadata,
+    register_global_id,
+    runtime_records,
+)
+from .conversation_assembler import (
+    assemble_shards,
+)
 
 __all__ = [
     "CatalogNameError",
@@ -61,4 +78,15 @@ __all__ = [
     "validate_source_refs",
     "validate_source_metadata",
     "validate_typed_arguments",
+    "SourceManifestError",
+    "load_external_shard_entries",
+    "validate_relative_json_path",
+    "validate_relative_repository_path",
+    "canonical_json",
+    "copy_json",
+    "fingerprint",
+    "merge_source_metadata",
+    "register_global_id",
+    "runtime_records",
+    "assemble_shards",
 ]

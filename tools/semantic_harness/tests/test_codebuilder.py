@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from semantic_harness.codebuilder import (
+from tools.semantic_harness.codebuilder import (
     CatalogNameError,
     CompileError,
     ModuleNameRegistry,

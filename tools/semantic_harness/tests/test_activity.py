@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from semantic_harness.activity import ActivityLog
+from tools.semantic_harness.activity import ActivityLog
 
 
 class ActivityLogTests(unittest.TestCase):

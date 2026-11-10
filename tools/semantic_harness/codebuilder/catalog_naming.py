@@ -102,6 +102,7 @@ SOURCE_ROOT_SEGMENTS = frozenset({
     "beats",
     "affordances",
     "realization",
+    "packs",
 })
 
 

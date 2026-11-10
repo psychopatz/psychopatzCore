@@ -40,8 +40,6 @@ def discover_lua(explicit: str | Path | None = None) -> Path:
         candidates = [str(explicit)]
     else:
         environment = os.environ.get("SEMANTIC_HARNESS_LUA")
-        if environment is None:
-            environment = os.environ.get("PNC_HARNESS_LUA")
         candidates = [environment] if environment else []
         candidates.extend(["lua", "luajit"])
 

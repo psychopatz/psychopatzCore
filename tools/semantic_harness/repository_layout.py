@@ -1,8 +1,7 @@
 """Repository discovery for the provider-neutral semantic harness.
 
-PsychopatzCore is required. Project Hoomans and Dynamic Trading are optional
-repositories selected by the requested profile. Legacy PNC environment names
-are accepted only as compatibility aliases and are reported to the caller.
+PsychopatzCore is required. Optional provider repositories are selected by
+the requested profile.
 """
 
 from __future__ import annotations
@@ -34,33 +33,22 @@ _MARKERS = {
 _ENVIRONMENTS = {
     "core": (
         "SEMANTIC_HARNESS_CORE_REPOSITORY",
-        "PNC_HARNESS_CORE_REPOSITORY",
     ),
     "hoomans": (
         "SEMANTIC_HARNESS_HOOMANS_REPOSITORY",
-        "PNC_HARNESS_REPOSITORY",
     ),
     "dynamic_trading": (
         "SEMANTIC_HARNESS_DYNAMIC_TRADING_REPOSITORY",
-        "PNC_HARNESS_DYNAMIC_TRADING_REPOSITORY",
     ),
     "workshop_root": (
         "SEMANTIC_HARNESS_WORKSHOP_ROOT",
-        "PNC_HARNESS_WORKSHOP_ROOT",
     ),
 }
 
 
-def _environment_value(
-    name: str,
-    environ: dict[str, str],
-) -> tuple[str | None, str | None]:
-    current, legacy = _ENVIRONMENTS[name]
-    if environ.get(current):
-        return environ[current], None
-    if environ.get(legacy):
-        return environ[legacy], legacy
-    return None, None
+def _environment_value(name: str, environ: dict[str, str]) -> str | None:
+    current = _ENVIRONMENTS[name]
+    return environ.get(current)
 
 
 def _candidate_path(value: str | Path) -> Path:
@@ -102,7 +90,6 @@ class RepositoryLayout:
     core_repository: Path
     hoomans_repository: Path | None = None
     dynamic_trading_repository: Path | None = None
-    legacy_environment_names: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         core = _candidate_path(self.core_repository)
@@ -133,11 +120,6 @@ class RepositoryLayout:
         object.__setattr__(self, "core_repository", core)
         object.__setattr__(self, "hoomans_repository", hoomans)
         object.__setattr__(self, "dynamic_trading_repository", dynamic_trading)
-        object.__setattr__(
-            self,
-            "legacy_environment_names",
-            tuple(self.legacy_environment_names),
-        )
 
     def available_provider_ids(self) -> tuple[str, ...]:
         providers = [CORE_PROVIDER_ID]
@@ -180,7 +162,6 @@ class RepositoryLayout:
                 else None
             ),
             "availableProviders": list(self.available_provider_ids()),
-            "legacyEnvironmentNames": list(self.legacy_environment_names),
         }
 
 
@@ -196,19 +177,13 @@ def discover_layout(
 
     env = dict(os.environ if environ is None else environ)
     current_directory = _candidate_path(cwd or Path.cwd())
-    legacy_names: list[str] = []
-
-    core_environment, core_legacy = _environment_value("core", env)
-    if core_legacy:
-        legacy_names.append(core_legacy)
+    core_environment = _environment_value("core", env)
     core_candidates: list[str | Path] = []
     if core_repository is not None:
         core_candidates.append(core_repository)
     elif core_environment:
         core_candidates.append(core_environment)
-    workshop_root, workshop_legacy = _environment_value("workshop_root", env)
-    if workshop_legacy:
-        legacy_names.append(workshop_legacy)
+    workshop_root = _environment_value("workshop_root", env)
     if workshop_root:
         core_candidates.append(_candidate_path(workshop_root) / "psychopatzCore")
     core_candidates.extend(
@@ -225,9 +200,7 @@ def discover_layout(
     )
     assert resolved_core is not None
 
-    hoomans_environment, hoomans_legacy = _environment_value("hoomans", env)
-    if hoomans_legacy:
-        legacy_names.append(hoomans_legacy)
+    hoomans_environment = _environment_value("hoomans", env)
     hoomans_candidates: list[str | Path] = []
     if hoomans_repository is not None:
         hoomans_candidates.append(hoomans_repository)
@@ -245,11 +218,7 @@ def discover_layout(
         required=False,
     )
 
-    dynamic_environment, dynamic_legacy = _environment_value(
-        "dynamic_trading", env
-    )
-    if dynamic_legacy:
-        legacy_names.append(dynamic_legacy)
+    dynamic_environment = _environment_value("dynamic_trading", env)
     dynamic_candidates: list[str | Path] = []
     if dynamic_trading_repository is not None:
         dynamic_candidates.append(dynamic_trading_repository)
@@ -271,5 +240,4 @@ def discover_layout(
         core_repository=resolved_core,
         hoomans_repository=resolved_hoomans,
         dynamic_trading_repository=resolved_dynamic,
-        legacy_environment_names=tuple(dict.fromkeys(legacy_names)),
     )

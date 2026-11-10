@@ -3,8 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 import unittest
 
-from semantic_harness.process import WorkerLaunchSpec
-from semantic_harness.worker import SemanticWorker
+from tools.semantic_harness.process import WorkerLaunchSpec
+from tools.semantic_harness.worker import SemanticWorker
 
 
 class FakeRuntime:

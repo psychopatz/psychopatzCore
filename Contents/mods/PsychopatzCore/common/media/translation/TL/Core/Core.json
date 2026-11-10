@@ -78,5 +78,6 @@
   "UI_PsychopatzCore_Radio_RequestSent": "NAIPADALA ANG REQUEST",
   "UI_PsychopatzCore_Radio_Denied": "TINANGGI: %s",
   "UI_PsychopatzCore_Radio_SettingsReadOnly": "READ-ONLY ANG MGA SETTING",
-  "UI_PsychopatzCore_Radio_App": "APP"
+  "UI_PsychopatzCore_Radio_App": "APP",
+  "UI_PsychopatzCore_Radio_WorldBroadcastChannel": "Banda ng Bukas na Mundo"
 }

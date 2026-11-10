@@ -7,6 +7,7 @@
 local coreRepository = arg[1]
     or os.getenv("SEMANTIC_HARNESS_CORE_REPOSITORY")
     or "."
+local repository = os.getenv("SEMANTIC_HARNESS_REPOSITORY") or coreRepository
 local coreRuntime = os.getenv("PZ_TEST_CORE_RUNTIME")
 
 local function path(root, relative)
@@ -53,6 +54,8 @@ local materializationMode = launch.materializationMode
 
 local Runtime = RuntimeState.new()
 local Context = {
+    repository = repository,
+    coreRepository = coreRepository,
     Runtime = Runtime,
     profile = profileID,
     providers = selectedProviders,
