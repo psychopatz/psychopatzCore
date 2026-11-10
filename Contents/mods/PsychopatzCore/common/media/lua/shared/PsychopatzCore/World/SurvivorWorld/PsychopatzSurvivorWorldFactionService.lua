@@ -89,6 +89,66 @@ function Service.RemoveMember(registry, factionID, actorID)
     end)
 end
 
+function Service.TransferMember(
+    registry,
+    sourceFactionID,
+    destinationFactionID,
+    actorID
+)
+    if type(actorID) ~= "string" or actorID == "" then
+        return nil, "actor_id_required"
+    end
+    if tostring(sourceFactionID) == tostring(destinationFactionID) then
+        return nil, "same_faction"
+    end
+    if not validRegistry(registry) then
+        return nil, "survivor_world_faction_registry_required"
+    end
+
+    local source = registry:GetFaction(sourceFactionID)
+    local destination = registry:GetFaction(destinationFactionID)
+    if not source or not destination then
+        return nil, "faction_not_found"
+    end
+    local sourceIndex = memberIndex(source.memberActorIDs, actorID)
+    if not sourceIndex then return nil, "actor_not_member" end
+    if memberIndex(destination.memberActorIDs, actorID) then
+        return nil, "actor_already_member"
+    end
+
+    local sourceCandidate = Util.clone(source)
+    table.remove(sourceCandidate.memberActorIDs, sourceIndex)
+    if tostring(sourceCandidate.leaderActorID or "")
+        == tostring(actorID)
+    then
+        sourceCandidate.leaderActorID = nil
+    end
+
+    local destinationCandidate = Util.clone(destination)
+    destinationCandidate.memberActorIDs =
+        destinationCandidate.memberActorIDs or {}
+    destinationCandidate.memberActorIDs[
+        #destinationCandidate.memberActorIDs + 1
+    ] = actorID
+
+    local sourceCanonical, sourceReason = registry:UpsertFaction(
+        sourceCandidate
+    )
+    if not sourceCanonical then return nil, sourceReason end
+
+    local destinationCanonical, destinationReason = registry:UpsertFaction(
+        destinationCandidate
+    )
+    if not destinationCanonical then
+        local rollback = registry:UpsertFaction(source)
+        if not rollback then return nil, "transfer_rollback_failed" end
+        return nil, "transfer_destination_failed:" .. tostring(
+            destinationReason
+        )
+    end
+    return sourceCanonical, destinationCanonical, "transferred"
+end
+
 function Service.SetLeader(registry, factionID, actorID)
     if actorID ~= nil
         and (type(actorID) ~= "string" or actorID == "")

@@ -53,6 +53,31 @@ truthy(removed, removeReason)
 equal(removed.leaderActorID, nil, "removing leader clears Core leader")
 equal(#removed.memberActorIDs, 1, "member removal updates Core")
 
+truthy(Service.Upsert(registry, {
+    id = "faction_service_destination",
+    name = "Service Destination",
+    archetypeID = "survivor.generic",
+    memberActorIDs = {},
+}))
+local transferSource, transferDestination, transferReason =
+    Service.TransferMember(
+        registry,
+        "faction_service_fixture",
+        "faction_service_destination",
+        "actor_one"
+    )
+truthy(transferSource, transferReason)
+truthy(transferDestination, transferReason)
+equal(transferReason, "transferred", "transfer command reports mutation")
+equal(#transferSource.memberActorIDs, 0,
+    "transfer removes actor from source")
+equal(transferSource.leaderActorID, nil,
+    "transfer clears source leader")
+equal(#transferDestination.memberActorIDs, 1,
+    "transfer adds actor to destination")
+equal(transferDestination.memberActorIDs[1], "actor_one",
+    "transfer preserves actor identity")
+
 local status, statusReason = Service.SetStatus(
     registry, "faction_service_fixture", "archived")
 truthy(status, statusReason)
