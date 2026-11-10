@@ -86,6 +86,34 @@ for _, actorID in ipairs(group.memberActorIDs) do
 end
 
 local first = byID[group.memberActorIDs[1]]
+assert(first.providerState == "abstract"
+    or first.providerState == "materialized",
+    "canonical map actors must have a Core presence state")
+
+local released = assert(actors:Create({
+    actorId = "npc:presentation:released",
+    identitySeed = "presentation-released",
+    world = { position = { x = origin.x, y = origin.y, z = 0 } },
+}))
+assert(actors:AttachExtension(
+    released.actorId,
+    "PsychopatzCore.SurvivorWorld",
+    { factionID = group.factionID }
+))
+local afterReleased = World.Presentation.BuildActorEntries(
+    registry,
+    actors,
+    12.5
+)
+local releasedEntry
+for _, entry in ipairs(afterReleased) do
+    if entry.actorID == released.actorId then
+        releasedEntry = entry
+        break
+    end
+end
+assert(releasedEntry == nil,
+    "released Core actors must not become map ghosts")
 assert(math.abs(first.position.x - origin.x) < 0.001,
     "route first leg X")
 assert(math.abs(first.position.y - (origin.y + 50)) < 0.001,

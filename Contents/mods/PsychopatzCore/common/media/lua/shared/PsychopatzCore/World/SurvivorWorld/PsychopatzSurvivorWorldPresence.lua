@@ -216,6 +216,70 @@ local function chooseProvider(actor, requested, spec)
     return nil, "no_presence_provider_available"
 end
 
+-- Adopt an actor into one bodyless provider lease.  This is deliberately
+-- provider-neutral: abstract providers do not create bodies and must use the
+-- same Core lease handoff regardless of which addon requested the adoption.
+-- A materialized lease is never taken over by this helper.
+function Presence.EnsureAbstract(id, spec)
+    spec = type(spec) == "table" and spec or {}
+    local current = spec.actorRegistry or registry()
+    if not current or type(current.Get) ~= "function" then
+        return nil, "core_actor_registry_unavailable"
+    end
+    id = actorID(id)
+    if not id then return nil, "actor_id_required" end
+    local actor = current:Get(id)
+    if not actor then return nil, "core_actor_not_found" end
+    local reason
+
+    local provider = tostring(spec.provider or "")
+    local owner = tostring(spec.owner or "")
+    if provider == "" then return nil, "provider_required" end
+    if owner == "" then return nil, "provider_owner_required" end
+
+    local lease = providerLease(actor)
+    if lease.state == "materialized" then
+        return nil, "body_lease_active"
+    end
+    if lease.state == "abstract"
+        and tostring(lease.provider or "") == provider
+        and tostring(lease.owner or "") == owner
+    then
+        return actor, "already_abstract"
+    end
+
+    local Provider = actorService().Provider
+    local nextActor
+    if lease.state == "abstract" then
+        nextActor, reason = Provider.Switch(actor, {
+            provider = provider,
+            owner = owner,
+            handoffFrom = lease.owner,
+            authority = "server",
+            now = tonumber(spec.now) or worldAge(),
+            metadata = spec.metadata,
+        })
+    else
+        nextActor, reason = Provider.Acquire(actor, {
+            provider = provider,
+            owner = owner,
+            authority = "server",
+            now = tonumber(spec.now) or worldAge(),
+            metadata = spec.metadata,
+        })
+    end
+    if not nextActor then return nil, reason end
+
+    local committed
+    committed, reason = current:Commit(
+        actor.actorId,
+        { providerLease = nextActor.providerLease },
+        actor.revision
+    )
+    if not committed then return nil, reason end
+    return committed, "abstract"
+end
+
 local function sameLease(left, right)
     left = left or {}
     right = right or {}

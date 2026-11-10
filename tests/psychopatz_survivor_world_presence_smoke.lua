@@ -19,6 +19,26 @@ local actor = assert(registry:Create({
     world = { position = { x = 10, y = 20, z = 0 } },
 }))
 
+local adoptionActor = assert(registry:Create({
+    actorId = "npc:presence:adoption-smoke",
+    identitySeed = "presence-adoption-smoke",
+    world = { position = { x = 11, y = 21, z = 0 } },
+}))
+local adopted = assert(Presence.EnsureAbstract(adoptionActor.actorId, {
+    provider = "ProjectHoomans",
+    owner = "ProjectHoomans:abstract",
+    now = 1,
+}))
+assert(adopted.providerLease.provider == "ProjectHoomans")
+assert(adopted.providerLease.state == "abstract")
+local switched = assert(Presence.EnsureAbstract(adoptionActor.actorId, {
+    provider = "DTAbstract",
+    owner = "dtcommon:trader_world",
+    now = 2,
+}))
+assert(switched.providerLease.provider == "DTAbstract")
+assert(switched.providerLease.state == "abstract")
+
 local providerID = "ProjectHoomans"
 assert(Presence.RegisterProvider(providerID, {
     priority = 1000,
@@ -65,6 +85,16 @@ local live = assert(Presence.DebugForceLive({}, actor.actorId))
 assert(live.providerLease.provider == providerID)
 assert(live.providerLease.state == "materialized")
 assert(Presence.Session[actor.actorId])
+
+local bodyBlocked, bodyBlockedReason = Presence.EnsureAbstract(
+    actor.actorId,
+    {
+        provider = "ProjectHoomans",
+        owner = "ProjectHoomans:abstract",
+        now = 3,
+    }
+)
+assert(bodyBlocked == nil and bodyBlockedReason == "body_lease_active")
 
 local abstract = assert(Presence.DebugRelease({}, actor.actorId))
 assert(abstract.providerLease.provider == "PsychopatzCore")

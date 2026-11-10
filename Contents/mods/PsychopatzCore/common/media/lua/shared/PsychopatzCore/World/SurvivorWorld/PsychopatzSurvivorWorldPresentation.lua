@@ -167,17 +167,10 @@ end
 
 local function isExplicitlyProjectable(actor)
     local lease = actor and actor.providerLease or nil
-    if lease and (lease.state == "abstract"
+    return lease and (lease.state == "abstract"
         or lease.state == "materialized"
         or lease.state == "live"
-    ) then
-        return true
-    end
-    local extensions = actor
-        and type(actor.extensions) == "table"
-        and actor.extensions or {}
-    local identity = extensions["PsychopatzCore.ActorIdentity"]
-    return type(identity) == "table" and identity.project == true
+    ) and true or false
 end
 
 function Presentation.BuildActorEntry(
@@ -192,6 +185,14 @@ function Presentation.BuildActorEntry(
     end
     spec = type(spec) == "table" and spec or {}
 
+    local lease = actor.providerLease or {}
+    if lease.state ~= "abstract"
+        and lease.state ~= "materialized"
+        and lease.state ~= "live"
+    then
+        return nil, "actor_presence_unavailable"
+    end
+
     local position, positionSource =
         Presentation.ResolvePosition(
             worldRegistry,
@@ -204,19 +205,11 @@ function Presentation.BuildActorEntry(
     end
 
     local meta = metadata(actor, group)
-    local extensions = actor
-        and type(actor.extensions) == "table"
-        and actor.extensions or {}
-    local identity = extensions["PsychopatzCore.ActorIdentity"]
-    local lease = actor.providerLease or {}
     -- The canonical provider lease is mutable during a handoff. Identity
     -- metadata is an adoption hint only and must not hide the current Core
     -- provider from map/hover consumers.
-    local provider = lease.provider or (type(identity) == "table"
-        and (identity.providerID or identity.provider) or nil)
-    local providerState = lease.state ~= "released"
-        and lease.state or type(identity) == "table"
-        and (identity.presenceState or identity.presenceMode) or lease.state
+    local provider = lease.provider
+    local providerState = lease.state
     if worldRegistry
         and type(worldRegistry.GetFaction) == "function"
         and meta.factionID

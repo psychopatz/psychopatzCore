@@ -328,6 +328,12 @@ local function ensureActor(
         identitySeed = seed,
         archetypeID = archetypeID or "core.survivor",
         ownerMod = "PsychopatzCore",
+        providerLease = {
+            provider = "PsychopatzCore",
+            owner = "PsychopatzCore:survivor_world",
+            state = "abstract",
+            acquiredAt = 0,
+        },
         world = { position = Util.clone(position) },
         extensions = extension,
     }
