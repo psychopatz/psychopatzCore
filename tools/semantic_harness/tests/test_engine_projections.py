@@ -28,6 +28,26 @@ class CoreEngineProjectionTests(unittest.TestCase):
         normalized = normalize_scenario(scenario)
         self.assertEqual(normalized["npc"]["health"]["state"], "normal")
 
+    def test_engine_fixture_fields_are_explicit_and_editable(self) -> None:
+        scenario = {
+            "player": {"needs": {"hunger": 0.2}},
+            "npc": {"needs": {"thirst": 0.4}},
+            "world": {"timeOfDay": 13.5, "weather": "clear"},
+        }
+
+        projection = OfflineEngineFixtureProvider().catalog(scenario)
+
+        self.assertEqual(projection["source"], "FIXTURE")
+        fields = {field["id"]: field for field in projection["fields"]}
+        for field_id in (
+            "player.needs",
+            "npc.needs",
+            "world.timeOfDay",
+            "world.weather",
+        ):
+            self.assertEqual(fields[field_id]["source"], "FIXTURE")
+            self.assertTrue(fields[field_id]["editable"])
+
     def test_item_catalog_parser_has_no_provider_policy(self) -> None:
         parsed = _parse_script_text(
             "module Base\n{\n item Bandage\n {\n DisplayName = Bandage,\n }\n}\n"
