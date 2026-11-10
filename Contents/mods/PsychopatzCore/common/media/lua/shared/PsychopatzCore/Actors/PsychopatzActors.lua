@@ -63,6 +63,10 @@ function Actors.Create(spec)
     return Actors.DefaultRegistry:Create(spec)
 end
 
+function Actors.Ensure(spec)
+    return Actors.DefaultRegistry:Ensure(spec)
+end
+
 function Actors.Get(actorId)
     return Actors.DefaultRegistry:Get(actorId)
 end

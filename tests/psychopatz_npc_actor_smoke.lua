@@ -104,6 +104,23 @@ local invalid, invalidReason = fresh:Create({ actorId = " " })
 equal(invalid, nil, "invalid actor rejected")
 equal(invalidReason, "actor_id_required", "invalid actor reason")
 
+local ensuredExisting, existingReason = fresh:Ensure({
+    actorId = "pnc:test:generated",
+    identitySeed = "different-seed-must-not-replace",
+})
+truthy(ensuredExisting, existingReason)
+equal(existingReason, "existing_actor", "ensure preserves existing actor")
+equal(ensuredExisting.identity.identitySeed,
+    reloaded.identity.identitySeed, "ensure does not reset existing actor")
+
+local ensuredNew, ensuredNewReason = fresh:Ensure({
+    actorId = "pnc:test:ensured",
+    identitySeed = "ensured-seed",
+    archetypeID = "merchant.test",
+})
+truthy(ensuredNew, ensuredNewReason)
+equal(ensuredNew.actorId, "pnc:test:ensured", "ensure creates missing actor")
+
 equal(package.loaded["PNC/Core/Identity/PNC_Identity_Factory"], nil,
     "Core actor does not load Hoomans identity")
 equal(package.loaded["DTCommon/DTCommon_TraderService"], nil,

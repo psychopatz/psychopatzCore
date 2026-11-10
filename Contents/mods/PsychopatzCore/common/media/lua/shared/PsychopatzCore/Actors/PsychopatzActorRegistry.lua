@@ -278,6 +278,25 @@ function Registry:Create(spec)
     return self:Register(actor)
 end
 
+-- Return the canonical actor for an adopter-owned stable ID, creating it only
+-- when the ID is not already present.  Adopters use this idempotent seam when
+-- importing an existing provider record; it must never replace or reset an
+-- actor that another provider has already enriched.
+function Registry:Ensure(spec)
+    if type(spec) ~= "table" then return nil, "spec_required" end
+    local actorID = Util.text(spec.actorId or spec.actorID, nil)
+    if not actorID then return nil, "actor_id_required" end
+
+    local existing = self.records[actorID]
+    if existing then
+        return Util.clone(existing), "existing_actor"
+    end
+
+    local createSpec = Util.clone(spec)
+    createSpec.actorId = actorID
+    return self:Create(createSpec)
+end
+
 function Registry:Commit(actorId, patch, expectedRevision)
     local current = self.records[actorId]
     if not current then return nil, "actor_not_found" end
