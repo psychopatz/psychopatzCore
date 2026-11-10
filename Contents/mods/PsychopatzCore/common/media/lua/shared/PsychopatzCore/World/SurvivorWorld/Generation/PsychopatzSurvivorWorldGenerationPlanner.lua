@@ -179,6 +179,7 @@ function Planner.BuildCommunityPlan(request)
         worldSeed = worldSeed,
         sectorID = sectorID,
         serial = serial,
+        createdAt = math.max(0, tonumber(request.createdAt) or 0),
         generationID = Generation.GenerationID(
             "COMMUNITY",
             serial
@@ -314,6 +315,7 @@ function Planner.BuildGroupPlan(request)
         worldSeed = worldSeed,
         sectorID = sectorID,
         serial = serial,
+        createdAt = math.max(0, tonumber(request.createdAt) or 0),
         generationID = Generation.GenerationID("GROUP", serial),
         seed = seed,
         source = tostring(

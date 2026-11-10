@@ -4,6 +4,7 @@ local loaded = {
     feeding = 0,
     projection = 0,
     discovery = 0,
+    bootstrap = 0,
 }
 
 package.preload[
@@ -22,6 +23,12 @@ package.preload[
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldDiscoveryServer"
 ] = function()
     loaded.discovery = loaded.discovery + 1
+    return {}
+end
+package.preload[
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldBootstrapServer"
+] = function()
+    loaded.bootstrap = loaded.bootstrap + 1
     return {}
 end
 
@@ -46,6 +53,8 @@ assert(loaded.projection == 1,
     "single-player authority skipped SurvivorWorld projection server")
 assert(loaded.discovery == 1,
     "single-player authority skipped SurvivorWorld discovery server")
+assert(loaded.bootstrap == 1,
+    "single-player authority skipped SurvivorWorld bootstrap server")
 
 -- A pure client must still refuse server composition.
 PsychopatzCore.Composition = {}

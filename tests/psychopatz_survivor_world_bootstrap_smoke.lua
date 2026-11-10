@@ -104,4 +104,20 @@ assert(Bootstrap.Commit(replay, hoomansPlan, replayActors))
 assert(same(world:Snapshot(), replay:Snapshot()),
     "same plan must commit byte-equivalent canonical world")
 
+local incremental = assert(Registry.new({
+    worldSeed = abstractPlan.worldSeed,
+}))
+local incrementalActors = Actors.NewRegistry()
+local incrementalCommunity = assert(Bootstrap.CommitCommunityPlan(
+    incremental,
+    assert(abstractPlan.communities[1]),
+    incrementalActors
+))
+assert(incrementalCommunity.id == abstractPlan.communities[1].communityID,
+    "incremental community commit identity")
+assert(incremental:Counts().communities == 1,
+    "incremental community commit count")
+assert(incrementalActors:Get(abstractPlan.communities[1].leaderActorID),
+    "incremental community actor")
+
 print("psychopatz_survivor_world_bootstrap_smoke: PASS")

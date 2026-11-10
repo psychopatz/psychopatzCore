@@ -2,6 +2,8 @@ local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Generation = require
     "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldGeneration"
 local Identity = require "PsychopatzCore/Actors/PsychopatzActorIdentity"
+local Types = require
+    "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldTypes"
 
 local Bootstrap = {}
 
@@ -356,6 +358,54 @@ local function ensureActor(
     return actorRegistry:Create(actorSpec)
 end
 
+local function recordGeneration(registry, item, kind)
+    if type(registry.GetPopulation) ~= "function"
+        or type(registry.SetPopulation) ~= "function"
+    then
+        return nil, "survivor_world_population_api_unavailable"
+    end
+    local generationID = Types.SafeID(item.generationID)
+    local sectorID = Types.SafeID(item.sectorID)
+    if not generationID or not sectorID then
+        return nil, "survivor_world_generation_metadata_invalid"
+    end
+    local population = registry:GetPopulation()
+    population.provenance = population.provenance or {}
+    population.provenance[generationID] = {
+        source = item.source,
+        generationID = generationID,
+        sectorID = sectorID,
+        createdAt = math.max(0, tonumber(item.createdAt) or 0),
+        seed = item.seed,
+    }
+    population.committedOrder = population.committedOrder or {}
+    local committed = false
+    for _, existing in ipairs(population.committedOrder) do
+        if tostring(existing) == generationID then
+            committed = true
+            break
+        end
+    end
+    if not committed then
+        population.committedOrder[#population.committedOrder + 1] = generationID
+    end
+    population.nextGenerationSerial = math.max(
+        1,
+        tonumber(population.nextGenerationSerial) or 1,
+        (tonumber(item.serial) or 0) + 1
+    )
+    population.sectors = population.sectors or {}
+    local sector = population.sectors[sectorID] or { id = sectorID }
+    if kind == "GROUP" then
+        sector.hadGroups = true
+    else
+        sector.hadCommunities = true
+    end
+    population.sectors[sectorID] = sector
+    registry:SetPopulation(population)
+    return true
+end
+
 function Bootstrap.CommitGroupPlan(registry, item, actorRegistry)
     if type(registry) ~= "table"
         or type(registry.UpsertGroup) ~= "function"
@@ -445,7 +495,105 @@ function Bootstrap.CommitGroupPlan(registry, item, actorRegistry)
         if not actor then return nil, reason end
     end
 
+    local recorded
+    recorded, reason = recordGeneration(registry, item, "GROUP")
+    if not recorded then return nil, reason end
+
     return group
+end
+
+-- Commit one generic community generation plan without changing the global
+-- bootstrap completion marker. Adopters use this seam for later population
+-- growth; the bootstrap transaction below uses the same canonical write path.
+function Bootstrap.CommitCommunityPlan(registry, item, actorRegistry)
+    if type(registry) ~= "table"
+        or type(registry.UpsertFaction) ~= "function"
+        or type(registry.UpsertCommunity) ~= "function"
+    then
+        return nil, "survivor_world_registry_required"
+    end
+    if type(item) ~= "table"
+        or tostring(item.communityID or "") == ""
+        or tostring(item.factionID or "") == ""
+        or type(item.location) ~= "table"
+    then
+        return nil, "survivor_world_community_plan_invalid"
+    end
+
+    local reason
+    if item.factionPlan then
+        local faction
+        faction, reason = registry:UpsertFaction(item.factionPlan)
+        if not faction then return nil, reason end
+    end
+
+    local location
+    location, reason = registry:UpsertLocation({
+        id = item.locationID or item.location.id,
+        kind = item.location.kind,
+        x = item.location.x,
+        y = item.location.y,
+        z = item.location.z,
+        generation = {
+            source = item.source,
+            generationID = item.generationID,
+            sectorID = item.sectorID,
+            seed = item.seed,
+        },
+    })
+    if not location then return nil, reason end
+
+    local community
+    community, reason = registry:UpsertCommunity({
+        id = item.communityID,
+        seed = item.seed,
+        factionID = item.factionID,
+        name = item.communityName,
+        mode = "settled",
+        status = "active",
+        home = {
+            x = item.location.x,
+            y = item.location.y,
+            z = item.location.z,
+            radius = 24,
+        },
+        siteID = location.id,
+        leaderActorID = item.leaderActorID,
+        memberActorIDs = item.memberActorIDs,
+        population = item.initialPopulation,
+        generation = {
+            source = item.source,
+            generationID = item.generationID,
+            sectorID = item.sectorID,
+            seed = item.seed,
+        },
+    })
+    if not community then return nil, reason end
+
+    for index, actorID in ipairs(item.memberActorIDs or {}) do
+        local actor
+        actor, reason = ensureActor(
+            actorRegistry,
+            actorID,
+            tostring(item.seed) .. ":" .. actorID,
+            item.factionArchetypeID,
+            item.location,
+            actorExtension(
+                item.factionID,
+                item.communityID,
+                nil,
+                index == 1 and "leader" or "resident"
+            ),
+            item.memberSpecs and item.memberSpecs[index] or nil
+        )
+        if not actor then return nil, reason end
+    end
+
+    local recorded
+    recorded, reason = recordGeneration(registry, item, "COMMUNITY")
+    if not recorded then return nil, reason end
+
+    return community
 end
 
 function Bootstrap.Commit(registry, plan, actorRegistry)

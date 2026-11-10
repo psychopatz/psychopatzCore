@@ -26,6 +26,7 @@ end
 require "PsychopatzCore/Compatibility/PsychopatzFeedingTroughGuard"
 require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldProjectionServer"
 require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldDiscoveryServer"
+require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldBootstrapServer"
 
 Composition.serverLoaded = true
 
