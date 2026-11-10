@@ -380,6 +380,11 @@ local function recordGeneration(registry, item, kind)
     population.provenance[generationID] = {
         source = item.source,
         generationID = generationID,
+        kind = kind == "GROUP" and "group" or "community",
+        groupID = item.groupID,
+        communityID = item.communityID,
+        requestKey = item.requestKey,
+        requestSignature = item.requestSignature,
         sectorID = sectorID,
         createdAt = math.max(0, tonumber(item.createdAt) or 0),
         seed = item.seed,

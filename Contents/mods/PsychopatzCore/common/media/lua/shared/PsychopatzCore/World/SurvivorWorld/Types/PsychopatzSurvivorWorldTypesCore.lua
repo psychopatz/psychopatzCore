@@ -198,6 +198,19 @@ function I.NormalizeGeneration(value)
         value.generationID or value.generationId or value.id
     )
     if not generationID then return nil end
+    local requestSignature = tonumber(value.requestSignature)
+    if requestSignature == nil
+        or requestSignature ~= requestSignature
+        or requestSignature == math.huge
+        or requestSignature == -math.huge
+    then
+        requestSignature = nil
+    else
+        requestSignature = math.max(
+            0,
+            math.min(2147483647, math.floor(requestSignature))
+        )
+    end
     return {
         source = I.BoundedText(
             value.source,
@@ -205,6 +218,16 @@ function I.NormalizeGeneration(value)
             "world"
         ),
         generationID = generationID,
+        kind = value.kind == "community"
+            and "community" or "group",
+        groupID = I.SafeID(value.groupID),
+        communityID = I.SafeID(value.communityID),
+        requestKey = I.BoundedText(
+            value.requestKey,
+            Types.MAX_ID_LENGTH,
+            nil
+        ),
+        requestSignature = requestSignature,
         sectorID = I.SafeID(value.sectorID or value.sectorId),
         createdAt = math.max(0, I.Finite(value.createdAt, 0)),
         seed = I.StableSeed(
