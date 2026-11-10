@@ -1,6 +1,7 @@
 """Core-owned contracts for the provider-neutral semantic harness.
 
-The executable worker and authoring application will move here incrementally.
+The executable worker lifecycle and reusable engine projections live here.
+Provider gameplay policy and authoring applications remain in adopters.
 This package intentionally contains no Project Hoomans or Dynamic Trading
 imports. Adopters register providers through :mod:`provider_registry`.
 """
@@ -38,6 +39,18 @@ from .worker_session import (
     WorkerSession,
 )
 from .worker import SemanticWorker
+from .fixture_provider import OfflineEngineFixtureProvider
+from .health import normalize_npc_health, normalize_scenario, validate_npc_health
+from .item_catalog import (
+    item_type_registry_fixture,
+    search_item_catalog,
+)
+from .live_profiler_provider import LiveProfilerProvider
+from .player_engine_state import (
+    OfflinePlayerEngineStateProvider,
+    PLAYER_WORLD_VERSION,
+    PlayerEngineStateError,
+)
 
 __all__ = [
     "CORE_PROVIDER_ID",
@@ -71,6 +84,16 @@ __all__ = [
     "save_json_document",
     "WorkerLaunchSpec",
     "SemanticWorker",
+    "OfflineEngineFixtureProvider",
+    "normalize_npc_health",
+    "normalize_scenario",
+    "validate_npc_health",
+    "item_type_registry_fixture",
+    "search_item_catalog",
+    "LiveProfilerProvider",
+    "OfflinePlayerEngineStateProvider",
+    "PLAYER_WORLD_VERSION",
+    "PlayerEngineStateError",
 ]
 
 __version__ = "0.1.0"
