@@ -1,5 +1,7 @@
 local Types =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldTypes"
+local FactionProfiles =
+    require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldFactionProfiles"
 local Persistence =
     require "PsychopatzCore/World/SurvivorWorld/PsychopatzSurvivorWorldPersistence"
 local Registry =
@@ -23,6 +25,7 @@ local Presence =
 
 local SurvivorWorld = {
     Types = Types,
+    FactionProfiles = FactionProfiles,
     Persistence = Persistence,
     Registry = Registry,
     Import = Import,
