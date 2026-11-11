@@ -15,7 +15,8 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
 
-from .conversation_compiler import CONVERSATION_MANIFEST_RELATIVE, _load_manifest
+from .conversation_compiler import CONVERSATION_MANIFEST_RELATIVE
+from .conversation_manifest import load_manifest as _load_manifest
 
 
 PLACEHOLDER_REGEX = re.compile(r"\{([a-zA-Z0-9_]+)\}")
