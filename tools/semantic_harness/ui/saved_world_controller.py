@@ -7,6 +7,7 @@ from typing import Any
 
 from tools.semantic_harness.inspection.rendering import pretty
 from .ui_state_persistence import remember_active_source
+from .selection_surface import save_source_selected
 
 
 def discover_saved_worlds(app: Any) -> None:
@@ -51,6 +52,14 @@ def discover_saved_worlds(app: Any) -> None:
                 labels[0],
             )
             app.saved_world_save_var.set(preferred_label)
+            _set_save_activation_status(
+                app,
+                app.saved_world_save_labels.get(preferred_label),
+            )
+            save_source_selected(
+                app,
+                app.saved_world_save_labels.get(preferred_label),
+            )
             app.saved_world_status_var.set(
                 f"{len(labels)} validated save(s); choose a save to browse its world."
             )
@@ -60,7 +69,10 @@ def discover_saved_worlds(app: Any) -> None:
             rejected = len(app.saved_catalog.get("rejected") or [])
             app.saved_world_save_var.set("")
             app.saved_world_status_var.set(
-                f"No compatible saves found ({rejected} rejected)."
+                f"No readable save sources found ({rejected} rejected)."
+            )
+            app.saved_world_activation_var.set(
+                "No readable save sources were found."
             )
             app._set_controls(True)
 
@@ -71,10 +83,31 @@ def selected_saved_world_entry(app: Any) -> dict[str, Any] | None:
     return app.saved_world_save_labels.get(app.saved_world_save_var.get())
 
 
+def _set_save_activation_status(
+    app: Any,
+    entry: dict[str, Any] | None,
+) -> None:
+    activation = entry.get("modActivation") if isinstance(entry, dict) else None
+    if not isinstance(activation, dict):
+        app.saved_world_activation_var.set(
+            "Active mods: metadata unavailable for this save"
+        )
+        return
+    mod_ids = activation.get("modIDs") or []
+    source = activation.get("serverProfile") or (
+        (activation.get("sourceFiles") or ["save metadata"])[0]
+    )
+    status = str(activation.get("status") or "unknown")
+    app.saved_world_activation_var.set(
+        f"Active mods · {status} · {len(mod_ids)} detected · source {source}"
+    )
+
+
 def inspect_saved_world(app: Any) -> None:
     entry = app._selected_saved_world_entry()
+    _set_save_activation_status(app, entry)
     if entry is None:
-        app.saved_world_status_var.set("Discover and select a compatible save first.")
+        app.saved_world_status_var.set("Discover and select a readable save first.")
         return
     save_path = str(entry.get("path") or "")
     if not save_path:

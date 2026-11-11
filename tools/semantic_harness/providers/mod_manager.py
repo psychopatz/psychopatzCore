@@ -154,6 +154,7 @@ class ProviderSpec:
     repository_kind: str
     repository_root: Path
     manifest_path: Path
+    activation_ids: tuple[str, ...] = ()
     requires: tuple[str, ...] = ()
     optional_requires: tuple[str, ...] = ()
     conflicts: tuple[str, ...] = ()
@@ -188,6 +189,12 @@ class ProviderSpec:
         object.__setattr__(self, "provider_id", provider_id)
         object.__setattr__(self, "display_name", str(self.display_name).strip())
         object.__setattr__(self, "repository_kind", str(self.repository_kind).strip())
+        activation_ids = self.activation_ids or (provider_id,)
+        object.__setattr__(
+            self,
+            "activation_ids",
+            _strings(activation_ids, f"{provider_id}.activationIDs"),
+        )
         object.__setattr__(self, "requires", _strings(self.requires, f"{provider_id}.requires"))
         object.__setattr__(self, "optional_requires", _strings(self.optional_requires, f"{provider_id}.optionalRequires"))
         object.__setattr__(self, "conflicts", _strings(self.conflicts, f"{provider_id}.conflicts"))
@@ -221,6 +228,7 @@ class ProviderSpec:
             "displayName": self.display_name,
             "repositoryKind": self.repository_kind,
             "repository": str(self.repository_root),
+            "activationIDs": list(self.activation_ids),
             "requires": list(self.requires),
             "optionalRequires": list(self.optional_requires),
             "conflicts": list(self.conflicts),
@@ -314,6 +322,10 @@ class ProviderManifest:
                     repository_kind=str(raw.get("repositoryKind", document.get("repositoryKind", "external"))),
                     repository_root=repository_root,
                     manifest_path=manifest_path,
+                    activation_ids=raw.get(
+                        "activationIDs",
+                        raw.get("modIDs", document.get("activationIDs", ())),
+                    ),
                     requires=_strings(requires, f"{provider_id}.requires"),
                     optional_requires=raw.get("optionalRequires", ()),
                     conflicts=raw.get("conflicts", ()),
@@ -594,6 +606,82 @@ class ModManager:
             "coreRepository": str(self.core_repository),
             "providers": [provider.to_dict() for provider in self.providers()],
             "presets": list(self.presets()),
+        }
+
+    def resolve_activation_ids(
+        self,
+        mod_ids: Sequence[str],
+    ) -> dict[str, Any]:
+        """Resolve save/server mod IDs into a validated provider composition.
+
+        Unknown game mods remain visible in the report and do not make the
+        save disappear. Only ambiguous provider aliases or an invalid
+        dependency/route composition prevent a plan from being produced.
+        """
+
+        requested_ids: list[str] = []
+        for value in mod_ids or ():
+            rendered = str(value).strip()
+            if rendered and rendered not in requested_ids:
+                requested_ids.append(rendered)
+        matches: dict[str, list[str]] = {value: [] for value in requested_ids}
+        for provider in self.providers():
+            for activation_id in provider.activation_ids:
+                for requested in requested_ids:
+                    if activation_id.casefold() == requested.casefold():
+                        if provider.provider_id not in matches[requested]:
+                            matches[requested].append(provider.provider_id)
+        recognized = [
+            {
+                "modID": mod_id,
+                "providerIDs": list(matches[mod_id]),
+            }
+            for mod_id in requested_ids
+            if matches[mod_id]
+        ]
+        unknown = [mod_id for mod_id in requested_ids if not matches[mod_id]]
+        ambiguous = [
+            row for row in recognized if len(row["providerIDs"]) > 1
+        ]
+        provider_ids: list[str] = []
+        for row in recognized:
+            if len(row["providerIDs"]) != 1:
+                continue
+            provider_id = row["providerIDs"][0]
+            if provider_id != CORE_PROVIDER_ID and provider_id not in provider_ids:
+                provider_ids.append(provider_id)
+        plan: ActivationPlan | None = None
+        errors: list[str] = []
+        if ambiguous:
+            errors.append(
+                "ambiguous mod aliases: "
+                + ", ".join(str(row["modID"]) for row in ambiguous)
+            )
+        elif provider_ids:
+            try:
+                plan = self.resolve(provider_ids=tuple(provider_ids))
+            except ModManagerError as error:
+                errors.append(str(error))
+        else:
+            errors.append("no installed harness provider matches the save mods")
+        if errors:
+            status = "ambiguous" if ambiguous else "unsupported"
+            if provider_ids and not ambiguous:
+                status = "invalid"
+        elif unknown:
+            status = "partial"
+        else:
+            status = "ready"
+        return {
+            "schema": "semantic.harness.save_activation.v1",
+            "schemaVersion": 1,
+            "status": status,
+            "modIDs": requested_ids,
+            "recognized": recognized,
+            "unknownModIDs": unknown,
+            "providerIDs": list(plan.provider_ids) if plan else provider_ids,
+            "errors": errors,
+            "activationPlan": plan.to_dict() if plan else None,
         }
 
     def _requested(

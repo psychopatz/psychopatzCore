@@ -33,7 +33,10 @@ def build_saved_world_browser(self, parent: Any) -> None:
     )
     self.saved_world_npc_var = self._tk.StringVar(value="")
     self.saved_world_status_var = self._tk.StringVar(
-        value="Discover compatible saves to browse the persisted world."
+        value="Discover readable saves to browse the persisted world."
+    )
+    self.saved_world_activation_var = self._tk.StringVar(
+        value="Active mods: no save source selected"
     )
     self.saved_world_target_var = self._tk.StringVar(
         value="No saved Player/NPC pair loaded"
@@ -149,6 +152,13 @@ def build_saved_world_browser(self, parent: Any) -> None:
         justify="left",
         wraplength=1000,
     ).grid(row=4, column=0, columnspan=6, sticky="ew", pady=(4, 0))
+    ttk.Label(
+        header,
+        textvariable=self.saved_world_activation_var,
+        anchor="w",
+        justify="left",
+        wraplength=1000,
+    ).grid(row=5, column=0, columnspan=6, sticky="ew", pady=(4, 0))
 
     browser_frame = ttk.LabelFrame(parent, text="World", padding=6)
     browser_frame.grid(row=1, column=0, sticky="nsew")

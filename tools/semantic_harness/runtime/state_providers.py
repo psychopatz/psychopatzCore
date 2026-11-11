@@ -290,7 +290,7 @@ class SemanticStateCatalog:
 
     def load(self, save_path: Path) -> dict[str, Any]:
         try:
-            candidate = self.raw_inspector.inspect(Path(save_path))
+            candidate = self.raw_inspector.inspect_source(Path(save_path))
         except SaveCatalogError as error:
             raise StateProviderError(str(error)) from error
         Reader, _reader_error = _load_core_reader(self.core_repository)

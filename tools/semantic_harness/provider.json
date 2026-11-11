@@ -8,6 +8,7 @@
       "providerID": "PsychopatzCore",
       "displayName": "PsychopatzCore infrastructure",
       "repositoryKind": "core",
+      "activationIDs": ["PsychopatzCore"],
       "capabilities": [
         "semantic.parse",
         "semantic.ir",

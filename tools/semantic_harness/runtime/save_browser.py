@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .save_catalog import SaveCatalog
 from .state_providers import SemanticStateCatalog, StateProviderError
 
 
@@ -135,6 +136,9 @@ class SavedWorldBrowser:
             provider_actors=trading.get("knownActors") or [],
         )
         raw = state_catalog["raw"]
+        raw["modActivation"] = SaveCatalog(
+            core_repository=self.core_repository,
+        ).mod_activation(save_path)
 
         return {
             "schema": "semantic.save_browser.v1",
@@ -144,6 +148,7 @@ class SavedWorldBrowser:
             "savePath": str(save_path),
             "saveName": raw["saveName"],
             "worldVersion": raw["worldVersion"],
+            "modActivation": deepcopy(raw.get("modActivation") or {}),
             "providers": providers,
             "players": hoomans.get("players") or [],
             "categories": categories,

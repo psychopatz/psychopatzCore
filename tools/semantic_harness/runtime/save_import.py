@@ -38,6 +38,33 @@ def _as_dict(value: Any) -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
+def _scope_saved_knowledge(
+    registry: dict[str, Any], *, player_uuid: str, npc_id: str
+) -> dict[str, Any]:
+    """Keep only the selected player/NPC knowledge note for transport.
+
+    ``PNC_NPCKnowledge`` is a world-wide registry. Real saves can contain
+    hundreds of descriptors for many NPCs, which is valid persisted state but
+    too large for the worker's Lua JSON collection limit. The harness imports
+    one player/NPC pair at a time, so scoping this transport envelope preserves
+    the exact state needed by the production loader without inventing facts.
+    """
+
+    scoped = deepcopy(registry)
+    characters = _as_dict(registry.get("byCharacter"))
+    character = _as_dict(characters.get(player_uuid))
+    notes = _as_dict(character.get("byNPC"))
+    scoped_character = deepcopy(character)
+    if character:
+        scoped_character["byNPC"] = {}
+        if npc_id in notes:
+            scoped_character["byNPC"][npc_id] = deepcopy(notes[npc_id])
+    scoped["byCharacter"] = (
+        {player_uuid: scoped_character} if character else {}
+    )
+    return scoped
+
+
 def _restore_reader_shape(value: Any) -> Any:
     """Restore Core reader table shape without interpreting mod semantics.
 
@@ -280,6 +307,12 @@ class SaveBackedImporter:
                         raw_registries[registry_name] = self._read_full(
                             reader, table_name
                         )
+                if isinstance(raw_registries.get("npcKnowledge"), dict):
+                    raw_registries["npcKnowledge"] = _scope_saved_knowledge(
+                        raw_registries["npcKnowledge"],
+                        player_uuid=selected_uuid,
+                        npc_id=selected_npc_id,
+                    )
         except SaveImportError:
             raise
         except Exception as error:

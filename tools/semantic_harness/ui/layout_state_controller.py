@@ -15,11 +15,19 @@ def restore_ui_state(app: Any) -> None:
             if saved_window_state in {"normal", "zoomed"}:
                 app.root.state(saved_window_state)
             main_index = int(app._ui_state.get("main_tab", 0))
-            if layout_version < 5:
+            if layout_version == 5 and main_index == 5:
+                main_index = 0
+            elif layout_version < 5:
                 main_index += 1
             tabs = app.main_tabs.tabs()
             if tabs:
                 app.main_tabs.select(tabs[min(max(main_index, 0), len(tabs) - 1)])
+            source_tabs = app.world_sources_notebook.tabs()
+            if source_tabs:
+                source_index = int(app._ui_state.get("world_sources_tab", 0))
+                app.world_sources_notebook.select(
+                    source_tabs[min(max(source_index, 0), len(source_tabs) - 1)]
+                )
             # Version 2 stored indices for the pre-consolidation Studio and
             # Simulation notebooks. Those indices could point at an unrelated
             # home after duplicate panes were removed, so old state starts at

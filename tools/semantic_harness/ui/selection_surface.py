@@ -28,7 +28,40 @@ def _preset_label(row: dict[str, Any]) -> str:
 
 
 def _active_request(app: Any) -> dict[str, Any]:
-    custom = app.selection_mode_var.get() == "Custom providers"
+    mode = app.selection_mode_var.get()
+    custom = mode == "Custom providers"
+    if mode == "Selected save":
+        entry = app._selected_saved_world_entry()
+        if not isinstance(entry, dict):
+            raise ModManagerError("discover and select a saved world first")
+        activation = entry.get("modActivation")
+        mod_ids = (
+            activation.get("modIDs")
+            if isinstance(activation, dict)
+            else None
+        )
+        if not isinstance(mod_ids, list):
+            raise ModManagerError("selected save has no readable mod activation list")
+        resolution = app.selection_manager.resolve_activation_ids(mod_ids)
+        if not resolution.get("activationPlan"):
+            errors = resolution.get("errors") or [
+                "no harness composition could be resolved"
+            ]
+            raise ModManagerError("; ".join(str(error) for error in errors))
+        provider_ids = tuple(
+            str(provider_id)
+            for provider_id in resolution.get("providerIDs") or ()
+            if str(provider_id) != CORE_PROVIDER_ID
+        )
+        plan = app.selection_manager.resolve(provider_ids=provider_ids)
+        return {
+            "mode": "save",
+            "presetID": None,
+            "providerIDs": plan.provider_ids,
+            "plan": plan,
+            "activation": resolution,
+            "save": entry,
+        }
     if custom:
         selection = tuple(
             app.selection_provider_ids_by_label[app.selection_provider_listbox.get(index)]
@@ -64,6 +97,11 @@ def _request_view(request: dict[str, Any]) -> dict[str, Any]:
         "presetID": request.get("presetID"),
         "providerIDs": list(request["providerIDs"]),
         "activationPlan": plan.to_dict(),
+        "saveActivation": request.get("activation"),
+        "save": {
+            "path": request.get("save", {}).get("path"),
+            "saveName": request.get("save", {}).get("saveName"),
+        } if isinstance(request.get("save"), dict) else None,
     }
 
 
@@ -73,7 +111,12 @@ def _write_plan(app: Any, request: dict[str, Any]) -> None:
 
 def _active_summary(request: dict[str, Any]) -> str:
     plan = request["plan"]
-    label = request.get("presetID") or "custom composition"
+    save = request.get("save")
+    label = (
+        f"save {save.get('saveName') or 'source'}"
+        if isinstance(save, dict)
+        else request.get("presetID") or "custom composition"
+    )
     providers = ", ".join(plan.provider_ids)
     return (
         f"Active: {label} · {providers} · "
@@ -97,7 +140,7 @@ def build_selection_surface(app: Any, parent: Any, ttk: Any, scrolled_text: Any)
         wraplength=900,
     ).grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 8))
 
-    controls = ttk.LabelFrame(parent, text="Choose a harness composition", padding=8)
+    controls = ttk.LabelFrame(parent, text="Choose active mod composition", padding=8)
     controls.grid(row=1, column=0, columnspan=2, sticky="ew", pady=(0, 8))
     controls.columnconfigure(1, weight=1)
     controls.columnconfigure(3, weight=1)
@@ -106,7 +149,7 @@ def build_selection_surface(app: Any, parent: Any, ttk: Any, scrolled_text: Any)
     app.selection_mode_box = ttk.Combobox(
         controls,
         textvariable=app.selection_mode_var,
-        values=("Preset", "Custom providers"),
+        values=("Selected save", "Preset", "Custom providers"),
         state="readonly",
         width=20,
     )
@@ -188,11 +231,16 @@ def build_selection_surface(app: Any, parent: Any, ttk: Any, scrolled_text: Any)
         row=2, column=0, columnspan=2, sticky="nsew", pady=(0, 0)
     )
 
+    remembered_mode = str(
+        app._ui_state.get("selection_source_mode") or ""
+    ).strip()
+    if remembered_mode in {"Selected save", "Preset", "Custom providers"}:
+        app.selection_mode_var.set(remembered_mode)
     requested_mods = app._selected_mods()
     if requested_mods:
         app.selection_mode_var.set("Custom providers")
         _select_provider_labels(app, requested_mods)
-    else:
+    elif remembered_mode not in {"Selected save", "Custom providers"}:
         wanted = str(
             getattr(app.arguments, "preset", None)
             or getattr(app.arguments, "profile", None)
@@ -229,13 +277,20 @@ def _select_provider_labels(app: Any, provider_ids: tuple[str, ...] | list[str])
 
 
 def selection_mode_changed(app: Any) -> None:
-    custom = app.selection_mode_var.get() == "Custom providers"
-    app.selection_preset_box.configure(state="disabled" if custom else "readonly")
-    app.selection_provider_listbox.configure(state="normal")
-    if not custom:
+    mode = app.selection_mode_var.get()
+    custom = mode == "Custom providers"
+    app.selection_preset_box.configure(
+        state="readonly" if mode == "Preset" else "disabled"
+    )
+    app.selection_provider_listbox.configure(
+        state="normal" if custom else "disabled"
+    )
+    if mode == "Preset":
         selection_preset_changed(app)
-    else:
+    elif custom:
         selection_provider_changed(app)
+    else:
+        selection_saved_changed(app)
 
 
 def selection_preset_changed(app: Any) -> None:
@@ -262,6 +317,36 @@ def selection_provider_changed(app: Any) -> None:
         app.selection_status_var.set("Custom composition changed; validate before applying.")
 
 
+def selection_saved_changed(app: Any) -> None:
+    try:
+        request = _active_request(app)
+    except ModManagerError as error:
+        app.selection_pending = None
+        app.selection_status_var.set(f"Save composition unavailable: {error}")
+        return
+    app.selection_pending = request
+    _write_plan(app, request)
+    activation = request.get("activation") or {}
+    unknown = activation.get("unknownModIDs") or []
+    suffix = (
+        f" · unknown mods: {', '.join(str(item) for item in unknown)}"
+        if unknown else ""
+    )
+    app.selection_status_var.set(
+        f"Save composition resolved · {len(request['plan'].provider_ids)} providers"
+        + suffix
+    )
+
+
+def save_source_selected(app: Any, entry: dict[str, Any] | None) -> None:
+    """Make the selected save the source of the Active Mods sub-tab."""
+
+    if not isinstance(entry, dict):
+        return
+    app.selection_mode_var.set("Selected save")
+    selection_mode_changed(app)
+
+
 def validate_selection(app: Any) -> dict[str, Any] | None:
     try:
         request = _active_request(app)
@@ -284,11 +369,15 @@ def validate_selection(app: Any) -> dict[str, Any] | None:
 
 def _selection_worker_kwargs(app: Any, request: dict[str, Any]) -> dict[str, Any]:
     kwargs = app._worker_kwargs()
-    kwargs["profile"] = str(request.get("presetID") or "pnc")
+    kwargs["profile"] = str(request.get("presetID") or "save")
     kwargs["preset"] = request.get("presetID")
     kwargs["mods"] = (
-        tuple(request["providerIDs"])
-        if request["mode"] == "custom"
+        tuple(
+            provider_id
+            for provider_id in request["providerIDs"]
+            if provider_id != CORE_PROVIDER_ID
+        )
+        if request["mode"] in {"custom", "save"}
         else None
     )
     return kwargs
@@ -306,6 +395,10 @@ def apply_selection(app: Any) -> None:
         return
 
     kwargs = _selection_worker_kwargs(app, request)
+    preserve_save = (
+        app.save_backed_mode is True
+        or str(app._ui_state.get("active_source_kind") or "").upper() == "SAVE"
+    )
     scenario = load_scenario(None)
     app.busy = True
     app._worker_initialized = False
@@ -316,8 +409,9 @@ def apply_selection(app: Any) -> None:
     app.last_response = {}
     app.last_test_utterance = ""
     app.replay_steps = []
-    app._set_save_backed_mode(False)
-    app._remember_active_source("FIXTURE")
+    if not preserve_save:
+        app._set_save_backed_mode(False)
+        app._remember_active_source("FIXTURE")
     app._set_text(app.transcript, "")
     app._set_text(app.trace, "")
 
@@ -359,7 +453,7 @@ def poll_selection_future(app: Any) -> None:
     if request is not None:
         app.selection_active = request
         app.selection_pending = None
-        if request["mode"] == "custom":
+        if request["mode"] in {"custom", "save"}:
             app.arguments.mods = list(request["providerIDs"])
             app.arguments.preset = None
         else:
@@ -379,6 +473,7 @@ __all__ = [
     "apply_selection",
     "build_selection_surface",
     "poll_selection_future",
+    "save_source_selected",
     "selection_mode_changed",
     "selection_preset_changed",
     "selection_provider_changed",

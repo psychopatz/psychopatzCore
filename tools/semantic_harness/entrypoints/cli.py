@@ -211,7 +211,7 @@ def _run_offline_cli_operation(
                     for key in (
                         "source", "sourceID", "path", "mode", "saveName",
                         "worldVersion", "formatCompatibility", "fileBytes",
-                        "fileMtimeMs",
+                        "fileMtimeMs", "capabilities", "modActivation",
                     )
                     if entry.get(key) not in (None, "")
                 }

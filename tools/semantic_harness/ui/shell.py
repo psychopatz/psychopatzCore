@@ -63,7 +63,11 @@ from .simulation_pane_builder import build_simulation_panes
 from .simulation_conversation_builder import build_conversation_panel
 from .simulation_controls_builder import build_workbench_controls
 from .simulation_apply_controller import apply_simulation_settings
-from .selection_surface import apply_selection, poll_selection_future
+from .selection_surface import (
+    apply_selection,
+    poll_selection_future,
+    save_source_selected,
+)
 from .source_provenance_projection import update_source_provenance
 from .simulation_projection import update_simulation_projection
 from .scenario_control_projection import scenario_control_value
@@ -389,7 +393,8 @@ class SemanticHarnessApp:
     def _open_saved_world_browser(self) -> None:
         """Open the saved-world surface and discover saves on first use."""
 
-        self.main_tabs.select(self.world_browser_tab)
+        self.main_tabs.select(self.world_sources_tab)
+        self.world_sources_notebook.select(self.saved_world_tab)
         if not self.worker_ready or self.busy or self.saved_world_entries:
             return
         self._discover_saved_worlds()
@@ -428,6 +433,7 @@ class SemanticHarnessApp:
         return selected_saved_world_entry(self)
 
     def _on_saved_world_save(self) -> None:
+        save_source_selected(self, self._selected_saved_world_entry())
         if self.saved_world_save_var.get():
             self._inspect_saved_world()
 

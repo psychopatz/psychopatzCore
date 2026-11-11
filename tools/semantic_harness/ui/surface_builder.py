@@ -21,7 +21,6 @@ def build_ui(app: Any) -> None:
     app.main_tabs = ttk.Notebook(app.root)
     app.main_tabs.pack(fill="both", expand=True, padx=6, pady=6)
 
-    selection_tab = ttk.Frame(app.main_tabs, padding=8)
     studio_tab = ttk.Frame(app.main_tabs, padding=6)
     simulation_tab = ttk.Frame(app.main_tabs, padding=8)
     studio_tab.rowconfigure(0, weight=0)
@@ -84,17 +83,25 @@ def build_ui(app: Any) -> None:
     quality_sweep_tab = ttk.Frame(app.main_tabs, padding=8)
     quality_sweep_tab.rowconfigure(0, weight=1)
     quality_sweep_tab.columnconfigure(0, weight=1)
-    world_browser_tab = ttk.Frame(app.main_tabs, padding=10)
-    world_browser_tab.rowconfigure(1, weight=1)
-    world_browser_tab.columnconfigure(0, weight=1)
-    app.main_tabs.add(selection_tab, text="Mod Selection")
+    world_sources_tab = ttk.Frame(app.main_tabs, padding=10)
+    world_sources_tab.rowconfigure(0, weight=1)
+    world_sources_tab.columnconfigure(0, weight=1)
+    world_sources_notebook = ttk.Notebook(world_sources_tab)
+    world_sources_notebook.grid(row=0, column=0, sticky="nsew")
+    saved_world_tab = ttk.Frame(world_sources_notebook, padding=4)
+    active_mods_tab = ttk.Frame(world_sources_notebook, padding=8)
+    world_sources_notebook.add(saved_world_tab, text="Saved Worlds")
+    world_sources_notebook.add(active_mods_tab, text="Active Mods")
+    app.main_tabs.add(world_sources_tab, text="World Sources")
     app.main_tabs.add(simulation_tab, text="Simulation")
     app.main_tabs.add(quality_sweep_tab, text="Quality Sweep")
     app.main_tabs.add(studio_tab, text="Studio")
     app.main_tabs.add(log_tab, text="Log")
-    app.main_tabs.add(world_browser_tab, text="World Browser")
     app.quality_sweep_tab = quality_sweep_tab
-    app.selection_tab = selection_tab
+    app.world_sources_tab = world_sources_tab
+    app.world_sources_notebook = world_sources_notebook
+    app.saved_world_tab = saved_world_tab
+    app.active_mods_tab = active_mods_tab
     build_quality_sweep_workbench(app, quality_sweep_tab)
     app.studio_tab = studio_tab
     app.explore_tab = explore_tab
@@ -103,9 +110,9 @@ def build_ui(app: Any) -> None:
     # Developer Tools… launcher rather than exposed as a Studio peer.
     app.advanced_tab = developer_tools_host
     app.log_tab = log_tab
-    app.world_browser_tab = world_browser_tab
-    build_selection_surface(app, selection_tab, ttk, scrolled_text)
-    build_saved_world_browser(app, world_browser_tab)
+    app.world_browser_tab = world_sources_tab
+    build_selection_surface(app, active_mods_tab, ttk, scrolled_text)
+    build_saved_world_browser(app, saved_world_tab)
 
     conversation_pane, workbench_pane = build_simulation_panes(
         app, simulation_tab, ttk

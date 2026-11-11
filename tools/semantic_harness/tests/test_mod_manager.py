@@ -246,6 +246,49 @@ class ModManagerTests(unittest.TestCase):
         with self.assertRaisesRegex(ModManagerError, "not a standalone"):
             manager.resolve(provider_ids=(CORE_PROVIDER_ID,))
 
+    def test_resolves_save_mod_ids_and_keeps_unknown_mods_visible(self) -> None:
+        manager = ModManager.discover(
+            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            repository_roots=(
+                "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
+                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+            ),
+        )
+
+        report = manager.resolve_activation_ids(
+            ("PsychopatzCore", "ProjectHoomans", "MarketSense", "Tempo_PerfKit")
+        )
+
+        self.assertEqual(report["status"], "partial")
+        self.assertEqual(report["providerIDs"], ["PsychopatzCore", "ProjectHoomans"])
+        self.assertEqual(
+            report["unknownModIDs"],
+            ["MarketSense", "Tempo_PerfKit"],
+        )
+        self.assertEqual(
+            report["activationPlan"]["loadOrder"],
+            ["PsychopatzCore", "ProjectHoomans"],
+        )
+
+    def test_resolves_legacy_dynamic_trading_save_aliases(self) -> None:
+        manager = ModManager.discover(
+            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            repository_roots=(
+                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+            ),
+        )
+
+        report = manager.resolve_activation_ids(
+            ("DynamicTradingCommon", "DynamicTradingV2", "DynamicColonies")
+        )
+
+        self.assertEqual(report["status"], "partial")
+        self.assertEqual(
+            report["providerIDs"],
+            ["PsychopatzCore", "DTCommon", "DTAbstract"],
+        )
+        self.assertEqual(report["unknownModIDs"], ["DynamicColonies"])
+
 
 if __name__ == "__main__":
     unittest.main()

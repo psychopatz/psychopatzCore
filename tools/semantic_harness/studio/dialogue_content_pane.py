@@ -40,7 +40,9 @@ class DialogueContentPane:
         self.frame.rowconfigure(1, weight=1)
         self.frame.columnconfigure(0, weight=1)
         self.frame.columnconfigure(1, weight=3)
-        self._status_var = tk.StringVar(value="Loading verified dialogue content…")
+        self._status_var = tk.StringVar(
+            value="Click Refresh to load verified dialogue content"
+        )
         self._items: list[dict[str, Any]] = []
         self._tree_rows: dict[str, dict[str, Any]] = {}
         self._selected: dict[str, Any] | None = None
@@ -124,7 +126,6 @@ class DialogueContentPane:
             text="Compile artifacts",
             command=self.compile_artifacts,
         ).pack(side="left")
-        self.refresh()
 
     @staticmethod
     def _display_label(item: dict[str, Any]) -> str:
@@ -140,12 +141,9 @@ class DialogueContentPane:
             self._status_var.set(f"Content load failed: {error}")
             return
         self._render_tree()
-        if self._items:
-            leaves = list(self._tree_rows)
-            if leaves:
-                self._tree.selection_set(leaves[0])
-                self.load_selected()
-        self._status_var.set(f"{len(self._items)} verified content records")
+        self._status_var.set(
+            f"{len(self._items)} verified content records · select a row to inspect"
+        )
 
     def select_content(self, content_ref: str) -> bool:
         """Select a canonical content record by ID or semantic template ID."""
