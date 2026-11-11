@@ -159,11 +159,6 @@ class WorkerConversationOperations:
 
         return self._host._request("CONVERSATION_PROJECTION")
 
-    def talk_projection(self) -> dict[str, Any]:
-        """Compatibility alias for the production Talk presentation seam."""
-
-        return self.conversation_projection()
-
     def persona_catalog(
         self, register_relationship_kind: dict[str, Any] | None = None
     ) -> dict[str, Any]:

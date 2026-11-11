@@ -344,7 +344,7 @@
     }
   ],
   "auxiliaryFiles": [
-    "legacy_bundles.json"
+    "conversation_bundles.json"
   ],
   "source": {
     "contentLicense": "Project Hoomans authored content",

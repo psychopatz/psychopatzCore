@@ -1,0 +1,2568 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.v1",
+  "owner": "ProjectHoomans",
+  "bundles": [
+    {
+      "bundleId": "conversation.bundle.ask.about.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.ask.about.member.basic",
+      "kind": "ask_about",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/ask_about/member/basic.json",
+      "sourceShard": "conversation.content.ask.about",
+      "keys": [
+        {
+          "key": "choice.background",
+          "translationKey": "conversation.bundle.ask.about.member.basic.choice.background"
+        },
+        {
+          "key": "choice.skills",
+          "translationKey": "conversation.bundle.ask.about.member.basic.choice.skills"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.ask.about.member.basic.opening"
+        },
+        {
+          "key": "response.background",
+          "translationKey": "conversation.bundle.ask.about.member.basic.response.background"
+        },
+        {
+          "key": "response.skills",
+          "translationKey": "conversation.bundle.ask.about.member.basic.response.skills"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.ask.about.neutral.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.ask.about.neutral.basic",
+      "kind": "ask_about",
+      "audience": "neutral",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/ask_about/neutral/basic.json",
+      "sourceShard": "conversation.content.ask.about",
+      "keys": [
+        {
+          "key": "choice.background",
+          "translationKey": "conversation.bundle.ask.about.neutral.basic.choice.background"
+        },
+        {
+          "key": "choice.skills",
+          "translationKey": "conversation.bundle.ask.about.neutral.basic.choice.skills"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.ask.about.neutral.basic.opening"
+        },
+        {
+          "key": "response.background",
+          "translationKey": "conversation.bundle.ask.about.neutral.basic.response.background"
+        },
+        {
+          "key": "response.skills",
+          "translationKey": "conversation.bundle.ask.about.neutral.basic.response.skills"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.ask.about.special.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.ask.about.special.basic",
+      "kind": "ask_about",
+      "audience": "special",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/ask_about/special/basic.json",
+      "sourceShard": "conversation.content.ask.about",
+      "keys": [
+        {
+          "key": "choice.background",
+          "translationKey": "conversation.bundle.ask.about.special.basic.choice.background"
+        },
+        {
+          "key": "choice.skills",
+          "translationKey": "conversation.bundle.ask.about.special.basic.choice.skills"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.ask.about.special.basic.opening"
+        },
+        {
+          "key": "response.background",
+          "translationKey": "conversation.bundle.ask.about.special.basic.response.background"
+        },
+        {
+          "key": "response.skills",
+          "translationKey": "conversation.bundle.ask.about.special.basic.response.skills"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.backstory.shared.facts",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.backstory.shared.facts",
+      "kind": "backstory",
+      "audience": "shared",
+      "bundle": "facts",
+      "runtimePath": "Conversation/Bundles/backstory/shared/facts.json",
+      "sourceShard": "conversation.content.backstory",
+      "keys": [
+        {
+          "key": "education.nursing_program",
+          "translationKey": "conversation.bundle.backstory.shared.facts.education.nursing.program"
+        },
+        {
+          "key": "education.trade_school",
+          "translationKey": "conversation.bundle.backstory.shared.facts.education.trade.school"
+        },
+        {
+          "key": "family.grew_up_with_siblings",
+          "translationKey": "conversation.bundle.backstory.shared.facts.family.grew.up.with.siblings"
+        },
+        {
+          "key": "family.only_child",
+          "translationKey": "conversation.bundle.backstory.shared.facts.family.only.child"
+        },
+        {
+          "key": "family.raised_by_grandparents",
+          "translationKey": "conversation.bundle.backstory.shared.facts.family.raised.by.grandparents"
+        },
+        {
+          "key": "fear.fire",
+          "translationKey": "conversation.bundle.backstory.shared.facts.fear.fire"
+        },
+        {
+          "key": "fear.isolation",
+          "translationKey": "conversation.bundle.backstory.shared.facts.fear.isolation"
+        },
+        {
+          "key": "hobby.fishing",
+          "translationKey": "conversation.bundle.backstory.shared.facts.hobby.fishing"
+        },
+        {
+          "key": "hobby.gardening",
+          "translationKey": "conversation.bundle.backstory.shared.facts.hobby.gardening"
+        },
+        {
+          "key": "hobby.music",
+          "translationKey": "conversation.bundle.backstory.shared.facts.hobby.music"
+        },
+        {
+          "key": "hometown.louisville",
+          "translationKey": "conversation.bundle.backstory.shared.facts.hometown.louisville"
+        },
+        {
+          "key": "hometown.riverside",
+          "translationKey": "conversation.bundle.backstory.shared.facts.hometown.riverside"
+        },
+        {
+          "key": "hometown.rosewood",
+          "translationKey": "conversation.bundle.backstory.shared.facts.hometown.rosewood"
+        },
+        {
+          "key": "hometown.west_point",
+          "translationKey": "conversation.bundle.backstory.shared.facts.hometown.west.point"
+        },
+        {
+          "key": "occupation.carpenter",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.carpenter"
+        },
+        {
+          "key": "occupation.cook",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.cook"
+        },
+        {
+          "key": "occupation.doctor",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.doctor"
+        },
+        {
+          "key": "occupation.driver",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.driver"
+        },
+        {
+          "key": "occupation.farmer",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.farmer"
+        },
+        {
+          "key": "occupation.mechanic",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.mechanic"
+        },
+        {
+          "key": "occupation.nurse",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.nurse"
+        },
+        {
+          "key": "occupation.scavenger",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.scavenger"
+        },
+        {
+          "key": "occupation.security_guard",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.security.guard"
+        },
+        {
+          "key": "occupation.smuggler",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.smuggler"
+        },
+        {
+          "key": "occupation.teacher",
+          "translationKey": "conversation.bundle.backstory.shared.facts.occupation.teacher"
+        },
+        {
+          "key": "survival.evacuation",
+          "translationKey": "conversation.bundle.backstory.shared.facts.survival.evacuation"
+        },
+        {
+          "key": "survival.roadside",
+          "translationKey": "conversation.bundle.backstory.shared.facts.survival.roadside"
+        },
+        {
+          "key": "tragedy.lost_home",
+          "translationKey": "conversation.bundle.backstory.shared.facts.tragedy.lost.home"
+        },
+        {
+          "key": "tragedy.lost_sibling",
+          "translationKey": "conversation.bundle.backstory.shared.facts.tragedy.lost.sibling"
+        },
+        {
+          "key": "tragedy.workplace_accident",
+          "translationKey": "conversation.bundle.backstory.shared.facts.tragedy.workplace.accident"
+        },
+        {
+          "key": "value.mutual_aid",
+          "translationKey": "conversation.bundle.backstory.shared.facts.value.mutual.aid"
+        },
+        {
+          "key": "value.self_reliance",
+          "translationKey": "conversation.bundle.backstory.shared.facts.value.self.reliance"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.dynamic_trading.caravan.shared.basic",
+      "owner": "DTCommon",
+      "modID": "DTCommon",
+      "domain": "pnc.caravan.shared.basic",
+      "kind": "caravan",
+      "audience": "shared",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/caravan/shared/basic.json",
+      "sourceShard": "conversation.content.caravan",
+      "keys": [
+        {
+          "key": "category.caravan_referral",
+          "translationKey": "conversation.bundle.dynamic_trading.caravan.shared.basic.category.caravan.referral"
+        },
+        {
+          "key": "choice.trader_referral",
+          "translationKey": "conversation.bundle.dynamic_trading.caravan.shared.basic.choice.trader.referral"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.dynamic_trading.caravan.shared.basic.opening"
+        },
+        {
+          "key": "response.trader_referral",
+          "translationKey": "conversation.bundle.dynamic_trading.caravan.shared.basic.response.trader.referral"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.dynamic_trading.trader.shared.basic",
+      "owner": "DTCommon",
+      "modID": "DTCommon",
+      "domain": "pnc.trader.shared.basic",
+      "kind": "trader",
+      "audience": "shared",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/trader/shared/basic.json",
+      "sourceShard": "conversation.content.trader",
+      "keys": [
+        {
+          "key": "category.trade",
+          "translationKey": "conversation.bundle.dynamic_trading.trader.shared.basic.category.trade"
+        },
+        {
+          "key": "choice.trade",
+          "translationKey": "conversation.bundle.dynamic_trading.trader.shared.basic.choice.trade"
+        },
+        {
+          "key": "opening.trade",
+          "translationKey": "conversation.bundle.dynamic_trading.trader.shared.basic.opening.trade"
+        },
+        {
+          "key": "response.trade",
+          "translationKey": "conversation.bundle.dynamic_trading.trader.shared.basic.response.trade"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.goodbye.shared.goodbye",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.goodbye.shared.goodbye",
+      "kind": "goodbye",
+      "audience": "shared",
+      "bundle": "goodbye",
+      "runtimePath": "Conversation/Bundles/goodbye/shared/goodbye.json",
+      "sourceShard": "conversation.content.goodbye",
+      "keys": [
+        {
+          "key": "choice.goodbye",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.choice.goodbye"
+        },
+        {
+          "key": "response.goodbye",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye"
+        },
+        {
+          "key": "response.goodbye.1",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.1"
+        },
+        {
+          "key": "response.goodbye.10",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.10"
+        },
+        {
+          "key": "response.goodbye.2",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.2"
+        },
+        {
+          "key": "response.goodbye.3",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.3"
+        },
+        {
+          "key": "response.goodbye.4",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.4"
+        },
+        {
+          "key": "response.goodbye.5",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.5"
+        },
+        {
+          "key": "response.goodbye.6",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.6"
+        },
+        {
+          "key": "response.goodbye.7",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.7"
+        },
+        {
+          "key": "response.goodbye.8",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.8"
+        },
+        {
+          "key": "response.goodbye.9",
+          "translationKey": "conversation.bundle.goodbye.shared.goodbye.response.goodbye.9"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.gossip.shared.templates",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.gossip.shared.templates",
+      "kind": "gossip",
+      "audience": "shared",
+      "bundle": "templates",
+      "runtimePath": "Conversation/Bundles/gossip/shared/templates.json",
+      "sourceShard": "conversation.content.gossip",
+      "keys": [
+        {
+          "key": "corpse.comrade.01",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.comrade.01"
+        },
+        {
+          "key": "corpse.comrade.02",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.comrade.02"
+        },
+        {
+          "key": "corpse.comrade.03",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.comrade.03"
+        },
+        {
+          "key": "corpse.comrade.04",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.comrade.04"
+        },
+        {
+          "key": "corpse.comrade.05",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.comrade.05"
+        },
+        {
+          "key": "corpse.friend.01",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.friend.01"
+        },
+        {
+          "key": "corpse.friend.02",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.friend.02"
+        },
+        {
+          "key": "corpse.friend.03",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.friend.03"
+        },
+        {
+          "key": "corpse.friend.04",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.friend.04"
+        },
+        {
+          "key": "corpse.friend.05",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.friend.05"
+        },
+        {
+          "key": "corpse.hostile.01",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.hostile.01"
+        },
+        {
+          "key": "corpse.hostile.02",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.hostile.02"
+        },
+        {
+          "key": "corpse.hostile.03",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.hostile.03"
+        },
+        {
+          "key": "corpse.hostile.04",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.hostile.04"
+        },
+        {
+          "key": "corpse.hostile.05",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.hostile.05"
+        },
+        {
+          "key": "corpse.neutral.01",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.neutral.01"
+        },
+        {
+          "key": "corpse.neutral.02",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.neutral.02"
+        },
+        {
+          "key": "corpse.neutral.03",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.neutral.03"
+        },
+        {
+          "key": "corpse.neutral.04",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.neutral.04"
+        },
+        {
+          "key": "corpse.neutral.05",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.neutral.05"
+        },
+        {
+          "key": "corpse.relative.01",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.relative.01"
+        },
+        {
+          "key": "corpse.relative.02",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.relative.02"
+        },
+        {
+          "key": "corpse.relative.03",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.relative.03"
+        },
+        {
+          "key": "corpse.relative.04",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.relative.04"
+        },
+        {
+          "key": "corpse.relative.05",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.relative.05"
+        },
+        {
+          "key": "corpse.revenge.comrade.01",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.comrade.01"
+        },
+        {
+          "key": "corpse.revenge.comrade.02",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.comrade.02"
+        },
+        {
+          "key": "corpse.revenge.comrade.03",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.comrade.03"
+        },
+        {
+          "key": "corpse.revenge.comrade.04",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.comrade.04"
+        },
+        {
+          "key": "corpse.revenge.comrade.05",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.comrade.05"
+        },
+        {
+          "key": "corpse.revenge.comrade.06",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.comrade.06"
+        },
+        {
+          "key": "corpse.revenge.comrade.07",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.comrade.07"
+        },
+        {
+          "key": "corpse.revenge.comrade.08",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.comrade.08"
+        },
+        {
+          "key": "corpse.revenge.friend.01",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.friend.01"
+        },
+        {
+          "key": "corpse.revenge.friend.02",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.friend.02"
+        },
+        {
+          "key": "corpse.revenge.friend.03",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.friend.03"
+        },
+        {
+          "key": "corpse.revenge.friend.04",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.friend.04"
+        },
+        {
+          "key": "corpse.revenge.friend.05",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.friend.05"
+        },
+        {
+          "key": "corpse.revenge.friend.06",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.friend.06"
+        },
+        {
+          "key": "corpse.revenge.friend.07",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.friend.07"
+        },
+        {
+          "key": "corpse.revenge.friend.08",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.friend.08"
+        },
+        {
+          "key": "corpse.revenge.relative.01",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.relative.01"
+        },
+        {
+          "key": "corpse.revenge.relative.02",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.relative.02"
+        },
+        {
+          "key": "corpse.revenge.relative.03",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.relative.03"
+        },
+        {
+          "key": "corpse.revenge.relative.04",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.relative.04"
+        },
+        {
+          "key": "corpse.revenge.relative.05",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.relative.05"
+        },
+        {
+          "key": "corpse.revenge.relative.06",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.relative.06"
+        },
+        {
+          "key": "corpse.revenge.relative.07",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.relative.07"
+        },
+        {
+          "key": "corpse.revenge.relative.08",
+          "translationKey": "conversation.bundle.gossip.shared.templates.corpse.revenge.relative.08"
+        },
+        {
+          "key": "death.report",
+          "translationKey": "conversation.bundle.gossip.shared.templates.death.report"
+        },
+        {
+          "key": "death.sacrifice",
+          "translationKey": "conversation.bundle.gossip.shared.templates.death.sacrifice"
+        },
+        {
+          "key": "negative.mockery.gear",
+          "translationKey": "conversation.bundle.gossip.shared.templates.negative.mockery.gear"
+        },
+        {
+          "key": "negative.mockery.retreat",
+          "translationKey": "conversation.bundle.gossip.shared.templates.negative.mockery.retreat"
+        },
+        {
+          "key": "negative.suspicion.story",
+          "translationKey": "conversation.bundle.gossip.shared.templates.negative.suspicion.story"
+        },
+        {
+          "key": "negative.warning.abandoned",
+          "translationKey": "conversation.bundle.gossip.shared.templates.negative.warning.abandoned"
+        },
+        {
+          "key": "negative.warning.danger",
+          "translationKey": "conversation.bundle.gossip.shared.templates.negative.warning.danger"
+        },
+        {
+          "key": "neutral.horde_survival",
+          "translationKey": "conversation.bundle.gossip.shared.templates.neutral.horde.survival"
+        },
+        {
+          "key": "neutral.sighting",
+          "translationKey": "conversation.bundle.gossip.shared.templates.neutral.sighting"
+        },
+        {
+          "key": "positive.praise.help",
+          "translationKey": "conversation.bundle.gossip.shared.templates.positive.praise.help"
+        },
+        {
+          "key": "positive.protection",
+          "translationKey": "conversation.bundle.gossip.shared.templates.positive.protection"
+        },
+        {
+          "key": "positive.rescue.return",
+          "translationKey": "conversation.bundle.gossip.shared.templates.positive.rescue.return"
+        },
+        {
+          "key": "positive.sympathy.loss",
+          "translationKey": "conversation.bundle.gossip.shared.templates.positive.sympathy.loss"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.ambient.visit.arrival",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.ambient.visit.arrival",
+      "kind": "greetings",
+      "audience": "ambient_visit",
+      "bundle": "arrival",
+      "runtimePath": "Conversation/Bundles/greetings/ambient_visit/arrival.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "response.ambient_visit.accepted.1",
+          "translationKey": "conversation.bundle.greetings.ambient.visit.arrival.response.ambient.visit.accepted.1"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.hostile.parley",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.hostile.parley",
+      "kind": "greetings",
+      "audience": "hostile",
+      "bundle": "parley",
+      "runtimePath": "Conversation/Bundles/greetings/hostile/parley.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "choice.ceasefire",
+          "translationKey": "conversation.bundle.greetings.hostile.parley.choice.ceasefire"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.greetings.hostile.parley.opening"
+        },
+        {
+          "key": "response.ceasefire",
+          "translationKey": "conversation.bundle.greetings.hostile.parley.response.ceasefire"
+        },
+        {
+          "key": "result.accepted",
+          "translationKey": "conversation.bundle.greetings.hostile.parley.result.accepted"
+        },
+        {
+          "key": "result.rejected",
+          "translationKey": "conversation.bundle.greetings.hostile.parley.result.rejected"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.member.member.dawn",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.member.member.dawn",
+      "kind": "greetings",
+      "audience": "member",
+      "bundle": "member_dawn",
+      "runtimePath": "Conversation/Bundles/greetings/member/member_dawn.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.member.member.dawn.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.member.member.dawn.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.member.member.dawn.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.member.member.dawn.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.member.member.dawn.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.member.member.dusk",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.member.member.dusk",
+      "kind": "greetings",
+      "audience": "member",
+      "bundle": "member_dusk",
+      "runtimePath": "Conversation/Bundles/greetings/member/member_dusk.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.member.member.dusk.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.member.member.dusk.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.member.member.dusk.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.member.member.dusk.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.member.member.dusk.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.member.member.sunrise",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.member.member.sunrise",
+      "kind": "greetings",
+      "audience": "member",
+      "bundle": "member_sunrise",
+      "runtimePath": "Conversation/Bundles/greetings/member/member_sunrise.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.member.member.sunrise.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.member.member.sunrise.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.member.member.sunrise.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.member.member.sunrise.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.member.member.sunrise.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.member.member.sunset",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.member.member.sunset",
+      "kind": "greetings",
+      "audience": "member",
+      "bundle": "member_sunset",
+      "runtimePath": "Conversation/Bundles/greetings/member/member_sunset.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.member.member.sunset.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.member.member.sunset.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.member.member.sunset.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.member.member.sunset.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.member.member.sunset.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.member.member.twilight",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.member.member.twilight",
+      "kind": "greetings",
+      "audience": "member",
+      "bundle": "member_twilight",
+      "runtimePath": "Conversation/Bundles/greetings/member/member_twilight.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.member.member.twilight.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.member.member.twilight.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.member.member.twilight.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.member.member.twilight.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.member.member.twilight.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.dawn",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.acquaintance.dawn",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "acquaintance_dawn",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_dawn.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dawn.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dawn.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dawn.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dawn.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dawn.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.dusk",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.acquaintance.dusk",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "acquaintance_dusk",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_dusk.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dusk.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dusk.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dusk.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dusk.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.dusk.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.sunrise",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.acquaintance.sunrise",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "acquaintance_sunrise",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_sunrise.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunrise.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunrise.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunrise.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunrise.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunrise.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.sunset",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.acquaintance.sunset",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "acquaintance_sunset",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_sunset.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunset.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunset.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunset.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunset.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.sunset.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.twilight",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.acquaintance.twilight",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "acquaintance_twilight",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_twilight.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.twilight.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.twilight.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.twilight.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.twilight.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.acquaintance.twilight.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.dawn",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.firstmeet.dawn",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "firstmeet_dawn",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_dawn.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dawn.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dawn.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dawn.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dawn.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dawn.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.dusk",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.firstmeet.dusk",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "firstmeet_dusk",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_dusk.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dusk.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dusk.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dusk.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dusk.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.dusk.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.sunrise",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.firstmeet.sunrise",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "firstmeet_sunrise",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_sunrise.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunrise.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunrise.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunrise.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunrise.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunrise.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.sunset",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.firstmeet.sunset",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "firstmeet_sunset",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_sunset.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunset.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunset.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunset.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunset.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.sunset.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.twilight",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.neutral.firstmeet.twilight",
+      "kind": "greetings",
+      "audience": "neutral",
+      "bundle": "firstmeet_twilight",
+      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_twilight.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.twilight.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.twilight.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.twilight.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.twilight.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.neutral.firstmeet.twilight.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.settlement.admission.arrival",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.settlement.admission.arrival",
+      "kind": "greetings",
+      "audience": "settlement_admission",
+      "bundle": "arrival",
+      "runtimePath": "Conversation/Bundles/greetings/settlement_admission/arrival.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "opening.001",
+          "translationKey": "conversation.bundle.greetings.settlement.admission.arrival.opening.001"
+        },
+        {
+          "key": "opening.002",
+          "translationKey": "conversation.bundle.greetings.settlement.admission.arrival.opening.002"
+        },
+        {
+          "key": "opening.003",
+          "translationKey": "conversation.bundle.greetings.settlement.admission.arrival.opening.003"
+        },
+        {
+          "key": "response.settlement_admission.accepted.1",
+          "translationKey": "conversation.bundle.greetings.settlement.admission.arrival.response.settlement.admission.accepted.1"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.special.lover.dawn",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.special.lover.dawn",
+      "kind": "greetings",
+      "audience": "special",
+      "bundle": "lover_dawn",
+      "runtimePath": "Conversation/Bundles/greetings/special/lover_dawn.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.special.lover.dawn.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.special.lover.dawn.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.special.lover.dawn.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.special.lover.dawn.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.special.lover.dawn.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.special.lover.dusk",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.special.lover.dusk",
+      "kind": "greetings",
+      "audience": "special",
+      "bundle": "lover_dusk",
+      "runtimePath": "Conversation/Bundles/greetings/special/lover_dusk.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.special.lover.dusk.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.special.lover.dusk.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.special.lover.dusk.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.special.lover.dusk.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.special.lover.dusk.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.special.lover.sunrise",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.special.lover.sunrise",
+      "kind": "greetings",
+      "audience": "special",
+      "bundle": "lover_sunrise",
+      "runtimePath": "Conversation/Bundles/greetings/special/lover_sunrise.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunrise.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunrise.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunrise.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunrise.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunrise.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.special.lover.sunset",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.special.lover.sunset",
+      "kind": "greetings",
+      "audience": "special",
+      "bundle": "lover_sunset",
+      "runtimePath": "Conversation/Bundles/greetings/special/lover_sunset.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunset.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunset.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunset.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunset.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.special.lover.sunset.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.greetings.special.lover.twilight",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.greetings.special.lover.twilight",
+      "kind": "greetings",
+      "audience": "special",
+      "bundle": "lover_twilight",
+      "runtimePath": "Conversation/Bundles/greetings/special/lover_twilight.json",
+      "sourceShard": "conversation.content.greetings",
+      "keys": [
+        {
+          "key": "greeting.001",
+          "translationKey": "conversation.bundle.greetings.special.lover.twilight.greeting.001"
+        },
+        {
+          "key": "greeting.002",
+          "translationKey": "conversation.bundle.greetings.special.lover.twilight.greeting.002"
+        },
+        {
+          "key": "greeting.003",
+          "translationKey": "conversation.bundle.greetings.special.lover.twilight.greeting.003"
+        },
+        {
+          "key": "greeting.004",
+          "translationKey": "conversation.bundle.greetings.special.lover.twilight.greeting.004"
+        },
+        {
+          "key": "greeting.005",
+          "translationKey": "conversation.bundle.greetings.special.lover.twilight.greeting.005"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.needs.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.needs.member.basic",
+      "kind": "needs",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/needs/member/basic.json",
+      "sourceShard": "conversation.content.needs",
+      "keys": [
+        {
+          "key": "choice.gift",
+          "translationKey": "conversation.bundle.needs.member.basic.choice.gift"
+        },
+        {
+          "key": "choice.gift_return",
+          "translationKey": "conversation.bundle.needs.member.basic.choice.gift.return"
+        },
+        {
+          "key": "choice.medical",
+          "translationKey": "conversation.bundle.needs.member.basic.choice.medical"
+        },
+        {
+          "key": "choice.supplies",
+          "translationKey": "conversation.bundle.needs.member.basic.choice.supplies"
+        },
+        {
+          "key": "gift.offer.multiple",
+          "translationKey": "conversation.bundle.needs.member.basic.gift.offer.multiple"
+        },
+        {
+          "key": "gift.offer.multiple.alt",
+          "translationKey": "conversation.bundle.needs.member.basic.gift.offer.multiple.alt"
+        },
+        {
+          "key": "gift.offer.single",
+          "translationKey": "conversation.bundle.needs.member.basic.gift.offer.single"
+        },
+        {
+          "key": "gift.offer.single.alt",
+          "translationKey": "conversation.bundle.needs.member.basic.gift.offer.single.alt"
+        },
+        {
+          "key": "gift.opening",
+          "translationKey": "conversation.bundle.needs.member.basic.gift.opening"
+        },
+        {
+          "key": "gift.received.equipment",
+          "translationKey": "conversation.bundle.needs.member.basic.gift.received.equipment"
+        },
+        {
+          "key": "gift.received.food",
+          "translationKey": "conversation.bundle.needs.member.basic.gift.received.food"
+        },
+        {
+          "key": "gift.received.general",
+          "translationKey": "conversation.bundle.needs.member.basic.gift.received.general"
+        },
+        {
+          "key": "gift.received.medical",
+          "translationKey": "conversation.bundle.needs.member.basic.gift.received.medical"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.needs.member.basic.opening"
+        },
+        {
+          "key": "response.gift",
+          "translationKey": "conversation.bundle.needs.member.basic.response.gift"
+        },
+        {
+          "key": "response.gift_return",
+          "translationKey": "conversation.bundle.needs.member.basic.response.gift.return"
+        },
+        {
+          "key": "response.medical",
+          "translationKey": "conversation.bundle.needs.member.basic.response.medical"
+        },
+        {
+          "key": "response.supplies",
+          "translationKey": "conversation.bundle.needs.member.basic.response.supplies"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.needs.neutral.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.needs.neutral.basic",
+      "kind": "needs",
+      "audience": "neutral",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/needs/neutral/basic.json",
+      "sourceShard": "conversation.content.needs",
+      "keys": [
+        {
+          "key": "choice.gift",
+          "translationKey": "conversation.bundle.needs.neutral.basic.choice.gift"
+        },
+        {
+          "key": "choice.gift_return",
+          "translationKey": "conversation.bundle.needs.neutral.basic.choice.gift.return"
+        },
+        {
+          "key": "choice.medical",
+          "translationKey": "conversation.bundle.needs.neutral.basic.choice.medical"
+        },
+        {
+          "key": "choice.supplies",
+          "translationKey": "conversation.bundle.needs.neutral.basic.choice.supplies"
+        },
+        {
+          "key": "gift.offer.multiple",
+          "translationKey": "conversation.bundle.needs.neutral.basic.gift.offer.multiple"
+        },
+        {
+          "key": "gift.offer.multiple.alt",
+          "translationKey": "conversation.bundle.needs.neutral.basic.gift.offer.multiple.alt"
+        },
+        {
+          "key": "gift.offer.single",
+          "translationKey": "conversation.bundle.needs.neutral.basic.gift.offer.single"
+        },
+        {
+          "key": "gift.offer.single.alt",
+          "translationKey": "conversation.bundle.needs.neutral.basic.gift.offer.single.alt"
+        },
+        {
+          "key": "gift.opening",
+          "translationKey": "conversation.bundle.needs.neutral.basic.gift.opening"
+        },
+        {
+          "key": "gift.received.equipment",
+          "translationKey": "conversation.bundle.needs.neutral.basic.gift.received.equipment"
+        },
+        {
+          "key": "gift.received.food",
+          "translationKey": "conversation.bundle.needs.neutral.basic.gift.received.food"
+        },
+        {
+          "key": "gift.received.general",
+          "translationKey": "conversation.bundle.needs.neutral.basic.gift.received.general"
+        },
+        {
+          "key": "gift.received.medical",
+          "translationKey": "conversation.bundle.needs.neutral.basic.gift.received.medical"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.needs.neutral.basic.opening"
+        },
+        {
+          "key": "response.gift",
+          "translationKey": "conversation.bundle.needs.neutral.basic.response.gift"
+        },
+        {
+          "key": "response.gift_return",
+          "translationKey": "conversation.bundle.needs.neutral.basic.response.gift.return"
+        },
+        {
+          "key": "response.medical",
+          "translationKey": "conversation.bundle.needs.neutral.basic.response.medical"
+        },
+        {
+          "key": "response.supplies",
+          "translationKey": "conversation.bundle.needs.neutral.basic.response.supplies"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.needs.special.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.needs.special.basic",
+      "kind": "needs",
+      "audience": "special",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/needs/special/basic.json",
+      "sourceShard": "conversation.content.needs",
+      "keys": [
+        {
+          "key": "choice.gift",
+          "translationKey": "conversation.bundle.needs.special.basic.choice.gift"
+        },
+        {
+          "key": "choice.gift_return",
+          "translationKey": "conversation.bundle.needs.special.basic.choice.gift.return"
+        },
+        {
+          "key": "choice.medical",
+          "translationKey": "conversation.bundle.needs.special.basic.choice.medical"
+        },
+        {
+          "key": "choice.supplies",
+          "translationKey": "conversation.bundle.needs.special.basic.choice.supplies"
+        },
+        {
+          "key": "gift.offer.multiple",
+          "translationKey": "conversation.bundle.needs.special.basic.gift.offer.multiple"
+        },
+        {
+          "key": "gift.offer.multiple.alt",
+          "translationKey": "conversation.bundle.needs.special.basic.gift.offer.multiple.alt"
+        },
+        {
+          "key": "gift.offer.single",
+          "translationKey": "conversation.bundle.needs.special.basic.gift.offer.single"
+        },
+        {
+          "key": "gift.offer.single.alt",
+          "translationKey": "conversation.bundle.needs.special.basic.gift.offer.single.alt"
+        },
+        {
+          "key": "gift.opening",
+          "translationKey": "conversation.bundle.needs.special.basic.gift.opening"
+        },
+        {
+          "key": "gift.received.equipment",
+          "translationKey": "conversation.bundle.needs.special.basic.gift.received.equipment"
+        },
+        {
+          "key": "gift.received.food",
+          "translationKey": "conversation.bundle.needs.special.basic.gift.received.food"
+        },
+        {
+          "key": "gift.received.general",
+          "translationKey": "conversation.bundle.needs.special.basic.gift.received.general"
+        },
+        {
+          "key": "gift.received.medical",
+          "translationKey": "conversation.bundle.needs.special.basic.gift.received.medical"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.needs.special.basic.opening"
+        },
+        {
+          "key": "response.gift",
+          "translationKey": "conversation.bundle.needs.special.basic.response.gift"
+        },
+        {
+          "key": "response.gift_return",
+          "translationKey": "conversation.bundle.needs.special.basic.response.gift.return"
+        },
+        {
+          "key": "response.medical",
+          "translationKey": "conversation.bundle.needs.special.basic.response.medical"
+        },
+        {
+          "key": "response.supplies",
+          "translationKey": "conversation.bundle.needs.special.basic.response.supplies"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.personal.special.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.personal.special.basic",
+      "kind": "personal",
+      "audience": "special",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/personal/special/basic.json",
+      "sourceShard": "conversation.content.personal",
+      "keys": [
+        {
+          "key": "choice.trust",
+          "translationKey": "conversation.bundle.personal.special.basic.choice.trust"
+        },
+        {
+          "key": "locked.familiarity",
+          "translationKey": "conversation.bundle.personal.special.basic.locked.familiarity"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.personal.special.basic.opening"
+        },
+        {
+          "key": "response.trust",
+          "translationKey": "conversation.bundle.personal.special.basic.response.trust"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.relationship.special.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.relationship.special.basic",
+      "kind": "relationship",
+      "audience": "special",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/relationship/special/basic.json",
+      "sourceShard": "conversation.content.relationship",
+      "keys": [
+        {
+          "key": "choice.us",
+          "translationKey": "conversation.bundle.relationship.special.basic.choice.us"
+        },
+        {
+          "key": "locked.approval",
+          "translationKey": "conversation.bundle.relationship.special.basic.locked.approval"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.relationship.special.basic.opening"
+        },
+        {
+          "key": "response.us",
+          "translationKey": "conversation.bundle.relationship.special.basic.response.us"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.set.territory.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.set.territory.member.basic",
+      "kind": "set_territory",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/set_territory/member/basic.json",
+      "sourceShard": "conversation.content.set.territory",
+      "keys": [
+        {
+          "key": "choice.set_territory",
+          "translationKey": "conversation.bundle.set.territory.member.basic.choice.set.territory"
+        },
+        {
+          "key": "locked.base_established",
+          "translationKey": "conversation.bundle.set.territory.member.basic.locked.base.established"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.set.territory.member.basic.opening"
+        },
+        {
+          "key": "response.set_territory",
+          "translationKey": "conversation.bundle.set.territory.member.basic.response.set.territory"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.small.talk.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.small.talk.member.basic",
+      "kind": "small_talk",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/small_talk/member/basic.json",
+      "sourceShard": "conversation.content.small.talk",
+      "keys": [
+        {
+          "key": "choice.quiet_day",
+          "translationKey": "conversation.bundle.small.talk.member.basic.choice.quiet.day"
+        },
+        {
+          "key": "choice.weather",
+          "translationKey": "conversation.bundle.small.talk.member.basic.choice.weather"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.small.talk.member.basic.opening"
+        },
+        {
+          "key": "response.quiet_day",
+          "translationKey": "conversation.bundle.small.talk.member.basic.response.quiet.day"
+        },
+        {
+          "key": "response.weather",
+          "translationKey": "conversation.bundle.small.talk.member.basic.response.weather"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.small.talk.neutral.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.small.talk.neutral.basic",
+      "kind": "small_talk",
+      "audience": "neutral",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/small_talk/neutral/basic.json",
+      "sourceShard": "conversation.content.small.talk",
+      "keys": [
+        {
+          "key": "choice.quiet_day",
+          "translationKey": "conversation.bundle.small.talk.neutral.basic.choice.quiet.day"
+        },
+        {
+          "key": "choice.weather",
+          "translationKey": "conversation.bundle.small.talk.neutral.basic.choice.weather"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.small.talk.neutral.basic.opening"
+        },
+        {
+          "key": "response.quiet_day",
+          "translationKey": "conversation.bundle.small.talk.neutral.basic.response.quiet.day"
+        },
+        {
+          "key": "response.weather",
+          "translationKey": "conversation.bundle.small.talk.neutral.basic.response.weather"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.small.talk.special.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.small.talk.special.basic",
+      "kind": "small_talk",
+      "audience": "special",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/small_talk/special/basic.json",
+      "sourceShard": "conversation.content.small.talk",
+      "keys": [
+        {
+          "key": "choice.quiet_day",
+          "translationKey": "conversation.bundle.small.talk.special.basic.choice.quiet.day"
+        },
+        {
+          "key": "choice.weather",
+          "translationKey": "conversation.bundle.small.talk.special.basic.choice.weather"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.small.talk.special.basic.opening"
+        },
+        {
+          "key": "response.quiet_day",
+          "translationKey": "conversation.bundle.small.talk.special.basic.response.quiet.day"
+        },
+        {
+          "key": "response.weather",
+          "translationKey": "conversation.bundle.small.talk.special.basic.response.weather"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.system.shared.categories",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.system.shared.categories",
+      "kind": "system",
+      "audience": "shared",
+      "bundle": "categories",
+      "runtimePath": "Conversation/Bundles/system/shared/categories.json",
+      "sourceShard": "conversation.content.system",
+      "keys": [
+        {
+          "key": "category.ask_about",
+          "translationKey": "conversation.bundle.system.shared.categories.category.ask.about"
+        },
+        {
+          "key": "category.goodbye",
+          "translationKey": "conversation.bundle.system.shared.categories.category.goodbye"
+        },
+        {
+          "key": "category.greetings",
+          "translationKey": "conversation.bundle.system.shared.categories.category.greetings"
+        },
+        {
+          "key": "category.needs",
+          "translationKey": "conversation.bundle.system.shared.categories.category.needs"
+        },
+        {
+          "key": "category.personal",
+          "translationKey": "conversation.bundle.system.shared.categories.category.personal"
+        },
+        {
+          "key": "category.relationship",
+          "translationKey": "conversation.bundle.system.shared.categories.category.relationship"
+        },
+        {
+          "key": "category.set_territory",
+          "translationKey": "conversation.bundle.system.shared.categories.category.set.territory"
+        },
+        {
+          "key": "category.small_talk",
+          "translationKey": "conversation.bundle.system.shared.categories.category.small.talk"
+        },
+        {
+          "key": "category.wellbeing",
+          "translationKey": "conversation.bundle.system.shared.categories.category.wellbeing"
+        },
+        {
+          "key": "category.work_orders",
+          "translationKey": "conversation.bundle.system.shared.categories.category.work.orders"
+        },
+        {
+          "key": "choice.ambient_visit",
+          "translationKey": "conversation.bundle.system.shared.categories.choice.ambient.visit"
+        },
+        {
+          "key": "choice.ask_name",
+          "translationKey": "conversation.bundle.system.shared.categories.choice.ask.name"
+        },
+        {
+          "key": "choice.disband",
+          "translationKey": "conversation.bundle.system.shared.categories.choice.disband"
+        },
+        {
+          "key": "choice.disband_cancel",
+          "translationKey": "conversation.bundle.system.shared.categories.choice.disband.cancel"
+        },
+        {
+          "key": "choice.disband_confirm",
+          "translationKey": "conversation.bundle.system.shared.categories.choice.disband.confirm"
+        },
+        {
+          "key": "choice.recruit",
+          "translationKey": "conversation.bundle.system.shared.categories.choice.recruit"
+        },
+        {
+          "key": "choice.settlement_admission",
+          "translationKey": "conversation.bundle.system.shared.categories.choice.settlement.admission"
+        },
+        {
+          "key": "choice.show_debug_text",
+          "translationKey": "conversation.bundle.system.shared.categories.choice.show.debug.text"
+        },
+        {
+          "key": "choice.view_dossier",
+          "translationKey": "conversation.bundle.system.shared.categories.choice.view.dossier"
+        },
+        {
+          "key": "context.talk",
+          "translationKey": "conversation.bundle.system.shared.categories.context.talk"
+        },
+        {
+          "key": "identity.stranger",
+          "translationKey": "conversation.bundle.system.shared.categories.identity.stranger"
+        },
+        {
+          "key": "llm.input_tooltip",
+          "translationKey": "conversation.bundle.system.shared.categories.llm.input.tooltip"
+        },
+        {
+          "key": "llm.mode.nearby",
+          "translationKey": "conversation.bundle.system.shared.categories.llm.mode.nearby"
+        },
+        {
+          "key": "llm.mode.nearest",
+          "translationKey": "conversation.bundle.system.shared.categories.llm.mode.nearest"
+        },
+        {
+          "key": "llm.send",
+          "translationKey": "conversation.bundle.system.shared.categories.llm.send"
+        },
+        {
+          "key": "llm.status.off",
+          "translationKey": "conversation.bundle.system.shared.categories.llm.status.off"
+        },
+        {
+          "key": "llm.status.open",
+          "translationKey": "conversation.bundle.system.shared.categories.llm.status.open"
+        },
+        {
+          "key": "llm.status.speaking",
+          "translationKey": "conversation.bundle.system.shared.categories.llm.status.speaking"
+        },
+        {
+          "key": "llm.status.waiting",
+          "translationKey": "conversation.bundle.system.shared.categories.llm.status.waiting"
+        },
+        {
+          "key": "locked.approval",
+          "translationKey": "conversation.bundle.system.shared.categories.locked.approval"
+        },
+        {
+          "key": "locked.familiarity",
+          "translationKey": "conversation.bundle.system.shared.categories.locked.familiarity"
+        },
+        {
+          "key": "panel.current_relation",
+          "translationKey": "conversation.bundle.system.shared.categories.panel.current.relation"
+        },
+        {
+          "key": "panel.current_relation_edit",
+          "translationKey": "conversation.bundle.system.shared.categories.panel.current.relation.edit"
+        },
+        {
+          "key": "panel.llm_inline_input",
+          "translationKey": "conversation.bundle.system.shared.categories.panel.llm.inline.input"
+        },
+        {
+          "key": "panel.llm_input",
+          "translationKey": "conversation.bundle.system.shared.categories.panel.llm.input"
+        },
+        {
+          "key": "response.ask_name",
+          "translationKey": "conversation.bundle.system.shared.categories.response.ask.name"
+        },
+        {
+          "key": "response.departure.confirmed",
+          "translationKey": "conversation.bundle.system.shared.categories.response.departure.confirmed"
+        },
+        {
+          "key": "response.departure.rejected",
+          "translationKey": "conversation.bundle.system.shared.categories.response.departure.rejected"
+        },
+        {
+          "key": "response.departure.warning",
+          "translationKey": "conversation.bundle.system.shared.categories.response.departure.warning"
+        },
+        {
+          "key": "response.recruit.admire.1",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.admire.1"
+        },
+        {
+          "key": "response.recruit.admire.2",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.admire.2"
+        },
+        {
+          "key": "response.recruit.admire.3",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.admire.3"
+        },
+        {
+          "key": "response.recruit.fear.1",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.fear.1"
+        },
+        {
+          "key": "response.recruit.fear.2",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.fear.2"
+        },
+        {
+          "key": "response.recruit.fear.3",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.fear.3"
+        },
+        {
+          "key": "response.recruit.reject.cooldown.1",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.cooldown.1"
+        },
+        {
+          "key": "response.recruit.reject.cooldown.2",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.cooldown.2"
+        },
+        {
+          "key": "response.recruit.reject.general.1",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.general.1"
+        },
+        {
+          "key": "response.recruit.reject.general.2",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.general.2"
+        },
+        {
+          "key": "response.recruit.reject.general.3",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.general.3"
+        },
+        {
+          "key": "response.recruit.reject.hostile.1",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.hostile.1"
+        },
+        {
+          "key": "response.recruit.reject.hostile.2",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.hostile.2"
+        },
+        {
+          "key": "response.recruit.reject.leader.1",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.leader.1"
+        },
+        {
+          "key": "response.recruit.reject.leader.2",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.leader.2"
+        },
+        {
+          "key": "response.recruit.reject.member.1",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.member.1"
+        },
+        {
+          "key": "response.recruit.reject.member.2",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.member.2"
+        },
+        {
+          "key": "response.recruit.reject.relationship.1",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.1"
+        },
+        {
+          "key": "response.recruit.reject.relationship.10",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.10"
+        },
+        {
+          "key": "response.recruit.reject.relationship.2",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.2"
+        },
+        {
+          "key": "response.recruit.reject.relationship.3",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.3"
+        },
+        {
+          "key": "response.recruit.reject.relationship.4",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.4"
+        },
+        {
+          "key": "response.recruit.reject.relationship.5",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.5"
+        },
+        {
+          "key": "response.recruit.reject.relationship.6",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.6"
+        },
+        {
+          "key": "response.recruit.reject.relationship.7",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.7"
+        },
+        {
+          "key": "response.recruit.reject.relationship.8",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.8"
+        },
+        {
+          "key": "response.recruit.reject.relationship.9",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.relationship.9"
+        },
+        {
+          "key": "response.recruit.reject.unavailable.1",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.unavailable.1"
+        },
+        {
+          "key": "response.recruit.reject.unavailable.2",
+          "translationKey": "conversation.bundle.system.shared.categories.response.recruit.reject.unavailable.2"
+        },
+        {
+          "key": "semantic.gift.preference.dislike",
+          "translationKey": "conversation.bundle.system.shared.categories.semantic.gift.preference.dislike"
+        },
+        {
+          "key": "semantic.gift.preference.like",
+          "translationKey": "conversation.bundle.system.shared.categories.semantic.gift.preference.like"
+        },
+        {
+          "key": "semantic.gift.preference.neutral",
+          "translationKey": "conversation.bundle.system.shared.categories.semantic.gift.preference.neutral"
+        },
+        {
+          "key": "semantic.gift.preference.unknown",
+          "translationKey": "conversation.bundle.system.shared.categories.semantic.gift.preference.unknown"
+        },
+        {
+          "key": "status.block_unavailable",
+          "translationKey": "conversation.bundle.system.shared.categories.status.block.unavailable"
+        },
+        {
+          "key": "status.choice_rejected",
+          "translationKey": "conversation.bundle.system.shared.categories.status.choice.rejected"
+        },
+        {
+          "key": "status.loading",
+          "translationKey": "conversation.bundle.system.shared.categories.status.loading"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.system.shared.debugger",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.system.shared.debugger",
+      "kind": "system",
+      "audience": "shared",
+      "bundle": "debugger",
+      "runtimePath": "Conversation/Bundles/system/shared/debugger.json",
+      "sourceShard": "conversation.content.system",
+      "keys": [
+        {
+          "key": "button.approval_down",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.approval.down"
+        },
+        {
+          "key": "button.approval_up",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.approval.up"
+        },
+        {
+          "key": "button.audience",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.audience"
+        },
+        {
+          "key": "button.familiarity_down",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.familiarity.down"
+        },
+        {
+          "key": "button.familiarity_up",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.familiarity.up"
+        },
+        {
+          "key": "button.history",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.history"
+        },
+        {
+          "key": "button.hour",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.hour"
+        },
+        {
+          "key": "button.personality",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.personality"
+        },
+        {
+          "key": "button.refresh",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.refresh"
+        },
+        {
+          "key": "button.respect_down",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.respect.down"
+        },
+        {
+          "key": "button.respect_up",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.respect.up"
+        },
+        {
+          "key": "button.simulate",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.simulate"
+        },
+        {
+          "key": "button.skill",
+          "translationKey": "conversation.bundle.system.shared.debugger.button.skill"
+        },
+        {
+          "key": "detail.category",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.category"
+        },
+        {
+          "key": "detail.choice",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.choice"
+        },
+        {
+          "key": "detail.effect",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.effect"
+        },
+        {
+          "key": "detail.eligible",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.eligible"
+        },
+        {
+          "key": "detail.error",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.error"
+        },
+        {
+          "key": "detail.id",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.id"
+        },
+        {
+          "key": "detail.label.before_after",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.before.after"
+        },
+        {
+          "key": "detail.label.category",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.category"
+        },
+        {
+          "key": "detail.label.choice",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.choice"
+        },
+        {
+          "key": "detail.label.choice_status",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.choice.status"
+        },
+        {
+          "key": "detail.label.effect",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.effect"
+        },
+        {
+          "key": "detail.label.eligibility",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.eligibility"
+        },
+        {
+          "key": "detail.label.error",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.error"
+        },
+        {
+          "key": "detail.label.fallback",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.fallback"
+        },
+        {
+          "key": "detail.label.id",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.id"
+        },
+        {
+          "key": "detail.label.networked",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.networked"
+        },
+        {
+          "key": "detail.label.next",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.next"
+        },
+        {
+          "key": "detail.label.node",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.node"
+        },
+        {
+          "key": "detail.label.node_text",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.node.text"
+        },
+        {
+          "key": "detail.label.outcome",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.outcome"
+        },
+        {
+          "key": "detail.label.outcome_status",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.outcome.status"
+        },
+        {
+          "key": "detail.label.owner",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.owner"
+        },
+        {
+          "key": "detail.label.persistence",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.persistence"
+        },
+        {
+          "key": "detail.label.reason",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.reason"
+        },
+        {
+          "key": "detail.label.registry",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.registry"
+        },
+        {
+          "key": "detail.label.relationship",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.relationship"
+        },
+        {
+          "key": "detail.label.response",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.response"
+        },
+        {
+          "key": "detail.label.sandbox_outcome",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.sandbox.outcome"
+        },
+        {
+          "key": "detail.label.sandbox_roll",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.sandbox.roll"
+        },
+        {
+          "key": "detail.label.seed",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.seed"
+        },
+        {
+          "key": "detail.label.source",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.source"
+        },
+        {
+          "key": "detail.label.text_error",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.text.error"
+        },
+        {
+          "key": "detail.label.translation",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.translation"
+        },
+        {
+          "key": "detail.label.weight",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.label.weight"
+        },
+        {
+          "key": "detail.node",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.node"
+        },
+        {
+          "key": "detail.outcome",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.outcome"
+        },
+        {
+          "key": "detail.owner",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.owner"
+        },
+        {
+          "key": "detail.registry_valid",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.registry.valid"
+        },
+        {
+          "key": "detail.seed",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.seed"
+        },
+        {
+          "key": "detail.source",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.source"
+        },
+        {
+          "key": "detail.text_error",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.text.error"
+        },
+        {
+          "key": "detail.translation_fallback",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.translation.fallback"
+        },
+        {
+          "key": "detail.translation_valid",
+          "translationKey": "conversation.bundle.system.shared.debugger.detail.translation.valid"
+        },
+        {
+          "key": "sandbox.back_to_blocks",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.back.to.blocks"
+        },
+        {
+          "key": "sandbox.back_to_categories",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.back.to.categories"
+        },
+        {
+          "key": "sandbox.block_choice",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.block.choice"
+        },
+        {
+          "key": "sandbox.categories_prompt",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.categories.prompt"
+        },
+        {
+          "key": "sandbox.category_prompt",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.category.prompt"
+        },
+        {
+          "key": "sandbox.no_mutation",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.no.mutation"
+        },
+        {
+          "key": "sandbox.open_failed",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.open.failed"
+        },
+        {
+          "key": "sandbox.outcome",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.outcome"
+        },
+        {
+          "key": "sandbox.relationship",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.relationship"
+        },
+        {
+          "key": "sandbox.roll",
+          "translationKey": "conversation.bundle.system.shared.debugger.sandbox.roll"
+        },
+        {
+          "key": "status.eligible",
+          "translationKey": "conversation.bundle.system.shared.debugger.status.eligible"
+        },
+        {
+          "key": "status.invalid",
+          "translationKey": "conversation.bundle.system.shared.debugger.status.invalid"
+        },
+        {
+          "key": "status.no",
+          "translationKey": "conversation.bundle.system.shared.debugger.status.no"
+        },
+        {
+          "key": "status.text_fallback",
+          "translationKey": "conversation.bundle.system.shared.debugger.status.text.fallback"
+        },
+        {
+          "key": "status.text_missing",
+          "translationKey": "conversation.bundle.system.shared.debugger.status.text.missing"
+        },
+        {
+          "key": "status.text_ok",
+          "translationKey": "conversation.bundle.system.shared.debugger.status.text.ok"
+        },
+        {
+          "key": "status.unknown",
+          "translationKey": "conversation.bundle.system.shared.debugger.status.unknown"
+        },
+        {
+          "key": "status.valid",
+          "translationKey": "conversation.bundle.system.shared.debugger.status.valid"
+        },
+        {
+          "key": "status.yes",
+          "translationKey": "conversation.bundle.system.shared.debugger.status.yes"
+        },
+        {
+          "key": "title",
+          "translationKey": "conversation.bundle.system.shared.debugger.title"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.wellbeing.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.wellbeing.member.basic",
+      "kind": "wellbeing",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/wellbeing/member/basic.json",
+      "sourceShard": "conversation.content.wellbeing",
+      "keys": [
+        {
+          "key": "choice.condition",
+          "translationKey": "conversation.bundle.wellbeing.member.basic.choice.condition"
+        },
+        {
+          "key": "choice.offer_help",
+          "translationKey": "conversation.bundle.wellbeing.member.basic.choice.offer.help"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.wellbeing.member.basic.opening"
+        },
+        {
+          "key": "response.condition",
+          "translationKey": "conversation.bundle.wellbeing.member.basic.response.condition"
+        },
+        {
+          "key": "response.offer_help",
+          "translationKey": "conversation.bundle.wellbeing.member.basic.response.offer.help"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.wellbeing.neutral.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.wellbeing.neutral.basic",
+      "kind": "wellbeing",
+      "audience": "neutral",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/wellbeing/neutral/basic.json",
+      "sourceShard": "conversation.content.wellbeing",
+      "keys": [
+        {
+          "key": "choice.condition",
+          "translationKey": "conversation.bundle.wellbeing.neutral.basic.choice.condition"
+        },
+        {
+          "key": "choice.offer_help",
+          "translationKey": "conversation.bundle.wellbeing.neutral.basic.choice.offer.help"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.wellbeing.neutral.basic.opening"
+        },
+        {
+          "key": "response.condition",
+          "translationKey": "conversation.bundle.wellbeing.neutral.basic.response.condition"
+        },
+        {
+          "key": "response.offer_help",
+          "translationKey": "conversation.bundle.wellbeing.neutral.basic.response.offer.help"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.wellbeing.special.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.wellbeing.special.basic",
+      "kind": "wellbeing",
+      "audience": "special",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/wellbeing/special/basic.json",
+      "sourceShard": "conversation.content.wellbeing",
+      "keys": [
+        {
+          "key": "choice.condition",
+          "translationKey": "conversation.bundle.wellbeing.special.basic.choice.condition"
+        },
+        {
+          "key": "choice.offer_help",
+          "translationKey": "conversation.bundle.wellbeing.special.basic.choice.offer.help"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.wellbeing.special.basic.opening"
+        },
+        {
+          "key": "response.condition",
+          "translationKey": "conversation.bundle.wellbeing.special.basic.response.condition"
+        },
+        {
+          "key": "response.offer_help",
+          "translationKey": "conversation.bundle.wellbeing.special.basic.response.offer.help"
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.work.orders.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.work.orders.member.basic",
+      "kind": "work_orders",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/work_orders/member/basic.json",
+      "sourceShard": "conversation.content.work.orders",
+      "keys": [
+        {
+          "key": "choice.orders",
+          "translationKey": "conversation.bundle.work.orders.member.basic.choice.orders"
+        },
+        {
+          "key": "choice.status",
+          "translationKey": "conversation.bundle.work.orders.member.basic.choice.status"
+        },
+        {
+          "key": "opening",
+          "translationKey": "conversation.bundle.work.orders.member.basic.opening"
+        },
+        {
+          "key": "response.orders",
+          "translationKey": "conversation.bundle.work.orders.member.basic.response.orders"
+        },
+        {
+          "key": "response.status",
+          "translationKey": "conversation.bundle.work.orders.member.basic.response.status"
+        }
+      ]
+    }
+  ]
+}
