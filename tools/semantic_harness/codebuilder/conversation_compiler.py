@@ -827,23 +827,31 @@ def _catalog_values(
     }
 
 
-def _merge_catalog_values(
-    existing: Any,
-    catalog_values: Mapping[str, str],
+def _required_catalog_values(
+    catalogs: Mapping[str, Mapping[str, str]],
+    key: Any,
     label: str,
-) -> dict[str, str] | Any:
-    if not catalog_values:
-        return existing
-    if existing is None:
-        return dict(catalog_values)
-    if not isinstance(existing, dict):
-        raise CompileError(f"{label} must be a locale map")
-    for language, text in catalog_values.items():
-        if language in existing and existing[language] != text:
-            raise CompileError(
-                f"{label} disagrees with the canonical locale catalog for {language}"
-            )
-    return existing
+) -> dict[str, str]:
+    values = _catalog_values(catalogs, key)
+    if not values or DEFAULT_LANGUAGE not in values:
+        raise CompileError(f"{label} requires a canonical EN catalog entry")
+    return values
+
+
+def _reject_inline_translations(document: Any, path: str) -> None:
+    if isinstance(document, dict):
+        for key, value in document.items():
+            if key in {
+                "translations", "labelTranslations", "choiceTranslations",
+                "fallback", "labelFallback", "utteranceFallback",
+            }:
+                raise CompileError(
+                    f"Conversation shard {path} contains inline locale field {key}; use translations/<LANG>.json"
+                )
+            _reject_inline_translations(value, path)
+    elif isinstance(document, list):
+        for value in document:
+            _reject_inline_translations(value, path)
 
 
 def _hydrate_catalog_translations(
@@ -851,13 +859,9 @@ def _hydrate_catalog_translations(
     entry: Mapping[str, Any],
     catalogs: Mapping[str, Mapping[str, str]],
 ) -> None:
-    """Overlay canonical catalog wording while legacy fields still exist.
+    """Hydrate typed compiler input from the canonical locale catalogs."""
 
-    During P1 migration this checks that inline wording and the new catalog
-    agree. Once all sources are converted, the same path hydrates the typed
-    compiler input from catalogs with no legacy wording to preserve.
-    """
-
+    _reject_inline_translations(document, str(entry.get("path", "<shard>")))
     if not catalogs:
         return
     kind = entry.get("kind")
@@ -873,51 +877,44 @@ def _hydrate_catalog_translations(
                     if not isinstance(phrase, dict):
                         continue
                     key = phrase_translation_key(str(semantic_id), str(style), index)
-                    phrase["translations"] = _merge_catalog_values(
-                        phrase.get("translations"),
-                        _catalog_values(catalogs, key),
+                    phrase["translations"] = _required_catalog_values(
+                        catalogs,
+                        key,
                         f"{entry.get('path')}.{key}",
                     )
         for choice in document.get("playerChoices", []):
             if not isinstance(choice, dict) or not isinstance(choice.get("id"), str):
                 continue
             label_key, choice_key = player_translation_keys(choice["id"])
-            choice["labelTranslations"] = _merge_catalog_values(
-                choice.get("labelTranslations"),
-                _catalog_values(catalogs, label_key),
+            choice["labelTranslations"] = _required_catalog_values(
+                catalogs,
+                label_key,
                 f"{entry.get('path')}.{label_key}",
             )
-            choice["choiceTranslations"] = _merge_catalog_values(
-                choice.get("choiceTranslations"),
-                _catalog_values(catalogs, choice_key),
+            choice["choiceTranslations"] = _required_catalog_values(
+                catalogs,
+                choice_key,
                 f"{entry.get('path')}.{choice_key}",
             )
     if kind == "ui":
         for suggestion in document.get("suggestions", []):
             if not isinstance(suggestion, dict):
                 continue
-            existing = suggestion.get("translations")
-            if existing is None:
-                existing = {}
-            if not isinstance(existing, dict):
-                raise CompileError(f"{entry.get('path')}.suggestions translations must be a locale map")
-            for language, values in sorted(catalogs.items()):
-                localized = existing.setdefault(language, {})
-                if not isinstance(localized, dict):
-                    raise CompileError(f"{entry.get('path')}.suggestions.{language} must be an object")
-                for field, key in (
-                    ("label", suggestion.get("labelKey")),
-                    ("utterance", suggestion.get("utteranceKey")),
-                ):
-                    text = values.get(key) if isinstance(key, str) else None
-                    if text is None:
-                        continue
-                    if field in localized and localized[field] != text:
-                        raise CompileError(
-                            f"{entry.get('path')}.{key} disagrees with the canonical locale catalog"
-                        )
-                    localized[field] = text
-            suggestion["translations"] = existing
+            localized_catalogs = {language: {} for language in sorted(catalogs)}
+            for field, key in (
+                ("label", suggestion.get("labelKey")),
+                ("utterance", suggestion.get("utteranceKey")),
+            ):
+                values = _required_catalog_values(
+                    catalogs,
+                    key,
+                    f"{entry.get('path')}.{key}",
+                )
+                for language, text in values.items():
+                    localized_catalogs[language][field] = text
+            suggestion["translations"] = localized_catalogs
+            suggestion["labelFallback"] = localized_catalogs[DEFAULT_LANGUAGE]["label"]
+            suggestion["utteranceFallback"] = localized_catalogs[DEFAULT_LANGUAGE]["utterance"]
 
     def walk(value: Any) -> None:
         if isinstance(value, dict):
@@ -929,11 +926,8 @@ def _hydrate_catalog_translations(
                     translation_id = candidate
             values = _catalog_values(catalogs, translation_id)
             if values:
-                value["translations"] = _merge_catalog_values(
-                    value.get("translations"),
-                    values,
-                    f"{entry.get('path')}.{translation_id}",
-                )
+                value["translations"] = values
+                value["fallback"] = values[DEFAULT_LANGUAGE]
             for child in value.values():
                 walk(child)
         elif isinstance(value, list):
@@ -954,6 +948,7 @@ def _compile_shard(
 ) -> dict[str, Any]:
     kind = entry["kind"]
     path = entry["path"]
+    _reject_inline_translations(document, path)
     _hydrate_catalog_translations(document, entry, catalogs or {})
     if document.get("schema") != CONVERSATION_SHARD_SCHEMA:
         raise CompileError(f"Conversation shard {path} requires schema {CONVERSATION_SHARD_SCHEMA}")

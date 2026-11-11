@@ -8,7 +8,10 @@ from pathlib import Path
 from typing import Any
 
 
-INLINE_FIELDS = frozenset({"translations", "labelTranslations", "choiceTranslations"})
+INLINE_FIELDS = frozenset({
+    "translations", "labelTranslations", "choiceTranslations",
+    "fallback", "labelFallback", "utteranceFallback",
+})
 
 
 def strip_inline_translations(value: Any) -> tuple[Any, int]:

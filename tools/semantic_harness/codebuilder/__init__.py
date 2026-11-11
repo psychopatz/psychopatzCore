@@ -59,6 +59,7 @@ from .catalog_audit import (
 from .catalog_contract import (
     CatalogContractError,
     load_catalog_document,
+    load_locale_catalogs,
     validate_locale_set,
     validate_shard,
     validate_translation_catalog,
@@ -102,6 +103,7 @@ __all__ = [
     "audit_conversation_sources",
     "CatalogContractError",
     "load_catalog_document",
+    "load_locale_catalogs",
     "validate_locale_set",
     "validate_shard",
     "validate_translation_catalog",

@@ -40,7 +40,7 @@ class ConversationCatalogHydrationTests(unittest.TestCase):
             {"EN": "Hello.", "TL": "Kumusta."},
         )
 
-    def test_rejects_legacy_wording_that_disagrees_with_catalog(self) -> None:
+    def test_rejects_inline_wording_even_when_catalog_has_a_value(self) -> None:
         document = self._document()
         document["phraseFamilies"][0]["styles"]["neutral"][0]["translations"] = {
             "EN": "Different."

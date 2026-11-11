@@ -6,7 +6,6 @@
       "id": "semantic.question.needs.proposal",
       "variants": [
         {
-          "fallback": "I can keep that as a proposal, but I still need the item and amount before I record a commitment.",
           "id": "semantic.question.needs.proposal.dataset.thirst",
           "plan": {
             "dialogueAct": "PROMISE_ACKNOWLEDGEMENT",
@@ -22,7 +21,6 @@
                 "id": "dataset_proposal_acknowledged",
                 "segments": [
                   {
-                    "fallback": "I can keep that as a proposal, but I still need the item and amount before I record a commitment.",
                     "kind": "translation",
                     "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsPromiseThirst"
                   }
@@ -54,7 +52,6 @@
       "id": "semantic.question.needs.quantity",
       "variants": [
         {
-          "fallback": "I can confirm water is a need, but which item do you mean?",
           "id": "semantic.question.needs.quantity.dataset.clarify_thirst",
           "plan": {
             "dialogueAct": "ASK_CLARIFICATION",
@@ -70,7 +67,6 @@
                 "id": "dataset_needs_clarification",
                 "segments": [
                   {
-                    "fallback": "I can confirm water is a need, but which item do you mean?",
                     "kind": "translation",
                     "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsClarifyThirst"
                   }
@@ -97,7 +93,6 @@
       "id": "semantic.flow.weather.raining",
       "variants": [
         {
-          "fallback": "It is raining right now. We can return to that proposal when you are ready.",
           "id": "semantic.flow.weather.raining.dataset.contextual_switch",
           "plan": {
             "dialogueAct": "WEATHER_REPORT",
@@ -114,7 +109,6 @@
                 "id": "dataset_contextual_weather_switch",
                 "segments": [
                   {
-                    "fallback": "It is raining right now. We can return to that proposal when you are ready.",
                     "kind": "translation",
                     "templateID": "UI_PNC_Conversation_Semantic_DatasetWeatherContextualSwitch"
                   }

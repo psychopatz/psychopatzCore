@@ -15,14 +15,12 @@
       "hubID": "whats_up",
       "id": "question.needs",
       "intent": "QUESTION",
-      "labelFallback": "Do you need anything?",
       "labelKey": "UI_PNC_Conversation_Suggestion_Needs_Label",
       "order": 30,
       "patternID": "pnc.question.needs_offer_plain",
       "speechAct": "QUESTION",
       "subject": "NEEDS",
       "topic": "needs",
-      "utteranceFallback": "Do you need anything?",
       "utteranceKey": "UI_PNC_Conversation_Suggestion_Needs_Utterance"
     },
     {
@@ -33,7 +31,6 @@
       "hubID": "whats_up",
       "id": "question.health",
       "intent": "QUESTION",
-      "labelFallback": "Are you hurt?",
       "labelKey": "UI_PNC_Conversation_Suggestion_Health_Label",
       "order": 40,
       "patternID": "pnc.question.health.are_you_hurt",
@@ -44,7 +41,6 @@
       "subject": "NPC_HEALTH_STATE",
       "target": "SELF",
       "topic": "medical",
-      "utteranceFallback": "Are you hurt?",
       "utteranceKey": "UI_PNC_Conversation_Suggestion_Health_Utterance"
     },
     {
@@ -56,14 +52,12 @@
       "hubRequiresSafeGossip": true,
       "id": "question.gossip",
       "intent": "GOSSIP",
-      "labelFallback": "Heard any gossip?",
       "labelKey": "UI_PNC_Conversation_Suggestion_Gossip_Label",
       "order": 70,
       "patternID": "pnc.social.gossip_event",
       "speechAct": "GOSSIP",
       "subject": "GOSSIP",
       "topic": "gossip",
-      "utteranceFallback": "Any gossip?",
       "utteranceKey": "UI_PNC_Conversation_Suggestion_Gossip_Utterance"
     }
   ],

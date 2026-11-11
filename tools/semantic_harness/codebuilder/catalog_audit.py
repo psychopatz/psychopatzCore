@@ -16,6 +16,10 @@ from typing import Any, Iterable, Mapping
 PREFERRED_SOURCE_BYTES = 64 * 1024
 HARD_SOURCE_BYTES = 128 * 1024
 LOCALE_CATALOG_DIRECTORY = "translations"
+INLINE_LOCALE_FIELDS = frozenset({
+    "translations", "labelTranslations", "choiceTranslations",
+    "fallback", "labelFallback", "utteranceFallback",
+})
 
 
 def _issue(
@@ -180,6 +184,7 @@ def audit_conversation_sources(
     files: list[dict[str, Any]] = []
     stem_paths: dict[str, list[str]] = {}
     inline_translation_files = 0
+    inline_locale_field_files = 0
     repeated_metadata_files = 0
     preferred_oversize = 0
     hard_oversize = 0
@@ -206,6 +211,10 @@ def audit_conversation_sources(
             if location.rsplit(".", 1)[-1] == "translations"
             and isinstance(value, Mapping)
         ]
+        locale_field_locations = [
+            location for location, _value in _walk(document)
+            if location.rsplit(".", 1)[-1] in INLINE_LOCALE_FIELDS
+        ]
         metadata_locations = [
             location for location, value in _walk(document)
             if _is_source_metadata(value)
@@ -218,6 +227,16 @@ def audit_conversation_sources(
                     "Semantic shard embeds locale wording instead of referencing a locale catalog",
                     path=relative,
                     details={"locations": translation_locations},
+                )
+            )
+        if locale_field_locations:
+            inline_locale_field_files += 1
+            issues.append(
+                _issue(
+                    "inline_locale_text",
+                    "Semantic shard embeds language-specific wording instead of referencing a locale catalog",
+                    path=relative,
+                    details={"locations": locale_field_locations},
                 )
             )
         if metadata_locations:
@@ -257,6 +276,7 @@ def audit_conversation_sources(
                 "bytes": size,
                 "validJson": True,
                 "inlineTranslationLocations": translation_locations,
+                "inlineLocaleFieldLocations": locale_field_locations,
                 "sourceMetadataLocations": metadata_locations,
             }
         )
@@ -297,6 +317,7 @@ def audit_conversation_sources(
         "summary": {
             "sourceJsonCount": len(files),
             "inlineTranslationFileCount": inline_translation_files,
+            "inlineLocaleFieldFileCount": inline_locale_field_files,
             "repeatedMetadataFileCount": repeated_metadata_files,
             "preferredOversizeCount": preferred_oversize,
             "hardOversizeCount": hard_oversize,

@@ -116,6 +116,80 @@ def catalogs_from_model(model: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
                         }
                     elif owner not in existing["owners"]:
                         existing["owners"].append(owner)
+
+    fallback_entries: list[tuple[str, str, str, str, str]] = []
+    for section in ("dialogue", "semantic"):
+        section_model = model.get(section, {})
+        if not isinstance(section_model, Mapping):
+            continue
+        for pool in section_model.get("responsePools", []):
+            if not isinstance(pool, Mapping):
+                continue
+            location = _record_location(model, pool.get("id"))
+            source = location.get("sourceShard") or f"{section}/merged.json"
+            owner = str(location.get("owner") or "ProjectHoomans")
+            for variant in pool.get("variants", []):
+                if not isinstance(variant, Mapping):
+                    continue
+                key = variant.get("templateID")
+                fallback = variant.get("fallback")
+                if isinstance(key, str) and isinstance(fallback, str) and fallback.strip():
+                    fallback_entries.append((
+                        key,
+                        fallback,
+                        _source_shard_id(source, f"{section}.merged"),
+                        section,
+                        owner,
+                    ))
+    for suggestion in model.get("ui", []):
+        if not isinstance(suggestion, Mapping):
+            continue
+        location = _record_location(model, suggestion.get("id"))
+        source = location.get("sourceShard") or "ui/static_suggestions.json"
+        owner = str(location.get("owner") or "ProjectHoomans")
+        for key_name, fallback_name in (
+            ("labelKey", "labelFallback"),
+            ("utteranceKey", "utteranceFallback"),
+        ):
+            key = suggestion.get(key_name)
+            fallback = suggestion.get(fallback_name)
+            if isinstance(key, str) and isinstance(fallback, str) and fallback.strip():
+                fallback_entries.append((
+                    key,
+                    fallback,
+                    _source_shard_id(source, "ui.static_suggestions"),
+                    "UI",
+                    owner,
+                ))
+
+    english = catalogs.setdefault("EN", {
+        "schema": TRANSLATION_SCHEMA,
+        "language": "EN",
+        "fallback": "EN",
+        "entries": {},
+    })
+    for key, text, source_shard, context, owner in fallback_entries:
+        if key in english["entries"]:
+            continue
+        english["entries"][key] = {
+            "text": text,
+            "context": context,
+            "sourceShard": source_shard,
+            "owners": [owner],
+        }
+    for language, catalog in catalogs.items():
+        if language == "EN":
+            continue
+        for key, text, source_shard, context, owner in fallback_entries:
+            if key in catalog["entries"]:
+                continue
+            catalog["entries"][key] = {
+                "text": text,
+                "context": context,
+                "sourceShard": source_shard,
+                "owners": [owner],
+                "status": "fallback",
+            }
     for catalog in catalogs.values():
         for entry in catalog["entries"].values():
             entry["owners"] = sorted(entry["owners"])

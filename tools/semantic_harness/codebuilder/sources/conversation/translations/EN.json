@@ -56067,6 +56067,222 @@
       ],
       "sourceShard": "conversation.generated.ui",
       "text": "What's up?"
+    },
+    "semantic.accept.dataset.pending_care": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "All right. I can take care of that."
+    },
+    "semantic.accept.dataset.pending_started": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "Okay, I'll get started."
+    },
+    "semantic.compliment.dataset.kind_of_you": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "That's kind of you. I appreciate it."
+    },
+    "semantic.compliment.dataset.means_a_lot": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "Aw, thank you. That means a lot."
+    },
+    "semantic.greeting.dataset.good_to_see": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "Good to see you again."
+    },
+    "semantic.greeting.dataset.holding_up": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "Hey. How are you holding up?"
+    },
+    "semantic.greeting.dataset.how_things": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "Hey. How are things going?"
+    },
+    "semantic.offer.dataset.hungry_appreciate": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "I'd appreciate a bite. Would you share?"
+    },
+    "semantic.offer.dataset.hungry_share": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "That would help a lot. Could I have some?"
+    },
+    "semantic.question.activity.dataset.bit_of_everything": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "A little bit of everything."
+    },
+    "semantic.question.activity.dataset.keep_moving": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "Just doing what I can to keep things moving."
+    },
+    "semantic.question.activity.dataset.taking_care": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "Just taking care of what needs doing."
+    },
+    "semantic.question.identity.stranger_alt_1": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "I keep my name to myself until I know someone better. What should I call you?"
+    },
+    "semantic.question.identity.stranger_alt_2": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "Let's get to know each other first. What do people call you?"
+    },
+    "semantic.question.identity.wary_alt_1": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "I don't trust you enough to share my name. Who are you, really?"
+    },
+    "semantic.question.identity.wary_alt_2": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "After that lie, I'm not telling you my name. Tell me the truth about yours."
+    },
+    "semantic.question.wellbeing.dataset.all_things_considered": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "Doing okay, all things considered."
+    },
+    "semantic.question.wellbeing.dataset.getting_by": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "I'm getting by, one day at a time. How about you?"
+    },
+    "semantic.question.wellbeing.dataset.hanging_in": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "I'm hanging in there. Thanks for asking."
+    },
+    "semantic.question.wellbeing.dataset.hungry": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "I'm hungry, but I'll manage. If you have food to spare, I'd appreciate it."
+    },
+    "semantic.question.wellbeing.dataset.thirsty": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "I'm pretty thirsty. If you have water, could you spare some?"
+    },
+    "semantic.question.wellbeing.dataset.tired": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.questions",
+      "text": "I'm tired, though I can manage for now."
+    },
+    "semantic.refuse.dataset.pending_enough": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "Not this time. I have enough to manage."
+    },
+    "semantic.refuse.dataset.pending_unavailable": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "I can't take that on right now."
+    },
+    "semantic.thanks.dataset.anytime": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "Anytime."
+    },
+    "semantic.thanks.dataset.glady": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "Glad I could help."
+    },
+    "semantic.thanks.dataset.no_problem": {
+      "context": "dialogue",
+      "owners": [
+        "ProjectHoomans"
+      ],
+      "sourceShard": "conversation.flows.common.social",
+      "text": "No problem at all."
     }
   },
   "fallback": "EN",
