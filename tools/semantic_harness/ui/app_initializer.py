@@ -116,12 +116,18 @@ def initialize_app(app: Any, root: Any, arguments: argparse.Namespace) -> None:
     app._foreground_poll_after = None
     app._background_poll_after = None
     app._start_worker_after = None
+    app._worker_ready_hydration_after = None
+    app._pending_worker_ready = None
+    app._capabilities_loading = False
+    app._studio_editor_build_after = None
+    app._studio_editors_ready = False
     app._startup_after = None
     app._explore_retry_after = None
     app._layout_restore_after = None
     app._restore_workbench_tabs_after = None
     app._restore_ui_state_after = None
     app._worker_initialized = False
+    app._capability_snapshot: dict[str, Any] = {}
     app._production_catalog: dict[str, Any] | None = None
     app.saved_catalog: dict[str, Any] = {}
     app.saved_world_browser: dict[str, Any] = {}
@@ -190,6 +196,9 @@ def initialize_app(app: Any, root: Any, arguments: argparse.Namespace) -> None:
         activity_path=str(app.activity_log.path or ""),
     )
     app._build_ui()
+    bootstrap = getattr(root, "_semantic_harness_bootstrap", None)
+    if bootstrap is not None:
+        bootstrap.destroy()
+        root._semantic_harness_bootstrap = None
     root.protocol("WM_DELETE_WINDOW", app.close)
     app._set_status("Starting Lua worker…")
-    app._start_worker_after = root.after(20, app._start_worker)

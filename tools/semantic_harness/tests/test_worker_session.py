@@ -13,10 +13,13 @@ class FakeWorker:
         self.closed = Event()
         self._lock = Lock()
         self.close_calls = 0
+        self.capabilities_calls = 0
         self.queued_calls = 0
         self.pid = pid
 
     def capabilities(self) -> dict[str, object]:
+        with self._lock:
+            self.capabilities_calls += 1
         return {"protocol": 1}
 
     def status(self) -> dict[str, object]:
@@ -40,6 +43,23 @@ class FakeWorker:
 
 
 class WorkerSessionTests(unittest.TestCase):
+    def test_start_can_defer_large_capability_catalog(self) -> None:
+        worker = FakeWorker()
+        session = WorkerSession(lambda: worker)
+        self.addCleanup(session.close)
+
+        ready = session.start(load_capabilities=False).result(timeout=2)
+
+        self.assertEqual(ready.capabilities, {})
+        self.assertEqual(worker.capabilities_calls, 0)
+        self.assertEqual(
+            session.submit(lambda current: current.capabilities())
+            .result(timeout=2)
+            .value,
+            {"protocol": 1},
+        )
+        self.assertEqual(worker.capabilities_calls, 1)
+
     def test_close_drains_queue_and_runs_worker_cleanup(self) -> None:
         worker = FakeWorker()
         session = WorkerSession(lambda: worker)

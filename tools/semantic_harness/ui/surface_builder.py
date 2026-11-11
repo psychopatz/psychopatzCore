@@ -10,7 +10,6 @@ from .simulation_conversation_builder import build_conversation_panel
 from .simulation_pane_builder import build_simulation_panes
 from .simulation_controls_builder import build_workbench_controls
 from .selection_surface import build_selection_surface
-from .studio_surface_builder import build_studio_editors
 from .trace_conversation_builder import build_conversation_trace
 from .trace_diagnostic_builder import build_diagnostic_trace
 
@@ -129,15 +128,6 @@ def build_ui(app: Any) -> None:
     app.workflow_pane_split.add(workbench_pane, weight=2)
     build_conversation_trace(app, right, ttk, scrolled_text)
     build_diagnostic_trace(app, ttk, scrolled_text)
-    build_studio_editors(
-        app,
-        explore_tab=explore_tab,
-        dialogue_content_tab=dialogue_content_tab,
-        review_tab=review_tab,
-        developer_tools_parent=developer_tools_host,
-        ttk=ttk,
-        scrolled_text=scrolled_text,
-    )
     app.simulation_tab = simulation_tab
     app.main_tabs.bind(
         "<<NotebookTabChanged>>",
@@ -146,4 +136,19 @@ def build_ui(app: Any) -> None:
     app._restore_ui_state()
     app._schedule_activity_poll()
     app._append("SYSTEM", "Window ready. Starting the isolated Lua worker…")
-    app._set_controls(False)
+    # Studio owns the heaviest Tk construction (editor canvases, source
+    # browsers, and authoring panes). Build it in the mapped window's next
+    # event-loop turn so the core Simulation/World surfaces become usable
+    # immediately. Worker startup is chained after this deferred phase.
+    app._studio_editor_kwargs = {
+        "explore_tab": explore_tab,
+        "dialogue_content_tab": dialogue_content_tab,
+        "review_tab": review_tab,
+        "developer_tools_parent": developer_tools_host,
+        "ttk": ttk,
+        "scrolled_text": scrolled_text,
+    }
+    app._studio_editors_ready = False
+    app._studio_editor_build_after = app.root.after(
+        0, app._build_deferred_studio_editors
+    )

@@ -53,21 +53,23 @@ class WorkerSession(Generic[WorkerT]):
         with self._lock:
             return self._worker is not None and not self._closed
 
-    def start(self) -> Future[WorkerReady]:
+    def start(self, *, load_capabilities: bool = True) -> Future[WorkerReady]:
         with self._lock:
             if self._closed:
                 raise SessionClosedError("Lua worker session is closed")
             if self._start_future is None:
-                self._start_future = self._executor.submit(self._start_worker)
+                self._start_future = self._executor.submit(
+                    self._start_worker, load_capabilities
+                )
             return self._start_future
 
-    def _start_worker(self) -> WorkerReady:
+    def _start_worker(self, load_capabilities: bool = True) -> WorkerReady:
         with self._lock:
             if self._closed:
                 raise SessionClosedError("Lua worker session is closed")
         worker = self._factory()
         try:
-            capabilities = worker.capabilities()
+            capabilities = worker.capabilities() if load_capabilities else {}
             status = worker.status()
         except BaseException:
             worker.close()

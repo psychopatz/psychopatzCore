@@ -87,7 +87,10 @@ def restore_ui_state(app: Any) -> None:
         except (app._tk.TclError, TypeError, ValueError):
             pass
 
-    app._layout_restore_after = app.root.after_idle(restore)
+    # Restore after the first mapped-window pass. An idle callback can be
+    # starved by worker polling and can re-enter Tk before the root has a real
+    # size.
+    app._layout_restore_after = app.root.after(50, restore)
 
 
 def restore_panel_state(app: Any) -> None:
@@ -139,11 +142,6 @@ def restore_splitters(app: Any) -> None:
             )
         try:
             app.simulation_panes.sashpos(0, int(simulation_value))
-            # The outer sash changes the width available to the conversation
-            # split. Let Tk settle that geometry before restoring the inner
-            # conversation/context sash, otherwise the outer resize can
-            # proportionally overwrite the user's inner position.
-            app.root.update_idletasks()
         except (app._tk.TclError, TypeError, ValueError):
             pass
 

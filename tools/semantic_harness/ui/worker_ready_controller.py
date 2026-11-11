@@ -6,11 +6,72 @@ from pathlib import Path
 from typing import Any
 
 from tools.semantic_harness.inspection.rendering import pretty
-from tools.semantic_harness.core.worker_session import WorkerReady
+from tools.semantic_harness.core.worker_session import WorkerReady, WorkerResult
 from .ui_state_persistence import remember_active_source
 
 
+def _capability_summary(result: WorkerReady) -> dict[str, Any]:
+    capabilities = result.capabilities or {}
+    flow_catalog = capabilities.get("flowCatalog") or {}
+    beat_catalog = capabilities.get("beatCatalog") or {}
+    return {
+        "state": "ready",
+        "worker": result.status,
+        "profile": capabilities.get("profile"),
+        "providerIDs": capabilities.get("providers"),
+        "loadedModules": len(capabilities.get("loadedModules") or []),
+        "flows": flow_catalog.get("flowCount", 0),
+        "beats": beat_catalog.get("beatCount", 0),
+        "behaviors": beat_catalog.get("behaviorCount", 0),
+        "engineFacts": len(flow_catalog.get("factCatalog", [])),
+        "engineEvents": len(flow_catalog.get("eventCatalog", [])),
+        "commands": len(flow_catalog.get("commandCatalog", [])),
+        "hint": (
+            "Production catalogs are loaded in memory. Use Studio → Advanced "
+            "to inspect the flow and interaction editors."
+        ),
+    }
+
+
 def worker_ready(app: Any, result: WorkerReady) -> None:
+    if not result.capabilities and not app._capabilities_loading:
+        app._capabilities_loading = True
+        app._set_status("Lua worker ready · loading semantic catalogs…")
+        app._future = app.session.submit(lambda worker: worker.capabilities())
+        app._poll_future(app._future, app._capabilities_loaded)
+        return
+    # Startup is complete on the executor thread, but catalog hydration is
+    # deliberately deferred so the first ready frame can paint before the
+    # large production projections are copied into Tk widgets.
+    app._pending_worker_ready = result
+    app._set_status("Lua worker connected · loading semantic catalogs…")
+    app._worker_ready_hydration_after = app.root.after(
+        50, app._hydrate_worker_ready
+    )
+
+
+def capabilities_loaded(app: Any, result: WorkerResult[Any]) -> None:
+    app._capabilities_loading = False
+    capabilities = result.value
+    if not isinstance(capabilities, dict):
+        raise ValueError("Lua worker capabilities response must be an object")
+    app._pending_worker_ready = WorkerReady(
+        status=result.status,
+        capabilities=capabilities,
+    )
+    app._set_status("Lua worker connected · loading semantic catalogs…")
+    app._worker_ready_hydration_after = app.root.after(
+        50, app._hydrate_worker_ready
+    )
+
+
+def hydrate_worker_ready(app: Any) -> None:
+    result = getattr(app, "_pending_worker_ready", None)
+    app._pending_worker_ready = None
+    app._worker_ready_hydration_after = None
+    if app.closed or result is None:
+        return
+    app._capability_snapshot = result.capabilities
     app._worker_initialized = True
     app._workbench_initializing = True
     app.persona_catalog = result.capabilities.get("personaCatalog") or {}
@@ -23,7 +84,6 @@ def worker_ready(app: Any, result: WorkerReady) -> None:
     app._build_simulation_workbench()
     app._set_status(f"Ready · Lua PID {result.status.get('pid')}")
     app._set_controls(True)
-    app.root.update_idletasks()
     app._restore_splitters()
     app._clear_workbench_pending()
     app._workbench_initializing = False
@@ -61,21 +121,12 @@ def worker_ready(app: Any, result: WorkerReady) -> None:
     beat_catalog = capabilities.get("beatCatalog", {})
     app._set_text(
         app.inspector,
-        pretty(
-            {
-                "state": "ready",
-                "worker": result.status,
-                "flows": flow_catalog.get("flowCount", 0),
-                "beats": beat_catalog.get("beatCount", 0),
-                "behaviors": beat_catalog.get("behaviorCount", 0),
-                "engineFacts": len(flow_catalog.get("factCatalog", [])),
-                "engineEvents": len(flow_catalog.get("eventCatalog", [])),
-                "commands": len(flow_catalog.get("commandCatalog", [])),
-                "hint": "Use Studio → Advanced → Flow editor to build and validate production branches.",
-            }
-        ),
+        pretty(_capability_summary(result)),
     )
-    app._set_text(app.trace, pretty(capabilities))
+    # The complete capability record can approach one megabyte. Keep it in
+    # memory for explicit diagnostics, but do not insert it into a Tk Text
+    # widget during startup; that operation monopolizes the event loop.
+    app._set_text(app.trace, pretty(_capability_summary(result)))
     app.flow_editor.set_catalog(flow_catalog)
     app.interaction_modules.set_catalog(beat_catalog)
     app._beat_catalog = beat_catalog

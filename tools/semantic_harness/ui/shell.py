@@ -106,6 +106,8 @@ from .saved_world_controller import (
     selected_saved_world_entry,
 )
 from .worker_ready_controller import (
+    capabilities_loaded,
+    hydrate_worker_ready,
     initial_saved_pair_requested,
     load_initial_saved_pair,
     remembered_saved_pair_requested,
@@ -244,6 +246,30 @@ class SemanticHarnessApp:
     def _build_ui(self) -> None:
         build_ui(self)
 
+    def _build_deferred_studio_editors(self) -> None:
+        if self.closed or self._studio_editors_ready:
+            return
+        try:
+            build_studio_editors(self, **self._studio_editor_kwargs)
+        except Exception as error:  # keep deferred startup failures visible
+            self._studio_editor_build_after = None
+            self._set_status("Studio initialization failed")
+            if hasattr(self, "trace"):
+                self._set_text(
+                    self.trace,
+                    f"{type(error).__name__}: {error}",
+                )
+            self.activity_log.record(
+                "ui",
+                "studio_startup_error",
+                message=f"{type(error).__name__}: {error}",
+            )
+            return
+        self._studio_editors_ready = True
+        self._studio_editor_build_after = None
+        self._set_controls(False)
+        self._start_worker_after = self.root.after(20, self._start_worker)
+
     def _build_saved_world_browser(self, parent: Any) -> None:
         build_saved_world_browser(self, parent)
     def _set_controls(self, enabled: bool) -> None:
@@ -380,6 +406,12 @@ class SemanticHarnessApp:
 
     def _worker_ready(self, result: WorkerReady) -> None:
         worker_ready(self, result)
+
+    def _hydrate_worker_ready(self) -> None:
+        hydrate_worker_ready(self)
+
+    def _capabilities_loaded(self, result: WorkerResult[Any]) -> None:
+        capabilities_loaded(self, result)
 
     def _set_talk_catalog(self) -> None:
         set_talk_catalog(self)

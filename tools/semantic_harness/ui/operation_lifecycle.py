@@ -22,7 +22,7 @@ def poll_future(
         return
     if not future.done():
         app._foreground_poll_after = app.root.after(
-            25, app._poll_future, future, callback
+            50, app._poll_future, future, callback
         )
         return
     app._foreground_poll_after = None
@@ -66,7 +66,7 @@ def poll_background_future(
         return
     if not future.done():
         app._background_poll_after = app.root.after(
-            25, app._poll_background_future, future, callback
+            50, app._poll_background_future, future, callback
         )
         return
     app._background_poll_after = None

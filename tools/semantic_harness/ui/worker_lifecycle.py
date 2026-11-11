@@ -34,5 +34,8 @@ def worker_kwargs(app: Any) -> dict[str, Any]:
 def start_worker(app: Any) -> None:
     if app.closed:
         return
-    app._future = app.session.start()
+    # Process readiness is cheap and lets the GUI report a mapped/usable
+    # worker immediately. The large capability catalog is requested as a
+    # second serialized operation by worker_ready_controller.
+    app._future = app.session.start(load_capabilities=False)
     app._poll_future(app._future, app._worker_ready)
