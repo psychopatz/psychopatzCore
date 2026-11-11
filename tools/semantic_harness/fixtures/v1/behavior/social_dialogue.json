@@ -1,0 +1,85 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "behavior.social_dialogue",
+  "cases": [
+    {
+      "id": "social.offer.apple",
+      "tags": ["social", "offer"],
+      "turns": [
+        {
+          "text": "Who wants an apple?",
+          "expect": {
+            "ir.intent": "OFFER",
+            "ir.speechAct": "OFFER",
+            "ir.object.text": "apple",
+            "ir.object.unresolved": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "social.agreement.standalone_okay",
+      "tags": ["social", "accept"],
+      "turns": [
+        {
+          "text": "okay",
+          "expect": {
+            "ir.intent": "ACCEPT"
+          }
+        }
+      ]
+    },
+    {
+      "id": "social.agreement.fine_by_me",
+      "tags": ["social", "agree"],
+      "turns": [
+        {
+          "text": "fine by me",
+          "expect": {
+            "ir.intent": "AGREE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "social.greeting.hello_there",
+      "tags": ["social", "greet"],
+      "turns": [
+        {
+          "text": "hello there",
+          "expect": {
+            "ir.intent": "GREET",
+            "ir.speechAct": "GREET",
+            "ir.pattern": "pnc.social.greet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "social.thank.thanks",
+      "tags": ["social", "thank"],
+      "turns": [
+        {
+          "text": "thanks",
+          "expect": {
+            "ir.intent": "THANK",
+            "ir.pattern": "pnc.social.thank"
+          }
+        }
+      ]
+    },
+    {
+      "id": "social.apology.sorry",
+      "tags": ["social", "apology"],
+      "turns": [
+        {
+          "text": "sorry",
+          "expect": {
+            "ir.intent": "APOLOGIZE",
+            "ir.pattern": "pnc.social.apologize"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.consume.active",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm using that now.",
+              "TL": "Ginagamit ko na iyon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Currently using the item.",
+              "TL": "Kasalukuyang ginagamit ang gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Applying it right now.",
+              "TL": "Inilalapat na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "In the middle of consuming that.",
+              "TL": "Kasalukuyang ginagamit iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Working through this item.",
+              "TL": "Ginagamit ang bagay na ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking this now. Give me a second.",
+              "TL": "Ginagamit ko na ito. Bigyan mo ako ng sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Using the supplies as requested.",
+              "TL": "Ginagamit ang mga kagamitan ayon sa hiling."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Consuming it right now.",
+              "TL": "Ginagamit ko na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding still to use this.",
+              "TL": "Nakahinto para gamitin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Using it. Almost done.",
+              "TL": "Ginagamit na. Halos tapos na."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.consume.admitted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll use that.",
+              "TL": "Gagamitin ko iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I will consume that item.",
+              "TL": "Naintindihan. Gagamitin ko ang bagay na iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right, I'll take that.",
+              "TL": "Sige, gagamitin ko iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good idea. I'll use it.",
+              "TL": "Magandang ideya. Gagamitin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Taking that now.",
+              "TL": "Nakuha ko. Gagamitin na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll go ahead and apply that.",
+              "TL": "Sige, ilalapat ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. That will help.",
+              "TL": "Naiintindihan ko. Makatutulong iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Using that item.",
+              "TL": "Sige. Gagamitin ang gamit na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll use what you specified.",
+              "TL": "Gagamitin ko ang tinukoy mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds good. Consuming it.",
+              "TL": "Maganda 'yan. Gagamitin na."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.consume.completed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That's done.",
+              "TL": "Tapos na iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished using that.",
+              "TL": "Tapos nang gamitin iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All used up. Feeling better.",
+              "TL": "Naubos na. Mas maayos na ang pakiramdam."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. That helped out.",
+              "TL": "Tapos na. Nakatulong iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished consuming the item.",
+              "TL": "Natapos nang gamitin ang bagay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's taken care of.",
+              "TL": "Naasikaso na iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All done with that supply.",
+              "TL": "Tapos na sa gamit na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Consumed. Ready to move on.",
+              "TL": "Nagamit na. Handa nang magpatuloy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. Much needed.",
+              "TL": "Tapos na. Kailangan ko talaga 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. Put to good use.",
+              "TL": "Tapos na. Nagamit nang maayos."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.consume.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't use that.",
+              "TL": "Hindi ko nagamit iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to consume that item.",
+              "TL": "Bigo sa paggamit ng bagay na iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Something interrupted me while trying to use that.",
+              "TL": "May umabala sa akin habang sinusubukang gamitin iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't finish using it.",
+              "TL": "Di natapos gamitin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to apply that right now.",
+              "TL": "Di mailapat iyan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Using that failed. Something went wrong.",
+              "TL": "Pumalpak ang paggamit. May nangyaring mali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I lost hold of it or couldn't use it.",
+              "TL": "Nabitawan ko o di nagamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't consume it. Area wasn't secure.",
+              "TL": "Di nagamit. Di ligtas ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Action interrupted. Item not consumed.",
+              "TL": "Naabala ang kilos. Di nagamit ang bagay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to take that.",
+              "TL": "Bigo sa paggamit niyan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.consume.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't use that right now.",
+              "TL": "Hindi ko magamit iyon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't need to use that at the moment.",
+              "TL": "Di ko kailangang gamitin iyan sa sandaling ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's not suitable for me right now.",
+              "TL": "Di angkop sa akin 'yan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to consume that. Not needed.",
+              "TL": "Di magagamit 'yan. Di kailangan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't use that under these conditions.",
+              "TL": "Di ko magagamit 'yan sa ganitong kalagayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save it for later. I don't need it now.",
+              "TL": "Itabi mo muna. Di ko kailangan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refusing to consume that. Not appropriate.",
+              "TL": "Tumatangging gamitin 'yan. Di nararapat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't have a use for that right now.",
+              "TL": "Wala akong paggagamitan niyan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't use that. Not the right time.",
+              "TL": "Di magagamit 'yan. Maling oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Consume order rejected.",
+              "TL": "Tinatanggihan ang utos na gamitin."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

@@ -1,0 +1,130 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "observatory.health_authority",
+  "cases": [
+    {
+      "id": "observatory.health.injured.en",
+      "tags": ["observatory", "health", "wellbeing"],
+      "scenario": {
+        "npc": { "healthState": "injured" }
+      },
+      "turns": [
+        {
+          "text": "how are you",
+          "language": "EN",
+          "expect": {
+            "lastKey": "UI_PNC_Conversation_Content_SemanticQuestionWellbeingInjuredNeutral01"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.health.injured.tl",
+      "tags": ["observatory", "health", "wellbeing", "localization"],
+      "scenario": {
+        "npc": { "healthState": "injured" }
+      },
+      "turns": [
+        {
+          "text": "how are you",
+          "language": "TL",
+          "expect": {
+            "lastKey": "UI_PNC_Conversation_Content_SemanticQuestionWellbeingInjuredNeutral01",
+            "fallbackLookups": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.health.healthy.en",
+      "tags": ["observatory", "health", "wellbeing"],
+      "scenario": {
+        "npc": { "healthState": "healthy" }
+      },
+      "turns": [
+        {
+          "text": "how are you",
+          "language": "EN",
+          "expect": {
+            "lastSemanticKey": { "prefix": "semantic.question.wellbeing." }
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.health.healthy.tl",
+      "tags": ["observatory", "health", "wellbeing", "localization"],
+      "scenario": {
+        "npc": { "healthState": "healthy" }
+      },
+      "turns": [
+        {
+          "text": "how are you",
+          "language": "TL",
+          "expect": {
+            "lastSemanticKey": { "prefix": "semantic.question.wellbeing." },
+            "fallbackLookups": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.health.companion_wait.en",
+      "tags": ["observatory", "command", "stay"],
+      "turns": [
+        {
+          "text": "wait here",
+          "language": "EN",
+          "expect": {
+            "ir.action": "STAY",
+            "lastKey": "semantic.command.stay.queued"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.health.companion_wait.tl",
+      "tags": ["observatory", "command", "stay", "localization"],
+      "turns": [
+        {
+          "text": "wait here",
+          "language": "TL",
+          "expect": {
+            "ir.action": "STAY",
+            "lastKey": "semantic.command.stay.queued",
+            "fallbackLookups": 0,
+            "response.text": { "contains": "Sige, mananatili ako rito." }
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.health.hostile_boundary.en",
+      "tags": ["observatory", "hostile", "boundary"],
+      "turns": [
+        {
+          "text": "fuck you",
+          "language": "EN",
+          "expect": {
+            "ir.intent": "INSULT",
+            "lastSemanticKey": "semantic.social.hostile_boundary"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.health.hostile_boundary.tl",
+      "tags": ["observatory", "hostile", "boundary", "localization"],
+      "turns": [
+        {
+          "text": "fuck you",
+          "language": "TL",
+          "expect": {
+            "ir.intent": "INSULT",
+            "lastSemanticKey": "semantic.social.hostile_boundary"
+          }
+        }
+      ]
+    }
+  ]
+}

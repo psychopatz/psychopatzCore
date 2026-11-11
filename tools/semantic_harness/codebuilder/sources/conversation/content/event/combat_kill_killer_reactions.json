@@ -1,0 +1,1446 @@
+{
+  "domain": "event",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_aggressive_01",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Got one. Who's next?",
+              "TL": "Isa na. Sino'ng susunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dropped that one cold. Line 'em up.",
+              "TL": "Bagsak ang isa. Ihanay ang susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That one's dead. Send another.",
+              "TL": "Patay ang isang 'yon. Magpadala pa ng isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed it. Who else wants some?",
+              "TL": "Ibinagsak ko na. Sino pa may gusto?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "First down. Bring on the rest.",
+              "TL": "Unang bagsak. Dalhin ang iba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Crushed that skull. Next target.",
+              "TL": "Durog ang bungo. Susunod na target."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay in the dirt. Next!",
+              "TL": "Manatili ka sa lupa. Sunod!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That one's history. Moving to the next.",
+              "TL": "Burado na 'yon. Lilipat sa susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One less rotting bastard. Who's next?",
+              "TL": "Bawas ang isang bulok. Sino susunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Put it down hard. Step up if you dare.",
+              "TL": "Ibinagsak nang malupit. Lumapit ang may tapang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_aggressive_02",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Down. Give me another.",
+              "TL": "Patay. May kasunod pa ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dropped. Bring them on.",
+              "TL": "Bagsak. Dalhin niyo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Who's stepping up?",
+              "TL": "Patay na. Sino'ng lalapit?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished that one. Send the next.",
+              "TL": "Tinapos ko 'yon. Ipadala ang kasunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed. Keep feeding them to me.",
+              "TL": "Bagsak. Iharap niyo lang sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cracked open. Next in line.",
+              "TL": "Basag na. Susunod sa pila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That one's done. Give me another target.",
+              "TL": "Tapos na ang isang 'yon. Bigyan pa ako ng target."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead on the ground. Next one step forward.",
+              "TL": "Patay sa lupa. Susunod lumapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Flattened. Who's next to die?",
+              "TL": "Pinitpit. Sino susunod na mamamatay?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "One down. Not even winded.",
+              "TL": "Isang bagsak. Hindi man lang ako hinihingal."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_aggressive_03",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That's one. Keep them coming.",
+              "TL": "Isa na. Sige, lapit pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One less rotten. Keep 'em coming.",
+              "TL": "Bawas ang isang bulok. Lapit lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "First blood. Line them up.",
+              "TL": "Unang tama. Ihanay niyo sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's one down. I can do this all day.",
+              "TL": "Isang bagsak na 'yan. Kaya ko 'to buong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Score one for us. Keep pushing.",
+              "TL": "Puntos sa atin. Tuloy ang sugod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Count one dead. Come get some.",
+              "TL": "Bilangin ang isang patay. Halika rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's one less mouth to feed. Next.",
+              "TL": "Bawas ang isang kakain. Sunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One crushed. Keep 'em coming my way.",
+              "TL": "Durog ang isa. Papuntahin niyo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed one. Who wants the same?",
+              "TL": "Nagpabagsak ng isa. Sino may gusto ng gano'n din?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "One in the grave. Keep them coming.",
+              "TL": "Isa sa hukay. Sige, tuloy lang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_supportive_01",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Got it. Stay close.",
+              "TL": "Patay na. Dito ka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat down. Stay right by me.",
+              "TL": "Bagsak ang banta. Dito ka lang sa tabi ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I took care of it. Keep tight.",
+              "TL": "Inasikaso ko na. Dumikit ka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got that one. Don't drift away.",
+              "TL": "Nakuha ko na 'yon. Huwag kang lumayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's dead. I've got this side covered.",
+              "TL": "Patay na. Hawak ko ang parteng 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed it. Stick with me.",
+              "TL": "Ibinagsak ko na. Sumama ka sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That one's finished. Keep close to my shoulder.",
+              "TL": "Tapos na ang isang 'yon. Dumikit sa balikat ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled. Watch the rear while I lead.",
+              "TL": "Naasikaso na. Bantayan ang likod habang nangunguna ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target down. Stay near.",
+              "TL": "Bagsak ang target. Diyan ka lang sa malapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Took it out. We're safe on this side.",
+              "TL": "Tinapos ko na. Ligtas tayo sa parteng 'to."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_supportive_02",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "It's down. You alright?",
+              "TL": "Tapos na. Okay ka lang?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it off us. Are you hurt?",
+              "TL": "Nailayo ko sa atin. Nasaktan ka ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat eliminated. You doing okay?",
+              "TL": "Naalis ang banta. Ayos ka lang ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's dead. Check yourself over.",
+              "TL": "Patay na. Tignan mo sarili mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed that one. Everything alright with you?",
+              "TL": "Ibinagsak ko 'yon. Ayos lang ang lahat sa'yo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Took it down. You safe there?",
+              "TL": "Ibinagsak ko na. Ligtas ka riyan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That one's done for. Are you okay?",
+              "TL": "Tapos na 'yon. Ayos ka lang?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dropped it before it reached you. You good?",
+              "TL": "Ibinagsak bago pa makalapit sa'yo. Ayos ka?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled that threat. How are you holding up?",
+              "TL": "Naasikaso ang banta. Kamusta ka riyan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "It won't touch you now. You alright?",
+              "TL": "Hindi ka na mahahawakan no'n. Okay ka lang?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_supportive_03",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "One less. I've got you.",
+              "TL": "Isa na lang ang nabawas. Kasama mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat's gone. I'm right here.",
+              "TL": "Wala na ang banta. Nandito lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed it. You're protected.",
+              "TL": "Ibinagsak ko na. Protektado ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One less to worry about. I'm with you.",
+              "TL": "Bawas ang aalahanin. Kasama mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled. I won't let them touch you.",
+              "TL": "Naasikaso na. Hindi ko hahayaang mahawakan ka nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's dead. I've got your back.",
+              "TL": "Patay na. Hawak ko ang likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One less in our way. Lean on me if you need to.",
+              "TL": "Bawas sa dinaraanan. Sumandal ka sa akin kung kailangan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Took care of that one. We'll get through this.",
+              "TL": "Inasikaso ko ang isang 'yon. Malalampasan natin 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat down. You're safe with me.",
+              "TL": "Banta bagsak na. Ligtas ka kasama ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That one's gone. I've got you covered.",
+              "TL": "Wala na ang isang 'yon. Nakabantay ako sa'yo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_shaken_01",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "It's down... give me a second.",
+              "TL": "Patay na... sandali lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I got it... but my breath won't catch.",
+              "TL": "Nakuha ko... pero kinakapos ako sa hininga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead... give me a moment to steady my hands.",
+              "TL": "Patay na... bigyan mo ako ng saglit para kumalma ang kamay ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's down... that was way too close.",
+              "TL": "Bagsak na... masyadong malapit 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just... wait a second. My chest hurts.",
+              "TL": "Saglit lang... kumikirot ang dibdib ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's dead... hands are shaking like crazy.",
+              "TL": "Patay na... nanginginig nang husto ang mga kamay ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got him down... need half a minute.",
+              "TL": "Naibagsak ko... kailangan ko ng kalahating minuto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "God... it's over. Give me a second.",
+              "TL": "Diyos ko... tapos na. Sandali lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down... heart is pounding in my ears.",
+              "TL": "Bagsak... dumadagundong ang puso sa tenga ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's finished... just give me a moment.",
+              "TL": "Tapos na... bigyan mo lang ako ng saglit."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_shaken_02",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Got it. I need a breath.",
+              "TL": "Nakuha ko. Kailangan ko munang huminga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's dead. Let me catch my breath.",
+              "TL": "Patay na. Pahingahin mo muna ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down. I can barely breathe right now.",
+              "TL": "Bagsak. Halos hindi ako makahinga ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Took it out... need air.",
+              "TL": "Tinapos ko na... kailangan ko ng hangin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Just let me inhale for a second.",
+              "TL": "Patay na. Hayaan mo muna akong huminga nang malalim."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I got it down. Deep breath... deep breath.",
+              "TL": "Naibagsak ko na. Malalim na hininga... malalim na hininga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. My lungs are burning.",
+              "TL": "Tapos na. Parang nasusunog ang baga ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's on the ground. Catching my breath.",
+              "TL": "Nasa lupa na. Humihinga muna ako nang maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Just need ten seconds to breathe.",
+              "TL": "Nakuha ko. Kailangan ko lang ng sampung segundo para huminga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Killed it. Breathing hard... one second.",
+              "TL": "Napatay ko na. Hinihingal ako... isang saglit."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_shaken_03",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "It's dead. I really hate this.",
+              "TL": "Patay na. Ayoko talaga nito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down. God, the smell makes me sick.",
+              "TL": "Bagsak. Diyos ko, nasusuka ako sa amoy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's finished. I despise having to do that.",
+              "TL": "Tapos na. Ayaw na ayaw kong kailangang gawin 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Look at all that blood... horrible.",
+              "TL": "Patay na. Tingnan mo ang dugo... kakila-kilabot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it down. Hate everything about this.",
+              "TL": "Naibagsak ko na. Kinamumuhian ko ang lahat ng ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's dead. Why does it always have to be like this?",
+              "TL": "Patay na. Bakit kailangang laging ganito?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down. I hate the crunch it made.",
+              "TL": "Bagsak. Ayaw ko 'yung naging lagutok no'n."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's over. Sick of the violence.",
+              "TL": "Tapos na. Sawa na ako sa karahasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. I really, really hate this world.",
+              "TL": "Patay. Ayoko talaga, ayoko sa mundong 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Killed it. Hate the feeling in my hands.",
+              "TL": "Napatay ko na. Ayoko 'yung pakiramdam sa mga kamay ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_brave_01",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Down. Keep moving.",
+              "TL": "Patay. Tuloy tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat eliminated. Push forward.",
+              "TL": "Banta naalis na. Sulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target down. Don't break stride.",
+              "TL": "Target bagsak na. Huwag huminto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Move through the sector.",
+              "TL": "Patay na. Lusot sa bahaging 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled. Keep the momentum.",
+              "TL": "Naasikaso. Panatilihin ang bilis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed. Advance.",
+              "TL": "Bagsak. Abante."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One kill confirmed. Step up.",
+              "TL": "Isang kumpirmadong patay. Sulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear here. Continue the push.",
+              "TL": "Malinis dito. Tuloy ang pagsulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's down. Walk through.",
+              "TL": "Bagsak na. Lakad lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. Keep pace.",
+              "TL": "Tapos na. Panatilihin ang hakbang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_brave_02",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Got it. Watch my side.",
+              "TL": "Nakuha ko. Bantayan mo ang gilid ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat down. Cover my flank.",
+              "TL": "Banta bagsak na. Salagin mo ang gilid ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Took that one out. Check my blind spot.",
+              "TL": "Tinapos ko 'yon. Tignan ang bulag na parte ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target eliminated. Guard the flank.",
+              "TL": "Target naalis. Bantayan ang tabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed. Keep eyes on my right.",
+              "TL": "Bagsak. Tumingin ka sa kanan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled that one. Watch my shoulder.",
+              "TL": "Inasikaso ko ang isang 'yon. Bantayan ang balikat ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's dead. Don't let anything sneak up on us.",
+              "TL": "Patay na. Huwag hayaang may makapanambang sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Keep the flank tight.",
+              "TL": "Patay na. Hawakan nang mahigpit ang gilid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Keep looking left and right.",
+              "TL": "Nakuha ko na. Tumingin ka sa kaliwa't kanan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. Watch our perimeter.",
+              "TL": "Tapos na. Bantayan ang buong paligid natin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_brave_03",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "One less. Stay sharp.",
+              "TL": "Isa na lang ang nabawas. Magmatyag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat neutralized. Keep your senses up.",
+              "TL": "Banta naalis. Maging alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One down. Stay alert.",
+              "TL": "Isang bagsak. Manatiling gising."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Don't get complacent.",
+              "TL": "Patay na. Huwag maging kampante."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Count one off. Eyes everywhere.",
+              "TL": "Bawas ang isa. Tumingin sa lahat ng direksyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed. Keep your edge.",
+              "TL": "Bagsak na. Panatilihin ang talas ng pakiramdam."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One less danger. Stay focused.",
+              "TL": "Bawas ang isang panganib. Manatiling nakapokus."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target gone. Keep watching corners.",
+              "TL": "Wala na ang target. Patuloy na bantayan ang mga sulok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled. Vigilance stays up.",
+              "TL": "Naasikaso na. Huwag ibaba ang pag-iingat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One less threat. Keep your weapon ready.",
+              "TL": "Bawas ang isang banta. Ihanda ang sandata."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_reserved_01",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Down.",
+              "TL": "Patay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eliminated.",
+              "TL": "Naalis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead.",
+              "TL": "Bagsak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled.",
+              "TL": "Naasikaso."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dropped.",
+              "TL": "Tumba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target down.",
+              "TL": "Bagsak ang target."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Neutralized.",
+              "TL": "Naitumba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done.",
+              "TL": "Tapos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fell.",
+              "TL": "Nalugmok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ceased.",
+              "TL": "Tumigil."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_reserved_02",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Took it.",
+              "TL": "Tinamaan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hit.",
+              "TL": "Sapul."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished.",
+              "TL": "Yari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cleared.",
+              "TL": "Malinis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taken care of.",
+              "TL": "Naayos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Struck.",
+              "TL": "Tinamaan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Resolved.",
+              "TL": "Tapos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dealt with.",
+              "TL": "Nalutas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Connected.",
+              "TL": "Tumama."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_reserved_03",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Clear.",
+              "TL": "Malinis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Path open.",
+              "TL": "Bukas ang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Secure.",
+              "TL": "Ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing here.",
+              "TL": "Walang anuman dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clean.",
+              "TL": "Maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No contacts.",
+              "TL": "Walang kalaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lane clear.",
+              "TL": "Malinis ang linya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Safe.",
+              "TL": "Ayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Open.",
+              "TL": "Bukas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet now.",
+              "TL": "Tahimik na."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_cold_01",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Done. Keep up.",
+              "TL": "Tapos. Sumabay ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target neutralized. Walk.",
+              "TL": "Naalis ang target. Lakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Step across.",
+              "TL": "Patay na. Hakbangan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. Maintain speed.",
+              "TL": "Tapos na. Panatilihin ang bilis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat ceased. Move.",
+              "TL": "Tumigil ang banta. Kilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Casualty verified. March.",
+              "TL": "Biktima kumpirmado. Magmartsa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled without delay. Keep up.",
+              "TL": "Naasikaso nang walang antala. Sumabay ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Neutralized. Continue the route.",
+              "TL": "Naitumba. Ipagpatuloy ang ruta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down. Walk past it.",
+              "TL": "Bagsak na. Lagpasan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Move forward.",
+              "TL": "Patay. Pasulong."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_cold_02",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "It's dead. Move.",
+              "TL": "Patay na. Galaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Body is neutralized. March on.",
+              "TL": "Naitumba na ang katawan. Magpatuloy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ceased function. Step over.",
+              "TL": "Wala nang galaw. Hakbangan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead tissue. Proceed.",
+              "TL": "Patay na laman. Tuloy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target down. Do not stop.",
+              "TL": "Bagsak ang target. Huwag titigil."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eliminated. Keep walking.",
+              "TL": "Naalis na. Magpatuloy sa paglalakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat dead. Advance.",
+              "TL": "Patay ang banta. Abante."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Corpse is irrelevant. Move.",
+              "TL": "Walang kwenta ang bangkay. Galaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. Next position.",
+              "TL": "Tapos na. Susunod na pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No heartbeat. Move on.",
+              "TL": "Walang tibok ng puso. Tuloy."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_cold_03",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "One less problem.",
+              "TL": "Isang problema na lang ang nawala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target subtracted.",
+              "TL": "Nabawasan ng target."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Simple elimination.",
+              "TL": "Simpleng pag-alis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One obstacle removed.",
+              "TL": "Isang sagabal ang tinanggal."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat terminated. Efficient.",
+              "TL": "Tinapos ang banta. Maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Reduced by one.",
+              "TL": "Nabawasan ng isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clean removal.",
+              "TL": "Malinis na pagpuksa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One less mouth in the world.",
+              "TL": "Bawas ang isang bibig sa mundo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ammunition or blade justified.",
+              "TL": "Makatarungan ang nagamit na gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Zero consequence. Next.",
+              "TL": "Walang naging aberya. Sunod."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_practical_01",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Got it. Check the area.",
+              "TL": "Nakuha ko. Suriin ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat down. Scan before looting.",
+              "TL": "Bagsak ang banta. Magmasid muna bago maghalughog."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target neutralized. Check the perimeter.",
+              "TL": "Naalis ang target. Suriin ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed. Clear your angles.",
+              "TL": "Bagsak. Linisin ang mga anggulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled that one. Watch for flankers.",
+              "TL": "Naasikaso ko 'yon. Bantayan ang mga nasa tabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Scan 360 degrees.",
+              "TL": "Patay na. Magmasid sa buong paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got him. Don't drop your guard.",
+              "TL": "Nakuha ko na siya. Huwag ibaba ang depensa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down. Check behind the door.",
+              "TL": "Bagsak. Tignan sa likod ng pinto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. Verify no more movement.",
+              "TL": "Tapos na. Tiyaking wala nang gumagalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target down. Look around before relaxing.",
+              "TL": "Bagsak ang target. Tumingin sa paligid bago magpahinga."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_practical_02",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "One down. Let's keep moving.",
+              "TL": "Isa na. Tuloy tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled one. Don't linger here.",
+              "TL": "Inasikaso ang isa. Huwag magtagal dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat dead. Keep momentum going.",
+              "TL": "Patay ang banta. Panatilihin ang bwelo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One eliminated. Push to the objective.",
+              "TL": "Isa ang tinanggal. Sulong sa layunin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down. Step through before noise travels.",
+              "TL": "Bagsak. Lumakad bago kumalat ang ingay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got one. Move to the next room.",
+              "TL": "Nakuha ang isa. Lipat sa susunod na kwarto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One corpse. Don't stay in the open.",
+              "TL": "Isang bangkay. Huwag manatili sa lantad na lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. Let's make distance.",
+              "TL": "Tapos na. Lumayo na tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target down. Keep moving along the wall.",
+              "TL": "Bagsak ang target. Sumabay sa pader sa paglakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed. Advance quietly.",
+              "TL": "Bagsak. Pasulong nang tahimik."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_practical_03",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "It's clear here. Watch for more.",
+              "TL": "Malinis dito. Bantayan ang iba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed. Expect company soon.",
+              "TL": "Bagsak. Asahang may kasunod 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead. Noise might draw more.",
+              "TL": "Patay na. Baka umakit ng iba ang tunog."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One kill confirmed. Listen for footsteps.",
+              "TL": "Isang patay kumpirmado. Makinig sa mga yabag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target cleared. Eyes on the shadows.",
+              "TL": "Target naalis na. Tumingin sa mga anino."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. Sound could bring stragglers.",
+              "TL": "Tapos na. Baka may dumating na mga naiwan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down. Watch all doorways.",
+              "TL": "Bagsak. Bantayan ang bawat pintuan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat eliminated. Scan the next lane.",
+              "TL": "Banta naalis. Suriin ang susunod na daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clean kill. Be ready for the next one.",
+              "TL": "Malinis na patay. Maging handa sa kasunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed it. Keep listening.",
+              "TL": "Naibagsak ko na. Patuloy na makinig."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Combat Kill Killer Reaction Content",
+    "version": "1"
+  },
+  "version": 1
+}

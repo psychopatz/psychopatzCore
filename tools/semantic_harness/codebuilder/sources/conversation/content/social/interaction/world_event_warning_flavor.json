@@ -1,0 +1,273 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "content",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction Content",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.world_event.warning_flavor",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "The NPC snaps to attention and scans the area.",
+              "TL": "Biglang naging alerto ang NPC at sinuri ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC pauses and listens intently to distant noise.",
+              "TL": "Huminto ang NPC at taimtim na nakinig sa malayong ingay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC raises a hand to signal sudden awareness.",
+              "TL": "Itinaas ng NPC ang kamay bilang senyas ng biglaang pagka-alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC turns sharply toward the source of the disturbance.",
+              "TL": "Mabilis na lumingon ang NPC sa pinagmulan ng kaguluhan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A tense hush falls as the NPC monitors the perimeter.",
+              "TL": "Isang tensiyonadong katahimikan ang bumalot habang nagbabantay ang NPC."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC shifts their stance, ready to react.",
+              "TL": "Nagbago ng tindig ang NPC, handang rumesponde."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC points toward the horizon with furrowed brows.",
+              "TL": "Itinuro ng NPC ang abot-tanaw habang nakakunot ang noo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC squints into the distance, assessing the threat.",
+              "TL": "Nanliit ang mata ng NPC sa malayo, tinitimbang ang banta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC signals caution to everyone nearby.",
+              "TL": "Nagsenyas ng pag-iingat ang NPC sa lahat ng nasa malapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC's posture straightens instantly at the sound.",
+              "TL": "Agad na naituwid ang tindig ng NPC nang marinig ang tunog."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "The NPC motions for the others to stay close.",
+              "TL": "Sinenyasan ng NPC ang iba na manatiling malapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC places a protective hand out, urging allies to gather.",
+              "TL": "Inilahad ng NPC ang protektibong kamay, pinapalapit ang mga kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC steps forward to shield their companions from view.",
+              "TL": "Humakbang pasulong ang NPC upang harangan sa paningin ang mga kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC gives an urgent, reassuring glance to their partners.",
+              "TL": "Nagbigay ng mabilis at nakapagpapanatag na tingin ang NPC sa mga kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC whispers a quiet encouragement while staying watchful.",
+              "TL": "Bumulong ng pampalakas ng loob ang NPC habang nananatiling mapagmatyag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC gestures for the group to huddle together safely.",
+              "TL": "Nagsenyas ang NPC sa grupo na magsama-sama nang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC keeps one eye on the threat and one on their friends.",
+              "TL": "Bantay ng NPC ang banta habang tinitingnan din ang mga kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC gently pulls their ally behind solid cover.",
+              "TL": "Marahang hinila ng NPC ang kasama sa likod ng matibay na kublihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC nods determinedly to protect those nearby.",
+              "TL": "Determinado at matatag na tumango ang NPC para protektahan ang iba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC stays tightly flanked with their companions.",
+              "TL": "Nanatiling nakadikit ang NPC sa tabi ng mga kasama."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "The NPC jerks a warning gesture.",
+              "TL": "Biglang nagsenyas ng babala ang NPC."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A sharp signal cuts the air.",
+              "TL": "Isang mabilis na senyas ang pumunit sa hangin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC stiffens instantly.",
+              "TL": "Agad na nanigas ang NPC."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A hand shoots up in alarm.",
+              "TL": "Biglang itinaas ang kamay sa pagkaalarma."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC's head snaps toward the danger.",
+              "TL": "Mabilis na lumingon ang ulo ng NPC sa panganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A low hiss demands silence.",
+              "TL": "Isang mahinang pahiwatig ang humingi ng katahimikan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC drops into a crouch.",
+              "TL": "Bumaba sa pagkakayuko ang NPC."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A quick wave commands cover.",
+              "TL": "Isang mabilis na kumpas ang nag-utos na magtago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC draws their weapon in one motion.",
+              "TL": "Binunot ng NPC ang armas sa iisang kilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eyes wide, the NPC freezes.",
+              "TL": "Nanlalaki ang mata, tumigil ang NPC."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "The NPC stiffens and watches the approaches.",
+              "TL": "Nanigas ang NPC at binantayan ang mga posibleng lapitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC drops behind cover, weapon ready.",
+              "TL": "Bumaba sa kublihan ang NPC, handa ang armas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC checks their weapon chamber with a grim expression.",
+              "TL": "Tiningnan ng NPC ang karga ng armas na may madilim na mukha."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC scans every window and doorway with cold vigilance.",
+              "TL": "Sinuri ng NPC ang bawat bintana at pintuan nang may malamig na pag-iingat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC backs slowly into a defensive choke point.",
+              "TL": "Mabagal na umatras ang NPC sa isang depensibong posisyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC eyes their companions to ensure everyone is armed.",
+              "TL": "Tiningnan ng NPC ang mga kasama para tiyaking may armas ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A calculating glare fixes on the direction of the noise.",
+              "TL": "Isang mapanuring titig ang ibinaling sa direksyon ng ingay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC prepares for an immediate fight with grim resolve.",
+              "TL": "Naghahanda ang NPC sa agarang laban kalakip ang matinding kapasyahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC's posture turns deadly and guarded.",
+              "TL": "Naging mabangis at maingat ang tindig ng NPC."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The NPC remains motionless, waiting for the first sign of hostiles.",
+              "TL": "Nanatiling walang katinag-tinag ang NPC, naghihintay sa unang banta."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": []
+}

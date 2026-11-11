@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "Princeton WordNet",
+    "version": "3.0",
+    "url": "https://wordnetcode.princeton.edu/3.0/WordNet-3.0.tar.gz",
+    "license": "WordNet 3.0 license",
+    "expected_sha256": {
+      "index.verb": "c7c79b558d787f1e31c6f8b3eeadb8fcbb26a64545ecc1241e21d9b61f95ee8e",
+      "data.verb": "7fff397e93b4fb152fdaee116747cf1c40d7badedccb4b63f5503e8e962d9102",
+      "verb.exc": "dbbcf9a601b2d77e934e413b91d90e88ec7f933a8b77cfc00602a923b891b42c",
+      "LICENSE": "7731175a77952e259390b496fab905e57118b8d19ad3a8383c67eee724ff443f"
+    }
+  },
+  "concepts": {
+    "FETCH": {
+      "synsets": [
+        {"pos": "v", "offset": "01433294", "lemmas": ["bring", "fetch", "get"]},
+        {"pos": "v", "offset": "01433991", "lemmas": ["retrieve"]},
+        {"pos": "v", "offset": "01439190", "lemmas": ["grab", "take_hold_of"]},
+        {"pos": "v", "offset": "02305586", "lemmas": ["pick_up"]}
+      ]
+    },
+    "FOLLOW": {
+      "synsets": [
+        {"pos": "v", "offset": "01998432", "lemmas": ["follow"]}
+      ]
+    },
+    "STOP": {
+      "synsets": [
+        {"pos": "v", "offset": "02680814", "lemmas": ["discontinue", "cease", "quit"]}
+      ]
+    },
+    "GO": {
+      "synsets": [
+        {"pos": "v", "offset": "01835496", "lemmas": ["move", "locomote"]}
+      ]
+    },
+    "HAVE": {
+      "synsets": [
+        {"pos": "v", "offset": "02204692", "lemmas": ["own", "possess"]}
+      ]
+    },
+    "WANT": {
+      "synsets": [
+        {"pos": "v", "offset": "01825237", "lemmas": ["desire"]}
+      ]
+    },
+    "HELP": {
+      "synsets": [
+        {"pos": "v", "offset": "02547586", "lemmas": ["assist", "aid"]}
+      ]
+    },
+    "TAKE": {
+      "synsets": [
+        {"pos": "v", "offset": "01214265", "lemmas": ["get_hold_of"]}
+      ]
+    },
+    "THANK": {
+      "synsets": [
+        {"pos": "v", "offset": "00892315", "lemmas": ["thank", "give_thanks"]}
+      ]
+    },
+    "ACCEPT": {
+      "synsets": [
+        {"pos": "v", "offset": "00797697", "lemmas": ["consent", "go_for"]}
+      ]
+    },
+    "REFUSE": {
+      "synsets": [
+        {"pos": "v", "offset": "00797430", "lemmas": ["decline"]}
+      ]
+    },
+    "AGREE": {
+      "synsets": [
+        {"pos": "v", "offset": "00805376", "lemmas": ["concur", "concord"]}
+      ]
+    },
+    "ACKNOWLEDGE": {
+      "synsets": [
+        {"pos": "v", "offset": "01059123", "lemmas": ["notice"]}
+      ]
+    },
+    "DISAGREE": {
+      "synsets": [
+        {"pos": "v", "offset": "00804802", "lemmas": ["differ", "dissent"]}
+      ]
+    }
+  },
+  "excluded_forms": {
+    "FETCH": ["got", "gotten"]
+  }
+}

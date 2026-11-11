@@ -1,0 +1,273 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "content",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction Content",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.memory.acknowledge_flavor",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "The listener gives a small acknowledging nod.",
+              "TL": "Bahagyang tumango ang nakikinig bilang pagkilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener listens thoughtfully and nods.",
+              "TL": "Matiyagang nakikinig ang kausap at tumatango."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A steady nod shows the listener remembers.",
+              "TL": "Isang matatag na tango ang nagpapakitang naaalala niya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener absorbs the words and dips their head.",
+              "TL": "Inintindi ng nakikinig ang mga salita at bahagyang yumukod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener acknowledges the shared recollection quietly.",
+              "TL": "Tahimik na kinilala ng nakikinig ang pinagsaluhang alaala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A quiet look of recognition passes over the listener's face.",
+              "TL": "Isang tahimik na anyo ng pagkilala ang dumaan sa mukha ng nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener blinks slowly, recalling the moment.",
+              "TL": "Mabagal na kumurap ang nakikinig, inaalala ang sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener gives a calm, measured gesture of understanding.",
+              "TL": "Nagbigay ang nakikinig ng kalmado at maingat na senyas ng pagkaunawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A brief pause precedes an acknowledging nod.",
+              "TL": "Isang maikling paghinto ang nauna bago tumango bilang pagkilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener tilts their head in silent agreement.",
+              "TL": "Itinagilid ng nakikinig ang ulo bilang tahimik na pagsang-ayon."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "The listener softens and nods with quiet understanding.",
+              "TL": "Lumambot ang ekspresyon ng nakikinig at tahimik na tumango."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A faint, gentle smile touches the listener's lips.",
+              "TL": "Isang banayad na ngiti ang lumitaw sa labi ng nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener's eyes warm as the memory settles in.",
+              "TL": "Uminit ang mga mata ng nakikinig habang lumalalim ang alaala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener gives a warm, reassuring nod.",
+              "TL": "Nagbigay ang nakikinig ng mainit at nakapagpapanatag na tango."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A fond look washes over the listener's tired features.",
+              "TL": "Isang masuyong tingin ang dumaloy sa pagod na mukha ng nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener reaches out slightly, comforted by the recollection.",
+              "TL": "Bahagyang iniabot ng nakikinig ang kamay, gumaan ang loob sa alaala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A soft breath escapes the listener as they remember.",
+              "TL": "Isang marahang buntong-hininga ang pinakawalan ng nakikinig habang nagugunita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener's shoulders relax with affectionate recognition.",
+              "TL": "Lumuwag ang balikat ng nakikinig kalakip ang magiliw na pagkilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener nods warmly, visibly moved by the memory.",
+              "TL": "Mainit na tumango ang nakikinig, halatang naantig sa alaala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A quiet sense of camaraderie passes between them.",
+              "TL": "Isang tahimik na damdamin ng pagkakaibigan ang namagitan sa kanila."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "A brief nod follows.",
+              "TL": "Isang maikling tango ang sumunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A curt dip of the chin confirms it.",
+              "TL": "Maikling pagyuko ng baba ang kumumpirma."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener grunts in assent.",
+              "TL": "Umungol ang nakikinig bilang pagsang-ayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A sharp single nod.",
+              "TL": "Isang mabilis at iisang tango."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener barely shifts.",
+              "TL": "Halos hindi gumalaw ang nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eyes narrow briefly in recognition.",
+              "TL": "Sandaling nanliit ang mga mata sa pagkilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A quick jerk of the head acknowledges it.",
+              "TL": "Mabilis na paggalaw ng ulo ang kumilala roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener's jaw sets firmly.",
+              "TL": "Nadiin ang panga ng nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A momentary pause, nothing more.",
+              "TL": "Isang saglit na paghinto, wala nang iba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A flat nod ends the topic.",
+              "TL": "Isang malamig na tango ang nagtapos sa paksa."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "The listener gives a guarded nod.",
+              "TL": "Maingat na tumango ang nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener watches closely without revealing their thoughts.",
+              "TL": "Masusing nagmasid ang nakikinig nang walang inilalantad na iniisip."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A cautious look crosses the listener's eyes.",
+              "TL": "Isang maingat na tingin ang dumaan sa mga mata ng nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener stiffens slightly as the past is mentioned.",
+              "TL": "Bahagyang nanigas ang nakikinig nang mabanggit ang nakaraan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A slow, guarded nod shows the words were registered.",
+              "TL": "Isang mabagal at maingat na tango ang nagpahiwatig na narinig ang sinabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener's hand rests near their belt during the pause.",
+              "TL": "Nakalapag ang kamay ng nakikinig malapit sa sinturon sa sandaling iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener narrows their eyes, weighing the intent behind the words.",
+              "TL": "Nanliit ang mga mata ng nakikinig, tinitimbang ang layunin sa likod ng salita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A tight, reserved expression settles on the listener's face.",
+              "TL": "Isang mahigpit at maramdamang ekspresyon ang namutawi sa mukha ng nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener gives nothing away, nodding once carefully.",
+              "TL": "Walang ipinakitang emosyon ang nakikinig, isang maingat na tango lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The listener keeps their guard up while acknowledging the memory.",
+              "TL": "Nanatiling alerto ang nakikinig habang kinikilala ang alaala."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": []
+}

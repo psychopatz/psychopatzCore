@@ -1,0 +1,104 @@
+{
+  "cases": [
+    {
+      "expected": {
+        "commandAccepted": false,
+        "executionStatus": "rejected",
+        "lastKey": "semantic.command.follow.rejected",
+        "maxCompanionCommandTransportCount": 1,
+        "minActions": 1,
+        "minCompanionCommandTransportCount": 1,
+        "rejectionReason": "permission_denied"
+      },
+      "label": "Follow server-declared rejection EN",
+      "language": "EN",
+      "scenario": {
+        "runtime": {
+          "commandResponses": {
+            "follow": {
+              "accepted": false,
+              "reason": "permission_denied"
+            }
+          }
+        }
+      },
+      "utterance": "follow me"
+    },
+    {
+      "expected": {
+        "commandAccepted": false,
+        "executionStatus": "rejected",
+        "lastKey": "semantic.command.follow.rejected",
+        "maxCompanionCommandTransportCount": 1,
+        "maxFallbackLookups": 0,
+        "minActions": 1,
+        "minCompanionCommandTransportCount": 1,
+        "rejectionReason": "permission_denied",
+        "textContains": "Hindi kita masusundan ngayon."
+      },
+      "label": "Follow server-declared rejection TL",
+      "language": "TL",
+      "scenario": {
+        "runtime": {
+          "commandResponses": {
+            "follow": {
+              "accepted": false,
+              "reason": "permission_denied"
+            }
+          }
+        }
+      },
+      "utterance": "follow me"
+    },
+    {
+      "expected": {
+        "commandAccepted": false,
+        "executionStatus": "rejected",
+        "lastKey": "semantic.command.stay.rejected",
+        "maxCompanionCommandTransportCount": 1,
+        "minActions": 1,
+        "minCompanionCommandTransportCount": 1,
+        "rejectionReason": "permission_denied"
+      },
+      "label": "Stay server-declared rejection EN",
+      "language": "EN",
+      "scenario": {
+        "runtime": {
+          "commandResponses": {
+            "stay": {
+              "accepted": false,
+              "reason": "permission_denied"
+            }
+          }
+        }
+      },
+      "utterance": "wait here"
+    },
+    {
+      "expected": {
+        "commandAccepted": false,
+        "executionStatus": "rejected",
+        "lastKey": "semantic.command.stay.rejected",
+        "maxCompanionCommandTransportCount": 1,
+        "maxFallbackLookups": 0,
+        "minActions": 1,
+        "minCompanionCommandTransportCount": 1,
+        "rejectionReason": "permission_denied",
+        "textContains": "Hindi ako makapananatili rito ngayon."
+      },
+      "label": "Stay server-declared rejection TL",
+      "language": "TL",
+      "scenario": {
+        "runtime": {
+          "commandResponses": {
+            "stay": {
+              "accepted": false,
+              "reason": "permission_denied"
+            }
+          }
+        }
+      },
+      "utterance": "wait here"
+    }
+  ]
+}

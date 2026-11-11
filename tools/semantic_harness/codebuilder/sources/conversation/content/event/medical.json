@@ -1,0 +1,2194 @@
+{
+  "domain": "event",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.call.bandage",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm hurt and down! Need a bandage over here!",
+              "TL": "Sugatan ako at nakahandusay! Kailangan ko ng benda rito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Deep cut... I need a bandage now!",
+              "TL": "Malalim ang sugat... kailangan ko ng benda ngayon din!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't stop this wound alone! Bring a bandage!",
+              "TL": "Hindi ko mapatigil ang sugat nang mag-isa! Magdala ka ng benda!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Patch me up, please! I'm losing blood!",
+              "TL": "Bendahan mo ako, pakiusap! Nauubusan ako ng dugo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm down! Does anyone have a clean rag or bandage?!",
+              "TL": "Bagsak ako! May malinis ba kayong basahan o benda?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gash on my leg... need wrapping right now!",
+              "TL": "May hiwa sa binti ko... kailangang balutin ngayon din!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Help! I need these wounds dressed!",
+              "TL": "Tulong! Kailangang gamutin ang mga sugat na 'to!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm on the floor, bleeding! Get a bandage over here!",
+              "TL": "Nasa sahig ako, dumurugo! Dalhan mo ako ng benda rito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need a patch immediately! I'm grounded!",
+              "TL": "Kailangan ng panapal agad! Hindi ako makatayo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bandage, quick! I can't get up without one!",
+              "TL": "Benda, bilis! Hindi ako makakabangon kung wala 'yan!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.call.bleedout",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm bleeding out! I need a tourniquet or bandage now!",
+              "TL": "Nauubusan ako ng dugo! Kailangan ko ng benda ngayon din!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dying here! The blood won't stop flowing!",
+              "TL": "Nalalagutan ako ng hininga! Ayaw tumigil ng agos ng dugo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm losing too much blood... getting cold!",
+              "TL": "Masyadong maraming dugo ang nawawala... nilalamig na ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hit an artery! Put pressure on this right now!",
+              "TL": "Tinamaan ang ugat! Diinan mo 'to ngayon din!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Everything's going dark... stop the bleeding, please!",
+              "TL": "Dumidilim ang paningin ko... patigilin mo ang dugo, pakiusap!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm bleeding through my clothes! Help me!",
+              "TL": "Bumabaon ang dugo sa damit ko! Tulungan mo ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blood everywhere... please, I don't want to die here!",
+              "TL": "Nagkalat ang dugo... pakiusap, ayaw kong mamatay rito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Losing consciousness... plug this wound!",
+              "TL": "Nawawalan ako ng malay... tapalan mo ang sugat na 'to!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hurry! I'm bleeding out on the dirt!",
+              "TL": "Bilis! Nauubusan ako ng dugo sa lupa!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't feel my fingers... stop the blood!",
+              "TL": "Hindi ko na maramdaman ang daliri ko... patigilin ang dugo!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.call.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm down! I need help over here!",
+              "TL": "Bagsak ako! Kailangan ko ng tulong dito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't stand! Someone help me up!",
+              "TL": "Hindi ako makatayo! Tulungan niyo akong makatayo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm hit! Get over here!",
+              "TL": "Tinamaan ako! Halika rito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need medical attention immediately!",
+              "TL": "Kailangan ko ng agarang panggagamot!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down and helpless! Don't leave me!",
+              "TL": "Bagsak at walang laban! Huwag niyo akong iwan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I took a bad fall! Help me!",
+              "TL": "Napasama ang bagsak ko! Tulungan mo ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't get back on my feet! Help!",
+              "TL": "Hindi ako makabangon! Tulong!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hurt bad! Over here, please!",
+              "TL": "Malubha ang tama ko! Dito, pakiusap!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm down on the ground! Need a hand!",
+              "TL": "Nasa sahig ako! Pasaklolo naman!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Injured and stranded! Come help!",
+              "TL": "Sugatan at nastranded! Tulungan niyo ako!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.call.dehydration",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "So thirsty... I need water before I pass out.",
+              "TL": "Uhaw na uhaw na ako... kailangan ko ng tubig bago ako mahimatay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Throat is completely parched... please, any water?",
+              "TL": "Tuyong-tuyo na ang lalamunan ko... pakiusap, may tubig ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drying out... can barely swallow. Water, please.",
+              "TL": "Nanghihina sa uhaw... halos hindi makalunok. Tubig, pakiusap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm too dehydrated to move my legs. Water...",
+              "TL": "Masyado akong dehydrated para maigalaw ang binti ko. Tubig..."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me a sip of water... dying of thirst.",
+              "TL": "Pahingi ng kahit kaunting tubig... mamamatay na ako sa uhaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lips are cracked and bleeding... need clean water.",
+              "TL": "Nangangapal at nagdurugo ang labi ko... kailangan ng malinis na tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't walk anymore... please bring a water bottle.",
+              "TL": "Hindi na makalakad... pakiusap dalhan mo ako ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Head is pounding from dehydration... need a drink.",
+              "TL": "Pumipintig ang ulo ko sa uhaw... kailangang uminom."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm collapsing... just a few drops of water.",
+              "TL": "Bumabagsak na ako... kahit ilang patak lang ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Water... please, someone hand me water.",
+              "TL": "Tubig... pakiusap, bigyan niyo ako ng tubig."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.call.exhaustion",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Pushed too far. I can't lift my arms.",
+              "TL": "Nasobrahan ako. Hindi ko na maitaas ang mga braso ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Completely spent... give me a moment to recover.",
+              "TL": "Ubos na ubos na ang lakas ko... bigyan mo ako ng saglit para makabawi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Legs gave out beneath me. Need to sit.",
+              "TL": "Bumigay ang mga binti ko. Kailangan kong umupo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't move another step. Total exhaustion.",
+              "TL": "Hindi na makakahakbang pa. Sagad na pagod na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Breathing hurts. I need rest right now.",
+              "TL": "Masakit huminga. Kailangan ko ng pahinga ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Collapsed from fatigue... give me five minutes.",
+              "TL": "Bumagsak sa matinding pagod... bigyan mo ako ng limang minuto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Muscles are locking up. Can't stand.",
+              "TL": "Naninigas na ang kalamnan ko. Hindi makatayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have nothing left in the tank. Need a break.",
+              "TL": "Wala nang natitirang lakas. Kailangan ng pahinga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Vision is swimming from exhaustion. Give me time.",
+              "TL": "Umiikot ang paningin ko sa pagod. Bigyan mo ako ng oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Body won't respond... let me rest a second.",
+              "TL": "Ayaw nang gumalaw ng katawan ko... pahingahin mo muna ako."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.call.mercy",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm down! Please, don't kill me!",
+              "TL": "Bagsak na ako! Pakiusap, huwag mo akong patayin!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Mercy, please! I'm completely unarmed!",
+              "TL": "Maawa ka, pakiusap! Wala akong sandata!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't shoot! I'm already defeated!",
+              "TL": "Huwag kang puputok! Talo na ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please let me live! I surrender!",
+              "TL": "Pakiusap buhayin mo ako! Sumusuko na ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Spare me, please! I have nothing left!",
+              "TL": "Patawarin mo ako, pakiusap! Wala nang natira sa akin!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I beg you... don't finish me off!",
+              "TL": "Nagmamakaawa ako sa'yo... huwag mo akong tapusin!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I yield! Don't strike again!",
+              "TL": "Suko na ako! Huwag ka nang humataw ulit!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Show mercy! I'm bleeding out on the floor!",
+              "TL": "Maawa ka! Nauubusan na ako ng dugo sa sahig!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't hurt me anymore, please!",
+              "TL": "Huwag mo na akong saktan pa, pakiusap!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Have a heart... let me survive this.",
+              "TL": "Maawa ka naman... hayaan mo akong mabuhay."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.call.rescue",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm trapped here! I need help over here!",
+              "TL": "Naipit ako rito! Kailangan ko ng tulong dito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't move on my own! Pull me out!",
+              "TL": "Hindi ako makagalaw mag-isa! Hilahin mo ako palabas!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pinned down and injured! Come get me!",
+              "TL": "Naiipit at sugatan! Halika kunin mo ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Over here! Don't leave me stranded!",
+              "TL": "Dito! Huwag niyo akong iwang nastranded!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm stuck behind rubble! Need someone to clear it!",
+              "TL": "Naipit ako sa likod ng guho! May kailangang mag-alis nito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't crawl any further! Help me!",
+              "TL": "Hindi na ako makagapang pa! Tulungan mo ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm over here, behind cover! Pull me back!",
+              "TL": "Nandito ako sa kublihan! Hilahin mo ako pabalik!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rescue me, please! They're getting closer!",
+              "TL": "Saklolohan mo ako, pakiusap! Papalapit na sila!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I need extraction! Can't walk out of here!",
+              "TL": "Kailangan ko ng tulong makalabas! Hindi ako makakalakad!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Help me get out! My leg is broken!",
+              "TL": "Tulungan mo akong makalabas! Bali ang binti ko!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.call.starvation",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Haven't eaten in days... I'm starving to death.",
+              "TL": "Ilang araw nang hindi kumakain... namamatay na ako sa gutom."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too weak from hunger to stand up. Food, please.",
+              "TL": "Masyadong nanghihina sa gutom para makatayo. Pagkain, pakiusap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stomach is eating itself... any crumbs left?",
+              "TL": "Kumakalam na ang sikmura ko... may natira pa bang mumo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Starving... can't even hold my weapon.",
+              "TL": "Gutom na gutom... hindi ko man lang mahawakan ang sandata ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please, just a bite of anything edible.",
+              "TL": "Pakiusap, kahit isang kagat lang ng anumang makakain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fainting from lack of calories. I need food.",
+              "TL": "Nahihiya sa kawalan ng pagkain. Kailangan ko ng makakain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hunger cramps are tearing me apart. Help me.",
+              "TL": "Pinupulikat ang tiyan ko sa gutom. Tulungan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't go on like this without food in my belly.",
+              "TL": "Hindi ko na kayang magpatuloy nang walang laman ang tiyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Empty for days... please bring me something to eat.",
+              "TL": "Ilang araw nang walang laman... dalhan mo ako ng makakain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Starving on the floor... spare a ration, please.",
+              "TL": "Nagugutom sa sahig... magbahagi naman ng rasyon, pakiusap."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I need help with this wound.",
+              "TL": "Kailangan ko ng tulong sa sugat na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hurting pretty badly here. Need aid.",
+              "TL": "Medyo malala ang tama ko rito. Kailangan ng gamot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got injured. Can someone look at this?",
+              "TL": "Nasugatan ako. May makakatingin ba nito?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need medical attention before this gets worse.",
+              "TL": "Kailangan ng panggagamot bago lumala 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wound is throbbing. I need a hand.",
+              "TL": "Pumipintig ang sugat. Kailangan ko ng saklolo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Took some damage. Could use first aid.",
+              "TL": "Nasaktan ako. Kailangan ko ng first aid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This cut is nasty. Help me clean it.",
+              "TL": "Marumi ang hiwa na 'to. Tulungan mo akong linisin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm in pain here. Need medical supplies.",
+              "TL": "Nasasaktan ako rito. Kailangan ko ng gamot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Injured and slowing down. Need treatment.",
+              "TL": "Sugatan at bumabagal na. Kailangan ng lunas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got banged up pretty good. Help me patch up.",
+              "TL": "Nabugbog ako nang husto. Tulungan mo akong magbenda."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.mercy",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Please. I need help with this wound, don't let me die.",
+              "TL": "Pakiusap. Tulungan mo ako sa sugat na 'to, huwag mo akong hayaang mamatay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Have mercy on me... patch me up, please.",
+              "TL": "Maawa ka sa akin... bendahan mo ako, pakiusap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't survive this cut without your mercy.",
+              "TL": "Hindi ako mabubuhay sa hiwang 'to kung wala ang awa mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please help... I'm begging for aid.",
+              "TL": "Pakiusap tulungan mo ako... nagmamakaawa ako sa lunas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't leave me to bleed out like an animal.",
+              "TL": "Huwag mo akong iwang maubusan ng dugo na parang hayop."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Show some kindness. This wound is killing me.",
+              "TL": "Magpakita ka ng kabutihan. Pinapatay ako ng sugat na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please, just dress the wound. That's all I ask.",
+              "TL": "Pakiusap, gamutin lang ang sugat. 'Yon lang ang hinihiling ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm at your mercy. Help stop this pain.",
+              "TL": "Nasa awa mo ako. Tulungan mong matigil ang sakit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Spare my life and treat this injury, please.",
+              "TL": "Iligtas mo ang buhay ko at gamutin 'tong pinsala, pakiusap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have so much to live for... please help me.",
+              "TL": "Marami pa akong dahilan para mabuhay... tulungan mo ako."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.repeat.bandage",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I still need these wounds patched! Hurry!",
+              "TL": "Kailangan ko pa ring mabendahan ang sugat na 'to! Bilis!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where's that bandage?! Still bleeding out here!",
+              "TL": "Nasaan na 'yung benda?! Dumurugo pa rin ako rito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't forget about me! I need a wrap now!",
+              "TL": "Huwag niyo akong kalimutan! Kailangan ko ng benda ngayon!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still waiting on that bandage! It's soaking through!",
+              "TL": "Naghihintay pa rin ako sa benda! Bumababad na ang dugo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please, hurry with the bandages! I'm fading!",
+              "TL": "Pakiusap, bilisan ang benda! Nanghihina na ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I asked for a bandage! Did you find one?!",
+              "TL": "Humihingi ako ng benda! May nahanap ka ba?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wound is still open! Bring the dressing over!",
+              "TL": "Bukas pa rin ang sugat! Dalhin mo na ang pambenda!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can someone please patch me up already?!",
+              "TL": "May magbe-benda ba sa akin ngayon din?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blood is still pooling! Get that bandage on me!",
+              "TL": "Nag-iipon pa rin ang dugo! Ilagay mo na ang benda sa akin!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still bleeding here! Hurry with the cloth!",
+              "TL": "Dumurugo pa rin ako rito! Bilisan mo ang tela!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.repeat.bleedout",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am still losing blood! Please, help me!",
+              "TL": "Nauubusan pa rin ako ng dugo! Pakiusap, tulungan mo ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pressure isn't working! The bleeding won't stop!",
+              "TL": "Hindi gumagana ang diin! Ayaw tumigil ng pagdurugo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't have much time left... blood is gushing!",
+              "TL": "Wala na akong gaanong oras... bumubuhos ang dugo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hurry, damn it! I'm going to bleed to death!",
+              "TL": "Bilisan mo naman! Mamamatay na ako sa pagdurugo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "My pulse is getting weak... stop the bleed!",
+              "TL": "Humihina na ang pulso ko... patigilin ang pagdurugo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still bleeding out! Don't let me die on this floor!",
+              "TL": "Nauubusan pa rin ng dugo! Huwag mo akong hayaang mamatay sa sahig!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm freezing cold from blood loss... hurry!",
+              "TL": "Giniginaw na ako sa nawalang dugo... bilisan mo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blood won't clot! I need immediate help!",
+              "TL": "Ayaw mamuo ng dugo! Kailangan ko ng agarang tulong!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Everything is fading... stop the bleeding, please!",
+              "TL": "Naglalaho ang lahat... patigilin mo ang dugo, pakiusap!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hurry up! I can't hold my own artery closed!",
+              "TL": "Bilisan mo! Hindi ko kayang pigilin ang ugat ko nang mag-isa!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.repeat.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm not up yet. Please help me.",
+              "TL": "Hindi pa ako nakakabangon. Pakiusap tulungan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still down here! Don't leave me behind!",
+              "TL": "Nandito pa rin ako sa sahig! Huwag mo akong iwan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I still need assistance to get on my feet.",
+              "TL": "Kailangan ko pa rin ng tulong para makatayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can someone help me up? Still grounded.",
+              "TL": "May tutulong ba sa aking tumayo? Bagsak pa rin ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm still incapacitated! Come over here!",
+              "TL": "Hindi pa rin ako makakilos! Pumunta ka rito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still hurting, still stuck. Give me a hand.",
+              "TL": "Masakit pa rin, naipit pa rin. Tulungan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't moved an inch. Need someone to help.",
+              "TL": "Hindi pa ako nakakagalaw kahit kaunti. Kailangan ng tulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please, I'm still on the ground waiting.",
+              "TL": "Pakiusap, nasa lupa pa rin ako at naghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still can't stand. Don't forget I'm down.",
+              "TL": "Hindi pa rin makatayo. Huwag mong kalimutang bagsak ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm still here! Help me up already!",
+              "TL": "Nandito pa rin ako! Tulungan mo na akong tumayo!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.repeat.dehydration",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I still need water to recover. My throat is on fire.",
+              "TL": "Kailangan ko pa rin ng tubig para makabawi. Parang may apoy sa lalamunan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still dying of thirst... did you find any bottle?",
+              "TL": "Mamamatay pa rin sa uhaw... may nahanap ka bang bote?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Water, please! I can't take this parched feeling.",
+              "TL": "Tubig, pakiusap! Hindi ko na makayanan ang matinding uhaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I asked for water... please tell me you have some.",
+              "TL": "Humihingi ako ng tubig... sabihin mong may dala ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tongue feels like sandpaper. Bring water quickly.",
+              "TL": "Parang liha ang dila ko. Magdala ka ng tubig agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still completely dehydrated. I can't stand up like this.",
+              "TL": "Dehydrated pa rin ako. Hindi ako makakatayo nang ganito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Water... I'm begging you, just one cup.",
+              "TL": "Tubig... nagmamakaawa ako, kahit isang baso lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still dry as bone. Please bring hydration.",
+              "TL": "Tuyot pa rin ako. Pakiusap dalhan mo ako ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't recover without liquids. Help me.",
+              "TL": "Hindi ako makakabawi nang walang inumin. Tulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still waiting for a drink... head is pounding.",
+              "TL": "Naghihintay pa rin ng maiinom... sumasakit ang ulo ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.repeat.exhaustion",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I still need a little more time to recover.",
+              "TL": "Kailangan ko pa ng kaunting oras para makabawi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't rush this. My muscles are completely dead.",
+              "TL": "Hindi pwedeng madaliin. Patay na ang lakas ng kalamnan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still catching my breath. Give me another minute.",
+              "TL": "Hinihingal pa rin ako. Bigyan mo pa ako ng isang minuto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Body won't budge yet. Just a bit more rest.",
+              "TL": "Ayaw pang gumalaw ng katawan ko. Kaunting pahinga pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still wiped out. Don't force me to stand yet.",
+              "TL": "Ubos pa rin ako. Huwag mo muna akong piliting tumayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heart is still racing. Need more time sitting down.",
+              "TL": "Mabilis pa rin ang kabog ng dibdib ko. Kailangan pang umupo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not ready to move yet. Fatigue is overwhelming.",
+              "TL": "Hindi pa handang kumilos. Masyadong mabigat ang pagod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me another thirty seconds... almost there.",
+              "TL": "Bigyan mo pa ako ng tatlumpung segundo... malapit na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still completely spent. Let my legs rest.",
+              "TL": "Sagad pa rin ang pagod. Pahingahin mo muna ang mga binti ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't run yet. Need a little more recovery.",
+              "TL": "Hindi pa makakatakbo. Kailangan pa ng kaunting lakas."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.repeat.mercy",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am still asking you to spare me. Please.",
+              "TL": "Hinihiling ko pa rin na buhayin mo ako. Pakiusap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please don't change your mind... let me live.",
+              "TL": "Pakiusap huwag magbago ang isip mo... hayaan mo akong mabuhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm still begging for mercy. Don't shoot.",
+              "TL": "Nagmamakaawa pa rin ako sa awa. Huwag kang bumaril."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Show mercy once more. I mean you no harm.",
+              "TL": "Maawa ka pa ulit. Wala akong masamang balak sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am defenseless. Please keep your weapon down.",
+              "TL": "Wala akong laban. Pakiusap ibaba mo ang sandata mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't finish me off. I surrender completely.",
+              "TL": "Huwag mo akong tapusin. Sumusuko ako nang buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still pleading for my life. Have pity on me.",
+              "TL": "Nagmamakaawa pa rin para sa buhay ko. Kaawaan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please... I just want to survive.",
+              "TL": "Pakiusap... gusto ko lang mabuhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm at your feet. Spare me, I beg you.",
+              "TL": "Nasa paanan mo na ako. Huwag mo akong patayin, nagmamakaawa ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't execute me. Let me crawl away.",
+              "TL": "Huwag mo akong patayin. Hayaan mo akong gumapang palayo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.repeat.rescue",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am still down here! Do not leave me!",
+              "TL": "Nandito pa rin ako sa sahig! Huwag niyo akong iwan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't abandon me! Come back and pull me out!",
+              "TL": "Huwag niyo akong iwanan! Bumalik kayo at hilahin ako palabas!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still trapped in this spot! Need someone here!",
+              "TL": "Naipit pa rin sa pwestong 'to! Kailangan ko ng tao rito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where are you going?! I can't walk!",
+              "TL": "Saan ka pupunta?! Hindi ako makalakad!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please come back! I'm completely stranded!",
+              "TL": "Pakiusap bumalik ka! Nastranded ako nang buo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't walk away from my cries! Help me!",
+              "TL": "Huwag mong talikuran ang tawag ko! Tulungan mo ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still stuck under this weight! Lift it off!",
+              "TL": "Naipit pa rin sa bigat na 'to! Buhatin mo 'to!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm still here! Get me out before they find me!",
+              "TL": "Nandito pa rin ako! Ilabas mo ako bago nila ako makita!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rescue me, damn it! I can't drag myself!",
+              "TL": "Saklolohan mo ako! Hindi ko kayang kaladkarin ang sarili ko!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't leave me behind to rot! Come back!",
+              "TL": "Huwag mo akong iwang mabulok dito! Bumalik ka!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.repeat.starvation",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I still need something to eat. I'm fading fast.",
+              "TL": "Kailangan ko pa rin ng makakain. Mabilis akong nanghihina."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still starving... any canned food, anything?",
+              "TL": "Gutom na gutom pa rin... kahit anong de-lata, kahit ano?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't recover without calories. Bring food, please.",
+              "TL": "Hindi makakabawi nang walang laman ang tiyan. Magdala ka ng pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stomach pains won't stop. I need nourishment.",
+              "TL": "Ayaw tumigil ng sakit ng tiyan ko. Kailangan ko ng pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still starving to the bone. Did you find a ration?",
+              "TL": "Gutom na gutom pa rin hanggang buto. May nahanap ka bang rasyon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please hurry with some food. I'm too dizzy to stand.",
+              "TL": "Pakiusap bilisan ang pagkain. Nahihilo na ako para makatayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hunger is unbearable now. Help me.",
+              "TL": "Hindi na makayanan ang gutom. Tulungan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still haven't eaten. Don't let me starve on this floor.",
+              "TL": "Wala pa ring kinakain. Huwag mo akong hayaang magutom sa sahig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need a meal to get back on my feet.",
+              "TL": "Kailangan ko ng makakain para makatayo ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still empty... please, just a cracker or some beans.",
+              "TL": "Walang laman pa rin... kahit biskwit o kaunting beans lang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.teammate.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "They are hurt! Stay with them while I cover you.",
+              "TL": "Nasaktan sila! Samahan mo sila habang binabantayan ko kayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Our companion is down! Tend to them, I've got guard.",
+              "TL": "Bagsak ang kasama natin! Gamutin mo, babantayan ko kayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're injured! Get them patched up while I watch.",
+              "TL": "Sugatan sila! Bendahan mo habang nagmamasid ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check on them right now! I'll hold off the threats.",
+              "TL": "Tignan mo sila ngayon din! Haharangin ko ang mga kalaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They took a hit! See to their wounds, I'm watching.",
+              "TL": "Tinamaan sila! Tingnan mo ang sugat nila, nakabantay ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Partner is wounded! Apply first aid, I've got your back.",
+              "TL": "Sugatan ang kasama! Maglapat ng first aid, hawak ko likod niyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're bleeding! Patch them while I keep perimeter.",
+              "TL": "Dumurugo sila! Gamutin mo habang binabantayan ko ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Help them up! I'll keep the lane clear.",
+              "TL": "Tulungan mo silang tumayo! Lilinisin ko ang daanan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They need attention! Administer aid, I'll protect you both.",
+              "TL": "Kailangan nila ng lunas! Gamutin mo, poprotektahan ko kayong dalawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Our friend is hurt! Help them, I'm standing sentry.",
+              "TL": "Nasaktan ang kaibigan natin! Tulungan mo sila, nakabantay ako."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.teammate.found",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I found a bandage for them. Hold still while I patch them up.",
+              "TL": "Nakahanap ako ng benda para sa kanila. Huwag kang gagalaw habang ginagamot ko sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got a dressing right here. Wrapping the wound now.",
+              "TL": "May pambenda ako rito. Binabalot ko na ang sugat ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Found medical supplies! Hold on, I'm dressing the injury.",
+              "TL": "Nakahanap ako ng gamot! Kapit lang, ginagamot ko na ang pinsala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've got clean cloth. Hold steady while I bind it.",
+              "TL": "May malinis akong tela. Manatiling nakapirmi habang itinatali ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Located a bandage. Applying pressure to their cut now.",
+              "TL": "May nahanap na benda. Dinidiinan ko na ang hiwa nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've got medical wrap. Don't squirm, I'm securing it.",
+              "TL": "May medical wrap ako. Huwag kang pumalag, inaayos ko na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Found supplies for them. Wrapping it up tightly now.",
+              "TL": "May nahanap na gamit para sa kanila. Binabalot ko na nang mahigpit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got the bandage ready. Applying it to the laceration.",
+              "TL": "Handa na ang benda. Nilalapat ko na sa sugat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have aid gear. Hold still, you'll be stable in a minute.",
+              "TL": "May gamit ako rito. Huwag gagalaw, magiging maayos ka rin agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bandage in hand! Dressing their wounds right now.",
+              "TL": "Hawak ko na ang benda! Ginagamot ko na ang mga sugat nila."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.teammate.missing",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am out of bandages! Can someone spare one for them?",
+              "TL": "Naubusan ako ng benda! May makakapagbahagi ba ng isa para sa kanila?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "No more medical cloth! Does anyone have a bandage?!",
+              "TL": "Wala nang telang panggamot! May benda ba ang kahit sino sa inyo?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "My pack is empty of dressings! Help them, quick!",
+              "TL": "Walang laman ang bag ko para sa benda! Tulungan niyo sila, bilis!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't treat this wound without supplies! Check your packs!",
+              "TL": "Hindi ko magagamot ang sugat na 'to nang walang gamit! Tignan ang mga bag niyo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're out of first aid! Who has a clean rag?!",
+              "TL": "Wala na tayong first aid! Sino may malinis na basahan?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't have what I need to stop their bleeding! Find supplies!",
+              "TL": "Wala sa akin ang kailangan para mapatigil ang dugo nila! Maghanap ng gamit!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Zero bandages left! Someone hand me medical gear!",
+              "TL": "Ubos na ang benda! May mag-abot sa akin ng panggamot!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm empty-handed! We need bandages for our friend now!",
+              "TL": "Wala akong hawak! Kailangan natin ng benda para sa kaibigan natin ngayon din!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "No antiseptic, no bandages. Search the drawers, fast!",
+              "TL": "Walang antiseptic, walang benda. Maghalughog sa mga drawer, bilis!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't patch them up alone! Who has medical tools?!",
+              "TL": "Hindi ko sila kayang gamutin mag-isa! Sino may kagamitang medikal?!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.treatment.bandage",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "The wound is treated. I can move when you are ready.",
+              "TL": "Nagamot na ang sugat. Makakakilos na ako kapag handa ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bandaged up tight. Good to go when you are.",
+              "TL": "Nabendahan nang mahigpit. Handa nang umalis kapag handa ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bleeding has stopped. Ready to step out.",
+              "TL": "Tumigil na ang dugo. Handa nang lumabas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dressings are secure. I can walk now.",
+              "TL": "Ligtas na ang benda. Makakalakad na ako ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That did the trick. I'm back on my feet.",
+              "TL": "Bumisa 'yon. Nakatayo na ulit ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wrapped up properly. Lead on.",
+              "TL": "Nabalot na nang maayos. Manguna ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wound is stabilized. Ready for your call.",
+              "TL": "Maayos na ang sugat. Handa sa utos mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bandage is holding. Let's get moving.",
+              "TL": "Kumakapit ang benda. Kilos na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cleanly wrapped. I'm ready to follow.",
+              "TL": "Malinis na nabalutan. Handa na akong sumunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All patched up. Let's hit the road.",
+              "TL": "Maayos na ang lahat. Tara na sa daan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.treatment.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Thank you. That treatment helped.",
+              "TL": "Salamat. Malaking tulong ang panggagamot na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Feeling much better. I appreciate the aid.",
+              "TL": "Medyo maayos na pakiramdam ko. Salamat sa tulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Much better now. Thank you for patching me up.",
+              "TL": "Mas maayos na ngayon. Salamat sa paggamot sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pain is subsiding. Thanks for taking care of it.",
+              "TL": "Humuhupa na ang sakit. Salamat sa pag-asikaso no'n."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good work on that treatment. I'm indebted to you.",
+              "TL": "Magaling ang panggagamot mo. May utang na loob ako sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That took the edge off. Thank you.",
+              "TL": "Nabawasan ang kirot. Salamat sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can function again. Thanks for the quick aid.",
+              "TL": "Makakagalaw na ulit ako. Salamat sa mabilis na lunas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate the medical help. I owe you one.",
+              "TL": "Salamat sa tulong medikal. May utang ako sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks, that helped a lot. Ready to move.",
+              "TL": "Salamat, malaking tulong 'yon. Handa nang kumilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You saved my skin with that aid. Thank you.",
+              "TL": "Iniligtas mo ang buhay ko sa lunas na 'yon. Maraming salamat."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.update.bandage",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am still down and waiting for a patch.",
+              "TL": "Nasa sahig pa rin ako at naghihintay ng benda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still on the floor. Where is that bandage?",
+              "TL": "Nasa sahig pa rin. Nasaan na 'yung benda?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wound is still unbandaged. Need it wrapped soon.",
+              "TL": "Wala pa ring benda ang sugat. Kailangang balutin na agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still waiting for someone to bind this cut.",
+              "TL": "Naghihintay pa rin ng magtatali sa hiwang 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blood is still seeping through. Need that wrap.",
+              "TL": "Tumutulo pa rin ang dugo. Kailangan ko ng pambalot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still grounded until these wounds get dressed.",
+              "TL": "Bagsak pa rin hangga't hindi nagagamot ang mga sugat na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Waiting on clean cloth. Can't stand like this.",
+              "TL": "Naghihintay ng malinis na tela. Hindi makatayo nang ganito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still down here waiting for first aid.",
+              "TL": "Nandito pa rin sa sahig at naghihintay ng first aid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unpatched and bleeding. Please hurry.",
+              "TL": "Walang benda at dumurugo. Pakiusap bilisan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still need that dressing applied. Don't delay.",
+              "TL": "Kailangan pa ring ilapat ang pambenda. Huwag patagalin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.update.bleedout",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "The bleeding has not stopped. I still need a bandage.",
+              "TL": "Hindi pa tumitigil ang dugo. Kailangan ko pa rin ng benda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still hemorrhaging. I need pressure and a wrap immediately.",
+              "TL": "Patuloy pa ring umaagos ang dugo. Kailangan ng diin at benda agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bleeding is continuing. I'm getting lightheaded.",
+              "TL": "Dumurugo pa rin. Nahihilo na ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blood is still flowing. Please get that bandage on me.",
+              "TL": "Umaagos pa rin ang dugo. Pakiusap lagyan mo na ako ng benda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hasn't stopped bleeding yet. Running out of time.",
+              "TL": "Hindi pa rin humihinto ang pagdurugo. Nauubusan na ako ng oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still losing red. My clothes are soaked.",
+              "TL": "Nauubusan pa rin ng dugo. Babad na ang damit ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The wound won't seal itself. Need a dressing now.",
+              "TL": "Hindi kusang magsasara ang sugat. Kailangan ng benda ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still bleeding steadily. Hurry up with the aid.",
+              "TL": "Tuloy-tuloy pa rin ang pagdurugo. Bilisan mo ang tulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Losing blood by the second. Please hurry.",
+              "TL": "Bawat segundo nauubusan ako ng dugo. Pakiusap magmadali ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The cut won't stop bleeding. Wrap it, please.",
+              "TL": "Ayaw tumigil ng pagdurugo ng hiwa. Balutin mo na, pakiusap."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.update.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am still down. I still need help.",
+              "TL": "Bagsak pa rin ako. Kailangan ko pa rin ng tulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still incapacitated on the ground. Please assist.",
+              "TL": "Hindi pa rin makakilos sa lupa. Pakiusap tulungan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't recovered yet. Still need a hand.",
+              "TL": "Hindi pa nakakabawi. Kailangan pa rin ng saklolo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still down here. Don't leave me alone.",
+              "TL": "Nandito pa rin sa sahig. Huwag mo akong iwang mag-isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Status unchanged: still injured and waiting.",
+              "TL": "Walang pagbabago: sugatan pa rin at naghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still grounded. I need someone to help me up.",
+              "TL": "Bagsak pa rin. Kailangan ko ng tutulong sa akin makatayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't move on my own yet. Still need aid.",
+              "TL": "Hindi pa makagalaw mag-isa. Kailangan pa rin ng lunas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still unable to stand. Waiting for help.",
+              "TL": "Hindi pa rin makatayo. Naghihintay ng tulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm still down in the dirt. Please assist me.",
+              "TL": "Nasa lupa pa rin ako. Pakiusap saklolohan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still waiting for support. Don't forget me.",
+              "TL": "Naghihintay pa rin ng suporta. Huwag mo akong kalimutan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.update.dehydration",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I still need water before I can move.",
+              "TL": "Kailangan ko pa rin ng tubig bago makakilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thirst is still crippling me. Bring hydration.",
+              "TL": "Pinapahirapan pa rin ako ng uhaw. Magdala ka ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't stand until I drink something clean.",
+              "TL": "Hindi makakatayo hangga't hindi umiinom ng malinis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still parched and dizzy. Where is the water?",
+              "TL": "Tuyot at nahihilo pa rin. Nasaan na ang tubig?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dehydration hasn't improved. I need fluids now.",
+              "TL": "Hindi pa gumagaling ang dehydration. Kailangan ko ng inumin ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still desperately thirsty. Bring a bottle over.",
+              "TL": "Uhaw na uhaw pa rin ako. Dalhin mo ang bote rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Throat is still locked up dry. Need water.",
+              "TL": "Nakatuyot pa rin ang lalamunan ko. Kailangan ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't make progress without hydration. Help me.",
+              "TL": "Hindi makakausad nang walang tubig. Tulungan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still waiting on that drink. Feeling very weak.",
+              "TL": "Naghihintay pa rin sa inumin. Sobrang nanghihina na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need fluids before my legs will work again.",
+              "TL": "Kailangan ng inumin bago gumana ulit ang mga binti ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.update.exhaustion",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I still need time to recover my strength.",
+              "TL": "Kailangan ko pa ng oras para manumbalik ang lakas ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stamina is still drained. Catching my breath.",
+              "TL": "Ubos pa rin ang stamina. Humihinga pa rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still exhausted. Give me a little more time.",
+              "TL": "Pagod na pagod pa rin. Bigyan mo pa ako ng kaunting oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Muscles are still aching. Recovering slowly.",
+              "TL": "Kumikirot pa rin ang kalamnan. Dahan-dahang nagpapagaling."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lungs still burning from running. Give me a moment.",
+              "TL": "Nasusunog pa rin ang baga sa pagtakbo. Bigyan mo ako ng saglit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fatigue hasn't cleared yet. Still resting here.",
+              "TL": "Hindi pa humuhupa ang pagod. Nagpapahinga pa rin dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Energy is very low. Still need a few breaths.",
+              "TL": "Napakababa pa ng lakas. Kailangan pa ng ilang malalalim na hininga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Legs are still shaking from exhaustion. Give me time.",
+              "TL": "Nanginginig pa rin ang mga binti sa pagod. Bigyan mo ako ng oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still spent. Don't rush me to run again.",
+              "TL": "Ubos pa rin. Huwag mo akong apurahin tumakbo ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Recharging my stamina. Just a little longer.",
+              "TL": "Nagpapalakas ulit. Kaunti na lang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.update.mercy",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am still down. Please do not finish me.",
+              "TL": "Bagsak pa rin ako. Pakiusap huwag mo akong tapusin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still helpless here. Spare my life, please.",
+              "TL": "Walang laban pa rin dito. Buhayin mo ako, pakiusap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm still no threat to you. Please have mercy.",
+              "TL": "Wala pa rin akong banta sa'yo. Pakiusap maawa ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still begging for survival. Don't hurt me.",
+              "TL": "Nagmamakaawa pa rin para mabuhay. Huwag mo akong saktan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Plea remains: spare me and let me crawl away.",
+              "TL": "Hiling ko pa rin: buhayin mo ako at hayaang gumapang palayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I surrender completely. Please do not execute me.",
+              "TL": "Sumusuko ako nang buo. Pakiusap huwag mo akong patayin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still at your mercy. Please keep that weapon away.",
+              "TL": "Nasa awa mo pa rin ako. Pakiusap ilayo mo ang sandata na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have surrendered. Don't strike a downed person.",
+              "TL": "Sumuko na ako. Huwag kang manakit ng taong nakahandusay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please honor your mercy. Don't kill me.",
+              "TL": "Pakiusap tuparin mo ang awa mo. Huwag mo akong patayin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still alive, still pleading. Let me survive this.",
+              "TL": "Buhay pa, nagmamakaawa pa rin. Hayaan mo akong makaraos dito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.update.rescue",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am still here. Please come back for me.",
+              "TL": "Nandito pa rin ako. Pakiusap balikan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still trapped in place. Waiting for your rescue.",
+              "TL": "Naipit pa rin sa pwesto. Naghihintay sa saklolo mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't leave me stranded! I'm still where you left me.",
+              "TL": "Huwag mo akong iwang nastranded! Nandito pa rin ako sa iniwanan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still cannot walk out alone. Come help me.",
+              "TL": "Hindi pa rin makalabas nang mag-isa. Halika tulungan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Waiting on rescue here. Hurry before dead arrive.",
+              "TL": "Naghihintay ng saklolo rito. Bilisan mo bago dumating ang mga patay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still pinned down. Please extract me.",
+              "TL": "Naiipit pa rin. Pakiusap hilahin mo ako palabas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't forget me here! Still need someone to pull me out.",
+              "TL": "Huwag mo akong kalimutan dito! Kailangan pa rin ng maghihila sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Status unchanged: trapped and waiting for assistance.",
+              "TL": "Walang pagbabago: naipit at naghihintay ng saklolo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still waiting for someone to drag me to safety.",
+              "TL": "Naghihintay pa rin ng hihila sa akin sa ligtas na lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm still right here. Please don't leave me behind.",
+              "TL": "Nandito lang ako. Pakiusap huwag mo akong iwan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.update.starvation",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I still need food before I can get up.",
+              "TL": "Kailangan ko pa rin ng pagkain bago makatayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Starvation is worsening. Did you find anything edible?",
+              "TL": "Lumalala ang gutom ko. May nahanap ka bang makakain?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still too weak from hunger to stand.",
+              "TL": "Nanghihina pa rin sa gutom para makatayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't move on an empty stomach. Bring food.",
+              "TL": "Hindi makakilos nang walang laman ang tiyan. Dalhan mo ako ng pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still starving on the floor. Please bring a ration.",
+              "TL": "Nagugutom pa rin sa sahig. Pakiusap dalhan mo ako ng rasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Body needs calories right now. I'm fading.",
+              "TL": "Kailangan ng katawan ng pagkain ngayon din. Nanghihina na ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still waiting for a meal. Stomach cramps are brutal.",
+              "TL": "Naghihintay pa rin ng pagkain. Matindi ang pulikat ng tiyan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't regain strength without food. Help me.",
+              "TL": "Hindi maibabalik ang lakas nang walang pagkain. Tulungan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still starving here. Any can of beans or soup?",
+              "TL": "Gutom pa rin ako rito. May de-latang beans ba o sabaw?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need nourishment before I can take a step.",
+              "TL": "Kailangan ko ng makakain bago ako makahakbang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.urgent",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am hurt! I need help now!",
+              "TL": "Sugatan ako! Kailangan ko ng tulong ngayon na!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Emergency! I need immediate medical attention!",
+              "TL": "Kagipitan! Kailangan ko ng agarang gamot ngayon din!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hit bad! Come over here right now!",
+              "TL": "Grabe ang tama ko! Halika rito ngayon din!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Urgent! I'm bleeding and falling down!",
+              "TL": "Apurahan! Dumurugo ako at bumabagsak!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I need aid this second! Hurry!",
+              "TL": "Kailangan ko ng gamot sa segundong ito! Bilis!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Severe injury! Drop what you're doing and help me!",
+              "TL": "Malubhang pinsala! Bitawan ang ginagawa mo at tulungan mo ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't last long without treatment! Now!",
+              "TL": "Hindi ako magtatagal nang walang gamot! Ngayon na!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Critical wound! Bandage me now!",
+              "TL": "Kritikal na sugat! Bendahan mo ako ngayon din!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm going down hard! Medic, help me!",
+              "TL": "Bumabagsak na ako! Saklolo, tulungan mo ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Urgent distress! Someone patch me up right now!",
+              "TL": "Apurahang saklolo! May magbenda sa akin ngayon din!"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

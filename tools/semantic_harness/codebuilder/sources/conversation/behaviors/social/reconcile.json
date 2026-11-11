@@ -1,0 +1,67 @@
+{
+  "behaviors": [
+    {
+      "act": "RECONCILE",
+      "baseRelevance": 0.6,
+      "id": "behavior.reconcile",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.15,
+          "reason": "relationship_recoverable",
+          "when": {
+            "op": "gte",
+            "path": "relationship.approval",
+            "value": -20
+          }
+        },
+        {
+          "delta": -0.2,
+          "reason": "low_forgiveness",
+          "when": {
+            "op": "lt",
+            "path": "actor.disposition.forgiveness",
+            "value": 0.35
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.social.apology.friendly",
+          "dialogueAct": "RECONCILE"
+        }
+      },
+      "owner": "ProjectHoomans",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "all": [
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "APOLOGIZE"
+          },
+          {
+            "path": "pragmatic.contextualAdmission.admitted",
+            "op": "truthy"
+          }
+        ]
+      }
+    }
+  ],
+  "domain": "social",
+  "kind": "behaviors",
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1"
+  },
+  "version": 1
+}

@@ -1,0 +1,1289 @@
+{
+  "domain": "navigation",
+  "groups": {
+    "navigation": {
+      "contentOwner": "projecthoomans.dialogue_content.navigation"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "navigation",
+      "semanticTemplateID": "semantic.navigation.camp",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Where do you want to risk it?",
+              "TL": "Saan mo gustong makipagsapalaran?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Which spot are you eyeing? Better be defendable.",
+              "TL": "Aling pwesto ang tinitignan mo? Dapat kayang depensahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Make sure it has more than one exit.",
+              "TL": "Siguraduhing may higit sa isang labasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where do you want to hole up? Don't pick a trap.",
+              "TL": "Saan mo gustong magtago? Huwag sa bitag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Which site? I don't want us cornered.",
+              "TL": "Aling lugar? Ayaw kong maipit tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pick carefully. A bad camp gets us killed.",
+              "TL": "Pumili nang maigi. Ang maling kampo ay ikamamatay natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where? I need to see the choke points first.",
+              "TL": "Saan? Kailangan kong makita ang mga harang muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where are you planning to bed down? Watch the perimeter.",
+              "TL": "Saan mo balak matulog? Bantayan ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Show me where. I'll inspect the sightlines.",
+              "TL": "Ituro mo kung saan. Susuriin ko ang tanawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where? We need high ground or solid barricades.",
+              "TL": "Saan? Kailangan natin ng mataas na lugar o matatag na barikada."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Where should we set up?",
+              "TL": "Saan tayo pupuwesto?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Which location are you considering for camp?",
+              "TL": "Aling lokasyon ang iniisip mo para sa kampo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where do you want to establish our rest site?",
+              "TL": "Saan mo gustong itayo ang pahingahan natin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where are we making camp today?",
+              "TL": "Saan tayo magtatayo ng kampo ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Point out the spot you have in mind.",
+              "TL": "Ituro mo ang pwestong nasa isip mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where should we pitch our camp?",
+              "TL": "Saan natin ilalatag ang kampo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Which area looks suitable for stopping?",
+              "TL": "Aling lugar ang mukhang angkop para huminto?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where do you want to place the campsite?",
+              "TL": "Saan mo gustong ilagay ang campsite?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tell me where you want to settle down.",
+              "TL": "Sabihin mo kung saan mo gustong tumigil."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where are we setting our base for the night?",
+              "TL": "Saan natin itatayo ang base natin para sa gabi?"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Where?",
+              "TL": "Saan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Which spot?",
+              "TL": "Aling pwesto?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Camp where?",
+              "TL": "Saan magkakampo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Location?",
+              "TL": "Lokasyon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Point it out.",
+              "TL": "Ituro mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Which site?",
+              "TL": "Aling lugar?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where to?",
+              "TL": "Saan papunta?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Name the spot.",
+              "TL": "Pangalanan ang pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where at?",
+              "TL": "Saan banda?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Show me.",
+              "TL": "Ipakita mo."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Where should we set up camp?",
+              "TL": "Saan tayo magtatayo ng kampo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where would you like us to settle down, friend?",
+              "TL": "Saan mo gustong huminto tayo, kaibigan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Found a cozy spot for us to rest?",
+              "TL": "May nahanap ka bang maaliwalas na lugar para makapagpahinga?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where shall we make our camp today?",
+              "TL": "Saan natin gagawin ang kampo natin ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm happy to camp wherever you feel safe.",
+              "TL": "Masaya akong magkampo kahit saan basta ligtas ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lead on to our camp spot. I'm right with you.",
+              "TL": "Manguna ka sa campsite natin. Kasama mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where do you think we can rest easy tonight?",
+              "TL": "Saan sa tingin mo tayo makakapagpahinga nang mapayapa ngayong gabi?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Any spot you choose works for me.",
+              "TL": "Kahit anong pwestong piliin mo, ayos sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's find somewhere warm and secure to camp.",
+              "TL": "Maghanap tayo ng maaliwalas at ligtas na lugar para magkampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where would you like to put down our packs?",
+              "TL": "Saan mo gustong ibaba ang mga gamit natin?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "navigation",
+      "semanticTemplateID": "semantic.navigation.camp_empty",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "There is nowhere safe to set up here.",
+              "TL": "Walang ligtas na mapagpuwestuhan dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This place is wide open. We'd get slaughtered.",
+              "TL": "Masyadong lantad ang lugar na 'to. Papaslangin tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No cover, no defenses. We can't stay here.",
+              "TL": "Walang kublihan, walang depensa. Hindi tayo pwedeng manatili rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't camp in this death trap. Move on.",
+              "TL": "Hindi ako magkakampo sa bitag na 'to. Lakad pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Zero security here. We'd be sitting ducks.",
+              "TL": "Walang kaligtasan dito. Magiging madaling target tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not a single defensible corner. Keep walking.",
+              "TL": "Wala man lang madedepensahang sulok. Tuloy sa paglakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sleeping here is suicide. Find real shelter.",
+              "TL": "Pagpapatiwakal ang pagtulog dito. Maghanap ng tunay na silungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing here keeps the dead out. No camp.",
+              "TL": "Walang haharang sa mga patay dito. Walang kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too exposed. I refuse to rest here.",
+              "TL": "Masyadong lantad. Ayaw kong magpahinga rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nowhere to hide if a horde passes. Move.",
+              "TL": "Walang matataguan kapag dumaan ang kuyog. Kilos."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I don't see a good place to set up here.",
+              "TL": "Wala akong nakikitang magandang mapagpuwestuhan dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This area lacks suitable spots for a camp.",
+              "TL": "Kulang ang lugar na 'to sa maayos na pwesto para sa kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nowhere practical to establish camp around here.",
+              "TL": "Walang praktikal na mapagtatayuan ng kampo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We should look elsewhere. No good campsites here.",
+              "TL": "Dapat tayong maghanap sa iba. Walang magandang campsite dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Doesn't look like we can camp in this vicinity.",
+              "TL": "Mukhang hindi tayo makakapagkampo sa lugar na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There are no secure structures or clear ground here.",
+              "TL": "Walang ligtas na gusali o maayos na lupa rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't find a decent place to bed down here.",
+              "TL": "Walang makitang maayos na mahihigaan dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No campsite available here. Let's keep searching.",
+              "TL": "Walang campsite dito. Patuloy tayong maghanap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This location isn't viable for setting up camp.",
+              "TL": "Hindi angkop ang lokasyong 'to para magtayo ng kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing suitable nearby. We need to move on.",
+              "TL": "Walang angkop sa malapit. Kailangan nating magpatuloy."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "No good place here.",
+              "TL": "Walang magandang puwesto rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing here.",
+              "TL": "Wala rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unsuitable.",
+              "TL": "Hindi pwede."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't camp here.",
+              "TL": "Hindi pwedeng magkampo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No spots.",
+              "TL": "Walang pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too bare.",
+              "TL": "Masyadong hubad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nowhere to rest.",
+              "TL": "Walang mapagpapahingahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Move on.",
+              "TL": "Lakad pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not here.",
+              "TL": "Huwag dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bad ground.",
+              "TL": "Pangit ang pwesto."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I don't see a safe place to set up here.",
+              "TL": "Wala akong nakikitang ligtas na mapagpuwestuhan dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'd rather find us a warmer, safer spot than this.",
+              "TL": "Mas gusto kong humanap tayo ng mas komportable at ligtas na lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing comfortable or secure around here, I'm afraid.",
+              "TL": "Walang komportable o ligtas dito, sa kasamaang palad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's keep looking. You deserve a better resting spot.",
+              "TL": "Maghanap pa tayo. Karapat-dapat ka sa mas magandang pahingahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This area doesn't feel right for us. Let's walk a bit more.",
+              "TL": "Hindi maganda ang pakiramdam ko sa lugar na 'to. Lakad pa tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can do better than this place. Let's find real shelter.",
+              "TL": "Makakahanap pa tayo ng mas maayos kaysa rito. Maghanap tayo ng maayos na bubong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I want us both safe tonight. No good camp here.",
+              "TL": "Gusto kong ligtas tayong dalawa ngayong gabi. Walang magandang kampo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's find somewhere cozy before we stop.",
+              "TL": "Maghanap tayo ng mas maaliwalas bago huminto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't think we'd get any peaceful sleep here.",
+              "TL": "Sa tingin ko hindi tayo makakatulog nang mahimbing dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Come on, let's look further ahead for a proper camp.",
+              "TL": "Halika, maghanap tayo sa unahan para sa totoong kampo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "navigation",
+      "semanticTemplateID": "semantic.navigation.default",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "All right. What now?",
+              "TL": "Sige. Ano ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What is it? Keep it short.",
+              "TL": "Ano 'yon? Iklian mo lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Make it quick. We're exposed.",
+              "TL": "Bilisan mo. Lantad tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What do you want? Eyes open.",
+              "TL": "Ano'ng kailangan mo? Buksan ang mata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Speak up, but don't draw attention.",
+              "TL": "Magsalita ka, pero huwag kang mag-ingay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's on your mind? Watch the street.",
+              "TL": "Ano'ng iniisip mo? Bantayan ang kalsada."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What now? We can't linger here.",
+              "TL": "Ano ngayon? Hindi tayo pwedeng tumambay rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm listening, but keep scanning.",
+              "TL": "Nakikinig ako, pero patuloy na magmasid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "State your business quickly.",
+              "TL": "Sabihin mo agad ang kailangan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What is it? Trouble?",
+              "TL": "Ano 'yon? May gulo ba?"
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right. What would you like to discuss?",
+              "TL": "Sige. Ano ang gusto mong pag-usapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm listening. What did you want to talk about?",
+              "TL": "Nakikinig ako. Ano ang gusto mong pag-usapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's on your mind?",
+              "TL": "Ano'ng nasa isip mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Go ahead. What do you need to discuss?",
+              "TL": "Sige lang. Ano ang kailangang pag-usapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm here. What would you like to say?",
+              "TL": "Nandito ako. Ano ang gusto mong sabihin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What are you thinking?",
+              "TL": "Ano'ng iniisip mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready when you are. What's up?",
+              "TL": "Handa na ako. Ano'ng meron?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes? What did you want to bring up?",
+              "TL": "Oo? Ano ang gusto mong talakayin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have a moment. What is it?",
+              "TL": "May sandali ako. Ano 'yon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure, what's on your mind?",
+              "TL": "Sige, ano'ng nasa isip mo?"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "What is it?",
+              "TL": "Ano?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes?",
+              "TL": "Oo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Speak.",
+              "TL": "Salita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What?",
+              "TL": "Ano 'yon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Go on.",
+              "TL": "Sige."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Listening.",
+              "TL": "Nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's up?",
+              "TL": "Ano meron?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Say it.",
+              "TL": "Sabihin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Make it quick.",
+              "TL": "Bilisan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Talk.",
+              "TL": "Usap."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Sure. What would you like to discuss?",
+              "TL": "Sige. Ano ang gusto mong pag-usapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always glad to talk with you. What's on your mind?",
+              "TL": "Laging masayang makausap ka. Ano'ng nasa isip mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm all ears. What did you want to share?",
+              "TL": "Nakikinig ako nang buo. Ano'ng gusto mong ibahagi?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take your time. What would you like to discuss?",
+              "TL": "Huwag kang magmadali. Ano ang gusto mong pag-usapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to chat. What's going on?",
+              "TL": "Masayang makipagkwentuhan. Ano'ng nangyayari?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to talk to you. What's on your heart?",
+              "TL": "Mabuting makausap ka. Ano'ng nilalaman ng puso mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm right here with you. What did you need?",
+              "TL": "Nandito lang ako kasama mo. Ano'ng kailangan mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Whatever you need to talk about, I'm listening.",
+              "TL": "Kahit ano'ng gusto mong pag-usapan, nakikinig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing. What did you want to talk through?",
+              "TL": "Walang anuman. Ano ang gusto mong linawin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's always nice catching up with you. What is it?",
+              "TL": "Laging magandang kamustahin ka. Ano 'yon?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "navigation",
+      "semanticTemplateID": "semantic.navigation.orders",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "All right. What is it?",
+              "TL": "Sige. Ano iyon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What order? Keep it realistic.",
+              "TL": "Anong utos? Siguraduhing makatwiran."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What do you want me to do? Nothing reckless.",
+              "TL": "Ano'ng gusto mong gawin ko? Huwag mapusok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give the order, but watch my back.",
+              "TL": "Ibigay ang utos, pero bantayan mo likod ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's the directive? Make it sensible.",
+              "TL": "Ano'ng direktiba? Gawing may kabuluhan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm listening to commands, but I judge safety.",
+              "TL": "Nakikinig ako sa utos, pero ako ang humahatol sa kaligtasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What do you need done? Don't waste my time.",
+              "TL": "Ano'ng kailangang gawin? Huwag sayangin ang oras ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "State the command quickly.",
+              "TL": "Sabihin ang utos agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's the plan? Don't get us trapped.",
+              "TL": "Ano'ng plano? Huwag tayong ipitin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What are your orders?",
+              "TL": "Ano ang mga utos mo?"
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right. What do you need?",
+              "TL": "Sige. Ano ang kailangan mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What are your orders?",
+              "TL": "Ano ang mga utos mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm ready for instructions. What should I do?",
+              "TL": "Handa na ako sa tagubilin. Ano'ng dapat kong gawin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What do you need me to handle?",
+              "TL": "Ano ang kailangan mong asikasuhin ko?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me the task.",
+              "TL": "Ibigay mo sa akin ang gawain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What are our next steps?",
+              "TL": "Ano ang susunod nating mga hakbang?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Standing by for orders.",
+              "TL": "Nakaabang sa mga utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What would you like me to do next?",
+              "TL": "Ano ang gusto mong gawin ko susunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tell me what needs doing.",
+              "TL": "Sabihin mo kung ano ang kailangang gawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Awaiting your directive.",
+              "TL": "Naghihintay sa tagubilin mo."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "What do you need?",
+              "TL": "Ano ang kailangan mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Orders?",
+              "TL": "Mga utos?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Command?",
+              "TL": "Utos?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Directive?",
+              "TL": "Tagubilin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's next?",
+              "TL": "Ano'ng susunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Task?",
+              "TL": "Gawain?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Say the word.",
+              "TL": "Sabihin mo lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What now?",
+              "TL": "Ano ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Instructions?",
+              "TL": "Mga bilin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give order.",
+              "TL": "Mag-utos ka."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Sure. What do you need?",
+              "TL": "Sige. Ano ang kailangan mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Whatever you need, I'm glad to help.",
+              "TL": "Kahit ano'ng kailangan mo, masaya akong tumulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just tell me what to do and I'll see to it.",
+              "TL": "Sabihin mo lang kung ano'ng gagawin at ako na ang bahala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready to work together. What's the plan?",
+              "TL": "Handang magtulungan. Ano'ng plano?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What would you like me to take care of?",
+              "TL": "Ano ang gusto mong asikasuhin ko?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always happy to lend a hand. What's the task?",
+              "TL": "Laging handang tumulong. Ano'ng gawain?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tell me how I can help you right now.",
+              "TL": "Sabihin mo kung paano ako makakatulong sa'yo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm with you all the way. What do you need?",
+              "TL": "Kasama mo ako sa lahat. Ano'ng kailangan mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to follow your lead. What's next?",
+              "TL": "Masayang sumunod sa pamumuno mo. Ano'ng susunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me a job and I'll do my best.",
+              "TL": "Bigyan mo ako ng gawain at gagawin ko ang makakaya ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "navigation",
+      "semanticTemplateID": "semantic.navigation.subject_change",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "All right. What is it?",
+              "TL": "Sige. Ano iyon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Changing topics? Fine, make it quick.",
+              "TL": "Ibang usapan? Sige, bilisan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What else do you want to bring up?",
+              "TL": "Ano pa ang gusto mong banggitin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Switching subjects. What now?",
+              "TL": "Lilipat ng paksa. Ano ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Go ahead, but keep your head on a swivel.",
+              "TL": "Sige lang, pero patuloy na magmatyag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Different topic? Keep it relevant to surviving.",
+              "TL": "Ibang paksa? Siguraduhing may kinalaman sa kaligtasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What else? We don't have all day.",
+              "TL": "Ano pa? Wala tayong buong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Say what you need to say.",
+              "TL": "Sabihin mo ang dapat mong sabihin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "New subject? What is it?",
+              "TL": "Bagong usapan? Ano 'yon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Listening, but don't waste time.",
+              "TL": "Nakikinig ako, pero huwag mag-aksaya ng oras."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right. What did you want to talk about?",
+              "TL": "Sige. Ano ang gusto mong pag-usapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure, what else did you want to discuss?",
+              "TL": "Sige, ano pa ang gusto mong pag-usapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Changing subject. What's on your mind?",
+              "TL": "Paglipat ng usapan. Ano'ng nasa isip mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What other topic would you like to cover?",
+              "TL": "Anong iba pang paksa ang gusto mong talakayin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm open. What did you want to talk about next?",
+              "TL": "Bukas ako. Ano'ng gusto mong pag-usapan kasunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. What else is on your mind?",
+              "TL": "Naintindihan ko. Ano pa ang nasa isip mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Switching gears. What's the next matter?",
+              "TL": "Lilipat tayo ng usapan. Ano'ng susunod na bagay?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Go ahead with what you wanted to say.",
+              "TL": "Sige lang sa kung ano ang gusto mong sabihin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing. What did you want to bring up?",
+              "TL": "Walang anuman. Ano ang gusto mong talakayin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's the next topic?",
+              "TL": "Ano ang susunod na paksa?"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "What else?",
+              "TL": "Ano pa?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Next topic?",
+              "TL": "Susunod na paksa?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What now?",
+              "TL": "Ano ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Go on.",
+              "TL": "Sige."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Different topic?",
+              "TL": "Ibang usapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What is it?",
+              "TL": "Ano 'yon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Speak.",
+              "TL": "Salita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Next?",
+              "TL": "Susunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Listening.",
+              "TL": "Nakikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Say it.",
+              "TL": "Sabihin mo."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Sure. What did you want to talk about?",
+              "TL": "Sige. Ano ang gusto mong pag-usapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'd love to chat about whatever you like.",
+              "TL": "Gusto kong makipag-usap tungkol sa kahit anong naisin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What else would you like to talk through, friend?",
+              "TL": "Ano pa ang gusto mong pag-usapan natin, kaibigan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always happy to hear what's on your mind.",
+              "TL": "Laging masayang marinig kung ano'ng nasa isip mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing! What other thoughts do you have?",
+              "TL": "Oo naman! Ano pa ang mga iniisip mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take your time. What should we talk about next?",
+              "TL": "Huwag magmadali. Ano'ng susunod nating pag-uusapan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm glad to discuss whatever matters to you.",
+              "TL": "Masaya akong pag-usapan ang anumang mahalaga sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Go right ahead, I'm listening closely.",
+              "TL": "Sige lang, nakikinig ako nang mabuti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What else is on your heart today?",
+              "TL": "Ano pa ang nasa puso mo ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm right here with you. What's next?",
+              "TL": "Nandito lang ako kasama mo. Ano'ng susunod?"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

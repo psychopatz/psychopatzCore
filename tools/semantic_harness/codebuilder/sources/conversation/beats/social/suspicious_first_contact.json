@@ -1,0 +1,79 @@
+{
+  "beats": [
+    {
+      "baseRelevance": 0.55,
+      "candidates": [
+        {
+          "behavior": "behavior.challenge",
+          "relevance": 0.6
+        },
+        {
+          "behavior": "behavior.warn",
+          "relevance": 0.45
+        },
+        {
+          "behavior": "behavior.deescalate",
+          "relevance": 0.35
+        }
+      ],
+      "cooldownTurns": 2,
+      "entry": {
+        "all": [
+          {
+            "op": "truthy",
+            "path": "scene.firstContact"
+          },
+          {
+            "op": "lte",
+            "path": "relationship.familiarity",
+            "value": 0
+          },
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "GREET"
+          }
+        ]
+      },
+      "exit": {
+        "any": [
+          {
+            "op": "gte",
+            "path": "beat.turnsInBeat",
+            "value": 3
+          },
+          {
+            "op": "truthy",
+            "path": "scene.ended"
+          },
+          {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        ]
+      },
+      "group": "beat_group.social_primary",
+      "id": "beat.suspicious_first_contact",
+      "maintain": {
+        "op": "falsy",
+        "path": "scene.ended"
+      },
+      "maxTurns": 3,
+      "owner": "ProjectHoomans",
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1
+    }
+  ],
+  "domain": "social",
+  "kind": "beats",
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1"
+  },
+  "version": 1
+}

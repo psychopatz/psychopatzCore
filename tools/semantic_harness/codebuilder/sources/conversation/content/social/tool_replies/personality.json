@@ -1,0 +1,154 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.personality.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is just how I am wired.",
+              "TL": "Ganyan talaga ang pagkakagawa sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take me or leave me, that is who I am.",
+              "TL": "Tanggapin mo man o hindi, 'yan talaga ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have always been like this. It keeps me alive.",
+              "TL": "Matagal na akong ganito. Nakatulong 'to para mabuhay ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not going to apologize for how I operate.",
+              "TL": "Hindi ako hihingi ng tawad sa kung paano ako kumilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Everyone is built differently out here.",
+              "TL": "Iba-iba ang hubog ng bawat isa rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It is what it is. I am not changing overnight.",
+              "TL": "Ganoon talaga. Hindi ako magbabago nang biglaan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is just my nature.",
+              "TL": "Kaugalian ko na talaga 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am too old to pretend to be someone else.",
+              "TL": "Masyado na akong matanda para magpanggap na iba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Like it or not, this is me.",
+              "TL": "Gusto mo man o hindi, ako ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I do things my own way. Has not failed me yet.",
+              "TL": "Kanya-kanyang diskarte. Hindi pa naman ako binibigo nito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.personality.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "The world changed. I changed with it.",
+              "TL": "Nagbago ang mundo. Nagbago rin ako kasabay nito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You adapt or you end up dead. This is who I had to become.",
+              "TL": "Makibagay ka o mamamatay ka. Ito ang kinailangan kong kahinatnan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Survival hardens people. I am no exception.",
+              "TL": "Nagpapatigas ng loob ang kaligtasan. Hindi ako naiiba roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I used to be different before all this fell apart.",
+              "TL": "Iba ako dati bago gumuho ang lahat ng ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You learn to live with who you become out here.",
+              "TL": "Matututo kang mamuhay kasama ang taong kinahinatnan mo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This world does not leave much room for soft edges.",
+              "TL": "Walang puwang sa mundong ito ang labis na lambot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I became what I needed to be to see tomorrow.",
+              "TL": "Naging kung ano ang kinailangan para makita ang bukas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We are all shaped by what we had to survive.",
+              "TL": "Nahubog tayong lahat sa mga pinagdaanan nating hirap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hard times make hard survivors.",
+              "TL": "Ang mahihirap na panahon ay gumagawa ng matitibay na tao."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I did what I had to. It made me who I am now.",
+              "TL": "Ginawa ko ang kinailangan. Iyon ang bumuo sa akin ngayon."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

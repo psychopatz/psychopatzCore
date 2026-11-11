@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.insult.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Is that supposed to bother me?",
+              "TL": "Iniisip mo bang maaapektuhan ako riyan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You will have to do better than that.",
+              "TL": "Kailangan mong galingan kaysa riyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have heard worse from better people.",
+              "TL": "Nakarining na ako ng mas masakit sa mas matitinong tao."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That did not even scratch me.",
+              "TL": "Ni hindi ako nagasgasan sa sinabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save your breath. It does not work.",
+              "TL": "Huwag mong sayangin ang laway mo. Walang talab 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Is that the best you can come up with?",
+              "TL": "Iyan na ba ang pinakamagaling na kaya mong sabihin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Weak. Try harder next time.",
+              "TL": "Mahina. Pagbutihin mo sa susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Words do not hurt out here. Bullets do.",
+              "TL": "Hindi nakakasakit ang salita rito. Ang bala ang nakakamatay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You think that gets under my skin? Think again.",
+              "TL": "Akala mo ba tatablan ako niyan? Mag-isip ka ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not impressed.",
+              "TL": "Hindi ako humanga."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.insult.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You are barking up the wrong tree.",
+              "TL": "Maling tao ang binabangga mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are picking a fight you cannot win.",
+              "TL": "Naghahanap ka ng away na hindi mo kayang ipanalo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You really picked the wrong person to cross.",
+              "TL": "Maling-mali ang taong napili mong galitin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Careful. You are playing with someone who will bite back.",
+              "TL": "Mag-ingat ka. Lalaban ang binabangga mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You do not know who you are dealing with.",
+              "TL": "Hindi mo alam kung sino ang kaharap mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wrong move, friend.",
+              "TL": "Maling diskarte 'yan, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are treading on thin ice.",
+              "TL": "Nasa napakanipis kang yelo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pick on someone else. I am not the one.",
+              "TL": "Humanap ka ng iba. Hindi ako ang papayag sa ganyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You made a very bad choice just now.",
+              "TL": "Napakasama ng naging desisyon mo ngayon lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are pushing someone who does not back down.",
+              "TL": "Itinutulak mo ang taong hindi umaatras."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.insult.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Save your breath.",
+              "TL": "Huwag mong sayangin ang laway mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not worth my time.",
+              "TL": "Hindi sulit ang oras ko sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done talking to you.",
+              "TL": "Tapos na akong makipag-usap sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are wasting both our time.",
+              "TL": "Sinasayang mo lang ang oras nating dalawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am not wasting oxygen on you.",
+              "TL": "Hindi ako magsasayang ng hangin para sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Walk away before you say something worse.",
+              "TL": "Umalis ka na bago ka pa makapagsalita ng mas masama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I do not have time for childish games.",
+              "TL": "Wala akong panahon sa pambatang laro."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep it to yourself.",
+              "TL": "Itago mo na lang sa sarili mo 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Whatever. Get lost.",
+              "TL": "Bahala ka. Lumayas ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have real survival to worry about. Shut up.",
+              "TL": "May tunay akong kaligtasan na dapat asikasuhin. Manahimik ka."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

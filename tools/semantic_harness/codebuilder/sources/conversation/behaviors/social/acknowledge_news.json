@@ -1,0 +1,40 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "behaviors",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "behaviors": [
+    {
+      "id": "behavior.acknowledge_news",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "ACKNOWLEDGE_NEWS",
+      "mode": "one_shot",
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "ACKNOWLEDGE",
+          "contentTemplateID": "semantic.interaction.news.acknowledge"
+        },
+        "emote": {
+          "id": "emote.nod"
+        }
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "SHARE_NEWS"
+      },
+      "baseRelevance": 0.55,
+      "modifiers": []
+    }
+  ]
+}

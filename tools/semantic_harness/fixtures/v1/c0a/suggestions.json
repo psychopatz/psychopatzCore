@@ -1,0 +1,45 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "c0a.suggestions",
+  "cases": [
+    {
+      "id": "c0a.suggestions.greeting",
+      "tags": ["c0a", "suggestions"],
+      "turns": [
+        {
+          "text": "hello there",
+          "expect": {
+            "ir.intent": "GREET",
+            "response.exists": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.suggestions.time_reply",
+      "tags": ["c0a", "suggestions", "time"],
+      "turns": [
+        {
+          "text": "what time is it",
+          "expect": {
+            "ir.subject": "TIME",
+            "response.exists": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.suggestions.hostility_reply",
+      "tags": ["c0a", "suggestions", "hostility"],
+      "turns": [
+        {
+          "text": "fuck you",
+          "expect": {
+            "ir.intent": "INSULT",
+            "dispatchTransport": { "count": 0 }
+          }
+        }
+      ]
+    }
+  ]
+}

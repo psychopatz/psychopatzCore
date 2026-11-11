@@ -1,0 +1,307 @@
+{
+  "externalReferences": {
+    "patternIDs": [
+      "pnc.question.activity",
+      "pnc.question.date",
+      "pnc.question.health.are_you_hurt",
+      "pnc.question.identity",
+      "pnc.question.needs_offer_plain",
+      "pnc.question.time",
+      "pnc.question.weather",
+      "pnc.question.wellbeing_feeling",
+      "pnc.question.wellbeing_follow_up_what_is_wrong",
+      "pnc.social.gossip_event",
+      "pnc.question.identity.nickname",
+      "pnc.question.identity.surname",
+      "pnc.question.identity.faction"
+    ]
+  },
+  "schema": "pnc.conversation.manifest.v1",
+  "defaultOwner": "ProjectHoomans",
+  "registryOwner": "ProjectHoomans",
+  "shards": [
+    {
+      "domain": "greeting",
+      "kind": "content",
+      "order": 1200,
+      "path": "content/greeting.json"
+    },
+    {
+      "domain": "social",
+      "kind": "content",
+      "order": 1301,
+      "path": "content/social/reactions.json"
+    },
+    {
+      "domain": "conversation",
+      "kind": "content",
+      "order": 1310,
+      "path": "content/conversation.json"
+    },
+    {
+      "domain": "apology",
+      "kind": "content",
+      "order": 1320,
+      "path": "content/social_apology.json"
+    },
+    {
+      "domain": "health",
+      "kind": "content",
+      "order": 1330,
+      "path": "content/health.json"
+    },
+    {
+      "domain": "knowledge",
+      "kind": "content",
+      "order": 1340,
+      "path": "content/knowledge.json"
+    },
+    {
+      "domain": "wellbeing",
+      "kind": "content",
+      "order": 1350,
+      "path": "content/wellbeing.json"
+    },
+    {
+      "domain": "needs",
+      "kind": "content",
+      "order": 1370,
+      "path": "content/needs.json"
+    },
+    {
+      "domain": "navigation",
+      "kind": "content",
+      "order": 1390,
+      "path": "content/navigation.json"
+    },
+    {
+      "domain": "command",
+      "kind": "content",
+      "order": 1400,
+      "path": "content/command/player.json"
+    },
+    {
+      "domain": "command",
+      "kind": "content",
+      "order": 1401,
+      "path": "content/command/replies.json"
+    },
+    {
+      "domain": "event",
+      "kind": "content",
+      "order": 1500,
+      "path": "content/event/medical.json"
+    },
+    {
+      "domain": "event",
+      "kind": "content",
+      "order": 1501,
+      "path": "content/event/reactions.json"
+    },
+    {
+      "domain": "event",
+      "kind": "content",
+      "order": 1502,
+      "path": "content/event/combat_kill_witness_reactions.json"
+    },
+    {
+      "domain": "event",
+      "kind": "content",
+      "order": 1503,
+      "path": "content/event/combat_kill_killer_reactions.json"
+    },
+    {
+      "domain": "event",
+      "kind": "content",
+      "order": 1504,
+      "path": "content/event/combat_horde_reactions.json"
+    },
+    {
+      "domain": "combat",
+      "kind": "content",
+      "order": 1510,
+      "path": "content/combat/player_assault_reactions.json"
+    },
+    {
+      "domain": "combat_banter",
+      "kind": "content",
+      "order": 1550,
+      "path": "content/combat_banter/weapon_kill_reactions.json"
+    },
+    {
+      "domain": "combat_human_banter",
+      "kind": "content",
+      "order": 1560,
+      "path": "content/combat_human_banter/human_kill_reactions.json"
+    },
+    {
+      "domain": "compatibility",
+      "kind": "content",
+      "order": 1600,
+      "path": "content/compatibility.json"
+    },
+    {
+      "domain": "quest",
+      "kind": "content",
+      "order": 1650,
+      "path": "content/quest.json"
+    },
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1800,
+      "path": "patterns/common/greeting_whats_up.json"
+    },
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1801,
+      "path": "patterns/common/wellbeing_activity.json"
+    },
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1804,
+      "path": "patterns/common/weather_needs.json"
+    },
+    {
+      "domain": "common",
+      "kind": "responses",
+      "order": 1900,
+      "path": "flows/common/social.json"
+    },
+    {
+      "domain": "common",
+      "kind": "responses",
+      "order": 1901,
+      "path": "flows/common/questions.json"
+    },
+    {
+      "domain": "common",
+      "kind": "responses",
+      "order": 1902,
+      "path": "flows/common/needs_weather.json"
+    },
+    {
+      "domain": "grounded_personal",
+      "kind": "patterns",
+      "order": 2000,
+      "path": "patterns/grounded_personal.json"
+    },
+    {
+      "domain": "grounded_personal",
+      "kind": "responses",
+      "order": 2100,
+      "path": "flows/grounded_personal_responses.json"
+    },
+    {
+      "domain": "semantic",
+      "kind": "flows",
+      "order": 2200,
+      "path": "flows/semantic_flows.json"
+    },
+    {
+      "domain": "static_suggestions",
+      "kind": "ui",
+      "order": 2301,
+      "path": "ui/static_suggestions.json"
+    }
+  ],
+  "externalShards": [
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1802,
+      "owner": "PsychopatzCore",
+      "path": "patterns/common/identity.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/patterns/common/identity.json"
+    },
+    {
+      "domain": "common",
+      "kind": "patterns",
+      "order": 1803,
+      "owner": "PsychopatzCore",
+      "path": "patterns/common/identity_facets.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/patterns/common/identity_facets.json"
+    },
+    {
+      "domain": "dynamic_trading",
+      "kind": "packs",
+      "order": 1810,
+      "optional": true,
+      "owner": "DTCommon",
+      "path": "packs/dynamic_trading.json",
+      "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/packs/dynamic_trading.json"
+    },
+    {
+      "domain": "static_suggestions",
+      "kind": "ui",
+      "order": 2300,
+      "owner": "PsychopatzCore",
+      "path": "ui/static_suggestions_core.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/ui/static_suggestions_core.json"
+    }
+  ],
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Conversation Authoring",
+    "version": "1"
+  },
+  "sourceRoots": [
+    {
+      "domain": "social",
+      "kind": "content",
+      "order": 1300,
+      "path": "content/social/emotes"
+    },
+    {
+      "domain": "social",
+      "kind": "content",
+      "order": 1302,
+      "path": "content/social/tool_replies"
+    },
+    {
+      "domain": "social",
+      "kind": "content",
+      "order": 1303,
+      "path": "content/social/interaction"
+    },
+    {
+      "domain": "command",
+      "kind": "content",
+      "order": 1402,
+      "path": "content/command/lifecycle"
+    },
+    {
+      "domain": "task",
+      "kind": "content",
+      "order": 1700,
+      "path": "content/task/lifecycle"
+    },
+    {
+      "domain": "task",
+      "kind": "content",
+      "order": 1701,
+      "path": "content/task/tool_replies"
+    },
+    {
+      "domain": "social",
+      "kind": "behaviors",
+      "order": 2250,
+      "path": "behaviors/social"
+    },
+    {
+      "domain": "social",
+      "kind": "beats",
+      "order": 2260,
+      "path": "beats/social"
+    },
+    {
+      "domain": "social",
+      "kind": "realization",
+      "order": 2270,
+      "path": "realization/social"
+    }
+  ],
+  "version": 1
+}

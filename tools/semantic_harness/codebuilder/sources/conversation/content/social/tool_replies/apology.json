@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.apology.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right. Let us move on.",
+              "TL": "Sige. Magpatuloy na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No problem. Let us keep moving.",
+              "TL": "Walang anuman. Tuloy na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We are good. Let us get back to business.",
+              "TL": "Ayos na tayo. Balik na tayo sa ginagawa natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. No need to dwell on it.",
+              "TL": "Tapos na 'yon. Hindi na kailangang pag-usapan pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Water under the bridge.",
+              "TL": "Sige. Lumipas na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let us put it behind us and focus on surviving.",
+              "TL": "Iwan na natin 'yan sa likod at magpokus sa kaligtasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine by me. Move forward.",
+              "TL": "Ayos lang sa 'kin. Abante na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Okay. We move past it.",
+              "TL": "Sige. Kalimutan na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Agreed. Let us not waste daylight on it.",
+              "TL": "Sang-ayon ako. Huwag nating sayangin ang oras diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. We are square.",
+              "TL": "Naiintindihan ko. Kuwits na tayo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.apology.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I accept the apology.",
+              "TL": "Tinatanggap ko ang tawad mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Apology accepted. We are fine.",
+              "TL": "Tanggap ko na. Ayos na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate you owning up to it.",
+              "TL": "Salamat at inamin mo ang pagkakamali mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Takes guts to say that out here. I accept.",
+              "TL": "Kailangan ng tapang para aminin 'yan dito. Tanggap ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. Apology accepted.",
+              "TL": "Salamat. Tanggap ko ang paumanhin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We all make mistakes under pressure. Accepted.",
+              "TL": "Lahat naman nagkakamali kapag tensiyonado. Tanggap ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you, and I accept.",
+              "TL": "Narinig kita, at tanggap ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough. Apology accepted.",
+              "TL": "Makatwiran. Tanggap ko ang paumanhin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good. I accept your apology.",
+              "TL": "Mabuti. Tinatanggap ko ang tawad mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate the honesty. We are good.",
+              "TL": "Salamat sa katapatan. Ayos na tayo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.apology.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Fine. We can put it behind us.",
+              "TL": "Sige. Iwan na natin sa nakaraan 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let it go. We have bigger problems.",
+              "TL": "Hayaan mo na. Mas malaki ang mga problema natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It is done. No grudges.",
+              "TL": "Tapos na. Walang samaan ng loob."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Consider it forgotten.",
+              "TL": "Ituring mo nang limot na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We are clear. Do not sweat it.",
+              "TL": "Malinaw na tayo. Huwag mo nang alalahanin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Past is past. Watch your step next time.",
+              "TL": "Nakalipas na. Mag-ingat ka na lang sa susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am not holding onto it. Let us move.",
+              "TL": "Hindi ko na 'yan itatago sa loob ko. Tara na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. We put it behind us.",
+              "TL": "Sige. Kalimutan na natin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No hard feelings. Let us keep our heads on.",
+              "TL": "Walang samaan ng loob. Manatili tayong alisto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Agreed. It is behind us now.",
+              "TL": "Sige. Tapos na 'yon ngayon."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

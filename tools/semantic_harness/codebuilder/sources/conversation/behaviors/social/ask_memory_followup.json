@@ -1,0 +1,58 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "behaviors",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "behaviors": [
+    {
+      "id": "behavior.ask_memory_followup",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "ASK_MEMORY_FOLLOWUP",
+      "mode": "one_shot",
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "ASK_FOLLOWUP",
+          "contentTemplateID": "semantic.interaction.memory.followup"
+        }
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "SHARE_MEMORY"
+      },
+      "baseRelevance": 0.45,
+      "modifiers": [
+        {
+          "when": {
+            "path": "actor.disposition.sociability",
+            "op": "gte",
+            "value": 0.6
+          },
+          "delta": 0.25,
+          "reason": "sociability_favors_followup"
+        },
+        {
+          "when": {
+            "path": "relationship.familiarity",
+            "op": "gte",
+            "value": 2
+          },
+          "delta": 0.1,
+          "reason": "familiarity_favors_followup"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_camp.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right. We will make camp here.",
+              "TL": "Sige. Magkakampo tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Setting up camp right in this spot.",
+              "TL": "Magtatayo ng kampo sa mismong pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Establishing camp.",
+              "TL": "Naintindihan. Itatayo ang kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Camp order received. Pitching shelter.",
+              "TL": "Natanggap ang utos magkampo. Maglalatag ng silong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good place to bed down. Making camp.",
+              "TL": "Magandang tulugan ito. Magkakampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Securing the campsite.",
+              "TL": "Naiintindihan ko. Seselyuhan ang kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Making camp here.",
+              "TL": "Sige. Magtatayo ng kampo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On it. Setting up our camp.",
+              "TL": "Inaasikaso na. Itatayo ang kampo natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Camp routine initiated.",
+              "TL": "Sinisimulan na ang pagtatayo ng kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Copy that. We camp here.",
+              "TL": "Kopyado. Dito tayo magkakampo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_camp.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I will settle in here for now.",
+              "TL": "Aayos muna ako ng pwesto rito sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dropping my pack and settling down.",
+              "TL": "Ibababa ang bag at magpapahinga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Settling in. Let me know if anything changes.",
+              "TL": "Nakaayos na. Sabihan ako kapag may nagbago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finding a comfortable corner right here.",
+              "TL": "Naghahanap ng komportableng sulok dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll rest my legs and settle in.",
+              "TL": "Ipapahinga ang mga binti at mananatili rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Settling into position. Feels decent.",
+              "TL": "Pumupwesto na. Mukhang maayos naman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unpacking light gear and settling here.",
+              "TL": "Maglalapag ng gamit at aayos ng higaan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Settling in for the watch.",
+              "TL": "Nakaayos na para sa pagbabantay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right, I'll make myself at home here.",
+              "TL": "Sige, magpapahinga ako na parang nasa bahay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Settling down. Staying alert.",
+              "TL": "Nagpapahinga na. Mananatiling alisto."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_camp.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Understood. I will stay here and take care of my needs.",
+              "TL": "Naintindihan. Mananatili ako rito at aasikasuhin ang mga pangangailangan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll tend to my wounds and rest up here.",
+              "TL": "Gagamutin ko ang mga sugat at magpapahinga rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking care of hunger and thirst in camp.",
+              "TL": "Aasikasuhin ang gutom at uhaw sa kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll patch up my gear and eat a meal here.",
+              "TL": "Aayusin ko ang gamit at kakain dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good. I needed time to sort myself out.",
+              "TL": "Mabuti. Kailangan ko ng oras para ayusin ang sarili ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handling my personal upkeep while we camp.",
+              "TL": "Aasikasuhin ang pansariling kalagayan habang nagkakampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Resting, eating, and recovering strength.",
+              "TL": "Nagpapahinga, kumakain, at nagpapalakas muli."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll use this camp time to recover.",
+              "TL": "Gagamitin ko ang oras sa kampo para magpagaling."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking care of myself while holding camp.",
+              "TL": "Aalagaan ang sarili habang nagbabantay sa kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Time for self-maintenance.",
+              "TL": "Naiintindihan ko. Oras na para mag-ayos ng katawan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

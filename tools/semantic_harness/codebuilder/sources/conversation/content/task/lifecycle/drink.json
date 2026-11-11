@@ -1,0 +1,358 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.drink.active",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Taking a drink now.",
+              "TL": "Umiinom na ako ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drinking some water right now.",
+              "TL": "Umiinom ng kaunting tubig ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quenching my thirst. Give me a second.",
+              "TL": "Pinapawi ang uhaw. Sandali lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Currently having a drink.",
+              "TL": "Kasalukuyang umiinom."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking some fluids now.",
+              "TL": "Umiinom na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drinking. Needed this badly.",
+              "TL": "Umiinom. Kailangang-kailangan ko ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Getting some water in me.",
+              "TL": "Nagpapasok ng tubig sa katawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking a quick drink.",
+              "TL": "Umiinom nang mabilisan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drinking now. Won't take long.",
+              "TL": "Umiinom na. Di magtatagal."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Having a drink as ordered.",
+              "TL": "Umiinom ayon sa utos."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.drink.admitted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll have a drink.",
+              "TL": "Iinom ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Getting some water.",
+              "TL": "Naintindihan. Kukuha ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I could use some water. Drinking now.",
+              "TL": "Kailangan ko nga ng tubig. Iinom na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right, I'll hydrate.",
+              "TL": "Sige, magpapatubig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good call. I was getting thirsty.",
+              "TL": "Magandang paalala. Nauuhaw na nga ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll take a drink from my supply.",
+              "TL": "Iinom ako mula sa baon ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Hydrating immediately.",
+              "TL": "Naiintindihan ko. Iinom agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Taking a sip.",
+              "TL": "Sige. Iinom nang kaunti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll drink that now.",
+              "TL": "Iinumin ko na iyan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds good. Drinking.",
+              "TL": "Maganda 'yan. Iinom na."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.drink.completed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Much better. Thirst is gone.",
+              "TL": "Mas maayos na. Wala na ang uhaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished drinking. Feeling refreshed.",
+              "TL": "Tapos nang uminom. Maginhawa na ang pakiramdam."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That hit the spot. Done drinking.",
+              "TL": "Eksakto 'yon. Tapos nang uminom."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hydrated and ready to move.",
+              "TL": "May sapat nang tubig at handang kumilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished that drink.",
+              "TL": "Naubos na ang inumin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. Throat isn't parched anymore.",
+              "TL": "Tapos na. Di na tuyo ang lalamunan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All drank. Ready for action.",
+              "TL": "Nainom na lahat. Handa na sa aksyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished having a drink.",
+              "TL": "Natapos nang uminom."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done drinking. Let's keep going.",
+              "TL": "Tapos nang uminom. Tuloy na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hydration complete.",
+              "TL": "Kumpleto na ang pag-inom."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.drink.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't get a drink.",
+              "TL": "Hindi ako nakainom."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to drink. Container was empty or tainted.",
+              "TL": "Bigo sa pag-inom. Walang laman o marumi ang lalagyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't drink that. It wasn't clean water.",
+              "TL": "Di mainom 'yon. Di malinis na tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was interrupted before I could drink.",
+              "TL": "Naabala ako bago ako nakainom."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to have a drink right now.",
+              "TL": "Di makainom sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Spilled it or couldn't reach it. Drinking failed.",
+              "TL": "Natapon o di naabot. Pumalpak ang pag-inom."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Water container is dry.",
+              "TL": "Tuyot ang lalagyan ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't drink. Threat forced me to stop.",
+              "TL": "Di nakainom. Napilitang huminto dahil sa banta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Action failed. Still thirsty.",
+              "TL": "Bigo ang kilos. Nauuhaw pa rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to take a drink.",
+              "TL": "Bigo sa pag-inom."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.drink.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm not thirsty right now.",
+              "TL": "Hindi ako nauuhaw ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't need to drink at the moment.",
+              "TL": "Di ko kailangang uminom sa sandaling ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm fully hydrated. Saving the water.",
+              "TL": "Busog pa ako sa tubig. Itatabi ang inumin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't drink right now. Too dangerous to pause.",
+              "TL": "Di pwedeng uminom ngayon. Masyadong mapanganib huminto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refusing to drink that water. It looks tainted.",
+              "TL": "Tumatangging inumin ang tubig na 'yan. Mukhang kontaminado."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have plenty of fluids. Don't need to drink.",
+              "TL": "Marami pa akong tubig sa katawan. Di kailangang uminom."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No need for a drink yet.",
+              "TL": "Wala pang pangangailangan sa inumin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll save our clean water for later.",
+              "TL": "Itatabi ko ang malinis na tubig mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drink order rejected. Not parched.",
+              "TL": "Tinatanggihan ang pag-inom. Di ako uhaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't drink that right now.",
+              "TL": "Di ko maiinom 'yan ngayon."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

@@ -1,0 +1,154 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.accepted_generic.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I hear you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough.",
+              "TL": "May punto ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naiintindihan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear what you are saying.",
+              "TL": "Naririnig ko ang sinasabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message received.",
+              "TL": "Malinaw, nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Makes sense to me.",
+              "TL": "May katuturan 'yan para sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Point taken.",
+              "TL": "Nakuha ko ang punto mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am listening.",
+              "TL": "Nakikinig ako sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. I hear you.",
+              "TL": "Sige. Naririnig kita."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.accepted_generic.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I will keep that in mind.",
+              "TL": "Isasaisip ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will remember that.",
+              "TL": "Tandaan ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to know. I will think about it.",
+              "TL": "Mabuting malaman. Pag-iisipan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will note that down in my head.",
+              "TL": "Itatatak ko 'yan sa isip ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for telling me. I will keep it in mind.",
+              "TL": "Salamat sa pagsabi. Tatandaan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will hold onto that thought.",
+              "TL": "Isasapuso at isasaisip ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will factor that in.",
+              "TL": "Isasaalang-alang ko 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Duly noted.",
+              "TL": "Tala ko na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will be mindful of that.",
+              "TL": "Magiging maingat ako tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. I will keep that in mind moving forward.",
+              "TL": "Sige. Tatandaan ko 'yan sa mga susunod."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

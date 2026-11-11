@@ -1,0 +1,20 @@
+{
+  "schema": "projecthoomans.c0a.suggestions.v1",
+  "cases": [
+    {
+      "id": "greeting_reply",
+      "rawInput": "hello there",
+      "clickCandidateID": null
+    },
+    {
+      "id": "time_reply_with_click",
+      "rawInput": "what time is it",
+      "clickCandidateID": "question.time"
+    },
+    {
+      "id": "hostility_reply",
+      "rawInput": "fuck you",
+      "clickCandidateID": null
+    }
+  ]
+}

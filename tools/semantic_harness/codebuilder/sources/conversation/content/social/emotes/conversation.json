@@ -1,0 +1,272 @@
+{
+  "domain": "social",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.conversation.acknowledged.default",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Understood. We'll leave it there.",
+              "TL": "Naiintindihan ko. Tama na iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard. That's enough talk for now.",
+              "TL": "Narinig ko. Sapat na ang usapan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message received. Keep your distance.",
+              "TL": "Nakuha ko. Manatili ka sa puwesto mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Let's keep our heads on our shoulders.",
+              "TL": "Naintindihan. Mag-ingat na lang tayo sa paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard what you said. Leaving it at that.",
+              "TL": "Narinig ko ang sinabi mo. Iiwan ko na roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Eyes open.",
+              "TL": "Sige. Buksan ang mga mata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I take your point. Let's stay alert.",
+              "TL": "Nakuha ko ang punto mo. Manatiling alisto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear enough. No more discussion needed.",
+              "TL": "Malinaw na. Hindi na kailangan ng karagdagang usapan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Keep sharp.",
+              "TL": "Naintindihan. Maging alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. Back to watching the perimeter.",
+              "TL": "Tala ko na. Balik sa pagbabantay."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right. Ask if you want to talk more.",
+              "TL": "Sige. Magtanong ka kung gusto mo pang mag-usap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Let me know if you need anything else.",
+              "TL": "Naiintindihan ko. Sabihan mo ako kung may kailangan ka pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds good. We can pick this up later.",
+              "TL": "Mabuti. Pwede nating ipagpatuloy ito mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Let's get back to what we were doing.",
+              "TL": "Nakuha ko. Balik na tayo sa ginagawa natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough. Holler if something comes up.",
+              "TL": "Makatwiran. Tawagin mo ako kapag may nangyari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. We're on the same page.",
+              "TL": "Sige. Pareho tayo ng iniisip."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Take care.",
+              "TL": "Naintindihan. Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear. We'll talk again soon.",
+              "TL": "Malinaw. Mag-uusap tayong muli mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. I'm around if you need to talk.",
+              "TL": "Nakuha ko. Narito lang ako kung kailangan mong makipag-usap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. We'll leave it there for now.",
+              "TL": "Sige. Dito muna tayo magtapos sa ngayon."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "All right.",
+              "TL": "Sige."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard.",
+              "TL": "Narinig ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right.",
+              "TL": "Tama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done.",
+              "TL": "Tapos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear.",
+              "TL": "Malinaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good.",
+              "TL": "Mabuti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Okay.",
+              "TL": "Sige na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted.",
+              "TL": "Tala ko na."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "All right. I'm here if you want to talk more.",
+              "TL": "Sige. Narito ako kung gusto mo pang mag-usap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad we talked. Holler anytime you need to chat.",
+              "TL": "Mabuti at nagkausap tayo. Tawagin mo lang ako kahit kailan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you loud and clear. Take care of yourself.",
+              "TL": "Narinig kita nang malinaw. Ingatan mo ang sarili mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good talking with you. We'll catch up again soon.",
+              "TL": "Masarap kang makausap. Magkuwentuhan ulit tayo mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Always good to touch base with you.",
+              "TL": "Naintindihan ko. Laging magandang makipag-ugnayan sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Anytime you want to talk, you know where to find me.",
+              "TL": "Kahit kailan mo gustong mag-usap, alam mo kung nasaan ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Stay safe out there today.",
+              "TL": "Nakuha ko. Mag-ingat ka sa labas ngayong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always happy to listen. Take it easy.",
+              "TL": "Lagi akong handang makinig. Dahan-dahan lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Glad we got that sorted out together.",
+              "TL": "Sige. Mabuti at naayos natin 'yan nang magkasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for taking the time to talk. Catch you later.",
+              "TL": "Salamat sa paglalaan ng oras para mag-usap. Kita tayo mamaya."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

@@ -1,0 +1,494 @@
+{
+  "domain": "command",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stop_following.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't stop following.",
+              "TL": "Hindi ako nakahinto sa pagsunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to break follow stance.",
+              "TL": "Bigo sa pagtigil sa pagsunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I tried to hold back, but the crowd pushed me with you.",
+              "TL": "Sinubukan kong huminto, pero itinulak ako ng kawan kasabay mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't disengage from following.",
+              "TL": "Hindi makahiwalay sa pagsunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop following failed. Route required continuous movement.",
+              "TL": "Pumalpak ang paghinto sa pagsunod. Kailangan ng tuloy-tuloy na galaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to stop following right now.",
+              "TL": "Di makahinto sa pagsunod ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Attempted to halt, but had to keep moving.",
+              "TL": "Sinubukang huminto, pero kinailangang magpatuloy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't detach from follow mode here.",
+              "TL": "Di makahiwalay sa pagsunod dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Follow lock failed to release.",
+              "TL": "Di bumitaw ang pagsunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't stop following in this tight corridor.",
+              "TL": "Di makahinto sa pagsunod sa makipot na daang ito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stop_following.queued",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Okay, I'll stop following.",
+              "TL": "Sige, titigil ako sa pagsunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Breaking off pursuit.",
+              "TL": "Naintindihan. Titigil na sa pagsunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll stop here and hold.",
+              "TL": "Hihinto ako rito at magbabantay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ceasing follow. Standing down.",
+              "TL": "Ititigil ang pagsunod. Uurong sa pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I'll remain in this area.",
+              "TL": "Naiintindihan ko. Mananatili ako sa lugar na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Not following anymore.",
+              "TL": "Sige. Di na susunod pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stopping here. You go on.",
+              "TL": "Hihinto rito. Mauna ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Halting my movement.",
+              "TL": "Nakuha ko. Hihinto sa paglakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Breaking off. I'll hold ground.",
+              "TL": "Bumibitiw na. Hahawakan ko ang pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Stopping follow routine.",
+              "TL": "Naintindihan. Ititigil ang pagsunod."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stop_following.queued.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Got it, I'll stop following. Take care out there, friend!",
+              "TL": "Nakuha ko, titigil ako sa pagsunod. Mag-ingat ka sa labas, kaibigan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing! I'll hold down this spot for you, partner.",
+              "TL": "Walang anuman! Babantayan ko ang pwestong ito para sa 'yo, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to give you some space. Holler if you need me!",
+              "TL": "Masayang bibigyan kita ng puwang. Tawagin mo ako kapag kailangan mo ako!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll stop following here, friend. Be careful on your solo run.",
+              "TL": "Hihinto ako sa pagsunod dito, kaibigan. Mag-ingat sa sarili mong lakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood, partner! I'll be right here waiting.",
+              "TL": "Naintindihan, kasama! Narito lang ako naghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stopping here with a smile. Don't be a stranger!",
+              "TL": "Hihinto rito nang may ngiti. Magpakita ka agad!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure! I'll catch my breath while you scout ahead.",
+              "TL": "Sige! Hihinga muna ako habang nagmamanman ka sa unahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right, friend! I'll stay put until you return.",
+              "TL": "Sige, kaibigan! Dito lang ako hanggang makabalik ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Halting here. Good luck out there, partner!",
+              "TL": "Hihinto rito. Magandang suwerte sa 'yo sa labas, kasama!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "No worries! I'll stop following and guard our rear.",
+              "TL": "Walang problema! Titigil sa pagsunod at babantayan ang likod."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stop_following.queued.repeated",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I've already stopped following.",
+              "TL": "Tumigil na ako sa pagsunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm already standing still. Not following you.",
+              "TL": "Nakatayo na nga ako. Di na kita sinusundan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already halted. Look, I'm not moving.",
+              "TL": "Huminto na. Tingnan mo, di ako gumagalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I stopped following after the first command.",
+              "TL": "Huminto na ako sa pagsunod pagkatapos ng unang utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still not following you. I'm right here.",
+              "TL": "Di pa rin kita sinusundan. Narito lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already stopped. Go ahead without me.",
+              "TL": "Huminto na. Sige na, mauna ka nang wala ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not following anymore, I promise.",
+              "TL": "Di na kita sinusundan, pangako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already stationary. No need to tell me again.",
+              "TL": "Nakatigil na ako. Di na kailangang sabihin ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've been stopped for a while now.",
+              "TL": "Kanina pa ako huminto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still halted. Move along freely.",
+              "TL": "Nakatigil pa rin. Lumakad ka na nang malaya."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stop_following.queued.trusted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Understood, I'll stop. I trust your solo judgment.",
+              "TL": "Naiintindihan ko, titigil ako. Tiwala ako sa sarili mong desisyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll hold here, partner. Come back safe.",
+              "TL": "Dito muna ako, kasama. Bumalik kang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stopping follow. I know you can handle what's ahead.",
+              "TL": "Hihinto sa pagsunod. Alam kong kaya mo ang nasa unahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I'll secure this spot while you work.",
+              "TL": "Naintindihan. Seselyuhan ko ang pwestong ito habang nagtatrabaho ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll let you move alone, friend. Shout if you need backup.",
+              "TL": "Hahayaan kitang mag-isang lumakad, kaibigan. Sumigaw kapag kailangan mo ng saklolo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stopping here. You've earned my complete trust.",
+              "TL": "Hihinto rito. Nakuha mo na ang buo kong tiwala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Halting follow. Watch your corners out there.",
+              "TL": "Hihinto sa pagsunod. Bantayan ang mga kanto sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll hold this ground for you until you return, partner.",
+              "TL": "Hahawakan ko ang pwestong ito para sa 'yo hanggang sa bumalik ka, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Stopping here and maintaining watch.",
+              "TL": "Naiintindihan ko. Hihinto rito at magbabantay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I trust you know what you're doing. Standing down.",
+              "TL": "Tiwala akong alam mo ang ginagawa mo. Uurong sa pwesto."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stop_following.queued.withdrawn",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Okay, I'll stop.",
+              "TL": "Sige, titigil ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. Not following.",
+              "TL": "Sige. Di susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stopping here.",
+              "TL": "Hihinto rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Halting.",
+              "TL": "Naintindihan. Hihinto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll stay behind.",
+              "TL": "Maiiwan ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ceasing follow.",
+              "TL": "Ititigil ang pagsunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. Go on.",
+              "TL": "Sige. Mauna ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stopped.",
+              "TL": "Huminto na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Done following.",
+              "TL": "Sige. Tapos na ang pagsunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Halting.",
+              "TL": "Humihinto."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stop_following.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't stop following right now.",
+              "TL": "Hindi ako makapaghinto sa pagsunod ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's too dangerous to split up. I'm staying with you.",
+              "TL": "Masyadong mapanganib maghiwalay. Sasama ako sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't leave you alone against that swarm.",
+              "TL": "Di kita iiwan mag-isa laban sa kawang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We need to stay together to survive this. Refusing to halt.",
+              "TL": "Kailangan nating magsama para mabuhay. Tumatangging huminto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If I stop following here, I'll be completely cut off.",
+              "TL": "Kapag huminto ako rito, ganap akong mahihiwalay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cannot halt here. Too many dead around us.",
+              "TL": "Di makahinto rito. Napakaraming patay sa paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm sticking with you until we reach actual cover.",
+              "TL": "Didikit ako sa 'yo hanggang makarating sa tunay na silong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Splitting up now will get us killed. I'm following.",
+              "TL": "Ikinamamatay ang paghihiwalay ngayon. Susunod ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to break follow in active combat.",
+              "TL": "Di makatigil sa pagsunod habang may bakbakan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Order rejected. We survive together or not at all.",
+              "TL": "Tinatanggihan ang utos. Sabay tayong mabubuhay o mamamatay."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

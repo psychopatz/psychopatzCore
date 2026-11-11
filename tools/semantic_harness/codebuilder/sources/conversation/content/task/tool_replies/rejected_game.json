@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.rejected_game.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Not now.",
+              "TL": "Hindi ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Now is not the time for games.",
+              "TL": "Hindi ngayon ang oras para sa laro."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We have real survival to worry about. Not now.",
+              "TL": "May tunay na kaligtasan tayong iniisip. Hindi ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm busy staying alive. Not playing games.",
+              "TL": "Abala ako sa pananatiling buhay. Di ako maglalaro."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not in the mood for games right now.",
+              "TL": "Wala ako sa mood para maglaro ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save the distractions for later.",
+              "TL": "Itabi ang pampalipas-oras mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not now. Stay focused on our safety.",
+              "TL": "Hindi ngayon. Magpokus sa kaligtasan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too much danger around for games.",
+              "TL": "Masyadong maraming panganib sa paligid para maglaro."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have to pass on that right now.",
+              "TL": "Lalampasan ko muna 'yan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not happening today. Focus.",
+              "TL": "Di mangyayari ngayon. Magpokus."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.rejected_game.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That did not land well.",
+              "TL": "Hindi naging maganda ang dating niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That was poorly timed.",
+              "TL": "Maling-mali ang tiyempo niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bad moment for that attempt.",
+              "TL": "Masamang sandali para sa pagtatangkang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That fell completely flat.",
+              "TL": "Bumagsak lang nang walang saysay 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wrong audience, wrong time.",
+              "TL": "Maling kausap, maling oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That missed the mark entirely.",
+              "TL": "Lumihis nang buo sa dapat patunguhan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That did not go over the way you hoped.",
+              "TL": "Di naging ayon sa inasahan mo ang takbo niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Poor execution on that one.",
+              "TL": "Mahina ang pagkagawa sa isang 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That landed terribly. Try focusing instead.",
+              "TL": "Napakasama ng dating niyan. Magpokus ka na lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That didn't work at all.",
+              "TL": "Hindi talaga umubra 'yan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

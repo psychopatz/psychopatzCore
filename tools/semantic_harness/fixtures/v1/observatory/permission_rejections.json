@@ -1,0 +1,112 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "observatory.permission_rejections",
+  "cases": [
+    {
+      "id": "observatory.permissions.follow_rejected.en",
+      "tags": ["observatory", "permissions", "rejected", "follow"],
+      "scenario": {
+        "runtime": {
+          "commandResponses": {
+            "follow": {
+              "accepted": false,
+              "reason": "permission_denied"
+            }
+          }
+        }
+      },
+      "turns": [
+        {
+          "text": "follow me",
+          "language": "EN",
+          "expect": {
+            "ir.action": "FOLLOW",
+            "actionResult.accepted": false,
+            "actionResult.status": "rejected",
+            "actionResult.reason": "permission_denied"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.permissions.follow_rejected.tl",
+      "tags": ["observatory", "permissions", "rejected", "follow", "localization"],
+      "scenario": {
+        "runtime": {
+          "commandResponses": {
+            "follow": {
+              "accepted": false,
+              "reason": "permission_denied"
+            }
+          }
+        }
+      },
+      "turns": [
+        {
+          "text": "follow me",
+          "language": "TL",
+          "expect": {
+            "ir.action": "FOLLOW",
+            "actionResult.accepted": false,
+            "actionResult.status": "rejected",
+            "actionResult.reason": "permission_denied",
+            "fallbackLookups": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.permissions.stay_rejected.en",
+      "tags": ["observatory", "permissions", "rejected", "stay"],
+      "scenario": {
+        "runtime": {
+          "commandResponses": {
+            "stay": {
+              "accepted": false,
+              "reason": "permission_denied"
+            }
+          }
+        }
+      },
+      "turns": [
+        {
+          "text": "wait here",
+          "language": "EN",
+          "expect": {
+            "ir.action": "STAY",
+            "actionResult.accepted": false,
+            "actionResult.status": "rejected",
+            "actionResult.reason": "permission_denied"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.permissions.stay_rejected.tl",
+      "tags": ["observatory", "permissions", "rejected", "stay", "localization"],
+      "scenario": {
+        "runtime": {
+          "commandResponses": {
+            "stay": {
+              "accepted": false,
+              "reason": "permission_denied"
+            }
+          }
+        }
+      },
+      "turns": [
+        {
+          "text": "wait here",
+          "language": "TL",
+          "expect": {
+            "ir.action": "STAY",
+            "actionResult.accepted": false,
+            "actionResult.status": "rejected",
+            "actionResult.reason": "permission_denied",
+            "fallbackLookups": 0
+          }
+        }
+      ]
+    }
+  ]
+}

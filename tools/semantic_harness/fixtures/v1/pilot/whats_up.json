@@ -1,0 +1,82 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "pilot.whats_up",
+  "cases": [
+    {
+      "id": "whats_up.basic.en",
+      "tags": ["whats_up", "nlu", "pilot"],
+      "scenario": {
+        "world": { "weather": "clear" }
+      },
+      "turns": [
+        {
+          "text": "What's up?",
+          "expect": {
+            "ir.subject": "CONVERSATION_TOPIC",
+            "ir.extensions.topic": "whats_up",
+            "response.sourcePoolID": "semantic.question.whats_up",
+            "response.templateID": "semantic.question.whats_up.default",
+            "response.exists": true,
+            "flow.noFlow": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "whats_up.weather_variant.rain",
+      "tags": ["whats_up", "weather", "pilot"],
+      "scenario": {
+        "world": { "weather": "rain" }
+      },
+      "turns": [
+        {
+          "text": "what's up",
+          "expect": {
+            "ir.subject": "CONVERSATION_TOPIC",
+            "ir.extensions.topic": "whats_up",
+            "response.sourcePoolID": "semantic.question.whats_up",
+            "response.exists": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "whats_up.time_context",
+      "tags": ["whats_up", "time", "pilot"],
+      "scenario": {
+        "world": {
+          "time": { "hour": 21, "minute": 5 }
+        }
+      },
+      "turns": [
+        {
+          "text": "what time is it",
+          "expect": {
+            "ir.subject": "TIME",
+            "response.templateID": "semantic.question.time",
+            "response.exists": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "whats_up.date_context",
+      "tags": ["whats_up", "date", "pilot"],
+      "scenario": {
+        "world": {
+          "calendar": { "year": 1993, "month": 10, "day": 19 }
+        }
+      },
+      "turns": [
+        {
+          "text": "what day is it",
+          "expect": {
+            "ir.subject": "DATE",
+            "response.templateID": "semantic.question.date",
+            "response.exists": true
+          }
+        }
+      ]
+    }
+  ]
+}

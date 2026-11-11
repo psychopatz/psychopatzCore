@@ -1,0 +1,53 @@
+{
+  "behaviors": [
+    {
+      "act": "CHALLENGE",
+      "baseRelevance": 0.5,
+      "id": "behavior.challenge",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.12,
+          "reason": "confidence_supports_challenge",
+          "when": {
+            "op": "gte",
+            "path": "actor.disposition.confidence",
+            "value": 0.55
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.first_contact.challenge",
+          "dialogueAct": "CHALLENGE"
+        }
+      },
+      "owner": "ProjectHoomans",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "in",
+        "path": "stimulus.semantic.intent",
+        "values": [
+          "GREET",
+          "GOSSIP"
+        ]
+      }
+    }
+  ],
+  "domain": "social",
+  "kind": "behaviors",
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1"
+  },
+  "version": 1
+}

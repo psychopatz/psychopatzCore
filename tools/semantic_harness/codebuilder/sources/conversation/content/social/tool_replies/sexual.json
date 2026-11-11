@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.sexual.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You are bold. I cannot say I dislike that.",
+              "TL": "Matapang ka. Hindi ko masasabing ayaw ko niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Well, you certainly do not beat around the bush.",
+              "TL": "Talagang hindi ka paligoy-ligoy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is quite a statement out of nowhere.",
+              "TL": "Mabigat na pahayag 'yan nang walang babala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have got nerve. I will hand that to you.",
+              "TL": "May lakas ka ng loob. Ibibigay ko sa 'yo 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bold move. Let us see if you can back it up.",
+              "TL": "Matapang na hakbang. Tingnan natin kung kaya mong panindigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I like confidence, but do not get ahead of yourself.",
+              "TL": "Gusto ko ang tiwala sa sarili, pero huwag kang magpadalos-dalos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You definitely know what you want.",
+              "TL": "Alam na alam mo talaga ang gusto mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Straight to the point. I can appreciate that.",
+              "TL": "Diretso sa punto. Pinahahalagahan ko 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are playing with high stakes here.",
+              "TL": "Mataas ang pustahan mo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bold words. Do not make promises you cannot keep.",
+              "TL": "Matatapang na salita. Huwag kang mangako ng hindi mo kayang tuparin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.sexual.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is a very direct proposition.",
+              "TL": "Napakadiretsang alok niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You do not waste time, do you?",
+              "TL": "Hindi ka talaga nagsasayang ng oras, 'no?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Straight forward and unfiltered. Noted.",
+              "TL": "Diretso at walang paligoy-ligoy. Malinaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is about as clear as it gets.",
+              "TL": "Kasing-linaw na 'yan ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No subtlety with you at all, huh?",
+              "TL": "Wala talagang pahi-pahiwatig sa 'yo, ha?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Well, there is no mistaking what you are after.",
+              "TL": "Walang duda kung ano ang hinahabol mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Direct propositions require some thinking over.",
+              "TL": "Ang diretsang alok ay kailangan munang pag-isipan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard every word. You made yourself very clear.",
+              "TL": "Narinig ko ang bawat salita. Naging napakalinaw mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "At least you are honest about your intentions.",
+              "TL": "Kahit paano tapat ka sa mga balak mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is blunt. Let us see where this goes.",
+              "TL": "Prangka 'yon. Tingnan natin kung saan ito hahantong."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.sexual.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You are moving fast, but I heard you.",
+              "TL": "Mabilis ang takbo mo, pero narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Slow your roll a bit, but message received.",
+              "TL": "Dahan-dahan lang muna, pero nakuha ko ang mensahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pace yourself. We have got all night.",
+              "TL": "Huwag kang magmadali. Mahaba pa ang gabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are rushing ahead, but I am listening.",
+              "TL": "Nagmamadali ka, pero nakikinig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fast moves can be exciting, but watch your footing.",
+              "TL": "Nakareregalo ang mabilis na galaw, pero mag-ingat sa hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard you loud and clear. Take a breath.",
+              "TL": "Narinig kita nang malakas at malinaw. Huminga ka muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You move quick. Let us see if you have endurance.",
+              "TL": "Mabilis kang kumilos. Tingnan natin kung may tibay ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Do not rush a good thing.",
+              "TL": "Huwag mong madaliin ang magandang bagay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I caught your drift. Let us take it one beat at a time.",
+              "TL": "Nakuha ko ang ibig mong sabihin. Dahan-dahan lang muna tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard you. Let us see how the evening unfolds.",
+              "TL": "Narinig kita. Tingnan natin kung paano tatakbo ang gabi."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

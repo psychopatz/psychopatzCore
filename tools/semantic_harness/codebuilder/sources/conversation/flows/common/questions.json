@@ -1,0 +1,249 @@
+{
+  "domain": "common",
+  "kind": "responses",
+  "responsePools": [
+    {
+      "id": "semantic.question.activity",
+      "variants": [
+        {
+          "fallback": "Just doing what I can to keep things moving.",
+          "id": "semantic.question.activity.dataset.keep_moving",
+          "templateID": "semantic.question.activity.dataset.keep_moving"
+        },
+        {
+          "fallback": "A little bit of everything.",
+          "id": "semantic.question.activity.dataset.bit_of_everything",
+          "templateID": "semantic.question.activity.dataset.bit_of_everything"
+        },
+        {
+          "fallback": "Just taking care of what needs doing.",
+          "id": "semantic.question.activity.dataset.taking_care",
+          "templateID": "semantic.question.activity.dataset.taking_care"
+        }
+      ]
+    },
+    {
+      "id": "semantic.question.wellbeing",
+      "variants": [
+        {
+          "fallback": "I'm hanging in there. Thanks for asking.",
+          "id": "semantic.question.wellbeing.dataset.hanging_in",
+          "templateID": "semantic.question.wellbeing.dataset.hanging_in"
+        },
+        {
+          "fallback": "Doing okay, all things considered.",
+          "id": "semantic.question.wellbeing.dataset.all_things_considered",
+          "templateID": "semantic.question.wellbeing.dataset.all_things_considered"
+        },
+        {
+          "fallback": "I'm getting by, one day at a time. How about you?",
+          "id": "semantic.question.wellbeing.dataset.getting_by",
+          "templateID": "semantic.question.wellbeing.dataset.getting_by"
+        },
+        {
+          "fallback": "I'm hungry, but I'll manage. If you have food to spare, I'd appreciate it.",
+          "id": "semantic.question.wellbeing.dataset.hungry",
+          "priority": 2,
+          "templateID": "semantic.question.wellbeing.dataset.hungry",
+          "when": {
+            "needType": "hunger",
+            "needUrgency": [
+              "moderate",
+              "severe",
+              "emergency",
+              "critical"
+            ]
+          }
+        },
+        {
+          "fallback": "I'm pretty thirsty. If you have water, could you spare some?",
+          "id": "semantic.question.wellbeing.dataset.thirsty",
+          "priority": 3,
+          "templateID": "semantic.question.wellbeing.dataset.thirsty",
+          "when": {
+            "needType": "thirst",
+            "needUrgency": [
+              "moderate",
+              "severe",
+              "emergency",
+              "critical"
+            ]
+          }
+        },
+        {
+          "fallback": "I'm tired, though I can manage for now.",
+          "id": "semantic.question.wellbeing.dataset.tired",
+          "priority": 2,
+          "templateID": "semantic.question.wellbeing.dataset.tired",
+          "when": {
+            "needType": "fatigue",
+            "needUrgency": [
+              "moderate",
+              "severe",
+              "emergency",
+              "critical"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "semantic.question.identity",
+      "variants": [
+        {
+          "fallback": "I keep my name to myself until I know someone better. What should I call you?",
+          "id": "semantic.question.identity.dataset.stranger_alt_1",
+          "templateID": "semantic.question.identity.stranger_alt_1"
+        },
+        {
+          "fallback": "Let's get to know each other first. What do people call you?",
+          "id": "semantic.question.identity.dataset.stranger_alt_2",
+          "templateID": "semantic.question.identity.stranger_alt_2"
+        },
+        {
+          "fallback": "I don't trust you enough to share my name. Who are you, really?",
+          "id": "semantic.question.identity.dataset.wary_alt_1",
+          "priority": 2,
+          "templateID": "semantic.question.identity.wary_alt_1",
+          "when": {
+            "identityTrust": "untrustworthy"
+          }
+        },
+        {
+          "fallback": "After that lie, I'm not telling you my name. Tell me the truth about yours.",
+          "id": "semantic.question.identity.dataset.wary_alt_2",
+          "priority": 2,
+          "templateID": "semantic.question.identity.wary_alt_2",
+          "when": {
+            "identityTrust": "untrustworthy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "semantic.question.wellbeing.unknown",
+      "variants": [
+        {
+          "fallback": "I can tell something is off, but I do not know what caused it yet.",
+          "id": "semantic.question.wellbeing.unknown.dataset.causal_followup",
+          "plan": {
+            "dialogueAct": "ASK_CLARIFICATION",
+            "groundedFactRefs": [],
+            "personalityStyle": "truthful",
+            "sourcePoolID": "semantic.question.wellbeing.unknown",
+            "tone": "clarifying",
+            "topic": "WELLBEING",
+            "turns": [
+              {
+                "continuation": "continue",
+                "id": "dataset_causal_wellbeing_unknown",
+                "segments": [
+                  {
+                    "fallback": "I can tell something is off, but I do not know what caused it yet.",
+                    "kind": "translation",
+                    "templateID": "UI_PNC_Conversation_Semantic_DatasetWellbeingCausalUnknown"
+                  }
+                ]
+              }
+            ],
+            "uncertainty": "unknown"
+          },
+          "priority": 4,
+          "reviewed": true,
+          "sourceRefs": [
+            "MASSIVE",
+            "SGD"
+          ],
+          "templateID": "UI_PNC_Conversation_Semantic_DatasetWellbeingCausalUnknown",
+          "translations": {
+            "EN": "I can tell something is off, but I do not know what caused it yet.",
+            "TL": "Alam kong may hindi tama, pero hindi ko pa alam kung ano ang sanhi nito."
+          },
+          "when": {
+            "healthState": "unknown",
+            "pattern": "pnc.dataset.question.wellbeing.what_is_going_on_with_you"
+          }
+        }
+      ]
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Common Interaction Seed",
+    "owner": "ProjectHoomans",
+    "references": [
+      {
+        "license": "ACL Anthology terms; metadata-only reference",
+        "name": "DailyDialog",
+        "reviewedOn": "2026-10-19",
+        "url": "https://aclanthology.org/I17-1099/",
+        "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "CC BY 4.0; metadata-only reference",
+        "name": "EmpatheticDialogues",
+        "reviewedOn": "2026-10-19",
+        "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+        "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "WordNet 3.0 license",
+        "name": "WordNet 3.0",
+        "reviewedOn": "2026-10-19",
+        "url": "https://wordnet.princeton.edu/",
+        "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY 4.0",
+        "name": "MASSIVE",
+        "recordRefs": [
+          {
+            "intent": "weather_query",
+            "locale": "en-US",
+            "partition": "train",
+            "recordID": "98"
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+        "sourceVersion": "1.0",
+        "url": "https://github.com/alexa/massive",
+        "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY-SA 4.0",
+        "name": "SGD",
+        "recordRefs": [
+          {
+            "dialogueID": "90_00031",
+            "intent": "GetWeather",
+            "service": "Weather_1",
+            "turn": 6
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+        "sourceVersion": "DSTC8 train",
+        "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+        "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      }
+    ],
+    "version": "1"
+  },
+  "version": 1
+}

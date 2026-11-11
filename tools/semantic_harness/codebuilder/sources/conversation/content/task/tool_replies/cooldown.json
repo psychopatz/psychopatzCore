@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.cooldown.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You have had your turn with the compliments today.",
+              "TL": "Nakaubos ka na ng papuri para sa araw na ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save some of those kind words for tomorrow.",
+              "TL": "Itabi mo ang ilan sa magagandang salita para bukas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You already flattered me enough for one day.",
+              "TL": "Sobra-sobra na ang pambobola mo para sa isang araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Praise limit reached. Let's get back to surviving.",
+              "TL": "Sapat na ang papuri. Balik na tayo sa pagligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard you the first few times. Let it rest.",
+              "TL": "Narinig na kita kanina pa. Ipahinga mo muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've traded enough compliments for today.",
+              "TL": "Sapat na ang palitan natin ng papuri ngayong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Easy on the flattery. Don't overdo it.",
+              "TL": "Dahan-dahan sa pambobola. Huwag mong sobrahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give it a rest until tomorrow.",
+              "TL": "Ipahinga mo muna hanggang bukas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One compliment per day is plenty out here.",
+              "TL": "Ang isang papuri kada araw ay marami na rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save your breath. You've hit the limit for now.",
+              "TL": "Itabi mo ang laway mo. Naabot mo na ang hangganan sa ngayon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.cooldown.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Save the sweet talk for tomorrow.",
+              "TL": "Itabi mo ang matatamis na salita para bukas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold your charm for another time.",
+              "TL": "Itago mo muna ang diskarte mo sa ibang araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too much sweet talk for one afternoon.",
+              "TL": "Masyadong maraming pambobola para sa isang hapon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've got work to do. Charm me later.",
+              "TL": "May trabaho pa tayo. Paamuhin mo ako mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save the smooth lines. Focus on survival.",
+              "TL": "Itabi ang magagandang linya. Magpokus sa kaligtasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're pouring on the charm too thick right now.",
+              "TL": "Masyadong makapal ang pambobola mo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's take a break from the flirting.",
+              "TL": "Magpahinga muna tayo sa paglalandian."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Charm cooldown. Let's get back to reality.",
+              "TL": "Palamig muna sa pambobola. Balik tayo sa realidad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've had my fill of sweet words for today.",
+              "TL": "Busog na ako sa matatamis na salita para sa araw na ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold that thought until tomorrow morning.",
+              "TL": "Hawakan mo ang linyang 'yan hanggang bukas ng umaga."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

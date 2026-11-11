@@ -1,0 +1,358 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.gift.completed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Thank you for the gift.",
+              "TL": "Salamat sa regalo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate this gesture. Thank you.",
+              "TL": "Salamat sa magandang kalooban. Maraming salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's generous of you. Thanks.",
+              "TL": "Bukas-palad ka. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you! This will be put to good use.",
+              "TL": "Salamat! Magagamit ito nang maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A welcome surprise. Thank you, friend.",
+              "TL": "Magandang sorpresa. Salamat, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Much obliged for the gift.",
+              "TL": "Maraming salamat sa regalo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm grateful for this. Thank you.",
+              "TL": "Nagpapasalamat ako rito. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You didn't have to, but thanks a lot.",
+              "TL": "Di mo kailangang gawin, pero maraming salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Received with gratitude. Thank you.",
+              "TL": "Tinatanggap kalakip ang pasasalamat. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for thinking of me with this gift.",
+              "TL": "Salamat sa pag-alala sa akin sa regalong ito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.gift.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't accept that gift.",
+              "TL": "Hindi ko matanggap ang regalong iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Something went wrong while transferring the gift.",
+              "TL": "May nangyaring mali habang ipinapasa ang regalo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gift transfer failed. My hands were full.",
+              "TL": "Bigo ang paglipat ng regalo. Puno ang kamay ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't receive that right now.",
+              "TL": "Di matanggap 'yan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to take the gift into my inventory.",
+              "TL": "Di mailagay ang regalo sa lalagyan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Transaction interrupted. Gift not taken.",
+              "TL": "Naabala ang pagbibigay. Di nakuha ang regalo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to receive the offering.",
+              "TL": "Bigo sa pagtanggap ng alay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I dropped it or couldn't hold it.",
+              "TL": "Nahulog ko o di nahawakan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gift transfer could not be completed.",
+              "TL": "Di natapos ang paglipat ng regalo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't take that from you.",
+              "TL": "Di ko nakuha 'yan mula sa 'yo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.gift.pending",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll take a look at that gift.",
+              "TL": "Titingnan ko ang regalong iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's see what you brought.",
+              "TL": "Tingnan natin kung ano ang dala mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Considering the gift now.",
+              "TL": "Tinitingnan ang regalo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Inspecting what you have for me.",
+              "TL": "Sinusuri ang handog mo para sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on, looking at the offering.",
+              "TL": "Teka, tinitingnan ang iniaalok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll review the item you offered.",
+              "TL": "Susuriin ko ang bagay na inialok mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Checking out the gift.",
+              "TL": "Tinitingnan ang regalo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let me examine what this is.",
+              "TL": "Hayaan mong tingnan ko kung ano ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Looking over your gift.",
+              "TL": "Sinusuri ang regalo mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me a second to check this item.",
+              "TL": "Bigyan mo ako ng sandali para tingnan ang gamit na ito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.gift.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't accept that gift right now.",
+              "TL": "Hindi ko matanggap ang regalong iyan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep it. You need it more than I do.",
+              "TL": "Itabi mo. Mas kailangan mo 'yan kaysa sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have no room for gifts in my pack.",
+              "TL": "Wala nang espasyo sa bag ko para sa mga regalo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't feel comfortable taking this from you.",
+              "TL": "Hindi magaan sa loob ko na tanggapin ito sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refusing this gift. We're not there yet.",
+              "TL": "Tinatanggihan ang regalo. Di pa tayo ganoon kalapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save your supplies. Don't waste them on me.",
+              "TL": "Itabi ang gamit mo. Huwag mong sayangin sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I cannot take that offering.",
+              "TL": "Di ko matatanggap ang alay na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No thanks. I carry my own weight.",
+              "TL": "Hindi salamat. Kaya kong dalhin ang sarili ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gift rejected. Keep your belongings.",
+              "TL": "Tinatanggihan ang regalo. Itago ang pag-aari mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't accept that from you today.",
+              "TL": "Di ko tatanggapin 'yan mula sa 'yo ngayong araw."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.gift.selection_required",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I need to see what you brought me first.",
+              "TL": "Kailangan ko munang makita ang dala mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What exactly are you offering me?",
+              "TL": "Ano nga ba ang iniaalok mo sa akin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Select an item to gift before I decide.",
+              "TL": "Pumili ng bagay na ireregalo bago ako magpasya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Show me what you want to give.",
+              "TL": "Ipakita mo kung ano ang nais mong ibigay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Which item are you trying to hand over?",
+              "TL": "Aling gamit ba ang sinusubukan mong iabot?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pick the specific item first.",
+              "TL": "Piliin muna ang partikular na gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't take anything until you select it.",
+              "TL": "Wala akong matatanggap hangga't di mo pinipili."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Show me what's in your hands.",
+              "TL": "Ipakita mo ang nasa mga kamay mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What gift are we talking about? Choose one.",
+              "TL": "Anong regalo ba ang pinag-uusapan natin? Pumili ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Specify the gift from your inventory.",
+              "TL": "Tukuyin ang regalo mula sa bag mo."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

@@ -1,0 +1,273 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "content",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction Content",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.news.acknowledge",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That's good to know.",
+              "TL": "Mabuting malaman iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate the update.",
+              "TL": "Salamat sa balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll keep that intelligence in mind.",
+              "TL": "Isasaisip ko ang impormasyong iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to have fresh news from the area.",
+              "TL": "Mabuting makatanggap ng bagong balita mula sa lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for passing that along.",
+              "TL": "Salamat sa pagpasa niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. That changes how we look at the sector.",
+              "TL": "Naintindihan. Binabago niyan ang pananaw natin sa lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good information. We'll plan around it.",
+              "TL": "Magandang impormasyon. Magpaplano tayo batay diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. Reliable news is hard to come by.",
+              "TL": "Tala ko na. Mahirap makahanap ng maaasahang balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for keeping me informed.",
+              "TL": "Salamat sa pagpapanatili sa aking may alam."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That helps clear up a few rumors. Thanks.",
+              "TL": "Nakatulong 'yan para maalis ang ilang sabi-sabi. Salamat."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Thanks for telling me. I'll keep that in mind.",
+              "TL": "Salamat sa pagsabi. Tatandaan ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's huge news, friend! Thank you for sharing.",
+              "TL": "Napakalaking balita niyan, kaibigan! Salamat sa pagbabahagi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always glad to know you're looking out for me with news like this.",
+              "TL": "Lagi akong masaya na binabantayan mo ako sa mga ganitong balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have great sources! Thanks a ton.",
+              "TL": "Napakagaling ng mga pinagkukunan mo! Maraming salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I really appreciate you giving me the heads up first.",
+              "TL": "Talagang pinahahalagahan ko na ako ang unang pinaalalahanan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good news is worth its weight in gold out here. Thanks!",
+              "TL": "Ang magandang balita ay ginto ang halaga rito. Salamat!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for sharing that with me. It gives me hope.",
+              "TL": "Salamat sa pagbabahagi niyan sa akin. Nagbibigay ito ng pag-asa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm relieved to hear that. Thank you so much, partner.",
+              "TL": "Nakahinga ako nang maluwag nang marinig 'yan. Salamat nang marami, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's fantastic information. Appreciate you keeping us safe.",
+              "TL": "Napakagandang impormasyon. Salamat sa pag-iingat sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks! Let's make sure the others hear this too.",
+              "TL": "Salamat! Tiyakin nating marinig din ito ng iba."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Sige."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted.",
+              "TL": "Tala ko na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard.",
+              "TL": "Narinig ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good info.",
+              "TL": "Magandang balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear.",
+              "TL": "Malinaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks.",
+              "TL": "Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right.",
+              "TL": "Tama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Acknowledged.",
+              "TL": "Kinikilala ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Useful.",
+              "TL": "May silbi."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "I'll keep it in mind.",
+              "TL": "Tatandaan ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where did you hear that from?",
+              "TL": "Saan mo narinig ang balitang 'yan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll believe it when I see it with my own eyes.",
+              "TL": "Maniwala lang ako kapag nakita ko na ng sarili kong mata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rumors can get people killed out here. Be sure of your facts.",
+              "TL": "Ang tsismis ay nakamamatay dito. Tiyakin mo ang katotohanan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted, but I'll verify that myself.",
+              "TL": "Tala ko na, pero kumpirmahin ko muna sa sarili ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Could be a setup. Don't act on rumors too quickly.",
+              "TL": "Baka bitag 'yan. Huwag kumilos sa sabi-sabi nang padalos-dalos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Who gave you that information?",
+              "TL": "Sinong nagbigay sa 'yo ng impormasyong 'yan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll take it under advisement, but keep my distance.",
+              "TL": "Isasaalang-alang ko, pero magmamasid pa rin ako mula sa malayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't spread that around until we know it's solid.",
+              "TL": "Huwag mong ikalat 'yan hangga't di tiyak na totoo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard. I'll watch for confirming signs.",
+              "TL": "Narinig ko. Magmamasid ako ng mga patunay."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": []
+}

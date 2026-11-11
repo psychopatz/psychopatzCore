@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_comfort.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I hear you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear your comfort.",
+              "TL": "Naririnig ko ang pampalubag-loob mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got the message. Thanks.",
+              "TL": "Nakuha ko ang mensahe. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear what you're trying to do.",
+              "TL": "Naririnig ko ang sinusubukan mong gawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard and appreciated.",
+              "TL": "Narinig at pinahahalagahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear your reassurance.",
+              "TL": "Naririnig ko ang pampanatag mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Taking it to heart.",
+              "TL": "Nakuha ko. Isinasapuso ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you. It helps a bit.",
+              "TL": "Naririnig kita. Nakakatulong nang kaunti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I hear your voice.",
+              "TL": "Naintindihan. Naririnig ko ang boses mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard clearly.",
+              "TL": "Narinig nang malinaw."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_comfort.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Thanks for saying that.",
+              "TL": "Salamat sa pagsabi niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate you saying that to me.",
+              "TL": "Salamat at sinabi mo 'yan sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. That takes some edge off.",
+              "TL": "Maraming salamat. Nabawasan ang kaba ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I needed to hear that. Thank you.",
+              "TL": "Kailangan kong marinig 'yan. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate the soothing words.",
+              "TL": "Salamat sa nakapagpapatahang mga salita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for taking the time to say that.",
+              "TL": "Salamat sa paglalaan ng oras para sabihin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good of you to speak up. Thanks.",
+              "TL": "Mabuti sa 'yo ang magsalita. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you for the comfort.",
+              "TL": "Salamat sa pampalubag-loob."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. That means something out here.",
+              "TL": "Salamat. May halaga 'yan dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate your kindness today.",
+              "TL": "Salamat sa kabaitan mo ngayong araw."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

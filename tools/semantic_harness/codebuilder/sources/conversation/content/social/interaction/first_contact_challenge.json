@@ -1,0 +1,273 @@
+{
+  "domain": "social",
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "interaction",
+      "semanticTemplateID": "semantic.interaction.first_contact.challenge",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "That's close enough. What do you want?",
+              "TL": "Hanggang diyan ka lang. Ano ang gusto mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hands where I can see them. Who are you?",
+              "TL": "Kamay kung saan ko nakikita. Sino ka?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop right there. State your business.",
+              "TL": "Tigil diyan. Sabihin mo ang pakay mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your distance. What brings you over here?",
+              "TL": "Panatilihin ang distansya. Anong nagdala sa 'yo rito?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't take another step. Who sent you?",
+              "TL": "Huwag ka nang humakbang pa. Sinong nagpadala sa 'yo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold it. Are you armed?",
+              "TL": "Sandali. May armas ka ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay where you are. Why are you approaching me?",
+              "TL": "Diyan ka lang. Bakit ka lumalapit sa akin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold ground. What are you after?",
+              "TL": "Diyan ka lang. Anong hinahabol mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your hands clear of your waist. Who are you?",
+              "TL": "Ilayo ang kamay sa baywang. Sino ka?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "One wrong twitch and we have a problem. Speak up.",
+              "TL": "Isang maling galaw at magkakaproblema tayo. Magsalita ka."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Hold it. Who are you?",
+              "TL": "Sandali. Sino ka?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold up a second. What's your name?",
+              "TL": "Teka sandali. Anong pangalan mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Who goes there? Speak up.",
+              "TL": "Sino 'yan? Magsalita ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop there for a moment. Are you friendly?",
+              "TL": "Tigil muna diyan. Kaibigan ka ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on. What brings you to this area?",
+              "TL": "Teka muna. Anong ginagawa mo sa lugar na 'to?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "State who you are and what you're doing here.",
+              "TL": "Sabihin kung sino ka at anong ginagawa mo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold it right there. Let's talk before you come closer.",
+              "TL": "Diyan ka muna. Mag-usap tayo bago ka lumapit pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Who are you and who are you with?",
+              "TL": "Sino ka at sinong kasama mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop there. Just want to make sure you're not a threat.",
+              "TL": "Tigil diyan. Nais ko lang tiyakin na di ka banta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold up. Give me a name and a reason you're here.",
+              "TL": "Teka lang. Bigyan mo ako ng pangalan at dahilan kung bakit ka narito."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Who are you?",
+              "TL": "Sino ka?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Halt.",
+              "TL": "Hinto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Identify.",
+              "TL": "Magpakilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop.",
+              "TL": "Tigil."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Name?",
+              "TL": "Pangalan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hands up.",
+              "TL": "Itaas ang kamay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Purpose?",
+              "TL": "Pakay?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Freeze.",
+              "TL": "Huwag gagalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "State business.",
+              "TL": "Sabihin ang sadya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Who's there?",
+              "TL": "Sino 'yan?"
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Easy. I don't know you yet.",
+              "TL": "Dahan-dahan. Hindi pa kita kilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on there, stranger. Let's introduce ourselves first.",
+              "TL": "Teka muna, estranghero. Magpakilala muna tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Easy does it. Are you alone out here?",
+              "TL": "Dahan-dahan lang. Nag-iisa ka ba rito?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey there. Don't be frightened, just tell me your name.",
+              "TL": "Kumusta. Huwag kang matakot, sabihin mo lang pangalan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Slow down, friend. Let's see who we're talking to.",
+              "TL": "Dahan-dahan lang, kaibigan. Tingnan natin kung sino ang kausap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Peace. Just hold up so we can get acquainted.",
+              "TL": "Kapayapaan. Huminto ka muna para magkakilala tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hello. I don't recognize your face—who might you be?",
+              "TL": "Kumusta. Di ko pamilyar ang mukha mo—sino ka?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Easy now. Just looking out for safety. Who are you?",
+              "TL": "Dahan-dahan lang. Nag-iingat lang. Sino ka?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay there a second, stranger. Where are you heading?",
+              "TL": "Diyan ka muna sandali, estranghero. Saan ang punta mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Welcome, but take it slow. What's your story?",
+              "TL": "Maligayang pagdating, pero dahan-dahan lang. Ano ang kuwento mo?"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction Content",
+    "version": "1"
+  },
+  "version": 1
+}

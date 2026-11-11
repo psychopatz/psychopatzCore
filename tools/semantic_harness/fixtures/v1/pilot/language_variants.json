@@ -1,0 +1,43 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "pilot.language_variants",
+  "cases": [
+    {
+      "id": "language.greeting.matrix",
+      "tags": ["greeting", "matrix", "localization", "pilot"],
+      "matrix": {
+        "language": ["EN", "TL"]
+      },
+      "turns": [
+        {
+          "text": "hello",
+          "expect": {
+            "ir.intent": "GREET",
+            "response.templateID": "semantic.flow.greeting.opening.default",
+            "response.exists": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "language.rain_greeting.matrix",
+      "tags": ["greeting", "weather", "localization", "pilot"],
+      "scenario": {
+        "world": { "weather": "rain" }
+      },
+      "matrix": {
+        "language": ["EN", "TL"]
+      },
+      "turns": [
+        {
+          "text": "hello",
+          "expect": {
+            "ir.intent": "GREET",
+            "response.templateID": "semantic.flow.greeting.opening.rain",
+            "response.exists": true
+          }
+        }
+      ]
+    }
+  ]
+}

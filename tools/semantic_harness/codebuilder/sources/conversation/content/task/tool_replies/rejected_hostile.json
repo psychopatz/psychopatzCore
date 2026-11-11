@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.rejected_hostile.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Back off.",
+              "TL": "Umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Step back right now.",
+              "TL": "Lumayo ka ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Get out of my face.",
+              "TL": "Umalis ka sa harap ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me space before I lose my temper.",
+              "TL": "Bigyan mo ako ng puwang bago ako magalit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back away from me immediately.",
+              "TL": "Lumayo ka sa akin agad-agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I said back off.",
+              "TL": "Sabi ko umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your distance.",
+              "TL": "Panatilihin ang distansya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Step back and cool down.",
+              "TL": "Umatras ka at palamigin ang ulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back off while you still have the chance.",
+              "TL": "Umatras ka habang may pagkakataon ka pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Last warning: back off.",
+              "TL": "Huling babala: umatras ka."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.rejected_hostile.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You do not get to speak to me that way.",
+              "TL": "Wala kang karapatang kausapin ako nang ganyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Mind your mouth before someone breaks it for you.",
+              "TL": "Bantayan ang bibig mo bago may bumasag niyan para sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You don't talk to me with that disrespect.",
+              "TL": "Huwag mo akong kausapin nang may pambabastos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check your tone right now.",
+              "TL": "Ayusin mo ang tono mo ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't tolerate that disrespect from anyone.",
+              "TL": "Di ko palalampasin ang pambabastos na 'yan kahit kanino."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Who do you think you're talking to?",
+              "TL": "Sino sa tingin mo ang kinakausap mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have crossed a serious line with that mouth.",
+              "TL": "Tumawid ka sa seryosong linya sa bibig mong 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch how you address me.",
+              "TL": "Bantayan mo kung paano mo ako kausapin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lower your tone and show some basic respect.",
+              "TL": "Hinaan ang tono at magpakita ng simpleng galang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You don't get to address me like that.",
+              "TL": "Hindi mo ako pwedeng kausapin nang ganyan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

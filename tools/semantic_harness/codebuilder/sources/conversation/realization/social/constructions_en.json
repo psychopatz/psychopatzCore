@@ -1,0 +1,405 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "realization",
+  "domain": "social",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dynamic Conversation Realization",
+    "version": "1"
+  },
+  "realizations": [
+    {
+      "id": "construction.en.social.mirror_retort",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "MIRROR",
+      "dialogueAct": "RETORT",
+      "tokens": [
+        {
+          "kind": "lexeme",
+          "slot": "primary"
+        },
+        {
+          "kind": "literal",
+          "value": " you too."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.apologize",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "APOLOGIZE",
+      "dialogueAct": "APOLOGIZE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I'm "
+        },
+        {
+          "kind": "lexeme",
+          "slot": "primary"
+        },
+        {
+          "kind": "literal",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.deescalate",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "DEESCALATE",
+      "dialogueAct": "DEESCALATE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Let's calm down."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.challenge",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "CHALLENGE",
+      "dialogueAct": "CHALLENGE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Say that again."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.dismiss",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "DISMISS",
+      "dialogueAct": "DISMISS",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Whatever."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.ask_why",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "ASK_WHY",
+      "dialogueAct": "QUESTION",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Why would you say that?"
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.agree",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "AGREE",
+      "dialogueAct": "AGREE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Yeah, I agree."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.disagree",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "DISAGREE",
+      "dialogueAct": "DISAGREE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "No, I don't agree."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.acknowledge",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "ACKNOWLEDGE",
+      "dialogueAct": "ACKNOWLEDGE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I hear you."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.ask_followup",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "ASK_FOLLOWUP",
+      "dialogueAct": "QUESTION",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "What do you mean?"
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.call_bluff",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "CALL_BLUFF",
+      "dialogueAct": "HOSTILE_REMARK",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "You're all talk."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.comfort",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "COMFORT",
+      "dialogueAct": "QUESTION",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "What's really bothering you?"
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.wellbeing_positive",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "WELLBEING_POSITIVE",
+      "dialogueAct": "INFORM",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I'm doing pretty good."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.wellbeing_neutral",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "WELLBEING_NEUTRAL",
+      "dialogueAct": "INFORM",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I'm doing okay."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.wellbeing_negative",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "WELLBEING_NEGATIVE",
+      "dialogueAct": "INFORM",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I've had better days."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.disclose_name",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "DISCLOSE_NAME",
+      "dialogueAct": "INFORM",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I'm "
+        },
+        {
+          "kind": "slot",
+          "slot": "name"
+        },
+        {
+          "kind": "literal",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.refuse_identity",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "REFUSE_IDENTITY",
+      "dialogueAct": "REFUSE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I'd rather not say."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.claim_joke",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "CLAIM_JOKE",
+      "dialogueAct": "APOLOGIZE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I was joking."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.double_down",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "DOUBLE_DOWN",
+      "dialogueAct": "HOSTILE_REMARK",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Yeah, I meant it."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.double_down_direct",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "DOUBLE_DOWN",
+      "dialogueAct": "HOSTILE_REMARK",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I meant what I said."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.double_down_stand",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "DOUBLE_DOWN",
+      "dialogueAct": "HOSTILE_REMARK",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I stand by it."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.warn_direct",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "WARN",
+      "dialogueAct": "BOUNDARY_WARNING",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Don't talk to me like that."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.warn_mouth",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "WARN",
+      "dialogueAct": "BOUNDARY_WARNING",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Watch your mouth."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.warn_stop",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "WARN",
+      "dialogueAct": "BOUNDARY_WARNING",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Cut that out."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.warn_consequence",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "WARN",
+      "dialogueAct": "BOUNDARY_WARNING",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Keep talking like that and we're going to have a problem."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.mirror_retort_challenge",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "MIRROR",
+      "dialogueAct": "RETORT",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Yeah? "
+        },
+        {
+          "kind": "lexeme",
+          "slot": "primary"
+        },
+        {
+          "kind": "literal",
+          "value": " you too."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.end_conversation_done",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "END_CONVERSATION",
+      "dialogueAct": "END_CONVERSATION",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "We're done here."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.end_conversation_withdraw",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "END_CONVERSATION",
+      "dialogueAct": "END_CONVERSATION",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "I'm done with this."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.wait_at.active",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Waiting here now.",
+              "TL": "Naghihintay na ako rito ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Currently holding position and waiting.",
+              "TL": "Kasalukuyang nakapwesto at naghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Standing by at the designated spot.",
+              "TL": "Nakahanda sa itinalagang pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Waiting at this location as ordered.",
+              "TL": "Naghihintay sa lugar na ito ayon sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping watch while waiting right here.",
+              "TL": "Nagbabantay habang naghihintay dito mismo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding at the marker.",
+              "TL": "Hawak ang pwesto sa marka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Waiting quietly. Eyes open.",
+              "TL": "Naghihintay nang tahimik. Bukas ang mga mata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "In position and waiting.",
+              "TL": "Nasa pwesto at naghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stationary at the post.",
+              "TL": "Nakatigil sa posteng ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Waiting here. Take your time.",
+              "TL": "Naghihintay rito. Huwag magmadali."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.wait_at.admitted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Okay, I'll wait there.",
+              "TL": "Sige, maghihintay ako roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Moving to the waiting spot.",
+              "TL": "Naintindihan. Papatungo sa pwesto ng paghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll go stand by over there.",
+              "TL": "Pupunta ako roon para maghintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right, I'll wait at that position.",
+              "TL": "Sige, maghihintay ako sa posisyong iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading to the waypoint to wait.",
+              "TL": "Papatungo sa marka para maghintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I will hold that ground.",
+              "TL": "Naiintindihan ko. Hahawakan ko ang lupang iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Setting up to wait there.",
+              "TL": "Sige. Mag-aayos para maghintay doon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll wait at the assigned marker.",
+              "TL": "Maghihintay ako sa iniatas na marka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving to wait as ordered.",
+              "TL": "Kikilos para maghintay ayon sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds good. Going to wait there.",
+              "TL": "Maganda 'yan. Pupunta para maghintay doon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.wait_at.completed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Finished waiting.",
+              "TL": "Tapos na ang paghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done waiting. What's the next move?",
+              "TL": "Tapos nang maghintay. Ano ang susunod na galaw?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wait time concluded. Ready for orders.",
+              "TL": "Tapos na ang oras ng paghihintay. Handa sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Held the spot. Standing down now.",
+              "TL": "Nahawakan ang pwesto. Uurong na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Waiting task complete.",
+              "TL": "Tapos na ang gawaing maghintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done holding this ground.",
+              "TL": "Tapos na sa paghawak ng lupang ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Time is up. Finished waiting here.",
+              "TL": "Tapos na ang oras. Tapos nang maghintay dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rejoining you. Wait is over.",
+              "TL": "Sasama muli sa 'yo. Tapos na ang paghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Held the post as long as needed.",
+              "TL": "Nabantayan ang poste hangga't kinakailangan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Completed the wait order.",
+              "TL": "Natapos ang utos na maghintay."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.wait_at.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't wait there.",
+              "TL": "Hindi ako nakapaghintay roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Position was overrun. Couldn't keep waiting.",
+              "TL": "Pinamugaran ang pwesto. Di nakapagpatuloy maghintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Enemies forced me out of the waiting spot.",
+              "TL": "Itinaboy ako ng kalaban mula sa pwesto ng paghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't reach the designated waiting location.",
+              "TL": "Di narating ang itinalagang lugar ng paghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to hold ground there. Too dangerous.",
+              "TL": "Di mahawakan ang lupa roon. Masyadong mapanganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Waiting failed. Had to relocate for safety.",
+              "TL": "Pumalpak ang paghihintay. Kinailangang lumipat para sa kaligtasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Aborted waiting. Sector became hostile.",
+              "TL": "Itinigil ang paghihintay. Naging delikado ang lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I had to abandon the post.",
+              "TL": "Kinailangan kong iwan ang poste."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Could not remain stationary there.",
+              "TL": "Hindi nakapanatiling nakatigil doon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to hold the wait point.",
+              "TL": "Bigo sa paghawak ng pwesto ng paghihintay."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.wait_at.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't wait there right now.",
+              "TL": "Hindi ako makapaghintay roon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That spot is in the line of fire. I won't wait there.",
+              "TL": "Nasa linya ng putukan ang pwestong 'yon. Di ako maghihintay doon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Standing out in the open like that is suicide.",
+              "TL": "Pagpapakamatay ang tumayo sa bukas na lugar nang ganoon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refusing to wait in an unsecured position.",
+              "TL": "Tumatangging maghintay sa di-ligtas na posisyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too many hostiles nearby to just stand around.",
+              "TL": "Masyadong maraming kalaban sa paligid para tumayo-tayo lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I need to stay on the move. Can't wait there.",
+              "TL": "Kailangan kong gumalaw. Di makapaghihintay doon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wait order rejected. Find a safer spot.",
+              "TL": "Tinatanggihan ang paghihintay. Maghanap ng mas ligtas na lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't wait in a compromised sector.",
+              "TL": "Di ako maghihintay sa delikadong lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to comply. That location has zero cover.",
+              "TL": "Di makasusunod. Walang silong ang lugar na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't wait at that position.",
+              "TL": "Di ako makapaghihintay sa posisyong 'yon."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

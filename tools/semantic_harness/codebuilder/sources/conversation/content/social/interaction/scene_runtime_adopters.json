@@ -1,0 +1,3085 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "content",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Scene Runtime Adopter Content",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.scene.horde_prompt",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That's a horde. We fighting through or pulling back?",
+              "TL": "Kawan iyan. Lalaban ba tayo o uurong?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look at that crowd. Do we stand our ground or run?",
+              "TL": "Tingnan mo ang dami nila. Maninindigan ba tayo o tatakbo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Huge pack ahead. What's the call: fight or retreat?",
+              "TL": "Malaking kawan sa unahan. Anong pasya: lalaban o aatras?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is a serious horde. Do we engage or bypass?",
+              "TL": "Matinding kawan 'yan. Lalabanan ba natin o iiwasan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're swarming. Are we cutting through or falling back?",
+              "TL": "Dumudumog sila. Babasagin ba natin o aatras tayo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too many bodies out there. What do you want to do?",
+              "TL": "Napakaraming patay sa labas. Ano ang gusto mong gawin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Horde spotted. We taking them on or finding another route?",
+              "TL": "May kawan sa unahan. Lalabanan ba natin o maghahanap ng ibang daan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Massive group approaching. Engage or evacuate?",
+              "TL": "Napakalaking grupo ang papalapit. Lalaban o lilikas?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's a swarm. Give the order: fight or retreat?",
+              "TL": "Kawan 'yan. Mag-utos ka: laban o urong?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look at that numbers disadvantage. Stand or withdraw?",
+              "TL": "Tingnan mo ang dami nila laban sa atin. Tatayo o aatras?"
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "That's a lot of them. Stay close—fight or fall back?",
+              "TL": "Ang dami nila. Dumikit ka—lalaban o uurong?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too many for comfort, friend. What's your gut say: fight or run?",
+              "TL": "Masyadong marami para maging panatag, kaibigan. Anong kutob mo: laban o takbo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay right next to me. Do we take them together or get out?",
+              "TL": "Manatili ka sa tabi ko. Sabay ba nating lalabanan o aalis tayo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That swarm is dangerous. I want us alive—fight or retreat?",
+              "TL": "Delikado ang kawang 'yan. Gusto kong mabuhay tayo—laban o urong?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm with you whatever you decide. Are we pushing through or retreating?",
+              "TL": "Kasama mo ako kahit anong desisyon mo. Susulong ba tayo o aatras?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Careful, partner. That's a massive pack. Call the play.",
+              "TL": "Mag-ingat, kasama. Malaking kawan 'yan. Sabihin mo ang plano."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look out, friend! Do we clear them or save our strength and run?",
+              "TL": "Mag-ingat, kaibigan! Uubusin ba natin sila o magtitipid ng lakas at tatakbo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're everywhere. Stick by me—fight or fall back?",
+              "TL": "Nasa lahat sila ng sulok. Dumikit ka—laban o urong?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I trust your call. Are we taking this swarm on or heading back?",
+              "TL": "Tiwala ako sa pasya mo. Lalabanan ba natin ang kawang ito o babalik?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Big herd ahead. Don't worry, we're a team. What's the plan?",
+              "TL": "Malaking kawan sa unahan. Huwag kang mag-alala, magkasama tayo. Anong plano?"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Horde. Fight or fall back?",
+              "TL": "Kawan. Laban o urong?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too many. Call it: stand or run?",
+              "TL": "Sobra sila. Magpasya: tayo o takbo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Swarm ahead. Fight or retreat?",
+              "TL": "Kawan sa unahan. Laban o urong?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Herd. What's the call?",
+              "TL": "Kawan. Anong desisyon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Massive group. Push or pull?",
+              "TL": "Malaking grupo. Sulong o urong?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Numbers are bad. Engage?",
+              "TL": "Masama ang bilang. Lalaban?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Horde spotted. Decision now.",
+              "TL": "Kawan nakita. Desisyon ngayon na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dozens of them. Stand or flee?",
+              "TL": "Dose-dosena sila. Lalaban o tatakas?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Swarm incoming. Your call.",
+              "TL": "Kawan parating. Pasya mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Crowd ahead. Fight or back off?",
+              "TL": "Grupo sa harap. Laban o atras?"
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Big group ahead. We decide now: engage or avoid.",
+              "TL": "Malaking grupo sa harap. Magpasya tayo ngayon: lumaban o umiwas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That horde will tear us apart if we hesitate. What's the move?",
+              "TL": "Lalapain tayo ng kawang 'yan kapag nag-atubili tayo. Anong galaw?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bad odds. We fight with discipline or we slip away right now.",
+              "TL": "Masamang tsansa. Lumaban nang may disiplina o tumakas agad ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not dying here. Decide: cut through or fall back?",
+              "TL": "Di ako mamamatay dito. Magpasya ka: basagin o umatras?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check the numbers. Engage only if we have choke points.",
+              "TL": "Tingnan mo ang dami. Lumaban lang kung may masisikipang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Horde is closing in. Make a choice before they surround us.",
+              "TL": "Palapit na ang kawan. Pumili bago nila tayo mapaligiran."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can't afford mistakes against that herd. Stand or withdraw?",
+              "TL": "Di tayo pwede magkamali sa kawang 'yan. Lalaban o aatras?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch the flanks. Do we fight or get the hell out?",
+              "TL": "Bantayan ang tagiliran. Lalaban ba tayo o aalis na agad?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "They'll overwhelm an open position. Call it now.",
+              "TL": "Tatalunin nila tayo sa bukas na lugar. Magpasya ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Huge pack. If we fight, nobody breaks formation.",
+              "TL": "Malaking kawan. Kung lalaban, walang sisira sa pormasyon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.horde_reply_brave",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We can take them.",
+              "TL": "Kaya natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've handled worse. Let's clear them.",
+              "TL": "Nakalusot na tayo sa mas malala. Ubusin natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stand firm. We fight through.",
+              "TL": "Tumayo nang matatag. Lalabanan natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We have the weapons. Let's put them down.",
+              "TL": "Nasa atin ang armas. Patumbahin natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready up. We're not running from this.",
+              "TL": "Humanda ka. Hindi natin tatakbuhan ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We take the fight to them. Stay sharp.",
+              "TL": "Sasalubungin natin sila. Maging alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Line them up. We can win this.",
+              "TL": "Pilahin sila. Kayang-kaya natin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No backing down. We push through.",
+              "TL": "Walang atrasan. Babasagin natin 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We hold here and eliminate the threat.",
+              "TL": "Dito tayo tatayo at aalisin ang banta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm ready. Let's make every strike count.",
+              "TL": "Handa na ako. Tiyaking may tama ang bawat palo."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I'm with you. We can take them.",
+              "TL": "Kasama mo ako. Kaya natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Together, nothing can stop us! Let's do this.",
+              "TL": "Kapag magkasama tayo, walang makapipigil sa atin! Tara na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've got your back, friend. We fight as one.",
+              "TL": "Hawak ko ang likod mo, kaibigan. Iisang laban tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We survive together, we fight together. Let's clear them out!",
+              "TL": "Sabay tayong nabubuhay, sabay tayong lalaban. Ubusin natin sila!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "With you beside me, I'm not afraid. Let's take them down.",
+              "TL": "Dahil katabi kita, hindi ako natatakot. Patumbahin natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's show them what real survivors are made of!",
+              "TL": "Ipakita natin sa kanila kung ano ang tunay na nakaligtas!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right by your side, partner. We won't lose today.",
+              "TL": "Nasa tabi mo lang ako, kasama. Hindi tayo matatalo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I trust us. Let's stand tall and fight.",
+              "TL": "Tiwala ako sa atin. Tumindig tayo at lumaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've got this, friend. Watch my back and I'll watch yours.",
+              "TL": "Kayang-kaya natin, kaibigan. Bantayan ang isa't isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay close and hit hard! We'll celebrate after.",
+              "TL": "Manatiling dikit at humampas nang malakas! Magdiriwang tayo mamaya."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Stand and fight.",
+              "TL": "Tumayo at lumaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We take them.",
+              "TL": "Kaya natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No retreat.",
+              "TL": "Walang urungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Draw weapons.",
+              "TL": "Bunot ng armas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Kill them all.",
+              "TL": "Ubusin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fight through.",
+              "TL": "Lumaban pasulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready.",
+              "TL": "Handa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding ground.",
+              "TL": "Hawak ang pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's do this.",
+              "TL": "Gawin na natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bring them on.",
+              "TL": "Ilabas sila."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "If we commit, we hit hard and stay together.",
+              "TL": "Kung lalaban tayo, sabay at todo ang tira."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No heroics. Funnel them into a choke point and execute.",
+              "TL": "Walang magpapakabayani. Ipitin sila sa sikip at tapusin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch your stamina. Don't swing wild and get exhausted.",
+              "TL": "Bantayan ang lakas. Huwag magwala para di kapusin ng hangin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep the line tight. If one falls, we both die.",
+              "TL": "Higpitan ang pormasyon. Kapag may bumagsak, patay tayong dalawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target the leaders first. Clear them systematically.",
+              "TL": "Unahin ang mga nasa harap. Ubusin nang may sistema."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We fight, but maintain an escape route behind us.",
+              "TL": "Lalaban tayo, pero tiyaking may takasan sa likod natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Every strike must be lethal. No wasted energy.",
+              "TL": "Bawat tama dapat nakamamatay. Walang sayang na lakas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't let them surround us. Push when I push.",
+              "TL": "Huwag magpapaligid sa kanila. Sumulong kapag sumulong ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can win this if we keep cool heads and steady hands.",
+              "TL": "Mananalo tayo kung mananatiling malamig ang ulo at matatag ang kamay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Agreed. Take out the front rank and hold the doorway.",
+              "TL": "Sang-ayon. Patumbahin ang unahan at hawakan ang pinto."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.horde_reply_cautious",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Too many. We should pull back.",
+              "TL": "Sobra sila. Dapat umatras tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The odds are terrible. Let's retreat and find another way.",
+              "TL": "Napakasama ng tsansa. Umatras tayo at maghanap ng ibang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fighting here is a death sentence. Fall back.",
+              "TL": "Kamatayan ang lumaban dito. Umatras na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We don't have the ammunition or stamina for this. Pull back.",
+              "TL": "Kulang tayo sa bala at lakas para rito. Umatras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Better to live and fight another day. Let's withdraw.",
+              "TL": "Mas mabuting mabuhay para lumaban sa ibang araw. Umatras tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're completely outmatched. Retreat orderly.",
+              "TL": "Lupig tayo sa dami nila. Umatras nang maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back up slowly. Don't make sudden noises.",
+              "TL": "Umatras nang dahan-dahan. Huwag gumawa ng ingay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's slip away while they haven't locked onto us.",
+              "TL": "Tumakas na tayo habang hindi pa sila nakapokus sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too risky. We need to withdraw immediately.",
+              "TL": "Masyadong mapanganib. Kailangan nating umatras agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I agree with retreating. Turn around and move quietly.",
+              "TL": "Sang-ayon akong umatras. Lumingon at lumakad nang tahimik."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I'd rather get us out of this alive. Pull back.",
+              "TL": "Mas gusto kong makaalis tayong buhay. Umatras tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I care too much about you to risk this. Let's retreat, friend.",
+              "TL": "Masyado kitang pinahahalagahan para isugal ito. Umatras tayo, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Please, let's fall back together. We don't have to die here.",
+              "TL": "Pakiusap, sabay tayong umatras. Di natin kailangang mamatay rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I need you alive, partner. Turn around, let's go.",
+              "TL": "Kailangan kitang buhay, kasama. Lumingon ka, tara na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's save our strength for our people back home. Retreat.",
+              "TL": "Itabi natin ang lakas natin para sa kasama sa kampo. Umatras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take my hand if you need to, but we have to pull back now.",
+              "TL": "Hawakan mo ang kamay ko kung kailangan, pero aatras na tayo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There's no shame in living to fight tomorrow. Fall back with me.",
+              "TL": "Walang kahihiyan sa pananatiling buhay. Umatras ka kasama ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's back away gently, together. I've got you.",
+              "TL": "Umatras tayo nang marahan, nang magkasama. Hawak kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can find supplies elsewhere. Let's keep each other safe and run.",
+              "TL": "Makakahanap tayo ng gamit sa iba. Manatiling ligtas at tumakbo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not leaving without you, so let's both back up right now.",
+              "TL": "Di ako aalis nang wala ka, kaya umatras tayong pareho ngayon."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Pull back.",
+              "TL": "Umatras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too many. Run.",
+              "TL": "Sobra sila. Takbo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Retreat.",
+              "TL": "Urong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fall back now.",
+              "TL": "Atras na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bad odds. Leave.",
+              "TL": "Masamang tsansa. Alis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Out. Now.",
+              "TL": "Labas. Ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back up.",
+              "TL": "Umatras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not here. Move.",
+              "TL": "Huwag dito. Kilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Escape.",
+              "TL": "Takas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Away.",
+              "TL": "Malayo."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Bad odds. Give them space.",
+              "TL": "Masama ang tsansa. Lumayo tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fighting that pack is suicide. Withdraw in formation.",
+              "TL": "Pagpapakamatay ang labanang 'yan. Umatras nang may pormasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Step back quietly. Do not alert the rear flank.",
+              "TL": "Umatras nang tahimik. Huwag gisingin ang nasa likod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your weapon raised, but reverse your footsteps.",
+              "TL": "Itaas ang armas, pero ihakbang pabalik ang paa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We have zero tactical advantage. We fall back immediately.",
+              "TL": "Wala tayong kalamangan sa posisyon. Aatras tayo agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't let adrenaline make you stupid. We withdraw.",
+              "TL": "Huwag magpadala sa kaba at maging tanga. Aatras tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back away into the shadows. Let them wander past.",
+              "TL": "Umatras sa dilim. Hayaang lumampas sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I refuse to be butchered in an open field. Retreat.",
+              "TL": "Ayokong malapa sa bukas na damuhan. Umatras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep low and retreat to the last secure building.",
+              "TL": "Yumuko at umatras sa huling ligtas na gusali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Orderly withdrawal. If anyone runs screaming, they're dead.",
+              "TL": "Maayos na pag-atras. Kapag may nagpanic at sumigaw, patay 'yon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.horde_reply_steady",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Hold here. Don't rush it.",
+              "TL": "Dito muna. Huwag padalos-dalos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wait for them to thin out before making a move.",
+              "TL": "Hintaying mabawasan sila bago gumalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay in position. Let's see which way they drift.",
+              "TL": "Manatili sa pwesto. Tingnan kung saan sila papunta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold your ground and observe their path.",
+              "TL": "Hawakan ang pwesto at bantayan ang ruta nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No sudden movements. Let them pass if possible.",
+              "TL": "Walang biglaang galaw. Hayaang lumampas kung maaari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep calm and hold the line right here.",
+              "TL": "Kumalma at hawakan ang linya dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Patience. Let's wait for the right opening.",
+              "TL": "Pasensya muna. Hintayin ang tamang puwang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold steady. We decide when we have better information.",
+              "TL": "Maging matatag. Magpapasya tayo kapag mas marami nang impormasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't panic. Hold position behind cover.",
+              "TL": "Huwag mag-panic. Manatili sa likod ng kublihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Steady now. Let's assess before we commit.",
+              "TL": "Dahan-dahan lang. Timbangin muna bago sumugod."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Stay together. Let's hold before we commit.",
+              "TL": "Magkakasama tayo. Humawak muna bago sumugod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Breathe easy, friend. We hold right here by each other.",
+              "TL": "Huminga ka nang maluwag, kaibigan. Hawak-kamay tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm right beside you. Let's wait for a safe moment.",
+              "TL": "Nasa tabi mo lang ako. Hintayin natin ang ligtas na sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold steady, partner. We don't have to rush into danger.",
+              "TL": "Magpakatatag ka, kasama. Di natin kailangang magpadalos-dalos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay low with me. Let's watch their movements together.",
+              "TL": "Yumuko ka kasabay ko. Sabay nating bantayan ang galaw nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep calm. As long as we hold together, we'll be fine.",
+              "TL": "Manatiling kalmado. Hangga't magkasama tayo, magiging maayos tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just hold on for a minute. Let the worst of the herd pass.",
+              "TL": "Sandali lang. Hayaang lumampas ang pinakamalaking kawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Steady, friend. I'm right here with you in the quiet.",
+              "TL": "Dahan-dahan, kaibigan. Narito lang ako kasama mo sa katahimikan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't be scared. We hold this spot until we have a clean shot.",
+              "TL": "Huwag kang matakot. Hawakan ang pwesto hanggang may malinaw na daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Together and steady. Let's let them drift away.",
+              "TL": "Sama-sama at matatag. Hayaan natin silang lumayo."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Hold. Watch them.",
+              "TL": "Hawak. Bantayan sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold position.",
+              "TL": "Hawakan ang pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wait.",
+              "TL": "Teka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay low.",
+              "TL": "Yumuko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Steady.",
+              "TL": "Magpakatatag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Do not move.",
+              "TL": "Huwag gagalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold.",
+              "TL": "Hawak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Patience.",
+              "TL": "Pasensya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Freeze.",
+              "TL": "Tigil."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet. Watch.",
+              "TL": "Tahimik. Magmasid."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "No rush. Hold position and watch the pressure.",
+              "TL": "Walang pagmamadali. Humawak at bantayan ang galaw nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold here. If you twitch, you draw the whole pack.",
+              "TL": "Dito muna. Kapag kumilos ka, mahahatak mo ang buong kawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay rooted. Wait until their lead walkers pass.",
+              "TL": "Manatiling nakatuntong. Hintaying lumampas ang nauuna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Maintain silence and hold the corner.",
+              "TL": "Panatilihin ang katahimikan at hawakan ang kanto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Do not engage prematurely. Let the herd scatter.",
+              "TL": "Huwag aatake nang maaga. Hayaang maghiwa-hiwalay ang kawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold your breath if you have to, but don't move.",
+              "TL": "Pigilin ang hininga kung kailangan, pero huwag gagalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We wait for an exploitable mistake. Stay still.",
+              "TL": "Hintayin natin ang pagkakamali nila. Huwag gumalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your weapon ready, but do not fire yet. Hold.",
+              "TL": "Ihanda ang armas, pero huwag munang puputok. Hawak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold tight against the wall. Let them walk past.",
+              "TL": "Dumikit sa pader. Hayaang maglakad sila palampas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Steady. Any sound will turn this into a slaughterhouse.",
+              "TL": "Dahan-dahan. Anumang ingay ay gagawin itong katayan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.grounded_news_share",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I heard something worth passing on.",
+              "TL": "May narinig akong mahalagang ipasa sa iyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got an update on what's happening nearby.",
+              "TL": "May balita ako sa mga nangyayari sa paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There's fresh news from the neighboring zone.",
+              "TL": "May sariwang balita mula sa kalapit na lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I picked up some information you should know about.",
+              "TL": "May nakuha akong impormasyon na dapat mong malaman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heads up: I heard a report about conditions outside.",
+              "TL": "Makinig ka: may narinig akong ulat tungkol sa kalagayan sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Passing along some intelligence I gathered.",
+              "TL": "Ipinapasa ko ang ilang impormasyong nakalap ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Here's what I've learned from other travelers.",
+              "TL": "Ito ang nalaman ko mula sa ibang manlalakbay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You might want to hear this latest report.",
+              "TL": "Baka gusto mong marinig itong pinakahuling balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have some verified information to share.",
+              "TL": "May napatunayan akong impormasyon na ibabahagi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Listen to this news before you head out.",
+              "TL": "Pakinggan mo itong balita bago ka lumabas."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I thought you should hear what I learned.",
+              "TL": "Naisip kong dapat mong marinig ang nalaman ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey friend, I found out something that might help us.",
+              "TL": "Huy kaibigan, may nalaman akong makatutulong sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I wanted to make sure you were in the loop on this news.",
+              "TL": "Gusto kong tiyakin na may alam ka sa balitang ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got some good intel to share with you, partner.",
+              "TL": "May magandang balita akong ibabahagi sa 'yo, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always looking out for you—listen to what I heard.",
+              "TL": "Lagi kitang iniisip—makinig ka sa narinig ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thought of you as soon as I heard this update.",
+              "TL": "Ikaw agad ang naisip ko nang marinig ko ang balitang ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Come here, I have news that might make things easier.",
+              "TL": "Halika rito, may balita ako na magpapagaan ng sitwasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to share this bit of hope with you today.",
+              "TL": "Masayang ibahagi ang kaunting pag-asang ito sa 'yo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Listen up, friend. This could keep us safer.",
+              "TL": "Makinig ka, kaibigan. Mas makapagpapanatiling ligtas ito sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I wanted you to hear this first from me.",
+              "TL": "Gusto kong sa akin mo unang marinig ito."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Got some news for you.",
+              "TL": "May balita ako para sa iyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "News.",
+              "TL": "Balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Listen up.",
+              "TL": "Makinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard something.",
+              "TL": "May narinig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Intel for you.",
+              "TL": "Impormasyon para sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Update.",
+              "TL": "Ulat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Here's the word.",
+              "TL": "Ito ang balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "New report.",
+              "TL": "Bagong balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check this.",
+              "TL": "Tingnan mo 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Word from outside.",
+              "TL": "Balita mula sa labas."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "I have something I can confirm.",
+              "TL": "May bagay akong makukumpirma."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have verified intel, but keep it quiet.",
+              "TL": "May napatunayan akong impormasyon, pero panatilihing lihim."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Listen close. I don't want everyone overhearing this.",
+              "TL": "Makinig nang mabuti. Ayokong marinig ito ng lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm sharing this with you because you need to know the risks.",
+              "TL": "Ibinabahagi ko ito dahil kailangan mong malaman ang panganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "News from the perimeter. Don't go spreading it wildly.",
+              "TL": "Balita mula sa paligid. Huwag mong ikalat kung saan-saan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I verified this rumor myself. Take it seriously.",
+              "TL": "Kinumpirma ko ang balitang ito mismo. Seryosohin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Careful who you repeat this to, but here's the situation.",
+              "TL": "Mag-ingat kung kanino mo sasabihin, pero ito ang kalagayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have confirmed facts about what happened out there.",
+              "TL": "May napatunayan akong katotohanan sa nangyari sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your voice low. Here's what I confirmed.",
+              "TL": "Hinaan ang boses mo. Ito ang nakumpirma ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Actionable intel. Use it to protect yourself.",
+              "TL": "Magagamit na impormasyon. Gamitin para protektahan ang sarili."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.grounded_news_answer",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is what I can confirm right now.",
+              "TL": "Iyan ang makukumpirma ko sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's all the verified information I have.",
+              "TL": "Iyan lang ang napatunayang impormasyong hawak ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That covers the extent of what I know.",
+              "TL": "Iyan ang kabuuan ng nalalaman ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Beyond that, it's just guesswork.",
+              "TL": "Higit pa riyan, hula-hula na lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's as much as I was able to find out.",
+              "TL": "Iyan lang ang nagawa kong alamin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll let you know if I hear anything more.",
+              "TL": "Sasabihan kita kapag may narinig pa akong bago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's the factual picture for now.",
+              "TL": "Iyan ang totoong larawan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's what's solid. The rest is rumor.",
+              "TL": "Iyan ang totoo. Tsismis na ang iba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've told you everything I can verify.",
+              "TL": "Nasabi ko na ang lahat ng kaya kong kumpirmahin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's the report as it stands.",
+              "TL": "Iyan ang ulat sa kasalukuyan."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I wish I knew more, but that is what I can confirm.",
+              "TL": "Sana mas marami akong alam, pero iyan ang makukumpirma ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's all I have for you right now, friend, but I'll keep asking.",
+              "TL": "Iyan lang muna, kaibigan, pero patuloy akong magtatanong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I wanted to share everything I knew to keep you safe.",
+              "TL": "Gusto kong ibahagi ang lahat para manatili kang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If any more news comes my way, you'll be the first I tell.",
+              "TL": "Kapag may bagong balita, ikaw ang una kong sasabihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hope that helps you out today, partner.",
+              "TL": "Sana makatulong 'yan sa 'yo ngayong araw, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's the whole story as far as I've been told.",
+              "TL": "Iyan ang buong kuwento ayon sa sinabi sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm glad I could pass that along to you.",
+              "TL": "Mabuti at naipasa ko sa 'yo 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's what we have to work with for now, friend.",
+              "TL": "Iyan ang hawak natin sa ngayon, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll keep my ears open for you.",
+              "TL": "Bukas ang tainga ko para sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's everything for now. Take good care of yourself.",
+              "TL": "Iyan ang lahat sa ngayon. Ingatan mo ang sarili mo."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "That is all I can confirm.",
+              "TL": "Iyan lang ang makukumpirma ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's it.",
+              "TL": "Iyon lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All I know.",
+              "TL": "Lahat ng alam ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Confirmed only.",
+              "TL": "Kumpirmado lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing more.",
+              "TL": "Wala nang iba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's all.",
+              "TL": "Iyon na ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Full report.",
+              "TL": "Buong ulat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "End of it.",
+              "TL": "Diyan nagtatapos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done.",
+              "TL": "Tapos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All there is.",
+              "TL": "Iyan lang."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Nothing else I can verify yet.",
+              "TL": "Wala pa akong ibang mapapatunayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't deal in rumors. That's the only confirmed piece.",
+              "TL": "Di ako nakikipagtsismisan. Iyan lang ang kumpirmado."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't press for details I can't back up.",
+              "TL": "Huwag kang maghanap ng detalyeng di ko mapatutunayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's the extent of it. Keep it between us.",
+              "TL": "Hanggang diyan lang. Sa ating dalawa lang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't guess about the rest. Stick to the facts.",
+              "TL": "Hindi ako manghuhula. Manatili sa katotohanan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is all you need to know for now.",
+              "TL": "Iyan lang ang kailangan mong malaman sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Anything beyond that is dangerous speculation.",
+              "TL": "Anuman higit diyan ay mapanganib na haka-haka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've verified that much. Nothing more to say.",
+              "TL": "Iyan lang ang nakumpirma ko. Wala nang dapat sabihin pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take that information and plan accordingly.",
+              "TL": "Kunin ang balitang 'yan at magplano nang maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's all that's confirmed. Watch your step.",
+              "TL": "Iyan lang ang tiyak. Mag-ingat ka sa hakbang mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.excursion_preparing",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We're getting ready to head out.",
+              "TL": "Naghahanda na tayong umalis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Double-check your pack and gear before we leave.",
+              "TL": "Suriing muli ang bag at gamit bago tayo umalis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Making preparations for the run now.",
+              "TL": "Naghahanda na para sa pagbiyahe ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gather what you need. Departure is soon.",
+              "TL": "Tipunin ang kailangan mo. Aalis na agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check weapons, food, and water.",
+              "TL": "Suriin ang armas, pagkain, at tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Prepping for the excursion. Almost ready.",
+              "TL": "Naghahanda para sa paglabas. Halos handa na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's make sure nothing essential gets left behind.",
+              "TL": "Tiyaking walang mahahalagang gamit na maiiwan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Getting everything squared away for the road.",
+              "TL": "Inaayos ang lahat para sa paglalakbay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Final checks before we open the gates.",
+              "TL": "Huling pagsusuri bago buksan ang tarangkahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Prepare your supplies. We move shortly.",
+              "TL": "Ihanda ang mga supply. Kikilos na tayo maya-maya."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "We're getting ready. Make sure you've got what you need.",
+              "TL": "Naghahanda na tayo. Siguraduhin mong dala mo ang kailangan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take your time prepping, friend. Better safe than sorry.",
+              "TL": "Maghanda nang mabuti, kaibigan. Mas mabuting handa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need help packing anything up, partner?",
+              "TL": "Kailangan mo ba ng tulong sa pag-iimpake, kasama?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got an extra bandage if you need one. Let's prep well.",
+              "TL": "May sobra akong bendahe kung kailangan mo. Maghanda tayo nang maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Excited and nervous, but we've got each other. Ready up!",
+              "TL": "Kaba at sabik, pero magkasama tayo. Maghanda na!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Make sure you've eaten and drank water before we go.",
+              "TL": "Tiyaking nakakain at nakainom ka bago tayo umalis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Getting ready! We'll make this a successful run together.",
+              "TL": "Naghahanda na! Gagawin nating matagumpay ang biyaheng ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Double-check your boots and bandages, friend.",
+              "TL": "Suriin ang bota at bendahe mo, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm right here prepping alongside you. We'll do great.",
+              "TL": "Nandito lang ako naghahanda kasabay mo. Magiging maayos tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Readying supplies. Stay positive, we've got this!",
+              "TL": "Inihahanda ang mga gamit. Maging positibo, kaya natin ito!"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Get ready. We leave soon.",
+              "TL": "Maghanda. Aalis tayo agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pack up.",
+              "TL": "Mag-impake."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check gear.",
+              "TL": "Tingnan ang gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Prepping.",
+              "TL": "Naghahanda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Load out.",
+              "TL": "Ihanda ang karga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Almost time.",
+              "TL": "Malapit na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready weapons.",
+              "TL": "Ihanda ang armas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving soon.",
+              "TL": "Aalis na agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Supplies ready.",
+              "TL": "Handa na ang supply."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Final checks.",
+              "TL": "Huling pagsusuri."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Prep first. We move when everyone's ready.",
+              "TL": "Maghanda muna. Aalis tayo kapag handa na ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If you forget something vital out there, nobody is turning back for you.",
+              "TL": "Kapag may naiwan kang mahalaga, walang babalik para sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check your ammunition count twice. No excuses.",
+              "TL": "Bilangin ang bala mo nang dalawang beses. Walang palusot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sharpen your blade now. We don't stop for maintenance in the field.",
+              "TL": "Hasiin ang talim mo ngayon. Walang hinto para magkumpuni sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pack light, pack lethal. Don't carry useless junk.",
+              "TL": "Magdala ng magaan at nakamamatay. Huwag magdala ng kalat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Inspect your boots. A twisted ankle out there is fatal.",
+              "TL": "Suriin ang sapatos mo. Nakamamatay ang maipit ang paa sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Be completely ready before you step past that gate.",
+              "TL": "Maging handang-handa bago lumabas sa tarangkahang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check your medical supplies. You bleed, you fix it.",
+              "TL": "Tingnan ang gamot mo. Kapag nagdugo ka, gamutin mo sarili mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Preparing now. Stay disciplined once we cross the threshold.",
+              "TL": "Naghahanda na. Maging disiplinado paglabas natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lock and load. Don't slow the group down.",
+              "TL": "Magkarga ng armas. Huwag mong pabagalin ang grupo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.excursion_departing",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We're moving out. Keep close.",
+              "TL": "Aalis na tayo. Dumikit ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading out now. Stay sharp.",
+              "TL": "Lalabas na tayo ngayon. Maging alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Departure time. Keep your eyes peeled.",
+              "TL": "Oras na ng pag-alis. Buksan ang mga mata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stepping outside the wire. Watch your surroundings.",
+              "TL": "Lalabas na sa bakod. Bantayan ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're on the move. Maintain distance and formation.",
+              "TL": "Kumikilos na tayo. Panatilihin ang pormasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving out. Quiet footsteps.",
+              "TL": "Lumalabas na. Tahimik na mga hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Time to go. Stick to the planned route.",
+              "TL": "Oras na para umalis. Manatili sa pinlanong ruta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Excursion begins now. Stay focused.",
+              "TL": "Nagsisimula na ang lakad. Magpokus."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Here we go. Eyes front and watch your flanks.",
+              "TL": "Ito na tayo. Tumingin sa unahan at tagiliran."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving outbound. Keep noise to a minimum.",
+              "TL": "Papalabas na. Huwag gagawa ng ingay."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "We're heading out. Stay close and we'll get through it.",
+              "TL": "Aalis na tayo. Dumikit ka at malalampasan natin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Off we go, friend! Right beside you all the way.",
+              "TL": "Lalakad na tayo, kaibigan! Katabi mo ako sa buong daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay close to me, partner. We watch out for each other.",
+              "TL": "Dumikit ka sa akin, kasama. Bantayan natin ang isa't isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving out together. Let's make it a safe trip.",
+              "TL": "Sabay tayong aalis. Gawin nating ligtas ang biyahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Here we go! Keep your chin up and stay close.",
+              "TL": "Ito na! Itaas ang noo at dumikit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading out. Don't worry, we've got this covered.",
+              "TL": "Lalabas na. Huwag mag-alala, hawak natin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Step together, friend. We'll be back before you know it.",
+              "TL": "Sabay-sabay sa hakbang, kaibigan. Makababalik tayo agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On our way! Stay safe and keep smiling.",
+              "TL": "Papunta na tayo! Manatiling ligtas at masigla."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving out. I'm right behind you if you need a hand.",
+              "TL": "Lumalabas na. Nasa likod mo lang ako kung kailangan mo ng tulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's bring back good loot and all our limbs! Moving out.",
+              "TL": "Mag-uwi tayo ng magagandang gamit nang buo ang katawan! Lakad na."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Moving out. Stay close.",
+              "TL": "Aalis na. Dumikit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving out.",
+              "TL": "Lalakad na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's move.",
+              "TL": "Kilos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading out.",
+              "TL": "Lalabas na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Outbound.",
+              "TL": "Palabas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On the move.",
+              "TL": "Kumikilos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay tight.",
+              "TL": "Dumikit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet steps.",
+              "TL": "Tahimik na hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Marching.",
+              "TL": "Lumalakad na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Go.",
+              "TL": "Tara."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "We're outbound. Keep the group tight.",
+              "TL": "Papunta na tayo. Panatilihing dikit ang grupo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Crossing outside. Weapons ready, safety off.",
+              "TL": "Lalabas na. Handa ang armas, alisin ang safety."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No talking from here on out. Hand signals only.",
+              "TL": "Walang magsasalita simula rito. Senyas-kamay lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep low and match my speed. Don't wander off.",
+              "TL": "Yumuko at sumabay sa bilis ko. Huwag lalayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Scan your sectors continuously as we move.",
+              "TL": "Bantayan ang pwesto niyo habang lumalakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Outbound. If we take fire, dive for immediate cover.",
+              "TL": "Palabas na. Kapag may nagpaputok, dapa agad sa kublihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch the tree line and rooftops. Moving out.",
+              "TL": "Bantayan ang mga puno at bubong. Lakad na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay alert. The outside world is completely hostile.",
+              "TL": "Maging alisto. Mapanganib ang buong mundo sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're moving. Anyone who strays gets left behind.",
+              "TL": "Kumikilos na. Ang lumihis maiiwan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Formation tight. Moving into enemy territory.",
+              "TL": "Mahigpit na pormasyon. Papatungo sa teritoryo ng kalaban."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.excursion_returning",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We're heading home.",
+              "TL": "Pauwi na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Turn around. Time to get back to base.",
+              "TL": "Lumingon na. Oras na para bumalik sa base."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Objective done. Heading back now.",
+              "TL": "Tapos na ang sadya. Pabalik na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's retrace our steps and get home safe.",
+              "TL": "Balikan natin ang dinaanan at umuwi nang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading inbound. Keep your guard up until we're inside.",
+              "TL": "Papasok na. Huwag ibaba ang bantay hanggang makapasok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pack up what we found. We're going home.",
+              "TL": "Iimpake ang nahanap. Uuwi na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Time to head back. Watch the trail behind us.",
+              "TL": "Oras nang bumalik. Bantayan ang bakas sa likod natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Return journey begins now. Stay together.",
+              "TL": "Pabalik na biyahe simula na. Magsama-sama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're bound for home. Almost there.",
+              "TL": "Pauwi na tayo. Malapit na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving back to safe ground. Keep alert.",
+              "TL": "Babalik na sa ligtas na lugar. Maging alerto."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Time to head home. Let's get everyone back safe.",
+              "TL": "Oras nang umuwi. Iuwi nating ligtas ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're going home, friend! Can't wait to rest.",
+              "TL": "Uuwi na tayo, kaibigan! Sabik na akong magpahinga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Great work out here. Let's get back home together.",
+              "TL": "Magaling ang ginawa mo rito. Sabay na tayong umuwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading home, partner! A warm fire is waiting for us.",
+              "TL": "Pauwi na, kasama! May mainit na apoy na naghihintay sa 'tin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Almost back to safety. Keep your spirits up, friend.",
+              "TL": "Malapit na sa ligtas. Pasiglahin ang loob, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We did good today! Let's get this haul home.",
+              "TL": "Maganda ang nagawa natin ngayon! Iuwi na natin ang nakuha."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading back! I'm so glad we're both still standing.",
+              "TL": "Pabalik na! Masayang-masaya ako't nakatayo pa tayong pareho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just a little further and we're home safe. Stay close.",
+              "TL": "Kaunti na lang at ligtas na tayo sa bahay. Dumikit ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Homeward bound, partner. You did amazing.",
+              "TL": "Pauwi na, kasama. Napakahusay mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's get back to our camp and take a well-deserved rest.",
+              "TL": "Bumalik na tayo sa kampo para sa nararapat na pahinga."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Heading home.",
+              "TL": "Pauwi na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Returning.",
+              "TL": "Babalik na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Homeward.",
+              "TL": "Pauwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back to base.",
+              "TL": "Balik sa base."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Time to return.",
+              "TL": "Oras nang bumalik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Turn back.",
+              "TL": "Bumalik na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Inbound.",
+              "TL": "Papasok na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. Home.",
+              "TL": "Tapos. Uwi na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Retracing steps.",
+              "TL": "Binabalikan ang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Going back.",
+              "TL": "Pabalik na."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "We're returning. Stay alert until we're home.",
+              "TL": "Pabalik na tayo. Mag-ingat hanggang makauwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The trip back is when most scavengers get ambushed. Watch the trees.",
+              "TL": "Sa pagbalik karaniwang tinatambangan ang tao. Bantayan ang puno."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't let your guard down just because we're heading home.",
+              "TL": "Huwag ibaba ang bantay dahil lang pauwi na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check your rear. Make sure nothing is following our scent.",
+              "TL": "Tingnan ang likod. Tiyaking walang sumusunod sa amoy natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep the haul hidden. We don't want to draw bandit eyes.",
+              "TL": "Itago ang mga nakuha. Ayaw nating makahikayat ng magnanakaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Returning now. Speed up without making noise.",
+              "TL": "Babalik na. Bilis-bilisan nang walang ginagawang ingay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're inbound. Stay ready to drop the bags and fight.",
+              "TL": "Papasok na. Maging handang ibaba ang bag at lumaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch our backtrail. Stragglers could be tailing us.",
+              "TL": "Bantayan ang dinaanan. Baka may sumusunod sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Almost at the gates, but keep checking corners.",
+              "TL": "Malapit na sa tarangkahan, pero suriin pa rin ang mga kanto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Returning. No relaxing until the deadbolt is thrown.",
+              "TL": "Pabalik na. Walang magpapahinga hangga't di nakakandado."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.excursion_home",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We're back. Good.",
+              "TL": "Nakabalik na tayo. Mabuti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Safe inside. Close the gate.",
+              "TL": "Ligtas na sa loob. Isara ang tarangkahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Made it back in one piece.",
+              "TL": "Nakarating nang buo ang katawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're home. Let's unpack the supplies.",
+              "TL": "Nasa bahay na tayo. Idiskarga ang mga gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back behind walls. Good run.",
+              "TL": "Nasa likod na muli ng pader. Magandang biyahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've returned safely. Check the locks.",
+              "TL": "Ligtas tayong nakabalik. Tingnan ang mga kandado."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Home base reached. Everyone check in.",
+              "TL": "Nakarating na sa base. Mag-check in ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trip concluded. Good to be back.",
+              "TL": "Tapos na ang biyahe. Mabuti at nakabalik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We made it through the gates. Secure the perimeter.",
+              "TL": "Nakalusot tayo sa tarangkahan. I-secure ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back where it's safe. Good work today.",
+              "TL": "Bumalik sa ligtas. Magaling ang ginawa niyo ngayon."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "We're home. Good to have everyone back.",
+              "TL": "Nasa bahay na tayo. Mabuting nakabalik ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We made it back, friend! Welcome home.",
+              "TL": "Nakarating tayo, kaibigan! Maligayang pagbabalik sa tahanan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Home sweet home. So glad we're both safe.",
+              "TL": "Kay sarap makauwi. Masaya akong ligtas tayong pareho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We survived another run together! Put your feet up, partner.",
+              "TL": "Nakaligtas tayo sa isa na namang biyahe! Magpahinga ka na, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing beats walking back through our own door. Good job!",
+              "TL": "Walang hihigit sa pagpasok sa sarili nating pinto. Magaling!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Safe at last! Let me grab you some clean water.",
+              "TL": "Ligtas na rin sa wakas! Kukuha kita ng malinis na tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "So relieved to see our camp again with you.",
+              "TL": "Napakalaking ginhawa na makita muli ang kampo kasama ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We did it, friend! Another successful trip in the books.",
+              "TL": "Nagawa natin, kaibigan! Isa na namang tagumpay na biyahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Welcome back! Let's get you rested and fed.",
+              "TL": "Maligayang pagbabalik! Magpahinga ka at kumain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Home safe and sound. Proud to be on your team.",
+              "TL": "Ligtas at buo. Ipinagmamalaki kong kasama kita."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Back home.",
+              "TL": "Nakauwi na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Home.",
+              "TL": "Bahay na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Inside.",
+              "TL": "Nasa loob."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Safe.",
+              "TL": "Ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gate closed.",
+              "TL": "Sarado ang pinto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back.",
+              "TL": "Bumalik na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Returned.",
+              "TL": "Nakarating na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unpack.",
+              "TL": "Idiskarga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Settled.",
+              "TL": "Ayos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done.",
+              "TL": "Tapos."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "We're back. Check in and settle down.",
+              "TL": "Nakabalik na tayo. Mag-check in at magpahinga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bar the doors immediately. Don't let anything follow us in.",
+              "TL": "Kandadohin ang pinto agad. Huwag magpapasok ng kahit ano."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Inventory the gear right now before anything goes missing.",
+              "TL": "Ilista ang mga gamit ngayon bago may mawala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Inside the fence, but don't drop your guard completely.",
+              "TL": "Nasa loob na ng bakod, pero huwag ibaba nang buo ang bantay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check the perimeter sentries. Make sure the camp wasn't breached.",
+              "TL": "Tingnan ang mga nagbabantay. Tiyaking di pinasok ang kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Secure the locks. Then we tally our supplies.",
+              "TL": "I-lock ang pinto. Pagkatapos bilangin ang mga gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're back. Did anyone get bitten? Speak up now.",
+              "TL": "Nakabalik na. May nakagat ba? Magsalita ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drop the backpacks in the storeroom. Keep weapons loaded.",
+              "TL": "Ibaba ang bag sa bodega. Panatilihing may karga ang armas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good, we're inside. Keep quiet so we don't draw strays.",
+              "TL": "Mabuti, nasa loob na. Manahimik para di maakit ang mga patay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back inside the wire. Rest, but be ready to mobilize.",
+              "TL": "Nasa loob na ng alambre. Magpahinga, pero laging handa."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.excursion_failed",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Trip's off. Something went wrong.",
+              "TL": "Kanselado ang biyahe. May nangyaring mali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We have to cancel the run. It's not safe.",
+              "TL": "Kailangang kanselahin ang lakad. Hindi ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Plan fell apart. We're aborting the trip.",
+              "TL": "Pumalpak ang plano. Ititigil natin ang paglabas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Call it off. Conditions are too hazardous.",
+              "TL": "Kanselahin na. Masyadong mapanganib ang kalagayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're aborting the mission. Regroup back inside.",
+              "TL": "Ititigil ang misyon. Magtipon pabalik sa loob."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trip canceled. Something compromised our route.",
+              "TL": "Kanselado ang biyahe. May sumira sa ruta natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not happening today. Pull back to base.",
+              "TL": "Hindi matutuloy ngayon. Umatras pabalik sa base."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Mission failed. Better to abort than lose lives.",
+              "TL": "Bigo ang misyon. Mas mabuting ihinto kaysa may mamatay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The run is scrubbed. Head back inside.",
+              "TL": "Kanselado ang paglabas. Bumalik sa loob."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Aborting the excursion. We'll rethink the plan.",
+              "TL": "Ititigil ang lakad. Pag-iisipan natin muli ang plano."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "We're calling it off. Better safe than forcing it.",
+              "TL": "Ititigil muna natin. Mas mabuting ligtas kaysa pilitin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't be discouraged, friend. We'll try again another day.",
+              "TL": "Huwag kang panghinaan ng loob, kaibigan. Susubukan natin ulit sa ibang araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'd rather have you alive than whatever supplies are out there.",
+              "TL": "Mas gusto kitang buhay kaysa sa anumang gamit sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's okay, partner. We made the right call to abort.",
+              "TL": "Ayos lang, kasama. Tama ang desisyon nating huminto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Safety comes first. Come on, let's head back together.",
+              "TL": "Kaligtasan ang una sa lahat. Halika, sabay tayong bumalik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't beat yourself up over this. We did what we could.",
+              "TL": "Huwag mong sisihin sarili mo. Ginawa natin ang makakaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We live to fight another day. That's the real victory, friend.",
+              "TL": "Mabubuhay tayo para lumaban muli. Iyon ang tunay na panalo, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Calling it off was smart. I'm glad you're safe beside me.",
+              "TL": "Matalinong desisyon ang huminto. Masaya akong ligtas ka sa tabi ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take a breath. We'll rest up and plan better next time.",
+              "TL": "Huminga ka muna. Magpapahinga tayo at magpaplano nang mas maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll get 'em next time, partner. Let's head inside.",
+              "TL": "Makakabawi tayo sa susunod, kasama. Pumasok na tayo."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Trip's off.",
+              "TL": "Kanselado ang biyahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Aborted.",
+              "TL": "Ihinto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Scrubbed.",
+              "TL": "Kanselado."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back inside.",
+              "TL": "Balik sa loob."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cancel it.",
+              "TL": "Kanselahin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed. Fall back.",
+              "TL": "Bigo. Umatras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not today.",
+              "TL": "Hindi ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Abort.",
+              "TL": "Tigil."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Off.",
+              "TL": "Wala na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Regroup.",
+              "TL": "Magtipon ulit."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Excursion failed. We regroup here.",
+              "TL": "Bigo ang paglalakbay. Magtipon ulit tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Something compromised the operation. Pull back immediately.",
+              "TL": "May sumira sa operasyon. Umatras agad-agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Forcing this run will get us slaughtered. Abort.",
+              "TL": "Kamatayan kapag pinilit ang lakad na 'to. Ihinto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fall back and figure out what went wrong behind closed doors.",
+              "TL": "Umatras at alamin kung anong pumalpak sa loob ng pinto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The route is burned. We're retreating right now.",
+              "TL": "Nasira ang ruta. Aatras tayo ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trip canceled. Watch your back as we return to the gates.",
+              "TL": "Kanselado ang lakad. Bantayan ang likod habang bumabalik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bad intel or bad luck. Either way, we pull the plug.",
+              "TL": "Maling balita o malas. Alinman doon, itigil na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Do not push forward into an ambush. Abort the mission.",
+              "TL": "Huwag lumusob sa tambang. Itigil ang misyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Abort. Secure the entrance and debrief.",
+              "TL": "Tigil. I-secure ang lagusan at mag-usap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed attempt. Fall back and secure your weapons.",
+              "TL": "Bigong pagtatangka. Umatras at i-secure ang armas."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.combat.tactical_spatial.zombie.clock",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Zombies, {clock}!",
+              "TL": "Mga zombie, {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead coming in from {clock}!",
+              "TL": "May mga patay na parating mula sa {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch {clock}, walkers spotted!",
+              "TL": "Bantayan ang {clock}, may mga walker!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Zombies at {clock}! Get ready!",
+              "TL": "Mga zombie sa {clock}! Humanda!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Movement at {clock}, it's dead heads!",
+              "TL": "May galaw sa {clock}, mga zombie 'yan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Incoming zombies from {clock}!",
+              "TL": "Paparating na mga zombie galing sa {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eyes on {clock}! Walkers approaching!",
+              "TL": "Tumingin sa {clock}! May lumalapit na mga walker!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check {clock}, we've got zombies!",
+              "TL": "Tingnan ang {clock}, may mga zombie tayo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Zombies moving in fast at {clock}!",
+              "TL": "Mabilis na lumalapit ang mga zombie sa {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target at {clock}! Zombies!",
+              "TL": "Puntirya sa {clock}! Mga zombie!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.combat.tactical_spatial.zombie.coarse",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Zombies {relative}!",
+              "TL": "Mga zombie {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch out, dead heads {relative}!",
+              "TL": "Mag-ingat, may mga patay {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Walkers approaching {relative}!",
+              "TL": "May mga walker na papalapit {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look {relative}! Zombies!",
+              "TL": "Tumingin {relative}! Mga zombie!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Incoming dead {relative}!",
+              "TL": "Paparating na mga patay {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Zombies closing in {relative}!",
+              "TL": "Lumalapit ang mga zombie {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eyes {relative}, we've got walkers!",
+              "TL": "Tumingin {relative}, may mga walker tayo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead heads spotted {relative}!",
+              "TL": "May nakitang mga zombie {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check {relative}! Swarm incoming!",
+              "TL": "Suriin {relative}! May paparating na kawan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Danger {relative}! Zombies!",
+              "TL": "Panganib {relative}! Mga zombie!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.combat.tactical_spatial.hostile.clock",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Hostiles at {clock}!",
+              "TL": "Mga kalaban sa {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Shooters at {clock}! Take cover!",
+              "TL": "May mga baril sa {clock}! Magtago!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Enemy fighters spotted at {clock}!",
+              "TL": "May mga kalabang manlalaban sa {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gunmen at {clock}! Watch your head!",
+              "TL": "May mga armadong tao sa {clock}! Yumuko ka!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hostiles moving in from {clock}!",
+              "TL": "Mga kalaban lumalapit mula sa {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Armed enemies at {clock}!",
+              "TL": "May armadong mga kalaban sa {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Contact! Hostiles at {clock}!",
+              "TL": "May engkuwentro! Mga kalaban sa {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check {clock}! Armed hostiles!",
+              "TL": "Tingnan ang {clock}! May armadong kalaban!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Enemy squad at {clock}!",
+              "TL": "Grupo ng kalaban sa {clock}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat at {clock}! Hostiles!",
+              "TL": "Banta sa {clock}! Mga kalaban!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.combat.tactical_spatial.hostile.coarse",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Hostiles {relative}!",
+              "TL": "Mga kalaban {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Armed fighters {relative}!",
+              "TL": "May armadong mga tao {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Enemy movement {relative}!",
+              "TL": "Galaw ng kalaban {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take cover, hostiles {relative}!",
+              "TL": "Magtago, may mga kalaban {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gunfire expected {relative}! Hostiles!",
+              "TL": "Maghanda sa putukan {relative}! Mga kalaban!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch out {relative}, armed hostiles!",
+              "TL": "Mag-ingat {relative}, may mga armadong kalaban!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Enemy survivors spotted {relative}!",
+              "TL": "May kalabang nakaligtas {relative}!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Contact {relative}! Keep low!",
+              "TL": "May kalaban {relative}! Yumuko!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check {relative}! Hostiles advancing!",
+              "TL": "Tingnan {relative}! Sumusulong ang kalaban!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Incoming attack {relative}!",
+              "TL": "Paparating na atake {relative}!"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": []
+}

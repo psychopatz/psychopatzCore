@@ -1,0 +1,273 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "content",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction Content",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.memory.acknowledge",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I hear you.",
+              "TL": "Naririnig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I remember that.",
+              "TL": "Naaalala ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds familiar.",
+              "TL": "Pamilyar ang dating."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Makes sense given what happened.",
+              "TL": "May katuturan base sa nangyari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I recall that well.",
+              "TL": "Maliwanag kong naaalala 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, that was quite an event.",
+              "TL": "Oo, matinding pangyayari 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I understand why you bring that up.",
+              "TL": "Nauunawaan ko kung bakit mo binuksan 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. That was a significant moment.",
+              "TL": "Tama. Mahalagang sandali 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear what you're saying about that.",
+              "TL": "Naiintindihan ko ang sinasabi mo tungkol doon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough. That memory tracks.",
+              "TL": "Makatwiran. Tugma ang alaalang 'yan."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Yeah. I can see why that stayed with you.",
+              "TL": "Oo. Naiintindihan ko kung bakit hindi mo iyon makalimutan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I remember that too. It meant a lot to me.",
+              "TL": "Naaalala ko rin 'yon. Malaking bagay 'yon para sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That was a special moment between us. Glad you remember.",
+              "TL": "Espesyal na sandali 'yon sa atin. Mabuti at naaalala mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It stayed in my heart as well, friend.",
+              "TL": "Nanatili rin 'yon sa puso ko, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for reminding me of that. Good times.",
+              "TL": "Salamat sa pagpapaalala niyan. Magandang alaala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Those memories keep us human out here.",
+              "TL": "Ang mga alaalang 'yan ang nagpapanatiling tao sa atin dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I smile every time I think back on that day.",
+              "TL": "Napapangiti ako tuwing naaalala ko ang araw na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We made it through that together. I won't forget it.",
+              "TL": "Nalusutan natin 'yon nang magkasama. Di ko 'yon malilimutan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm glad we share that memory.",
+              "TL": "Masaya ako at pinagsaluhan natin ang alaalang 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That really stuck with both of us, didn't it?",
+              "TL": "Talagang tumatak sa ating dalawa 'yon, 'di ba?"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Mm.",
+              "TL": "Mm."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Remember.",
+              "TL": "Tanda ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Recall it.",
+              "TL": "Naalala ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yeah.",
+              "TL": "Oo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard.",
+              "TL": "Narinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right.",
+              "TL": "Tama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "True.",
+              "TL": "Totoo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yep.",
+              "TL": "Oo nga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naintindihan."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "All right. I heard you.",
+              "TL": "Sige. Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I remember, but let's not dwell on the past.",
+              "TL": "Naaalala ko, pero huwag na nating balik-balikan ang nakaraan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Past is past. Keep your focus here.",
+              "TL": "Nakalipas na. Magpokus ka sa kasalukuyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know what happened. No need to rehash it.",
+              "TL": "Alam ko ang nangyari. Di na kailangang ulitin pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. But don't expect me to get sentimental.",
+              "TL": "Tala ko na. Pero huwag kang umasang magiging madrama ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yeah, I remember. Why bring it up now?",
+              "TL": "Oo, tanda ko. Bakit mo binubuksan ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I haven't forgotten. I never forget.",
+              "TL": "Hindi ko kinalimutan. Hindi ako kailanman nakalilimot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard. Let's move on.",
+              "TL": "Narinig ko. Lumipat na tayo ng usapan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I remember the lesson it taught us.",
+              "TL": "Naaalala ko ang aral na itinuro niyan sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Keep that to yourself moving forward.",
+              "TL": "Sige. Itago mo na lang sa sarili mo sa susunod."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": []
+}

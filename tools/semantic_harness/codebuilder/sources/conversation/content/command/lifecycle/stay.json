@@ -1,0 +1,494 @@
+{
+  "domain": "command",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stay.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't start the stay order.",
+              "TL": "Hindi ko masimulan ang utos na manatili."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to hold position here.",
+              "TL": "Bigo sa paghawak ng pwesto rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I tried to stay, but the ground wasn't safe.",
+              "TL": "Sinubukan kong manatili, pero di ligtas ang lupa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't lock down this position.",
+              "TL": "Di maikandado ang pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay command failed. Enemies forced me to move.",
+              "TL": "Pumalpak ang pananatili. Pinilit akong gumalaw ng kalaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to stay put in this area.",
+              "TL": "Di makapanatili sa lugar na ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding ground failed. Too much incoming fire.",
+              "TL": "Bigo ang paghawak sa pwesto. Masyadong maraming putok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't stay here. Position is untenable.",
+              "TL": "Di makapanatili rito. Masyadong dehado ang pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Attempted to hold, but got pushed back.",
+              "TL": "Sinubukang humawak, pero naitulak paatras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Could not secure a stay order here.",
+              "TL": "Hindi ma-secure ang pananatili rito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stay.queued",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Okay, I'll stay here.",
+              "TL": "Sige, mananatili ako rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding position right here.",
+              "TL": "Hawak ko ang pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Staying put.",
+              "TL": "Naintindihan. Dito lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll hold this ground.",
+              "TL": "Hahawakan ko ang pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Standing guard right here. Understood.",
+              "TL": "Nakatayong bantay dito. Naintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. I won't move from this spot.",
+              "TL": "Sige. Di ako aalis sa lugar na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding this perimeter. Go ahead.",
+              "TL": "Binabantayan ang paligid na ito. Sige na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Maintaining this position.",
+              "TL": "Naiintindihan ko. Pananatilihin ang posisyong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Staying right where I am.",
+              "TL": "Nakuha ko. Mananatili kung nasaan ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding ground as ordered.",
+              "TL": "Hawak ang pwesto ayon sa utos."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stay.queued.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Sure, I'll stay here. Take your time, friend!",
+              "TL": "Sige, mananatili ako rito. Huwag kang magmadali, kaibigan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll keep watch right here, partner. Be careful!",
+              "TL": "Magbabantay ako rito, kasama. Mag-ingat ka!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "No problem! I'll guard our spot until you get back.",
+              "TL": "Walang problema! Babantayan ko ang pwesto natin hanggang makabalik ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to hold the fort here for you, friend.",
+              "TL": "Masayang babantayan ang kuta rito para sa 'yo, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing! I'll be waiting right here for you.",
+              "TL": "Walang anuman! Maghihintay ako rito mismo para sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't wander off. Stay safe out there, partner!",
+              "TL": "Di ako lalayo. Mag-ingat ka sa labas, kasama!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding the line right here with a smile. Go do what you need to do.",
+              "TL": "Hawak ang linya rito nang may ngiti. Gawin mo ang kailangan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll make sure nobody sneaks past this spot, friend.",
+              "TL": "Titiyakin kong walang makalulusot dito, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Resting my feet and keeping watch. See you soon!",
+              "TL": "Ipapahinga ang paa at magbabantay. Kita tayo agad!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "All good! I'll be right here when you return.",
+              "TL": "Ayos ang lahat! Narito lang ako pagbalik mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stay.queued.repeated",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm already staying here.",
+              "TL": "Nananatili na ako rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still holding this spot. Haven't budged.",
+              "TL": "Hawak pa rin ang pwesto. Di gumagalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm already staying put, don't worry.",
+              "TL": "Dito na nga ako, huwag kang mag-alala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't moved an inch. Still right here.",
+              "TL": "Di gumalaw kahit isang pulgada. Narito pa rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still guarding this exact position.",
+              "TL": "Binabantayan pa rin ang mismong posisyong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard you before. I'm staying right here.",
+              "TL": "Narinig na kita kanina. Dito lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already holding ground. Go on.",
+              "TL": "Hawak na ang lupa. Sige na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still staying here. No need to remind me.",
+              "TL": "Nananatili pa rin dito. Di na kailangang ipaalala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm rooted right here. Keep moving.",
+              "TL": "Nakatuntong na ako rito. Tuloy ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already staying. I'm watching the area.",
+              "TL": "Nandito na nga. Binabantayan ko ang lugar."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stay.queued.trusted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right, I'll stay. Watch your back out there.",
+              "TL": "Sige, mananatili ako. Bantayan mo ang likod mo sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I trust your plan. I'll secure this position.",
+              "TL": "Tiwala ako sa plano mo. Seselyuhan ko ang pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding this ground for both of us, partner.",
+              "TL": "Hahawakan ko ang pwestong ito para sa atin, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't let anything breach this spot while you're away.",
+              "TL": "Walang makakapasok dito habang wala ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I'll stay right here until you call.",
+              "TL": "Naintindihan. Dito lang ako hanggang tawagin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You can count on me to hold this room, friend.",
+              "TL": "Makaaasa ka sa akin na bantayan ang kwartong ito, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding this vantage point. Be careful out there.",
+              "TL": "Hawak ang magandang tanawin na ito. Mag-ingat ka sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll be right here when you return, partner. Stay alive.",
+              "TL": "Narito lang ako pagbalik mo, kasama. Manatiling buhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trusting you to come back safe. Holding the line.",
+              "TL": "Nagtitiwala akong babalik kang ligtas. Hawak ang linya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I'll hold this post with my life.",
+              "TL": "Naiintindihan ko. Babantayan ko ang posteng ito nang buong tapang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stay.queued.withdrawn",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Okay, I'll stay.",
+              "TL": "Sige, mananatili ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. Staying here.",
+              "TL": "Sige. Dito lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding ground.",
+              "TL": "Hawak ang lupa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Staying.",
+              "TL": "Naintindihan. Mananatili."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll stay put.",
+              "TL": "Dito lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not moving.",
+              "TL": "Di gagalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine by me. Go.",
+              "TL": "Ayos sa akin. Alis na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying right here.",
+              "TL": "Dito lang mismo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Waiting.",
+              "TL": "Naiintindihan. Naghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding position.",
+              "TL": "Hawak ang posisyon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.stay.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't stay here right now.",
+              "TL": "Hindi ako makapananatili rito ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too dangerous to stay put. We need to keep moving.",
+              "TL": "Masyadong mapanganib manatili rito. Kailangang gumalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't stay in an open kill zone.",
+              "TL": "Di ako tatayo sa bukas na lugar na pugad ng patayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying here is suicide. I'm coming with you.",
+              "TL": "Pagpapakamatay ang manatili rito. Sasama ako sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I refuse to hold this spot without adequate cover.",
+              "TL": "Tumatanggi akong humawak dito nang walang maayos na silong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cannot stay here. The perimeter is totally exposed.",
+              "TL": "Di makapanatili rito. Masyadong kita ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not standing like a target. I have to move.",
+              "TL": "Di ako tatayong parang target. Kailangan kong gumalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to hold position. Hostiles are too close.",
+              "TL": "Di mahawakan ang pwesto. Masyadong malapit ang kalaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't stay behind while you need backup.",
+              "TL": "Di ako maiiwan habang kailangan mo ng saklolo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay order rejected. We must relocate.",
+              "TL": "Tinatanggihan ang pananatili. Kailangan nating lumipat."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

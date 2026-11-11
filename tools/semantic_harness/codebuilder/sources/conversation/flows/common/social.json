@@ -1,0 +1,221 @@
+{
+  "domain": "common",
+  "kind": "responses",
+  "responsePools": [
+    {
+      "id": "semantic.greeting",
+      "variants": [
+        {
+          "fallback": "Hey. How are you holding up?",
+          "id": "semantic.greeting.dataset.holding_up",
+          "templateID": "semantic.greeting.dataset.holding_up"
+        },
+        {
+          "fallback": "Good to see you again.",
+          "id": "semantic.greeting.dataset.good_to_see",
+          "templateID": "semantic.greeting.dataset.good_to_see"
+        },
+        {
+          "fallback": "Hey. How are things going?",
+          "id": "semantic.greeting.dataset.how_things",
+          "templateID": "semantic.greeting.dataset.how_things"
+        }
+      ]
+    },
+    {
+      "id": "semantic.thanks",
+      "variants": [
+        {
+          "fallback": "No problem at all.",
+          "id": "semantic.thanks.dataset.no_problem",
+          "templateID": "semantic.thanks.dataset.no_problem"
+        },
+        {
+          "fallback": "Anytime.",
+          "id": "semantic.thanks.dataset.anytime",
+          "templateID": "semantic.thanks.dataset.anytime"
+        },
+        {
+          "fallback": "Glad I could help.",
+          "id": "semantic.thanks.dataset.glady",
+          "templateID": "semantic.thanks.dataset.glady"
+        }
+      ]
+    },
+    {
+      "id": "semantic.accept",
+      "variants": [
+        {
+          "fallback": "Okay, I'll get started.",
+          "id": "semantic.accept.dataset.pending_started",
+          "priority": 1,
+          "templateID": "semantic.accept.dataset.pending_started",
+          "when": {
+            "hasPendingRequest": true
+          }
+        },
+        {
+          "fallback": "All right. I can take care of that.",
+          "id": "semantic.accept.dataset.pending_care",
+          "priority": 1,
+          "templateID": "semantic.accept.dataset.pending_care",
+          "when": {
+            "hasPendingRequest": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "semantic.refuse",
+      "variants": [
+        {
+          "fallback": "I can't take that on right now.",
+          "id": "semantic.refuse.dataset.pending_unavailable",
+          "priority": 1,
+          "templateID": "semantic.refuse.dataset.pending_unavailable",
+          "when": {
+            "hasPendingRequest": true
+          }
+        },
+        {
+          "fallback": "Not this time. I have enough to manage.",
+          "id": "semantic.refuse.dataset.pending_enough",
+          "priority": 1,
+          "templateID": "semantic.refuse.dataset.pending_enough",
+          "when": {
+            "hasPendingRequest": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "semantic.offer",
+      "variants": [
+        {
+          "fallback": "That would help a lot. Could I have some?",
+          "id": "semantic.offer.dataset.hungry_share",
+          "priority": 2,
+          "templateID": "semantic.offer.dataset.hungry_share",
+          "when": {
+            "needType": "hunger",
+            "needUrgency": [
+              "moderate",
+              "severe",
+              "emergency",
+              "critical"
+            ]
+          }
+        },
+        {
+          "fallback": "I'd appreciate a bite. Would you share?",
+          "id": "semantic.offer.dataset.hungry_appreciate",
+          "priority": 2,
+          "templateID": "semantic.offer.dataset.hungry_appreciate",
+          "when": {
+            "needType": "hunger",
+            "needUrgency": [
+              "moderate",
+              "severe",
+              "emergency",
+              "critical"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "semantic.compliment",
+      "variants": [
+        {
+          "fallback": "That's kind of you. I appreciate it.",
+          "id": "semantic.compliment.dataset.kind_of_you",
+          "templateID": "semantic.compliment.dataset.kind_of_you"
+        },
+        {
+          "fallback": "Aw, thank you. That means a lot.",
+          "id": "semantic.compliment.dataset.means_a_lot",
+          "templateID": "semantic.compliment.dataset.means_a_lot"
+        }
+      ]
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Common Interaction Seed",
+    "owner": "ProjectHoomans",
+    "references": [
+      {
+        "license": "ACL Anthology terms; metadata-only reference",
+        "name": "DailyDialog",
+        "reviewedOn": "2026-10-19",
+        "url": "https://aclanthology.org/I17-1099/",
+        "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "CC BY 4.0; metadata-only reference",
+        "name": "EmpatheticDialogues",
+        "reviewedOn": "2026-10-19",
+        "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+        "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "WordNet 3.0 license",
+        "name": "WordNet 3.0",
+        "reviewedOn": "2026-10-19",
+        "url": "https://wordnet.princeton.edu/",
+        "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY 4.0",
+        "name": "MASSIVE",
+        "recordRefs": [
+          {
+            "intent": "weather_query",
+            "locale": "en-US",
+            "partition": "train",
+            "recordID": "98"
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+        "sourceVersion": "1.0",
+        "url": "https://github.com/alexa/massive",
+        "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY-SA 4.0",
+        "name": "SGD",
+        "recordRefs": [
+          {
+            "dialogueID": "90_00031",
+            "intent": "GetWeather",
+            "service": "Weather_1",
+            "turn": 6
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+        "sourceVersion": "DSTC8 train",
+        "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+        "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      }
+    ],
+    "version": "1"
+  },
+  "version": 1
+}

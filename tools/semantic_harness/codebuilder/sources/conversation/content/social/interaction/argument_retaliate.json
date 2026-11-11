@@ -1,0 +1,273 @@
+{
+  "domain": "social",
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "interaction",
+      "semanticTemplateID": "semantic.interaction.argument.retaliate",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Say that again and see how far it gets you.",
+              "TL": "Sabihin mo ulit at tingnan natin kung saan ka aabot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You want to push this? I will push back harder.",
+              "TL": "Gusto mong isagad ito? Mas malakas akong gaganti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't make threats you can't survive.",
+              "TL": "Huwag kang magbanta ng hindi mo kayang maligtasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Try me. See what happens to you.",
+              "TL": "Subukan mo ako. Tingnan mo kung anong mangyayari sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're digging your own grave with that talk.",
+              "TL": "Hinuhukay mo ang sarili mong libingan sa salitang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep running that mouth and find out.",
+              "TL": "Sige, magpatuloy ka sa kadadaldal at nang malaman mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not the one to mess with out here.",
+              "TL": "Hindi ako ang taong dapat mong ginagalit dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Push one more inch and we have bloodshed.",
+              "TL": "Sumulong ka pa nang isang pulgada at magkakadugo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Say it one more time. I dare you.",
+              "TL": "Ulitin mo pa nang isang beses. Hinahamon kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You will regret crossing me.",
+              "TL": "Pagsisisihan mo ang pagbangga sa akin."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You're really testing me right now.",
+              "TL": "Talagang sinusubok mo ang pasensya ko ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't push your luck any further.",
+              "TL": "Huwag mo nang isugal pa ang suwerte mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're out of line, and I won't stand for it.",
+              "TL": "Sumusobra ka na, at hindi ako papayag diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You started this, but I'll finish it if I have to.",
+              "TL": "Ikaw ang nagsimula, pero tatapusin ko kung kailangan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're making a massive mistake talking to me like that.",
+              "TL": "Napakalaking pagkakamali ang kausapin ako nang ganyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Think very carefully about what you say next.",
+              "TL": "Pag-isipan mong mabuti ang susunod mong sasabihin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've had about enough of your disrespect.",
+              "TL": "Sapat na ang pambabastos mo sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're crossing a boundary you can't walk back.",
+              "TL": "Tumatawid ka sa hangganang hindi mo na mababawi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back down before this escalates completely.",
+              "TL": "Umatras ka bago pa tuluyang magkagulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm answering in kind: knock it off.",
+              "TL": "Sasagutin kita nang patas: itigil mo na 'yan."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Keep talking.",
+              "TL": "Sige, magsalita ka pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Try it.",
+              "TL": "Subukan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dare you.",
+              "TL": "Hamon ko sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Push me.",
+              "TL": "Itulak mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wrong move.",
+              "TL": "Maling hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Big mistake.",
+              "TL": "Malaking pagkakamali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Last chance.",
+              "TL": "Huling pagkakataon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bring it.",
+              "TL": "Sige, ilabas mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't test me.",
+              "TL": "Huwag mo akong subukan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch yourself.",
+              "TL": "Mag-ingat ka."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "You're pushing this too far.",
+              "TL": "Sobra na ang ginagawa mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've been patient with you, but you're crossing the line.",
+              "TL": "Matiisin ako sa 'yo, pero lumalagpas ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't make me treat you like a stranger.",
+              "TL": "Huwag mo akong piliting tratuhin ka na parang estranghero."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I didn't think you would turn on me like this.",
+              "TL": "Di ko akalaing kakalabanin mo ako nang ganito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're hurting someone who actually cared about you.",
+              "TL": "Sinasaktan mo ang taong may tunay na malasakit sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop pushing me away with this cruelty.",
+              "TL": "Tigilan mo ang pagtataboy sa akin gamit ang lupit na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If you keep attacking me, I will protect myself.",
+              "TL": "Kung patuloy mo akong aatakihin, ipagtatanggol ko ang sarili ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're throwing our bond away right in front of me.",
+              "TL": "Itinatapon mo ang samahan natin mismo sa harap ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I expected better from you. Don't push me further.",
+              "TL": "Umasa ako ng mas maayos sa 'yo. Huwag mo na akong itulak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check yourself. I won't just stand here and take abuse.",
+              "TL": "Ayusin mo sarili mo. Di ako tatayo lang dito para magpaabuso."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction Content",
+    "version": "1"
+  },
+  "version": 1
+}

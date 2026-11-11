@@ -1,0 +1,106 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "observatory.lifecycle",
+  "cases": [
+    {
+      "id": "observatory.lifecycle.goodbye_root_choice.en",
+      "tags": ["observatory", "lifecycle", "goodbye"],
+      "turns": [
+        {
+          "rootChoice": "goodbye",
+          "language": "EN",
+          "expect": {
+            "conversationClosed": true,
+            "lastKey": "response.goodbye"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.lifecycle.goodbye_root_choice.tl",
+      "tags": ["observatory", "lifecycle", "goodbye", "localization"],
+      "turns": [
+        {
+          "rootChoice": "goodbye",
+          "language": "TL",
+          "expect": {
+            "conversationClosed": true,
+            "lastKey": "response.goodbye",
+            "fallbackLookups": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.lifecycle.typed_goodbye_separate_route.en",
+      "tags": ["observatory", "lifecycle", "typed_goodbye"],
+      "turns": [
+        {
+          "text": "goodbye",
+          "language": "EN",
+          "expect": {
+            "conversationClosed": false,
+            "lastKey": "semantic.ask_clarification"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.lifecycle.typed_goodbye_separate_route.tl",
+      "tags": ["observatory", "lifecycle", "typed_goodbye", "localization"],
+      "turns": [
+        {
+          "text": "goodbye",
+          "language": "TL",
+          "expect": {
+            "conversationClosed": false,
+            "lastKey": "semantic.ask_clarification"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.lifecycle.follow_then_wait.en",
+      "tags": ["observatory", "lifecycle", "commands", "multi_turn"],
+      "turns": [
+        {
+          "text": "follow me",
+          "language": "EN",
+          "expect": {
+            "ir.action": "FOLLOW"
+          }
+        },
+        {
+          "text": "wait here",
+          "language": "EN",
+          "expect": {
+            "ir.action": "STAY",
+            "lastKey": "semantic.command.stay.queued"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.lifecycle.follow_then_wait.tl",
+      "tags": ["observatory", "lifecycle", "commands", "multi_turn", "localization"],
+      "turns": [
+        {
+          "text": "follow me",
+          "language": "TL",
+          "expect": {
+            "ir.action": "FOLLOW"
+          }
+        },
+        {
+          "text": "wait here",
+          "language": "TL",
+          "expect": {
+            "ir.action": "STAY",
+            "lastKey": "semantic.command.stay.queued",
+            "fallbackLookups": 0
+          }
+        }
+      ]
+    }
+  ]
+}

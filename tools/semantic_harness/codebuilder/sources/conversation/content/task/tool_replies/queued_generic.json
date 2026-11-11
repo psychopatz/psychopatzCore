@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_generic.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I hear you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naiintindihan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message received.",
+              "TL": "Natanggap ang mensahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear what you said.",
+              "TL": "Narinig ko ang sinabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard.",
+              "TL": "Narinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough. I hear you.",
+              "TL": "Makatwiran. Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Point noted.",
+              "TL": "Tala ang punto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm listening.",
+              "TL": "Nakikinig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Acknowledged.",
+              "TL": "Kinikilala ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_generic.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Give me a moment.",
+              "TL": "Bigyan mo ako ng sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on just a second.",
+              "TL": "Teka sandali lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let me finish what I'm doing first.",
+              "TL": "Hayaan mong tapusin ko muna ang ginagawa ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just a minute.",
+              "TL": "Sandali lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me a bit of time.",
+              "TL": "Bigyan mo ako ng kaunting oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hang on a second.",
+              "TL": "Teka lang saglit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I need a moment to process that.",
+              "TL": "Kailangan ko ng sandali para pag-isipan 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold your horses for a minute.",
+              "TL": "Dahan-dahan lang sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me a brief moment.",
+              "TL": "Bigyan mo ako ng maikling sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One second. I'm wrapped up right now.",
+              "TL": "Isang segundo. May inaasikaso pa ako ngayon."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

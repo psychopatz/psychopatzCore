@@ -1,0 +1,222 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_follow.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right. I am with you.",
+              "TL": "Sige. Sasama ako sa iyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm right behind you.",
+              "TL": "Nasa likod mo lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following your lead.",
+              "TL": "Sumusunod sa pangunguna mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Moving out together.",
+              "TL": "Naintindihan. Sabay tayong lalakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "With you all the way.",
+              "TL": "Kasama mo sa buong daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sticking close behind.",
+              "TL": "Didikit ako sa likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On your heels. Let's move.",
+              "TL": "Nasa likod mo lang. Kilos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right with you, partner.",
+              "TL": "Kasabay mo na ako, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following as ordered.",
+              "TL": "Sumusunod ayon sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving in lockstep with you.",
+              "TL": "Kasabay sa bawat hakbang mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_follow.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Lead the way.",
+              "TL": "Ituro ang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You lead, I follow.",
+              "TL": "Ikaw ang mauna, susunod ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "After you. Watch our front.",
+              "TL": "Kasunod mo ako. Bantayan ang unahan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take point. I've got your rear.",
+              "TL": "Mauna ka sa harap. Hawak ko ang likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lead on. I'm ready.",
+              "TL": "Mauna na. Handa na ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Show the path. I'm right behind.",
+              "TL": "Ipakita ang daan. Nasa likod mo lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lead the way. Eyes sharp.",
+              "TL": "Ituro ang daan. Matalas ang paningin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You take the front, partner.",
+              "TL": "Ikaw ang mauna sa harap, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Point the direction and walk.",
+              "TL": "Ituro ang direksyon at lumakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lead the way out.",
+              "TL": "Ituro ang daan palabas."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_follow.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I will stay close.",
+              "TL": "Mananatili akong malapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Won't let you out of my sight.",
+              "TL": "Di kita iwawala sa paningin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sticking right by your side.",
+              "TL": "Didikit ako sa tabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping tight formation with you.",
+              "TL": "Didikit sa pormasyon kasama mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Close proximity confirmed.",
+              "TL": "Kumpirmadong malapit lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll match your pace and stay near.",
+              "TL": "Sasabayan ko ang bilis mo at mananatiling malapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right beside you. Don't worry.",
+              "TL": "Nasa tabi mo lang. Huwag mag-alala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying within arm's reach.",
+              "TL": "Nasa abot-kamay lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't lag behind.",
+              "TL": "Hindi ako magpapahuli."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying close behind you.",
+              "TL": "Mananatiling malapit sa likod mo."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

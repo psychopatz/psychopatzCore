@@ -1,0 +1,90 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "pilot.identity_collision",
+  "cases": [
+    {
+      "id": "identity.collision.wellbeing_report_preserves_pending",
+      "tags": ["identity", "wellbeing", "multi_turn", "pilot"],
+      "turns": [
+        {
+          "text": "who are you",
+          "expect": {
+            "contextAfter.dialogue.pendingIdentityExchange.kind": "PLAYER_NAME"
+          }
+        },
+        {
+          "text": "im fine thanks",
+          "expect": {
+            "ir.subject": "WELLBEING",
+            "decision.branch": "SELF_STATE_RECEIVED",
+            "relationshipAfter.identityTrust": "unknown",
+            "contextAfter.dialogue.pendingIdentityExchange.kind": "PLAYER_NAME"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identity.collision.hunger_report_preserves_pending",
+      "tags": ["identity", "hunger", "multi_turn", "pilot"],
+      "turns": [
+        {
+          "text": "who are you",
+          "expect": {
+            "contextAfter.dialogue.pendingIdentityExchange.kind": "PLAYER_NAME"
+          }
+        },
+        {
+          "text": "I'm hungry",
+          "expect": {
+            "ir.subject": "HUNGER",
+            "decision.branch": "SELF_STATE_RECEIVED",
+            "relationshipAfter.identityTrust": "unknown",
+            "contextAfter.dialogue.pendingIdentityExchange.kind": "PLAYER_NAME"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identity.collision.question_interruption_preserves_pending",
+      "tags": ["identity", "question", "interruption", "multi_turn", "pilot"],
+      "turns": [
+        {
+          "text": "who are you",
+          "expect": {
+            "contextAfter.dialogue.pendingIdentityExchange.kind": "PLAYER_NAME"
+          }
+        },
+        {
+          "text": "Are you okay?",
+          "expect": {
+            "ir.subject": "WELLBEING",
+            "decision.branch": "QUESTION_RECEIVED",
+            "relationshipAfter.identityTrust": "unknown",
+            "contextAfter.dialogue.pendingIdentityExchange.kind": "PLAYER_NAME"
+          }
+        }
+      ]
+    },
+    {
+      "id": "identity.collision.time_interruption_preserves_pending",
+      "tags": ["identity", "time", "interruption", "multi_turn", "pilot"],
+      "turns": [
+        {
+          "text": "who are you",
+          "expect": {
+            "contextAfter.dialogue.pendingIdentityExchange.kind": "PLAYER_NAME"
+          }
+        },
+        {
+          "text": "what time is it",
+          "expect": {
+            "ir.subject": "TIME",
+            "decision.branch": "QUESTION_RECEIVED",
+            "relationshipAfter.identityTrust": "unknown",
+            "contextAfter.dialogue.pendingIdentityExchange.kind": "PLAYER_NAME"
+          }
+        }
+      ]
+    }
+  ]
+}

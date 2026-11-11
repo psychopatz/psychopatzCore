@@ -1,0 +1,63 @@
+{
+  "behaviors": [
+    {
+      "act": "RETALIATE_VERBALLY",
+      "baseRelevance": 0.55,
+      "id": "behavior.retaliate_verbally",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.2,
+          "reason": "aggressive_personality",
+          "when": {
+            "op": "gte",
+            "path": "actor.disposition.aggression",
+            "value": 0.65
+          }
+        },
+        {
+          "delta": -0.3,
+          "reason": "fear_suppresses_retaliation",
+          "when": {
+            "op": "gte",
+            "path": "actor.condition.panic",
+            "value": 0.6
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.argument.retaliate",
+          "dialogueAct": "RETALIATE_VERBALLY"
+        }
+      },
+      "owner": "ProjectHoomans",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "in",
+        "path": "stimulus.semantic.speechAct",
+        "values": [
+          "INSULT",
+          "HOSTILE_REMARK",
+          "THREATEN"
+        ]
+      }
+    }
+  ],
+  "domain": "social",
+  "kind": "behaviors",
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1"
+  },
+  "version": 1
+}

@@ -1,0 +1,79 @@
+{
+  "beats": [
+    {
+      "baseRelevance": 0.85,
+      "candidates": [
+        {
+          "behavior": "behavior.reconcile",
+          "relevance": 0.65
+        },
+        {
+          "behavior": "behavior.warn",
+          "relevance": 0.3
+        },
+        {
+          "behavior": "behavior.end_conversation",
+          "relevance": 0.15
+        }
+      ],
+      "cooldownTurns": 4,
+      "entry": {
+        "all": [
+          {
+            "path": "stimulus.semantic.intent",
+            "op": "eq",
+            "value": "APOLOGIZE"
+          },
+          {
+            "path": "pragmatic.contextualAdmission.admitted",
+            "op": "truthy"
+          },
+          {
+            "path": "pragmatic.contextualAdmission.selected.relation",
+            "op": "eq",
+            "value": "repair"
+          }
+        ]
+      },
+      "exit": {
+        "any": [
+          {
+            "op": "gte",
+            "path": "beat.turnsInBeat",
+            "value": 2
+          },
+          {
+            "op": "truthy",
+            "path": "scene.ended"
+          },
+          {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        ]
+      },
+      "group": "beat_group.social_primary",
+      "id": "beat.reconciliation",
+      "maintain": {
+        "op": "falsy",
+        "path": "scene.ended"
+      },
+      "maxTurns": 2,
+      "owner": "ProjectHoomans",
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1
+    }
+  ],
+  "domain": "social",
+  "kind": "beats",
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1"
+  },
+  "version": 1
+}

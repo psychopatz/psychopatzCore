@@ -1,0 +1,494 @@
+{
+  "domain": "command",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.follow.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't start following you.",
+              "TL": "Hindi ko masimulan ang pagsunod sa iyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to follow. Path was obstructed.",
+              "TL": "Bigo sa pagsunod. May harang sa daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I tried to follow, but got caught on something.",
+              "TL": "Sinubukan kong sumunod, pero naipit ako sa kung saan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lost your trail. Couldn't keep following.",
+              "TL": "Nawala ang bakas mo. Di nakasunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to follow through that passage.",
+              "TL": "Di makasunod sa lagusang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Follow command failed. Way is blocked.",
+              "TL": "Pumalpak ang utos na sumunod. Barado ang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I couldn't match your route.",
+              "TL": "Hindi ko nasabayan ang ruta mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blocked off. Can't follow that way.",
+              "TL": "May harang. Di makasunod sa daang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Attempted to follow, but lost visual.",
+              "TL": "Sinubukang sumunod, pero nawala sa paningin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't reach you to follow. Clear the path.",
+              "TL": "Di kita maabot para sumunod. Hawiin ang daan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.follow.queued",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Okay, I'll follow you.",
+              "TL": "Sige, susundan kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right behind you.",
+              "TL": "Nasa likod mo lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following now. Lead the way.",
+              "TL": "Sumusunod na ngayon. Mauna ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Sticking close behind.",
+              "TL": "Naintindihan. Didikit sa likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving with you. Lead on.",
+              "TL": "Kumikilos kasabay mo. Mauna na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm with you. Let's move.",
+              "TL": "Kasama mo ako. Kilos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right on your tail. Watching our rear.",
+              "TL": "Nasa buntot mo lang. Binabantayan ang likod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following your pace. Keep going.",
+              "TL": "Sasabay sa bilis mo. Tuloy lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Falling in behind you.",
+              "TL": "Naiintindihan ko. Papatabi sa likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Moving out with you.",
+              "TL": "Nakuha ko. Lalakad kasabay mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.follow.queued.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Of course, I'll follow you.",
+              "TL": "Siyempre, susundan kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gladly, friend! Lead the way.",
+              "TL": "Malugod, kaibigan! Ituro ang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always happy to travel with you. Let's go!",
+              "TL": "Laging masayang maglakbay kasama ka. Tara na!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm right behind you, partner. Let's do this.",
+              "TL": "Nasa likod mo lang ako, kasama. Gawin na natin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right with you, friend! Watch your steps.",
+              "TL": "Kasabay mo ako, kaibigan! Mag-ingat sa hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wouldn't rather be following anyone else.",
+              "TL": "Wala nang ibang gugustuhin kong sundan kundi ikaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lead on! I've got your six covered.",
+              "TL": "Mauna ka! Hawak ko ang likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing! Sticking like glue to you, friend.",
+              "TL": "Walang anuman! Didikit na parang pandikit sa 'yo, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to follow. Keep us safe!",
+              "TL": "Masayang sumunod. Panatilihin tayong ligtas!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right behind you, partner. Onward!",
+              "TL": "Nasa likod mo lang, kasama. Pasulong!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.follow.queued.repeated",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm still following you.",
+              "TL": "Sinusundan pa rin kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already following right behind you.",
+              "TL": "Nakasunod na ako mismo sa likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still on your heels. No need to repeat.",
+              "TL": "Nasa likod mo pa rin. Di na kailangang ulitin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I haven't gone anywhere. Still right here.",
+              "TL": "Wala akong pinuntahan. Narito pa rin ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following you already. Just keep walking.",
+              "TL": "Sumusunod na sa 'yo. Magpatuloy ka lang sa paglalakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm right behind you! Look over your shoulder.",
+              "TL": "Nasa likod mo lang ako! Lumingon ka sa balikat mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still with you. Don't worry.",
+              "TL": "Kasama mo pa rin ako. Huwag kang mag-alala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already in tow. Lead the way.",
+              "TL": "Nakasunod na. Mauna ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following you as we speak.",
+              "TL": "Sumusunod sa 'yo habang nagsasalita ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm already following. Keep moving.",
+              "TL": "Sumusunod na ako. Tuloy lang sa paglakad."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.follow.queued.trusted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I know you. I'll follow.",
+              "TL": "Kilala kita. Susunod ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I trust your lead completely. Following you.",
+              "TL": "Lubos akong nagtitiwala sa pangunguna mo. Susunod sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lead the way, partner. I'm with you to the end.",
+              "TL": "Ituro ang daan, kasama. Kasama mo ako hanggang dulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You've proven your judgment. I'll follow anywhere.",
+              "TL": "Napatunayan mo na ang galing mo. Susunod ako kahit saan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I trust you to keep us alive.",
+              "TL": "Naintindihan. Tiwala akong bubuhayin mo tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right behind you. We watch out for one another.",
+              "TL": "Nasa likod mo lang. Nagbabantayan tayo sa isa't isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm at your side, friend. Lead on.",
+              "TL": "Nasa tabi mo ako, kaibigan. Mauna ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You make the calls, I back you up. Following.",
+              "TL": "Ikaw ang magpasya, susuportahan kita. Sumusunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know you have my back. Following your lead.",
+              "TL": "Alam kong hawak mo ang likod ko. Sumusunod sa pangunguna mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood, partner. Right behind you.",
+              "TL": "Naiintindihan ko, kasama. Nasa likod mo lang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.follow.queued.withdrawn",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll follow.",
+              "TL": "Susunod ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. Walking behind you.",
+              "TL": "Sige. Lalakad sa likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following. Whatever.",
+              "TL": "Sumusunod. Kahit ano pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Moving.",
+              "TL": "Naintindihan. Kumikilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right behind. Don't stop suddenly.",
+              "TL": "Nasa likod lang. Huwag hihinto nang bigla."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll keep up.",
+              "TL": "Sasabay ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following. Keep going.",
+              "TL": "Sumusunod. Tuloy lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Let's go.",
+              "TL": "Sige. Tara na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Behind you.",
+              "TL": "Nasa likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving along.",
+              "TL": "Sumasabay."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.follow.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't follow you right now.",
+              "TL": "Hindi kita masusundan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I need to stay here. Can't follow.",
+              "TL": "Kailangan kong manatili rito. Di makasusunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refusing to follow into that danger.",
+              "TL": "Tumatangging sumunod sa panganib na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too exhausted or injured to keep up. I can't follow.",
+              "TL": "Masyadong pagod o sugatan para sumabay. Di makasusunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have business here. You go on ahead.",
+              "TL": "May inaasikaso ako rito. Mauna ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't follow. My hands are full.",
+              "TL": "Di makasusunod. Marami akong ginagawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not following you into that mess.",
+              "TL": "Di kita susundan sa gulong 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't follow you right now.",
+              "TL": "Hindi kita susundan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay back, I'm not following.",
+              "TL": "Umatras ka, di ako susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Follow order rejected. I'm holding position.",
+              "TL": "Tinatanggihan ang utos na sumunod. Hawak ko ang pwesto."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "realization",
+  "domain": "social",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dynamic Conversation Realization",
+    "version": "1"
+  },
+  "realizations": [
+    {
+      "id": "lexeme.social.profanity.fuck",
+      "type": "lexeme",
+      "concept": "PROFANITY_FUCK",
+      "aliases": [
+        "fuck",
+        "fuck you",
+        "fuck u",
+        "f*ck you",
+        "f**k you",
+        "f*** you"
+      ],
+      "forms": {
+        "EN": "fuck",
+        "TL": "Putang ina mo"
+      }
+    },
+    {
+      "id": "lexeme.social.apology.sorry",
+      "type": "lexeme",
+      "concept": "APOLOGY_SORRY",
+      "forms": {
+        "EN": "sorry",
+        "TL": "pasensya"
+      }
+    },
+    {
+      "id": "lexeme.social.agreement.yes",
+      "type": "lexeme",
+      "concept": "AGREEMENT_YES",
+      "forms": {
+        "EN": "yeah",
+        "TL": "oo"
+      }
+    },
+    {
+      "id": "lexeme.social.disagreement.no",
+      "type": "lexeme",
+      "concept": "DISAGREEMENT_NO",
+      "forms": {
+        "EN": "no",
+        "TL": "hindi"
+      }
+    }
+  ]
+}

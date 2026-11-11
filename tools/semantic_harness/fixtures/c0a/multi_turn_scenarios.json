@@ -1,0 +1,30 @@
+{
+  "schema": "projecthoomans.c0a.multi-turn.v1",
+  "scenarios": [
+    {
+      "id": "npc_question_player_not_really",
+      "inputs": ["hello there", "not really"],
+      "purpose": "NPC greeting flow asks a follow-up; player answers with a contextual short disagreement."
+    },
+    {
+      "id": "hostility_then_apology",
+      "inputs": ["fuck you", "sorry"],
+      "purpose": "Hostility followed by an apology."
+    },
+    {
+      "id": "hostility_then_continued_challenge",
+      "inputs": ["fuck you", "yeah right"],
+      "purpose": "Hostility followed by a skeptical/challenging short utterance."
+    },
+    {
+      "id": "topic_continuation",
+      "inputs": ["what time is it", "what day is it"],
+      "purpose": "Adjacent time/date questions."
+    },
+    {
+      "id": "topic_change",
+      "inputs": ["what time is it", "how are you"],
+      "purpose": "Time question followed by wellbeing question."
+    }
+  ]
+}

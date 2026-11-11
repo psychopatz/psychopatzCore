@@ -1,0 +1,1194 @@
+{
+  "domain": "social",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.clap",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Thanks.",
+              "TL": "Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate the applause.",
+              "TL": "Salamat sa palakpak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just doing what had to be done.",
+              "TL": "Ginawa lang ang kailangang gawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad you liked it.",
+              "TL": "Mabuti at nagustuhan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Much appreciated.",
+              "TL": "Maraming salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All in a day's work.",
+              "TL": "Bahagi lang 'yan ng araw-araw na trabaho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. Good to know it landed well.",
+              "TL": "Salamat. Mabuting malaman na maayos ang dating."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate it.",
+              "TL": "Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. Let's keep the momentum going.",
+              "TL": "Salamat. Tuloy lang natin ang sigla."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you for the encouragement.",
+              "TL": "Salamat sa pampalakas ng loob."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "You're too kind.",
+              "TL": "Napakabait mo naman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks! That really puts a smile on my face.",
+              "TL": "Salamat! Napangiti talaga ako roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate the cheer! We make a solid team.",
+              "TL": "Salamat sa suporta! Matibay tayong grupo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you! Couldn't have done it without good company.",
+              "TL": "Salamat! Hindi ko magagawa 'yon nang walang maayos na kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haha, thanks! Glad to bring some light into the day.",
+              "TL": "Haha, salamat! Mabuti at nakapagbigay ng sigla ngayong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That makes me feel good. Thank you!",
+              "TL": "Napakasarap sa pakiramdam niyan. Salamat!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're awesome. Thanks for the cheer.",
+              "TL": "Ang galing mo. Salamat sa pagpalakpak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate the love! Let's keep winning.",
+              "TL": "Salamat sa suporta! Tuloy lang tayo sa tagumpay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks a bunch! That means a lot to me.",
+              "TL": "Maraming salamat! Malaking bagay 'yan sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haha, bowing now! Thanks, friend.",
+              "TL": "Haha, yumuyukod na ako! Salamat, kaibigan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I hear you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naiintindihan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough.",
+              "TL": "May punto ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I see you.",
+              "TL": "Nakikita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right back at you.",
+              "TL": "Pabalik din sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Acknowledged.",
+              "TL": "Kinikilala ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted.",
+              "TL": "Tala ko na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right.",
+              "TL": "Sige."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message received.",
+              "TL": "Mensahe nakuha."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.insult",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Keep it respectful.",
+              "TL": "Maging magalang ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save that attitude for the dead.",
+              "TL": "Itabi mo ang ugaling 'yan para sa mga patay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not in the mood for that.",
+              "TL": "Wala ako sa mood para diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch yourself.",
+              "TL": "Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your hands and words to yourself.",
+              "TL": "Itago mo sa sarili mo ang mga salita mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't start something out here.",
+              "TL": "Huwag kang magsimula ng gulo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Grow up. We have real threats to worry about.",
+              "TL": "Magpakatanda ka. May mga totoong panganib tayong kinakaharap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not amused.",
+              "TL": "Hindi nakatutuwa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check yourself before you cause trouble.",
+              "TL": "Pagsabihan mo ang sarili mo bago ka makagawa ng gulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm ignoring that for now. Don't push it.",
+              "TL": "Pinalalampas ko muna 'yan. Huwag mong sagarin."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "You're lucky I know you.",
+              "TL": "Suwerte ka dahil kilala kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Very funny. Don't make a habit of it.",
+              "TL": "Nakakatawa. Huwag mong gagawing bisyo 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll let that slide because it's you.",
+              "TL": "Palalampasin ko 'yan dahil ikaw 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haha, watch it, or I might just get even.",
+              "TL": "Haha, mag-ingat ka, baka gumanti ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good thing we're friends, or we'd have words.",
+              "TL": "Mabuti na lang magkaibigan tayo, kundi magkakatuusan tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You always like testing my patience, don't you?",
+              "TL": "Gusto mo talagang sinusubukan ang pasensya ko, 'no?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Play nice. I know you're just messing around.",
+              "TL": "Mag-ayos ka. Alam kong nagbibiro ka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're pushing your luck, but I'll allow it this once.",
+              "TL": "Sinusugal mo ang suwerte mo, pero papayagan ko muna ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Only you could get away with saying that to me.",
+              "TL": "Ikaw lang ang makalulusot sa pagsasabi niyan sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haha, all right, point taken, smart-mouth.",
+              "TL": "Haha, sige na, nakuha ko na, pilosopo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.salute",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Stay sharp.",
+              "TL": "Manatiling alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your guard up.",
+              "TL": "Huwag ibaba ang bantay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eyes forward.",
+              "TL": "Tumingin sa unahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "At ease.",
+              "TL": "Magpahinga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay safe out there.",
+              "TL": "Mag-ingat ka sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch your six.",
+              "TL": "Bantayan mo ang likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Salute returned.",
+              "TL": "Ganti ang pagsaludo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep moving and stay vigilant.",
+              "TL": "Patuloy na lumakad at maging mapagmatyag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Stay ready.",
+              "TL": "Naintindihan. Maging laging handa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stand firm.",
+              "TL": "Magpakatatag."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Always. Stay safe out there.",
+              "TL": "Palagi. Mag-ingat ka sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Salute to you too, friend.",
+              "TL": "Saludo rin sa 'yo, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right back at you. Let's make it back in one piece.",
+              "TL": "Pabalik din sa 'yo. Tiyakin nating makababalik tayo nang buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Honored to stand with you.",
+              "TL": "Ikinararangal kong makatabi ka sa laban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your head down and stay alive for me.",
+              "TL": "Yumuko ka sa panganib at manatiling buhay para sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to have you beside me out here.",
+              "TL": "Mabuting kasama kita rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Salute returned with respect, partner.",
+              "TL": "May kasamang respeto ang ganting saludo ko, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We watch each other's backs. Always.",
+              "TL": "Binabantayan natin ang likod ng isa't isa. Palagi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take care of yourself today. I mean it.",
+              "TL": "Ingatan mo ang sarili mo ngayong araw. Seryoso ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay strong out there. We'll get through this.",
+              "TL": "Magpakatatag ka sa labas. Malalampasan natin ito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.thankyou",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You're welcome.",
+              "TL": "Walang anuman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No problem.",
+              "TL": "Walang problema."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't mention it.",
+              "TL": "Huwag mo nang alalahanin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad to help.",
+              "TL": "Masayang tumulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Anytime.",
+              "TL": "Kahit kailan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just doing my part.",
+              "TL": "Ginagawa ko lang ang bahagi ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to assist.",
+              "TL": "Mabuti at nakatulong ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No trouble at all.",
+              "TL": "Walang anuman talaga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All part of surviving together.",
+              "TL": "Bahagi lang 'yan ng sabay na pamumuhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You'd do the same for me.",
+              "TL": "Gagawin mo rin 'yan para sa akin."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Anytime. We look after our own.",
+              "TL": "Kahit kailan. Inaalagaan natin ang mga kasama natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're very welcome, friend.",
+              "TL": "Walang anuman talaga, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always happy to lend a hand to you.",
+              "TL": "Lagi akong handang tumulong sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't worry about it for a second. Glad to be here.",
+              "TL": "Huwag mo nang isipin kahit sandali. Mabuti at narito ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've got each other's backs. That's what counts.",
+              "TL": "Nagtitinginan tayo sa isa't isa. Iyon ang mahalaga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You deserve the help. Don't mention it.",
+              "TL": "Karapat-dapat ka sa tulong. Huwag mo nang banggitin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Anytime! Seriously, just ask whenever.",
+              "TL": "Kahit kailan! magsabi ka lang kapag may kailangan ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm glad I could be there for you.",
+              "TL": "Mabuti at nakatulong ako sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No need to thank me. That's what partners do.",
+              "TL": "Di mo kailangang magpasalamat. Ganyan talaga ang magkasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to help. Always.",
+              "TL": "Masayang tumulong. Palagi."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.thumbsdown",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I got the message. Tell me what's wrong.",
+              "TL": "Nakuha ko ang mensahe. Sabihin mo kung anong problema."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not happy with that? What's your take?",
+              "TL": "Hindi ka sang-ayon? Ano ang opinyon mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. You disagree.",
+              "TL": "Naiintindihan ko. Hindi ka sang-ayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message received. We can rethink it.",
+              "TL": "Nakuha ko ang pahiwatig. Pwede nating pag-isipan ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. You don't like the look of this.",
+              "TL": "Naintindihan. Hindi maganda ang kutob mo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough. What's the alternative?",
+              "TL": "Makatwiran. Ano ang alternatibo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear the disapproval. Let's adjust.",
+              "TL": "Naririnig ko ang pagtutol mo. Mag-ayos tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. We won't go that route then.",
+              "TL": "Tala ko na. Hindi na natin dadaanan ang rutang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Point taken.",
+              "TL": "Naintindihan. Nakuha ko ang punto mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right, let's look for a better option.",
+              "TL": "Sige, maghanap tayo ng mas magandang paraan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.thumbsup",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Good.",
+              "TL": "Mabuti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds like a plan.",
+              "TL": "Magandang plano 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad we agree.",
+              "TL": "Mabuti at nagkasundo tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right on.",
+              "TL": "Tama 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Let's make it happen.",
+              "TL": "Naintindihan. Isakatuparan na natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to go.",
+              "TL": "Handa na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Works for me.",
+              "TL": "Ayos 'yan sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Agreed.",
+              "TL": "Sang-ayon ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All set then.",
+              "TL": "Handa na ang lahat kung ganoon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Solid.",
+              "TL": "Matibay."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "That's the spirit.",
+              "TL": "Iyan ang magandang sigla."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Awesome. Let's knock it out.",
+              "TL": "Napakaganda. Tapusin na natin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Love the energy! Let's do this.",
+              "TL": "Gusto ko ang sigla mo! Tara na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Great minds think alike, friend.",
+              "TL": "Pareho tayo ng magandang takbo ng isip, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hell yeah. We've got this.",
+              "TL": "Oo naman. Kayang-kaya natin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's what I like to see. Full speed ahead.",
+              "TL": "Iyan ang gusto kong makita. Tuloy-tuloy lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good deal. Glad you're on board.",
+              "TL": "Magandang usapan. Mabuti at kasama ka rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right there with you! Let's get it done.",
+              "TL": "Kasama mo ako riyan! Tapusin na natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That puts wind in my sails. Thank you.",
+              "TL": "Nagbigay 'yan ng lakas sa akin. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Perfect. We're in sync.",
+              "TL": "Perpekto. Tugma ang takbo natin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.thumbsup.active",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Good. Let's keep moving on this.",
+              "TL": "Mabuti. Ipagpatuloy natin ang pagkilos dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Back to work.",
+              "TL": "Sige. Balik sa trabaho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Stay on task.",
+              "TL": "Naintindihan. Manatili sa gawain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good. Let's get this finished up.",
+              "TL": "Mabuti. Tapusin na natin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Agreed. Pushing forward now.",
+              "TL": "Sang-ayon. Umuusad na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving along. Keep your eyes peeled.",
+              "TL": "Tuloy ang lakad. Maging mapagmatyag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Making progress.",
+              "TL": "Tama. May nararating na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to know. Sticking to the objective.",
+              "TL": "Mabuting malaman. Manatili sa layunin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. No slowing down now.",
+              "TL": "Naintindihan. Walang magbabagal ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On it. Keeping our momentum.",
+              "TL": "Inaasikaso na. Tuloy ang bilis."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.wavebye",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Take care.",
+              "TL": "Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "See you around.",
+              "TL": "Magkita na lang tayo mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch your back out there.",
+              "TL": "Bantayan mo ang likod mo sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Until next time.",
+              "TL": "Hanggang sa muli."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay safe.",
+              "TL": "Manatiling ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your guard up on the way.",
+              "TL": "Huwag ibaba ang bantay habang naglalakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Catch you later.",
+              "TL": "Usap na lang tayo mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Farewell for now.",
+              "TL": "Paalam muna sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your head down.",
+              "TL": "Yumuko ka sa panganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "See you when you get back.",
+              "TL": "Kita tayo pagbalik mo."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Goodbye. Come back in one piece.",
+              "TL": "Paalam. Bumalik ka nang buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take good care of yourself, friend.",
+              "TL": "Ingatan mo nang maayos ang sarili mo, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "See you soon. Don't do anything reckless.",
+              "TL": "Magkita tayo agad. Huwag kang gagawa ng padalos-dalos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll be waiting right here. Stay safe.",
+              "TL": "Maghihintay ako rito. Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Farewell for now. Looking forward to our next talk.",
+              "TL": "Paalam muna. Inaasahan ko ang susunod nating usapan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Safe travels out there. Keep your wits about you.",
+              "TL": "Ligtas na paglalakbay sa labas. Gamitin lagi ang isip."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Goodbye! Make sure you make it back.",
+              "TL": "Paalam! Tiyakin mong makababalik ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Catch you later, partner. Be careful.",
+              "TL": "Kita tayo mamaya, kasama. Mag-iingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take care. I'll keep the fire going.",
+              "TL": "Mag-ingat ka. Pananatilihin kong may apoy rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "See you later. Stay alive out there.",
+              "TL": "Kita tayo mamaya. Manatiling buhay sa labas."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.reply.wavehi",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Hey.",
+              "TL": "Uy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hello there.",
+              "TL": "Kumusta ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you.",
+              "TL": "Mabuti at nakita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Greetings.",
+              "TL": "Pagbati sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey. What's the word?",
+              "TL": "Uy. Anong balita?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hello. Everything quiet?",
+              "TL": "Kumusta. Tahimik ba ang lahat?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Morning or afternoon, good to see another survivor.",
+              "TL": "Umaga man o hapon, mabuting makakita ng buhay na tao."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey. How are things looking?",
+              "TL": "Uy. Kamusta ang kalagayan diyan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hello. Need something?",
+              "TL": "Kumusta. May kailangan ka ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey there. Staying in one piece?",
+              "TL": "Kumusta. Buo pa ba ang katawan mo?"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "There you are.",
+              "TL": "Nandiyan ka pala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey.",
+              "TL": "Uy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's up.",
+              "TL": "Anong meron."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're back.",
+              "TL": "Bumalik ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Morning.",
+              "TL": "Magandang araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Evening.",
+              "TL": "Magandang gabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "State your business.",
+              "TL": "Sabihin ang pakay mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Saw you.",
+              "TL": "Nakita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Alive still.",
+              "TL": "Buhay pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Speak up.",
+              "TL": "Magsalita ka."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Hey again. Good to see a friendly face.",
+              "TL": "Uy muli. Mabuti at may nakitang kaibigang mukha."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hello, friend! How's your day treating you?",
+              "TL": "Kumusta, kaibigan! Kamusta ang araw mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey there! Always brightens things up when you come around.",
+              "TL": "Kumusta! Laging sumasaya kapag dumadaan ka rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Great to see you again! Everything okay with you?",
+              "TL": "Napakagandang makita ka muli! Maayos ba ang lagay mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey! I was just hoping you'd swing by.",
+              "TL": "Uy! Umasa nga akong dadaan ka rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Welcome back! Good to have you around.",
+              "TL": "Maligayang pagbabalik! Mabuting narito ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hello! Glad to see you made it through safely.",
+              "TL": "Kumusta! Mabuti at nakaligtas ka nang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey there! Come on over, take a seat.",
+              "TL": "Kumusta! Halika rito, umupo ka muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always a relief to see you walking up. Hey!",
+              "TL": "Laging nakapagpapagaan ng loob na makita kang naglalakad papalapit. Uy!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey, good to see you! How are you holding up?",
+              "TL": "Uy, mabuting makita ka! Kumusta ang lagay mo?"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

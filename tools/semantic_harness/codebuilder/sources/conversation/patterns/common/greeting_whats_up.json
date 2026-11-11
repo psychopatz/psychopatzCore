@@ -1,0 +1,444 @@
+{
+  "domain": "common",
+  "kind": "patterns",
+  "patterns": [
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.whats_up",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "what's up"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.whats_up_ascii",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "whats up"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.what_is_up",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "what is up"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.whatsup_compact",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "whatsup"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.what_up",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "what up"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.whats_new",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "what's new"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.whats_new_ascii",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "whats new"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.anything_new",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "anything new"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.whats_happening",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "what's happening"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.whats_happening_ascii",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "whats happening"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "hubID": "whats_up",
+          "route": "semantic_hub",
+          "topic": "whats_up"
+        },
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "CONVERSATION_TOPIC"
+      },
+      "id": "pnc.dataset.question.whats_up.anything_going_on",
+      "mapping": {
+        "canonicalConcept": "WHATS_UP",
+        "dialogueState": "WHATS_UP_HUB",
+        "sourceRefs": [
+          "DailyDialog",
+          "EmpatheticDialogues"
+        ]
+      },
+      "priority": 155,
+      "reviewed": true,
+      "sourceRefs": [
+        "DailyDialog",
+        "EmpatheticDialogues"
+      ],
+      "utterance": "anything going on"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.long_time_no_see",
+      "priority": 120,
+      "utterance": "long time no see"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.good_to_see_you_again",
+      "priority": 120,
+      "utterance": "good to see you again"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.nice_to_see_you_again",
+      "priority": 120,
+      "utterance": "nice to see you again"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "GREET",
+        "speechAct": "GREET"
+      },
+      "id": "pnc.dataset.greeting.glad_to_see_you_again",
+      "priority": 120,
+      "utterance": "glad to see you again"
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "PsychopatzCore Common Interaction Seed",
+    "owner": "PsychopatzCore",
+    "references": [
+      {
+        "license": "ACL Anthology terms; metadata-only reference",
+        "name": "DailyDialog",
+        "reviewedOn": "2026-10-19",
+        "url": "https://aclanthology.org/I17-1099/",
+        "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "CC BY 4.0; metadata-only reference",
+        "name": "EmpatheticDialogues",
+        "reviewedOn": "2026-10-19",
+        "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+        "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "WordNet 3.0 license",
+        "name": "WordNet 3.0",
+        "reviewedOn": "2026-10-19",
+        "url": "https://wordnet.princeton.edu/",
+        "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY 4.0",
+        "name": "MASSIVE",
+        "recordRefs": [
+          {
+            "intent": "weather_query",
+            "locale": "en-US",
+            "partition": "train",
+            "recordID": "98"
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+        "sourceVersion": "1.0",
+        "url": "https://github.com/alexa/massive",
+        "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY-SA 4.0",
+        "name": "SGD",
+        "recordRefs": [
+          {
+            "dialogueID": "90_00031",
+            "intent": "GetWeather",
+            "service": "Weather_1",
+            "turn": 6
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+        "sourceVersion": "DSTC8 train",
+        "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+        "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      }
+    ],
+    "version": "1"
+  },
+  "version": 1
+}

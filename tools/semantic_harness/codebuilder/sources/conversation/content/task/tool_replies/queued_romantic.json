@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_romantic.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I heard you. You are bold, I will give you that.",
+              "TL": "Narinig kita. Matapang ka, aaminin ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard that romantic whisper. You have nerve.",
+              "TL": "Narinig ko ang pahiwatig na 'yon. May lakas ka ng loob."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard loud and clear. That was daring of you.",
+              "TL": "Narinig nang malinaw. Matapang ang ginawa mong 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I caught your words. You certainly don't hold back.",
+              "TL": "Nakuha ko ang sinabi mo. Talagang di ka nagpipigil."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard you. That took some real courage to say.",
+              "TL": "Narinig kita. Nangailangan ng tunay na tapang para sabihin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard every word. You're bolder than most.",
+              "TL": "Narinig ko ang bawat salita. Mas matapang ka kaysa karamihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear what you're hinting at. Quite bold.",
+              "TL": "Naririnig ko ang pahiwatig mo. Tunay na matapang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message heard. You definitely have guts.",
+              "TL": "Narinig ang mensahe. May tapang ka talaga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I caught that soft line. Bold of you.",
+              "TL": "Nakuha ko ang malambing na linyang 'yon. Matapang ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard you. You know how to make an impression.",
+              "TL": "Narinig kita. Marunong kang mag-iwan ng impresyon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_romantic.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You certainly know how to get my attention.",
+              "TL": "Alam mo talaga kung paano kukunin ang pansin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You definitely have my full focus after that.",
+              "TL": "Nasa sa 'yo na ang buong atensyon ko pagkatapos niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You know just what strings to pull.",
+              "TL": "Alam mo kung anong kwerdas ang gagalawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have a knack for turning my head your way.",
+              "TL": "May galing ka sa pagpihit ng tingin ko papunta sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You certainly know how to make me listen.",
+              "TL": "Marunong ka talagang magparinig sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That definitely caught my eye and ear.",
+              "TL": "Talagang nakuha niyan ang paningin at tainga ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You always find a way to make me look at you.",
+              "TL": "Lagi kang nakakahanap ng paraan para mapatingin ako sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Well, you have my complete attention now.",
+              "TL": "Nasa sa 'yo na ang buo kong atensyon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have a gift for captivating an audience.",
+              "TL": "May talento ka sa pang-aakit ng atensyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You know exactly what you're doing with those words.",
+              "TL": "Alam na alam mo ang ginagawa mo sa mga salitang 'yan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

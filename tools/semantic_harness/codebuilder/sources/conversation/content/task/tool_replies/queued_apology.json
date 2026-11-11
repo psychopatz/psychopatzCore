@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_apology.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I hear you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear your apology.",
+              "TL": "Naririnig ko ang paumanhin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message heard.",
+              "TL": "Narinig ang mensahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard what you had to say.",
+              "TL": "Narinig ko ang kailangan mong sabihin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. I hear you.",
+              "TL": "Nakuha ko. Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you owning up.",
+              "TL": "Naririnig kong inaamin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Heard.",
+              "TL": "Naintindihan. Narinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard your words on that.",
+              "TL": "Narinig ko ang mga salita mo riyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. I'm listening.",
+              "TL": "Tala ko na. Nakikinig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard your statement.",
+              "TL": "Narinig ang pahayag mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_apology.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We will talk about it.",
+              "TL": "Pag-uusapan natin iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll discuss it once things calm down.",
+              "TL": "Pag-uusapan natin kapag kumalma na ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We will hash this out later.",
+              "TL": "Aayusin natin ito mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll revisit that when we have a quiet moment.",
+              "TL": "Babalikan natin 'yan kapag may tahimik na oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We will talk through that soon.",
+              "TL": "Pag-uusapan natin 'yan sa lalong madaling panahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll talk to you about it later.",
+              "TL": "Kakausapin kita tungkol diyan mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll sort that out when we're safe.",
+              "TL": "Aayusin natin 'yan kapag ligtas na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We will clear the air later.",
+              "TL": "Lilinawin natin ang lahat mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll have a proper conversation about it.",
+              "TL": "Mag-uusap tayo nang masinsinan tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Talk about it when we reach camp.",
+              "TL": "Pag-usapan natin kapag nakarating sa kampo."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

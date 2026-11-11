@@ -1,0 +1,255 @@
+{
+  "domain": "common",
+  "kind": "patterns",
+  "patterns": [
+    {
+      "confidence": 0.99,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.what_is_going_on_with_you",
+      "mapping": {
+        "canonicalConcept": "WELLBEING",
+        "dialogueState": "WELLBEING_FOLLOW_UP",
+        "sourceRefs": [
+          "MASSIVE",
+          "SGD"
+        ]
+      },
+      "negatives": [
+        "what is going on with me"
+      ],
+      "priority": 164,
+      "reviewed": true,
+      "sourceRefs": [
+        "MASSIVE",
+        "SGD"
+      ],
+      "utterance": "what is going on with you"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.how_are_things_going",
+      "priority": 120,
+      "utterance": "how are things going"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.how_is_everything_going",
+      "priority": 120,
+      "utterance": "how is everything going"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.hows_everything_going",
+      "priority": 120,
+      "utterance": "how's everything going"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.how_are_you_holding_up",
+      "priority": 120,
+      "utterance": "how are you holding up"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.are_you_holding_up_okay",
+      "priority": 120,
+      "utterance": "are you holding up okay"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.you_doing_all_right",
+      "priority": 120,
+      "utterance": "you doing all right"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.how_are_you_managing",
+      "priority": 120,
+      "utterance": "how are you managing"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.how_has_your_day_been",
+      "priority": 120,
+      "utterance": "how has your day been"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "ACTIVITY"
+      },
+      "id": "pnc.dataset.question.activity.what_are_you_working_on",
+      "priority": 120,
+      "utterance": "what are you working on"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "ACTIVITY"
+      },
+      "id": "pnc.dataset.question.activity.what_have_you_been_up_to_lately",
+      "priority": 120,
+      "utterance": "what have you been up to lately"
+    },
+    {
+      "confidence": 0.98,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "ACTIVITY"
+      },
+      "id": "pnc.dataset.question.activity.what_have_you_been_doing_today",
+      "priority": 120,
+      "utterance": "what have you been doing today"
+    },
+    {
+      "confidence": 0.97,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "ACTIVITY"
+      },
+      "id": "pnc.dataset.question.activity.what_are_you_focused_on",
+      "priority": 120,
+      "utterance": "what are you focused on"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WELLBEING"
+      },
+      "id": "pnc.dataset.question.wellbeing.how_are_you_doing",
+      "priority": 120,
+      "utterance": "how are you doing"
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "PsychopatzCore Common Interaction Seed",
+    "owner": "PsychopatzCore",
+    "references": [
+      {
+        "license": "ACL Anthology terms; metadata-only reference",
+        "name": "DailyDialog",
+        "reviewedOn": "2026-10-19",
+        "url": "https://aclanthology.org/I17-1099/",
+        "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "CC BY 4.0; metadata-only reference",
+        "name": "EmpatheticDialogues",
+        "reviewedOn": "2026-10-19",
+        "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+        "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "WordNet 3.0 license",
+        "name": "WordNet 3.0",
+        "reviewedOn": "2026-10-19",
+        "url": "https://wordnet.princeton.edu/",
+        "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY 4.0",
+        "name": "MASSIVE",
+        "recordRefs": [
+          {
+            "intent": "weather_query",
+            "locale": "en-US",
+            "partition": "train",
+            "recordID": "98"
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+        "sourceVersion": "1.0",
+        "url": "https://github.com/alexa/massive",
+        "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY-SA 4.0",
+        "name": "SGD",
+        "recordRefs": [
+          {
+            "dialogueID": "90_00031",
+            "intent": "GetWeather",
+            "service": "Weather_1",
+            "turn": 6
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+        "sourceVersion": "DSTC8 train",
+        "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+        "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      }
+    ],
+    "version": "1"
+  },
+  "version": 1
+}

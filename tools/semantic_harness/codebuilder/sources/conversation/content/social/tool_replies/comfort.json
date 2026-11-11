@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.comfort.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Thanks. I needed that.",
+              "TL": "Salamat. Kailangan ko talaga 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate that. It has been a rough stretch.",
+              "TL": "Salamat. Napakahirap ng mga nakaraang araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. Sometimes you just need to hear that.",
+              "TL": "Salamat. Minsan kailangan mo lang marinig ang ganoon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That helps steady my nerves. Thank you.",
+              "TL": "Nakakatulong 'yan para kumalma ako. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I did not know how much I needed to hear that. Thanks.",
+              "TL": "Hindi ko alam na kailangan ko palang marinig 'yan. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. That takes some of the weight off.",
+              "TL": "Maraming salamat. Nabawasan ang bigat sa dibdib ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am glad you said that. Thanks.",
+              "TL": "Mabuti at sinabi mo 'yan. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Much appreciated. Really.",
+              "TL": "Talagang pinahahalagahan ko. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for checking in on me.",
+              "TL": "Salamat sa pangungumusta sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That makes a difference. Thank you.",
+              "TL": "Malaki ang nagagawa niyan. Salamat."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.comfort.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I appreciate you being here.",
+              "TL": "Salamat at narito ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Having you nearby makes this easier.",
+              "TL": "Mas madali ang lahat kapag kasama kita rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to know I am not facing this alone.",
+              "TL": "Mabuting malaman na hindi ako nag-iisa sa laban na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for sticking with me.",
+              "TL": "Salamat sa pananatili sa tabi ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It is easier having someone reliable around. Thank you.",
+              "TL": "Mas magaan kapag may mapagkakatiwalaan kang kasama. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am glad you are on my side.",
+              "TL": "Mabuti at kakampi kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for being here. It counts for a lot.",
+              "TL": "Salamat sa presensya mo. Malaking bagay ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You being around keeps me grounded.",
+              "TL": "Ang pananatili mo rito ay nagpapahinahon sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am thankful we crossed paths.",
+              "TL": "Nagpapasalamat ako at nagkasama tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. Do not go wandering off too far.",
+              "TL": "Salamat. Huwag kang lalayo masyado."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.comfort.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That helps more than I expected.",
+              "TL": "Mas nakakatulong 'yan kaysa sa inasahan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I feel a bit better hearing that.",
+              "TL": "Medyo gumaan ang pakiramdam ko nang marinig 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That took some edge off the stress.",
+              "TL": "Nabawasan ang kaba ko sa sinabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Honestly, that clears my head a little.",
+              "TL": "Sa totoo lang, luminaw nang kaunti ang isip ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That actually helped. Thank you.",
+              "TL": "Talagang nakatulong 'yon. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can breathe a little easier now.",
+              "TL": "Medyo nakakahinga na ako nang maluwag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. That takes the bite out of things.",
+              "TL": "Salamat. Nabawasan ang tindi ng sitwasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I needed a reminder that we can handle this.",
+              "TL": "Kailangan ko ng paalala na kaya natin 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have a calming effect. Thanks.",
+              "TL": "Nakakapagpakalma ka. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That put things back into perspective for me.",
+              "TL": "Nailagay muli niyan sa tamang ayos ang pananaw ko."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

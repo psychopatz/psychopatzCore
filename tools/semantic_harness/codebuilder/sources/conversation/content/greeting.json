@@ -1,0 +1,882 @@
+{
+  "domain": "greeting",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.flow.greeting.followup.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You're welcome. Take care.",
+              "TL": "Walang anuman. Mag-iingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No trouble. Stay safe.",
+              "TL": "Walang problema. Manatiling ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Anytime. Watch your back out there.",
+              "TL": "Kahit kailan. Mag-ingat ka sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't mention it. See you around.",
+              "TL": "Wala 'yon. Magkikita pa tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad to help. Take it easy.",
+              "TL": "Masayang nakatulong. Dahan-dahan lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Stay alert today.",
+              "TL": "Sige. Maging alerto ka ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No problem at all. Be careful.",
+              "TL": "Walang anuman talaga. Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing. Keep your eyes open.",
+              "TL": "Oo naman. Buksan mo ang mga mata mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take care of yourself out there.",
+              "TL": "Alagaan mo ang sarili mo sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Until next time. Stay safe.",
+              "TL": "Hanggang sa muli. Manatiling ligtas."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.flow.greeting.followup.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You're welcome. It's good to see you too.",
+              "TL": "Walang anuman. Mabuti at nakita rin kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Anytime. Glad you're here.",
+              "TL": "Kahit kailan. Masaya akong nandito ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always glad to talk. Stay safe out there.",
+              "TL": "Palaging masayang makausap ka. Mag-ingat ka sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No problem. Holler if you need a hand.",
+              "TL": "Walang problema. Tawagin mo ako kapag kailangan mo ng tulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Anytime, friend. Take care of yourself.",
+              "TL": "Kahit kailan, kaibigan. Alagaan mo ang sarili mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad we caught up. Catch you in a bit.",
+              "TL": "Mabuti at nagkausap tayo. Magkita tayo mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No trouble at all. Good to have you around.",
+              "TL": "Walang problema talaga. Mabuti at nandito ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing. Watch yourself out there, alright?",
+              "TL": "Oo naman. Mag-ingat ka sa labas, ha?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take care. We'll talk again soon.",
+              "TL": "Mag-iingat ka. Mag-usap tayo ulit mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always. Glad to see you on your feet.",
+              "TL": "Palagi. Masaya akong maayos ang lagay mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.flow.greeting.opening.default",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "State your business. Keep your distance.",
+              "TL": "Sabihin mo ang pakay mo. Lumayo ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold it right there. What do you want?",
+              "TL": "Diyan ka lang. Anong gusto mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hands where I can see them. Who are you?",
+              "TL": "Itaas ang mga kamay. Sino ka?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't come any closer until I know your business.",
+              "TL": "Huwag kang lalapit hangga't hindi ko alam ang pakay mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your hands clear. Talk from there.",
+              "TL": "Ilayo mo ang mga kamay mo. Magsalita ka riyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm watching you. What brings you here?",
+              "TL": "Binabantayan kita. Anong nagdala sa 'yo rito?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Easy now. Step back and speak your piece.",
+              "TL": "Dahan-dahan lang. Umatras ka at sabihin mo ang sasabihin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your distance. Times are too dangerous for strangers.",
+              "TL": "Lumayo ka. Masyadong mapanganib ang panahon para sa mga estranghero."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's close enough. What are you looking for?",
+              "TL": "Tama na ang lapit na 'yan. Anong hinahanap mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay where you are. I don't know you yet.",
+              "TL": "Diyan ka lang. Hindi pa kita kilala."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Hey there. Good to see you.",
+              "TL": "Uy, mabuti at nakita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hello there. How are things?",
+              "TL": "Kumusta. Kumusta ang lagay?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you.",
+              "TL": "Mabuti at nakita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Morning. Hope the day treats you well.",
+              "TL": "Magandang umaga. Sana maayos ang araw mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey again. What's going on?",
+              "TL": "Uy ulit. Anong nangyayari?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "There you are. Everything quiet?",
+              "TL": "Nandiyan ka pala. Tahimik ba ang lahat?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Afternoon. Staying out of trouble?",
+              "TL": "Magandang hapon. Ligtas ka ba sa gulo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hello. Good to run into another living person.",
+              "TL": "Kumusta. Mabuti at may nakasalubong akong buhay pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey. How's the perimeter looking?",
+              "TL": "Uy. Kumusta ang paligid?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Evening. Still on your feet, I see.",
+              "TL": "Magandang gabi. Nakatayo ka pa rin pala."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Hello.",
+              "TL": "Kumusta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hi.",
+              "TL": "Hi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey.",
+              "TL": "Uy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Morning.",
+              "TL": "Magandang umaga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There you are.",
+              "TL": "Nandiyan ka pala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still here.",
+              "TL": "Nandito pa rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Afternoon.",
+              "TL": "Magandang hapon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet day.",
+              "TL": "Tahimik na araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You good?",
+              "TL": "Maayos ka ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Evening.",
+              "TL": "Magandang gabi."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Hey! It is good to see you.",
+              "TL": "Uy! Mabuti at nakita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey, good to see you in one piece.",
+              "TL": "Uy, mabuti at buo ka pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad to see you. How are you holding up?",
+              "TL": "Masaya akong nakita kita. Kumusta ang lagay mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey. Really glad you made it back safe.",
+              "TL": "Uy. Masaya talaga akong nakabalik ka nang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back already? Good to have you around.",
+              "TL": "Bumalik ka na agad? Mabuti at nandito ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's always a relief seeing you walk through.",
+              "TL": "Laging nakakagaan ng loob makita kang dumarating."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you on your feet today.",
+              "TL": "Mabuti at nakatayo ka pa rin ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey there! How's your day been treating you?",
+              "TL": "Uy! Kumusta ang araw mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always good seeing a friendly face out here.",
+              "TL": "Laging magandang makakita ng pamilyar na mukha rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Welcome back. Hope things were quiet out there.",
+              "TL": "Maligayang pagbabalik. Sana tahimik lang sa labas."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.flow.greeting.opening.friendly",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Hey. Everything holding together?",
+              "TL": "Uy. Maayos pa ba ang lahat?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good timing. We could use your help.",
+              "TL": "Tamang-tama ang dating mo. Kailangan namin ng tulong mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey again. Everything quiet around here?",
+              "TL": "Uy ulit. Tahimik ba ang paligid dito?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back again? Keep your weapon close.",
+              "TL": "Bumalik ka? Ilapit mo ang armas mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey. You notice anything strange out there?",
+              "TL": "Uy. May napansin ka bang kakaiba sa labas?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you. Stay watchful though.",
+              "TL": "Mabuti at nakita kita. Magmatyag ka pa rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You made it back. Keep low and stay alert.",
+              "TL": "Nakabalik ka. Yumuko ka at maging alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad you're safe. We've got to watch the treeline.",
+              "TL": "Mabuti at ligtas ka. Kailangan nating bantayan ang kagubatan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey. Hope nobody followed you in.",
+              "TL": "Uy. Sana walang sumunod sa 'yo papasok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There you are. Let's keep our eyes sharp.",
+              "TL": "Nandiyan ka pala. Maging matalas ang mga mata natin."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Good to see you.",
+              "TL": "Mabuti at nakita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was hoping we'd cross paths today.",
+              "TL": "Inaasahan kong magkikita tayo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you. How's the camp holding?",
+              "TL": "Mabuti at nakita kita. Kumusta ang kampo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "There you are. Ready for another day?",
+              "TL": "Nandiyan ka pala. Handa na ba para sa isa pang araw?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back again. How's the scavenging going?",
+              "TL": "Bumalik ka ulit. Kumusta ang paghahanap?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you again. Need a hand with anything?",
+              "TL": "Mabuti at nakita kita ulit. Kailangan mo ba ng tulong?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey there. Glad we ran into each other.",
+              "TL": "Kumusta. Masaya akong nagkasalubong tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Morning! How are things on your end?",
+              "TL": "Magandang umaga! Kumusta ang lagay sa parte mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey! What's the plan for today?",
+              "TL": "Uy! Anong plano para sa araw na ito?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to catch up. How are you doing?",
+              "TL": "Mabuti at nagkausap tayo. Kumusta ka?"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Back again? You holding up?",
+              "TL": "Bumalik ka? Ayos ka pa ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you again.",
+              "TL": "Mabuti at nakita kita ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey. How have you been?",
+              "TL": "Uy. Kumusta ka na?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Didn't expect to see you so soon.",
+              "TL": "Hindi ko inasahang makikita kita agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey again. How's it going?",
+              "TL": "Uy ulit. Kumusta?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "There you are again.",
+              "TL": "Nandiyan ka na naman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding steady?",
+              "TL": "Matatag pa ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good. You're here.",
+              "TL": "Mabuti. Nandito ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All clear?",
+              "TL": "Ligtas ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey. Need something?",
+              "TL": "Uy. May kailangan ka?"
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "There you are! Good to see you.",
+              "TL": "Nandiyan ka pala! Mabuti at nakita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was hoping I'd run into you today.",
+              "TL": "Umasa akong makakasalubong kita ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back so soon? Glad you're safe.",
+              "TL": "Bumalik ka agad? Mabuti at ligtas ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was hoping you'd come back in one piece.",
+              "TL": "Umasa akong babalik ka nang buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There you are. You doing alright today?",
+              "TL": "Nandiyan ka pala. Maayos ka ba ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you. Pull up a chair.",
+              "TL": "Mabuti at nakita kita. Umupo ka muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always makes my day better seeing you back safe.",
+              "TL": "Palaging gumaganda ang araw ko kapag nakikita kitang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey there! Really glad you're around today.",
+              "TL": "Uy! Masaya talaga akong nandito ka ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's good to see your face. How're you feeling?",
+              "TL": "Mabuting makita ang mukha mo. Kumusta ang pakiramdam mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Welcome back, my friend. Good to see you.",
+              "TL": "Maligayang pagbabalik, kaibigan. Mabuti at nakita kita."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.flow.greeting.opening.question.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "How have you been?",
+              "TL": "Kumusta ka na?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "How are you holding up?",
+              "TL": "Paano mo nakakayanan ang sitwasyon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Everything all right with you?",
+              "TL": "Maayos ba ang lahat sa iyo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "How's your day going so far?",
+              "TL": "Kumusta ang araw mo hanggang ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying safe out there?",
+              "TL": "Ligtas ka ba sa labas?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "How are things treating you today?",
+              "TL": "Kumusta ang takbo ng mga bagay ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Feeling alright today?",
+              "TL": "Maayos ba ang pakiramdam mo ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Any trouble on the road?",
+              "TL": "May gulo ba sa daan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "How are you managing out here?",
+              "TL": "Paano ka nakakaraos dito sa labas?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Everything quiet on your end?",
+              "TL": "Tahimik ba ang lahat sa parte mo?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.flow.greeting.opening.question.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "How have you been holding up lately?",
+              "TL": "Kumusta ka naman nitong mga nakaraang araw?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "How's the camp holding together?",
+              "TL": "Kumusta ang lagay ng kampo natin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need anything while we're talking?",
+              "TL": "May kailangan ka ba habang nag-uusap tayo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "How's your supply situation looking?",
+              "TL": "Kumusta ang lagay ng mga gamit mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Getting enough rest between runs?",
+              "TL": "Nakakapagpahinga ka ba nang maayos?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "How are you feeling about things around here?",
+              "TL": "Anong nararamdaman mo tungkol sa mga nangyayari rito?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You managing to stay warm and dry?",
+              "TL": "Napananatili mo bang tuyo at maayos ang sarili mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "How are the others treating you?",
+              "TL": "Kumusta ang pakikitungo ng iba sa iyo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Everything staying solid with you?",
+              "TL": "Maayos at matatag pa ba ang lahat sa iyo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you. How have things been going?",
+              "TL": "Mabuti at nakita kita. Kumusta ang mga lakad mo?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.flow.greeting.opening.rain",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Hey there. Wet one today.",
+              "TL": "Uy, maulan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rain's not letting up anytime soon.",
+              "TL": "Mukhang hindi titigil ang ulan agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep dry if you can out there.",
+              "TL": "Magpatuyo ka kung kaya mo sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Miserable weather, but we're still kicking.",
+              "TL": "Masamang panahon, pero buhay pa rin tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ground's completely soaked out there.",
+              "TL": "Babad na babad ang lupa sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cold rain like this makes everything harder.",
+              "TL": "Ang malamig na ulan na ito ang nagpapahirap sa lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch your footing in this mud.",
+              "TL": "Mag-ingat sa paghakbang sa putikan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rain makes it hard to hear them coming. Stay alert.",
+              "TL": "Mahirap silang marinig dahil sa ulan. Maging alerto ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good day to stay under a solid roof if you've got one.",
+              "TL": "Magandang araw para sumilong sa maayos na bubong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "At least the rain washes away the tracks. Stay dry.",
+              "TL": "Kahit papaano nabubura ng ulan ang mga bakas. Manatiling tuyo."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [
+    {
+      "choiceTranslations": {
+        "EN": "What's up?",
+        "TL": "Ano ang balita?"
+      },
+      "hubID": "whats_up",
+      "id": "conversation.landing:whats_up",
+      "kind": "player_landing_choice",
+      "labelTranslations": {
+        "EN": "What's up",
+        "TL": "Ano ang balita"
+      },
+      "route": "semantic_hub"
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

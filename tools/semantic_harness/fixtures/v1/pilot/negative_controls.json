@@ -1,0 +1,82 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "pilot.negative_controls",
+  "cases": [
+    {
+      "id": "negative.negated_wellbeing",
+      "tags": ["negative", "wellbeing", "pilot"],
+      "turns": [
+        {
+          "text": "I am not fine",
+          "expect": {
+            "ir.intent": { "absent": true },
+            "ir.subject": { "absent": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "negative.double_negation_stop",
+      "tags": ["negative", "command", "pilot"],
+      "turns": [
+        {
+          "text": "Don't stop following me",
+          "expect": {
+            "ir.action": { "absent": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "negative.negative_desire_not_promoted",
+      "tags": ["negative", "command", "pilot"],
+      "turns": [
+        {
+          "text": "I don't want you to retrieve food",
+          "expect": {
+            "ir.action": { "absent": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "negative.unknown_language",
+      "tags": ["negative", "unknown", "pilot"],
+      "turns": [
+        {
+          "text": "Can you do something about this?",
+          "expect": {
+            "ir.intent": { "absent": true },
+            "ir.confidence": { "max": 0.5 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "negative.embedded_statement_not_question",
+      "tags": ["negative", "wellbeing", "pilot"],
+      "turns": [
+        {
+          "text": "I wonder how you have been",
+          "expect": {
+            "ir.intent": { "absent": true }
+          }
+        }
+      ]
+    },
+    {
+      "id": "negative.preview_does_not_mutate_or_dispatch",
+      "tags": ["negative", "preview", "safety", "pilot"],
+      "turns": [
+        {
+          "text": "follow me",
+          "action": "preview",
+          "expect": {
+            "toolCalls": { "count": 0 },
+            "dispatchTransport": { "count": 0 }
+          }
+        }
+      ]
+    }
+  ]
+}

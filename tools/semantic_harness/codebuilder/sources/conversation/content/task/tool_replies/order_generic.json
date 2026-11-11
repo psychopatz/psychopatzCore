@@ -1,0 +1,222 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_generic.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right.",
+              "TL": "Sige."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right.",
+              "TL": "Tama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Copy that.",
+              "TL": "Kopyado."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On it.",
+              "TL": "Inaasikaso na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Will do.",
+              "TL": "Gagawin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard.",
+              "TL": "Narinig ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Acknowledged.",
+              "TL": "Kinikilala ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure.",
+              "TL": "Sige ba."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_generic.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naiintindihan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Order received loud and clear.",
+              "TL": "Natanggap ang utos nang malakas at malinaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Moving on that now.",
+              "TL": "Naintindihan. Kikilos na roon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear as crystal. Executing.",
+              "TL": "Kasing-linaw ng kristal. Isasakatuparan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message understood.",
+              "TL": "Naiintindihan ang mensahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I will comply.",
+              "TL": "Naintindihan. Susunod ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Orders clear. Starting now.",
+              "TL": "Malinaw ang mga utos. Simulan na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. No problem.",
+              "TL": "Naiintindihan ko. Walang problema."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear. On my way to do it.",
+              "TL": "Malinaw. Papunta na para gawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood completely.",
+              "TL": "Lubos na naiintindihan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_generic.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I will handle it.",
+              "TL": "Ako na ang bahala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Consider it done.",
+              "TL": "Ituring mo nang tapos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll take care of this.",
+              "TL": "Aasikasuhin ko ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leave it to me.",
+              "TL": "Ipaubaya mo sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm on the job.",
+              "TL": "Nasa trabaho na ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll see to it right away.",
+              "TL": "Titiyakin kong magagawa agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handling that now.",
+              "TL": "Hinahawakan na 'yan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've got this covered.",
+              "TL": "Hawak ko na ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking care of business.",
+              "TL": "Inaasikaso ang kailangan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll get it sorted out.",
+              "TL": "Aayusin ko iyan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

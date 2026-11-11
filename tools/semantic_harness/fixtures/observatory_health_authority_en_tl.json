@@ -1,0 +1,100 @@
+{
+  "cases": [
+    {
+      "expected": {
+        "lastKey": "UI_PNC_Conversation_Content_SemanticQuestionWellbeingInjuredNeutral01",
+        "maxActions": 0
+      },
+      "label": "Injured wellbeing EN",
+      "language": "EN",
+      "scenario": {
+        "npc": {
+          "healthState": "injured"
+        }
+      },
+      "utterance": "how are you"
+    },
+    {
+      "expected": {
+        "lastKey": "UI_PNC_Conversation_Content_SemanticQuestionWellbeingInjuredNeutral01",
+        "maxActions": 0,
+        "maxFallbackLookups": 0
+      },
+      "label": "Injured wellbeing TL",
+      "language": "TL",
+      "scenario": {
+        "npc": {
+          "healthState": "injured"
+        }
+      },
+      "utterance": "how are you"
+    },
+    {
+      "expected": {
+        "lastKeyPrefix": "semantic.question.wellbeing.",
+        "maxActions": 0
+      },
+      "label": "Healthy wellbeing EN",
+      "language": "EN",
+      "scenario": {
+        "npc": {
+          "healthState": "healthy"
+        }
+      },
+      "utterance": "how are you"
+    },
+    {
+      "expected": {
+        "lastKeyPrefix": "semantic.question.wellbeing.",
+        "maxActions": 0,
+        "maxFallbackLookups": 0
+      },
+      "label": "Healthy wellbeing TL",
+      "language": "TL",
+      "scenario": {
+        "npc": {
+          "healthState": "healthy"
+        }
+      },
+      "utterance": "how are you"
+    },
+    {
+      "expected": {
+        "lastKey": "semantic.command.stay.queued",
+        "minActions": 1
+      },
+      "label": "Companion Wait EN",
+      "language": "EN",
+      "utterance": "wait here"
+    },
+    {
+      "expected": {
+        "lastKey": "semantic.command.stay.queued",
+        "maxFallbackLookups": 0,
+        "minActions": 1,
+        "textContains": "Sige, mananatili ako rito."
+      },
+      "label": "Companion Wait TL",
+      "language": "TL",
+      "utterance": "wait here"
+    },
+    {
+      "expected": {
+        "lastSemanticKey": "semantic.social.hostile_boundary",
+        "maxActions": 0
+      },
+      "label": "Hostile boundary EN",
+      "language": "EN",
+      "utterance": "fuck you"
+    },
+    {
+      "expected": {
+        "lastSemanticKey": "semantic.social.hostile_boundary",
+        "maxActions": 0
+      },
+      "label": "Hostile boundary TL",
+      "language": "TL",
+      "utterance": "fuck you"
+    }
+  ]
+}

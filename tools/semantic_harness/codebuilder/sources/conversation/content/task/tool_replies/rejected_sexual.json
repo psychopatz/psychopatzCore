@@ -1,0 +1,222 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.rejected_sexual.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is not happening.",
+              "TL": "Hindi iyan mangyayari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not a chance. Forget about it.",
+              "TL": "Walang pag-asa. Kalimutan mo na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am not interested in that at all.",
+              "TL": "Hindi talaga ako interesado riyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is completely off the table.",
+              "TL": "Wala sa pagpipilian 'yan kailanman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No. Never going to happen.",
+              "TL": "Hindi. Di kailanman mangyayari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Absolutely not.",
+              "TL": "Hinding-hindi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm shutting that down right now. No.",
+              "TL": "Papatayin ko ang paksang 'yan ngayon. Hindi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That won't be happening between us.",
+              "TL": "Hindi 'yan mangyayari sa pagitan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drop that idea entirely. Not happening.",
+              "TL": "Iwan mo nang buo ang ideyang 'yan. Di mangyayari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No means no. It's not happening.",
+              "TL": "Ang hindi ay hindi. Di mangyayari 'yan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.rejected_sexual.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Do not talk to me like that.",
+              "TL": "Huwag mo akong kausapin nang ganyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep those inappropriate remarks to yourself.",
+              "TL": "Itago mo sa sarili mo ang di-angkop na mga salitang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're crossing serious personal boundaries.",
+              "TL": "Tumatawid ka sa seryosong personal na hangganan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's completely uncalled for. Stop.",
+              "TL": "Wala sa lugar 'yan. Tigil."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't appreciate that kind of talk.",
+              "TL": "Hindi ko gusto ang ganyang uri ng pananalita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your indecent propositions away from me.",
+              "TL": "Ilayo mo sa akin ang malaswang alok mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch how you speak to me. That's out of line.",
+              "TL": "Bantayan mo ang pagsasalita mo sa akin. Sobra na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You need to show respect and stop talking like that.",
+              "TL": "Kailangan mong magpakita ng respeto at tumigil sa ganyang pananalita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't be objectified out here. Back off.",
+              "TL": "Di ako magpapakababa rito. Umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Shut your mouth. Don't speak to me that way.",
+              "TL": "Itikom mo ang bibig mo. Huwag mo akong kakausapin nang ganyan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.rejected_sexual.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You are moving far too fast.",
+              "TL": "Masyadong mabilis ang takbo mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Slow down. We are nowhere near that point.",
+              "TL": "Dahan-dahan. Malayo pa tayo sa puntong iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You need to hit the brakes. That's way too fast.",
+              "TL": "Kailangan mong magpreno. Masyadong mabilis 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pace yourself. We barely know each other.",
+              "TL": "Huwag kang magmadali. Halos di pa nga tayo magkakilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're rushing into territory we haven't earned.",
+              "TL": "Nagmamadali ka sa lugar na di pa natin nararating."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Slow your roll. That's moving way too fast for me.",
+              "TL": "Dahan-dahan lang. Masyadong mabilis 'yan para sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pull back. We have not built that kind of closeness.",
+              "TL": "Umatras ka. Wala pa tayong ganyang kalapit na ugnayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're getting way ahead of where we stand.",
+              "TL": "Nauuna ka nang malayo sa kung ano lang tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take a massive step back. Way too fast.",
+              "TL": "Humakbang ka paatras nang malaki. Masyadong mabilis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Slow down before you ruin whatever trust we have.",
+              "TL": "Magdahan-dahan ka bago mo sirain ang anumang tiwalang mayroon tayo."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

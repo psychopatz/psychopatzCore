@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_flirt.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I heard you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard that little remark.",
+              "TL": "Narinig ko ang maikling linyang 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Caught that.",
+              "TL": "Nahuli ko 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard what you whispered.",
+              "TL": "Narinig ko ang ibinulong mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message heard.",
+              "TL": "Narinig ang mensahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear where your head is at.",
+              "TL": "Naririnig ko kung ano ang iniisip mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got that loud and clear.",
+              "TL": "Nakuha 'yon nang malakas at malinaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard you just fine.",
+              "TL": "Narinig kita nang maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard you. Don't think I missed it.",
+              "TL": "Narinig kita. Huwag mong isiping pinalampas ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I caught that flirt.",
+              "TL": "Nakuha ko ang pambobolang 'yon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_flirt.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You are bold, I will give you that.",
+              "TL": "Matapang ka, aaminin ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You certainly don't lack nerve.",
+              "TL": "Talagang hindi ka kulang sa lakas ng loob."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bold move talking like that out here.",
+              "TL": "Matapang na hakbang ang magsalita nang ganyan dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have plenty of confidence, I'll say that.",
+              "TL": "Marami kang tiwala sa sarili, aaminin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's quite a forward thing to say.",
+              "TL": "Medyo mapangahas ang linyang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You certainly know how to shoot your shot.",
+              "TL": "Marunong ka talagang sumubok ng diskarte mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bold words for someone in danger.",
+              "TL": "Matatapang na salita para sa taong nasa panganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I admire the guts, if nothing else.",
+              "TL": "Hanga ako sa tapang mo, kahit 'yon man lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're definitely not shy.",
+              "TL": "Talagang hindi ka mahiyain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You like living dangerously, don't you?",
+              "TL": "Gusto mo talagang sumugal sa delikado, 'no?"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

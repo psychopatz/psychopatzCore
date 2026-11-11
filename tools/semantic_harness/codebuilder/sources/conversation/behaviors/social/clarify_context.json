@@ -1,0 +1,49 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "behaviors",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "behaviors": [
+    {
+      "id": "behavior.clarify_context",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "ASK_CLARIFICATION",
+      "mode": "one_shot",
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "ASK_CLARIFICATION",
+          "contentTemplateID": "semantic.interaction.context.clarify"
+        }
+      },
+      "when": {
+        "any": [
+          {
+            "path": "pragmatic.contextualAdmission.status",
+            "op": "eq",
+            "value": "unresolved"
+          },
+          {
+            "path": "pragmatic.contextualAdmission.status",
+            "op": "eq",
+            "value": "ambiguous"
+          }
+        ]
+      },
+      "baseRelevance": 0.95,
+      "modifiers": []
+    }
+  ]
+}

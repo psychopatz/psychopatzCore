@@ -1,0 +1,766 @@
+{
+  "domain": "event",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.started",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That's a lot of them. Stay sharp.",
+              "TL": "Ang dami nila. Mag-ingat tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've got a whole crowd moving in. Eyes open.",
+              "TL": "May malaking grupo na paparating. Magmatyag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Horde spotted! Check your exits.",
+              "TL": "May kuyog! Tignan ang mga labasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too many bodies out there. Watch the perimeter.",
+              "TL": "Masyado silang marami sa labas. Bantayan ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're grouping up. Form a line.",
+              "TL": "Nagsasama-sama sila. Ayusin ang hanay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sound drew a swarm. Get ready.",
+              "TL": "Nakaakit ng kuyog ang ingay. Humanda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look at that herd. Stay close.",
+              "TL": "Tingnan mo ang kawan na 'yan. Dumikit ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Mass contacts coming from down the street.",
+              "TL": "Napakaraming papalapit mula sa kalsada."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Here they come. Don't let them flank us.",
+              "TL": "Heto na sila. Huwag silang hayaang pumaligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Big group incoming. Watch each other's backs.",
+              "TL": "Malaking grupo ang dumarating. Bantayan ang likod ng bawat isa."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.escalated",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "More are piling in. This is getting bad.",
+              "TL": "Dumarami sila. Lumalala ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They keep coming! We're losing ground.",
+              "TL": "Patuloy silang dumarami! Nawawalan tayo ng espasyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The herd just doubled. We need a plan.",
+              "TL": "Doble na ang dami nila. Kailangan natin ng plano."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too many to push through! Fall back a step.",
+              "TL": "Masyadong marami para lusubin! Umatras nang kaunti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The swarm's thickening. Watch your flanks!",
+              "TL": "Kumakapal ang kuyog. Bantayan ang gilid mo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Every window is shaking. They're surrounding us.",
+              "TL": "Nanginginig ang bawat bintana. Pinalilibutan nila tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're pouring through the gaps. Steady!",
+              "TL": "Bumubuhos sila sa mga butas. Magpakatatag!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "This isn't thinning out, it's growing!",
+              "TL": "Hindi sila kumokonti, lalo pang dumarami!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "More rottens behind the first wave!",
+              "TL": "May mga bulok pa sa likod ng unang grupo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're getting boxed in. Don't stop swinging.",
+              "TL": "Naiipit na tayo. Huwag titigil sa paghataw."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.deescalated",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "They're thinning out. Don't relax yet.",
+              "TL": "Kumokonti sila. Huwag munang kampante."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Most of the swarm is down. Check stragglers.",
+              "TL": "Bagsak na karamihan sa kuyog. Tignan ang mga naiwan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The main wave is broken. Keep scanning.",
+              "TL": "Nawasak na ang bulto. Tuloy sa pagmamasid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fewer coming through now. Catch your breath.",
+              "TL": "Kakaunti na lang ang dumarating. Huminga muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Herd's scattered. Clear the remaining few.",
+              "TL": "Kalat na ang kuyog. Ubusin ang natitira."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We weathered the bulk of them. Stay focused.",
+              "TL": "Nalagpasan natin ang pinakamarami. Manatiling nakatutok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Numbers are dropping. Keep the pressure on.",
+              "TL": "Bumaba na ang bilang nila. Tuloy ang laban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're losing momentum. Finish them off.",
+              "TL": "Nawawalan na sila ng pwersa. Tapusin na natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Only a handful left. Watch your spacing.",
+              "TL": "Ilan-ilan na lang ang natitira. Bantayan ang distansya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The rush is slowing down. Good work.",
+              "TL": "Bumagal na ang pagdagsa. Maganda ang ginawa natin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Horde nearby. Keep your eyes up.",
+              "TL": "May kuyog na malapit. Magmatyag tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Large group in the vicinity. Tread quietly.",
+              "TL": "Malaking grupo sa paligid. Huwag gumawa ng ingay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There's a swarm around here. Stay cautious.",
+              "TL": "May kuyog sa lugar na 'to. Mag-ingat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear heavy movement outside. Watch yourself.",
+              "TL": "May naririnig akong maraming yabag sa labas. Mag-ingat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pack of infected close by. Stay alert.",
+              "TL": "Grupo ng infected malapit dito. Maging alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're near a wandering horde. Keep low.",
+              "TL": "Malapit tayo sa palakad-lakad na kuyog. Yumuko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too much shuffling out there. Keep weapons ready.",
+              "TL": "Masyadong maraming kaluskos sa labas. Ihanda ang sandata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dead are gathering nearby. Stay on your toes.",
+              "TL": "Nagtitipon ang mga patay malapit dito. Maging handa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Horde in the area. Pick your steps carefully.",
+              "TL": "May kuyog sa paligid. Piliin nang maigi ang bawat hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Infected swarm close. Don't make unnecessary noise.",
+              "TL": "Malapit ang kuyog ng infected. Huwag gumawa ng ingay."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.prompt.eager",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That's a hell of a crowd. We taking them?",
+              "TL": "Ang dami nila. Susugod ba tayo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Big group ahead. Let's carve right through them.",
+              "TL": "Malaking grupo sa unahan. Biyakin na natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look at all those targets. You ready to swing?",
+              "TL": "Tingnan mo ang dami ng target. Handa ka na bang humataw?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can take this pack. What's the call?",
+              "TL": "Kaya natin ang grupong 'to. Ano'ng desisyon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I say we clear them out right here. Ready?",
+              "TL": "Linisin na natin sila rito mismo. Handa ka na?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're packed together nicely. Time to strike.",
+              "TL": "Magkakadikit sila nang maayos. Oras na para sumugod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've got plenty of energy. Let's drop them.",
+              "TL": "Marami pa akong lakas. Itumba na natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Crowd of dead ahead. Give the word and I charge.",
+              "TL": "Kuyog ng mga patay sa unahan. Sabihin mo lang at susugod ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've got weapons and room. Let's do this.",
+              "TL": "May sandata at espasyo tayo. Labanan na natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's crack some skulls. We fighting or what?",
+              "TL": "Magbasag tayo ng bungo. Lalaban ba tayo o ano?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.prompt.shaken",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "God... that's a lot. Are we really fighting all of them?",
+              "TL": "Diyos ko... ang dami nila. Lalabanan talaga natin lahat 'yan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look at the size of that crowd... can we go around?",
+              "TL": "Tingnan mo ang laki ng kuyog... pwede ba tayong umikot?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "They'll swarm us if we step out there. Please, let's retreat.",
+              "TL": "Kukuyugin nila tayo kapag lumabas tayo. Pakiusap, umatras tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There are way too many... my hands are shaking.",
+              "TL": "Masyado silang marami... nanginginig ang mga kamay ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can't handle this many at once. Can we slip away?",
+              "TL": "Hindi natin kaya ang ganyan karami nang sabay. Pwede bang tumakas?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Jesus, don't shoot... they'll tear us apart.",
+              "TL": "Diyos ko, huwag kang puputok... pupunitin nila tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Are we seriously thinking of fighting that horde?",
+              "TL": "Seryoso ba tayong lalabanan ang kuyog na 'yan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't think we survive that fight. Let's run.",
+              "TL": "Sa tingin ko hindi tayo mabubuhay sa laban na 'yan. Tumakbo na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too many rottens... what do you want to do?",
+              "TL": "Masyadong maraming bulok... ano'ng gusto mong gawin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That swarm is terrifying. Tell me we're bypassing it.",
+              "TL": "Nakakatakot ang kuyog na 'yan. Sabihin mong iiwasan natin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.prompt.reserved",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Horde ahead. Engage or go around?",
+              "TL": "May kuyog sa unahan. Lalaban o iiwas?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Crowd spotted. Call it.",
+              "TL": "May nakitang grupo. Desisyunan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Massed dead. Fight or bypass?",
+              "TL": "Nagtitipong mga patay. Lalabanan o lalagpasan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Swarm blocking route. Your call.",
+              "TL": "Harang ang kuyog sa daan. Ikaw ang masusunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Large group. Stand and fight or slip past?",
+              "TL": "Malaking grupo. Tatayo at lalaban o lulusot?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Herd ahead. Make a choice.",
+              "TL": "Kawan sa harap. Pumili ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Horde present. Direct us.",
+              "TL": "May kuyog dito. Pangunahan mo kami."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too many in the open. Do we push or turn?",
+              "TL": "Masyadong marami sa bukas na lugar. Susulong o liliko?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Mass contacts. Decision?",
+              "TL": "Maraming kalaban. Ano'ng pasya?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Herd in path. Fight or avoid?",
+              "TL": "May kuyog sa dinaraanan. Laban o iwas?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.prompt.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That's a lot of them. We fighting or going around?",
+              "TL": "Ang dami nila. Lalaban ba tayo o iiwas?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Big swarm ahead. What's the plan?",
+              "TL": "Malaking kuyog sa unahan. Ano'ng plano?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Whole herd in our way. Do we push through or find another path?",
+              "TL": "Buong kawan ang nakaharang. Susugod ba tayo o maghahanap ng ibang daan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look at the street. Are we engaging or avoiding?",
+              "TL": "Tingnan mo ang kalsada. Lalabanan ba natin o iiwasan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Infected group is large. How do you want to handle this?",
+              "TL": "Malaki ang grupo ng infected. Paano mo gustong harapin 'to?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Crowd ahead of us. Should we fight or sneak past?",
+              "TL": "May mga patay sa harap natin. Lalaban ba tayo o lulusot nang tahimik?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "There's quite a crowd. What are we doing?",
+              "TL": "Medyo marami sila. Ano'ng gagawin natin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're blocking the lane. Do we clear them or detour?",
+              "TL": "Harang sila sa daan. Lilinisin ba natin o iikot tayo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Horde right in front. What do you want to do?",
+              "TL": "Kuyog mismo sa harap. Ano'ng gusto mong gawin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's more than a few. Engage or back off?",
+              "TL": "Higit pa sa iilan 'yan. Susugod o aatras?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.choice.engage",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Take them.",
+              "TL": "Sugurin natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We fight. Weapons up.",
+              "TL": "Lalaban tayo. Itaas ang sandata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Engage. Clear them all.",
+              "TL": "Sugod. Ubusin silang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stand and fight. Don't break line.",
+              "TL": "Tumayo at lumaban. Huwag sirain ang linya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's take them down right here.",
+              "TL": "Itumba na natin sila rito mismo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Strike now. Watch each other's sides.",
+              "TL": "Tira na ngayon. Bantayan ang gilid ng isa't isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're clearing this herd. Let's go.",
+              "TL": "Lilinisin natin ang kuyog na 'to. Tara."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cut them down one by one.",
+              "TL": "Hiwain sila isa-isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fight through them. Forward.",
+              "TL": "Lusubin natin sila. Pasulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take the fight to them.",
+              "TL": "Harapin natin ang laban."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.choice.avoid",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Go around.",
+              "TL": "Umikot tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bypass them. Stay quiet.",
+              "TL": "Lalagpasan natin sila. Huwag mag-ingay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Find another route. Don't draw them.",
+              "TL": "Maghanap ng ibang ruta. Huwag silang akitin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Circle wide. Keep in the shadows.",
+              "TL": "Umikot nang malayo. Manatili sa dilim."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not worth the ammo. Move around.",
+              "TL": "Sayang ang bala. Umiwas na lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Detour through the alley. Quietly.",
+              "TL": "Daan tayo sa eskinita. Nang tahimik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We sneak past. Crouch and move.",
+              "TL": "Lulusot tayo nang lihim. Yumuko at lumakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leave them be. Take the back way.",
+              "TL": "Hayaan sila roon. Daan tayo sa likod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Avoid contact. Step carefully.",
+              "TL": "Iwasan ang engkwentro. Mag-ingat sa bawat hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back out and take the alternate street.",
+              "TL": "Atras muna at dumaan sa kabilang kalsada."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.horde.choice.hold",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Hold for now.",
+              "TL": "Hinto muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay put. Watch their movement.",
+              "TL": "Diyan lang. Bantayan ang galaw nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold position and let them pass.",
+              "TL": "Hawakan ang pwesto at hayaang lumampas sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wait here. Don't make a sound.",
+              "TL": "Maghintay rito. Huwag gagawa ng tunog."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold up. See which way they drift.",
+              "TL": "Tigil muna. Tignan kung saan sila papunta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Freeze. Don't reveal our position.",
+              "TL": "Huwag gagalaw. Huwag ilantad ang pwesto natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep low and hold here.",
+              "TL": "Yumuko at manatili rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay behind cover for a moment.",
+              "TL": "Manatili sa kublihan sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold the line. Wait for the signal.",
+              "TL": "Hawakan ang linya. Hintayin ang senyas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wait and observe before moving.",
+              "TL": "Maghintay at magmasid bago kumilos."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Horde Combat Reaction Content",
+    "version": "1"
+  },
+  "version": 1
+}

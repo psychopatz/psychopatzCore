@@ -1,0 +1,1310 @@
+{
+  "domain": "command",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.attack_auto",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll handle it.",
+              "TL": "Ako na ang bahala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Engaging as needed.",
+              "TL": "Lalabanan kapag kinakailangan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll choose my targets.",
+              "TL": "Pipiliin ko ang mga puntirya ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Free to engage. Understood.",
+              "TL": "Malaya nang lumaban. Naintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll fight whatever comes close.",
+              "TL": "Lalabanan ko ang anumang lumapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On it. I'll take them down as they come.",
+              "TL": "Inaasikaso na. Patutumbahin ko sila habang dumarating."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Standard combat stance. Understood.",
+              "TL": "Pangkaraniwang tindig sa laban. Naintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll defend myself and support you.",
+              "TL": "Ipagtatanggol ko ang sarili at tutulungan kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Attacking at discretion.",
+              "TL": "Aatake ayon sa sitwasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Engaging threats automatically.",
+              "TL": "Naiintindihan ko. Kusang aatake sa mga banta."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.attack_melee",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Going in close.",
+              "TL": "Lalapit ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Melee ready. Closing the distance.",
+              "TL": "Handa ang pambugbog. Lalapit na ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll take them hand-to-hand.",
+              "TL": "Lalabanan ko sila nang malapitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blade and blunt ready.",
+              "TL": "Handa ang talim at pamalo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Saving ammo. Taking them up close.",
+              "TL": "Magtitipid ng bala. Lalapitan ko sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Going in with melee.",
+              "TL": "Lulusob nang malapitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll crack some skulls up front.",
+              "TL": "Babaliin ko ang bungo nila sa unahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Melee weapon drawn.",
+              "TL": "Nakahugot na ang panlaban nang malapitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving into striking range.",
+              "TL": "Pumupwesto na sa abot ng hampas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Close-quarters combat.",
+              "TL": "Naintindihan. Malapitang bakbakan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.attack_none",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll avoid trouble.",
+              "TL": "Iiwas ako sa gulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding fire. Keeping passive.",
+              "TL": "Tigil-putok. Mananatiling tahimik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying out of fights.",
+              "TL": "Lalayo ako sa anumang labanan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Ceasing all attacks.",
+              "TL": "Naiintindihan ko. Ititigil ang lahat ng atake."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't provoke anything.",
+              "TL": "Wala akong gagalawin o pupukawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping my weapon stowed.",
+              "TL": "Nakatago ang armas ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pacifist stance. Understood.",
+              "TL": "Tahimik na paninindigan. Naintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll steer clear of hostiles.",
+              "TL": "Iiwas ako sa mga kalaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Standing down from combat.",
+              "TL": "Uuurong sa laban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No attacking. Got it.",
+              "TL": "Walang aatake. Nakuha ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.attack_ranged",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll cover you.",
+              "TL": "Bibigyan kita ng takip."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ranged weapon ready. Watching the distance.",
+              "TL": "Handa ang baril. Binabantayan ang malayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Providing covering fire.",
+              "TL": "Magbibigay ng suportang putok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll pick them off from here.",
+              "TL": "Isa-isa ko silang titirahin mula rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sights aligned. Firing at range.",
+              "TL": "Nakatutok na ang paningin. Babaril sa malayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping my distance and shooting.",
+              "TL": "Lalayo ako at magpapaputok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Overwatching with ranged fire.",
+              "TL": "Naintindihan. Magbabantay gamit ang baril."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready on the trigger. Staying back.",
+              "TL": "Nasa gatilyo ang daliri. Mananatili sa likod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Covering the field from back here.",
+              "TL": "Tatakpan ko ang lugar mula rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ranged attack stance confirmed.",
+              "TL": "Kumpirmado ang malayuang pag-atake."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.camp",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We'll make camp here.",
+              "TL": "Magkakampo tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Setting up camp in this spot.",
+              "TL": "Magtatayo ng kampo sa pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Resting here.",
+              "TL": "Naintindihan. Magpapahinga rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This place works for a camp. Securing it.",
+              "TL": "Pwede ang lugar na ito para magkampo. Seselyuhan ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Making camp. Let's get comfortable.",
+              "TL": "Nagtatayo ng kampo. Magpahinga na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good spot to bed down.",
+              "TL": "Magandang lugar para matulog."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Camp established. I'll settle in.",
+              "TL": "Naitayo na ang kampo. Aayos na ako ng pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Dropping gear and resting.",
+              "TL": "Naiintindihan ko. Ibaba ang gamit at magpahinga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Setting watches and bedding down here.",
+              "TL": "Magtatalaga ng bantay at matutulog dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Camp confirmed. Staying put.",
+              "TL": "Kumpirmadong kampo. Mananatili rito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.camp_rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't find a safe room or campfire nearby.",
+              "TL": "Wala akong makitang ligtas na silid o apoy dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not safe enough to camp here.",
+              "TL": "Hindi sapat ang ligtas ng lugar para magkampo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We need walls or fire before we can camp.",
+              "TL": "Kailangan natin ng pader o apoy bago magkampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too exposed. Find better shelter first.",
+              "TL": "Masyadong bukas. Humanap muna ng mas maayos na silungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I refuse to sleep in the open like this.",
+              "TL": "Ayokong matulog sa bukas na lugar nang ganito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't camp here. It's crawling with danger.",
+              "TL": "Hindi pwedeng magkampo rito. Napakaraming panganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Find a secure room before we bed down.",
+              "TL": "Maghanap ng ligtas na kwarto bago tayo matulog."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No cover, no heat. We can't camp here.",
+              "TL": "Walang silong, walang init. Di tayo pwedeng magkampo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Invalid camping spot. We need real shelter.",
+              "TL": "Maling pwesto para magkampo. Kailangan natin ng tunay na silungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'd get killed sleeping here. Find a safer building.",
+              "TL": "Mapapatay tayo kapag natulog dito. Humanap ng mas ligtas na bahay."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.follow",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Right behind you.",
+              "TL": "Susunod ako sa iyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following your lead.",
+              "TL": "Sumusunod sa pangunguna mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm with you. Lead on.",
+              "TL": "Kasama mo ako. Mauna ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right on your heels.",
+              "TL": "Nasa likod mo lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Sticking close.",
+              "TL": "Naintindihan. Didikit ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Following. Watch our front.",
+              "TL": "Sumusunod na. Bantayan ang unahan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll follow your pace.",
+              "TL": "Sasabay ako sa bilis mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right with you.",
+              "TL": "Kasabay mo na ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving with you now.",
+              "TL": "Kumikilos na kasabay mo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lead the way. I'm right behind.",
+              "TL": "Ituro ang daan. Kasunod mo lang ako."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.generic_rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't do that right now.",
+              "TL": "Hindi ko iyan magagawa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's not possible in this situation.",
+              "TL": "Hindi 'yan posible sa sitwasyong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to comply with that order.",
+              "TL": "Hindi makakasunod sa utos na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't carry that out.",
+              "TL": "Hindi ko kayang isakatuparan 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not going to happen right now.",
+              "TL": "Hindi mangyayari 'yan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't have the means to do that.",
+              "TL": "Wala akong kakayahan para gawin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That order doesn't make sense right now.",
+              "TL": "Walang saysay ang utos na 'yan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't do it. Find another way.",
+              "TL": "Di kaya. Humanap ng ibang paraan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm tied up or unable to fulfill that.",
+              "TL": "Abala ako o hindi ko magagawa 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Negative on that request.",
+              "TL": "Hindi maaari ang hiling na 'yan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.return_home",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Heading home.",
+              "TL": "Uuwi na ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Returning to our base now.",
+              "TL": "Pabalik na sa base natin ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Going back to safe ground.",
+              "TL": "Naiintindihan ko. Babalik sa ligtas na lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll head back to our shelter.",
+              "TL": "Babalik ako sa silungan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Making my way back home.",
+              "TL": "Pauwi na ako ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Homeward bound. See you back at camp.",
+              "TL": "Pauwi na. Magkita tayo sa kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I will return to base.",
+              "TL": "Naintindihan. Babalik ako sa base."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading back to the compound.",
+              "TL": "Pabalik na sa himpilan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading home. Stay safe out here.",
+              "TL": "Pauwi na ako. Mag-ingat ka rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Returning to base coordinates.",
+              "TL": "Pabalik na sa mga coordinate ng base."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.reply.stay",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll stay here.",
+              "TL": "Mananatili ako rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding position right here.",
+              "TL": "Hawak ko ang pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll keep watch in this spot.",
+              "TL": "Magbabantay ako sa lugar na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Standing firm.",
+              "TL": "Naiintindihan ko. Nakatayo rito nang matatag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't budge from this area.",
+              "TL": "Hindi ako aalis sa lugar na ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding ground until you return.",
+              "TL": "Bantay dito hanggang sa bumalik ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying put. Keep safe.",
+              "TL": "Dito lang ako. Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Guarding this position.",
+              "TL": "Naintindihan. Babantayan ang pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll stay right here.",
+              "TL": "Dito lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding this spot. Don't take too long.",
+              "TL": "Hawak ko ang pwesto. Huwag kang magtatagal."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.combat.horde.ack.engage_eager",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Ready to strike! Let's take them down.",
+              "TL": "Handa nang humampas! Patumbahin natin sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's go! I've got your back.",
+              "TL": "Tara na! Hawak ko ang likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready when you are! Charge!",
+              "TL": "Handa na ako kapag handa ka na! Sugod!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Line them up! We can clear this whole pack.",
+              "TL": "Pilahin sila! Kaya nating ubusin ang buong kawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eager and armed. Let's do some damage.",
+              "TL": "Sabik at armado. Manalanta na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm ready to fight! Moving in!",
+              "TL": "Handa na akong lumaban! Susulong na!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's smash through them together!",
+              "TL": "Durogin natin sila nang sabay!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Weapon's ready. Let's take the field!",
+              "TL": "Handa ang armas. Angkinin natin ang labanan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Full speed ahead! They won't know what hit them.",
+              "TL": "Buong bilis pasulong! Di nila malalaman ang tumama sa kanila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hell yeah! Let's wipe them out.",
+              "TL": "Oo naman! Ubusin natin sila."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.combat.horde.ack.engage_hesitant",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "If you say so... alright. I'm with you.",
+              "TL": "Kung sinasabi mo... sige. Kasama mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This is reckless, but I won't abandon you.",
+              "TL": "Kapusukan ito, pero hindi kita iiwan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have a bad feeling about this, but I'm in.",
+              "TL": "Masama ang kutob ko rito, pero sasama ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch my back... here we go.",
+              "TL": "Bantayan mo ang likod ko... heto na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hope you know what you're doing. Moving in.",
+              "TL": "Sana alam mo ang ginagawa mo. Susulong na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not loving these odds, but I'll fight beside you.",
+              "TL": "Di maganda ang tsansa, pero lalaban ako sa tabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hesitant, but committed. Stay close.",
+              "TL": "Nag-aalangan, pero sasabak. Dumikit ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Alright... just don't let them flank us.",
+              "TL": "Sige... huwag mo lang silang hayaang pumaligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stepping into the meat grinder. Let's make it out alive.",
+              "TL": "Papasok sa gilingan ng karne. Tiyakin nating makalabas nang buhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Okay... I trust your blade. Let's go.",
+              "TL": "Sige... tiwala ako sa talim mo. Tara."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.combat.horde.ack.engage_reserved",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Alright. Moving.",
+              "TL": "Sige. Galaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Advancing cautiously.",
+              "TL": "Susulong nang maingat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Engaging the horde.",
+              "TL": "Naintindihan. Lalabanan ang kawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "In position. Moving to attack.",
+              "TL": "Nasa pwesto. Kikilos para umatake."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Weapon drawn. Advancing in formation.",
+              "TL": "Nakahugot ang armas. Susulong sa pormasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Calculated engagement. Let's do this clean.",
+              "TL": "Planadong paglusob. Gawin nating malinis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Order received. Stepping up to fight.",
+              "TL": "Utos natanggap. Tatayo para lumaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping rhythm. Engaging targets.",
+              "TL": "Panatilihin ang ritmo. Lalabanan ang puntirya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving into range. Weapons up.",
+              "TL": "Pumapasok sa sakop. Itaas ang armas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Entering the fray.",
+              "TL": "Naiintindihan ko. Papatungo na sa bakbakan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.combat.horde.ack.engage_default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm with you. Let's go.",
+              "TL": "Kasama mo ako. Tara."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Engaging now. Watch your side.",
+              "TL": "Lalaban na ngayon. Bantayan ang tagiliran."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right behind you into the fight.",
+              "TL": "Nasa likod mo papunta sa laban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. We fight together.",
+              "TL": "Naintindihan. Sabay tayong lalaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving in to strike.",
+              "TL": "Lalapit para humampas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's clear the way.",
+              "TL": "Hawiin natin ang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready for combat. Let's do this.",
+              "TL": "Handa sa laban. Gawin na natin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On it. Target locked.",
+              "TL": "Inaasikaso na. Nakatutok sa kalaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving forward to engage.",
+              "TL": "Susulong para lumaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "With you all the way. Let's strike.",
+              "TL": "Kasama mo sa buong laban. Sumugod na tayo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.combat.horde.ack.avoid_relief",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Good. Let's go around.",
+              "TL": "Mabuti. Umikot tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank goodness. That pack was massive.",
+              "TL": "Salamat sa Diyos. Napakalaki ng kawang 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad you made that call. Slipping away.",
+              "TL": "Mabuti at nagpasya ka ng ganoon. Tatakas na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Smart move. We live to fight another hour.",
+              "TL": "Matalinong desisyon. Mabubuhay pa tayo sa susunod na oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Relieved to hear that. Detouring now.",
+              "TL": "Gumaan ang loob ko nang marinig 'yan. Iikot na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good choice. Keep it quiet as we skirt past.",
+              "TL": "Magandang pasya. Manahimik habang lumalampas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Much better than dying out here. Moving around.",
+              "TL": "Mas maganda kaysa mamatay dito. Iikot na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sigh of relief. Let's keep our heads down.",
+              "TL": "Nakahinga nang maluwag. Yumuko tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad we're avoiding that bloodbath. Lead on.",
+              "TL": "Mabuti at iniwasan natin ang katayang 'yon. Mauna ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Safe decision. Taking the alternate route.",
+              "TL": "Ligtas na pasya. Dadaan sa ibang ruta."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.combat.horde.ack.avoid_default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Copy. We go around.",
+              "TL": "Sige. Iikot tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Avoiding the swarm.",
+              "TL": "Naintindihan. Iiwasan ang kawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bypassing the horde.",
+              "TL": "Lalampasan ang kawan sa malayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking the side path. Quietly.",
+              "TL": "Dadaan sa gilid. Nang tahimik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Copy that. Staying out of their sight line.",
+              "TL": "Kopyado. Lalayo sa paningin nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll detour around them.",
+              "TL": "Iikot tayo sa paligid nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. No engagement.",
+              "TL": "Naiintindihan ko. Walang labanang magaganap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Steering clear of the horde.",
+              "TL": "Lalayo sa kawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Copy. Slipping past the dead.",
+              "TL": "Sige. Papalusot sa mga patay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Avoiding contact. Lead the way.",
+              "TL": "Iiwas sa engkwentro. Ituro ang daan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.combat.horde.ack.hold_eager",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Holding. Say when.",
+              "TL": "Hawak muna. Sabihin mo kung kailan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready on your mark! Holding position.",
+              "TL": "Handa sa hudyat mo! Hawak ang pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Coiled like a spring. Just give the word.",
+              "TL": "Nakahandang sumugod. Sabihin mo lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding fire, but twitching to go.",
+              "TL": "Tigil-putok, pero sabik nang sumugod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready to pounce. Standing by.",
+              "TL": "Handang lumundag. Naghihintay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm locked on! Say the word and I strike.",
+              "TL": "Nakatutok na! Sabihin mo lang at aatake ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding here. Don't make me wait too long!",
+              "TL": "Dito muna. Huwag mo akong paghintayin nang matagal!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready and waiting! Give the signal.",
+              "TL": "Handa at naghihintay! Ibigay ang senyas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Poised to attack. Holding ground.",
+              "TL": "Handang sumugod. Hawak ang lupa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just say the word. I'm ready.",
+              "TL": "Sabihin mo lang. Handa na ako."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.combat.horde.ack.hold_hesitant",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Okay. Holding here.",
+              "TL": "Sige. Dito muna ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying put. I hope they don't see us.",
+              "TL": "Dito lang ako. Sana di nila tayo makita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding position... please be quiet.",
+              "TL": "Hawak ang pwesto... pakiusap tumahimik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding ground. Heart's pounding.",
+              "TL": "Hawak ang pwesto. Lumalakas ang tibok ng puso ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll wait here, but let's be careful.",
+              "TL": "Maghihintay ako rito, pero mag-ingat tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying still. Don't make a sound.",
+              "TL": "Walang kikilos. Huwag gagawa ng tunog."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding... waiting for your call.",
+              "TL": "Hawak muna... naghihintay sa utos mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping low. I hope this works.",
+              "TL": "Nakayuko. Sana magtagumpay ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding here. Watching their claws.",
+              "TL": "Hawak dito. Binabantayan ang kuko nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood... staying frozen right here.",
+              "TL": "Naintindihan... di gagalaw dito mismo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.combat.horde.ack.hold_default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Holding for now.",
+              "TL": "Hinto muna tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding position. Watching the herd.",
+              "TL": "Hawak ang pwesto. Binabantayan ang kawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying put until you signal.",
+              "TL": "Dito lang hanggang sumenyas ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Standing by.",
+              "TL": "Naiintindihan ko. Nakahanda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding ground right here.",
+              "TL": "Hawak ang lupa dito mismo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Position held. Awaiting order.",
+              "TL": "Nasa pwesto. Naghihintay ng utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding. Observing threat movement.",
+              "TL": "Hawak muna. Minamasid ang galaw ng banta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Steady in place.",
+              "TL": "Matatag sa pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Maintaining position.",
+              "TL": "Pinananatili ang posisyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding. Let's see what they do.",
+              "TL": "Tigil muna. Tingnan natin ang gagawin nila."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

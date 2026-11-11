@@ -1,0 +1,2045 @@
+{
+  "domain": "knowledge",
+  "groups": {
+    "knowledge": {
+      "contentOwner": "projecthoomans.dialogue_content.knowledge"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "knowledge",
+      "semanticTemplateID": "semantic.gossip.unknown",
+      "styles": {
+        "bond_guarded": [
+          {
+            "translations": {
+              "EN": "%s, I don't have anything to share.",
+              "TL": "%s, wala akong maibabahagi sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, haven't heard any reliable rumors.",
+              "TL": "%s, wala akong naririnig na maaasahang balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your head down, %s. No news out there.",
+              "TL": "Mag-ingat ka, %s. Walang balita sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, nothing trustworthy has reached my ears.",
+              "TL": "%s, walang mapagkakatiwalaang balitang nakarating sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not much word going around, %s.",
+              "TL": "%s, walang gaanong kumakalat na balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, gossip gets people killed. I have none.",
+              "TL": "%s, ang tsismis ay nakakamatay. Wala ako no'n."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing to report, %s. Stay on your guard.",
+              "TL": "Walang maiuulat, %s. Manatiling alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, nobody's talking about anything useful.",
+              "TL": "%s, walang nag-uusap ng anumang kapaki-pakinabang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I haven't heard any safe news, %s.",
+              "TL": "Wala akong naririnig na ligtas na balita, %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, keep to our business. No rumors here.",
+              "TL": "%s, magpokus tayo sa sarili natin. Walang tsismis dito."
+            }
+          }
+        ],
+        "bond_neutral": [
+          {
+            "translations": {
+              "EN": "%s, I haven't heard any news lately.",
+              "TL": "%s, wala akong narinig na balita kamakailan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, things have been quiet on the gossip front.",
+              "TL": "%s, tahimik ang paligid pagdating sa mga balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing new to pass along, %s.",
+              "TL": "Walang bagong maipapasa sa'yo, %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, haven't picked up any fresh word.",
+              "TL": "%s, wala akong nasagap na bagong balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't have any updates right now, %s.",
+              "TL": "Wala akong anumang balita ngayon, %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, no recent rumors to speak of.",
+              "TL": "%s, walang kamakailang tsismis na masasabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't caught any news from the others, %s.",
+              "TL": "Walang nasagap na balita mula sa iba, %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, it's been quiet around here lately.",
+              "TL": "%s, naging tahimik dito kamakailan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No rumors have reached me yet, %s.",
+              "TL": "Wala pang nakakarating na tsismis sa akin, %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, I'll let you know if I hear anything.",
+              "TL": "%s, sasabihan kita kapag may narinig ako."
+            }
+          }
+        ],
+        "bond_terse": [
+          {
+            "translations": {
+              "EN": "%s, no news.",
+              "TL": "%s, walang balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing, %s.",
+              "TL": "Wala, %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, heard nothing.",
+              "TL": "%s, walang narinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet, %s.",
+              "TL": "Tahimik, %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, no rumors.",
+              "TL": "%s, walang tsismis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No word, %s.",
+              "TL": "Walang balita, %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, all quiet.",
+              "TL": "%s, tahimik lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing to share, %s.",
+              "TL": "Walang maibabahagi, %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, zero news.",
+              "TL": "%s, walang balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blank slate, %s.",
+              "TL": "Walang anuman, %s."
+            }
+          }
+        ],
+        "bond_warm": [
+          {
+            "translations": {
+              "EN": "%s, I haven't heard any news, sorry.",
+              "TL": "%s, wala akong narinig na balita, pasensya na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wish I had something to tell you, %s, but it's quiet.",
+              "TL": "Sana may maikwento ako sa'yo, %s, pero tahimik ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, haven't heard a peep from the other camps.",
+              "TL": "%s, wala akong narinig kahit kaunti mula sa ibang kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sorry, %s, no interesting stories today.",
+              "TL": "Pasensya na, %s, walang magagandang kwento ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, I'll definitely share the moment I hear anything.",
+              "TL": "%s, ibabahagi ko agad kapag may narinig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing new reaching my ears, %s. Hope you're well.",
+              "TL": "Walang bagong dumarating sa akin, %s. Sana ayos ka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, all's quiet on my end, my friend.",
+              "TL": "%s, tahimik ang lahat sa panig ko, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't caught any rumors, %s, but I'll keep listening.",
+              "TL": "Walang nasagap na tsismis, %s, pero patuloy akong makikinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s, nothing yet, but stay safe out there.",
+              "TL": "%s, wala pa sa ngayon, pero mag-ingat ka sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'd love to share news with you, %s, but nothing yet.",
+              "TL": "Gusto ko sanang magbahagi ng balita sa'yo, %s, pero wala pa."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "I don't have anything to share.",
+              "TL": "Wala akong maibabahagi sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't traffic in rumors. Keep moving.",
+              "TL": "Hindi ako nakikipagtsismisan. Lakad na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No news worth risking our necks over.",
+              "TL": "Walang balitang karapat-dapat ipagsapalaran ang buhay natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I keep my ears open for danger, not talk.",
+              "TL": "Bukas ang tenga ko sa panganib, hindi sa kwento."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't heard anything reliable. Watch yourself.",
+              "TL": "Wala akong narinig na mapagkakatiwalaan. Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rumors are cheap and usually wrong. Nothing to say.",
+              "TL": "Mura ang tsismis at kadalasang mali. Walang masasabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't listen to chatter. Mind your business.",
+              "TL": "Hindi ako nakikinig sa daldalan. Asikasuhin mo ang sarili mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No word that concerns you.",
+              "TL": "Walang balitang may kinalaman sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing to share. Keep your guard up.",
+              "TL": "Walang maibabahagi. Panatilihing mataas ang depensa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't ask me for gossip.",
+              "TL": "Huwag kang magtanong sa akin ng tsismis."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I haven't heard any news lately.",
+              "TL": "Wala akong narinig na balita kamakailan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Things have been fairly quiet on that front.",
+              "TL": "Medyo tahimik ang mga bagay sa bahaging 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No recent rumors have reached me.",
+              "TL": "Walang kamakailang tsismis ang nakarating sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't picked up any word from other survivors.",
+              "TL": "Walang nasagap na balita mula sa ibang survivor."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't have any updates to share right now.",
+              "TL": "Wala akong anumang balita na maibabahagi ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing new to report on that topic.",
+              "TL": "Walang bagong maiuulat sa paksang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Word travels slow. Haven't heard anything.",
+              "TL": "Mabagal kumalat ang balita. Wala akong narinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I haven't caught any talk recently.",
+              "TL": "Wala akong nasagap na usapan kamakailan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No gossip on my radar at the moment.",
+              "TL": "Walang tsismis sa akin sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't heard much of anything lately.",
+              "TL": "Halos wala akong narinig na anuman kamakailan."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "No news.",
+              "TL": "Walang balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard nothing.",
+              "TL": "Walang narinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing.",
+              "TL": "Wala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet.",
+              "TL": "Tahimik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No rumors.",
+              "TL": "Walang tsismis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No word.",
+              "TL": "Walang balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing new.",
+              "TL": "Walang bago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All quiet.",
+              "TL": "Tahimik lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Zero news.",
+              "TL": "Walang balita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blank.",
+              "TL": "Wala."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I haven't heard any news, sorry.",
+              "TL": "Wala akong narinig na balita, pasensya na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wish I had something interesting to tell you.",
+              "TL": "Sana may magandang balita akong maikwento sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't heard any rumors, but I'll let you know.",
+              "TL": "Walang narinig na tsismis, pero sasabihan kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All quiet on my side, but I'll keep an ear out.",
+              "TL": "Tahimik sa panig ko, pero makikinig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sorry, no fresh news today, my friend.",
+              "TL": "Pasensya na, walang bagong balita ngayon, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing reaching my ears lately. Hope all is well.",
+              "TL": "Walang dumarating sa akin kamakailan. Sana ayos ka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll be sure to tell you if I hear anything new.",
+              "TL": "Tiyak na sasabihin ko sa'yo kapag may narinig akong bago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet days out there. No rumors to report.",
+              "TL": "Tahimik ang mga araw sa labas. Walang maiuulat na tsismis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing to share right now, but stay safe.",
+              "TL": "Walang maibabahagi ngayon, pero mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I haven't heard any stories, but I'm glad you asked.",
+              "TL": "Wala akong narinig na kwento, pero salamat sa pagtatanong."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "knowledge",
+      "semanticTemplateID": "semantic.question.activity.dataset.keep_moving",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "We need to keep moving. Sitting still will get us killed.",
+              "TL": "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't loiter. The dead migrate toward stillness.",
+              "TL": "Huwag tatambay. Dumarating ang mga patay kapag nanahimik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your boots moving. Danger is everywhere.",
+              "TL": "Igalaw ang mga paa mo. Nasa paligid ang panganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We stay on the road. Tarrying is suicide.",
+              "TL": "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep moving. Eyes on the woodline.",
+              "TL": "Tuloy ang lakad. Tumingin sa kakahuyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No resting in the open. Walk.",
+              "TL": "Walang pahinga sa lantad na lugar. Lakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Movement keeps us alive. Don't freeze up.",
+              "TL": "Pagkilos ang bumubuhay sa atin. Huwag matulala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep marching. We're too exposed right here.",
+              "TL": "Magmartsa pa. Masyado tayong lantad dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep going. Resting here is asking for trouble.",
+              "TL": "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Step lively. A static survivor is a dead survivor.",
+              "TL": "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We should keep moving. It's not safe to linger.",
+              "TL": "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying mobile is our best option right now.",
+              "TL": "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We need to continue forward and find shelter.",
+              "TL": "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's best if we keep moving down this route.",
+              "TL": "Pinakamabuti kung magpapatuloy tayo sa rutang ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's keep the pace. We have ground to cover.",
+              "TL": "Panatilihin natin ang bilis. Marami pa tayong lalakarin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We shouldn't remain stationary for too long.",
+              "TL": "Hindi tayo dapat manatiling nakatigil nang matagal."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep walking. We need to reach our objective.",
+              "TL": "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving along is the safest strategy right now.",
+              "TL": "Ang pag-usad ang pinakaligtas na stratehiya ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's continue on our way.",
+              "TL": "Magpatuloy tayo sa ating daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We should maintain our momentum and keep moving.",
+              "TL": "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Keep moving.",
+              "TL": "Tuloy sa paglakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Move.",
+              "TL": "Galaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't stop.",
+              "TL": "Huwag hihinto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Walk.",
+              "TL": "Lakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep pace.",
+              "TL": "Sumabay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Forward.",
+              "TL": "Sulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep going.",
+              "TL": "Tuloy lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Step up.",
+              "TL": "Hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't linger.",
+              "TL": "Huwag magtagal."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On the move.",
+              "TL": "Kilos."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Let's keep moving together, friend. We'll find safety.",
+              "TL": "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We should keep going. I'll stay right by your side.",
+              "TL": "Dapat tayong magpatuloy. Mananatili ako sa tabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's keep our feet moving. A warm fire awaits us eventually.",
+              "TL": "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep up the good pace. We're doing fine.",
+              "TL": "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's keep walking together. We're safer on the move.",
+              "TL": "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll get through this path. Just keep moving with me.",
+              "TL": "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's keep going, one step at a time.",
+              "TL": "Magpatuloy tayo, bawat hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm with you. Let's keep walking until we find shelter.",
+              "TL": "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep moving forward. We've got this.",
+              "TL": "Tuloy sa pagsulong. Kaya natin 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's keep our spirits up and keep walking.",
+              "TL": "Panatilihing mataas ang loob natin at magpatuloy sa paglakad."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "knowledge",
+      "semanticTemplateID": "semantic.question.activity.fishing",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Fishing leaves you exposed by the water. Watch your back.",
+              "TL": "Nakalantad ka sa tubig kapag nangingisda. Bantayan mo ang likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Water draws the dead. Keep your weapon close while casting.",
+              "TL": "Umaakit ng patay ang tubig. Ihanda ang sandata habang naghahagis ng bingwit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't get tunnel vision looking at the bobber.",
+              "TL": "Huwag matutok sa lumulutang na pamingwit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fish fast and leave. Banks are ambush territory.",
+              "TL": "Mangisda nang mabilis at umalis. Lugar ng tambangan ang pampang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet catches only. Splashing brings infected.",
+              "TL": "Tahimik na huli lang. Ang tilamsik ng tubig ay umaakit ng infected."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch the treeline while you work the line.",
+              "TL": "Bantayan ang kakahuyan habang humahawak ng tali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If something rustles in the reeds, drop the rod and draw.",
+              "TL": "Kapag may kumaluskos sa talahiban, bitawan ang pamingwit at mag-armas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fishing is risky out here. Keep eyes peeled.",
+              "TL": "Delikado ang pangingisda rito. Buksan ang mga mata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Get the protein and get off the shore.",
+              "TL": "Kunin ang isda at umalis agad sa pampang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't get dragged in. Watch the water.",
+              "TL": "Huwag magpahila sa tubig. Bantayan ang paligid."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Fishing is a solid way to secure fresh food.",
+              "TL": "Magandang paraan ang pangingisda para makakuha ng sariwang pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can catch fish here if we have rod and bait.",
+              "TL": "Makakahuli tayo ng isda rito kung may pamingwit at pain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The water looks promising for catching dinner.",
+              "TL": "Mukhang maganda ang tubig para makahuli ng hapunan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fishing requires patience, but it provides calories.",
+              "TL": "Kailangan ng pasensya sa pangingisda, pero nagbibigay ito ng lakas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A good spot to cast a line and get some food.",
+              "TL": "Magandang lugar para maghulog ng pamingwit at kumuha ng pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We should try fishing if our rations are running low.",
+              "TL": "Dapat nating subukan ang pangingisda kung paubos na ang rasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fish are clean protein out here in the wild.",
+              "TL": "Malinis na protina ang isda rito sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check the line and bait. We could catch something good.",
+              "TL": "Tignan ang pisi at pain. Baka makahuli tayo ng maganda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fishing by the river is a viable survival task.",
+              "TL": "Mabisang gawaing kaligtasan ang pangingisda sa ilog."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can cast a line here while the area is clear.",
+              "TL": "Pwede tayong maghagis ng pamingwit dito habang malinis ang lugar."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Fishing.",
+              "TL": "Pangingisda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cast a line.",
+              "TL": "Ihagis ang pamingwit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need bait.",
+              "TL": "Kailangan ng pain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch the water.",
+              "TL": "Bantayan ang tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good food source.",
+              "TL": "Magandang pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fish quietly.",
+              "TL": "Mangisda nang tahimik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cast here.",
+              "TL": "Dito maghagis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rod and reel.",
+              "TL": "Pamingwit at ikutan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Catch dinner.",
+              "TL": "Hulihin ang hapunan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fresh fish.",
+              "TL": "Sariwang isda."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Fishing by the water sounds peaceful right now.",
+              "TL": "Mukhang mapayapa ang pangingisda sa tabi ng tubig ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'd love to catch some fresh fish for us to cook.",
+              "TL": "Gusto kong makahuli ng sariwang isda para lutuin natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A nice fresh catch would make a wonderful meal for us.",
+              "TL": "Ang sariwang huli ay magiging napakagandang salu-salo para sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It feels good to take a moment by the water and fish.",
+              "TL": "Masarap magpahinga sandali sa tabi ng tubig at mangisda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's see if we can catch something tasty together.",
+              "TL": "Tignan natin kung makakahuli tayo ng masarap nang magkasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fishing reminds me of quieter times. Let's cast a line.",
+              "TL": "Naaalala ko ang mga tahimik na panahon sa pangingisda. Maghagis tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A warm fire and fresh fish would do wonders for our mood.",
+              "TL": "Ang maaliwalas na apoy at sariwang isda ay magpapagaan ng loob natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll keep watch while you fish, or we can take turns.",
+              "TL": "Babantayan kita habang nangingisda ka, o magsalitan tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fresh catch would be a real treat for both of us.",
+              "TL": "Tunay na pabuya para sa atin ang sariwang huli."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's catch a good meal and share it tonight.",
+              "TL": "Manghuli tayo ng masarap na pagkain at magsalu-salo ngayong gabi."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "knowledge",
+      "semanticTemplateID": "semantic.question.identity",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Who's asking? Names can be dangerous out here.",
+              "TL": "Sino'ng nagtatanong? Ang mga pangalan ay delikado rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Why do you need to know who I am?",
+              "TL": "Bakit kailangan mong malaman kung sino ako?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just a survivor trying not to die. Leave it at that.",
+              "TL": "Survivor lang na sumusubok mabuhay. Hanggang doon na lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't give my background to just anyone.",
+              "TL": "Hindi ko ibinibigay ang pinagmulan ko sa kahit sino."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A survivor with a weapon. That's all that matters.",
+              "TL": "Isang survivor na may sandata. 'Yon lang ang mahalaga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't pry into my identity. Keep focused on the road.",
+              "TL": "Huwag mong kalkalin ang pagkatao ko. Magpokus sa kalsada."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Names don't keep the infected away. What do you want?",
+              "TL": "Hindi itinataboy ng pangalan ang mga infected. Ano'ng gusto mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You don't need my life story to walk beside me.",
+              "TL": "Hindi mo kailangan ng kwento ng buhay ko para sumabay sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I keep my identity to myself until I know I can trust you.",
+              "TL": "Itinatago ko ang pagkatao ko hangga't hindi kita lubos na pinagkakatiwalaan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am who I need to be to survive.",
+              "TL": "Ako ay kung sino ang kailangan para mabuhay."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm just a survivor trying to make it through.",
+              "TL": "Isa lang akong survivor na sumusubok makaraos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I used to be someone else before all this fell apart.",
+              "TL": "Ibang tao ako noon bago nagkawasak-wasak ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just another person looking for shelter and food.",
+              "TL": "Isa lang akong tao na naghahanap ng masisilungan at makakain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm surviving day by day, same as you.",
+              "TL": "Nabubuhay ako araw-araw, tulad mo rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not much to tell. Just doing what it takes to live.",
+              "TL": "Walang gaanong maikukwento. Ginagawa lang ang kailangan para mabuhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm a survivor out here in the county.",
+              "TL": "Isa akong survivor dito sa lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just someone trying to stay one step ahead of the dead.",
+              "TL": "Isang tao lang na sumusubok mauna sa mga patay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've been on the road since the outbreak started.",
+              "TL": "Nasa kalsada na ako simula no'ng magsimula ang outbreak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Simple survivor. That's about the extent of it.",
+              "TL": "Simpleng survivor lang. Hanggang doon lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trying to stay breathing, same as everyone else.",
+              "TL": "Sinusubukang manatiling humihinga, tulad ng iba."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "A survivor.",
+              "TL": "Isang survivor."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just me.",
+              "TL": "Ako lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Doesn't matter.",
+              "TL": "Walang halaga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Another wanderer.",
+              "TL": "Isa pang lagalag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just surviving.",
+              "TL": "Nabubuhay lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nobody special.",
+              "TL": "Walang espesyal."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A fighter.",
+              "TL": "Isang mandirigma."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Same as you.",
+              "TL": "Tulad mo rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just a stranger.",
+              "TL": "Isang estranghero lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still breathing.",
+              "TL": "Humihinga pa."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I'm glad to share this road with you, friend.",
+              "TL": "Masaya akong kasama ka sa kalsadang 'to, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just an old soul trying to do some good in a ruined world.",
+              "TL": "Isang simpleng tao na sumusubok gumawa ng kabutihan sa sirang mundong 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm someone who values good company out here.",
+              "TL": "Isa akong taong nagpapahalaga sa mabuting kasama rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Call me a friend. We're in this struggle together.",
+              "TL": "Tawagin mo akong kaibigan. Magkasama tayo sa laban na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I used to have a regular life, but now I have people I care about.",
+              "TL": "May normal akong buhay noon, pero ngayon may mga taong mahalaga na sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just someone grateful to have found you in all this chaos.",
+              "TL": "Nagpapasalamat lang na nakatagpo kita sa gitna ng kaguluhang ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A friend and ally. That's who I want to be for you.",
+              "TL": "Isang kaibigan at kakampi. 'Yan ang nais kong maging para sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm just happy to be standing here talking to you.",
+              "TL": "Masaya lang ako na nakatayo rito at nakakausap ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're partners out here. That's all that matters to me.",
+              "TL": "Magkasosyo tayo rito. 'Yon lang ang mahalaga sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A loyal companion on the long road ahead.",
+              "TL": "Isang tapat na kasama sa mahabang daan sa unahan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "knowledge",
+      "semanticTemplateID": "semantic.question.identity.known",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "I'm %s. You should already know that.",
+              "TL": "Ako si %s. Dapat alam mo na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's %s. Don't act like you forgot.",
+              "TL": "Si %s 'to. Huwag kang umastang nakalimot ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You know my name, %s. Don't play games.",
+              "TL": "Alam mo ang pangalan ko, si %s. Huwag kang makipaglaro."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still %s. Nothing has changed.",
+              "TL": "%s pa rin. Walang nagbago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s. Stop asking questions you know the answers to.",
+              "TL": "Ako si %s. Tigilan mo ang pagtatanong sa alam mo na ang sagot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Name's %s. Keep your head focused on our perimeter.",
+              "TL": "Pangalan ko ay %s. Ituon ang isip sa paligid natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am %s. We've walked together long enough for you to know.",
+              "TL": "Ako si %s. Matagal na tayong magkasama para malaman mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still %s. Keep your eyes sharp.",
+              "TL": "%s pa rin. Maging matalas ang paningin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You know me, %s. What's the real question?",
+              "TL": "Kilala mo ako, si %s. Ano ang totoong tanong mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s. Let's get back to surviving.",
+              "TL": "Ako si %s. Bumalik na tayo sa kaligtasan."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm %s. We already know each other.",
+              "TL": "Ako si %s. Magkakilala na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "My name is %s, as you know.",
+              "TL": "Ang pangalan ko ay %s, tulad ng alam mo na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s. We've met before.",
+              "TL": "Ako si %s. Nagkita na tayo noon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's me, %s.",
+              "TL": "Ako 'to, si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You remember me, right? %s.",
+              "TL": "Naaalala mo ako, di ba? Si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s. Good to speak with you again.",
+              "TL": "Ako si %s. Mabuting makausap ka ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still %s, same as yesterday.",
+              "TL": "%s pa rin, tulad kahapon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s. We're on the same team.",
+              "TL": "Ako si %s. Nasa iisang grupo tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You know me well enough, I'm %s.",
+              "TL": "Kilala mo na ako nang maigi, ako si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's %s. Just checking in?",
+              "TL": "Si %s 'to. Nangungumusta lang?"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "You know me. I'm %s.",
+              "TL": "Kilala mo ako. Ako si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s.",
+              "TL": "Ako si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still %s.",
+              "TL": "%s pa rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s. That's me.",
+              "TL": "%s. Ako 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's %s.",
+              "TL": "Si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Name's %s.",
+              "TL": "Pangalan ay %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Me. %s.",
+              "TL": "Ako. Si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Remember? %s.",
+              "TL": "Tanda mo? Si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just %s.",
+              "TL": "Si %s lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s.",
+              "TL": "%s."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I'm %s. Good to see you again.",
+              "TL": "Ako si %s. Masayang makita ka ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You know it's me, %s! Always glad to be by your side.",
+              "TL": "Alam mong ako 'to, si %s! Laging masayang nasa tabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's %s, my friend. I'm right here.",
+              "TL": "Si %s 'to, kaibigan. Nandito lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s. It's truly a pleasure knowing you.",
+              "TL": "Ako si %s. Tunay na karangalan ang makilala ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You know your friend %s. How are you holding up?",
+              "TL": "Kilala mo ang kaibigan mong si %s. Kamusta ka na?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still %s, and always here to watch your back.",
+              "TL": "%s pa rin, at laging nandito para bantayan ang likod mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's me, %s. So glad we're traveling together.",
+              "TL": "Ako 'to, si %s. Masaya akong magkasama tayo sa paglalakbay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s, your companion through all of this.",
+              "TL": "Ako si %s, ang kasama mo sa lahat ng ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You know me, %s. Let's keep each other safe.",
+              "TL": "Kilala mo ako, si %s. Ingatan natin ang isa't isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's %s! Always happy when you say hello.",
+              "TL": "Si %s 'to! Laging masaya kapag bumabati ka."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "knowledge",
+      "semanticTemplateID": "semantic.question.knowledge.known",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "I know enough about %1.",
+              "TL": "Sapat ang alam ko tungkol sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm aware of %1, but keep it quiet.",
+              "TL": "Alam ko ang %1, pero huwag mong ipagsabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know about %1. Don't shout it out.",
+              "TL": "May alam ako sa %1. Huwag mong ipagsigawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, I know %1. What of it?",
+              "TL": "Oo, alam ko ang %1. Ano naman?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have information on %1. Keep your voice down.",
+              "TL": "Nasa akin ang impormasyon sa %1. Hinaan mo ang boses mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know what %1 is. Be cautious.",
+              "TL": "Alam ko kung ano ang %1. Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm familiar with %1. Don't spread it around.",
+              "TL": "Pamilyar ako sa %1. Huwag mong ikalat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, I know %1. It's dangerous knowledge.",
+              "TL": "Oo, alam ko ang %1. Delikadong kaalaman 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know about %1. Keep it between us.",
+              "TL": "May alam ako tungkol sa %1. Atin-atin lang 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, I'm aware of %1. Don't bring trouble our way.",
+              "TL": "Oo, alam ko ang tungkol sa %1. Huwag kang magdala ng gulo sa atin."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I know about %1.",
+              "TL": "May alam ako tungkol sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, I know about %1.",
+              "TL": "Oo, may alam ako tungkol sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm familiar with %1.",
+              "TL": "Pamilyar ako sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have knowledge of %1.",
+              "TL": "May kaalaman ako sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, I understand about %1.",
+              "TL": "Oo, nauunawaan ko ang tungkol sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm aware of %1.",
+              "TL": "Batid ko ang tungkol sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know the situation with %1.",
+              "TL": "Alam ko ang sitwasyon sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Information on %1 is known to me.",
+              "TL": "Batid ko ang impormasyon sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, I've learned about %1 already.",
+              "TL": "Oo, nalaman ko na ang tungkol sa %1 noon pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have reliable word on %1.",
+              "TL": "Maaasahan ang balita ko tungkol sa %1."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "I know %1.",
+              "TL": "Alam ko ang %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Know it: %1.",
+              "TL": "Alam ko: %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Aware of %1.",
+              "TL": "Batid ang %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Familiar with %1.",
+              "TL": "Pamilyar sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, %1.",
+              "TL": "Oo, %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard of %1.",
+              "TL": "Narinig ang %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got info on %1.",
+              "TL": "May balita sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood: %1.",
+              "TL": "Naintindihan: %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already know %1.",
+              "TL": "Alam na ang %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear on %1.",
+              "TL": "Malinaw sa %1."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I know about %1.",
+              "TL": "May alam ako tungkol sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, I know about %1! Glad you asked.",
+              "TL": "Oo, may alam ako tungkol sa %1! Mabuti at nagtanong ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm happy to share what I know about %1.",
+              "TL": "Masaya akong ibahagi sa'yo kung ano ang nalalaman ko sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I do know about %1, friend. Let's discuss it.",
+              "TL": "May alam ako sa %1, kaibigan. Pag-usapan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm quite familiar with %1. What would you like to know?",
+              "TL": "Pamilyar ako sa %1. Ano'ng gusto mong malaman?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, I've got good knowledge on %1.",
+              "TL": "Oo, may magandang kaalaman ako tungkol sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know %1 well! Always happy to talk it through.",
+              "TL": "Alam na alam ko ang %1! Laging masayang pag-usapan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can definitely fill you in on %1.",
+              "TL": "Tiyak na matutulungan kita tungkol sa %1."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know about %1, happy to answer your questions.",
+              "TL": "May alam ako sa %1, masayang sagutin ang mga tanong mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yes, I'm well acquainted with %1, my friend.",
+              "TL": "Oo, kabisado ko ang %1, kaibigan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "knowledge",
+      "semanticTemplateID": "semantic.question.knowledge.unknown",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "I don't know anything about that.",
+              "TL": "Wala akong alam tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't heard of it. Don't waste time on wild goose chases.",
+              "TL": "Hindi ko narinig 'yan. Huwag magsayang ng oras sa walang kabuluhan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No idea. Keep your thoughts on what's in front of us.",
+              "TL": "Walang ideya. Ituon ang isip sa kung ano ang nasa harap natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know nothing about that topic. Drop it.",
+              "TL": "Wala akong alam sa paksang 'yan. Kalimutan mo na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Never crossed my path. Stay alert.",
+              "TL": "Hindi pa dumaan sa akin 'yan. Maging alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't help you there. Don't get distracted.",
+              "TL": "Hindi kita matutulungan diyan. Huwag mawala sa pokus."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm in the dark on that. Watch the road.",
+              "TL": "Wala akong alam diyan. Bantayan ang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No clue. Don't go looking for things that aren't there.",
+              "TL": "Walang ideya. Huwag maghanap ng mga bagay na wala naman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing I've ever encountered. Move along.",
+              "TL": "Hindi ko pa kailanman nakaharap 'yan. Tuloy sa lakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't know and I don't care to guess.",
+              "TL": "Hindi ko alam at ayaw kong manghula."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I don't have reliable information about that.",
+              "TL": "Wala akong maaasahang impormasyon tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not familiar with that subject.",
+              "TL": "Hindi ako pamilyar sa paksang iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I haven't encountered that information before.",
+              "TL": "Hindi ko pa nalaman ang impormasyong iyon noon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have no knowledge on that matter.",
+              "TL": "Wala akong kaalaman sa bagay na iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's unfamiliar to me, sorry.",
+              "TL": "Bago 'yan sa akin, pasensya na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't answer that. I simply don't know.",
+              "TL": "Hindi ko masasagot 'yan. Talagang hindi ko alam."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't come across that in my travels.",
+              "TL": "Hindi ko pa 'yan nasalubong sa paglalakbay ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't have the answers on that one.",
+              "TL": "Wala sa akin ang mga sagot tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm unaware of that topic.",
+              "TL": "Wala akong kamalayan sa paksang iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sorry, that's outside my knowledge.",
+              "TL": "Pasensya na, labas 'yan sa kaalaman ko."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Don't know.",
+              "TL": "Hindi alam."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No idea.",
+              "TL": "Walang ideya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unfamiliar.",
+              "TL": "Hindi pamilyar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Never heard of it.",
+              "TL": "Hindi narinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't say.",
+              "TL": "Hindi masabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unknown.",
+              "TL": "Hindi batid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No clue.",
+              "TL": "Walang muwang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not a clue.",
+              "TL": "Wala talaga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing.",
+              "TL": "Wala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blank on that.",
+              "TL": "Walang alam."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I wish I knew, but I don't know anything about that.",
+              "TL": "Sana may alam ako, pero wala akong alam tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm sorry, friend, I haven't heard about that.",
+              "TL": "Pasensya na, kaibigan, wala akong narinig tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I wish I could help you with that, but I'm unfamiliar.",
+              "TL": "Gusto sana kitang tulungan diyan, pero hindi ako pamilyar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't know, but we can try to find out together.",
+              "TL": "Hindi ko alam, pero pwede nating alamin nang magkasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sorry I can't be more helpful on that topic.",
+              "TL": "Pasensya na kung hindi ako masyadong makatulong sa paksang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's new to me! I wish I had more answers for you.",
+              "TL": "Bago 'yan sa akin! Sana may mga sagot ako para sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I haven't learned about that yet, my friend.",
+              "TL": "Hindi ko pa natututunan 'yan, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wish I could answer that, but I'm in the dark too.",
+              "TL": "Sana masasagot ko 'yan, pero wala rin akong alam."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't know about that, but let's keep learning together.",
+              "TL": "Hindi ko alam 'yan, pero magkasama tayong mag-aral."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sorry to disappoint, but that's unfamiliar to me.",
+              "TL": "Pasensya na kung mabigo kita, pero hindi ako pamilyar diyan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

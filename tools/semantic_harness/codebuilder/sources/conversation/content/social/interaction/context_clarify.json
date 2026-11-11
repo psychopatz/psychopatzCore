@@ -1,0 +1,86 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "content",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans contextual clarification",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.context.clarify",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "What are you referring to?",
+              "TL": "Ano ang tinutukoy mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can you clarify what you mean?",
+              "TL": "Pwede mo bang linawin ang ibig mong sabihin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What specifically are you talking about?",
+              "TL": "Tungkol saan ba partikular ang sinasabi mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not following. Explain what you mean.",
+              "TL": "Hindi kita masundan. Ipaliwanag mo ang ibig mong sabihin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me some more context on that.",
+              "TL": "Bigyan mo ako ng karagdagang konteksto tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What do you mean by that exactly?",
+              "TL": "Ano nga ba ang ibig mong sabihin doon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Which situation are you talking about?",
+              "TL": "Aling sitwasyon ba ang tinutukoy mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Could you break that down for me?",
+              "TL": "Pwede mo bang himayin 'yan para sa akin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I need more details before I understand.",
+              "TL": "Kailangan ko ng dagdag na detalye bago ko maintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What are you getting at?",
+              "TL": "Saan ba patungo ang sinasabi mo?"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

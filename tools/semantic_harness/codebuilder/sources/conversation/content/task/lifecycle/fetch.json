@@ -1,0 +1,358 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.fetch.active",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm working on that now.",
+              "TL": "Inaayos ko na iyon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Retrieving the item now.",
+              "TL": "Kinukuha na ang gamit ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On my way to pick that up.",
+              "TL": "Papunta na para pulutin iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Currently fetching the supplies.",
+              "TL": "Kasalukuyang kinukuha ang mga gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving toward the item.",
+              "TL": "Papatungo sa kinaroroonan ng bagay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Grabbing it now. Won't take long.",
+              "TL": "Kukunin na ngayon. Mabilis lang ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fetching as ordered.",
+              "TL": "Kinukuha ayon sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm searching for and grabbing that item.",
+              "TL": "Hinahanap at kinukuha ko ang bagay na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "In transit to fetch the goods.",
+              "TL": "Kasalukuyang naglalakad para kunin ang gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Retrieval in progress.",
+              "TL": "Kasalukuyang kinukuha."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.fetch.admitted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll fetch that.",
+              "TL": "Kukunin ko iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I will retrieve the item.",
+              "TL": "Naintindihan. Kukunin ko ang gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll go grab that for you.",
+              "TL": "Pupuntahan ko para kunin 'yan para sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On it. Fetching the supplies.",
+              "TL": "Inaasikaso na. Kukunin ang mga kagamitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right away. Going to pick it up.",
+              "TL": "Agad-agad. Pupulutin ko 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I'll bring it back.",
+              "TL": "Naiintindihan ko. Ibabalik ko rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll secure that item.",
+              "TL": "Kukunin ko ang gamit na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading out to fetch it.",
+              "TL": "Lalabas para kunin iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got the order. Fetching.",
+              "TL": "Nakuha ang utos. Kukunin na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds good. Retrieving it now.",
+              "TL": "Maganda 'yan. Kukunin na ngayon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.fetch.completed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Here you go.",
+              "TL": "Heto na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Retrieved the item. Here it is.",
+              "TL": "Nakuha na ang gamit. Heto na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got what you asked for.",
+              "TL": "Nakuha ko ang hiningi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fetched and delivered.",
+              "TL": "Nakuha at naihatid na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Here are the goods.",
+              "TL": "Heto ang mga kagamitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Task completed. Item secured.",
+              "TL": "Tapos na ang gawain. Nakuha ang gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All fetched. Safe in hand.",
+              "TL": "Nakuha na lahat. Hawak ko na nang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Here it is. One piece.",
+              "TL": "Heto na. Buo pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Delivery made. What's next?",
+              "TL": "Naihatid na. Ano ang susunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Retrieved as requested.",
+              "TL": "Nakuha ayon sa hiling."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.fetch.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't fetch that.",
+              "TL": "Hindi ko nakuha iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to retrieve the item.",
+              "TL": "Bigo sa pagkuha ng gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The item wasn't there or was destroyed.",
+              "TL": "Wala roon ang gamit o kaya'y nasira na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Way was blocked. Couldn't reach it.",
+              "TL": "May harang sa daan. Di ko naabot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hostiles prevented me from grabbing it.",
+              "TL": "Pumigil ang mga kalaban sa pagkuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to fetch that from that container.",
+              "TL": "Di makuha 'yon mula sa lalagyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lost access to the item. Fetch failed.",
+              "TL": "Nawalan ng daan sa gamit. Bigo ang pagkuha."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I couldn't find what you were pointing to.",
+              "TL": "Di ko nahanap ang itinuturo mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Inventory full or path obstructed. Failed.",
+              "TL": "Puno ang bag o may harang sa daan. Bigo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't get to the target item.",
+              "TL": "Di makarating sa puntiryang gamit."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.fetch.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't fetch that right now.",
+              "TL": "Hindi ko makuha iyon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's in a death trap. I'm not fetching it.",
+              "TL": "Nasa bitag ng kamatayan 'yan. Di ko kukunin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too far or too dangerous. Refusing to fetch.",
+              "TL": "Masyadong malayo o mapanganib. Tumatangging kunin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "My hands and pack are completely full.",
+              "TL": "Puno na ang kamay at bag ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't risk my neck for that junk.",
+              "TL": "Di ko isusugal ang buhay ko para sa basurang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't retrieve that under current conditions.",
+              "TL": "Di makukuha 'yan sa kasalukuyang kalagayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't have the carrying capacity right now.",
+              "TL": "Wala na akong espasyong paglalagyan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fetch order rejected. Pick it up yourself.",
+              "TL": "Tinatanggihan ang pagkuha. Pulutin mo nang kusa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to comply. Item is out of bounds.",
+              "TL": "Di makasusunod. Di abot ang bagay na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't fetch that for you.",
+              "TL": "Di ko makukuha 'yan para sa 'yo."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

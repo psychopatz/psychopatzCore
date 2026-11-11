@@ -1,0 +1,1289 @@
+{
+  "domain": "conversation",
+  "groups": {
+    "conversation": {
+      "contentOwner": "projecthoomans.dialogue_content.conversation"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "conversation",
+      "semanticTemplateID": "semantic.question.whats_up.busy",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Keeping busy. Don't distract me.",
+              "TL": "Abala ako. Huwag mo akong gambalain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've got work to do. Keep moving.",
+              "TL": "May trabaho pa ako. Magpatuloy ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hands are full right now. Leave me to it.",
+              "TL": "Marami akong ginagawa ngayon. Hayaan mo muna ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Occupied. Don't crowd my workspace.",
+              "TL": "May ginagawa ako. Huwag kang humarang dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too much to do to stand around chatting.",
+              "TL": "Masyadong maraming gagawin para tumambay at makipag-usap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm busy with survival. You should be too.",
+              "TL": "Abala ako sa pagpapatuloy. Dapat ikaw rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Focusing on my duties. Step back.",
+              "TL": "Nakatutok ako sa tungkulin ko. Umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Work doesn't stop because you want to talk.",
+              "TL": "Hindi hihinto ang trabaho dahil lang gusto mong makipag-usap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Busy here. Come back when I'm done.",
+              "TL": "Abala ako rito. Bumalik ka kapag tapos na ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got critical tasks to finish. Don't get in the way.",
+              "TL": "May mahalagang gawain akong tatapusin. Huwag kang humarang."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm keeping busy and trying to stay useful.",
+              "TL": "Abala ako at sinusubukan kong maging kapaki-pakinabang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just working through my checklist for the day.",
+              "TL": "Inaayos ko lang ang mga kailangan kong gawin ngayong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Plenty of chores to keep my mind off the dead.",
+              "TL": "Maraming gawain para hindi maisip ang mga patay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking care of camp business. Always something to fix.",
+              "TL": "Inaasikaso ang mga kailangan sa kampo. Laging may aayusin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Putting in work so we all stay safe.",
+              "TL": "Nagtatrabaho para manatiling ligtas tayong lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying occupied. It helps pass the hours.",
+              "TL": "Pinananatiling abala ang sarili. Nakatutulong magpalipas ng oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tending to tasks. What about you?",
+              "TL": "Gumagawa ng mga gawain. Kumusta naman ikaw?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got a few projects on my plate today.",
+              "TL": "May ilang proyekto akong inaasikaso ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just getting things organized around here.",
+              "TL": "Inaayos lang ang mga gamit dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping my hands moving. Idleness gets people killed.",
+              "TL": "Gumagalaw palagi. Ang kawalan ng gawa ang nagpapahamak sa tao."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Keeping busy.",
+              "TL": "Abala ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Working.",
+              "TL": "Nagtatrabaho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Busy.",
+              "TL": "Abala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tasks.",
+              "TL": "Mga gawain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hands full.",
+              "TL": "Maraming hawak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Occupied.",
+              "TL": "May ginagawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still on it.",
+              "TL": "Ginagawa pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No slack.",
+              "TL": "Walang tigil."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Chores.",
+              "TL": "Gawain sa kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Getting it done.",
+              "TL": "Tinatapos ito."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I'm keeping busy and trying to stay useful. There's always something to do.",
+              "TL": "Abala ako at sinusubukan kong maging kapaki-pakinabang. Laging may kailangang gawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Working hard so our camp stays strong. Glad you stopped by!",
+              "TL": "Nagsusumikap para sa kampo. Masayang dumaan ka!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping active, but never too busy for a good word with you.",
+              "TL": "Abala man, hindi mawawalan ng oras para kumustahin ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tending to some chores. Nice to take a quick breather with a friend.",
+              "TL": "Gumagawa ng gawain. Masarap magpahinga sandali kasama ang kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just doing my part for our little community. How are you doing?",
+              "TL": "Ginagawa lang ang parte ko sa komunidad. Kumusta ka naman?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping busy helps keep the worry away. Always good to see you.",
+              "TL": "Nawawala ang kaba kapag may ginagawa. Laging magandang makita ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Working away! Let me know if you need any help with your own tasks.",
+              "TL": "Nagtatrabaho lang! Sabihan mo ako kung kailangan mo ng tulong sa gawain mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Plenty of work, but having good folks around makes it easy.",
+              "TL": "Maraming trabaho, pero gumagaan kapag may mabubuting kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just finishing up a few things. It's lovely seeing you today.",
+              "TL": "Tinatapos lang ang ilang bagay. Masarap kang makita ngayong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Doing what I can to pitch in. Thank you for checking in on me.",
+              "TL": "Tumutulong sa abot ng makakaya. Salamat sa pangangamusta mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "conversation",
+      "semanticTemplateID": "semantic.question.whats_up.default",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Nothing worth discussing. Stay alert.",
+              "TL": "Walang mahalagang pag-usapan. Manatiling alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Same old story. Don't let your guard down.",
+              "TL": "Ganoon pa rin. Huwag kang magpapabaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just watching the perimeter. You should do the same.",
+              "TL": "Binabantayan lang ang paligid. Dapat ganoon ka rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing new, and quiet usually means trouble is brewing.",
+              "TL": "Walang bago, at ang katahimikan ay kadalasang may dalang gulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing to share. Keep moving along.",
+              "TL": "Walang dapat ibahagi. Magpatuloy ka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Surviving another day. That's about it.",
+              "TL": "Nabubuhay pa ng isa pang araw. Iyon lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I keep my thoughts to myself out here.",
+              "TL": "Itinatago ko ang iniisip ko sa sarili ko rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All quiet on my watch. Keep your distance.",
+              "TL": "Tahimik sa bantay ko. Lumayo ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not much, and I'd like to keep it that way.",
+              "TL": "Wala naman, at gusto kong manatiling ganoon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing you need to concern yourself with.",
+              "TL": "Walang dapat mong alalahanin."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Not much. I'm just trying to keep things together.",
+              "TL": "Wala naman. Sinusubukan ko lang na panatilihing maayos ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just another day trying to stay alive and in one piece.",
+              "TL": "Isa na namang araw sa pagsubok na manatiling buhay at buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking things as they come. Anything interesting happening?",
+              "TL": "Tinatanggap ang bawat araw. May bago ba o kawili-wili?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not a whole lot. Keeping an eye on the surroundings.",
+              "TL": "Wala masyado. Binabantayan lang ang kapaligiran."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just waiting to see what the afternoon brings.",
+              "TL": "Nagmamasid lang kung anong mangyayari ngayong hapon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ordinary day out here, if you can call this ordinary.",
+              "TL": "Karaniwang araw dito, kung matatawag mong karaniwan ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just trying to make it to sundown without issues.",
+              "TL": "Sinusubukang umabot sa takip-silim nang walang aberya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding down the fort. How are things with you?",
+              "TL": "Binabantayan ang pwesto. Kumusta naman sa iyo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet so far. That's usually a blessing.",
+              "TL": "Tahimik sa ngayon. Biyaya na ang ganoon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not much news. Just staying out of harm's way.",
+              "TL": "Walang masyadong balita. Umiiwas lang sa kapahamakan."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Just getting by.",
+              "TL": "Kinakaya lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not much.",
+              "TL": "Wala naman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet.",
+              "TL": "Tahimik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Same as ever.",
+              "TL": "Gaya ng dati."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still here.",
+              "TL": "Nandito pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing new.",
+              "TL": "Walang bago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All calm.",
+              "TL": "Payapa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Surviving.",
+              "TL": "Nabubuhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding on.",
+              "TL": "Kumakapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking it slow.",
+              "TL": "Dahan-dahan lang."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Not much. I'm just trying to keep things together. Good to see you, though.",
+              "TL": "Wala naman. Sinusubukan ko lang na panatilihing maayos ang lahat. Mabuti at nakita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just grateful to see another sunrise. It's lovely having you here.",
+              "TL": "Nagpapasalamat lang sa panibagong bukang-liwayway. Masayang nandito ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not much happening, but having good folks around brightens the day.",
+              "TL": "Walang gaanong kaganapan, pero gumaganda ang araw kapag may mabubuting kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just taking it easy for a moment. Really glad you stopped to talk.",
+              "TL": "Nagpapahinga lang sandali. Masaya talaga akong huminto ka para makipag-usap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Things are calm today, thank goodness. How has your day been going?",
+              "TL": "Payapa ang araw ngayon, salamat sa Diyos. Kumusta naman ang araw mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing out of the ordinary, but seeing you always lifts my spirits.",
+              "TL": "Walang kakaiba, pero laging nakakapagpagaan ng loob ang makita ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding steady with a smile. Hope everything is smooth on your side.",
+              "TL": "Matatag pa rin at nakangiti. Sana maayos ang lahat sa panig mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just soaking in the peace while it lasts. Good to see you, friend.",
+              "TL": "Nilalasap ang kapayapaan habang nariyan pa. Mabuti at nakita kita, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Counting my blessings out here. Having reliable people is number one.",
+              "TL": "Nagbibilang ng mga biyaya. Ang magkaroon ng maaasahang kasama ang una roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing major, just glad we're both standing. How's everything with you?",
+              "TL": "Wala namang malaki, masaya lang akong pareho tayong nakatayo. Kumusta ka?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "conversation",
+      "semanticTemplateID": "semantic.question.whats_up.default_alt",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Staying alive. Keep your eyes open.",
+              "TL": "Basta buhay. Maging mapagmatyag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watching the road. Don't stand in my line of sight.",
+              "TL": "Binabantayan ang daan. Huwag kang humarang sa tingin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Alive, but cautious. You should be too.",
+              "TL": "Buhay, pero maingat. Dapat ganoon ka rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just staying on high alert. Danger doesn't take days off.",
+              "TL": "Laging alerto. Walang bakasyon ang panganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Focusing on staying off the radar. Step aside.",
+              "TL": "Nakatutok sa pananatiling tago. Tabi muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watching the fence lines. Nothing for you here.",
+              "TL": "Binabantayan ang bakod. Walang kailangan dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Alive, and keeping it that way by not gossiping.",
+              "TL": "Buhay, at mananatiling ganito kung hindi makikipagtsismisan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eyes on the horizon. Don't make unnecessary noise.",
+              "TL": "Nakatitig sa abot-tanaw. Huwag gumawa ng ingay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Surviving. That requires vigilance, not conversation.",
+              "TL": "Buhay pa. Kailangan 'yan ng pag-iingat, hindi ng daldalan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just keeping myself safe. You do the same.",
+              "TL": "Pinoprotektahan lang ang sarili ko. Gawin mo rin 'yan."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Same as ever. Staying alive and watching the road.",
+              "TL": "Gaya ng dati. Nanatiling buhay at binabantayan ang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Doing what needs to be done to see tomorrow.",
+              "TL": "Ginagawa kung anong kailangan para makita ang bukas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One foot in front of the other. Road's quiet so far.",
+              "TL": "Dahan-dahang naglalakad. Tahimik naman ang kalsada."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping a low profile and taking care of business.",
+              "TL": "Umiiwas sa gulo at inaasikaso ang mga kailangan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just staying alert out here. How have you been?",
+              "TL": "Laging nagmamasid dito sa labas. Kumusta ka na?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watching the tree lines. Routine stuff.",
+              "TL": "Binabantayan ang kakahuyan. Karaniwang gawain lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still on the right side of the dirt. That's plenty.",
+              "TL": "Nasa ibabaw pa rin ng lupa. Sapat na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking each hour as it comes. How about yourself?",
+              "TL": "Bawat oras kinakaya. Ikaw, kumusta ka?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Alive and alert. Hoping the peace lasts.",
+              "TL": "Buhay at gising. Sana magtagal ang katahimikan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watching the perimeter, making sure we're unbothered.",
+              "TL": "Binabantayan ang paligid para masigurong ligtas tayo."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Staying alive.",
+              "TL": "Basta buhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watching the road.",
+              "TL": "Bantay sa daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Same old.",
+              "TL": "Ganoon pa rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Alert.",
+              "TL": "Alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On watch.",
+              "TL": "Naka-duty."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still upright.",
+              "TL": "Nakatayo pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Road's clear.",
+              "TL": "Ligtas ang daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping sharp.",
+              "TL": "Matalas pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing to report.",
+              "TL": "Walang bago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Breathing.",
+              "TL": "Huminga pa."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Same as ever. Staying alive and watching the road. What about you?",
+              "TL": "Gaya ng dati. Nanatiling buhay at binabantayan ang daan. Ikaw, kumusta?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still here, still kicking. Seeing you makes the watch feel shorter.",
+              "TL": "Nandito pa rin, lumalaban pa. Gumagaan ang bantay kapag nakikita kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watching the perimeter, but always glad to share a few words with you.",
+              "TL": "Nagbabantay sa paligid, pero laging masayang makausap ka kahit saglit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Making sure the road stays safe for all of us. Hope you're doing well.",
+              "TL": "Sinisigurong ligtas ang daan para sa ating lahat. Sana maayos ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Alive and well, friend. Truly good to run into you today.",
+              "TL": "Buhay at maayos, kaibigan. Masaya talaga akong nakasalubong kita ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking in the daylight while we can. Glad you're walking safe.",
+              "TL": "Nilalasap ang liwanag ng araw. Masaya akong naglalakad kang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Another day on our feet together. What could be better than that?",
+              "TL": "Isa pang araw na magkasama tayong nakatayo. Ano pa bang mas maganda roon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just keeping an eye out for our people. Thanks for checking in.",
+              "TL": "Nagmamasid lang para sa kapakanan ng lahat. Salamat sa pangangamusta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding the line with a glad heart today. How are things on your end?",
+              "TL": "Nagbabantay nang may magaan na loob ngayon. Kumusta sa parte mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still here, thankful for good companions like you. Stay safe.",
+              "TL": "Nandito pa rin, nagpapasalamat sa mabubuting kasama tulad mo. Mag-ingat ka."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "conversation",
+      "semanticTemplateID": "semantic.question.whats_up.traveling",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Keeping moving. Don't slow me down.",
+              "TL": "Patuloy lang sa paggalaw. Huwag mo akong pabagalin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On the move. Don't block my path.",
+              "TL": "Naglalakbay ako. Huwag kang humarang sa daan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Travel's dangerous right now. Step aside.",
+              "TL": "Mapanganib ang daan ngayon. Tabi muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Covering ground. I don't stay in one spot too long.",
+              "TL": "Tuloy-tuloy ang lakad ko. Hindi ako tumatambay nang matagal."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving fast, staying light. No time to chat.",
+              "TL": "Mabilis ang lakad, magaan ang dala. Walang oras makipag-usap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't follow too closely. I walk alone.",
+              "TL": "Huwag kang masyadong lumapit. Nag-iisa akong naglalakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just passing through. Mind your own road.",
+              "TL": "Dumadaan lang. Asikasuhin mo ang sarili mong daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got places to be before dark. Move along.",
+              "TL": "May pupuntahan ako bago magdilim. Lumakad ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Traveling light and watching behind me. Stand clear.",
+              "TL": "Magaan ang dala at laging tumitingin sa likod. Tabi ka riyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving between points. Don't compromise my route.",
+              "TL": "Lumilipat ng pwesto. Huwag mong sirain ang ruta ko."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm keeping moving and watching what is ahead.",
+              "TL": "Patuloy akong gumagalaw at binabantayan ang nasa unahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just trekking from point to point. Road's fairly calm.",
+              "TL": "Naglalakad lang mula pwesto hanggang pwesto. Medyo kalmado ang kalsada."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Making headway before the sun starts dropping.",
+              "TL": "Bumabaybay habang mataas pa ang araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Covering some ground today. How's the path behind you?",
+              "TL": "Marami-rami na ring nalakad ngayon. Kumusta ang daan sa pinanggalingan mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "On the road again. Gotta keep moving to find supplies.",
+              "TL": "Nasa kalsada na naman. Kailangang gumalaw para maghanap ng gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading out on a scouting loop. Everything looks quiet.",
+              "TL": "Nag-iikot para magmanman. Mukhang tahimik naman ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Putting miles under my boots. Helps clear my head.",
+              "TL": "Tuloy lang sa paghakbang. Nakakatulong magpalinaw ng isip."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just moving between shelters. Don't want to linger anywhere too long.",
+              "TL": "Lumilipat lang ng silungan. Ayokong tumambay nang matagal sa iisang lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Traveling down the lane. Hoping to avoid any hordes.",
+              "TL": "Naglalakad sa kalsada. Sana walang makasalubong na kumpol ng patay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On my way across the sector. How are things looking your way?",
+              "TL": "Patawid ako sa kabilang bahagi. Kumusta ang kalagayan sa direksyon mo?"
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Keeping moving.",
+              "TL": "Patuloy lang sa paggalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On the road.",
+              "TL": "Nasa daan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Traveling.",
+              "TL": "Naglalakbay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving out.",
+              "TL": "Umaalis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Passing through.",
+              "TL": "Dumadaan lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Covering ground.",
+              "TL": "Naglalakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On the move.",
+              "TL": "Kumikilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Headed out.",
+              "TL": "Papunta na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "In transit.",
+              "TL": "Bumabyahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pushing ahead.",
+              "TL": "Pasulong."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I'm keeping moving and watching what is ahead. Come along if you want.",
+              "TL": "Patuloy akong gumagalaw at binabantayan ang nasa unahan. Sumama ka kung gusto mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On the trail today! It's always safer and nicer walking together.",
+              "TL": "Nasa daan ngayon! Laging mas ligtas at masaya kapag may kasamang maglakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Traveling light. Feel free to tag along if you're headed that way.",
+              "TL": "Magaan ang dala. Sumabay ka kung papunta ka rin doon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Making my way down the road. Glad I crossed paths with you today.",
+              "TL": "Bumabagtas sa daan. Masaya akong nakasalubong kita ngayong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Covering ground, but always happy to pause and say hello to a friend.",
+              "TL": "Nagmamadali man, masaya pa ring huminto para kumustahin ang kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Walking between camps. Safe travels on your end, my friend.",
+              "TL": "Naglalakad patungo sa kabilang kampo. Ingat sa biyahe mo, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading out for a bit. Watch your step, and maybe we'll meet again soon.",
+              "TL": "Aalis lang sandali. Mag-ingat sa paghakbang, at magkikita rin tayo mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The road feels a lot less lonely whenever I see you around.",
+              "TL": "Hindi nakakalungkot ang daan kapag nakakasalubong kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving along, but I'm glad our paths crossed. Stay safe out there.",
+              "TL": "Lumalakad, pero masayang nagkasalubong tayo. Mag-ingat ka palagi sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Traveling to check on our boundaries. Good to see you in high spirits.",
+              "TL": "Tinitingnan ang hangganan ng kampo. Masarap kang makitang nasa maayos na lagay."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "conversation",
+      "semanticTemplateID": "semantic.question.whats_up.weather",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Watching the weather. Stay focused.",
+              "TL": "Binabantayan ko ang panahon. Manatiling nakatutok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Storms bring trouble. Don't linger out in the open.",
+              "TL": "Bagyo ang nagdadala ng gulo. Huwag kang tumambay sa bukas na lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sky looks nasty. Get your head in the game.",
+              "TL": "Madilim ang langit. Maghanda ka sa anumang darating."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bad weather makes it easy for them to sneak up. Stay alert.",
+              "TL": "Mas madali silang makalapit kapag masama ang panahon. Maging alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wind is masking noises. Keep your ears open and back off.",
+              "TL": "Tinatabunan ng hangin ang mga ingay. Maging mapagmatyag at umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clouds are gathering. I don't plan on getting caught out here.",
+              "TL": "Makulimlim na. Wala akong balak abutan ng ulan dito sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Weather is turning. Stop wasting time chatting.",
+              "TL": "Papasama ang panahon. Huwag magsayang ng oras sa pakikipag-usap."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fog or rain will blind us. Keep your weapon ready.",
+              "TL": "Mabubulag tayo sa hamog o ulan. Ihanda ang armas mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eyeing the clouds. You'd better find cover too.",
+              "TL": "Tinitingnan ko ang mga ulap. Mabuti pang maghanap ka na rin ng masisilungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A storm is brewing. I'm focusing on shelter.",
+              "TL": "May paparating na bagyo. Naghahanap ako ng masisilungan."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "The weather is the main thing on my mind right now.",
+              "TL": "Ang panahon ang pangunahing iniisip ko ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Looks like the skies might turn on us soon.",
+              "TL": "Mukhang sasama ang lagay ng panahon maya-maya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watching the clouds roll in. Hope we stay dry.",
+              "TL": "Tinitingnan ang pagdating ng mga ulap. Sana manatiling tuyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cold wind's picking up today. Harder to stay warm.",
+              "TL": "Lumalakas ang malamig na hangin ngayon. Mahirap magpainit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't afford to get soaked out here without a fire.",
+              "TL": "Hindi puwedeng mabasa rito kung walang apoy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hoping the rain holds off until we finish our runs.",
+              "TL": "Sana huwag munang umulan hanggang sa matapos ang mga lakad natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Weather's unpredictable lately. Keeping an eye on the sky.",
+              "TL": "Pabago-bago ang panahon kamakailan. Laging nakatingin sa langit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Temperature is dropping fast. Gonna be a cold night.",
+              "TL": "Bumababa nang mabilis ang temperatura. Magiging malamig ang gabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just thinking about finding a roof before the weather hits.",
+              "TL": "Iniisip ko lang makahanap ng bubong bago dumating ang ulan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear skies for now, but you never know when it'll shift.",
+              "TL": "Maliwanag pa naman ngayon, pero hindi mo masasabi kung kailan magbabago."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Watching the weather.",
+              "TL": "Binabantayan ang panahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rain coming.",
+              "TL": "Uulan na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cold wind.",
+              "TL": "Malamig ang hangin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dark clouds.",
+              "TL": "Makulimlim."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Weather's turning.",
+              "TL": "Papasama ang panahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Storm brewing.",
+              "TL": "May bagyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need shelter.",
+              "TL": "Kailangan ng masisilungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay dry.",
+              "TL": "Manatiling tuyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Freezing out.",
+              "TL": "Napakalamig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Windy.",
+              "TL": "Mahangin."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "The weather is the main thing on my mind right now. How are you holding up?",
+              "TL": "Ang panahon ang pangunahing iniisip ko ngayon. Kumusta ka naman?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Chilly out here today. Make sure you bundle up and stay warm, alright?",
+              "TL": "Malamig dito ngayon. Magsuot ka ng makapal at magpainit, ha?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Looks like rain might fall. Let's make sure our dry clothes stay safe.",
+              "TL": "Mukhang uulan. Siguraduhin nating ligtas ang mga tuyo nating damit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was just watching the clouds. Hope you've got a warm fire waiting for you.",
+              "TL": "Pinagmamasdan ko ang mga ulap. Sana may mainit kang masisilungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cold wind today, but seeing your face makes it feel a bit warmer.",
+              "TL": "Malamig ang hangin, pero nakakabawas ng ginaw na makita ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hoping the bad weather passes over us without trouble. Stay dry out there.",
+              "TL": "Sana lumampas ang masamang panahon nang walang gulo. Manatiling tuyo sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Weather's rough, but we'll weather any storm together, my friend.",
+              "TL": "Mabigat ang panahon, pero kakayanin natin anumang bagyo, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If it starts pouring, come share some shelter with us.",
+              "TL": "Kapag nagsimulang bumuhos ang ulan, sumilong ka kasama namin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just keeping an eye on the sky so none of our people get caught in the wet.",
+              "TL": "Binabantayan ang langit para walang mabasa sa mga kasamahan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gloomy day outside, but good company makes all the difference.",
+              "TL": "Madilim ang araw sa labas, pero iba talaga kapag may magandang kasama."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

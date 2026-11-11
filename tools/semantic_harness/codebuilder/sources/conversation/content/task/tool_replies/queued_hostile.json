@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_hostile.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I heard you. Watch yourself.",
+              "TL": "Narinig kita. Mag-ingat ka sa sarili mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard that tone. Mind your step.",
+              "TL": "Narinig ko ang tonong 'yan. Mag-ingat sa hakbang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard the anger. Keep it in check.",
+              "TL": "Narinig ko ang galit. Kontrolin mo 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you, but don't cross the line.",
+              "TL": "Narinig kita, pero huwag mong tawirin ang hangganan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message heard. Control yourself.",
+              "TL": "Narinig ang mensahe. Magpigil ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard that loud and clear. Back off.",
+              "TL": "Narinig nang malakas at malinaw. Umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard you. Don't make a mistake you can't undo.",
+              "TL": "Narinig kita. Huwag kang gumawa ng pagkakamaling di mo mababawi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard the threat. Tread lightly.",
+              "TL": "Narinig ko ang banta. Mag-ingat sa pagtapak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. Don't let your temper get you killed.",
+              "TL": "Tala ko na. Huwag mong hayaang mapatay ka ng galit mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you. Watch your back.",
+              "TL": "Narinig kita. Bantayan mo ang likod mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_hostile.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Noted. Choose your next words carefully.",
+              "TL": "Tala ko na. Piliin mong mabuti ang susunod mong sasabihin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Be very careful what comes out of your mouth next.",
+              "TL": "Maging maingat sa susunod na lalabas sa bibig mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're walking on thin ice with that talk.",
+              "TL": "Nasa manipis kang yelo sa salitang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Think twice before repeating that.",
+              "TL": "Mag-isip ka nang dalawang beses bago ulitin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Choose your next move with extreme caution.",
+              "TL": "Piliin ang susunod mong hakbang nang buong pag-iingat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're testing boundaries that have teeth.",
+              "TL": "Sinusubukan mo ang mga hangganang may bangil."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Careful now. Words have consequences out here.",
+              "TL": "Mag-ingat ka. May kapalit ang salita dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch what you say next.",
+              "TL": "Bantayan mo ang susunod mong sasabihin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One wrong word and this conversation ends badly.",
+              "TL": "Isang maling salita at magtatapos sa masama ang usapang ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. Mind your tongue.",
+              "TL": "Tala ko na. Ingatan ang dila mo."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

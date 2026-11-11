@@ -1,0 +1,144 @@
+{
+  "schema": "projecthoomans.c0a.semantic-corpus.v1",
+  "purpose": "Expected semantic classes are hypotheses for the later architecture; current worker results are recorded separately.",
+  "cases": [
+    {
+      "id": "compact_fuckyou",
+      "rawInput": "fuckyou",
+      "expectedSemantic": "directed_insult",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "compact_fuckyou_elongated",
+      "rawInput": "fuckyouuuu",
+      "expectedSemantic": "directed_insult",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "compact_shutthefuckup",
+      "rawInput": "shutthefuckup",
+      "expectedSemantic": "directed_hostility",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "compact_youidiot",
+      "rawInput": "youidiot",
+      "expectedSemantic": "directed_insult",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "compact_youreuseless",
+      "rawInput": "youreuseless",
+      "expectedSemantic": "directed_insult",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "compact_illkillyou",
+      "rawInput": "illkillyou",
+      "expectedSemantic": "directed_threat",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "elongated_spaced_hostility",
+      "rawInput": "fuck youuuu",
+      "expectedSemantic": "directed_insult",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "typo_insult",
+      "rawInput": "you are an idot",
+      "expectedSemantic": "directed_insult",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "elongated_hostility",
+      "rawInput": "gooo away",
+      "expectedSemantic": "directed_hostility",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "hope_you_die",
+      "rawInput": "i hope you die",
+      "expectedSemantic": "directed_malicious_hostility",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "hate_you",
+      "rawInput": "i hate you",
+      "expectedSemantic": "directed_hostility",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "hate_rain",
+      "rawInput": "i fucking hate this rain",
+      "expectedSemantic": "world_complaint",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "starving_self_state",
+      "rawInput": "i'm fucking starving",
+      "expectedSemantic": "self_state_or_need",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "not_bad_affirmation",
+      "rawInput": "you're not bad",
+      "expectedSemantic": "positive_assessment",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "not_really_contextual",
+      "rawInput": "not really",
+      "expectedSemantic": "contextual_disagreement",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "yeah_right_contextual",
+      "rawInput": "yeah right",
+      "expectedSemantic": "contextual_skepticism",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "benign_greeting",
+      "rawInput": "hello there",
+      "expectedSemantic": "benign_greeting",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "benign_beautiful_day",
+      "rawInput": "this is a beautiful day",
+      "expectedSemantic": "benign_world_observation",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "benign_identity_question",
+      "rawInput": "who are you",
+      "expectedSemantic": "benign_identity_question",
+      "safety": "no_authoritative_mutation"
+    },
+    {
+      "id": "valid_mutating_request_control",
+      "rawInput": "give me water",
+      "expectedSemantic": "explicit_give_request",
+      "safety": "authoritative_mutation_allowed_only_when_explicit"
+    },
+    {
+      "id": "malformed_mutating_request_typo",
+      "rawInput": "gimme wate",
+      "expectedSemantic": "uncertain_give_request",
+      "safety": "authoritative_mutation_must_be_denied"
+    },
+    {
+      "id": "malformed_mutating_request_elongated",
+      "rawInput": "givee me water",
+      "expectedSemantic": "uncertain_give_request",
+      "safety": "authoritative_mutation_must_be_denied"
+    },
+    {
+      "id": "malformed_mutating_request_tail_typo",
+      "rawInput": "give me waterr",
+      "expectedSemantic": "uncertain_give_request",
+      "safety": "authoritative_mutation_must_be_denied"
+    }
+  ]
+}

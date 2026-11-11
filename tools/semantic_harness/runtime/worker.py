@@ -38,6 +38,9 @@ class LuaSemanticWorker:
                 repository=kwargs.get("repository"),
                 core_repository=kwargs.get("core_repository"),
                 dynamic_trading_repository=kwargs.get("dynamic_trading_repository"),
+                provider_roots=kwargs.get("provider_roots", ()),
+                mods=kwargs.get("mods"),
+                preset=kwargs.get("preset"),
                 lua_bin=kwargs.get("lua_bin"),
                 worker_script=kwargs.get("worker_script"),
                 profile=kwargs.get("profile", "core"),
@@ -45,6 +48,13 @@ class LuaSemanticWorker:
                 request_timeout=kwargs.get("request_timeout", 5.0),
                 shutdown_timeout=kwargs.get("shutdown_timeout", 1.0),
             )
+        for option in (
+            "provider_roots",
+            "mods",
+            "preset",
+            "dynamic_trading_repository",
+        ):
+            kwargs.pop(option, None)
         worker_class = _provider_worker_class(config)
         if worker_class is not None:
             provider_kwargs = dict(kwargs)

@@ -1,0 +1,358 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.eat.active",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Eating now.",
+              "TL": "Kumakain na ako ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Having a bite right now.",
+              "TL": "Kumakain ng kaunti ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Chewing through some food. Give me a moment.",
+              "TL": "Kumakain ng pagkain. Sandali lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Currently eating.",
+              "TL": "Kasalukuyang kumakain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Getting some calories in me.",
+              "TL": "Nagpapasok ng lakas sa katawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eating my rations now.",
+              "TL": "Kinakain ang baong pagkain ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking a meal break as instructed.",
+              "TL": "Kumakain ayon sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eating. Needed the energy.",
+              "TL": "Kumakain. Kailangan ko ng lakas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Having some food now.",
+              "TL": "Kumakain na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eating quietly. Won't be long.",
+              "TL": "Kumakain nang tahimik. Saglit lang ito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.eat.admitted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll eat that.",
+              "TL": "Kakainin ko iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Getting something to eat.",
+              "TL": "Naintindihan. Kukuha ng makakain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good call. My stomach was growling.",
+              "TL": "Magandang paalala. Kumakalam na ang tiyan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right, I'll eat some food.",
+              "TL": "Sige, kakain ako ng pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking a bite to keep my strength up.",
+              "TL": "Kakain para mapanatili ang lakas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Eating now.",
+              "TL": "Naiintindihan ko. Kakain na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll consume those rations.",
+              "TL": "Kakainin ko ang mga rasyong 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Time for a meal.",
+              "TL": "Sige. Oras na para kumain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll eat what you designated.",
+              "TL": "Kakainin ko ang tinukoy mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds good. Grabbing food.",
+              "TL": "Maganda 'yan. Kukuha ng pagkain."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.eat.completed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Finished eating. Feeling much better.",
+              "TL": "Tapos nang kumain. Mas maayos na ang pakiramdam."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That food helped a lot. Done.",
+              "TL": "Nakatulong nang malaki ang pagkain. Tapos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done eating. Energy restored.",
+              "TL": "Tapos nang kumain. Bumalik na ang lakas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stomach is full. Ready to move.",
+              "TL": "Busog na ang tiyan. Handa nang kumilos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished that meal.",
+              "TL": "Natapos na ang pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All eaten. Good to keep going.",
+              "TL": "Naubos na. Maayos na para magpatuloy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. That tasted better than expected.",
+              "TL": "Tapos na. Mas masarap kaysa inasahan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Meal completed.",
+              "TL": "Kumpleto na ang pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished eating. Back on task.",
+              "TL": "Tapos nang kumain. Balik sa trabaho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rations finished. Strength is back.",
+              "TL": "Naubos ang rasyon. Nagbalik ang lakas."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.eat.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't eat that.",
+              "TL": "Hindi ko nakain iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to eat. The food was rotten or spoiled.",
+              "TL": "Bigo sa pagkain. Bulok o panis ang pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't eat that. It smelled dangerous.",
+              "TL": "Di makain 'yon. Amoy delikado."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was interrupted while trying to eat.",
+              "TL": "Naabala ako habang sumusubok kumain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to eat right now. Area under threat.",
+              "TL": "Di makakain ngayon. May banta sa lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eating failed. Food was ruined.",
+              "TL": "Pumalpak ang pagkain. Nasira ang pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't stomach that item.",
+              "TL": "Di matunawan sa bagay na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dropped or lost the food before eating.",
+              "TL": "Nahulog o nawala ang pagkain bago nakain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Action failed. Still starving.",
+              "TL": "Bigo ang kilos. Gutom pa rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to consume meal.",
+              "TL": "Bigo sa pagtapos ng pagkain."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.eat.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm not hungry right now.",
+              "TL": "Hindi ako nagugutom ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't need food at the moment.",
+              "TL": "Di ko kailangan ng pagkain sa sandaling ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm already completely full.",
+              "TL": "Busog na busog pa ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save the food. I don't need to eat yet.",
+              "TL": "Itabi ang pagkain. Di ko pa kailangang kumain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refusing to eat that. Looks unwholesome.",
+              "TL": "Tumatangging kainin 'yan. Mukhang marumi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't eat right now. Too tense.",
+              "TL": "Di makakain ngayon. Masyadong tensiyonado."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have enough energy. Keeping rations safe.",
+              "TL": "May sapat pa akong lakas. Itatabi ang rasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No need for a meal yet.",
+              "TL": "Wala pang pangangailangan sa pagkain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eat order rejected. Stomach is satisfied.",
+              "TL": "Tinatanggihan ang utos na kumain. Busog ang tiyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't eat that right now.",
+              "TL": "Di ko makakain 'yan ngayon."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

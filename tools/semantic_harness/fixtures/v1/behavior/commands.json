@@ -1,0 +1,187 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "behavior.commands",
+  "cases": [
+    {
+      "id": "command.follow.direct",
+      "tags": ["command", "follow", "nlu"],
+      "turns": [
+        {
+          "text": "Follow me.",
+          "expect": {
+            "ir.intent": "REQUEST",
+            "ir.action": "FOLLOW",
+            "ir.confidence": { "min": 0.90 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.follow.synonym",
+      "tags": ["command", "follow", "synonym"],
+      "turns": [
+        {
+          "text": "Come with me!",
+          "expect": {
+            "ir.action": "FOLLOW",
+            "ir.pattern": "pnc.command.follow"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.stop_following.progressive",
+      "tags": ["command", "stop"],
+      "turns": [
+        {
+          "text": "Stop following me",
+          "expect": {
+            "ir.action": "STOP",
+            "decision.branch": "COMMAND_ACCEPTED"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.stop_following.prohibition_contracted",
+      "tags": ["command", "stop", "prohibition"],
+      "turns": [
+        {
+          "text": "Please don't follow me",
+          "expect": {
+            "ir.action": "STOP"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.stop_following.prohibition_uncontracted",
+      "tags": ["command", "stop", "prohibition"],
+      "turns": [
+        {
+          "text": "Do not follow me",
+          "expect": {
+            "ir.action": "STOP"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.stay.wait_here",
+      "tags": ["command", "stay"],
+      "turns": [
+        {
+          "text": "Wait here.",
+          "expect": {
+            "ir.action": "STAY"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.camp.here",
+      "tags": ["command", "camp"],
+      "turns": [
+        {
+          "text": "lets camp in here",
+          "expect": {
+            "ir.action": "CAMP",
+            "ir.target.scope": "here"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.camp.this_place",
+      "tags": ["command", "camp"],
+      "turns": [
+        {
+          "text": "camp at this place",
+          "expect": {
+            "ir.action": "CAMP",
+            "ir.target.scope": "here"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.go.home",
+      "tags": ["command", "go"],
+      "turns": [
+        {
+          "text": "Go home.",
+          "expect": {
+            "ir.action": "GO",
+            "ir.destination.category": "HOME"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.fetch.water",
+      "tags": ["command", "fetch", "water"],
+      "turns": [
+        {
+          "text": "Can you bring me some water?",
+          "expect": {
+            "ir.intent": "REQUEST",
+            "ir.action": "FETCH",
+            "ir.object.category": "WATER",
+            "ir.object.quantity": "SOME"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.fetch.food",
+      "tags": ["command", "fetch", "food"],
+      "turns": [
+        {
+          "text": "Get some food",
+          "expect": {
+            "ir.object.category": "FOOD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.fetch.medicine",
+      "tags": ["command", "fetch", "medicine"],
+      "turns": [
+        {
+          "text": "Bring me meds",
+          "expect": {
+            "ir.object.category": "MEDICINE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.fetch.unresolved_item",
+      "tags": ["command", "fetch", "unresolved"],
+      "turns": [
+        {
+          "text": "Bring me an apple",
+          "expect": {
+            "ir.action": "FETCH",
+            "ir.object.text": "apple",
+            "ir.object.unresolved": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "command.fetch.compound_item",
+      "tags": ["command", "fetch", "compound"],
+      "turns": [
+        {
+          "text": "Bring me some medical supplies",
+          "expect": {
+            "ir.action": "FETCH",
+            "ir.object.text": "medical supplies"
+          }
+        }
+      ]
+    }
+  ]
+}

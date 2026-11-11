@@ -1,0 +1,562 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.ask_name.named.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am %s.",
+              "TL": "Ako si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "My name is %s.",
+              "TL": "%s ang pangalan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Call me %s.",
+              "TL": "Tawagin mo akong %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I go by %s.",
+              "TL": "%s ang tawag sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s is what people call me.",
+              "TL": "%s ang itawag mo sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s, good to meet you.",
+              "TL": "Ako si %s, ikinagagalak kitang makilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Folks around here know me as %s.",
+              "TL": "Kilala ako ng mga tao rito bilang %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The name's %s. Pleased to make your acquaintance.",
+              "TL": "%s ang pangalan ko. Ikinagagalak kitang makilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You can know me as %s.",
+              "TL": "Maaari mo akong makilala bilang %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s, standing before you.",
+              "TL": "Ako si %s, na kaharap mo ngayon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.ask_name.named.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "The name is %s.",
+              "TL": "%s ang pangalan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s. Nice to meet you properly.",
+              "TL": "Ako si %s. Mabuti at pormal tayong nagkakilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're speaking with %s.",
+              "TL": "Kausap mo si %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s is my name. Don't wear it out.",
+              "TL": "%s ang pangalan ko. Tandaan mo 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I answer to %s.",
+              "TL": "Sumasagot ako sa pangalang %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They call me %s around these parts.",
+              "TL": "Tinatawag nila akong %s dito sa lugar na ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Name's %s. Glad we got that sorted.",
+              "TL": "%s ang pangalan. Mabuti at nalaman mo na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just call me %s.",
+              "TL": "Tawagin mo na lang akong %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm known as %s to the survivors here.",
+              "TL": "Kilala ako bilang %s ng mga nakaligtas dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's %s. Good to put a name to the face.",
+              "TL": "%s ako. Mabuti at may pangalan na ang mukhang ito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.ask_name.named.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You can call me %s.",
+              "TL": "Maaari mo akong tawaging %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Go ahead and call me %s.",
+              "TL": "Sige lang, tawagin mo akong %s."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s works fine for me.",
+              "TL": "Ayos na ang %s para sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s. That's the handle I go by.",
+              "TL": "Ako si %s. Iyan ang ginagamit kong pagkakakilanlan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You may call me %s if you'd like.",
+              "TL": "Maaari mo akong tawaging %s kung nais mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s is what my companions call me.",
+              "TL": "%s ang tawag sa akin ng mga kasamahan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I prefer %s, if you're asking.",
+              "TL": "Mas gusto ko ang %s, kung nagtatanong ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Call me %s. Simple enough to remember.",
+              "TL": "Tawagin mo akong %s. Madaling matandaan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "%s is the name. Keep it in mind.",
+              "TL": "%s ang pangalan. Itatak mo sa isip mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm %s. Let's make sure we both survive today.",
+              "TL": "Ako si %s. Siguraduhin nating pareho tayong mabuhay ngayon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.ask_name.prompt",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll tell you my name once we've established some trust. What's your name?",
+              "TL": "Sasabihin ko ang pangalan ko kapag may tiwala na tayo. Ano ang pangalan mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair is fair. Tell me who you are first.",
+              "TL": "Patas lang dapat. Sabihin mo muna kung sino ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't hand my name to strangers. What do they call you?",
+              "TL": "Hindi ko ibinibigay ang pangalan ko sa di-kilala. Anong tawag sa 'yo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "How about introductions on your side first? What's your name?",
+              "TL": "Paano kung ikaw muna ang magpakilala? Ano ang pangalan mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You first. Who am I speaking with?",
+              "TL": "Ikaw muna. Sino ba ang kausap ko?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Names carry weight out here. Tell me yours before asking mine.",
+              "TL": "Mahalaga ang pangalan dito. Sabihin mo muna ang sa 'yo bago magtanong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's trade names fairly. What should I call you?",
+              "TL": "Magpalitan tayo ng pangalan nang patas. Ano dapat ang itawag ko sa 'yo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'd like to know who's asking before I give up my name.",
+              "TL": "Gusto ko munang malaman kung sino ang nagtatanong bago ko ibigay ang akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me your name first, then maybe I'll share mine.",
+              "TL": "Ibigay mo muna ang pangalan mo, baka sakaling ibahagi ko rin ang akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Introduce yourself first. It's only polite in these times.",
+              "TL": "Magpakilala ka muna. Pagpapakita 'yon ng galang sa panahong ito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.ask_name.rejected.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am not ready to share that yet.",
+              "TL": "Hindi pa ako handang sabihin iyan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We don't know each other well enough for names.",
+              "TL": "Hindi pa tayo lubos na magkakilala para sa mga pangalan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Names are a luxury for trusted folks. Keep your distance.",
+              "TL": "Para lang sa pinagkakatiwalaan ang pangalan. Lumayo ka muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I prefer to remain anonymous for now.",
+              "TL": "Mas gusto kong manatiling walang pangalan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not sharing my name with someone I just met.",
+              "TL": "Hindi ko ibinabahagi ang pangalan ko sa kakatagpo ko lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You don't need my name to deal with me.",
+              "TL": "Hindi mo kailangan ang pangalan ko para makipag-usap sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I keep my identity to myself out here. Back off.",
+              "TL": "Itinatago ko ang pagkakakilanlan ko dito. Umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That information stays private between me and my people.",
+              "TL": "Pribado ang impormasyong 'yan sa akin at sa mga kasama ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not in the habit of giving names to armed strangers.",
+              "TL": "Hindi ako sanay magbigay ng pangalan sa mga armadong di-kilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No names today. Let's keep things strictly professional.",
+              "TL": "Walang pangalan ngayon. Panatilihin nating pormal ang lahat."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.ask_name.rejected.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Ask me again when we know each other better.",
+              "TL": "Tanungin mo ako ulit kapag mas magkakilala na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Prove you're trustworthy first, then ask again.",
+              "TL": "Patunayan mo munang mapagkakatiwalaan ka, bago ka magtanong ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll get to names after we survive a while together.",
+              "TL": "Pag-uusapan natin ang mga pangalan kapag nagkasama na tayo nang matagal."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not yet. Maybe down the road if you don't shoot me.",
+              "TL": "Hindi pa ngayon. Baka sa susunod kung hindi mo ako babarilin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give it some time. I don't give away who I am so easily.",
+              "TL": "Bigyan mo muna ng panahon. Hindi ko basta-basta ibinibigay kung sino ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Come back after you've shown you can be trusted.",
+              "TL": "Bumalik ka kapag naipakita mo nang maaasahan ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's see if we both make it through the week first.",
+              "TL": "Tingnan muna natin kung pareho tayong tatagal ngayong linggo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trust takes time out here. Ask me another day.",
+              "TL": "Matagal mabuo ang tiwala rito. Tanungin mo ako sa ibang araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on to that question until we've traded a few times.",
+              "TL": "Itabi mo muna ang tanong na 'yan hanggang sa makailang palitan tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too soon for personal details. Let's wait a bit.",
+              "TL": "Masyado pang maaga para sa personal na bagay. Maghintay tayo nang kaunti."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.ask_name.unnamed.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You want to know my name? Give me a second.",
+              "TL": "Gusto mong malaman ang pangalan ko? Bigyan mo ako ng sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Haven't heard anyone call me by name in months.",
+              "TL": "Ilang buwan na mula noong may tumawag sa pangalan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A name? Almost forgot people still used them.",
+              "TL": "Pangalan? Halos nakalimutan ko nang may gumagamit pa niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Takes a moment to remember what folks used to call me.",
+              "TL": "Inaalala ko pa kung ano ang tawag sa akin ng mga tao noon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Funny question. Been so long since I introduced myself.",
+              "TL": "Nakakatuwang tanong. Matagal na mula noong huling nagpakilala ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on, let me think back to what I was called before this.",
+              "TL": "Teka lang, inaalala ko kung ano ang tawag sa akin bago ang lahat ng ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "My name... feels like another person owned it.",
+              "TL": "Ang pangalan ko... parang ibang tao ang nagmamay-ari noon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just a survivor out here. But give me a second to recall.",
+              "TL": "Isa lang akong nakaligtas dito. Pero bigyan mo ako ng sandali para alalahanin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Doesn't come to mind as fast as it used to.",
+              "TL": "Hindi na agad pumapasok sa isip ko gaya ng dati."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A name... give me a moment to dust off the cobwebs.",
+              "TL": "Pangalan... bigyan mo ako ng sandali para alalahanin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.ask_name.unnamed.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "My name is a longer story than you might expect.",
+              "TL": "Mas mahabang kuwento ang pangalan ko kaysa sa inaasahan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Left my old name behind when the world fell apart.",
+              "TL": "Iniwan ko ang dati kong pangalan noong gumuho ang mundo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Names belong to the world before Knox. Now we're just survivors.",
+              "TL": "Para sa lumang mundo ang mga pangalan bago ang Knox. Ngayon, mga nakaligtas na lang tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't use the name I was born with anymore.",
+              "TL": "Hindi ko na ginagamit ang pangalang ibinigay sa akin noong ipinanganak ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There's a lot of baggage attached to my real name.",
+              "TL": "Maraming mabigat na alaala ang nakakabit sa tunay kong pangalan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I gave up that name when I lost everyone I loved.",
+              "TL": "Binitiwan ko ang pangalang 'yon noong mawala ang lahat ng mahal ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too much history behind that name to bring it up lightly.",
+              "TL": "Masyadong masalimuot ang kasaysayan ng pangalang 'yan para basta banggitin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Call me whatever you want. Old names don't matter much now.",
+              "TL": "Tawagin mo ako kahit ano. Wala nang masyadong halaga ang lumang pangalan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That name died with the old life. I haven't picked a new one.",
+              "TL": "Namatay ang pangalang 'yon kasama ng dating buhay. Hindi pa ako pumipili ng bago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's complicated. Maybe I'll tell you the story around a campfire someday.",
+              "TL": "Medyo magulo. Baka ikuwento ko sa 'yo sa tabi ng apoy balang-araw."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

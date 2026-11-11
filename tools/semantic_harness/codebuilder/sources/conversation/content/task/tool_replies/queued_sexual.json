@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_sexual.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I heard you. Give me a second.",
+              "TL": "Narinig kita. Bigyan mo ako ng sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard that proposition. Let me catch my breath.",
+              "TL": "Narinig ang alok na 'yan. Huminga muna ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard you clearly. Hold on for a moment.",
+              "TL": "Narinig kita nang malinaw. Maghintay nang sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message received loud and clear. Give me a minute.",
+              "TL": "Nakuha ang mensahe nang malinaw. Bigyan mo ako ng sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard that. Give me a beat to think.",
+              "TL": "Narinig ko 'yon. Bigyan mo ako ng oras para mag-isip."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard. That's a lot to process right now.",
+              "TL": "Narinig. Napakabigat iproseso niyan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard what you just proposed. Just hold up.",
+              "TL": "Narinig ko ang inalok mo. Teka lang muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got that. Let me gather my thoughts.",
+              "TL": "Nakuha 'yon. Tipunin ko muna ang isip ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard you. Don't rush me.",
+              "TL": "Narinig kita. Huwag mo akong madaliin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard every word. Give me some room.",
+              "TL": "Narinig ang bawat salita. Bigyan mo ako ng puwang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_sexual.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is a bold thing to say.",
+              "TL": "Matapang na bagay ang sabihin iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You don't waste time with subtlety, do you?",
+              "TL": "Di ka nagsasayang ng oras sa pahiwatig, 'no?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's about as blunt as it gets out here.",
+              "TL": "Kasing-prangka na 'yan ng kahit ano rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're taking quite a gamble saying that.",
+              "TL": "Malaking sugal ang pagsasabi niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's an audacious thing to drop on me.",
+              "TL": "Napakapangahas na bagay ang ibagsak sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You definitely speak your mind without filters.",
+              "TL": "Nagsasalita ka talaga nang walang preno."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bold proposition. Let's see what happens.",
+              "TL": "Matapang na alok. Tingnan natin ang mangyayari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That takes some serious nerve to put out there.",
+              "TL": "Nangangailangan ng tunay na tapang para ilatag 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're playing with high stakes with that talk.",
+              "TL": "Naglalaro ka sa mataas na pustahan sa salitang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Direct and daring. Noted.",
+              "TL": "Diretso at mapangahas. Tala ko na."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

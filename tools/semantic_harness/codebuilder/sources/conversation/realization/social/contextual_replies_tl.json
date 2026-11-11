@@ -1,0 +1,52 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "realization",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans contextual replies",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "realizations": [
+    {
+      "id": "construction.tl.social.contextual_accept",
+      "type": "construction",
+      "locale": "TL",
+      "strategy": "ACCEPT",
+      "dialogueAct": "ACCEPT",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Oo, pumapayag ako."
+        }
+      ]
+    },
+    {
+      "id": "construction.tl.social.contextual_refuse",
+      "type": "construction",
+      "locale": "TL",
+      "strategy": "REFUSE",
+      "dialogueAct": "REFUSE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Hindi, salamat na lang."
+        }
+      ]
+    },
+    {
+      "id": "construction.tl.social.contextual_thank",
+      "type": "construction",
+      "locale": "TL",
+      "strategy": "THANK",
+      "dialogueAct": "THANK",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Salamat."
+        }
+      ]
+    }
+  ]
+}

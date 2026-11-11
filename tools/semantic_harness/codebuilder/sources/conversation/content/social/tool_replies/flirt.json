@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.flirt.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Careful. You are making me smile.",
+              "TL": "Dahan-dahan. Napapangiti mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch it. You might actually make me blush.",
+              "TL": "Mag-ingat ka. Baka mamula ako niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are playing with fire, you know that?",
+              "TL": "Naglalaro ka sa apoy, alam mo ba 'yon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Do not start something you cannot finish.",
+              "TL": "Huwag kang magsimula ng hindi mo kayang tapusin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You certainly know how to talk.",
+              "TL": "Marunong ka talagang magsalita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Is that your charm talking or the apocalypse?",
+              "TL": "Diskarte mo ba 'yan o dahil sa katapusan ng mundo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are smooth. I will give you that.",
+              "TL": "Malaman kang bumanat, aaminin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Save some of that charm for later.",
+              "TL": "Itabi mo ang ilan sa mga pambobola mo mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Careful now. People are watching.",
+              "TL": "Dahan-dahan. May mga nakatingin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have a way with words.",
+              "TL": "May galing ka talaga sa pananalita."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.flirt.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You always know how to get my attention.",
+              "TL": "Alam mo talaga kung paano kukunin ang pansin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Well, you definitely have my full attention now.",
+              "TL": "Nakuha mo nang buo ang atensyon ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You do that on purpose, do you not?",
+              "TL": "Sinasadya mo 'yan, hindi ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You know exactly what you are doing.",
+              "TL": "Alam na alam mo ang ginagawa mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was trying to focus, but you made that hard.",
+              "TL": "Sinisikap kong magpokus, pero pinapahirapan mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You caught my ear with that one.",
+              "TL": "Nakuha mo ako sa linyang 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You never miss a chance to turn heads, do you?",
+              "TL": "Hindi mo pinapalampas ang pagkakataong magpapansin, 'no?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am listening. What else do you have?",
+              "TL": "Nakikinig ako. Ano pa ang sasabihin mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You always manage to pull my focus your way.",
+              "TL": "Lagi mong nahahatak ang tingin ko papunta sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right, you got my eyes on you.",
+              "TL": "Sige na, nasa sa 'yo na ang tingin ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.flirt.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is a dangerous thing to say to me.",
+              "TL": "Mapanganib na bagay ang sabihin 'yan sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are taking a big risk talking like that.",
+              "TL": "Malaking sugal ang magsalita ka nang ganyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Be careful what you wish for.",
+              "TL": "Mag-ingat ka sa mga hinihiling mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You like living on the edge, do not you?",
+              "TL": "Gusto mo talagang sumugal sa delikado, 'no?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Do not tease me unless you mean it.",
+              "TL": "Huwag mo akong biruin kung hindi mo kayang panindigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That kind of talk gets people into trouble.",
+              "TL": "Ang ganyang salitaan ay nagdadala ng gulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bold words for someone within arm's reach.",
+              "TL": "Matapang na salita para sa taong abot-kamay lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep talking like that and we will see.",
+              "TL": "Ipagpatuloy mo 'yan at tingnan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are walking a very thin line.",
+              "TL": "Napakakitid ng nilalakaran mong linya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dangerous words. But I like the confidence.",
+              "TL": "Delikadong salita. Pero gusto ko ang lakas ng loob mo."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

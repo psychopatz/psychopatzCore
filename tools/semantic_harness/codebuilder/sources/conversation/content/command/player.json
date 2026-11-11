@@ -1,0 +1,292 @@
+{
+  "domain": "command",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.attack_auto",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "{name}, use your best judgment.",
+              "TL": "{name}, gamitin ang iyong pasya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "{name}, handle threats as you see fit.",
+              "TL": "{name}, harapin ang banta ayon sa iyong pasya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch our backs, {name}.",
+              "TL": "Bantayan mo kami, {name}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.attack_melee",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "{name}, keep it close.",
+              "TL": "{name}, lumaban nang malapitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take the front line, {name}.",
+              "TL": "Ikaw sa unahan, {name}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "{name}, save your ammunition.",
+              "TL": "{name}, itabi ang bala."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.attack_none",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "{name}, stay out of the fight.",
+              "TL": "{name}, huwag sumali sa laban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Avoid trouble, {name}.",
+              "TL": "Iwasan ang gulo, {name}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "{name}, don't engage unless I change the order.",
+              "TL": "{name}, huwag lumaban hangga't hindi ko binabago ang utos."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.attack_ranged",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "{name}, keep your distance.",
+              "TL": "{name}, panatilihin ang distansya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give us ranged cover, {name}.",
+              "TL": "Takpan kami mula sa malayo, {name}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "{name}, engage from a safe distance.",
+              "TL": "{name}, lumaban mula sa ligtas na layo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.camp",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Make camp here, {names}.",
+              "TL": "Magkampo tayo rito, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Settle in here, {names}.",
+              "TL": "Manatili tayo rito, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll camp here for now, {names}.",
+              "TL": "Magkakampo muna tayo rito, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We could make camp here, {names}.",
+              "TL": "Maaari tayong magkampo rito, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's make this our camp, {names}.",
+              "TL": "Gawin nating kampo ito, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.camp_none",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "...",
+              "TL": "..."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.camp_rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't find a safe room or campfire nearby.",
+              "TL": "Wala akong makitang ligtas na silid o apoy dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We need a nearby room or campfire before we make camp.",
+              "TL": "Kailangan natin ng malapit na silid o apoy bago magkampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No usable camp site is visible from here.",
+              "TL": "Walang angkop na lugar ng kampo rito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.follow",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "{names}, on me.",
+              "TL": "{names}, sumunod kayo sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay close, {names}.",
+              "TL": "Manatili kayong malapit, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "{names}, let's move.",
+              "TL": "{names}, umalis na tayo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.generic",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Understood, {names}.",
+              "TL": "Naiintindihan ko, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.return_home",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "{names}, head home.",
+              "TL": "{names}, umuwi na kayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Return to the base, {names}.",
+              "TL": "Bumalik sa base, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "{names}, get back home safely.",
+              "TL": "{names}, ligtas na umuwi, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.player.stay",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "{names}, wait here.",
+              "TL": "{names}, maghintay kayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold this position, {names}.",
+              "TL": "Panatilihin ang posisyon, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "{names}, stay put for now.",
+              "TL": "{names}, manatili muna rito."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

@@ -1,0 +1,101 @@
+{
+  "cases": [
+    {
+      "expected": {
+        "firstSemanticKey": "semantic.flow.greeting.opening.default",
+        "maxActions": 0
+      },
+      "label": "Greeting opening EN",
+      "language": "EN",
+      "utterance": "hello"
+    },
+    {
+      "expected": {
+        "firstSemanticKey": "semantic.flow.greeting.opening.default",
+        "maxActions": 0,
+        "maxFallbackLookups": 0
+      },
+      "label": "Greeting opening TL",
+      "language": "TL",
+      "utterance": "hello"
+    },
+    {
+      "expected": {
+        "firstSemanticKey": "semantic.flow.greeting.opening.rain",
+        "maxActions": 0
+      },
+      "label": "Rain greeting EN",
+      "language": "EN",
+      "scenario": {
+        "world": {
+          "weather": "rain"
+        }
+      },
+      "utterance": "hello"
+    },
+    {
+      "expected": {
+        "firstSemanticKey": "semantic.flow.greeting.opening.rain",
+        "maxActions": 0,
+        "maxFallbackLookups": 0
+      },
+      "label": "Rain greeting TL",
+      "language": "TL",
+      "scenario": {
+        "world": {
+          "weather": "rain"
+        }
+      },
+      "utterance": "hello"
+    },
+    {
+      "expected": {
+        "lastKeyPrefix": "semantic.question.identity.",
+        "maxActions": 0
+      },
+      "label": "Unknown identity EN",
+      "language": "EN",
+      "scenario": {
+        "npc": {
+          "name": ""
+        }
+      },
+      "utterance": "what is your name"
+    },
+    {
+      "expected": {
+        "lastKeyPrefix": "semantic.question.identity.",
+        "maxActions": 0
+      },
+      "label": "Unknown identity TL",
+      "language": "TL",
+      "scenario": {
+        "npc": {
+          "name": ""
+        }
+      },
+      "utterance": "what is your name"
+    },
+    {
+      "expected": {
+        "accepted": true,
+        "lastKey": "semantic.command.follow.queued",
+        "minActions": 1
+      },
+      "label": "Companion Follow EN",
+      "language": "EN",
+      "utterance": "follow me"
+    },
+    {
+      "expected": {
+        "lastKey": "semantic.command.follow.queued",
+        "maxFallbackLookups": 0,
+        "minActions": 1,
+        "textContains": "Sige, susundan kita."
+      },
+      "label": "Companion Follow TL localized",
+      "language": "TL",
+      "utterance": "follow me"
+    }
+  ]
+}

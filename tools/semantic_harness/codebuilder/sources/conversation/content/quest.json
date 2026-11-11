@@ -1,0 +1,835 @@
+{
+  "domain": "quest",
+  "groups": {
+    "quest": {
+      "contentOwner": "projecthoomans.dialogue_content.quest"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.accept.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't accept that request.",
+              "TL": "Hindi ko matanggap ang kahilingang iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Something went wrong. I couldn't take that on.",
+              "TL": "May nagkaproblema. Hindi ko magawang tanggapin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I wasn't able to accept the clinic supply run.",
+              "TL": "Hindi ko nagawang tanggapin ang pagkuha ng suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to commit to that medical task right now.",
+              "TL": "Hindi makakapangako sa medikal na gawaing 'yan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The request failed to go through on my end.",
+              "TL": "Hindi pumasok ang kahilingan sa panig ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't lock that clinic mission in.",
+              "TL": "Hindi ko maitalaga ang misyong 'yan sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't confirm that request. Try again later.",
+              "TL": "Hindi makumpirma ang kahilingang 'yan. Subukan ulit mamaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Accepting that task didn't work out.",
+              "TL": "Hindi nagtagumpay ang pagtanggap sa gawaing 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I couldn't take on the supplies task right now.",
+              "TL": "Hindi ko kayang balikatin ang gawain sa suplay ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That request couldn't be accepted.",
+              "TL": "Hindi natanggap ang kahilingang iyon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.accept.queued",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll bring the clinic supplies.",
+              "TL": "Dadalahin ko ang mga suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I've got the clinic supply run on my list.",
+              "TL": "Nasa listahan ko na ang pagkuha ng suplay para sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll gather the medical gear as soon as I can.",
+              "TL": "Kukunin ko ang mga gamot sa lalong madaling panahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Count on me for the clinic supplies.",
+              "TL": "Asahan mo ako sa mga suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll track down those medical items for you.",
+              "TL": "Hahanapin ko ang mga gamot na 'yon para sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Queued up. I'll secure those clinic supplies.",
+              "TL": "Nakalista na. Kukunin ko ang mga suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm on it. I'll deliver the clinic supplies.",
+              "TL": "Ako na bahala. Ihahatid ko ang mga suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Medical supplies are queued. I'll get them.",
+              "TL": "Nakatala na ang mga medikal na suplay. Kukunin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll fetch what the clinic needs.",
+              "TL": "Kukunin ko kung ano ang kailangan ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Accepted. I'll bring back those clinic supplies.",
+              "TL": "Tinanggap ko na. Dadalhin ko pabalik ang mga suplay sa klinika."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.accept.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't accept that request right now.",
+              "TL": "Hindi ko matatanggap ang kahilingang iyon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not in a position to take that on.",
+              "TL": "Wala ako sa posisyong balikatin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too much on my plate. Can't accept the clinic run.",
+              "TL": "Masyado akong maraming ginagawa. Hindi ko matatanggap ang klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not right now. I have to pass on that request.",
+              "TL": "Hindi muna ngayon. Tatanggihan ko muna ang kahilingang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't commit to gathering clinic supplies today.",
+              "TL": "Hindi ako makakapangakong mag-ipon ng suplay sa klinika ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have to turn that down for now.",
+              "TL": "Kailangan ko munang tanggihan 'yan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't help with the clinic run at the moment.",
+              "TL": "Hindi makakatulong sa klinika sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't be taking that request.",
+              "TL": "Hindi ko tatanggapin ang kahilingang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sorry, I can't agree to that right now.",
+              "TL": "Pasensya na, hindi ako makakapayag diyan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I must decline that medical supply task.",
+              "TL": "Kailangan kong tanggihan ang gawaing medikal na 'yan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.offer.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't check that clinic-supplies request.",
+              "TL": "Hindi ko masuri ang kahilingan para sa suplay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to look over the clinic supply offer.",
+              "TL": "Hindi ko masilip ang alok sa suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The offer couldn't be processed.",
+              "TL": "Hindi maproseso ang alok na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Something went wrong while checking the medical offer.",
+              "TL": "May nagkaproblema habang sinusuri ang medikal na alok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't review the supplies request just now.",
+              "TL": "Hindi masuri ang kahilingan sa suplay ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I couldn't verify that clinic offer.",
+              "TL": "Hindi ko makumpirma ang alok na 'yon sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to inspect the clinic supplies details.",
+              "TL": "Bigo sa pagsusuri ng detalye ng suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I wasn't able to review that request.",
+              "TL": "Hindi ko nasuri ang kahilingang iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Could not check the medical offer properly.",
+              "TL": "Hindi maayos na nasuri ang medikal na alok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Checking that offer didn't work out.",
+              "TL": "Hindi gumana ang pagsusuri sa alok na 'yon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.offer.queued",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can help with the clinic supplies.",
+              "TL": "Matutulungan kita sa mga suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm ready to lend a hand with those medical goods.",
+              "TL": "Handa akong tumulong sa mga medikal na gamit na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Put me down for the clinic supply run.",
+              "TL": "Ilista mo ako para sa pagkuha ng suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm available to help gather medical gear.",
+              "TL": "Available ako para tumulong mag-ipon ng gamot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can assist with securing what the clinic needs.",
+              "TL": "Makatutulong ako sa pagkuha ng kailangan ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Count me in for the clinic supplies.",
+              "TL": "Isama mo ako sa suplay para sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll pitch in on that medical supply run.",
+              "TL": "Tutulong ako sa pagkuha ng medikal na suplay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can offer my help for the clinic task.",
+              "TL": "Maaari kong ialok ang tulong ko sa gawaing ito sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad to help get those supplies to the clinic.",
+              "TL": "Masaya akong makatulong maihatid ang mga suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can take on part of that clinic effort.",
+              "TL": "Kaya kong gampanan ang bahagi ng gawaing 'yan sa klinika."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.offer.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't take that clinic-supplies request right now.",
+              "TL": "Hindi ko matatanggap ang kahilingan para sa suplay ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have to turn down the clinic offer for now.",
+              "TL": "Kailangan kong tanggihan ang alok sa klinika sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not able to help with medical supplies today.",
+              "TL": "Hindi makakatulong sa mga medikal na suplay ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't sign up for that clinic mission.",
+              "TL": "Hindi ako makakasali sa misyong 'yan sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Must decline the clinic supplies offer.",
+              "TL": "Kailangang tanggihan ang alok na suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't accept the offer at this time.",
+              "TL": "Hindi ko matatanggap ang alok sa panahong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Medical supply run isn't something I can do now.",
+              "TL": "Hindi ko kayang gawin ang pagkuha ng medikal na suplay ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll have to pass on this clinic offer.",
+              "TL": "Lalagpasan ko muna ang alok na 'to para sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't take on the medical task right now.",
+              "TL": "Hindi maaring hawakan ang medikal na gawain ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I must reject that offer for the moment.",
+              "TL": "Kailangan kong tanggihan ang alok na 'yan sa sandaling ito."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.status.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't check that request.",
+              "TL": "Hindi ko masuri ang kahilingang iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to verify the status of the clinic supplies.",
+              "TL": "Hindi ko makumpirma ang katayuan ng mga suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Status check on the medical supplies failed.",
+              "TL": "Bigo ang pagsusuri sa katayuan ng mga suplay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't retrieve the clinic quest details.",
+              "TL": "Hindi makuha ang mga detalye ng misyon sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I wasn't able to inspect the request status.",
+              "TL": "Hindi ko nasuri ang katayuan ng kahilingan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to look up where we stand on clinic supplies.",
+              "TL": "Bigo sa pagtingin sa katayuan ng suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't confirm progress on that task.",
+              "TL": "Hindi makumpirma ang progreso sa gawaing 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to check our clinic supplies progress.",
+              "TL": "Hindi masuri ang progreso natin sa suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Checking that request didn't go through.",
+              "TL": "Hindi natuloy ang pagsusuri sa kahilingang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't get a status read on the medical run.",
+              "TL": "Hindi makakuha ng ulat sa medikal na lakad."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.status.queued",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll check the clinic-supplies request.",
+              "TL": "Susuriin ko ang kahilingan para sa suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll see how we're doing on those medical supplies.",
+              "TL": "Titingnan ko kung kamusta na ang mga medikal na suplay natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Checking our progress on the clinic gear now.",
+              "TL": "Sinusuri na ang progreso natin sa gamot para sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll look into the status of the clinic task.",
+              "TL": "Sisiyasatin ko ang katayuan ng gawain sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Reviewing where we stand with the clinic supplies.",
+              "TL": "Sinusuri kung nasaan na tayo sa mga suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll pull up the clinic supply checklist.",
+              "TL": "Kukunin ko ang listahan ng suplay para sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let me verify our clinic supplies count.",
+              "TL": "Hayaan mong kumpirmahin ko ang bilang ng suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm checking the medical supplies progress.",
+              "TL": "Sinusuri ko ang progreso ng mga medikal na suplay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll inspect the clinic supplies status for you.",
+              "TL": "Titingnan ko ang katayuan ng suplay sa klinika para sa'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Looking into the clinic request right now.",
+              "TL": "Sinisiyasat ko na ang kahilingan ng klinika ngayon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.status.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't check that request right now.",
+              "TL": "Hindi ko masuri ang kahilingang iyon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too busy to review the clinic task status.",
+              "TL": "Masyadong abala para suriin ang katayuan ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't inspect the medical supplies list at the moment.",
+              "TL": "Hindi masisilip ang listahan ng suplay sa sandaling ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not able to pull up that status right now.",
+              "TL": "Hindi ko mabuksan ang katayuang 'yan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't be checking that request today.",
+              "TL": "Hindi ko susuriin ang kahilingang 'yan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have to decline looking into the status now.",
+              "TL": "Kailangan kong tanggihan ang pagsilip sa katayuan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't check the clinic supplies progress right now.",
+              "TL": "Hindi masusuri ang progreso ng suplay sa klinika ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to review the request at this time.",
+              "TL": "Hindi magagawang suriin ang kahilingan sa oras na 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't follow up on that clinic task currently.",
+              "TL": "Hindi ko matututukan ang gawaing 'yan sa klinika sa kasalukuyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not checking clinic status now. Ask later.",
+              "TL": "Hindi titingnan ang katayuan sa klinika ngayon. Magtanong mamaya."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.turn_in.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't turn in the clinic supplies.",
+              "TL": "Hindi ko maipasa ang mga suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Something went wrong handing over the medical gear.",
+              "TL": "May nagkaproblema sa pag-abot ng mga medikal na gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Turn-in failed. Check if we have every item.",
+              "TL": "Bigo ang pagpasa. Tignan kung kumpleto ang bawat gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to complete the clinic supply delivery.",
+              "TL": "Hindi makumpleto ang paghahatid ng suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I wasn't able to drop off the clinic supplies.",
+              "TL": "Hindi ko naibigay ang mga suplay para sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to hand in the requested medical items.",
+              "TL": "Bigo sa pagpasa ng hinihiling na medikal na kagamitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't finalize the clinic supplies handover.",
+              "TL": "Hindi matapos ang paglilipat ng suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Delivery of clinic goods couldn't be registered.",
+              "TL": "Hindi naitala ang paghahatid ng gamit sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Could not complete the turn-in for the clinic.",
+              "TL": "Hindi makumpleto ang pagpasa para sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Turn-in was unsuccessful. Try again.",
+              "TL": "Hindi nagtagumpay ang pagpasa. Subukan ulit."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.turn_in.queued",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll turn in the clinic supplies.",
+              "TL": "Ipapasa ko ang mga suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm heading over to drop off the medical items.",
+              "TL": "Pupunta na ako para iabot ang mga medikal na gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll deliver the clinic supplies right away.",
+              "TL": "Ihahatid ko agad ang mga suplay ng klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Queued to hand over the medical gear.",
+              "TL": "Nakatakdang iabot ang mga medikal na gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will submit the clinic supplies now.",
+              "TL": "Ipapasa ko na ang mga suplay sa klinika ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Taking these supplies over to the clinic station.",
+              "TL": "Dadalhin ko na ang mga suplay na 'to sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll deposit the medical items as requested.",
+              "TL": "Ilalagak ko ang mga medikal na gamit tulad ng hiniling."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handing in the clinic goods now.",
+              "TL": "Iniaabot ko na ang mga gamit sa klinika ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll complete the delivery of the clinic supplies.",
+              "TL": "Tatapusin ko ang paghahatid ng suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Off to turn in our gathered clinic supplies.",
+              "TL": "Aalis na para ipasa ang naipon nating suplay sa klinika."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "quest",
+      "semanticTemplateID": "semantic.quest.clinic_supplies.turn_in.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't turn that in yet.",
+              "TL": "Hindi ko pa maipapasa iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We don't have everything needed for the clinic yet.",
+              "TL": "Wala pa sa atin ang lahat ng kailangan para sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Supplies aren't complete. Can't hand them over.",
+              "TL": "Kulang pa ang mga suplay. Hindi pa pwedeng iabot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have to decline turning this in right now.",
+              "TL": "Kailangan kong tanggihan ang pagpasa nito ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not ready for turn-in. Missing items.",
+              "TL": "Hindi pa handa sa pagpasa. May kulang na gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't drop these off yet. Double-check our pack.",
+              "TL": "Hindi pa maibibigay 'to. Tignan ulit ang bag natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't turn in an incomplete medical bundle.",
+              "TL": "Hindi ako magpapasa ng kulang na medikal na gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on, we can't submit these clinic supplies yet.",
+              "TL": "Sandali, hindi pa natin maipapasa ang mga suplay sa klinika."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Delivery cannot be accepted until all items are present.",
+              "TL": "Hindi matatanggap ang hatid hangga't kulang ang mga gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't finalize the clinic hand-in at this stage.",
+              "TL": "Hindi matatapos ang pagpasa sa klinika sa yugtong ito."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

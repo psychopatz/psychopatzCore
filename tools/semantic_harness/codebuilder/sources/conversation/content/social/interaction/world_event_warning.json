@@ -1,0 +1,273 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "content",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction Content",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.world_event.warning",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Heads up. Something's wrong out there.",
+              "TL": "Mag-ingat. May mali sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look alive. The situation outside is shifting.",
+              "TL": "Maging alerto. Nagbabago ang sitwasyon sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pay attention. We have unexpected movement outside.",
+              "TL": "Makinig ka. May di-inaasahang galaw sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Warning. Something big is happening nearby.",
+              "TL": "Babala. May malaking nangyayari sa malapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heads up, everyone. Check your gear.",
+              "TL": "Mag-ingat ang lahat. Suriin ang mga gamit niyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Listen close. An event is unfolding out there.",
+              "TL": "Makinig nang mabuti. May kaganapan sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Alert. We need to be ready for trouble.",
+              "TL": "Alerto. Kailangan nating maging handa sa gulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your eyes open. That sound wasn't normal.",
+              "TL": "Buksan ang mga mata. Hindi karaniwan ang tunog na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay sharp. The perimeter is showing activity.",
+              "TL": "Maging alerto. May aktibidad sa paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heads up. Let's not get caught unprepared.",
+              "TL": "Mag-ingat. Huwag tayong mahuling walang paghahanda."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Stay close. Something's wrong out there.",
+              "TL": "Manatili kang malapit. May mali sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stick by me, friend. We have trouble brewing outside.",
+              "TL": "Dumikit ka sa akin, kaibigan. May namumuong gulo sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't wander off. Something bad is moving out there.",
+              "TL": "Huwag kang lalayo. May masamang gumagalaw sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep close and stay low. I'll protect you.",
+              "TL": "Manatiling malapit at yumuko. Poprotektahan kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey, stay behind me until we know what that was.",
+              "TL": "Huy, manatili ka sa likod ko hanggang malaman natin 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Careful, everyone! Let's look out for one another.",
+              "TL": "Mag-ingat ang lahat! Magbantayan tayo sa isa't isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on to each other. Danger is nearby.",
+              "TL": "Kumapit sa isa't isa. Malapit lang ang panganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay safe by my side. Trouble is coming.",
+              "TL": "Manatiling ligtas sa tabi ko. Parating ang panganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heads up, partner. Whatever happens, we stick together.",
+              "TL": "Mag-ingat, kasama. Anuman ang mangyari, sama-sama tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep close. I don't want anyone getting separated.",
+              "TL": "Dumikit ka. Ayokong may mahiwalay sa atin."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Heads up!",
+              "TL": "Mag-ingat!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Incoming!",
+              "TL": "Paparating!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Danger!",
+              "TL": "Panganib!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look out!",
+              "TL": "Mag-ingat ka!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Alert!",
+              "TL": "Alerto!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Listen!",
+              "TL": "Makinig!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trouble!",
+              "TL": "Gulo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready weapons!",
+              "TL": "Ihanda ang armas!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Movement!",
+              "TL": "May gumagalaw!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cover!",
+              "TL": "Magtago!"
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Stay sharp. We've got trouble.",
+              "TL": "Mag-ingat ka. May problema tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Weapons drawn, now. Danger outside.",
+              "TL": "Ibunot ang armas, ngayon na. May panganib sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Shut up and listen. Something is coming.",
+              "TL": "Tumahimik at makinig. May paparating."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lock the doors and watch every angle.",
+              "TL": "Ikandado ang pinto at bantayan ang bawat sulok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If it moves through that entrance, put it down.",
+              "TL": "Kapag may gumalaw sa lagusang 'yan, patumbahin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trouble's coming. Don't freeze up on me.",
+              "TL": "Parating ang gulo. Huwag kang tatanga-tanga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Get into defensive positions immediately.",
+              "TL": "Pumwesto sa depensa agad-agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep quiet. You don't want to draw them here.",
+              "TL": "Manahimik ka. Ayaw mong maakit sila rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat incoming. Expect the worst.",
+              "TL": "Banta parating. Asahan ang pinakamasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eyes on the perimeter. Shoot on sight.",
+              "TL": "Bantayan ang paligid. Barilin agad kapag nakita."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": []
+}

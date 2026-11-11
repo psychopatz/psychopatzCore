@@ -1,32 +1,40 @@
-"""Executable Core Semantic Harness application."""
+"""Tkinter chat UI and CLI for the real-Lua semantic dialogue harness."""
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
 from typing import Sequence
 
-from .cli import AUTHORING_OPERATIONS, CLI_OPERATIONS, _parser, cli
-from .process import install_shutdown_handler
-from .testing.doctor import run_doctor
+if __package__ in {None, ""}:
+    # Preserve direct ``python tools/semantic_harness/app.py`` execution.
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    from tools.semantic_harness.cli import AUTHORING_OPERATIONS, CLI_OPERATIONS, _parser, cli
+    from tools.semantic_harness.testing.doctor import run_doctor
+    from tools.semantic_harness.ui.shell import SemanticHarnessApp, run_gui
+    from tools.semantic_harness.process import install_shutdown_handler
+    from tools.semantic_harness.inspection.rendering import pretty, print_result as _print_result
+else:
+    from .cli import AUTHORING_OPERATIONS, CLI_OPERATIONS, _parser, cli
+    from tools.semantic_harness.testing.doctor import run_doctor
+    from .ui.shell import SemanticHarnessApp, run_gui
+    from tools.semantic_harness.process import install_shutdown_handler
+    from tools.semantic_harness.inspection.rendering import pretty, print_result as _print_result
 
 
 def _should_run_cli(arguments: object) -> bool:
-    """Select headless mode only when an operation was actually requested.
-
-    The original Project Hoomans harness opened its Tk UI for a bare
-    ``run_harness.sh`` invocation.  Keep that file-manager-friendly default
-    while preserving explicit CLI and diagnostic operations as headless.
-    """
-
     if getattr(arguments, "no_gui", False):
         return True
-    operations = (
-        *AUTHORING_OPERATIONS,
-        *CLI_OPERATIONS,
-        "list_mods",
-        "list_presets",
-        "show_selection",
+    return any(
+        getattr(arguments, operation, None)
+        for operation in (
+            *AUTHORING_OPERATIONS,
+            *CLI_OPERATIONS,
+            "list_mods",
+            "list_presets",
+            "show_selection",
+        )
     )
-    return any(getattr(arguments, operation, None) for operation in operations)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -36,15 +44,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         return run_doctor(
             repository=arguments.repository,
             core_repository=arguments.core_repository,
-            dynamic_trading_repository=arguments.dynamic_trading_repository,
-            provider_roots=tuple(arguments.provider_root or ()),
+            dynamic_trading_repository=getattr(arguments, "dynamic_trading_repository", None),
+            provider_roots=tuple(getattr(arguments, "provider_root", None) or ()),
             mods=tuple(
                 item.strip()
-                for value in (arguments.mods or ())
+                for value in (getattr(arguments, "mods", None) or ())
                 for item in str(value).split(",")
                 if item.strip()
             ) or None,
-            preset=arguments.preset,
+            preset=getattr(arguments, "preset", None),
             lua_bin=arguments.lua,
             profile=arguments.profile,
             startup_timeout=arguments.startup_timeout,
@@ -53,9 +61,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
     if not arguments.gui and _should_run_cli(arguments):
         return cli(arguments)
-
-    from .ui.shell import run_gui
-
     return run_gui(arguments)
 
 

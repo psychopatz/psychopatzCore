@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_compliment.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I heard the compliment.",
+              "TL": "Narinig ko ang papuri."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got the compliment. Thanks.",
+              "TL": "Nakuha ko ang papuri. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard what you said about me.",
+              "TL": "Narinig ko ang sinabi mo tungkol sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Compliment registered.",
+              "TL": "Naitala ang papuri."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard the kind remark.",
+              "TL": "Narinig ko ang magandang puna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard your compliment loud and clear.",
+              "TL": "Narinig ang papuri mo nang malakas at malinaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I caught that praise. Thanks.",
+              "TL": "Nakuha ko ang papuring 'yon. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Compliment received.",
+              "TL": "Natanggap ang papuri."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard that. Appreciate it.",
+              "TL": "Narinig ko 'yon. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard your good words.",
+              "TL": "Narinig ang mabubuti mong salita."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_compliment.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is kind of you to say.",
+              "TL": "Mabait sa 'yo ang magsabi niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you for the kind thought.",
+              "TL": "Salamat sa magandang kaisipan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate the polite compliment.",
+              "TL": "Salamat sa magalang na papuri."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's generous of you to mention.",
+              "TL": "Mabuti sa 'yo ang banggitin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm grateful for the compliment.",
+              "TL": "Nagpapasalamat ako sa papuri."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good of you to say so.",
+              "TL": "Mabuti at sinabi mo 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. I try my best.",
+              "TL": "Salamat. Ginagawa ko ang buong makakaya ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you for noticing.",
+              "TL": "Salamat sa pagpansin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Kind words are always welcome.",
+              "TL": "Laging malugod na tinatanggap ang magagandang salita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's very nice of you.",
+              "TL": "Napakabait mo naman."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

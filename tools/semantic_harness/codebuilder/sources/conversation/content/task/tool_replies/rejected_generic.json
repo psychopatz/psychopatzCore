@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.rejected_generic.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That did not land well.",
+              "TL": "Hindi naging maganda ang dating niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That went over poorly.",
+              "TL": "Pangit ang naging dating niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That didn't work out.",
+              "TL": "Hindi naging maayos 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That was not well received.",
+              "TL": "Hindi maganda ang pagtanggap diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You miscalculated that one.",
+              "TL": "Nagkamali ka sa kalkulasyon doon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That completely backfired.",
+              "TL": "Bumalik sa 'yo ang epekto niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not a good approach.",
+              "TL": "Hindi magandang paraan 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That fell flat on its face.",
+              "TL": "Bumagsak lang 'yan nang kusa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That missed completely.",
+              "TL": "Sumablay nang buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That was a mistake.",
+              "TL": "Isang pagkakamali 'yon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.rejected_generic.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I am not taking that from you right now.",
+              "TL": "Hindi ko tatanggapin iyan mula sa iyo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not in the mood for that kind of talk.",
+              "TL": "Wala ako sa mood para sa ganyang usapan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm rejecting that completely.",
+              "TL": "Tinatanggihan ko 'yan nang buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You can keep that nonsense to yourself.",
+              "TL": "Itago mo sa sarili mo ang kalokohang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not putting up with that today.",
+              "TL": "Di ko pagtitiisan 'yan ngayong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not taking that. Walk it back.",
+              "TL": "Di tatanggapin 'yan. Bawiin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I refuse to engage with that.",
+              "TL": "Tumatanggi akong makipag-usap tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm shutting that down immediately.",
+              "TL": "Papatayin ko agad ang usapang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not tolerating that right now.",
+              "TL": "Di ko palalampasin 'yan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not accepting that from you.",
+              "TL": "Hindi ko tatanggapin 'yan galing sa 'yo."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

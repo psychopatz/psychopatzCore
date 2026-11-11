@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.romantic.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Careful. You are making me smile.",
+              "TL": "Dahan-dahan. Napapangiti mo ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have a sweet way of making this ruined world bearable.",
+              "TL": "May paraan ka para gawing magaan ang sirang mundong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I did not think romance still existed out here. Thanks.",
+              "TL": "Hindi ko akalaing may puwang pa ang pag-ibig dito. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You always manage to soften my defenses.",
+              "TL": "Lagi mong napapalambot ang mga pader sa puso ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It is nice having someone look at me like that.",
+              "TL": "Masarap sa pakiramdam na may tumitingin sa akin nang ganyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You make my heart beat faster, and not from running.",
+              "TL": "Pinapabilis mo ang tibok ng puso ko, at hindi dahil sa pagtakbo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am not used to feeling this way anymore. But I like it.",
+              "TL": "Hindi na ako sanay sa ganitong pakiramdam. Pero gusto ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You make the dark days feel a little warmer.",
+              "TL": "Pinapainit mo ang malamig at madilim na mga araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep looking at me like that and see what happens.",
+              "TL": "Tingnan mo pa ako nang ganyan at tingnan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I cherish moments like this with you.",
+              "TL": "Iniingatan ko ang mga sandaling tulad nito kasama ka."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.romantic.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You always know how to get my attention.",
+              "TL": "Alam mo talaga kung paano kukunin ang pansin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "My eyes are always finding you in a crowd anyway.",
+              "TL": "Lagi naman kitang hinahanap ng paningin ko kahit saan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have had my attention for a while now.",
+              "TL": "Matagal mo nang nakuha ang atensyon ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You do not even have to try. I am already looking.",
+              "TL": "Hindi mo na kailangang magsikap. Nakatingin na ako sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There is nobody else I would rather have standing by me.",
+              "TL": "Wala nang ibang taong gugustuhin kong makatabi kundi ikaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have a hold on me, you know that right?",
+              "TL": "May hawak ka sa puso ko, alam mo 'yon diba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Whenever you speak, I listen.",
+              "TL": "Tuwing nagsasalita ka, nakikinig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You never have to fight for my attention.",
+              "TL": "Hindi mo kailangang ipaglaban ang pansin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am right here with you. Always.",
+              "TL": "Narito lang ako kasama mo. Palagi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have got me completely focused on you.",
+              "TL": "Nasa sa 'yo na ang buong atensyon ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.romantic.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is a dangerous thing to say to me.",
+              "TL": "Mapanganib na bagay ang sabihin 'yan sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You make me want things I thought were gone forever.",
+              "TL": "Pinapangarap mo sa akin ang mga bagay na akala ko'y nawala na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Caring about someone out here is terrifying. But worth it.",
+              "TL": "Nakakatakot magmahal sa mundong ito. Pero sulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Do not make promises this world will try to break.",
+              "TL": "Huwag kang mangako ng mga bagay na sisirain lang ng mundong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If we fall for each other, there is no going back.",
+              "TL": "Kapag nahulog tayo sa isa't isa, wala nang balikan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are making me vulnerable, and that scares me a little.",
+              "TL": "Pinaparamdam mo ang kahinaan ko, at medyo nakakatakot 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dangerous words. But I am not pulling away.",
+              "TL": "Mapanganib na salita. Pero hindi ako lumalayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have no idea what that does to my resolve.",
+              "TL": "Wala kang ideya kung paano niyan ginigiba ang tibay ng loob ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If you keep talking like that, I might just hold onto you.",
+              "TL": "Kung magpapatuloy ka sa ganyan, baka hindi na kita mabitawan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It is dangerous, yes. But I want to believe you.",
+              "TL": "Mapanganib, oo. Pero gusto kitang paniwalaan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

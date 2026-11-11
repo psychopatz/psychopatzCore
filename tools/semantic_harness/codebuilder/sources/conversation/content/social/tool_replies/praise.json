@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.praise.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Just doing what had to be done.",
+              "TL": "Ginawa ko lang kung ano ang kailangang gawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Anyone else would have done the same.",
+              "TL": "Kahit sino gagawin din ang ganoon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just doing my part to keep us alive.",
+              "TL": "Tungkulin ko lang para mapanatili tayong buhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad I could pull it off.",
+              "TL": "Mabuti at nagawa ko nang maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It was what the situation called for.",
+              "TL": "Iyon ang hiningi ng sitwasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No big deal. Just handling business.",
+              "TL": "Wala 'yon. Ginagawa lang ang trabaho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to help. We are in this together.",
+              "TL": "Masayang tumulong. Magkasama tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just glad it worked out in the end.",
+              "TL": "Mabuti na lang at naging maayos ang kinahinatnan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I did what I could. Thanks for noticing.",
+              "TL": "Ginawa ko ang kaya ko. Salamat sa pagpansin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All part of surviving another day.",
+              "TL": "Parte lang 'yan ng pagsisikap na mabuhay pa ng isang araw."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.praise.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Good. I was hoping you noticed.",
+              "TL": "Mabuti. Umasa nga akong mapapansin mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad to know the effort did not go overlooked.",
+              "TL": "Mabuti at hindi nawalang-bisa ang pagod ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It feels good to have that acknowledged.",
+              "TL": "Masarap sa pakiramdam na kinikilala 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I put sweat into that. Glad you caught it.",
+              "TL": "Pinagpawisan ko 'yon. Mabuti at nakita mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. It means a lot that you saw the work.",
+              "TL": "Salamat. Malaking bagay na nakita mo ang pinaghirapan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nice to have your approval on that.",
+              "TL": "Mabuting makuha ang pagsang-ayon mo roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I wanted to make sure it was done right.",
+              "TL": "Gusto kong matiyak na tama ang pagkakagawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. Recognition goes a long way.",
+              "TL": "Salamat. Malaking pampalakas ng loob ang pagkilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad my efforts are paying off for us.",
+              "TL": "Mabuti at nagbubunga ang pagod ko para sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to hear. I will keep at it.",
+              "TL": "Magandang marinig. Ipagpapatuloy ko 'yan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.praise.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is nice to hear from you.",
+              "TL": "Masarap marinig 'yan galing sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. Coming from you, that carries weight.",
+              "TL": "Salamat. Dahil galing sa 'yo, may bigat 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I respect your opinion, so thanks.",
+              "TL": "Iginagalang ko ang opinyon mo, kaya salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That gives me a solid boost. Thank you.",
+              "TL": "Nakapagbigay 'yan ng lakas sa akin. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate hearing that today.",
+              "TL": "Salamat at narinig ko 'yan ngayong araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Always good to know where I stand with you.",
+              "TL": "Laging magandang malaman kung ano ang tingin mo sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. That takes some of the strain off.",
+              "TL": "Salamat. Nabawasan ang pagod ko riyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am grateful for the praise.",
+              "TL": "Nagpapasalamat ako sa papuri."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. It is encouraging.",
+              "TL": "Salamat. Nakakapagpalakas ng loob."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Much appreciated. Let us keep winning.",
+              "TL": "Maraming salamat. Tuloy lang tayo sa tagumpay."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

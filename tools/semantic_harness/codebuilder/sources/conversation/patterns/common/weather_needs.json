@@ -1,0 +1,311 @@
+{
+  "domain": "common",
+  "kind": "patterns",
+  "patterns": [
+    {
+      "confidence": 0.99,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WEATHER"
+      },
+      "id": "pnc.dataset.question.weather.can_we_talk_about_the_weather",
+      "mapping": {
+        "canonicalConcept": "WEATHER",
+        "dialogueState": "WEATHER_TOPIC",
+        "sourceRefs": [
+          "MASSIVE",
+          "SGD"
+        ]
+      },
+      "negatives": [
+        "can we talk about weather"
+      ],
+      "priority": 165,
+      "reviewed": true,
+      "sourceRefs": [
+        "MASSIVE",
+        "SGD"
+      ],
+      "utterance": "can we talk about the weather"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WEATHER"
+      },
+      "id": "pnc.dataset.massive.weather.is_it_currently_snowing",
+      "mapping": {
+        "canonicalConcept": "WEATHER",
+        "dialogueState": "WEATHER_TOPIC",
+        "sourceRefs": [
+          "MASSIVE"
+        ]
+      },
+      "priority": 166,
+      "reviewed": true,
+      "sourceRefs": [
+        "MASSIVE"
+      ],
+      "utterance": "is it currently snowing"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WEATHER"
+      },
+      "id": "pnc.dataset.sgd.weather.how_is_the_weather_on_9th_of_march",
+      "mapping": {
+        "canonicalConcept": "WEATHER",
+        "dialogueState": "WEATHER_TOPIC",
+        "sourceRefs": [
+          "SGD"
+        ]
+      },
+      "priority": 166,
+      "reviewed": true,
+      "sourceRefs": [
+        "SGD"
+      ],
+      "utterance": "How is the weather on 9th of March?"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WEATHER"
+      },
+      "id": "pnc.dataset.massive.weather.what_is_the_weather_like",
+      "mapping": {
+        "canonicalConcept": "WEATHER",
+        "dialogueState": "WEATHER_TOPIC",
+        "sourceRefs": [
+          "MASSIVE"
+        ]
+      },
+      "match": [
+        {
+          "id": "WEATHER",
+          "kind": "concept"
+        },
+        {
+          "kind": "literal",
+          "value": "like"
+        }
+      ],
+      "negatives": [
+        "what is my weather like"
+      ],
+      "priority": 166,
+      "reviewed": true,
+      "sourceRefs": [
+        "MASSIVE"
+      ],
+      "utterance": "what is the weather like"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "intent": "QUESTION",
+        "speechAct": "QUESTION",
+        "subject": "WEATHER"
+      },
+      "id": "pnc.dataset.massive.weather.is_it_still_snowing",
+      "mapping": {
+        "canonicalConcept": "WEATHER",
+        "dialogueState": "WEATHER_TOPIC",
+        "sourceRefs": [
+          "MASSIVE"
+        ]
+      },
+      "negatives": [
+        "is it still snowing inside"
+      ],
+      "priority": 166,
+      "reviewed": true,
+      "sourceRefs": [
+        "MASSIVE"
+      ],
+      "utterance": "is it still snowing"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "dialogueFollowUp": "NEEDS_QUANTITY",
+          "topic": "NEEDS"
+        },
+        "intent": "CLARIFY",
+        "speechAct": "CLARIFY",
+        "subject": "NEEDS"
+      },
+      "id": "pnc.dataset.clarify.needs.which_item_do_you_mean",
+      "mapping": {
+        "canonicalConcept": "ANY_ITEM",
+        "dialogueState": "NEEDS_QUANTITY",
+        "sourceRefs": [
+          "MASSIVE",
+          "SGD"
+        ]
+      },
+      "negatives": [
+        "which items do you mean"
+      ],
+      "priority": 167,
+      "reviewed": true,
+      "sourceRefs": [
+        "MASSIVE",
+        "SGD"
+      ],
+      "utterance": "which item do you mean"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "dialogueFollowUp": "NEEDS_QUANTITY",
+          "topic": "NEEDS"
+        },
+        "intent": "CLARIFY",
+        "speechAct": "CLARIFY",
+        "subject": "NEEDS"
+      },
+      "id": "pnc.dataset.clarify.needs.what_item_do_you_mean",
+      "mapping": {
+        "canonicalConcept": "ANY_ITEM",
+        "dialogueState": "NEEDS_QUANTITY",
+        "sourceRefs": [
+          "MASSIVE",
+          "SGD"
+        ]
+      },
+      "negatives": [
+        "what items do you mean"
+      ],
+      "priority": 167,
+      "reviewed": true,
+      "sourceRefs": [
+        "MASSIVE",
+        "SGD"
+      ],
+      "utterance": "what item do you mean"
+    },
+    {
+      "confidence": 0.99,
+      "emit": {
+        "extensions": {
+          "dialogueFollowUp": "NEEDS_PROPOSAL",
+          "topic": "NEEDS"
+        },
+        "intent": "PROMISE",
+        "speechAct": "PROMISE",
+        "subject": "NEEDS"
+      },
+      "id": "pnc.dataset.promise.needs.i_ll_pick_some_up",
+      "mapping": {
+        "canonicalConcept": "FETCH",
+        "dialogueState": "NEEDS_PROPOSAL",
+        "sourceRefs": [
+          "WordNet 3.0",
+          "MASSIVE",
+          "SGD"
+        ]
+      },
+      "negatives": [
+        "i won't pick some up"
+      ],
+      "priority": 166,
+      "reviewed": true,
+      "sourceRefs": [
+        "WordNet 3.0",
+        "MASSIVE",
+        "SGD"
+      ],
+      "utterance": "i'll pick some up"
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "PsychopatzCore Common Interaction Seed",
+    "owner": "PsychopatzCore",
+    "references": [
+      {
+        "license": "ACL Anthology terms; metadata-only reference",
+        "name": "DailyDialog",
+        "reviewedOn": "2026-10-19",
+        "url": "https://aclanthology.org/I17-1099/",
+        "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "CC BY 4.0; metadata-only reference",
+        "name": "EmpatheticDialogues",
+        "reviewedOn": "2026-10-19",
+        "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+        "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "WordNet 3.0 license",
+        "name": "WordNet 3.0",
+        "reviewedOn": "2026-10-19",
+        "url": "https://wordnet.princeton.edu/",
+        "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY 4.0",
+        "name": "MASSIVE",
+        "recordRefs": [
+          {
+            "intent": "weather_query",
+            "locale": "en-US",
+            "partition": "train",
+            "recordID": "98"
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+        "sourceVersion": "1.0",
+        "url": "https://github.com/alexa/massive",
+        "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY-SA 4.0",
+        "name": "SGD",
+        "recordRefs": [
+          {
+            "dialogueID": "90_00031",
+            "intent": "GetWeather",
+            "service": "Weather_1",
+            "turn": 6
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+        "sourceVersion": "DSTC8 train",
+        "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+        "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      }
+    ],
+    "version": "1"
+  },
+  "version": 1
+}

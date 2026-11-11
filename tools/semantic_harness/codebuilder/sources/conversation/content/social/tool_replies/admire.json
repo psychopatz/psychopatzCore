@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.admire.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I appreciate that more than you know.",
+              "TL": "Mas pinahahalagahan ko iyan kaysa sa iniisip mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That means a great deal to me.",
+              "TL": "Malaking bagay iyan para sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. That means a lot out here.",
+              "TL": "Salamat. Malaking tulong ang marinig iyan dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I do not hear that often. Thank you.",
+              "TL": "Bihira kong marinig 'yan. Maraming salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hearing that really helps keep me going.",
+              "TL": "Ang marinig 'yan ay nakakatulong sa pagpapatuloy ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am grateful for your words.",
+              "TL": "Nagpapasalamat ako sa iyong mga salita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is very kind. Thank you.",
+              "TL": "Napakabait mo naman. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I try my best. It is good to know you see that.",
+              "TL": "Ginagawa ko ang makakaya ko. Mabuting malaman na nakikita mo 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate the respect.",
+              "TL": "Salamat sa respeto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That really touches me. Thanks.",
+              "TL": "Tumatagos talaga sa akin 'yan. Salamat."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.admire.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is kind of you to say.",
+              "TL": "Mabait sa 'yo ang magsabi niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. You did not have to say that, but thanks.",
+              "TL": "Salamat. Hindi mo naman kailangang sabihin, pero salamat pa rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate the thought.",
+              "TL": "Salamat sa magandang kaisipan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are generous with your words.",
+              "TL": "Bukas-palad ka sa iyong papuri."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is good of you to say.",
+              "TL": "Mabuting tao ka para sabihin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I take that as high praise.",
+              "TL": "Itinuturing ko 'yang mataas na papuri."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. I appreciate the courtesy.",
+              "TL": "Salamat. Pinahahalagahan ko ang galang mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It is nice to hear something decent for once.",
+              "TL": "Masarap makarinig ng maayos na salita paminsan-minsan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you for saying so.",
+              "TL": "Salamat sa pagsasabi niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is good to hear.",
+              "TL": "Magandang marinig 'yan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.admire.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You see more in me than most people do.",
+              "TL": "Mas marami kang nakikita sa akin kaysa sa karamihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Most folks out here would never notice that. Thanks.",
+              "TL": "Karamihan ng tao rito ay hindi 'yan mapapansin. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It is rare to find someone who actually pays attention.",
+              "TL": "Bihira makahanap ng taong talagang nagmamasid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am glad someone recognizes what I put into this.",
+              "TL": "Mabuti naman at may nakakapansin sa pagsusumikap ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have a good eye. I appreciate that.",
+              "TL": "Matalas ang mata mo. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not many people look closely enough to see that.",
+              "TL": "Kakaunti lang ang taong tumitingin nang malalim para makita 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That means something coming from you.",
+              "TL": "May bigat 'yan lalo't nanggaling sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I did not expect you to see that. Thank you.",
+              "TL": "Hindi ko inasahang mapapansin mo 'yon. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You give me credit where others would not.",
+              "TL": "Binibigyan mo ako ng tiwala kung saan ang iba ay hindi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate that you see what I am trying to do.",
+              "TL": "Salamat dahil naiintindihan mo ang sinusubukan kong gawin."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

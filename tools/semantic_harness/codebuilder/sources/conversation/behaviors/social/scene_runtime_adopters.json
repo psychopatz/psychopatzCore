@@ -1,0 +1,446 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "behaviors",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Scene Runtime Adopters",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "behaviors": [
+    {
+      "id": "behavior.scene_horde_prompt",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "COMBAT_HORDE_PROMPT",
+      "mode": "one_shot",
+      "stimuli": [
+        "DANGER_CHANGED"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "WARN",
+          "contentTemplateID": "semantic.interaction.scene.horde_prompt"
+        },
+        "emote": {
+          "id": "emote.alert"
+        }
+      },
+      "continuation": {
+        "mode": "emit",
+        "target": "other",
+        "intent": "COMBAT_HORDE_REPLY",
+        "speechAct": "REPLY"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "COMBAT_HORDE_ALERT"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_horde_reply_brave",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "COMBAT_HORDE_REPLY",
+      "mode": "one_shot",
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "PROPOSE_ENGAGE",
+          "contentTemplateID": "semantic.interaction.scene.horde_reply_brave"
+        }
+      },
+      "continuation": {
+        "mode": "terminate"
+      },
+      "when": {
+        "all": [
+          {
+            "path": "stimulus.semantic.intent",
+            "op": "eq",
+            "value": "COMBAT_HORDE_REPLY"
+          },
+          {
+            "path": "actor.disposition.confidence",
+            "op": "gte",
+            "value": 0.65
+          }
+        ]
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_horde_reply_cautious",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "COMBAT_HORDE_REPLY",
+      "mode": "one_shot",
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "PROPOSE_AVOID",
+          "contentTemplateID": "semantic.interaction.scene.horde_reply_cautious"
+        }
+      },
+      "continuation": {
+        "mode": "terminate"
+      },
+      "when": {
+        "all": [
+          {
+            "path": "stimulus.semantic.intent",
+            "op": "eq",
+            "value": "COMBAT_HORDE_REPLY"
+          },
+          {
+            "path": "actor.disposition.confidence",
+            "op": "lt",
+            "value": 0.35
+          }
+        ]
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_horde_reply_steady",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "COMBAT_HORDE_REPLY",
+      "mode": "one_shot",
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "PROPOSE_HOLD",
+          "contentTemplateID": "semantic.interaction.scene.horde_reply_steady"
+        }
+      },
+      "continuation": {
+        "mode": "terminate"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "COMBAT_HORDE_REPLY"
+      },
+      "baseRelevance": 0.65,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_grounded_news_share",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "SHARE_NEWS",
+      "mode": "one_shot",
+      "stimuli": [
+        "AMBIENT_SOCIAL_OPPORTUNITY"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "DISCLOSE",
+          "contentTemplateID": "semantic.interaction.scene.grounded_news_share"
+        }
+      },
+      "continuation": {
+        "mode": "emit",
+        "target": "other",
+        "intent": "SHARE_GROUNDED_NEWS",
+        "speechAct": "INFORM"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "SHARE_GROUNDED_NEWS"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_news_followup",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "ASK_NEWS_FOLLOWUP",
+      "mode": "one_shot",
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "ASK_FOLLOWUP",
+          "contentTemplateID": "semantic.interaction.memory.followup"
+        }
+      },
+      "continuation": {
+        "mode": "emit",
+        "target": "source",
+        "intent": "ASK_NEWS_FOLLOWUP",
+        "speechAct": "ASK_FOLLOWUP"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "SHARE_GROUNDED_NEWS"
+      },
+      "baseRelevance": 0.45,
+      "modifiers": [
+        {
+          "when": {
+            "path": "actor.disposition.sociability",
+            "op": "gte",
+            "value": 0.6
+          },
+          "delta": 0.25,
+          "reason": "sociability_favors_news_followup"
+        }
+      ]
+    },
+    {
+      "id": "behavior.scene_news_followup_answer",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "ANSWER_NEWS",
+      "mode": "one_shot",
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "ANSWER",
+          "contentTemplateID": "semantic.interaction.scene.grounded_news_answer"
+        }
+      },
+      "continuation": {
+        "mode": "terminate"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "ASK_NEWS_FOLLOWUP"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_excursion_preparing",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "EXCURSION_STATUS_REPORT",
+      "mode": "one_shot",
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "INFORM",
+          "contentTemplateID": "semantic.interaction.scene.excursion_preparing"
+        }
+      },
+      "continuation": {
+        "mode": "emit",
+        "target": "other",
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "speechAct": "ACKNOWLEDGE"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "EXCURSION_PREPARING"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_excursion_departing",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "EXCURSION_STATUS_REPORT",
+      "mode": "one_shot",
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "INFORM",
+          "contentTemplateID": "semantic.interaction.scene.excursion_departing"
+        }
+      },
+      "continuation": {
+        "mode": "emit",
+        "target": "other",
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "speechAct": "ACKNOWLEDGE"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "EXCURSION_DEPARTING"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_excursion_returning",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "EXCURSION_STATUS_REPORT",
+      "mode": "one_shot",
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "INFORM",
+          "contentTemplateID": "semantic.interaction.scene.excursion_returning"
+        }
+      },
+      "continuation": {
+        "mode": "emit",
+        "target": "other",
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "speechAct": "ACKNOWLEDGE"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "EXCURSION_RETURNING"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_excursion_home",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "EXCURSION_STATUS_REPORT",
+      "mode": "one_shot",
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "INFORM",
+          "contentTemplateID": "semantic.interaction.scene.excursion_home"
+        }
+      },
+      "continuation": {
+        "mode": "emit",
+        "target": "other",
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "speechAct": "ACKNOWLEDGE"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "EXCURSION_HOME"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_excursion_failed",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "EXCURSION_STATUS_REPORT",
+      "mode": "one_shot",
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "INFORM",
+          "contentTemplateID": "semantic.interaction.scene.excursion_failed"
+        }
+      },
+      "continuation": {
+        "mode": "emit",
+        "target": "other",
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "speechAct": "ACKNOWLEDGE"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "EXCURSION_FAILED"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_excursion_acknowledge",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "ACKNOWLEDGE",
+      "mode": "one_shot",
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "ACKNOWLEDGE",
+          "contentTemplateID": "semantic.social.acknowledged"
+        },
+        "emote": {
+          "id": "emote.nod"
+        }
+      },
+      "continuation": {
+        "mode": "terminate"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "ACKNOWLEDGE_EXCURSION"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    }
+  ]
+}

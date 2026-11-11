@@ -1,0 +1,75 @@
+{
+  "behaviors": [
+    {
+      "act": "END_INTERACTION",
+      "baseRelevance": 0.2,
+      "id": "behavior.end_conversation",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.3,
+          "reason": "danger_favors_exit",
+          "when": {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        },
+        {
+          "delta": 0.45,
+          "reason": "low_forgiveness_favors_exit",
+          "when": {
+            "op": "lt",
+            "path": "actor.disposition.forgiveness",
+            "value": 0.25
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.social.hostile_withdrawn",
+          "dialogueAct": "END_CONVERSATION"
+        }
+      },
+      "owner": "ProjectHoomans",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "any": [
+          {
+            "op": "in",
+            "path": "stimulus.semantic.speechAct",
+            "values": [
+              "INSULT",
+              "HOSTILE_REMARK",
+              "THREATEN"
+            ]
+          },
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "APOLOGIZE"
+          },
+          {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        ]
+      }
+    }
+  ],
+  "domain": "social",
+  "kind": "behaviors",
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1"
+  },
+  "version": 1
+}

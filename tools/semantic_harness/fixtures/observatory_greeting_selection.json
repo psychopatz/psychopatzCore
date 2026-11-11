@@ -1,0 +1,17 @@
+{
+  "poolID": "semantic.flow.greeting.opening",
+  "cases": [
+    {"label": "unknown evidence", "context": {"npcID": "obs-unknown"}},
+    {"label": "rainy weather", "context": {
+      "npcID": "obs-rain",
+      "worldContext": {"weather": {"raining": true}}
+    }},
+    {"label": "friendly social style", "context": {
+      "npcID": "obs-friendly", "socialStyle": "friendly"
+    }},
+    {"label": "friendly in rain", "context": {
+      "npcID": "obs-both", "socialStyle": "friendly",
+      "worldContext": {"weather": {"raining": true}}
+    }}
+  ]
+}

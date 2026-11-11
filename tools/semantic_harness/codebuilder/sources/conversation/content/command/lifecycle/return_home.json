@@ -1,0 +1,494 @@
+{
+  "domain": "command",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.return_home.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't head home.",
+              "TL": "Hindi ako nakauwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The path back home is completely blocked.",
+              "TL": "Ganap na may harang ang daan pabalik sa tahanan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to return. Too many hostiles along the route.",
+              "TL": "Bigo sa pag-uwi. Masyadong maraming kalaban sa ruta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I couldn't find a safe way back to base.",
+              "TL": "Wala akong makitang ligtas na daan pabalik sa base."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Return trip failed. Had to double back.",
+              "TL": "Pumalpak ang pag-uwi. Kinailangang bumalik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to reach home safely right now.",
+              "TL": "Di makarating sa tahanan nang ligtas sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tried heading back, but the streets were overrun.",
+              "TL": "Sinubukang umuwi, pero pinamumugaran ang mga kalsada."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lost the route home in the chaos.",
+              "TL": "Nawala ang daan pauwi sa gitna ng gulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't reach base from this position.",
+              "TL": "Di maabot ang base mula sa pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Return to base aborted. Route compromised.",
+              "TL": "Itinigil ang pag-uwi sa base. May aberya sa ruta."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.return_home.queued",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Okay, I'll head home.",
+              "TL": "Sige, uuwi ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading back to base now.",
+              "TL": "Pabalik na sa base ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Moving toward home.",
+              "TL": "Naintindihan. Papatungo na sa tahanan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll make my way back to our shelter.",
+              "TL": "Babalik ako sa silungan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Returning to camp as ordered.",
+              "TL": "Babalik sa kampo ayon sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Time to head home.",
+              "TL": "Sige. Oras na para umuwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Retracing my steps to base.",
+              "TL": "Naiintindihan ko. Binabalikan ang daan sa base."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On my way back home.",
+              "TL": "Papauwi na ako ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Returning to home coordinates.",
+              "TL": "Nakuha ko. Pabalik sa mga coordinate ng tahanan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading inbound for home.",
+              "TL": "Papasok na pauwi."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.return_home.queued.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Sure, I'll head home. See you back there soon!",
+              "TL": "Sige, uuwi ako. Kita tayo roon agad!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds wonderful, friend. I'll get back to camp safely.",
+              "TL": "Napakaganda, kaibigan. Babalik ako sa kampo nang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading home, partner! Make sure you stay safe too.",
+              "TL": "Pauwi na, kasama! Tiyakin mong mag-iingat ka rin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll go keep the fire warm for when you return.",
+              "TL": "Pupunta ako para panatilihing mainit ang apoy pagbalik mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Great idea! I'll head home and stow our gear.",
+              "TL": "Magandang ideya! Uuwi ako at itatabi ang gamit natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to head home. Don't stay out too late, friend!",
+              "TL": "Masayang uuwi. Huwag kang magpagabi sa labas, kaibigan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "On my way back to our safe place. Take care!",
+              "TL": "Papauwi na sa ligtas nating lugar. Mag-ingat ka!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading home with a smile. See you shortly, partner.",
+              "TL": "Pauwi nang may ngiti. Magkita tayo maya-maya, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll get things tidy back at base for us.",
+              "TL": "Aayusin ko ang mga gamit sa base para sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading home! Be careful on your way back.",
+              "TL": "Pauwi na! Mag-ingat ka sa pagbalik mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.return_home.queued.repeated",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm still heading home.",
+              "TL": "Pauwi pa rin ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already on my way back. Just navigating the path.",
+              "TL": "Pauwi na ako. Dumaraan lang sa ligtas na ruta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still traveling toward base. Be there soon.",
+              "TL": "Naglalakbay pa rin patungong base. Nandoon na agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I haven't stopped moving toward home.",
+              "TL": "Di ako humihinto sa paglakad pauwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already heading home. Keep calm.",
+              "TL": "Pauwi na nga ako. Kumalma ka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still on the road home.",
+              "TL": "Nasa daan pa rin pauwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Almost there. Still heading for base.",
+              "TL": "Malapit na roon. Papatungo pa rin sa base."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already following the return route.",
+              "TL": "Sumusunod na sa rutang pabalik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still en route to home. No need to yell.",
+              "TL": "Nasa biyahe pa rin pauwi. Di kailangang sumigaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm already on the way back.",
+              "TL": "Pauwi na talaga ako."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.return_home.queued.trusted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right, I'm heading home. Guard the rear.",
+              "TL": "Sige, pauwi na ako. Bantayan mo ang likod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I trust your call. I'll make sure base is secure.",
+              "TL": "Tiwala ako sa pasya mo. Titiyakin kong ligtas ang base."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading home, partner. Don't take unnecessary risks out here.",
+              "TL": "Pauwi na, kasama. Huwag sumugal sa panganib dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I'll be waiting at camp for your return.",
+              "TL": "Naintindihan. Maghihintay ako sa kampo sa pagbalik mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading home. Make sure you come back in one piece.",
+              "TL": "Pauwi na. Tiyakin mong makababalik ka nang buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll hold down the fort until you get back.",
+              "TL": "Babantayan ko ang kuta hanggang sa makabalik ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading back. Trusting you to watch yourself.",
+              "TL": "Pabalik na. Nagtitiwala akong iingatan mo ang sarili mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll see you at home, friend. Stay vigilant.",
+              "TL": "Magkita tayo sa bahay, kaibigan. Manatiling mapagmatyag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Returning to our haven. Stay alive for me.",
+              "TL": "Babalik sa kanlungan natin. Manatiling buhay para sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Heading back to secure our home.",
+              "TL": "Naiintindihan ko. Pabalik na para i-secure ang tahanan natin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.return_home.queued.withdrawn",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll head home.",
+              "TL": "Uuwi ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Going back now.",
+              "TL": "Babalik na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading to base.",
+              "TL": "Papatungo sa base."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Home.",
+              "TL": "Naintindihan. Bahay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. I'm leaving.",
+              "TL": "Sige. Aalis na ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heading back alone.",
+              "TL": "Babalik mag-isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Going home. Whatever.",
+              "TL": "Uuwi na. Kahit ano pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Heading back.",
+              "TL": "Sige. Pabalik na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Returning.",
+              "TL": "Babalik na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving toward shelter.",
+              "TL": "Papatungo sa silungan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.return_home.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't head home right now.",
+              "TL": "Hindi ako makauuwi ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The road home is cut off by hordes.",
+              "TL": "Pinutol ng mga kawan ang daan pauwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not leaving you out here alone. Can't go home.",
+              "TL": "Di kita iiwan dito nang mag-isa. Di ako uuwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too much danger on the way back right now.",
+              "TL": "Masyadong maraming panganib sa daan pabalik ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refusing to return home while we're surrounded.",
+              "TL": "Tumatangging umuwi habang napapaligiran tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have to finish what we started before I head back.",
+              "TL": "Kailangan kong tapusin ang sinimulan bago umuwi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't head home. The gates are compromised.",
+              "TL": "Di makauwi. May sira ang tarangkahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to return to base right now.",
+              "TL": "Di makabalik sa base sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't abandon the mission to go home now.",
+              "TL": "Di ko tatalikuran ang misyon para lang umuwi ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Return home rejected. Not safe to travel.",
+              "TL": "Tinatanggihan ang pag-uwi. Di ligtas maglakbay."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

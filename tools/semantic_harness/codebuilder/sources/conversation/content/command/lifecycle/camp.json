@@ -1,0 +1,494 @@
+{
+  "domain": "command",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.camp.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't set up camp there.",
+              "TL": "Hindi ako nakapag-set up ng kampo roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to establish camp. That spot wasn't viable.",
+              "TL": "Bigo sa pagtatayo ng kampo. Di angkop ang lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I tried to camp there, but it didn't work out.",
+              "TL": "Sinubukan kong magkampo roon, pero hindi umubra."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't secure that position for a camp.",
+              "TL": "Hindi ma-secure ang pwestong 'yon para sa kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Camp setup failed. The area is too exposed.",
+              "TL": "Pumalpak ang pagtatayo ng kampo. Masyadong bukas ang lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to bed down there. Too many issues.",
+              "TL": "Di makatulog doon. Masyadong maraming aberya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That campsite didn't pan out. Too dangerous.",
+              "TL": "Di umubra ang kampong 'yon. Masyadong mapanganib."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Attempted to camp, but had to pull out.",
+              "TL": "Sinubukang magkampo, pero kinailangang umurong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't pitch camp there. Ground wasn't secure.",
+              "TL": "Di makapaglatag ng kampo roon. Di ligtas ang lupa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Camping attempt failed. Finding another spot.",
+              "TL": "Bigo ang pagtatangkang magkampo. Maghanap ng iba."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.camp.queued",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Okay, I'll set up camp there.",
+              "TL": "Sige, magse-set up ako ng kampo roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Setting up our camp now.",
+              "TL": "Naintindihan. Itatayo na ang kampo natin ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll go get the camp established.",
+              "TL": "Pupunta ako para itayo ang kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On my way to set up camp.",
+              "TL": "Papunta na para magtayo ng kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Making camp in that spot. Understood.",
+              "TL": "Magtatayo ng kampo sa pwestong 'yon. Naintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Setting up shelter over there.",
+              "TL": "Sige. Magtatayo ng silungan doon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll secure the camp site now.",
+              "TL": "Seselyuhan ko ang kampo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving to establish camp as ordered.",
+              "TL": "Kikilos para magtayo ng kampo ayon sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it. Pitching camp.",
+              "TL": "Nakuha ko. Maglalatag ng kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Heading over to make camp.",
+              "TL": "Naiintindihan ko. Pupunta roon para magkampo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.camp.queued.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Sure, I'll set up camp there. Sounds cozy.",
+              "TL": "Sige, magse-set up ako ng kampo roon. Mukhang maaliwalas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to! Let's get a good fire going.",
+              "TL": "Masayang gagawin! Magpaningas tayo ng maayos na apoy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good call, friend. I'll get our camp ready.",
+              "TL": "Magandang pasya, kaibigan. Ihahanda ko ang kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leave it to me! I'll make sure it's safe and comfortable.",
+              "TL": "Ipaubaya mo sa akin! Titiyakin kong ligtas at komportable."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Great idea. I'll go set up camp for us.",
+              "TL": "Magandang ideya. Pupunta ako para itayo ang kampo natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right on! Time to get off our feet. Setting up now.",
+              "TL": "Aba oo! Oras na para magpahinga. Magtatayo na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gladly. I'll have the beds laid out shortly.",
+              "TL": "Malugod kong gagawin. Ilalatag ko ang higaan maya-maya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds wonderful. I'll get our shelter squared away.",
+              "TL": "Napakaganda. Aayusin ko ang silungan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing, partner! Camp will be ready in no time.",
+              "TL": "Walang anuman, kasama! Handa na ang kampo agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On it, friend! Rest easy, I'll handle camp.",
+              "TL": "Inaasikaso na, kaibigan! Magpahinga ka, ako na sa kampo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.camp.queued.repeated",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'm still setting up camp there.",
+              "TL": "Nagtatayo pa rin ako ng kampo roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Already working on the camp. Give me a minute.",
+              "TL": "Ginagawa ko na ang kampo. Bigyan mo ako ng sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still on it. Setting up takes a little time.",
+              "TL": "Inaasikaso pa rin. May katagalan ang pagtatayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm already pitching the camp there.",
+              "TL": "Naglalatag na ako ng kampo roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Working as fast as I can on that camp.",
+              "TL": "Ginagawa ko nang mabilis ang kampong 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Yeah, I heard you the first time. Still making camp.",
+              "TL": "Oo, narinig ko sa una pa lang. Ginagawa pa rin ang kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm already in the middle of setting up.",
+              "TL": "Kasalukuyan na akong nagtatayo roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Camp setup is already in progress.",
+              "TL": "Kasalukuyan nang isinasagawa ang pagkakampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Still securing the campsite. Hold tight.",
+              "TL": "Sinisigurado pa rin ang kampo. Maghintay lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Almost done with the camp. Don't rush me.",
+              "TL": "Halos tapos na sa kampo. Huwag mo akong madaliin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.camp.queued.trusted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right, I'll make camp there.",
+              "TL": "Sige, magtatayo ako ng kampo roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I trust your eye for good ground. Setting up camp.",
+              "TL": "Tiwala ako sa pagpili mo ng lupa. Magtatayo ng kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You picked the spot, I'll build the shelter.",
+              "TL": "Pinili mo ang pwesto, itatayo ko ang silungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I'll make sure our campsite is locked down tight.",
+              "TL": "Naintindihan. Titiyakin kong saradong-sarado ang kampo natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know you've got our safety in mind. Making camp.",
+              "TL": "Alam kong kaligtasan natin ang iniisip mo. Magkakampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right away. We'll be secure there together.",
+              "TL": "Agad-agad. Ligtas tayo roon nang magkasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll get it ready for both of us.",
+              "TL": "Ihahanda ko para sa ating dalawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trust your judgment completely. Camp is going up.",
+              "TL": "Lubos akong nagtitiwala sa pasya mo. Itatayo na ang kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Setting up camp. We earned this rest.",
+              "TL": "Nagtatayo ng kampo. Karapat-dapat tayo sa pahingang ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good call, partner. I'll secure the camp perimeter.",
+              "TL": "Magandang pasya, kasama. Seselyuhan ko ang paligid ng kampo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.camp.queued.withdrawn",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll set up camp there.",
+              "TL": "Magtatayo ako ng kampo roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. Heading over to camp.",
+              "TL": "Sige. Pupunta roon para magkampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Camping.",
+              "TL": "Naintindihan. Magkakampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If you say so. I'll make camp.",
+              "TL": "Kung sinasabi mo. Magtatayo ako ng kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Going to set it up now.",
+              "TL": "Pupunta para itayo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Pitching shelter.",
+              "TL": "Sige. Magtatayo ng silong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll do it.",
+              "TL": "Gagawin ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Making camp. Leave me to it.",
+              "TL": "Nagtatayo ng kampo. Hayaan mo na ako rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. Camping there.",
+              "TL": "Sige. Magkakampo roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard. Setting up.",
+              "TL": "Narinig ko. Nagtatayo na."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.command.camp.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't set up camp there right now.",
+              "TL": "Hindi ako makapag-set up ng kampo roon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That spot is far too dangerous to sleep in.",
+              "TL": "Masyadong mapanganib ang pwestong 'yon para tulugan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No way. It's crawling with dead over there.",
+              "TL": "Ayoko nga. Puno ng patay doon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I refuse to camp in that area. Find somewhere safer.",
+              "TL": "Tumatanggi akong magkampo roon. Maghanap ng mas ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too exposed. We'd get ambushed in our sleep.",
+              "TL": "Masyadong bukas. Matatambangan tayo habang natutulog."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't camp there. No walls, no fire, no cover.",
+              "TL": "Di makapagkampo roon. Walang pader, apoy, o silong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not camping there. That's asking to be eaten alive.",
+              "TL": "Di ako magkakampo roon. Parang nagpapakain tayo nang buhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to comply. That position is totally compromised.",
+              "TL": "Di makasusunod. Masyadong dehado ang pwestong 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't bed down there. Pick another room.",
+              "TL": "Di ako hihiga roon. Pumili ka ng ibang kwarto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Camping rejected. We need real security first.",
+              "TL": "Tinatanggihan ang kampo. Kailangan natin ng tunay na kaligtasan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

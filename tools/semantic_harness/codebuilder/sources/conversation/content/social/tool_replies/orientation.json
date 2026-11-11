@@ -1,0 +1,154 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.orientation.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is not really how I swing.",
+              "TL": "Hindi talaga ganoon ang hilig ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I do not lean that way, just so you know.",
+              "TL": "Hindi ako ganoon magkainteres, para alam mo lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not my preference, but thanks for being open.",
+              "TL": "Hindi ko gusto ang ganoon, pero salamat sa pagiging tapat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate the honesty, but that is not for me.",
+              "TL": "Salamat sa katapatan, pero hindi 'yan para sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is not my type of thing.",
+              "TL": "Hindi ko tipo ang ganyang bagay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Just so we are clear, I do not look at you that way.",
+              "TL": "Para malinaw sa atin, hindi kita tinitingnan sa ganoong paraan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am not interested in that kind of arrangement.",
+              "TL": "Hindi ako interesado sa ganyang uri ng ugnayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough, but that is not my direction.",
+              "TL": "Nirerespeto ko, pero hindi 'yan ang patutunguhan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I keep things strictly platonic here.",
+              "TL": "Hanggang magkaibigan lang talaga ako rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to know where you stand, but I do not swing that way.",
+              "TL": "Mabuting malaman ang panig mo, pero hindi ganoon ang akin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.orientation.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I prefer to keep things simple between us.",
+              "TL": "Mas gusto kong panatilihing simple ang lahat sa pagitan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let us just keep this uncomplicated.",
+              "TL": "Panatilihin na lang nating hindi magulo ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Survival is messy enough without adding that.",
+              "TL": "Magulo na ang kaligtasan para dagdagan pa niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I like where we are at. Let us not complicate it.",
+              "TL": "Gusto ko kung nasaan tayo ngayon. Huwag na nating guluhin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We work best when things stay straightforward.",
+              "TL": "Mas maayos tayong nagtutulungan kapag diretso lang ang usapan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am not looking for anything complicated out here.",
+              "TL": "Hindi ako naghahanap ng anumang kumplikado dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Simple is safe. Let us keep it that way.",
+              "TL": "Ligtas kapag simple. Panatilihin nating ganoon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I value this partnership too much to make it awkward.",
+              "TL": "Masyadong mahalaga ang samahan natin para gawing asiwa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let us stay focused on staying alive instead.",
+              "TL": "Magpokus na lang tayo sa pananatiling buhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keeping it clear and simple works best for both of us.",
+              "TL": "Mas maganda para sa ating dalawa kung malinaw at simple lang."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

@@ -1,0 +1,1310 @@
+{
+  "domain": "event",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Good work. Keep watching the area.",
+              "TL": "Magandang trabaho. Patuloy na bantayan ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat's handled. Stay on your toes.",
+              "TL": "Naasikaso ang banta. Maging handa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nice job. Don't relax just yet.",
+              "TL": "Mahusay. Huwag munang magpakampante."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target down. Keep scanning the perimeter.",
+              "TL": "Bagsak ang target. Patuloy na suriin ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled. Watch your surroundings.",
+              "TL": "Naasikaso na. Bantayan ang paligid mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good strike. Stay vigilant.",
+              "TL": "Magandang tama. Manatiling alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That one's finished. Check the corners.",
+              "TL": "Tapos na ang isang 'yon. Tignan ang mga sulok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Well done. Keep weapons at the ready.",
+              "TL": "Magaling. Ihanda pa rin ang sandata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear here. Eyes on the shadows.",
+              "TL": "Malinis dito. Tumingin sa mga anino."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat eliminated. Keep moving carefully.",
+              "TL": "Banta naalis na. Tuloy sa maingat na pagkilos."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.retreat",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I need a moment before I can swing again.",
+              "TL": "Kailangan ko muna ng saglit bago makahataw ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Arms are heavy. Give me a second.",
+              "TL": "Mabigat ang mga braso ko. Bigyan mo ako ng saglit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Falling back! Need to recover stamina.",
+              "TL": "Aatras muna! Kailangang makabawi ng lakas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Out of breath! Step back a bit.",
+              "TL": "Hinihingal ako! Umatras muna nang kaunti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't keep swinging like this. Backing up.",
+              "TL": "Hindi ko kayang tuloy-tuloy ang hataw. Aatras muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me space to breathe and reset.",
+              "TL": "Bigyan mo ako ng puwang para makahinga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too exhausted to strike. Pulling back.",
+              "TL": "Masyado akong pagod para humampas. Umuurong muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Need ten seconds to shake out my arms.",
+              "TL": "Kailangan ko ng sampung segundo para ipagpag ang braso ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Step back! I'm completely winded.",
+              "TL": "Atras! Sagad na ang hingal ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back up! Let me catch my breath.",
+              "TL": "Umatras! Pahingahin mo muna ako."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.threat",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That threat is down. Stay alert.",
+              "TL": "Bagsak na ang banta. Manatiling alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat neutralized. Don't drop your guard.",
+              "TL": "Naalis na ang banta. Huwag ibaba ang depensa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Target eliminated. Keep watching.",
+              "TL": "Target naalis na. Patuloy na magmatyag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Danger's passed for now. Stay sharp.",
+              "TL": "Lumipas na ang panganib pansamantala. Maging handa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled that hazard. Eyes open.",
+              "TL": "Nalutas ang panganib na 'yon. Buksan ang mata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat's in the dirt. Scan the flanks.",
+              "TL": "Nasa lupa na ang banta. Suriin ang gilid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat ceased. Maintain alertness.",
+              "TL": "Tumigil na ang banta. Panatilihin ang pag-iingat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Downed the contact. Watch your sector.",
+              "TL": "Naitumba ang kalaban. Bantayan ang parte mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No more threat from that one. Stay ready.",
+              "TL": "Wala nang panganib mula sa kanya. Maging handa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled. Stay focused on remaining risks.",
+              "TL": "Naayos na. Tutukan ang iba pang panganib."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.companion.reaction.abandonment",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Stay with me next time. We watch each other's backs.",
+              "TL": "Sumabay ka sa akin sa susunod. Nagbabantayan tayo ng likod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't leave me behind like that. We survive together.",
+              "TL": "Huwag mo akong iiwan nang gano'n. Sabay tayong mabubuhay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I almost got swarmed when you ran off. Stick close.",
+              "TL": "Halos makuyog ako no'ng umalis ka. Dumikit ka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're a team. Don't take off on your own.",
+              "TL": "Magkasama tayo. Huwag kang aalis nang mag-isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Where did you go?! You can't just vanish.",
+              "TL": "Saan ka pumunta?! Hindi ka pwedeng mawala na lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Next time, warn me before you leave.",
+              "TL": "Sa susunod, sabihan mo ako bago ka umalis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thought I was on my own out there. Stay together.",
+              "TL": "Akala ko naiwan na akong mag-isa. Magsama tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leaving your partner gets people killed. Keep near.",
+              "TL": "Ang pag-iwan sa kasama ay nakakamatay. Dumikit ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad you're back, but don't ditch me again.",
+              "TL": "Mabuti at bumalik ka, pero huwag mo na akong iiwan ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stick with me. We're stronger as a pair.",
+              "TL": "Sumabay ka sa akin. Mas malakas tayo kapag magkasama."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.companion.reaction.camp_rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't find a safe room or campfire nearby.",
+              "TL": "Wala akong makitang ligtas na kwarto o campfire sa malapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nowhere safe to rest around here. We need better cover.",
+              "TL": "Walang ligtas na pahingahan dito. Kailangan natin ng mas maayos na silungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't camp in the open like this. Too dangerous.",
+              "TL": "Hindi pwedeng magkampo sa lantad nang ganito. Masyadong delikado."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We need walls or a fire before we settle down.",
+              "TL": "Kailangan natin ng pader o apoy bago huminto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This spot isn't secure enough for camp. Keep walking.",
+              "TL": "Hindi sapat ang kaligtasan ng pwestong 'to para sa kampo. Lakad pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No shelter here. Let's find four walls first.",
+              "TL": "Walang masisilungan dito. Maghanap muna tayo ng apat na pader."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't sleep here. Infected could walk right in.",
+              "TL": "Hindi pwedeng matulog dito. Madaling makakapasok ang mga infected."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We need a barricaded room or a campfire before resting.",
+              "TL": "Kailangan natin ng may barikadang kwarto o campfire bago magpahinga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not pitching camp here. Let's find a secure building.",
+              "TL": "Hindi ako magkakampo rito. Maghanap tayo ng ligtas na gusali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too exposed. Find us a real camp spot.",
+              "TL": "Masyadong lantad. Hanapan mo tayo ng tunay na matutuluyan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.companion.reaction.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I heard you. We will handle it together.",
+              "TL": "Narinig kita. Sabay natin 'yang haharapin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I'm right here with you.",
+              "TL": "Naintindihan ko. Nandito lang ako kasama mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got your message. Let's get it done.",
+              "TL": "Nakuha ko ang sabi mo. Tapusin na natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm with you. Lead the way.",
+              "TL": "Kasama mo ako. Ikaw ang manguna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard. Whatever comes, we take it on.",
+              "TL": "Narinig ko. Kahit ano'ng dumating, lalabanan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Copy that. Staying right by your side.",
+              "TL": "Kopya. Dito lang ako sa tabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you loud and clear. Let's move.",
+              "TL": "Malinaw kong narinig. Kilos na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Count on me. We're in this together.",
+              "TL": "Maaasahan mo ako. Magkasama tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Let's keep our heads clear.",
+              "TL": "Naiintindihan ko. Panatilihing malinaw ang isip natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right behind you. Let's handle this.",
+              "TL": "Nasa likod mo lang ako. Asikasuhin natin 'to."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.conversation.safety.danger",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Watch out. We need to move now.",
+              "TL": "Mag-ingat. Kailangan nating kumilos ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Danger close! Move, move!",
+              "TL": "Malapit ang panganib! Kilos, kilos!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not safe here. Clear out now.",
+              "TL": "Hindi ligtas dito. Lumikas na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look around! We need to leave this spot.",
+              "TL": "Tumingin ka sa paligid! Kailangan nating umalis dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Infected coming! Get into cover right now.",
+              "TL": "Paparating ang mga infected! Magtago na ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trouble's right on us. Relocate immediately.",
+              "TL": "Nandito na ang gulo. Lumipat agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heads up! We're in the open and exposed.",
+              "TL": "Ulo niyo! Lantad tayo sa bukas na lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drop what you're doing, we have to move.",
+              "TL": "Bitawan ang ginagawa mo, kailangan nating tumakbo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Danger! Don't freeze up, run!",
+              "TL": "Panganib! Huwag kang matulala, takbo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Move now! We're getting cornered.",
+              "TL": "Kilos na! Naiipit na tayo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.conversation.safety.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Stay alert.",
+              "TL": "Manatiling alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your eyes peeled.",
+              "TL": "Buksan ang mga mata."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch our surroundings.",
+              "TL": "Bantayan ang paligid natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't let your guard down.",
+              "TL": "Huwag ibaba ang depensa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay sharp out here.",
+              "TL": "Maging handa rito sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep quiet and listen.",
+              "TL": "Tumahimik at makinig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep checking the corners.",
+              "TL": "Tignan palagi ang mga sulok."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay cautious.",
+              "TL": "Mag-ingat palagi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Eyes front and back.",
+              "TL": "Tumingin sa harap at likod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay focused.",
+              "TL": "Manatiling nakapokus."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.corpse.reaction.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Someone died here. We should remember that.",
+              "TL": "May namatay dito. Dapat nating alalahanin 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Poor bastard. Didn't make it.",
+              "TL": "Kawawa naman. Hindi nakaligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Another body in the dirt. World's unforgiving.",
+              "TL": "Isa na namang bangkay sa lupa. Malupit ang mundo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They fought hard, by the looks of it.",
+              "TL": "Lumaban nang husto, base sa hitsura."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Someone lost a life here. Tread with respect.",
+              "TL": "May nawalan ng buhay rito. Maglakad nang may galang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Looks like they got trapped. Rest easy.",
+              "TL": "Mukhang naipit sila rito. Mamahinga ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Could've been any of us. Keep walking.",
+              "TL": "Kahit sino sa atin pwedeng maging ganyan. Lakad na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Another survivor cut down too early.",
+              "TL": "Isa na namang survivor ang pumanaw nang maaga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Body's cold. Let's make sure we don't end up like this.",
+              "TL": "Malamig na ang bangkay. Siguruhin nating hindi tayo matutulad dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rest in peace, stranger. Let's keep moving.",
+              "TL": "Sumalangit nawa ang kaluluwa mo. Magpatuloy tayo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.corpse.reaction.revenge",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Someone is going to answer for this.",
+              "TL": "May mananagot para rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They didn't deserve this. Whoever did it will pay.",
+              "TL": "Hindi nila nararapat 'to. Pagbabayaran 'to ng may gawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "This wasn't rottens, this was murder. They'll bleed for it.",
+              "TL": "Hindi 'to gawa ng infected, patayan 'to. Dudugo sila para rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll find whoever did this and make them regret it.",
+              "TL": "Hahanapin ko ang may gawa nito at pagsisisihan nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They slaughtered them. There's no forgiving this.",
+              "TL": "Pinaslang nila sila. Walang kapatawaran ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Mark my words, retribution is coming for them.",
+              "TL": "Tandaan mo, darating ang ganti para sa kanila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Whoever left this body won't walk away clean.",
+              "TL": "Ang nag-iwan ng bangkay na 'to ay hindi makakatakas nang buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cold-blooded. I won't forget this sight.",
+              "TL": "Walang awang pagpatay. Hindi ko makakalimutan ang nakita ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Blood demands blood. We settle this score.",
+              "TL": "Dugo ang kabayaran ng dugo. Tutuldukan natin 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They butchered one of our own. They will pay.",
+              "TL": "Kinatay nila ang isa sa atin. Pagbabayaran nila."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.flow.farewell.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Take care.",
+              "TL": "Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay safe out there.",
+              "TL": "Maging ligtas ka sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch yourself.",
+              "TL": "Ingatan mo sarili mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Until next time.",
+              "TL": "Hanggang sa muli."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your guard up.",
+              "TL": "Panatilihing mataas ang depensa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay sharp on the road.",
+              "TL": "Magmatyag sa kalsada."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Catch you later.",
+              "TL": "Mamaya ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Safe travels.",
+              "TL": "Ligtas na paglalakbay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep breathing out there.",
+              "TL": "Manatiling buhay sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "See you around.",
+              "TL": "Magkita na lang tayo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.flow.farewell.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Take care. I will see you soon.",
+              "TL": "Mag-ingat ka. Magkikita tayo sa lalong madaling panahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay safe, my friend. Come back in one piece.",
+              "TL": "Mag-ingat ka, kaibigan. Bumalik kang buo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Look after yourself. Don't be a stranger.",
+              "TL": "Alagaan mo sarili mo. Huwag kang mawawala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good luck out there. See you soon.",
+              "TL": "Magandang kapalaran sa labas. Hanggang sa muli."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your head down and stay safe. Talk soon.",
+              "TL": "Yumuko sa panganib at mag-ingat. Usap tayo ulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It was good seeing you. Safe travels.",
+              "TL": "Mabuti at nagkita tayo. Ligtas na paglalakbay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take care of yourself. I'll be waiting.",
+              "TL": "Alagaan mo sarili mo. Hihintayin kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch your back out there, friend.",
+              "TL": "Bantayan ang likod mo sa labas, kaibigan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay alive. We'll share a drink next time.",
+              "TL": "Manatiling buhay. Mag-inuman tayo sa susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Be careful out there. See you shortly.",
+              "TL": "Mag-ingat ka sa labas. Magkikita tayo sa lalong madaling panahon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.leader_loss.close",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We lost someone close to us. We need to stay together.",
+              "TL": "Nawalan tayo ng taong malapit sa atin. Kailangan nating magsama-sama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't believe they're gone... we have to hold each other up.",
+              "TL": "Hindi ako makapaniwalang wala na sila... kailangan nating magtulungan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They were family to us. Don't let our grief break us apart.",
+              "TL": "Pamilya na ang turing natin sa kanila. Huwag nating hayaang wasakin tayo ng lungkot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It hurts so much, but we have to keep going for them.",
+              "TL": "Masakit sobra, pero kailangan nating magpatuloy para sa kanila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They protected us. Now we protect each other.",
+              "TL": "Pinrotektahan nila tayo. Ngayon tayo naman ang magpoprotekta sa isa't isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Losing them leaves a hole in my heart. Stay close, everyone.",
+              "TL": "Naiwang sugatan ang puso ko sa pagkawala nila. Magdikit-dikit tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We honor their memory by surviving. Stick together.",
+              "TL": "Igalang natin ang alaala nila sa pamamagitan ng pamumuhay. Magsama tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will miss them terribly. We can't scatter now.",
+              "TL": "Mamimiss ko sila nang husto. Hindi tayo dapat maghiwa-hiwalay ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They gave everything for this group. We stay united.",
+              "TL": "Ibinigay nila ang lahat para sa grupong 'to. Manatili tayong nagkakaisa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rest in peace. We'll hold the line for you.",
+              "TL": "Mamahinga ka na. Hahawakan namin ang linya para sa'yo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.leader_loss.colonist",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Our leader is gone. We keep the group together.",
+              "TL": "Wala na ang pinuno natin. Panatilihin nating buo ang grupo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The leader fell, but the colony endures.",
+              "TL": "Bumagsak ang pinuno, pero mananatili ang kolonya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We must maintain order. The group cannot collapse.",
+              "TL": "Kailangan nating panatilihin ang kaayusan. Hindi dapat bumagsak ang grupo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Our founder is dead, but our camp will survive.",
+              "TL": "Patay na ang nagtatag sa atin, pero mabubuhay ang kampo natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay organized. We carry on their work.",
+              "TL": "Manatiling organisado. Ipagpatuloy natin ang nasimulan nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A terrible loss, but our community must stand firm.",
+              "TL": "Matinding kawalan, pero kailangang tumindig ang komunidad natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't panic. We keep rations and duties moving.",
+              "TL": "Huwag mag-panic. Tuloy ang rasyon at mga tungkulin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The colony needs everyone focused right now.",
+              "TL": "Kailangan ng kolonya ang pokus ng lahat ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We built this together. We keep it standing together.",
+              "TL": "Sabay natin 'tong binuo. Sabay natin 'tong pananatilihing nakatayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leadership may change, but the settlement survives.",
+              "TL": "Maaaring magbago ang pamumuno, pero mabubuhay ang paninirahan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.leader_loss.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We lost our leader. We need to decide what comes next.",
+              "TL": "Nawalan tayo ng pinuno. Kailangan nating pagpasyahan ang susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The boss is down. Who's taking charge?",
+              "TL": "Bagsak ang pinuno. Sino'ng hahawak ng pamumuno?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Without leadership, we need to regroup and plan.",
+              "TL": "Kung walang namumuno, kailangan nating magtipon at magplano."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Our leader is dead. What do we do now?",
+              "TL": "Patay na ang pinuno natin. Ano'ng gagawin natin ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "We need to talk about who leads us forward.",
+              "TL": "Kailangan nating pag-usapan kung sino ang mangunguna sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The head is cut off. We need a new direction.",
+              "TL": "Naputol ang ulo ng grupo. Kailangan natin ng bagong direksyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leader's gone. Let's not fall into chaos.",
+              "TL": "Wala na ang lider. Huwag tayong mahulog sa kaguluhan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Someone needs to step up and guide the crew.",
+              "TL": "May kailangang tumindig at gumabay sa grupo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're leaderless right now. Keep calm and talk.",
+              "TL": "Wala tayong pinuno ngayon. Kumalma at mag-usap tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Terrible news. Let's figure out our next steps.",
+              "TL": "Masamang balita. Pag-isipan natin ang susunod nating hakbang."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.leader_loss.devoted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We lost someone important. We need to stay together.",
+              "TL": "Nawalan tayo ng mahalagang tao. Kailangan nating magsama-sama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They were our guiding light. I don't know what to do without them.",
+              "TL": "Sila ang tanglaw natin. Hindi ko alam ang gagawin nang wala sila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I gave my loyalty to them. I feel empty inside.",
+              "TL": "Ibinigay ko ang katapatan ko sa kanila. Parang walang laman ang puso ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They inspired all of us. We must uphold their ideals.",
+              "TL": "Binigyan nila tayo ng lakas. Dapat nating itaguyod ang simulain nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Our beacon is extinguished. God help us.",
+              "TL": "Namatay na ang tanglaw natin. Diyos ko tulungan mo kami."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I would have followed them to the end. Rest well.",
+              "TL": "Susundan ko sana sila hanggang dulo. Mamahinga ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They were everything to this cause. We cannot let it die.",
+              "TL": "Sila ang lahat para sa layuning 'to. Hindi natin hahayaang mamatay 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "My faith is shaken, but I will stay with our people.",
+              "TL": "Nayanig ang pananampalataya ko, pero mananatili ako sa ating mga kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A visionary has fallen. We must honor their sacrifice.",
+              "TL": "Bumagsak ang ating pinuno. Dapat nating igalang ang sakripisyo nila."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They believed in us. We have to prove them right.",
+              "TL": "Naniwala sila sa atin. Kailangan nating patunayan na tama sila."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.leader_loss.dissent",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "The old order is gone. What happens next is up to us.",
+              "TL": "Wala na ang dating patakaran. Nasa atin na kung ano ang susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Their reign is over. Time for a better way.",
+              "TL": "Tapos na ang pamumuno nila. Oras na para sa mas maayos na paraan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They made terrible choices and paid for it.",
+              "TL": "Maling desisyon ang ginawa nila at binayaran nila 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No more taking orders from that fool.",
+              "TL": "Wala nang susunod sa mga utos ng hangal na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The tyrant is dead. Now we decide our own fate.",
+              "TL": "Patay na ang pinuno. Ngayon tayo na ang magpapasya sa sariling kapalaran."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't shed tears for them. Let's build something fair.",
+              "TL": "Hindi ako iiyak para sa kanila. Magtayo tayo ng makatarungang samahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Their leadership was leading us to the grave anyway.",
+              "TL": "Dadalhin lang din naman tayo ng pamumuno nila sa libingan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "A slate wiped clean. We govern ourselves now.",
+              "TL": "Burado na ang nakaraan. Pamahalaan natin ang sarili natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're gone. Good riddance to bad orders.",
+              "TL": "Wala na sila. Mabuti at tapos na ang maling pamamalakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're free to choose our own path now.",
+              "TL": "Malaya na tayong pumili ng sarili nating landas."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.leader_loss.distant",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "The leader is gone. Someone needs to decide what comes next.",
+              "TL": "Wala na ang pinuno. May kailangang magpasya sa susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I barely knew them, but we still need structure.",
+              "TL": "Halos hindi ko sila kilala, pero kailangan pa rin natin ng kaayusan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leader died. Life goes on. Who's in charge?",
+              "TL": "Namatay ang pinuno. Tuloy ang buhay. Sino'ng mamumuno?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "A casualty like any other. Let's elect someone new.",
+              "TL": "Biktima tulad ng iba. Pumili tayo ng bago."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're gone. We still need food and guards.",
+              "TL": "Wala na sila. Kailangan pa rin natin ng pagkain at bantay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Another name scratched off. Let's sort out the command.",
+              "TL": "Isa na namang pangalan ang nabura. Ayusin natin ang pamumuno."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Doesn't change my daily tasks. Who's giving orders now?",
+              "TL": "Hindi nababago ang gawain ko. Sino na ang mag-uutos ngayon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leader's expired. Pick a replacement and move forward.",
+              "TL": "Pumanaw na ang lider. Pumili ng kapalit at magpatuloy."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Death is common here. Let's figure out our routine.",
+              "TL": "Pangkaraniwan ang kamatayan dito. Ayusin natin ang patakaran."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're dead. What's the practical plan?",
+              "TL": "Patay na sila. Ano ang praktikal na plano?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.social.reaction.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I hear you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naiintindihan ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm listening.",
+              "TL": "Nakikinig ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough.",
+              "TL": "Makatarungan 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds good.",
+              "TL": "Mabuti 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Copy that.",
+              "TL": "Kopya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted.",
+              "TL": "Tandaan ko 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Makes sense.",
+              "TL": "May punto ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I agree.",
+              "TL": "Sumasang-ayon ako."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

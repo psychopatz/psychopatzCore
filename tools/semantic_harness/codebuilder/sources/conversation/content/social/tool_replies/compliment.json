@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.compliment.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is kind of you to say.",
+              "TL": "Mabait sa 'yo ang magsabi niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. That is very nice of you.",
+              "TL": "Salamat. Napakabait mo naman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate the kind words.",
+              "TL": "Salamat sa magagandang salita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is generous of you. Thanks.",
+              "TL": "Mabuti ang puso mo. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. It is rare to get compliments out here.",
+              "TL": "Salamat. Bihira ang papuri sa panahong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That puts a smile on my face. Thank you.",
+              "TL": "Napangiti mo ako roon. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are too kind.",
+              "TL": "Napakabait mo talaga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate that. Truly.",
+              "TL": "Pinahahalagahan ko talaga 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. I will take all the good words I can get.",
+              "TL": "Salamat. Tatanggapin ko ang anumang magandang salita ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. That brightens things up a bit.",
+              "TL": "Salamat. Nabigyan mo ng kaunting liwanag ang araw ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.compliment.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I appreciate the compliment.",
+              "TL": "Salamat sa papuri."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for the compliment.",
+              "TL": "Salamat sa magandang sinabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will take the compliment. Thank you.",
+              "TL": "Tatanggapin ko ang papuri. Maraming salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Much obliged for the kind thought.",
+              "TL": "Maraming salamat sa magandang kaisipan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. I work hard at what I do.",
+              "TL": "Salamat. Pinagsisikapan ko talaga ang ginagawa ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is good feedback to hear.",
+              "TL": "Magandang marinig ang ganitong puna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciated. I try to stay sharp.",
+              "TL": "Salamat. Sinisikap kong manatiling alerto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you. It means something coming from you.",
+              "TL": "Salamat. May halaga 'yan galing sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I am flattered. Thank you.",
+              "TL": "Natutuwa ako sa sinabi mo. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. That boost is welcome.",
+              "TL": "Salamat. Nakakapagpalakas ng loob 'yan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.compliment.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You noticed. Thank you.",
+              "TL": "Napansin mo pala. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad somebody noticed.",
+              "TL": "Mabuti naman at may nakapansin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was wondering if anyone would catch that. Thanks.",
+              "TL": "Iniisip ko nga kung may makakapansin niyan. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good eye. Thanks for noticing.",
+              "TL": "Matalas ang paningin mo. Salamat sa pagpansin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I put some effort into that. Good to see it showed.",
+              "TL": "Pinaghirapan ko 'yon. Mabuti at lumitaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. Nice to know it did not go unseen.",
+              "TL": "Salamat. Masarap malaman na hindi 'yon nabalewala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have sharp observation skills. Thank you.",
+              "TL": "Alesto ka magmasid. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Appreciate you noticing that detail.",
+              "TL": "Salamat at napansin mo ang detalyeng 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I try my best. Thank you for noticing.",
+              "TL": "Ginagawa ko ang buong makakaya ko. Salamat sa pagpansin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks. That was worth the effort then.",
+              "TL": "Salamat. Naging sulit ang pagod ko dahil diyan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

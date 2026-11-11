@@ -1,0 +1,80 @@
+{
+  "beats": [
+    {
+      "baseRelevance": 0.7,
+      "candidates": [
+        {
+          "behavior": "behavior.warn",
+          "relevance": 0.65
+        },
+        {
+          "behavior": "behavior.retaliate_verbally",
+          "relevance": 0.55
+        },
+        {
+          "behavior": "behavior.deescalate",
+          "relevance": 0.35
+        },
+        {
+          "behavior": "behavior.end_conversation",
+          "relevance": 0.2
+        }
+      ],
+      "cooldownTurns": 3,
+      "entry": {
+        "op": "in",
+        "path": "stimulus.semantic.speechAct",
+        "values": [
+          "INSULT",
+          "HOSTILE_REMARK",
+          "THREATEN"
+        ]
+      },
+      "exit": {
+        "any": [
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "APOLOGIZE"
+          },
+          {
+            "op": "truthy",
+            "path": "scene.ended"
+          },
+          {
+            "op": "gte",
+            "path": "beat.turnsInBeat",
+            "value": 6
+          },
+          {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        ]
+      },
+      "group": "beat_group.social_primary",
+      "id": "beat.argument_escalation",
+      "maintain": {
+        "op": "gt",
+        "path": "history.hostilityCount",
+        "value": 0
+      },
+      "maxTurns": 6,
+      "owner": "ProjectHoomans",
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1
+    }
+  ],
+  "domain": "social",
+  "kind": "beats",
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1"
+  },
+  "version": 1
+}

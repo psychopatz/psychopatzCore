@@ -1,0 +1,48 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "behaviors",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "behaviors": [
+    {
+      "id": "behavior.acknowledge_reply",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "ACKNOWLEDGE_REPLY",
+      "mode": "one_shot",
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.social.acknowledged",
+          "dialogueAct": "ACKNOWLEDGE"
+        }
+      },
+      "when": {
+        "all": [
+          {
+            "path": "pragmatic.contextualAdmission.admitted",
+            "op": "truthy"
+          },
+          {
+            "path": "pragmatic.contextualAdmission.selected.relation",
+            "op": "eq",
+            "value": "response"
+          }
+        ]
+      },
+      "baseRelevance": 0.65,
+      "modifiers": []
+    }
+  ]
+}

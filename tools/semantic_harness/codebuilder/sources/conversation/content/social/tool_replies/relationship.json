@@ -1,0 +1,154 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.relationship.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We are not there yet.",
+              "TL": "Hindi pa tayo dumarating sa puntong iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Slow down. We need more time before that.",
+              "TL": "Dahan-dahan lang. Kailangan pa natin ng panahon bago 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let us take things one step at a time.",
+              "TL": "Isa-isa lang nating harapin ang mga bagay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Trust takes time out here. We are not there yet.",
+              "TL": "Ang tiwala ay pinaghihirapan dito. Hindi pa tayo nandoon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We are still figuring each other out.",
+              "TL": "Kinikilala pa natin ang isa't isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on. That is moving faster than I am ready for.",
+              "TL": "Teka muna. Mas mabilis 'yan kaysa sa kaya ko ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let us build some history first.",
+              "TL": "Bumuo muna tayo ng tiwala at pinagsamahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I need to know you better before we go there.",
+              "TL": "Kailangan muna kitang makilala pa bago pumunta roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not yet. Let us keep our feet on the ground.",
+              "TL": "Hindi pa ngayon. Manatili muna tayong nakatuntong sa lupa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We are allies right now. Let us leave it at that.",
+              "TL": "Magkakampi tayo sa ngayon. Manatili muna tayo roon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.relationship.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That is a little too familiar for us.",
+              "TL": "Masyado nang pamilyar 'yan para sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are getting ahead of where we stand.",
+              "TL": "Nauuna ka sa kung ano lang ang ugnayan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let us keep a professional distance for now.",
+              "TL": "Panatilihin muna natin ang maayos na distansya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We have not earned that kind of closeness yet.",
+              "TL": "Hindi pa natin nararating ang ganyang kalapit na samahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pull back a step. That is too close for comfort.",
+              "TL": "Umatras ka nang kaunti. Masyadong malapit 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I like you, but do not push the boundaries.",
+              "TL": "Mabuti ang tingin ko sa 'yo, pero huwag mong tawirin ang hangganan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That feels a bit presumptuous.",
+              "TL": "Medyo mapangahas ang dating niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let us not pretend we are closer than we actually are.",
+              "TL": "Huwag nating ipagpanggap na mas malapit tayo kaysa sa totoo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Boundary check. Step it back.",
+              "TL": "Bantayan ang hangganan. Umatras ka nang kaunti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We have boundaries. Respect them.",
+              "TL": "May mga hangganan tayo. Igalang mo ang mga 'yon."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_rejected.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I cannot do that right now.",
+              "TL": "Hindi ko magagawa iyon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's not something I can pull off here.",
+              "TL": "Hindi ko magagawa 'yan dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to execute that request at this time.",
+              "TL": "Di maisakatuparan ang hiling na 'yan sa ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I have to decline that order.",
+              "TL": "Kailangan kong tanggihan ang utos na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not possible under current circumstances.",
+              "TL": "Hindi posible sa kasalukuyang kalagayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't carry that out right now.",
+              "TL": "Di ko kayang isakatuparan 'yan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to comply with that command.",
+              "TL": "Di makasusunod sa utos na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't do that. Find another solution.",
+              "TL": "Di ko magagawa 'yan. Humanap ng ibang solusyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Order declined. Conditions won't allow it.",
+              "TL": "Tinatanggihan ang utos. Di pinapayagan ng sitwasyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I cannot perform that action right now.",
+              "TL": "Hindi ko maisasagawa ang kilos na 'yan sa ngayon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_rejected.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That order is not going to work.",
+              "TL": "Hindi uubra ang utos na iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's a bad plan and it won't succeed.",
+              "TL": "Masamang plano 'yan at hindi magtatagumpay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That order makes no sense in this situation.",
+              "TL": "Walang saysay ang utos na 'yan sa sitwasyong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That won't work. We need a different approach.",
+              "TL": "Hindi uubra 'yan. Kailangan natin ng ibang diskarte."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm not following an order that leads to failure.",
+              "TL": "Di ako susunod sa utos na papunta sa kapahamakan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That command will only get us killed.",
+              "TL": "Ipapahamak lang tayo ng utos na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not going to work out. Try another idea.",
+              "TL": "Hindi magiging maayos 'yan. Sumubok ng ibang ideya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Flawed order. I won't execute it.",
+              "TL": "May depekto ang utos. Di ko isasakatuparan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That plan is dead in the water.",
+              "TL": "Patay ang planong 'yan sa simula pa lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That won't work out here. Give a better order.",
+              "TL": "Di uubra 'yan dito. Magbigay ka ng mas maayos na utos."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

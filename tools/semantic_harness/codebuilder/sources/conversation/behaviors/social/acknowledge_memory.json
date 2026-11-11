@@ -1,0 +1,63 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "behaviors",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Pragmatic Interaction",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "behaviors": [
+    {
+      "id": "behavior.acknowledge_memory",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "ACKNOWLEDGE_MEMORY",
+      "mode": "one_shot",
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "requiredCapabilities": [],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "ACKNOWLEDGE",
+          "contentTemplateID": "semantic.interaction.memory.acknowledge"
+        },
+        "emote": {
+          "id": "emote.nod"
+        },
+        "flavor": {
+          "presentationAct": "AMBIENT_FLAVOR",
+          "contentTemplateID": "semantic.interaction.memory.acknowledge_flavor"
+        }
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "SHARE_MEMORY"
+      },
+      "baseRelevance": 0.5,
+      "modifiers": [
+        {
+          "when": {
+            "path": "actor.disposition.empathy",
+            "op": "gte",
+            "value": 0.6
+          },
+          "delta": 0.25,
+          "reason": "empathy_favors_acknowledgement"
+        },
+        {
+          "when": {
+            "path": "actor.disposition.sociability",
+            "op": "lt",
+            "value": 0.4
+          },
+          "delta": 0.1,
+          "reason": "low_sociability_favors_acknowledgement"
+        }
+      ]
+    }
+  ]
+}

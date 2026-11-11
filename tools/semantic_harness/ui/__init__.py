@@ -1,1 +1,1 @@
-"""Provider-neutral Core user-interface primitives."""
+"""Tk application shell and Semantic Lab visual authoring panes."""

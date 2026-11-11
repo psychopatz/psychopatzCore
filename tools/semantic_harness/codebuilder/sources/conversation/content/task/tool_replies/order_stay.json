@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_stay.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right. I will hold here.",
+              "TL": "Sige. Hahawakan ko ang pwesto rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding position right here.",
+              "TL": "Hawak ko ang pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Guarding this spot.",
+              "TL": "Naintindihan. Babantayan ang pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will remain right where I am.",
+              "TL": "Mananatili ako kung nasaan ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding ground as ordered.",
+              "TL": "Hawak ang lupa ayon sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I won't move an inch.",
+              "TL": "Naiintindihan ko. Di ako aalis kahit isang pulgada."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Standing watch right here.",
+              "TL": "Nakatayong bantay dito mismo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll keep this position secure.",
+              "TL": "Pananatilihing ligtas ang posisyong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding here. Watch yourself out there.",
+              "TL": "Dito lang ako. Mag-ingat ka sa labas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay order confirmed. Holding ground.",
+              "TL": "Kumpirmadong utos na manatili. Hawak ang lupa."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.order_stay.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I will stay put.",
+              "TL": "Dito lang ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying put until you return.",
+              "TL": "Mananatili rito hanggang sa makabalik ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not moving from this spot.",
+              "TL": "Hindi aalis sa pwestong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll keep my boots planted right here.",
+              "TL": "Nakatuntong ang bota ko rito mismo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying put. Hurry back.",
+              "TL": "Dito lang ako. Bumalik ka agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I will wait right here.",
+              "TL": "Naintindihan. Maghihintay ako rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rooted to this spot. Go ahead.",
+              "TL": "Nakatigil sa pwestong ito. Sige na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Staying put and watching the area.",
+              "TL": "Nananatili rito at nagmamasid sa lugar."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll stay right where you left me.",
+              "TL": "Dito lang ako kung saan mo ako iniwan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Holding still in this position.",
+              "TL": "Nakahinto sa posisyong ito."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

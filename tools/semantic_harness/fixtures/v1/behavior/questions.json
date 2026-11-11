@@ -1,0 +1,136 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "behavior.questions",
+  "cases": [
+    {
+      "id": "question.location.direct",
+      "tags": ["question", "location"],
+      "turns": [
+        {
+          "text": "Where is John?",
+          "expect": {
+            "ir.intent": "QUESTION",
+            "ir.subject": "LOCATION",
+            "ir.target.text": "john",
+            "ir.target.unresolved": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "question.location.find",
+      "tags": ["question", "location"],
+      "turns": [
+        {
+          "text": "Where can I find Sarah?",
+          "expect": {
+            "ir.subject": "LOCATION",
+            "ir.target.text": "sarah",
+            "ir.pattern": "pnc.question.where_can_find"
+          }
+        }
+      ]
+    },
+    {
+      "id": "question.location.embedded",
+      "tags": ["question", "location"],
+      "turns": [
+        {
+          "text": "Do you know where Sarah is?",
+          "expect": {
+            "ir.subject": "LOCATION",
+            "ir.target.text": "sarah"
+          }
+        }
+      ]
+    },
+    {
+      "id": "question.seen.present_perfect",
+      "tags": ["question", "seen"],
+      "turns": [
+        {
+          "text": "Have you seen Sarah?",
+          "expect": {
+            "ir.subject": "SEEN",
+            "ir.target.text": "sarah"
+          }
+        }
+      ]
+    },
+    {
+      "id": "question.seen.polite",
+      "tags": ["question", "seen"],
+      "turns": [
+        {
+          "text": "Did you happen to see Sarah?",
+          "expect": {
+            "ir.subject": "SEEN",
+            "ir.target.text": "sarah"
+          }
+        }
+      ]
+    },
+    {
+      "id": "question.activity.recent",
+      "tags": ["question", "activity"],
+      "turns": [
+        {
+          "text": "What have you been doing?",
+          "expect": {
+            "ir.subject": "ACTIVITY"
+          }
+        }
+      ]
+    },
+    {
+      "id": "question.activity.up_to",
+      "tags": ["question", "activity"],
+      "turns": [
+        {
+          "text": "What have you been up to?",
+          "expect": {
+            "ir.subject": "ACTIVITY"
+          }
+        }
+      ]
+    },
+    {
+      "id": "question.activity.now",
+      "tags": ["question", "activity"],
+      "turns": [
+        {
+          "text": "What are you doing right now?",
+          "expect": {
+            "ir.subject": "ACTIVITY"
+          }
+        }
+      ]
+    },
+    {
+      "id": "question.date.day",
+      "tags": ["question", "date"],
+      "turns": [
+        {
+          "text": "What day is it?",
+          "expect": {
+            "ir.subject": "DATE",
+            "ir.pattern": "pnc.question.day"
+          }
+        }
+      ]
+    },
+    {
+      "id": "question.weather.current",
+      "tags": ["question", "weather"],
+      "turns": [
+        {
+          "text": "What is the weather?",
+          "expect": {
+            "ir.subject": "WEATHER",
+            "ir.pattern": "pnc.question.weather"
+          }
+        }
+      ]
+    }
+  ]
+}

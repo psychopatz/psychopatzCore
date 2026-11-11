@@ -1,0 +1,358 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.give.active",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Handing that over now.",
+              "TL": "Iniaabot ko na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Passing the item to you right now.",
+              "TL": "Ipinapasa ko na ang gamit sa 'yo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Transferring the supplies.",
+              "TL": "Inililipat na ang mga kagamitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Giving this to you now.",
+              "TL": "Ibinibigay ko na ito sa 'yo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Currently handing it over.",
+              "TL": "Kasalukuyang iniaabot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Reaching out to give you the item.",
+              "TL": "Inaabot para ibigay sa 'yo ang gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Giving you what was asked.",
+              "TL": "Ibinibigay sa 'yo ang hiningi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "In the middle of the handoff.",
+              "TL": "Kasalukuyang nag-aabot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handing it off now. Take hold.",
+              "TL": "Iniaabot na. Hawakan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Giving it as ordered.",
+              "TL": "Ibinibigay ayon sa utos."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.give.admitted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll give that to you.",
+              "TL": "Ibibigay ko iyon sa iyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Handing it over.",
+              "TL": "Naintindihan. Iniaabot na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Here, I'll pass that to you.",
+              "TL": "Heto, ipapasa ko 'yan sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. I'll give you the item.",
+              "TL": "Sige. Ibibigay ko sa 'yo ang gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sure thing. Passing it over.",
+              "TL": "Walang anuman. Ipinapasa na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. You can have it.",
+              "TL": "Naiintindihan ko. Pwede mong kunin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll transfer that to your pack.",
+              "TL": "Ililipat ko 'yan sa bag mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Handing it over.",
+              "TL": "Sige. Iniaabot na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll give you what you requested.",
+              "TL": "Ibibigay ko ang hiniling mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds good. Giving it now.",
+              "TL": "Maganda 'yan. Ibibigay na ngayon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.give.completed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "There you go.",
+              "TL": "Heto na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handed over safely.",
+              "TL": "Naibigay na nang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's yours now.",
+              "TL": "Nasa sa 'yo na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Transfer complete.",
+              "TL": "Tapos na ang paglipat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All given. Take good care of it.",
+              "TL": "Naibigay na lahat. Ingatan mo 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. It's in your hands.",
+              "TL": "Tapos na. Nasa mga kamay mo na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handoff finished.",
+              "TL": "Tapos na ang pag-aabot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Given as requested.",
+              "TL": "Naibigay ayon sa hiling."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Item is officially yours.",
+              "TL": "Sa 'yo na ang gamit opisyal."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Completed the handoff.",
+              "TL": "Natapos ang pag-aabot."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.give.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't give that to you.",
+              "TL": "Hindi ko naibigay iyon sa iyo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handoff failed. You were out of reach.",
+              "TL": "Pumalpak ang pag-aabot. Masyado kang malayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Your hands or pack were full. Couldn't give it.",
+              "TL": "Puno ang kamay o bag mo. Di maibigay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Action interrupted. Item not given.",
+              "TL": "Naabala ang kilos. Di naibigay ang gamit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to transfer the item to you.",
+              "TL": "Di mailipat ang gamit sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to hand it over. Something got in the way.",
+              "TL": "Bigo sa pag-aabot. May humarang sa pagitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I couldn't complete the give action.",
+              "TL": "Di ko natapos ang pagbibigay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Dropped it during the exchange.",
+              "TL": "Nahulog habang nagpapalitan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give task failed.",
+              "TL": "Bigo ang gawaing magbigay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Could not give that item.",
+              "TL": "Hindi naibigay ang bagay na 'yan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.give.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't give that to you right now.",
+              "TL": "Hindi ko maibibigay iyon sa iyo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I need that item to survive. Can't spare it.",
+              "TL": "Kailangan ko 'yan para mabuhay. Di ko maipamimigay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That is vital to my loadout. I won't give it away.",
+              "TL": "Mahalaga 'yan sa gamit ko. Di ko ipamimigay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refusing to hand that over.",
+              "TL": "Tumatangging iabot 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't have that item to give.",
+              "TL": "Wala sa akin ang gamit na 'yan para ibigay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't give that up under these circumstances.",
+              "TL": "Di ko maibibigay 'yan sa ganitong kalagayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's not something I can part with.",
+              "TL": "Hindi bagay 'yan na kaya kong bitiwan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give order rejected. I'm keeping this.",
+              "TL": "Tinatanggihan ang pagbibigay. Itatabi ko ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't give that item away.",
+              "TL": "Di ko ipamimigay ang bagay na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not giving that. Ask for something else.",
+              "TL": "Di ibibigay 'yan. Humingi ka ng iba."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

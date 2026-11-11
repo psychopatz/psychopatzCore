@@ -1,0 +1,44 @@
+{
+  "schema": "projecthoomans.c0a.reply-realization.v1",
+  "cases": [
+    {
+      "id": "retaliation_mirror",
+      "rawInput": "fuck you",
+      "scenario": {
+        "npc": {
+          "personalityOverride": true,
+          "personality": {
+            "aggression": 0.9,
+            "bravery": 0.8,
+            "compassion": 0.2,
+            "forgiveness": 0.2,
+            "loyalty": 0.5,
+            "materialism": 0.2,
+            "sociability": 0.5,
+            "socialStyle": "neutral"
+          }
+        }
+      }
+    },
+    {
+      "id": "agreement",
+      "rawInput": "yes"
+    },
+    {
+      "id": "disagreement",
+      "rawInput": "not really"
+    },
+    {
+      "id": "acknowledgement",
+      "rawInput": "thanks"
+    },
+    {
+      "id": "apology_deescalation",
+      "rawInput": "sorry"
+    },
+    {
+      "id": "ask_back_follow_up",
+      "rawInput": "hello there"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "name": "Project Hoomans C7F held-out conversation evaluation",
+  "contentLicense": "Project Hoomans authored evaluation metadata",
+  "rawCorpusPackaged": false,
+  "use": "Evaluation only; paraphrases are authored test inputs informed by reviewed source mappings.",
+  "sourceRefs": [
+    "WordNet 3.0",
+    "MASSIVE",
+    "SGD"
+  ],
+  "cases": [
+    {
+      "id": "massive.weather.what_is_the_weather_like",
+      "sourceRefs": ["MASSIVE"],
+      "utterance": "what is the weather like",
+      "expected": {
+        "recognized": true,
+        "intent": "QUESTION",
+        "subject": "WEATHER",
+        "pattern": "pnc.dataset.massive.weather.what_is_the_weather_like",
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "massive.weather.is_it_still_snowing",
+      "sourceRefs": ["MASSIVE"],
+      "utterance": "is it still snowing",
+      "expected": {
+        "recognized": true,
+        "intent": "QUESTION",
+        "subject": "WEATHER",
+        "pattern": "pnc.dataset.massive.weather.is_it_still_snowing",
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "massive_sgd.needs.what_item_do_you_mean",
+      "sourceRefs": ["MASSIVE", "SGD"],
+      "utterance": "what item do you mean",
+      "expected": {
+        "recognized": true,
+        "intent": "CLARIFY",
+        "subject": "NEEDS",
+        "pattern": "pnc.dataset.clarify.needs.what_item_do_you_mean",
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "wordnet.fetch.grab",
+      "sourceRefs": ["WordNet 3.0"],
+      "setup": ["do you need anything", "how many"],
+      "utterance": "i'll grab some",
+      "expected": {
+        "recognized": true,
+        "intent": "PROMISE",
+        "subject": "NEEDS",
+        "pattern": "pnc.promise.needs_get_some",
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "wordnet.fetch.fetch",
+      "sourceRefs": ["WordNet 3.0"],
+      "setup": ["do you need anything", "how many"],
+      "utterance": "i'll fetch some",
+      "expected": {
+        "recognized": true,
+        "intent": "PROMISE",
+        "subject": "NEEDS",
+        "pattern": "pnc.promise.needs_get_some",
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "wordnet.fetch.retrieve",
+      "sourceRefs": ["WordNet 3.0"],
+      "setup": ["do you need anything", "how many"],
+      "utterance": "i'll retrieve some",
+      "expected": {
+        "recognized": true,
+        "intent": "PROMISE",
+        "subject": "NEEDS",
+        "pattern": "pnc.promise.needs_get_some",
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "wordnet.fetch.bring",
+      "sourceRefs": ["WordNet 3.0"],
+      "setup": ["do you need anything", "how many"],
+      "utterance": "i'll bring some",
+      "expected": {
+        "recognized": true,
+        "intent": "PROMISE",
+        "subject": "NEEDS",
+        "pattern": "pnc.promise.needs_get_some",
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "wordnet.fetch.pick_up",
+      "sourceRefs": ["WordNet 3.0", "MASSIVE", "SGD"],
+      "setup": ["do you need anything", "how many"],
+      "utterance": "i'll pick some up",
+      "expected": {
+        "recognized": true,
+        "intent": "PROMISE",
+        "subject": "NEEDS",
+        "pattern": "pnc.dataset.promise.needs.i_ll_pick_some_up",
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "protected.gossip.bite",
+      "sourceRefs": [],
+      "utterance": "did you hear someone got bitten",
+      "expected": {
+        "recognized": true,
+        "intent": "GOSSIP",
+        "subject": "GOSSIP",
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "negative.massive.weather.subject_mismatch",
+      "sourceRefs": ["MASSIVE"],
+      "utterance": "what is my weather like",
+      "expected": {
+        "recognized": false,
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "negative.massive.weather.scope_mismatch",
+      "sourceRefs": ["MASSIVE"],
+      "utterance": "is it still snowing inside",
+      "expected": {
+        "recognized": false,
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "negative.wordnet.unapproved_collect",
+      "sourceRefs": ["WordNet 3.0"],
+      "setup": ["do you need anything", "how many"],
+      "utterance": "i'll collect some",
+      "expected": {
+        "recognized": false,
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "negative.wordnet.negated_fetch",
+      "sourceRefs": ["WordNet 3.0"],
+      "setup": ["do you need anything", "how many"],
+      "utterance": "i won't pick some up",
+      "expected": {
+        "recognized": false,
+        "noGameplayEffects": true
+      }
+    },
+    {
+      "id": "protected.command.follow_statement",
+      "sourceRefs": [],
+      "utterance": "i'll follow the trail",
+      "expected": {
+        "recognized": false,
+        "noGameplayEffects": true
+      }
+    }
+  ]
+}

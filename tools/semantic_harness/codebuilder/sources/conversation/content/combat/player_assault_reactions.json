@@ -1,0 +1,359 @@
+{
+  "domain": "combat",
+  "groups": {
+    "player_assault": {
+      "contentOwner": "projecthoomans.dialogue_content.combat"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "player_assault",
+      "semanticTemplateID": "semantic.combat.player_assaulted.shaken",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "What the hell?! Stay back!",
+              "TL": "Ano ba?! Lumayo ka!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Why are you attacking me?! Get back!",
+              "TL": "Bakit mo ako inaatake?! Lumayo ka!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop! What are you doing?!",
+              "TL": "Tigil! Ano bang ginagawa mo?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't touch me! Are you crazy?!",
+              "TL": "Huwag mo akong hawakan! Nababaliw ka na ba?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Get away from me right now!",
+              "TL": "Umalis ka sa harap ko ngayon din!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Jesus, back off! Put that away!",
+              "TL": "Diyos ko, atras! Ibaba mo 'yan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Why would you hit me?! Get back!",
+              "TL": "Bakit mo ako sinaktan?! Lumayo ka!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay away from me! Don't do this!",
+              "TL": "Lumayo ka sa akin! Huwag mong gawin 'to!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Are you out of your mind?! Stop!",
+              "TL": "Nawawala ka na ba sa sarili mo?! Tigil!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back off! Don't come any closer!",
+              "TL": "Atras! Huwag kang lalapit pa!"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "player_assault",
+      "semanticTemplateID": "semantic.combat.player_assaulted.aggressive",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You just made a big mistake.",
+              "TL": "Malaking pagkakamali ang ginawa mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. You want a fight, you've got one.",
+              "TL": "Sige. Gusto mo ng laban, makukuha mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You hit me? You're going to regret that.",
+              "TL": "Sinaktan mo ako? Pagsisisihan mo 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Try that again and see what happens.",
+              "TL": "Ulitin mo pa at tignan natin ang mangyayari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wrong person to mess with.",
+              "TL": "Maling tao ang binangga mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You want some of this?! Come on then!",
+              "TL": "Gusto mo pala ng gulo?! Halika rito!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That was your last free shot.",
+              "TL": "Huling libreng tira mo na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll put you in the ground for that.",
+              "TL": "Ililibing kita sa ginawa mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You swung at me? Big mistake.",
+              "TL": "Hinataw mo ako? Malaking mali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You really want to do this? Let's go.",
+              "TL": "Gusto mo talagang gawin 'to? Tara."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "player_assault",
+      "semanticTemplateID": "semantic.combat.player_assaulted.brave",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That's it. You're done.",
+              "TL": "Tama na. Tapos ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bad choice. Defend yourself.",
+              "TL": "Maling desisyon. Ipagtanggol mo ang sarili mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You shouldn't have done that.",
+              "TL": "Hindi mo dapat ginawa 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I gave you space. Now defend yourself.",
+              "TL": "Binigyan kita ng puwang. Ipagtanggol mo sarili mo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's where this ends.",
+              "TL": "Diyan na nagtatapos 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You made your choice.",
+              "TL": "Pumili ka na ng kahihinatnan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't let you hurt me. Stand down or fight.",
+              "TL": "Hindi kita hahayaang saktan ako. Sumuko ka o lumaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unacceptable. Drop your weapon.",
+              "TL": "Hindi katanggap-tanggap. Ibaba mo ang sandata mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You crossed the line.",
+              "TL": "Lumagpas ka sa linya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stand down right now, or I finish this.",
+              "TL": "Tumigil ka ngayon din, o tatapusin ko 'to."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "player_assault",
+      "semanticTemplateID": "semantic.combat.player_assaulted.reserved",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Back off. Now.",
+              "TL": "Lumayo ka. Ngayon na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Enough. Stay away from me.",
+              "TL": "Tama na. Lumayo ka sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Step back.",
+              "TL": "Umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Do not do that again.",
+              "TL": "Huwag mong uulitin 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't touch me.",
+              "TL": "Huwag mo akong hahawakan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Last warning.",
+              "TL": "Huling babala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay back.",
+              "TL": "Diyan ka lang sa malayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drop it.",
+              "TL": "Ibaba mo 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your distance.",
+              "TL": "Dumistansya ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One step back. Right now.",
+              "TL": "Isang hakbang pabalik. Ngayon na."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "player_assault",
+      "semanticTemplateID": "semantic.combat.player_assaulted.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Why did you do that?!",
+              "TL": "Bakit mo ginawa iyon?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What the hell is wrong with you?!",
+              "TL": "Ano bang problema mo?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey! Watch what you're doing!",
+              "TL": "Hoy! Tingnan mo ang ginagawa mo!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Did you just swing at me?!",
+              "TL": "Hinataw mo ba ako?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Are you trying to kill me?!",
+              "TL": "Gusto mo ba akong patayin?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What are you thinking?! Stop it!",
+              "TL": "Ano bang iniisip mo?! Tigil!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Whoa! Back off!",
+              "TL": "Teka! Atras!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't hit me! What's wrong with you?!",
+              "TL": "Huwag mo akong saktan! Ano bang nangyayari sa'yo?!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop swinging at me!",
+              "TL": "Huwag mo akong pagbantaan!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back away from me!",
+              "TL": "Umatras ka palayo sa akin!"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Combat Reaction Content",
+    "version": "1"
+  },
+  "version": 1
+}

@@ -1,0 +1,781 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "content",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Social Conversation Director Content",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.scene.task_work_assigned",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I've got work to do. I'll get on it.",
+              "TL": "May trabaho akong gagawin. Aasikasuhin ko na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Starting on the task now.",
+              "TL": "Naiintindihan ko. Sisimulan ko na ang gawain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Task received. I'll take care of this.",
+              "TL": "Natanggap ang utos. Ako na ang bahala rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Getting down to business.",
+              "TL": "Sige. Sisimulan na ang trabaho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm on it. Shouldn't take too long.",
+              "TL": "Inaasikaso ko na. Hindi magtatagal ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I will handle this duty.",
+              "TL": "Naintindihan. Hahawakan ko ang tungkuling ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got my assignment. Moving out to work.",
+              "TL": "Nakuha ko ang atas ko. Kikilos na para magtrabaho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough. Time to get my hands dirty.",
+              "TL": "Makatwiran. Oras na para magbanat ng buto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll see that this gets done properly.",
+              "TL": "Titiyakin kong matatapos ito nang maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Acknowledged. Working on the assigned job.",
+              "TL": "Kinikilala ko. Gagawin na ang iniatas na trabaho."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Happy to help with this! I'll get right on it.",
+              "TL": "Masayang tumulong dito! Aasikasuhin ko agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leave it to me, friend. I'll make sure it's done right.",
+              "TL": "Ipaubaya mo sa akin, kaibigan. Titiyakin kong maayos ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Glad to contribute to our camp. Heading over now.",
+              "TL": "Masayang makapag-ambag sa kampo natin. Pupunta na ako roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You can count on me. I'll take good care of it.",
+              "TL": "Makaaasa ka sa akin. Aalagaan ko itong mabuti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "On it! Always happy to do my part for the team.",
+              "TL": "Aasikasuhin na! Laging masayang gawin ang bahagi ko para sa grupo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Consider it handled, partner. Be back soon.",
+              "TL": "Ituring mong ayos na, kasama. Babalik ako agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Happy to take this off your hands. Working on it now.",
+              "TL": "Masayang alisin ang bigat na 'to sa 'yo. Gagawin ko na ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll pour my best effort into this for all of us.",
+              "TL": "Ibubuhos ko ang buong makakaya ko para sa ating lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got the task! Thanks for trusting me with it.",
+              "TL": "Nakuha ko ang atas! Salamat sa pagtitiwala sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right away, friend! Let's keep our home running.",
+              "TL": "Agad-agad, kaibigan! Panatilihin nating maayos ang tirahan natin."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "On it.",
+              "TL": "Inaasikaso na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Working.",
+              "TL": "Nagtatrabaho na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood.",
+              "TL": "Naintindihan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Doing it.",
+              "TL": "Ginagawa na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got it.",
+              "TL": "Nakuha ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Assigned.",
+              "TL": "Iniatas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Starting.",
+              "TL": "Nagsisimula na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handling it.",
+              "TL": "Hinahawakan na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right.",
+              "TL": "Sige."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving.",
+              "TL": "Kumikilos na."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "I'll do the work. Watch my back while I do.",
+              "TL": "Gagawin ko ang trabaho. Bantayan mo ang likod ko habang ginagawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll handle it, but keep an eye on our surroundings.",
+              "TL": "Ako na ang bahala, pero magmasid ka sa paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Don't crowd me while I'm working.",
+              "TL": "Naintindihan. Huwag mo akong dikitan habang nagtatrabaho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll do my share. Make sure you do yours.",
+              "TL": "Gagawin ko ang bahagi ko. Tiyakin mong gagawin mo ang sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Getting on it. Stay alert for threats.",
+              "TL": "Sisimulan na. Manatiling alisto sa mga banta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll get it done. Just make sure the perimeter is secure.",
+              "TL": "Matatapos ko ito. Tiyakin mo lang na ligtas ang paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Task noted. I'll finish it without distraction.",
+              "TL": "Tala ang gawain. Tatapusin ko nang walang abala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. I'll see to the task.",
+              "TL": "Sige. Aasikasuhin ko ang gawain."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll handle this. Keep your weapon ready.",
+              "TL": "Hahawakan ko ito. Ihanda mo ang armas mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Don't let anything sneak up on me.",
+              "TL": "Naiintindihan ko. Huwag kang magpapapasok ng kahit ano sa likod ko."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.task_work_completed",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That's done. One less thing to worry about.",
+              "TL": "Tapos na. Isang alalahanin ang nabawas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished the task. All wrapped up.",
+              "TL": "Tapos na ang gawain. Ayos na ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Job is complete. What's next?",
+              "TL": "Tapos na ang trabaho. Ano ang susunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "That takes care of that assignment.",
+              "TL": "Naasikaso na ang tungkuling iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All done here. Everything looks in order.",
+              "TL": "Tapos na ang lahat dito. Maayos ang kalagayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Task is completed to the best of my ability.",
+              "TL": "Natapos ang gawain sa abot ng aking makakaya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wrapped that up. Ready for the next priority.",
+              "TL": "Tapos na iyon. Handa na para sa susunod na prayoridad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. That should hold up fine.",
+              "TL": "Tapos na. Maayos ang magiging tibay niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The work is finished. Moving on.",
+              "TL": "Tapos na ang trabaho. Magpatuloy na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Completed. Duty handled.",
+              "TL": "Kumpleto na. Naasikaso ang tungkulin."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "All finished! Glad I could help get this done.",
+              "TL": "Tapos na ang lahat! Mabuti at nakatulong akong tapusin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's taken care of, friend. Turned out great!",
+              "TL": "Naasikaso na 'yon, kaibigan. Naging napakaganda ng resulta!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Proud to have this knocked out for the camp.",
+              "TL": "Ipinagmamalaki kong natapos ito para sa kampo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished! We're making our home a little better every day.",
+              "TL": "Tapos na! Pinapaganda natin ang tirahan natin araw-araw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done and dusted! Let me know if you need another hand.",
+              "TL": "Tapos at malinis na! Sabihan mo lang ako kung kailangan mo pa ng tulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Completed with care. Hope it meets your expectations, partner.",
+              "TL": "Tinapos nang buong puso. Sana pumasa sa pamantayan mo, kasama."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That was tough, but we did it! All finished.",
+              "TL": "Mabigat 'yon, pero kinaya natin! Tapos na ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One more step toward surviving comfortably. All done!",
+              "TL": "Isa na namang hakbang para maging maginhawa rito. Tapos na!"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done! Happy to do my part for our people.",
+              "TL": "Tapos na! Masayang gawin ang parte ko para sa kasamahan natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All set! Feels good to get something productive accomplished.",
+              "TL": "Handa na! Masarap sa pakiramdam na may natapos na kapaki-pakinabang."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Done.",
+              "TL": "Tapos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished.",
+              "TL": "Tapos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Completed.",
+              "TL": "Kumpleto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Handled.",
+              "TL": "Naasikaso na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sorted.",
+              "TL": "Ayos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All set.",
+              "TL": "Handa na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wrapped up.",
+              "TL": "Tapos na lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Next?",
+              "TL": "Susunod?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cleared.",
+              "TL": "Malinaw na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Ready.",
+              "TL": "Handa na."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Task is done. I'm taking a breather.",
+              "TL": "Tapos na ang gawain. Magpapahinga muna ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished. Inspect it if you want to be sure.",
+              "TL": "Tapos na. Suriin mo kung nais mong makatiyak."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's completed. Now keep your eyes open.",
+              "TL": "Tapos na ito. Ngayon buksan mo ang mga mata mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That job is handled. Back to guarding the perimeter.",
+              "TL": "Naasikaso na ang trabaho. Balik sa pagbabantay ng paligid."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished my duty. Nobody snuck up on us, right?",
+              "TL": "Tapos na ang tungkulin ko. Walang nakalapit sa atin, di ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. Let's make sure it wasn't for nothing.",
+              "TL": "Tapos na. Tiyakin nating hindi nasayang ang pagod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Work is complete. Back on defensive watch.",
+              "TL": "Tapos na ang trabaho. Balik sa pagbabantay."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's finished. Keep quiet and stay alert.",
+              "TL": "Tapos na. Manatiling tahimik at alisto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Task completed. Don't waste the resources I secured.",
+              "TL": "Gawain natapos. Huwag mong sayangin ang naasikaso ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done. What's the next threat we need to manage?",
+              "TL": "Tapos na. Ano ang susunod na banta na dapat harapin?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.post_combat_clear",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Looks clear now. That got rough for a minute.",
+              "TL": "Mukhang malinaw na. Naging delikado sandali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Area is secure. Check yourselves for injuries.",
+              "TL": "Ligtas na ang lugar. Tingnan niyo kung may mga sugat kayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "They're all down. Take a breath and reload.",
+              "TL": "Tumba na silang lahat. Huminga at magkarga ng bala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fight's over. Good work holding the line.",
+              "TL": "Tapos na ang laban. Magandang pagpigil sa linya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Looks like the immediate threat is dealt with.",
+              "TL": "Mukhang naasikaso na ang agarang banta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear. Everyone still in one piece?",
+              "TL": "Malinaw. Buo pa ba ang lahat?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat neutralized. Let's recover our stamina.",
+              "TL": "Nalipol ang banta. Bawiin natin ang lakas natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's quiet again. Stay alert for stragglers.",
+              "TL": "Tahimik na ulit. Magbantay sa mga naiwan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Combat is finished. Reload and bandage up.",
+              "TL": "Tapos na ang bakbakan. Magkarga at magbenda."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We held them off. Area appears clear.",
+              "TL": "Naitaboy natin sila. Mukhang malinis na ang lugar."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "We made it through! Is everyone okay?",
+              "TL": "Nakalusot tayo! Ayos lang ba ang lahat?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank goodness you're alive. That was terrifying.",
+              "TL": "Salamat sa Diyos at buhay ka. Napakatindi noon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Great fighting, partner! I'm so glad we survived that.",
+              "TL": "Napakagaling mong lumaban, kasama! Masayang-masaya ako't nakaligtas tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Come here, let me check you over for bites or scratches.",
+              "TL": "Halika rito, titingnan ko kung may kagat o gasgas ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We did it together. Nobody got left behind.",
+              "TL": "Nagawa natin nang magkasama. Walang naiwan sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take a breath, friend. We held the line.",
+              "TL": "Huminga ka muna, kaibigan. Naipagtanggol natin ang pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was worried for a second there, but you fought bravely.",
+              "TL": "Nag-alala ako nang sandali, pero buong tapang kang lumaban."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Proud to stand beside you in that fight. We're safe now.",
+              "TL": "Ipinagmamalaki kong tumabi sa 'yo sa laban. Ligtas na tayo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Rest for a minute. You earned it after that mess.",
+              "TL": "Magpahinga ka muna. Karapat-dapat ka roon pagkatapos ng gulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All clear! Hugely relieved we're both standing.",
+              "TL": "Malinis na! Napakalaking ginhawa na nakatayo pa tayong pareho."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Clear.",
+              "TL": "Malinaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All down.",
+              "TL": "Tumba lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Reload.",
+              "TL": "Magkarga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check wounds.",
+              "TL": "Tingnan ang sugat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Secure.",
+              "TL": "Ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done.",
+              "TL": "Tapos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet now.",
+              "TL": "Tahimik na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold positions.",
+              "TL": "Manatili sa pwesto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Breathe.",
+              "TL": "Huminga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat gone.",
+              "TL": "Wala nang banta."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Don't relax yet. Scan for stragglers.",
+              "TL": "Huwag munang magpakampante. Maghanap ng mga naiwan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Down, but keep your weapon ready. More could be coming.",
+              "TL": "Tumba na, pero ihanda ang armas. Baka may paparating pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check your perimeter before you start celebrating.",
+              "TL": "Suriin ang paligid bago magdiwang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check every corpse. Make sure they stay down.",
+              "TL": "Tingnan ang bawat bangkay. Tiyaking hindi na gagalaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gunfire brings more of them. We need to be ready to move.",
+              "TL": "Nakahahatak ng iba ang putok. Maging handa tayong umalis."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Wipe your blade and reload immediately.",
+              "TL": "Punasan ang talim at magkarga agad ng bala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Are you bitten? Answer me right now.",
+              "TL": "Kinagat ka ba? Sagutin mo ako ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Threat is dead, but noise travels fast out here.",
+              "TL": "Patay ang banta, pero mabilis kumalat ang ingay dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep low. Don't silhouette yourself in the doorway.",
+              "TL": "Yumuko ka. Huwag mong i-expose ang sarili mo sa pinto."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Clear for now. Expect a second wave.",
+              "TL": "Malinis sa ngayon. Maghanda sa pangalawang bugso."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": []
+}

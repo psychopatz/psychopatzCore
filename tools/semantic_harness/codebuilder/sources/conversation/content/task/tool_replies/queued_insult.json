@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_insult.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I heard you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard that insult.",
+              "TL": "Narinig ko ang pambabastos na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Caught that remark.",
+              "TL": "Narinig ang patutsadang 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear the childish jab.",
+              "TL": "Naririnig ko ang pambatang sundot."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message heard. Doesn't bother me.",
+              "TL": "Narinig ang mensahe. Di ako apektado."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard you. Weak effort.",
+              "TL": "Narinig kita. Mahinang banat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard the slander.",
+              "TL": "Narinig ko ang paninira."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard it. Moving on.",
+              "TL": "Narinig ko. Lumilipas na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard that petty comment.",
+              "TL": "Narinig ko ang mababaw na komentong 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear your barking.",
+              "TL": "Naririnig ko ang tahol mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_insult.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Noted.",
+              "TL": "Tala ko na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted, and dismissed.",
+              "TL": "Tala ko na, at binalewala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. You're wasting your breath.",
+              "TL": "Tala ko na. Sinasayang mo lang ang laway mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. Doesn't mean a thing to me.",
+              "TL": "Tala ko na. Walang halaga sa akin 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Duly noted. Try harder next time.",
+              "TL": "Tala ko na. Galingan mo sa susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. I've heard worse from strangers.",
+              "TL": "Tala ko na. Nakarining na ako ng mas masahol pa sa iba."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. Water off a duck's back.",
+              "TL": "Tala ko na. Para lang tubig sa dahon ng gabi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. Don't expect a reaction.",
+              "TL": "Tala ko na. Huwag kang umasa ng reaksyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. Moving along.",
+              "TL": "Tala ko na. Tuloy ang lakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted and ignored.",
+              "TL": "Tala ko na at kinalimutan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

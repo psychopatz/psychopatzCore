@@ -1,0 +1,273 @@
+{
+  "domain": "social",
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "interaction",
+      "semanticTemplateID": "semantic.interaction.argument.deescalate",
+      "styles": {
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Fine. Just lower your voice.",
+              "TL": "Sige. Hinaan mo lang ang boses mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lower your tone before you draw attention.",
+              "TL": "Hinaan mo ang tono mo bago ka makahatak ng pansin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop yelling. You want every dead head hearing this?",
+              "TL": "Huwag kang sumigaw. Gusto mo bang marinig tayo ng mga patay?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. Keep it down and back off.",
+              "TL": "Sige. Hinaan ang boses at umatras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Enough. Lower the volume right now.",
+              "TL": "Sapat na. Hinaan mo ang boses mo ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard you. Now drop the shouting.",
+              "TL": "Narinig kita. Ngayon tigilan mo ang pagsigaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Shh! Keep your voice down.",
+              "TL": "Shh! Hinaan mo ang boses mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep it civil and quiet. We're in danger.",
+              "TL": "Maging maayos at tahimik. Nasa panganib tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lower your voice. I'm not deaf.",
+              "TL": "Hinaan mo ang boses. Hindi ako bingi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. Just tone it down.",
+              "TL": "Sige. Hinaan mo lang."
+            }
+          }
+        ],
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Easy. We don't need to make this worse.",
+              "TL": "Dahan-dahan. Hindi natin kailangang palalain pa ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's calm down and talk this through reasonably.",
+              "TL": "Kumalma tayo at pag-usapan ito nang maayos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take a breath. Bickering won't fix anything.",
+              "TL": "Huminga ka nang malalim. Walang maaayos ang bangayan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No need for tempers to flare. Let's settle it.",
+              "TL": "Di kailangang mag-init ang ulo. Ayusin natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Easy does it. We're on the same side here.",
+              "TL": "Dahan-dahan lang. Magkasama tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's step back and look at the situation calmly.",
+              "TL": "Umatras muna tayo at tingnan ang sitwasyon nang mahinahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can resolve this without shouting.",
+              "TL": "Maaayos natin ito nang hindi sumisigaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep cool. Let's find a workable solution.",
+              "TL": "Kumalma ka lang. Maghanap tayo ng maayos na solusyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Easy now. Don't lose your head over this.",
+              "TL": "Dahan-dahan lang. Huwag mawalan ng katinuan dahil dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on. Let's de-escalate before someone gets hurt.",
+              "TL": "Teka muna. Huminahon tayo bago may masaktan."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Easy.",
+              "TL": "Dahan-dahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Calm down.",
+              "TL": "Kumalma ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drop it.",
+              "TL": "Tama na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Quiet.",
+              "TL": "Tahimik."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Breathe.",
+              "TL": "Huminga ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cool off.",
+              "TL": "Palamig ka muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Steady.",
+              "TL": "Magpakatatag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Enough.",
+              "TL": "Sapat na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold up.",
+              "TL": "Teka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stop.",
+              "TL": "Tigil."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "Calm down. This isn't helping either of us.",
+              "TL": "Kumalma ka. Walang naitutulong ito sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey, look at me. We're friends, remember?",
+              "TL": "Huy, tingnan mo ako. Magkaibigan tayo, tandaan mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take a breath. I'm right here with you. Let's work it out.",
+              "TL": "Huminga ka muna. Narito lang ako kasama mo. Aayusin natin 'to."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know you're stressed. Let's pause and decompress.",
+              "TL": "Alam kong pagod ka. Huminto muna tayo at magpahinga."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't let the anger take over. We care about each other.",
+              "TL": "Huwag mong hayaang lamunin ka ng galit. May malasakit tayo sa isa't isa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're going to get through this, I promise. Calm down.",
+              "TL": "Malalampasan natin ito, pangako. Kumalma ka na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear your pain. Let's talk gently.",
+              "TL": "Naririnig ko ang hirap mo. Mag-usap tayo nang mahinahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's all right. I'm listening. Just bring the energy down.",
+              "TL": "Ayos lang. Nakikinig ako. Ibaba mo lang ang init ng ulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've survived too much together to fight like this.",
+              "TL": "Masyado na tayong maraming pinagdaanan para mag-away nang ganito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Peace, friend. We are stronger together.",
+              "TL": "Kapayapaan, kaibigan. Mas malakas tayo kapag magkasama."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Pragmatic Interaction Content",
+    "version": "1"
+  },
+  "version": 1
+}

@@ -1,0 +1,115 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "c0a.multi_turn",
+  "cases": [
+    {
+      "id": "c0a.npc_question_player_not_really",
+      "tags": ["c0a", "multi_turn", "social"],
+      "description": "NPC greeting flow followed by player short disagreement",
+      "turns": [
+        {
+          "text": "hello there",
+          "expect": {
+            "ir.intent": "GREET",
+            "response.exists": true
+          }
+        },
+        {
+          "text": "not really",
+          "expect": {
+            "ir.intent": "DISAGREE",
+            "decision.branch": "SOCIAL_ACKNOWLEDGED",
+            "response.templateID": "semantic.social.acknowledged"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.hostility_then_apology",
+      "tags": ["c0a", "multi_turn", "hostility", "apology"],
+      "description": "Hostility followed by an apology and de-escalation",
+      "turns": [
+        {
+          "text": "fuck you",
+          "expect": {
+            "ir.intent": "INSULT",
+            "dispatchTransport": { "count": 0 },
+            "toolCalls": { "count": 0 }
+          }
+        },
+        {
+          "text": "sorry",
+          "expect": {
+            "ir.intent": "APOLOGIZE",
+            "decision.branch": "SOCIAL_ACKNOWLEDGED",
+            "response.templateID": "semantic.social.apology.friendly"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.hostility_then_continued_challenge",
+      "tags": ["c0a", "multi_turn", "hostility", "challenge"],
+      "description": "Hostility followed by a skeptical short utterance",
+      "turns": [
+        {
+          "text": "fuck you",
+          "expect": {
+            "ir.intent": "INSULT",
+            "dispatchTransport": { "count": 0 }
+          }
+        },
+        {
+          "text": "yeah right",
+          "expect": {
+            "ir.intent": "DISAGREE",
+            "decision.branch": "SOCIAL_ACKNOWLEDGED",
+            "response.templateID": "semantic.social.acknowledged"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.topic_continuation",
+      "tags": ["c0a", "multi_turn", "topic", "time", "date"],
+      "description": "Adjacent time and date queries across consecutive turns",
+      "turns": [
+        {
+          "text": "what time is it",
+          "expect": {
+            "ir.subject": "TIME",
+            "response.templateID": "semantic.question.time"
+          }
+        },
+        {
+          "text": "what day is it",
+          "expect": {
+            "ir.subject": "DATE",
+            "response.templateID": "semantic.question.date"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.topic_change",
+      "tags": ["c0a", "multi_turn", "topic", "wellbeing"],
+      "description": "Time question followed by wellbeing query",
+      "turns": [
+        {
+          "text": "what time is it",
+          "expect": {
+            "ir.subject": "TIME",
+            "response.templateID": "semantic.question.time"
+          }
+        },
+        {
+          "text": "how are you",
+          "expect": {
+            "ir.subject": "WELLBEING",
+            "decision.branch": "QUESTION_RECEIVED"
+          }
+        }
+      ]
+    }
+  ]
+}

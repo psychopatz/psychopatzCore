@@ -1,0 +1,99 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "c0a.reply_realization",
+  "cases": [
+    {
+      "id": "c0a.realization.retaliation_mirror",
+      "tags": ["c0a", "realization", "personality"],
+      "scenario": {
+        "npc": {
+          "personalityOverride": true,
+          "personality": {
+            "aggression": 0.9,
+            "bravery": 0.8,
+            "compassion": 0.2,
+            "forgiveness": 0.2,
+            "loyalty": 0.5,
+            "materialism": 0.2,
+            "sociability": 0.5,
+            "socialStyle": "neutral"
+          }
+        }
+      },
+      "turns": [
+        {
+          "text": "fuck you",
+          "expect": {
+            "ir.intent": "INSULT",
+            "dispatchTransport": { "count": 0 }
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.realization.agreement",
+      "tags": ["c0a", "realization"],
+      "turns": [
+        {
+          "text": "yes",
+          "expect": {
+            "ir.intent": "ACCEPT",
+            "response.exists": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.realization.disagreement",
+      "tags": ["c0a", "realization"],
+      "turns": [
+        {
+          "text": "not really",
+          "expect": {
+            "ir.intent": "DISAGREE",
+            "response.exists": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.realization.acknowledgement",
+      "tags": ["c0a", "realization"],
+      "turns": [
+        {
+          "text": "thanks",
+          "expect": {
+            "ir.intent": "THANK",
+            "response.exists": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.realization.apology_deescalation",
+      "tags": ["c0a", "realization"],
+      "turns": [
+        {
+          "text": "sorry",
+          "expect": {
+            "ir.intent": "APOLOGIZE",
+            "response.exists": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "c0a.realization.ask_back_follow_up",
+      "tags": ["c0a", "realization"],
+      "turns": [
+        {
+          "text": "hello there",
+          "expect": {
+            "ir.intent": "GREET",
+            "response.exists": true
+          }
+        }
+      ]
+    }
+  ]
+}

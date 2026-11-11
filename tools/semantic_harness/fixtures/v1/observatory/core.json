@@ -1,0 +1,100 @@
+{
+  "schema": "pnc.semantic-test.v1",
+  "suite": "observatory.core",
+  "cases": [
+    {
+      "id": "observatory.core.greeting_opening.en",
+      "tags": ["observatory", "greeting", "core"],
+      "turns": [
+        {
+          "text": "hello",
+          "language": "EN",
+          "expect": {
+            "firstSemanticKey": "semantic.flow.greeting.opening.default"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.core.greeting_opening.tl",
+      "tags": ["observatory", "greeting", "core", "localization"],
+      "turns": [
+        {
+          "text": "hello",
+          "language": "TL",
+          "expect": {
+            "firstSemanticKey": "semantic.flow.greeting.opening.default",
+            "fallbackLookups": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.core.rain_greeting.en",
+      "tags": ["observatory", "greeting", "weather", "core"],
+      "scenario": {
+        "world": { "weather": "rain" }
+      },
+      "turns": [
+        {
+          "text": "hello",
+          "language": "EN",
+          "expect": {
+            "firstSemanticKey": "semantic.flow.greeting.opening.rain"
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.core.rain_greeting.tl",
+      "tags": ["observatory", "greeting", "weather", "core", "localization"],
+      "scenario": {
+        "world": { "weather": "rain" }
+      },
+      "turns": [
+        {
+          "text": "hello",
+          "language": "TL",
+          "expect": {
+            "firstSemanticKey": "semantic.flow.greeting.opening.rain",
+            "fallbackLookups": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.core.unknown_identity.en",
+      "tags": ["observatory", "identity", "core"],
+      "scenario": {
+        "npc": { "name": "" }
+      },
+      "turns": [
+        {
+          "text": "who are you",
+          "language": "EN",
+          "expect": {
+            "ir.subject": "IDENTITY",
+            "lastSemanticKey": { "prefix": "semantic.question.identity." }
+          }
+        }
+      ]
+    },
+    {
+      "id": "observatory.core.unknown_identity.tl",
+      "tags": ["observatory", "identity", "core", "localization"],
+      "scenario": {
+        "npc": { "name": "" }
+      },
+      "turns": [
+        {
+          "text": "who are you",
+          "language": "TL",
+          "expect": {
+            "ir.subject": "IDENTITY",
+            "lastSemanticKey": { "prefix": "semantic.question.identity." }
+          }
+        }
+      ]
+    }
+  ]
+}

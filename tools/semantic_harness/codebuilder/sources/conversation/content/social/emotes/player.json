@@ -1,0 +1,226 @@
+{
+  "domain": "social",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.player.clap",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Well done, {names}.",
+              "TL": "Magaling, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's worth celebrating, {names}.",
+              "TL": "Karapat-dapat ipagdiwang iyan, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nice work, {names}.",
+              "TL": "Mahusay na trabaho, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.player.insult",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Back off, {names}.",
+              "TL": "Lumayo ka, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're asking for trouble, {names}.",
+              "TL": "Naghahanap ka ng gulo, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your distance, {names}.",
+              "TL": "Panatilihin ang distansya, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.player.salute",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Respect, {names}.",
+              "TL": "Paggalang, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I see you, {names}.",
+              "TL": "Nakikita kita, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay sharp, {names}.",
+              "TL": "Manatiling alerto, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.player.thankyou",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Thanks, {names}.",
+              "TL": "Salamat, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate that, {names}.",
+              "TL": "Pinahahalagahan ko iyan, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have my thanks, {names}.",
+              "TL": "Salamat sa iyo, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.player.thumbsdown",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "No. That's not good enough, {names}.",
+              "TL": "Hindi. Hindi sapat iyan, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I don't like that, {names}.",
+              "TL": "Hindi ko gusto iyan, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Try again, {names}.",
+              "TL": "Subukan muli, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.player.thumbsup",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Good work, {names}.",
+              "TL": "Mahusay, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's what I like to see, {names}.",
+              "TL": "Iyan ang gusto kong makita, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep it up, {names}.",
+              "TL": "Ipagpatuloy mo, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.player.wavebye",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Take care, {names}.",
+              "TL": "Mag-ingat, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "See you around, {names}.",
+              "TL": "Kita tayo, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stay safe, {names}.",
+              "TL": "Manatiling ligtas, {names}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.emote.player.wavehi",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Hey, {names}.",
+              "TL": "Uy, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good to see you, {names}.",
+              "TL": "Mabuti at nakita kita, {names}."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Morning, {names}.",
+              "TL": "Magandang umaga, {names}."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

@@ -1,0 +1,52 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "realization",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans contextual replies",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "realizations": [
+    {
+      "id": "construction.en.social.contextual_accept",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "ACCEPT",
+      "dialogueAct": "ACCEPT",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Yes, I accept."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.contextual_refuse",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "REFUSE",
+      "dialogueAct": "REFUSE",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "No, I'll pass."
+        }
+      ]
+    },
+    {
+      "id": "construction.en.social.contextual_thank",
+      "type": "construction",
+      "locale": "EN",
+      "strategy": "THANK",
+      "dialogueAct": "THANK",
+      "tokens": [
+        {
+          "kind": "literal",
+          "value": "Thank you."
+        }
+      ]
+    }
+  ]
+}

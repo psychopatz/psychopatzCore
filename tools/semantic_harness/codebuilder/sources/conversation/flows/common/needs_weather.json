@@ -1,0 +1,231 @@
+{
+  "domain": "common",
+  "kind": "responses",
+  "responsePools": [
+    {
+      "id": "semantic.question.needs.proposal",
+      "variants": [
+        {
+          "fallback": "I can keep that as a proposal, but I still need the item and amount before I record a commitment.",
+          "id": "semantic.question.needs.proposal.dataset.thirst",
+          "plan": {
+            "dialogueAct": "PROMISE_ACKNOWLEDGEMENT",
+            "groundedFactRefs": [
+              "npc.needs.thirst"
+            ],
+            "sourcePoolID": "semantic.question.needs.proposal",
+            "tone": "direct",
+            "topic": "NEEDS",
+            "turns": [
+              {
+                "continuation": "continue",
+                "id": "dataset_proposal_acknowledged",
+                "segments": [
+                  {
+                    "fallback": "I can keep that as a proposal, but I still need the item and amount before I record a commitment.",
+                    "kind": "translation",
+                    "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsPromiseThirst"
+                  }
+                ]
+              }
+            ],
+            "uncertainty": "pending"
+          },
+          "priority": 4,
+          "reviewed": true,
+          "sourceRefs": [
+            "MASSIVE",
+            "SGD"
+          ],
+          "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsPromiseThirst",
+          "translations": {
+            "EN": "I can keep that as a proposal, but I still need the item and amount before I record a commitment.",
+            "TL": "Maaari ko iyong ituring na panukala, pero kailangan ko pa ang item at dami bago ako magtala ng pangako."
+          },
+          "when": {
+            "needType": "thirst",
+            "needUrgency": [
+              "moderate",
+              "severe",
+              "emergency",
+              "critical"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "semantic.question.needs.quantity",
+      "variants": [
+        {
+          "fallback": "I can confirm water is a need, but which item do you mean?",
+          "id": "semantic.question.needs.quantity.dataset.clarify_thirst",
+          "plan": {
+            "dialogueAct": "ASK_CLARIFICATION",
+            "groundedFactRefs": [
+              "npc.needs.thirst"
+            ],
+            "sourcePoolID": "semantic.question.needs.quantity",
+            "tone": "clarifying",
+            "topic": "NEEDS",
+            "turns": [
+              {
+                "continuation": "continue",
+                "id": "dataset_needs_clarification",
+                "segments": [
+                  {
+                    "fallback": "I can confirm water is a need, but which item do you mean?",
+                    "kind": "translation",
+                    "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsClarifyThirst"
+                  }
+                ]
+              }
+            ],
+            "uncertainty": "ambiguous"
+          },
+          "priority": 4,
+          "reviewed": true,
+          "sourceRefs": [
+            "MASSIVE",
+            "SGD"
+          ],
+          "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsClarifyThirst",
+          "translations": {
+            "EN": "I can confirm water is a need, but which item do you mean?",
+            "TL": "Makukumpirma kong kailangan ang tubig, pero aling item ang ibig mong sabihin?"
+          },
+          "when": {
+            "lastIntent": "CLARIFY",
+            "needType": "thirst"
+          }
+        }
+      ]
+    },
+    {
+      "id": "semantic.flow.weather.raining",
+      "variants": [
+        {
+          "fallback": "It is raining right now. We can return to that proposal when you are ready.",
+          "id": "semantic.flow.weather.raining.dataset.contextual_switch",
+          "plan": {
+            "dialogueAct": "WEATHER_REPORT",
+            "groundedFactRefs": [
+              "world.weather.raining"
+            ],
+            "personalityStyle": "contextual",
+            "sourcePoolID": "semantic.flow.weather.raining",
+            "tone": "conversational",
+            "topic": "WEATHER",
+            "turns": [
+              {
+                "continuation": "continue",
+                "id": "dataset_contextual_weather_switch",
+                "segments": [
+                  {
+                    "fallback": "It is raining right now. We can return to that proposal when you are ready.",
+                    "kind": "translation",
+                    "templateID": "UI_PNC_Conversation_Semantic_DatasetWeatherContextualSwitch"
+                  }
+                ]
+              }
+            ],
+            "uncertainty": "known"
+          },
+          "priority": 4,
+          "reviewed": true,
+          "sourceRefs": [
+            "MASSIVE",
+            "SGD"
+          ],
+          "templateID": "UI_PNC_Conversation_Semantic_DatasetWeatherContextualSwitch",
+          "translations": {
+            "EN": "It is raining right now. We can return to that proposal when you are ready.",
+            "TL": "Umuulan ngayon. Maaari tayong bumalik sa panukalang iyon kapag handa ka na."
+          },
+          "when": {
+            "pattern": "pnc.dataset.question.weather.can_we_talk_about_the_weather"
+          }
+        }
+      ]
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Common Interaction Seed",
+    "owner": "ProjectHoomans",
+    "references": [
+      {
+        "license": "ACL Anthology terms; metadata-only reference",
+        "name": "DailyDialog",
+        "reviewedOn": "2026-10-19",
+        "url": "https://aclanthology.org/I17-1099/",
+        "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "CC BY 4.0; metadata-only reference",
+        "name": "EmpatheticDialogues",
+        "reviewedOn": "2026-10-19",
+        "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+        "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+      },
+      {
+        "license": "WordNet 3.0 license",
+        "name": "WordNet 3.0",
+        "reviewedOn": "2026-10-19",
+        "url": "https://wordnet.princeton.edu/",
+        "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY 4.0",
+        "name": "MASSIVE",
+        "recordRefs": [
+          {
+            "intent": "weather_query",
+            "locale": "en-US",
+            "partition": "train",
+            "recordID": "98"
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+        "sourceVersion": "1.0",
+        "url": "https://github.com/alexa/massive",
+        "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      },
+      {
+        "importStatus": {
+          "approved": 1,
+          "compiled": 1,
+          "imported": 1,
+          "mapped": 1,
+          "workerVerified": 1
+        },
+        "license": "CC BY-SA 4.0",
+        "name": "SGD",
+        "recordRefs": [
+          {
+            "dialogueID": "90_00031",
+            "intent": "GetWeather",
+            "service": "Weather_1",
+            "turn": 6
+          }
+        ],
+        "reviewedOn": "2026-10-19",
+        "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+        "sourceVersion": "DSTC8 train",
+        "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+        "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+      }
+    ],
+    "version": "1"
+  },
+  "version": 1
+}

@@ -1,0 +1,222 @@
+{
+  "domain": "social",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.hostile.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Watch your mouth.",
+              "TL": "Ingatan mo ang bibig mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Check your tone.",
+              "TL": "Ayusin mo ang tono mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You do not want to talk to me like that.",
+              "TL": "Huwag mo akong kakausapin nang ganyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Mind how you speak to me.",
+              "TL": "Mag-ingat ka sa pagsasalita mo sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Lower your voice and watch your words.",
+              "TL": "Hinaan mo ang boses mo at bantayan ang dila mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are crossing a line with that mouth.",
+              "TL": "Sumusobra ka na sa mga sinasabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bite your tongue before I lose patience.",
+              "TL": "Kagatin mo ang dila mo bago maubos ang pasensya ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Watch it.",
+              "TL": "Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That mouth of yours is going to get you hurt.",
+              "TL": "Ipapahamak ka ng bibig mong 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Careful what comes out of your mouth next.",
+              "TL": "Bantayan mo ang susunod na lalabas sa bibig mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.hostile.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Try that again and see what happens.",
+              "TL": "Ulitin mo 'yan at tingnan natin ang mangyayari."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Say that one more time. I dare you.",
+              "TL": "Subukan mong sabihin 'yan ulit. Hinahamon kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Push me again and find out.",
+              "TL": "Itulak mo pa ako at nang malaman mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Do not test my patience.",
+              "TL": "Huwag mong subukan ang pasensya ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep pushing. See where it lands you.",
+              "TL": "Sige, magpumilit ka pa. Tingnan natin kung saan ka pupulutin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "One more step out of line and we have a problem.",
+              "TL": "Isa pang maling kilos mo at magkakaproblema tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You really want to go down this road?",
+              "TL": "Gusto mo ba talagang daanan ang landas na 'to?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Try it. See how fast this goes south.",
+              "TL": "Sige, subukan mo. Tingnan natin kung gaano kabilis magkakagulo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You are gambling with your safety right now.",
+              "TL": "Isinusugal mo ang kaligtasan mo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Last warning. Back off.",
+              "TL": "Huling babala. Lumayo ka."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.hostile.3",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "You need to back off right now.",
+              "TL": "Kailangan mong lumayo ngayon din."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Step back.",
+              "TL": "Umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Give me space before things get ugly.",
+              "TL": "Bigyan mo ako ng puwang bago magkagulo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back away from me.",
+              "TL": "Lumayo ka sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I said back off.",
+              "TL": "Sabi ko umatras ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your distance.",
+              "TL": "Panatilihin mo ang distansya mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Get out of my face.",
+              "TL": "Umalis ka sa harap ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You have about two seconds to back up.",
+              "TL": "May dalawang segundo ka para umatras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take a step back while you still can.",
+              "TL": "Umatras ka habang kaya mo pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Back off. I will not say it again.",
+              "TL": "Umatras ka. Hindi ko na uulitin ito."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

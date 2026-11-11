@@ -1,0 +1,358 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.refill.active",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Refilling the container now.",
+              "TL": "Nilalagyan ng laman ang lalagyan ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Currently filling up on water.",
+              "TL": "Kasalukuyang nagpapasok ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Topping off the fluids right now.",
+              "TL": "Pinupuno ang inumin ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Working on refilling the bottle.",
+              "TL": "Pinupuno ang bote."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Gathering water into the container.",
+              "TL": "Kumukuha ng tubig sa lalagyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "In the middle of refilling.",
+              "TL": "Kasalukuyang nagpupuno."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refilling as instructed.",
+              "TL": "Nagpupuno ayon sa utos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Collecting clean water now.",
+              "TL": "Kumukuha ng malinis na tubig ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Topping it up. Give me a moment.",
+              "TL": "Pinupuno ito. Sandali lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refill in progress.",
+              "TL": "Kasalukuyang nagpupuno."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.refill.admitted",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I'll refill that.",
+              "TL": "Lalagyan ko ng laman iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Topping up the water supply.",
+              "TL": "Naintindihan. Pupunuin ang supply ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll go get the bottles filled.",
+              "TL": "Pupunta ako para punuin ang mga bote."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right, refilling the containers.",
+              "TL": "Sige, pupunuin ang mga lalagyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Good call. We need full canteens.",
+              "TL": "Magandang paalala. Kailangan natin ng punong sisidlan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll take it to the water source.",
+              "TL": "Dadalhin ko sa pinagkukunan ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Refilling immediately.",
+              "TL": "Naiintindihan ko. Pupunuin agad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Right. Getting fresh water.",
+              "TL": "Sige. Kukuha ng sariwang tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll refill what's empty.",
+              "TL": "Pupunuin ko ang walang laman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Sounds good. Heading to refill.",
+              "TL": "Maganda 'yan. Pupunta para magpuno."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.refill.completed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All topped off. Container is full.",
+              "TL": "Puno na lahat. Punong-puno ang lalagyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refill complete. Ready for the road.",
+              "TL": "Tapos na ang pagpuno. Handa na sa paglakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished refilling with clean water.",
+              "TL": "Tapos nang lagyan ng malinis na tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Bottles are full again.",
+              "TL": "Puno na muli ang mga bote."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Task done. Plenty of water now.",
+              "TL": "Tapos na ang gawain. Marami nang tubig ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refilled and secured.",
+              "TL": "Napuno na at naselyuhan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Canteens are full. Good work.",
+              "TL": "Puno na ang mga sisidlan. Magaling."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All filled up.",
+              "TL": "Puno na ang lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Water refilled successfully.",
+              "TL": "Matagumpay na nalagyan ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Completed refilling the supply.",
+              "TL": "Natapos ang pagpuno sa supply."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.refill.failed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I couldn't refill that.",
+              "TL": "Hindi ko nalagyan ng laman iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The water source was dry or cut off.",
+              "TL": "Tuyot o putol ang pinagkukunan ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Failed to refill. Water was contaminated.",
+              "TL": "Bigo sa pagpuno. Kontaminado ang tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I was interrupted while trying to gather water.",
+              "TL": "Naabala ako habang sumusubok kumuha ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Unable to find a functional water tap.",
+              "TL": "Walang makitang gumaganang gripo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Container is damaged or cracked. Refill failed.",
+              "TL": "May basag ang lalagyan. Pumalpak ang pagpuno."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Couldn't reach the source safely.",
+              "TL": "Di maabot ang pinagkukunan nang ligtas."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hostiles near the water source. Refill aborted.",
+              "TL": "May kalaban malapit sa tubig. Itinigil ang pagpuno."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Action failed. Bottle still empty.",
+              "TL": "Bigo ang kilos. Walang laman pa rin ang bote."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Could not refill container.",
+              "TL": "Hindi napuno ang lalagyan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.task.refill.rejected",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I can't refill that right now.",
+              "TL": "Hindi ko malalagyan ng laman iyon ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "There is no known clean water source nearby.",
+              "TL": "Walang kilalang malinis na tubig sa malapit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "The container is already completely full.",
+              "TL": "Puno na ang lalagyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Too exposed to stand around pumping water.",
+              "TL": "Masyadong lantad para magbomba ng tubig."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't approach that water source. It's a death trap.",
+              "TL": "Di ako lalapit sa tubig na 'yan. Bitag 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Can't refill. No suitable vessel available.",
+              "TL": "Di makapagpuno. Walang angkop na sisidlan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Refill order rejected. Bad timing.",
+              "TL": "Tinatanggihan ang pagpuno. Maling oras."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Water is tainted there. I refuse to collect it.",
+              "TL": "Marumi ang tubig doon. Tumatanggi akong kumuha."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We need to deal with threats before refilling.",
+              "TL": "Harapin muna natin ang banta bago magpuno."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I can't refill that under current danger.",
+              "TL": "Di ko malalagyan 'yan sa gitna ng panganib."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

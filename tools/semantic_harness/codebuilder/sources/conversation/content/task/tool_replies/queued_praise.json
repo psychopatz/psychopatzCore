@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_praise.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I hear you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear your praise.",
+              "TL": "Naririnig ko ang papuri mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard and appreciated.",
+              "TL": "Narinig at pinahahalagahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear what you said about my work.",
+              "TL": "Narinig ko ang sinabi mo sa trabaho ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got that positive feedback.",
+              "TL": "Nakuha ko ang magandang puna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you clearly. Thanks.",
+              "TL": "Naririnig kita nang malinaw. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Praise heard. Good to know.",
+              "TL": "Narinig ang papuri. Mabuting malaman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear the support.",
+              "TL": "Naririnig ko ang suporta."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard. Glad to help.",
+              "TL": "Narinig. Masayang tumulong."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you. We did good.",
+              "TL": "Narinig kita. Maganda ang nagawa natin."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_praise.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I will remember that.",
+              "TL": "Tandaan ko iyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll keep that positive note in mind.",
+              "TL": "Isasaisip ko ang magandang sinabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I won't forget that you recognized my effort.",
+              "TL": "Di ko malilimutan na kinilala mo ang pagod ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That will stay with me. Thanks.",
+              "TL": "Mananatili sa akin 'yan. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll remember you said that when times get tough.",
+              "TL": "Tandaan ko 'yan kapag naging mahirap ang panahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Remembered and valued.",
+              "TL": "Tanda ko at pinahahalagahan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I will hold onto that praise.",
+              "TL": "Iingatan ko ang papuring 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That sticks in my memory. Thank you.",
+              "TL": "Tumatatak 'yan sa alaala ko. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'll remember your good words.",
+              "TL": "Tatandaan ko ang mabubuti mong salita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted in my heart. Thanks.",
+              "TL": "Nakatatak sa puso ko. Salamat."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

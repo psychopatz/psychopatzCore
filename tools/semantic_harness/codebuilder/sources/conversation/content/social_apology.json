@@ -1,0 +1,1035 @@
+{
+  "domain": "apology",
+  "groups": {
+    "social": {
+      "contentOwner": "projecthoomans.dialogue_content.social"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "social",
+      "semanticTemplateID": "semantic.social.apology.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "What are you apologizing for?",
+              "TL": "Ano ang hinihingi mo ng tawad?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What is that for?",
+              "TL": "Para saan iyan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Why are you saying sorry?",
+              "TL": "Bakit ka humihingi ng pasensya?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What did you do?",
+              "TL": "Anong ginawa mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Did something happen that I missed?",
+              "TL": "May nangyari ba na hindi ko napansin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "No need to apologize unless something went wrong.",
+              "TL": "Walang kailangang ihingi ng tawad maliban kung may nagkamali."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's the apology about?",
+              "TL": "Tungkol saan ang paumanhin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You don't owe me an apology unless you broke something.",
+              "TL": "Wala kang utang na tawad sa 'kin maliban kung may nasira ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on, what are you apologizing for?",
+              "TL": "Teka, para saan ang tawad mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What brought this on?",
+              "TL": "Bakit mo biglang sinabi 'yan?"
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "What are you apologizing for?",
+              "TL": "Ano ang hinihingi mo ng tawad?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey, you don't have to apologize to me.",
+              "TL": "Huy, hindi mo kailangang humingi ng tawad sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's this for? We're good.",
+              "TL": "Para saan ito? Ayos tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't sweat it. What's on your mind?",
+              "TL": "Huwag mong alalahanin. Anong iniisip mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You didn't do anything wrong. What happened?",
+              "TL": "Wala kang ginawang mali. Anong nangyari?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "You don't need to apologize. We look out for each other.",
+              "TL": "Di mo kailangang magpaumanhin. Nagtutulungan tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Why the apology? Everything is okay between us.",
+              "TL": "Bakit ka nagpapaumanhin? Maayos ang lahat sa atin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're too hard on yourself. What's wrong?",
+              "TL": "Masyado mong pinahihirapan ang sarili mo. May problema ba?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "No need for apologies here. We're on the same side.",
+              "TL": "Walang kailangang tawad dito. Magkakampi tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's all right. You really don't have to apologize.",
+              "TL": "Ayos lang talaga. Hindi mo kailangang mag-sorry."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "What are you apologizing for?",
+              "TL": "Ano ang hinihingi mo ng tawad?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Why?",
+              "TL": "Bakit?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "For what?",
+              "TL": "Dahil saan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What did you break?",
+              "TL": "Anong sinira mo?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Explain.",
+              "TL": "Ipaliwanag mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "What happened?",
+              "TL": "Anong nangyari?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Apologizing for what?",
+              "TL": "Hihingi ng tawad para saan?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Spit it out.",
+              "TL": "Diretsuhin mo na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Why are you sorry?",
+              "TL": "Bakit ka nagso-sorry?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What did you do now?",
+              "TL": "Anong ginawa mo ngayon?"
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "What are you apologizing for?",
+              "TL": "Ano ang hinihingi mo ng tawad?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Why are you apologizing? What happened?",
+              "TL": "Bakit ka nagpapaumanhin? Anong nangyari?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What went wrong that I should know about?",
+              "TL": "Anong pumalpak na dapat kong malaman?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "People only apologize when they messed up. What was it?",
+              "TL": "Nagsasabi lang ng sorry ang tao kapag pumalpak. Ano 'yon?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What are you trying to get ahead of?",
+              "TL": "Ano ang inuunahan mong sabihin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Did you touch something you shouldn't have?",
+              "TL": "May ginalaw ka ba na hindi dapat?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold on. Why are you saying sorry to me?",
+              "TL": "Teka. Bakit ka humihingi ng tawad sa akin?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "What's the damage?",
+              "TL": "Gaano kalaki ang sira?"
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tell me what you did before I find out myself.",
+              "TL": "Sabihin mo ang ginawa mo bago ko pa matuklasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't apologize until you tell me what you did.",
+              "TL": "Huwag kang mag-sorry hangga't di mo sinasabi ang ginawa mo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "social",
+      "semanticTemplateID": "semantic.social.apology.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "It's okay. We can put that behind us.",
+              "TL": "Ayos lang. Kalimutan na natin iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No worries. It happens to everyone.",
+              "TL": "Huwag kang mag-alala. Nangyayari 'yan kahit kanino."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're good. Don't worry about it.",
+              "TL": "Ayos tayo. Huwag mo nang alalahanin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Forget about it. All good here.",
+              "TL": "Kalimutan mo na. Ayos ang lahat dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's all right. We move forward.",
+              "TL": "Ayos lang. Tuloy ang lakad natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No harm done. We're square.",
+              "TL": "Walang nasaktan. Kuwits na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate the apology. We're good.",
+              "TL": "Salamat sa paumanhin. Ayos na tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't sweat the small stuff out here.",
+              "TL": "Huwag mong problemahin ang maliliit na bagay dito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We all have off moments. It's behind us.",
+              "TL": "Lahat naman may pagkakamali. Lumipas na 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All cleared up. Let's keep working.",
+              "TL": "Malinaw na ang lahat. Tuloy na sa trabaho."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "It's okay. I appreciate you saying that.",
+              "TL": "Ayos lang. Pinahahalagahan ko ang sinabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't worry about it for a second. We're friends.",
+              "TL": "Huwag mo nang alalahanin kahit sandali. Magkaibigan tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey, it takes a good person to say that. Thank you.",
+              "TL": "Kailangan ng mabuting puso para sabihin 'yan. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're completely fine. Really.",
+              "TL": "Maayos na maayos tayo. Totoo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You don't have to carry that around. I forgive you.",
+              "TL": "Huwag mo nang dalhin sa dibdib mo 'yan. Pinatatawad kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate your honesty. It means a lot to me.",
+              "TL": "Salamat sa katapatan mo. Malaking bagay ito sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We look out for each other. Don't worry about it.",
+              "TL": "Nagtitinginan tayo rito. Huwag mo nang isipin 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You're good in my book. Always.",
+              "TL": "Mabuti ka sa akin. Palagi."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thanks for being real with me. We're good.",
+              "TL": "Salamat sa pagiging tapat sa akin. Ayos tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No bad blood between us. Not now, not ever.",
+              "TL": "Walang samaan ng loob sa atin. Kahit kailan."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "It's okay.",
+              "TL": "Ayos lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All good.",
+              "TL": "Ayos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Forget it.",
+              "TL": "Kalimutan mo na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're good.",
+              "TL": "Ayos tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No problem.",
+              "TL": "Walang problema."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drop it.",
+              "TL": "Tama na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Square.",
+              "TL": "Kuwits."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Good.",
+              "TL": "Naintindihan. Mabuti."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done with it.",
+              "TL": "Tapos na roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Move on.",
+              "TL": "Tuloy na."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "I heard you. Leave it there.",
+              "TL": "Narinig kita. Tama na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. Just don't let it happen again.",
+              "TL": "Sige. Huwag mo lang hahayaang maulit."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Accepted. Watch your step next time.",
+              "TL": "Tanggap ko. Mag-ingat ka na lang sa susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. But I'll be keeping an eye out.",
+              "TL": "Sige. Pero magmamasid pa rin ako."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll let it slide this time.",
+              "TL": "Palalampasin natin sa pagkakataong ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Do better going forward.",
+              "TL": "Naintindihan. Ayusin mo sa mga susunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I accept it. Just remember what's at stake.",
+              "TL": "Tinatanggap ko. Tandaan mo lang kung anong nakataya."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough. Let's not have a repeat.",
+              "TL": "Makatwiran. Huwag nang uulitin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear the words. Make sure actions follow.",
+              "TL": "Naririnig ko ang salita. Tiyakin mong susunod ang gawa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're even for now. Keep it that way.",
+              "TL": "Pantay tayo sa ngayon. Panatilihin mong ganoon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "social",
+      "semanticTemplateID": "semantic.social.apology.stressed",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I know things are tense. Let's keep it calm.",
+              "TL": "Alam kong tensiyonado tayo. Panatilihin nating mahinahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're all under a lot of stress. Just take a breath.",
+              "TL": "Lahat tayo nai-stress. Huminga ka muna nang malalim."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Tensions are high right now. Let's not lose our heads.",
+              "TL": "Mataas ang tensiyon ngayon. Huwag tayong mawalan ng katinuan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's fine. We just need to keep our cool.",
+              "TL": "Ayos lang. Kailangan lang nating magpakahinahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Pressure gets to everyone out here. We're okay.",
+              "TL": "Lahat naman nadadala sa bigat ng sitwasyon. Ayos lang tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's reset and focus on what needs doing.",
+              "TL": "Mag-reset tayo at magpokus sa kailangang gawin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No one's at their best under this much strain. It's fine.",
+              "TL": "Walang perpekto kapag ganito kabigat ang sitwasyon. Ayos lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take it easy. We can work through this.",
+              "TL": "Dahan-dahan lang. Kakayanin natin ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's all right. Let's keep our nerves steady.",
+              "TL": "Ayos lang. Panatilihin nating kalmado ang sarili natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Let's de-escalate and move forward.",
+              "TL": "Naiintindihan ko. Magpahinga muna at magpatuloy."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "I know things are tense. Thanks for saying that.",
+              "TL": "Alam kong tensiyonado tayo. Salamat sa pagsabi niyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hey, we're all frayed right now. It's totally okay.",
+              "TL": "Huy, pagod tayong lahat ngayon. Ayos na ayos lang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I know how hard this is on you. We're in this together.",
+              "TL": "Alam ko kung gaano kabigat ito sa 'yo. Magkasama tayo rito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't apologize for being stressed. You're human.",
+              "TL": "Huwag kang mag-sorry dahil nai-stress ka. Tao ka lang."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I appreciate you taking the time to say that. We're good.",
+              "TL": "Salamat sa paglalaan ng oras para sabihin 'yan. Ayos tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take a breath. I'm right here with you.",
+              "TL": "Huminga ka muna. Narito lang ako kasama mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We'll get through the rough patch together. Don't worry.",
+              "TL": "Lalampasan natin ang hirap na ito nang magkasama. Huwag kang mag-alala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Thank you for checking in despite the chaos. It means a lot.",
+              "TL": "Salamat sa pangungumusta sa kabila ng gulo. Malaking bagay ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "You don't have to carry the stress alone. We're okay.",
+              "TL": "Hindi mo kailangang pasanin mag-isa ang bigat. Ayos tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's okay. Let's just catch our breath for a minute.",
+              "TL": "Ayos lang. Huminga muna tayo nang sandali."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Keep it calm.",
+              "TL": "Maging mahinahon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Breathe.",
+              "TL": "Huminga ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Cool off.",
+              "TL": "Kumalma ka muna."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Not now. Stay focused.",
+              "TL": "Hindi ngayon. Magpokus ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your head.",
+              "TL": "Gamitin ang isip."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine. Settle down.",
+              "TL": "Sige. Kalma na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No drama. We have work.",
+              "TL": "Walang drama. May trabaho tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Steady up.",
+              "TL": "Magpakatatag ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard. Keep moving.",
+              "TL": "Narinig ko. Tuloy ang lakad."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Hold it together.",
+              "TL": "Kayanin mo."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "Things are tense. Leave it there.",
+              "TL": "Tensiyonado tayo. Tama na iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We don't need panic on top of danger. Keep steady.",
+              "TL": "Hindi natin kailangan ng takot sa ibabaw ng panganib. Magpakatatag."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your stress to yourself. We need clear heads.",
+              "TL": "Kimkimin mo ang kaba mo. Kailangan natin ng malinaw na isip."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm stressed too, but I'm not snapping. Watch yourself.",
+              "TL": "Pagod din ako, pero di ako nagwawala. Mag-ingat ka."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Apology heard. Don't let your nerves get us killed.",
+              "TL": "Narinig ang tawad. Huwag mong hayaang mapatay tayo ng kaba mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep a grip on yourself. That's all I ask.",
+              "TL": "Kontrolin mo ang sarili mo. Iyon lang ang hinihiling ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "If you lose control out here, we're all finished.",
+              "TL": "Kapag nawalan ka ng kontrol dito, tapos tayong lahat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I heard you. Pull yourself together now.",
+              "TL": "Narinig kita. Ayusin mo ang sarili mo ngayon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Stress is an excuse that gets survivors killed.",
+              "TL": "Ang kaba ay dahilan na ikinamamatay ng mga tao."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leave it. Keep your eyes on our surroundings.",
+              "TL": "Tama na. Iwan mo ang paningin mo sa paligid."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "social",
+      "semanticTemplateID": "semantic.social.apology.withdrawn",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "All right. Let's leave it there.",
+              "TL": "Sige. Tama na iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Okay. Let's drop the subject.",
+              "TL": "Sige. Huwag na nating pag-usapan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. Moving past it.",
+              "TL": "Naiintindihan ko. Lumalampas na roon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No need to say more. It's settled.",
+              "TL": "Wala nang dapat sabihin pa. Ayos na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We've said what we needed to say.",
+              "TL": "Nasabi na natin ang kailangang sabihin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let's leave it at that and get back to work.",
+              "TL": "Iwan na natin doon at bumalik sa trabaho."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fine by me. Subject closed.",
+              "TL": "Ayos sa akin. Sarado na ang usapan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Nothing more to discuss. Let's move.",
+              "TL": "Wala nang dapat pagtalunan pa. Tara na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough. We'll leave it alone.",
+              "TL": "Makatwiran. Hayaan na natin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All right. That's the end of it.",
+              "TL": "Sige. Diyan na nagtatapos 'yan."
+            }
+          }
+        ],
+        "warm": [
+          {
+            "translations": {
+              "EN": "All right. Let's leave it there for now.",
+              "TL": "Sige. Tama na muna iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We can give it some space. We're still good.",
+              "TL": "Bigyan muna natin ng puwang. Maayos pa rin tayo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Take your time. We don't have to talk about it anymore.",
+              "TL": "Magpahinga ka. Hindi na natin kailangang pag-usapan pa 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you, and it's okay. We can put it to rest.",
+              "TL": "Narinig kita, at ayos lang. Pwede na nating ipahinga 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "It's okay. We can take a break from this topic.",
+              "TL": "Ayos lang. Pwede tayong magpahinga sa paksang ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No worries at all. We'll leave it behind us.",
+              "TL": "Walang problema talaga. Iiwan na natin 'yan sa likod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I understand. Let's just focus on each other and staying safe.",
+              "TL": "Nauunawaan ko. Magpokus na lang tayo sa isa't isa at kaligtasan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "All good. No pressure to explain anything more.",
+              "TL": "Ayos ang lahat. Walang pamimilit na magpaliwanag pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're okay. Let's leave it there peacefully.",
+              "TL": "Ayos lang tayo. Iwan na natin doon nang payapa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm with you. We don't need to rehash it.",
+              "TL": "Kasama mo ako. Hindi na natin kailangang ulit-ulitin."
+            }
+          }
+        ],
+        "terse": [
+          {
+            "translations": {
+              "EN": "Leave it.",
+              "TL": "Tama na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drop it.",
+              "TL": "Hayaan mo na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Enough.",
+              "TL": "Sapat na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Done.",
+              "TL": "Tapos na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Subject closed.",
+              "TL": "Sarado na ang usapan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "No more.",
+              "TL": "Wala nang kasunod."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Let it be.",
+              "TL": "Hayaan mo na 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Finished.",
+              "TL": "Tapos."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Moving on.",
+              "TL": "Tuloy na."
+            }
+          },
+          {
+            "translations": {
+              "EN": "End of discussion.",
+              "TL": "Tapos na ang diskusyon."
+            }
+          }
+        ],
+        "guarded": [
+          {
+            "translations": {
+              "EN": "All right. Leave it there.",
+              "TL": "Sige. Tama na iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Don't bring it up again.",
+              "TL": "Huwag mo nang bubuksan muli 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Drop it while you're ahead.",
+              "TL": "Itigil mo na habang maaga pa."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm done hearing about it.",
+              "TL": "Ayoko nang marinig ang tungkol diyan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leave it where it lies.",
+              "TL": "Hayaan mo kung saan 'yan naroroon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "We're not reopening this. Ever.",
+              "TL": "Hindi na natin bubuksan muli ito. Kailanman."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That's enough out of you.",
+              "TL": "Sapat na ang narinig ko sa 'yo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Keep your distance from that subject.",
+              "TL": "Lumayo ka sa paksang 'yan."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Consider this matter closed.",
+              "TL": "Ituring mong sarado na ang usaping ito."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Leave it there and don't test me.",
+              "TL": "Iwan mo na diyan at huwag mo akong subukan."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

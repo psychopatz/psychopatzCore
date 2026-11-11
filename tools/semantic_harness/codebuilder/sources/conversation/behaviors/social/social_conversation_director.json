@@ -1,0 +1,100 @@
+{
+  "schema": "pnc.conversation.shard.v1",
+  "version": 1,
+  "kind": "behaviors",
+  "domain": "social",
+  "source": {
+    "name": "Project Hoomans Social Conversation Director",
+    "version": "1",
+    "contentLicense": "Project Hoomans authored content"
+  },
+  "behaviors": [
+    {
+      "id": "behavior.scene_task_work_assigned",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "TASK_WORK_STATUS",
+      "mode": "one_shot",
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "INFORM",
+          "contentTemplateID": "semantic.interaction.scene.task_work_assigned"
+        }
+      },
+      "continuation": {
+        "mode": "terminate"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "TASK_WORK_ASSIGNED"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_task_work_completed",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "TASK_WORK_STATUS",
+      "mode": "one_shot",
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "INFORM",
+          "contentTemplateID": "semantic.interaction.scene.task_work_completed"
+        }
+      },
+      "continuation": {
+        "mode": "terminate"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "TASK_WORK_COMPLETED"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    },
+    {
+      "id": "behavior.scene_post_combat_clear",
+      "version": 1,
+      "owner": "ProjectHoomans",
+      "act": "POST_COMBAT_REACTION",
+      "mode": "one_shot",
+      "stimuli": [
+        "DANGER_CHANGED"
+      ],
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "outputs": {
+        "speech": {
+          "dialogueAct": "INFORM",
+          "contentTemplateID": "semantic.interaction.scene.post_combat_clear"
+        }
+      },
+      "continuation": {
+        "mode": "terminate"
+      },
+      "when": {
+        "path": "stimulus.semantic.intent",
+        "op": "eq",
+        "value": "POST_COMBAT_CLEAR"
+      },
+      "baseRelevance": 1.0,
+      "modifiers": []
+    }
+  ]
+}

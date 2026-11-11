@@ -1,0 +1,397 @@
+{
+  "domain": "compatibility",
+  "groups": {
+    "compatibility": {
+      "contentOwner": "projecthoomans.dialogue_content.compatibility"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.bandits.hooman_hurt.colonist",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Bandit fire! Pull back and cover the wounded colonist.",
+              "TL": "Bandit fire! Pull back and cover the wounded colonist."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.bandits.hooman_hurt.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Bandit fire! Stay with the wounded survivor and watch the flank.",
+              "TL": "Bandit fire! Stay with the wounded survivor and watch the flank."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.bandits.hooman_hurt.family",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Bandit fire! Stay together and cover the wounded family member.",
+              "TL": "Bandit fire! Stay together and cover the wounded family member."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.bandits.hooman_hurt.lover",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Bandit fire. Stay close; I have got you.",
+              "TL": "Bandit fire. Stay close; I have got you."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.companion_dogs.feed.female",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Here you go, good girl.",
+              "TL": "Here you go, good girl."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.companion_dogs.feed.male",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Here you go, good boy.",
+              "TL": "Here you go, good boy."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.companion_dogs.feed.unknown",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Here you go, good dog.",
+              "TL": "Here you go, good dog."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.companion_dogs.greeting.female",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Who is a good girl?",
+              "TL": "Who is a good girl?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.companion_dogs.greeting.male",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Who is a good boy?",
+              "TL": "Who is a good boy?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.companion_dogs.greeting.unknown",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Who is a good dog?",
+              "TL": "Who is a good dog?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.necroa.mask_warning.colonist",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Mask up. We keep the camp safe together.",
+              "TL": "Mask up. We keep the camp safe together."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.necroa.mask_warning.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Put your mask back on. Knox is airborne.",
+              "TL": "Put your mask back on. Knox is airborne."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.necroa.mask_warning.family",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Put your mask on, family. I am not losing you to the air.",
+              "TL": "Put your mask on, family. I am not losing you to the air."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.necroa.player_mask_removed.default",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Put your mask back on. The air is not safe.",
+              "TL": "Put your mask back on. The air is not safe."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.necroa.player_mask_removed.hostile",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Put your mask back on before you become a problem.",
+              "TL": "Put your mask back on before you become a problem."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.necroa.player_mask_removed.lover",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Please put your mask back on, love. This air is not safe.",
+              "TL": "Please put your mask back on, love. This air is not safe."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.encounter.friendly",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Those survivors seem friendly. Keep your hands visible.",
+              "TL": "Those survivors seem friendly. Keep your hands visible."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.encounter.hostile",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That group looks hostile. Keep cover between us and them.",
+              "TL": "That group looks hostile. Keep cover between us and them."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.encounter.unknown",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Someone is out there. Let us watch before we approach.",
+              "TL": "Someone is out there. Let us watch before we approach."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.faction.hostile",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That faction may be hostile toward us now. Stay alert.",
+              "TL": "That faction may be hostile toward us now. Stay alert."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.faction.incoming",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "They just opened fire on us. Stay close.",
+              "TL": "They just opened fire on us. Stay close."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.faction.outgoing",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "We hit them. They may retaliate soon.",
+              "TL": "We hit them. They may retaliate soon."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.meta.aircraft.heli",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Something is flying over us. Keep listening.",
+              "TL": "Something is flying over us. Keep listening."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.meta.aircraft.military",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That aircraft sounds close. Stay sharp.",
+              "TL": "That aircraft sounds close. Stay sharp."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.meta.ambience",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I do not like that sound. Stay close.",
+              "TL": "I do not like that sound. Stay close."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.meta.crash",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That crash sounded close. Keep your eyes open.",
+              "TL": "That crash sounded close. Keep your eyes open."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "compatibility",
+      "semanticTemplateID": "semantic.compat.projectalife.meta.gunfire",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "Someone is shooting nearby. Keep your head down.",
+              "TL": "Someone is shooting nearby. Keep your head down."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": [],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}

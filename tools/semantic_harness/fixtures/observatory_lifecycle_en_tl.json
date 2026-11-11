@@ -1,0 +1,121 @@
+{
+  "cases": [
+    {
+      "expected": {
+        "conversationClosed": true,
+        "lastKey": "response.goodbye",
+        "maxActions": 0,
+        "maxFallbackLookups": 0
+      },
+      "interaction": {
+        "choiceID": "goodbye",
+        "kind": "conversation_root_choice"
+      },
+      "label": "Goodbye root choice EN",
+      "language": "EN"
+    },
+    {
+      "expected": {
+        "conversationClosed": true,
+        "lastKey": "response.goodbye",
+        "maxActions": 0,
+        "maxFallbackLookups": 0
+      },
+      "interaction": {
+        "choiceID": "goodbye",
+        "kind": "conversation_root_choice"
+      },
+      "label": "Goodbye root choice TL",
+      "language": "TL"
+    },
+    {
+      "expected": {
+        "conversationClosed": false,
+        "lastKey": "semantic.ask_clarification",
+        "maxActions": 0
+      },
+      "label": "Bare typed goodbye EN separate route",
+      "language": "EN",
+      "utterance": "goodbye"
+    },
+    {
+      "expected": {
+        "conversationClosed": false,
+        "lastKey": "semantic.ask_clarification",
+        "maxActions": 0
+      },
+      "label": "Bare typed goodbye TL separate route",
+      "language": "TL",
+      "utterance": "goodbye"
+    },
+    {
+      "expected": {
+        "lastKey": "semantic.command.stay.queued",
+        "minActions": 1
+      },
+      "label": "Follow then Wait EN",
+      "language": "EN",
+      "utterances": [
+        "follow me",
+        "wait here"
+      ]
+    },
+    {
+      "expected": {
+        "lastKey": "semantic.command.stay.queued",
+        "maxFallbackLookups": 0,
+        "minActions": 1
+      },
+      "label": "Follow then Wait TL",
+      "language": "TL",
+      "utterances": [
+        "follow me",
+        "wait here"
+      ]
+    },
+    {
+      "expected": {
+        "conversationClosed": false,
+        "lastKey": "response.departure.rejected",
+        "maxActions": 0,
+        "maxFallbackLookups": 0,
+        "maxTransportCount": 1,
+        "minTransportCount": 1
+      },
+      "interaction": {
+        "choiceID": "disband",
+        "kind": "conversation_root_choice"
+      },
+      "label": "Leave Group unowned/unknown faction EN",
+      "language": "EN",
+      "scenario": {
+        "npc": {
+          "identityState": "known",
+          "recruited": true
+        }
+      }
+    },
+    {
+      "expected": {
+        "conversationClosed": false,
+        "lastKey": "response.departure.rejected",
+        "maxActions": 0,
+        "maxFallbackLookups": 0,
+        "maxTransportCount": 1,
+        "minTransportCount": 1
+      },
+      "interaction": {
+        "choiceID": "disband",
+        "kind": "conversation_root_choice"
+      },
+      "label": "Leave Group unowned/unknown faction TL",
+      "language": "TL",
+      "scenario": {
+        "npc": {
+          "identityState": "known",
+          "recruited": true
+        }
+      }
+    }
+  ]
+}

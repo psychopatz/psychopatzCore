@@ -1,0 +1,154 @@
+{
+  "domain": "task",
+  "groups": {
+    "tool_replies": {
+      "contentOwner": "projecthoomans.dialogue_content.tool_replies"
+    }
+  },
+  "kind": "content",
+  "phraseFamilies": [
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_admire.1",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "I hear you.",
+              "TL": "Narinig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Message received.",
+              "TL": "Natanggap ang mensahe."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear what you're saying.",
+              "TL": "Naririnig ko ang sinasabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. I heard that.",
+              "TL": "Naintindihan. Narinig ko 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Got your words.",
+              "TL": "Nakuha ko ang sinabi mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Heard and acknowledged.",
+              "TL": "Narinig at kinilala."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I hear you, loud and clear.",
+              "TL": "Naririnig kita, malakas at malinaw."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Fair enough. I heard that.",
+              "TL": "Makatwiran. Narinig ko 'yon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Noted. I hear you.",
+              "TL": "Tala ko na. Naririnig kita."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I'm listening. Heard.",
+              "TL": "Nakikinig ako. Narinig."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "group": "tool_replies",
+      "semanticTemplateID": "semantic.tool_reply.queued_admire.2",
+      "styles": {
+        "neutral": [
+          {
+            "translations": {
+              "EN": "That got through.",
+              "TL": "Nakarating iyon sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That reached me. Thank you.",
+              "TL": "Tumagos iyon sa akin. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I took that in.",
+              "TL": "Inintindi ko iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Your message made its mark.",
+              "TL": "Nag-iwan ng marka ang mensahe mo."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I felt that. Thanks.",
+              "TL": "Naramdaman ko iyon. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That registered with me.",
+              "TL": "Tumatak iyon sa akin."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That got through to me.",
+              "TL": "Nakarating iyon sa loob ko."
+            }
+          },
+          {
+            "translations": {
+              "EN": "I received that clearly.",
+              "TL": "Malinaw kong natanggap iyon."
+            }
+          },
+          {
+            "translations": {
+              "EN": "That landed well. Thank you.",
+              "TL": "Maganda ang naging dating niyan. Salamat."
+            }
+          },
+          {
+            "translations": {
+              "EN": "Understood. That made an impression.",
+              "TL": "Naintindihan. Nag-iwan 'yan ng magandang impresyon."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "pnc.conversation.shard.v1",
+  "source": {
+    "contentLicense": "Project Hoomans authored content",
+    "name": "Project Hoomans Dialogue Content Registry",
+    "version": "3"
+  },
+  "version": 1
+}
