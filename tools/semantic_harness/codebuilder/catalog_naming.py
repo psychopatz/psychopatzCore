@@ -95,6 +95,7 @@ def module_file(relative_module: str) -> str:
 
 SOURCE_ROOT_SEGMENTS = frozenset({
     "content",
+    "responses",
     "patterns",
     "flows",
     "ui",

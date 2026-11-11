@@ -44,7 +44,7 @@ from tools.semantic_harness.codebuilder.conversation_assembler import assemble_s
 from tools.semantic_harness.codebuilder.translation_support import DEFAULT_LANGUAGE, merge_language_sets, normalize_language
 from tools.semantic_harness.codebuilder.catalog_contract import (
     CatalogContractError,
-    load_locale_catalogs,
+    load_locale_catalog_documents,
 )
 from .semantic_definition_compiler import (
     compile_semantic_definitions,
@@ -1278,7 +1278,14 @@ def compile_conversation_sources(
     manifest_path = manifest_path.expanduser().resolve()
     runtime_root = (runtime_root or repository).expanduser().resolve()
     try:
-        catalogs = load_locale_catalogs(manifest_path.parent / "translations")
+        catalog_documents = load_locale_catalog_documents(manifest_path.parent / "translations")
+        catalogs = {
+            language: {
+                str(key): str(entry["text"])
+                for key, entry in document["entries"].items()
+            }
+            for language, document in sorted(catalog_documents.items())
+        }
     except CatalogContractError as error:
         raise CompileError(str(error)) from error
     manifest, entries = _load_manifest(
@@ -1541,6 +1548,7 @@ def compile_conversation_sources(
             for owner, path in (package_repositories or {}).items()
         },
         "_source_documents": source_documents,
+        "_catalog_documents": catalog_documents,
     }
     return model
 

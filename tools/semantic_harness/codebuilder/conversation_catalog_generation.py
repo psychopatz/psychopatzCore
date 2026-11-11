@@ -11,8 +11,16 @@ from typing import Any, Mapping
 from .catalog_contract import TRANSLATION_SCHEMA
 
 
-def _source_shard_id(value: Any, fallback: str) -> str:
+def _source_shard_id(
+    value: Any,
+    fallback: str,
+    shard_ids: Mapping[str, str] | None = None,
+) -> str:
     raw = str(value or fallback).replace("\\", "/")
+    if shard_ids and raw in shard_ids:
+        return shard_ids[raw]
+    if raw.startswith("conversation."):
+        return raw
     raw = re.sub(r"\.json$", "", raw)
     pieces = [piece for piece in re.split(r"[^A-Za-z0-9]+", raw) if piece]
     return "conversation." + ".".join(piece.lower() for piece in pieces)
@@ -28,12 +36,30 @@ def _translation_sources(model: Mapping[str, Any]) -> dict[str, dict[str, str]]:
     """Map generated translation keys to stable source and context metadata."""
 
     sources: dict[str, dict[str, str]] = {}
+    shard_ids: dict[str, str] = {}
+    reports = model.get("shards")
+    if isinstance(reports, list):
+        for report in reports:
+            if not isinstance(report, Mapping):
+                continue
+            path = report.get("path")
+            shard_id = report.get("shardId")
+            if isinstance(path, str) and isinstance(shard_id, str):
+                shard_ids[path] = shard_id
+    source_documents = model.get("_source_documents")
+    if isinstance(source_documents, Mapping):
+        for path, document in source_documents.items():
+            if not isinstance(path, str) or not isinstance(document, Mapping):
+                continue
+            shard_id = document.get("shardId")
+            if isinstance(shard_id, str):
+                shard_ids[path] = shard_id
 
     def add(key: Any, source: Any, domain: Any) -> None:
         if not isinstance(key, str) or not key:
             return
         sources.setdefault(key, {
-            "sourceShard": _source_shard_id(source, "conversation.merged"),
+            "sourceShard": _source_shard_id(source, "conversation.merged", shard_ids),
             "context": str(domain or "general"),
         })
 
@@ -70,6 +96,16 @@ def _translation_sources(model: Mapping[str, Any]) -> dict[str, dict[str, str]]:
         values = model.get(section, {})
         if not isinstance(values, Mapping):
             continue
+        response_pools = values.get("responsePools", [])
+        if isinstance(response_pools, list):
+            for pool in response_pools:
+                if not isinstance(pool, Mapping):
+                    continue
+                location = _record_location(model, pool.get("id"))
+                source = location.get("sourceShard") or fallback
+                for variant in pool.get("variants", []):
+                    if isinstance(variant, Mapping):
+                        add(variant.get("templateID"), source, section)
         for language_values in (values.get("translations", {}) or {}).values():
             if isinstance(language_values, Mapping):
                 for key in language_values:
@@ -197,6 +233,20 @@ def catalogs_from_model(model: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
             key: catalog["entries"][key]
             for key in sorted(catalog["entries"])
         }
+    existing_documents = model.get("_catalog_documents")
+    if isinstance(existing_documents, Mapping):
+        for language, document in existing_documents.items():
+            catalog = catalogs.get(language)
+            entries = document.get("entries") if isinstance(document, Mapping) else None
+            if not isinstance(catalog, dict) or not isinstance(entries, Mapping):
+                continue
+            for key, existing in entries.items():
+                if (
+                    isinstance(existing, Mapping)
+                    and existing.get("status") == "fallback"
+                    and key in catalog["entries"]
+                ):
+                    catalog["entries"][key]["status"] = "fallback"
     return {language: catalogs[language] for language in sorted(catalogs)}
 
 

@@ -55325,7 +55325,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.merged",
+      "sourceShard": "conversation.flows.semantic.flows",
       "text": "Okay, I'll come with you."
     },
     "UI_PNC_Conversation_Semantic_DatasetNeedsClarifyThirst": {
@@ -55333,7 +55333,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.common.needs.weather",
       "text": "I can confirm water is a need, but which item do you mean?"
     },
     "UI_PNC_Conversation_Semantic_DatasetNeedsPromiseThirst": {
@@ -55341,7 +55341,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.common.needs.weather",
       "text": "I can keep that as a proposal, but I still need the item and amount before I record a commitment."
     },
     "UI_PNC_Conversation_Semantic_DatasetWeatherContextualSwitch": {
@@ -55349,7 +55349,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.common.needs.weather",
       "text": "It is raining right now. We can return to that proposal when you are ready."
     },
     "UI_PNC_Conversation_Semantic_DatasetWellbeingCausalUnknown": {
@@ -55357,7 +55357,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "I can tell something is off, but I do not know what caused it yet."
     },
     "UI_PNC_Conversation_Semantic_PncLabStayWithYouAccepted": {
@@ -55365,7 +55365,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.merged",
+      "sourceShard": "conversation.flows.semantic.flows",
       "text": "Okay, I'll stay with you."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryAmbiguous": {
@@ -55373,7 +55373,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Which part of my past do you mean?"
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryEducation": {
@@ -55381,7 +55381,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "I studied %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFamily": {
@@ -55389,7 +55389,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "My family was %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFear": {
@@ -55397,7 +55397,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "I have always been afraid of %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFollowUpLocation": {
@@ -55405,7 +55405,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "I remember that part of my life, but I don't have more detail about where it was."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFollowUpMiss": {
@@ -55413,7 +55413,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Sometimes. I still think about that part of my life."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFormerJob": {
@@ -55421,7 +55421,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "I worked as %1 before all this."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryHobby": {
@@ -55429,7 +55429,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "I used to enjoy %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryHometown": {
@@ -55437,7 +55437,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "I grew up in %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryKnown": {
@@ -55445,7 +55445,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Before all this, I was %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryRefusal": {
@@ -55453,7 +55453,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "I'm not ready to talk about that yet."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstorySuspected": {
@@ -55461,7 +55461,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "I think it was %1, but I could be mistaken."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryTragedy": {
@@ -55469,7 +55469,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Something happened: %1."
     },
     "UI_PNC_Conversation_Suggestion_Activity_Label": {
@@ -56073,7 +56073,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "All right. I can take care of that."
     },
     "semantic.accept.dataset.pending_started": {
@@ -56081,7 +56081,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "Okay, I'll get started."
     },
     "semantic.compliment.dataset.kind_of_you": {
@@ -56089,7 +56089,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "That's kind of you. I appreciate it."
     },
     "semantic.compliment.dataset.means_a_lot": {
@@ -56097,7 +56097,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "Aw, thank you. That means a lot."
     },
     "semantic.greeting.dataset.good_to_see": {
@@ -56105,7 +56105,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "Good to see you again."
     },
     "semantic.greeting.dataset.holding_up": {
@@ -56113,7 +56113,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "Hey. How are you holding up?"
     },
     "semantic.greeting.dataset.how_things": {
@@ -56121,7 +56121,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "Hey. How are things going?"
     },
     "semantic.offer.dataset.hungry_appreciate": {
@@ -56129,7 +56129,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "I'd appreciate a bite. Would you share?"
     },
     "semantic.offer.dataset.hungry_share": {
@@ -56137,7 +56137,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "That would help a lot. Could I have some?"
     },
     "semantic.question.activity.dataset.bit_of_everything": {
@@ -56145,7 +56145,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "A little bit of everything."
     },
     "semantic.question.activity.dataset.keep_moving": {
@@ -56153,7 +56153,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "Just doing what I can to keep things moving."
     },
     "semantic.question.activity.dataset.taking_care": {
@@ -56161,7 +56161,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "Just taking care of what needs doing."
     },
     "semantic.question.identity.stranger_alt_1": {
@@ -56169,7 +56169,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "I keep my name to myself until I know someone better. What should I call you?"
     },
     "semantic.question.identity.stranger_alt_2": {
@@ -56177,7 +56177,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "Let's get to know each other first. What do people call you?"
     },
     "semantic.question.identity.wary_alt_1": {
@@ -56185,7 +56185,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "I don't trust you enough to share my name. Who are you, really?"
     },
     "semantic.question.identity.wary_alt_2": {
@@ -56193,7 +56193,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "After that lie, I'm not telling you my name. Tell me the truth about yours."
     },
     "semantic.question.wellbeing.dataset.all_things_considered": {
@@ -56201,7 +56201,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "Doing okay, all things considered."
     },
     "semantic.question.wellbeing.dataset.getting_by": {
@@ -56209,7 +56209,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "I'm getting by, one day at a time. How about you?"
     },
     "semantic.question.wellbeing.dataset.hanging_in": {
@@ -56217,7 +56217,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "I'm hanging in there. Thanks for asking."
     },
     "semantic.question.wellbeing.dataset.hungry": {
@@ -56225,7 +56225,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "I'm hungry, but I'll manage. If you have food to spare, I'd appreciate it."
     },
     "semantic.question.wellbeing.dataset.thirsty": {
@@ -56233,7 +56233,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "I'm pretty thirsty. If you have water, could you spare some?"
     },
     "semantic.question.wellbeing.dataset.tired": {
@@ -56241,7 +56241,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "I'm tired, though I can manage for now."
     },
     "semantic.refuse.dataset.pending_enough": {
@@ -56249,7 +56249,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "Not this time. I have enough to manage."
     },
     "semantic.refuse.dataset.pending_unavailable": {
@@ -56257,7 +56257,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "I can't take that on right now."
     },
     "semantic.thanks.dataset.anytime": {
@@ -56265,7 +56265,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "Anytime."
     },
     "semantic.thanks.dataset.glady": {
@@ -56273,7 +56273,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "Glad I could help."
     },
     "semantic.thanks.dataset.no_problem": {
@@ -56281,7 +56281,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "text": "No problem at all."
     }
   },

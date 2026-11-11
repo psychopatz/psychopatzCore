@@ -12,6 +12,7 @@ from tools.semantic_harness.codebuilder.catalog_contract import (
     SHARD_SCHEMA,
     TRANSLATION_SCHEMA,
     load_catalog_document,
+    load_locale_catalog_documents,
     validate_locale_set,
     validate_shard,
     validate_translation_catalog,
@@ -90,6 +91,35 @@ class CatalogContractTests(unittest.TestCase):
         }
         codes = {issue["code"] for issue in validate_translation_catalog(catalog)}
         self.assertIn("translation_source_shard", codes)
+
+    def test_locale_document_loader_preserves_entry_status(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            root.joinpath("EN.json").write_text(json.dumps({
+                "schema": TRANSLATION_SCHEMA,
+                "language": "EN",
+                "fallback": "EN",
+                "entries": {
+                    "conversation.test": {
+                        "text": "Hello",
+                        "sourceShard": "conversation.content.test",
+                    },
+                },
+            }), encoding="utf-8")
+            root.joinpath("TL.json").write_text(json.dumps({
+                "schema": TRANSLATION_SCHEMA,
+                "language": "TL",
+                "fallback": "EN",
+                "entries": {
+                    "conversation.test": {
+                        "text": "Hello",
+                        "sourceShard": "conversation.content.test",
+                        "status": "fallback",
+                    },
+                },
+            }), encoding="utf-8")
+            documents = load_locale_catalog_documents(root)
+        self.assertEqual(documents["TL"]["entries"]["conversation.test"]["status"], "fallback")
 
 
 if __name__ == "__main__":

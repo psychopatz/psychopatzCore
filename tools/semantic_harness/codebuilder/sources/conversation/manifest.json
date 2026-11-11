@@ -33,7 +33,7 @@
       "domain": "social",
       "kind": "content",
       "order": 1301,
-      "path": "content/social/reactions.json",
+    "path": "content/social/social_reactions.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.content.social.reactions",
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
@@ -132,7 +132,7 @@
       "domain": "event",
       "kind": "content",
       "order": 1501,
-      "path": "content/event/reactions.json",
+    "path": "content/event/event_reactions.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.content.event.reactions",
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
@@ -240,7 +240,7 @@
       "domain": "common",
       "kind": "responses",
       "order": 1900,
-      "path": "flows/common/social.json",
+    "path": "responses/common/social.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.responses.common.social",
       "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
@@ -249,7 +249,7 @@
       "domain": "common",
       "kind": "responses",
       "order": 1901,
-      "path": "flows/common/questions.json",
+    "path": "responses/common/questions.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.responses.common.questions",
       "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
@@ -258,7 +258,7 @@
       "domain": "common",
       "kind": "responses",
       "order": 1902,
-      "path": "flows/common/needs_weather.json",
+    "path": "responses/common/needs_weather.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.responses.common.needs.weather",
       "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
@@ -276,7 +276,7 @@
       "domain": "grounded_personal",
       "kind": "responses",
       "order": 2100,
-      "path": "flows/grounded_personal_responses.json",
+    "path": "responses/grounded_personal_responses.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.responses.grounded.personal.responses",
       "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de"

@@ -13,6 +13,22 @@ from tools.semantic_harness.codebuilder.catalog_audit import (
 
 
 class CatalogAuditTests(unittest.TestCase):
+    def test_record_owner_and_version_are_not_source_provenance(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "behaviors").mkdir()
+            (root / "manifest.json").write_text(
+                json.dumps({"shards": []}), encoding="utf-8"
+            )
+            (root / "behaviors" / "social.json").write_text(
+                json.dumps({
+                    "behaviors": [{"id": "behavior.test", "owner": "ProjectHoomans", "version": 1}],
+                }),
+                encoding="utf-8",
+            )
+            report = audit_conversation_sources(root)
+        self.assertEqual(report["summary"]["repeatedMetadataFileCount"], 0)
+
     def test_reports_inline_locale_data_and_implicit_ownership(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

@@ -55325,7 +55325,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.merged",
+      "sourceShard": "conversation.flows.semantic.flows",
       "text": "Sige, sasama ako sa iyo."
     },
     "UI_PNC_Conversation_Semantic_DatasetNeedsClarifyThirst": {
@@ -55333,7 +55333,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.common.needs.weather",
       "text": "Makukumpirma kong kailangan ang tubig, pero aling item ang ibig mong sabihin?"
     },
     "UI_PNC_Conversation_Semantic_DatasetNeedsPromiseThirst": {
@@ -55341,7 +55341,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.common.needs.weather",
       "text": "Maaari ko iyong ituring na panukala, pero kailangan ko pa ang item at dami bago ako magtala ng pangako."
     },
     "UI_PNC_Conversation_Semantic_DatasetWeatherContextualSwitch": {
@@ -55349,7 +55349,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.common.needs.weather",
       "text": "Umuulan ngayon. Maaari tayong bumalik sa panukalang iyon kapag handa ka na."
     },
     "UI_PNC_Conversation_Semantic_DatasetWellbeingCausalUnknown": {
@@ -55357,7 +55357,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.common.questions",
       "text": "Alam kong may hindi tama, pero hindi ko pa alam kung ano ang sanhi nito."
     },
     "UI_PNC_Conversation_Semantic_PncLabStayWithYouAccepted": {
@@ -55365,7 +55365,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.merged",
+      "sourceShard": "conversation.flows.semantic.flows",
       "text": "Sige, mananatili ako sa iyo."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryAmbiguous": {
@@ -55373,7 +55373,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Aling bahagi ng nakaraan ko ang ibig mong sabihin?"
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryEducation": {
@@ -55381,7 +55381,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Nag-aral ako ng %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFamily": {
@@ -55389,7 +55389,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Ang pamilya ko ay %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFear": {
@@ -55397,7 +55397,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Palagi akong natatakot sa %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFollowUpLocation": {
@@ -55405,7 +55405,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Naaalala ko ang bahaging iyon ng buhay ko, pero wala akong higit na detalye kung saan iyon."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFollowUpMiss": {
@@ -55413,7 +55413,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Minsan. Naiisip ko pa rin ang bahaging iyon ng buhay ko."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryFormerJob": {
@@ -55421,7 +55421,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Nagtrabaho ako bilang %1 bago ang lahat ng ito."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryHobby": {
@@ -55429,7 +55429,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Mahilig ako noon sa %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryHometown": {
@@ -55437,7 +55437,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Lumaki ako sa %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryKnown": {
@@ -55445,7 +55445,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Bago ang lahat ng ito, ako ay %1."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryRefusal": {
@@ -55453,7 +55453,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Hindi pa ako handang pag-usapan iyan."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstorySuspected": {
@@ -55461,7 +55461,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "Sa tingin ko ay %1 iyon, pero maaaring mali ako."
     },
     "UI_PNC_Conversation_Semantic_QuestionBackstoryTragedy": {
@@ -55469,7 +55469,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.dialogue.merged",
+      "sourceShard": "conversation.responses.grounded.personal.responses",
       "text": "May nangyari: %1."
     },
     "UI_PNC_Conversation_Suggestion_Activity_Label": {
@@ -56073,7 +56073,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "All right. I can take care of that."
     },
@@ -56082,7 +56082,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "Okay, I'll get started."
     },
@@ -56091,7 +56091,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "That's kind of you. I appreciate it."
     },
@@ -56100,7 +56100,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "Aw, thank you. That means a lot."
     },
@@ -56109,7 +56109,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "Good to see you again."
     },
@@ -56118,7 +56118,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "Hey. How are you holding up?"
     },
@@ -56127,7 +56127,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "Hey. How are things going?"
     },
@@ -56136,7 +56136,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "I'd appreciate a bite. Would you share?"
     },
@@ -56145,7 +56145,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "That would help a lot. Could I have some?"
     },
@@ -56154,7 +56154,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "A little bit of everything."
     },
@@ -56163,7 +56163,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "Just doing what I can to keep things moving."
     },
@@ -56172,7 +56172,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "Just taking care of what needs doing."
     },
@@ -56181,7 +56181,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "I keep my name to myself until I know someone better. What should I call you?"
     },
@@ -56190,7 +56190,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "Let's get to know each other first. What do people call you?"
     },
@@ -56199,7 +56199,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "I don't trust you enough to share my name. Who are you, really?"
     },
@@ -56208,7 +56208,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "After that lie, I'm not telling you my name. Tell me the truth about yours."
     },
@@ -56217,7 +56217,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "Doing okay, all things considered."
     },
@@ -56226,7 +56226,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "I'm getting by, one day at a time. How about you?"
     },
@@ -56235,7 +56235,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "I'm hanging in there. Thanks for asking."
     },
@@ -56244,7 +56244,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "I'm hungry, but I'll manage. If you have food to spare, I'd appreciate it."
     },
@@ -56253,7 +56253,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "I'm pretty thirsty. If you have water, could you spare some?"
     },
@@ -56262,7 +56262,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.questions",
+      "sourceShard": "conversation.responses.common.questions",
       "status": "fallback",
       "text": "I'm tired, though I can manage for now."
     },
@@ -56271,7 +56271,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "Not this time. I have enough to manage."
     },
@@ -56280,7 +56280,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "I can't take that on right now."
     },
@@ -56289,7 +56289,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "Anytime."
     },
@@ -56298,7 +56298,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "Glad I could help."
     },
@@ -56307,7 +56307,7 @@
       "owners": [
         "ProjectHoomans"
       ],
-      "sourceShard": "conversation.flows.common.social",
+      "sourceShard": "conversation.responses.common.social",
       "status": "fallback",
       "text": "No problem at all."
     }

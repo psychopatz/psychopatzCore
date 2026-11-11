@@ -55,8 +55,15 @@ def _walk(value: Any, path: str = "$") -> Iterable[tuple[str, Any]]:
 def _is_source_metadata(value: Any) -> bool:
     if not isinstance(value, Mapping):
         return False
-    metadata_keys = {"name", "owner", "version", "license", "references"}
-    return len(metadata_keys.intersection(value)) >= 2
+    # Record-level owner/version fields are valid runtime metadata for
+    # behaviors, beats, and semantic flows. Source provenance has a stronger
+    # signature: a name/license/reference/content-license field that would be
+    # better represented by manifest.sourceProfiles.
+    source_signature_keys = {
+        "name", "license", "references", "contentLicense",
+        "sourceVersion", "sourceSha256",
+    }
+    return bool(source_signature_keys.intersection(value))
 
 
 def _manifest_entries(manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -150,7 +157,15 @@ def audit_conversation_sources(
             )
         manifest = loaded if isinstance(loaded, dict) else {}
 
-    if manifest.get("defaultOwner"):
+    manifest_entries = _manifest_entries(manifest)
+    source_roots = manifest.get("sourceRoots", [])
+    if isinstance(source_roots, list):
+        manifest_entries.extend(
+            dict(entry)
+            for entry in source_roots
+            if isinstance(entry, Mapping)
+        )
+    if manifest.get("defaultOwner") and any(not entry.get("owner") for entry in manifest_entries):
         issues.append(
             _issue(
                 "implicit_default_owner",
@@ -159,8 +174,8 @@ def audit_conversation_sources(
                 details={"defaultOwner": manifest["defaultOwner"]},
             )
         )
-    for entry in _manifest_entries(manifest):
-        if entry.get("_manifestField") == "shards" and not entry.get("owner"):
+    for entry in manifest_entries:
+        if not entry.get("owner"):
             issues.append(
                 _issue(
                     "implicit_shard_owner",

@@ -95,6 +95,23 @@ def load_locale_catalogs(
 ) -> dict[str, dict[str, str]]:
     """Load validated locale catalogs as language-to-key-to-text maps."""
 
+    documents = load_locale_catalog_documents(root, required=required)
+    return {
+        language: {
+            str(key): str(entry["text"])
+            for key, entry in document["entries"].items()
+        }
+        for language, document in sorted(documents.items())
+    }
+
+
+def load_locale_catalog_documents(
+    root: str | Path,
+    *,
+    required: bool = False,
+) -> dict[str, dict[str, Any]]:
+    """Load validated locale catalog documents, preserving entry metadata."""
+
     catalog_root = Path(root).expanduser().resolve()
     paths = sorted(catalog_root.glob("*.json")) if catalog_root.is_dir() else []
     if not paths:
@@ -108,13 +125,7 @@ def load_locale_catalogs(
             f"{item['code']}:{item.get('path', '')}" for item in issues[:8]
         )
         raise CatalogContractError(f"invalid locale catalogs: {summary}")
-    return {
-        language: {
-            str(key): str(entry["text"])
-            for key, entry in document["entries"].items()
-        }
-        for language, document in sorted(documents.items())
-    }
+    return documents
 
 
 def _is_non_empty_string(value: Any) -> bool:
