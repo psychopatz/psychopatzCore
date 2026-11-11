@@ -56,6 +56,13 @@ from .conversation_assembler import (
 from .catalog_audit import (
     audit_conversation_sources,
 )
+from .catalog_contract import (
+    CatalogContractError,
+    load_catalog_document,
+    validate_locale_set,
+    validate_shard,
+    validate_translation_catalog,
+)
 
 __all__ = [
     "CatalogNameError",
@@ -93,4 +100,9 @@ __all__ = [
     "runtime_records",
     "assemble_shards",
     "audit_conversation_sources",
+    "CatalogContractError",
+    "load_catalog_document",
+    "validate_locale_set",
+    "validate_shard",
+    "validate_translation_catalog",
 ]
