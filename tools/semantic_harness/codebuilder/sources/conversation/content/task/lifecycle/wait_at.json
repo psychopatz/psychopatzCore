@@ -16,16 +16,46 @@
       "semanticTemplateID": "semantic.task.wait_at.active",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.10"
+          }
         ]
       }
     },
@@ -34,16 +64,46 @@
       "semanticTemplateID": "semantic.task.wait_at.admitted",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.10"
+          }
         ]
       }
     },
@@ -52,16 +112,46 @@
       "semanticTemplateID": "semantic.task.wait_at.completed",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.10"
+          }
         ]
       }
     },
@@ -70,16 +160,46 @@
       "semanticTemplateID": "semantic.task.wait_at.failed",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.10"
+          }
         ]
       }
     },
@@ -88,16 +208,46 @@
       "semanticTemplateID": "semantic.task.wait_at.rejected",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.10"
+          }
         ]
       }
     }

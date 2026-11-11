@@ -150,7 +150,10 @@ def _write_conversation_translation_manifest(
             entries: list[str] = []
             for path in sorted((directory / "Conversation").rglob("*.json")):
                 relative_from_language = path.relative_to(directory).as_posix()
-                if relative_from_language in _CONVERSATION_SOURCE_ONLY_TRANSLATIONS:
+                if (
+                    relative_from_language in _CONVERSATION_SOURCE_ONLY_TRANSLATIONS
+                    or relative_from_language.startswith("Conversation/Bundles/")
+                ):
                     continue
                 entries.append(path.relative_to(translation_root).as_posix())
             if entries:

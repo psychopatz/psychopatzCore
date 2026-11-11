@@ -16,52 +16,172 @@
       "semanticTemplateID": "semantic.question.whats_up.busy",
       "styles": {
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.guarded.10"
+          }
         ],
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.neutral.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.terse.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.busy.warm.10"
+          }
         ]
       }
     },
@@ -70,52 +190,172 @@
       "semanticTemplateID": "semantic.question.whats_up.default",
       "styles": {
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.guarded.10"
+          }
         ],
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.neutral.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.terse.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.default.warm.10"
+          }
         ]
       }
     },
@@ -124,52 +364,172 @@
       "semanticTemplateID": "semantic.question.whats_up.default_alt",
       "styles": {
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.guarded.10"
+          }
         ],
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.neutral.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.terse.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.default_alt.warm.10"
+          }
         ]
       }
     },
@@ -178,52 +538,172 @@
       "semanticTemplateID": "semantic.question.whats_up.traveling",
       "styles": {
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.guarded.10"
+          }
         ],
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.neutral.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.terse.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.traveling.warm.10"
+          }
         ]
       }
     },
@@ -232,52 +712,172 @@
       "semanticTemplateID": "semantic.question.whats_up.weather",
       "styles": {
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.guarded.10"
+          }
         ],
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.neutral.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.terse.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.question.whats_up.weather.warm.10"
+          }
         ]
       }
     }

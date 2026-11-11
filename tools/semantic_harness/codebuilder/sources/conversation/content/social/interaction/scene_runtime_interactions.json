@@ -16,52 +16,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.10"
+          }
         ]
       }
     },
@@ -70,52 +190,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.10"
+          }
         ]
       }
     },
@@ -124,52 +364,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.10"
+          }
         ]
       }
     },
@@ -178,52 +538,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.10"
+          }
         ]
       }
     },
@@ -232,52 +712,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.10"
+          }
         ]
       }
     },
@@ -286,52 +886,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.10"
+          }
         ]
       }
     },
@@ -340,52 +1060,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.10"
+          }
         ]
       }
     },
@@ -394,52 +1234,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.10"
+          }
         ]
       }
     },
@@ -448,52 +1408,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.10"
+          }
         ]
       }
     },
@@ -502,52 +1582,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.10"
+          }
         ]
       }
     },
@@ -556,52 +1756,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.10"
+          }
         ]
       }
     },
@@ -610,16 +1930,46 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.10"
+          }
         ]
       }
     },
@@ -628,16 +1978,46 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.10"
+          }
         ]
       }
     },
@@ -646,16 +2026,46 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.10"
+          }
         ]
       }
     },
@@ -664,16 +2074,46 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.10"
+          }
         ]
       }
     }

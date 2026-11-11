@@ -83,7 +83,7 @@ def _compile_shard(
         raise CompileError(f"Conversation shard {path} requires source metadata")
     if kind == "content":
         compiled = compile_dialogue_content({
-            "schemaVersion": 2,
+            "schemaVersion": 3,
             "source": source,
             "groups": document.get("groups"),
             "phraseFamilies": document.get("phraseFamilies"),
@@ -206,7 +206,7 @@ def _content_source(
     choices.sort(key=lambda item: str(item.get("id", "")))
     source = _source_metadata(documents)
     compiled = compile_dialogue_content({
-        "schemaVersion": 2,
+        "schemaVersion": 3,
         "source": source,
         "groups": {key: groups[key] for key in sorted(groups)},
         "phraseFamilies": families,

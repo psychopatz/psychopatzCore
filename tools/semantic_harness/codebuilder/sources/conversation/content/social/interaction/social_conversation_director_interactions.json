@@ -16,52 +16,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.10"
+          }
         ]
       }
     },
@@ -70,52 +190,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.10"
+          }
         ]
       }
     },
@@ -124,52 +364,172 @@
       "group": "interaction",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.10"
+          }
         ]
       }
     }

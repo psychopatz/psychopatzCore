@@ -16,52 +16,172 @@
       "semanticTemplateID": "semantic.social.apology.default",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.social.apology.default.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.social.apology.default.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.social.apology.default.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.social.apology.default.guarded.10"
+          }
         ]
       }
     },
@@ -70,52 +190,172 @@
       "semanticTemplateID": "semantic.social.apology.friendly",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.social.apology.friendly.guarded.10"
+          }
         ]
       }
     },
@@ -124,52 +364,172 @@
       "semanticTemplateID": "semantic.social.apology.stressed",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.social.apology.stressed.guarded.10"
+          }
         ]
       }
     },
@@ -178,52 +538,172 @@
       "semanticTemplateID": "semantic.social.apology.withdrawn",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.03"
+          },
+          {
+            "phraseID": "neutral.04",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.04"
+          },
+          {
+            "phraseID": "neutral.05",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.05"
+          },
+          {
+            "phraseID": "neutral.06",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.06"
+          },
+          {
+            "phraseID": "neutral.07",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.07"
+          },
+          {
+            "phraseID": "neutral.08",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.08"
+          },
+          {
+            "phraseID": "neutral.09",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.09"
+          },
+          {
+            "phraseID": "neutral.10",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.neutral.10"
+          }
         ],
         "warm": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "warm.01",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.01"
+          },
+          {
+            "phraseID": "warm.02",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.02"
+          },
+          {
+            "phraseID": "warm.03",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.03"
+          },
+          {
+            "phraseID": "warm.04",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.04"
+          },
+          {
+            "phraseID": "warm.05",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.05"
+          },
+          {
+            "phraseID": "warm.06",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.06"
+          },
+          {
+            "phraseID": "warm.07",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.07"
+          },
+          {
+            "phraseID": "warm.08",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.08"
+          },
+          {
+            "phraseID": "warm.09",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.09"
+          },
+          {
+            "phraseID": "warm.10",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.warm.10"
+          }
         ],
         "terse": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "terse.01",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.01"
+          },
+          {
+            "phraseID": "terse.02",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.02"
+          },
+          {
+            "phraseID": "terse.03",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.03"
+          },
+          {
+            "phraseID": "terse.04",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.04"
+          },
+          {
+            "phraseID": "terse.05",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.05"
+          },
+          {
+            "phraseID": "terse.06",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.06"
+          },
+          {
+            "phraseID": "terse.07",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.07"
+          },
+          {
+            "phraseID": "terse.08",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.08"
+          },
+          {
+            "phraseID": "terse.09",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.09"
+          },
+          {
+            "phraseID": "terse.10",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.terse.10"
+          }
         ],
         "guarded": [
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {},
-          {}
+          {
+            "phraseID": "guarded.01",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.01"
+          },
+          {
+            "phraseID": "guarded.02",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.02"
+          },
+          {
+            "phraseID": "guarded.03",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.03"
+          },
+          {
+            "phraseID": "guarded.04",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.04"
+          },
+          {
+            "phraseID": "guarded.05",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.05"
+          },
+          {
+            "phraseID": "guarded.06",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.06"
+          },
+          {
+            "phraseID": "guarded.07",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.07"
+          },
+          {
+            "phraseID": "guarded.08",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.08"
+          },
+          {
+            "phraseID": "guarded.09",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.09"
+          },
+          {
+            "phraseID": "guarded.10",
+            "translationKey": "conversation.content.semantic.social.apology.withdrawn.guarded.10"
+          }
         ]
       }
     }

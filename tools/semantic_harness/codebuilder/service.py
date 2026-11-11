@@ -28,6 +28,7 @@ from .interaction_explorer import build_interaction_rows, search_interactions
 from .dialogue_content import (
     compile_dialogue_content,
     derived_canonical_concept,
+    player_translation_keys,
 )
 from .conversation_compiler import (
     CONVERSATION_MANIFEST_RELATIVE,
@@ -42,6 +43,7 @@ from .conversation_compiler import (
     render_conversation_runtime_plan,
 )
 from .lexicon_compiler import CompileError
+from .catalog_contract import load_locale_catalog_documents
 from .generation_ownership import (
     CORE_OWNER,
     DT_COMMON_OWNER,
@@ -271,6 +273,77 @@ class SemanticLabAuthoringService:
     def _content_source_path(self, source_shard: str) -> Path:
         return self.repository / CONVERSATION_SOURCE_RELATIVE / Path(source_shard)
 
+    def _conversation_catalog_root(self) -> Path:
+        """Return the owning source catalog directory for Conversation text."""
+        local_manifest = self.repository / CONVERSATION_MANIFEST_RELATIVE
+        manifest = local_manifest if local_manifest.is_file() else (
+            self.core_repository / CONVERSATION_MANIFEST_RELATIVE
+        )
+        return manifest.parent / "translations"
+
+    def _conversation_catalog_documents(self) -> dict[str, dict[str, Any]]:
+        """Load the canonical one-file-per-locale Conversation catalogs."""
+        return load_locale_catalog_documents(self._conversation_catalog_root())
+
+    @staticmethod
+    def _dehydrate_content_shard(document: dict[str, Any]) -> dict[str, Any]:
+        """Remove compiler-only provenance and hydrated locale fields before writing."""
+        result = json.loads(json.dumps(document, ensure_ascii=False))
+        result.pop("source", None)
+        result.pop("version", None)
+        for family in result.get("phraseFamilies", []):
+            if not isinstance(family, dict):
+                continue
+            for phrases in (family.get("styles") or {}).values():
+                if not isinstance(phrases, list):
+                    continue
+                for phrase in phrases:
+                    if isinstance(phrase, dict):
+                        phrase.pop("translations", None)
+        for choice in result.get("playerChoices", []):
+            if isinstance(choice, dict):
+                choice.pop("labelTranslations", None)
+                choice.pop("choiceTranslations", None)
+        return result
+
+    @staticmethod
+    def _update_catalog_texts(
+        catalogs: dict[str, dict[str, Any]],
+        translations: dict[str, str],
+        key: str,
+    ) -> None:
+        """Apply one hydrated wording map to the owning locale documents."""
+        if not isinstance(translations, dict):
+            raise CompileError(f"{key} requires a translation map")
+        for language, text in translations.items():
+            catalog = catalogs.get(str(language))
+            if not isinstance(catalog, dict):
+                raise CompileError(f"missing locale catalog for {language}")
+            entries = catalog.get("entries")
+            if not isinstance(entries, dict) or key not in entries:
+                raise CompileError(f"missing locale catalog entry {key} for {language}")
+            entry = entries[key]
+            if not isinstance(entry, dict):
+                raise CompileError(f"locale catalog entry {key} for {language} is invalid")
+            entry["text"] = text
+
+    @staticmethod
+    def _merge_editor_translations(
+        current: Any,
+        edited: Any,
+        label: str,
+    ) -> dict[str, str]:
+        """Merge partial editor input without erasing untouched locales."""
+        if not isinstance(current, dict) or not isinstance(edited, dict):
+            raise CompileError(f"{label} requires a translation map")
+        merged = {
+            str(language): str(text)
+            for language, text in current.items()
+        }
+        for language, text in edited.items():
+            merged[str(language)] = text
+        return merged
+
     def _conversation_content_document(self, model: dict[str, Any]) -> dict[str, Any]:
         """Merge authored content shards in memory without creating an aggregate file."""
         groups: dict[str, Any] = {}
@@ -316,7 +389,7 @@ class SemanticLabAuthoringService:
         manifest = model.get("manifest") or {}
         default_owner = normalize_owner(manifest.get("defaultOwner"))
         return {
-            "schemaVersion": 2,
+            "schemaVersion": 3,
             "source": source_metadata or {"owner": default_owner},
             "groups": {key: groups[key] for key in sorted(groups)},
             "phraseFamilies": phrase_families,
@@ -600,7 +673,9 @@ class SemanticLabAuthoringService:
                 }],
                 "writes": [],
             }
-        updated_shard = json.loads(json.dumps(source_document, ensure_ascii=False))
+        updated_shard = self._dehydrate_content_shard(source_document)
+        updated_catalogs = self._conversation_catalog_documents()
+        updated_phrase_translations: dict[tuple[str, int], dict[str, str]] = {}
         if current.get("kind") == "phraseFamily":
             target = next(
                 item for item in updated_shard["phraseFamilies"]
@@ -613,11 +688,51 @@ class SemanticLabAuthoringService:
                     if index < len(edited_phrases):
                         edited_phrase = edited_phrases[index]
                         if isinstance(edited_phrase, dict):
-                            phrase["translations"] = edited_phrase.get("translations")
+                            translation_key = phrase.get("translationKey")
+                            if not isinstance(translation_key, str) or not translation_key:
+                                raise CompileError(
+                                    f"{content_id}.{style}[{index + 1}] requires explicit translationKey"
+                                )
+                            current_phrase = (
+                                current.get("styles", {})
+                                .get(style, [])[index]
+                            )
+                            translations = self._merge_editor_translations(
+                                current_phrase.get("translations")
+                                if isinstance(current_phrase, dict)
+                                else None,
+                                edited_phrase.get("translations"),
+                                f"{content_id}.{style}[{index + 1}].translations",
+                            )
+                            updated_phrase_translations[(style, index)] = translations
+                            self._update_catalog_texts(
+                                updated_catalogs,
+                                translations,
+                                translation_key,
+                            )
         else:
             target = next(item for item in updated_shard["playerChoices"] if item["id"] == content_id)
-            target["labelTranslations"] = edited_item.get("labelTranslations")
-            target["choiceTranslations"] = edited_item.get("choiceTranslations")
+            label_key, choice_key = player_translation_keys(content_id)
+            label_translations = self._merge_editor_translations(
+                current.get("labelTranslations"),
+                edited_item.get("labelTranslations"),
+                f"{content_id}.labelTranslations",
+            )
+            choice_translations = self._merge_editor_translations(
+                current.get("choiceTranslations"),
+                edited_item.get("choiceTranslations"),
+                f"{content_id}.choiceTranslations",
+            )
+            self._update_catalog_texts(
+                updated_catalogs,
+                label_translations,
+                label_key,
+            )
+            self._update_catalog_texts(
+                updated_catalogs,
+                choice_translations,
+                choice_key,
+            )
         aggregate = self._conversation_content_document(model)
         if current.get("kind") == "phraseFamily":
             aggregate_target = next(
@@ -626,6 +741,19 @@ class SemanticLabAuthoringService:
             )
             aggregate_target.clear()
             aggregate_target.update(json.loads(json.dumps(target, ensure_ascii=False)))
+            for style, phrases in (aggregate_target.get("styles") or {}).items():
+                edited_phrases = edited_item.get("styles", {}).get(style, [])
+                for index, phrase in enumerate(phrases):
+                    if index >= len(edited_phrases):
+                        continue
+                    edited_phrase = edited_phrases[index]
+                    if isinstance(edited_phrase, dict):
+                        phrase["translations"] = json.loads(
+                            json.dumps(
+                                updated_phrase_translations[(style, index)],
+                                ensure_ascii=False,
+                            )
+                        )
         else:
             aggregate_target = next(
                 item for item in aggregate["playerChoices"]
@@ -633,6 +761,12 @@ class SemanticLabAuthoringService:
             )
             aggregate_target.clear()
             aggregate_target.update(json.loads(json.dumps(target, ensure_ascii=False)))
+            aggregate_target["labelTranslations"] = json.loads(
+                json.dumps(label_translations, ensure_ascii=False)
+            )
+            aggregate_target["choiceTranslations"] = json.loads(
+                json.dumps(choice_translations, ensure_ascii=False)
+            )
         compiled_aggregate = compile_dialogue_content(aggregate)
         return aggregate, {
             "ok": True,
@@ -647,6 +781,7 @@ class SemanticLabAuthoringService:
             "contentBefore": json.loads(json.dumps(current, ensure_ascii=False)),
             "contentAfter": json.loads(json.dumps(edited_item, ensure_ascii=False)),
             "_updatedShard": updated_shard,
+            "_updatedCatalogs": updated_catalogs,
             "writes": [],
         }
 
@@ -707,15 +842,28 @@ class SemanticLabAuthoringService:
         try:
             compile_dialogue_content(updated)
             updated_shard = report.get("_updatedShard")
+            updated_catalogs = report.get("_updatedCatalogs")
             source_shard = str(report.get("sourceShard") or "")
             if not isinstance(updated_shard, dict) or not source_shard:
                 raise CompileError("Conversation edit did not resolve an owning source shard")
+            if not isinstance(updated_catalogs, dict):
+                raise CompileError("Conversation edit did not resolve locale catalogs")
             source_path = self._content_source_path(source_shard)
             source_path.write_text(
                 json.dumps(updated_shard, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
                 encoding="utf-8",
                 newline="\n",
             )
+            catalog_root = self._conversation_catalog_root()
+            catalog_paths: list[Path] = []
+            for language, catalog in sorted(updated_catalogs.items()):
+                catalog_path = catalog_root / f"{language}.json"
+                catalog_path.write_text(
+                    json.dumps(catalog, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+                    encoding="utf-8",
+                    newline="\n",
+                )
+                catalog_paths.append(catalog_path)
             from .build import write_conversation_output
 
             model = self._conversation_model()
@@ -736,7 +884,11 @@ class SemanticLabAuthoringService:
             **report,
             "previewOnly": False,
             "effectFree": False,
-            "writes": [str(source_path), *(str(path) for path in generated)],
+            "writes": [
+                str(source_path),
+                *(str(path) for path in catalog_paths),
+                *(str(path) for path in generated),
+            ],
             "reloadedBy": "caller_restart_required",
         }
     @staticmethod

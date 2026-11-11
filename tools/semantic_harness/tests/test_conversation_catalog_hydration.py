@@ -8,7 +8,9 @@ from tools.semantic_harness.codebuilder.conversation_compiler import (
     _hydrate_catalog_translations,
     _hydrate_shard_provenance,
 )
-from tools.semantic_harness.codebuilder.dialogue_content import phrase_translation_key
+from tools.semantic_harness.codebuilder.dialogue_content import (
+    compile_dialogue_content,
+)
 from tools.semantic_harness.codebuilder.errors import CompileError
 
 
@@ -23,14 +25,17 @@ class ConversationCatalogHydrationTests(unittest.TestCase):
             "phraseFamilies": [{
                 "semanticTemplateID": "semantic.test.greeting",
                 "group": "greetings",
-                "styles": {"neutral": [{}]},
+                "styles": {"neutral": [{
+                    "phraseID": "neutral.01",
+                    "translationKey": "conversation.content.semantic.test.greeting.neutral.01",
+                }]},
             }],
             "playerChoices": [],
         }
 
     def test_hydrates_phrase_wording_from_locale_catalog(self) -> None:
         document = self._document()
-        key = phrase_translation_key("semantic.test.greeting", "neutral", 1)
+        key = "conversation.content.semantic.test.greeting.neutral.01"
         _hydrate_catalog_translations(
             document,
             {"kind": "content", "path": "content/test.json"},
@@ -46,13 +51,55 @@ class ConversationCatalogHydrationTests(unittest.TestCase):
         document["phraseFamilies"][0]["styles"]["neutral"][0]["translations"] = {
             "EN": "Different."
         }
-        key = phrase_translation_key("semantic.test.greeting", "neutral", 1)
+        key = "conversation.content.semantic.test.greeting.neutral.01"
         with self.assertRaises(CompileError):
             _hydrate_catalog_translations(
                 document,
                 {"kind": "content", "path": "content/test.json"},
                 {"EN": {key: "Hello."}, "TL": {key: "Kumusta."}},
             )
+
+    def test_requires_explicit_translation_key(self) -> None:
+        document = self._document()
+        del document["phraseFamilies"][0]["styles"]["neutral"][0]["translationKey"]
+        with self.assertRaisesRegex(CompileError, "requires explicit translationKey"):
+            _hydrate_catalog_translations(
+                document,
+                {"kind": "content", "path": "content/test.json"},
+                {"EN": {}, "TL": {}},
+            )
+
+    def test_compiler_requires_explicit_phrase_identity(self) -> None:
+        document = {
+            "schemaVersion": 3,
+            "source": {
+                "name": "Fixture",
+                "version": "1",
+                "contentLicense": "CC0",
+            },
+            "groups": {"greetings": {"contentOwner": "test"}},
+            "phraseFamilies": [{
+                "semanticTemplateID": "semantic.test.greeting",
+                "group": "greetings",
+                "styles": {"neutral": [{
+                    "phraseID": "neutral.01",
+                    "translationKey": "conversation.content.semantic.test.greeting.neutral.01",
+                    "translations": {"EN": "Hello."},
+                }]},
+            }],
+            "playerChoices": [],
+        }
+        compiled = compile_dialogue_content(document)
+        phrase = compiled["phraseFamilies"][0]["styles"]["neutral"][0]
+        self.assertEqual(phrase["id"], "phrase.semantic.test.greeting.neutral.01")
+        self.assertEqual(
+            phrase["key"],
+            "conversation.content.semantic.test.greeting.neutral.01",
+        )
+
+        document["phraseFamilies"][0]["styles"]["neutral"] = [{}]
+        with self.assertRaisesRegex(CompileError, "phraseID"):
+            compile_dialogue_content(document)
 
     def test_hydrates_provenance_from_manifest_profile(self) -> None:
         document = {

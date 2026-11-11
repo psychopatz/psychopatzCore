@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Mapping
 
-from .dialogue_content import phrase_translation_key, player_translation_keys
+from .dialogue_content import player_translation_keys
 from .errors import CompileError
 from .translation_support import DEFAULT_LANGUAGE
 
@@ -68,7 +68,12 @@ def _hydrate_catalog_translations(
                 for index, phrase in enumerate(phrases, 1):
                     if not isinstance(phrase, dict):
                         continue
-                    key = phrase_translation_key(str(semantic_id), str(style), index)
+                    key = phrase.get("translationKey")
+                    if not isinstance(key, str) or not key:
+                        raise CompileError(
+                            f"{entry.get('path')}.{semantic_id}.{style}[{index}] "
+                            "requires explicit translationKey"
+                        )
                     phrase["translations"] = _required_catalog_values(
                         catalogs,
                         key,

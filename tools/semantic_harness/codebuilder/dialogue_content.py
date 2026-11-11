@@ -19,7 +19,7 @@ from .lexicon_compiler import CompileError, _lua_string
 from tools.semantic_harness.codebuilder.translation_support import DEFAULT_LANGUAGE, normalize_translations
 
 
-CONTENT_SCHEMA = "pnc.semantic_dialogue_content.v2"
+CONTENT_SCHEMA = "pnc.semantic_dialogue_content.v3"
 STYLES = ("neutral", "warm", "terse", "guarded", "bond_neutral", "bond_warm", "bond_terse", "bond_guarded")
 ID_PATTERN = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
 TRANSLATION_KEY_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_.-]{0,127}$")
@@ -89,31 +89,11 @@ def derived_canonical_concept(semantic_id: str) -> str:
     return "_".join(piece.upper() for piece in pieces)
 
 
-def _derived_translation_prefix(semantic_id: str) -> str:
-    pieces = [piece for piece in re.split(r"[^A-Za-z0-9]+", semantic_id) if piece]
-    return "UI_PNC_Conversation_Content_" + "".join(
-        piece[:1].upper() + piece[1:] for piece in pieces
-    )
-
-
-def phrase_translation_key(semantic_id: str, style: str, index: int) -> str:
-    """Return the stable key used for one authored phrase variant."""
-
-    style_suffix = "".join(
-        piece[:1].upper() + piece[1:]
-        for piece in style.split("_")
-    )
-    return f"{_derived_translation_prefix(semantic_id)}{style_suffix}{index:02d}"
-
-
 def player_translation_keys(content_id: str) -> tuple[str, str]:
     """Return the stable label and utterance keys for one player choice."""
 
-    label_key = "UI_PNC_Conversation_Content_" + "".join(
-        piece[:1].upper() + piece[1:]
-        for piece in re.split(r"[^A-Za-z0-9]+", content_id) if piece
-    ) + "_Label"
-    return label_key, label_key[:-6] + "Choice"
+    base_key = f"conversation.content.choice.{content_id}"
+    return f"{base_key}.label", f"{base_key}.choice"
 
 
 def _phrase_family(
@@ -155,19 +135,27 @@ def _phrase_family(
         for index, raw_phrase in enumerate(raw_phrases, 1):
             if not isinstance(raw_phrase, dict):
                 raise CompileError(f"{family_id}.styles.{style}[{index}] must be an object")
-            phrase_id = f"{family_id}.{style}.{index:02d}"
+            phrase_token = _id(
+                raw_phrase.get("phraseID"),
+                f"{family_id}.styles.{style}[{index}].phraseID",
+            )
+            key = _translation_key(
+                raw_phrase.get("translationKey"),
+                f"{family_id}.styles.{style}[{index}].translationKey",
+            )
+            phrase_id = f"{family_id}.{phrase_token}"
             if phrase_id in phrase_ids:
                 raise CompileError(f"duplicate phrase id: {phrase_id}")
             phrase_ids.add(phrase_id)
-            key = phrase_translation_key(semantic_id, style, index)
             if key in translation_keys:
-                raise CompileError(f"duplicate generated translation key: {key}")
+                raise CompileError(f"duplicate translation key: {key}")
             translation_keys.add(key)
             values = _translations(
                 raw_phrase.get("translations"), f"{phrase_id}.translations"
             )
             compiled_phrases.append({
                 "id": phrase_id,
+                "phraseID": phrase_token,
                 "key": key,
                 # Keep the authored English fallback beside the key so a
                 # missing/late translation never exposes a key to players.
@@ -226,8 +214,8 @@ def compile_dialogue_content(document: dict[str, Any]) -> dict[str, Any]:
     """Validate and compile content without producing any files."""
     if not isinstance(document, dict):
         raise CompileError("dialogue content source root must be an object")
-    if document.get("schemaVersion") != 2:
-        raise CompileError("dialogue content source schemaVersion must be 2")
+    if document.get("schemaVersion") != 3:
+        raise CompileError("dialogue content source schemaVersion must be 3")
     source = _metadata(document.get("source"))
     groups = document.get("groups")
     if not isinstance(groups, dict) or not groups:
@@ -282,7 +270,7 @@ def compile_dialogue_content(document: dict[str, Any]) -> dict[str, Any]:
 
     compiled = {
         "schema": CONTENT_SCHEMA,
-        "schemaVersion": 2,
+        "schemaVersion": 3,
         "source": source,
         "phraseFamilies": compiled_families,
         "playerChoices": compiled_player,

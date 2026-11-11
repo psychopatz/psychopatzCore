@@ -14,6 +14,21 @@ sources/conversation/
 └─ ui/
 ```
 
+Content phrase arrays use explicit stable records; array position is not identity:
+
+```json
+{
+  "phraseID": "neutral.01",
+  "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.01"
+}
+```
+
+Each locale remains one self-contained authoring catalog under
+`sources/conversation/translations/` (`EN.json`, `TL.json`, and future locales).
+Runtime package manifests include generated Conversation catalogs only; bundle
+files are loaded by their owning text-catalog source and are not merged into
+the global semantic catalog.
+
 `wordnet_concepts.json` remains the canonical reviewed lexicon mapping.
 
 Generated artifacts follow the canonical source owner's package. Ownership is declared in each source shard's `source.owner` metadata; a missing owner defaults to `ProjectHoomans`.

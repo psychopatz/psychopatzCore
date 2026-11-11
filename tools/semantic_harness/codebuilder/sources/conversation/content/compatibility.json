@@ -16,7 +16,10 @@
       "semanticTemplateID": "semantic.compat.bandits.hooman_hurt.colonist",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.bandits.hooman_hurt.colonist.neutral.01"
+          }
         ]
       }
     },
@@ -25,7 +28,10 @@
       "semanticTemplateID": "semantic.compat.bandits.hooman_hurt.default",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.bandits.hooman_hurt.default.neutral.01"
+          }
         ]
       }
     },
@@ -34,7 +40,10 @@
       "semanticTemplateID": "semantic.compat.bandits.hooman_hurt.family",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.bandits.hooman_hurt.family.neutral.01"
+          }
         ]
       }
     },
@@ -43,7 +52,10 @@
       "semanticTemplateID": "semantic.compat.bandits.hooman_hurt.lover",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.bandits.hooman_hurt.lover.neutral.01"
+          }
         ]
       }
     },
@@ -52,7 +64,10 @@
       "semanticTemplateID": "semantic.compat.companion_dogs.feed.female",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.companion_dogs.feed.female.neutral.01"
+          }
         ]
       }
     },
@@ -61,7 +76,10 @@
       "semanticTemplateID": "semantic.compat.companion_dogs.feed.male",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.companion_dogs.feed.male.neutral.01"
+          }
         ]
       }
     },
@@ -70,7 +88,10 @@
       "semanticTemplateID": "semantic.compat.companion_dogs.feed.unknown",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.companion_dogs.feed.unknown.neutral.01"
+          }
         ]
       }
     },
@@ -79,7 +100,10 @@
       "semanticTemplateID": "semantic.compat.companion_dogs.greeting.female",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.companion_dogs.greeting.female.neutral.01"
+          }
         ]
       }
     },
@@ -88,7 +112,10 @@
       "semanticTemplateID": "semantic.compat.companion_dogs.greeting.male",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.companion_dogs.greeting.male.neutral.01"
+          }
         ]
       }
     },
@@ -97,7 +124,10 @@
       "semanticTemplateID": "semantic.compat.companion_dogs.greeting.unknown",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.companion_dogs.greeting.unknown.neutral.01"
+          }
         ]
       }
     },
@@ -106,7 +136,10 @@
       "semanticTemplateID": "semantic.compat.necroa.mask_warning.colonist",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.necroa.mask_warning.colonist.neutral.01"
+          }
         ]
       }
     },
@@ -115,7 +148,10 @@
       "semanticTemplateID": "semantic.compat.necroa.mask_warning.default",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.necroa.mask_warning.default.neutral.01"
+          }
         ]
       }
     },
@@ -124,7 +160,10 @@
       "semanticTemplateID": "semantic.compat.necroa.mask_warning.family",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.necroa.mask_warning.family.neutral.01"
+          }
         ]
       }
     },
@@ -133,7 +172,10 @@
       "semanticTemplateID": "semantic.compat.necroa.player_mask_removed.default",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.necroa.player_mask_removed.default.neutral.01"
+          }
         ]
       }
     },
@@ -142,7 +184,10 @@
       "semanticTemplateID": "semantic.compat.necroa.player_mask_removed.hostile",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.necroa.player_mask_removed.hostile.neutral.01"
+          }
         ]
       }
     },
@@ -151,7 +196,10 @@
       "semanticTemplateID": "semantic.compat.necroa.player_mask_removed.lover",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.necroa.player_mask_removed.lover.neutral.01"
+          }
         ]
       }
     },
@@ -160,7 +208,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.encounter.friendly",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.encounter.friendly.neutral.01"
+          }
         ]
       }
     },
@@ -169,7 +220,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.encounter.hostile",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.encounter.hostile.neutral.01"
+          }
         ]
       }
     },
@@ -178,7 +232,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.encounter.unknown",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.encounter.unknown.neutral.01"
+          }
         ]
       }
     },
@@ -187,7 +244,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.faction.hostile",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.faction.hostile.neutral.01"
+          }
         ]
       }
     },
@@ -196,7 +256,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.faction.incoming",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.faction.incoming.neutral.01"
+          }
         ]
       }
     },
@@ -205,7 +268,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.faction.outgoing",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.faction.outgoing.neutral.01"
+          }
         ]
       }
     },
@@ -214,7 +280,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.meta.aircraft.heli",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.meta.aircraft.heli.neutral.01"
+          }
         ]
       }
     },
@@ -223,7 +292,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.meta.aircraft.military",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.meta.aircraft.military.neutral.01"
+          }
         ]
       }
     },
@@ -232,7 +304,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.meta.ambience",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.meta.ambience.neutral.01"
+          }
         ]
       }
     },
@@ -241,7 +316,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.meta.crash",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.meta.crash.neutral.01"
+          }
         ]
       }
     },
@@ -250,7 +328,10 @@
       "semanticTemplateID": "semantic.compat.projectalife.meta.gunfire",
       "styles": {
         "neutral": [
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.compat.projectalife.meta.gunfire.neutral.01"
+          }
         ]
       }
     }

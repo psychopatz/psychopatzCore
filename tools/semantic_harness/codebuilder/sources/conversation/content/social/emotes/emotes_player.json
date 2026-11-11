@@ -16,9 +16,18 @@
       "semanticTemplateID": "semantic.emote.player.clap",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.emote.player.clap.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.emote.player.clap.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.emote.player.clap.neutral.03"
+          }
         ]
       }
     },
@@ -27,9 +36,18 @@
       "semanticTemplateID": "semantic.emote.player.insult",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.emote.player.insult.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.emote.player.insult.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.emote.player.insult.neutral.03"
+          }
         ]
       }
     },
@@ -38,9 +56,18 @@
       "semanticTemplateID": "semantic.emote.player.salute",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.emote.player.salute.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.emote.player.salute.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.emote.player.salute.neutral.03"
+          }
         ]
       }
     },
@@ -49,9 +76,18 @@
       "semanticTemplateID": "semantic.emote.player.thankyou",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.emote.player.thankyou.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.emote.player.thankyou.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.emote.player.thankyou.neutral.03"
+          }
         ]
       }
     },
@@ -60,9 +96,18 @@
       "semanticTemplateID": "semantic.emote.player.thumbsdown",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.emote.player.thumbsdown.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.emote.player.thumbsdown.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.emote.player.thumbsdown.neutral.03"
+          }
         ]
       }
     },
@@ -71,9 +116,18 @@
       "semanticTemplateID": "semantic.emote.player.thumbsup",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.emote.player.thumbsup.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.emote.player.thumbsup.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.emote.player.thumbsup.neutral.03"
+          }
         ]
       }
     },
@@ -82,9 +136,18 @@
       "semanticTemplateID": "semantic.emote.player.wavebye",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.emote.player.wavebye.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.emote.player.wavebye.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.emote.player.wavebye.neutral.03"
+          }
         ]
       }
     },
@@ -93,9 +156,18 @@
       "semanticTemplateID": "semantic.emote.player.wavehi",
       "styles": {
         "neutral": [
-          {},
-          {},
-          {}
+          {
+            "phraseID": "neutral.01",
+            "translationKey": "conversation.content.semantic.emote.player.wavehi.neutral.01"
+          },
+          {
+            "phraseID": "neutral.02",
+            "translationKey": "conversation.content.semantic.emote.player.wavehi.neutral.02"
+          },
+          {
+            "phraseID": "neutral.03",
+            "translationKey": "conversation.content.semantic.emote.player.wavehi.neutral.03"
+          }
         ]
       }
     }

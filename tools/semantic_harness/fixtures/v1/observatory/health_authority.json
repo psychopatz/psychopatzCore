@@ -13,7 +13,7 @@
           "text": "how are you",
           "language": "EN",
           "expect": {
-            "lastKey": "UI_PNC_Conversation_Content_SemanticQuestionWellbeingInjuredNeutral01"
+            "lastKey": "conversation.content.semantic.question.wellbeing.injured.neutral.01"
           }
         }
       ]
@@ -29,7 +29,7 @@
           "text": "how are you",
           "language": "TL",
           "expect": {
-            "lastKey": "UI_PNC_Conversation_Content_SemanticQuestionWellbeingInjuredNeutral01",
+            "lastKey": "conversation.content.semantic.question.wellbeing.injured.neutral.01",
             "fallbackLookups": 0
           }
         }

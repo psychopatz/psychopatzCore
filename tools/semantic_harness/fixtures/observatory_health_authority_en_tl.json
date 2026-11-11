@@ -2,7 +2,7 @@
   "cases": [
     {
       "expected": {
-        "lastKey": "UI_PNC_Conversation_Content_SemanticQuestionWellbeingInjuredNeutral01",
+        "lastKey": "conversation.content.semantic.question.wellbeing.injured.neutral.01",
         "maxActions": 0
       },
       "label": "Injured wellbeing EN",
@@ -16,7 +16,7 @@
     },
     {
       "expected": {
-        "lastKey": "UI_PNC_Conversation_Content_SemanticQuestionWellbeingInjuredNeutral01",
+        "lastKey": "conversation.content.semantic.question.wellbeing.injured.neutral.01",
         "maxActions": 0,
         "maxFallbackLookups": 0
       },
