@@ -110,8 +110,11 @@ def build_ui(app: Any) -> None:
     app.advanced_tab = developer_tools_host
     app.log_tab = log_tab
     app.world_browser_tab = world_sources_tab
-    build_selection_surface(app, active_mods_tab, ttk, scrolled_text)
     build_saved_world_browser(app, saved_world_tab)
+    # Selection initialization can restore the "Selected save" mode and
+    # immediately resolve the active saved-world entry. Build the saved-world
+    # variables and controls before that callback is allowed to run.
+    build_selection_surface(app, active_mods_tab, ttk, scrolled_text)
 
     conversation_pane, workbench_pane = build_simulation_panes(
         app, simulation_tab, ttk

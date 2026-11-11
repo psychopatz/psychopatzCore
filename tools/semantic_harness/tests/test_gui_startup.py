@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import json
 import os
+import tempfile
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 
 from tools.semantic_harness.core.worker_session import WorkerReady
 from tools.semantic_harness.ui.layout_state_controller import restore_ui_state
 from tools.semantic_harness.ui.lifecycle_controller import run_gui
+from tools.semantic_harness.ui.shell import SemanticHarnessApp
 from tools.semantic_harness.ui.worker_ready_controller import _capability_summary
 
 
@@ -59,6 +62,42 @@ class GuiStartupTests(unittest.TestCase):
         self.assertEqual(summary["engineFacts"], 5000)
         self.assertNotIn("factCatalog", summary)
         self.assertLess(len(json.dumps(summary)), 2000)
+
+    @unittest.skipUnless(os.environ.get("DISPLAY"), "requires a Tk display")
+    def test_saved_selection_mode_builds_world_controls_before_restore(self) -> None:
+        import tkinter as tk
+        from tkinter import ttk
+
+        from tools.semantic_harness.entrypoints.cli import _parser
+
+        with tempfile.TemporaryDirectory() as directory:
+            state_path = Path(directory) / "selected-save-state.json"
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "layout_state_version": 6,
+                        "selection_source_mode": "Selected save",
+                        "saved_world_view": "Relationship to Player",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            root = tk.Tk()
+            root.geometry("980x620")
+            bootstrap = ttk.Frame(root)
+            bootstrap.pack(fill="both", expand=True)
+            root._semantic_harness_bootstrap = bootstrap
+            root.update_idletasks()
+            root.update()
+            try:
+                SemanticHarnessApp(
+                    root,
+                    _parser().parse_args(
+                        ["--gui", "--ui-state", str(state_path)]
+                    ),
+                )
+            finally:
+                root.destroy()
 
     @unittest.skipUnless(os.environ.get("DISPLAY"), "requires a Tk display")
     def test_run_gui_maps_window_before_app_constructor(self) -> None:
