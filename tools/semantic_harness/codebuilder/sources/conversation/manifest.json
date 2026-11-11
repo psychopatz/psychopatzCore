@@ -298,6 +298,24 @@
       "owner": "ProjectHoomans",
       "shardId": "conversation.ui.static.suggestions",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "static_suggestions",
+      "kind": "ui",
+      "order": 2302,
+      "path": "ui/suggestion_text_context.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.ui.suggestion.text.context",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "static_suggestions",
+      "kind": "ui",
+      "order": 2303,
+      "path": "ui/suggestion_text_actions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.ui.suggestion.text.actions",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "externalShards": [
@@ -341,6 +359,17 @@
       "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/ui/static_suggestions_core.json",
       "shardId": "conversation.ui.static.suggestions.core",
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "trading_suggestions",
+      "kind": "ui",
+      "order": 2302,
+      "owner": "DTCommon",
+      "optional": true,
+      "path": "ui/dynamic_trading_suggestions.json",
+      "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/ui/static_suggestions.json",
+      "shardId": "conversation.ui.dynamic.trading.suggestions",
+      "sourceProfile": "conversation.source.dtcommon.247519f6f9"
     }
   ],
   "auxiliaryFiles": [

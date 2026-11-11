@@ -12,6 +12,7 @@ from typing import Any
 from .conversation_manifest import validate_id as _validate_id
 from .conversation_model import copy_json as _copy_json
 from .conversation_contract import CONVERSATION_MAX_RECORDS_PER_SHARD
+from .conversation_ui_contract import validate_ui_shard
 from .errors import CompileError
 from .generation_ownership import normalize_owner
 
@@ -20,28 +21,6 @@ _DIRECTOR_PREDICATE_OPS = frozenset((
     "eq", "neq", "gt", "gte", "lt", "lte", "in", "not_in", "truthy", "falsy",
 ))
 
-
-def _validate_ui_shard(document: dict[str, Any], path: str) -> list[dict[str, Any]]:
-    suggestions = document.get("suggestions")
-    if not isinstance(suggestions, list):
-        raise CompileError(f"UI shard {path} requires a suggestions list")
-    seen: set[str] = set()
-    result: list[dict[str, Any]] = []
-    for index, suggestion in enumerate(suggestions):
-        if not isinstance(suggestion, dict):
-            raise CompileError(f"UI shard {path} suggestion {index} must be an object")
-        suggestion_id = _validate_id(suggestion.get("id"), f"{path}.suggestions[{index}].id")
-        if suggestion_id in seen:
-            raise CompileError(f"duplicate UI suggestion id: {suggestion_id}")
-        seen.add(suggestion_id)
-        for field in ("topic", "patternID", "labelKey", "utteranceKey"):
-            if not isinstance(suggestion.get(field), str) or not suggestion[field].strip():
-                raise CompileError(f"{path}.{suggestion_id} requires {field}")
-        order = suggestion.get("order")
-        if isinstance(order, bool) or not isinstance(order, int):
-            raise CompileError(f"{path}.{suggestion_id}.order must be an integer")
-        result.append(_copy_json(suggestion))
-    return result
 
 def _validate_director_predicate(value: Any, label: str, *, depth: int = 0) -> dict[str, Any]:
     if not isinstance(value, dict):
@@ -419,12 +398,40 @@ def _validate_realization_shard(
     values = document.get("realizations")
     if not isinstance(values, list):
         raise CompileError(f"Realization shard {path} requires a realizations list")
-    if len(values) > CONVERSATION_MAX_RECORDS_PER_SHARD:
-        raise CompileError(
-            f"Realization shard {path} exceeds the "
-            f"{CONVERSATION_MAX_RECORDS_PER_SHARD}-record hard budget"
-        )
     records: list[dict[str, Any]] = []
+
+    def validate_tokens(raw_tokens: Any, label: str) -> list[dict[str, Any]]:
+        if not isinstance(raw_tokens, list) or not raw_tokens or len(raw_tokens) > 12:
+            raise CompileError(f"{label}.tokens must contain 1-12 token objects")
+        tokens: list[dict[str, Any]] = []
+        for token_index, token in enumerate(raw_tokens):
+            token_label = f"{label}.tokens[{token_index}]"
+            if not isinstance(token, dict):
+                raise CompileError(f"{token_label} must be an object")
+            token_kind = str(token.get("kind") or "")
+            if token_kind not in {"literal", "lexeme", "slot"}:
+                raise CompileError(f"{token_label}.kind is not supported")
+            if token_kind == "literal":
+                value = token.get("value")
+                if not isinstance(value, str) or len(value) > 128:
+                    raise CompileError(f"{token_label}.value must be bounded text")
+            else:
+                slot = token.get("slot")
+                if not isinstance(slot, str) or not slot or len(slot) > 64:
+                    raise CompileError(f"{token_label}.slot is required")
+            tokens.append(_copy_json(token))
+        return tokens
+
+    def runtime_construction_id(base_id: str, locale: str, label: str) -> str:
+        parts = base_id.split(".")
+        if len(parts) < 3 or parts[0] != "construction":
+            raise CompileError(
+                f"{label}.id must be construction.<domain>.<name> without a locale segment"
+            )
+        if parts[1].lower() in {"en", "tl"}:
+            raise CompileError(f"{label}.id must not contain a locale segment")
+        return ".".join((parts[0], locale.lower(), *parts[1:]))
+
     for index, raw in enumerate(values):
         label = f"{path}.realizations[{index}]"
         if not isinstance(raw, dict):
@@ -435,10 +442,10 @@ def _validate_realization_shard(
             raise CompileError(
                 f"{label}.type must be lexeme or construction"
             )
-        record = _copy_json(raw)
-        record["id"] = record_id
-        record["type"] = realization_type
         if realization_type == "lexeme":
+            record = _copy_json(raw)
+            record["id"] = record_id
+            record["type"] = realization_type
             concept = str(raw.get("concept") or "")
             if not concept or len(concept) > 96:
                 raise CompileError(f"{label}.concept is required")
@@ -454,40 +461,39 @@ def _validate_realization_shard(
                     raise CompileError(
                         f"{label}.forms[{locale}] must be bounded text"
                     )
+            records.append(record)
         else:
-            locale = str(raw.get("locale") or "")
             strategy = str(raw.get("strategy") or "")
-            if not locale or len(locale) > 12:
-                raise CompileError(f"{label}.locale is required")
             if not strategy or len(strategy) > 64:
                 raise CompileError(f"{label}.strategy is required")
-            tokens = raw.get("tokens")
-            if not isinstance(tokens, list) or not tokens or len(tokens) > 12:
+            if "locale" in raw or "tokens" in raw:
                 raise CompileError(
-                    f"{label}.tokens must contain 1-12 token objects"
+                    f"{label} must use one translations map instead of locale/tokens"
                 )
-            for token_index, token in enumerate(tokens):
-                token_label = f"{label}.tokens[{token_index}]"
-                if not isinstance(token, dict):
-                    raise CompileError(f"{token_label} must be an object")
-                token_kind = str(token.get("kind") or "")
-                if token_kind not in {"literal", "lexeme", "slot"}:
-                    raise CompileError(
-                        f"{token_label}.kind is not supported"
-                    )
-                if token_kind == "literal":
-                    value = token.get("value")
-                    if not isinstance(value, str) or len(value) > 128:
-                        raise CompileError(
-                            f"{token_label}.value must be bounded text"
-                        )
-                else:
-                    slot = token.get("slot")
-                    if not isinstance(slot, str) or not slot or len(slot) > 64:
-                        raise CompileError(
-                            f"{token_label}.slot is required"
-                        )
-        records.append(record)
+            translations = raw.get("translations")
+            if not isinstance(translations, dict) or not translations:
+                raise CompileError(f"{label}.translations must be a non-empty locale map")
+            if len(translations) > 8:
+                raise CompileError(f"{label}.translations exceeds 8 locales")
+            locales = {str(locale).upper(): tokens for locale, tokens in translations.items()}
+            if "EN" not in locales:
+                raise CompileError(f"{label}.translations requires EN fallback")
+            for locale, raw_tokens in sorted(locales.items()):
+                if not re.fullmatch(r"[A-Z][A-Z0-9_-]{0,11}", locale):
+                    raise CompileError(f"{label}.translations locale is invalid: {locale}")
+                tokens = validate_tokens(raw_tokens, f"{label}.translations[{locale}]")
+                record = _copy_json(raw)
+                record.pop("translations", None)
+                record["id"] = runtime_construction_id(record_id, locale, label)
+                record["locale"] = locale
+                record["tokens"] = tokens
+                record["type"] = realization_type
+                records.append(record)
+    if len(records) > CONVERSATION_MAX_RECORDS_PER_SHARD:
+        raise CompileError(
+            f"Realization shard {path} expands above the "
+            f"{CONVERSATION_MAX_RECORDS_PER_SHARD}-record hard budget"
+        )
     return {"records": records}
 
 def _merge_realization_sources(
@@ -497,8 +503,7 @@ def _merge_realization_sources(
     for document, entry, _ in shards:
         if entry["kind"] != "realization":
             continue
-        compiled = _validate_realization_shard(document, entry["path"])
-        for record in compiled["records"]:
+        for record in document.get("realizations", []):
             records.append({**record, "domain": entry["domain"]})
     records.sort(key=lambda item: item["id"])
     return {"records": records}

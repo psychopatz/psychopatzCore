@@ -9,16 +9,19 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
 
 PREFERRED_SOURCE_BYTES = 64 * 1024
 HARD_SOURCE_BYTES = 128 * 1024
-LOCALE_CATALOG_DIRECTORY = "translations"
+AUTHORING_LOCALE_DIRECTORY = "translations"
 LEGACY_SOURCE_FIELDS = frozenset({
     "phraseID", "translationKey", "labelTranslations", "choiceTranslations",
+    "labelKey", "utteranceKey",
 })
+LOCALE_SPLIT_STEM = re.compile(r"(?:_|\.)(?:en|tl)$", re.IGNORECASE)
 
 
 def _issue(
@@ -100,7 +103,7 @@ def _relative_json_files(root: Path, manifest_path: Path) -> list[Path]:
         for path in root.rglob("*.json")
         if path.is_file()
         and path.resolve() != manifest_path.resolve()
-        and LOCALE_CATALOG_DIRECTORY not in path.relative_to(root).parts
+        and AUTHORING_LOCALE_DIRECTORY not in path.relative_to(root).parts
     )
 
 
@@ -227,7 +230,7 @@ def audit_conversation_sources(
         ]
         locale_field_locations = [
             location for location, value in _walk(document)
-            if location.rsplit(".", 1)[-1] in {"translations", "label", "choice"}
+            if location.rsplit(".", 1)[-1] in {"translations", "display", "label", "choice"}
             and isinstance(value, Mapping)
         ]
         legacy_field_locations = [
@@ -302,8 +305,17 @@ def audit_conversation_sources(
                     details={"stem": stem, "paths": paths},
                 )
             )
+        if LOCALE_SPLIT_STEM.search(stem):
+            issues.append(
+                _issue(
+                    "locale_split_filename",
+                    "Locale-suffixed source shards must be combined into one self-contained recipe",
+                    details={"stem": stem, "paths": paths},
+                    severity="error",
+                )
+            )
 
-    locale_root = source_root / LOCALE_CATALOG_DIRECTORY
+    locale_root = source_root / AUTHORING_LOCALE_DIRECTORY
     locale_files = (
         sorted(path.relative_to(source_root).as_posix() for path in locale_root.glob("*.json"))
         if locale_root.is_dir()
@@ -314,7 +326,7 @@ def audit_conversation_sources(
             _issue(
                 "authoring_locale_catalogs_present",
                 "Authoring locale catalogs are not part of the self-contained source contract",
-                path=f"{LOCALE_CATALOG_DIRECTORY}/",
+                path=f"{AUTHORING_LOCALE_DIRECTORY}/",
                 severity="error",
                 details={"files": locale_files},
             )

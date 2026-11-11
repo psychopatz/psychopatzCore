@@ -1,0 +1,70 @@
+{
+  "domain": "social",
+  "kind": "realization",
+  "owner": "ProjectHoomans",
+  "realizations": [
+    {
+      "type": "construction",
+      "strategy": "ACCEPT",
+      "dialogueAct": "ACCEPT",
+      "id": "construction.social.contextual_accept",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Yes, I accept."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Oo, pumapayag ako."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "REFUSE",
+      "dialogueAct": "REFUSE",
+      "id": "construction.social.contextual_refuse",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "No, I'll pass."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Hindi, salamat na lang."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "THANK",
+      "dialogueAct": "THANK",
+      "id": "construction.social.contextual_thank",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Thank you."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Salamat."
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.realization.social.contextual.replies",
+  "sourceProfile": "conversation.source.project.hoomans.contextual.replies.661f723f41"
+}

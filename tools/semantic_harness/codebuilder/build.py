@@ -104,12 +104,6 @@ CONVERSATION_SOURCE_ROOT = (
 DEFAULT_CONVERSATION_MANIFEST = CONVERSATION_SOURCE_ROOT / "manifest.json"
 
 
-# Suggestions.json remains a source for contextual UI keys merged into the
-# generated Conversation/UI.json bundle. Runtime loads only the generated bundle.
-_CONVERSATION_SOURCE_ONLY_TRANSLATIONS = frozenset({
-    "Conversation/Semantic/Suggestions.json",
-})
-
 def write_lexicon_output(output: Path, compiled) -> list[Path]:
     """Write the stable lexicon hub and bounded generated data shards."""
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -150,10 +144,7 @@ def _write_conversation_translation_manifest(
             entries: list[str] = []
             for path in sorted((directory / "Conversation").rglob("*.json")):
                 relative_from_language = path.relative_to(directory).as_posix()
-                if (
-                    relative_from_language in _CONVERSATION_SOURCE_ONLY_TRANSLATIONS
-                    or relative_from_language.startswith("Conversation/Bundles/")
-                ):
+                if relative_from_language.startswith("Conversation/Bundles/"):
                     continue
                 entries.append(path.relative_to(translation_root).as_posix())
             if entries:
@@ -406,8 +397,13 @@ def write_conversation_output(
 
     ui_runtime_path = repository / CONVERSATION_UI_RUNTIME_RELATIVE
     ui_runtime_path.parent.mkdir(parents=True, exist_ok=True)
+    ui_owners = (
+        (CORE_OWNER, HOOMANS_OWNER)
+        if registry_owner == HOOMANS_OWNER
+        else (registry_owner,)
+    )
     ui_runtime_path.write_text(
-        render_conversation_ui_module(model),
+        render_conversation_ui_module(model, include_owners=ui_owners),
         encoding="utf-8",
         newline="\n",
     )

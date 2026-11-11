@@ -53,7 +53,7 @@ from .conversation_model import (
 from .conversation_assembler import (
     assemble_shards,
 )
-from .catalog_audit import (
+from .conversation_source_audit import (
     audit_conversation_sources,
 )
 

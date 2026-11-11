@@ -16,7 +16,7 @@ from .conversation_validation import (
     _validate_beat_shard,
     _validate_behavior_shard,
     _validate_realization_shard,
-    _validate_ui_shard,
+    validate_ui_shard,
 )
 from .dialogue_content import compile_dialogue_content
 from .dialogue_dataset import compile_dialogue_dataset
@@ -121,10 +121,15 @@ def _compile_shard(
         )
     elif kind == "realization":
         compiled = _validate_realization_shard(document, path)
+        document["realizations"] = compiled["records"]
     elif kind == "packs":
         compiled = compile_semantic_pack_shard(document, path)
     else:
-        compiled = {"suggestions": _validate_ui_shard(document, path)}
+        compiled = validate_ui_shard(document, path)
+        # Keep the assembled in-memory model runtime-shaped while leaving the
+        # authoring JSON free of generated localization identifiers.
+        document["suggestions"] = compiled["suggestions"]
+        document["texts"] = compiled["texts"]
     return compiled
 
 def _merge_dialogue_sources(
@@ -224,16 +229,19 @@ def _add_global_id(
         owner=normalize_owner(shard.get("owner")),
     )
 
-def _ui_translations(ui: list[dict[str, Any]]) -> dict[str, dict[str, str]]:
+def _ui_translations(
+    ui: list[dict[str, Any]],
+    texts: list[dict[str, Any]],
+) -> dict[str, dict[str, str]]:
     languages: set[str] = {DEFAULT_LANGUAGE}
-    for suggestion in ui:
-        raw = suggestion.get("translations")
+    for record in [*ui, *texts]:
+        raw = record.get("display")
         if isinstance(raw, dict):
             for raw_language in raw:
                 languages.add(normalize_language(raw_language, "UI translation language"))
     translations = {language: {} for language in sorted(languages)}
     for suggestion in ui:
-        raw = suggestion.get("translations")
+        raw = suggestion.get("display")
         for language in sorted(languages):
             values = raw.get(language, {}) if isinstance(raw, dict) else {}
             for field, key in (
@@ -241,19 +249,15 @@ def _ui_translations(ui: list[dict[str, Any]]) -> dict[str, dict[str, str]]:
                 ("utterance", suggestion.get("utteranceKey")),
             ):
                 value = values.get(field) if isinstance(values, dict) else None
-                if not isinstance(value, str) or not value.strip():
-                    if language == DEFAULT_LANGUAGE:
-                        value = suggestion.get(
-                            "labelFallback" if field == "label" else "utteranceFallback"
-                        )
-                    else:
-                        continue
                 if isinstance(key, str) and isinstance(value, str):
                     translations[language][key] = value
-                    if language == DEFAULT_LANGUAGE:
-                        suggestion[
-                            "labelFallback" if field == "label" else "utteranceFallback"
-                        ] = value
+    for text in texts:
+        raw = text.get("display")
+        key = text.get("key")
+        for language in sorted(languages):
+            value = raw.get(language) if isinstance(raw, dict) else None
+            if isinstance(key, str) and isinstance(value, str):
+                translations[language][key] = value
     return {
         language: {key: values[key] for key in sorted(values)}
         for language, values in sorted(translations.items())
@@ -274,7 +278,7 @@ def _conversation_record_ids(
         "beats": ("beats",),
         "realization": ("realizations",),
         "packs": ("packs",),
-        "ui": ("suggestions",),
+        "ui": ("suggestions", "texts"),
     }.get(kind)
     if fields is None:
         return []

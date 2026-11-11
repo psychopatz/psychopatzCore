@@ -1,0 +1,318 @@
+{
+  "domain": "social",
+  "kind": "realization",
+  "owner": "ProjectHoomans",
+  "realizations": [
+    {
+      "type": "construction",
+      "strategy": "ACKNOWLEDGE",
+      "dialogueAct": "ACKNOWLEDGE",
+      "id": "construction.social.acknowledge",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "I hear you."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Naiintindihan ko."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "AGREE",
+      "dialogueAct": "AGREE",
+      "id": "construction.social.agree",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Yeah, I agree."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Oo, sang-ayon ako."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "APOLOGIZE",
+      "dialogueAct": "APOLOGIZE",
+      "id": "construction.social.apologize",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "I'm "
+          },
+          {
+            "kind": "lexeme",
+            "slot": "primary"
+          },
+          {
+            "kind": "literal",
+            "value": "."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "lexeme",
+            "slot": "primary"
+          },
+          {
+            "kind": "literal",
+            "value": " na."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "ASK_FOLLOWUP",
+      "dialogueAct": "QUESTION",
+      "id": "construction.social.ask_followup",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "What do you mean?"
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Ano'ng ibig mong sabihin?"
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "ASK_WHY",
+      "dialogueAct": "QUESTION",
+      "id": "construction.social.ask_why",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Why would you say that?"
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Bakit mo sinabi 'yan?"
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "CALL_BLUFF",
+      "dialogueAct": "HOSTILE_REMARK",
+      "id": "construction.social.call_bluff",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "You're all talk."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Puro salita ka lang."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "CHALLENGE",
+      "dialogueAct": "CHALLENGE",
+      "id": "construction.social.challenge",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Say that again."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Ulitin mo nga."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "CLAIM_JOKE",
+      "dialogueAct": "APOLOGIZE",
+      "id": "construction.social.claim_joke",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "I was joking."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Nagbibiro lang ako."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "COMFORT",
+      "dialogueAct": "QUESTION",
+      "id": "construction.social.comfort",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "What's really bothering you?"
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Ano ba talaga ang bumabagabag sa'yo?"
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "DEESCALATE",
+      "dialogueAct": "DEESCALATE",
+      "id": "construction.social.deescalate",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Let's calm down."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Kumalma tayo."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "DISAGREE",
+      "dialogueAct": "DISAGREE",
+      "id": "construction.social.disagree",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "No, I don't agree."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Hindi ako sang-ayon."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "DISCLOSE_NAME",
+      "dialogueAct": "INFORM",
+      "id": "construction.social.disclose_name",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "I'm "
+          },
+          {
+            "kind": "slot",
+            "slot": "name"
+          },
+          {
+            "kind": "literal",
+            "value": "."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Ako si "
+          },
+          {
+            "kind": "slot",
+            "slot": "name"
+          },
+          {
+            "kind": "literal",
+            "value": "."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "DISMISS",
+      "dialogueAct": "DISMISS",
+      "id": "construction.social.dismiss",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Whatever."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Bahala ka."
+          }
+        ]
+      }
+    },
+    {
+      "type": "construction",
+      "strategy": "DOUBLE_DOWN",
+      "dialogueAct": "HOSTILE_REMARK",
+      "id": "construction.social.double_down",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Yeah, I meant it."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Oo, sinadya ko 'yon."
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.realization.social.constructions_core",
+  "sourceProfile": "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6"
+}

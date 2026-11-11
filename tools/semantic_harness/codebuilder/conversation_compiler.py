@@ -8,7 +8,6 @@ same merged, validated model.
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
@@ -42,7 +41,6 @@ from .conversation_validation import (
     _validate_beat_shard,
     _validate_director_predicate,
     _validate_realization_shard,
-    _validate_ui_shard,
 )
 from .conversation_rendering import (
     CONVERSATION_MAX_SHARD_BYTES,
@@ -84,7 +82,6 @@ from .generation_ownership import (
     HOOMANS_OWNER,
     conversation_prefix,
     normalize_owner,
-    package_descriptor,
     route_module_for_owner,
     resolve_core_repository,
     source_owner,
@@ -202,8 +199,22 @@ def compile_conversation_sources(
             packs.append(record)
     packs.sort(key=lambda item: str(item.get("id", "")))
     ui = sorted(
-        [item for document, entry, _ in loaded if entry["kind"] == "ui" for item in document.get("suggestions", [])],
+        [
+            item
+            for document, entry, _ in loaded
+            if entry["kind"] == "ui"
+            for item in document.get("suggestions", [])
+        ],
         key=lambda item: (item.get("order", 0), item.get("id", "")),
+    )
+    ui_texts = sorted(
+        [
+            item
+            for document, entry, _ in loaded
+            if entry["kind"] == "ui"
+            for item in document.get("texts", [])
+        ],
+        key=lambda item: item.get("id", ""),
     )
 
     locations: dict[str, dict[str, Any]] = {}
@@ -266,6 +277,8 @@ def compile_conversation_sources(
         else:
             for suggestion in document.get("suggestions", []):
                 _add_global_id(locations, suggestion.get("id"), kind="ui", shard=entry, path=path)
+            for text in document.get("texts", []):
+                _add_global_id(locations, text.get("id"), kind="uiText", shard=entry, path=path)
 
     behavior_ids = {record["id"] for record in behaviors["records"]}
     available_content_templates = {
@@ -302,6 +315,12 @@ def compile_conversation_sources(
     available_patterns = {
         str(item.get("id")) for item in dialogue.get("patterns", [])
     } | {str(item.get("id")) for item in semantic.get("patterns", [])}
+    available_patterns |= {
+        str(pattern.get("id"))
+        for pack in packs
+        for pattern in pack.get("patterns", [])
+        if isinstance(pattern, dict)
+    }
     external_pattern_ids = set(
         (manifest.get("externalReferences") or {}).get("patternIDs", [])
     )
@@ -363,6 +382,7 @@ def compile_conversation_sources(
         "realization": realization["records"],
         "packs": packs,
         "ui": ui,
+        "uiTexts": ui_texts,
     }
     whole_fingerprint = _fingerprint(semantic_payload)
     locations = {key: locations[key] for key in sorted(locations)}
@@ -387,7 +407,8 @@ def compile_conversation_sources(
         "realization": realization["records"],
         "packs": packs,
         "ui": ui,
-        "uiTranslations": _ui_translations(ui),
+        "uiTexts": ui_texts,
+        "uiTranslations": _ui_translations(ui, ui_texts),
         "shards": shard_reports,
         "locations": locations,
         "wholeModelFingerprint": whole_fingerprint,
@@ -451,27 +472,9 @@ def conversation_translation_bundles(model: dict[str, Any]) -> dict[str, dict[st
             values = model["content"].get("translations", {}).get(language, {})
             add(language, domain, choice.get("labelKey"), values.get(choice.get("labelKey")))
             add(language, domain, choice.get("choiceKey"), values.get(choice.get("choiceKey")))
-    repository = model.get("_repository")
     for language in languages:
         for key, value in model.get("uiTranslations", {}).get(language, {}).items():
             add(language, "UI", key, value)
-        if isinstance(repository, Path):
-            suggestions_path = (
-                repository
-                / "Contents/mods/ProjectHoomans/common/media/translation"
-                / language
-                / "Conversation/Semantic/Suggestions.json"
-            )
-            if suggestions_path.is_file():
-                try:
-                    suggestions = json.loads(
-                        suggestions_path.read_text(encoding="utf-8")
-                    )
-                except (OSError, UnicodeError, json.JSONDecodeError):
-                    suggestions = {}
-                if isinstance(suggestions, dict):
-                    for key, value in suggestions.items():
-                        add(language, "UI", key, value)
         for key, value in model.get("dialogue", {}).get("translations", {}).get(language, {}).items():
             add(language, "Patterns", key, value)
         for key, value in model.get("semantic", {}).get("translations", {}).get(language, {}).items():
@@ -553,41 +556,21 @@ def conversation_translation_bundles_by_owner(
         for key in (suggestion.get("labelKey"), suggestion.get("utteranceKey")):
             if isinstance(key, str):
                 ui_key_owners[key] = owner
+    for text in model.get("uiTexts", []):
+        key = text.get("key")
+        if isinstance(key, str):
+            ui_key_owners[key] = record_owner(str(text.get("id") or ""))
     for language in languages:
         for key, value in model.get("uiTranslations", {}).get(language, {}).items():
-            add(ui_key_owners.get(key, registry_owner), language, "UI", key, value)
-
-    repositories = {
-        normalize_owner(owner): Path(path).expanduser().resolve()
-        for owner, path in (
-            model.get("_package_repositories") or {}
-        ).items()
-    }
-    repository = model.get("_repository")
-    if isinstance(repository, Path):
-        repositories.setdefault(HOOMANS_OWNER, repository)
-    for raw_owner, path in (package_repositories or {}).items():
-        repositories[normalize_owner(raw_owner)] = Path(path).expanduser().resolve()
-    for owner, repository_path in sorted(repositories.items()):
-        descriptor = package_descriptor(owner)
-        for language in languages:
-            suggestions_path = (
-                repository_path
-                / descriptor.translation_relative
-                / language
-                / "Conversation/Semantic/Suggestions.json"
-            )
-            if not suggestions_path.is_file():
-                continue
-            try:
-                suggestions = json.loads(
-                    suggestions_path.read_text(encoding="utf-8")
-                )
-            except (OSError, UnicodeError, json.JSONDecodeError):
-                suggestions = {}
-            if isinstance(suggestions, dict):
-                for key, value in suggestions.items():
-                    add(owner, language, "UI", key, value)
+            owner = ui_key_owners.get(key, registry_owner)
+            add(owner, language, "UI", key, value)
+            # The adopter registry is a runtime composition boundary.  Its
+            # package-owned UI bundle must include Core UI text because the
+            # composed PNC surface loads one package bundle in lightweight
+            # harnesses and in installations that do not merge translation
+            # manifests across dependencies.
+            if owner != registry_owner:
+                add(registry_owner, language, "UI", key, value)
 
     semantic_owner = normalize_owner(
         (model.get("semantic") or {}).get("source", {}).get("owner")

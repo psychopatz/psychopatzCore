@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.semantic_harness.codebuilder.catalog_audit import (
+from tools.semantic_harness.codebuilder.conversation_source_audit import (
     audit_conversation_sources,
 )
 

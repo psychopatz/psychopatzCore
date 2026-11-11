@@ -1,25 +1,14 @@
 {
+  "domain": "static_suggestions",
+  "kind": "ui",
+  "owner": "ProjectHoomans",
   "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.ui.static.suggestions",
-  "kind": "ui",
-  "domain": "static_suggestions",
-  "owner": "ProjectHoomans",
   "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261",
   "suggestions": [
     {
       "dialogueFollowUp": "NEEDS_QUANTITY",
-      "hubAudience": "owned_companion",
-      "hubID": "whats_up",
-      "id": "question.needs",
-      "intent": "QUESTION",
-      "labelKey": "UI_PNC_Conversation_Suggestion_Needs_Label",
-      "order": 30,
-      "patternID": "pnc.question.needs_offer_plain",
-      "speechAct": "QUESTION",
-      "subject": "NEEDS",
-      "topic": "needs",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Needs_Utterance",
-      "translations": {
+      "display": {
         "EN": {
           "label": "Ask about needs",
           "utterance": "Do you need anything?"
@@ -28,28 +17,19 @@
           "label": "Itanong ang pangangailangan",
           "utterance": "May kailangan ka ba?"
         }
-      }
-    },
-    {
-      "extensions": {
-        "topic": "medical"
       },
       "hubAudience": "owned_companion",
       "hubID": "whats_up",
-      "id": "question.health",
+      "id": "question.needs",
       "intent": "QUESTION",
-      "labelKey": "UI_PNC_Conversation_Suggestion_Health_Label",
-      "order": 40,
-      "patternID": "pnc.question.health.are_you_hurt",
-      "slots": {
-        "attribute": "health_state"
-      },
+      "order": 30,
+      "patternID": "pnc.question.needs_offer_plain",
       "speechAct": "QUESTION",
-      "subject": "NPC_HEALTH_STATE",
-      "target": "SELF",
-      "topic": "medical",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Health_Utterance",
-      "translations": {
+      "subject": "NEEDS",
+      "topic": "needs"
+    },
+    {
+      "display": {
         "EN": {
           "label": "Ask about injuries",
           "utterance": "Are you hurt?"
@@ -58,25 +38,26 @@
           "label": "Itanong ang mga sugat",
           "utterance": "Nasaktan ka ba?"
         }
-      }
+      },
+      "extensions": {
+        "topic": "medical"
+      },
+      "hubAudience": "owned_companion",
+      "hubID": "whats_up",
+      "id": "question.health",
+      "intent": "QUESTION",
+      "order": 40,
+      "patternID": "pnc.question.health.are_you_hurt",
+      "slots": {
+        "attribute": "health_state"
+      },
+      "speechAct": "QUESTION",
+      "subject": "NPC_HEALTH_STATE",
+      "target": "SELF",
+      "topic": "medical"
     },
     {
-      "extensions": {
-        "topic": "gossip"
-      },
-      "hubID": "whats_up",
-      "hubOnly": true,
-      "hubRequiresSafeGossip": true,
-      "id": "question.gossip",
-      "intent": "GOSSIP",
-      "labelKey": "UI_PNC_Conversation_Suggestion_Gossip_Label",
-      "order": 70,
-      "patternID": "pnc.social.gossip_event",
-      "speechAct": "GOSSIP",
-      "subject": "GOSSIP",
-      "topic": "gossip",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Gossip_Utterance",
-      "translations": {
+      "display": {
         "EN": {
           "label": "Ask about gossip",
           "utterance": "Any gossip?"
@@ -85,7 +66,21 @@
           "label": "Magtanong tungkol sa tsismis",
           "utterance": "May narinig ka bang tsismis?"
         }
-      }
+      },
+      "extensions": {
+        "topic": "gossip"
+      },
+      "hubID": "whats_up",
+      "hubOnly": true,
+      "hubRequiresSafeGossip": true,
+      "id": "question.gossip",
+      "intent": "GOSSIP",
+      "order": 70,
+      "patternID": "pnc.social.gossip_event",
+      "speechAct": "GOSSIP",
+      "subject": "GOSSIP",
+      "topic": "gossip"
     }
-  ]
+  ],
+  "textNamespace": "UI_PNC_Conversation_Suggestion"
 }
