@@ -53,6 +53,9 @@ from .conversation_model import (
 from .conversation_assembler import (
     assemble_shards,
 )
+from .catalog_audit import (
+    audit_conversation_sources,
+)
 
 __all__ = [
     "CatalogNameError",
@@ -89,4 +92,5 @@ __all__ = [
     "register_global_id",
     "runtime_records",
     "assemble_shards",
+    "audit_conversation_sources",
 ]

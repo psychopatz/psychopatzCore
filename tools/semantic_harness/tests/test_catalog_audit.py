@@ -1,0 +1,86 @@
+"""Tests for the read-only semantic catalog audit."""
+
+from __future__ import annotations
+
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+from tools.semantic_harness.codebuilder.catalog_audit import (
+    audit_conversation_sources,
+)
+
+
+class CatalogAuditTests(unittest.TestCase):
+    def test_reports_inline_locale_data_and_implicit_ownership(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "content" / "social").mkdir(parents=True)
+            manifest = {
+                "schema": "pnc.conversation.manifest.v1",
+                "defaultOwner": "ProjectHoomans",
+                "shards": [
+                    {
+                        "domain": "social",
+                        "kind": "content",
+                        "order": 1,
+                        "path": "content/social/reactions.json",
+                    }
+                ],
+            }
+            (root / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+            (root / "content" / "social" / "reactions.json").write_text(
+                json.dumps(
+                    {
+                        "phraseFamilies": [
+                            {
+                                "translations": {"EN": "Hello", "TL": "Kumusta"}
+                            }
+                        ],
+                        "source": {"name": "Example", "owner": "ProjectHoomans"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            report = audit_conversation_sources(root)
+
+        codes = {issue["code"] for issue in report["issues"]}
+        self.assertIn("implicit_default_owner", codes)
+        self.assertIn("implicit_shard_owner", codes)
+        self.assertIn("inline_translations", codes)
+        self.assertIn("repeated_source_metadata", codes)
+        self.assertIn("missing_locale_catalogs", codes)
+        self.assertEqual(report["summary"]["sourceJsonCount"], 1)
+
+    def test_locale_catalogs_are_reported_and_duplicate_stems_are_stable(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "content" / "one").mkdir(parents=True)
+            (root / "content" / "two").mkdir(parents=True)
+            (root / "translations").mkdir()
+            (root / "manifest.json").write_text(
+                json.dumps({"shards": []}), encoding="utf-8"
+            )
+            for path in (
+                root / "content" / "one" / "conversation.json",
+                root / "content" / "two" / "conversation.json",
+            ):
+                path.write_text("{}", encoding="utf-8")
+            (root / "translations" / "EN.json").write_text(
+                json.dumps({"language": "EN", "entries": {}}), encoding="utf-8"
+            )
+            report = audit_conversation_sources(root)
+
+        self.assertEqual(report["localeCatalogs"], ["translations/EN.json"])
+        duplicates = [
+            issue for issue in report["issues"]
+            if issue["code"] == "duplicate_filename_stem"
+        ]
+        self.assertEqual(len(duplicates), 1)
+        self.assertEqual(duplicates[0]["details"]["stem"], "conversation")
+        self.assertNotIn("missing_locale_catalogs", {issue["code"] for issue in report["issues"]})
+
+
+if __name__ == "__main__":
+    unittest.main()
