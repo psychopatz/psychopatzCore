@@ -76,6 +76,35 @@ def load_catalog_document(path: str | Path) -> dict[str, Any]:
     return value
 
 
+def load_locale_catalogs(
+    root: str | Path,
+    *,
+    required: bool = False,
+) -> dict[str, dict[str, str]]:
+    """Load validated locale catalogs as language-to-key-to-text maps."""
+
+    catalog_root = Path(root).expanduser().resolve()
+    paths = sorted(catalog_root.glob("*.json")) if catalog_root.is_dir() else []
+    if not paths:
+        if required:
+            raise CatalogContractError(f"no locale catalogs found under {catalog_root}")
+        return {}
+    documents = {path.stem: load_catalog_document(path) for path in paths}
+    issues = validate_locale_set(documents)
+    if issues:
+        summary = "; ".join(
+            f"{item['code']}:{item.get('path', '')}" for item in issues[:8]
+        )
+        raise CatalogContractError(f"invalid locale catalogs: {summary}")
+    return {
+        language: {
+            str(key): str(entry["text"])
+            for key, entry in document["entries"].items()
+        }
+        for language, document in sorted(documents.items())
+    }
+
+
 def _is_non_empty_string(value: Any) -> bool:
     return isinstance(value, str) and bool(value.strip())
 
@@ -279,6 +308,7 @@ __all__ = [
     "TRANSLATION_SCHEMA",
     "VALID_KINDS",
     "load_catalog_document",
+    "load_locale_catalogs",
     "validate_locale_set",
     "validate_shard",
     "validate_translation_catalog",

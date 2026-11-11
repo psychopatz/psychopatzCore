@@ -96,6 +96,26 @@ def _derived_translation_prefix(semantic_id: str) -> str:
     )
 
 
+def phrase_translation_key(semantic_id: str, style: str, index: int) -> str:
+    """Return the stable key used for one authored phrase variant."""
+
+    style_suffix = "".join(
+        piece[:1].upper() + piece[1:]
+        for piece in style.split("_")
+    )
+    return f"{_derived_translation_prefix(semantic_id)}{style_suffix}{index:02d}"
+
+
+def player_translation_keys(content_id: str) -> tuple[str, str]:
+    """Return the stable label and utterance keys for one player choice."""
+
+    label_key = "UI_PNC_Conversation_Content_" + "".join(
+        piece[:1].upper() + piece[1:]
+        for piece in re.split(r"[^A-Za-z0-9]+", content_id) if piece
+    ) + "_Label"
+    return label_key, label_key[:-6] + "Choice"
+
+
 def _phrase_family(
     value: Any,
     groups: dict[str, Any],
@@ -111,7 +131,6 @@ def _phrase_family(
         raise CompileError(f"{semantic_id}.group is not declared: {group}")
     family_id = "phrase." + semantic_id
     concept = derived_canonical_concept(semantic_id)
-    prefix = _derived_translation_prefix(semantic_id)
     styles = value.get("styles")
     if not isinstance(styles, dict) or not styles:
         raise CompileError(f"{family_id}.styles requires at least one style")
@@ -140,11 +159,7 @@ def _phrase_family(
             if phrase_id in phrase_ids:
                 raise CompileError(f"duplicate phrase id: {phrase_id}")
             phrase_ids.add(phrase_id)
-            style_suffix = "".join(
-                piece[:1].upper() + piece[1:]
-                for piece in style.split("_")
-            )
-            key = f"{prefix}{style_suffix}{index:02d}"
+            key = phrase_translation_key(semantic_id, style, index)
             if key in translation_keys:
                 raise CompileError(f"duplicate generated translation key: {key}")
             translation_keys.add(key)
@@ -184,11 +199,7 @@ def _player_content(
         raise CompileError("playerChoices entries must be objects")
     content_id = _id(value.get("id"), "player choice id")
     kind = _text(value.get("kind"), f"{content_id}.kind")
-    label_key = "UI_PNC_Conversation_Content_" + "".join(
-        piece[:1].upper() + piece[1:]
-        for piece in re.split(r"[^A-Za-z0-9]+", content_id) if piece
-    ) + "_Label"
-    choice_key = label_key[:-6] + "Choice"
+    label_key, choice_key = player_translation_keys(content_id)
     if label_key == choice_key or label_key in translation_keys or choice_key in translation_keys:
         raise CompileError(f"duplicate player-content translation key: {content_id}")
     translation_keys.update((label_key, choice_key))

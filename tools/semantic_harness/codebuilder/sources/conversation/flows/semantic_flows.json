@@ -43,11 +43,7 @@
         "variants": [
           {
             "id": "accepted",
-            "key": "UI_PNC_Conversation_Semantic_AuthoredFollowAccepted",
-            "translations": {
-              "EN": "Okay, I'll come with you.",
-              "TL": "Sige, sasama ako sa iyo."
-            }
+            "key": "UI_PNC_Conversation_Semantic_AuthoredFollowAccepted"
           }
         ]
       },
@@ -99,11 +95,7 @@
         "variants": [
           {
             "id": "accepted",
-            "key": "UI_PNC_Conversation_Semantic_PncLabStayWithYouAccepted",
-            "translations": {
-              "EN": "Okay, I'll stay with you.",
-              "TL": "Sige, mananatili ako sa iyo."
-            }
+            "key": "UI_PNC_Conversation_Semantic_PncLabStayWithYouAccepted"
           }
         ]
       },

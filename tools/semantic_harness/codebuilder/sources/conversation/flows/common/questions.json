@@ -155,10 +155,6 @@
             "SGD"
           ],
           "templateID": "UI_PNC_Conversation_Semantic_DatasetWellbeingCausalUnknown",
-          "translations": {
-            "EN": "I can tell something is off, but I do not know what caused it yet.",
-            "TL": "Alam kong may hindi tama, pero hindi ko pa alam kung ano ang sanhi nito."
-          },
           "when": {
             "healthState": "unknown",
             "pattern": "pnc.dataset.question.wellbeing.what_is_going_on_with_you"

@@ -38,10 +38,6 @@
             "SGD"
           ],
           "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsPromiseThirst",
-          "translations": {
-            "EN": "I can keep that as a proposal, but I still need the item and amount before I record a commitment.",
-            "TL": "Maaari ko iyong ituring na panukala, pero kailangan ko pa ang item at dami bago ako magtala ng pangako."
-          },
           "when": {
             "needType": "thirst",
             "needUrgency": [
@@ -90,10 +86,6 @@
             "SGD"
           ],
           "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsClarifyThirst",
-          "translations": {
-            "EN": "I can confirm water is a need, but which item do you mean?",
-            "TL": "Makukumpirma kong kailangan ang tubig, pero aling item ang ibig mong sabihin?"
-          },
           "when": {
             "lastIntent": "CLARIFY",
             "needType": "thirst"
@@ -138,10 +130,6 @@
             "SGD"
           ],
           "templateID": "UI_PNC_Conversation_Semantic_DatasetWeatherContextualSwitch",
-          "translations": {
-            "EN": "It is raining right now. We can return to that proposal when you are ready.",
-            "TL": "Umuulan ngayon. Maaari tayong bumalik sa panukalang iyon kapag handa ka na."
-          },
           "when": {
             "pattern": "pnc.dataset.question.weather.can_we_talk_about_the_weather"
           }
