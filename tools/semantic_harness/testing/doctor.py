@@ -17,6 +17,7 @@ from ..runtime.config import (
 )
 from ..discovery.runtime import discover_lua, probe_lua
 from ..runtime.worker import LuaSemanticWorker
+from ..runtime.scenario import load_scenario
 from tools.semantic_harness.transport.process import HarnessError
 
 
@@ -134,14 +135,11 @@ def run_doctor(
                 startup_timeout=startup_timeout,
                 request_timeout=request_timeout,
             )
-            from ..cli import _provider_value
-
-            scenario = _provider_value(
-                config,
-                config.provider_python_scenario,
-                {},
-            )
-            with LuaSemanticWorker(scenario, config=config) as worker:
+            # The provider worker is selected by the Core-owned worker
+            # boundary from the resolved activation plan.  Do not import the
+            # removed pre-mod-manager CLI helper or duplicate that dispatch
+            # logic here.
+            with LuaSemanticWorker(load_scenario(), config=config) as worker:
                 ping = worker.ping()
                 capabilities = worker.capabilities()
             boot_ok = ping.get("type") == "pong" and capabilities.get("type") == "capabilities"
