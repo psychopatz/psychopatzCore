@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.order.generic",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.01"
+            "EN": "All right.",
+            "TL": "Sige."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.02"
+            "EN": "Understood.",
+            "TL": "Naintindihan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.03"
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.04"
+            "EN": "Right.",
+            "TL": "Tama."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.05"
+            "EN": "Copy that.",
+            "TL": "Kopyado."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.06"
+            "EN": "On it.",
+            "TL": "Inaasikaso na."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.07"
+            "EN": "Will do.",
+            "TL": "Gagawin ko."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.08"
+            "EN": "Heard.",
+            "TL": "Narinig ko."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.09"
+            "EN": "Acknowledged.",
+            "TL": "Kinikilala ko."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.1.neutral.10"
+            "EN": "Sure.",
+            "TL": "Sige ba."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.01"
+            "EN": "Understood.",
+            "TL": "Naiintindihan ko."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.02"
+            "EN": "Order received loud and clear.",
+            "TL": "Natanggap ang utos nang malakas at malinaw."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.03"
+            "EN": "Understood. Moving on that now.",
+            "TL": "Naintindihan. Kikilos na roon ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.04"
+            "EN": "Clear as crystal. Executing.",
+            "TL": "Kasing-linaw ng kristal. Isasakatuparan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.05"
+            "EN": "Message understood.",
+            "TL": "Naiintindihan ang mensahe."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.06"
+            "EN": "Understood. I will comply.",
+            "TL": "Naintindihan. Susunod ako."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.07"
+            "EN": "Orders clear. Starting now.",
+            "TL": "Malinaw ang mga utos. Simulan na ngayon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.08"
+            "EN": "Understood. No problem.",
+            "TL": "Naiintindihan ko. Walang problema."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.09"
+            "EN": "Clear. On my way to do it.",
+            "TL": "Malinaw. Papunta na para gawin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.2.neutral.10"
+            "EN": "Understood completely.",
+            "TL": "Lubos na naiintindihan."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.01"
+            "EN": "I will handle it.",
+            "TL": "Ako na ang bahala."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.02"
+            "EN": "Consider it done.",
+            "TL": "Ituring mo nang tapos na."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.03"
+            "EN": "I'll take care of this.",
+            "TL": "Aasikasuhin ko ito."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.04"
+            "EN": "Leave it to me.",
+            "TL": "Ipaubaya mo sa akin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.05"
+            "EN": "I'm on the job.",
+            "TL": "Nasa trabaho na ako."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.06"
+            "EN": "I'll see to it right away.",
+            "TL": "Titiyakin kong magagawa agad."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.07"
+            "EN": "Handling that now.",
+            "TL": "Hinahawakan na 'yan ngayon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.08"
+            "EN": "I've got this covered.",
+            "TL": "Hawak ko na ito."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.09"
+            "EN": "Taking care of business.",
+            "TL": "Inaasikaso ang kailangan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_generic.3.neutral.10"
+            "EN": "I'll get it sorted out.",
+            "TL": "Aayusin ko iyan."
           }
         ]
       }

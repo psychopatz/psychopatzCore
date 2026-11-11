@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.flows.semantic.flows",
   "kind": "flows",
   "domain": "semantic",
@@ -49,7 +49,11 @@
         "variants": [
           {
             "id": "accepted",
-            "key": "UI_PNC_Conversation_Semantic_AuthoredFollowAccepted"
+            "key": "UI_PNC_Conversation_Semantic_AuthoredFollowAccepted",
+            "translations": {
+              "EN": "Okay, I'll come with you.",
+              "TL": "Sige, sasama ako sa iyo."
+            }
           }
         ]
       },
@@ -101,7 +105,11 @@
         "variants": [
           {
             "id": "accepted",
-            "key": "UI_PNC_Conversation_Semantic_PncLabStayWithYouAccepted"
+            "key": "UI_PNC_Conversation_Semantic_PncLabStayWithYouAccepted",
+            "translations": {
+              "EN": "Okay, I'll stay with you.",
+              "TL": "Sige, mananatili ako sa iyo."
+            }
           }
         ]
       },

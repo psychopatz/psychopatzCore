@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.rejected.sexual",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.01"
+            "EN": "That is not happening.",
+            "TL": "Hindi iyan mangyayari."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.02"
+            "EN": "Not a chance. Forget about it.",
+            "TL": "Walang pag-asa. Kalimutan mo na."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.03"
+            "EN": "I am not interested in that at all.",
+            "TL": "Hindi talaga ako interesado riyan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.04"
+            "EN": "That is completely off the table.",
+            "TL": "Wala sa pagpipilian 'yan kailanman."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.05"
+            "EN": "No. Never going to happen.",
+            "TL": "Hindi. Di kailanman mangyayari."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.06"
+            "EN": "Absolutely not.",
+            "TL": "Hinding-hindi."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.07"
+            "EN": "I'm shutting that down right now. No.",
+            "TL": "Papatayin ko ang paksang 'yan ngayon. Hindi."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.08"
+            "EN": "That won't be happening between us.",
+            "TL": "Hindi 'yan mangyayari sa pagitan natin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.09"
+            "EN": "Drop that idea entirely. Not happening.",
+            "TL": "Iwan mo nang buo ang ideyang 'yan. Di mangyayari."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.1.neutral.10"
+            "EN": "No means no. It's not happening.",
+            "TL": "Ang hindi ay hindi. Di mangyayari 'yan."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.01"
+            "EN": "Do not talk to me like that.",
+            "TL": "Huwag mo akong kausapin nang ganyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.02"
+            "EN": "Keep those inappropriate remarks to yourself.",
+            "TL": "Itago mo sa sarili mo ang di-angkop na mga salitang 'yan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.03"
+            "EN": "You're crossing serious personal boundaries.",
+            "TL": "Tumatawid ka sa seryosong personal na hangganan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.04"
+            "EN": "That's completely uncalled for. Stop.",
+            "TL": "Wala sa lugar 'yan. Tigil."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.05"
+            "EN": "I don't appreciate that kind of talk.",
+            "TL": "Hindi ko gusto ang ganyang uri ng pananalita."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.06"
+            "EN": "Keep your indecent propositions away from me.",
+            "TL": "Ilayo mo sa akin ang malaswang alok mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.07"
+            "EN": "Watch how you speak to me. That's out of line.",
+            "TL": "Bantayan mo ang pagsasalita mo sa akin. Sobra na 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.08"
+            "EN": "You need to show respect and stop talking like that.",
+            "TL": "Kailangan mong magpakita ng respeto at tumigil sa ganyang pananalita."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.09"
+            "EN": "I won't be objectified out here. Back off.",
+            "TL": "Di ako magpapakababa rito. Umatras ka."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.2.neutral.10"
+            "EN": "Shut your mouth. Don't speak to me that way.",
+            "TL": "Itikom mo ang bibig mo. Huwag mo akong kakausapin nang ganyan."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.01"
+            "EN": "You are moving far too fast.",
+            "TL": "Masyadong mabilis ang takbo mo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.02"
+            "EN": "Slow down. We are nowhere near that point.",
+            "TL": "Dahan-dahan. Malayo pa tayo sa puntong iyan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.03"
+            "EN": "You need to hit the brakes. That's way too fast.",
+            "TL": "Kailangan mong magpreno. Masyadong mabilis 'yan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.04"
+            "EN": "Pace yourself. We barely know each other.",
+            "TL": "Huwag kang magmadali. Halos di pa nga tayo magkakilala."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.05"
+            "EN": "You're rushing into territory we haven't earned.",
+            "TL": "Nagmamadali ka sa lugar na di pa natin nararating."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.06"
+            "EN": "Slow your roll. That's moving way too fast for me.",
+            "TL": "Dahan-dahan lang. Masyadong mabilis 'yan para sa akin."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.07"
+            "EN": "Pull back. We have not built that kind of closeness.",
+            "TL": "Umatras ka. Wala pa tayong ganyang kalapit na ugnayan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.08"
+            "EN": "You're getting way ahead of where we stand.",
+            "TL": "Nauuna ka nang malayo sa kung ano lang tayo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.09"
+            "EN": "Take a massive step back. Way too fast.",
+            "TL": "Humakbang ka paatras nang malaki. Masyadong mabilis."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_sexual.3.neutral.10"
+            "EN": "Slow down before you ruin whatever trust we have.",
+            "TL": "Magdahan-dahan ka bago mo sirain ang anumang tiwalang mayroon tayo."
           }
         ]
       }

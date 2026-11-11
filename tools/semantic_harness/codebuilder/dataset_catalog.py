@@ -42,9 +42,9 @@ DATASET_SOURCE_SPECS = (
             CONVERSATION_SOURCE_ROOT / "patterns/common/weather_needs.json",
         ),
         "responsePaths": (
-            CONVERSATION_SOURCE_ROOT / "flows/common/social.json",
-            CONVERSATION_SOURCE_ROOT / "flows/common/questions.json",
-            CONVERSATION_SOURCE_ROOT / "flows/common/needs_weather.json",
+            CONVERSATION_SOURCE_ROOT / "responses/common/social.json",
+            CONVERSATION_SOURCE_ROOT / "responses/common/questions.json",
+            CONVERSATION_SOURCE_ROOT / "responses/common/needs_weather.json",
         ),
         "patternRoutes": (
             ("pnc.dataset.greeting.", "patterns/common/greeting_whats_up.json"),
@@ -55,15 +55,15 @@ DATASET_SOURCE_SPECS = (
             ("pnc.dataset.", "patterns/common/weather_needs.json"),
         ),
         "responseRoutes": (
-            ("semantic.greeting", "flows/common/social.json"),
-            ("semantic.thanks", "flows/common/social.json"),
-            ("semantic.accept", "flows/common/social.json"),
-            ("semantic.refuse", "flows/common/social.json"),
-            ("semantic.offer", "flows/common/social.json"),
-            ("semantic.compliment", "flows/common/social.json"),
-            ("semantic.question.needs.", "flows/common/needs_weather.json"),
-            ("semantic.flow.weather.", "flows/common/needs_weather.json"),
-            ("semantic.question.", "flows/common/questions.json"),
+            ("semantic.greeting", "responses/common/social.json"),
+            ("semantic.thanks", "responses/common/social.json"),
+            ("semantic.accept", "responses/common/social.json"),
+            ("semantic.refuse", "responses/common/social.json"),
+            ("semantic.offer", "responses/common/social.json"),
+            ("semantic.compliment", "responses/common/social.json"),
+            ("semantic.question.needs.", "responses/common/needs_weather.json"),
+            ("semantic.flow.weather.", "responses/common/needs_weather.json"),
+            ("semantic.question.", "responses/common/questions.json"),
         ),
     },
     {
@@ -74,7 +74,7 @@ DATASET_SOURCE_SPECS = (
             CONVERSATION_SOURCE_ROOT / "patterns/grounded_personal.json",
         ),
         "responsePaths": (
-            CONVERSATION_SOURCE_ROOT / "flows/grounded_personal_responses.json",
+            CONVERSATION_SOURCE_ROOT / "responses/grounded_personal_responses.json",
         ),
     },
     {
@@ -169,6 +169,24 @@ class SemanticDatasetCatalog:
             return Path(repository).expanduser().resolve() / source_path
         return candidate
 
+    def _source_metadata(self, document: Mapping[str, Any]) -> dict[str, Any] | None:
+        """Resolve authoring provenance from the manifest profile in memory."""
+        source = document.get("source")
+        if isinstance(source, dict):
+            return json.loads(json.dumps(source, ensure_ascii=False))
+        profile_id = document.get("sourceProfile")
+        if not isinstance(profile_id, str) or not profile_id:
+            return None
+        manifest_path = self._source_path(CONVERSATION_SOURCE_ROOT / "manifest.json")
+        manifest = _read_json(manifest_path, "Conversation manifest")
+        profiles = manifest.get("sourceProfiles")
+        profile = profiles.get(profile_id) if isinstance(profiles, dict) else None
+        if not isinstance(profile, dict):
+            raise CompileError(
+                f"Conversation source references unknown source profile: {profile_id}"
+            )
+        return json.loads(json.dumps(profile, ensure_ascii=False))
+
     def list_dataset_sources(self) -> list[dict[str, Any]]:
         """Return logical authoring domains backed only by canonical shards."""
         output: list[dict[str, Any]] = []
@@ -227,8 +245,8 @@ class SemanticDatasetCatalog:
         if not pattern_documents or not response_documents:
             raise CompileError(f"{spec['id']} requires pattern and response shards")
         source = (
-            pattern_documents[0].get("source")
-            or response_documents[0].get("source")
+            self._source_metadata(pattern_documents[0])
+            or self._source_metadata(response_documents[0])
         )
         return (
             {
@@ -302,23 +320,9 @@ class SemanticDatasetCatalog:
         output: list[tuple[Path, dict[str, Any]]] = []
         for path in paths:
             document = loaded[path]
-            existing_source = (
-                document.get("source")
-                if isinstance(document.get("source"), dict)
-                else {}
-            )
-            incoming_source = source if isinstance(source, dict) else {}
-            merged_source = {
-                **incoming_source,
-            "owner": normalize_owner(
-                existing_source.get("owner"),
-                default=HOOMANS_OWNER,
-            ),
-            }
-            # Shard ownership is a physical package contract. Editing the
-            # logical mixed dataset may update shared provenance, but cannot
-            # migrate a shard between Core and Hoomans as a side effect.
-            document["source"] = merged_source or existing_source or source
+            # Shard ownership and provenance remain manifest-owned. Editing a
+            # logical mixed dataset must never materialize a source envelope in
+            # the self-contained shard.
             document[records_key] = buckets[path]
             output.append((self.repository / path, document))
         return output
@@ -333,7 +337,7 @@ class SemanticDatasetCatalog:
             )
             return {
                 "schema": "pnc.semantic_authoring.v1",
-                "source": shard.get("source"),
+                "source": self._source_metadata(shard),
                 "definitions": shard.get("definitions", []),
             }
         if spec["kind"] == "dialogue":

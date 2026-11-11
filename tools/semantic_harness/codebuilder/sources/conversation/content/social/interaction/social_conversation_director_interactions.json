@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.interaction.social.conversation.director",
   "kind": "content",
   "domain": "social",
@@ -17,170 +17,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.01"
+            "EN": "I've got work to do. I'll get on it.",
+            "TL": "May trabaho akong gagawin. Aasikasuhin ko na."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.02"
+            "EN": "Understood. Starting on the task now.",
+            "TL": "Naiintindihan ko. Sisimulan ko na ang gawain."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.03"
+            "EN": "Task received. I'll take care of this.",
+            "TL": "Natanggap ang utos. Ako na ang bahala rito."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.04"
+            "EN": "Right. Getting down to business.",
+            "TL": "Sige. Sisimulan na ang trabaho."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.05"
+            "EN": "I'm on it. Shouldn't take too long.",
+            "TL": "Inaasikaso ko na. Hindi magtatagal ito."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.06"
+            "EN": "Understood. I will handle this duty.",
+            "TL": "Naintindihan. Hahawakan ko ang tungkuling ito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.07"
+            "EN": "Got my assignment. Moving out to work.",
+            "TL": "Nakuha ko ang atas ko. Kikilos na para magtrabaho."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.08"
+            "EN": "Fair enough. Time to get my hands dirty.",
+            "TL": "Makatwiran. Oras na para magbanat ng buto."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.09"
+            "EN": "I'll see that this gets done properly.",
+            "TL": "Titiyakin kong matatapos ito nang maayos."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.neutral.10"
+            "EN": "Acknowledged. Working on the assigned job.",
+            "TL": "Kinikilala ko. Gagawin na ang iniatas na trabaho."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.01"
+            "EN": "Happy to help with this! I'll get right on it.",
+            "TL": "Masayang tumulong dito! Aasikasuhin ko agad."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.02"
+            "EN": "Leave it to me, friend. I'll make sure it's done right.",
+            "TL": "Ipaubaya mo sa akin, kaibigan. Titiyakin kong maayos ito."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.03"
+            "EN": "Glad to contribute to our camp. Heading over now.",
+            "TL": "Masayang makapag-ambag sa kampo natin. Pupunta na ako roon."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.04"
+            "EN": "You can count on me. I'll take good care of it.",
+            "TL": "Makaaasa ka sa akin. Aalagaan ko itong mabuti."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.05"
+            "EN": "On it! Always happy to do my part for the team.",
+            "TL": "Aasikasuhin na! Laging masayang gawin ang bahagi ko para sa grupo."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.06"
+            "EN": "Consider it handled, partner. Be back soon.",
+            "TL": "Ituring mong ayos na, kasama. Babalik ako agad."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.07"
+            "EN": "Happy to take this off your hands. Working on it now.",
+            "TL": "Masayang alisin ang bigat na 'to sa 'yo. Gagawin ko na ngayon."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.08"
+            "EN": "I'll pour my best effort into this for all of us.",
+            "TL": "Ibubuhos ko ang buong makakaya ko para sa ating lahat."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.09"
+            "EN": "Got the task! Thanks for trusting me with it.",
+            "TL": "Nakuha ko ang atas! Salamat sa pagtitiwala sa akin."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.warm.10"
+            "EN": "Right away, friend! Let's keep our home running.",
+            "TL": "Agad-agad, kaibigan! Panatilihin nating maayos ang tirahan natin."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.01"
+            "EN": "On it.",
+            "TL": "Inaasikaso na."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.02"
+            "EN": "Working.",
+            "TL": "Nagtatrabaho na."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.03"
+            "EN": "Understood.",
+            "TL": "Naintindihan."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.04"
+            "EN": "Doing it.",
+            "TL": "Ginagawa na."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.05"
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.06"
+            "EN": "Assigned.",
+            "TL": "Iniatas."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.07"
+            "EN": "Starting.",
+            "TL": "Nagsisimula na."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.08"
+            "EN": "Handling it.",
+            "TL": "Hinahawakan na."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.09"
+            "EN": "Right.",
+            "TL": "Sige."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.terse.10"
+            "EN": "Moving.",
+            "TL": "Kumikilos na."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.01"
+            "EN": "I'll do the work. Watch my back while I do.",
+            "TL": "Gagawin ko ang trabaho. Bantayan mo ang likod ko habang ginagawa."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.02"
+            "EN": "I'll handle it, but keep an eye on our surroundings.",
+            "TL": "Ako na ang bahala, pero magmasid ka sa paligid."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.03"
+            "EN": "Understood. Don't crowd me while I'm working.",
+            "TL": "Naintindihan. Huwag mo akong dikitan habang nagtatrabaho."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.04"
+            "EN": "I'll do my share. Make sure you do yours.",
+            "TL": "Gagawin ko ang bahagi ko. Tiyakin mong gagawin mo ang sa 'yo."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.05"
+            "EN": "Getting on it. Stay alert for threats.",
+            "TL": "Sisimulan na. Manatiling alisto sa mga banta."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.06"
+            "EN": "I'll get it done. Just make sure the perimeter is secure.",
+            "TL": "Matatapos ko ito. Tiyakin mo lang na ligtas ang paligid."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.07"
+            "EN": "Task noted. I'll finish it without distraction.",
+            "TL": "Tala ang gawain. Tatapusin ko nang walang abala."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.08"
+            "EN": "Fine. I'll see to the task.",
+            "TL": "Sige. Aasikasuhin ko ang gawain."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.09"
+            "EN": "I'll handle this. Keep your weapon ready.",
+            "TL": "Hahawakan ko ito. Ihanda mo ang armas mo."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_assigned.guarded.10"
+            "EN": "Understood. Don't let anything sneak up on me.",
+            "TL": "Naiintindihan ko. Huwag kang magpapapasok ng kahit ano sa likod ko."
           }
         ]
       }
@@ -191,170 +191,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.01"
+            "EN": "That's done. One less thing to worry about.",
+            "TL": "Tapos na. Isang alalahanin ang nabawas."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.02"
+            "EN": "Finished the task. All wrapped up.",
+            "TL": "Tapos na ang gawain. Ayos na ang lahat."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.03"
+            "EN": "Job is complete. What's next?",
+            "TL": "Tapos na ang trabaho. Ano ang susunod?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.04"
+            "EN": "That takes care of that assignment.",
+            "TL": "Naasikaso na ang tungkuling iyon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.05"
+            "EN": "All done here. Everything looks in order.",
+            "TL": "Tapos na ang lahat dito. Maayos ang kalagayan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.06"
+            "EN": "Task is completed to the best of my ability.",
+            "TL": "Natapos ang gawain sa abot ng aking makakaya."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.07"
+            "EN": "Wrapped that up. Ready for the next priority.",
+            "TL": "Tapos na iyon. Handa na para sa susunod na prayoridad."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.08"
+            "EN": "Done. That should hold up fine.",
+            "TL": "Tapos na. Maayos ang magiging tibay niyan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.09"
+            "EN": "The work is finished. Moving on.",
+            "TL": "Tapos na ang trabaho. Magpatuloy na."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.neutral.10"
+            "EN": "Completed. Duty handled.",
+            "TL": "Kumpleto na. Naasikaso ang tungkulin."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.01"
+            "EN": "All finished! Glad I could help get this done.",
+            "TL": "Tapos na ang lahat! Mabuti at nakatulong akong tapusin ito."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.02"
+            "EN": "That's taken care of, friend. Turned out great!",
+            "TL": "Naasikaso na 'yon, kaibigan. Naging napakaganda ng resulta!"
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.03"
+            "EN": "Proud to have this knocked out for the camp.",
+            "TL": "Ipinagmamalaki kong natapos ito para sa kampo."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.04"
+            "EN": "Finished! We're making our home a little better every day.",
+            "TL": "Tapos na! Pinapaganda natin ang tirahan natin araw-araw."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.05"
+            "EN": "Done and dusted! Let me know if you need another hand.",
+            "TL": "Tapos at malinis na! Sabihan mo lang ako kung kailangan mo pa ng tulong."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.06"
+            "EN": "Completed with care. Hope it meets your expectations, partner.",
+            "TL": "Tinapos nang buong puso. Sana pumasa sa pamantayan mo, kasama."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.07"
+            "EN": "That was tough, but we did it! All finished.",
+            "TL": "Mabigat 'yon, pero kinaya natin! Tapos na ang lahat."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.08"
+            "EN": "One more step toward surviving comfortably. All done!",
+            "TL": "Isa na namang hakbang para maging maginhawa rito. Tapos na!"
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.09"
+            "EN": "Done! Happy to do my part for our people.",
+            "TL": "Tapos na! Masayang gawin ang parte ko para sa kasamahan natin."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.warm.10"
+            "EN": "All set! Feels good to get something productive accomplished.",
+            "TL": "Handa na! Masarap sa pakiramdam na may natapos na kapaki-pakinabang."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.01"
+            "EN": "Done.",
+            "TL": "Tapos na."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.02"
+            "EN": "Finished.",
+            "TL": "Tapos."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.03"
+            "EN": "Completed.",
+            "TL": "Kumpleto."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.04"
+            "EN": "Handled.",
+            "TL": "Naasikaso na."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.05"
+            "EN": "Sorted.",
+            "TL": "Ayos na."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.06"
+            "EN": "All set.",
+            "TL": "Handa na."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.07"
+            "EN": "Wrapped up.",
+            "TL": "Tapos na lahat."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.08"
+            "EN": "Next?",
+            "TL": "Susunod?"
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.09"
+            "EN": "Cleared.",
+            "TL": "Malinaw na."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.terse.10"
+            "EN": "Ready.",
+            "TL": "Handa na."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.01"
+            "EN": "Task is done. I'm taking a breather.",
+            "TL": "Tapos na ang gawain. Magpapahinga muna ako."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.02"
+            "EN": "Finished. Inspect it if you want to be sure.",
+            "TL": "Tapos na. Suriin mo kung nais mong makatiyak."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.03"
+            "EN": "It's completed. Now keep your eyes open.",
+            "TL": "Tapos na ito. Ngayon buksan mo ang mga mata mo."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.04"
+            "EN": "That job is handled. Back to guarding the perimeter.",
+            "TL": "Naasikaso na ang trabaho. Balik sa pagbabantay ng paligid."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.05"
+            "EN": "Finished my duty. Nobody snuck up on us, right?",
+            "TL": "Tapos na ang tungkulin ko. Walang nakalapit sa atin, di ba?"
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.06"
+            "EN": "Done. Let's make sure it wasn't for nothing.",
+            "TL": "Tapos na. Tiyakin nating hindi nasayang ang pagod."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.07"
+            "EN": "Work is complete. Back on defensive watch.",
+            "TL": "Tapos na ang trabaho. Balik sa pagbabantay."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.08"
+            "EN": "It's finished. Keep quiet and stay alert.",
+            "TL": "Tapos na. Manatiling tahimik at alisto."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.09"
+            "EN": "Task completed. Don't waste the resources I secured.",
+            "TL": "Gawain natapos. Huwag mong sayangin ang naasikaso ko."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.task_work_completed.guarded.10"
+            "EN": "Done. What's the next threat we need to manage?",
+            "TL": "Tapos na. Ano ang susunod na banta na dapat harapin?"
           }
         ]
       }
@@ -365,170 +365,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.01"
+            "EN": "Looks clear now. That got rough for a minute.",
+            "TL": "Mukhang malinaw na. Naging delikado sandali."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.02"
+            "EN": "Area is secure. Check yourselves for injuries.",
+            "TL": "Ligtas na ang lugar. Tingnan niyo kung may mga sugat kayo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.03"
+            "EN": "They're all down. Take a breath and reload.",
+            "TL": "Tumba na silang lahat. Huminga at magkarga ng bala."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.04"
+            "EN": "Fight's over. Good work holding the line.",
+            "TL": "Tapos na ang laban. Magandang pagpigil sa linya."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.05"
+            "EN": "Looks like the immediate threat is dealt with.",
+            "TL": "Mukhang naasikaso na ang agarang banta."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.06"
+            "EN": "Clear. Everyone still in one piece?",
+            "TL": "Malinaw. Buo pa ba ang lahat?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.07"
+            "EN": "Threat neutralized. Let's recover our stamina.",
+            "TL": "Nalipol ang banta. Bawiin natin ang lakas natin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.08"
+            "EN": "It's quiet again. Stay alert for stragglers.",
+            "TL": "Tahimik na ulit. Magbantay sa mga naiwan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.09"
+            "EN": "Combat is finished. Reload and bandage up.",
+            "TL": "Tapos na ang bakbakan. Magkarga at magbenda."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.neutral.10"
+            "EN": "We held them off. Area appears clear.",
+            "TL": "Naitaboy natin sila. Mukhang malinis na ang lugar."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.01"
+            "EN": "We made it through! Is everyone okay?",
+            "TL": "Nakalusot tayo! Ayos lang ba ang lahat?"
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.02"
+            "EN": "Thank goodness you're alive. That was terrifying.",
+            "TL": "Salamat sa Diyos at buhay ka. Napakatindi noon."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.03"
+            "EN": "Great fighting, partner! I'm so glad we survived that.",
+            "TL": "Napakagaling mong lumaban, kasama! Masayang-masaya ako't nakaligtas tayo."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.04"
+            "EN": "Come here, let me check you over for bites or scratches.",
+            "TL": "Halika rito, titingnan ko kung may kagat o gasgas ka."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.05"
+            "EN": "We did it together. Nobody got left behind.",
+            "TL": "Nagawa natin nang magkasama. Walang naiwan sa atin."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.06"
+            "EN": "Take a breath, friend. We held the line.",
+            "TL": "Huminga ka muna, kaibigan. Naipagtanggol natin ang pwesto."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.07"
+            "EN": "I was worried for a second there, but you fought bravely.",
+            "TL": "Nag-alala ako nang sandali, pero buong tapang kang lumaban."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.08"
+            "EN": "Proud to stand beside you in that fight. We're safe now.",
+            "TL": "Ipinagmamalaki kong tumabi sa 'yo sa laban. Ligtas na tayo ngayon."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.09"
+            "EN": "Rest for a minute. You earned it after that mess.",
+            "TL": "Magpahinga ka muna. Karapat-dapat ka roon pagkatapos ng gulo."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.warm.10"
+            "EN": "All clear! Hugely relieved we're both standing.",
+            "TL": "Malinis na! Napakalaking ginhawa na nakatayo pa tayong pareho."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.01"
+            "EN": "Clear.",
+            "TL": "Malinaw."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.02"
+            "EN": "All down.",
+            "TL": "Tumba lahat."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.03"
+            "EN": "Reload.",
+            "TL": "Magkarga."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.04"
+            "EN": "Check wounds.",
+            "TL": "Tingnan ang sugat."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.05"
+            "EN": "Secure.",
+            "TL": "Ligtas."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.06"
+            "EN": "Done.",
+            "TL": "Tapos."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.07"
+            "EN": "Quiet now.",
+            "TL": "Tahimik na."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.08"
+            "EN": "Hold positions.",
+            "TL": "Manatili sa pwesto."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.09"
+            "EN": "Breathe.",
+            "TL": "Huminga."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.terse.10"
+            "EN": "Threat gone.",
+            "TL": "Wala nang banta."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.01"
+            "EN": "Don't relax yet. Scan for stragglers.",
+            "TL": "Huwag munang magpakampante. Maghanap ng mga naiwan."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.02"
+            "EN": "Down, but keep your weapon ready. More could be coming.",
+            "TL": "Tumba na, pero ihanda ang armas. Baka may paparating pa."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.03"
+            "EN": "Check your perimeter before you start celebrating.",
+            "TL": "Suriin ang paligid bago magdiwang."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.04"
+            "EN": "Check every corpse. Make sure they stay down.",
+            "TL": "Tingnan ang bawat bangkay. Tiyaking hindi na gagalaw."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.05"
+            "EN": "Gunfire brings more of them. We need to be ready to move.",
+            "TL": "Nakahahatak ng iba ang putok. Maging handa tayong umalis."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.06"
+            "EN": "Wipe your blade and reload immediately.",
+            "TL": "Punasan ang talim at magkarga agad ng bala."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.07"
+            "EN": "Are you bitten? Answer me right now.",
+            "TL": "Kinagat ka ba? Sagutin mo ako ngayon din."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.08"
+            "EN": "Threat is dead, but noise travels fast out here.",
+            "TL": "Patay ang banta, pero mabilis kumalat ang ingay dito."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.09"
+            "EN": "Keep low. Don't silhouette yourself in the doorway.",
+            "TL": "Yumuko ka. Huwag mong i-expose ang sarili mo sa pinto."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.post_combat_clear.guarded.10"
+            "EN": "Clear for now. Expect a second wave.",
+            "TL": "Malinis sa ngayon. Maghanda sa pangalawang bugso."
           }
         ]
       }

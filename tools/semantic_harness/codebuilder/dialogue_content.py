@@ -19,10 +19,9 @@ from .lexicon_compiler import CompileError, _lua_string
 from tools.semantic_harness.codebuilder.translation_support import DEFAULT_LANGUAGE, normalize_translations
 
 
-CONTENT_SCHEMA = "pnc.semantic_dialogue_content.v3"
+CONTENT_SCHEMA = "pnc.semantic_dialogue_content.v4"
 STYLES = ("neutral", "warm", "terse", "guarded", "bond_neutral", "bond_warm", "bond_terse", "bond_guarded")
 ID_PATTERN = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
-TRANSLATION_KEY_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_.-]{0,127}$")
 MAX_FAMILIES = 512
 MAX_PHRASES_PER_STYLE = 16
 MAX_PLAYER_CONTENT = 32
@@ -59,13 +58,6 @@ def _id(value: Any, label: str) -> str:
     value = _text(value, label)
     if not ID_PATTERN.fullmatch(value):
         raise CompileError(f"{label} has an invalid bounded ID: {value!r}")
-    return value
-
-
-def _translation_key(value: Any, label: str) -> str:
-    value = _text(value, label)
-    if not TRANSLATION_KEY_PATTERN.fullmatch(value):
-        raise CompileError(f"{label} has an invalid translation key: {value!r}")
     return value
 
 
@@ -135,14 +127,14 @@ def _phrase_family(
         for index, raw_phrase in enumerate(raw_phrases, 1):
             if not isinstance(raw_phrase, dict):
                 raise CompileError(f"{family_id}.styles.{style}[{index}] must be an object")
-            phrase_token = _id(
-                raw_phrase.get("phraseID"),
-                f"{family_id}.styles.{style}[{index}].phraseID",
-            )
-            key = _translation_key(
-                raw_phrase.get("translationKey"),
-                f"{family_id}.styles.{style}[{index}].translationKey",
-            )
+            legacy_fields = {"phraseID", "translationKey"} & set(raw_phrase)
+            if legacy_fields:
+                raise CompileError(
+                    f"{family_id}.styles.{style}[{index}] uses removed source fields: "
+                    + ", ".join(sorted(legacy_fields))
+                )
+            phrase_token = f"{style}.{index:02d}"
+            key = f"conversation.content.{semantic_id}.{phrase_token}"
             phrase_id = f"{family_id}.{phrase_token}"
             if phrase_id in phrase_ids:
                 raise CompileError(f"duplicate phrase id: {phrase_id}")
@@ -150,9 +142,7 @@ def _phrase_family(
             if key in translation_keys:
                 raise CompileError(f"duplicate translation key: {key}")
             translation_keys.add(key)
-            values = _translations(
-                raw_phrase.get("translations"), f"{phrase_id}.translations"
-            )
+            values = _translations(raw_phrase, f"{phrase_id}.translations")
             compiled_phrases.append({
                 "id": phrase_id,
                 "phraseID": phrase_token,
@@ -185,14 +175,20 @@ def _player_content(
 ) -> tuple[dict[str, Any], dict[str, str]]:
     if not isinstance(value, dict):
         raise CompileError("playerChoices entries must be objects")
+    legacy_fields = {"labelTranslations", "choiceTranslations"} & set(value)
+    if legacy_fields:
+        raise CompileError(
+            "player choice uses removed source fields: "
+            + ", ".join(sorted(legacy_fields))
+        )
     content_id = _id(value.get("id"), "player choice id")
     kind = _text(value.get("kind"), f"{content_id}.kind")
     label_key, choice_key = player_translation_keys(content_id)
     if label_key == choice_key or label_key in translation_keys or choice_key in translation_keys:
         raise CompileError(f"duplicate player-content translation key: {content_id}")
     translation_keys.update((label_key, choice_key))
-    label_values = _translations(value.get("labelTranslations"), f"{content_id}.labelTranslations")
-    choice_values = _translations(value.get("choiceTranslations"), f"{content_id}.choiceTranslations")
+    label_values = _translations(value.get("label"), f"{content_id}.label")
+    choice_values = _translations(value.get("choice"), f"{content_id}.choice")
     translations: dict[str, str] = {}
     for language in sorted(set(label_values) | set(choice_values)):
         if language in label_values:
@@ -214,8 +210,8 @@ def compile_dialogue_content(document: dict[str, Any]) -> dict[str, Any]:
     """Validate and compile content without producing any files."""
     if not isinstance(document, dict):
         raise CompileError("dialogue content source root must be an object")
-    if document.get("schemaVersion") != 3:
-        raise CompileError("dialogue content source schemaVersion must be 3")
+    if document.get("schemaVersion") != 4:
+        raise CompileError("dialogue content source schemaVersion must be 4")
     source = _metadata(document.get("source"))
     groups = document.get("groups")
     if not isinstance(groups, dict) or not groups:
@@ -270,7 +266,7 @@ def compile_dialogue_content(document: dict[str, Any]) -> dict[str, Any]:
 
     compiled = {
         "schema": CONTENT_SCHEMA,
-        "schemaVersion": 3,
+        "schemaVersion": 4,
         "source": source,
         "phraseFamilies": compiled_families,
         "playerChoices": compiled_player,

@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.tool.replies.flirt",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.01"
+            "EN": "Careful. You are making me smile.",
+            "TL": "Dahan-dahan. Napapangiti mo ako."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.02"
+            "EN": "Watch it. You might actually make me blush.",
+            "TL": "Mag-ingat ka. Baka mamula ako niyan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.03"
+            "EN": "You are playing with fire, you know that?",
+            "TL": "Naglalaro ka sa apoy, alam mo ba 'yon?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.04"
+            "EN": "Do not start something you cannot finish.",
+            "TL": "Huwag kang magsimula ng hindi mo kayang tapusin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.05"
+            "EN": "You certainly know how to talk.",
+            "TL": "Marunong ka talagang magsalita."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.06"
+            "EN": "Is that your charm talking or the apocalypse?",
+            "TL": "Diskarte mo ba 'yan o dahil sa katapusan ng mundo?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.07"
+            "EN": "You are smooth. I will give you that.",
+            "TL": "Malaman kang bumanat, aaminin ko."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.08"
+            "EN": "Save some of that charm for later.",
+            "TL": "Itabi mo ang ilan sa mga pambobola mo mamaya."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.09"
+            "EN": "Careful now. People are watching.",
+            "TL": "Dahan-dahan. May mga nakatingin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.1.neutral.10"
+            "EN": "You have a way with words.",
+            "TL": "May galing ka talaga sa pananalita."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.01"
+            "EN": "You always know how to get my attention.",
+            "TL": "Alam mo talaga kung paano kukunin ang pansin ko."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.02"
+            "EN": "Well, you definitely have my full attention now.",
+            "TL": "Nakuha mo nang buo ang atensyon ko."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.03"
+            "EN": "You do that on purpose, do you not?",
+            "TL": "Sinasadya mo 'yan, hindi ba?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.04"
+            "EN": "You know exactly what you are doing.",
+            "TL": "Alam na alam mo ang ginagawa mo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.05"
+            "EN": "I was trying to focus, but you made that hard.",
+            "TL": "Sinisikap kong magpokus, pero pinapahirapan mo ako."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.06"
+            "EN": "You caught my ear with that one.",
+            "TL": "Nakuha mo ako sa linyang 'yon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.07"
+            "EN": "You never miss a chance to turn heads, do you?",
+            "TL": "Hindi mo pinapalampas ang pagkakataong magpapansin, 'no?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.08"
+            "EN": "I am listening. What else do you have?",
+            "TL": "Nakikinig ako. Ano pa ang sasabihin mo?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.09"
+            "EN": "You always manage to pull my focus your way.",
+            "TL": "Lagi mong nahahatak ang tingin ko papunta sa 'yo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.2.neutral.10"
+            "EN": "All right, you got my eyes on you.",
+            "TL": "Sige na, nasa sa 'yo na ang tingin ko."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.01"
+            "EN": "That is a dangerous thing to say to me.",
+            "TL": "Mapanganib na bagay ang sabihin 'yan sa akin."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.02"
+            "EN": "You are taking a big risk talking like that.",
+            "TL": "Malaking sugal ang magsalita ka nang ganyan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.03"
+            "EN": "Be careful what you wish for.",
+            "TL": "Mag-ingat ka sa mga hinihiling mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.04"
+            "EN": "You like living on the edge, do not you?",
+            "TL": "Gusto mo talagang sumugal sa delikado, 'no?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.05"
+            "EN": "Do not tease me unless you mean it.",
+            "TL": "Huwag mo akong biruin kung hindi mo kayang panindigan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.06"
+            "EN": "That kind of talk gets people into trouble.",
+            "TL": "Ang ganyang salitaan ay nagdadala ng gulo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.07"
+            "EN": "Bold words for someone within arm's reach.",
+            "TL": "Matapang na salita para sa taong abot-kamay lang."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.08"
+            "EN": "Keep talking like that and we will see.",
+            "TL": "Ipagpatuloy mo 'yan at tingnan natin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.09"
+            "EN": "You are walking a very thin line.",
+            "TL": "Napakakitid ng nilalakaran mong linya."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.flirt.3.neutral.10"
+            "EN": "Dangerous words. But I like the confidence.",
+            "TL": "Delikadong salita. Pero gusto ko ang lakas ng loob mo."
           }
         ]
       }

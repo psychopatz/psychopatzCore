@@ -6,10 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .catalog_contract import load_catalog_document
-
-
-CONVERSATION_BUNDLE_SCHEMA = "psychopatz.semantic.text-bundle.v1"
+CONVERSATION_BUNDLE_SCHEMA = "psychopatz.semantic.text-bundle.v2"
 LOCALES = ("EN", "TL")
 
 
@@ -22,7 +19,6 @@ def _load_object(path: Path) -> dict[str, Any]:
 
 def write_runtime_bundle_catalogs(
     manifest_path: str | Path,
-    authoring_catalog_root: str | Path,
     runtime_translation_root: str | Path,
     *,
     owner: str | None = None,
@@ -37,18 +33,10 @@ def write_runtime_bundle_catalogs(
     if not isinstance(bundles, list):
         raise ValueError(f"Conversation bundle manifest requires bundles: {manifest_file}")
 
-    catalog_root = Path(authoring_catalog_root).expanduser().resolve()
     runtime_root = Path(runtime_translation_root).expanduser().resolve()
-    catalogs = {
-        language: load_catalog_document(catalog_root / f"{language}.json")
-        for language in LOCALES
-    }
     rendered_paths: list[Path] = []
 
     for language in LOCALES:
-        entries = catalogs[language].get("entries")
-        if not isinstance(entries, dict):
-            raise ValueError(f"catalog entries must be an object: {language}")
         for bundle in bundles:
             if not isinstance(bundle, dict):
                 raise ValueError("Conversation bundle declarations must be objects")
@@ -59,13 +47,15 @@ def write_runtime_bundle_catalogs(
                 if not isinstance(item, dict):
                     raise ValueError("Conversation bundle key declarations must be objects")
                 key = item.get("key")
-                translation_key = item.get("translationKey")
-                entry = entries.get(translation_key)
-                if not isinstance(key, str) or not isinstance(translation_key, str):
+                text = item.get("text")
+                if not isinstance(key, str) or not key:
                     raise ValueError("Conversation bundle keys require string IDs")
-                if not isinstance(entry, dict) or not isinstance(entry.get("text"), str):
-                    raise ValueError(f"missing catalog entry for {translation_key}")
-                values[key] = entry["text"]
+                if not isinstance(text, dict):
+                    raise ValueError(f"Conversation bundle key {key} requires inline locale text")
+                localized = text.get(language)
+                if not isinstance(localized, str) or not localized.strip():
+                    raise ValueError(f"missing inline {language} text for {key}")
+                values[key] = localized
 
             runtime_path = bundle.get("runtimePath")
             if not isinstance(runtime_path, str) or not runtime_path.startswith(

@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.responses.common.questions",
   "kind": "responses",
   "domain": "common",
@@ -11,15 +11,30 @@
       "variants": [
         {
           "id": "semantic.question.activity.dataset.keep_moving",
-          "templateID": "semantic.question.activity.dataset.keep_moving"
+          "templateID": "semantic.question.activity.dataset.keep_moving",
+          "translations": {
+            "EN": "Just doing what I can to keep things moving.",
+            "TL": "Just doing what I can to keep things moving."
+          },
+          "fallback": "Just doing what I can to keep things moving."
         },
         {
           "id": "semantic.question.activity.dataset.bit_of_everything",
-          "templateID": "semantic.question.activity.dataset.bit_of_everything"
+          "templateID": "semantic.question.activity.dataset.bit_of_everything",
+          "translations": {
+            "EN": "A little bit of everything.",
+            "TL": "A little bit of everything."
+          },
+          "fallback": "A little bit of everything."
         },
         {
           "id": "semantic.question.activity.dataset.taking_care",
-          "templateID": "semantic.question.activity.dataset.taking_care"
+          "templateID": "semantic.question.activity.dataset.taking_care",
+          "translations": {
+            "EN": "Just taking care of what needs doing.",
+            "TL": "Just taking care of what needs doing."
+          },
+          "fallback": "Just taking care of what needs doing."
         }
       ]
     },
@@ -28,15 +43,30 @@
       "variants": [
         {
           "id": "semantic.question.wellbeing.dataset.hanging_in",
-          "templateID": "semantic.question.wellbeing.dataset.hanging_in"
+          "templateID": "semantic.question.wellbeing.dataset.hanging_in",
+          "translations": {
+            "EN": "I'm hanging in there. Thanks for asking.",
+            "TL": "I'm hanging in there. Thanks for asking."
+          },
+          "fallback": "I'm hanging in there. Thanks for asking."
         },
         {
           "id": "semantic.question.wellbeing.dataset.all_things_considered",
-          "templateID": "semantic.question.wellbeing.dataset.all_things_considered"
+          "templateID": "semantic.question.wellbeing.dataset.all_things_considered",
+          "translations": {
+            "EN": "Doing okay, all things considered.",
+            "TL": "Doing okay, all things considered."
+          },
+          "fallback": "Doing okay, all things considered."
         },
         {
           "id": "semantic.question.wellbeing.dataset.getting_by",
-          "templateID": "semantic.question.wellbeing.dataset.getting_by"
+          "templateID": "semantic.question.wellbeing.dataset.getting_by",
+          "translations": {
+            "EN": "I'm getting by, one day at a time. How about you?",
+            "TL": "I'm getting by, one day at a time. How about you?"
+          },
+          "fallback": "I'm getting by, one day at a time. How about you?"
         },
         {
           "id": "semantic.question.wellbeing.dataset.hungry",
@@ -50,7 +80,12 @@
               "emergency",
               "critical"
             ]
-          }
+          },
+          "translations": {
+            "EN": "I'm hungry, but I'll manage. If you have food to spare, I'd appreciate it.",
+            "TL": "I'm hungry, but I'll manage. If you have food to spare, I'd appreciate it."
+          },
+          "fallback": "I'm hungry, but I'll manage. If you have food to spare, I'd appreciate it."
         },
         {
           "id": "semantic.question.wellbeing.dataset.thirsty",
@@ -64,7 +99,12 @@
               "emergency",
               "critical"
             ]
-          }
+          },
+          "translations": {
+            "EN": "I'm pretty thirsty. If you have water, could you spare some?",
+            "TL": "I'm pretty thirsty. If you have water, could you spare some?"
+          },
+          "fallback": "I'm pretty thirsty. If you have water, could you spare some?"
         },
         {
           "id": "semantic.question.wellbeing.dataset.tired",
@@ -78,7 +118,12 @@
               "emergency",
               "critical"
             ]
-          }
+          },
+          "translations": {
+            "EN": "I'm tired, though I can manage for now.",
+            "TL": "I'm tired, though I can manage for now."
+          },
+          "fallback": "I'm tired, though I can manage for now."
         }
       ]
     },
@@ -87,11 +132,21 @@
       "variants": [
         {
           "id": "semantic.question.identity.dataset.stranger_alt_1",
-          "templateID": "semantic.question.identity.stranger_alt_1"
+          "templateID": "semantic.question.identity.stranger_alt_1",
+          "translations": {
+            "EN": "I keep my name to myself until I know someone better. What should I call you?",
+            "TL": "I keep my name to myself until I know someone better. What should I call you?"
+          },
+          "fallback": "I keep my name to myself until I know someone better. What should I call you?"
         },
         {
           "id": "semantic.question.identity.dataset.stranger_alt_2",
-          "templateID": "semantic.question.identity.stranger_alt_2"
+          "templateID": "semantic.question.identity.stranger_alt_2",
+          "translations": {
+            "EN": "Let's get to know each other first. What do people call you?",
+            "TL": "Let's get to know each other first. What do people call you?"
+          },
+          "fallback": "Let's get to know each other first. What do people call you?"
         },
         {
           "id": "semantic.question.identity.dataset.wary_alt_1",
@@ -99,7 +154,12 @@
           "templateID": "semantic.question.identity.wary_alt_1",
           "when": {
             "identityTrust": "untrustworthy"
-          }
+          },
+          "translations": {
+            "EN": "I don't trust you enough to share my name. Who are you, really?",
+            "TL": "I don't trust you enough to share my name. Who are you, really?"
+          },
+          "fallback": "I don't trust you enough to share my name. Who are you, really?"
         },
         {
           "id": "semantic.question.identity.dataset.wary_alt_2",
@@ -107,7 +167,12 @@
           "templateID": "semantic.question.identity.wary_alt_2",
           "when": {
             "identityTrust": "untrustworthy"
-          }
+          },
+          "translations": {
+            "EN": "After that lie, I'm not telling you my name. Tell me the truth about yours.",
+            "TL": "After that lie, I'm not telling you my name. Tell me the truth about yours."
+          },
+          "fallback": "After that lie, I'm not telling you my name. Tell me the truth about yours."
         }
       ]
     },
@@ -130,7 +195,12 @@
                 "segments": [
                   {
                     "kind": "translation",
-                    "templateID": "UI_PNC_Conversation_Semantic_DatasetWellbeingCausalUnknown"
+                    "templateID": "UI_PNC_Conversation_Semantic_DatasetWellbeingCausalUnknown",
+                    "translations": {
+                      "EN": "I can tell something is off, but I do not know what caused it yet.",
+                      "TL": "Alam kong may hindi tama, pero hindi ko pa alam kung ano ang sanhi nito."
+                    },
+                    "fallback": "I can tell something is off, but I do not know what caused it yet."
                   }
                 ]
               }
@@ -147,7 +217,12 @@
           "when": {
             "healthState": "unknown",
             "pattern": "pnc.dataset.question.wellbeing.what_is_going_on_with_you"
-          }
+          },
+          "translations": {
+            "EN": "I can tell something is off, but I do not know what caused it yet.",
+            "TL": "Alam kong may hindi tama, pero hindi ko pa alam kung ano ang sanhi nito."
+          },
+          "fallback": "I can tell something is off, but I do not know what caused it yet."
         }
       ]
     }

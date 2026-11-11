@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.tool.replies.orientation",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.01"
+            "EN": "That is not really how I swing.",
+            "TL": "Hindi talaga ganoon ang hilig ko."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.02"
+            "EN": "I do not lean that way, just so you know.",
+            "TL": "Hindi ako ganoon magkainteres, para alam mo lang."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.03"
+            "EN": "Not my preference, but thanks for being open.",
+            "TL": "Hindi ko gusto ang ganoon, pero salamat sa pagiging tapat."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.04"
+            "EN": "I appreciate the honesty, but that is not for me.",
+            "TL": "Salamat sa katapatan, pero hindi 'yan para sa akin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.05"
+            "EN": "That is not my type of thing.",
+            "TL": "Hindi ko tipo ang ganyang bagay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.06"
+            "EN": "Just so we are clear, I do not look at you that way.",
+            "TL": "Para malinaw sa atin, hindi kita tinitingnan sa ganoong paraan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.07"
+            "EN": "I am not interested in that kind of arrangement.",
+            "TL": "Hindi ako interesado sa ganyang uri ng ugnayan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.08"
+            "EN": "Fair enough, but that is not my direction.",
+            "TL": "Nirerespeto ko, pero hindi 'yan ang patutunguhan ko."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.09"
+            "EN": "I keep things strictly platonic here.",
+            "TL": "Hanggang magkaibigan lang talaga ako rito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.1.neutral.10"
+            "EN": "Good to know where you stand, but I do not swing that way.",
+            "TL": "Mabuting malaman ang panig mo, pero hindi ganoon ang akin."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.01"
+            "EN": "I prefer to keep things simple between us.",
+            "TL": "Mas gusto kong panatilihing simple ang lahat sa pagitan natin."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.02"
+            "EN": "Let us just keep this uncomplicated.",
+            "TL": "Panatilihin na lang nating hindi magulo ito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.03"
+            "EN": "Survival is messy enough without adding that.",
+            "TL": "Magulo na ang kaligtasan para dagdagan pa niyan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.04"
+            "EN": "I like where we are at. Let us not complicate it.",
+            "TL": "Gusto ko kung nasaan tayo ngayon. Huwag na nating guluhin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.05"
+            "EN": "We work best when things stay straightforward.",
+            "TL": "Mas maayos tayong nagtutulungan kapag diretso lang ang usapan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.06"
+            "EN": "I am not looking for anything complicated out here.",
+            "TL": "Hindi ako naghahanap ng anumang kumplikado dito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.07"
+            "EN": "Simple is safe. Let us keep it that way.",
+            "TL": "Ligtas kapag simple. Panatilihin nating ganoon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.08"
+            "EN": "I value this partnership too much to make it awkward.",
+            "TL": "Masyadong mahalaga ang samahan natin para gawing asiwa."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.09"
+            "EN": "Let us stay focused on staying alive instead.",
+            "TL": "Magpokus na lang tayo sa pananatiling buhay."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.orientation.2.neutral.10"
+            "EN": "Keeping it clear and simple works best for both of us.",
+            "TL": "Mas maganda para sa ating dalawa kung malinaw at simple lang."
           }
         ]
       }

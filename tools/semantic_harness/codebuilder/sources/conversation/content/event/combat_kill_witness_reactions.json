@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.event.combat.kill.witness.reactions",
   "kind": "content",
   "domain": "event",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.01"
+            "EN": "Nice. Hit the next one.",
+            "TL": "Ayos. Sunod naman."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.02"
+            "EN": "Good strike! Take down another.",
+            "TL": "Magandang tama! Magpabagsak pa ng isa."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.03"
+            "EN": "Solid hit! Keep swinging.",
+            "TL": "Solidong palo! Tuloy ang hataw."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.04"
+            "EN": "Dropped 'em! Who's next in line?",
+            "TL": "Ibinagsak mo! Sino'ng susunod sa pila?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.05"
+            "EN": "Beautiful kill! Take the next one out.",
+            "TL": "Gandang patay! Itumba ang kasunod."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.06"
+            "EN": "That skull shattered! Don't stop now.",
+            "TL": "Basag ang bungo! Huwag kang titigil ngayon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.07"
+            "EN": "Down it goes! Next target is yours.",
+            "TL": "Bagsak na! Sa'yo ang susunod na target."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.08"
+            "EN": "Great shot! Press the attack.",
+            "TL": "Galing ng tira! Tuloy ang pagsugod."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.09"
+            "EN": "Tore right through it! Keep going.",
+            "TL": "Tumagos agad! Tuloy lang."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_01.neutral.10"
+            "EN": "Hard hit! Line up the next one.",
+            "TL": "Malakas na tama! Ihanda ang kasunod."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.01"
+            "EN": "That's how you do it. Keep going.",
+            "TL": "Ganyan dapat. Tuloy lang."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.02"
+            "EN": "Textbook hit. Don't lose that momentum.",
+            "TL": "Perpektong tama. Huwag mawalan ng bwelo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.03"
+            "EN": "That's how we put them down. Keep pushing.",
+            "TL": "Ganyan magpabagsak sa kanila. Tuloy ang sugod."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.04"
+            "EN": "Hell of a blow! Don't let up.",
+            "TL": "Napakalakas na hampas! Huwag magpabaya."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.05"
+            "EN": "Crushed it! Keep that fire burning.",
+            "TL": "Dinurog mo! Panatilihin ang bagsik mo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.06"
+            "EN": "Right in the dirt! Keep moving forward.",
+            "TL": "Diretso sa lupa! Tuloy sa pasulong."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.07"
+            "EN": "That's the way! Tear through them.",
+            "TL": "Ganyan nga! Ubusin sila."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.08"
+            "EN": "Brutal! Keep swinging like that.",
+            "TL": "Mabangis! Tuloy lang sa ganyang paghataw."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.09"
+            "EN": "Put down hard. Don't stop now.",
+            "TL": "Ibinagsak nang todo. Huwag hihinto ngayon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_02.neutral.10"
+            "EN": "That's what they get! Move to the next.",
+            "TL": "Bagay sa kanila 'yan! Lipat sa susunod."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.01"
+            "EN": "Good kill. Don't let up.",
+            "TL": "Maganda. Huwag kang titigil."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.02"
+            "EN": "Clean drop. Keep up the pressure.",
+            "TL": "Malinis na bagsak. Tuloy ang diin."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.03"
+            "EN": "Nice work! Stay aggressive.",
+            "TL": "Magandang trabaho! Maging mabagsik."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.04"
+            "EN": "Downed him. Don't give them an inch.",
+            "TL": "Bumagsak na. Huwag silang bigyan ng puwang."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.05"
+            "EN": "Great hit. Keep charging.",
+            "TL": "Magandang tama. Tuloy sa pag-atake."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.06"
+            "EN": "That one's history. Stay on the offense.",
+            "TL": "Burado na ang isang 'yon. Manatili sa pag-atake."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.07"
+            "EN": "Solid work. Don't slow down.",
+            "TL": "Solido. Huwag magbagal."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.08"
+            "EN": "Good kill. Make every strike count.",
+            "TL": "Magandang patay. Sulitin ang bawat hampas."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.09"
+            "EN": "Down for good. Stay locked in.",
+            "TL": "Bagsak magpakailanman. Manatiling nakatutok."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_aggressive_03.neutral.10"
+            "EN": "Took it right out. Keep pushing.",
+            "TL": "Tinapos agad. Tuloy ang sulong."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.01"
+            "EN": "Good one. You okay?",
+            "TL": "Ayos. Okay ka lang?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.02"
+            "EN": "Nice drop. Did it touch you?",
+            "TL": "Magandang bagsak. Nahawakan ka ba no'n?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.03"
+            "EN": "Great hit. Are you feeling alright?",
+            "TL": "Magandang hampas. Maayos ba pakiramdam mo?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.04"
+            "EN": "You got it! Take a quick breath.",
+            "TL": "Nakuha mo! Huminga ka muna sandali."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.05"
+            "EN": "Well done. You hurt at all?",
+            "TL": "Mahusay. May masakit ba sa'yo?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.06"
+            "EN": "Clean take down. You holding up?",
+            "TL": "Malinis na pagpabagsak. Nakakayanan mo ba?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.07"
+            "EN": "Good work. I'm right here with you.",
+            "TL": "Magandang gawa. Nandito lang ako kasama mo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.08"
+            "EN": "Got him! You safe on your side?",
+            "TL": "Naitumba mo! Ligtas ka riyan sa tabi mo?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.09"
+            "EN": "Nice work putting that down. You alright?",
+            "TL": "Magaling ang pagpapabagsak no'n. Ayos ka lang?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_01.neutral.10"
+            "EN": "Dropped it cleanly. Tell me if you need help.",
+            "TL": "Bumagsak nang maayos. Sabihin mo kung kailangan mo ng tulong."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.01"
+            "EN": "Nice hit. Stay close to me.",
+            "TL": "Maganda 'yon. Dito ka lang malapit."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.02"
+            "EN": "Great strike. Don't wander away.",
+            "TL": "Magandang hampas. Huwag kang lalayo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.03"
+            "EN": "Good kill. Stick close to my side.",
+            "TL": "Magandang patay. Dumikit ka sa tabi ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.04"
+            "EN": "You took care of it. Stay near.",
+            "TL": "Inasikaso mo na. Manatili sa malapit."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.05"
+            "EN": "Well handled. Keep on my shoulder.",
+            "TL": "Maayos na napigilan. Manatili sa balikat ko."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.06"
+            "EN": "Solid hit. Let's stay together.",
+            "TL": "Solidong tama. Magsama tayo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.07"
+            "EN": "You dropped it. Tighten the formation.",
+            "TL": "Naibagsak mo. Higpitan ang hanay."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.08"
+            "EN": "Nice swing. Keep within reach.",
+            "TL": "Magandang hataw. Manatili sa abot-kamay."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.09"
+            "EN": "Downed. Don't step too far ahead.",
+            "TL": "Bagsak. Huwag lalayo nang sobra sa unahan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_02.neutral.10"
+            "EN": "Good work. Stick by me while we clear.",
+            "TL": "Magandang trabaho. Dumikit sa akin habang naglilinis."
           }
         ]
       }
@@ -257,44 +257,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.01"
+            "EN": "You got it. I'm with you.",
+            "TL": "Napatumba mo. Kasama mo ako."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.02"
+            "EN": "Good takedown. I've got your back.",
+            "TL": "Magandang pagtumba. Hawak ko ang likod mo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.03"
+            "EN": "You dropped that threat. I'm right behind you.",
+            "TL": "Naibagsak mo ang banta. Nasa likod mo lang ako."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.04"
+            "EN": "Nice work! You can count on me.",
+            "TL": "Magaling! Makakaasa ka sa akin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.05"
+            "EN": "You finished it. I'm watching our rear.",
+            "TL": "Tinapos mo na. Binabantayan ko ang likod natin."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.06"
+            "EN": "Solid kill. We make a good team.",
+            "TL": "Solidong patay. Maganda tayong magkasama."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.07"
+            "EN": "You took him down. We're in this together.",
+            "TL": "Ibinagsak mo siya. Magkasama tayo rito."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.08"
+            "EN": "Handled cleanly. I'll cover your flank.",
+            "TL": "Malinis na naasikaso. Sasalagin ko ang gilid mo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.09"
+            "EN": "Good strike. I've got you covered.",
+            "TL": "Magandang tama. Nakabantay ako sa'yo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_supportive_03.neutral.10"
+            "EN": "You got that one. I'm right here.",
+            "TL": "Nakuha mo 'yon. Nandito lang ako."
           }
         ]
       }
@@ -305,44 +305,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.01"
+            "EN": "It's down... but there are more.",
+            "TL": "Patay na... pero may iba pa."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.02"
+            "EN": "You got it... God, look around us.",
+            "TL": "Nakuha mo... Diyos ko, tingnan mo ang paligid."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.03"
+            "EN": "Dead... but I hear more shuffling.",
+            "TL": "Patay na... pero may naririnig pa akong kaluskos."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.04"
+            "EN": "That one's down... don't let others flank.",
+            "TL": "Bagsak na ang isang 'yon... huwag hayaang may pumaligid."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.05"
+            "EN": "It's over for that one... but we're not safe.",
+            "TL": "Tapos na ang isa... pero hindi pa tayo ligtas."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.06"
+            "EN": "You killed it... please tell me that's the last one.",
+            "TL": "Napatay mo... pakiusap sabihin mong huli na 'yan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.07"
+            "EN": "One is down... but more could come.",
+            "TL": "Isang bagsak... pero baka may dumating pa."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.08"
+            "EN": "Good, it's dead... just watch the darkness.",
+            "TL": "Mabuti at patay na... mag-ingat lang sa dilim."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.09"
+            "EN": "Down... but my heart won't stop racing.",
+            "TL": "Bagsak... pero ayaw humupa ng kaba ko."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_01.neutral.10"
+            "EN": "You stopped it... but we have to keep checking.",
+            "TL": "Napigilan mo... pero kailangan nating patuloy na magmasid."
           }
         ]
       }
@@ -353,44 +353,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.01"
+            "EN": "Good. Just—keep watching them.",
+            "TL": "Ayos. Basta—bantayan mo sila."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.02"
+            "EN": "Nice hit... just don't let them get close.",
+            "TL": "Magandang tama... huwag mo lang silang palapitin."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.03"
+            "EN": "You killed it... keep your eyes on the shadows.",
+            "TL": "Napatay mo... bantayan mo ang mga anino."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.04"
+            "EN": "It's dead... just watch out for more.",
+            "TL": "Patay na... mag-ingat lang sa iba pa."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.05"
+            "EN": "Okay, that one's gone... please stay watchful.",
+            "TL": "Sige, wala na 'yon... pakiusap magmatyag ka."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.06"
+            "EN": "Good swing... don't turn your back on them.",
+            "TL": "Magandang hataw... huwag mo silang tatalikuran."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.07"
+            "EN": "It's on the floor... keep watching every door.",
+            "TL": "Nasa sahig na... bantayan ang bawat pinto."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.08"
+            "EN": "Down... just keep looking everywhere.",
+            "TL": "Bagsak... tumingin ka lang sa lahat ng sulok."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.09"
+            "EN": "You dropped it... God, please be careful.",
+            "TL": "Ibinagsak mo... Diyos ko, mag-ingat ka."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_02.neutral.10"
+            "EN": "Handled... just don't let your guard down.",
+            "TL": "Naasikaso... huwag mo lang ibaba ang depensa."
           }
         ]
       }
@@ -401,44 +401,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.01"
+            "EN": "Okay. One less. I still don't like this.",
+            "TL": "Sige. Isa na lang ang nabawas. Ayoko pa rin nito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.02"
+            "EN": "One down... this whole place creeps me out.",
+            "TL": "Isang bagsak... kinikilabutan ako sa buong lugar na 'to."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.03"
+            "EN": "It's dead. I hate being surrounded like this.",
+            "TL": "Patay na. Ayaw na ayaw kong napapalibutan tayo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.04"
+            "EN": "One less threat... my knees are shaking.",
+            "TL": "Bawas ang isang banta... nanginginig ang mga tuhod ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.05"
+            "EN": "Good, it stopped moving... I'm terrified.",
+            "TL": "Mabuti at tumigil na sa paggalaw... natatakot ako."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.06"
+            "EN": "Down. I just want this nightmare to end.",
+            "TL": "Bagsak. Gusto ko nang matapos ang bangungot na 'to."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.07"
+            "EN": "One less rotten thing... still scares me to death.",
+            "TL": "Bawas ang isang bulok... takot na takot pa rin ako."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.08"
+            "EN": "It's gone. I really, really don't like this.",
+            "TL": "Wala na. Ayoko talaga, ayoko sa ganito."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.09"
+            "EN": "Dead. Can we leave as soon as it's quiet?",
+            "TL": "Patay na. Pwede ba tayong umalis kapag tumahimik na?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_shaken_03.neutral.10"
+            "EN": "You killed it... but my hands are ice cold.",
+            "TL": "Napatay mo... pero parang yelo ang lamig ng mga kamay ko."
           }
         ]
       }
@@ -449,44 +449,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.01"
+            "EN": "Clean kill. Check the flanks.",
+            "TL": "Malinis. Bantayan ang gilid."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.02"
+            "EN": "Good strike. Scan our blind spots.",
+            "TL": "Magandang tama. Tignan ang mga bulag na sulok."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.03"
+            "EN": "Solid takedown. Watch the perimeter.",
+            "TL": "Solidong pagpabagsak. Bantayan ang paligid."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.04"
+            "EN": "Downed cleanly. Keep your eyes on the sides.",
+            "TL": "Bagsak nang malinis. Tumingin sa magkabilang gilid."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.05"
+            "EN": "Decisive blow. Scan the lane.",
+            "TL": "Tiyak na hampas. Suriin ang daanan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.06"
+            "EN": "Threat cleared. Watch for secondary contacts.",
+            "TL": "Banta naalis. Bantayan kung may susunod pa."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.07"
+            "EN": "Clean hit. Don't get tunnel vision.",
+            "TL": "Malinis na tama. Huwag matutok sa iisang lugar."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.08"
+            "EN": "Down. Maintain field awareness.",
+            "TL": "Bagsak. Maging alerto sa buong paligid."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.09"
+            "EN": "Well executed. Check behind cover.",
+            "TL": "Magaling ang pagkagawa. Tignan sa likod ng kublihan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_01.neutral.10"
+            "EN": "Target neutralized. Scan all directions.",
+            "TL": "Target naalis. Magmasid sa lahat ng direksyon."
           }
         ]
       }
@@ -497,44 +497,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.01"
+            "EN": "One down. Keep your head up.",
+            "TL": "Isa na. Huwag magpakampante."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.02"
+            "EN": "Good kill. Stay vigilant.",
+            "TL": "Magandang patay. Manatiling gising."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.03"
+            "EN": "Threat eliminated. Maintain discipline.",
+            "TL": "Banta naalis. Panatilihin ang disiplina."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.04"
+            "EN": "That's one less. Eyes open.",
+            "TL": "Bawas ang isa. Buksan ang mga mata."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.05"
+            "EN": "Downed. Don't relax your posture.",
+            "TL": "Bagsak na. Huwag magpakarelax sa tindig."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.06"
+            "EN": "Handled. Keep looking forward.",
+            "TL": "Naasikaso. Patuloy na tumingin sa unahan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.07"
+            "EN": "One in the dirt. Stay sharp.",
+            "TL": "Isa sa lupa. Maging matalas ang pakiramdam."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.08"
+            "EN": "Solid work. Keep ready for the next.",
+            "TL": "Solido. Maging handa sa susunod."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.09"
+            "EN": "Target down. Don't lose focus.",
+            "TL": "Target bagsak na. Huwag mawalan ng pokus."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_02.neutral.10"
+            "EN": "Good takedown. Hold your stance.",
+            "TL": "Magandang pagtumba. Hawakan ang pwesto mo."
           }
         ]
       }
@@ -545,44 +545,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.01"
+            "EN": "Good. Keep moving before they bunch up.",
+            "TL": "Ayos. Gumalaw tayo bago sila dumami."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.02"
+            "EN": "Clean hit. Don't let them gather.",
+            "TL": "Malinis na tama. Huwag silang hayaang magtipon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.03"
+            "EN": "Downed. Advance before they form a crowd.",
+            "TL": "Bagsak na. Sulong bago maging kuyog."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.04"
+            "EN": "Handled. Push through before more arrive.",
+            "TL": "Naasikaso. Lusot bago may dumating pa."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.05"
+            "EN": "Threat dead. Keep moving through the area.",
+            "TL": "Patay ang banta. Tuloy sa paggalaw sa lugar."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.06"
+            "EN": "Solid kill. Advance while the lane is open.",
+            "TL": "Solidong patay. Abante habang bukas ang daan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.07"
+            "EN": "Target down. Move before the swarm groups.",
+            "TL": "Target bagsak na. Kilos bago magsama-sama ang iba."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.08"
+            "EN": "Down. Keep momentum before reinforcements come.",
+            "TL": "Bagsak. Panatilihin ang bwelo bago may sumaklolo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.09"
+            "EN": "Clean work. Don't stay stationary.",
+            "TL": "Malinis na trabaho. Huwag maging nakatigil."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_brave_03.neutral.10"
+            "EN": "Handled. Keep pushing forward.",
+            "TL": "Naasikaso na. Tuloy ang pagsulong."
           }
         ]
       }
@@ -593,44 +593,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.01"
+            "EN": "One down.",
+            "TL": "Isa na."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.02"
+            "EN": "Down.",
+            "TL": "Bagsak."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.03"
+            "EN": "Hit.",
+            "TL": "Tinamaan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.04"
+            "EN": "Dropped.",
+            "TL": "Naitumba."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.05"
+            "EN": "Eliminated.",
+            "TL": "Naalis."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.06"
+            "EN": "Dead.",
+            "TL": "Patay."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.07"
+            "EN": "Finished.",
+            "TL": "Tapos."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.08"
+            "EN": "Ceased.",
+            "TL": "Tumigil."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.09"
+            "EN": "One less.",
+            "TL": "Bawas isa."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_01.neutral.10"
+            "EN": "Target down.",
+            "TL": "Target bagsak."
           }
         ]
       }
@@ -641,44 +641,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.01"
+            "EN": "Good.",
+            "TL": "Ayos."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.02"
+            "EN": "Clean.",
+            "TL": "Malinis."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.03"
+            "EN": "Handled.",
+            "TL": "Naasikaso."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.04"
+            "EN": "Solid.",
+            "TL": "Solido."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.05"
+            "EN": "Done.",
+            "TL": "Yari."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.06"
+            "EN": "Fine.",
+            "TL": "Sige."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.07"
+            "EN": "Alright.",
+            "TL": "Mabuti."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.08"
+            "EN": "Resolved.",
+            "TL": "Tapos."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.09"
+            "EN": "Effective.",
+            "TL": "Mabisa."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_02.neutral.10"
+            "EN": "Cleared.",
+            "TL": "Nalinis."
           }
         ]
       }
@@ -689,44 +689,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.01"
+            "EN": "Keep moving.",
+            "TL": "Tuloy."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.02"
+            "EN": "Move.",
+            "TL": "Galaw."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.03"
+            "EN": "Forward.",
+            "TL": "Sulong."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.04"
+            "EN": "Next.",
+            "TL": "Sunod."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.05"
+            "EN": "Walk.",
+            "TL": "Lakad."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.06"
+            "EN": "Proceed.",
+            "TL": "Abante."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.07"
+            "EN": "Step through.",
+            "TL": "Lusot."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.08"
+            "EN": "Push.",
+            "TL": "Paspas."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.09"
+            "EN": "Don't stop.",
+            "TL": "Huwag hinto."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_reserved_03.neutral.10"
+            "EN": "Keep going.",
+            "TL": "Tuloy lang."
           }
         ]
       }
@@ -737,44 +737,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.01"
+            "EN": "Don't expect applause.",
+            "TL": "Huwag kang umasa ng palakpak."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.02"
+            "EN": "Basic survival. Nothing to celebrate.",
+            "TL": "Pangkaraniwang kaligtasan. Walang ipagdiriwang."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.03"
+            "EN": "You did what was expected. Move.",
+            "TL": "Ginawa mo ang inaasahan. Kilos."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.04"
+            "EN": "One kill doesn't earn a trophy.",
+            "TL": "Ang isang patay ay hindi para ipagmalaki."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.05"
+            "EN": "A child could swing that weapon. Walk.",
+            "TL": "Kahit bata kayang ihataw ang sandatang 'yan. Lakad."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.06"
+            "EN": "Don't smirk. Keep walking.",
+            "TL": "Huwag kang ngumisi. Magpatuloy sa paglalakad."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.07"
+            "EN": "That was the minimum requirement.",
+            "TL": "Iyon ang pinakamababang kailangan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.08"
+            "EN": "You hit it. Congratulations on living.",
+            "TL": "Tinamaan mo. Binabati kita sa pananatiling buhay."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.09"
+            "EN": "Save the pride for when we're safe.",
+            "TL": "Itago ang yabang kapag ligtas na tayo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_01.neutral.10"
+            "EN": "Routine takedown. Move on.",
+            "TL": "Pangkaraniwang patay. Tuloy."
           }
         ]
       }
@@ -785,44 +785,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.01"
+            "EN": "You killed one. So what?",
+            "TL": "Napatay mo ang isa. Ano ngayon?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.02"
+            "EN": "One corpse among millions. Step over.",
+            "TL": "Isang bangkay sa milyun-milyon. Hakbangan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.03"
+            "EN": "That was one. There are thousands more.",
+            "TL": "Isa lang 'yan. May libu-libo pa."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.04"
+            "EN": "Do not admire your work. Advance.",
+            "TL": "Huwag mong hangaan ang gawa mo. Sulong."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.05"
+            "EN": "A rotten corpse fell. Big deal.",
+            "TL": "Bumagsak ang isang bulok. Ano naman."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.06"
+            "EN": "Don't pause over it. Keep moving.",
+            "TL": "Huwag kang tumigil diyan. Kilos."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.07"
+            "EN": "One less dead body standing. Next.",
+            "TL": "Bawas ang isang nakatayong bangkay. Sunod."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.08"
+            "EN": "You survived a contact. Keep walking.",
+            "TL": "Nakaligtas ka sa isang engkwentro. Lakad."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.09"
+            "EN": "It was in the way. It fell. Move.",
+            "TL": "Nakaharang, bumagsak. Kilos."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_02.neutral.10"
+            "EN": "Hardly impressive. Keep your weapon ready.",
+            "TL": "Hindi nakakahanga. Ihanda ang sandata mo."
           }
         ]
       }
@@ -833,44 +833,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.01"
+            "EN": "Fine. One less.",
+            "TL": "Sige. Isa na lang ang nabawas."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.02"
+            "EN": "Acceptable. Keep moving.",
+            "TL": "Pwede na. Tuloy ang lakad."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.03"
+            "EN": "One obstacle eliminated.",
+            "TL": "Isang sagabal ang naalis."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.04"
+            "EN": "Target down. Sufficient.",
+            "TL": "Bagsak ang target. Sapat na."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.05"
+            "EN": "Threat neutralized. Proceed.",
+            "TL": "Banta naalis na. Magpatuloy."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.06"
+            "EN": "One down. March on.",
+            "TL": "Isang bagsak. Magmartsa."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.07"
+            "EN": "Handled. Next sector.",
+            "TL": "Naasikaso. Susunod na bahagi."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.08"
+            "EN": "Done. Do not linger.",
+            "TL": "Tapos. Huwag magtagal."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.09"
+            "EN": "Adequate strike. Keep the pace.",
+            "TL": "Sapat na tama. Panatilihin ang bilis."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_cold_03.neutral.10"
+            "EN": "Casualty verified. Step forward.",
+            "TL": "Kumpirmadong biktima. Hakbang pasulong."
           }
         ]
       }
@@ -881,44 +881,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.01"
+            "EN": "Good. Check the area.",
+            "TL": "Ayos. Suriin natin ang paligid."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.02"
+            "EN": "Nice kill. Scan before moving in.",
+            "TL": "Magandang patay. Magmasid bago lumapit."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.03"
+            "EN": "Target down. Clear your corners.",
+            "TL": "Bagsak ang target. Linisin ang mga sulok."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.04"
+            "EN": "Good takedown. Check for flankers.",
+            "TL": "Magandang pagpabagsak. Tignan kung may pumapaligid."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.05"
+            "EN": "Downed. Watch the shadows.",
+            "TL": "Bagsak na. Bantayan ang mga anino."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.06"
+            "EN": "Solid strike. Secure the room first.",
+            "TL": "Solidong tama. Siguraduhin muna ang kwarto."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.07"
+            "EN": "Well handled. Don't step out without scanning.",
+            "TL": "Maayos na napigilan. Huwag lalabas nang hindi nagmamasid."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.08"
+            "EN": "Threat cleared. Look all around.",
+            "TL": "Banta naalis. Tumingin sa buong paligid."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.09"
+            "EN": "Clean hit. Ensure the perimeter is safe.",
+            "TL": "Malinis na tama. Tiyaking ligtas ang paligid."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_01.neutral.10"
+            "EN": "Dropped it. Scan before continuing.",
+            "TL": "Naibagsak mo. Magmasid bago magpatuloy."
           }
         ]
       }
@@ -929,44 +929,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.01"
+            "EN": "One down. Watch for more.",
+            "TL": "Isa na. Bantayan ang iba."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.02"
+            "EN": "Good hit. Expect stragglers.",
+            "TL": "Magandang tama. Asahan ang mga naiwan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.03"
+            "EN": "That's one. Don't assume the area is clear.",
+            "TL": "Isa 'yan. Huwag ipalagay na malinis na ang lugar."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.04"
+            "EN": "Downed. Listen for more footsteps.",
+            "TL": "Bagsak. Makinig kung may mga yabag pa."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.05"
+            "EN": "One eliminated. Watch the windows.",
+            "TL": "Isa ang tinanggal. Bantayan ang mga bintana."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.06"
+            "EN": "Threat dead. Stay alert for secondary threats.",
+            "TL": "Patay ang banta. Maging alerto sa mga susunod."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.07"
+            "EN": "Handled that one. Watch the hallway.",
+            "TL": "Naasikaso 'yon. Bantayan ang pasilyo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.08"
+            "EN": "One in the dirt. Keep your guard raised.",
+            "TL": "Isa sa lupa. Panatilihing nakataas ang depensa."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.09"
+            "EN": "Good takedown. More could be nearby.",
+            "TL": "Magandang pagtumba. Baka may iba pang malapit."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_02.neutral.10"
+            "EN": "Down. Keep your ears open.",
+            "TL": "Bagsak. Buksan ang pandinig."
           }
         ]
       }
@@ -977,44 +977,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.01"
+            "EN": "Nice. Let's make sure it's clear.",
+            "TL": "Maganda. Siguraduhin nating malinaw ang paligid."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.02"
+            "EN": "Clean drop. Verify the whole sector.",
+            "TL": "Malinis na pagbagsak. Kumpirmahin ang buong bahagi."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.03"
+            "EN": "Good hit. Check behind all doors.",
+            "TL": "Magandang tama. Tignan sa likod ng lahat ng pinto."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.04"
+            "EN": "Target down. Confirm no further movement.",
+            "TL": "Bagsak ang target. Kumpirmahing wala nang galaw."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.05"
+            "EN": "Well done. Let's sweep the rest of the room.",
+            "TL": "Magaling. Linisin natin ang natitira sa kwarto."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.06"
+            "EN": "Threat neutralized. Methodical check next.",
+            "TL": "Banta naalis. Maingat na pagsusuri ang susunod."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.07"
+            "EN": "Solid kill. Sweep the perimeter together.",
+            "TL": "Solidong patay. Sabay nating linisin ang paligid."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.08"
+            "EN": "Downed cleanly. Verify our exit is open.",
+            "TL": "Malinis na naibagsak. Tiyaking bukas ang labasan natin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.09"
+            "EN": "Handled. Make sure nothing is creeping up.",
+            "TL": "Naasikaso na. Siguruhing walang gumagapang palapit."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.kill_witness_practical_03.neutral.10"
+            "EN": "Good work. Let's make certain the coast is clear.",
+            "TL": "Magandang trabaho. Tiyakin nating malinis ang daan."
           }
         ]
       }

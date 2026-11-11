@@ -456,7 +456,6 @@ def write_conversation_output(
         )
         paths.extend(write_runtime_bundle_catalogs(
             bundle_manifest,
-            CONVERSATION_SOURCE_ROOT / "translations",
             package_translation_root,
             owner=HOOMANS_OWNER,
         ))
@@ -470,7 +469,6 @@ def write_conversation_output(
             )
             paths.extend(write_runtime_bundle_catalogs(
                 bundle_manifest,
-                CONVERSATION_SOURCE_ROOT / "translations",
                 dt_translation_root,
                 owner=DT_COMMON_OWNER,
             ))

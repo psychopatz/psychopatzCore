@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.event.reactions",
   "kind": "content",
   "domain": "event",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.01"
+            "EN": "Good work. Keep watching the area.",
+            "TL": "Magandang trabaho. Patuloy na bantayan ang paligid."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.02"
+            "EN": "Threat's handled. Stay on your toes.",
+            "TL": "Naasikaso ang banta. Maging handa."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.03"
+            "EN": "Nice job. Don't relax just yet.",
+            "TL": "Mahusay. Huwag munang magpakampante."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.04"
+            "EN": "Target down. Keep scanning the perimeter.",
+            "TL": "Bagsak ang target. Patuloy na suriin ang paligid."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.05"
+            "EN": "Handled. Watch your surroundings.",
+            "TL": "Naasikaso na. Bantayan ang paligid mo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.06"
+            "EN": "Good strike. Stay vigilant.",
+            "TL": "Magandang tama. Manatiling alerto."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.07"
+            "EN": "That one's finished. Check the corners.",
+            "TL": "Tapos na ang isang 'yon. Tignan ang mga sulok."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.08"
+            "EN": "Well done. Keep weapons at the ready.",
+            "TL": "Magaling. Ihanda pa rin ang sandata."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.09"
+            "EN": "Clear here. Eyes on the shadows.",
+            "TL": "Malinis dito. Tumingin sa mga anino."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.default.neutral.10"
+            "EN": "Threat eliminated. Keep moving carefully.",
+            "TL": "Banta naalis na. Tuloy sa maingat na pagkilos."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.01"
+            "EN": "I need a moment before I can swing again.",
+            "TL": "Kailangan ko muna ng saglit bago makahataw ulit."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.02"
+            "EN": "Arms are heavy. Give me a second.",
+            "TL": "Mabigat ang mga braso ko. Bigyan mo ako ng saglit."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.03"
+            "EN": "Falling back! Need to recover stamina.",
+            "TL": "Aatras muna! Kailangang makabawi ng lakas."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.04"
+            "EN": "Out of breath! Step back a bit.",
+            "TL": "Hinihingal ako! Umatras muna nang kaunti."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.05"
+            "EN": "Can't keep swinging like this. Backing up.",
+            "TL": "Hindi ko kayang tuloy-tuloy ang hataw. Aatras muna."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.06"
+            "EN": "Give me space to breathe and reset.",
+            "TL": "Bigyan mo ako ng puwang para makahinga."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.07"
+            "EN": "Too exhausted to strike. Pulling back.",
+            "TL": "Masyado akong pagod para humampas. Umuurong muna."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.08"
+            "EN": "Need ten seconds to shake out my arms.",
+            "TL": "Kailangan ko ng sampung segundo para ipagpag ang braso ko."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.09"
+            "EN": "Step back! I'm completely winded.",
+            "TL": "Atras! Sagad na ang hingal ko."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.retreat.neutral.10"
+            "EN": "Back up! Let me catch my breath.",
+            "TL": "Umatras! Pahingahin mo muna ako."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.01"
+            "EN": "That threat is down. Stay alert.",
+            "TL": "Bagsak na ang banta. Manatiling alerto."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.02"
+            "EN": "Threat neutralized. Don't drop your guard.",
+            "TL": "Naalis na ang banta. Huwag ibaba ang depensa."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.03"
+            "EN": "Target eliminated. Keep watching.",
+            "TL": "Target naalis na. Patuloy na magmatyag."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.04"
+            "EN": "Danger's passed for now. Stay sharp.",
+            "TL": "Lumipas na ang panganib pansamantala. Maging handa."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.05"
+            "EN": "Handled that hazard. Eyes open.",
+            "TL": "Nalutas ang panganib na 'yon. Buksan ang mata."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.06"
+            "EN": "Threat's in the dirt. Scan the flanks.",
+            "TL": "Nasa lupa na ang banta. Suriin ang gilid."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.07"
+            "EN": "Threat ceased. Maintain alertness.",
+            "TL": "Tumigil na ang banta. Panatilihin ang pag-iingat."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.08"
+            "EN": "Downed the contact. Watch your sector.",
+            "TL": "Naitumba ang kalaban. Bantayan ang parte mo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.09"
+            "EN": "No more threat from that one. Stay ready.",
+            "TL": "Wala nang panganib mula sa kanya. Maging handa."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.reaction.threat.neutral.10"
+            "EN": "Handled. Stay focused on remaining risks.",
+            "TL": "Naayos na. Tutukan ang iba pang panganib."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.01"
+            "EN": "Stay with me next time. We watch each other's backs.",
+            "TL": "Sumabay ka sa akin sa susunod. Nagbabantayan tayo ng likod."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.02"
+            "EN": "Don't leave me behind like that. We survive together.",
+            "TL": "Huwag mo akong iiwan nang gano'n. Sabay tayong mabubuhay."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.03"
+            "EN": "I almost got swarmed when you ran off. Stick close.",
+            "TL": "Halos makuyog ako no'ng umalis ka. Dumikit ka lang."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.04"
+            "EN": "We're a team. Don't take off on your own.",
+            "TL": "Magkasama tayo. Huwag kang aalis nang mag-isa."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.05"
+            "EN": "Where did you go?! You can't just vanish.",
+            "TL": "Saan ka pumunta?! Hindi ka pwedeng mawala na lang."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.06"
+            "EN": "Next time, warn me before you leave.",
+            "TL": "Sa susunod, sabihan mo ako bago ka umalis."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.07"
+            "EN": "Thought I was on my own out there. Stay together.",
+            "TL": "Akala ko naiwan na akong mag-isa. Magsama tayo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.08"
+            "EN": "Leaving your partner gets people killed. Keep near.",
+            "TL": "Ang pag-iwan sa kasama ay nakakamatay. Dumikit ka."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.09"
+            "EN": "Glad you're back, but don't ditch me again.",
+            "TL": "Mabuti at bumalik ka, pero huwag mo na akong iiwan ulit."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.companion.reaction.abandonment.neutral.10"
+            "EN": "Stick with me. We're stronger as a pair.",
+            "TL": "Sumabay ka sa akin. Mas malakas tayo kapag magkasama."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.01"
+            "EN": "I can't find a safe room or campfire nearby.",
+            "TL": "Wala akong makitang ligtas na kwarto o campfire sa malapit."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.02"
+            "EN": "Nowhere safe to rest around here. We need better cover.",
+            "TL": "Walang ligtas na pahingahan dito. Kailangan natin ng mas maayos na silungan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.03"
+            "EN": "Can't camp in the open like this. Too dangerous.",
+            "TL": "Hindi pwedeng magkampo sa lantad nang ganito. Masyadong delikado."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.04"
+            "EN": "We need walls or a fire before we settle down.",
+            "TL": "Kailangan natin ng pader o apoy bago huminto."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.05"
+            "EN": "This spot isn't secure enough for camp. Keep walking.",
+            "TL": "Hindi sapat ang kaligtasan ng pwestong 'to para sa kampo. Lakad pa."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.06"
+            "EN": "No shelter here. Let's find four walls first.",
+            "TL": "Walang masisilungan dito. Maghanap muna tayo ng apat na pader."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.07"
+            "EN": "Can't sleep here. Infected could walk right in.",
+            "TL": "Hindi pwedeng matulog dito. Madaling makakapasok ang mga infected."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.08"
+            "EN": "We need a barricaded room or a campfire before resting.",
+            "TL": "Kailangan natin ng may barikadang kwarto o campfire bago magpahinga."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.09"
+            "EN": "Not pitching camp here. Let's find a secure building.",
+            "TL": "Hindi ako magkakampo rito. Maghanap tayo ng ligtas na gusali."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.companion.reaction.camp_rejected.neutral.10"
+            "EN": "Too exposed. Find us a real camp spot.",
+            "TL": "Masyadong lantad. Hanapan mo tayo ng tunay na matutuluyan."
           }
         ]
       }
@@ -257,44 +257,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.01"
+            "EN": "I heard you. We will handle it together.",
+            "TL": "Narinig kita. Sabay natin 'yang haharapin."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.02"
+            "EN": "Understood. I'm right here with you.",
+            "TL": "Naintindihan ko. Nandito lang ako kasama mo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.03"
+            "EN": "Got your message. Let's get it done.",
+            "TL": "Nakuha ko ang sabi mo. Tapusin na natin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.04"
+            "EN": "I'm with you. Lead the way.",
+            "TL": "Kasama mo ako. Ikaw ang manguna."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.05"
+            "EN": "Heard. Whatever comes, we take it on.",
+            "TL": "Narinig ko. Kahit ano'ng dumating, lalabanan natin."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.06"
+            "EN": "Copy that. Staying right by your side.",
+            "TL": "Kopya. Dito lang ako sa tabi mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.07"
+            "EN": "I hear you loud and clear. Let's move.",
+            "TL": "Malinaw kong narinig. Kilos na tayo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.08"
+            "EN": "Count on me. We're in this together.",
+            "TL": "Maaasahan mo ako. Magkasama tayo rito."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.09"
+            "EN": "Understood. Let's keep our heads clear.",
+            "TL": "Naiintindihan ko. Panatilihing malinaw ang isip natin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.companion.reaction.default.neutral.10"
+            "EN": "Right behind you. Let's handle this.",
+            "TL": "Nasa likod mo lang ako. Asikasuhin natin 'to."
           }
         ]
       }
@@ -305,44 +305,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.01"
+            "EN": "Watch out. We need to move now.",
+            "TL": "Mag-ingat. Kailangan nating kumilos ngayon din."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.02"
+            "EN": "Danger close! Move, move!",
+            "TL": "Malapit ang panganib! Kilos, kilos!"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.03"
+            "EN": "Not safe here. Clear out now.",
+            "TL": "Hindi ligtas dito. Lumikas na ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.04"
+            "EN": "Look around! We need to leave this spot.",
+            "TL": "Tumingin ka sa paligid! Kailangan nating umalis dito."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.05"
+            "EN": "Infected coming! Get into cover right now.",
+            "TL": "Paparating ang mga infected! Magtago na ngayon din."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.06"
+            "EN": "Trouble's right on us. Relocate immediately.",
+            "TL": "Nandito na ang gulo. Lumipat agad."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.07"
+            "EN": "Heads up! We're in the open and exposed.",
+            "TL": "Ulo niyo! Lantad tayo sa bukas na lugar."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.08"
+            "EN": "Drop what you're doing, we have to move.",
+            "TL": "Bitawan ang ginagawa mo, kailangan nating tumakbo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.09"
+            "EN": "Danger! Don't freeze up, run!",
+            "TL": "Panganib! Huwag kang matulala, takbo!"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.conversation.safety.danger.neutral.10"
+            "EN": "Move now! We're getting cornered.",
+            "TL": "Kilos na! Naiipit na tayo."
           }
         ]
       }
@@ -353,44 +353,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.01"
+            "EN": "Stay alert.",
+            "TL": "Manatiling alerto."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.02"
+            "EN": "Keep your eyes peeled.",
+            "TL": "Buksan ang mga mata."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.03"
+            "EN": "Watch our surroundings.",
+            "TL": "Bantayan ang paligid natin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.04"
+            "EN": "Don't let your guard down.",
+            "TL": "Huwag ibaba ang depensa."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.05"
+            "EN": "Stay sharp out here.",
+            "TL": "Maging handa rito sa labas."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.06"
+            "EN": "Keep quiet and listen.",
+            "TL": "Tumahimik at makinig."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.07"
+            "EN": "Keep checking the corners.",
+            "TL": "Tignan palagi ang mga sulok."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.08"
+            "EN": "Stay cautious.",
+            "TL": "Mag-ingat palagi."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.09"
+            "EN": "Eyes front and back.",
+            "TL": "Tumingin sa harap at likod."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.conversation.safety.default.neutral.10"
+            "EN": "Stay focused.",
+            "TL": "Manatiling nakapokus."
           }
         ]
       }
@@ -401,44 +401,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.01"
+            "EN": "Someone died here. We should remember that.",
+            "TL": "May namatay dito. Dapat nating alalahanin 'yon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.02"
+            "EN": "Poor bastard. Didn't make it.",
+            "TL": "Kawawa naman. Hindi nakaligtas."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.03"
+            "EN": "Another body in the dirt. World's unforgiving.",
+            "TL": "Isa na namang bangkay sa lupa. Malupit ang mundo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.04"
+            "EN": "They fought hard, by the looks of it.",
+            "TL": "Lumaban nang husto, base sa hitsura."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.05"
+            "EN": "Someone lost a life here. Tread with respect.",
+            "TL": "May nawalan ng buhay rito. Maglakad nang may galang."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.06"
+            "EN": "Looks like they got trapped. Rest easy.",
+            "TL": "Mukhang naipit sila rito. Mamahinga ka na."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.07"
+            "EN": "Could've been any of us. Keep walking.",
+            "TL": "Kahit sino sa atin pwedeng maging ganyan. Lakad na."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.08"
+            "EN": "Another survivor cut down too early.",
+            "TL": "Isa na namang survivor ang pumanaw nang maaga."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.09"
+            "EN": "Body's cold. Let's make sure we don't end up like this.",
+            "TL": "Malamig na ang bangkay. Siguruhin nating hindi tayo matutulad dito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.corpse.reaction.default.neutral.10"
+            "EN": "Rest in peace, stranger. Let's keep moving.",
+            "TL": "Sumalangit nawa ang kaluluwa mo. Magpatuloy tayo."
           }
         ]
       }
@@ -449,44 +449,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.01"
+            "EN": "Someone is going to answer for this.",
+            "TL": "May mananagot para rito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.02"
+            "EN": "They didn't deserve this. Whoever did it will pay.",
+            "TL": "Hindi nila nararapat 'to. Pagbabayaran 'to ng may gawa."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.03"
+            "EN": "This wasn't rottens, this was murder. They'll bleed for it.",
+            "TL": "Hindi 'to gawa ng infected, patayan 'to. Dudugo sila para rito."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.04"
+            "EN": "I'll find whoever did this and make them regret it.",
+            "TL": "Hahanapin ko ang may gawa nito at pagsisisihan nila."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.05"
+            "EN": "They slaughtered them. There's no forgiving this.",
+            "TL": "Pinaslang nila sila. Walang kapatawaran ito."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.06"
+            "EN": "Mark my words, retribution is coming for them.",
+            "TL": "Tandaan mo, darating ang ganti para sa kanila."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.07"
+            "EN": "Whoever left this body won't walk away clean.",
+            "TL": "Ang nag-iwan ng bangkay na 'to ay hindi makakatakas nang buo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.08"
+            "EN": "Cold-blooded. I won't forget this sight.",
+            "TL": "Walang awang pagpatay. Hindi ko makakalimutan ang nakita ko."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.09"
+            "EN": "Blood demands blood. We settle this score.",
+            "TL": "Dugo ang kabayaran ng dugo. Tutuldukan natin 'to."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.corpse.reaction.revenge.neutral.10"
+            "EN": "They butchered one of our own. They will pay.",
+            "TL": "Kinatay nila ang isa sa atin. Pagbabayaran nila."
           }
         ]
       }
@@ -497,44 +497,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.01"
+            "EN": "Take care.",
+            "TL": "Mag-ingat ka."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.02"
+            "EN": "Stay safe out there.",
+            "TL": "Maging ligtas ka sa labas."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.03"
+            "EN": "Watch yourself.",
+            "TL": "Ingatan mo sarili mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.04"
+            "EN": "Until next time.",
+            "TL": "Hanggang sa muli."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.05"
+            "EN": "Keep your guard up.",
+            "TL": "Panatilihing mataas ang depensa."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.06"
+            "EN": "Stay sharp on the road.",
+            "TL": "Magmatyag sa kalsada."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.07"
+            "EN": "Catch you later.",
+            "TL": "Mamaya ulit."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.08"
+            "EN": "Safe travels.",
+            "TL": "Ligtas na paglalakbay."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.09"
+            "EN": "Keep breathing out there.",
+            "TL": "Manatiling buhay sa labas."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.flow.farewell.default.neutral.10"
+            "EN": "See you around.",
+            "TL": "Magkita na lang tayo."
           }
         ]
       }
@@ -545,44 +545,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.01"
+            "EN": "Take care. I will see you soon.",
+            "TL": "Mag-ingat ka. Magkikita tayo sa lalong madaling panahon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.02"
+            "EN": "Stay safe, my friend. Come back in one piece.",
+            "TL": "Mag-ingat ka, kaibigan. Bumalik kang buo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.03"
+            "EN": "Look after yourself. Don't be a stranger.",
+            "TL": "Alagaan mo sarili mo. Huwag kang mawawala."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.04"
+            "EN": "Good luck out there. See you soon.",
+            "TL": "Magandang kapalaran sa labas. Hanggang sa muli."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.05"
+            "EN": "Keep your head down and stay safe. Talk soon.",
+            "TL": "Yumuko sa panganib at mag-ingat. Usap tayo ulit."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.06"
+            "EN": "It was good seeing you. Safe travels.",
+            "TL": "Mabuti at nagkita tayo. Ligtas na paglalakbay."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.07"
+            "EN": "Take care of yourself. I'll be waiting.",
+            "TL": "Alagaan mo sarili mo. Hihintayin kita."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.08"
+            "EN": "Watch your back out there, friend.",
+            "TL": "Bantayan ang likod mo sa labas, kaibigan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.09"
+            "EN": "Stay alive. We'll share a drink next time.",
+            "TL": "Manatiling buhay. Mag-inuman tayo sa susunod."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.flow.farewell.friendly.neutral.10"
+            "EN": "Be careful out there. See you shortly.",
+            "TL": "Mag-ingat ka sa labas. Magkikita tayo sa lalong madaling panahon."
           }
         ]
       }
@@ -593,44 +593,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.01"
+            "EN": "We lost someone close to us. We need to stay together.",
+            "TL": "Nawalan tayo ng taong malapit sa atin. Kailangan nating magsama-sama."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.02"
+            "EN": "I can't believe they're gone... we have to hold each other up.",
+            "TL": "Hindi ako makapaniwalang wala na sila... kailangan nating magtulungan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.03"
+            "EN": "They were family to us. Don't let our grief break us apart.",
+            "TL": "Pamilya na ang turing natin sa kanila. Huwag nating hayaang wasakin tayo ng lungkot."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.04"
+            "EN": "It hurts so much, but we have to keep going for them.",
+            "TL": "Masakit sobra, pero kailangan nating magpatuloy para sa kanila."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.05"
+            "EN": "They protected us. Now we protect each other.",
+            "TL": "Pinrotektahan nila tayo. Ngayon tayo naman ang magpoprotekta sa isa't isa."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.06"
+            "EN": "Losing them leaves a hole in my heart. Stay close, everyone.",
+            "TL": "Naiwang sugatan ang puso ko sa pagkawala nila. Magdikit-dikit tayo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.07"
+            "EN": "We honor their memory by surviving. Stick together.",
+            "TL": "Igalang natin ang alaala nila sa pamamagitan ng pamumuhay. Magsama tayo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.08"
+            "EN": "I will miss them terribly. We can't scatter now.",
+            "TL": "Mamimiss ko sila nang husto. Hindi tayo dapat maghiwa-hiwalay ngayon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.09"
+            "EN": "They gave everything for this group. We stay united.",
+            "TL": "Ibinigay nila ang lahat para sa grupong 'to. Manatili tayong nagkakaisa."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.leader_loss.close.neutral.10"
+            "EN": "Rest in peace. We'll hold the line for you.",
+            "TL": "Mamahinga ka na. Hahawakan namin ang linya para sa'yo."
           }
         ]
       }
@@ -641,44 +641,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.01"
+            "EN": "Our leader is gone. We keep the group together.",
+            "TL": "Wala na ang pinuno natin. Panatilihin nating buo ang grupo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.02"
+            "EN": "The leader fell, but the colony endures.",
+            "TL": "Bumagsak ang pinuno, pero mananatili ang kolonya."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.03"
+            "EN": "We must maintain order. The group cannot collapse.",
+            "TL": "Kailangan nating panatilihin ang kaayusan. Hindi dapat bumagsak ang grupo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.04"
+            "EN": "Our founder is dead, but our camp will survive.",
+            "TL": "Patay na ang nagtatag sa atin, pero mabubuhay ang kampo natin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.05"
+            "EN": "Stay organized. We carry on their work.",
+            "TL": "Manatiling organisado. Ipagpatuloy natin ang nasimulan nila."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.06"
+            "EN": "A terrible loss, but our community must stand firm.",
+            "TL": "Matinding kawalan, pero kailangang tumindig ang komunidad natin."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.07"
+            "EN": "Don't panic. We keep rations and duties moving.",
+            "TL": "Huwag mag-panic. Tuloy ang rasyon at mga tungkulin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.08"
+            "EN": "The colony needs everyone focused right now.",
+            "TL": "Kailangan ng kolonya ang pokus ng lahat ngayon din."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.09"
+            "EN": "We built this together. We keep it standing together.",
+            "TL": "Sabay natin 'tong binuo. Sabay natin 'tong pananatilihing nakatayo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.leader_loss.colonist.neutral.10"
+            "EN": "Leadership may change, but the settlement survives.",
+            "TL": "Maaaring magbago ang pamumuno, pero mabubuhay ang paninirahan."
           }
         ]
       }
@@ -689,44 +689,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.01"
+            "EN": "We lost our leader. We need to decide what comes next.",
+            "TL": "Nawalan tayo ng pinuno. Kailangan nating pagpasyahan ang susunod."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.02"
+            "EN": "The boss is down. Who's taking charge?",
+            "TL": "Bagsak ang pinuno. Sino'ng hahawak ng pamumuno?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.03"
+            "EN": "Without leadership, we need to regroup and plan.",
+            "TL": "Kung walang namumuno, kailangan nating magtipon at magplano."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.04"
+            "EN": "Our leader is dead. What do we do now?",
+            "TL": "Patay na ang pinuno natin. Ano'ng gagawin natin ngayon?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.05"
+            "EN": "We need to talk about who leads us forward.",
+            "TL": "Kailangan nating pag-usapan kung sino ang mangunguna sa atin."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.06"
+            "EN": "The head is cut off. We need a new direction.",
+            "TL": "Naputol ang ulo ng grupo. Kailangan natin ng bagong direksyon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.07"
+            "EN": "Leader's gone. Let's not fall into chaos.",
+            "TL": "Wala na ang lider. Huwag tayong mahulog sa kaguluhan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.08"
+            "EN": "Someone needs to step up and guide the crew.",
+            "TL": "May kailangang tumindig at gumabay sa grupo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.09"
+            "EN": "We're leaderless right now. Keep calm and talk.",
+            "TL": "Wala tayong pinuno ngayon. Kumalma at mag-usap tayo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.leader_loss.default.neutral.10"
+            "EN": "Terrible news. Let's figure out our next steps.",
+            "TL": "Masamang balita. Pag-isipan natin ang susunod nating hakbang."
           }
         ]
       }
@@ -737,44 +737,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.01"
+            "EN": "We lost someone important. We need to stay together.",
+            "TL": "Nawalan tayo ng mahalagang tao. Kailangan nating magsama-sama."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.02"
+            "EN": "They were our guiding light. I don't know what to do without them.",
+            "TL": "Sila ang tanglaw natin. Hindi ko alam ang gagawin nang wala sila."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.03"
+            "EN": "I gave my loyalty to them. I feel empty inside.",
+            "TL": "Ibinigay ko ang katapatan ko sa kanila. Parang walang laman ang puso ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.04"
+            "EN": "They inspired all of us. We must uphold their ideals.",
+            "TL": "Binigyan nila tayo ng lakas. Dapat nating itaguyod ang simulain nila."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.05"
+            "EN": "Our beacon is extinguished. God help us.",
+            "TL": "Namatay na ang tanglaw natin. Diyos ko tulungan mo kami."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.06"
+            "EN": "I would have followed them to the end. Rest well.",
+            "TL": "Susundan ko sana sila hanggang dulo. Mamahinga ka na."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.07"
+            "EN": "They were everything to this cause. We cannot let it die.",
+            "TL": "Sila ang lahat para sa layuning 'to. Hindi natin hahayaang mamatay 'to."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.08"
+            "EN": "My faith is shaken, but I will stay with our people.",
+            "TL": "Nayanig ang pananampalataya ko, pero mananatili ako sa ating mga kasama."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.09"
+            "EN": "A visionary has fallen. We must honor their sacrifice.",
+            "TL": "Bumagsak ang ating pinuno. Dapat nating igalang ang sakripisyo nila."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.leader_loss.devoted.neutral.10"
+            "EN": "They believed in us. We have to prove them right.",
+            "TL": "Naniwala sila sa atin. Kailangan nating patunayan na tama sila."
           }
         ]
       }
@@ -785,44 +785,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.01"
+            "EN": "The old order is gone. What happens next is up to us.",
+            "TL": "Wala na ang dating patakaran. Nasa atin na kung ano ang susunod."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.02"
+            "EN": "Their reign is over. Time for a better way.",
+            "TL": "Tapos na ang pamumuno nila. Oras na para sa mas maayos na paraan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.03"
+            "EN": "They made terrible choices and paid for it.",
+            "TL": "Maling desisyon ang ginawa nila at binayaran nila 'yon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.04"
+            "EN": "No more taking orders from that fool.",
+            "TL": "Wala nang susunod sa mga utos ng hangal na 'yon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.05"
+            "EN": "The tyrant is dead. Now we decide our own fate.",
+            "TL": "Patay na ang pinuno. Ngayon tayo na ang magpapasya sa sariling kapalaran."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.06"
+            "EN": "I won't shed tears for them. Let's build something fair.",
+            "TL": "Hindi ako iiyak para sa kanila. Magtayo tayo ng makatarungang samahan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.07"
+            "EN": "Their leadership was leading us to the grave anyway.",
+            "TL": "Dadalhin lang din naman tayo ng pamumuno nila sa libingan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.08"
+            "EN": "A slate wiped clean. We govern ourselves now.",
+            "TL": "Burado na ang nakaraan. Pamahalaan natin ang sarili natin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.09"
+            "EN": "They're gone. Good riddance to bad orders.",
+            "TL": "Wala na sila. Mabuti at tapos na ang maling pamamalakad."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.leader_loss.dissent.neutral.10"
+            "EN": "We're free to choose our own path now.",
+            "TL": "Malaya na tayong pumili ng sarili nating landas."
           }
         ]
       }
@@ -833,44 +833,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.01"
+            "EN": "The leader is gone. Someone needs to decide what comes next.",
+            "TL": "Wala na ang pinuno. May kailangang magpasya sa susunod."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.02"
+            "EN": "I barely knew them, but we still need structure.",
+            "TL": "Halos hindi ko sila kilala, pero kailangan pa rin natin ng kaayusan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.03"
+            "EN": "Leader died. Life goes on. Who's in charge?",
+            "TL": "Namatay ang pinuno. Tuloy ang buhay. Sino'ng mamumuno?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.04"
+            "EN": "A casualty like any other. Let's elect someone new.",
+            "TL": "Biktima tulad ng iba. Pumili tayo ng bago."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.05"
+            "EN": "They're gone. We still need food and guards.",
+            "TL": "Wala na sila. Kailangan pa rin natin ng pagkain at bantay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.06"
+            "EN": "Another name scratched off. Let's sort out the command.",
+            "TL": "Isa na namang pangalan ang nabura. Ayusin natin ang pamumuno."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.07"
+            "EN": "Doesn't change my daily tasks. Who's giving orders now?",
+            "TL": "Hindi nababago ang gawain ko. Sino na ang mag-uutos ngayon?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.08"
+            "EN": "Leader's expired. Pick a replacement and move forward.",
+            "TL": "Pumanaw na ang lider. Pumili ng kapalit at magpatuloy."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.09"
+            "EN": "Death is common here. Let's figure out our routine.",
+            "TL": "Pangkaraniwan ang kamatayan dito. Ayusin natin ang patakaran."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.leader_loss.distant.neutral.10"
+            "EN": "They're dead. What's the practical plan?",
+            "TL": "Patay na sila. Ano ang praktikal na plano?"
           }
         ]
       }
@@ -881,44 +881,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.01"
+            "EN": "I hear you.",
+            "TL": "Narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.02"
+            "EN": "Understood.",
+            "TL": "Naiintindihan ko."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.03"
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.04"
+            "EN": "I'm listening.",
+            "TL": "Nakikinig ako."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.05"
+            "EN": "Fair enough.",
+            "TL": "Makatarungan 'yan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.06"
+            "EN": "Sounds good.",
+            "TL": "Mabuti 'yan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.07"
+            "EN": "Copy that.",
+            "TL": "Kopya."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.08"
+            "EN": "Noted.",
+            "TL": "Tandaan ko 'yan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.09"
+            "EN": "Makes sense.",
+            "TL": "May punto ka."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.social.reaction.default.neutral.10"
+            "EN": "I agree.",
+            "TL": "Sumasang-ayon ako."
           }
         ]
       }

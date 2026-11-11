@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.emotes.conversation",
   "kind": "content",
   "domain": "social",
@@ -17,170 +17,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.01"
+            "EN": "Understood. We'll leave it there.",
+            "TL": "Naiintindihan ko. Tama na iyon."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.02"
+            "EN": "Heard. That's enough talk for now.",
+            "TL": "Narinig ko. Sapat na ang usapan sa ngayon."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.03"
+            "EN": "Message received. Keep your distance.",
+            "TL": "Nakuha ko. Manatili ka sa puwesto mo."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.04"
+            "EN": "Got it. Let's keep our heads on our shoulders.",
+            "TL": "Naintindihan. Mag-ingat na lang tayo sa paligid."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.05"
+            "EN": "I heard what you said. Leaving it at that.",
+            "TL": "Narinig ko ang sinabi mo. Iiwan ko na roon."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.06"
+            "EN": "All right. Eyes open.",
+            "TL": "Sige. Buksan ang mga mata."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.07"
+            "EN": "I take your point. Let's stay alert.",
+            "TL": "Nakuha ko ang punto mo. Manatiling alisto."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.08"
+            "EN": "Clear enough. No more discussion needed.",
+            "TL": "Malinaw na. Hindi na kailangan ng karagdagang usapan."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.09"
+            "EN": "Understood. Keep sharp.",
+            "TL": "Naintindihan. Maging alerto."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.guarded.10"
+            "EN": "Noted. Back to watching the perimeter.",
+            "TL": "Tala ko na. Balik sa pagbabantay."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.01"
+            "EN": "All right. Ask if you want to talk more.",
+            "TL": "Sige. Magtanong ka kung gusto mo pang mag-usap."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.02"
+            "EN": "Understood. Let me know if you need anything else.",
+            "TL": "Naiintindihan ko. Sabihan mo ako kung may kailangan ka pa."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.03"
+            "EN": "Sounds good. We can pick this up later.",
+            "TL": "Mabuti. Pwede nating ipagpatuloy ito mamaya."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.04"
+            "EN": "Got it. Let's get back to what we were doing.",
+            "TL": "Nakuha ko. Balik na tayo sa ginagawa natin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.05"
+            "EN": "Fair enough. Holler if something comes up.",
+            "TL": "Makatwiran. Tawagin mo ako kapag may nangyari."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.06"
+            "EN": "All right. We're on the same page.",
+            "TL": "Sige. Pareho tayo ng iniisip."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.07"
+            "EN": "Understood. Take care.",
+            "TL": "Naintindihan. Mag-ingat ka."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.08"
+            "EN": "Clear. We'll talk again soon.",
+            "TL": "Malinaw. Mag-uusap tayong muli mamaya."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.09"
+            "EN": "Got it. I'm around if you need to talk.",
+            "TL": "Nakuha ko. Narito lang ako kung kailangan mong makipag-usap."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.neutral.10"
+            "EN": "Right. We'll leave it there for now.",
+            "TL": "Sige. Dito muna tayo magtapos sa ngayon."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.01"
+            "EN": "All right.",
+            "TL": "Sige."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.02"
+            "EN": "Understood.",
+            "TL": "Naintindihan."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.03"
+            "EN": "Heard.",
+            "TL": "Narinig ko."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.04"
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.05"
+            "EN": "Right.",
+            "TL": "Tama."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.06"
+            "EN": "Done.",
+            "TL": "Tapos."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.07"
+            "EN": "Clear.",
+            "TL": "Malinaw."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.08"
+            "EN": "Good.",
+            "TL": "Mabuti."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.09"
+            "EN": "Okay.",
+            "TL": "Sige na."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.terse.10"
+            "EN": "Noted.",
+            "TL": "Tala ko na."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.01"
+            "EN": "All right. I'm here if you want to talk more.",
+            "TL": "Sige. Narito ako kung gusto mo pang mag-usap."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.02"
+            "EN": "Glad we talked. Holler anytime you need to chat.",
+            "TL": "Mabuti at nagkausap tayo. Tawagin mo lang ako kahit kailan."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.03"
+            "EN": "I hear you loud and clear. Take care of yourself.",
+            "TL": "Narinig kita nang malinaw. Ingatan mo ang sarili mo."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.04"
+            "EN": "Good talking with you. We'll catch up again soon.",
+            "TL": "Masarap kang makausap. Magkuwentuhan ulit tayo mamaya."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.05"
+            "EN": "Understood. Always good to touch base with you.",
+            "TL": "Naintindihan ko. Laging magandang makipag-ugnayan sa 'yo."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.06"
+            "EN": "Anytime you want to talk, you know where to find me.",
+            "TL": "Kahit kailan mo gustong mag-usap, alam mo kung nasaan ako."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.07"
+            "EN": "Got it. Stay safe out there today.",
+            "TL": "Nakuha ko. Mag-ingat ka sa labas ngayong araw."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.08"
+            "EN": "Always happy to listen. Take it easy.",
+            "TL": "Lagi akong handang makinig. Dahan-dahan lang."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.09"
+            "EN": "All right. Glad we got that sorted out together.",
+            "TL": "Sige. Mabuti at naayos natin 'yan nang magkasama."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.conversation.acknowledged.default.warm.10"
+            "EN": "Thanks for taking the time to talk. Catch you later.",
+            "TL": "Salamat sa paglalaan ng oras para mag-usap. Kita tayo mamaya."
           }
         ]
       }

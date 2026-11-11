@@ -1,8 +1,8 @@
-"""Read-only audit for the shared Conversation source catalog.
+"""Read-only audit for the shared self-contained Conversation source.
 
-This module intentionally reports the current authoring shape without trying
-to read it through a compatibility layer or rewriting any source. It is the
-P0 inventory seam for the v2 shard and locale-catalog migration.
+This module reports the authoring shape without rewriting source. Locale text
+is expected to live beside its recipe records; generated runtime catalogs are
+owned by package build outputs and are outside this source audit.
 """
 
 from __future__ import annotations
@@ -16,9 +16,8 @@ from typing import Any, Iterable, Mapping
 PREFERRED_SOURCE_BYTES = 64 * 1024
 HARD_SOURCE_BYTES = 128 * 1024
 LOCALE_CATALOG_DIRECTORY = "translations"
-INLINE_LOCALE_FIELDS = frozenset({
-    "translations", "labelTranslations", "choiceTranslations",
-    "fallback", "labelFallback", "utteranceFallback",
+LEGACY_SOURCE_FIELDS = frozenset({
+    "phraseID", "translationKey", "labelTranslations", "choiceTranslations",
 })
 
 
@@ -227,31 +226,29 @@ def audit_conversation_sources(
             and isinstance(value, Mapping)
         ]
         locale_field_locations = [
+            location for location, value in _walk(document)
+            if location.rsplit(".", 1)[-1] in {"translations", "label", "choice"}
+            and isinstance(value, Mapping)
+        ]
+        legacy_field_locations = [
             location for location, _value in _walk(document)
-            if location.rsplit(".", 1)[-1] in INLINE_LOCALE_FIELDS
+            if location.rsplit(".", 1)[-1] in LEGACY_SOURCE_FIELDS
         ]
         metadata_locations = [
             location for location, value in _walk(document)
             if _is_source_metadata(value)
         ]
-        if translation_locations:
+        if locale_field_locations:
+            inline_locale_field_files += 1
+        if legacy_field_locations:
             inline_translation_files += 1
             issues.append(
                 _issue(
-                    "inline_translations",
-                    "Semantic shard embeds locale wording instead of referencing a locale catalog",
+                    "legacy_source_fields",
+                    "Semantic shard contains removed identity/catalog fields",
                     path=relative,
-                    details={"locations": translation_locations},
-                )
-            )
-        if locale_field_locations:
-            inline_locale_field_files += 1
-            issues.append(
-                _issue(
-                    "inline_locale_text",
-                    "Semantic shard embeds language-specific wording instead of referencing a locale catalog",
-                    path=relative,
-                    details={"locations": locale_field_locations},
+                    severity="error",
+                    details={"locations": legacy_field_locations},
                 )
             )
         if metadata_locations:
@@ -312,12 +309,14 @@ def audit_conversation_sources(
         if locale_root.is_dir()
         else []
     )
-    if not locale_files:
+    if locale_files:
         issues.append(
             _issue(
-                "missing_locale_catalogs",
-                "CodeBuilder has no one-file-per-locale authoring catalog",
+                "authoring_locale_catalogs_present",
+                "Authoring locale catalogs are not part of the self-contained source contract",
                 path=f"{LOCALE_CATALOG_DIRECTORY}/",
+                severity="error",
+                details={"files": locale_files},
             )
         )
 

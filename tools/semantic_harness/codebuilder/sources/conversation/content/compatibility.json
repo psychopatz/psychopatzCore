@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.compatibility",
   "kind": "content",
   "domain": "compatibility",
@@ -17,8 +17,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.bandits.hooman_hurt.colonist.neutral.01"
+            "EN": "Bandit fire! Pull back and cover the wounded colonist.",
+            "TL": "Bandit fire! Pull back and cover the wounded colonist."
           }
         ]
       }
@@ -29,8 +29,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.bandits.hooman_hurt.default.neutral.01"
+            "EN": "Bandit fire! Stay with the wounded survivor and watch the flank.",
+            "TL": "Bandit fire! Stay with the wounded survivor and watch the flank."
           }
         ]
       }
@@ -41,8 +41,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.bandits.hooman_hurt.family.neutral.01"
+            "EN": "Bandit fire! Stay together and cover the wounded family member.",
+            "TL": "Bandit fire! Stay together and cover the wounded family member."
           }
         ]
       }
@@ -53,8 +53,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.bandits.hooman_hurt.lover.neutral.01"
+            "EN": "Bandit fire. Stay close; I have got you.",
+            "TL": "Bandit fire. Stay close; I have got you."
           }
         ]
       }
@@ -65,8 +65,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.companion_dogs.feed.female.neutral.01"
+            "EN": "Here you go, good girl.",
+            "TL": "Here you go, good girl."
           }
         ]
       }
@@ -77,8 +77,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.companion_dogs.feed.male.neutral.01"
+            "EN": "Here you go, good boy.",
+            "TL": "Here you go, good boy."
           }
         ]
       }
@@ -89,8 +89,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.companion_dogs.feed.unknown.neutral.01"
+            "EN": "Here you go, good dog.",
+            "TL": "Here you go, good dog."
           }
         ]
       }
@@ -101,8 +101,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.companion_dogs.greeting.female.neutral.01"
+            "EN": "Who is a good girl?",
+            "TL": "Who is a good girl?"
           }
         ]
       }
@@ -113,8 +113,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.companion_dogs.greeting.male.neutral.01"
+            "EN": "Who is a good boy?",
+            "TL": "Who is a good boy?"
           }
         ]
       }
@@ -125,8 +125,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.companion_dogs.greeting.unknown.neutral.01"
+            "EN": "Who is a good dog?",
+            "TL": "Who is a good dog?"
           }
         ]
       }
@@ -137,8 +137,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.necroa.mask_warning.colonist.neutral.01"
+            "EN": "Mask up. We keep the camp safe together.",
+            "TL": "Mask up. We keep the camp safe together."
           }
         ]
       }
@@ -149,8 +149,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.necroa.mask_warning.default.neutral.01"
+            "EN": "Put your mask back on. Knox is airborne.",
+            "TL": "Put your mask back on. Knox is airborne."
           }
         ]
       }
@@ -161,8 +161,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.necroa.mask_warning.family.neutral.01"
+            "EN": "Put your mask on, family. I am not losing you to the air.",
+            "TL": "Put your mask on, family. I am not losing you to the air."
           }
         ]
       }
@@ -173,8 +173,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.necroa.player_mask_removed.default.neutral.01"
+            "EN": "Put your mask back on. The air is not safe.",
+            "TL": "Put your mask back on. The air is not safe."
           }
         ]
       }
@@ -185,8 +185,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.necroa.player_mask_removed.hostile.neutral.01"
+            "EN": "Put your mask back on before you become a problem.",
+            "TL": "Put your mask back on before you become a problem."
           }
         ]
       }
@@ -197,8 +197,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.necroa.player_mask_removed.lover.neutral.01"
+            "EN": "Please put your mask back on, love. This air is not safe.",
+            "TL": "Please put your mask back on, love. This air is not safe."
           }
         ]
       }
@@ -209,8 +209,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.encounter.friendly.neutral.01"
+            "EN": "Those survivors seem friendly. Keep your hands visible.",
+            "TL": "Those survivors seem friendly. Keep your hands visible."
           }
         ]
       }
@@ -221,8 +221,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.encounter.hostile.neutral.01"
+            "EN": "That group looks hostile. Keep cover between us and them.",
+            "TL": "That group looks hostile. Keep cover between us and them."
           }
         ]
       }
@@ -233,8 +233,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.encounter.unknown.neutral.01"
+            "EN": "Someone is out there. Let us watch before we approach.",
+            "TL": "Someone is out there. Let us watch before we approach."
           }
         ]
       }
@@ -245,8 +245,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.faction.hostile.neutral.01"
+            "EN": "That faction may be hostile toward us now. Stay alert.",
+            "TL": "That faction may be hostile toward us now. Stay alert."
           }
         ]
       }
@@ -257,8 +257,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.faction.incoming.neutral.01"
+            "EN": "They just opened fire on us. Stay close.",
+            "TL": "They just opened fire on us. Stay close."
           }
         ]
       }
@@ -269,8 +269,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.faction.outgoing.neutral.01"
+            "EN": "We hit them. They may retaliate soon.",
+            "TL": "We hit them. They may retaliate soon."
           }
         ]
       }
@@ -281,8 +281,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.meta.aircraft.heli.neutral.01"
+            "EN": "Something is flying over us. Keep listening.",
+            "TL": "Something is flying over us. Keep listening."
           }
         ]
       }
@@ -293,8 +293,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.meta.aircraft.military.neutral.01"
+            "EN": "That aircraft sounds close. Stay sharp.",
+            "TL": "That aircraft sounds close. Stay sharp."
           }
         ]
       }
@@ -305,8 +305,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.meta.ambience.neutral.01"
+            "EN": "I do not like that sound. Stay close.",
+            "TL": "I do not like that sound. Stay close."
           }
         ]
       }
@@ -317,8 +317,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.meta.crash.neutral.01"
+            "EN": "That crash sounded close. Keep your eyes open.",
+            "TL": "That crash sounded close. Keep your eyes open."
           }
         ]
       }
@@ -329,8 +329,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.compat.projectalife.meta.gunfire.neutral.01"
+            "EN": "Someone is shooting nearby. Keep your head down.",
+            "TL": "Someone is shooting nearby. Keep your head down."
           }
         ]
       }

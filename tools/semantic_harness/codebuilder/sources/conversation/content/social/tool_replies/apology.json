@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.tool.replies.apology",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.01"
+            "EN": "All right. Let us move on.",
+            "TL": "Sige. Magpatuloy na tayo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.02"
+            "EN": "No problem. Let us keep moving.",
+            "TL": "Walang anuman. Tuloy na tayo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.03"
+            "EN": "We are good. Let us get back to business.",
+            "TL": "Ayos na tayo. Balik na tayo sa ginagawa natin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.04"
+            "EN": "Done. No need to dwell on it.",
+            "TL": "Tapos na 'yon. Hindi na kailangang pag-usapan pa."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.05"
+            "EN": "All right. Water under the bridge.",
+            "TL": "Sige. Lumipas na 'yon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.06"
+            "EN": "Let us put it behind us and focus on surviving.",
+            "TL": "Iwan na natin 'yan sa likod at magpokus sa kaligtasan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.07"
+            "EN": "Fine by me. Move forward.",
+            "TL": "Ayos lang sa 'kin. Abante na."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.08"
+            "EN": "Okay. We move past it.",
+            "TL": "Sige. Kalimutan na 'yon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.09"
+            "EN": "Agreed. Let us not waste daylight on it.",
+            "TL": "Sang-ayon ako. Huwag nating sayangin ang oras diyan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.1.neutral.10"
+            "EN": "Understood. We are square.",
+            "TL": "Naiintindihan ko. Kuwits na tayo."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.01"
+            "EN": "I accept the apology.",
+            "TL": "Tinatanggap ko ang tawad mo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.02"
+            "EN": "Apology accepted. We are fine.",
+            "TL": "Tanggap ko na. Ayos na tayo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.03"
+            "EN": "I appreciate you owning up to it.",
+            "TL": "Salamat at inamin mo ang pagkakamali mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.04"
+            "EN": "Takes guts to say that out here. I accept.",
+            "TL": "Kailangan ng tapang para aminin 'yan dito. Tanggap ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.05"
+            "EN": "Thank you. Apology accepted.",
+            "TL": "Salamat. Tanggap ko ang paumanhin."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.06"
+            "EN": "We all make mistakes under pressure. Accepted.",
+            "TL": "Lahat naman nagkakamali kapag tensiyonado. Tanggap ko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.07"
+            "EN": "I hear you, and I accept.",
+            "TL": "Narinig kita, at tanggap ko."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.08"
+            "EN": "Fair enough. Apology accepted.",
+            "TL": "Makatwiran. Tanggap ko ang paumanhin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.09"
+            "EN": "Good. I accept your apology.",
+            "TL": "Mabuti. Tinatanggap ko ang tawad mo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.2.neutral.10"
+            "EN": "I appreciate the honesty. We are good.",
+            "TL": "Salamat sa katapatan. Ayos na tayo."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.01"
+            "EN": "Fine. We can put it behind us.",
+            "TL": "Sige. Iwan na natin sa nakaraan 'yon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.02"
+            "EN": "Let it go. We have bigger problems.",
+            "TL": "Hayaan mo na. Mas malaki ang mga problema natin."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.03"
+            "EN": "It is done. No grudges.",
+            "TL": "Tapos na. Walang samaan ng loob."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.04"
+            "EN": "Consider it forgotten.",
+            "TL": "Ituring mo nang limot na."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.05"
+            "EN": "We are clear. Do not sweat it.",
+            "TL": "Malinaw na tayo. Huwag mo nang alalahanin."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.06"
+            "EN": "Past is past. Watch your step next time.",
+            "TL": "Nakalipas na. Mag-ingat ka na lang sa susunod."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.07"
+            "EN": "I am not holding onto it. Let us move.",
+            "TL": "Hindi ko na 'yan itatago sa loob ko. Tara na."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.08"
+            "EN": "All right. We put it behind us.",
+            "TL": "Sige. Kalimutan na natin 'yan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.09"
+            "EN": "No hard feelings. Let us keep our heads on.",
+            "TL": "Walang samaan ng loob. Manatili tayong alisto."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.apology.3.neutral.10"
+            "EN": "Agreed. It is behind us now.",
+            "TL": "Sige. Tapos na 'yon ngayon."
           }
         ]
       }

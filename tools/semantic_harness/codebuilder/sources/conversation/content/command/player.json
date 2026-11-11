@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.command.player",
   "kind": "content",
   "domain": "command",
@@ -17,16 +17,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.attack_auto.neutral.01"
+            "EN": "{name}, use your best judgment.",
+            "TL": "{name}, gamitin ang iyong pasya."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.player.attack_auto.neutral.02"
+            "EN": "{name}, handle threats as you see fit.",
+            "TL": "{name}, harapin ang banta ayon sa iyong pasya."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.player.attack_auto.neutral.03"
+            "EN": "Watch our backs, {name}.",
+            "TL": "Bantayan mo kami, {name}."
           }
         ]
       }
@@ -37,16 +37,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.attack_melee.neutral.01"
+            "EN": "{name}, keep it close.",
+            "TL": "{name}, lumaban nang malapitan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.player.attack_melee.neutral.02"
+            "EN": "Take the front line, {name}.",
+            "TL": "Ikaw sa unahan, {name}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.player.attack_melee.neutral.03"
+            "EN": "{name}, save your ammunition.",
+            "TL": "{name}, itabi ang bala."
           }
         ]
       }
@@ -57,16 +57,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.attack_none.neutral.01"
+            "EN": "{name}, stay out of the fight.",
+            "TL": "{name}, huwag sumali sa laban."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.player.attack_none.neutral.02"
+            "EN": "Avoid trouble, {name}.",
+            "TL": "Iwasan ang gulo, {name}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.player.attack_none.neutral.03"
+            "EN": "{name}, don't engage unless I change the order.",
+            "TL": "{name}, huwag lumaban hangga't hindi ko binabago ang utos."
           }
         ]
       }
@@ -77,16 +77,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.attack_ranged.neutral.01"
+            "EN": "{name}, keep your distance.",
+            "TL": "{name}, panatilihin ang distansya."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.player.attack_ranged.neutral.02"
+            "EN": "Give us ranged cover, {name}.",
+            "TL": "Takpan kami mula sa malayo, {name}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.player.attack_ranged.neutral.03"
+            "EN": "{name}, engage from a safe distance.",
+            "TL": "{name}, lumaban mula sa ligtas na layo."
           }
         ]
       }
@@ -97,24 +97,24 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.camp.neutral.01"
+            "EN": "Make camp here, {names}.",
+            "TL": "Magkampo tayo rito, {names}."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.player.camp.neutral.02"
+            "EN": "Settle in here, {names}.",
+            "TL": "Manatili tayo rito, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.player.camp.neutral.03"
+            "EN": "We'll camp here for now, {names}.",
+            "TL": "Magkakampo muna tayo rito, {names}."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.command.player.camp.neutral.04"
+            "EN": "We could make camp here, {names}.",
+            "TL": "Maaari tayong magkampo rito, {names}."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.command.player.camp.neutral.05"
+            "EN": "Let's make this our camp, {names}.",
+            "TL": "Gawin nating kampo ito, {names}."
           }
         ]
       }
@@ -125,8 +125,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.camp_none.neutral.01"
+            "EN": "...",
+            "TL": "..."
           }
         ]
       }
@@ -137,16 +137,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.camp_rejected.neutral.01"
+            "EN": "I can't find a safe room or campfire nearby.",
+            "TL": "Wala akong makitang ligtas na silid o apoy dito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.player.camp_rejected.neutral.02"
+            "EN": "We need a nearby room or campfire before we make camp.",
+            "TL": "Kailangan natin ng malapit na silid o apoy bago magkampo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.player.camp_rejected.neutral.03"
+            "EN": "No usable camp site is visible from here.",
+            "TL": "Walang angkop na lugar ng kampo rito."
           }
         ]
       }
@@ -157,16 +157,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.follow.neutral.01"
+            "EN": "{names}, on me.",
+            "TL": "{names}, sumunod kayo sa akin."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.player.follow.neutral.02"
+            "EN": "Stay close, {names}.",
+            "TL": "Manatili kayong malapit, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.player.follow.neutral.03"
+            "EN": "{names}, let's move.",
+            "TL": "{names}, umalis na tayo."
           }
         ]
       }
@@ -177,8 +177,8 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.generic.neutral.01"
+            "EN": "Understood, {names}.",
+            "TL": "Naiintindihan ko, {names}."
           }
         ]
       }
@@ -189,16 +189,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.return_home.neutral.01"
+            "EN": "{names}, head home.",
+            "TL": "{names}, umuwi na kayo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.player.return_home.neutral.02"
+            "EN": "Return to the base, {names}.",
+            "TL": "Bumalik sa base, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.player.return_home.neutral.03"
+            "EN": "{names}, get back home safely.",
+            "TL": "{names}, ligtas na umuwi, {names}."
           }
         ]
       }
@@ -209,16 +209,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.player.stay.neutral.01"
+            "EN": "{names}, wait here.",
+            "TL": "{names}, maghintay kayo rito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.player.stay.neutral.02"
+            "EN": "Hold this position, {names}.",
+            "TL": "Panatilihin ang posisyon, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.player.stay.neutral.03"
+            "EN": "{names}, stay put for now.",
+            "TL": "{names}, manatili muna rito."
           }
         ]
       }

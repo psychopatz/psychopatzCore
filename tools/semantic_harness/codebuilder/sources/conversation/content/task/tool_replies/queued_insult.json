@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.queued.insult",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.01"
+            "EN": "I heard you.",
+            "TL": "Narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.02"
+            "EN": "I heard that insult.",
+            "TL": "Narinig ko ang pambabastos na 'yon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.03"
+            "EN": "Caught that remark.",
+            "TL": "Narinig ang patutsadang 'yon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.04"
+            "EN": "I hear the childish jab.",
+            "TL": "Naririnig ko ang pambatang sundot."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.05"
+            "EN": "Message heard. Doesn't bother me.",
+            "TL": "Narinig ang mensahe. Di ako apektado."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.06"
+            "EN": "Heard you. Weak effort.",
+            "TL": "Narinig kita. Mahinang banat."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.07"
+            "EN": "I heard the slander.",
+            "TL": "Narinig ko ang paninira."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.08"
+            "EN": "Heard it. Moving on.",
+            "TL": "Narinig ko. Lumilipas na."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.09"
+            "EN": "I heard that petty comment.",
+            "TL": "Narinig ko ang mababaw na komentong 'yon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.1.neutral.10"
+            "EN": "I hear your barking.",
+            "TL": "Naririnig ko ang tahol mo."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.01"
+            "EN": "Noted.",
+            "TL": "Tala ko na."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.02"
+            "EN": "Noted, and dismissed.",
+            "TL": "Tala ko na, at binalewala."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.03"
+            "EN": "Noted. You're wasting your breath.",
+            "TL": "Tala ko na. Sinasayang mo lang ang laway mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.04"
+            "EN": "Noted. Doesn't mean a thing to me.",
+            "TL": "Tala ko na. Walang halaga sa akin 'yan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.05"
+            "EN": "Duly noted. Try harder next time.",
+            "TL": "Tala ko na. Galingan mo sa susunod."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.06"
+            "EN": "Noted. I've heard worse from strangers.",
+            "TL": "Tala ko na. Nakarining na ako ng mas masahol pa sa iba."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.07"
+            "EN": "Noted. Water off a duck's back.",
+            "TL": "Tala ko na. Para lang tubig sa dahon ng gabi."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.08"
+            "EN": "Noted. Don't expect a reaction.",
+            "TL": "Tala ko na. Huwag kang umasa ng reaksyon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.09"
+            "EN": "Noted. Moving along.",
+            "TL": "Tala ko na. Tuloy ang lakad."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_insult.2.neutral.10"
+            "EN": "Noted and ignored.",
+            "TL": "Tala ko na at kinalimutan."
           }
         ]
       }

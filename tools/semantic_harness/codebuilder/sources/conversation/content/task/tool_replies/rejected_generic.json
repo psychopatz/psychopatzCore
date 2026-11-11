@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.rejected.generic",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.01"
+            "EN": "That did not land well.",
+            "TL": "Hindi naging maganda ang dating niyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.02"
+            "EN": "That went over poorly.",
+            "TL": "Pangit ang naging dating niyan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.03"
+            "EN": "That didn't work out.",
+            "TL": "Hindi naging maayos 'yan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.04"
+            "EN": "That was not well received.",
+            "TL": "Hindi maganda ang pagtanggap diyan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.05"
+            "EN": "You miscalculated that one.",
+            "TL": "Nagkamali ka sa kalkulasyon doon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.06"
+            "EN": "That completely backfired.",
+            "TL": "Bumalik sa 'yo ang epekto niyan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.07"
+            "EN": "Not a good approach.",
+            "TL": "Hindi magandang paraan 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.08"
+            "EN": "That fell flat on its face.",
+            "TL": "Bumagsak lang 'yan nang kusa."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.09"
+            "EN": "That missed completely.",
+            "TL": "Sumablay nang buo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.1.neutral.10"
+            "EN": "That was a mistake.",
+            "TL": "Isang pagkakamali 'yon."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.01"
+            "EN": "I am not taking that from you right now.",
+            "TL": "Hindi ko tatanggapin iyan mula sa iyo ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.02"
+            "EN": "I'm not in the mood for that kind of talk.",
+            "TL": "Wala ako sa mood para sa ganyang usapan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.03"
+            "EN": "I'm rejecting that completely.",
+            "TL": "Tinatanggihan ko 'yan nang buo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.04"
+            "EN": "You can keep that nonsense to yourself.",
+            "TL": "Itago mo sa sarili mo ang kalokohang 'yan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.05"
+            "EN": "I'm not putting up with that today.",
+            "TL": "Di ko pagtitiisan 'yan ngayong araw."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.06"
+            "EN": "Not taking that. Walk it back.",
+            "TL": "Di tatanggapin 'yan. Bawiin mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.07"
+            "EN": "I refuse to engage with that.",
+            "TL": "Tumatanggi akong makipag-usap tungkol diyan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.08"
+            "EN": "I'm shutting that down immediately.",
+            "TL": "Papatayin ko agad ang usapang 'yan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.09"
+            "EN": "Not tolerating that right now.",
+            "TL": "Di ko palalampasin 'yan ngayon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_generic.2.neutral.10"
+            "EN": "I'm not accepting that from you.",
+            "TL": "Hindi ko tatanggapin 'yan galing sa 'yo."
           }
         ]
       }

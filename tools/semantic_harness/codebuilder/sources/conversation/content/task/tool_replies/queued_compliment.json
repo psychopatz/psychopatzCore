@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.queued.compliment",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.01"
+            "EN": "I heard the compliment.",
+            "TL": "Narinig ko ang papuri."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.02"
+            "EN": "Got the compliment. Thanks.",
+            "TL": "Nakuha ko ang papuri. Salamat."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.03"
+            "EN": "I heard what you said about me.",
+            "TL": "Narinig ko ang sinabi mo tungkol sa akin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.04"
+            "EN": "Compliment registered.",
+            "TL": "Naitala ang papuri."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.05"
+            "EN": "I heard the kind remark.",
+            "TL": "Narinig ko ang magandang puna."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.06"
+            "EN": "Heard your compliment loud and clear.",
+            "TL": "Narinig ang papuri mo nang malakas at malinaw."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.07"
+            "EN": "I caught that praise. Thanks.",
+            "TL": "Nakuha ko ang papuring 'yon. Salamat."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.08"
+            "EN": "Compliment received.",
+            "TL": "Natanggap ang papuri."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.09"
+            "EN": "I heard that. Appreciate it.",
+            "TL": "Narinig ko 'yon. Salamat."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.1.neutral.10"
+            "EN": "Heard your good words.",
+            "TL": "Narinig ang mabubuti mong salita."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.01"
+            "EN": "That is kind of you to say.",
+            "TL": "Mabait sa 'yo ang magsabi niyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.02"
+            "EN": "Thank you for the kind thought.",
+            "TL": "Salamat sa magandang kaisipan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.03"
+            "EN": "Appreciate the polite compliment.",
+            "TL": "Salamat sa magalang na papuri."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.04"
+            "EN": "That's generous of you to mention.",
+            "TL": "Mabuti sa 'yo ang banggitin 'yan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.05"
+            "EN": "I'm grateful for the compliment.",
+            "TL": "Nagpapasalamat ako sa papuri."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.06"
+            "EN": "Good of you to say so.",
+            "TL": "Mabuti at sinabi mo 'yon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.07"
+            "EN": "Thanks. I try my best.",
+            "TL": "Salamat. Ginagawa ko ang buong makakaya ko."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.08"
+            "EN": "Thank you for noticing.",
+            "TL": "Salamat sa pagpansin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.09"
+            "EN": "Kind words are always welcome.",
+            "TL": "Laging malugod na tinatanggap ang magagandang salita."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_compliment.2.neutral.10"
+            "EN": "That's very nice of you.",
+            "TL": "Napakabait mo naman."
           }
         ]
       }

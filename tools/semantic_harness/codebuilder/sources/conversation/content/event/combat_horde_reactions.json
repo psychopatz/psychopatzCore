@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.event.combat.horde.reactions",
   "kind": "content",
   "domain": "event",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.01"
+            "EN": "That's a lot of them. Stay sharp.",
+            "TL": "Ang dami nila. Mag-ingat tayo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.02"
+            "EN": "We've got a whole crowd moving in. Eyes open.",
+            "TL": "May malaking grupo na paparating. Magmatyag."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.03"
+            "EN": "Horde spotted! Check your exits.",
+            "TL": "May kuyog! Tignan ang mga labasan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.04"
+            "EN": "Too many bodies out there. Watch the perimeter.",
+            "TL": "Masyado silang marami sa labas. Bantayan ang paligid."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.05"
+            "EN": "They're grouping up. Form a line.",
+            "TL": "Nagsasama-sama sila. Ayusin ang hanay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.06"
+            "EN": "Sound drew a swarm. Get ready.",
+            "TL": "Nakaakit ng kuyog ang ingay. Humanda."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.07"
+            "EN": "Look at that herd. Stay close.",
+            "TL": "Tingnan mo ang kawan na 'yan. Dumikit ka."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.08"
+            "EN": "Mass contacts coming from down the street.",
+            "TL": "Napakaraming papalapit mula sa kalsada."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.09"
+            "EN": "Here they come. Don't let them flank us.",
+            "TL": "Heto na sila. Huwag silang hayaang pumaligid."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.started.neutral.10"
+            "EN": "Big group incoming. Watch each other's backs.",
+            "TL": "Malaking grupo ang dumarating. Bantayan ang likod ng bawat isa."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.01"
+            "EN": "More are piling in. This is getting bad.",
+            "TL": "Dumarami sila. Lumalala ito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.02"
+            "EN": "They keep coming! We're losing ground.",
+            "TL": "Patuloy silang dumarami! Nawawalan tayo ng espasyo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.03"
+            "EN": "The herd just doubled. We need a plan.",
+            "TL": "Doble na ang dami nila. Kailangan natin ng plano."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.04"
+            "EN": "Too many to push through! Fall back a step.",
+            "TL": "Masyadong marami para lusubin! Umatras nang kaunti."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.05"
+            "EN": "The swarm's thickening. Watch your flanks!",
+            "TL": "Kumakapal ang kuyog. Bantayan ang gilid mo!"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.06"
+            "EN": "Every window is shaking. They're surrounding us.",
+            "TL": "Nanginginig ang bawat bintana. Pinalilibutan nila tayo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.07"
+            "EN": "They're pouring through the gaps. Steady!",
+            "TL": "Bumubuhos sila sa mga butas. Magpakatatag!"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.08"
+            "EN": "This isn't thinning out, it's growing!",
+            "TL": "Hindi sila kumokonti, lalo pang dumarami!"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.09"
+            "EN": "More rottens behind the first wave!",
+            "TL": "May mga bulok pa sa likod ng unang grupo!"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.escalated.neutral.10"
+            "EN": "We're getting boxed in. Don't stop swinging.",
+            "TL": "Naiipit na tayo. Huwag titigil sa paghataw."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.01"
+            "EN": "They're thinning out. Don't relax yet.",
+            "TL": "Kumokonti sila. Huwag munang kampante."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.02"
+            "EN": "Most of the swarm is down. Check stragglers.",
+            "TL": "Bagsak na karamihan sa kuyog. Tignan ang mga naiwan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.03"
+            "EN": "The main wave is broken. Keep scanning.",
+            "TL": "Nawasak na ang bulto. Tuloy sa pagmamasid."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.04"
+            "EN": "Fewer coming through now. Catch your breath.",
+            "TL": "Kakaunti na lang ang dumarating. Huminga muna."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.05"
+            "EN": "Herd's scattered. Clear the remaining few.",
+            "TL": "Kalat na ang kuyog. Ubusin ang natitira."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.06"
+            "EN": "We weathered the bulk of them. Stay focused.",
+            "TL": "Nalagpasan natin ang pinakamarami. Manatiling nakatutok."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.07"
+            "EN": "Numbers are dropping. Keep the pressure on.",
+            "TL": "Bumaba na ang bilang nila. Tuloy ang laban."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.08"
+            "EN": "They're losing momentum. Finish them off.",
+            "TL": "Nawawalan na sila ng pwersa. Tapusin na natin sila."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.09"
+            "EN": "Only a handful left. Watch your spacing.",
+            "TL": "Ilan-ilan na lang ang natitira. Bantayan ang distansya."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.deescalated.neutral.10"
+            "EN": "The rush is slowing down. Good work.",
+            "TL": "Bumagal na ang pagdagsa. Maganda ang ginawa natin."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.01"
+            "EN": "Horde nearby. Keep your eyes up.",
+            "TL": "May kuyog na malapit. Magmatyag tayo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.02"
+            "EN": "Large group in the vicinity. Tread quietly.",
+            "TL": "Malaking grupo sa paligid. Huwag gumawa ng ingay."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.03"
+            "EN": "There's a swarm around here. Stay cautious.",
+            "TL": "May kuyog sa lugar na 'to. Mag-ingat."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.04"
+            "EN": "I hear heavy movement outside. Watch yourself.",
+            "TL": "May naririnig akong maraming yabag sa labas. Mag-ingat."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.05"
+            "EN": "Pack of infected close by. Stay alert.",
+            "TL": "Grupo ng infected malapit dito. Maging alerto."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.06"
+            "EN": "We're near a wandering horde. Keep low.",
+            "TL": "Malapit tayo sa palakad-lakad na kuyog. Yumuko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.07"
+            "EN": "Too much shuffling out there. Keep weapons ready.",
+            "TL": "Masyadong maraming kaluskos sa labas. Ihanda ang sandata."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.08"
+            "EN": "Dead are gathering nearby. Stay on your toes.",
+            "TL": "Nagtitipon ang mga patay malapit dito. Maging handa."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.09"
+            "EN": "Horde in the area. Pick your steps carefully.",
+            "TL": "May kuyog sa paligid. Piliin nang maigi ang bawat hakbang."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.default.neutral.10"
+            "EN": "Infected swarm close. Don't make unnecessary noise.",
+            "TL": "Malapit ang kuyog ng infected. Huwag gumawa ng ingay."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.01"
+            "EN": "That's a hell of a crowd. We taking them?",
+            "TL": "Ang dami nila. Susugod ba tayo?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.02"
+            "EN": "Big group ahead. Let's carve right through them.",
+            "TL": "Malaking grupo sa unahan. Biyakin na natin sila."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.03"
+            "EN": "Look at all those targets. You ready to swing?",
+            "TL": "Tingnan mo ang dami ng target. Handa ka na bang humataw?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.04"
+            "EN": "We can take this pack. What's the call?",
+            "TL": "Kaya natin ang grupong 'to. Ano'ng desisyon?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.05"
+            "EN": "I say we clear them out right here. Ready?",
+            "TL": "Linisin na natin sila rito mismo. Handa ka na?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.06"
+            "EN": "They're packed together nicely. Time to strike.",
+            "TL": "Magkakadikit sila nang maayos. Oras na para sumugod."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.07"
+            "EN": "I've got plenty of energy. Let's drop them.",
+            "TL": "Marami pa akong lakas. Itumba na natin sila."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.08"
+            "EN": "Crowd of dead ahead. Give the word and I charge.",
+            "TL": "Kuyog ng mga patay sa unahan. Sabihin mo lang at susugod ako."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.09"
+            "EN": "We've got weapons and room. Let's do this.",
+            "TL": "May sandata at espasyo tayo. Labanan na natin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.eager.neutral.10"
+            "EN": "Let's crack some skulls. We fighting or what?",
+            "TL": "Magbasag tayo ng bungo. Lalaban ba tayo o ano?"
           }
         ]
       }
@@ -257,44 +257,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.01"
+            "EN": "God... that's a lot. Are we really fighting all of them?",
+            "TL": "Diyos ko... ang dami nila. Lalabanan talaga natin lahat 'yan?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.02"
+            "EN": "Look at the size of that crowd... can we go around?",
+            "TL": "Tingnan mo ang laki ng kuyog... pwede ba tayong umikot?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.03"
+            "EN": "They'll swarm us if we step out there. Please, let's retreat.",
+            "TL": "Kukuyugin nila tayo kapag lumabas tayo. Pakiusap, umatras tayo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.04"
+            "EN": "There are way too many... my hands are shaking.",
+            "TL": "Masyado silang marami... nanginginig ang mga kamay ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.05"
+            "EN": "We can't handle this many at once. Can we slip away?",
+            "TL": "Hindi natin kaya ang ganyan karami nang sabay. Pwede bang tumakas?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.06"
+            "EN": "Jesus, don't shoot... they'll tear us apart.",
+            "TL": "Diyos ko, huwag kang puputok... pupunitin nila tayo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.07"
+            "EN": "Are we seriously thinking of fighting that horde?",
+            "TL": "Seryoso ba tayong lalabanan ang kuyog na 'yan?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.08"
+            "EN": "I don't think we survive that fight. Let's run.",
+            "TL": "Sa tingin ko hindi tayo mabubuhay sa laban na 'yan. Tumakbo na tayo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.09"
+            "EN": "Too many rottens... what do you want to do?",
+            "TL": "Masyadong maraming bulok... ano'ng gusto mong gawin?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.shaken.neutral.10"
+            "EN": "That swarm is terrifying. Tell me we're bypassing it.",
+            "TL": "Nakakatakot ang kuyog na 'yan. Sabihin mong iiwasan natin."
           }
         ]
       }
@@ -305,44 +305,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.01"
+            "EN": "Horde ahead. Engage or go around?",
+            "TL": "May kuyog sa unahan. Lalaban o iiwas?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.02"
+            "EN": "Crowd spotted. Call it.",
+            "TL": "May nakitang grupo. Desisyunan mo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.03"
+            "EN": "Massed dead. Fight or bypass?",
+            "TL": "Nagtitipong mga patay. Lalabanan o lalagpasan?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.04"
+            "EN": "Swarm blocking route. Your call.",
+            "TL": "Harang ang kuyog sa daan. Ikaw ang masusunod."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.05"
+            "EN": "Large group. Stand and fight or slip past?",
+            "TL": "Malaking grupo. Tatayo at lalaban o lulusot?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.06"
+            "EN": "Herd ahead. Make a choice.",
+            "TL": "Kawan sa harap. Pumili ka."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.07"
+            "EN": "Horde present. Direct us.",
+            "TL": "May kuyog dito. Pangunahan mo kami."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.08"
+            "EN": "Too many in the open. Do we push or turn?",
+            "TL": "Masyadong marami sa bukas na lugar. Susulong o liliko?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.09"
+            "EN": "Mass contacts. Decision?",
+            "TL": "Maraming kalaban. Ano'ng pasya?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.reserved.neutral.10"
+            "EN": "Herd in path. Fight or avoid?",
+            "TL": "May kuyog sa dinaraanan. Laban o iwas?"
           }
         ]
       }
@@ -353,44 +353,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.01"
+            "EN": "That's a lot of them. We fighting or going around?",
+            "TL": "Ang dami nila. Lalaban ba tayo o iiwas?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.02"
+            "EN": "Big swarm ahead. What's the plan?",
+            "TL": "Malaking kuyog sa unahan. Ano'ng plano?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.03"
+            "EN": "Whole herd in our way. Do we push through or find another path?",
+            "TL": "Buong kawan ang nakaharang. Susugod ba tayo o maghahanap ng ibang daan?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.04"
+            "EN": "Look at the street. Are we engaging or avoiding?",
+            "TL": "Tingnan mo ang kalsada. Lalabanan ba natin o iiwasan?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.05"
+            "EN": "Infected group is large. How do you want to handle this?",
+            "TL": "Malaki ang grupo ng infected. Paano mo gustong harapin 'to?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.06"
+            "EN": "Crowd ahead of us. Should we fight or sneak past?",
+            "TL": "May mga patay sa harap natin. Lalaban ba tayo o lulusot nang tahimik?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.07"
+            "EN": "There's quite a crowd. What are we doing?",
+            "TL": "Medyo marami sila. Ano'ng gagawin natin?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.08"
+            "EN": "They're blocking the lane. Do we clear them or detour?",
+            "TL": "Harang sila sa daan. Lilinisin ba natin o iikot tayo?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.09"
+            "EN": "Horde right in front. What do you want to do?",
+            "TL": "Kuyog mismo sa harap. Ano'ng gusto mong gawin?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.prompt.default.neutral.10"
+            "EN": "That's more than a few. Engage or back off?",
+            "TL": "Higit pa sa iilan 'yan. Susugod o aatras?"
           }
         ]
       }
@@ -401,44 +401,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.01"
+            "EN": "Take them.",
+            "TL": "Sugurin natin."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.02"
+            "EN": "We fight. Weapons up.",
+            "TL": "Lalaban tayo. Itaas ang sandata."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.03"
+            "EN": "Engage. Clear them all.",
+            "TL": "Sugod. Ubusin silang lahat."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.04"
+            "EN": "Stand and fight. Don't break line.",
+            "TL": "Tumayo at lumaban. Huwag sirain ang linya."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.05"
+            "EN": "Let's take them down right here.",
+            "TL": "Itumba na natin sila rito mismo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.06"
+            "EN": "Strike now. Watch each other's sides.",
+            "TL": "Tira na ngayon. Bantayan ang gilid ng isa't isa."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.07"
+            "EN": "We're clearing this herd. Let's go.",
+            "TL": "Lilinisin natin ang kuyog na 'to. Tara."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.08"
+            "EN": "Cut them down one by one.",
+            "TL": "Hiwain sila isa-isa."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.09"
+            "EN": "Fight through them. Forward.",
+            "TL": "Lusubin natin sila. Pasulong."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.engage.neutral.10"
+            "EN": "Take the fight to them.",
+            "TL": "Harapin natin ang laban."
           }
         ]
       }
@@ -449,44 +449,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.01"
+            "EN": "Go around.",
+            "TL": "Umikot tayo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.02"
+            "EN": "Bypass them. Stay quiet.",
+            "TL": "Lalagpasan natin sila. Huwag mag-ingay."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.03"
+            "EN": "Find another route. Don't draw them.",
+            "TL": "Maghanap ng ibang ruta. Huwag silang akitin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.04"
+            "EN": "Circle wide. Keep in the shadows.",
+            "TL": "Umikot nang malayo. Manatili sa dilim."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.05"
+            "EN": "Not worth the ammo. Move around.",
+            "TL": "Sayang ang bala. Umiwas na lang."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.06"
+            "EN": "Detour through the alley. Quietly.",
+            "TL": "Daan tayo sa eskinita. Nang tahimik."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.07"
+            "EN": "We sneak past. Crouch and move.",
+            "TL": "Lulusot tayo nang lihim. Yumuko at lumakad."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.08"
+            "EN": "Leave them be. Take the back way.",
+            "TL": "Hayaan sila roon. Daan tayo sa likod."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.09"
+            "EN": "Avoid contact. Step carefully.",
+            "TL": "Iwasan ang engkwentro. Mag-ingat sa bawat hakbang."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.avoid.neutral.10"
+            "EN": "Back out and take the alternate street.",
+            "TL": "Atras muna at dumaan sa kabilang kalsada."
           }
         ]
       }
@@ -497,44 +497,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.01"
+            "EN": "Hold for now.",
+            "TL": "Hinto muna."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.02"
+            "EN": "Stay put. Watch their movement.",
+            "TL": "Diyan lang. Bantayan ang galaw nila."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.03"
+            "EN": "Hold position and let them pass.",
+            "TL": "Hawakan ang pwesto at hayaang lumampas sila."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.04"
+            "EN": "Wait here. Don't make a sound.",
+            "TL": "Maghintay rito. Huwag gagawa ng tunog."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.05"
+            "EN": "Hold up. See which way they drift.",
+            "TL": "Tigil muna. Tignan kung saan sila papunta."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.06"
+            "EN": "Freeze. Don't reveal our position.",
+            "TL": "Huwag gagalaw. Huwag ilantad ang pwesto natin."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.07"
+            "EN": "Keep low and hold here.",
+            "TL": "Yumuko at manatili rito."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.08"
+            "EN": "Stay behind cover for a moment.",
+            "TL": "Manatili sa kublihan sandali."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.09"
+            "EN": "Hold the line. Wait for the signal.",
+            "TL": "Hawakan ang linya. Hintayin ang senyas."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.horde.choice.hold.neutral.10"
+            "EN": "Wait and observe before moving.",
+            "TL": "Maghintay at magmasid bago kumilos."
           }
         ]
       }

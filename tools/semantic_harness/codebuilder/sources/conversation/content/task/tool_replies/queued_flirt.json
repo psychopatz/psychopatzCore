@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.queued.flirt",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.01"
+            "EN": "I heard you.",
+            "TL": "Narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.02"
+            "EN": "I heard that little remark.",
+            "TL": "Narinig ko ang maikling linyang 'yon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.03"
+            "EN": "Caught that.",
+            "TL": "Nahuli ko 'yon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.04"
+            "EN": "I heard what you whispered.",
+            "TL": "Narinig ko ang ibinulong mo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.05"
+            "EN": "Message heard.",
+            "TL": "Narinig ang mensahe."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.06"
+            "EN": "I hear where your head is at.",
+            "TL": "Naririnig ko kung ano ang iniisip mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.07"
+            "EN": "Got that loud and clear.",
+            "TL": "Nakuha 'yon nang malakas at malinaw."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.08"
+            "EN": "I heard you just fine.",
+            "TL": "Narinig kita nang maayos."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.09"
+            "EN": "Heard you. Don't think I missed it.",
+            "TL": "Narinig kita. Huwag mong isiping pinalampas ko."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.1.neutral.10"
+            "EN": "I caught that flirt.",
+            "TL": "Nakuha ko ang pambobolang 'yon."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.01"
+            "EN": "You are bold, I will give you that.",
+            "TL": "Matapang ka, aaminin ko iyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.02"
+            "EN": "You certainly don't lack nerve.",
+            "TL": "Talagang hindi ka kulang sa lakas ng loob."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.03"
+            "EN": "Bold move talking like that out here.",
+            "TL": "Matapang na hakbang ang magsalita nang ganyan dito."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.04"
+            "EN": "You have plenty of confidence, I'll say that.",
+            "TL": "Marami kang tiwala sa sarili, aaminin ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.05"
+            "EN": "That's quite a forward thing to say.",
+            "TL": "Medyo mapangahas ang linyang 'yan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.06"
+            "EN": "You certainly know how to shoot your shot.",
+            "TL": "Marunong ka talagang sumubok ng diskarte mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.07"
+            "EN": "Bold words for someone in danger.",
+            "TL": "Matatapang na salita para sa taong nasa panganib."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.08"
+            "EN": "I admire the guts, if nothing else.",
+            "TL": "Hanga ako sa tapang mo, kahit 'yon man lang."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.09"
+            "EN": "You're definitely not shy.",
+            "TL": "Talagang hindi ka mahiyain."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_flirt.2.neutral.10"
+            "EN": "You like living dangerously, don't you?",
+            "TL": "Gusto mo talagang sumugal sa delikado, 'no?"
           }
         ]
       }

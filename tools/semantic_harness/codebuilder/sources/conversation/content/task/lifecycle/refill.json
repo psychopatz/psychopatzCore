@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.lifecycle.refill",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.01"
+            "EN": "Refilling the container now.",
+            "TL": "Nilalagyan ng laman ang lalagyan ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.02"
+            "EN": "Currently filling up on water.",
+            "TL": "Kasalukuyang nagpapasok ng tubig."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.03"
+            "EN": "Topping off the fluids right now.",
+            "TL": "Pinupuno ang inumin ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.04"
+            "EN": "Working on refilling the bottle.",
+            "TL": "Pinupuno ang bote."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.05"
+            "EN": "Gathering water into the container.",
+            "TL": "Kumukuha ng tubig sa lalagyan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.06"
+            "EN": "In the middle of refilling.",
+            "TL": "Kasalukuyang nagpupuno."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.07"
+            "EN": "Refilling as instructed.",
+            "TL": "Nagpupuno ayon sa utos."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.08"
+            "EN": "Collecting clean water now.",
+            "TL": "Kumukuha ng malinis na tubig ngayon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.09"
+            "EN": "Topping it up. Give me a moment.",
+            "TL": "Pinupuno ito. Sandali lang."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.refill.active.neutral.10"
+            "EN": "Refill in progress.",
+            "TL": "Kasalukuyang nagpupuno."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.01"
+            "EN": "I'll refill that.",
+            "TL": "Lalagyan ko ng laman iyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.02"
+            "EN": "Understood. Topping up the water supply.",
+            "TL": "Naintindihan. Pupunuin ang supply ng tubig."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.03"
+            "EN": "I'll go get the bottles filled.",
+            "TL": "Pupunta ako para punuin ang mga bote."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.04"
+            "EN": "All right, refilling the containers.",
+            "TL": "Sige, pupunuin ang mga lalagyan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.05"
+            "EN": "Good call. We need full canteens.",
+            "TL": "Magandang paalala. Kailangan natin ng punong sisidlan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.06"
+            "EN": "I'll take it to the water source.",
+            "TL": "Dadalhin ko sa pinagkukunan ng tubig."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.07"
+            "EN": "Understood. Refilling immediately.",
+            "TL": "Naiintindihan ko. Pupunuin agad."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.08"
+            "EN": "Right. Getting fresh water.",
+            "TL": "Sige. Kukuha ng sariwang tubig."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.09"
+            "EN": "I'll refill what's empty.",
+            "TL": "Pupunuin ko ang walang laman."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.refill.admitted.neutral.10"
+            "EN": "Sounds good. Heading to refill.",
+            "TL": "Maganda 'yan. Pupunta para magpuno."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.01"
+            "EN": "All topped off. Container is full.",
+            "TL": "Puno na lahat. Punong-puno ang lalagyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.02"
+            "EN": "Refill complete. Ready for the road.",
+            "TL": "Tapos na ang pagpuno. Handa na sa paglakad."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.03"
+            "EN": "Finished refilling with clean water.",
+            "TL": "Tapos nang lagyan ng malinis na tubig."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.04"
+            "EN": "Bottles are full again.",
+            "TL": "Puno na muli ang mga bote."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.05"
+            "EN": "Task done. Plenty of water now.",
+            "TL": "Tapos na ang gawain. Marami nang tubig ngayon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.06"
+            "EN": "Refilled and secured.",
+            "TL": "Napuno na at naselyuhan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.07"
+            "EN": "Canteens are full. Good work.",
+            "TL": "Puno na ang mga sisidlan. Magaling."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.08"
+            "EN": "All filled up.",
+            "TL": "Puno na ang lahat."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.09"
+            "EN": "Water refilled successfully.",
+            "TL": "Matagumpay na nalagyan ng tubig."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.refill.completed.neutral.10"
+            "EN": "Completed refilling the supply.",
+            "TL": "Natapos ang pagpuno sa supply."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.01"
+            "EN": "I couldn't refill that.",
+            "TL": "Hindi ko nalagyan ng laman iyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.02"
+            "EN": "The water source was dry or cut off.",
+            "TL": "Tuyot o putol ang pinagkukunan ng tubig."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.03"
+            "EN": "Failed to refill. Water was contaminated.",
+            "TL": "Bigo sa pagpuno. Kontaminado ang tubig."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.04"
+            "EN": "I was interrupted while trying to gather water.",
+            "TL": "Naabala ako habang sumusubok kumuha ng tubig."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.05"
+            "EN": "Unable to find a functional water tap.",
+            "TL": "Walang makitang gumaganang gripo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.06"
+            "EN": "Container is damaged or cracked. Refill failed.",
+            "TL": "May basag ang lalagyan. Pumalpak ang pagpuno."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.07"
+            "EN": "Couldn't reach the source safely.",
+            "TL": "Di maabot ang pinagkukunan nang ligtas."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.08"
+            "EN": "Hostiles near the water source. Refill aborted.",
+            "TL": "May kalaban malapit sa tubig. Itinigil ang pagpuno."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.09"
+            "EN": "Action failed. Bottle still empty.",
+            "TL": "Bigo ang kilos. Walang laman pa rin ang bote."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.refill.failed.neutral.10"
+            "EN": "Could not refill container.",
+            "TL": "Hindi napuno ang lalagyan."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.01"
+            "EN": "I can't refill that right now.",
+            "TL": "Hindi ko malalagyan ng laman iyon ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.02"
+            "EN": "There is no known clean water source nearby.",
+            "TL": "Walang kilalang malinis na tubig sa malapit."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.03"
+            "EN": "The container is already completely full.",
+            "TL": "Puno na ang lalagyan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.04"
+            "EN": "Too exposed to stand around pumping water.",
+            "TL": "Masyadong lantad para magbomba ng tubig."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.05"
+            "EN": "I won't approach that water source. It's a death trap.",
+            "TL": "Di ako lalapit sa tubig na 'yan. Bitag 'yan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.06"
+            "EN": "Can't refill. No suitable vessel available.",
+            "TL": "Di makapagpuno. Walang angkop na sisidlan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.07"
+            "EN": "Refill order rejected. Bad timing.",
+            "TL": "Tinatanggihan ang pagpuno. Maling oras."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.08"
+            "EN": "Water is tainted there. I refuse to collect it.",
+            "TL": "Marumi ang tubig doon. Tumatanggi akong kumuha."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.09"
+            "EN": "We need to deal with threats before refilling.",
+            "TL": "Harapin muna natin ang banta bago magpuno."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.refill.rejected.neutral.10"
+            "EN": "I can't refill that under current danger.",
+            "TL": "Di ko malalagyan 'yan sa gitna ng panganib."
           }
         ]
       }

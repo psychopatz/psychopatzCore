@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.tool.replies.relationship",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.01"
+            "EN": "We are not there yet.",
+            "TL": "Hindi pa tayo dumarating sa puntong iyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.02"
+            "EN": "Slow down. We need more time before that.",
+            "TL": "Dahan-dahan lang. Kailangan pa natin ng panahon bago 'yan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.03"
+            "EN": "Let us take things one step at a time.",
+            "TL": "Isa-isa lang nating harapin ang mga bagay."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.04"
+            "EN": "Trust takes time out here. We are not there yet.",
+            "TL": "Ang tiwala ay pinaghihirapan dito. Hindi pa tayo nandoon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.05"
+            "EN": "We are still figuring each other out.",
+            "TL": "Kinikilala pa natin ang isa't isa."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.06"
+            "EN": "Hold on. That is moving faster than I am ready for.",
+            "TL": "Teka muna. Mas mabilis 'yan kaysa sa kaya ko ngayon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.07"
+            "EN": "Let us build some history first.",
+            "TL": "Bumuo muna tayo ng tiwala at pinagsamahan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.08"
+            "EN": "I need to know you better before we go there.",
+            "TL": "Kailangan muna kitang makilala pa bago pumunta roon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.09"
+            "EN": "Not yet. Let us keep our feet on the ground.",
+            "TL": "Hindi pa ngayon. Manatili muna tayong nakatuntong sa lupa."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.1.neutral.10"
+            "EN": "We are allies right now. Let us leave it at that.",
+            "TL": "Magkakampi tayo sa ngayon. Manatili muna tayo roon."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.01"
+            "EN": "That is a little too familiar for us.",
+            "TL": "Masyado nang pamilyar 'yan para sa atin."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.02"
+            "EN": "You are getting ahead of where we stand.",
+            "TL": "Nauuna ka sa kung ano lang ang ugnayan natin."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.03"
+            "EN": "Let us keep a professional distance for now.",
+            "TL": "Panatilihin muna natin ang maayos na distansya."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.04"
+            "EN": "We have not earned that kind of closeness yet.",
+            "TL": "Hindi pa natin nararating ang ganyang kalapit na samahan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.05"
+            "EN": "Pull back a step. That is too close for comfort.",
+            "TL": "Umatras ka nang kaunti. Masyadong malapit 'yan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.06"
+            "EN": "I like you, but do not push the boundaries.",
+            "TL": "Mabuti ang tingin ko sa 'yo, pero huwag mong tawirin ang hangganan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.07"
+            "EN": "That feels a bit presumptuous.",
+            "TL": "Medyo mapangahas ang dating niyan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.08"
+            "EN": "Let us not pretend we are closer than we actually are.",
+            "TL": "Huwag nating ipagpanggap na mas malapit tayo kaysa sa totoo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.09"
+            "EN": "Boundary check. Step it back.",
+            "TL": "Bantayan ang hangganan. Umatras ka nang kaunti."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.relationship.2.neutral.10"
+            "EN": "We have boundaries. Respect them.",
+            "TL": "May mga hangganan tayo. Igalang mo ang mga 'yon."
           }
         ]
       }

@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.emotes.player",
   "kind": "content",
   "domain": "social",
@@ -17,16 +17,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.player.clap.neutral.01"
+            "EN": "Well done, {names}.",
+            "TL": "Magaling, {names}."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.player.clap.neutral.02"
+            "EN": "That's worth celebrating, {names}.",
+            "TL": "Karapat-dapat ipagdiwang iyan, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.player.clap.neutral.03"
+            "EN": "Nice work, {names}.",
+            "TL": "Mahusay na trabaho, {names}."
           }
         ]
       }
@@ -37,16 +37,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.player.insult.neutral.01"
+            "EN": "Back off, {names}.",
+            "TL": "Lumayo ka, {names}."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.player.insult.neutral.02"
+            "EN": "You're asking for trouble, {names}.",
+            "TL": "Naghahanap ka ng gulo, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.player.insult.neutral.03"
+            "EN": "Keep your distance, {names}.",
+            "TL": "Panatilihin ang distansya, {names}."
           }
         ]
       }
@@ -57,16 +57,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.player.salute.neutral.01"
+            "EN": "Respect, {names}.",
+            "TL": "Paggalang, {names}."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.player.salute.neutral.02"
+            "EN": "I see you, {names}.",
+            "TL": "Nakikita kita, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.player.salute.neutral.03"
+            "EN": "Stay sharp, {names}.",
+            "TL": "Manatiling alerto, {names}."
           }
         ]
       }
@@ -77,16 +77,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.player.thankyou.neutral.01"
+            "EN": "Thanks, {names}.",
+            "TL": "Salamat, {names}."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.player.thankyou.neutral.02"
+            "EN": "I appreciate that, {names}.",
+            "TL": "Pinahahalagahan ko iyan, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.player.thankyou.neutral.03"
+            "EN": "You have my thanks, {names}.",
+            "TL": "Salamat sa iyo, {names}."
           }
         ]
       }
@@ -97,16 +97,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.player.thumbsdown.neutral.01"
+            "EN": "No. That's not good enough, {names}.",
+            "TL": "Hindi. Hindi sapat iyan, {names}."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.player.thumbsdown.neutral.02"
+            "EN": "I don't like that, {names}.",
+            "TL": "Hindi ko gusto iyan, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.player.thumbsdown.neutral.03"
+            "EN": "Try again, {names}.",
+            "TL": "Subukan muli, {names}."
           }
         ]
       }
@@ -117,16 +117,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.player.thumbsup.neutral.01"
+            "EN": "Good work, {names}.",
+            "TL": "Mahusay, {names}."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.player.thumbsup.neutral.02"
+            "EN": "That's what I like to see, {names}.",
+            "TL": "Iyan ang gusto kong makita, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.player.thumbsup.neutral.03"
+            "EN": "Keep it up, {names}.",
+            "TL": "Ipagpatuloy mo, {names}."
           }
         ]
       }
@@ -137,16 +137,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.player.wavebye.neutral.01"
+            "EN": "Take care, {names}.",
+            "TL": "Mag-ingat, {names}."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.player.wavebye.neutral.02"
+            "EN": "See you around, {names}.",
+            "TL": "Kita tayo, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.player.wavebye.neutral.03"
+            "EN": "Stay safe, {names}.",
+            "TL": "Manatiling ligtas, {names}."
           }
         ]
       }
@@ -157,16 +157,16 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.player.wavehi.neutral.01"
+            "EN": "Hey, {names}.",
+            "TL": "Uy, {names}."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.player.wavehi.neutral.02"
+            "EN": "Good to see you, {names}.",
+            "TL": "Mabuti at nakita kita, {names}."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.player.wavehi.neutral.03"
+            "EN": "Morning, {names}.",
+            "TL": "Magandang umaga, {names}."
           }
         ]
       }

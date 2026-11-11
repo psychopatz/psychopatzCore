@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.tool.replies.personality",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.01"
+            "EN": "That is just how I am wired.",
+            "TL": "Ganyan talaga ang pagkakagawa sa akin."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.02"
+            "EN": "Take me or leave me, that is who I am.",
+            "TL": "Tanggapin mo man o hindi, 'yan talaga ako."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.03"
+            "EN": "I have always been like this. It keeps me alive.",
+            "TL": "Matagal na akong ganito. Nakatulong 'to para mabuhay ako."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.04"
+            "EN": "Not going to apologize for how I operate.",
+            "TL": "Hindi ako hihingi ng tawad sa kung paano ako kumilos."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.05"
+            "EN": "Everyone is built differently out here.",
+            "TL": "Iba-iba ang hubog ng bawat isa rito."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.06"
+            "EN": "It is what it is. I am not changing overnight.",
+            "TL": "Ganoon talaga. Hindi ako magbabago nang biglaan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.07"
+            "EN": "That is just my nature.",
+            "TL": "Kaugalian ko na talaga 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.08"
+            "EN": "I am too old to pretend to be someone else.",
+            "TL": "Masyado na akong matanda para magpanggap na iba."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.09"
+            "EN": "Like it or not, this is me.",
+            "TL": "Gusto mo man o hindi, ako ito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.1.neutral.10"
+            "EN": "I do things my own way. Has not failed me yet.",
+            "TL": "Kanya-kanyang diskarte. Hindi pa naman ako binibigo nito."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.01"
+            "EN": "The world changed. I changed with it.",
+            "TL": "Nagbago ang mundo. Nagbago rin ako kasabay nito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.02"
+            "EN": "You adapt or you end up dead. This is who I had to become.",
+            "TL": "Makibagay ka o mamamatay ka. Ito ang kinailangan kong kahinatnan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.03"
+            "EN": "Survival hardens people. I am no exception.",
+            "TL": "Nagpapatigas ng loob ang kaligtasan. Hindi ako naiiba roon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.04"
+            "EN": "I used to be different before all this fell apart.",
+            "TL": "Iba ako dati bago gumuho ang lahat ng ito."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.05"
+            "EN": "You learn to live with who you become out here.",
+            "TL": "Matututo kang mamuhay kasama ang taong kinahinatnan mo rito."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.06"
+            "EN": "This world does not leave much room for soft edges.",
+            "TL": "Walang puwang sa mundong ito ang labis na lambot."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.07"
+            "EN": "I became what I needed to be to see tomorrow.",
+            "TL": "Naging kung ano ang kinailangan para makita ang bukas."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.08"
+            "EN": "We are all shaped by what we had to survive.",
+            "TL": "Nahubog tayong lahat sa mga pinagdaanan nating hirap."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.09"
+            "EN": "Hard times make hard survivors.",
+            "TL": "Ang mahihirap na panahon ay gumagawa ng matitibay na tao."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.personality.2.neutral.10"
+            "EN": "I did what I had to. It made me who I am now.",
+            "TL": "Ginawa ko ang kinailangan. Iyon ang bumuo sa akin ngayon."
           }
         ]
       }

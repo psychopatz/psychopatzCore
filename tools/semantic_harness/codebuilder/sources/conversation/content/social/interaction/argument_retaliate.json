@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.interaction.argument.retaliate",
   "kind": "content",
   "domain": "social",
@@ -17,170 +17,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.01"
+            "EN": "Say that again and see how far it gets you.",
+            "TL": "Sabihin mo ulit at tingnan natin kung saan ka aabot."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.02"
+            "EN": "You want to push this? I will push back harder.",
+            "TL": "Gusto mong isagad ito? Mas malakas akong gaganti."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.03"
+            "EN": "Don't make threats you can't survive.",
+            "TL": "Huwag kang magbanta ng hindi mo kayang maligtasan."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.04"
+            "EN": "Try me. See what happens to you.",
+            "TL": "Subukan mo ako. Tingnan mo kung anong mangyayari sa 'yo."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.05"
+            "EN": "You're digging your own grave with that talk.",
+            "TL": "Hinuhukay mo ang sarili mong libingan sa salitang 'yan."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.06"
+            "EN": "Keep running that mouth and find out.",
+            "TL": "Sige, magpatuloy ka sa kadadaldal at nang malaman mo."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.07"
+            "EN": "I'm not the one to mess with out here.",
+            "TL": "Hindi ako ang taong dapat mong ginagalit dito."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.08"
+            "EN": "Push one more inch and we have bloodshed.",
+            "TL": "Sumulong ka pa nang isang pulgada at magkakadugo."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.09"
+            "EN": "Say it one more time. I dare you.",
+            "TL": "Ulitin mo pa nang isang beses. Hinahamon kita."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.guarded.10"
+            "EN": "You will regret crossing me.",
+            "TL": "Pagsisisihan mo ang pagbangga sa akin."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.01"
+            "EN": "You're really testing me right now.",
+            "TL": "Talagang sinusubok mo ang pasensya ko ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.02"
+            "EN": "Don't push your luck any further.",
+            "TL": "Huwag mo nang isugal pa ang suwerte mo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.03"
+            "EN": "You're out of line, and I won't stand for it.",
+            "TL": "Sumusobra ka na, at hindi ako papayag diyan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.04"
+            "EN": "You started this, but I'll finish it if I have to.",
+            "TL": "Ikaw ang nagsimula, pero tatapusin ko kung kailangan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.05"
+            "EN": "You're making a massive mistake talking to me like that.",
+            "TL": "Napakalaking pagkakamali ang kausapin ako nang ganyan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.06"
+            "EN": "Think very carefully about what you say next.",
+            "TL": "Pag-isipan mong mabuti ang susunod mong sasabihin."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.07"
+            "EN": "I've had about enough of your disrespect.",
+            "TL": "Sapat na ang pambabastos mo sa akin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.08"
+            "EN": "You're crossing a boundary you can't walk back.",
+            "TL": "Tumatawid ka sa hangganang hindi mo na mababawi."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.09"
+            "EN": "Back down before this escalates completely.",
+            "TL": "Umatras ka bago pa tuluyang magkagulo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.neutral.10"
+            "EN": "I'm answering in kind: knock it off.",
+            "TL": "Sasagutin kita nang patas: itigil mo na 'yan."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.01"
+            "EN": "Keep talking.",
+            "TL": "Sige, magsalita ka pa."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.02"
+            "EN": "Try it.",
+            "TL": "Subukan mo."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.03"
+            "EN": "Dare you.",
+            "TL": "Hamon ko sa 'yo."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.04"
+            "EN": "Push me.",
+            "TL": "Itulak mo ako."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.05"
+            "EN": "Wrong move.",
+            "TL": "Maling hakbang."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.06"
+            "EN": "Big mistake.",
+            "TL": "Malaking pagkakamali."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.07"
+            "EN": "Last chance.",
+            "TL": "Huling pagkakataon."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.08"
+            "EN": "Bring it.",
+            "TL": "Sige, ilabas mo."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.09"
+            "EN": "Don't test me.",
+            "TL": "Huwag mo akong subukan."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.terse.10"
+            "EN": "Watch yourself.",
+            "TL": "Mag-ingat ka."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.01"
+            "EN": "You're pushing this too far.",
+            "TL": "Sobra na ang ginagawa mo."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.02"
+            "EN": "I've been patient with you, but you're crossing the line.",
+            "TL": "Matiisin ako sa 'yo, pero lumalagpas ka na."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.03"
+            "EN": "Don't make me treat you like a stranger.",
+            "TL": "Huwag mo akong piliting tratuhin ka na parang estranghero."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.04"
+            "EN": "I didn't think you would turn on me like this.",
+            "TL": "Di ko akalaing kakalabanin mo ako nang ganito."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.05"
+            "EN": "You're hurting someone who actually cared about you.",
+            "TL": "Sinasaktan mo ang taong may tunay na malasakit sa 'yo."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.06"
+            "EN": "Stop pushing me away with this cruelty.",
+            "TL": "Tigilan mo ang pagtataboy sa akin gamit ang lupit na 'yan."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.07"
+            "EN": "If you keep attacking me, I will protect myself.",
+            "TL": "Kung patuloy mo akong aatakihin, ipagtatanggol ko ang sarili ko."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.08"
+            "EN": "You're throwing our bond away right in front of me.",
+            "TL": "Itinatapon mo ang samahan natin mismo sa harap ko."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.09"
+            "EN": "I expected better from you. Don't push me further.",
+            "TL": "Umasa ako ng mas maayos sa 'yo. Huwag mo na akong itulak."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.argument.retaliate.warm.10"
+            "EN": "Check yourself. I won't just stand here and take abuse.",
+            "TL": "Ayusin mo sarili mo. Di ako tatayo lang dito para magpaabuso."
           }
         ]
       }

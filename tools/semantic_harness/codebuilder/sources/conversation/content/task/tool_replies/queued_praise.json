@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.queued.praise",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.01"
+            "EN": "I hear you.",
+            "TL": "Narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.02"
+            "EN": "I hear your praise.",
+            "TL": "Naririnig ko ang papuri mo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.03"
+            "EN": "Heard and appreciated.",
+            "TL": "Narinig at pinahahalagahan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.04"
+            "EN": "I hear what you said about my work.",
+            "TL": "Narinig ko ang sinabi mo sa trabaho ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.05"
+            "EN": "Got that positive feedback.",
+            "TL": "Nakuha ko ang magandang puna."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.06"
+            "EN": "I hear you clearly. Thanks.",
+            "TL": "Naririnig kita nang malinaw. Salamat."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.07"
+            "EN": "Praise heard. Good to know.",
+            "TL": "Narinig ang papuri. Mabuting malaman."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.08"
+            "EN": "I hear the support.",
+            "TL": "Naririnig ko ang suporta."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.09"
+            "EN": "Heard. Glad to help.",
+            "TL": "Narinig. Masayang tumulong."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.1.neutral.10"
+            "EN": "I hear you. We did good.",
+            "TL": "Narinig kita. Maganda ang nagawa natin."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.01"
+            "EN": "I will remember that.",
+            "TL": "Tandaan ko iyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.02"
+            "EN": "I'll keep that positive note in mind.",
+            "TL": "Isasaisip ko ang magandang sinabi mo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.03"
+            "EN": "I won't forget that you recognized my effort.",
+            "TL": "Di ko malilimutan na kinilala mo ang pagod ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.04"
+            "EN": "That will stay with me. Thanks.",
+            "TL": "Mananatili sa akin 'yan. Salamat."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.05"
+            "EN": "I'll remember you said that when times get tough.",
+            "TL": "Tandaan ko 'yan kapag naging mahirap ang panahon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.06"
+            "EN": "Remembered and valued.",
+            "TL": "Tanda ko at pinahahalagahan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.07"
+            "EN": "I will hold onto that praise.",
+            "TL": "Iingatan ko ang papuring 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.08"
+            "EN": "That sticks in my memory. Thank you.",
+            "TL": "Tumatatak 'yan sa alaala ko. Salamat."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.09"
+            "EN": "I'll remember your good words.",
+            "TL": "Tatandaan ko ang mabubuti mong salita."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_praise.2.neutral.10"
+            "EN": "Noted in my heart. Thanks.",
+            "TL": "Nakatatak sa puso ko. Salamat."
           }
         ]
       }

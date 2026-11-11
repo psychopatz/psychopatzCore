@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.order.stay",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.01"
+            "EN": "All right. I will hold here.",
+            "TL": "Sige. Hahawakan ko ang pwesto rito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.02"
+            "EN": "Holding position right here.",
+            "TL": "Hawak ko ang pwestong ito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.03"
+            "EN": "Understood. Guarding this spot.",
+            "TL": "Naintindihan. Babantayan ang pwestong ito."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.04"
+            "EN": "I will remain right where I am.",
+            "TL": "Mananatili ako kung nasaan ako."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.05"
+            "EN": "Holding ground as ordered.",
+            "TL": "Hawak ang lupa ayon sa utos."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.06"
+            "EN": "Understood. I won't move an inch.",
+            "TL": "Naiintindihan ko. Di ako aalis kahit isang pulgada."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.07"
+            "EN": "Standing watch right here.",
+            "TL": "Nakatayong bantay dito mismo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.08"
+            "EN": "I'll keep this position secure.",
+            "TL": "Pananatilihing ligtas ang posisyong ito."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.09"
+            "EN": "Holding here. Watch yourself out there.",
+            "TL": "Dito lang ako. Mag-ingat ka sa labas."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.1.neutral.10"
+            "EN": "Stay order confirmed. Holding ground.",
+            "TL": "Kumpirmadong utos na manatili. Hawak ang lupa."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.01"
+            "EN": "I will stay put.",
+            "TL": "Dito lang ako."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.02"
+            "EN": "Staying put until you return.",
+            "TL": "Mananatili rito hanggang sa makabalik ka."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.03"
+            "EN": "Not moving from this spot.",
+            "TL": "Hindi aalis sa pwestong ito."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.04"
+            "EN": "I'll keep my boots planted right here.",
+            "TL": "Nakatuntong ang bota ko rito mismo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.05"
+            "EN": "Staying put. Hurry back.",
+            "TL": "Dito lang ako. Bumalik ka agad."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.06"
+            "EN": "Understood. I will wait right here.",
+            "TL": "Naintindihan. Maghihintay ako rito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.07"
+            "EN": "Rooted to this spot. Go ahead.",
+            "TL": "Nakatigil sa pwestong ito. Sige na."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.08"
+            "EN": "Staying put and watching the area.",
+            "TL": "Nananatili rito at nagmamasid sa lugar."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.09"
+            "EN": "I'll stay right where you left me.",
+            "TL": "Dito lang ako kung saan mo ako iniwan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_stay.2.neutral.10"
+            "EN": "Holding still in this position.",
+            "TL": "Nakahinto sa posisyong ito."
           }
         ]
       }

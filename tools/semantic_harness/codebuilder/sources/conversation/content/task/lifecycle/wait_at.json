@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.lifecycle.wait.at",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.01"
+            "EN": "Waiting here now.",
+            "TL": "Naghihintay na ako rito ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.02"
+            "EN": "Currently holding position and waiting.",
+            "TL": "Kasalukuyang nakapwesto at naghihintay."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.03"
+            "EN": "Standing by at the designated spot.",
+            "TL": "Nakahanda sa itinalagang pwesto."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.04"
+            "EN": "Waiting at this location as ordered.",
+            "TL": "Naghihintay sa lugar na ito ayon sa utos."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.05"
+            "EN": "Keeping watch while waiting right here.",
+            "TL": "Nagbabantay habang naghihintay dito mismo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.06"
+            "EN": "Holding at the marker.",
+            "TL": "Hawak ang pwesto sa marka."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.07"
+            "EN": "Waiting quietly. Eyes open.",
+            "TL": "Naghihintay nang tahimik. Bukas ang mga mata."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.08"
+            "EN": "In position and waiting.",
+            "TL": "Nasa pwesto at naghihintay."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.09"
+            "EN": "Stationary at the post.",
+            "TL": "Nakatigil sa posteng ito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.wait_at.active.neutral.10"
+            "EN": "Waiting here. Take your time.",
+            "TL": "Naghihintay rito. Huwag magmadali."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.01"
+            "EN": "Okay, I'll wait there.",
+            "TL": "Sige, maghihintay ako roon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.02"
+            "EN": "Understood. Moving to the waiting spot.",
+            "TL": "Naintindihan. Papatungo sa pwesto ng paghihintay."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.03"
+            "EN": "I'll go stand by over there.",
+            "TL": "Pupunta ako roon para maghintay."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.04"
+            "EN": "All right, I'll wait at that position.",
+            "TL": "Sige, maghihintay ako sa posisyong iyon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.05"
+            "EN": "Heading to the waypoint to wait.",
+            "TL": "Papatungo sa marka para maghintay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.06"
+            "EN": "Understood. I will hold that ground.",
+            "TL": "Naiintindihan ko. Hahawakan ko ang lupang iyon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.07"
+            "EN": "Right. Setting up to wait there.",
+            "TL": "Sige. Mag-aayos para maghintay doon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.08"
+            "EN": "I'll wait at the assigned marker.",
+            "TL": "Maghihintay ako sa iniatas na marka."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.09"
+            "EN": "Moving to wait as ordered.",
+            "TL": "Kikilos para maghintay ayon sa utos."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.wait_at.admitted.neutral.10"
+            "EN": "Sounds good. Going to wait there.",
+            "TL": "Maganda 'yan. Pupunta para maghintay doon."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.01"
+            "EN": "Finished waiting.",
+            "TL": "Tapos na ang paghihintay."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.02"
+            "EN": "Done waiting. What's the next move?",
+            "TL": "Tapos nang maghintay. Ano ang susunod na galaw?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.03"
+            "EN": "Wait time concluded. Ready for orders.",
+            "TL": "Tapos na ang oras ng paghihintay. Handa sa utos."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.04"
+            "EN": "Held the spot. Standing down now.",
+            "TL": "Nahawakan ang pwesto. Uurong na ngayon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.05"
+            "EN": "Waiting task complete.",
+            "TL": "Tapos na ang gawaing maghintay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.06"
+            "EN": "Done holding this ground.",
+            "TL": "Tapos na sa paghawak ng lupang ito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.07"
+            "EN": "Time is up. Finished waiting here.",
+            "TL": "Tapos na ang oras. Tapos nang maghintay dito."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.08"
+            "EN": "Rejoining you. Wait is over.",
+            "TL": "Sasama muli sa 'yo. Tapos na ang paghihintay."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.09"
+            "EN": "Held the post as long as needed.",
+            "TL": "Nabantayan ang poste hangga't kinakailangan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.wait_at.completed.neutral.10"
+            "EN": "Completed the wait order.",
+            "TL": "Natapos ang utos na maghintay."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.01"
+            "EN": "I couldn't wait there.",
+            "TL": "Hindi ako nakapaghintay roon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.02"
+            "EN": "Position was overrun. Couldn't keep waiting.",
+            "TL": "Pinamugaran ang pwesto. Di nakapagpatuloy maghintay."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.03"
+            "EN": "Enemies forced me out of the waiting spot.",
+            "TL": "Itinaboy ako ng kalaban mula sa pwesto ng paghihintay."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.04"
+            "EN": "Couldn't reach the designated waiting location.",
+            "TL": "Di narating ang itinalagang lugar ng paghihintay."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.05"
+            "EN": "Unable to hold ground there. Too dangerous.",
+            "TL": "Di mahawakan ang lupa roon. Masyadong mapanganib."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.06"
+            "EN": "Waiting failed. Had to relocate for safety.",
+            "TL": "Pumalpak ang paghihintay. Kinailangang lumipat para sa kaligtasan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.07"
+            "EN": "Aborted waiting. Sector became hostile.",
+            "TL": "Itinigil ang paghihintay. Naging delikado ang lugar."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.08"
+            "EN": "I had to abandon the post.",
+            "TL": "Kinailangan kong iwan ang poste."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.09"
+            "EN": "Could not remain stationary there.",
+            "TL": "Hindi nakapanatiling nakatigil doon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.wait_at.failed.neutral.10"
+            "EN": "Failed to hold the wait point.",
+            "TL": "Bigo sa paghawak ng pwesto ng paghihintay."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.01"
+            "EN": "I can't wait there right now.",
+            "TL": "Hindi ako makapaghintay roon ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.02"
+            "EN": "That spot is in the line of fire. I won't wait there.",
+            "TL": "Nasa linya ng putukan ang pwestong 'yon. Di ako maghihintay doon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.03"
+            "EN": "Standing out in the open like that is suicide.",
+            "TL": "Pagpapakamatay ang tumayo sa bukas na lugar nang ganoon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.04"
+            "EN": "Refusing to wait in an unsecured position.",
+            "TL": "Tumatangging maghintay sa di-ligtas na posisyon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.05"
+            "EN": "Too many hostiles nearby to just stand around.",
+            "TL": "Masyadong maraming kalaban sa paligid para tumayo-tayo lang."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.06"
+            "EN": "I need to stay on the move. Can't wait there.",
+            "TL": "Kailangan kong gumalaw. Di makapaghihintay doon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.07"
+            "EN": "Wait order rejected. Find a safer spot.",
+            "TL": "Tinatanggihan ang paghihintay. Maghanap ng mas ligtas na lugar."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.08"
+            "EN": "I won't wait in a compromised sector.",
+            "TL": "Di ako maghihintay sa delikadong lugar."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.09"
+            "EN": "Unable to comply. That location has zero cover.",
+            "TL": "Di makasusunod. Walang silong ang lugar na 'yan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.wait_at.rejected.neutral.10"
+            "EN": "I can't wait at that position.",
+            "TL": "Di ako makapaghihintay sa posisyong 'yon."
           }
         ]
       }

@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.ui.static.suggestions",
   "kind": "ui",
   "domain": "static_suggestions",
@@ -18,7 +18,17 @@
       "speechAct": "QUESTION",
       "subject": "NEEDS",
       "topic": "needs",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Needs_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_Needs_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask about needs",
+          "utterance": "Do you need anything?"
+        },
+        "TL": {
+          "label": "Itanong ang pangangailangan",
+          "utterance": "May kailangan ka ba?"
+        }
+      }
     },
     {
       "extensions": {
@@ -38,7 +48,17 @@
       "subject": "NPC_HEALTH_STATE",
       "target": "SELF",
       "topic": "medical",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Health_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_Health_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask about injuries",
+          "utterance": "Are you hurt?"
+        },
+        "TL": {
+          "label": "Itanong ang mga sugat",
+          "utterance": "Nasaktan ka ba?"
+        }
+      }
     },
     {
       "extensions": {
@@ -55,7 +75,17 @@
       "speechAct": "GOSSIP",
       "subject": "GOSSIP",
       "topic": "gossip",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Gossip_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_Gossip_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask about gossip",
+          "utterance": "Any gossip?"
+        },
+        "TL": {
+          "label": "Magtanong tungkol sa tsismis",
+          "utterance": "May narinig ka bang tsismis?"
+        }
+      }
     }
   ]
 }

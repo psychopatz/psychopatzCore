@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.greeting",
   "kind": "content",
   "domain": "greeting",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.01"
+            "EN": "You're welcome. Take care.",
+            "TL": "Walang anuman. Mag-iingat ka."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.02"
+            "EN": "No trouble. Stay safe.",
+            "TL": "Walang problema. Manatiling ligtas."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.03"
+            "EN": "Anytime. Watch your back out there.",
+            "TL": "Kahit kailan. Mag-ingat ka sa labas."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.04"
+            "EN": "Don't mention it. See you around.",
+            "TL": "Wala 'yon. Magkikita pa tayo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.05"
+            "EN": "Glad to help. Take it easy.",
+            "TL": "Masayang nakatulong. Dahan-dahan lang."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.06"
+            "EN": "All right. Stay alert today.",
+            "TL": "Sige. Maging alerto ka ngayon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.07"
+            "EN": "No problem at all. Be careful.",
+            "TL": "Walang anuman talaga. Mag-ingat ka."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.08"
+            "EN": "Sure thing. Keep your eyes open.",
+            "TL": "Oo naman. Buksan mo ang mga mata mo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.09"
+            "EN": "Take care of yourself out there.",
+            "TL": "Alagaan mo ang sarili mo sa labas."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.default.neutral.10"
+            "EN": "Until next time. Stay safe.",
+            "TL": "Hanggang sa muli. Manatiling ligtas."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.01"
+            "EN": "You're welcome. It's good to see you too.",
+            "TL": "Walang anuman. Mabuti at nakita rin kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.02"
+            "EN": "Anytime. Glad you're here.",
+            "TL": "Kahit kailan. Masaya akong nandito ka."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.03"
+            "EN": "Always glad to talk. Stay safe out there.",
+            "TL": "Palaging masayang makausap ka. Mag-ingat ka sa labas."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.04"
+            "EN": "No problem. Holler if you need a hand.",
+            "TL": "Walang problema. Tawagin mo ako kapag kailangan mo ng tulong."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.05"
+            "EN": "Anytime, friend. Take care of yourself.",
+            "TL": "Kahit kailan, kaibigan. Alagaan mo ang sarili mo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.06"
+            "EN": "Glad we caught up. Catch you in a bit.",
+            "TL": "Mabuti at nagkausap tayo. Magkita tayo mamaya."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.07"
+            "EN": "No trouble at all. Good to have you around.",
+            "TL": "Walang problema talaga. Mabuti at nandito ka."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.08"
+            "EN": "Sure thing. Watch yourself out there, alright?",
+            "TL": "Oo naman. Mag-ingat ka sa labas, ha?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.09"
+            "EN": "Take care. We'll talk again soon.",
+            "TL": "Mag-iingat ka. Mag-usap tayo ulit mamaya."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.followup.friendly.neutral.10"
+            "EN": "Always. Glad to see you on your feet.",
+            "TL": "Palagi. Masaya akong maayos ang lagay mo."
           }
         ]
       }
@@ -113,170 +113,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.01"
+            "EN": "State your business. Keep your distance.",
+            "TL": "Sabihin mo ang pakay mo. Lumayo ka."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.02"
+            "EN": "Hold it right there. What do you want?",
+            "TL": "Diyan ka lang. Anong gusto mo?"
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.03"
+            "EN": "Hands where I can see them. Who are you?",
+            "TL": "Itaas ang mga kamay. Sino ka?"
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.04"
+            "EN": "Don't come any closer until I know your business.",
+            "TL": "Huwag kang lalapit hangga't hindi ko alam ang pakay mo."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.05"
+            "EN": "Keep your hands clear. Talk from there.",
+            "TL": "Ilayo mo ang mga kamay mo. Magsalita ka riyan."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.06"
+            "EN": "I'm watching you. What brings you here?",
+            "TL": "Binabantayan kita. Anong nagdala sa 'yo rito?"
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.07"
+            "EN": "Easy now. Step back and speak your piece.",
+            "TL": "Dahan-dahan lang. Umatras ka at sabihin mo ang sasabihin mo."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.08"
+            "EN": "Keep your distance. Times are too dangerous for strangers.",
+            "TL": "Lumayo ka. Masyadong mapanganib ang panahon para sa mga estranghero."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.09"
+            "EN": "That's close enough. What are you looking for?",
+            "TL": "Tama na ang lapit na 'yan. Anong hinahanap mo?"
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.guarded.10"
+            "EN": "Stay where you are. I don't know you yet.",
+            "TL": "Diyan ka lang. Hindi pa kita kilala."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.01"
+            "EN": "Hey there. Good to see you.",
+            "TL": "Uy, mabuti at nakita kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.02"
+            "EN": "Hello there. How are things?",
+            "TL": "Kumusta. Kumusta ang lagay?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.03"
+            "EN": "Good to see you.",
+            "TL": "Mabuti at nakita kita."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.04"
+            "EN": "Morning. Hope the day treats you well.",
+            "TL": "Magandang umaga. Sana maayos ang araw mo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.05"
+            "EN": "Hey again. What's going on?",
+            "TL": "Uy ulit. Anong nangyayari?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.06"
+            "EN": "There you are. Everything quiet?",
+            "TL": "Nandiyan ka pala. Tahimik ba ang lahat?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.07"
+            "EN": "Afternoon. Staying out of trouble?",
+            "TL": "Magandang hapon. Ligtas ka ba sa gulo?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.08"
+            "EN": "Hello. Good to run into another living person.",
+            "TL": "Kumusta. Mabuti at may nakasalubong akong buhay pa."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.09"
+            "EN": "Hey. How's the perimeter looking?",
+            "TL": "Uy. Kumusta ang paligid?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.neutral.10"
+            "EN": "Evening. Still on your feet, I see.",
+            "TL": "Magandang gabi. Nakatayo ka pa rin pala."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.01"
+            "EN": "Hello.",
+            "TL": "Kumusta."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.02"
+            "EN": "Hi.",
+            "TL": "Hi."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.03"
+            "EN": "Hey.",
+            "TL": "Uy."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.04"
+            "EN": "Morning.",
+            "TL": "Magandang umaga."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.05"
+            "EN": "There you are.",
+            "TL": "Nandiyan ka pala."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.06"
+            "EN": "Still here.",
+            "TL": "Nandito pa rin."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.07"
+            "EN": "Afternoon.",
+            "TL": "Magandang hapon."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.08"
+            "EN": "Quiet day.",
+            "TL": "Tahimik na araw."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.09"
+            "EN": "You good?",
+            "TL": "Maayos ka ba?"
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.terse.10"
+            "EN": "Evening.",
+            "TL": "Magandang gabi."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.01"
+            "EN": "Hey! It is good to see you.",
+            "TL": "Uy! Mabuti at nakita kita."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.02"
+            "EN": "Hey, good to see you in one piece.",
+            "TL": "Uy, mabuti at buo ka pa."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.03"
+            "EN": "Glad to see you. How are you holding up?",
+            "TL": "Masaya akong nakita kita. Kumusta ang lagay mo?"
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.04"
+            "EN": "Hey. Really glad you made it back safe.",
+            "TL": "Uy. Masaya talaga akong nakabalik ka nang ligtas."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.05"
+            "EN": "Back already? Good to have you around.",
+            "TL": "Bumalik ka na agad? Mabuti at nandito ka."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.06"
+            "EN": "It's always a relief seeing you walk through.",
+            "TL": "Laging nakakagaan ng loob makita kang dumarating."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.07"
+            "EN": "Good to see you on your feet today.",
+            "TL": "Mabuti at nakatayo ka pa rin ngayon."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.08"
+            "EN": "Hey there! How's your day been treating you?",
+            "TL": "Uy! Kumusta ang araw mo?"
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.09"
+            "EN": "Always good seeing a friendly face out here.",
+            "TL": "Laging magandang makakita ng pamilyar na mukha rito."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.default.warm.10"
+            "EN": "Welcome back. Hope things were quiet out there.",
+            "TL": "Maligayang pagbabalik. Sana tahimik lang sa labas."
           }
         ]
       }
@@ -287,170 +287,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.01"
+            "EN": "Hey. Everything holding together?",
+            "TL": "Uy. Maayos pa ba ang lahat?"
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.02"
+            "EN": "Good timing. We could use your help.",
+            "TL": "Tamang-tama ang dating mo. Kailangan namin ng tulong mo."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.03"
+            "EN": "Hey again. Everything quiet around here?",
+            "TL": "Uy ulit. Tahimik ba ang paligid dito?"
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.04"
+            "EN": "Back again? Keep your weapon close.",
+            "TL": "Bumalik ka? Ilapit mo ang armas mo."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.05"
+            "EN": "Hey. You notice anything strange out there?",
+            "TL": "Uy. May napansin ka bang kakaiba sa labas?"
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.06"
+            "EN": "Good to see you. Stay watchful though.",
+            "TL": "Mabuti at nakita kita. Magmatyag ka pa rin."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.07"
+            "EN": "You made it back. Keep low and stay alert.",
+            "TL": "Nakabalik ka. Yumuko ka at maging alerto."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.08"
+            "EN": "Glad you're safe. We've got to watch the treeline.",
+            "TL": "Mabuti at ligtas ka. Kailangan nating bantayan ang kagubatan."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.09"
+            "EN": "Hey. Hope nobody followed you in.",
+            "TL": "Uy. Sana walang sumunod sa 'yo papasok."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.guarded.10"
+            "EN": "There you are. Let's keep our eyes sharp.",
+            "TL": "Nandiyan ka pala. Maging matalas ang mga mata natin."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.01"
+            "EN": "Good to see you.",
+            "TL": "Mabuti at nakita kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.02"
+            "EN": "I was hoping we'd cross paths today.",
+            "TL": "Inaasahan kong magkikita tayo ngayon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.03"
+            "EN": "Good to see you. How's the camp holding?",
+            "TL": "Mabuti at nakita kita. Kumusta ang kampo?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.04"
+            "EN": "There you are. Ready for another day?",
+            "TL": "Nandiyan ka pala. Handa na ba para sa isa pang araw?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.05"
+            "EN": "Back again. How's the scavenging going?",
+            "TL": "Bumalik ka ulit. Kumusta ang paghahanap?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.06"
+            "EN": "Good to see you again. Need a hand with anything?",
+            "TL": "Mabuti at nakita kita ulit. Kailangan mo ba ng tulong?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.07"
+            "EN": "Hey there. Glad we ran into each other.",
+            "TL": "Kumusta. Masaya akong nagkasalubong tayo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.08"
+            "EN": "Morning! How are things on your end?",
+            "TL": "Magandang umaga! Kumusta ang lagay sa parte mo?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.09"
+            "EN": "Hey! What's the plan for today?",
+            "TL": "Uy! Anong plano para sa araw na ito?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.neutral.10"
+            "EN": "Good to catch up. How are you doing?",
+            "TL": "Mabuti at nagkausap tayo. Kumusta ka?"
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.01"
+            "EN": "Back again? You holding up?",
+            "TL": "Bumalik ka? Ayos ka pa ba?"
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.02"
+            "EN": "Good to see you again.",
+            "TL": "Mabuti at nakita kita ulit."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.03"
+            "EN": "Hey. How have you been?",
+            "TL": "Uy. Kumusta ka na?"
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.04"
+            "EN": "Didn't expect to see you so soon.",
+            "TL": "Hindi ko inasahang makikita kita agad."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.05"
+            "EN": "Hey again. How's it going?",
+            "TL": "Uy ulit. Kumusta?"
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.06"
+            "EN": "There you are again.",
+            "TL": "Nandiyan ka na naman."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.07"
+            "EN": "Holding steady?",
+            "TL": "Matatag pa ba?"
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.08"
+            "EN": "Good. You're here.",
+            "TL": "Mabuti. Nandito ka."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.09"
+            "EN": "All clear?",
+            "TL": "Ligtas ba?"
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.terse.10"
+            "EN": "Hey. Need something?",
+            "TL": "Uy. May kailangan ka?"
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.01"
+            "EN": "There you are! Good to see you.",
+            "TL": "Nandiyan ka pala! Mabuti at nakita kita."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.02"
+            "EN": "I was hoping I'd run into you today.",
+            "TL": "Umasa akong makakasalubong kita ngayon."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.03"
+            "EN": "Back so soon? Glad you're safe.",
+            "TL": "Bumalik ka agad? Mabuti at ligtas ka."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.04"
+            "EN": "I was hoping you'd come back in one piece.",
+            "TL": "Umasa akong babalik ka nang buo."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.05"
+            "EN": "There you are. You doing alright today?",
+            "TL": "Nandiyan ka pala. Maayos ka ba ngayon?"
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.06"
+            "EN": "Good to see you. Pull up a chair.",
+            "TL": "Mabuti at nakita kita. Umupo ka muna."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.07"
+            "EN": "Always makes my day better seeing you back safe.",
+            "TL": "Palaging gumaganda ang araw ko kapag nakikita kitang ligtas."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.08"
+            "EN": "Hey there! Really glad you're around today.",
+            "TL": "Uy! Masaya talaga akong nandito ka ngayon."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.09"
+            "EN": "It's good to see your face. How're you feeling?",
+            "TL": "Mabuting makita ang mukha mo. Kumusta ang pakiramdam mo?"
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.friendly.warm.10"
+            "EN": "Welcome back, my friend. Good to see you.",
+            "TL": "Maligayang pagbabalik, kaibigan. Mabuti at nakita kita."
           }
         ]
       }
@@ -461,44 +461,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.01"
+            "EN": "How have you been?",
+            "TL": "Kumusta ka na?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.02"
+            "EN": "How are you holding up?",
+            "TL": "Paano mo nakakayanan ang sitwasyon?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.03"
+            "EN": "Everything all right with you?",
+            "TL": "Maayos ba ang lahat sa iyo?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.04"
+            "EN": "How's your day going so far?",
+            "TL": "Kumusta ang araw mo hanggang ngayon?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.05"
+            "EN": "Staying safe out there?",
+            "TL": "Ligtas ka ba sa labas?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.06"
+            "EN": "How are things treating you today?",
+            "TL": "Kumusta ang takbo ng mga bagay ngayon?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.07"
+            "EN": "Feeling alright today?",
+            "TL": "Maayos ba ang pakiramdam mo ngayon?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.08"
+            "EN": "Any trouble on the road?",
+            "TL": "May gulo ba sa daan?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.09"
+            "EN": "How are you managing out here?",
+            "TL": "Paano ka nakakaraos dito sa labas?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.default.neutral.10"
+            "EN": "Everything quiet on your end?",
+            "TL": "Tahimik ba ang lahat sa parte mo?"
           }
         ]
       }
@@ -509,44 +509,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.01"
+            "EN": "How have you been holding up lately?",
+            "TL": "Kumusta ka naman nitong mga nakaraang araw?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.02"
+            "EN": "How's the camp holding together?",
+            "TL": "Kumusta ang lagay ng kampo natin?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.03"
+            "EN": "Need anything while we're talking?",
+            "TL": "May kailangan ka ba habang nag-uusap tayo?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.04"
+            "EN": "How's your supply situation looking?",
+            "TL": "Kumusta ang lagay ng mga gamit mo?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.05"
+            "EN": "Getting enough rest between runs?",
+            "TL": "Nakakapagpahinga ka ba nang maayos?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.06"
+            "EN": "How are you feeling about things around here?",
+            "TL": "Anong nararamdaman mo tungkol sa mga nangyayari rito?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.07"
+            "EN": "You managing to stay warm and dry?",
+            "TL": "Napananatili mo bang tuyo at maayos ang sarili mo?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.08"
+            "EN": "How are the others treating you?",
+            "TL": "Kumusta ang pakikitungo ng iba sa iyo?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.09"
+            "EN": "Everything staying solid with you?",
+            "TL": "Maayos at matatag pa ba ang lahat sa iyo?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.question.friendly.neutral.10"
+            "EN": "Good to see you. How have things been going?",
+            "TL": "Mabuti at nakita kita. Kumusta ang mga lakad mo?"
           }
         ]
       }
@@ -557,44 +557,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.01"
+            "EN": "Hey there. Wet one today.",
+            "TL": "Uy, maulan ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.02"
+            "EN": "Rain's not letting up anytime soon.",
+            "TL": "Mukhang hindi titigil ang ulan agad."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.03"
+            "EN": "Keep dry if you can out there.",
+            "TL": "Magpatuyo ka kung kaya mo sa labas."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.04"
+            "EN": "Miserable weather, but we're still kicking.",
+            "TL": "Masamang panahon, pero buhay pa rin tayo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.05"
+            "EN": "Ground's completely soaked out there.",
+            "TL": "Babad na babad ang lupa sa labas."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.06"
+            "EN": "Cold rain like this makes everything harder.",
+            "TL": "Ang malamig na ulan na ito ang nagpapahirap sa lahat."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.07"
+            "EN": "Watch your footing in this mud.",
+            "TL": "Mag-ingat sa paghakbang sa putikan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.08"
+            "EN": "Rain makes it hard to hear them coming. Stay alert.",
+            "TL": "Mahirap silang marinig dahil sa ulan. Maging alerto ka."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.09"
+            "EN": "Good day to stay under a solid roof if you've got one.",
+            "TL": "Magandang araw para sumilong sa maayos na bubong."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.flow.greeting.opening.rain.neutral.10"
+            "EN": "At least the rain washes away the tracks. Stay dry.",
+            "TL": "Kahit papaano nabubura ng ulan ang mga bakas. Manatiling tuyo."
           }
         ]
       }
@@ -605,7 +605,15 @@
       "hubID": "whats_up",
       "id": "conversation.landing:whats_up",
       "kind": "player_landing_choice",
-      "route": "semantic_hub"
+      "route": "semantic_hub",
+      "label": {
+        "EN": "What's up",
+        "TL": "Ano ang balita"
+      },
+      "choice": {
+        "EN": "What's up?",
+        "TL": "Ano ang balita?"
+      }
     }
   ]
 }

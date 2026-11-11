@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.emotes.reply",
   "kind": "content",
   "domain": "social",
@@ -17,86 +17,86 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.01"
+            "EN": "Thanks.",
+            "TL": "Salamat."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.02"
+            "EN": "Appreciate the applause.",
+            "TL": "Salamat sa palakpak."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.03"
+            "EN": "Just doing what had to be done.",
+            "TL": "Ginawa lang ang kailangang gawin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.04"
+            "EN": "Glad you liked it.",
+            "TL": "Mabuti at nagustuhan mo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.05"
+            "EN": "Much appreciated.",
+            "TL": "Maraming salamat."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.06"
+            "EN": "All in a day's work.",
+            "TL": "Bahagi lang 'yan ng araw-araw na trabaho."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.07"
+            "EN": "Thanks. Good to know it landed well.",
+            "TL": "Salamat. Mabuting malaman na maayos ang dating."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.08"
+            "EN": "Appreciate it.",
+            "TL": "Salamat."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.09"
+            "EN": "Thanks. Let's keep the momentum going.",
+            "TL": "Salamat. Tuloy lang natin ang sigla."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.neutral.10"
+            "EN": "Thank you for the encouragement.",
+            "TL": "Salamat sa pampalakas ng loob."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.01"
+            "EN": "You're too kind.",
+            "TL": "Napakabait mo naman."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.02"
+            "EN": "Thanks! That really puts a smile on my face.",
+            "TL": "Salamat! Napangiti talaga ako roon."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.03"
+            "EN": "Appreciate the cheer! We make a solid team.",
+            "TL": "Salamat sa suporta! Matibay tayong grupo."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.04"
+            "EN": "Thank you! Couldn't have done it without good company.",
+            "TL": "Salamat! Hindi ko magagawa 'yon nang walang maayos na kasama."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.05"
+            "EN": "Haha, thanks! Glad to bring some light into the day.",
+            "TL": "Haha, salamat! Mabuti at nakapagbigay ng sigla ngayong araw."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.06"
+            "EN": "That makes me feel good. Thank you!",
+            "TL": "Napakasarap sa pakiramdam niyan. Salamat!"
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.07"
+            "EN": "You're awesome. Thanks for the cheer.",
+            "TL": "Ang galing mo. Salamat sa pagpalakpak."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.08"
+            "EN": "Appreciate the love! Let's keep winning.",
+            "TL": "Salamat sa suporta! Tuloy lang tayo sa tagumpay."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.09"
+            "EN": "Thanks a bunch! That means a lot to me.",
+            "TL": "Maraming salamat! Malaking bagay 'yan sa akin."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.emote.reply.clap.warm.10"
+            "EN": "Haha, bowing now! Thanks, friend.",
+            "TL": "Haha, yumuyukod na ako! Salamat, kaibigan."
           }
         ]
       }
@@ -107,44 +107,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.01"
+            "EN": "I hear you.",
+            "TL": "Narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.02"
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.03"
+            "EN": "Understood.",
+            "TL": "Naiintindihan ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.04"
+            "EN": "Fair enough.",
+            "TL": "May punto ka."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.05"
+            "EN": "I see you.",
+            "TL": "Nakikita kita."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.06"
+            "EN": "Right back at you.",
+            "TL": "Pabalik din sa 'yo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.07"
+            "EN": "Acknowledged.",
+            "TL": "Kinikilala ko."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.08"
+            "EN": "Noted.",
+            "TL": "Tala ko na."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.09"
+            "EN": "All right.",
+            "TL": "Sige."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.default.neutral.10"
+            "EN": "Message received.",
+            "TL": "Mensahe nakuha."
           }
         ]
       }
@@ -155,86 +155,86 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.01"
+            "EN": "Keep it respectful.",
+            "TL": "Maging magalang ka."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.02"
+            "EN": "Save that attitude for the dead.",
+            "TL": "Itabi mo ang ugaling 'yan para sa mga patay."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.03"
+            "EN": "Not in the mood for that.",
+            "TL": "Wala ako sa mood para diyan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.04"
+            "EN": "Watch yourself.",
+            "TL": "Mag-ingat ka."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.05"
+            "EN": "Keep your hands and words to yourself.",
+            "TL": "Itago mo sa sarili mo ang mga salita mo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.06"
+            "EN": "Don't start something out here.",
+            "TL": "Huwag kang magsimula ng gulo rito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.07"
+            "EN": "Grow up. We have real threats to worry about.",
+            "TL": "Magpakatanda ka. May mga totoong panganib tayong kinakaharap."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.08"
+            "EN": "Not amused.",
+            "TL": "Hindi nakatutuwa."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.09"
+            "EN": "Check yourself before you cause trouble.",
+            "TL": "Pagsabihan mo ang sarili mo bago ka makagawa ng gulo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.neutral.10"
+            "EN": "I'm ignoring that for now. Don't push it.",
+            "TL": "Pinalalampas ko muna 'yan. Huwag mong sagarin."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.01"
+            "EN": "You're lucky I know you.",
+            "TL": "Suwerte ka dahil kilala kita."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.02"
+            "EN": "Very funny. Don't make a habit of it.",
+            "TL": "Nakakatawa. Huwag mong gagawing bisyo 'yan."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.03"
+            "EN": "I'll let that slide because it's you.",
+            "TL": "Palalampasin ko 'yan dahil ikaw 'yan."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.04"
+            "EN": "Haha, watch it, or I might just get even.",
+            "TL": "Haha, mag-ingat ka, baka gumanti ako."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.05"
+            "EN": "Good thing we're friends, or we'd have words.",
+            "TL": "Mabuti na lang magkaibigan tayo, kundi magkakatuusan tayo."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.06"
+            "EN": "You always like testing my patience, don't you?",
+            "TL": "Gusto mo talagang sinusubukan ang pasensya ko, 'no?"
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.07"
+            "EN": "Play nice. I know you're just messing around.",
+            "TL": "Mag-ayos ka. Alam kong nagbibiro ka lang."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.08"
+            "EN": "You're pushing your luck, but I'll allow it this once.",
+            "TL": "Sinusugal mo ang suwerte mo, pero papayagan ko muna ngayon."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.09"
+            "EN": "Only you could get away with saying that to me.",
+            "TL": "Ikaw lang ang makalulusot sa pagsasabi niyan sa akin."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.emote.reply.insult.warm.10"
+            "EN": "Haha, all right, point taken, smart-mouth.",
+            "TL": "Haha, sige na, nakuha ko na, pilosopo."
           }
         ]
       }
@@ -245,86 +245,86 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.01"
+            "EN": "Stay sharp.",
+            "TL": "Manatiling alerto."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.02"
+            "EN": "Keep your guard up.",
+            "TL": "Huwag ibaba ang bantay."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.03"
+            "EN": "Eyes forward.",
+            "TL": "Tumingin sa unahan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.04"
+            "EN": "At ease.",
+            "TL": "Magpahinga."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.05"
+            "EN": "Stay safe out there.",
+            "TL": "Mag-ingat ka sa labas."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.06"
+            "EN": "Watch your six.",
+            "TL": "Bantayan mo ang likod mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.07"
+            "EN": "Salute returned.",
+            "TL": "Ganti ang pagsaludo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.08"
+            "EN": "Keep moving and stay vigilant.",
+            "TL": "Patuloy na lumakad at maging mapagmatyag."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.09"
+            "EN": "Understood. Stay ready.",
+            "TL": "Naintindihan. Maging laging handa."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.neutral.10"
+            "EN": "Stand firm.",
+            "TL": "Magpakatatag."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.01"
+            "EN": "Always. Stay safe out there.",
+            "TL": "Palagi. Mag-ingat ka sa labas."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.02"
+            "EN": "Salute to you too, friend.",
+            "TL": "Saludo rin sa 'yo, kaibigan."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.03"
+            "EN": "Right back at you. Let's make it back in one piece.",
+            "TL": "Pabalik din sa 'yo. Tiyakin nating makababalik tayo nang buo."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.04"
+            "EN": "Honored to stand with you.",
+            "TL": "Ikinararangal kong makatabi ka sa laban."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.05"
+            "EN": "Keep your head down and stay alive for me.",
+            "TL": "Yumuko ka sa panganib at manatiling buhay para sa akin."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.06"
+            "EN": "Good to have you beside me out here.",
+            "TL": "Mabuting kasama kita rito."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.07"
+            "EN": "Salute returned with respect, partner.",
+            "TL": "May kasamang respeto ang ganting saludo ko, kasama."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.08"
+            "EN": "We watch each other's backs. Always.",
+            "TL": "Binabantayan natin ang likod ng isa't isa. Palagi."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.09"
+            "EN": "Take care of yourself today. I mean it.",
+            "TL": "Ingatan mo ang sarili mo ngayong araw. Seryoso ako."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.emote.reply.salute.warm.10"
+            "EN": "Stay strong out there. We'll get through this.",
+            "TL": "Magpakatatag ka sa labas. Malalampasan natin ito."
           }
         ]
       }
@@ -335,86 +335,86 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.01"
+            "EN": "You're welcome.",
+            "TL": "Walang anuman."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.02"
+            "EN": "No problem.",
+            "TL": "Walang problema."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.03"
+            "EN": "Don't mention it.",
+            "TL": "Huwag mo nang alalahanin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.04"
+            "EN": "Glad to help.",
+            "TL": "Masayang tumulong."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.05"
+            "EN": "Anytime.",
+            "TL": "Kahit kailan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.06"
+            "EN": "Just doing my part.",
+            "TL": "Ginagawa ko lang ang bahagi ko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.07"
+            "EN": "Happy to assist.",
+            "TL": "Mabuti at nakatulong ako."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.08"
+            "EN": "No trouble at all.",
+            "TL": "Walang anuman talaga."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.09"
+            "EN": "All part of surviving together.",
+            "TL": "Bahagi lang 'yan ng sabay na pamumuhay."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.neutral.10"
+            "EN": "You'd do the same for me.",
+            "TL": "Gagawin mo rin 'yan para sa akin."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.01"
+            "EN": "Anytime. We look after our own.",
+            "TL": "Kahit kailan. Inaalagaan natin ang mga kasama natin."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.02"
+            "EN": "You're very welcome, friend.",
+            "TL": "Walang anuman talaga, kaibigan."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.03"
+            "EN": "Always happy to lend a hand to you.",
+            "TL": "Lagi akong handang tumulong sa 'yo."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.04"
+            "EN": "Don't worry about it for a second. Glad to be here.",
+            "TL": "Huwag mo nang isipin kahit sandali. Mabuti at narito ako."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.05"
+            "EN": "We've got each other's backs. That's what counts.",
+            "TL": "Nagtitinginan tayo sa isa't isa. Iyon ang mahalaga."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.06"
+            "EN": "You deserve the help. Don't mention it.",
+            "TL": "Karapat-dapat ka sa tulong. Huwag mo nang banggitin."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.07"
+            "EN": "Anytime! Seriously, just ask whenever.",
+            "TL": "Kahit kailan! magsabi ka lang kapag may kailangan ka."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.08"
+            "EN": "I'm glad I could be there for you.",
+            "TL": "Mabuti at nakatulong ako sa 'yo."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.09"
+            "EN": "No need to thank me. That's what partners do.",
+            "TL": "Di mo kailangang magpasalamat. Ganyan talaga ang magkasama."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.emote.reply.thankyou.warm.10"
+            "EN": "Happy to help. Always.",
+            "TL": "Masayang tumulong. Palagi."
           }
         ]
       }
@@ -425,44 +425,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.01"
+            "EN": "I got the message. Tell me what's wrong.",
+            "TL": "Nakuha ko ang mensahe. Sabihin mo kung anong problema."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.02"
+            "EN": "Not happy with that? What's your take?",
+            "TL": "Hindi ka sang-ayon? Ano ang opinyon mo?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.03"
+            "EN": "Understood. You disagree.",
+            "TL": "Naiintindihan ko. Hindi ka sang-ayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.04"
+            "EN": "Message received. We can rethink it.",
+            "TL": "Nakuha ko ang pahiwatig. Pwede nating pag-isipan ulit."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.05"
+            "EN": "Got it. You don't like the look of this.",
+            "TL": "Naintindihan. Hindi maganda ang kutob mo rito."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.06"
+            "EN": "Fair enough. What's the alternative?",
+            "TL": "Makatwiran. Ano ang alternatibo?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.07"
+            "EN": "I hear the disapproval. Let's adjust.",
+            "TL": "Naririnig ko ang pagtutol mo. Mag-ayos tayo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.08"
+            "EN": "Noted. We won't go that route then.",
+            "TL": "Tala ko na. Hindi na natin dadaanan ang rutang 'yan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.09"
+            "EN": "Understood. Point taken.",
+            "TL": "Naintindihan. Nakuha ko ang punto mo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsdown.neutral.10"
+            "EN": "All right, let's look for a better option.",
+            "TL": "Sige, maghanap tayo ng mas magandang paraan."
           }
         ]
       }
@@ -473,86 +473,86 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.01"
+            "EN": "Good.",
+            "TL": "Mabuti."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.02"
+            "EN": "Sounds like a plan.",
+            "TL": "Magandang plano 'yan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.03"
+            "EN": "Glad we agree.",
+            "TL": "Mabuti at nagkasundo tayo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.04"
+            "EN": "Right on.",
+            "TL": "Tama 'yan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.05"
+            "EN": "Understood. Let's make it happen.",
+            "TL": "Naintindihan. Isakatuparan na natin."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.06"
+            "EN": "Good to go.",
+            "TL": "Handa na."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.07"
+            "EN": "Works for me.",
+            "TL": "Ayos 'yan sa akin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.08"
+            "EN": "Agreed.",
+            "TL": "Sang-ayon ako."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.09"
+            "EN": "All set then.",
+            "TL": "Handa na ang lahat kung ganoon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.neutral.10"
+            "EN": "Solid.",
+            "TL": "Matibay."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.01"
+            "EN": "That's the spirit.",
+            "TL": "Iyan ang magandang sigla."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.02"
+            "EN": "Awesome. Let's knock it out.",
+            "TL": "Napakaganda. Tapusin na natin ito."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.03"
+            "EN": "Love the energy! Let's do this.",
+            "TL": "Gusto ko ang sigla mo! Tara na."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.04"
+            "EN": "Great minds think alike, friend.",
+            "TL": "Pareho tayo ng magandang takbo ng isip, kaibigan."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.05"
+            "EN": "Hell yeah. We've got this.",
+            "TL": "Oo naman. Kayang-kaya natin ito."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.06"
+            "EN": "That's what I like to see. Full speed ahead.",
+            "TL": "Iyan ang gusto kong makita. Tuloy-tuloy lang."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.07"
+            "EN": "Good deal. Glad you're on board.",
+            "TL": "Magandang usapan. Mabuti at kasama ka rito."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.08"
+            "EN": "Right there with you! Let's get it done.",
+            "TL": "Kasama mo ako riyan! Tapusin na natin."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.09"
+            "EN": "That puts wind in my sails. Thank you.",
+            "TL": "Nagbigay 'yan ng lakas sa akin. Salamat."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.warm.10"
+            "EN": "Perfect. We're in sync.",
+            "TL": "Perpekto. Tugma ang takbo natin."
           }
         ]
       }
@@ -563,44 +563,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.01"
+            "EN": "Good. Let's keep moving on this.",
+            "TL": "Mabuti. Ipagpatuloy natin ang pagkilos dito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.02"
+            "EN": "Right. Back to work.",
+            "TL": "Sige. Balik sa trabaho."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.03"
+            "EN": "Understood. Stay on task.",
+            "TL": "Naintindihan. Manatili sa gawain."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.04"
+            "EN": "Good. Let's get this finished up.",
+            "TL": "Mabuti. Tapusin na natin ito."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.05"
+            "EN": "Agreed. Pushing forward now.",
+            "TL": "Sang-ayon. Umuusad na ngayon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.06"
+            "EN": "Moving along. Keep your eyes peeled.",
+            "TL": "Tuloy ang lakad. Maging mapagmatyag."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.07"
+            "EN": "Right. Making progress.",
+            "TL": "Tama. May nararating na tayo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.08"
+            "EN": "Good to know. Sticking to the objective.",
+            "TL": "Mabuting malaman. Manatili sa layunin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.09"
+            "EN": "Understood. No slowing down now.",
+            "TL": "Naintindihan. Walang magbabagal ngayon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.thumbsup.active.neutral.10"
+            "EN": "On it. Keeping our momentum.",
+            "TL": "Inaasikaso na. Tuloy ang bilis."
           }
         ]
       }
@@ -611,86 +611,86 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.01"
+            "EN": "Take care.",
+            "TL": "Mag-ingat ka."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.02"
+            "EN": "See you around.",
+            "TL": "Magkita na lang tayo mamaya."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.03"
+            "EN": "Watch your back out there.",
+            "TL": "Bantayan mo ang likod mo sa labas."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.04"
+            "EN": "Until next time.",
+            "TL": "Hanggang sa muli."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.05"
+            "EN": "Stay safe.",
+            "TL": "Manatiling ligtas."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.06"
+            "EN": "Keep your guard up on the way.",
+            "TL": "Huwag ibaba ang bantay habang naglalakad."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.07"
+            "EN": "Catch you later.",
+            "TL": "Usap na lang tayo mamaya."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.08"
+            "EN": "Farewell for now.",
+            "TL": "Paalam muna sa ngayon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.09"
+            "EN": "Keep your head down.",
+            "TL": "Yumuko ka sa panganib."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.neutral.10"
+            "EN": "See you when you get back.",
+            "TL": "Kita tayo pagbalik mo."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.01"
+            "EN": "Goodbye. Come back in one piece.",
+            "TL": "Paalam. Bumalik ka nang buo."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.02"
+            "EN": "Take good care of yourself, friend.",
+            "TL": "Ingatan mo nang maayos ang sarili mo, kaibigan."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.03"
+            "EN": "See you soon. Don't do anything reckless.",
+            "TL": "Magkita tayo agad. Huwag kang gagawa ng padalos-dalos."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.04"
+            "EN": "I'll be waiting right here. Stay safe.",
+            "TL": "Maghihintay ako rito. Mag-ingat ka."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.05"
+            "EN": "Farewell for now. Looking forward to our next talk.",
+            "TL": "Paalam muna. Inaasahan ko ang susunod nating usapan."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.06"
+            "EN": "Safe travels out there. Keep your wits about you.",
+            "TL": "Ligtas na paglalakbay sa labas. Gamitin lagi ang isip."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.07"
+            "EN": "Goodbye! Make sure you make it back.",
+            "TL": "Paalam! Tiyakin mong makababalik ka."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.08"
+            "EN": "Catch you later, partner. Be careful.",
+            "TL": "Kita tayo mamaya, kasama. Mag-iingat ka."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.09"
+            "EN": "Take care. I'll keep the fire going.",
+            "TL": "Mag-ingat ka. Pananatilihin kong may apoy rito."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.emote.reply.wavebye.warm.10"
+            "EN": "See you later. Stay alive out there.",
+            "TL": "Kita tayo mamaya. Manatiling buhay sa labas."
           }
         ]
       }
@@ -701,128 +701,128 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.01"
+            "EN": "Hey.",
+            "TL": "Uy."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.02"
+            "EN": "Hello there.",
+            "TL": "Kumusta ka."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.03"
+            "EN": "Good to see you.",
+            "TL": "Mabuti at nakita kita."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.04"
+            "EN": "Greetings.",
+            "TL": "Pagbati sa 'yo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.05"
+            "EN": "Hey. What's the word?",
+            "TL": "Uy. Anong balita?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.06"
+            "EN": "Hello. Everything quiet?",
+            "TL": "Kumusta. Tahimik ba ang lahat?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.07"
+            "EN": "Morning or afternoon, good to see another survivor.",
+            "TL": "Umaga man o hapon, mabuting makakita ng buhay na tao."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.08"
+            "EN": "Hey. How are things looking?",
+            "TL": "Uy. Kamusta ang kalagayan diyan?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.09"
+            "EN": "Hello. Need something?",
+            "TL": "Kumusta. May kailangan ka ba?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.neutral.10"
+            "EN": "Hey there. Staying in one piece?",
+            "TL": "Kumusta. Buo pa ba ang katawan mo?"
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.01"
+            "EN": "There you are.",
+            "TL": "Nandiyan ka pala."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.02"
+            "EN": "Hey.",
+            "TL": "Uy."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.03"
+            "EN": "What's up.",
+            "TL": "Anong meron."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.04"
+            "EN": "You're back.",
+            "TL": "Bumalik ka."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.05"
+            "EN": "Morning.",
+            "TL": "Magandang araw."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.06"
+            "EN": "Evening.",
+            "TL": "Magandang gabi."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.07"
+            "EN": "State your business.",
+            "TL": "Sabihin ang pakay mo."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.08"
+            "EN": "Saw you.",
+            "TL": "Nakita kita."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.09"
+            "EN": "Alive still.",
+            "TL": "Buhay pa."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.terse.10"
+            "EN": "Speak up.",
+            "TL": "Magsalita ka."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.01"
+            "EN": "Hey again. Good to see a friendly face.",
+            "TL": "Uy muli. Mabuti at may nakitang kaibigang mukha."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.02"
+            "EN": "Hello, friend! How's your day treating you?",
+            "TL": "Kumusta, kaibigan! Kamusta ang araw mo?"
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.03"
+            "EN": "Hey there! Always brightens things up when you come around.",
+            "TL": "Kumusta! Laging sumasaya kapag dumadaan ka rito."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.04"
+            "EN": "Great to see you again! Everything okay with you?",
+            "TL": "Napakagandang makita ka muli! Maayos ba ang lagay mo?"
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.05"
+            "EN": "Hey! I was just hoping you'd swing by.",
+            "TL": "Uy! Umasa nga akong dadaan ka rito."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.06"
+            "EN": "Welcome back! Good to have you around.",
+            "TL": "Maligayang pagbabalik! Mabuting narito ka."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.07"
+            "EN": "Hello! Glad to see you made it through safely.",
+            "TL": "Kumusta! Mabuti at nakaligtas ka nang ligtas."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.08"
+            "EN": "Hey there! Come on over, take a seat.",
+            "TL": "Kumusta! Halika rito, umupo ka muna."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.09"
+            "EN": "Always a relief to see you walking up. Hey!",
+            "TL": "Laging nakapagpapagaan ng loob na makita kang naglalakad papalapit. Uy!"
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.emote.reply.wavehi.warm.10"
+            "EN": "Hey, good to see you! How are you holding up?",
+            "TL": "Uy, mabuting makita ka! Kumusta ang lagay mo?"
           }
         ]
       }

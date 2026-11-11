@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.tool.replies.comfort",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.01"
+            "EN": "Thanks. I needed that.",
+            "TL": "Salamat. Kailangan ko talaga 'yon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.02"
+            "EN": "I appreciate that. It has been a rough stretch.",
+            "TL": "Salamat. Napakahirap ng mga nakaraang araw."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.03"
+            "EN": "Thanks. Sometimes you just need to hear that.",
+            "TL": "Salamat. Minsan kailangan mo lang marinig ang ganoon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.04"
+            "EN": "That helps steady my nerves. Thank you.",
+            "TL": "Nakakatulong 'yan para kumalma ako. Salamat."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.05"
+            "EN": "I did not know how much I needed to hear that. Thanks.",
+            "TL": "Hindi ko alam na kailangan ko palang marinig 'yan. Salamat."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.06"
+            "EN": "Thank you. That takes some of the weight off.",
+            "TL": "Maraming salamat. Nabawasan ang bigat sa dibdib ko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.07"
+            "EN": "I am glad you said that. Thanks.",
+            "TL": "Mabuti at sinabi mo 'yan. Salamat."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.08"
+            "EN": "Much appreciated. Really.",
+            "TL": "Talagang pinahahalagahan ko. Salamat."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.09"
+            "EN": "Thanks for checking in on me.",
+            "TL": "Salamat sa pangungumusta sa akin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.1.neutral.10"
+            "EN": "That makes a difference. Thank you.",
+            "TL": "Malaki ang nagagawa niyan. Salamat."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.01"
+            "EN": "I appreciate you being here.",
+            "TL": "Salamat at narito ka."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.02"
+            "EN": "Having you nearby makes this easier.",
+            "TL": "Mas madali ang lahat kapag kasama kita rito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.03"
+            "EN": "Good to know I am not facing this alone.",
+            "TL": "Mabuting malaman na hindi ako nag-iisa sa laban na 'to."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.04"
+            "EN": "Thanks for sticking with me.",
+            "TL": "Salamat sa pananatili sa tabi ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.05"
+            "EN": "It is easier having someone reliable around. Thank you.",
+            "TL": "Mas magaan kapag may mapagkakatiwalaan kang kasama. Salamat."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.06"
+            "EN": "I am glad you are on my side.",
+            "TL": "Mabuti at kakampi kita."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.07"
+            "EN": "Thanks for being here. It counts for a lot.",
+            "TL": "Salamat sa presensya mo. Malaking bagay ito."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.08"
+            "EN": "You being around keeps me grounded.",
+            "TL": "Ang pananatili mo rito ay nagpapahinahon sa akin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.09"
+            "EN": "I am thankful we crossed paths.",
+            "TL": "Nagpapasalamat ako at nagkasama tayo rito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.2.neutral.10"
+            "EN": "Thanks. Do not go wandering off too far.",
+            "TL": "Salamat. Huwag kang lalayo masyado."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.01"
+            "EN": "That helps more than I expected.",
+            "TL": "Mas nakakatulong 'yan kaysa sa inasahan ko."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.02"
+            "EN": "I feel a bit better hearing that.",
+            "TL": "Medyo gumaan ang pakiramdam ko nang marinig 'yan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.03"
+            "EN": "That took some edge off the stress.",
+            "TL": "Nabawasan ang kaba ko sa sinabi mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.04"
+            "EN": "Honestly, that clears my head a little.",
+            "TL": "Sa totoo lang, luminaw nang kaunti ang isip ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.05"
+            "EN": "That actually helped. Thank you.",
+            "TL": "Talagang nakatulong 'yon. Salamat."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.06"
+            "EN": "I can breathe a little easier now.",
+            "TL": "Medyo nakakahinga na ako nang maluwag."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.07"
+            "EN": "Thanks. That takes the bite out of things.",
+            "TL": "Salamat. Nabawasan ang tindi ng sitwasyon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.08"
+            "EN": "I needed a reminder that we can handle this.",
+            "TL": "Kailangan ko ng paalala na kaya natin 'to."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.09"
+            "EN": "You have a calming effect. Thanks.",
+            "TL": "Nakakapagpakalma ka. Salamat."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.comfort.3.neutral.10"
+            "EN": "That put things back into perspective for me.",
+            "TL": "Nailagay muli niyan sa tamang ayos ang pananaw ko."
           }
         ]
       }

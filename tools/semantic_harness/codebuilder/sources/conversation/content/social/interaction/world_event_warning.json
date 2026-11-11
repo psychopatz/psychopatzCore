@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.interaction.world.event.warning",
   "kind": "content",
   "domain": "social",
@@ -17,170 +17,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.01"
+            "EN": "Heads up. Something's wrong out there.",
+            "TL": "Mag-ingat. May mali sa labas."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.02"
+            "EN": "Look alive. The situation outside is shifting.",
+            "TL": "Maging alerto. Nagbabago ang sitwasyon sa labas."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.03"
+            "EN": "Pay attention. We have unexpected movement outside.",
+            "TL": "Makinig ka. May di-inaasahang galaw sa labas."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.04"
+            "EN": "Warning. Something big is happening nearby.",
+            "TL": "Babala. May malaking nangyayari sa malapit."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.05"
+            "EN": "Heads up, everyone. Check your gear.",
+            "TL": "Mag-ingat ang lahat. Suriin ang mga gamit niyo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.06"
+            "EN": "Listen close. An event is unfolding out there.",
+            "TL": "Makinig nang mabuti. May kaganapan sa labas."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.07"
+            "EN": "Alert. We need to be ready for trouble.",
+            "TL": "Alerto. Kailangan nating maging handa sa gulo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.08"
+            "EN": "Keep your eyes open. That sound wasn't normal.",
+            "TL": "Buksan ang mga mata. Hindi karaniwan ang tunog na 'yon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.09"
+            "EN": "Stay sharp. The perimeter is showing activity.",
+            "TL": "Maging alerto. May aktibidad sa paligid."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.neutral.10"
+            "EN": "Heads up. Let's not get caught unprepared.",
+            "TL": "Mag-ingat. Huwag tayong mahuling walang paghahanda."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.01"
+            "EN": "Stay close. Something's wrong out there.",
+            "TL": "Manatili kang malapit. May mali sa labas."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.02"
+            "EN": "Stick by me, friend. We have trouble brewing outside.",
+            "TL": "Dumikit ka sa akin, kaibigan. May namumuong gulo sa labas."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.03"
+            "EN": "Don't wander off. Something bad is moving out there.",
+            "TL": "Huwag kang lalayo. May masamang gumagalaw sa labas."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.04"
+            "EN": "Keep close and stay low. I'll protect you.",
+            "TL": "Manatiling malapit at yumuko. Poprotektahan kita."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.05"
+            "EN": "Hey, stay behind me until we know what that was.",
+            "TL": "Huy, manatili ka sa likod ko hanggang malaman natin 'yon."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.06"
+            "EN": "Careful, everyone! Let's look out for one another.",
+            "TL": "Mag-ingat ang lahat! Magbantayan tayo sa isa't isa."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.07"
+            "EN": "Hold on to each other. Danger is nearby.",
+            "TL": "Kumapit sa isa't isa. Malapit lang ang panganib."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.08"
+            "EN": "Stay safe by my side. Trouble is coming.",
+            "TL": "Manatiling ligtas sa tabi ko. Parating ang panganib."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.09"
+            "EN": "Heads up, partner. Whatever happens, we stick together.",
+            "TL": "Mag-ingat, kasama. Anuman ang mangyari, sama-sama tayo."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.warm.10"
+            "EN": "Keep close. I don't want anyone getting separated.",
+            "TL": "Dumikit ka. Ayokong may mahiwalay sa atin."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.01"
+            "EN": "Heads up!",
+            "TL": "Mag-ingat!"
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.02"
+            "EN": "Incoming!",
+            "TL": "Paparating!"
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.03"
+            "EN": "Danger!",
+            "TL": "Panganib!"
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.04"
+            "EN": "Look out!",
+            "TL": "Mag-ingat ka!"
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.05"
+            "EN": "Alert!",
+            "TL": "Alerto!"
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.06"
+            "EN": "Listen!",
+            "TL": "Makinig!"
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.07"
+            "EN": "Trouble!",
+            "TL": "Gulo!"
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.08"
+            "EN": "Ready weapons!",
+            "TL": "Ihanda ang armas!"
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.09"
+            "EN": "Movement!",
+            "TL": "May gumagalaw!"
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.terse.10"
+            "EN": "Cover!",
+            "TL": "Magtago!"
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.01"
+            "EN": "Stay sharp. We've got trouble.",
+            "TL": "Mag-ingat ka. May problema tayo."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.02"
+            "EN": "Weapons drawn, now. Danger outside.",
+            "TL": "Ibunot ang armas, ngayon na. May panganib sa labas."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.03"
+            "EN": "Shut up and listen. Something is coming.",
+            "TL": "Tumahimik at makinig. May paparating."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.04"
+            "EN": "Lock the doors and watch every angle.",
+            "TL": "Ikandado ang pinto at bantayan ang bawat sulok."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.05"
+            "EN": "If it moves through that entrance, put it down.",
+            "TL": "Kapag may gumalaw sa lagusang 'yan, patumbahin mo."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.06"
+            "EN": "Trouble's coming. Don't freeze up on me.",
+            "TL": "Parating ang gulo. Huwag kang tatanga-tanga."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.07"
+            "EN": "Get into defensive positions immediately.",
+            "TL": "Pumwesto sa depensa agad-agad."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.08"
+            "EN": "Keep quiet. You don't want to draw them here.",
+            "TL": "Manahimik ka. Ayaw mong maakit sila rito."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.09"
+            "EN": "Threat incoming. Expect the worst.",
+            "TL": "Banta parating. Asahan ang pinakamasama."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.world_event.warning.guarded.10"
+            "EN": "Eyes on the perimeter. Shoot on sight.",
+            "TL": "Bantayan ang paligid. Barilin agad kapag nakita."
           }
         ]
       }

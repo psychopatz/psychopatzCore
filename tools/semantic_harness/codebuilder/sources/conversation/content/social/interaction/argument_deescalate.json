@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.interaction.argument.deescalate",
   "kind": "content",
   "domain": "social",
@@ -17,170 +17,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.01"
+            "EN": "Fine. Just lower your voice.",
+            "TL": "Sige. Hinaan mo lang ang boses mo."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.02"
+            "EN": "Lower your tone before you draw attention.",
+            "TL": "Hinaan mo ang tono mo bago ka makahatak ng pansin."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.03"
+            "EN": "Stop yelling. You want every dead head hearing this?",
+            "TL": "Huwag kang sumigaw. Gusto mo bang marinig tayo ng mga patay?"
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.04"
+            "EN": "All right. Keep it down and back off.",
+            "TL": "Sige. Hinaan ang boses at umatras."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.05"
+            "EN": "Enough. Lower the volume right now.",
+            "TL": "Sapat na. Hinaan mo ang boses mo ngayon din."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.06"
+            "EN": "I heard you. Now drop the shouting.",
+            "TL": "Narinig kita. Ngayon tigilan mo ang pagsigaw."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.07"
+            "EN": "Shh! Keep your voice down.",
+            "TL": "Shh! Hinaan mo ang boses mo."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.08"
+            "EN": "Keep it civil and quiet. We're in danger.",
+            "TL": "Maging maayos at tahimik. Nasa panganib tayo."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.09"
+            "EN": "Lower your voice. I'm not deaf.",
+            "TL": "Hinaan mo ang boses. Hindi ako bingi."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.guarded.10"
+            "EN": "Fine. Just tone it down.",
+            "TL": "Sige. Hinaan mo lang."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.01"
+            "EN": "Easy. We don't need to make this worse.",
+            "TL": "Dahan-dahan. Hindi natin kailangang palalain pa ito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.02"
+            "EN": "Let's calm down and talk this through reasonably.",
+            "TL": "Kumalma tayo at pag-usapan ito nang maayos."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.03"
+            "EN": "Take a breath. Bickering won't fix anything.",
+            "TL": "Huminga ka nang malalim. Walang maaayos ang bangayan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.04"
+            "EN": "No need for tempers to flare. Let's settle it.",
+            "TL": "Di kailangang mag-init ang ulo. Ayusin natin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.05"
+            "EN": "Easy does it. We're on the same side here.",
+            "TL": "Dahan-dahan lang. Magkasama tayo rito."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.06"
+            "EN": "Let's step back and look at the situation calmly.",
+            "TL": "Umatras muna tayo at tingnan ang sitwasyon nang mahinahon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.07"
+            "EN": "We can resolve this without shouting.",
+            "TL": "Maaayos natin ito nang hindi sumisigaw."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.08"
+            "EN": "Keep cool. Let's find a workable solution.",
+            "TL": "Kumalma ka lang. Maghanap tayo ng maayos na solusyon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.09"
+            "EN": "Easy now. Don't lose your head over this.",
+            "TL": "Dahan-dahan lang. Huwag mawalan ng katinuan dahil dito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.neutral.10"
+            "EN": "Hold on. Let's de-escalate before someone gets hurt.",
+            "TL": "Teka muna. Huminahon tayo bago may masaktan."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.01"
+            "EN": "Easy.",
+            "TL": "Dahan-dahan."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.02"
+            "EN": "Calm down.",
+            "TL": "Kumalma ka."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.03"
+            "EN": "Drop it.",
+            "TL": "Tama na."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.04"
+            "EN": "Quiet.",
+            "TL": "Tahimik."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.05"
+            "EN": "Breathe.",
+            "TL": "Huminga ka."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.06"
+            "EN": "Cool off.",
+            "TL": "Palamig ka muna."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.07"
+            "EN": "Steady.",
+            "TL": "Magpakatatag."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.08"
+            "EN": "Enough.",
+            "TL": "Sapat na."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.09"
+            "EN": "Hold up.",
+            "TL": "Teka lang."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.terse.10"
+            "EN": "Stop.",
+            "TL": "Tigil."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.01"
+            "EN": "Calm down. This isn't helping either of us.",
+            "TL": "Kumalma ka. Walang naitutulong ito sa atin."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.02"
+            "EN": "Hey, look at me. We're friends, remember?",
+            "TL": "Huy, tingnan mo ako. Magkaibigan tayo, tandaan mo."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.03"
+            "EN": "Take a breath. I'm right here with you. Let's work it out.",
+            "TL": "Huminga ka muna. Narito lang ako kasama mo. Aayusin natin 'to."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.04"
+            "EN": "I know you're stressed. Let's pause and decompress.",
+            "TL": "Alam kong pagod ka. Huminto muna tayo at magpahinga."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.05"
+            "EN": "Don't let the anger take over. We care about each other.",
+            "TL": "Huwag mong hayaang lamunin ka ng galit. May malasakit tayo sa isa't isa."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.06"
+            "EN": "We're going to get through this, I promise. Calm down.",
+            "TL": "Malalampasan natin ito, pangako. Kumalma ka na."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.07"
+            "EN": "I hear your pain. Let's talk gently.",
+            "TL": "Naririnig ko ang hirap mo. Mag-usap tayo nang mahinahon."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.08"
+            "EN": "It's all right. I'm listening. Just bring the energy down.",
+            "TL": "Ayos lang. Nakikinig ako. Ibaba mo lang ang init ng ulo."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.09"
+            "EN": "We've survived too much together to fight like this.",
+            "TL": "Masyado na tayong maraming pinagdaanan para mag-away nang ganito."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.argument.deescalate.warm.10"
+            "EN": "Peace, friend. We are stronger together.",
+            "TL": "Kapayapaan, kaibigan. Mas malakas tayo kapag magkasama."
           }
         ]
       }

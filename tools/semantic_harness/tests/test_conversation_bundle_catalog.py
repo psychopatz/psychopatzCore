@@ -9,15 +9,12 @@ from tools.semantic_harness.codebuilder.conversation_bundle_catalog import (
     CONVERSATION_BUNDLE_SCHEMA,
     write_runtime_bundle_catalogs,
 )
-from tools.semantic_harness.codebuilder.catalog_contract import TRANSLATION_SCHEMA
 
 
 class ConversationBundleCatalogTests(unittest.TestCase):
-    def _fixture(self, root: Path) -> tuple[Path, Path, Path]:
+    def _fixture(self, root: Path) -> tuple[Path, Path]:
         source = root / "conversation_bundles.json"
-        catalogs = root / "translations"
         runtime = root / "runtime"
-        catalogs.mkdir()
         source.write_text(
             json.dumps(
                 {
@@ -30,7 +27,10 @@ class ConversationBundleCatalogTests(unittest.TestCase):
                             "keys": [
                                 {
                                     "key": "opening",
-                                    "translationKey": "conversation.bundle.greetings.opening",
+                                    "text": {
+                                        "EN": "Hello.",
+                                        "TL": "Kumusta.",
+                                    },
                                 }
                             ],
                         }
@@ -39,29 +39,12 @@ class ConversationBundleCatalogTests(unittest.TestCase):
             ),
             encoding="utf-8",
         )
-        for language, text in (("EN", "Hello."), ("TL", "Kumusta.")):
-            (catalogs / f"{language}.json").write_text(
-                json.dumps(
-                    {
-                        "schema": TRANSLATION_SCHEMA,
-                        "language": language,
-                        "fallback": "EN",
-                        "entries": {
-                            "conversation.bundle.greetings.opening": {
-                                "text": text,
-                                "sourceShard": "conversation.content.greetings",
-                            }
-                        },
-                    }
-                ),
-                encoding="utf-8",
-            )
-        return source, catalogs, runtime
+        return source, runtime
 
     def test_rendering_preserves_flat_bundle_shape_and_locales(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            source, catalogs, runtime = self._fixture(Path(temporary))
-            paths = write_runtime_bundle_catalogs(source, catalogs, runtime)
+            source, runtime = self._fixture(Path(temporary))
+            paths = write_runtime_bundle_catalogs(source, runtime)
 
             self.assertEqual(len(paths), 2)
             self.assertEqual(
@@ -79,10 +62,9 @@ class ConversationBundleCatalogTests(unittest.TestCase):
 
     def test_owner_filter_does_not_render_other_packages(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            source, catalogs, runtime = self._fixture(Path(temporary))
+            source, runtime = self._fixture(Path(temporary))
             paths = write_runtime_bundle_catalogs(
                 source,
-                catalogs,
                 runtime,
                 owner="DTCommon",
             )

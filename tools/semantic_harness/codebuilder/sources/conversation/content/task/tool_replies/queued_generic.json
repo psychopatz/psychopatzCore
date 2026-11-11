@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.queued.generic",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.01"
+            "EN": "I hear you.",
+            "TL": "Narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.02"
+            "EN": "Understood.",
+            "TL": "Naiintindihan ko."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.03"
+            "EN": "Message received.",
+            "TL": "Natanggap ang mensahe."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.04"
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.05"
+            "EN": "I hear what you said.",
+            "TL": "Narinig ko ang sinabi mo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.06"
+            "EN": "Heard.",
+            "TL": "Narinig."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.07"
+            "EN": "Fair enough. I hear you.",
+            "TL": "Makatwiran. Narinig kita."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.08"
+            "EN": "Point noted.",
+            "TL": "Tala ang punto."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.09"
+            "EN": "I'm listening.",
+            "TL": "Nakikinig ako."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.1.neutral.10"
+            "EN": "Acknowledged.",
+            "TL": "Kinikilala ko."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.01"
+            "EN": "Give me a moment.",
+            "TL": "Bigyan mo ako ng sandali."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.02"
+            "EN": "Hold on just a second.",
+            "TL": "Teka sandali lang."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.03"
+            "EN": "Let me finish what I'm doing first.",
+            "TL": "Hayaan mong tapusin ko muna ang ginagawa ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.04"
+            "EN": "Just a minute.",
+            "TL": "Sandali lang."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.05"
+            "EN": "Give me a bit of time.",
+            "TL": "Bigyan mo ako ng kaunting oras."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.06"
+            "EN": "Hang on a second.",
+            "TL": "Teka lang saglit."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.07"
+            "EN": "I need a moment to process that.",
+            "TL": "Kailangan ko ng sandali para pag-isipan 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.08"
+            "EN": "Hold your horses for a minute.",
+            "TL": "Dahan-dahan lang sandali."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.09"
+            "EN": "Give me a brief moment.",
+            "TL": "Bigyan mo ako ng maikling sandali."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_generic.2.neutral.10"
+            "EN": "One second. I'm wrapped up right now.",
+            "TL": "Isang segundo. May inaasikaso pa ako ngayon."
           }
         ]
       }

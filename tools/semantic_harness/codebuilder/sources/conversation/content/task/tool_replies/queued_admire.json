@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.queued.admire",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.01"
+            "EN": "I hear you.",
+            "TL": "Narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.02"
+            "EN": "Message received.",
+            "TL": "Natanggap ang mensahe."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.03"
+            "EN": "I hear what you're saying.",
+            "TL": "Naririnig ko ang sinasabi mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.04"
+            "EN": "Understood. I heard that.",
+            "TL": "Naintindihan. Narinig ko 'yon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.05"
+            "EN": "Got your words.",
+            "TL": "Nakuha ko ang sinabi mo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.06"
+            "EN": "Heard and acknowledged.",
+            "TL": "Narinig at kinilala."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.07"
+            "EN": "I hear you, loud and clear.",
+            "TL": "Naririnig kita, malakas at malinaw."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.08"
+            "EN": "Fair enough. I heard that.",
+            "TL": "Makatwiran. Narinig ko 'yon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.09"
+            "EN": "Noted. I hear you.",
+            "TL": "Tala ko na. Naririnig kita."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.1.neutral.10"
+            "EN": "I'm listening. Heard.",
+            "TL": "Nakikinig ako. Narinig."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.01"
+            "EN": "That got through.",
+            "TL": "Nakarating iyon sa akin."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.02"
+            "EN": "That reached me. Thank you.",
+            "TL": "Tumagos iyon sa akin. Salamat."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.03"
+            "EN": "I took that in.",
+            "TL": "Inintindi ko iyon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.04"
+            "EN": "Your message made its mark.",
+            "TL": "Nag-iwan ng marka ang mensahe mo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.05"
+            "EN": "I felt that. Thanks.",
+            "TL": "Naramdaman ko iyon. Salamat."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.06"
+            "EN": "That registered with me.",
+            "TL": "Tumatak iyon sa akin."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.07"
+            "EN": "That got through to me.",
+            "TL": "Nakarating iyon sa loob ko."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.08"
+            "EN": "I received that clearly.",
+            "TL": "Malinaw kong natanggap iyon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.09"
+            "EN": "That landed well. Thank you.",
+            "TL": "Maganda ang naging dating niyan. Salamat."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_admire.2.neutral.10"
+            "EN": "Understood. That made an impression.",
+            "TL": "Naintindihan. Nag-iwan 'yan ng magandang impresyon."
           }
         ]
       }

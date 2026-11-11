@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.order.follow",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.01"
+            "EN": "All right. I am with you.",
+            "TL": "Sige. Sasama ako sa iyo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.02"
+            "EN": "I'm right behind you.",
+            "TL": "Nasa likod mo lang ako."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.03"
+            "EN": "Following your lead.",
+            "TL": "Sumusunod sa pangunguna mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.04"
+            "EN": "Understood. Moving out together.",
+            "TL": "Naintindihan. Sabay tayong lalakad."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.05"
+            "EN": "With you all the way.",
+            "TL": "Kasama mo sa buong daan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.06"
+            "EN": "Sticking close behind.",
+            "TL": "Didikit ako sa likod mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.07"
+            "EN": "On your heels. Let's move.",
+            "TL": "Nasa likod mo lang. Kilos na."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.08"
+            "EN": "Right with you, partner.",
+            "TL": "Kasabay mo na ako, kasama."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.09"
+            "EN": "Following as ordered.",
+            "TL": "Sumusunod ayon sa utos."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.1.neutral.10"
+            "EN": "Moving in lockstep with you.",
+            "TL": "Kasabay sa bawat hakbang mo."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.01"
+            "EN": "Lead the way.",
+            "TL": "Ituro ang daan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.02"
+            "EN": "You lead, I follow.",
+            "TL": "Ikaw ang mauna, susunod ako."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.03"
+            "EN": "After you. Watch our front.",
+            "TL": "Kasunod mo ako. Bantayan ang unahan natin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.04"
+            "EN": "Take point. I've got your rear.",
+            "TL": "Mauna ka sa harap. Hawak ko ang likod mo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.05"
+            "EN": "Lead on. I'm ready.",
+            "TL": "Mauna na. Handa na ako."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.06"
+            "EN": "Show the path. I'm right behind.",
+            "TL": "Ipakita ang daan. Nasa likod mo lang ako."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.07"
+            "EN": "Lead the way. Eyes sharp.",
+            "TL": "Ituro ang daan. Matalas ang paningin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.08"
+            "EN": "You take the front, partner.",
+            "TL": "Ikaw ang mauna sa harap, kasama."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.09"
+            "EN": "Point the direction and walk.",
+            "TL": "Ituro ang direksyon at lumakad."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.2.neutral.10"
+            "EN": "Lead the way out.",
+            "TL": "Ituro ang daan palabas."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.01"
+            "EN": "I will stay close.",
+            "TL": "Mananatili akong malapit."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.02"
+            "EN": "Won't let you out of my sight.",
+            "TL": "Di kita iwawala sa paningin ko."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.03"
+            "EN": "Sticking right by your side.",
+            "TL": "Didikit ako sa tabi mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.04"
+            "EN": "Keeping tight formation with you.",
+            "TL": "Didikit sa pormasyon kasama mo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.05"
+            "EN": "Close proximity confirmed.",
+            "TL": "Kumpirmadong malapit lang."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.06"
+            "EN": "I'll match your pace and stay near.",
+            "TL": "Sasabayan ko ang bilis mo at mananatiling malapit."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.07"
+            "EN": "Right beside you. Don't worry.",
+            "TL": "Nasa tabi mo lang. Huwag mag-alala."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.08"
+            "EN": "Staying within arm's reach.",
+            "TL": "Nasa abot-kamay lang ako."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.09"
+            "EN": "I won't lag behind.",
+            "TL": "Hindi ako magpapahuli."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_follow.3.neutral.10"
+            "EN": "Staying close behind you.",
+            "TL": "Mananatiling malapit sa likod mo."
           }
         ]
       }

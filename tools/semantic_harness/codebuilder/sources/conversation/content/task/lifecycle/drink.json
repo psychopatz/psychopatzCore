@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.lifecycle.drink",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.01"
+            "EN": "Taking a drink now.",
+            "TL": "Umiinom na ako ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.02"
+            "EN": "Drinking some water right now.",
+            "TL": "Umiinom ng kaunting tubig ngayon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.03"
+            "EN": "Quenching my thirst. Give me a second.",
+            "TL": "Pinapawi ang uhaw. Sandali lang."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.04"
+            "EN": "Currently having a drink.",
+            "TL": "Kasalukuyang umiinom."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.05"
+            "EN": "Taking some fluids now.",
+            "TL": "Umiinom na ngayon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.06"
+            "EN": "Drinking. Needed this badly.",
+            "TL": "Umiinom. Kailangang-kailangan ko ito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.07"
+            "EN": "Getting some water in me.",
+            "TL": "Nagpapasok ng tubig sa katawan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.08"
+            "EN": "Taking a quick drink.",
+            "TL": "Umiinom nang mabilisan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.09"
+            "EN": "Drinking now. Won't take long.",
+            "TL": "Umiinom na. Di magtatagal."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.drink.active.neutral.10"
+            "EN": "Having a drink as ordered.",
+            "TL": "Umiinom ayon sa utos."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.01"
+            "EN": "I'll have a drink.",
+            "TL": "Iinom ako."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.02"
+            "EN": "Understood. Getting some water.",
+            "TL": "Naintindihan. Kukuha ng tubig."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.03"
+            "EN": "I could use some water. Drinking now.",
+            "TL": "Kailangan ko nga ng tubig. Iinom na."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.04"
+            "EN": "All right, I'll hydrate.",
+            "TL": "Sige, magpapatubig ako."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.05"
+            "EN": "Good call. I was getting thirsty.",
+            "TL": "Magandang paalala. Nauuhaw na nga ako."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.06"
+            "EN": "I'll take a drink from my supply.",
+            "TL": "Iinom ako mula sa baon ko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.07"
+            "EN": "Understood. Hydrating immediately.",
+            "TL": "Naiintindihan ko. Iinom agad."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.08"
+            "EN": "Right. Taking a sip.",
+            "TL": "Sige. Iinom nang kaunti."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.09"
+            "EN": "I'll drink that now.",
+            "TL": "Iinumin ko na iyan ngayon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.drink.admitted.neutral.10"
+            "EN": "Sounds good. Drinking.",
+            "TL": "Maganda 'yan. Iinom na."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.01"
+            "EN": "Much better. Thirst is gone.",
+            "TL": "Mas maayos na. Wala na ang uhaw."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.02"
+            "EN": "Finished drinking. Feeling refreshed.",
+            "TL": "Tapos nang uminom. Maginhawa na ang pakiramdam."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.03"
+            "EN": "That hit the spot. Done drinking.",
+            "TL": "Eksakto 'yon. Tapos nang uminom."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.04"
+            "EN": "Hydrated and ready to move.",
+            "TL": "May sapat nang tubig at handang kumilos."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.05"
+            "EN": "Finished that drink.",
+            "TL": "Naubos na ang inumin."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.06"
+            "EN": "Done. Throat isn't parched anymore.",
+            "TL": "Tapos na. Di na tuyo ang lalamunan ko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.07"
+            "EN": "All drank. Ready for action.",
+            "TL": "Nainom na lahat. Handa na sa aksyon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.08"
+            "EN": "Finished having a drink.",
+            "TL": "Natapos nang uminom."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.09"
+            "EN": "Done drinking. Let's keep going.",
+            "TL": "Tapos nang uminom. Tuloy na tayo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.drink.completed.neutral.10"
+            "EN": "Hydration complete.",
+            "TL": "Kumpleto na ang pag-inom."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.01"
+            "EN": "I couldn't get a drink.",
+            "TL": "Hindi ako nakainom."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.02"
+            "EN": "Failed to drink. Container was empty or tainted.",
+            "TL": "Bigo sa pag-inom. Walang laman o marumi ang lalagyan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.03"
+            "EN": "Couldn't drink that. It wasn't clean water.",
+            "TL": "Di mainom 'yon. Di malinis na tubig."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.04"
+            "EN": "I was interrupted before I could drink.",
+            "TL": "Naabala ako bago ako nakainom."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.05"
+            "EN": "Unable to have a drink right now.",
+            "TL": "Di makainom sa ngayon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.06"
+            "EN": "Spilled it or couldn't reach it. Drinking failed.",
+            "TL": "Natapon o di naabot. Pumalpak ang pag-inom."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.07"
+            "EN": "Water container is dry.",
+            "TL": "Tuyot ang lalagyan ng tubig."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.08"
+            "EN": "Couldn't drink. Threat forced me to stop.",
+            "TL": "Di nakainom. Napilitang huminto dahil sa banta."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.09"
+            "EN": "Action failed. Still thirsty.",
+            "TL": "Bigo ang kilos. Nauuhaw pa rin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.drink.failed.neutral.10"
+            "EN": "Failed to take a drink.",
+            "TL": "Bigo sa pag-inom."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.01"
+            "EN": "I'm not thirsty right now.",
+            "TL": "Hindi ako nauuhaw ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.02"
+            "EN": "I don't need to drink at the moment.",
+            "TL": "Di ko kailangang uminom sa sandaling ito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.03"
+            "EN": "I'm fully hydrated. Saving the water.",
+            "TL": "Busog pa ako sa tubig. Itatabi ang inumin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.04"
+            "EN": "Can't drink right now. Too dangerous to pause.",
+            "TL": "Di pwedeng uminom ngayon. Masyadong mapanganib huminto."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.05"
+            "EN": "Refusing to drink that water. It looks tainted.",
+            "TL": "Tumatangging inumin ang tubig na 'yan. Mukhang kontaminado."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.06"
+            "EN": "I have plenty of fluids. Don't need to drink.",
+            "TL": "Marami pa akong tubig sa katawan. Di kailangang uminom."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.07"
+            "EN": "No need for a drink yet.",
+            "TL": "Wala pang pangangailangan sa inumin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.08"
+            "EN": "I'll save our clean water for later.",
+            "TL": "Itatabi ko ang malinis na tubig mamaya."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.09"
+            "EN": "Drink order rejected. Not parched.",
+            "TL": "Tinatanggihan ang pag-inom. Di ako uhaw."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.drink.rejected.neutral.10"
+            "EN": "Can't drink that right now.",
+            "TL": "Di ko maiinom 'yan ngayon."
           }
         ]
       }

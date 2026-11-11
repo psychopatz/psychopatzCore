@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.wellbeing",
   "kind": "content",
   "domain": "wellbeing",
@@ -17,170 +17,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.01"
+            "EN": "I'm getting by. Leave it there.",
+            "TL": "Kinakaya ko. Tama na iyon."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.02"
+            "EN": "Surviving. That's all you need to know.",
+            "TL": "Nabubuhay pa. Iyon lang ang kailangan mong malaman."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.03"
+            "EN": "I manage on my own. Don't worry about it.",
+            "TL": "Kaya ko ang sarili ko. Huwag mo nang alalahanin."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.04"
+            "EN": "Still upright. Let's keep it to business.",
+            "TL": "Nakatayo pa rin. Manatili tayo sa pakay natin."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.05"
+            "EN": "I'm coping fine. No need to pry.",
+            "TL": "Maayos ang lagay ko. Hindi kailangang mag-usisa."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.06"
+            "EN": "Doing what I have to do. That's enough.",
+            "TL": "Ginagawa ang dapat gawin. Sapat na 'yon."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.07"
+            "EN": "Still breathing. Nothing more to say about it.",
+            "TL": "Huminga pa. Wala nang iba pang sasabihin tungkol doon."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.08"
+            "EN": "I'm alright on my own, thanks.",
+            "TL": "Ayos lang ako sa sarili ko, salamat."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.09"
+            "EN": "Managing well enough without interference.",
+            "TL": "Kinakaya nang maayos nang walang nangingialam."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.guarded.10"
+            "EN": "Getting by just fine. Let's drop it.",
+            "TL": "Kinakaya ko nang maayos. Hayaan na natin."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.01"
+            "EN": "I'm getting by, one day at a time. How about you?",
+            "TL": "Kinakaya ko, isang araw bawat pagkakataon. Ikaw?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.02"
+            "EN": "Managing as best as anyone can out here. You?",
+            "TL": "Kinakaya gaya ng sinuman dito sa labas. Ikaw?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.03"
+            "EN": "Can't complain too much. Taking things as they come.",
+            "TL": "Hindi naman masyadong makapagreklamo. Tinitiis bawat araw."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.04"
+            "EN": "Still on my feet. That's a win these days.",
+            "TL": "Nakatayo pa rin. Malaking bagay na 'yon sa panahong ito."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.05"
+            "EN": "Holding up okay. How are things on your side?",
+            "TL": "Maayos naman. Kumusta ang lagay sa parte mo?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.06"
+            "EN": "Getting through the hours. What about yourself?",
+            "TL": "Nakakaraos sa bawat oras. Kumusta naman ikaw?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.07"
+            "EN": "Doing alright, all things considered.",
+            "TL": "Maayos naman, sa kabila ng lahat ng nangyayari."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.08"
+            "EN": "Pushing forward. How's the road treating you?",
+            "TL": "Sumusulong pa rin. Kumusta ang biyahe mo?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.09"
+            "EN": "Hanging in there. Hopefully you are too.",
+            "TL": "Kumakapit pa rin. Sana ikaw rin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.neutral.10"
+            "EN": "Alive and kicking. What more can we ask for?",
+            "TL": "Buhay at lumalaban. Ano pa bang mahihiling natin?"
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.01"
+            "EN": "Getting by.",
+            "TL": "Kinakaya."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.02"
+            "EN": "Managing.",
+            "TL": "Kinakaya pa."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.03"
+            "EN": "Still standing.",
+            "TL": "Nakatayo pa."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.04"
+            "EN": "Holding.",
+            "TL": "Matatag pa."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.05"
+            "EN": "Surviving.",
+            "TL": "Nabubuhay."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.06"
+            "EN": "Fine for now.",
+            "TL": "Ayos sa ngayon."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.07"
+            "EN": "Still breathing.",
+            "TL": "Huminga pa."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.08"
+            "EN": "Could be worse.",
+            "TL": "Puwede namang mas malala."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.09"
+            "EN": "Doing fine.",
+            "TL": "Maayos naman."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.terse.10"
+            "EN": "One day at a time.",
+            "TL": "Araw-araw lang."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.01"
+            "EN": "I'm getting by. Thanks for asking.",
+            "TL": "Kinakaya ko. Salamat sa pagtatanong."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.02"
+            "EN": "Doing okay, especially with good company around.",
+            "TL": "Maayos naman ako, lalo na at may kasamang maaasahan."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.03"
+            "EN": "Managing well enough. Truly appreciate you checking in.",
+            "TL": "Kinakaya naman. Salamat talaga sa pangangamusta."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.04"
+            "EN": "Holding steady. Knowing people care makes it easier.",
+            "TL": "Matatag pa rin. Mas madali kapag may nagmamalasakit."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.05"
+            "EN": "Doing alright today. Hope you're feeling good too.",
+            "TL": "Maayos ang araw ko. Sana maganda rin ang pakiramdam mo."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.06"
+            "EN": "I'm hanging in there. Thank you for thinking of me.",
+            "TL": "Kumakapit pa rin. Salamat sa pag-alala sa akin."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.07"
+            "EN": "Feeling decent today, thank you. How are you holding up?",
+            "TL": "Medyo maayos ang pakiramdam ko ngayon, salamat. Ikaw?"
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.08"
+            "EN": "Getting through it together. That's what counts.",
+            "TL": "Sama-sama nating nalalagpasan ito. Iyon ang mahalaga."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.09"
+            "EN": "Still smiling through it all. Glad to see you around.",
+            "TL": "Nakangiti pa rin sa kabila ng lahat. Masaya akong nandito ka."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.dataset.getting_by.warm.10"
+            "EN": "I'm doing well, friend. Thanks for taking the time to ask.",
+            "TL": "Maayos ako, kaibigan. Salamat sa paglalaan ng oras magtanong."
           }
         ]
       }
@@ -191,170 +191,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.01"
+            "EN": "I'm managing. Don't press me.",
+            "TL": "Kinakaya ko. Huwag mo nang ipilit."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.02"
+            "EN": "I'm fine. Keep your focus on your own work.",
+            "TL": "Ayos lang ako. Ituon mo ang pansin sa sarili mong gawain."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.03"
+            "EN": "No problems here. That's all you get.",
+            "TL": "Walang problema rito. Iyon lang ang masasabi ko."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.04"
+            "EN": "I can look after myself. No need to inquire.",
+            "TL": "Kaya kong alagaan ang sarili ko. Huwag nang magtanong."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.05"
+            "EN": "Doing what needs doing. Back off a bit.",
+            "TL": "Ginagawa ang kailangang gawin. Lumayo ka nang kaunti."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.06"
+            "EN": "I don't discuss personal matters easily.",
+            "TL": "Hindi ako basta-basta nagkukuwento tungkol sa sarili ko."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.07"
+            "EN": "Healthy enough to defend myself. That's enough.",
+            "TL": "Kaya ko pang ipagtanggol ang sarili ko. Sapat na 'yon."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.08"
+            "EN": "Nothing to complain about to strangers.",
+            "TL": "Walang dapat ireklamo sa mga hindi ko kakilala."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.09"
+            "EN": "I'm alright. Mind your own perimeter.",
+            "TL": "Ayos lang ako. Bantayan mo ang sarili mong parte."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.guarded.10"
+            "EN": "Alive and alert. Leave it at that.",
+            "TL": "Buhay at alerto. Hanggang doon na lang."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.01"
+            "EN": "I'm okay. How about you?",
+            "TL": "Okay naman ako. Ikaw, kumusta?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.02"
+            "EN": "Doing alright. How are you holding up?",
+            "TL": "Maayos naman. Paano mo nakakayanan?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.03"
+            "EN": "Not bad at all. How's your day going?",
+            "TL": "Hindi naman masama. Kumusta ang araw mo?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.04"
+            "EN": "I'm doing fine. Hope things are quiet for you.",
+            "TL": "Maayos naman ako. Sana payapa rin sa parte mo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.05"
+            "EN": "Pretty good, considering. You doing alright?",
+            "TL": "Medyo maganda naman ang lagay. Maayos ka rin ba?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.06"
+            "EN": "Still here and kicking. How about yourself?",
+            "TL": "Nandito pa rin at lumalaban. Kumusta ka naman?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.07"
+            "EN": "Things are stable enough on my end. You?",
+            "TL": "Medyo maayos naman ang sitwasyon sa akin. Ikaw?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.08"
+            "EN": "I'm managing well. Hope you're staying safe.",
+            "TL": "Maayos akong nakakaraos. Sana ligtas ka rin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.09"
+            "EN": "Can't complain too much today. How're you?",
+            "TL": "Hindi masyadong makapagreklamo ngayon. Kumusta ka?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.neutral.10"
+            "EN": "Holding steady. How have you been holding up?",
+            "TL": "Matatag pa rin. Kumusta ang pag-iingat mo?"
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.01"
+            "EN": "I'm okay.",
+            "TL": "Ayos lang ako."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.02"
+            "EN": "Doing fine.",
+            "TL": "Maayos naman."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.03"
+            "EN": "All good.",
+            "TL": "Lahat maayos."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.04"
+            "EN": "Holding up.",
+            "TL": "Kinakaya."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.05"
+            "EN": "No issues.",
+            "TL": "Walang problema."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.06"
+            "EN": "Steady.",
+            "TL": "Matatag."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.07"
+            "EN": "Still on my feet.",
+            "TL": "Nakatayo pa."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.08"
+            "EN": "Fine.",
+            "TL": "Ayos."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.09"
+            "EN": "Alive.",
+            "TL": "Buhay."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.terse.10"
+            "EN": "Managing fine.",
+            "TL": "Maayos ang lagay."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.01"
+            "EN": "I'm doing okay. Thanks for asking.",
+            "TL": "Ayos lang ako. Salamat sa pagtatanong."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.02"
+            "EN": "Doing well! It really warms my heart that you asked.",
+            "TL": "Maayos ako! Nakakagaan ng loob na nagtanong ka."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.03"
+            "EN": "Feeling pretty good today. How about yourself?",
+            "TL": "Maganda ang pakiramdam ko ngayon. Kumusta ka naman?"
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.04"
+            "EN": "I'm hanging in there, friend. Glad to see you around.",
+            "TL": "Kumakapit pa rin, kaibigan. Masayang makita ka rito."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.05"
+            "EN": "Doing much better now that I see a friendly face.",
+            "TL": "Mas gumaan ang pakiramdam ko ngayong nakakita ako ng kaibigan."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.06"
+            "EN": "All is well on my side. Thank you for looking out for me.",
+            "TL": "Maayos ang lahat sa akin. Salamat sa pag-alala mo sa akin."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.07"
+            "EN": "Holding strong. Your support means a lot out here.",
+            "TL": "Matatag pa rin. Malaking tulong ang suporta mo rito."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.08"
+            "EN": "Doing great today, thank you. Hope you are as well.",
+            "TL": "Napakaganda ng araw ko, salamat. Sana ikaw rin."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.09"
+            "EN": "I'm in good spirits today. It's lovely seeing you.",
+            "TL": "Maganda ang disposisyon ko ngayon. Masarap kang makita."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.default.warm.10"
+            "EN": "Doing just fine. Let's make sure we both stay that way.",
+            "TL": "Maayos naman ako. Siguraduhin nating pareho tayong ligtas."
           }
         ]
       }
@@ -365,44 +365,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.01"
+            "EN": "I'm worn out, but I can still manage.",
+            "TL": "Pagod na pagod ako, pero kaya ko pa."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.02"
+            "EN": "My limbs feel heavy. I've been on my feet too long.",
+            "TL": "Mabigat ang mga binti ko. Napakatagal ko nang nakatayo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.03"
+            "EN": "Could definitely use a breather soon.",
+            "TL": "Kailangan ko na talagang makapagpahinga sandali."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.04"
+            "EN": "Running on fumes right now, but I'll push through.",
+            "TL": "Ubos na ang lakas ko, pero pipilitin kong magpatuloy."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.05"
+            "EN": "Need to catch my breath before the next run.",
+            "TL": "Kailangang makabawi ng hininga bago ang susunod na lakad."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.06"
+            "EN": "Feeling exhausted, to be honest with you.",
+            "TL": "Sobrang pagod na ako, sa totoo lang."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.07"
+            "EN": "My body is aching for some decent sleep.",
+            "TL": "Sumasakit na ang buong katawan ko sa puyat."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.08"
+            "EN": "I'm drained, but I won't drop my guard.",
+            "TL": "Puyat at pagod ako, pero hindi ako magpapabaya."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.09"
+            "EN": "A quick sit-down would do wonders right now.",
+            "TL": "Malaking tulong ang sandaling pag-upo ngayon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue.neutral.10"
+            "EN": "Exhaustion is catching up with me today.",
+            "TL": "Inaabutan na ako ng matinding pagod ngayon."
           }
         ]
       }
@@ -413,44 +413,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.01"
+            "EN": "I'm tired. A little rest would help.",
+            "TL": "Pagod ako. Makakatulong ang kaunting pahinga."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.02"
+            "EN": "Hard to keep my eyes open right now.",
+            "TL": "Hirap na akong idilat ang mga mata ko ngayon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.03"
+            "EN": "Been pushing hard all day. Need to rest soon.",
+            "TL": "Masyadong napagod maghapon. Kailangang magpahinga maya-maya."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.04"
+            "EN": "Sleep would be a luxury right about now.",
+            "TL": "Napakasarap sanang makatulog sa mga oras na ito."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.05"
+            "EN": "Feeling slow and sluggish from lack of rest.",
+            "TL": "Mabagal ang kilos ko dahil sa kakulangan sa pahinga."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.06"
+            "EN": "My reflexes aren't what they should be right now.",
+            "TL": "Medyo mabagal ang reaksyon ko dahil sa pagod."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.07"
+            "EN": "Tired down to the bone, but still standing.",
+            "TL": "Tagos sa buto ang pagod, pero nakatayo pa rin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.08"
+            "EN": "If we find a safe corner, I need a minute.",
+            "TL": "Kapag nakahanap tayo ng ligtas na sulok, pahinga muna ako."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.09"
+            "EN": "Could fall asleep right where I'm standing.",
+            "TL": "Kaya kong makatulog kahit saan ako nakatayo ngayon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.fatigue_alt.neutral.10"
+            "EN": "Just need an hour of shut-eye to reset.",
+            "TL": "Kailangan ko lang ng kahit isang oras na tulog para makabawi."
           }
         ]
       }
@@ -461,44 +461,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.01"
+            "EN": "I'm pretty hungry, if I'm honest. Do you have anything to eat?",
+            "TL": "Medyo gutom ako, kung tutuusin. May makakain ka ba?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.02"
+            "EN": "My stomach has been growling for hours. Got any food to spare?",
+            "TL": "Kanina pa kumakalam ang sikmura ko. May maibibigay ka bang pagkain?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.03"
+            "EN": "Really feeling the hunger right now. Could use a bite.",
+            "TL": "Ramdam na ramdam ko ang gutom ngayon. Kailangan ko ng makakain."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.04"
+            "EN": "Haven't had a proper meal in a while. Any rations on you?",
+            "TL": "Medyo matagal na mula noong huli akong kumain. May rasyon ka ba?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.05"
+            "EN": "Need some calories before my strength fades. Got anything?",
+            "TL": "Kailangan ko ng lakas bago ako manghina. Mayroon ka ba riyan?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.06"
+            "EN": "I'm starving out here. Even stale crackers would do.",
+            "TL": "Gutom na gutom na ako rito. Kahit lumang biskwit tatanggapin ko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.07"
+            "EN": "Food is getting urgent for me. Anything in your pack?",
+            "TL": "Kailangan ko na talagang kumain. May laman ba ang bag mo?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.08"
+            "EN": "Hard to focus when your stomach is this empty. Spare any food?",
+            "TL": "Mahirap mag-isip kapag walang laman ang tiyan. Penge namang makakain?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.09"
+            "EN": "I could really use a snack or some canned goods right now.",
+            "TL": "Kailangan ko talaga ng meryenda o de-lata ngayon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger.neutral.10"
+            "EN": "Getting weak from hunger. Do you have any rations to share?",
+            "TL": "Nanghihina na ako sa gutom. May maibabahagi ka bang rasyon?"
           }
         ]
       }
@@ -509,44 +509,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.01"
+            "EN": "I'm getting hungry. Could you spare something to eat?",
+            "TL": "Nagugutom na ako. Maaari ba akong makahingi ng makakain?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.02"
+            "EN": "Could use some food soon. My energy is dipping low.",
+            "TL": "Kailangan ko ng pagkain maya-maya. Bumababa na ang lakas ko."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.03"
+            "EN": "Starting to feel hollow inside. Any food left?",
+            "TL": "Parang hungkag na ang sikmura ko. May natira pa bang pagkain?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.04"
+            "EN": "A small bite would go a long way right now.",
+            "TL": "Malaking tulong ang kahit kaunting subo ngayon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.05"
+            "EN": "Gotta find something to eat before too long.",
+            "TL": "Kailangang makahanap ng makakain sa lalong madaling panahon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.06"
+            "EN": "My pack is empty of food. Got anything to share?",
+            "TL": "Wala nang laman ang bag ko. May maibabahagi ka ba?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.07"
+            "EN": "Thinking about food constantly. Need a meal soon.",
+            "TL": "Pagkain lang ang nasa isip ko. Kailangang makakain agad."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.08"
+            "EN": "Even a crust of bread would help me keep going.",
+            "TL": "Kahit balat ng tinapay makakatulong sa akin para magpatuloy."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.09"
+            "EN": "Stomach's rumbling loud enough to draw attention. Got food?",
+            "TL": "Baka marinig pa ng iba ang kulo ng tiyan ko. May pagkain ka?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.hunger_alt.neutral.10"
+            "EN": "Running low on fuel. Spare a bite if you've got extra?",
+            "TL": "Nauubusan na ako ng enerhiya. Pahingi naman ng konting makakain kung sobra?"
           }
         ]
       }
@@ -557,170 +557,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.01"
+            "EN": "I'm hurt. That's all I can say.",
+            "TL": "Nasaktan ako. Iyon lang ang masasabi ko."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.02"
+            "EN": "Took some damage. I'll patch it myself, don't worry.",
+            "TL": "Tinamaan ako. Ako na ang gagamot dito, huwag kang mag-alala."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.03"
+            "EN": "Bleeding a little, but I can still defend myself.",
+            "TL": "Dumudugo nang kaunti, pero kaya ko pa ring lumaban."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.04"
+            "EN": "It's just a flesh wound. Keep your distance.",
+            "TL": "Daplis lang ito. Lumayo ka muna."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.05"
+            "EN": "I'm wounded, but I don't need charity.",
+            "TL": "May sugat ako, pero hindi ko kailangan ng awa."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.06"
+            "EN": "Hurts like hell, but I'm holding my ground.",
+            "TL": "Sobrang sakit, pero hindi ako aatras."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.07"
+            "EN": "Got scraped up. Mind your own injuries.",
+            "TL": "Nagasgasan lang. Asikasuhin mo ang sarili mong sugat."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.08"
+            "EN": "Don't stare at the bandages. I'm still functional.",
+            "TL": "Huwag mong titigan ang benda ko. Kaya ko pang kumilos."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.09"
+            "EN": "A rough encounter, but I survived it. Back off.",
+            "TL": "Medyo magulo ang engkuwentro, pero nakaligtas ako. Umatras ka."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.guarded.10"
+            "EN": "I'll manage the pain on my own, thanks.",
+            "TL": "Kakayanin ko ang sakit mag-isa, salamat."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.01"
+            "EN": "A little banged up, but I'll manage.",
+            "TL": "Medyo may tama ako, pero kakayanin ko."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.02"
+            "EN": "Took a hit during the last scrap. Need to bandage up.",
+            "TL": "Tinamaan ako noong huling laban. Kailangan kong bendahan ito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.03"
+            "EN": "I'm nursing a couple wounds, but nothing fatal.",
+            "TL": "May iniinda akong ilang sugat, pero hindi naman nakamamatay."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.04"
+            "EN": "Hurts to move quickly, but I can still walk.",
+            "TL": "Masakit kumilos nang mabilis, pero nakakalakad pa ako."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.05"
+            "EN": "Got tagged out there. Keeping an eye on the bleeding.",
+            "TL": "Tinamaan ako sa labas. Binabantayan ko ang pagdurugo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.06"
+            "EN": "Bruised and aching all over, but I'll pull through.",
+            "TL": "Pasa-pasa at masakit ang buong katawan, pero makakaraos din."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.07"
+            "EN": "Scraped up pretty bad, but still on two feet.",
+            "TL": "Medyo malala ang gasgas ko, pero nakatayo pa rin sa dalawang paa."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.08"
+            "EN": "Need some clean bandages soon, but I'm holding together.",
+            "TL": "Kailangan ko ng malinis na benda agad, pero maayos pa naman."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.09"
+            "EN": "Took a rough fall earlier. Still feeling the sting.",
+            "TL": "Medyo napasama ang bagsak ko kanina. Kumikirot pa rin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.neutral.10"
+            "EN": "Not in peak shape right now, but I can carry on.",
+            "TL": "Hindi ako nasa pinakamagandang kondisyon, pero kaya pang ituloy."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.01"
+            "EN": "I'm hurt. I can manage.",
+            "TL": "Nasaktan ako. Kaya ko."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.02"
+            "EN": "Bleeding.",
+            "TL": "Dumudugo."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.03"
+            "EN": "Took a hit.",
+            "TL": "Tinamaan ako."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.04"
+            "EN": "Bruised up.",
+            "TL": "May pasa."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.05"
+            "EN": "Hurts.",
+            "TL": "Masakit."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.06"
+            "EN": "Need bandages.",
+            "TL": "Kailangan ng benda."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.07"
+            "EN": "Still walking.",
+            "TL": "Nakakalakad pa."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.08"
+            "EN": "Minor wound.",
+            "TL": "Maliit na sugat lang."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.09"
+            "EN": "Stings like hell.",
+            "TL": "Napakasakit."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.terse.10"
+            "EN": "Managing the pain.",
+            "TL": "Tinitiis ang sakit."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.01"
+            "EN": "I took a hit, but I'm steady enough to keep going.",
+            "TL": "Nasaktan ako, pero kaya ko pang magpatuloy."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.02"
+            "EN": "Appreciate you checking. It stings, but I'll be fine.",
+            "TL": "Salamat sa pag-alala. Kumikirot, pero magiging maayos din ako."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.03"
+            "EN": "Got banged up a bit. Having you around makes it easier.",
+            "TL": "Medyo nasugatan ako. Mas gumaan ang loob ko dahil nandito ka."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.04"
+            "EN": "Don't worry too much. I'll get this patched up in no time.",
+            "TL": "Huwag kang masyadong mag-alala. Magagamot ko rin ito agad."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.05"
+            "EN": "Took a knock, but seeing you safe helps take the edge off.",
+            "TL": "Tinamaan ako nang bahagya, pero nakakabawas ng sakit na ligtas ka."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.06"
+            "EN": "I'll pull through, friend. Thanks for watching out for me.",
+            "TL": "Kakayanin ko ito, kaibigan. Salamat sa pagbabantay sa akin."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.07"
+            "EN": "Nothing we can't patch up together. Appreciate the concern.",
+            "TL": "Kaya nating gamutin ito nang magkasama. Salamat sa malasakit."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.08"
+            "EN": "Just a bad scratch. I'll be back at full strength soon.",
+            "TL": "Malalim na gasgas lang ito. Babalik din ang buong lakas ko agad."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.09"
+            "EN": "It hurts, but I know we've got each other's backs.",
+            "TL": "Masakit, pero alam kong nagtutulungan tayo."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.injured.warm.10"
+            "EN": "A bit bruised, but your concern means the world to me.",
+            "TL": "Pasa-pasa ako, pero malaking bagay sa akin ang pag-aalala mo."
           }
         ]
       }
@@ -731,44 +731,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.01"
+            "EN": "I'm pretty shaken up right now.",
+            "TL": "Nanginginig pa rin ako ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.02"
+            "EN": "My heart is pounding out of my chest.",
+            "TL": "Napakabilis ng tibok ng puso ko sa kaba."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.03"
+            "EN": "That was way too close. Need a minute to breathe.",
+            "TL": "Muntik na 'yon. Kailangan ko ng sandali para kumalma."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.04"
+            "EN": "Trying to keep my hands from shaking.",
+            "TL": "Pinipigilan ko ang panginginig ng mga kamay ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.05"
+            "EN": "Terrified, if I'm being honest with you.",
+            "TL": "Natatakot ako, kung sasabihin ko ang totoo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.06"
+            "EN": "Felt like my heart was going to stop back there.",
+            "TL": "Pakiramdam ko hihinto na ang puso ko kanina."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.07"
+            "EN": "Need to catch my breath and calm my nerves.",
+            "TL": "Kailangang huminga nang malalim at pakalmahin ang sarili."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.08"
+            "EN": "Adrenaline is surging. Hard to think straight.",
+            "TL": "Mataas pa ang adrenaline ko. Hirap mag-isip nang tuwid."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.09"
+            "EN": "Still feeling the panic creeping up on me.",
+            "TL": "Nararamdaman ko pa rin ang takot na gumagapang sa akin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.panic.neutral.10"
+            "EN": "Give me a second to get my head together.",
+            "TL": "Bigyan mo ako ng ilang sandali para makabawi ng katinuan."
           }
         ]
       }
@@ -779,44 +779,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.01"
+            "EN": "I'm tense, but I can keep going.",
+            "TL": "Tensiyonado ako, pero kaya ko pa."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.02"
+            "EN": "Nerves are frayed. The tension is getting to me.",
+            "TL": "Naiipit ang mga nerbyos ko. Ramdam ko ang tensiyon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.03"
+            "EN": "Feeling the pressure constantly out here.",
+            "TL": "Laging mabigat ang pakiramdam dito sa labas."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.04"
+            "EN": "On edge, jumping at every shadow.",
+            "TL": "Kabado ako, nabibigla sa bawat anino."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.05"
+            "EN": "Stress is wearing me down faster than the walking.",
+            "TL": "Mas nakakapagod ang stress kaysa sa mismong paglalakad."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.06"
+            "EN": "Hard to unwind when danger could be anywhere.",
+            "TL": "Mahirap magrelaks kapag may panganib kahit saan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.07"
+            "EN": "My shoulders are tight as iron from all this stress.",
+            "TL": "Mabigat ang mga balikat ko sa sobrang stress."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.08"
+            "EN": "Just trying to keep my sanity intact.",
+            "TL": "Pinipilit ko lang mapanatili ang katinuan ko."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.09"
+            "EN": "Every little noise has me reaching for my weapon.",
+            "TL": "Bawat kaluskos napapahawak ako agad sa armas ko."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.stress.neutral.10"
+            "EN": "It's a lot to process, but I'm holding it in.",
+            "TL": "Mabigat dalhin ang lahat, pero tinitiis ko."
           }
         ]
       }
@@ -827,44 +827,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.01"
+            "EN": "I'm pretty thirsty. Could you spare some water?",
+            "TL": "Uhaw na uhaw ako. Maaari ba akong makahingi ng tubig?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.02"
+            "EN": "My throat feels parched. Got any clean water?",
+            "TL": "Tuyong-tuyo ang lalamunan ko. May malinis ka bang tubig?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.03"
+            "EN": "Really need a drink soon. Starting to feel dehydrated.",
+            "TL": "Kailangan ko na talagang uminom. Nauuhaw na ako nang husto."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.04"
+            "EN": "Could use a sip of water if you've got any to share.",
+            "TL": "Kailangan ko ng kahit kaunting lagok ng tubig kung mayroon ka."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.05"
+            "EN": "Thirst is really slowing me down today.",
+            "TL": "Pinapabagal talaga ako ng uhaw ngayong araw."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.06"
+            "EN": "My canteen ran dry a while back. Got any water?",
+            "TL": "Natuyo na ang lalagyan ko kanina pa. May tubig ka ba?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.07"
+            "EN": "Desperate for a drink of fresh water right now.",
+            "TL": "Kailangang-kailangan ko ng maiinom na sariwang tubig ngayon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.08"
+            "EN": "My mouth is bone dry. Can you spare a few drops?",
+            "TL": "Tuyot na tuyot ang bibig ko. Makakahingi ba ng kaunting tubig?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.09"
+            "EN": "Need water before my headache gets any worse.",
+            "TL": "Kailangan ko ng tubig bago pa sumakit ang ulo ko sa uhaw."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst.neutral.10"
+            "EN": "Any spare water bottle on you? I'm drying up.",
+            "TL": "May sobra ka bang botelya ng tubig? Uhaw na uhaw na ako."
           }
         ]
       }
@@ -875,44 +875,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.01"
+            "EN": "I could really use a drink. Do you have any water?",
+            "TL": "Kailangan ko talaga ng maiinom. May tubig ka ba?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.02"
+            "EN": "Dying for a drink of water out here.",
+            "TL": "Gusto ko na talagang makainom ng tubig dito sa init."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.03"
+            "EN": "Throat is scratching with thirst. Got a bottle?",
+            "TL": "Makati na ang lalamunan ko sa uhaw. May botelya ka ba?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.04"
+            "EN": "Would give almost anything for a cold sip right now.",
+            "TL": "Kahit ano ibibigay ko para sa malamig na lagok ng tubig ngayon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.05"
+            "EN": "Looking for clean water everywhere. Got any to spare?",
+            "TL": "Naghahanap ako ng malinis na tubig kung saan-saan. May sobra ka?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.06"
+            "EN": "Dehydration is starting to set in. Water would help immensely.",
+            "TL": "Inaabutan na ako ng dehydration. Malaking tulong ang tubig."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.07"
+            "EN": "Got a spare flask of water? My tongue feels like sandpaper.",
+            "TL": "May sobra ka bang lalagyan ng tubig? Parang liha na ang dila ko."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.08"
+            "EN": "Can't go much further without something to drink.",
+            "TL": "Hindi na ako makakalayo kapag walang maiinom."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.09"
+            "EN": "Just a small swallow of water would keep me going.",
+            "TL": "Kahit isang lagok lang ng tubig makakatulong na sa akin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.wellbeing.thirst_alt.neutral.10"
+            "EN": "My lips are chapped from thirst. Spare any water?",
+            "TL": "Bitak-bitak na ang labi ko sa uhaw. Pahingi naman ng tubig?"
           }
         ]
       }

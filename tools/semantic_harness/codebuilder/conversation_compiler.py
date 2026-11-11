@@ -23,13 +23,11 @@ from .conversation_manifest import (
     read_json as _read_json,
     validate_id as _validate_id,
 )
-from .conversation_catalog import (
-    _hydrate_catalog_translations,
-    _reject_inline_translations,
-)
 from .conversation_contract import (
     CONVERSATION_MANIFEST_RELATIVE,
     CONVERSATION_MAX_SHARD_BYTES,
+    CONVERSATION_MAX_INDEX_BYTES,
+    CONVERSATION_MAX_SOURCE_BYTES,
     CONVERSATION_MODEL_SCHEMA,
     CONVERSATION_RUNTIME_RELATIVE,
     CONVERSATION_SHARD_SCHEMA,
@@ -82,10 +80,6 @@ from tools.semantic_harness.codebuilder.conversation_model import (
 )
 from tools.semantic_harness.codebuilder.conversation_assembler import assemble_shards
 from tools.semantic_harness.codebuilder.translation_support import DEFAULT_LANGUAGE, merge_language_sets
-from tools.semantic_harness.codebuilder.catalog_contract import (
-    CatalogContractError,
-    load_locale_catalog_documents,
-)
 from .generation_ownership import (
     HOOMANS_OWNER,
     conversation_prefix,
@@ -146,17 +140,6 @@ def compile_conversation_sources(
             )
     manifest_path = manifest_path.expanduser().resolve()
     runtime_root = (runtime_root or repository).expanduser().resolve()
-    try:
-        catalog_documents = load_locale_catalog_documents(manifest_path.parent / "translations")
-        catalogs = {
-            language: {
-                str(key): str(entry["text"])
-                for key, entry in document["entries"].items()
-            }
-            for language, document in sorted(catalog_documents.items())
-        }
-    except CatalogContractError as error:
-        raise CompileError(str(error)) from error
     manifest, entries = _load_manifest(
         repository,
         manifest_path,
@@ -169,7 +152,6 @@ def compile_conversation_sources(
             entry,
             runtime_root=runtime_root,
             default_owner=manifest["defaultOwner"],
-            catalogs=catalogs,
             package_repositories=resolved_package_repositories,
         )
 
@@ -417,7 +399,6 @@ def compile_conversation_sources(
             for owner, path in (package_repositories or {}).items()
         },
         "_source_documents": source_documents,
-        "_catalog_documents": catalog_documents,
     }
     return model
 

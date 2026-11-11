@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.lifecycle.gift",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.01"
+            "EN": "Thank you for the gift.",
+            "TL": "Salamat sa regalo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.02"
+            "EN": "I appreciate this gesture. Thank you.",
+            "TL": "Salamat sa magandang kalooban. Maraming salamat."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.03"
+            "EN": "That's generous of you. Thanks.",
+            "TL": "Bukas-palad ka. Salamat."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.04"
+            "EN": "Thank you! This will be put to good use.",
+            "TL": "Salamat! Magagamit ito nang maayos."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.05"
+            "EN": "A welcome surprise. Thank you, friend.",
+            "TL": "Magandang sorpresa. Salamat, kaibigan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.06"
+            "EN": "Much obliged for the gift.",
+            "TL": "Maraming salamat sa regalo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.07"
+            "EN": "I'm grateful for this. Thank you.",
+            "TL": "Nagpapasalamat ako rito. Salamat."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.08"
+            "EN": "You didn't have to, but thanks a lot.",
+            "TL": "Di mo kailangang gawin, pero maraming salamat."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.09"
+            "EN": "Received with gratitude. Thank you.",
+            "TL": "Tinatanggap kalakip ang pasasalamat. Salamat."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.gift.completed.neutral.10"
+            "EN": "Thanks for thinking of me with this gift.",
+            "TL": "Salamat sa pag-alala sa akin sa regalong ito."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.01"
+            "EN": "I couldn't accept that gift.",
+            "TL": "Hindi ko matanggap ang regalong iyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.02"
+            "EN": "Something went wrong while transferring the gift.",
+            "TL": "May nangyaring mali habang ipinapasa ang regalo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.03"
+            "EN": "Gift transfer failed. My hands were full.",
+            "TL": "Bigo ang paglipat ng regalo. Puno ang kamay ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.04"
+            "EN": "Couldn't receive that right now.",
+            "TL": "Di matanggap 'yan sa ngayon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.05"
+            "EN": "Unable to take the gift into my inventory.",
+            "TL": "Di mailagay ang regalo sa lalagyan ko."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.06"
+            "EN": "Transaction interrupted. Gift not taken.",
+            "TL": "Naabala ang pagbibigay. Di nakuha ang regalo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.07"
+            "EN": "Failed to receive the offering.",
+            "TL": "Bigo sa pagtanggap ng alay."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.08"
+            "EN": "I dropped it or couldn't hold it.",
+            "TL": "Nahulog ko o di nahawakan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.09"
+            "EN": "Gift transfer could not be completed.",
+            "TL": "Di natapos ang paglipat ng regalo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.gift.failed.neutral.10"
+            "EN": "Couldn't take that from you.",
+            "TL": "Di ko nakuha 'yan mula sa 'yo."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.01"
+            "EN": "I'll take a look at that gift.",
+            "TL": "Titingnan ko ang regalong iyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.02"
+            "EN": "Let's see what you brought.",
+            "TL": "Tingnan natin kung ano ang dala mo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.03"
+            "EN": "Considering the gift now.",
+            "TL": "Tinitingnan ang regalo ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.04"
+            "EN": "Inspecting what you have for me.",
+            "TL": "Sinusuri ang handog mo para sa akin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.05"
+            "EN": "Hold on, looking at the offering.",
+            "TL": "Teka, tinitingnan ang iniaalok."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.06"
+            "EN": "I'll review the item you offered.",
+            "TL": "Susuriin ko ang bagay na inialok mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.07"
+            "EN": "Checking out the gift.",
+            "TL": "Tinitingnan ang regalo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.08"
+            "EN": "Let me examine what this is.",
+            "TL": "Hayaan mong tingnan ko kung ano ito."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.09"
+            "EN": "Looking over your gift.",
+            "TL": "Sinusuri ang regalo mo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.gift.pending.neutral.10"
+            "EN": "Give me a second to check this item.",
+            "TL": "Bigyan mo ako ng sandali para tingnan ang gamit na ito."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.01"
+            "EN": "I can't accept that gift right now.",
+            "TL": "Hindi ko matanggap ang regalong iyan ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.02"
+            "EN": "Keep it. You need it more than I do.",
+            "TL": "Itabi mo. Mas kailangan mo 'yan kaysa sa akin."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.03"
+            "EN": "I have no room for gifts in my pack.",
+            "TL": "Wala nang espasyo sa bag ko para sa mga regalo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.04"
+            "EN": "I don't feel comfortable taking this from you.",
+            "TL": "Hindi magaan sa loob ko na tanggapin ito sa 'yo."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.05"
+            "EN": "Refusing this gift. We're not there yet.",
+            "TL": "Tinatanggihan ang regalo. Di pa tayo ganoon kalapit."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.06"
+            "EN": "Save your supplies. Don't waste them on me.",
+            "TL": "Itabi ang gamit mo. Huwag mong sayangin sa akin."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.07"
+            "EN": "I cannot take that offering.",
+            "TL": "Di ko matatanggap ang alay na 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.08"
+            "EN": "No thanks. I carry my own weight.",
+            "TL": "Hindi salamat. Kaya kong dalhin ang sarili ko."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.09"
+            "EN": "Gift rejected. Keep your belongings.",
+            "TL": "Tinatanggihan ang regalo. Itago ang pag-aari mo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.gift.rejected.neutral.10"
+            "EN": "I won't accept that from you today.",
+            "TL": "Di ko tatanggapin 'yan mula sa 'yo ngayong araw."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.01"
+            "EN": "I need to see what you brought me first.",
+            "TL": "Kailangan ko munang makita ang dala mo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.02"
+            "EN": "What exactly are you offering me?",
+            "TL": "Ano nga ba ang iniaalok mo sa akin?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.03"
+            "EN": "Select an item to gift before I decide.",
+            "TL": "Pumili ng bagay na ireregalo bago ako magpasya."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.04"
+            "EN": "Show me what you want to give.",
+            "TL": "Ipakita mo kung ano ang nais mong ibigay."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.05"
+            "EN": "Which item are you trying to hand over?",
+            "TL": "Aling gamit ba ang sinusubukan mong iabot?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.06"
+            "EN": "Pick the specific item first.",
+            "TL": "Piliin muna ang partikular na gamit."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.07"
+            "EN": "I can't take anything until you select it.",
+            "TL": "Wala akong matatanggap hangga't di mo pinipili."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.08"
+            "EN": "Show me what's in your hands.",
+            "TL": "Ipakita mo ang nasa mga kamay mo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.09"
+            "EN": "What gift are we talking about? Choose one.",
+            "TL": "Anong regalo ba ang pinag-uusapan natin? Pumili ka."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.gift.selection_required.neutral.10"
+            "EN": "Specify the gift from your inventory.",
+            "TL": "Tukuyin ang regalo mula sa bag mo."
           }
         ]
       }

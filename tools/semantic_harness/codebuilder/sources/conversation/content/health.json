@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.health",
   "kind": "content",
   "domain": "health",
@@ -17,170 +17,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.01"
+            "EN": "I'm fine. Don't make a thing of it.",
+            "TL": "Mabuti ako. Huwag mo nang palakihin."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.02"
+            "EN": "Nothing wrong with me. Keep your eyes on the road.",
+            "TL": "Walang mali sa akin. Tumutok ka sa daan."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.03"
+            "EN": "No injuries to report. Step back.",
+            "TL": "Walang sugat na dapat sabihin. Umatras ka."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.04"
+            "EN": "I'm in fighting shape. Don't worry about me.",
+            "TL": "Kaya ko pang lumaban. Huwag mo akong alalahanin."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.05"
+            "EN": "Not a scratch on me. That's all you get.",
+            "TL": "Kahit gasgas wala ako. Iyon lang ang masasabi ko."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.06"
+            "EN": "I'm completely healthy. Leave it alone.",
+            "TL": "Malusog ako. Huwag mo nang usisain."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.07"
+            "EN": "Body's holding up just fine. Mind your own health.",
+            "TL": "Maayos ang katawan ko. Asikasuhin mo ang sarili mong kalusugan."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.08"
+            "EN": "Clean bill of health. You don't need to inspect me.",
+            "TL": "Ligtas ako sa anumang sakit. Hindi mo kailangang siyasatin ako."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.09"
+            "EN": "I'm intact and able-bodied. Let's move on.",
+            "TL": "Buo ako at maayos ang katawan. Magpatuloy na tayo."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.guarded.10"
+            "EN": "No wounds, no sickness. Keep your distance.",
+            "TL": "Walang sugat, walang sakit. Lumayo ka."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.01"
+            "EN": "I'm doing okay.",
+            "TL": "Ayos lang ako."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.02"
+            "EN": "Healthy as can be expected out here.",
+            "TL": "Malusog naman ayon sa inaasahan dito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.03"
+            "EN": "No wounds or sickness bothering me right now.",
+            "TL": "Walang sugat o sakit na gumugulo sa akin ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.04"
+            "EN": "Feeling solid. No injuries to speak of.",
+            "TL": "Maayos ang pakiramdam ko. Walang iniindang sugat."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.05"
+            "EN": "I'm in good health today, all things considered.",
+            "TL": "Mabuti ang kalusugan ko ngayon, sa kabila ng lahat."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.06"
+            "EN": "Everything's working the way it should.",
+            "TL": "Gumagana ang lahat nang maayos sa katawan ko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.07"
+            "EN": "No complaints on the physical side today.",
+            "TL": "Walang reklamo sa pisikal kong kalagayan ngayon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.08"
+            "EN": "Feeling intact and steady. No wounds on me.",
+            "TL": "Buo at matatag ang pakiramdam ko. Walang sugat sa akin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.09"
+            "EN": "Health is holding up fine. Ready for work.",
+            "TL": "Maayos ang kalusugan ko. Handa na para sa gawain."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.neutral.10"
+            "EN": "Not carrying any injuries right now.",
+            "TL": "Wala akong iniindang anumang sugat ngayon."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.01"
+            "EN": "I'm okay.",
+            "TL": "Ayos lang."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.02"
+            "EN": "Healthy.",
+            "TL": "Malusog."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.03"
+            "EN": "No injuries.",
+            "TL": "Walang sugat."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.04"
+            "EN": "All clear.",
+            "TL": "Ligtas."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.05"
+            "EN": "Fine.",
+            "TL": "Ayos."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.06"
+            "EN": "Uninjured.",
+            "TL": "Walang tama."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.07"
+            "EN": "Doing fine.",
+            "TL": "Maayos."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.08"
+            "EN": "No wounds.",
+            "TL": "Walang sugat."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.09"
+            "EN": "Good shape.",
+            "TL": "Magandang kondisyon."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.terse.10"
+            "EN": "Solid.",
+            "TL": "Matatag."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.01"
+            "EN": "I'm doing okay. Thanks for checking in.",
+            "TL": "Ayos lang ako. Salamat sa pagsuri."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.02"
+            "EN": "Healthy and feeling good today. Truly appreciate you asking.",
+            "TL": "Malusog at maganda ang pakiramdam ko ngayon. Salamat sa pagtatanong."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.03"
+            "EN": "Not a scratch on me. Glad you're keeping an eye out.",
+            "TL": "Kahit gasgas wala ako. Salamat sa pagbabantay."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.04"
+            "EN": "Feeling strong and healthy, friend. Hope you are too.",
+            "TL": "Malakas at malusog ang pakiramdam ko, kaibigan. Sana ikaw rin."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.05"
+            "EN": "All intact on my side. Thank you for looking after me.",
+            "TL": "Buo ang lahat sa akin. Salamat sa pag-aalaga mo."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.06"
+            "EN": "Doing wonderfully, thank you. It's comforting that you asked.",
+            "TL": "Napakaganda ng kalagayan ko, salamat. Nakakapanatag na nagtanong ka."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.07"
+            "EN": "In great health today. Ready to face whatever comes our way.",
+            "TL": "Napakalusog ko ngayon. Handa harapin ang anumang dumating."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.08"
+            "EN": "Feeling well rested and sound. Appreciate the kind check-in.",
+            "TL": "Mabuti ang pahinga at kalagayan ko. Salamat sa magandang pangangamusta."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.09"
+            "EN": "No bumps or scrapes today. Thank you for caring.",
+            "TL": "Walang pasa o gasgas ngayon. Salamat sa pagmamalasakit."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.question.health_state.healthy.warm.10"
+            "EN": "I'm doing great, honestly. Let's make sure we both stay that way.",
+            "TL": "Maayos talaga ako. Siguraduhin nating manatili tayong parehong ganito."
           }
         ]
       }
@@ -191,170 +191,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.01"
+            "EN": "I'm hurt. Give me space.",
+            "TL": "Nasaktan ako. Bigyan mo ako ng espasyo."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.02"
+            "EN": "Took some damage. I don't need your pity.",
+            "TL": "May tama ako. Hindi ko kailangan ang awa mo."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.03"
+            "EN": "Got injured, but I'm still dangerous. Step back.",
+            "TL": "Nasugatan ako, pero mapanganib pa rin ako. Umatras ka."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.04"
+            "EN": "Bleeding, but it's under control. Don't hover.",
+            "TL": "Dumudugo, pero kontrolado ko. Huwag kang mag-aligid."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.05"
+            "EN": "I'm wounded. That doesn't mean I'm helpless.",
+            "TL": "Sugatan ako. Hindi ibig sabihing wala na akong magagawa."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.06"
+            "EN": "I can bandage my own wounds, thank you.",
+            "TL": "Kaya kong bendahan ang sarili kong sugat, salamat."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.07"
+            "EN": "It hurts, but you don't need to pry into it.",
+            "TL": "Masakit, pero hindi mo kailangang mag-usisa."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.08"
+            "EN": "Just a bad cut. Keep your hands where I can see them.",
+            "TL": "Malalim na sugat lang. Ipakita mo ang mga kamay mo."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.09"
+            "EN": "I'm dealing with the pain. Leave me be.",
+            "TL": "Inaayos ko ang iniinda ko. Hayaan mo muna ako."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.guarded.10"
+            "EN": "Injured, yes. Vulnerable, no. Back off.",
+            "TL": "Sugatan, oo. Mahina, hindi. Lumayo ka."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.01"
+            "EN": "I'm hurt, but I'm managing.",
+            "TL": "Nasaktan ako, pero kinakaya ko."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.02"
+            "EN": "Took a beating earlier. Bandages are holding for now.",
+            "TL": "Medyo napuruhan kanina. Hawak pa naman ng benda sa ngayon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.03"
+            "EN": "Nursing a wound here. Trying not to reopen it.",
+            "TL": "Inaalagaan ko ang sugat na ito. Iniiwasang bumuka ulit."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.04"
+            "EN": "I've been injured, but nothing that'll take me down.",
+            "TL": "Nasugatan ako, pero hindi 'to makakapagpatumba sa akin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.05"
+            "EN": "Got caught in a bad spot. Dealing with the damage.",
+            "TL": "Naipit sa masamang sitwasyon. Tinitiis ang tinamong sugat."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.06"
+            "EN": "Bleeding is mostly stopped, but movement is painful.",
+            "TL": "Karamihan sa dugo tumigil na, pero masakit kumilos."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.07"
+            "EN": "Stung pretty bad by an attack earlier.",
+            "TL": "Kumikirot pa rin mula sa pag-atake kanina."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.08"
+            "EN": "Injuries are slowing me down, but I can keep moving.",
+            "TL": "Pinapabagal ako ng mga sugat, pero kaya pang lumakad."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.09"
+            "EN": "Could use some medical supplies when we find them.",
+            "TL": "Kailangan ko ng gamot kapag nakahanap tayo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.neutral.10"
+            "EN": "I'm hurting right now, but taking it step by step.",
+            "TL": "Masakit ang katawan ko ngayon, pero dahan-dahan lang."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.01"
+            "EN": "I'm hurt.",
+            "TL": "Nasaktan ako."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.02"
+            "EN": "Wounded.",
+            "TL": "Sugatan."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.03"
+            "EN": "Need stitches.",
+            "TL": "Kailangan ng tahi."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.04"
+            "EN": "Bleeding.",
+            "TL": "Dumudugo."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.05"
+            "EN": "Hurts bad.",
+            "TL": "Sobrang sakit."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.06"
+            "EN": "Bandaged up.",
+            "TL": "May benda."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.07"
+            "EN": "Still bleeding.",
+            "TL": "Dumudugo pa."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.08"
+            "EN": "Took damage.",
+            "TL": "Tinamaan."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.09"
+            "EN": "Slowed down.",
+            "TL": "Bumagal."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.terse.10"
+            "EN": "Managing pain.",
+            "TL": "Tinitiis."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.01"
+            "EN": "I'm hurt, but I'm managing. Thanks for asking.",
+            "TL": "Nasaktan ako, pero kinakaya ko. Salamat sa pagtatanong."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.02"
+            "EN": "Took a hit out there, but knowing you're here helps a lot.",
+            "TL": "Tinamaan ako sa labas, pero malaking tulong na nandito ka."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.03"
+            "EN": "It hurts, friend, but I promise I'm holding together.",
+            "TL": "Masakit, kaibigan, pero nangangako akong kakayanin ko."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.04"
+            "EN": "Got banged up a little. Thank you for your care and concern.",
+            "TL": "Medyo napuruhan ako. Salamat sa malasakit mo."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.05"
+            "EN": "Nursing a wound, but seeing you safe gives me strength.",
+            "TL": "May sugat ako, pero nagbibigay ng lakas na ligtas ka."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.06"
+            "EN": "I'll pull through with some rest. Thanks for checking on me.",
+            "TL": "Makakaraos din ako kapag nakapagpahinga. Salamat sa pangangamusta."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.07"
+            "EN": "It's painful, but we'll patch it up together, right?",
+            "TL": "Masakit, pero gagamutin natin ito nang magkasama, di ba?"
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.08"
+            "EN": "Appreciate the check-in. Don't worry too much about me.",
+            "TL": "Salamat sa pagsuri. Huwag kang masyadong mag-alala sa akin."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.09"
+            "EN": "Got scratched up bad, but I'm glad you're by my side.",
+            "TL": "Malala ang gasgas ko, pero masaya akong nasa tabi kita."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.question.health_state.injured.warm.10"
+            "EN": "Hurts like hell, but having good folks around keeps me going.",
+            "TL": "Napakasakit, pero ang mabubuting kasama ang nagpapatuloy sa akin."
           }
         ]
       }
@@ -365,170 +365,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.01"
+            "EN": "I can't confirm that.",
+            "TL": "Hindi ko makumpirma iyon."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.02"
+            "EN": "Haven't checked properly yet. Mind your own business.",
+            "TL": "Hindi ko pa nasusuri nang maayos. Asikasuhin mo ang sarili mo."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.03"
+            "EN": "Can't tell right now, and I'm not stripping down to check.",
+            "TL": "Hindi ko masabi ngayon, at hindi ako maghuhubad para magpakita."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.04"
+            "EN": "Unsure. I'll evaluate my own condition later.",
+            "TL": "Hindi sigurado. Susuriin ko ang sarili ko mamaya."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.05"
+            "EN": "No idea. Too chaotic out here to be certain.",
+            "TL": "Walang ideya. Masyadong magulo rito para makasiguro."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.06"
+            "EN": "I don't have that information right now. Stand back.",
+            "TL": "Wala akong impormasyon diyan ngayon. Umatras ka."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.07"
+            "EN": "Hard to tell through the layers. Let it go.",
+            "TL": "Mahirap malaman dahil sa kapal ng damit. Hayaan mo na."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.08"
+            "EN": "Can't be certain. Focus on your own status.",
+            "TL": "Hindi makasiguro. Ituon ang pansin sa sarili mong kalagayan."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.09"
+            "EN": "Not clear yet. Don't crowd me.",
+            "TL": "Hindi pa malinaw. Huwag mo akong pagkumpulan."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.guarded.10"
+            "EN": "Status unknown. I'll deal with it when I'm safe.",
+            "TL": "Hindi tiyak ang kalagayan. Aayusin ko 'to kapag ligtas na."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.01"
+            "EN": "I can't confirm my health status right now.",
+            "TL": "Hindi ko makumpirma ang kalagayan ko ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.02"
+            "EN": "Haven't had a chance to inspect myself thoroughly.",
+            "TL": "Hindi pa ako nagkakaroon ng pagkakataong suriin ang sarili ko."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.03"
+            "EN": "Not entirely sure how bad it is under the gear.",
+            "TL": "Hindi ako sigurado kung gaano kalala sa ilalim ng suot ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.04"
+            "EN": "Could be bleeding, could just be a bruise. Hard to tell.",
+            "TL": "Pwedeng dumudugo, pwedeng pasa lang. Mahirap masabi."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.05"
+            "EN": "Need a quiet moment to check over my condition.",
+            "TL": "Kailangan ko ng tahimik na sandali para masuri ang katawan ko."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.06"
+            "EN": "Uncertain right now. Adrenaline is masking the pain.",
+            "TL": "Hindi sigurado ngayon. Natatakpan ng adrenaline ang sakit."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.07"
+            "EN": "Hard to tell without a mirror or better light.",
+            "TL": "Mahirap malaman kung walang salamin o mas maayos na ilaw."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.08"
+            "EN": "I feel sore all over, but can't verify the specifics.",
+            "TL": "Masakit ang buong katawan ko, pero hindi ko matukoy ang dahilan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.09"
+            "EN": "Can't confirm if anything is broken or sprained yet.",
+            "TL": "Hindi pa makumpirma kung may bali o pilay ako."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.neutral.10"
+            "EN": "My condition is uncertain at the moment.",
+            "TL": "Hindi tiyak ang kalagayan ko sa mga sandaling ito."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.01"
+            "EN": "Can't confirm.",
+            "TL": "Hindi makumpirma."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.02"
+            "EN": "Unsure.",
+            "TL": "Hindi sigurado."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.03"
+            "EN": "Not sure yet.",
+            "TL": "Hindi pa tiyak."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.04"
+            "EN": "Need to check.",
+            "TL": "Kailangang suriin."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.05"
+            "EN": "Unknown.",
+            "TL": "Hindi alam."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.06"
+            "EN": "Hard to say.",
+            "TL": "Mahirap sabihin."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.07"
+            "EN": "Can't tell.",
+            "TL": "Hindi masabi."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.08"
+            "EN": "Need a look.",
+            "TL": "Kailangang tingnan."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.09"
+            "EN": "Unchecked.",
+            "TL": "Hindi pa nasusuri."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.terse.10"
+            "EN": "Too early to tell.",
+            "TL": "Masyadong maaga pa."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.01"
+            "EN": "I can't confirm it right now, but thanks for asking.",
+            "TL": "Hindi ko makumpirma ngayon, pero salamat sa pagtatanong."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.02"
+            "EN": "Not sure how bad it is yet, but I appreciate your concern.",
+            "TL": "Hindi pa sigurado kung gaano kalala, pero salamat sa pag-alala."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.03"
+            "EN": "Haven't checked properly, but I'll let you know once I do.",
+            "TL": "Hindi pa nasusuri nang maayos, pero sasabihin ko sa 'yo kapag nasuri ko na."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.04"
+            "EN": "Hard to tell right now, friend. Thanks for watching over me.",
+            "TL": "Mahirap masabi ngayon, kaibigan. Salamat sa pagbabantay sa akin."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.05"
+            "EN": "I need to check under the bandages, but I'm grateful you asked.",
+            "TL": "Kailangan kong tingnan sa ilalim ng benda, pero salamat sa pagtanong."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.06"
+            "EN": "Uncertain for now, but your support means everything to me.",
+            "TL": "Hindi sigurado sa ngayon, pero mahalaga ang suporta mo sa akin."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.07"
+            "EN": "Could be fine, could be bruised. Thanks for caring enough to check.",
+            "TL": "Pwedeng ayos lang, pwedeng may pasa. Salamat sa pagmamalasakit."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.08"
+            "EN": "I'll do a proper check when we're safe. Thank you, truly.",
+            "TL": "Magsusuri ako kapag ligtas na tayo. Maraming salamat talaga."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.09"
+            "EN": "Can't say for sure, but I feel safer with you here.",
+            "TL": "Hindi masabi nang tiyak, pero mas panatag ako at nandito ka."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.question.health_state.unknown.warm.10"
+            "EN": "Not sure yet, but don't worry yourself sick over me.",
+            "TL": "Hindi pa sigurado, pero huwag kang magpakapagod mag-alala."
           }
         ]
       }
@@ -539,170 +539,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.01"
+            "EN": "No bite. Leave it there.",
+            "TL": "Walang kagat. Tama na."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.02"
+            "EN": "I'm clean. Don't look at me like that.",
+            "TL": "Malinis ako. Huwag mo akong tingnan nang ganyan."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.03"
+            "EN": "Not bitten. Stop inspecting me.",
+            "TL": "Hindi nakagat. Itigil mo ang pagsusuri sa akin."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.04"
+            "EN": "No teeth touched my skin. Back off.",
+            "TL": "Walang ngiping tumama sa balat ko. Lumayo ka."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.05"
+            "EN": "I checked thoroughly. I am not infected.",
+            "TL": "Sinuri ko nang maayos. Hindi ako infected."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.06"
+            "EN": "No bite marks anywhere. Put your weapon down.",
+            "TL": "Walang bakas ng kagat kahit saan. Ibaba mo ang armas mo."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.07"
+            "EN": "I know the protocol. I don't have a bite.",
+            "TL": "Alam ko ang patakaran. Wala akong kagat."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.08"
+            "EN": "Clean skin. Don't jump to conclusions.",
+            "TL": "Malinis ang balat ko. Huwag kang magbintang agad."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.09"
+            "EN": "Not a single bite mark. Keep your distance regardless.",
+            "TL": "Kahit isang bakas ng kagat wala. Lumayo ka pa rin."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.guarded.10"
+            "EN": "I am not turning. Drop the interrogation.",
+            "TL": "Hindi ako magiging isa sa kanila. Itigil ang pagtatanong."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.01"
+            "EN": "No, I don't have a recorded bite.",
+            "TL": "Hindi, wala akong naitalang kagat."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.02"
+            "EN": "Checked myself over. No bites anywhere.",
+            "TL": "Sinuri ko ang sarili ko. Walang kagat kahit saan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.03"
+            "EN": "I'm clean. None of them got their teeth in me.",
+            "TL": "Malinis ako. Walang nakakagat sa akin sa kanila."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.04"
+            "EN": "No bite marks at all, thankfully.",
+            "TL": "Walang anumang bakas ng kagat, salamat sa Diyos."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.05"
+            "EN": "Skin's intact. No bites from the dead.",
+            "TL": "Buo ang balat ko. Walang kagat mula sa mga patay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.06"
+            "EN": "I made sure to inspect every scratch. No bites.",
+            "TL": "Tiningnan ko bawat gasgas. Walang kagat."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.07"
+            "EN": "Free and clear of any bite wounds.",
+            "TL": "Ligtas at malinis ako sa anumang sugat ng kagat."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.08"
+            "EN": "Didn't get bitten. The armor held up.",
+            "TL": "Hindi nakagat. Nakatulong ang proteksyon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.09"
+            "EN": "No bites on me, I can assure you.",
+            "TL": "Walang kagat sa akin, makakasiguro ka."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.neutral.10"
+            "EN": "I checked carefully. No bites, just scratches.",
+            "TL": "Sinuri kong mabuti. Walang kagat, gasgas lang."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.01"
+            "EN": "No bite.",
+            "TL": "Walang kagat."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.02"
+            "EN": "Clean.",
+            "TL": "Malinis."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.03"
+            "EN": "Not bitten.",
+            "TL": "Hindi nakagat."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.04"
+            "EN": "No teeth marks.",
+            "TL": "Walang bakas."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.05"
+            "EN": "Skin intact.",
+            "TL": "Buo ang balat."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.06"
+            "EN": "I'm clear.",
+            "TL": "Ligtas ako."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.07"
+            "EN": "Negative.",
+            "TL": "Negatibo."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.08"
+            "EN": "All clear.",
+            "TL": "Lahat malinis."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.09"
+            "EN": "No infection.",
+            "TL": "Walang impeksyon."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.terse.10"
+            "EN": "Not turning.",
+            "TL": "Hindi magbabago."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.01"
+            "EN": "No, I don't have a recorded bite. Thanks for checking.",
+            "TL": "Hindi, wala akong naitalang kagat. Salamat sa pagsuri."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.02"
+            "EN": "I'm clean, friend. None of them got through my guard.",
+            "TL": "Malinis ako, kaibigan. Walang nakalusot sa depensa ko."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.03"
+            "EN": "No bite marks on me. Good to know you're looking out for camp.",
+            "TL": "Walang kagat sa akin. Mabuti at nagbabantay ka para sa kampo."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.04"
+            "EN": "Completely free of bites, thank God. Appreciate the check.",
+            "TL": "Ligtas sa anumang kagat, salamat sa Diyos. Salamat sa pagsuri."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.05"
+            "EN": "I checked thoroughly, nothing to fear. We're safe.",
+            "TL": "Sinuri ko nang maayos, walang dapat ikatakot. Ligtas tayo."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.06"
+            "EN": "No bites! Relieved to tell you I'm completely in the clear.",
+            "TL": "Walang kagat! Masaya akong sabihing ligtas na ligtas ako."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.07"
+            "EN": "Skin is clean. Thank you for doing the hard safety checks.",
+            "TL": "Malinis ang balat ko. Salamat sa pagsasagawa ng mahigpit na pagsusuri."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.08"
+            "EN": "You can breathe easy, no bites on me.",
+            "TL": "Makakahinga ka nang maluwag, walang kagat sa akin."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.09"
+            "EN": "All clear on the bite front. Thank you for your care.",
+            "TL": "Walang anumang kagat. Salamat sa pag-aalala mo."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.negative.warm.10"
+            "EN": "Not bitten at all, friend. I'm staying right here with you.",
+            "TL": "Hinding-hindi nakagat, kaibigan. Mananatili ako rito kasama mo."
           }
         ]
       }
@@ -713,170 +713,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.01"
+            "EN": "Yes. I've been bitten. That's all.",
+            "TL": "Oo. Nakagat ako. Tama na."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.02"
+            "EN": "They got me. Don't make a scene.",
+            "TL": "Nakuha nila ako. Huwag kang magsisigaw."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.03"
+            "EN": "I was bitten. Keep your gun ready if you must.",
+            "TL": "Nakagat ako. Ihanda mo ang baril mo kung kinakailangan."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.04"
+            "EN": "Yes, it happened. Stay back from me.",
+            "TL": "Oo, nangyari. Lumayo ka sa akin."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.05"
+            "EN": "Got teeth in my arm. I know what that means.",
+            "TL": "May kagat sa braso ko. Alam ko ang ibig sabihin niyan."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.06"
+            "EN": "Bitten. Don't touch me.",
+            "TL": "Nakagat. Huwag mo akong hawakan."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.07"
+            "EN": "It's true. I don't want your sympathy.",
+            "TL": "Totoo. Hindi ko kailangan ang awa mo."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.08"
+            "EN": "One of them bit me. Step away.",
+            "TL": "Kinagat ako ng isa sa kanila. Umatras ka."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.09"
+            "EN": "I'm marked. Do what you have to do.",
+            "TL": "May marka na ako. Gawin mo ang dapat mong gawin."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.guarded.10"
+            "EN": "Yes. I won't let myself become a danger to you.",
+            "TL": "Oo. Hindi ko hahayaang maging panganib ako sa 'yo."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.01"
+            "EN": "Yes, I've been bitten.",
+            "TL": "Oo, nakagat ako."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.02"
+            "EN": "One of them got their teeth in me. It's bad.",
+            "TL": "Nabaon ng isa sa kanila ang ngipin sa akin. Masama ito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.03"
+            "EN": "I got bitten during the struggle. No denying it.",
+            "TL": "Nakagat ako habang nagpupumiglas. Hindi maikakaila."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.04"
+            "EN": "There's a bite mark on my shoulder. I'm infected.",
+            "TL": "May bakas ng kagat sa balikat ko. Nahawaan ako."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.05"
+            "EN": "It broke the skin. I know what's coming.",
+            "TL": "Bumaon sa balat. Alam ko kung ano ang kahihinatnan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.06"
+            "EN": "Yes, unfortunately. I was bitten.",
+            "TL": "Oo, sa kasamaang-palad. Nakagat ako."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.07"
+            "EN": "They got through my sleeve. It's a bite.",
+            "TL": "Lumusot sa manggas ko. Kagat nga."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.08"
+            "EN": "I've been bitten. We need to plan for what comes next.",
+            "TL": "Nakagat ako. Kailangan nating pag-isipan ang susunod na gagawin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.09"
+            "EN": "Found the mark earlier. I was bitten.",
+            "TL": "Nakita ko ang marka kanina. Nakagat talaga ako."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.neutral.10"
+            "EN": "I'm infected. A walker bit me.",
+            "TL": "Nahawaan na ako. Kinagat ako ng patay."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.01"
+            "EN": "Yes. I've been bitten.",
+            "TL": "Oo. Nakagat ako."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.02"
+            "EN": "Bitten.",
+            "TL": "Nakagat."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.03"
+            "EN": "They got me.",
+            "TL": "Nakuha ako."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.04"
+            "EN": "It's a bite.",
+            "TL": "Kagat ito."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.05"
+            "EN": "Infected.",
+            "TL": "Nahawaan."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.06"
+            "EN": "I'm turned.",
+            "TL": "Mamamatay ako."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.07"
+            "EN": "Bite mark.",
+            "TL": "Bakas ng kagat."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.08"
+            "EN": "Yes.",
+            "TL": "Oo."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.09"
+            "EN": "Skin broke.",
+            "TL": "Bumaon."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.terse.10"
+            "EN": "It's over.",
+            "TL": "Tapos na."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.01"
+            "EN": "Yes. I've been bitten, and I appreciate you checking.",
+            "TL": "Oo. Nakagat ako, at salamat sa pagsuri."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.02"
+            "EN": "They got me, friend. I'm sorry to bring you this news.",
+            "TL": "Nakuha nila ako, kaibigan. Pasensya na sa masamang balita."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.03"
+            "EN": "I was bitten. Thank you for caring enough to ask me directly.",
+            "TL": "Nakagat ako. Salamat sa pagtatanong nang diretso sa akin."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.04"
+            "EN": "It happened. I'm just glad I got to know you before the end.",
+            "TL": "Nangyari na. Masaya akong nakilala kita bago ang lahat."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.05"
+            "EN": "I've been bitten. Please, keep yourself safe when the time comes.",
+            "TL": "Nakagat ako. Pakiusap, protektahan mo ang sarili mo pagdating ng oras."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.06"
+            "EN": "Yes, they got their teeth in me. Thank you for standing by me.",
+            "TL": "Oo, kinagat nila ako. Salamat sa pananatili sa tabi ko."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.07"
+            "EN": "I won't hide it from you. I was bitten. Take care of yourself.",
+            "TL": "Hindi ko itatago sa 'yo. Nakagat ako. Alagaan mo ang sarili mo."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.08"
+            "EN": "It's a bite, friend. I appreciate all the times we shared.",
+            "TL": "Kagat nga, kaibigan. Salamat sa lahat ng pinagsamahan natin."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.09"
+            "EN": "I'm infected. Thank you for treating me like a human being.",
+            "TL": "Nahawaan na ako. Salamat sa pagtrato sa akin bilang kapwa tao."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.positive.warm.10"
+            "EN": "They bit me. Don't be sad; we fought as hard as we could.",
+            "TL": "Kinagat nila ako. Huwag kang malungkot; lumaban tayo nang buong husay."
           }
         ]
       }
@@ -887,170 +887,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.01"
+            "EN": "I can't confirm that. Don't press me.",
+            "TL": "Hindi ko makumpirma. Huwag mo nang ipilit."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.02"
+            "EN": "Haven't checked yet. Keep your distance until I do.",
+            "TL": "Hindi pa ako nakakatingin. Lumayo ka muna hangga't hindi pa."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.03"
+            "EN": "I don't know for sure. Back off and let me look.",
+            "TL": "Hindi ako sigurado. Umatras ka at hayaan mo akong tingnan."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.04"
+            "EN": "Can't tell through this armor. Don't jump to conclusions.",
+            "TL": "Hindi masabi dahil sa suot ko. Huwag kang magbintang."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.05"
+            "EN": "Too much blood to tell whose it is. Back away.",
+            "TL": "Masyadong maraming dugo para malaman kung kanino. Umatras ka."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.06"
+            "EN": "I need a mirror first. Stop staring at me.",
+            "TL": "Kailangan ko ng salamin muna. Huwag mo akong titigan."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.07"
+            "EN": "Unsure. I'll inspect myself in private.",
+            "TL": "Hindi sigurado. Magsusuri ako nang mag-isa."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.08"
+            "EN": "Can't confirm. Keep your weapon holstered.",
+            "TL": "Hindi makumpirma. Huwag mong ilabas ang armas mo."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.09"
+            "EN": "I don't know yet. Don't treat me like an infected.",
+            "TL": "Hindi ko pa alam. Huwag mo akong itrato na parang infected."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.guarded.10"
+            "EN": "Unknown. Stay where you are until I know.",
+            "TL": "Hindi alam. Diyan ka lang hangga't hindi ko nasisiguro."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.01"
+            "EN": "I can't confirm whether I've been bitten.",
+            "TL": "Hindi ko makumpirma kung nakagat ako."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.02"
+            "EN": "Haven't had a chance to strip down and check properly.",
+            "TL": "Hindi pa ako nagkakaroon ng oras para maghubad at suriin."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.03"
+            "EN": "There were too many hands grabbing at me to be certain.",
+            "TL": "Masyadong maraming humawak sa akin para makasiguro."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.04"
+            "EN": "Felt teeth scrape, but can't see if it broke the skin.",
+            "TL": "Naramdaman ko ang ngipin, pero hindi kita kung bumaon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.05"
+            "EN": "Need someone with good light to inspect my back.",
+            "TL": "Kailangan ng may maayos na ilaw para tingnan ang likod ko."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.06"
+            "EN": "Not sure yet. The wound is covered in dirt and blood.",
+            "TL": "Hindi pa sigurado. Balot ng dumi at dugo ang sugat."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.07"
+            "EN": "Could be a scratch, could be teeth. Can't tell yet.",
+            "TL": "Pwedeng gasgas, pwedeng ngipin. Hindi pa masabi."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.08"
+            "EN": "I haven't checked every spot yet. Need a minute.",
+            "TL": "Hindi ko pa nasusuri ang bawat parte. Bigyan mo ako ng sandali."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.09"
+            "EN": "Cloth is torn, but not sure if the skin is punctured.",
+            "TL": "Punit ang damit, pero hindi sigurado kung bumaon sa balat."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.neutral.10"
+            "EN": "Bite status is unknown right now. Waiting to check.",
+            "TL": "Hindi pa alam kung nakagat. Naghihintay masuri."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.01"
+            "EN": "Can't confirm.",
+            "TL": "Hindi makumpirma."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.02"
+            "EN": "Not sure.",
+            "TL": "Hindi sigurado."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.03"
+            "EN": "Haven't checked.",
+            "TL": "Hindi pa nasusuri."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.04"
+            "EN": "Unknown.",
+            "TL": "Hindi alam."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.05"
+            "EN": "Need to look.",
+            "TL": "Kailangang tingnan."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.06"
+            "EN": "Hard to tell.",
+            "TL": "Mahirap sabihin."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.07"
+            "EN": "Torn cloth.",
+            "TL": "Punit na damit."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.08"
+            "EN": "Uncertain.",
+            "TL": "Hindi tiyak."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.09"
+            "EN": "Can't see it.",
+            "TL": "Hindi ko makita."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.terse.10"
+            "EN": "Waiting to check.",
+            "TL": "Titingnan pa."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.01"
+            "EN": "I can't confirm it, but thanks for checking.",
+            "TL": "Hindi ko makumpirma, pero salamat sa pagsuri."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.02"
+            "EN": "I'm not sure yet, friend. I'll check carefully in a safe spot.",
+            "TL": "Hindi pa ako sigurado, kaibigan. Titingnan ko nang maayos sa ligtas na lugar."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.03"
+            "EN": "Haven't had a proper look, but thank you for looking out for me.",
+            "TL": "Hindi ko pa natingnan nang maigi, pero salamat sa pagbabantay sa akin."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.04"
+            "EN": "Hard to see back there. Mind helping me take a look soon?",
+            "TL": "Mahirap makita sa likod. Pwede mo ba akong tulungang tingnan mamaya?"
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.05"
+            "EN": "Unsure right now, but I promise I'll be honest with you.",
+            "TL": "Hindi sigurado ngayon, pero nangangako akong magiging tapat ako sa 'yo."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.06"
+            "EN": "I pray it's just a tear in my jacket. Thanks for asking gently.",
+            "TL": "Sana punit lang sa jacket. Salamat sa maingat na pagtatanong."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.07"
+            "EN": "Not certain yet, but let's find shelter before we inspect.",
+            "TL": "Hindi pa tiyak, pero maghanap muna tayo ng masisilungan bago sumuri."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.08"
+            "EN": "Could be nothing, could be bad. Thank you for staying calm.",
+            "TL": "Pwedeng wala lang, pwedeng masama. Salamat sa pananatiling kalmado."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.09"
+            "EN": "I haven't checked every scratch, but your concern warms my heart.",
+            "TL": "Hindi ko pa nasusuri ang bawat gasgas, pero nagpapasalamat ako sa pag-alala mo."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.question.medical_bite.unknown.warm.10"
+            "EN": "I'll let you know the moment I check. Thank you for your care.",
+            "TL": "Sasabihin ko agad pagkatapos kong masuri. Salamat sa malasakit mo."
           }
         ]
       }

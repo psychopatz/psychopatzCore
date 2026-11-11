@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 
-CONVERSATION_SHARD_SCHEMA = "psychopatz.semantic.shard.v2"
+CONVERSATION_SHARD_SCHEMA = "psychopatz.semantic.shard.v3"
 CONVERSATION_MODEL_SCHEMA = "pnc.conversation.model.v1"
 CONVERSATION_SOURCE_RELATIVE = Path(
     "tools/semantic_harness/codebuilder/sources/conversation"

@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.tool.replies.accepted.generic",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.01"
+            "EN": "I hear you.",
+            "TL": "Narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.02"
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.03"
+            "EN": "Fair enough.",
+            "TL": "May punto ka."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.04"
+            "EN": "Understood.",
+            "TL": "Naiintindihan ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.05"
+            "EN": "I hear what you are saying.",
+            "TL": "Naririnig ko ang sinasabi mo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.06"
+            "EN": "Message received.",
+            "TL": "Malinaw, nakuha ko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.07"
+            "EN": "Makes sense to me.",
+            "TL": "May katuturan 'yan para sa akin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.08"
+            "EN": "Point taken.",
+            "TL": "Nakuha ko ang punto mo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.09"
+            "EN": "I am listening.",
+            "TL": "Nakikinig ako sa 'yo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.1.neutral.10"
+            "EN": "All right. I hear you.",
+            "TL": "Sige. Naririnig kita."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.01"
+            "EN": "I will keep that in mind.",
+            "TL": "Isasaisip ko iyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.02"
+            "EN": "I will remember that.",
+            "TL": "Tandaan ko iyan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.03"
+            "EN": "Good to know. I will think about it.",
+            "TL": "Mabuting malaman. Pag-iisipan ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.04"
+            "EN": "I will note that down in my head.",
+            "TL": "Itatatak ko 'yan sa isip ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.05"
+            "EN": "Thanks for telling me. I will keep it in mind.",
+            "TL": "Salamat sa pagsabi. Tatandaan ko."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.06"
+            "EN": "I will hold onto that thought.",
+            "TL": "Isasapuso at isasaisip ko iyan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.07"
+            "EN": "I will factor that in.",
+            "TL": "Isasaalang-alang ko 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.08"
+            "EN": "Duly noted.",
+            "TL": "Tala ko na 'yan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.09"
+            "EN": "I will be mindful of that.",
+            "TL": "Magiging maingat ako tungkol diyan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.accepted_generic.2.neutral.10"
+            "EN": "Right. I will keep that in mind moving forward.",
+            "TL": "Sige. Tatandaan ko 'yan sa mga susunod."
           }
         ]
       }

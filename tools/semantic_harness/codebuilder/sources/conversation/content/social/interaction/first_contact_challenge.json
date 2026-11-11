@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.interaction.first.contact.challenge",
   "kind": "content",
   "domain": "social",
@@ -17,170 +17,170 @@
       "styles": {
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.01"
+            "EN": "That's close enough. What do you want?",
+            "TL": "Hanggang diyan ka lang. Ano ang gusto mo?"
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.02"
+            "EN": "Hands where I can see them. Who are you?",
+            "TL": "Kamay kung saan ko nakikita. Sino ka?"
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.03"
+            "EN": "Stop right there. State your business.",
+            "TL": "Tigil diyan. Sabihin mo ang pakay mo."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.04"
+            "EN": "Keep your distance. What brings you over here?",
+            "TL": "Panatilihin ang distansya. Anong nagdala sa 'yo rito?"
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.05"
+            "EN": "Don't take another step. Who sent you?",
+            "TL": "Huwag ka nang humakbang pa. Sinong nagpadala sa 'yo?"
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.06"
+            "EN": "Hold it. Are you armed?",
+            "TL": "Sandali. May armas ka ba?"
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.07"
+            "EN": "Stay where you are. Why are you approaching me?",
+            "TL": "Diyan ka lang. Bakit ka lumalapit sa akin?"
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.08"
+            "EN": "Hold ground. What are you after?",
+            "TL": "Diyan ka lang. Anong hinahabol mo?"
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.09"
+            "EN": "Keep your hands clear of your waist. Who are you?",
+            "TL": "Ilayo ang kamay sa baywang. Sino ka?"
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.guarded.10"
+            "EN": "One wrong twitch and we have a problem. Speak up.",
+            "TL": "Isang maling galaw at magkakaproblema tayo. Magsalita ka."
           }
         ],
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.01"
+            "EN": "Hold it. Who are you?",
+            "TL": "Sandali. Sino ka?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.02"
+            "EN": "Hold up a second. What's your name?",
+            "TL": "Teka sandali. Anong pangalan mo?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.03"
+            "EN": "Who goes there? Speak up.",
+            "TL": "Sino 'yan? Magsalita ka."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.04"
+            "EN": "Stop there for a moment. Are you friendly?",
+            "TL": "Tigil muna diyan. Kaibigan ka ba?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.05"
+            "EN": "Hold on. What brings you to this area?",
+            "TL": "Teka muna. Anong ginagawa mo sa lugar na 'to?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.06"
+            "EN": "State who you are and what you're doing here.",
+            "TL": "Sabihin kung sino ka at anong ginagawa mo rito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.07"
+            "EN": "Hold it right there. Let's talk before you come closer.",
+            "TL": "Diyan ka muna. Mag-usap tayo bago ka lumapit pa."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.08"
+            "EN": "Who are you and who are you with?",
+            "TL": "Sino ka at sinong kasama mo?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.09"
+            "EN": "Stop there. Just want to make sure you're not a threat.",
+            "TL": "Tigil diyan. Nais ko lang tiyakin na di ka banta."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.neutral.10"
+            "EN": "Hold up. Give me a name and a reason you're here.",
+            "TL": "Teka lang. Bigyan mo ako ng pangalan at dahilan kung bakit ka narito."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.01"
+            "EN": "Who are you?",
+            "TL": "Sino ka?"
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.02"
+            "EN": "Halt.",
+            "TL": "Hinto."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.03"
+            "EN": "Identify.",
+            "TL": "Magpakilala."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.04"
+            "EN": "Stop.",
+            "TL": "Tigil."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.05"
+            "EN": "Name?",
+            "TL": "Pangalan?"
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.06"
+            "EN": "Hands up.",
+            "TL": "Itaas ang kamay."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.07"
+            "EN": "Purpose?",
+            "TL": "Pakay?"
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.08"
+            "EN": "Freeze.",
+            "TL": "Huwag gagalaw."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.09"
+            "EN": "State business.",
+            "TL": "Sabihin ang sadya."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.terse.10"
+            "EN": "Who's there?",
+            "TL": "Sino 'yan?"
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.01"
+            "EN": "Easy. I don't know you yet.",
+            "TL": "Dahan-dahan. Hindi pa kita kilala."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.02"
+            "EN": "Hold on there, stranger. Let's introduce ourselves first.",
+            "TL": "Teka muna, estranghero. Magpakilala muna tayo."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.03"
+            "EN": "Easy does it. Are you alone out here?",
+            "TL": "Dahan-dahan lang. Nag-iisa ka ba rito?"
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.04"
+            "EN": "Hey there. Don't be frightened, just tell me your name.",
+            "TL": "Kumusta. Huwag kang matakot, sabihin mo lang pangalan mo."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.05"
+            "EN": "Slow down, friend. Let's see who we're talking to.",
+            "TL": "Dahan-dahan lang, kaibigan. Tingnan natin kung sino ang kausap."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.06"
+            "EN": "Peace. Just hold up so we can get acquainted.",
+            "TL": "Kapayapaan. Huminto ka muna para magkakilala tayo."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.07"
+            "EN": "Hello. I don't recognize your face—who might you be?",
+            "TL": "Kumusta. Di ko pamilyar ang mukha mo—sino ka?"
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.08"
+            "EN": "Easy now. Just looking out for safety. Who are you?",
+            "TL": "Dahan-dahan lang. Nag-iingat lang. Sino ka?"
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.09"
+            "EN": "Stay there a second, stranger. Where are you heading?",
+            "TL": "Diyan ka muna sandali, estranghero. Saan ang punta mo?"
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.first_contact.challenge.warm.10"
+            "EN": "Welcome, but take it slow. What's your story?",
+            "TL": "Maligayang pagdating, pero dahan-dahan lang. Ano ang kuwento mo?"
           }
         ]
       }

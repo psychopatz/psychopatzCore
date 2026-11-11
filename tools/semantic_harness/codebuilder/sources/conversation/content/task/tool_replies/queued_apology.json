@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.queued.apology",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.01"
+            "EN": "I hear you.",
+            "TL": "Narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.02"
+            "EN": "I hear your apology.",
+            "TL": "Naririnig ko ang paumanhin mo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.03"
+            "EN": "Message heard.",
+            "TL": "Narinig ang mensahe."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.04"
+            "EN": "I heard what you had to say.",
+            "TL": "Narinig ko ang kailangan mong sabihin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.05"
+            "EN": "Got it. I hear you.",
+            "TL": "Nakuha ko. Narinig kita."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.06"
+            "EN": "I hear you owning up.",
+            "TL": "Naririnig kong inaamin mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.07"
+            "EN": "Understood. Heard.",
+            "TL": "Naintindihan. Narinig."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.08"
+            "EN": "I heard your words on that.",
+            "TL": "Narinig ko ang mga salita mo riyan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.09"
+            "EN": "Noted. I'm listening.",
+            "TL": "Tala ko na. Nakikinig ako."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.1.neutral.10"
+            "EN": "Heard your statement.",
+            "TL": "Narinig ang pahayag mo."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.01"
+            "EN": "We will talk about it.",
+            "TL": "Pag-uusapan natin iyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.02"
+            "EN": "We'll discuss it once things calm down.",
+            "TL": "Pag-uusapan natin kapag kumalma na ang lahat."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.03"
+            "EN": "We will hash this out later.",
+            "TL": "Aayusin natin ito mamaya."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.04"
+            "EN": "We'll revisit that when we have a quiet moment.",
+            "TL": "Babalikan natin 'yan kapag may tahimik na oras."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.05"
+            "EN": "We will talk through that soon.",
+            "TL": "Pag-uusapan natin 'yan sa lalong madaling panahon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.06"
+            "EN": "I'll talk to you about it later.",
+            "TL": "Kakausapin kita tungkol diyan mamaya."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.07"
+            "EN": "We'll sort that out when we're safe.",
+            "TL": "Aayusin natin 'yan kapag ligtas na tayo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.08"
+            "EN": "We will clear the air later.",
+            "TL": "Lilinawin natin ang lahat mamaya."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.09"
+            "EN": "We'll have a proper conversation about it.",
+            "TL": "Mag-uusap tayo nang masinsinan tungkol diyan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.queued_apology.2.neutral.10"
+            "EN": "Talk about it when we reach camp.",
+            "TL": "Pag-usapan natin kapag nakarating sa kampo."
           }
         ]
       }

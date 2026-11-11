@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.ui.static.suggestions.core",
   "kind": "ui",
   "domain": "static_suggestions",
@@ -20,7 +20,17 @@
       "speechAct": "QUESTION",
       "subject": "ACTIVITY",
       "topic": "activity",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Activity_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_Activity_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask what they've been doing",
+          "utterance": "What have you been doing?"
+        },
+        "TL": {
+          "label": "Itanong ang pinagkakaabalahan",
+          "utterance": "Ano ang mga pinagkakaabalahan mo?"
+        }
+      }
     },
     {
       "id": "question.date",
@@ -31,7 +41,17 @@
       "speechAct": "QUESTION",
       "subject": "DATE",
       "topic": "date",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Date_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_Date_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask about the date",
+          "utterance": "What's today's date?"
+        },
+        "TL": {
+          "label": "Itanong ang petsa",
+          "utterance": "Ano ang petsa ngayon?"
+        }
+      }
     },
     {
       "id": "question.identity",
@@ -42,7 +62,17 @@
       "speechAct": "QUESTION",
       "subject": "IDENTITY",
       "topic": "identity",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Identity_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_Identity_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask who they are",
+          "utterance": "Who are you?"
+        },
+        "TL": {
+          "label": "Itanong kung sino siya",
+          "utterance": "Sino ka?"
+        }
+      }
     },
     {
       "id": "question.identity_faction",
@@ -53,7 +83,17 @@
       "speechAct": "QUESTION",
       "subject": "IDENTITY_FACTION",
       "topic": "identity_faction",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_IdentityFaction_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_IdentityFaction_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask who they are with",
+          "utterance": "Who are you with?"
+        },
+        "TL": {
+          "label": "Itanong kung kanino siya kasama",
+          "utterance": "Sino ang kasama mo?"
+        }
+      }
     },
     {
       "id": "question.identity_nickname",
@@ -64,7 +104,17 @@
       "speechAct": "QUESTION",
       "subject": "IDENTITY_NICKNAME",
       "topic": "identity_nickname",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_IdentityNickname_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_IdentityNickname_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask what people call them",
+          "utterance": "What do people call you?"
+        },
+        "TL": {
+          "label": "Itanong kung ano ang tawag sa kanya",
+          "utterance": "Ano ang tawag sa iyo ng mga tao?"
+        }
+      }
     },
     {
       "id": "question.identity_surname",
@@ -75,7 +125,17 @@
       "speechAct": "QUESTION",
       "subject": "IDENTITY_SURNAME",
       "topic": "identity_surname",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_IdentitySurname_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_IdentitySurname_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask their surname",
+          "utterance": "What's your surname?"
+        },
+        "TL": {
+          "label": "Itanong ang apelyido niya",
+          "utterance": "Ano ang apelyido mo?"
+        }
+      }
     },
     {
       "id": "question.time",
@@ -86,7 +146,17 @@
       "speechAct": "QUESTION",
       "subject": "TIME",
       "topic": "time",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Time_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_Time_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask about the time",
+          "utterance": "What time is it?"
+        },
+        "TL": {
+          "label": "Itanong ang oras",
+          "utterance": "Anong oras na?"
+        }
+      }
     },
     {
       "id": "question.weather",
@@ -97,7 +167,17 @@
       "speechAct": "QUESTION",
       "subject": "WEATHER",
       "topic": "weather",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Weather_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_Weather_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask about the weather",
+          "utterance": "How is the weather?"
+        },
+        "TL": {
+          "label": "Itanong ang panahon",
+          "utterance": "Kumusta ang panahon?"
+        }
+      }
     },
     {
       "id": "question.wellbeing",
@@ -108,7 +188,17 @@
       "speechAct": "QUESTION",
       "subject": "WELLBEING",
       "topic": "wellbeing",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_Wellbeing_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_Wellbeing_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask about wellbeing",
+          "utterance": "How are you feeling?"
+        },
+        "TL": {
+          "label": "Itanong ang kalagayan",
+          "utterance": "Kumusta ang pakiramdam mo?"
+        }
+      }
     },
     {
       "extensions": {
@@ -122,7 +212,17 @@
       "speechAct": "QUESTION",
       "subject": "WELLBEING",
       "topic": "wellbeing",
-      "utteranceKey": "UI_PNC_Conversation_Suggestion_WellbeingDetail_Utterance"
+      "utteranceKey": "UI_PNC_Conversation_Suggestion_WellbeingDetail_Utterance",
+      "translations": {
+        "EN": {
+          "label": "Ask what is wrong",
+          "utterance": "What's wrong?"
+        },
+        "TL": {
+          "label": "Itanong kung ano ang problema",
+          "utterance": "Ano ang problema?"
+        }
+      }
     }
   ]
 }

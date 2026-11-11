@@ -5,10 +5,6 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Mapping
 
-from .conversation_catalog import (
-    _hydrate_catalog_translations,
-    _reject_inline_translations,
-)
 from .conversation_contract import CONVERSATION_SHARD_SCHEMA
 from .conversation_model import (
     canonical_json as _canonical_json,
@@ -39,7 +35,7 @@ def _hydrate_shard_provenance(
     entry: Mapping[str, Any],
     source_profiles: Mapping[str, Any],
 ) -> None:
-    """Reconstruct compiler-only provenance from the v2 manifest index."""
+    """Reconstruct compiler-only provenance from the v3 manifest index."""
 
     path = str(entry.get("path", "<shard>"))
     if document.get("schema") != CONVERSATION_SHARD_SCHEMA:
@@ -67,13 +63,10 @@ def _compile_shard(
     *,
     runtime_root: Path,
     default_owner: str,
-    catalogs: Mapping[str, Mapping[str, str]] | None = None,
     package_repositories: Mapping[str, Path] | None = None,
 ) -> dict[str, Any]:
     kind = entry["kind"]
     path = entry["path"]
-    _reject_inline_translations(document, path)
-    _hydrate_catalog_translations(document, entry, catalogs or {})
     if document.get("schema") != CONVERSATION_SHARD_SCHEMA:
         raise CompileError(f"Conversation shard {path} requires schema {CONVERSATION_SHARD_SCHEMA}")
     if document.get("kind") != kind or document.get("domain") != entry["domain"]:
@@ -83,7 +76,7 @@ def _compile_shard(
         raise CompileError(f"Conversation shard {path} requires source metadata")
     if kind == "content":
         compiled = compile_dialogue_content({
-            "schemaVersion": 3,
+            "schemaVersion": 4,
             "source": source,
             "groups": document.get("groups"),
             "phraseFamilies": document.get("phraseFamilies"),
@@ -206,7 +199,7 @@ def _content_source(
     choices.sort(key=lambda item: str(item.get("id", "")))
     source = _source_metadata(documents)
     compiled = compile_dialogue_content({
-        "schemaVersion": 3,
+        "schemaVersion": 4,
         "source": source,
         "groups": {key: groups[key] for key in sorted(groups)},
         "phraseFamilies": families,
@@ -257,6 +250,10 @@ def _ui_translations(ui: list[dict[str, Any]]) -> dict[str, dict[str, str]]:
                         continue
                 if isinstance(key, str) and isinstance(value, str):
                     translations[language][key] = value
+                    if language == DEFAULT_LANGUAGE:
+                        suggestion[
+                            "labelFallback" if field == "label" else "utteranceFallback"
+                        ] = value
     return {
         language: {key: values[key] for key in sorted(values)}
         for language, values in sorted(translations.items())

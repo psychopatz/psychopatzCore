@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.command.lifecycle.stop.following",
   "kind": "content",
   "domain": "command",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.01"
+            "EN": "I couldn't stop following.",
+            "TL": "Hindi ako nakahinto sa pagsunod."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.02"
+            "EN": "Failed to break follow stance.",
+            "TL": "Bigo sa pagtigil sa pagsunod."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.03"
+            "EN": "I tried to hold back, but the crowd pushed me with you.",
+            "TL": "Sinubukan kong huminto, pero itinulak ako ng kawan kasabay mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.04"
+            "EN": "Couldn't disengage from following.",
+            "TL": "Hindi makahiwalay sa pagsunod."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.05"
+            "EN": "Stop following failed. Route required continuous movement.",
+            "TL": "Pumalpak ang paghinto sa pagsunod. Kailangan ng tuloy-tuloy na galaw."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.06"
+            "EN": "Unable to stop following right now.",
+            "TL": "Di makahinto sa pagsunod ngayon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.07"
+            "EN": "Attempted to halt, but had to keep moving.",
+            "TL": "Sinubukang huminto, pero kinailangang magpatuloy."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.08"
+            "EN": "Can't detach from follow mode here.",
+            "TL": "Di makahiwalay sa pagsunod dito."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.09"
+            "EN": "Follow lock failed to release.",
+            "TL": "Di bumitaw ang pagsunod."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.command.stop_following.failed.neutral.10"
+            "EN": "Couldn't stop following in this tight corridor.",
+            "TL": "Di makahinto sa pagsunod sa makipot na daang ito."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.01"
+            "EN": "Okay, I'll stop following.",
+            "TL": "Sige, titigil ako sa pagsunod."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.02"
+            "EN": "Understood. Breaking off pursuit.",
+            "TL": "Naintindihan. Titigil na sa pagsunod."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.03"
+            "EN": "I'll stop here and hold.",
+            "TL": "Hihinto ako rito at magbabantay."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.04"
+            "EN": "Ceasing follow. Standing down.",
+            "TL": "Ititigil ang pagsunod. Uurong sa pwesto."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.05"
+            "EN": "Understood. I'll remain in this area.",
+            "TL": "Naiintindihan ko. Mananatili ako sa lugar na 'to."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.06"
+            "EN": "Right. Not following anymore.",
+            "TL": "Sige. Di na susunod pa."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.07"
+            "EN": "Stopping here. You go on.",
+            "TL": "Hihinto rito. Mauna ka na."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.08"
+            "EN": "Got it. Halting my movement.",
+            "TL": "Nakuha ko. Hihinto sa paglakad."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.09"
+            "EN": "Breaking off. I'll hold ground.",
+            "TL": "Bumibitiw na. Hahawakan ko ang pwesto."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.neutral.10"
+            "EN": "Understood. Stopping follow routine.",
+            "TL": "Naintindihan. Ititigil ang pagsunod."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.01"
+            "EN": "Got it, I'll stop following. Take care out there, friend!",
+            "TL": "Nakuha ko, titigil ako sa pagsunod. Mag-ingat ka sa labas, kaibigan!"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.02"
+            "EN": "Sure thing! I'll hold down this spot for you, partner.",
+            "TL": "Walang anuman! Babantayan ko ang pwestong ito para sa 'yo, kasama."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.03"
+            "EN": "Happy to give you some space. Holler if you need me!",
+            "TL": "Masayang bibigyan kita ng puwang. Tawagin mo ako kapag kailangan mo ako!"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.04"
+            "EN": "I'll stop following here, friend. Be careful on your solo run.",
+            "TL": "Hihinto ako sa pagsunod dito, kaibigan. Mag-ingat sa sarili mong lakad."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.05"
+            "EN": "Understood, partner! I'll be right here waiting.",
+            "TL": "Naintindihan, kasama! Narito lang ako naghihintay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.06"
+            "EN": "Stopping here with a smile. Don't be a stranger!",
+            "TL": "Hihinto rito nang may ngiti. Magpakita ka agad!"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.07"
+            "EN": "Sure! I'll catch my breath while you scout ahead.",
+            "TL": "Sige! Hihinga muna ako habang nagmamanman ka sa unahan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.08"
+            "EN": "All right, friend! I'll stay put until you return.",
+            "TL": "Sige, kaibigan! Dito lang ako hanggang makabalik ka."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.09"
+            "EN": "Halting here. Good luck out there, partner!",
+            "TL": "Hihinto rito. Magandang suwerte sa 'yo sa labas, kasama!"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.friendly.neutral.10"
+            "EN": "No worries! I'll stop following and guard our rear.",
+            "TL": "Walang problema! Titigil sa pagsunod at babantayan ang likod."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.01"
+            "EN": "I've already stopped following.",
+            "TL": "Tumigil na ako sa pagsunod."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.02"
+            "EN": "I'm already standing still. Not following you.",
+            "TL": "Nakatayo na nga ako. Di na kita sinusundan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.03"
+            "EN": "Already halted. Look, I'm not moving.",
+            "TL": "Huminto na. Tingnan mo, di ako gumagalaw."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.04"
+            "EN": "I stopped following after the first command.",
+            "TL": "Huminto na ako sa pagsunod pagkatapos ng unang utos."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.05"
+            "EN": "Still not following you. I'm right here.",
+            "TL": "Di pa rin kita sinusundan. Narito lang ako."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.06"
+            "EN": "Already stopped. Go ahead without me.",
+            "TL": "Huminto na. Sige na, mauna ka nang wala ako."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.07"
+            "EN": "I'm not following anymore, I promise.",
+            "TL": "Di na kita sinusundan, pangako."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.08"
+            "EN": "Already stationary. No need to tell me again.",
+            "TL": "Nakatigil na ako. Di na kailangang sabihin ulit."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.09"
+            "EN": "I've been stopped for a while now.",
+            "TL": "Kanina pa ako huminto."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.repeated.neutral.10"
+            "EN": "Still halted. Move along freely.",
+            "TL": "Nakatigil pa rin. Lumakad ka na nang malaya."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.01"
+            "EN": "Understood, I'll stop. I trust your solo judgment.",
+            "TL": "Naiintindihan ko, titigil ako. Tiwala ako sa sarili mong desisyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.02"
+            "EN": "I'll hold here, partner. Come back safe.",
+            "TL": "Dito muna ako, kasama. Bumalik kang ligtas."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.03"
+            "EN": "Stopping follow. I know you can handle what's ahead.",
+            "TL": "Hihinto sa pagsunod. Alam kong kaya mo ang nasa unahan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.04"
+            "EN": "Understood. I'll secure this spot while you work.",
+            "TL": "Naintindihan. Seselyuhan ko ang pwestong ito habang nagtatrabaho ka."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.05"
+            "EN": "I'll let you move alone, friend. Shout if you need backup.",
+            "TL": "Hahayaan kitang mag-isang lumakad, kaibigan. Sumigaw kapag kailangan mo ng saklolo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.06"
+            "EN": "Stopping here. You've earned my complete trust.",
+            "TL": "Hihinto rito. Nakuha mo na ang buo kong tiwala."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.07"
+            "EN": "Halting follow. Watch your corners out there.",
+            "TL": "Hihinto sa pagsunod. Bantayan ang mga kanto sa labas."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.08"
+            "EN": "I'll hold this ground for you until you return, partner.",
+            "TL": "Hahawakan ko ang pwestong ito para sa 'yo hanggang sa bumalik ka, kasama."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.09"
+            "EN": "Understood. Stopping here and maintaining watch.",
+            "TL": "Naiintindihan ko. Hihinto rito at magbabantay."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.trusted.neutral.10"
+            "EN": "I trust you know what you're doing. Standing down.",
+            "TL": "Tiwala akong alam mo ang ginagawa mo. Uurong sa pwesto."
           }
         ]
       }
@@ -257,44 +257,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.01"
+            "EN": "Okay, I'll stop.",
+            "TL": "Sige, titigil ako."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.02"
+            "EN": "Fine. Not following.",
+            "TL": "Sige. Di susunod."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.03"
+            "EN": "Stopping here.",
+            "TL": "Hihinto rito."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.04"
+            "EN": "Understood. Halting.",
+            "TL": "Naintindihan. Hihinto."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.05"
+            "EN": "I'll stay behind.",
+            "TL": "Maiiwan ako."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.06"
+            "EN": "Ceasing follow.",
+            "TL": "Ititigil ang pagsunod."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.07"
+            "EN": "Fine. Go on.",
+            "TL": "Sige. Mauna ka."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.08"
+            "EN": "Stopped.",
+            "TL": "Huminto na."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.09"
+            "EN": "All right. Done following.",
+            "TL": "Sige. Tapos na ang pagsunod."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.command.stop_following.queued.withdrawn.neutral.10"
+            "EN": "Halting.",
+            "TL": "Humihinto."
           }
         ]
       }
@@ -305,44 +305,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.01"
+            "EN": "I can't stop following right now.",
+            "TL": "Hindi ako makapaghinto sa pagsunod ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.02"
+            "EN": "It's too dangerous to split up. I'm staying with you.",
+            "TL": "Masyadong mapanganib maghiwalay. Sasama ako sa 'yo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.03"
+            "EN": "I won't leave you alone against that swarm.",
+            "TL": "Di kita iiwan mag-isa laban sa kawang 'yan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.04"
+            "EN": "We need to stay together to survive this. Refusing to halt.",
+            "TL": "Kailangan nating magsama para mabuhay. Tumatangging huminto."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.05"
+            "EN": "If I stop following here, I'll be completely cut off.",
+            "TL": "Kapag huminto ako rito, ganap akong mahihiwalay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.06"
+            "EN": "Cannot halt here. Too many dead around us.",
+            "TL": "Di makahinto rito. Napakaraming patay sa paligid."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.07"
+            "EN": "I'm sticking with you until we reach actual cover.",
+            "TL": "Didikit ako sa 'yo hanggang makarating sa tunay na silong."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.08"
+            "EN": "Splitting up now will get us killed. I'm following.",
+            "TL": "Ikinamamatay ang paghihiwalay ngayon. Susunod ako."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.09"
+            "EN": "Unable to break follow in active combat.",
+            "TL": "Di makatigil sa pagsunod habang may bakbakan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.command.stop_following.rejected.neutral.10"
+            "EN": "Order rejected. We survive together or not at all.",
+            "TL": "Tinatanggihan ang utos. Sabay tayong mabubuhay o mamamatay."
           }
         ]
       }

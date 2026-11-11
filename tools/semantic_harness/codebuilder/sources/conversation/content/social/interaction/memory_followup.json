@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.interaction.memory.followup",
   "kind": "content",
   "domain": "social",
@@ -17,170 +17,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.01"
+            "EN": "You did? What happened after that?",
+            "TL": "Talaga? Ano ang nangyari pagkatapos noon?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.02"
+            "EN": "How did you manage to get through it?",
+            "TL": "Paano mo nagawang malusutan iyon?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.03"
+            "EN": "Did anyone else make it out with you?",
+            "TL": "May iba pa bang nakaligtas kasama mo?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.04"
+            "EN": "Where did you go once that went down?",
+            "TL": "Saan ka pumunta nang mangyari iyon?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.05"
+            "EN": "What made you think of that just now?",
+            "TL": "Bakit mo biglang naisip iyon ngayon?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.06"
+            "EN": "How long ago was that?",
+            "TL": "Gaano na katagal mula noon?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.07"
+            "EN": "Were there many casualties back then?",
+            "TL": "Marami bang nasawi noong panahong iyon?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.08"
+            "EN": "What did you end up doing about it?",
+            "TL": "Ano ang naging aksyon mo tungkol doon?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.09"
+            "EN": "That sounds intense. What came next?",
+            "TL": "Matindi 'yon. Ano ang sumunod?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.neutral.10"
+            "EN": "Did you ever go back to that place?",
+            "TL": "Bumalik ka pa ba sa lugar na iyon kailanman?"
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.01"
+            "EN": "Really? Tell me more about that.",
+            "TL": "Talaga? Kuwento mo pa sa akin."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.02"
+            "EN": "That sounds like quite a memory. How did it feel?",
+            "TL": "Mukhang napakagandang alaala. Anong naramdaman mo?"
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.03"
+            "EN": "I'd love to hear the rest of that story if you want to share.",
+            "TL": "Gusto kong marinig ang karugtong ng kuwento kung nais mong ibahagi."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.04"
+            "EN": "It must have taken real courage. How did you hold up?",
+            "TL": "Kailangan ng tunay na tapang doon. Paano mo kinaya?"
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.05"
+            "EN": "You went through so much. I'm glad you're here to talk about it.",
+            "TL": "Napakalaki ng pinagdaanan mo. Mabuti at narito ka para ikuwento."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.06"
+            "EN": "Were you able to save anything from back then?",
+            "TL": "May naisalba ka ba mula noong panahong iyon?"
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.07"
+            "EN": "I'm listening, friend. Take all the time you need.",
+            "TL": "Nakikinig ako, kaibigan. Huwag kang magmadali."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.08"
+            "EN": "That sounds like someone who mattered deeply to you.",
+            "TL": "Mukhang may taong napakahalaga sa 'yo sa kuwentong 'yan."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.09"
+            "EN": "What a journey. What kept you holding on?",
+            "TL": "Napakalaking paglalakbay. Ano ang nagpatatag sa 'yo?"
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.warm.10"
+            "EN": "Thank you for trusting me with that memory. What happened next?",
+            "TL": "Salamat sa pagtitiwala sa akin ng alaalang 'yan. Ano sumunod?"
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.01"
+            "EN": "And then?",
+            "TL": "Tapos?"
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.02"
+            "EN": "What happened?",
+            "TL": "Anong nangyari?"
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.03"
+            "EN": "After that?",
+            "TL": "Pagkatapos?"
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.04"
+            "EN": "How so?",
+            "TL": "Paano?"
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.05"
+            "EN": "Who survived?",
+            "TL": "Sinong nakaligtas?"
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.06"
+            "EN": "When?",
+            "TL": "Kailan?"
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.07"
+            "EN": "Outcome?",
+            "TL": "Kinahinatnan?"
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.08"
+            "EN": "Next?",
+            "TL": "Kasunod?"
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.09"
+            "EN": "Details?",
+            "TL": "Mga detalye?"
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.terse.10"
+            "EN": "End result?",
+            "TL": "Huling resulta?"
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.01"
+            "EN": "Why are you telling me that?",
+            "TL": "Bakit mo sinasabi sa akin iyan?"
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.02"
+            "EN": "What's the point of bringing that up now?",
+            "TL": "Anong layunin sa pagbubukas niyan ngayon?"
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.03"
+            "EN": "Are you testing my reaction?",
+            "TL": "Sinusubukan mo ba ang magiging reaksyon ko?"
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.04"
+            "EN": "Who else knows about that story?",
+            "TL": "Sino pa ang nakakaalam ng kuwentong 'yan?"
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.05"
+            "EN": "Why share something so personal with me?",
+            "TL": "Bakit mo ibinabahagi ang ganyang personal na bagay sa akin?"
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.06"
+            "EN": "Sounds like an angle. What do you really want?",
+            "TL": "Mukhang may pakay ka. Ano ba talaga ang gusto mo?"
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.07"
+            "EN": "Does that story have anything to do with our safety here?",
+            "TL": "May kinalaman ba ang kuwentong 'yan sa kaligtasan natin dito?"
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.08"
+            "EN": "Be careful what details you hand out to people.",
+            "TL": "Mag-ingat ka sa mga detalyeng ipinamamahagi mo sa iba."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.09"
+            "EN": "Are you trying to gauge where my loyalties lie?",
+            "TL": "Sinusubukan mo bang alamin kung kanino ako tapat?"
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.memory.followup.guarded.10"
+            "EN": "Keep your personal history to yourself.",
+            "TL": "Itago mo na lang sa sarili mo ang sarili mong nakaraan."
           }
         ]
       }

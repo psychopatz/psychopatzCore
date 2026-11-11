@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.responses.common.needs.weather",
   "kind": "responses",
   "domain": "common",
@@ -26,7 +26,12 @@
                 "segments": [
                   {
                     "kind": "translation",
-                    "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsPromiseThirst"
+                    "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsPromiseThirst",
+                    "translations": {
+                      "EN": "I can keep that as a proposal, but I still need the item and amount before I record a commitment.",
+                      "TL": "Maaari ko iyong ituring na panukala, pero kailangan ko pa ang item at dami bago ako magtala ng pangako."
+                    },
+                    "fallback": "I can keep that as a proposal, but I still need the item and amount before I record a commitment."
                   }
                 ]
               }
@@ -48,7 +53,12 @@
               "emergency",
               "critical"
             ]
-          }
+          },
+          "translations": {
+            "EN": "I can keep that as a proposal, but I still need the item and amount before I record a commitment.",
+            "TL": "Maaari ko iyong ituring na panukala, pero kailangan ko pa ang item at dami bago ako magtala ng pangako."
+          },
+          "fallback": "I can keep that as a proposal, but I still need the item and amount before I record a commitment."
         }
       ]
     },
@@ -72,7 +82,12 @@
                 "segments": [
                   {
                     "kind": "translation",
-                    "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsClarifyThirst"
+                    "templateID": "UI_PNC_Conversation_Semantic_DatasetNeedsClarifyThirst",
+                    "translations": {
+                      "EN": "I can confirm water is a need, but which item do you mean?",
+                      "TL": "Makukumpirma kong kailangan ang tubig, pero aling item ang ibig mong sabihin?"
+                    },
+                    "fallback": "I can confirm water is a need, but which item do you mean?"
                   }
                 ]
               }
@@ -89,7 +104,12 @@
           "when": {
             "lastIntent": "CLARIFY",
             "needType": "thirst"
-          }
+          },
+          "translations": {
+            "EN": "I can confirm water is a need, but which item do you mean?",
+            "TL": "Makukumpirma kong kailangan ang tubig, pero aling item ang ibig mong sabihin?"
+          },
+          "fallback": "I can confirm water is a need, but which item do you mean?"
         }
       ]
     },
@@ -114,7 +134,12 @@
                 "segments": [
                   {
                     "kind": "translation",
-                    "templateID": "UI_PNC_Conversation_Semantic_DatasetWeatherContextualSwitch"
+                    "templateID": "UI_PNC_Conversation_Semantic_DatasetWeatherContextualSwitch",
+                    "translations": {
+                      "EN": "It is raining right now. We can return to that proposal when you are ready.",
+                      "TL": "Umuulan ngayon. Maaari tayong bumalik sa panukalang iyon kapag handa ka na."
+                    },
+                    "fallback": "It is raining right now. We can return to that proposal when you are ready."
                   }
                 ]
               }
@@ -130,7 +155,12 @@
           "templateID": "UI_PNC_Conversation_Semantic_DatasetWeatherContextualSwitch",
           "when": {
             "pattern": "pnc.dataset.question.weather.can_we_talk_about_the_weather"
-          }
+          },
+          "translations": {
+            "EN": "It is raining right now. We can return to that proposal when you are ready.",
+            "TL": "Umuulan ngayon. Maaari tayong bumalik sa panukalang iyon kapag handa ka na."
+          },
+          "fallback": "It is raining right now. We can return to that proposal when you are ready."
         }
       ]
     }

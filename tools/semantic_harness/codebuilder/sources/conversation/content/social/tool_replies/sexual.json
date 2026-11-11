@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.tool.replies.sexual",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.01"
+            "EN": "You are bold. I cannot say I dislike that.",
+            "TL": "Matapang ka. Hindi ko masasabing ayaw ko niyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.02"
+            "EN": "Well, you certainly do not beat around the bush.",
+            "TL": "Talagang hindi ka paligoy-ligoy."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.03"
+            "EN": "That is quite a statement out of nowhere.",
+            "TL": "Mabigat na pahayag 'yan nang walang babala."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.04"
+            "EN": "You have got nerve. I will hand that to you.",
+            "TL": "May lakas ka ng loob. Ibibigay ko sa 'yo 'yon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.05"
+            "EN": "Bold move. Let us see if you can back it up.",
+            "TL": "Matapang na hakbang. Tingnan natin kung kaya mong panindigan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.06"
+            "EN": "I like confidence, but do not get ahead of yourself.",
+            "TL": "Gusto ko ang tiwala sa sarili, pero huwag kang magpadalos-dalos."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.07"
+            "EN": "You definitely know what you want.",
+            "TL": "Alam na alam mo talaga ang gusto mo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.08"
+            "EN": "Straight to the point. I can appreciate that.",
+            "TL": "Diretso sa punto. Pinahahalagahan ko 'yan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.09"
+            "EN": "You are playing with high stakes here.",
+            "TL": "Mataas ang pustahan mo rito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.1.neutral.10"
+            "EN": "Bold words. Do not make promises you cannot keep.",
+            "TL": "Matatapang na salita. Huwag kang mangako ng hindi mo kayang tuparin."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.01"
+            "EN": "That is a very direct proposition.",
+            "TL": "Napakadiretsang alok niyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.02"
+            "EN": "You do not waste time, do you?",
+            "TL": "Hindi ka talaga nagsasayang ng oras, 'no?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.03"
+            "EN": "Straight forward and unfiltered. Noted.",
+            "TL": "Diretso at walang paligoy-ligoy. Malinaw."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.04"
+            "EN": "That is about as clear as it gets.",
+            "TL": "Kasing-linaw na 'yan ng tubig."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.05"
+            "EN": "No subtlety with you at all, huh?",
+            "TL": "Wala talagang pahi-pahiwatig sa 'yo, ha?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.06"
+            "EN": "Well, there is no mistaking what you are after.",
+            "TL": "Walang duda kung ano ang hinahabol mo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.07"
+            "EN": "Direct propositions require some thinking over.",
+            "TL": "Ang diretsang alok ay kailangan munang pag-isipan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.08"
+            "EN": "I heard every word. You made yourself very clear.",
+            "TL": "Narinig ko ang bawat salita. Naging napakalinaw mo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.09"
+            "EN": "At least you are honest about your intentions.",
+            "TL": "Kahit paano tapat ka sa mga balak mo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.2.neutral.10"
+            "EN": "That is blunt. Let us see where this goes.",
+            "TL": "Prangka 'yon. Tingnan natin kung saan ito hahantong."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.01"
+            "EN": "You are moving fast, but I heard you.",
+            "TL": "Mabilis ang takbo mo, pero narinig kita."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.02"
+            "EN": "Slow your roll a bit, but message received.",
+            "TL": "Dahan-dahan lang muna, pero nakuha ko ang mensahe."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.03"
+            "EN": "Pace yourself. We have got all night.",
+            "TL": "Huwag kang magmadali. Mahaba pa ang gabi."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.04"
+            "EN": "You are rushing ahead, but I am listening.",
+            "TL": "Nagmamadali ka, pero nakikinig ako."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.05"
+            "EN": "Fast moves can be exciting, but watch your footing.",
+            "TL": "Nakareregalo ang mabilis na galaw, pero mag-ingat sa hakbang."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.06"
+            "EN": "I heard you loud and clear. Take a breath.",
+            "TL": "Narinig kita nang malakas at malinaw. Huminga ka muna."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.07"
+            "EN": "You move quick. Let us see if you have endurance.",
+            "TL": "Mabilis kang kumilos. Tingnan natin kung may tibay ka."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.08"
+            "EN": "Do not rush a good thing.",
+            "TL": "Huwag mong madaliin ang magandang bagay."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.09"
+            "EN": "I caught your drift. Let us take it one beat at a time.",
+            "TL": "Nakuha ko ang ibig mong sabihin. Dahan-dahan lang muna tayo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.sexual.3.neutral.10"
+            "EN": "Heard you. Let us see how the evening unfolds.",
+            "TL": "Narinig kita. Tingnan natin kung paano tatakbo ang gabi."
           }
         ]
       }

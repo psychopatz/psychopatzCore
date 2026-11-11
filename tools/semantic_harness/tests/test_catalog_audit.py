@@ -29,7 +29,7 @@ class CatalogAuditTests(unittest.TestCase):
             report = audit_conversation_sources(root)
         self.assertEqual(report["summary"]["repeatedMetadataFileCount"], 0)
 
-    def test_reports_inline_locale_data_and_implicit_ownership(self) -> None:
+    def test_accepts_inline_locale_data_and_reports_legacy_fields(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             (root / "content" / "social").mkdir(parents=True)
@@ -49,11 +49,15 @@ class CatalogAuditTests(unittest.TestCase):
             (root / "content" / "social" / "reactions.json").write_text(
                 json.dumps(
                     {
-                        "phraseFamilies": [
-                            {
-                                "translations": {"EN": "Hello", "TL": "Kumusta"}
+                        "phraseFamilies": [{
+                            "styles": {
+                                "neutral": [{
+                                    "phraseID": "neutral.01",
+                                    "EN": "Hello",
+                                    "TL": "Kumusta",
+                                }]
                             }
-                        ],
+                        }],
                         "source": {"name": "Example", "owner": "ProjectHoomans"},
                     }
                 ),
@@ -64,9 +68,9 @@ class CatalogAuditTests(unittest.TestCase):
         codes = {issue["code"] for issue in report["issues"]}
         self.assertIn("implicit_default_owner", codes)
         self.assertIn("implicit_shard_owner", codes)
-        self.assertIn("inline_translations", codes)
+        self.assertIn("legacy_source_fields", codes)
         self.assertIn("repeated_source_metadata", codes)
-        self.assertIn("missing_locale_catalogs", codes)
+        self.assertNotIn("authoring_locale_catalogs_present", codes)
         self.assertEqual(report["summary"]["sourceJsonCount"], 1)
 
     def test_locale_catalogs_are_reported_and_duplicate_stems_are_stable(self) -> None:
@@ -95,7 +99,7 @@ class CatalogAuditTests(unittest.TestCase):
         ]
         self.assertEqual(len(duplicates), 1)
         self.assertEqual(duplicates[0]["details"]["stem"], "conversation")
-        self.assertNotIn("missing_locale_catalogs", {issue["code"] for issue in report["issues"]})
+        self.assertIn("authoring_locale_catalogs_present", {issue["code"] for issue in report["issues"]})
 
 
 if __name__ == "__main__":

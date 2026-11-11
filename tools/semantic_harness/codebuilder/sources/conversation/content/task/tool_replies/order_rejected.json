@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.order.rejected",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.01"
+            "EN": "I cannot do that right now.",
+            "TL": "Hindi ko magagawa iyon ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.02"
+            "EN": "That's not something I can pull off here.",
+            "TL": "Hindi ko magagawa 'yan dito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.03"
+            "EN": "Unable to execute that request at this time.",
+            "TL": "Di maisakatuparan ang hiling na 'yan sa ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.04"
+            "EN": "I have to decline that order.",
+            "TL": "Kailangan kong tanggihan ang utos na 'yan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.05"
+            "EN": "Not possible under current circumstances.",
+            "TL": "Hindi posible sa kasalukuyang kalagayan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.06"
+            "EN": "I can't carry that out right now.",
+            "TL": "Di ko kayang isakatuparan 'yan ngayon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.07"
+            "EN": "Unable to comply with that command.",
+            "TL": "Di makasusunod sa utos na 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.08"
+            "EN": "I can't do that. Find another solution.",
+            "TL": "Di ko magagawa 'yan. Humanap ng ibang solusyon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.09"
+            "EN": "Order declined. Conditions won't allow it.",
+            "TL": "Tinatanggihan ang utos. Di pinapayagan ng sitwasyon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.1.neutral.10"
+            "EN": "I cannot perform that action right now.",
+            "TL": "Hindi ko maisasagawa ang kilos na 'yan sa ngayon."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.01"
+            "EN": "That order is not going to work.",
+            "TL": "Hindi uubra ang utos na iyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.02"
+            "EN": "That's a bad plan and it won't succeed.",
+            "TL": "Masamang plano 'yan at hindi magtatagumpay."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.03"
+            "EN": "That order makes no sense in this situation.",
+            "TL": "Walang saysay ang utos na 'yan sa sitwasyong ito."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.04"
+            "EN": "That won't work. We need a different approach.",
+            "TL": "Hindi uubra 'yan. Kailangan natin ng ibang diskarte."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.05"
+            "EN": "I'm not following an order that leads to failure.",
+            "TL": "Di ako susunod sa utos na papunta sa kapahamakan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.06"
+            "EN": "That command will only get us killed.",
+            "TL": "Ipapahamak lang tayo ng utos na 'yan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.07"
+            "EN": "Not going to work out. Try another idea.",
+            "TL": "Hindi magiging maayos 'yan. Sumubok ng ibang ideya."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.08"
+            "EN": "Flawed order. I won't execute it.",
+            "TL": "May depekto ang utos. Di ko isasakatuparan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.09"
+            "EN": "That plan is dead in the water.",
+            "TL": "Patay ang planong 'yan sa simula pa lang."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_rejected.2.neutral.10"
+            "EN": "That won't work out here. Give a better order.",
+            "TL": "Di uubra 'yan dito. Magbigay ka ng mas maayos na utos."
           }
         ]
       }

@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.cooldown",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.01"
+            "EN": "You have had your turn with the compliments today.",
+            "TL": "Nakaubos ka na ng papuri para sa araw na ito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.02"
+            "EN": "Save some of those kind words for tomorrow.",
+            "TL": "Itabi mo ang ilan sa magagandang salita para bukas."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.03"
+            "EN": "You already flattered me enough for one day.",
+            "TL": "Sobra-sobra na ang pambobola mo para sa isang araw."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.04"
+            "EN": "Praise limit reached. Let's get back to surviving.",
+            "TL": "Sapat na ang papuri. Balik na tayo sa pagligtas."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.05"
+            "EN": "I heard you the first few times. Let it rest.",
+            "TL": "Narinig na kita kanina pa. Ipahinga mo muna."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.06"
+            "EN": "We've traded enough compliments for today.",
+            "TL": "Sapat na ang palitan natin ng papuri ngayong araw."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.07"
+            "EN": "Easy on the flattery. Don't overdo it.",
+            "TL": "Dahan-dahan sa pambobola. Huwag mong sobrahan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.08"
+            "EN": "Give it a rest until tomorrow.",
+            "TL": "Ipahinga mo muna hanggang bukas."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.09"
+            "EN": "One compliment per day is plenty out here.",
+            "TL": "Ang isang papuri kada araw ay marami na rito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.1.neutral.10"
+            "EN": "Save your breath. You've hit the limit for now.",
+            "TL": "Itabi mo ang laway mo. Naabot mo na ang hangganan sa ngayon."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.01"
+            "EN": "Save the sweet talk for tomorrow.",
+            "TL": "Itabi mo ang matatamis na salita para bukas."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.02"
+            "EN": "Hold your charm for another time.",
+            "TL": "Itago mo muna ang diskarte mo sa ibang araw."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.03"
+            "EN": "Too much sweet talk for one afternoon.",
+            "TL": "Masyadong maraming pambobola para sa isang hapon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.04"
+            "EN": "We've got work to do. Charm me later.",
+            "TL": "May trabaho pa tayo. Paamuhin mo ako mamaya."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.05"
+            "EN": "Save the smooth lines. Focus on survival.",
+            "TL": "Itabi ang magagandang linya. Magpokus sa kaligtasan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.06"
+            "EN": "You're pouring on the charm too thick right now.",
+            "TL": "Masyadong makapal ang pambobola mo ngayon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.07"
+            "EN": "Let's take a break from the flirting.",
+            "TL": "Magpahinga muna tayo sa paglalandian."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.08"
+            "EN": "Charm cooldown. Let's get back to reality.",
+            "TL": "Palamig muna sa pambobola. Balik tayo sa realidad."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.09"
+            "EN": "I've had my fill of sweet words for today.",
+            "TL": "Busog na ako sa matatamis na salita para sa araw na ito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.cooldown.2.neutral.10"
+            "EN": "Hold that thought until tomorrow morning.",
+            "TL": "Hawakan mo ang linyang 'yan hanggang bukas ng umaga."
           }
         ]
       }

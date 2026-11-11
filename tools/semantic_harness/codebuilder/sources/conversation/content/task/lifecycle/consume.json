@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.lifecycle.consume",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.01"
+            "EN": "I'm using that now.",
+            "TL": "Ginagamit ko na iyon ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.02"
+            "EN": "Currently using the item.",
+            "TL": "Kasalukuyang ginagamit ang gamit."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.03"
+            "EN": "Applying it right now.",
+            "TL": "Inilalapat na ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.04"
+            "EN": "In the middle of consuming that.",
+            "TL": "Kasalukuyang ginagamit iyan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.05"
+            "EN": "Working through this item.",
+            "TL": "Ginagamit ang bagay na ito."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.06"
+            "EN": "Taking this now. Give me a second.",
+            "TL": "Ginagamit ko na ito. Bigyan mo ako ng sandali."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.07"
+            "EN": "Using the supplies as requested.",
+            "TL": "Ginagamit ang mga kagamitan ayon sa hiling."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.08"
+            "EN": "Consuming it right now.",
+            "TL": "Ginagamit ko na ngayon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.09"
+            "EN": "Holding still to use this.",
+            "TL": "Nakahinto para gamitin ito."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.consume.active.neutral.10"
+            "EN": "Using it. Almost done.",
+            "TL": "Ginagamit na. Halos tapos na."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.01"
+            "EN": "I'll use that.",
+            "TL": "Gagamitin ko iyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.02"
+            "EN": "Understood. I will consume that item.",
+            "TL": "Naintindihan. Gagamitin ko ang bagay na iyon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.03"
+            "EN": "All right, I'll take that.",
+            "TL": "Sige, gagamitin ko iyon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.04"
+            "EN": "Good idea. I'll use it.",
+            "TL": "Magandang ideya. Gagamitin ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.05"
+            "EN": "Got it. Taking that now.",
+            "TL": "Nakuha ko. Gagamitin na ngayon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.06"
+            "EN": "I'll go ahead and apply that.",
+            "TL": "Sige, ilalapat ko iyan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.07"
+            "EN": "Understood. That will help.",
+            "TL": "Naiintindihan ko. Makatutulong iyan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.08"
+            "EN": "Right. Using that item.",
+            "TL": "Sige. Gagamitin ang gamit na 'yan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.09"
+            "EN": "I'll use what you specified.",
+            "TL": "Gagamitin ko ang tinukoy mo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.consume.admitted.neutral.10"
+            "EN": "Sounds good. Consuming it.",
+            "TL": "Maganda 'yan. Gagamitin na."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.01"
+            "EN": "That's done.",
+            "TL": "Tapos na iyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.02"
+            "EN": "Finished using that.",
+            "TL": "Tapos nang gamitin iyon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.03"
+            "EN": "All used up. Feeling better.",
+            "TL": "Naubos na. Mas maayos na ang pakiramdam."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.04"
+            "EN": "Done. That helped out.",
+            "TL": "Tapos na. Nakatulong iyon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.05"
+            "EN": "Finished consuming the item.",
+            "TL": "Natapos nang gamitin ang bagay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.06"
+            "EN": "That's taken care of.",
+            "TL": "Naasikaso na iyon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.07"
+            "EN": "All done with that supply.",
+            "TL": "Tapos na sa gamit na 'yon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.08"
+            "EN": "Consumed. Ready to move on.",
+            "TL": "Nagamit na. Handa nang magpatuloy."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.09"
+            "EN": "Finished. Much needed.",
+            "TL": "Tapos na. Kailangan ko talaga 'yon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.consume.completed.neutral.10"
+            "EN": "Done. Put to good use.",
+            "TL": "Tapos na. Nagamit nang maayos."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.01"
+            "EN": "I couldn't use that.",
+            "TL": "Hindi ko nagamit iyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.02"
+            "EN": "Failed to consume that item.",
+            "TL": "Bigo sa paggamit ng bagay na iyon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.03"
+            "EN": "Something interrupted me while trying to use that.",
+            "TL": "May umabala sa akin habang sinusubukang gamitin iyon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.04"
+            "EN": "Couldn't finish using it.",
+            "TL": "Di natapos gamitin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.05"
+            "EN": "Unable to apply that right now.",
+            "TL": "Di mailapat iyan sa ngayon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.06"
+            "EN": "Using that failed. Something went wrong.",
+            "TL": "Pumalpak ang paggamit. May nangyaring mali."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.07"
+            "EN": "I lost hold of it or couldn't use it.",
+            "TL": "Nabitawan ko o di nagamit."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.08"
+            "EN": "Couldn't consume it. Area wasn't secure.",
+            "TL": "Di nagamit. Di ligtas ang paligid."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.09"
+            "EN": "Action interrupted. Item not consumed.",
+            "TL": "Naabala ang kilos. Di nagamit ang bagay."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.consume.failed.neutral.10"
+            "EN": "Failed to take that.",
+            "TL": "Bigo sa paggamit niyan."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.01"
+            "EN": "I can't use that right now.",
+            "TL": "Hindi ko magamit iyon ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.02"
+            "EN": "I don't need to use that at the moment.",
+            "TL": "Di ko kailangang gamitin iyan sa sandaling ito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.03"
+            "EN": "That's not suitable for me right now.",
+            "TL": "Di angkop sa akin 'yan ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.04"
+            "EN": "Unable to consume that. Not needed.",
+            "TL": "Di magagamit 'yan. Di kailangan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.05"
+            "EN": "I can't use that under these conditions.",
+            "TL": "Di ko magagamit 'yan sa ganitong kalagayan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.06"
+            "EN": "Save it for later. I don't need it now.",
+            "TL": "Itabi mo muna. Di ko kailangan ngayon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.07"
+            "EN": "Refusing to consume that. Not appropriate.",
+            "TL": "Tumatangging gamitin 'yan. Di nararapat."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.08"
+            "EN": "I don't have a use for that right now.",
+            "TL": "Wala akong paggagamitan niyan ngayon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.09"
+            "EN": "Can't use that. Not the right time.",
+            "TL": "Di magagamit 'yan. Maling oras."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.consume.rejected.neutral.10"
+            "EN": "Consume order rejected.",
+            "TL": "Tinatanggihan ang utos na gamitin."
           }
         ]
       }

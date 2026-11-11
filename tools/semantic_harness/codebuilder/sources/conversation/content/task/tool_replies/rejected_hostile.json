@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.rejected.hostile",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.01"
+            "EN": "Back off.",
+            "TL": "Umatras ka."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.02"
+            "EN": "Step back right now.",
+            "TL": "Lumayo ka ngayon din."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.03"
+            "EN": "Get out of my face.",
+            "TL": "Umalis ka sa harap ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.04"
+            "EN": "Give me space before I lose my temper.",
+            "TL": "Bigyan mo ako ng puwang bago ako magalit."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.05"
+            "EN": "Back away from me immediately.",
+            "TL": "Lumayo ka sa akin agad-agad."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.06"
+            "EN": "I said back off.",
+            "TL": "Sabi ko umatras ka."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.07"
+            "EN": "Keep your distance.",
+            "TL": "Panatilihin ang distansya."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.08"
+            "EN": "Step back and cool down.",
+            "TL": "Umatras ka at palamigin ang ulo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.09"
+            "EN": "Back off while you still have the chance.",
+            "TL": "Umatras ka habang may pagkakataon ka pa."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.1.neutral.10"
+            "EN": "Last warning: back off.",
+            "TL": "Huling babala: umatras ka."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.01"
+            "EN": "You do not get to speak to me that way.",
+            "TL": "Wala kang karapatang kausapin ako nang ganyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.02"
+            "EN": "Mind your mouth before someone breaks it for you.",
+            "TL": "Bantayan ang bibig mo bago may bumasag niyan para sa 'yo."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.03"
+            "EN": "You don't talk to me with that disrespect.",
+            "TL": "Huwag mo akong kausapin nang may pambabastos."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.04"
+            "EN": "Check your tone right now.",
+            "TL": "Ayusin mo ang tono mo ngayon din."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.05"
+            "EN": "I won't tolerate that disrespect from anyone.",
+            "TL": "Di ko palalampasin ang pambabastos na 'yan kahit kanino."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.06"
+            "EN": "Who do you think you're talking to?",
+            "TL": "Sino sa tingin mo ang kinakausap mo?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.07"
+            "EN": "You have crossed a serious line with that mouth.",
+            "TL": "Tumawid ka sa seryosong linya sa bibig mong 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.08"
+            "EN": "Watch how you address me.",
+            "TL": "Bantayan mo kung paano mo ako kausapin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.09"
+            "EN": "Lower your tone and show some basic respect.",
+            "TL": "Hinaan ang tono at magpakita ng simpleng galang."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_hostile.2.neutral.10"
+            "EN": "You don't get to address me like that.",
+            "TL": "Hindi mo ako pwedeng kausapin nang ganyan."
           }
         ]
       }

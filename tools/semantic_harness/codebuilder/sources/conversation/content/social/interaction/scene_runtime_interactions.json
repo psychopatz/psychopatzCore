@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.interaction.scene.runtime.adopters",
   "kind": "content",
   "domain": "social",
@@ -17,170 +17,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.01"
+            "EN": "That's a horde. We fighting through or pulling back?",
+            "TL": "Kawan iyan. Lalaban ba tayo o uurong?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.02"
+            "EN": "Look at that crowd. Do we stand our ground or run?",
+            "TL": "Tingnan mo ang dami nila. Maninindigan ba tayo o tatakbo?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.03"
+            "EN": "Huge pack ahead. What's the call: fight or retreat?",
+            "TL": "Malaking kawan sa unahan. Anong pasya: lalaban o aatras?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.04"
+            "EN": "That is a serious horde. Do we engage or bypass?",
+            "TL": "Matinding kawan 'yan. Lalabanan ba natin o iiwasan?"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.05"
+            "EN": "They're swarming. Are we cutting through or falling back?",
+            "TL": "Dumudumog sila. Babasagin ba natin o aatras tayo?"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.06"
+            "EN": "Too many bodies out there. What do you want to do?",
+            "TL": "Napakaraming patay sa labas. Ano ang gusto mong gawin?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.07"
+            "EN": "Horde spotted. We taking them on or finding another route?",
+            "TL": "May kawan sa unahan. Lalabanan ba natin o maghahanap ng ibang daan?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.08"
+            "EN": "Massive group approaching. Engage or evacuate?",
+            "TL": "Napakalaking grupo ang papalapit. Lalaban o lilikas?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.09"
+            "EN": "That's a swarm. Give the order: fight or retreat?",
+            "TL": "Kawan 'yan. Mag-utos ka: laban o urong?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.neutral.10"
+            "EN": "Look at that numbers disadvantage. Stand or withdraw?",
+            "TL": "Tingnan mo ang dami nila laban sa atin. Tatayo o aatras?"
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.01"
+            "EN": "That's a lot of them. Stay close—fight or fall back?",
+            "TL": "Ang dami nila. Dumikit ka—lalaban o uurong?"
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.02"
+            "EN": "Too many for comfort, friend. What's your gut say: fight or run?",
+            "TL": "Masyadong marami para maging panatag, kaibigan. Anong kutob mo: laban o takbo?"
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.03"
+            "EN": "Stay right next to me. Do we take them together or get out?",
+            "TL": "Manatili ka sa tabi ko. Sabay ba nating lalabanan o aalis tayo?"
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.04"
+            "EN": "That swarm is dangerous. I want us alive—fight or retreat?",
+            "TL": "Delikado ang kawang 'yan. Gusto kong mabuhay tayo—laban o urong?"
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.05"
+            "EN": "I'm with you whatever you decide. Are we pushing through or retreating?",
+            "TL": "Kasama mo ako kahit anong desisyon mo. Susulong ba tayo o aatras?"
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.06"
+            "EN": "Careful, partner. That's a massive pack. Call the play.",
+            "TL": "Mag-ingat, kasama. Malaking kawan 'yan. Sabihin mo ang plano."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.07"
+            "EN": "Look out, friend! Do we clear them or save our strength and run?",
+            "TL": "Mag-ingat, kaibigan! Uubusin ba natin sila o magtitipid ng lakas at tatakbo?"
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.08"
+            "EN": "They're everywhere. Stick by me—fight or fall back?",
+            "TL": "Nasa lahat sila ng sulok. Dumikit ka—laban o urong?"
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.09"
+            "EN": "I trust your call. Are we taking this swarm on or heading back?",
+            "TL": "Tiwala ako sa pasya mo. Lalabanan ba natin ang kawang ito o babalik?"
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.warm.10"
+            "EN": "Big herd ahead. Don't worry, we're a team. What's the plan?",
+            "TL": "Malaking kawan sa unahan. Huwag kang mag-alala, magkasama tayo. Anong plano?"
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.01"
+            "EN": "Horde. Fight or fall back?",
+            "TL": "Kawan. Laban o urong?"
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.02"
+            "EN": "Too many. Call it: stand or run?",
+            "TL": "Sobra sila. Magpasya: tayo o takbo?"
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.03"
+            "EN": "Swarm ahead. Fight or retreat?",
+            "TL": "Kawan sa unahan. Laban o urong?"
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.04"
+            "EN": "Herd. What's the call?",
+            "TL": "Kawan. Anong desisyon?"
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.05"
+            "EN": "Massive group. Push or pull?",
+            "TL": "Malaking grupo. Sulong o urong?"
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.06"
+            "EN": "Numbers are bad. Engage?",
+            "TL": "Masama ang bilang. Lalaban?"
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.07"
+            "EN": "Horde spotted. Decision now.",
+            "TL": "Kawan nakita. Desisyon ngayon na."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.08"
+            "EN": "Dozens of them. Stand or flee?",
+            "TL": "Dose-dosena sila. Lalaban o tatakas?"
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.09"
+            "EN": "Swarm incoming. Your call.",
+            "TL": "Kawan parating. Pasya mo."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.terse.10"
+            "EN": "Crowd ahead. Fight or back off?",
+            "TL": "Grupo sa harap. Laban o atras?"
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.01"
+            "EN": "Big group ahead. We decide now: engage or avoid.",
+            "TL": "Malaking grupo sa harap. Magpasya tayo ngayon: lumaban o umiwas."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.02"
+            "EN": "That horde will tear us apart if we hesitate. What's the move?",
+            "TL": "Lalapain tayo ng kawang 'yan kapag nag-atubili tayo. Anong galaw?"
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.03"
+            "EN": "Bad odds. We fight with discipline or we slip away right now.",
+            "TL": "Masamang tsansa. Lumaban nang may disiplina o tumakas agad ngayon."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.04"
+            "EN": "I'm not dying here. Decide: cut through or fall back?",
+            "TL": "Di ako mamamatay dito. Magpasya ka: basagin o umatras?"
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.05"
+            "EN": "Check the numbers. Engage only if we have choke points.",
+            "TL": "Tingnan mo ang dami. Lumaban lang kung may masisikipang daan."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.06"
+            "EN": "Horde is closing in. Make a choice before they surround us.",
+            "TL": "Palapit na ang kawan. Pumili bago nila tayo mapaligiran."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.07"
+            "EN": "We can't afford mistakes against that herd. Stand or withdraw?",
+            "TL": "Di tayo pwede magkamali sa kawang 'yan. Lalaban o aatras?"
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.08"
+            "EN": "Watch the flanks. Do we fight or get the hell out?",
+            "TL": "Bantayan ang tagiliran. Lalaban ba tayo o aalis na agad?"
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.09"
+            "EN": "They'll overwhelm an open position. Call it now.",
+            "TL": "Tatalunin nila tayo sa bukas na lugar. Magpasya ka na."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_prompt.guarded.10"
+            "EN": "Huge pack. If we fight, nobody breaks formation.",
+            "TL": "Malaking kawan. Kung lalaban, walang sisira sa pormasyon."
           }
         ]
       }
@@ -191,170 +191,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.01"
+            "EN": "We can take them.",
+            "TL": "Kaya natin sila."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.02"
+            "EN": "We've handled worse. Let's clear them.",
+            "TL": "Nakalusot na tayo sa mas malala. Ubusin natin sila."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.03"
+            "EN": "Stand firm. We fight through.",
+            "TL": "Tumayo nang matatag. Lalabanan natin sila."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.04"
+            "EN": "We have the weapons. Let's put them down.",
+            "TL": "Nasa atin ang armas. Patumbahin natin sila."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.05"
+            "EN": "Ready up. We're not running from this.",
+            "TL": "Humanda ka. Hindi natin tatakbuhan ito."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.06"
+            "EN": "We take the fight to them. Stay sharp.",
+            "TL": "Sasalubungin natin sila. Maging alerto."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.07"
+            "EN": "Line them up. We can win this.",
+            "TL": "Pilahin sila. Kayang-kaya natin ito."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.08"
+            "EN": "No backing down. We push through.",
+            "TL": "Walang atrasan. Babasagin natin 'to."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.09"
+            "EN": "We hold here and eliminate the threat.",
+            "TL": "Dito tayo tatayo at aalisin ang banta."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.neutral.10"
+            "EN": "I'm ready. Let's make every strike count.",
+            "TL": "Handa na ako. Tiyaking may tama ang bawat palo."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.01"
+            "EN": "I'm with you. We can take them.",
+            "TL": "Kasama mo ako. Kaya natin sila."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.02"
+            "EN": "Together, nothing can stop us! Let's do this.",
+            "TL": "Kapag magkasama tayo, walang makapipigil sa atin! Tara na."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.03"
+            "EN": "I've got your back, friend. We fight as one.",
+            "TL": "Hawak ko ang likod mo, kaibigan. Iisang laban tayo."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.04"
+            "EN": "We survive together, we fight together. Let's clear them out!",
+            "TL": "Sabay tayong nabubuhay, sabay tayong lalaban. Ubusin natin sila!"
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.05"
+            "EN": "With you beside me, I'm not afraid. Let's take them down.",
+            "TL": "Dahil katabi kita, hindi ako natatakot. Patumbahin natin sila."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.06"
+            "EN": "Let's show them what real survivors are made of!",
+            "TL": "Ipakita natin sa kanila kung ano ang tunay na nakaligtas!"
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.07"
+            "EN": "Right by your side, partner. We won't lose today.",
+            "TL": "Nasa tabi mo lang ako, kasama. Hindi tayo matatalo ngayon."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.08"
+            "EN": "I trust us. Let's stand tall and fight.",
+            "TL": "Tiwala ako sa atin. Tumindig tayo at lumaban."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.09"
+            "EN": "We've got this, friend. Watch my back and I'll watch yours.",
+            "TL": "Kayang-kaya natin, kaibigan. Bantayan ang isa't isa."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.warm.10"
+            "EN": "Stay close and hit hard! We'll celebrate after.",
+            "TL": "Manatiling dikit at humampas nang malakas! Magdiriwang tayo mamaya."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.01"
+            "EN": "Stand and fight.",
+            "TL": "Tumayo at lumaban."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.02"
+            "EN": "We take them.",
+            "TL": "Kaya natin sila."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.03"
+            "EN": "No retreat.",
+            "TL": "Walang urungan."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.04"
+            "EN": "Draw weapons.",
+            "TL": "Bunot ng armas."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.05"
+            "EN": "Kill them all.",
+            "TL": "Ubusin sila."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.06"
+            "EN": "Fight through.",
+            "TL": "Lumaban pasulong."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.07"
+            "EN": "Ready.",
+            "TL": "Handa."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.08"
+            "EN": "Holding ground.",
+            "TL": "Hawak ang pwesto."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.09"
+            "EN": "Let's do this.",
+            "TL": "Gawin na natin."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.terse.10"
+            "EN": "Bring them on.",
+            "TL": "Ilabas sila."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.01"
+            "EN": "If we commit, we hit hard and stay together.",
+            "TL": "Kung lalaban tayo, sabay at todo ang tira."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.02"
+            "EN": "No heroics. Funnel them into a choke point and execute.",
+            "TL": "Walang magpapakabayani. Ipitin sila sa sikip at tapusin."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.03"
+            "EN": "Watch your stamina. Don't swing wild and get exhausted.",
+            "TL": "Bantayan ang lakas. Huwag magwala para di kapusin ng hangin."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.04"
+            "EN": "Keep the line tight. If one falls, we both die.",
+            "TL": "Higpitan ang pormasyon. Kapag may bumagsak, patay tayong dalawa."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.05"
+            "EN": "Target the leaders first. Clear them systematically.",
+            "TL": "Unahin ang mga nasa harap. Ubusin nang may sistema."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.06"
+            "EN": "We fight, but maintain an escape route behind us.",
+            "TL": "Lalaban tayo, pero tiyaking may takasan sa likod natin."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.07"
+            "EN": "Every strike must be lethal. No wasted energy.",
+            "TL": "Bawat tama dapat nakamamatay. Walang sayang na lakas."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.08"
+            "EN": "Don't let them surround us. Push when I push.",
+            "TL": "Huwag magpapaligid sa kanila. Sumulong kapag sumulong ako."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.09"
+            "EN": "We can win this if we keep cool heads and steady hands.",
+            "TL": "Mananalo tayo kung mananatiling malamig ang ulo at matatag ang kamay."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_brave.guarded.10"
+            "EN": "Agreed. Take out the front rank and hold the doorway.",
+            "TL": "Sang-ayon. Patumbahin ang unahan at hawakan ang pinto."
           }
         ]
       }
@@ -365,170 +365,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.01"
+            "EN": "Too many. We should pull back.",
+            "TL": "Sobra sila. Dapat umatras tayo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.02"
+            "EN": "The odds are terrible. Let's retreat and find another way.",
+            "TL": "Napakasama ng tsansa. Umatras tayo at maghanap ng ibang daan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.03"
+            "EN": "Fighting here is a death sentence. Fall back.",
+            "TL": "Kamatayan ang lumaban dito. Umatras na."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.04"
+            "EN": "We don't have the ammunition or stamina for this. Pull back.",
+            "TL": "Kulang tayo sa bala at lakas para rito. Umatras."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.05"
+            "EN": "Better to live and fight another day. Let's withdraw.",
+            "TL": "Mas mabuting mabuhay para lumaban sa ibang araw. Umatras tayo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.06"
+            "EN": "We're completely outmatched. Retreat orderly.",
+            "TL": "Lupig tayo sa dami nila. Umatras nang maayos."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.07"
+            "EN": "Back up slowly. Don't make sudden noises.",
+            "TL": "Umatras nang dahan-dahan. Huwag gumawa ng ingay."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.08"
+            "EN": "Let's slip away while they haven't locked onto us.",
+            "TL": "Tumakas na tayo habang hindi pa sila nakapokus sa atin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.09"
+            "EN": "Too risky. We need to withdraw immediately.",
+            "TL": "Masyadong mapanganib. Kailangan nating umatras agad."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.neutral.10"
+            "EN": "I agree with retreating. Turn around and move quietly.",
+            "TL": "Sang-ayon akong umatras. Lumingon at lumakad nang tahimik."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.01"
+            "EN": "I'd rather get us out of this alive. Pull back.",
+            "TL": "Mas gusto kong makaalis tayong buhay. Umatras tayo."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.02"
+            "EN": "I care too much about you to risk this. Let's retreat, friend.",
+            "TL": "Masyado kitang pinahahalagahan para isugal ito. Umatras tayo, kaibigan."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.03"
+            "EN": "Please, let's fall back together. We don't have to die here.",
+            "TL": "Pakiusap, sabay tayong umatras. Di natin kailangang mamatay rito."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.04"
+            "EN": "I need you alive, partner. Turn around, let's go.",
+            "TL": "Kailangan kitang buhay, kasama. Lumingon ka, tara na."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.05"
+            "EN": "Let's save our strength for our people back home. Retreat.",
+            "TL": "Itabi natin ang lakas natin para sa kasama sa kampo. Umatras."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.06"
+            "EN": "Take my hand if you need to, but we have to pull back now.",
+            "TL": "Hawakan mo ang kamay ko kung kailangan, pero aatras na tayo ngayon."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.07"
+            "EN": "There's no shame in living to fight tomorrow. Fall back with me.",
+            "TL": "Walang kahihiyan sa pananatiling buhay. Umatras ka kasama ko."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.08"
+            "EN": "Let's back away gently, together. I've got you.",
+            "TL": "Umatras tayo nang marahan, nang magkasama. Hawak kita."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.09"
+            "EN": "We can find supplies elsewhere. Let's keep each other safe and run.",
+            "TL": "Makakahanap tayo ng gamit sa iba. Manatiling ligtas at tumakbo."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.warm.10"
+            "EN": "I'm not leaving without you, so let's both back up right now.",
+            "TL": "Di ako aalis nang wala ka, kaya umatras tayong pareho ngayon."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.01"
+            "EN": "Pull back.",
+            "TL": "Umatras."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.02"
+            "EN": "Too many. Run.",
+            "TL": "Sobra sila. Takbo."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.03"
+            "EN": "Retreat.",
+            "TL": "Urong."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.04"
+            "EN": "Fall back now.",
+            "TL": "Atras na ngayon."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.05"
+            "EN": "Bad odds. Leave.",
+            "TL": "Masamang tsansa. Alis."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.06"
+            "EN": "Out. Now.",
+            "TL": "Labas. Ngayon."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.07"
+            "EN": "Back up.",
+            "TL": "Umatras."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.08"
+            "EN": "Not here. Move.",
+            "TL": "Huwag dito. Kilos."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.09"
+            "EN": "Escape.",
+            "TL": "Takas."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.terse.10"
+            "EN": "Away.",
+            "TL": "Malayo."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.01"
+            "EN": "Bad odds. Give them space.",
+            "TL": "Masama ang tsansa. Lumayo tayo."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.02"
+            "EN": "Fighting that pack is suicide. Withdraw in formation.",
+            "TL": "Pagpapakamatay ang labanang 'yan. Umatras nang may pormasyon."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.03"
+            "EN": "Step back quietly. Do not alert the rear flank.",
+            "TL": "Umatras nang tahimik. Huwag gisingin ang nasa likod."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.04"
+            "EN": "Keep your weapon raised, but reverse your footsteps.",
+            "TL": "Itaas ang armas, pero ihakbang pabalik ang paa."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.05"
+            "EN": "We have zero tactical advantage. We fall back immediately.",
+            "TL": "Wala tayong kalamangan sa posisyon. Aatras tayo agad."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.06"
+            "EN": "Don't let adrenaline make you stupid. We withdraw.",
+            "TL": "Huwag magpadala sa kaba at maging tanga. Aatras tayo."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.07"
+            "EN": "Back away into the shadows. Let them wander past.",
+            "TL": "Umatras sa dilim. Hayaang lumampas sila."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.08"
+            "EN": "I refuse to be butchered in an open field. Retreat.",
+            "TL": "Ayokong malapa sa bukas na damuhan. Umatras."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.09"
+            "EN": "Keep low and retreat to the last secure building.",
+            "TL": "Yumuko at umatras sa huling ligtas na gusali."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_cautious.guarded.10"
+            "EN": "Orderly withdrawal. If anyone runs screaming, they're dead.",
+            "TL": "Maayos na pag-atras. Kapag may nagpanic at sumigaw, patay 'yon."
           }
         ]
       }
@@ -539,170 +539,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.01"
+            "EN": "Hold here. Don't rush it.",
+            "TL": "Dito muna. Huwag padalos-dalos."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.02"
+            "EN": "Wait for them to thin out before making a move.",
+            "TL": "Hintaying mabawasan sila bago gumalaw."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.03"
+            "EN": "Stay in position. Let's see which way they drift.",
+            "TL": "Manatili sa pwesto. Tingnan kung saan sila papunta."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.04"
+            "EN": "Hold your ground and observe their path.",
+            "TL": "Hawakan ang pwesto at bantayan ang ruta nila."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.05"
+            "EN": "No sudden movements. Let them pass if possible.",
+            "TL": "Walang biglaang galaw. Hayaang lumampas kung maaari."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.06"
+            "EN": "Keep calm and hold the line right here.",
+            "TL": "Kumalma at hawakan ang linya dito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.07"
+            "EN": "Patience. Let's wait for the right opening.",
+            "TL": "Pasensya muna. Hintayin ang tamang puwang."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.08"
+            "EN": "Hold steady. We decide when we have better information.",
+            "TL": "Maging matatag. Magpapasya tayo kapag mas marami nang impormasyon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.09"
+            "EN": "Don't panic. Hold position behind cover.",
+            "TL": "Huwag mag-panic. Manatili sa likod ng kublihan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.neutral.10"
+            "EN": "Steady now. Let's assess before we commit.",
+            "TL": "Dahan-dahan lang. Timbangin muna bago sumugod."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.01"
+            "EN": "Stay together. Let's hold before we commit.",
+            "TL": "Magkakasama tayo. Humawak muna bago sumugod."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.02"
+            "EN": "Breathe easy, friend. We hold right here by each other.",
+            "TL": "Huminga ka nang maluwag, kaibigan. Hawak-kamay tayo rito."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.03"
+            "EN": "I'm right beside you. Let's wait for a safe moment.",
+            "TL": "Nasa tabi mo lang ako. Hintayin natin ang ligtas na sandali."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.04"
+            "EN": "Hold steady, partner. We don't have to rush into danger.",
+            "TL": "Magpakatatag ka, kasama. Di natin kailangang magpadalos-dalos."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.05"
+            "EN": "Stay low with me. Let's watch their movements together.",
+            "TL": "Yumuko ka kasabay ko. Sabay nating bantayan ang galaw nila."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.06"
+            "EN": "Keep calm. As long as we hold together, we'll be fine.",
+            "TL": "Manatiling kalmado. Hangga't magkasama tayo, magiging maayos tayo."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.07"
+            "EN": "Just hold on for a minute. Let the worst of the herd pass.",
+            "TL": "Sandali lang. Hayaang lumampas ang pinakamalaking kawan."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.08"
+            "EN": "Steady, friend. I'm right here with you in the quiet.",
+            "TL": "Dahan-dahan, kaibigan. Narito lang ako kasama mo sa katahimikan."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.09"
+            "EN": "Don't be scared. We hold this spot until we have a clean shot.",
+            "TL": "Huwag kang matakot. Hawakan ang pwesto hanggang may malinaw na daan."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.warm.10"
+            "EN": "Together and steady. Let's let them drift away.",
+            "TL": "Sama-sama at matatag. Hayaan natin silang lumayo."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.01"
+            "EN": "Hold. Watch them.",
+            "TL": "Hawak. Bantayan sila."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.02"
+            "EN": "Hold position.",
+            "TL": "Hawakan ang pwesto."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.03"
+            "EN": "Wait.",
+            "TL": "Teka."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.04"
+            "EN": "Stay low.",
+            "TL": "Yumuko."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.05"
+            "EN": "Steady.",
+            "TL": "Magpakatatag."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.06"
+            "EN": "Do not move.",
+            "TL": "Huwag gagalaw."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.07"
+            "EN": "Hold.",
+            "TL": "Hawak."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.08"
+            "EN": "Patience.",
+            "TL": "Pasensya."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.09"
+            "EN": "Freeze.",
+            "TL": "Tigil."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.terse.10"
+            "EN": "Quiet. Watch.",
+            "TL": "Tahimik. Magmasid."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.01"
+            "EN": "No rush. Hold position and watch the pressure.",
+            "TL": "Walang pagmamadali. Humawak at bantayan ang galaw nila."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.02"
+            "EN": "Hold here. If you twitch, you draw the whole pack.",
+            "TL": "Dito muna. Kapag kumilos ka, mahahatak mo ang buong kawan."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.03"
+            "EN": "Stay rooted. Wait until their lead walkers pass.",
+            "TL": "Manatiling nakatuntong. Hintaying lumampas ang nauuna."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.04"
+            "EN": "Maintain silence and hold the corner.",
+            "TL": "Panatilihin ang katahimikan at hawakan ang kanto."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.05"
+            "EN": "Do not engage prematurely. Let the herd scatter.",
+            "TL": "Huwag aatake nang maaga. Hayaang maghiwa-hiwalay ang kawan."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.06"
+            "EN": "Hold your breath if you have to, but don't move.",
+            "TL": "Pigilin ang hininga kung kailangan, pero huwag gagalaw."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.07"
+            "EN": "We wait for an exploitable mistake. Stay still.",
+            "TL": "Hintayin natin ang pagkakamali nila. Huwag gumalaw."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.08"
+            "EN": "Keep your weapon ready, but do not fire yet. Hold.",
+            "TL": "Ihanda ang armas, pero huwag munang puputok. Hawak."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.09"
+            "EN": "Hold tight against the wall. Let them walk past.",
+            "TL": "Dumikit sa pader. Hayaang maglakad sila palampas."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.horde_reply_steady.guarded.10"
+            "EN": "Steady. Any sound will turn this into a slaughterhouse.",
+            "TL": "Dahan-dahan. Anumang ingay ay gagawin itong katayan."
           }
         ]
       }
@@ -713,170 +713,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.01"
+            "EN": "I heard something worth passing on.",
+            "TL": "May narinig akong mahalagang ipasa sa iyo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.02"
+            "EN": "Got an update on what's happening nearby.",
+            "TL": "May balita ako sa mga nangyayari sa paligid."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.03"
+            "EN": "There's fresh news from the neighboring zone.",
+            "TL": "May sariwang balita mula sa kalapit na lugar."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.04"
+            "EN": "I picked up some information you should know about.",
+            "TL": "May nakuha akong impormasyon na dapat mong malaman."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.05"
+            "EN": "Heads up: I heard a report about conditions outside.",
+            "TL": "Makinig ka: may narinig akong ulat tungkol sa kalagayan sa labas."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.06"
+            "EN": "Passing along some intelligence I gathered.",
+            "TL": "Ipinapasa ko ang ilang impormasyong nakalap ko."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.07"
+            "EN": "Here's what I've learned from other travelers.",
+            "TL": "Ito ang nalaman ko mula sa ibang manlalakbay."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.08"
+            "EN": "You might want to hear this latest report.",
+            "TL": "Baka gusto mong marinig itong pinakahuling balita."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.09"
+            "EN": "I have some verified information to share.",
+            "TL": "May napatunayan akong impormasyon na ibabahagi."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.neutral.10"
+            "EN": "Listen to this news before you head out.",
+            "TL": "Pakinggan mo itong balita bago ka lumabas."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.01"
+            "EN": "I thought you should hear what I learned.",
+            "TL": "Naisip kong dapat mong marinig ang nalaman ko."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.02"
+            "EN": "Hey friend, I found out something that might help us.",
+            "TL": "Huy kaibigan, may nalaman akong makatutulong sa atin."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.03"
+            "EN": "I wanted to make sure you were in the loop on this news.",
+            "TL": "Gusto kong tiyakin na may alam ka sa balitang ito."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.04"
+            "EN": "Got some good intel to share with you, partner.",
+            "TL": "May magandang balita akong ibabahagi sa 'yo, kasama."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.05"
+            "EN": "Always looking out for you—listen to what I heard.",
+            "TL": "Lagi kitang iniisip—makinig ka sa narinig ko."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.06"
+            "EN": "Thought of you as soon as I heard this update.",
+            "TL": "Ikaw agad ang naisip ko nang marinig ko ang balitang ito."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.07"
+            "EN": "Come here, I have news that might make things easier.",
+            "TL": "Halika rito, may balita ako na magpapagaan ng sitwasyon."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.08"
+            "EN": "Happy to share this bit of hope with you today.",
+            "TL": "Masayang ibahagi ang kaunting pag-asang ito sa 'yo ngayon."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.09"
+            "EN": "Listen up, friend. This could keep us safer.",
+            "TL": "Makinig ka, kaibigan. Mas makapagpapanatiling ligtas ito sa atin."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.warm.10"
+            "EN": "I wanted you to hear this first from me.",
+            "TL": "Gusto kong sa akin mo unang marinig ito."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.01"
+            "EN": "Got some news for you.",
+            "TL": "May balita ako para sa iyo."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.02"
+            "EN": "News.",
+            "TL": "Balita."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.03"
+            "EN": "Listen up.",
+            "TL": "Makinig."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.04"
+            "EN": "Heard something.",
+            "TL": "May narinig ako."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.05"
+            "EN": "Intel for you.",
+            "TL": "Impormasyon para sa 'yo."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.06"
+            "EN": "Update.",
+            "TL": "Ulat."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.07"
+            "EN": "Here's the word.",
+            "TL": "Ito ang balita."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.08"
+            "EN": "New report.",
+            "TL": "Bagong balita."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.09"
+            "EN": "Check this.",
+            "TL": "Tingnan mo 'to."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.terse.10"
+            "EN": "Word from outside.",
+            "TL": "Balita mula sa labas."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.01"
+            "EN": "I have something I can confirm.",
+            "TL": "May bagay akong makukumpirma."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.02"
+            "EN": "I have verified intel, but keep it quiet.",
+            "TL": "May napatunayan akong impormasyon, pero panatilihing lihim."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.03"
+            "EN": "Listen close. I don't want everyone overhearing this.",
+            "TL": "Makinig nang mabuti. Ayokong marinig ito ng lahat."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.04"
+            "EN": "I'm sharing this with you because you need to know the risks.",
+            "TL": "Ibinabahagi ko ito dahil kailangan mong malaman ang panganib."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.05"
+            "EN": "News from the perimeter. Don't go spreading it wildly.",
+            "TL": "Balita mula sa paligid. Huwag mong ikalat kung saan-saan."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.06"
+            "EN": "I verified this rumor myself. Take it seriously.",
+            "TL": "Kinumpirma ko ang balitang ito mismo. Seryosohin mo."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.07"
+            "EN": "Careful who you repeat this to, but here's the situation.",
+            "TL": "Mag-ingat kung kanino mo sasabihin, pero ito ang kalagayan."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.08"
+            "EN": "I have confirmed facts about what happened out there.",
+            "TL": "May napatunayan akong katotohanan sa nangyari sa labas."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.09"
+            "EN": "Keep your voice low. Here's what I confirmed.",
+            "TL": "Hinaan ang boses mo. Ito ang nakumpirma ko."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_share.guarded.10"
+            "EN": "Actionable intel. Use it to protect yourself.",
+            "TL": "Magagamit na impormasyon. Gamitin para protektahan ang sarili."
           }
         ]
       }
@@ -887,170 +887,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.01"
+            "EN": "That is what I can confirm right now.",
+            "TL": "Iyan ang makukumpirma ko sa ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.02"
+            "EN": "That's all the verified information I have.",
+            "TL": "Iyan lang ang napatunayang impormasyong hawak ko."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.03"
+            "EN": "That covers the extent of what I know.",
+            "TL": "Iyan ang kabuuan ng nalalaman ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.04"
+            "EN": "Beyond that, it's just guesswork.",
+            "TL": "Higit pa riyan, hula-hula na lang."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.05"
+            "EN": "That's as much as I was able to find out.",
+            "TL": "Iyan lang ang nagawa kong alamin."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.06"
+            "EN": "I'll let you know if I hear anything more.",
+            "TL": "Sasabihan kita kapag may narinig pa akong bago."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.07"
+            "EN": "That's the factual picture for now.",
+            "TL": "Iyan ang totoong larawan sa ngayon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.08"
+            "EN": "That's what's solid. The rest is rumor.",
+            "TL": "Iyan ang totoo. Tsismis na ang iba."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.09"
+            "EN": "I've told you everything I can verify.",
+            "TL": "Nasabi ko na ang lahat ng kaya kong kumpirmahin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.neutral.10"
+            "EN": "That's the report as it stands.",
+            "TL": "Iyan ang ulat sa kasalukuyan."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.01"
+            "EN": "I wish I knew more, but that is what I can confirm.",
+            "TL": "Sana mas marami akong alam, pero iyan ang makukumpirma ko."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.02"
+            "EN": "That's all I have for you right now, friend, but I'll keep asking.",
+            "TL": "Iyan lang muna, kaibigan, pero patuloy akong magtatanong."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.03"
+            "EN": "I wanted to share everything I knew to keep you safe.",
+            "TL": "Gusto kong ibahagi ang lahat para manatili kang ligtas."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.04"
+            "EN": "If any more news comes my way, you'll be the first I tell.",
+            "TL": "Kapag may bagong balita, ikaw ang una kong sasabihan."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.05"
+            "EN": "Hope that helps you out today, partner.",
+            "TL": "Sana makatulong 'yan sa 'yo ngayong araw, kasama."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.06"
+            "EN": "That's the whole story as far as I've been told.",
+            "TL": "Iyan ang buong kuwento ayon sa sinabi sa akin."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.07"
+            "EN": "I'm glad I could pass that along to you.",
+            "TL": "Mabuti at naipasa ko sa 'yo 'yan."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.08"
+            "EN": "That's what we have to work with for now, friend.",
+            "TL": "Iyan ang hawak natin sa ngayon, kaibigan."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.09"
+            "EN": "I'll keep my ears open for you.",
+            "TL": "Bukas ang tainga ko para sa 'yo."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.warm.10"
+            "EN": "That's everything for now. Take good care of yourself.",
+            "TL": "Iyan ang lahat sa ngayon. Ingatan mo ang sarili mo."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.01"
+            "EN": "That is all I can confirm.",
+            "TL": "Iyan lang ang makukumpirma ko."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.02"
+            "EN": "That's it.",
+            "TL": "Iyon lang."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.03"
+            "EN": "All I know.",
+            "TL": "Lahat ng alam ko."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.04"
+            "EN": "Confirmed only.",
+            "TL": "Kumpirmado lang."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.05"
+            "EN": "Nothing more.",
+            "TL": "Wala nang iba."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.06"
+            "EN": "That's all.",
+            "TL": "Iyon na ang lahat."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.07"
+            "EN": "Full report.",
+            "TL": "Buong ulat."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.08"
+            "EN": "End of it.",
+            "TL": "Diyan nagtatapos."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.09"
+            "EN": "Done.",
+            "TL": "Tapos."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.terse.10"
+            "EN": "All there is.",
+            "TL": "Iyan lang."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.01"
+            "EN": "Nothing else I can verify yet.",
+            "TL": "Wala pa akong ibang mapapatunayan."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.02"
+            "EN": "I don't deal in rumors. That's the only confirmed piece.",
+            "TL": "Di ako nakikipagtsismisan. Iyan lang ang kumpirmado."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.03"
+            "EN": "Don't press for details I can't back up.",
+            "TL": "Huwag kang maghanap ng detalyeng di ko mapatutunayan."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.04"
+            "EN": "That's the extent of it. Keep it between us.",
+            "TL": "Hanggang diyan lang. Sa ating dalawa lang 'yan."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.05"
+            "EN": "I won't guess about the rest. Stick to the facts.",
+            "TL": "Hindi ako manghuhula. Manatili sa katotohanan."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.06"
+            "EN": "That is all you need to know for now.",
+            "TL": "Iyan lang ang kailangan mong malaman sa ngayon."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.07"
+            "EN": "Anything beyond that is dangerous speculation.",
+            "TL": "Anuman higit diyan ay mapanganib na haka-haka."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.08"
+            "EN": "I've verified that much. Nothing more to say.",
+            "TL": "Iyan lang ang nakumpirma ko. Wala nang dapat sabihin pa."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.09"
+            "EN": "Take that information and plan accordingly.",
+            "TL": "Kunin ang balitang 'yan at magplano nang maayos."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.grounded_news_answer.guarded.10"
+            "EN": "That's all that's confirmed. Watch your step.",
+            "TL": "Iyan lang ang tiyak. Mag-ingat ka sa hakbang mo."
           }
         ]
       }
@@ -1061,170 +1061,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.01"
+            "EN": "We're getting ready to head out.",
+            "TL": "Naghahanda na tayong umalis."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.02"
+            "EN": "Double-check your pack and gear before we leave.",
+            "TL": "Suriing muli ang bag at gamit bago tayo umalis."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.03"
+            "EN": "Making preparations for the run now.",
+            "TL": "Naghahanda na para sa pagbiyahe ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.04"
+            "EN": "Gather what you need. Departure is soon.",
+            "TL": "Tipunin ang kailangan mo. Aalis na agad."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.05"
+            "EN": "Check weapons, food, and water.",
+            "TL": "Suriin ang armas, pagkain, at tubig."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.06"
+            "EN": "Prepping for the excursion. Almost ready.",
+            "TL": "Naghahanda para sa paglabas. Halos handa na."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.07"
+            "EN": "Let's make sure nothing essential gets left behind.",
+            "TL": "Tiyaking walang mahahalagang gamit na maiiwan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.08"
+            "EN": "Getting everything squared away for the road.",
+            "TL": "Inaayos ang lahat para sa paglalakbay."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.09"
+            "EN": "Final checks before we open the gates.",
+            "TL": "Huling pagsusuri bago buksan ang tarangkahan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.neutral.10"
+            "EN": "Prepare your supplies. We move shortly.",
+            "TL": "Ihanda ang mga supply. Kikilos na tayo maya-maya."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.01"
+            "EN": "We're getting ready. Make sure you've got what you need.",
+            "TL": "Naghahanda na tayo. Siguraduhin mong dala mo ang kailangan mo."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.02"
+            "EN": "Take your time prepping, friend. Better safe than sorry.",
+            "TL": "Maghanda nang mabuti, kaibigan. Mas mabuting handa."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.03"
+            "EN": "Need help packing anything up, partner?",
+            "TL": "Kailangan mo ba ng tulong sa pag-iimpake, kasama?"
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.04"
+            "EN": "Got an extra bandage if you need one. Let's prep well.",
+            "TL": "May sobra akong bendahe kung kailangan mo. Maghanda tayo nang maayos."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.05"
+            "EN": "Excited and nervous, but we've got each other. Ready up!",
+            "TL": "Kaba at sabik, pero magkasama tayo. Maghanda na!"
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.06"
+            "EN": "Make sure you've eaten and drank water before we go.",
+            "TL": "Tiyaking nakakain at nakainom ka bago tayo umalis."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.07"
+            "EN": "Getting ready! We'll make this a successful run together.",
+            "TL": "Naghahanda na! Gagawin nating matagumpay ang biyaheng ito."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.08"
+            "EN": "Double-check your boots and bandages, friend.",
+            "TL": "Suriin ang bota at bendahe mo, kaibigan."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.09"
+            "EN": "I'm right here prepping alongside you. We'll do great.",
+            "TL": "Nandito lang ako naghahanda kasabay mo. Magiging maayos tayo."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.warm.10"
+            "EN": "Readying supplies. Stay positive, we've got this!",
+            "TL": "Inihahanda ang mga gamit. Maging positibo, kaya natin ito!"
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.01"
+            "EN": "Get ready. We leave soon.",
+            "TL": "Maghanda. Aalis tayo agad."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.02"
+            "EN": "Pack up.",
+            "TL": "Mag-impake."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.03"
+            "EN": "Check gear.",
+            "TL": "Tingnan ang gamit."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.04"
+            "EN": "Prepping.",
+            "TL": "Naghahanda."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.05"
+            "EN": "Load out.",
+            "TL": "Ihanda ang karga."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.06"
+            "EN": "Almost time.",
+            "TL": "Malapit na."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.07"
+            "EN": "Ready weapons.",
+            "TL": "Ihanda ang armas."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.08"
+            "EN": "Moving soon.",
+            "TL": "Aalis na agad."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.09"
+            "EN": "Supplies ready.",
+            "TL": "Handa na ang supply."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.terse.10"
+            "EN": "Final checks.",
+            "TL": "Huling pagsusuri."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.01"
+            "EN": "Prep first. We move when everyone's ready.",
+            "TL": "Maghanda muna. Aalis tayo kapag handa na ang lahat."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.02"
+            "EN": "If you forget something vital out there, nobody is turning back for you.",
+            "TL": "Kapag may naiwan kang mahalaga, walang babalik para sa 'yo."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.03"
+            "EN": "Check your ammunition count twice. No excuses.",
+            "TL": "Bilangin ang bala mo nang dalawang beses. Walang palusot."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.04"
+            "EN": "Sharpen your blade now. We don't stop for maintenance in the field.",
+            "TL": "Hasiin ang talim mo ngayon. Walang hinto para magkumpuni sa labas."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.05"
+            "EN": "Pack light, pack lethal. Don't carry useless junk.",
+            "TL": "Magdala ng magaan at nakamamatay. Huwag magdala ng kalat."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.06"
+            "EN": "Inspect your boots. A twisted ankle out there is fatal.",
+            "TL": "Suriin ang sapatos mo. Nakamamatay ang maipit ang paa sa labas."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.07"
+            "EN": "Be completely ready before you step past that gate.",
+            "TL": "Maging handang-handa bago lumabas sa tarangkahang 'yan."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.08"
+            "EN": "Check your medical supplies. You bleed, you fix it.",
+            "TL": "Tingnan ang gamot mo. Kapag nagdugo ka, gamutin mo sarili mo."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.09"
+            "EN": "Preparing now. Stay disciplined once we cross the threshold.",
+            "TL": "Naghahanda na. Maging disiplinado paglabas natin."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_preparing.guarded.10"
+            "EN": "Lock and load. Don't slow the group down.",
+            "TL": "Magkarga ng armas. Huwag mong pabagalin ang grupo."
           }
         ]
       }
@@ -1235,170 +1235,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.01"
+            "EN": "We're moving out. Keep close.",
+            "TL": "Aalis na tayo. Dumikit ka."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.02"
+            "EN": "Heading out now. Stay sharp.",
+            "TL": "Lalabas na tayo ngayon. Maging alerto."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.03"
+            "EN": "Departure time. Keep your eyes peeled.",
+            "TL": "Oras na ng pag-alis. Buksan ang mga mata."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.04"
+            "EN": "Stepping outside the wire. Watch your surroundings.",
+            "TL": "Lalabas na sa bakod. Bantayan ang paligid."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.05"
+            "EN": "We're on the move. Maintain distance and formation.",
+            "TL": "Kumikilos na tayo. Panatilihin ang pormasyon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.06"
+            "EN": "Moving out. Quiet footsteps.",
+            "TL": "Lumalabas na. Tahimik na mga hakbang."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.07"
+            "EN": "Time to go. Stick to the planned route.",
+            "TL": "Oras na para umalis. Manatili sa pinlanong ruta."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.08"
+            "EN": "Excursion begins now. Stay focused.",
+            "TL": "Nagsisimula na ang lakad. Magpokus."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.09"
+            "EN": "Here we go. Eyes front and watch your flanks.",
+            "TL": "Ito na tayo. Tumingin sa unahan at tagiliran."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.neutral.10"
+            "EN": "Moving outbound. Keep noise to a minimum.",
+            "TL": "Papalabas na. Huwag gagawa ng ingay."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.01"
+            "EN": "We're heading out. Stay close and we'll get through it.",
+            "TL": "Aalis na tayo. Dumikit ka at malalampasan natin ito."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.02"
+            "EN": "Off we go, friend! Right beside you all the way.",
+            "TL": "Lalakad na tayo, kaibigan! Katabi mo ako sa buong daan."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.03"
+            "EN": "Stay close to me, partner. We watch out for each other.",
+            "TL": "Dumikit ka sa akin, kasama. Bantayan natin ang isa't isa."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.04"
+            "EN": "Moving out together. Let's make it a safe trip.",
+            "TL": "Sabay tayong aalis. Gawin nating ligtas ang biyahe."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.05"
+            "EN": "Here we go! Keep your chin up and stay close.",
+            "TL": "Ito na! Itaas ang noo at dumikit."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.06"
+            "EN": "Heading out. Don't worry, we've got this covered.",
+            "TL": "Lalabas na. Huwag mag-alala, hawak natin ito."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.07"
+            "EN": "Step together, friend. We'll be back before you know it.",
+            "TL": "Sabay-sabay sa hakbang, kaibigan. Makababalik tayo agad."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.08"
+            "EN": "On our way! Stay safe and keep smiling.",
+            "TL": "Papunta na tayo! Manatiling ligtas at masigla."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.09"
+            "EN": "Moving out. I'm right behind you if you need a hand.",
+            "TL": "Lumalabas na. Nasa likod mo lang ako kung kailangan mo ng tulong."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.warm.10"
+            "EN": "Let's bring back good loot and all our limbs! Moving out.",
+            "TL": "Mag-uwi tayo ng magagandang gamit nang buo ang katawan! Lakad na."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.01"
+            "EN": "Moving out. Stay close.",
+            "TL": "Aalis na. Dumikit."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.02"
+            "EN": "Moving out.",
+            "TL": "Lalakad na."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.03"
+            "EN": "Let's move.",
+            "TL": "Kilos na."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.04"
+            "EN": "Heading out.",
+            "TL": "Lalabas na."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.05"
+            "EN": "Outbound.",
+            "TL": "Palabas."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.06"
+            "EN": "On the move.",
+            "TL": "Kumikilos na."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.07"
+            "EN": "Stay tight.",
+            "TL": "Dumikit."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.08"
+            "EN": "Quiet steps.",
+            "TL": "Tahimik na hakbang."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.09"
+            "EN": "Marching.",
+            "TL": "Lumalakad na."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.terse.10"
+            "EN": "Go.",
+            "TL": "Tara."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.01"
+            "EN": "We're outbound. Keep the group tight.",
+            "TL": "Papunta na tayo. Panatilihing dikit ang grupo."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.02"
+            "EN": "Crossing outside. Weapons ready, safety off.",
+            "TL": "Lalabas na. Handa ang armas, alisin ang safety."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.03"
+            "EN": "No talking from here on out. Hand signals only.",
+            "TL": "Walang magsasalita simula rito. Senyas-kamay lang."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.04"
+            "EN": "Keep low and match my speed. Don't wander off.",
+            "TL": "Yumuko at sumabay sa bilis ko. Huwag lalayo."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.05"
+            "EN": "Scan your sectors continuously as we move.",
+            "TL": "Bantayan ang pwesto niyo habang lumalakad."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.06"
+            "EN": "Outbound. If we take fire, dive for immediate cover.",
+            "TL": "Palabas na. Kapag may nagpaputok, dapa agad sa kublihan."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.07"
+            "EN": "Watch the tree line and rooftops. Moving out.",
+            "TL": "Bantayan ang mga puno at bubong. Lakad na."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.08"
+            "EN": "Stay alert. The outside world is completely hostile.",
+            "TL": "Maging alisto. Mapanganib ang buong mundo sa labas."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.09"
+            "EN": "We're moving. Anyone who strays gets left behind.",
+            "TL": "Kumikilos na. Ang lumihis maiiwan."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_departing.guarded.10"
+            "EN": "Formation tight. Moving into enemy territory.",
+            "TL": "Mahigpit na pormasyon. Papatungo sa teritoryo ng kalaban."
           }
         ]
       }
@@ -1409,170 +1409,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.01"
+            "EN": "We're heading home.",
+            "TL": "Pauwi na tayo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.02"
+            "EN": "Turn around. Time to get back to base.",
+            "TL": "Lumingon na. Oras na para bumalik sa base."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.03"
+            "EN": "Objective done. Heading back now.",
+            "TL": "Tapos na ang sadya. Pabalik na ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.04"
+            "EN": "Let's retrace our steps and get home safe.",
+            "TL": "Balikan natin ang dinaanan at umuwi nang ligtas."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.05"
+            "EN": "Heading inbound. Keep your guard up until we're inside.",
+            "TL": "Papasok na. Huwag ibaba ang bantay hanggang makapasok."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.06"
+            "EN": "Pack up what we found. We're going home.",
+            "TL": "Iimpake ang nahanap. Uuwi na tayo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.07"
+            "EN": "Time to head back. Watch the trail behind us.",
+            "TL": "Oras nang bumalik. Bantayan ang bakas sa likod natin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.08"
+            "EN": "Return journey begins now. Stay together.",
+            "TL": "Pabalik na biyahe simula na. Magsama-sama."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.09"
+            "EN": "We're bound for home. Almost there.",
+            "TL": "Pauwi na tayo. Malapit na."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.neutral.10"
+            "EN": "Moving back to safe ground. Keep alert.",
+            "TL": "Babalik na sa ligtas na lugar. Maging alerto."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.01"
+            "EN": "Time to head home. Let's get everyone back safe.",
+            "TL": "Oras nang umuwi. Iuwi nating ligtas ang lahat."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.02"
+            "EN": "We're going home, friend! Can't wait to rest.",
+            "TL": "Uuwi na tayo, kaibigan! Sabik na akong magpahinga."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.03"
+            "EN": "Great work out here. Let's get back home together.",
+            "TL": "Magaling ang ginawa mo rito. Sabay na tayong umuwi."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.04"
+            "EN": "Heading home, partner! A warm fire is waiting for us.",
+            "TL": "Pauwi na, kasama! May mainit na apoy na naghihintay sa 'tin."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.05"
+            "EN": "Almost back to safety. Keep your spirits up, friend.",
+            "TL": "Malapit na sa ligtas. Pasiglahin ang loob, kaibigan."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.06"
+            "EN": "We did good today! Let's get this haul home.",
+            "TL": "Maganda ang nagawa natin ngayon! Iuwi na natin ang nakuha."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.07"
+            "EN": "Heading back! I'm so glad we're both still standing.",
+            "TL": "Pabalik na! Masayang-masaya ako't nakatayo pa tayong pareho."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.08"
+            "EN": "Just a little further and we're home safe. Stay close.",
+            "TL": "Kaunti na lang at ligtas na tayo sa bahay. Dumikit ka."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.09"
+            "EN": "Homeward bound, partner. You did amazing.",
+            "TL": "Pauwi na, kasama. Napakahusay mo."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.warm.10"
+            "EN": "Let's get back to our camp and take a well-deserved rest.",
+            "TL": "Bumalik na tayo sa kampo para sa nararapat na pahinga."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.01"
+            "EN": "Heading home.",
+            "TL": "Pauwi na."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.02"
+            "EN": "Returning.",
+            "TL": "Babalik na."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.03"
+            "EN": "Homeward.",
+            "TL": "Pauwi."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.04"
+            "EN": "Back to base.",
+            "TL": "Balik sa base."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.05"
+            "EN": "Time to return.",
+            "TL": "Oras nang bumalik."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.06"
+            "EN": "Turn back.",
+            "TL": "Bumalik na."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.07"
+            "EN": "Inbound.",
+            "TL": "Papasok na."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.08"
+            "EN": "Done. Home.",
+            "TL": "Tapos. Uwi na."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.09"
+            "EN": "Retracing steps.",
+            "TL": "Binabalikan ang daan."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.terse.10"
+            "EN": "Going back.",
+            "TL": "Pabalik na."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.01"
+            "EN": "We're returning. Stay alert until we're home.",
+            "TL": "Pabalik na tayo. Mag-ingat hanggang makauwi."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.02"
+            "EN": "The trip back is when most scavengers get ambushed. Watch the trees.",
+            "TL": "Sa pagbalik karaniwang tinatambangan ang tao. Bantayan ang puno."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.03"
+            "EN": "Don't let your guard down just because we're heading home.",
+            "TL": "Huwag ibaba ang bantay dahil lang pauwi na tayo."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.04"
+            "EN": "Check your rear. Make sure nothing is following our scent.",
+            "TL": "Tingnan ang likod. Tiyaking walang sumusunod sa amoy natin."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.05"
+            "EN": "Keep the haul hidden. We don't want to draw bandit eyes.",
+            "TL": "Itago ang mga nakuha. Ayaw nating makahikayat ng magnanakaw."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.06"
+            "EN": "Returning now. Speed up without making noise.",
+            "TL": "Babalik na. Bilis-bilisan nang walang ginagawang ingay."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.07"
+            "EN": "We're inbound. Stay ready to drop the bags and fight.",
+            "TL": "Papasok na. Maging handang ibaba ang bag at lumaban."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.08"
+            "EN": "Watch our backtrail. Stragglers could be tailing us.",
+            "TL": "Bantayan ang dinaanan. Baka may sumusunod sa atin."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.09"
+            "EN": "Almost at the gates, but keep checking corners.",
+            "TL": "Malapit na sa tarangkahan, pero suriin pa rin ang mga kanto."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_returning.guarded.10"
+            "EN": "Returning. No relaxing until the deadbolt is thrown.",
+            "TL": "Pabalik na. Walang magpapahinga hangga't di nakakandado."
           }
         ]
       }
@@ -1583,170 +1583,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.01"
+            "EN": "We're back. Good.",
+            "TL": "Nakabalik na tayo. Mabuti."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.02"
+            "EN": "Safe inside. Close the gate.",
+            "TL": "Ligtas na sa loob. Isara ang tarangkahan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.03"
+            "EN": "Made it back in one piece.",
+            "TL": "Nakarating nang buo ang katawan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.04"
+            "EN": "We're home. Let's unpack the supplies.",
+            "TL": "Nasa bahay na tayo. Idiskarga ang mga gamit."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.05"
+            "EN": "Back behind walls. Good run.",
+            "TL": "Nasa likod na muli ng pader. Magandang biyahe."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.06"
+            "EN": "We've returned safely. Check the locks.",
+            "TL": "Ligtas tayong nakabalik. Tingnan ang mga kandado."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.07"
+            "EN": "Home base reached. Everyone check in.",
+            "TL": "Nakarating na sa base. Mag-check in ang lahat."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.08"
+            "EN": "Trip concluded. Good to be back.",
+            "TL": "Tapos na ang biyahe. Mabuti at nakabalik."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.09"
+            "EN": "We made it through the gates. Secure the perimeter.",
+            "TL": "Nakalusot tayo sa tarangkahan. I-secure ang paligid."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.neutral.10"
+            "EN": "Back where it's safe. Good work today.",
+            "TL": "Bumalik sa ligtas. Magaling ang ginawa niyo ngayon."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.01"
+            "EN": "We're home. Good to have everyone back.",
+            "TL": "Nasa bahay na tayo. Mabuting nakabalik ang lahat."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.02"
+            "EN": "We made it back, friend! Welcome home.",
+            "TL": "Nakarating tayo, kaibigan! Maligayang pagbabalik sa tahanan."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.03"
+            "EN": "Home sweet home. So glad we're both safe.",
+            "TL": "Kay sarap makauwi. Masaya akong ligtas tayong pareho."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.04"
+            "EN": "We survived another run together! Put your feet up, partner.",
+            "TL": "Nakaligtas tayo sa isa na namang biyahe! Magpahinga ka na, kasama."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.05"
+            "EN": "Nothing beats walking back through our own door. Good job!",
+            "TL": "Walang hihigit sa pagpasok sa sarili nating pinto. Magaling!"
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.06"
+            "EN": "Safe at last! Let me grab you some clean water.",
+            "TL": "Ligtas na rin sa wakas! Kukuha kita ng malinis na tubig."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.07"
+            "EN": "So relieved to see our camp again with you.",
+            "TL": "Napakalaking ginhawa na makita muli ang kampo kasama ka."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.08"
+            "EN": "We did it, friend! Another successful trip in the books.",
+            "TL": "Nagawa natin, kaibigan! Isa na namang tagumpay na biyahe."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.09"
+            "EN": "Welcome back! Let's get you rested and fed.",
+            "TL": "Maligayang pagbabalik! Magpahinga ka at kumain."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.warm.10"
+            "EN": "Home safe and sound. Proud to be on your team.",
+            "TL": "Ligtas at buo. Ipinagmamalaki kong kasama kita."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.01"
+            "EN": "Back home.",
+            "TL": "Nakauwi na."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.02"
+            "EN": "Home.",
+            "TL": "Bahay na."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.03"
+            "EN": "Inside.",
+            "TL": "Nasa loob."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.04"
+            "EN": "Safe.",
+            "TL": "Ligtas."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.05"
+            "EN": "Gate closed.",
+            "TL": "Sarado ang pinto."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.06"
+            "EN": "Back.",
+            "TL": "Bumalik na."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.07"
+            "EN": "Returned.",
+            "TL": "Nakarating na."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.08"
+            "EN": "Unpack.",
+            "TL": "Idiskarga."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.09"
+            "EN": "Settled.",
+            "TL": "Ayos na."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.terse.10"
+            "EN": "Done.",
+            "TL": "Tapos."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.01"
+            "EN": "We're back. Check in and settle down.",
+            "TL": "Nakabalik na tayo. Mag-check in at magpahinga."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.02"
+            "EN": "Bar the doors immediately. Don't let anything follow us in.",
+            "TL": "Kandadohin ang pinto agad. Huwag magpapasok ng kahit ano."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.03"
+            "EN": "Inventory the gear right now before anything goes missing.",
+            "TL": "Ilista ang mga gamit ngayon bago may mawala."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.04"
+            "EN": "Inside the fence, but don't drop your guard completely.",
+            "TL": "Nasa loob na ng bakod, pero huwag ibaba nang buo ang bantay."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.05"
+            "EN": "Check the perimeter sentries. Make sure the camp wasn't breached.",
+            "TL": "Tingnan ang mga nagbabantay. Tiyaking di pinasok ang kampo."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.06"
+            "EN": "Secure the locks. Then we tally our supplies.",
+            "TL": "I-lock ang pinto. Pagkatapos bilangin ang mga gamit."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.07"
+            "EN": "We're back. Did anyone get bitten? Speak up now.",
+            "TL": "Nakabalik na. May nakagat ba? Magsalita ngayon din."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.08"
+            "EN": "Drop the backpacks in the storeroom. Keep weapons loaded.",
+            "TL": "Ibaba ang bag sa bodega. Panatilihing may karga ang armas."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.09"
+            "EN": "Good, we're inside. Keep quiet so we don't draw strays.",
+            "TL": "Mabuti, nasa loob na. Manahimik para di maakit ang mga patay."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_home.guarded.10"
+            "EN": "Back inside the wire. Rest, but be ready to mobilize.",
+            "TL": "Nasa loob na ng alambre. Magpahinga, pero laging handa."
           }
         ]
       }
@@ -1757,170 +1757,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.01"
+            "EN": "Trip's off. Something went wrong.",
+            "TL": "Kanselado ang biyahe. May nangyaring mali."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.02"
+            "EN": "We have to cancel the run. It's not safe.",
+            "TL": "Kailangang kanselahin ang lakad. Hindi ligtas."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.03"
+            "EN": "Plan fell apart. We're aborting the trip.",
+            "TL": "Pumalpak ang plano. Ititigil natin ang paglabas."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.04"
+            "EN": "Call it off. Conditions are too hazardous.",
+            "TL": "Kanselahin na. Masyadong mapanganib ang kalagayan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.05"
+            "EN": "We're aborting the mission. Regroup back inside.",
+            "TL": "Ititigil ang misyon. Magtipon pabalik sa loob."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.06"
+            "EN": "Trip canceled. Something compromised our route.",
+            "TL": "Kanselado ang biyahe. May sumira sa ruta natin."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.07"
+            "EN": "Not happening today. Pull back to base.",
+            "TL": "Hindi matutuloy ngayon. Umatras pabalik sa base."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.08"
+            "EN": "Mission failed. Better to abort than lose lives.",
+            "TL": "Bigo ang misyon. Mas mabuting ihinto kaysa may mamatay."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.09"
+            "EN": "The run is scrubbed. Head back inside.",
+            "TL": "Kanselado ang paglabas. Bumalik sa loob."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.neutral.10"
+            "EN": "Aborting the excursion. We'll rethink the plan.",
+            "TL": "Ititigil ang lakad. Pag-iisipan natin muli ang plano."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.01"
+            "EN": "We're calling it off. Better safe than forcing it.",
+            "TL": "Ititigil muna natin. Mas mabuting ligtas kaysa pilitin."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.02"
+            "EN": "Don't be discouraged, friend. We'll try again another day.",
+            "TL": "Huwag kang panghinaan ng loob, kaibigan. Susubukan natin ulit sa ibang araw."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.03"
+            "EN": "I'd rather have you alive than whatever supplies are out there.",
+            "TL": "Mas gusto kitang buhay kaysa sa anumang gamit sa labas."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.04"
+            "EN": "It's okay, partner. We made the right call to abort.",
+            "TL": "Ayos lang, kasama. Tama ang desisyon nating huminto."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.05"
+            "EN": "Safety comes first. Come on, let's head back together.",
+            "TL": "Kaligtasan ang una sa lahat. Halika, sabay tayong bumalik."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.06"
+            "EN": "Don't beat yourself up over this. We did what we could.",
+            "TL": "Huwag mong sisihin sarili mo. Ginawa natin ang makakaya."
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.07"
+            "EN": "We live to fight another day. That's the real victory, friend.",
+            "TL": "Mabubuhay tayo para lumaban muli. Iyon ang tunay na panalo, kaibigan."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.08"
+            "EN": "Calling it off was smart. I'm glad you're safe beside me.",
+            "TL": "Matalinong desisyon ang huminto. Masaya akong ligtas ka sa tabi ko."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.09"
+            "EN": "Take a breath. We'll rest up and plan better next time.",
+            "TL": "Huminga ka muna. Magpapahinga tayo at magpaplano nang mas maayos."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.warm.10"
+            "EN": "We'll get 'em next time, partner. Let's head inside.",
+            "TL": "Makakabawi tayo sa susunod, kasama. Pumasok na tayo."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.01"
+            "EN": "Trip's off.",
+            "TL": "Kanselado ang biyahe."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.02"
+            "EN": "Aborted.",
+            "TL": "Ihinto."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.03"
+            "EN": "Scrubbed.",
+            "TL": "Kanselado."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.04"
+            "EN": "Back inside.",
+            "TL": "Balik sa loob."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.05"
+            "EN": "Cancel it.",
+            "TL": "Kanselahin."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.06"
+            "EN": "Failed. Fall back.",
+            "TL": "Bigo. Umatras."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.07"
+            "EN": "Not today.",
+            "TL": "Hindi ngayon."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.08"
+            "EN": "Abort.",
+            "TL": "Tigil."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.09"
+            "EN": "Off.",
+            "TL": "Wala na."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.terse.10"
+            "EN": "Regroup.",
+            "TL": "Magtipon ulit."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.01"
+            "EN": "Excursion failed. We regroup here.",
+            "TL": "Bigo ang paglalakbay. Magtipon ulit tayo rito."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.02"
+            "EN": "Something compromised the operation. Pull back immediately.",
+            "TL": "May sumira sa operasyon. Umatras agad-agad."
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.03"
+            "EN": "Forcing this run will get us slaughtered. Abort.",
+            "TL": "Kamatayan kapag pinilit ang lakad na 'to. Ihinto."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.04"
+            "EN": "Fall back and figure out what went wrong behind closed doors.",
+            "TL": "Umatras at alamin kung anong pumalpak sa loob ng pinto."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.05"
+            "EN": "The route is burned. We're retreating right now.",
+            "TL": "Nasira ang ruta. Aatras tayo ngayon din."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.06"
+            "EN": "Trip canceled. Watch your back as we return to the gates.",
+            "TL": "Kanselado ang lakad. Bantayan ang likod habang bumabalik."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.07"
+            "EN": "Bad intel or bad luck. Either way, we pull the plug.",
+            "TL": "Maling balita o malas. Alinman doon, itigil na."
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.08"
+            "EN": "Do not push forward into an ambush. Abort the mission.",
+            "TL": "Huwag lumusob sa tambang. Itigil ang misyon."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.09"
+            "EN": "Abort. Secure the entrance and debrief.",
+            "TL": "Tigil. I-secure ang lagusan at mag-usap."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.scene.excursion_failed.guarded.10"
+            "EN": "Failed attempt. Fall back and secure your weapons.",
+            "TL": "Bigong pagtatangka. Umatras at i-secure ang armas."
           }
         ]
       }
@@ -1931,44 +1931,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.01"
+            "EN": "Zombies, {clock}!",
+            "TL": "Mga zombie, {clock}!"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.02"
+            "EN": "Dead coming in from {clock}!",
+            "TL": "May mga patay na parating mula sa {clock}!"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.03"
+            "EN": "Watch {clock}, walkers spotted!",
+            "TL": "Bantayan ang {clock}, may mga walker!"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.04"
+            "EN": "Zombies at {clock}! Get ready!",
+            "TL": "Mga zombie sa {clock}! Humanda!"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.05"
+            "EN": "Movement at {clock}, it's dead heads!",
+            "TL": "May galaw sa {clock}, mga zombie 'yan!"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.06"
+            "EN": "Incoming zombies from {clock}!",
+            "TL": "Paparating na mga zombie galing sa {clock}!"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.07"
+            "EN": "Eyes on {clock}! Walkers approaching!",
+            "TL": "Tumingin sa {clock}! May lumalapit na mga walker!"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.08"
+            "EN": "Check {clock}, we've got zombies!",
+            "TL": "Tingnan ang {clock}, may mga zombie tayo!"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.09"
+            "EN": "Zombies moving in fast at {clock}!",
+            "TL": "Mabilis na lumalapit ang mga zombie sa {clock}!"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.clock.neutral.10"
+            "EN": "Target at {clock}! Zombies!",
+            "TL": "Puntirya sa {clock}! Mga zombie!"
           }
         ]
       }
@@ -1979,44 +1979,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.01"
+            "EN": "Zombies {relative}!",
+            "TL": "Mga zombie {relative}!"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.02"
+            "EN": "Watch out, dead heads {relative}!",
+            "TL": "Mag-ingat, may mga patay {relative}!"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.03"
+            "EN": "Walkers approaching {relative}!",
+            "TL": "May mga walker na papalapit {relative}!"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.04"
+            "EN": "Look {relative}! Zombies!",
+            "TL": "Tumingin {relative}! Mga zombie!"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.05"
+            "EN": "Incoming dead {relative}!",
+            "TL": "Paparating na mga patay {relative}!"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.06"
+            "EN": "Zombies closing in {relative}!",
+            "TL": "Lumalapit ang mga zombie {relative}!"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.07"
+            "EN": "Eyes {relative}, we've got walkers!",
+            "TL": "Tumingin {relative}, may mga walker tayo!"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.08"
+            "EN": "Dead heads spotted {relative}!",
+            "TL": "May nakitang mga zombie {relative}!"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.09"
+            "EN": "Check {relative}! Swarm incoming!",
+            "TL": "Suriin {relative}! May paparating na kawan!"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.zombie.coarse.neutral.10"
+            "EN": "Danger {relative}! Zombies!",
+            "TL": "Panganib {relative}! Mga zombie!"
           }
         ]
       }
@@ -2027,44 +2027,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.01"
+            "EN": "Hostiles at {clock}!",
+            "TL": "Mga kalaban sa {clock}!"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.02"
+            "EN": "Shooters at {clock}! Take cover!",
+            "TL": "May mga baril sa {clock}! Magtago!"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.03"
+            "EN": "Enemy fighters spotted at {clock}!",
+            "TL": "May mga kalabang manlalaban sa {clock}!"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.04"
+            "EN": "Gunmen at {clock}! Watch your head!",
+            "TL": "May mga armadong tao sa {clock}! Yumuko ka!"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.05"
+            "EN": "Hostiles moving in from {clock}!",
+            "TL": "Mga kalaban lumalapit mula sa {clock}!"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.06"
+            "EN": "Armed enemies at {clock}!",
+            "TL": "May armadong mga kalaban sa {clock}!"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.07"
+            "EN": "Contact! Hostiles at {clock}!",
+            "TL": "May engkuwentro! Mga kalaban sa {clock}!"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.08"
+            "EN": "Check {clock}! Armed hostiles!",
+            "TL": "Tingnan ang {clock}! May armadong kalaban!"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.09"
+            "EN": "Enemy squad at {clock}!",
+            "TL": "Grupo ng kalaban sa {clock}!"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.clock.neutral.10"
+            "EN": "Threat at {clock}! Hostiles!",
+            "TL": "Banta sa {clock}! Mga kalaban!"
           }
         ]
       }
@@ -2075,44 +2075,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.01"
+            "EN": "Hostiles {relative}!",
+            "TL": "Mga kalaban {relative}!"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.02"
+            "EN": "Armed fighters {relative}!",
+            "TL": "May armadong mga tao {relative}!"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.03"
+            "EN": "Enemy movement {relative}!",
+            "TL": "Galaw ng kalaban {relative}!"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.04"
+            "EN": "Take cover, hostiles {relative}!",
+            "TL": "Magtago, may mga kalaban {relative}!"
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.05"
+            "EN": "Gunfire expected {relative}! Hostiles!",
+            "TL": "Maghanda sa putukan {relative}! Mga kalaban!"
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.06"
+            "EN": "Watch out {relative}, armed hostiles!",
+            "TL": "Mag-ingat {relative}, may mga armadong kalaban!"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.07"
+            "EN": "Enemy survivors spotted {relative}!",
+            "TL": "May kalabang nakaligtas {relative}!"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.08"
+            "EN": "Contact {relative}! Keep low!",
+            "TL": "May kalaban {relative}! Yumuko!"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.09"
+            "EN": "Check {relative}! Hostiles advancing!",
+            "TL": "Tingnan {relative}! Sumusulong ang kalaban!"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.combat.tactical_spatial.hostile.coarse.neutral.10"
+            "EN": "Incoming attack {relative}!",
+            "TL": "Paparating na atake {relative}!"
           }
         ]
       }

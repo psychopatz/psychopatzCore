@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.lifecycle.eat",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.01"
+            "EN": "Eating now.",
+            "TL": "Kumakain na ako ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.02"
+            "EN": "Having a bite right now.",
+            "TL": "Kumakain ng kaunti ngayon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.03"
+            "EN": "Chewing through some food. Give me a moment.",
+            "TL": "Kumakain ng pagkain. Sandali lang."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.04"
+            "EN": "Currently eating.",
+            "TL": "Kasalukuyang kumakain."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.05"
+            "EN": "Getting some calories in me.",
+            "TL": "Nagpapasok ng lakas sa katawan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.06"
+            "EN": "Eating my rations now.",
+            "TL": "Kinakain ang baong pagkain ngayon."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.07"
+            "EN": "Taking a meal break as instructed.",
+            "TL": "Kumakain ayon sa utos."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.08"
+            "EN": "Eating. Needed the energy.",
+            "TL": "Kumakain. Kailangan ko ng lakas."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.09"
+            "EN": "Having some food now.",
+            "TL": "Kumakain na ngayon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.eat.active.neutral.10"
+            "EN": "Eating quietly. Won't be long.",
+            "TL": "Kumakain nang tahimik. Saglit lang ito."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.01"
+            "EN": "I'll eat that.",
+            "TL": "Kakainin ko iyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.02"
+            "EN": "Understood. Getting something to eat.",
+            "TL": "Naintindihan. Kukuha ng makakain."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.03"
+            "EN": "Good call. My stomach was growling.",
+            "TL": "Magandang paalala. Kumakalam na ang tiyan ko."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.04"
+            "EN": "All right, I'll eat some food.",
+            "TL": "Sige, kakain ako ng pagkain."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.05"
+            "EN": "Taking a bite to keep my strength up.",
+            "TL": "Kakain para mapanatili ang lakas."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.06"
+            "EN": "Understood. Eating now.",
+            "TL": "Naiintindihan ko. Kakain na."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.07"
+            "EN": "I'll consume those rations.",
+            "TL": "Kakainin ko ang mga rasyong 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.08"
+            "EN": "Right. Time for a meal.",
+            "TL": "Sige. Oras na para kumain."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.09"
+            "EN": "I'll eat what you designated.",
+            "TL": "Kakainin ko ang tinukoy mo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.eat.admitted.neutral.10"
+            "EN": "Sounds good. Grabbing food.",
+            "TL": "Maganda 'yan. Kukuha ng pagkain."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.01"
+            "EN": "Finished eating. Feeling much better.",
+            "TL": "Tapos nang kumain. Mas maayos na ang pakiramdam."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.02"
+            "EN": "That food helped a lot. Done.",
+            "TL": "Nakatulong nang malaki ang pagkain. Tapos na."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.03"
+            "EN": "Done eating. Energy restored.",
+            "TL": "Tapos nang kumain. Bumalik na ang lakas."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.04"
+            "EN": "Stomach is full. Ready to move.",
+            "TL": "Busog na ang tiyan. Handa nang kumilos."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.05"
+            "EN": "Finished that meal.",
+            "TL": "Natapos na ang pagkain."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.06"
+            "EN": "All eaten. Good to keep going.",
+            "TL": "Naubos na. Maayos na para magpatuloy."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.07"
+            "EN": "Done. That tasted better than expected.",
+            "TL": "Tapos na. Mas masarap kaysa inasahan ko."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.08"
+            "EN": "Meal completed.",
+            "TL": "Kumpleto na ang pagkain."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.09"
+            "EN": "Finished eating. Back on task.",
+            "TL": "Tapos nang kumain. Balik sa trabaho."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.eat.completed.neutral.10"
+            "EN": "Rations finished. Strength is back.",
+            "TL": "Naubos ang rasyon. Nagbalik ang lakas."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.01"
+            "EN": "I couldn't eat that.",
+            "TL": "Hindi ko nakain iyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.02"
+            "EN": "Failed to eat. The food was rotten or spoiled.",
+            "TL": "Bigo sa pagkain. Bulok o panis ang pagkain."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.03"
+            "EN": "Couldn't eat that. It smelled dangerous.",
+            "TL": "Di makain 'yon. Amoy delikado."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.04"
+            "EN": "I was interrupted while trying to eat.",
+            "TL": "Naabala ako habang sumusubok kumain."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.05"
+            "EN": "Unable to eat right now. Area under threat.",
+            "TL": "Di makakain ngayon. May banta sa lugar."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.06"
+            "EN": "Eating failed. Food was ruined.",
+            "TL": "Pumalpak ang pagkain. Nasira ang pagkain."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.07"
+            "EN": "Couldn't stomach that item.",
+            "TL": "Di matunawan sa bagay na 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.08"
+            "EN": "Dropped or lost the food before eating.",
+            "TL": "Nahulog o nawala ang pagkain bago nakain."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.09"
+            "EN": "Action failed. Still starving.",
+            "TL": "Bigo ang kilos. Gutom pa rin."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.eat.failed.neutral.10"
+            "EN": "Failed to consume meal.",
+            "TL": "Bigo sa pagtapos ng pagkain."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.01"
+            "EN": "I'm not hungry right now.",
+            "TL": "Hindi ako nagugutom ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.02"
+            "EN": "I don't need food at the moment.",
+            "TL": "Di ko kailangan ng pagkain sa sandaling ito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.03"
+            "EN": "I'm already completely full.",
+            "TL": "Busog na busog pa ako."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.04"
+            "EN": "Save the food. I don't need to eat yet.",
+            "TL": "Itabi ang pagkain. Di ko pa kailangang kumain."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.05"
+            "EN": "Refusing to eat that. Looks unwholesome.",
+            "TL": "Tumatangging kainin 'yan. Mukhang marumi."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.06"
+            "EN": "Can't eat right now. Too tense.",
+            "TL": "Di makakain ngayon. Masyadong tensiyonado."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.07"
+            "EN": "I have enough energy. Keeping rations safe.",
+            "TL": "May sapat pa akong lakas. Itatabi ang rasyon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.08"
+            "EN": "No need for a meal yet.",
+            "TL": "Wala pang pangangailangan sa pagkain."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.09"
+            "EN": "Eat order rejected. Stomach is satisfied.",
+            "TL": "Tinatanggihan ang utos na kumain. Busog ang tiyan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.eat.rejected.neutral.10"
+            "EN": "I can't eat that right now.",
+            "TL": "Di ko makakain 'yan ngayon."
           }
         ]
       }

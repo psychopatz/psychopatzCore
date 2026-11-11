@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.rejected.game",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.01"
+            "EN": "Not now.",
+            "TL": "Hindi ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.02"
+            "EN": "Now is not the time for games.",
+            "TL": "Hindi ngayon ang oras para sa laro."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.03"
+            "EN": "We have real survival to worry about. Not now.",
+            "TL": "May tunay na kaligtasan tayong iniisip. Hindi ngayon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.04"
+            "EN": "I'm busy staying alive. Not playing games.",
+            "TL": "Abala ako sa pananatiling buhay. Di ako maglalaro."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.05"
+            "EN": "Not in the mood for games right now.",
+            "TL": "Wala ako sa mood para maglaro ngayon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.06"
+            "EN": "Save the distractions for later.",
+            "TL": "Itabi ang pampalipas-oras mamaya."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.07"
+            "EN": "Not now. Stay focused on our safety.",
+            "TL": "Hindi ngayon. Magpokus sa kaligtasan natin."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.08"
+            "EN": "Too much danger around for games.",
+            "TL": "Masyadong maraming panganib sa paligid para maglaro."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.09"
+            "EN": "I have to pass on that right now.",
+            "TL": "Lalampasan ko muna 'yan ngayon."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.1.neutral.10"
+            "EN": "Not happening today. Focus.",
+            "TL": "Di mangyayari ngayon. Magpokus."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.01"
+            "EN": "That did not land well.",
+            "TL": "Hindi naging maganda ang dating niyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.02"
+            "EN": "That was poorly timed.",
+            "TL": "Maling-mali ang tiyempo niyan."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.03"
+            "EN": "Bad moment for that attempt.",
+            "TL": "Masamang sandali para sa pagtatangkang 'yan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.04"
+            "EN": "That fell completely flat.",
+            "TL": "Bumagsak lang nang walang saysay 'yon."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.05"
+            "EN": "Wrong audience, wrong time.",
+            "TL": "Maling kausap, maling oras."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.06"
+            "EN": "That missed the mark entirely.",
+            "TL": "Lumihis nang buo sa dapat patunguhan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.07"
+            "EN": "That did not go over the way you hoped.",
+            "TL": "Di naging ayon sa inasahan mo ang takbo niyan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.08"
+            "EN": "Poor execution on that one.",
+            "TL": "Mahina ang pagkagawa sa isang 'yon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.09"
+            "EN": "That landed terribly. Try focusing instead.",
+            "TL": "Napakasama ng dating niyan. Magpokus ka na lang."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.rejected_game.2.neutral.10"
+            "EN": "That didn't work at all.",
+            "TL": "Hindi talaga umubra 'yan."
           }
         ]
       }

@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.interaction.context.clarify",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.01"
+            "EN": "What are you referring to?",
+            "TL": "Ano ang tinutukoy mo?"
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.02"
+            "EN": "Can you clarify what you mean?",
+            "TL": "Pwede mo bang linawin ang ibig mong sabihin?"
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.03"
+            "EN": "What specifically are you talking about?",
+            "TL": "Tungkol saan ba partikular ang sinasabi mo?"
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.04"
+            "EN": "I'm not following. Explain what you mean.",
+            "TL": "Hindi kita masundan. Ipaliwanag mo ang ibig mong sabihin."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.05"
+            "EN": "Give me some more context on that.",
+            "TL": "Bigyan mo ako ng karagdagang konteksto tungkol diyan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.06"
+            "EN": "What do you mean by that exactly?",
+            "TL": "Ano nga ba ang ibig mong sabihin doon?"
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.07"
+            "EN": "Which situation are you talking about?",
+            "TL": "Aling sitwasyon ba ang tinutukoy mo?"
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.08"
+            "EN": "Could you break that down for me?",
+            "TL": "Pwede mo bang himayin 'yan para sa akin?"
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.09"
+            "EN": "I need more details before I understand.",
+            "TL": "Kailangan ko ng dagdag na detalye bago ko maintindihan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.context.clarify.neutral.10"
+            "EN": "What are you getting at?",
+            "TL": "Saan ba patungo ang sinasabi mo?"
           }
         ]
       }

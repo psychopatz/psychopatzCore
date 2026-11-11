@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.interaction.news.acknowledge",
   "kind": "content",
   "domain": "social",
@@ -17,170 +17,170 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.01"
+            "EN": "That's good to know.",
+            "TL": "Mabuting malaman iyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.02"
+            "EN": "Appreciate the update.",
+            "TL": "Salamat sa balita."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.03"
+            "EN": "I'll keep that intelligence in mind.",
+            "TL": "Isasaisip ko ang impormasyong iyan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.04"
+            "EN": "Good to have fresh news from the area.",
+            "TL": "Mabuting makatanggap ng bagong balita mula sa lugar."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.05"
+            "EN": "Thanks for passing that along.",
+            "TL": "Salamat sa pagpasa niyan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.06"
+            "EN": "Understood. That changes how we look at the sector.",
+            "TL": "Naintindihan. Binabago niyan ang pananaw natin sa lugar."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.07"
+            "EN": "Good information. We'll plan around it.",
+            "TL": "Magandang impormasyon. Magpaplano tayo batay diyan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.08"
+            "EN": "Noted. Reliable news is hard to come by.",
+            "TL": "Tala ko na. Mahirap makahanap ng maaasahang balita."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.09"
+            "EN": "Thanks for keeping me informed.",
+            "TL": "Salamat sa pagpapanatili sa aking may alam."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.neutral.10"
+            "EN": "That helps clear up a few rumors. Thanks.",
+            "TL": "Nakatulong 'yan para maalis ang ilang sabi-sabi. Salamat."
           }
         ],
         "warm": [
           {
-            "phraseID": "warm.01",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.01"
+            "EN": "Thanks for telling me. I'll keep that in mind.",
+            "TL": "Salamat sa pagsabi. Tatandaan ko iyan."
           },
           {
-            "phraseID": "warm.02",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.02"
+            "EN": "That's huge news, friend! Thank you for sharing.",
+            "TL": "Napakalaking balita niyan, kaibigan! Salamat sa pagbabahagi."
           },
           {
-            "phraseID": "warm.03",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.03"
+            "EN": "Always glad to know you're looking out for me with news like this.",
+            "TL": "Lagi akong masaya na binabantayan mo ako sa mga ganitong balita."
           },
           {
-            "phraseID": "warm.04",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.04"
+            "EN": "You have great sources! Thanks a ton.",
+            "TL": "Napakagaling ng mga pinagkukunan mo! Maraming salamat."
           },
           {
-            "phraseID": "warm.05",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.05"
+            "EN": "I really appreciate you giving me the heads up first.",
+            "TL": "Talagang pinahahalagahan ko na ako ang unang pinaalalahanan mo."
           },
           {
-            "phraseID": "warm.06",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.06"
+            "EN": "Good news is worth its weight in gold out here. Thanks!",
+            "TL": "Ang magandang balita ay ginto ang halaga rito. Salamat!"
           },
           {
-            "phraseID": "warm.07",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.07"
+            "EN": "Thanks for sharing that with me. It gives me hope.",
+            "TL": "Salamat sa pagbabahagi niyan sa akin. Nagbibigay ito ng pag-asa."
           },
           {
-            "phraseID": "warm.08",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.08"
+            "EN": "I'm relieved to hear that. Thank you so much, partner.",
+            "TL": "Nakahinga ako nang maluwag nang marinig 'yan. Salamat nang marami, kasama."
           },
           {
-            "phraseID": "warm.09",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.09"
+            "EN": "That's fantastic information. Appreciate you keeping us safe.",
+            "TL": "Napakagandang impormasyon. Salamat sa pag-iingat sa atin."
           },
           {
-            "phraseID": "warm.10",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.warm.10"
+            "EN": "Thanks! Let's make sure the others hear this too.",
+            "TL": "Salamat! Tiyakin nating marinig din ito ng iba."
           }
         ],
         "terse": [
           {
-            "phraseID": "terse.01",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.01"
+            "EN": "Got it.",
+            "TL": "Sige."
           },
           {
-            "phraseID": "terse.02",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.02"
+            "EN": "Noted.",
+            "TL": "Tala ko na."
           },
           {
-            "phraseID": "terse.03",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.03"
+            "EN": "Heard.",
+            "TL": "Narinig ko."
           },
           {
-            "phraseID": "terse.04",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.04"
+            "EN": "Good info.",
+            "TL": "Magandang balita."
           },
           {
-            "phraseID": "terse.05",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.05"
+            "EN": "Understood.",
+            "TL": "Naintindihan."
           },
           {
-            "phraseID": "terse.06",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.06"
+            "EN": "Clear.",
+            "TL": "Malinaw."
           },
           {
-            "phraseID": "terse.07",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.07"
+            "EN": "Thanks.",
+            "TL": "Salamat."
           },
           {
-            "phraseID": "terse.08",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.08"
+            "EN": "Right.",
+            "TL": "Tama."
           },
           {
-            "phraseID": "terse.09",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.09"
+            "EN": "Acknowledged.",
+            "TL": "Kinikilala ko."
           },
           {
-            "phraseID": "terse.10",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.terse.10"
+            "EN": "Useful.",
+            "TL": "May silbi."
           }
         ],
         "guarded": [
           {
-            "phraseID": "guarded.01",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.01"
+            "EN": "I'll keep it in mind.",
+            "TL": "Tatandaan ko iyan."
           },
           {
-            "phraseID": "guarded.02",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.02"
+            "EN": "Where did you hear that from?",
+            "TL": "Saan mo narinig ang balitang 'yan?"
           },
           {
-            "phraseID": "guarded.03",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.03"
+            "EN": "I'll believe it when I see it with my own eyes.",
+            "TL": "Maniwala lang ako kapag nakita ko na ng sarili kong mata."
           },
           {
-            "phraseID": "guarded.04",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.04"
+            "EN": "Rumors can get people killed out here. Be sure of your facts.",
+            "TL": "Ang tsismis ay nakamamatay dito. Tiyakin mo ang katotohanan."
           },
           {
-            "phraseID": "guarded.05",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.05"
+            "EN": "Noted, but I'll verify that myself.",
+            "TL": "Tala ko na, pero kumpirmahin ko muna sa sarili ko."
           },
           {
-            "phraseID": "guarded.06",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.06"
+            "EN": "Could be a setup. Don't act on rumors too quickly.",
+            "TL": "Baka bitag 'yan. Huwag kumilos sa sabi-sabi nang padalos-dalos."
           },
           {
-            "phraseID": "guarded.07",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.07"
+            "EN": "Who gave you that information?",
+            "TL": "Sinong nagbigay sa 'yo ng impormasyong 'yan?"
           },
           {
-            "phraseID": "guarded.08",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.08"
+            "EN": "I'll take it under advisement, but keep my distance.",
+            "TL": "Isasaalang-alang ko, pero magmamasid pa rin ako mula sa malayo."
           },
           {
-            "phraseID": "guarded.09",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.09"
+            "EN": "Don't spread that around until we know it's solid.",
+            "TL": "Huwag mong ikalat 'yan hangga't di tiyak na totoo."
           },
           {
-            "phraseID": "guarded.10",
-            "translationKey": "conversation.content.semantic.interaction.news.acknowledge.guarded.10"
+            "EN": "Heard. I'll watch for confirming signs.",
+            "TL": "Narinig ko. Magmamasid ako ng mga patunay."
           }
         ]
       }

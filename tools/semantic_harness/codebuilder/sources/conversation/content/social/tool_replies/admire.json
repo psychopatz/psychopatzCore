@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.social.tool.replies.admire",
   "kind": "content",
   "domain": "social",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.01"
+            "EN": "I appreciate that more than you know.",
+            "TL": "Mas pinahahalagahan ko iyan kaysa sa iniisip mo."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.02"
+            "EN": "That means a great deal to me.",
+            "TL": "Malaking bagay iyan para sa akin."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.03"
+            "EN": "Thank you. That means a lot out here.",
+            "TL": "Salamat. Malaking tulong ang marinig iyan dito."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.04"
+            "EN": "I do not hear that often. Thank you.",
+            "TL": "Bihira kong marinig 'yan. Maraming salamat."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.05"
+            "EN": "Hearing that really helps keep me going.",
+            "TL": "Ang marinig 'yan ay nakakatulong sa pagpapatuloy ko."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.06"
+            "EN": "I am grateful for your words.",
+            "TL": "Nagpapasalamat ako sa iyong mga salita."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.07"
+            "EN": "That is very kind. Thank you.",
+            "TL": "Napakabait mo naman. Salamat."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.08"
+            "EN": "I try my best. It is good to know you see that.",
+            "TL": "Ginagawa ko ang makakaya ko. Mabuting malaman na nakikita mo 'yon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.09"
+            "EN": "I appreciate the respect.",
+            "TL": "Salamat sa respeto."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.1.neutral.10"
+            "EN": "That really touches me. Thanks.",
+            "TL": "Tumatagos talaga sa akin 'yan. Salamat."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.01"
+            "EN": "That is kind of you to say.",
+            "TL": "Mabait sa 'yo ang magsabi niyan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.02"
+            "EN": "Thank you. You did not have to say that, but thanks.",
+            "TL": "Salamat. Hindi mo naman kailangang sabihin, pero salamat pa rin."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.03"
+            "EN": "I appreciate the thought.",
+            "TL": "Salamat sa magandang kaisipan."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.04"
+            "EN": "You are generous with your words.",
+            "TL": "Bukas-palad ka sa iyong papuri."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.05"
+            "EN": "That is good of you to say.",
+            "TL": "Mabuting tao ka para sabihin 'yan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.06"
+            "EN": "I take that as high praise.",
+            "TL": "Itinuturing ko 'yang mataas na papuri."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.07"
+            "EN": "Thanks. I appreciate the courtesy.",
+            "TL": "Salamat. Pinahahalagahan ko ang galang mo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.08"
+            "EN": "It is nice to hear something decent for once.",
+            "TL": "Masarap makarinig ng maayos na salita paminsan-minsan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.09"
+            "EN": "Thank you for saying so.",
+            "TL": "Salamat sa pagsasabi niyan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.2.neutral.10"
+            "EN": "That is good to hear.",
+            "TL": "Magandang marinig 'yan."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.01"
+            "EN": "You see more in me than most people do.",
+            "TL": "Mas marami kang nakikita sa akin kaysa sa karamihan."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.02"
+            "EN": "Most folks out here would never notice that. Thanks.",
+            "TL": "Karamihan ng tao rito ay hindi 'yan mapapansin. Salamat."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.03"
+            "EN": "It is rare to find someone who actually pays attention.",
+            "TL": "Bihira makahanap ng taong talagang nagmamasid."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.04"
+            "EN": "I am glad someone recognizes what I put into this.",
+            "TL": "Mabuti naman at may nakakapansin sa pagsusumikap ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.05"
+            "EN": "You have a good eye. I appreciate that.",
+            "TL": "Matalas ang mata mo. Salamat."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.06"
+            "EN": "Not many people look closely enough to see that.",
+            "TL": "Kakaunti lang ang taong tumitingin nang malalim para makita 'yan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.07"
+            "EN": "That means something coming from you.",
+            "TL": "May bigat 'yan lalo't nanggaling sa 'yo."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.08"
+            "EN": "I did not expect you to see that. Thank you.",
+            "TL": "Hindi ko inasahang mapapansin mo 'yon. Salamat."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.09"
+            "EN": "You give me credit where others would not.",
+            "TL": "Binibigyan mo ako ng tiwala kung saan ang iba ay hindi."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.admire.3.neutral.10"
+            "EN": "I appreciate that you see what I am trying to do.",
+            "TL": "Salamat dahil naiintindihan mo ang sinusubukan kong gawin."
           }
         ]
       }

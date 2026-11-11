@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.lifecycle.fetch",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.01"
+            "EN": "I'm working on that now.",
+            "TL": "Inaayos ko na iyon ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.02"
+            "EN": "Retrieving the item now.",
+            "TL": "Kinukuha na ang gamit ngayon."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.03"
+            "EN": "On my way to pick that up.",
+            "TL": "Papunta na para pulutin iyon."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.04"
+            "EN": "Currently fetching the supplies.",
+            "TL": "Kasalukuyang kinukuha ang mga gamit."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.05"
+            "EN": "Moving toward the item.",
+            "TL": "Papatungo sa kinaroroonan ng bagay."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.06"
+            "EN": "Grabbing it now. Won't take long.",
+            "TL": "Kukunin na ngayon. Mabilis lang ito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.07"
+            "EN": "Fetching as ordered.",
+            "TL": "Kinukuha ayon sa utos."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.08"
+            "EN": "I'm searching for and grabbing that item.",
+            "TL": "Hinahanap at kinukuha ko ang bagay na 'yan."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.09"
+            "EN": "In transit to fetch the goods.",
+            "TL": "Kasalukuyang naglalakad para kunin ang gamit."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.fetch.active.neutral.10"
+            "EN": "Retrieval in progress.",
+            "TL": "Kasalukuyang kinukuha."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.01"
+            "EN": "I'll fetch that.",
+            "TL": "Kukunin ko iyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.02"
+            "EN": "Understood. I will retrieve the item.",
+            "TL": "Naintindihan. Kukunin ko ang gamit."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.03"
+            "EN": "I'll go grab that for you.",
+            "TL": "Pupuntahan ko para kunin 'yan para sa 'yo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.04"
+            "EN": "On it. Fetching the supplies.",
+            "TL": "Inaasikaso na. Kukunin ang mga kagamitan."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.05"
+            "EN": "Right away. Going to pick it up.",
+            "TL": "Agad-agad. Pupulutin ko 'yon."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.06"
+            "EN": "Understood. I'll bring it back.",
+            "TL": "Naiintindihan ko. Ibabalik ko rito."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.07"
+            "EN": "I'll secure that item.",
+            "TL": "Kukunin ko ang gamit na 'yan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.08"
+            "EN": "Heading out to fetch it.",
+            "TL": "Lalabas para kunin iyon."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.09"
+            "EN": "Got the order. Fetching.",
+            "TL": "Nakuha ang utos. Kukunin na."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.fetch.admitted.neutral.10"
+            "EN": "Sounds good. Retrieving it now.",
+            "TL": "Maganda 'yan. Kukunin na ngayon."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.01"
+            "EN": "Here you go.",
+            "TL": "Heto na."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.02"
+            "EN": "Retrieved the item. Here it is.",
+            "TL": "Nakuha na ang gamit. Heto na."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.03"
+            "EN": "Got what you asked for.",
+            "TL": "Nakuha ko ang hiningi mo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.04"
+            "EN": "Fetched and delivered.",
+            "TL": "Nakuha at naihatid na."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.05"
+            "EN": "Here are the goods.",
+            "TL": "Heto ang mga kagamitan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.06"
+            "EN": "Task completed. Item secured.",
+            "TL": "Tapos na ang gawain. Nakuha ang gamit."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.07"
+            "EN": "All fetched. Safe in hand.",
+            "TL": "Nakuha na lahat. Hawak ko na nang ligtas."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.08"
+            "EN": "Here it is. One piece.",
+            "TL": "Heto na. Buo pa."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.09"
+            "EN": "Delivery made. What's next?",
+            "TL": "Naihatid na. Ano ang susunod?"
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.fetch.completed.neutral.10"
+            "EN": "Retrieved as requested.",
+            "TL": "Nakuha ayon sa hiling."
           }
         ]
       }
@@ -161,44 +161,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.01"
+            "EN": "I couldn't fetch that.",
+            "TL": "Hindi ko nakuha iyon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.02"
+            "EN": "Failed to retrieve the item.",
+            "TL": "Bigo sa pagkuha ng gamit."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.03"
+            "EN": "The item wasn't there or was destroyed.",
+            "TL": "Wala roon ang gamit o kaya'y nasira na."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.04"
+            "EN": "Way was blocked. Couldn't reach it.",
+            "TL": "May harang sa daan. Di ko naabot."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.05"
+            "EN": "Hostiles prevented me from grabbing it.",
+            "TL": "Pumigil ang mga kalaban sa pagkuha ko."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.06"
+            "EN": "Unable to fetch that from that container.",
+            "TL": "Di makuha 'yon mula sa lalagyan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.07"
+            "EN": "Lost access to the item. Fetch failed.",
+            "TL": "Nawalan ng daan sa gamit. Bigo ang pagkuha."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.08"
+            "EN": "I couldn't find what you were pointing to.",
+            "TL": "Di ko nahanap ang itinuturo mo."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.09"
+            "EN": "Inventory full or path obstructed. Failed.",
+            "TL": "Puno ang bag o may harang sa daan. Bigo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.fetch.failed.neutral.10"
+            "EN": "Couldn't get to the target item.",
+            "TL": "Di makarating sa puntiryang gamit."
           }
         ]
       }
@@ -209,44 +209,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.01"
+            "EN": "I can't fetch that right now.",
+            "TL": "Hindi ko makuha iyon ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.02"
+            "EN": "That's in a death trap. I'm not fetching it.",
+            "TL": "Nasa bitag ng kamatayan 'yan. Di ko kukunin."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.03"
+            "EN": "Too far or too dangerous. Refusing to fetch.",
+            "TL": "Masyadong malayo o mapanganib. Tumatangging kunin."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.04"
+            "EN": "My hands and pack are completely full.",
+            "TL": "Puno na ang kamay at bag ko."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.05"
+            "EN": "I won't risk my neck for that junk.",
+            "TL": "Di ko isusugal ang buhay ko para sa basurang 'yan."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.06"
+            "EN": "Can't retrieve that under current conditions.",
+            "TL": "Di makukuha 'yan sa kasalukuyang kalagayan."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.07"
+            "EN": "I don't have the carrying capacity right now.",
+            "TL": "Wala na akong espasyong paglalagyan ngayon."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.08"
+            "EN": "Fetch order rejected. Pick it up yourself.",
+            "TL": "Tinatanggihan ang pagkuha. Pulutin mo nang kusa."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.09"
+            "EN": "Unable to comply. Item is out of bounds.",
+            "TL": "Di makasusunod. Di abot ang bagay na 'yan."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.task.fetch.rejected.neutral.10"
+            "EN": "I can't fetch that for you.",
+            "TL": "Di ko makukuha 'yan para sa 'yo."
           }
         ]
       }

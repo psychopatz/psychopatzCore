@@ -1,5 +1,5 @@
 {
-  "schema": "psychopatz.semantic.shard.v2",
+  "schema": "psychopatz.semantic.shard.v3",
   "shardId": "conversation.content.task.tool.replies.order.camp",
   "kind": "content",
   "domain": "task",
@@ -17,44 +17,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.01"
+            "EN": "All right. We will make camp here.",
+            "TL": "Sige. Magkakampo tayo rito."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.02"
+            "EN": "Setting up camp right in this spot.",
+            "TL": "Magtatayo ng kampo sa mismong pwestong ito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.03"
+            "EN": "Understood. Establishing camp.",
+            "TL": "Naintindihan. Itatayo ang kampo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.04"
+            "EN": "Camp order received. Pitching shelter.",
+            "TL": "Natanggap ang utos magkampo. Maglalatag ng silong."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.05"
+            "EN": "Good place to bed down. Making camp.",
+            "TL": "Magandang tulugan ito. Magkakampo."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.06"
+            "EN": "Understood. Securing the campsite.",
+            "TL": "Naiintindihan ko. Seselyuhan ang kampo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.07"
+            "EN": "Right. Making camp here.",
+            "TL": "Sige. Magtatayo ng kampo rito."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.08"
+            "EN": "On it. Setting up our camp.",
+            "TL": "Inaasikaso na. Itatayo ang kampo natin."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.09"
+            "EN": "Camp routine initiated.",
+            "TL": "Sinisimulan na ang pagtatayo ng kampo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.1.neutral.10"
+            "EN": "Copy that. We camp here.",
+            "TL": "Kopyado. Dito tayo magkakampo."
           }
         ]
       }
@@ -65,44 +65,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.01"
+            "EN": "I will settle in here for now.",
+            "TL": "Aayos muna ako ng pwesto rito sa ngayon."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.02"
+            "EN": "Dropping my pack and settling down.",
+            "TL": "Ibababa ang bag at magpapahinga."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.03"
+            "EN": "Settling in. Let me know if anything changes.",
+            "TL": "Nakaayos na. Sabihan ako kapag may nagbago."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.04"
+            "EN": "Finding a comfortable corner right here.",
+            "TL": "Naghahanap ng komportableng sulok dito."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.05"
+            "EN": "I'll rest my legs and settle in.",
+            "TL": "Ipapahinga ang mga binti at mananatili rito."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.06"
+            "EN": "Settling into position. Feels decent.",
+            "TL": "Pumupwesto na. Mukhang maayos naman."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.07"
+            "EN": "Unpacking light gear and settling here.",
+            "TL": "Maglalapag ng gamit at aayos ng higaan."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.08"
+            "EN": "Settling in for the watch.",
+            "TL": "Nakaayos na para sa pagbabantay."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.09"
+            "EN": "All right, I'll make myself at home here.",
+            "TL": "Sige, magpapahinga ako na parang nasa bahay."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.2.neutral.10"
+            "EN": "Settling down. Staying alert.",
+            "TL": "Nagpapahinga na. Mananatiling alisto."
           }
         ]
       }
@@ -113,44 +113,44 @@
       "styles": {
         "neutral": [
           {
-            "phraseID": "neutral.01",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.01"
+            "EN": "Understood. I will stay here and take care of my needs.",
+            "TL": "Naintindihan. Mananatili ako rito at aasikasuhin ang mga pangangailangan ko."
           },
           {
-            "phraseID": "neutral.02",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.02"
+            "EN": "I'll tend to my wounds and rest up here.",
+            "TL": "Gagamutin ko ang mga sugat at magpapahinga rito."
           },
           {
-            "phraseID": "neutral.03",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.03"
+            "EN": "Taking care of hunger and thirst in camp.",
+            "TL": "Aasikasuhin ang gutom at uhaw sa kampo."
           },
           {
-            "phraseID": "neutral.04",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.04"
+            "EN": "I'll patch up my gear and eat a meal here.",
+            "TL": "Aayusin ko ang gamit at kakain dito."
           },
           {
-            "phraseID": "neutral.05",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.05"
+            "EN": "Good. I needed time to sort myself out.",
+            "TL": "Mabuti. Kailangan ko ng oras para ayusin ang sarili ko."
           },
           {
-            "phraseID": "neutral.06",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.06"
+            "EN": "Handling my personal upkeep while we camp.",
+            "TL": "Aasikasuhin ang pansariling kalagayan habang nagkakampo."
           },
           {
-            "phraseID": "neutral.07",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.07"
+            "EN": "Resting, eating, and recovering strength.",
+            "TL": "Nagpapahinga, kumakain, at nagpapalakas muli."
           },
           {
-            "phraseID": "neutral.08",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.08"
+            "EN": "I'll use this camp time to recover.",
+            "TL": "Gagamitin ko ang oras sa kampo para magpagaling."
           },
           {
-            "phraseID": "neutral.09",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.09"
+            "EN": "Taking care of myself while holding camp.",
+            "TL": "Aalagaan ang sarili habang nagbabantay sa kampo."
           },
           {
-            "phraseID": "neutral.10",
-            "translationKey": "conversation.content.semantic.tool_reply.order_camp.3.neutral.10"
+            "EN": "Understood. Time for self-maintenance.",
+            "TL": "Naiintindihan ko. Oras na para mag-ayos ng katawan."
           }
         ]
       }
