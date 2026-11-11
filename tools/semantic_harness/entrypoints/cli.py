@@ -21,9 +21,9 @@ from ..inspection.response_observatory import (
     review_variant_proposal, compare_quality_reports,
 )
 from tools.semantic_harness.testing.runner import ConflictLedger, load_case, run_case
-from tools.semantic_harness.providers.mod_manager import ModManager, ModManagerError
+from tools.semantic_harness.providers.mod_manager import ModManagerError
 from tools.semantic_harness.runtime.config import ConfigurationError
-from tools.semantic_harness.runtime.config import HarnessConfig, discover_core_repository
+from tools.semantic_harness.runtime.config import HarnessConfig, discover_mod_manager
 from tools.semantic_harness.runtime.scenario import load_scenario
 from tools.semantic_harness.runtime.save_browser import SavedWorldBrowser
 from tools.semantic_harness.runtime.save_catalog import SaveCatalog
@@ -98,23 +98,14 @@ def _selected_mods(arguments: argparse.Namespace) -> tuple[str, ...] | None:
     return selected or None
 
 
-def _selection_manager(arguments: argparse.Namespace) -> ModManager:
-    core = discover_core_repository(
-        getattr(arguments, "core_repository", None),
-        cwd=(
-            Path(arguments.repository).expanduser().resolve()
-            if getattr(arguments, "repository", None)
-            else None
+def _selection_manager(arguments: argparse.Namespace):
+    return discover_mod_manager(
+        repository=getattr(arguments, "repository", None),
+        core_repository=getattr(arguments, "core_repository", None),
+        dynamic_trading_repository=getattr(
+            arguments, "dynamic_trading_repository", None
         ),
-    )
-    roots = list(getattr(arguments, "provider_root", None) or ())
-    if getattr(arguments, "repository", None):
-        roots.append(arguments.repository)
-    if getattr(arguments, "dynamic_trading_repository", None):
-        roots.append(arguments.dynamic_trading_repository)
-    return ModManager.discover(
-        core_repository=core,
-        repository_roots=roots,
+        provider_roots=tuple(getattr(arguments, "provider_root", None) or ()),
         cwd=Path.cwd(),
     )
 

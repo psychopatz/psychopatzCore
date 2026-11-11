@@ -74,16 +74,22 @@ def build_conversation_panel(
     input_box.bind("<Return>", lambda _: app.submit())
     input_actions = ttk.Frame(transcript_frame)
     input_actions.grid(row=3, column=0, sticky="ew", padx=6, pady=(0, 6))
-    input_actions.columnconfigure(0, weight=1)
+    input_actions.columnconfigure(4, weight=1)
     app.open_conversation_button = ttk.Button(
         input_actions,
         text="Open conversation",
         command=app.open_conversation,
     )
     app.open_conversation_button.grid(row=0, column=0, sticky="w")
+    app.close_conversation_button = ttk.Button(
+        input_actions,
+        text="Close conversation",
+        command=app.close_conversation,
+    )
+    app.close_conversation_button.grid(row=0, column=1, sticky="w", padx=(6, 0))
     app.preview_button = ttk.Button(
         input_actions, text="Preview (no send)", command=app.preview
     )
-    app.preview_button.grid(row=0, column=1, sticky="e", padx=(0, 4))
+    app.preview_button.grid(row=0, column=2, sticky="e", padx=(0, 4))
     app.send_button = ttk.Button(input_actions, text="Send", command=app.submit)
-    app.send_button.grid(row=0, column=2, sticky="e")
+    app.send_button.grid(row=0, column=3, sticky="e")

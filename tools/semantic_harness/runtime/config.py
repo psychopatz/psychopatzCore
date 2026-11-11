@@ -72,6 +72,44 @@ def discover_core_repository(
     )
 
 
+def discover_mod_manager(
+    *,
+    repository: str | Path | None = None,
+    core_repository: str | Path | None = None,
+    dynamic_trading_repository: str | Path | None = None,
+    provider_roots: Sequence[str | Path] = (),
+    cwd: str | Path | None = None,
+) -> ModManager:
+    """Discover the provider catalog used by both CLI and GUI selection."""
+
+    sibling_hint = repository or dynamic_trading_repository
+    core_hint = core_repository
+    if core_hint is None and sibling_hint is not None:
+        core_hint = (
+            Path(sibling_hint).expanduser().resolve().parent / "psychopatzCore"
+        )
+    discovery_cwd = (
+        Path(cwd).expanduser().resolve()
+        if cwd is not None
+        else (
+            Path(sibling_hint).expanduser().resolve()
+            if sibling_hint is not None
+            else Path.cwd()
+        )
+    )
+    core = discover_core_repository(core_hint, cwd=discovery_cwd)
+    roots = list(provider_roots)
+    if repository is not None:
+        roots.append(repository)
+    if dynamic_trading_repository is not None:
+        roots.append(dynamic_trading_repository)
+    return ModManager.discover(
+        core_repository=core,
+        repository_roots=roots,
+        cwd=discovery_cwd,
+    )
+
+
 def _runtime_if_present(repository: Path | None, mod_id: str) -> str | None:
     if repository is None:
         return None
@@ -178,24 +216,17 @@ class HarnessConfig:
         shutdown_timeout: float = 1.0,
     ) -> "HarnessConfig":
         sibling_hint = repository or dynamic_trading_repository
-        core_hint = core_repository
-        if core_hint is None and sibling_hint is not None:
-            core_hint = Path(sibling_hint).expanduser().resolve().parent / "psychopatzCore"
-        core = discover_core_repository(
-            core_hint,
-            cwd=Path(sibling_hint).expanduser().resolve() if sibling_hint is not None else None,
+        manager = discover_mod_manager(
+            repository=repository,
+            core_repository=core_repository,
+            dynamic_trading_repository=dynamic_trading_repository,
+            provider_roots=provider_roots,
+            cwd=Path(sibling_hint).expanduser().resolve()
+            if sibling_hint is not None
+            else None,
         )
-        roots: list[str | Path] = list(provider_roots)
-        if repository is not None:
-            roots.append(repository)
-        if dynamic_trading_repository is not None:
-            roots.append(dynamic_trading_repository)
+        core = manager.core_repository
         try:
-            manager = ModManager.discover(
-                core_repository=core,
-                repository_roots=roots,
-                cwd=sibling_hint or Path.cwd(),
-            )
             selected = tuple(mods) if mods else None
             plan = manager.resolve(
                 provider_ids=selected,
@@ -278,4 +309,5 @@ __all__ = [
     "PROFILE_ALIASES",
     "build_worker_launch_spec",
     "discover_core_repository",
+    "discover_mod_manager",
 ]

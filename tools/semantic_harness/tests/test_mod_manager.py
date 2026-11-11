@@ -164,6 +164,24 @@ class ModManagerTests(unittest.TestCase):
         self.assertNotIn("provider/DTAbstract", plan.modules)
         self.assertIn("provider/DTHoomans", plan.modules)
 
+    def test_core_catalog_exposes_only_canonical_presets(self) -> None:
+        manager = ModManager.discover(
+            core_repository=Path(__file__).resolve().parents[3],
+        )
+
+        preset_ids = {row["presetID"] for row in manager.presets()}
+
+        self.assertEqual(
+            preset_ids,
+            {
+                "core",
+                "dtabstract",
+                "dthoomans",
+                "pnc",
+                "pnc-with-dthoomans",
+            },
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

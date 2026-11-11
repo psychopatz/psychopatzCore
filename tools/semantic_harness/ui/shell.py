@@ -63,6 +63,7 @@ from .simulation_pane_builder import build_simulation_panes
 from .simulation_conversation_builder import build_conversation_panel
 from .simulation_controls_builder import build_workbench_controls
 from .simulation_apply_controller import apply_simulation_settings
+from .selection_surface import apply_selection, poll_selection_future
 from .source_provenance_projection import update_source_provenance
 from .simulation_projection import update_simulation_projection
 from .scenario_control_projection import scenario_control_value
@@ -125,6 +126,7 @@ from .talk_surface_renderer import (
 )
 from .talk_action_controller import (
     click_talk_choice,
+    close_conversation,
     open_conversation,
     run_talk_matrix,
     selected_talk_target,
@@ -369,6 +371,9 @@ class SemanticHarnessApp:
     ) -> None:
         poll_background_future(self, future, callback)
 
+    def _poll_selection_future(self) -> None:
+        poll_selection_future(self)
+
     def _worker_ready(self, result: WorkerReady) -> None:
         worker_ready(self, result)
 
@@ -471,6 +476,12 @@ class SemanticHarnessApp:
 
     def open_conversation(self) -> None:
         open_conversation(self)
+
+    def close_conversation(self) -> None:
+        close_conversation(self)
+
+    def apply_selection(self) -> None:
+        apply_selection(self)
 
     def run_talk_matrix(self) -> None:
         run_talk_matrix(self)

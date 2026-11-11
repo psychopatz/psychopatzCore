@@ -8,6 +8,7 @@ from typing import Any
 
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.inspection.transcript import TranscriptBuffer
+from tools.semantic_harness.runtime.config import discover_mod_manager
 from tools.semantic_harness.runtime.scenario import load_scenario
 from tools.semantic_harness.core.activity import ActivityLog, default_activity_path
 from tools.semantic_harness.runtime.worker import LuaSemanticWorker
@@ -29,6 +30,20 @@ def initialize_app(app: Any, root: Any, arguments: argparse.Namespace) -> None:
     app._ttk = ttk
     app._ScrolledText = ScrolledText
     app.arguments = arguments
+    app.selection_manager = discover_mod_manager(
+        repository=getattr(arguments, "repository", None),
+        core_repository=getattr(arguments, "core_repository", None),
+        dynamic_trading_repository=getattr(
+            arguments, "dynamic_trading_repository", None
+        ),
+        provider_roots=tuple(getattr(arguments, "provider_root", None) or ()),
+        cwd=Path.cwd(),
+    )
+    app.selection_catalog = app.selection_manager.describe()
+    app.selection_active: dict[str, Any] = {}
+    app.selection_pending: dict[str, Any] | None = None
+    app._selection_future: Any | None = None
+    app._selection_poll_after: Any | None = None
     repository = Path(arguments.repository) if arguments.repository else None
     app.authoring_service = SemanticLabAuthoringService(
         repository=repository,

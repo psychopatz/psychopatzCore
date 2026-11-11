@@ -9,6 +9,7 @@ from .saved_world_browser_builder import build_saved_world_browser
 from .simulation_conversation_builder import build_conversation_panel
 from .simulation_pane_builder import build_simulation_panes
 from .simulation_controls_builder import build_workbench_controls
+from .selection_surface import build_selection_surface
 from .studio_surface_builder import build_studio_editors
 from .trace_conversation_builder import build_conversation_trace
 from .trace_diagnostic_builder import build_diagnostic_trace
@@ -20,6 +21,7 @@ def build_ui(app: Any) -> None:
     app.main_tabs = ttk.Notebook(app.root)
     app.main_tabs.pack(fill="both", expand=True, padx=6, pady=6)
 
+    selection_tab = ttk.Frame(app.main_tabs, padding=8)
     studio_tab = ttk.Frame(app.main_tabs, padding=6)
     simulation_tab = ttk.Frame(app.main_tabs, padding=8)
     studio_tab.rowconfigure(0, weight=0)
@@ -85,12 +87,14 @@ def build_ui(app: Any) -> None:
     world_browser_tab = ttk.Frame(app.main_tabs, padding=10)
     world_browser_tab.rowconfigure(1, weight=1)
     world_browser_tab.columnconfigure(0, weight=1)
+    app.main_tabs.add(selection_tab, text="Mod Selection")
     app.main_tabs.add(simulation_tab, text="Simulation")
     app.main_tabs.add(quality_sweep_tab, text="Quality Sweep")
     app.main_tabs.add(studio_tab, text="Studio")
     app.main_tabs.add(log_tab, text="Log")
     app.main_tabs.add(world_browser_tab, text="World Browser")
     app.quality_sweep_tab = quality_sweep_tab
+    app.selection_tab = selection_tab
     build_quality_sweep_workbench(app, quality_sweep_tab)
     app.studio_tab = studio_tab
     app.explore_tab = explore_tab
@@ -100,6 +104,7 @@ def build_ui(app: Any) -> None:
     app.advanced_tab = developer_tools_host
     app.log_tab = log_tab
     app.world_browser_tab = world_browser_tab
+    build_selection_surface(app, selection_tab, ttk, scrolled_text)
     build_saved_world_browser(app, world_browser_tab)
 
     conversation_pane, workbench_pane = build_simulation_panes(

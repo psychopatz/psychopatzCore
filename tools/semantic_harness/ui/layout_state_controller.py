@@ -15,6 +15,8 @@ def restore_ui_state(app: Any) -> None:
             if saved_window_state in {"normal", "zoomed"}:
                 app.root.state(saved_window_state)
             main_index = int(app._ui_state.get("main_tab", 0))
+            if layout_version < 5:
+                main_index += 1
             tabs = app.main_tabs.tabs()
             if tabs:
                 app.main_tabs.select(tabs[min(max(main_index, 0), len(tabs) - 1)])
@@ -103,7 +105,7 @@ def restore_splitters(app: Any) -> None:
     # Ignore absolute sash values written by the pre-dock topology. They can
     # otherwise shrink the conversation pane on the first launch after the
     # layout migration; the corrected defaults are persisted on the next save.
-    sashes_compatible = app._ui_state.get("layout_state_version") in {2, 3, 4}
+    sashes_compatible = app._ui_state.get("layout_state_version") in {2, 3, 4, 5}
     if not app.trace_panel_visible:
         workflow_width = max(1, app.workflow_pane_split.winfo_width())
         if workflow_width <= 10:

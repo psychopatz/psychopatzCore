@@ -53,7 +53,7 @@ def _flush_scheduled_save(app: Any) -> None:
 def save_ui_state(app: Any) -> None:
     try:
         state = dict(app._ui_state)
-        state["layout_state_version"] = 4
+        state["layout_state_version"] = 5
         state["geometry"] = app.root.geometry()
         state["window_state"] = app.root.state()
         state["main_tab"] = app.main_tabs.index(app.main_tabs.select())

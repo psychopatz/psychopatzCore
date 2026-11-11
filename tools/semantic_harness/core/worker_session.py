@@ -95,6 +95,53 @@ class WorkerSession(Generic[WorkerT]):
                 raise HarnessError("Lua worker session has not started")
             return self._executor.submit(self._run_operation, operation)
 
+    def reconfigure(self, factory: Callable[[], WorkerT]) -> Future[WorkerReady]:
+        """Replace the serialized worker without replacing the session queue.
+
+        The replacement is queued behind any in-flight operation, closes the
+        old worker on the worker thread, and returns the new worker's
+        capabilities/status handshake.  Keeping the executor and session
+        object stable lets the GUI switch provider compositions without
+        racing a second process against the first one.
+        """
+
+        with self._lock:
+            if self._closed:
+                raise SessionClosedError("Lua worker session is closed")
+            if self._start_future is None:
+                raise HarnessError("Lua worker session has not started")
+            self._factory = factory
+            return self._executor.submit(self._replace_worker)
+
+    def _replace_worker(self) -> WorkerReady:
+        with self._lock:
+            if self._closed:
+                raise SessionClosedError("Lua worker session is closed")
+            old_worker = self._worker
+            factory = self._factory
+            self._worker = None
+        if old_worker is not None:
+            old_worker.close()
+
+        worker = factory()
+        try:
+            capabilities = worker.capabilities()
+            status = worker.status()
+        except BaseException:
+            worker.close()
+            raise
+
+        with self._lock:
+            closed = self._closed
+            if not closed:
+                self._worker = worker
+        if closed:
+            worker.close()
+            raise SessionClosedError(
+                "Lua worker session closed while worker was reconfiguring"
+            )
+        return WorkerReady(status=status, capabilities=capabilities)
+
     def _run_operation(
         self,
         operation: Callable[[WorkerT], ResultT],

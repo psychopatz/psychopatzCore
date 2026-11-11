@@ -101,34 +101,85 @@ def start_talk_parity(app: Any) -> None:
 def open_conversation(app: Any) -> None:
     """Open the production Conversation session for the primary surface."""
 
-    if not app.session.ready or app.busy:
+    if not app.session.ready:
+        app._set_status("Conversation unavailable · Lua worker is still starting")
+        app._append("SYSTEM", "Conversation cannot open until the Lua worker is ready.")
+        return
+    if app.busy:
+        app._set_status("Conversation unavailable · another operation is running")
+        app._append("SYSTEM", "Conversation open skipped because another operation is running.")
         return
     target_id = app._selected_talk_target()
+    app.activity_log.record(
+        "ui", "conversation_open_requested", target=target_id
+    )
+    app._set_status(f"Opening conversation · {target_id}")
 
     def finish(result: dict[str, Any]) -> None:
-        scenario = result.get("scenario")
-        if isinstance(scenario, dict):
-            app.scenario = scenario
-            app._sync_workbench_from_scenario(scenario)
-        presentation = result.get("presentation") or {}
+        presentation = result.get("presentation")
+        if not isinstance(presentation, dict):
+            presentation = {}
         opening = presentation.get("opening") or {}
+        lifecycle = presentation.get("lifecycle") or {}
+        if lifecycle.get("state") != "active":
+            reason = (
+                lifecycle.get("reason")
+                or result.get("reason")
+                or "production conversation did not become active"
+            )
+            app._set_status("Conversation open failed")
+            if hasattr(app, "selection_status_var"):
+                app.selection_status_var.set(f"Conversation open failed: {reason}")
+            app._set_text(app.talk_output, "Conversation open failed\n\n" + pretty(result))
+            app._append("ERROR", f"Conversation open failed: {reason}")
+            app.activity_log.record(
+                "ui", "conversation_open_failed", target=target_id, reason=reason
+            )
+            return
         for message in opening.get("messages") or []:
             if isinstance(message, dict) and message.get("speaker") == "npc":
                 app._append("NPC", npc_message_text(message))
-        turn = {
-            "type": "conversation_open",
-            "accepted": True,
-            "scenario": scenario,
-            "conversationPresentation": presentation,
-            "snapshot": result.get("snapshot"),
-        }
-        app._show_response(turn)
+        # Preserve the complete production response while adding the field
+        # expected by the shared response-channel renderer.
+        rendered = dict(result)
+        rendered["accepted"] = True
+        rendered["conversationPresentation"] = presentation
+        app._show_response(rendered)
         app._set_text(app.talk_output, "Conversation open\n\n" + pretty(result))
+        app.main_tabs.select(app.simulation_tab)
+        app._set_status(
+            f"Conversation active · {len((presentation.get('responseChannel') or {}).get('rows') or [])} choices"
+        )
         app._append("SYSTEM", f"Conversation opened: {target_id}")
+        app.activity_log.record(
+            "ui",
+            "conversation_open_completed",
+            target=target_id,
+            choices=len((presentation.get("responseChannel") or {}).get("rows") or []),
+        )
 
     app._start_operation(
         lambda worker: worker.open_conversation(target_id), finish
     )
+
+
+def close_conversation(app: Any) -> None:
+    """Close the active production Conversation session through Lua."""
+
+    if not app.session.ready:
+        app._set_status("Conversation unavailable · Lua worker is still starting")
+        return
+    if app.busy:
+        app._set_status("Conversation unavailable · another operation is running")
+        return
+
+    def finish(result: dict[str, Any]) -> None:
+        app._show_response(result)
+        app._set_text(app.talk_output, "Conversation closed\n\n" + pretty(result))
+        app._set_status("Conversation closed")
+        app._append("SYSTEM", "Conversation closed.")
+
+    app._start_operation(lambda worker: worker.close_conversation(), finish)
 
 
 def run_talk_matrix(app: Any) -> None:

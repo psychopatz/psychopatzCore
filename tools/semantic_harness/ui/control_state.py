@@ -12,6 +12,7 @@ def set_controls(app: Any, enabled: bool) -> None:
     for button in (
         app.send_button,
         app.open_conversation_button,
+        app.close_conversation_button,
         app.reset_button,
         app.load_button,
         app.settings_button,
@@ -31,6 +32,26 @@ def set_controls(app: Any, enabled: bool) -> None:
         app.saved_world_import_button,
     ):
         button.configure(state=state)
+    if hasattr(app, "selection_apply_button"):
+        app.selection_apply_button.configure(state=state)
+    if hasattr(app, "selection_validate_button"):
+        app.selection_validate_button.configure(
+            state="disabled" if app.busy else "normal"
+        )
+    if hasattr(app, "selection_mode_box"):
+        app.selection_mode_box.configure(
+            state="disabled" if app.busy else "readonly"
+        )
+    if hasattr(app, "selection_preset_box"):
+        app.selection_preset_box.configure(
+            state="disabled"
+            if app.busy or app.selection_mode_var.get() == "Custom providers"
+            else "readonly"
+        )
+    if hasattr(app, "selection_provider_listbox"):
+        app.selection_provider_listbox.configure(
+            state="disabled" if app.busy else "normal"
+        )
     # Layout recovery must remain available while the worker is starting,
     # busy, or has failed. It only changes Tk state and does not require a
     # semantic worker round-trip.

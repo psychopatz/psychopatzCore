@@ -38,10 +38,6 @@
         "trading.interaction": "DTHoomans",
         "trading.physical": "DTHoomans"
       }
-    },
-    "combined": {
-      "displayName": "Compatibility alias for Project Hoomans with DTHoomans",
-      "aliasOf": "pnc-with-dthoomans"
     }
   }
 }

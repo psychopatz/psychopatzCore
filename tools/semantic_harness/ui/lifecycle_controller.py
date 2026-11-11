@@ -25,6 +25,7 @@ def close_app(app: Any) -> None:
         app._activity_after,
         app._foreground_poll_after,
         app._background_poll_after,
+        getattr(app, "_selection_poll_after", None),
         app._start_worker_after,
         app._startup_after,
         app._explore_retry_after,

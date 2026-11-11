@@ -27,7 +27,7 @@ callers use the concrete modules in these owned packages.
 
 ## Selection manager
 
-The harness is composed from provider manifests. Compatibility profiles are
+The harness is composed from provider manifests. Named compositions are
 data-defined presets; new providers can be added without changing Core code.
 
 ```text
@@ -73,3 +73,9 @@ owned by this Core package. Provider manifests are discovered from configured
 repository roots and sibling workshop repositories. The resolver validates
 dependencies, conflicts, materialization mode, load order, and capability
 routes before starting a worker.
+
+When the GUI is launched, the Mod Selection tab shows the same discovered
+providers and canonical presets. Validate a composition there, then apply it
+to replace the live worker without restarting the harness. The Simulation
+tab's Open conversation action reports its lifecycle and renders the
+production response channel after the worker confirms the session is active.
