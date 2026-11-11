@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from concurrent.futures import Future
+from time import perf_counter
 from typing import Any, Callable
 
 from tools.semantic_harness.runtime.config import ConfigurationError
@@ -42,13 +43,19 @@ def start_operation(
     app: Any,
     operation: Callable[[LuaSemanticWorker], Any],
     callback: Callable[[Any], None],
+    *,
+    label: str | None = None,
 ) -> bool:
     """Submit one worker operation and attach its UI completion adapter."""
 
     if app.closed or not app.session.ready or app.busy:
         return False
     app.busy = True
-    app._set_status("Working…")
+    app._foreground_operation_label = label or getattr(
+        operation, "__name__", "worker operation"
+    )
+    app._foreground_operation_started = perf_counter()
+    app._set_status(label or "Working…")
     app._set_controls(False)
     app._future = app.session.submit(operation)
     app._poll_future(app._future, operation_finished(app, callback))
@@ -110,6 +117,20 @@ def operation_finished(
     """Adapt a worker result into the UI callback contract."""
 
     def finish(result: WorkerResult[Any]) -> None:
+        started = app._foreground_operation_started
+        duration_ms = (
+            round((perf_counter() - started) * 1000)
+            if started is not None
+            else None
+        )
+        if hasattr(app, "activity_log"):
+            app.activity_log.record(
+                "ui",
+                "operation_complete",
+                operation=app._foreground_operation_label,
+                durationMs=duration_ms,
+            )
+        app._foreground_operation_started = None
         app._set_controls(True)
         app._set_status(f"Ready · Lua PID {result.status.get('pid')}")
         callback(result.value)

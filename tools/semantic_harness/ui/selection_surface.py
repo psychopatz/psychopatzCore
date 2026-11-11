@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from concurrent.futures import Future
-from typing import Any
+from typing import Any, Callable
 
 from tools.semantic_harness.core.worker_session import WorkerReady
 from tools.semantic_harness.inspection.rendering import pretty
@@ -106,7 +106,12 @@ def _request_view(request: dict[str, Any]) -> dict[str, Any]:
 
 
 def _write_plan(app: Any, request: dict[str, Any]) -> None:
-    app._set_text(app.selection_plan_text, pretty(_request_view(request)))
+    rendered = pretty(_request_view(request))
+    app._selection_plan_rendered = rendered
+    if getattr(app, "selection_details_visible", False):
+        app._set_text(app.selection_plan_text, rendered)
+    if hasattr(app, "selection_summary_var"):
+        app.selection_summary_var.set(_selection_summary(request))
 
 
 def _active_summary(request: dict[str, Any]) -> str:
@@ -124,10 +129,97 @@ def _active_summary(request: dict[str, Any]) -> str:
     )
 
 
+def _request_key(request: dict[str, Any] | None) -> tuple[Any, ...] | None:
+    if not isinstance(request, dict):
+        return None
+    plan = request.get("plan")
+    if plan is None:
+        return None
+    return (
+        tuple(plan.provider_ids),
+        str(plan.materialization_mode),
+        tuple(sorted(dict(plan.routes).items())),
+    )
+
+
+def _selection_banner(app: Any) -> str:
+    active = app.selection_active if isinstance(app.selection_active, dict) else None
+    pending = app.selection_pending
+    active_text = _active_summary(active) if _request_key(active) else None
+    pending_text = _active_summary(pending) if _request_key(pending) else None
+    if active_text and pending_text and _request_key(active) != _request_key(pending):
+        return f"{active_text} · Pending: {pending_text.removeprefix('Active: ')}"
+    if pending_text:
+        return pending_text
+    return active_text or "No composition resolved yet. Select a save or preset."
+
+
+def _selection_summary(request: dict[str, Any]) -> str:
+    plan = request["plan"]
+    activation = request.get("activation")
+    source = request.get("save") if isinstance(request.get("save"), dict) else None
+    source_label = (
+        f"Save: {source.get('saveName') or 'unnamed'}"
+        if source is not None
+        else f"Source: {request.get('presetID') or request.get('mode') or 'custom'}"
+    )
+    providers = ", ".join(plan.provider_ids) or "none"
+    lines = [
+        source_label,
+        f"Harness providers: {providers}",
+        f"Materialization: {plan.materialization_mode}",
+    ]
+    if isinstance(activation, dict):
+        mod_ids = activation.get("modIDs") or []
+        unknown = activation.get("unknownModIDs") or []
+        status = str(activation.get("status") or "unknown").upper()
+        lines.append(
+            f"Detected save mods: {len(mod_ids)} · resolution: {status}"
+        )
+        if unknown:
+            lines.append("Unavailable to harness: " + ", ".join(map(str, unknown)))
+    return "\n".join(lines)
+
+
+def _sync_provider_labels(app: Any, provider_ids: tuple[str, ...] | list[str]) -> None:
+    """Mirror a resolved composition without re-entering the selection handler."""
+
+    if not hasattr(app, "selection_provider_listbox"):
+        return
+    wanted = set(provider_ids)
+    app._selection_syncing = True
+    try:
+        app.selection_provider_listbox.selection_clear(0, "end")
+        for index in range(app.selection_provider_listbox.size()):
+            label = app.selection_provider_listbox.get(index)
+            selected = app.selection_provider_ids_by_label.get(label) in wanted
+            if selected:
+                app.selection_provider_listbox.selection_set(index)
+            if hasattr(app.selection_provider_listbox, "itemconfigure"):
+                app.selection_provider_listbox.itemconfigure(
+                    index,
+                    background="#e4f2e4" if selected else "#ffffff",
+                    foreground="#1f5d2b" if selected else "#202124",
+                )
+    finally:
+        app._selection_syncing = False
+
+
+def _set_pending_selection(app: Any, request: dict[str, Any]) -> None:
+    app.selection_pending = request
+    _sync_provider_labels(app, request["providerIDs"])
+    _write_plan(app, request)
+    app.selection_active_var.set(_selection_banner(app))
+    if hasattr(app, "selection_summary_var"):
+        app.selection_summary_var.set(_selection_summary(request))
+
+
 def build_selection_surface(app: Any, parent: Any, ttk: Any, scrolled_text: Any) -> None:
     """Build the provider-neutral selection tab from discovered manifests."""
 
-    parent.rowconfigure(2, weight=1)
+    app.selection_surface_parent = parent
+    parent.rowconfigure(2, weight=0)
+    parent.rowconfigure(3, weight=1)
     parent.columnconfigure(0, weight=1)
     parent.columnconfigure(1, weight=1)
 
@@ -203,9 +295,32 @@ def build_selection_surface(app: Any, parent: Any, ttk: Any, scrolled_text: Any)
         lambda _event: selection_provider_changed(app),
     )
 
+    summary = ttk.LabelFrame(parent, text="Composition summary", padding=8)
+    summary.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(0, 8))
+    summary.columnconfigure(0, weight=1)
+    summary.rowconfigure(0, weight=1)
+    app.selection_summary_var = app._tk.StringVar(
+        value="Select a save or preset to resolve its provider composition."
+    )
+    ttk.Label(
+        summary,
+        textvariable=app.selection_summary_var,
+        anchor="nw",
+        justify="left",
+        wraplength=1050,
+    ).grid(row=0, column=0, sticky="nw")
+
+    app.selection_plan_text = scrolled_text(parent, wrap="none", state="disabled")
+    app.selection_plan_text.grid(
+        row=3, column=0, columnspan=2, sticky="nsew", pady=(0, 8)
+    )
+    app.selection_plan_text.grid_remove()
+    parent.rowconfigure(3, weight=0)
+    app.selection_details_visible = False
+
     actions = ttk.Frame(parent)
-    actions.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(8, 0))
-    actions.columnconfigure(2, weight=1)
+    actions.grid(row=4, column=0, columnspan=2, sticky="ew", pady=(0, 0))
+    actions.columnconfigure(3, weight=1)
     app.selection_validate_button = ttk.Button(
         actions,
         text="Validate selection",
@@ -218,18 +333,19 @@ def build_selection_surface(app: Any, parent: Any, ttk: Any, scrolled_text: Any)
         command=lambda: apply_selection(app),
     )
     app.selection_apply_button.grid(row=0, column=1, sticky="w", padx=(8, 0))
+    app.selection_details_button = ttk.Button(
+        actions,
+        text="Show technical plan",
+        command=lambda: toggle_selection_details(app),
+    )
+    app.selection_details_button.grid(row=0, column=2, sticky="w", padx=(8, 0))
     app.selection_status_var = app._tk.StringVar(value="Choose a preset or providers.")
     ttk.Label(
         actions,
         textvariable=app.selection_status_var,
         anchor="w",
         justify="left",
-    ).grid(row=0, column=2, sticky="ew", padx=(12, 0))
-
-    app.selection_plan_text = scrolled_text(parent, wrap="none", state="disabled")
-    app.selection_plan_text.grid(
-        row=2, column=0, columnspan=2, sticky="nsew", pady=(0, 0)
-    )
+    ).grid(row=0, column=3, sticky="ew", padx=(12, 0))
 
     remembered_mode = str(
         app._ui_state.get("selection_source_mode") or ""
@@ -259,21 +375,35 @@ def build_selection_surface(app: Any, parent: Any, ttk: Any, scrolled_text: Any)
     try:
         request = _active_request(app)
     except ModManagerError as error:
+        app.selection_active_var.set(_selection_banner(app))
         app.selection_status_var.set(f"Selection error: {error}")
     else:
         app.selection_active = request
+        app.selection_pending = None
+        _sync_provider_labels(app, request["providerIDs"])
         _write_plan(app, request)
-        app.selection_active_var.set(_active_summary(request))
+        app.selection_active_var.set(_selection_banner(app))
         app.selection_status_var.set("Active selection is ready.")
 
 
 def _select_provider_labels(app: Any, provider_ids: tuple[str, ...] | list[str]) -> None:
-    wanted = set(provider_ids)
-    app.selection_provider_listbox.selection_clear(0, "end")
-    for index in range(app.selection_provider_listbox.size()):
-        label = app.selection_provider_listbox.get(index)
-        if app.selection_provider_ids_by_label.get(label) in wanted:
-            app.selection_provider_listbox.selection_set(index)
+    _sync_provider_labels(app, provider_ids)
+
+
+def toggle_selection_details(app: Any) -> None:
+    app.selection_details_visible = not app.selection_details_visible
+    if app.selection_details_visible:
+        app._set_text(
+            app.selection_plan_text,
+            getattr(app, "_selection_plan_rendered", "No composition resolved."),
+        )
+        app.selection_plan_text.grid()
+        app.selection_surface_parent.rowconfigure(3, weight=1)
+        app.selection_details_button.configure(text="Hide technical plan")
+    else:
+        app.selection_plan_text.grid_remove()
+        app.selection_surface_parent.rowconfigure(3, weight=0)
+        app.selection_details_button.configure(text="Show technical plan")
 
 
 def selection_mode_changed(app: Any) -> None:
@@ -298,22 +428,24 @@ def selection_preset_changed(app: Any) -> None:
         try:
             request = _active_request(app)
         except ModManagerError as error:
+            app.selection_active_var.set(_selection_banner(app))
             app.selection_status_var.set(f"Selection error: {error}")
             return
-        app.selection_pending = request
-        _write_plan(app, request)
+        _set_pending_selection(app, request)
         app.selection_status_var.set("Preset changed; validate before applying.")
 
 
 def selection_provider_changed(app: Any) -> None:
+    if app._selection_syncing:
+        return
     if app.selection_mode_var.get() == "Custom providers":
         try:
             request = _active_request(app)
         except ModManagerError as error:
+            app.selection_active_var.set(_selection_banner(app))
             app.selection_status_var.set(f"Selection error: {error}")
             return
-        app.selection_pending = request
-        _write_plan(app, request)
+        _set_pending_selection(app, request)
         app.selection_status_var.set("Custom composition changed; validate before applying.")
 
 
@@ -322,10 +454,10 @@ def selection_saved_changed(app: Any) -> None:
         request = _active_request(app)
     except ModManagerError as error:
         app.selection_pending = None
+        app.selection_active_var.set(_selection_banner(app))
         app.selection_status_var.set(f"Save composition unavailable: {error}")
         return
-    app.selection_pending = request
-    _write_plan(app, request)
+    _set_pending_selection(app, request)
     activation = request.get("activation") or {}
     unknown = activation.get("unknownModIDs") or []
     suffix = (
@@ -339,7 +471,7 @@ def selection_saved_changed(app: Any) -> None:
 
 
 def save_source_selected(app: Any, entry: dict[str, Any] | None) -> None:
-    """Make the selected save the source of the Active Mods sub-tab."""
+    """Make the selected save the source of the Mod Composition sub-tab."""
 
     if not isinstance(entry, dict):
         return
@@ -354,8 +486,7 @@ def validate_selection(app: Any) -> dict[str, Any] | None:
         app.selection_pending = None
         app.selection_status_var.set(f"Invalid selection: {error}")
         return None
-    app.selection_pending = request
-    _write_plan(app, request)
+    _set_pending_selection(app, request)
     app.selection_status_var.set(
         f"Valid · {len(request['plan'].provider_ids)} providers · "
         f"{request['plan'].materialization_mode}"
@@ -383,7 +514,10 @@ def _selection_worker_kwargs(app: Any, request: dict[str, Any]) -> dict[str, Any
     return kwargs
 
 
-def apply_selection(app: Any) -> None:
+def apply_selection(
+    app: Any,
+    completion: Callable[[], None] | None = None,
+) -> None:
     request = validate_selection(app)
     if request is None:
         return
@@ -394,6 +528,15 @@ def apply_selection(app: Any) -> None:
         app.selection_status_var.set("The worker is still starting; try again when ready.")
         return
 
+    if _request_key(request) == _request_key(app.selection_active):
+        app.selection_active = request
+        app.selection_pending = None
+        app.selection_active_var.set(_selection_banner(app))
+        app.selection_status_var.set("This composition is already active.")
+        if completion is not None:
+            app.root.after_idle(completion)
+        return
+
     kwargs = _selection_worker_kwargs(app, request)
     preserve_save = (
         app.save_backed_mode is True
@@ -401,6 +544,8 @@ def apply_selection(app: Any) -> None:
     )
     scenario = load_scenario(None)
     app.busy = True
+    app._selection_completion = completion
+    app._selection_inflight = request
     app._worker_initialized = False
     app._set_controls(False)
     app._set_status("Switching provider composition…")
@@ -420,6 +565,8 @@ def apply_selection(app: Any) -> None:
             lambda: LuaSemanticWorker(scenario, **kwargs)
         )
     except Exception as error:
+        app._selection_completion = None
+        app._selection_inflight = None
         app.busy = False
         app._set_controls(False)
         app._set_status("Provider switch failed")
@@ -441,6 +588,8 @@ def poll_selection_future(app: Any) -> None:
     try:
         result = future.result()
     except Exception as error:
+        app._selection_completion = None
+        app._selection_inflight = None
         app.busy = False
         app._worker_initialized = False
         app._set_controls(False)
@@ -449,10 +598,15 @@ def poll_selection_future(app: Any) -> None:
         app._append("ERROR", f"Provider switch failed: {error}")
         return
 
-    request = app.selection_pending
+    request = app._selection_inflight or app.selection_pending
+    pending = app.selection_pending
+    completion = app._selection_completion
+    app._selection_completion = None
+    app._selection_inflight = None
     if request is not None:
         app.selection_active = request
-        app.selection_pending = None
+        if _request_key(pending) == _request_key(request):
+            app.selection_pending = None
         if request["mode"] in {"custom", "save"}:
             app.arguments.mods = list(request["providerIDs"])
             app.arguments.preset = None
@@ -460,13 +614,64 @@ def poll_selection_future(app: Any) -> None:
             app.arguments.mods = None
             app.arguments.preset = request["presetID"]
             app.arguments.profile = request["presetID"]
-        app.selection_active_var.set(_active_summary(request))
+        app.selection_active_var.set(_selection_banner(app))
     app.busy = False
     app._worker_ready(result)
-    app.main_tabs.select(app.simulation_tab)
+    if completion is None:
+        app.main_tabs.select(app.simulation_tab)
     app.selection_status_var.set("Provider composition active. Conversation state was reset.")
     app._append("SYSTEM", "Provider composition switched and the Lua worker is ready.")
     app._save_ui_state()
+    if completion is not None and _request_key(pending) == _request_key(request):
+        app.root.after_idle(completion)
+    elif completion is not None:
+        app.selection_status_var.set(
+            "Selection changed while switching; apply the newer composition before loading."
+        )
+
+
+def ensure_selection_for_save(
+    app: Any,
+    completion: Callable[[], None],
+) -> None:
+    """Make the selected save's provider plan active before importing it."""
+
+    if app.closed:
+        return
+    if app.selection_mode_var.get() != "Selected save":
+        save_source_selected(app, app._selected_saved_world_entry())
+    try:
+        request = _active_request(app)
+    except ModManagerError as error:
+        app.selection_pending = None
+        app.selection_status_var.set(f"Cannot load save composition: {error}")
+        app.selection_active_var.set(_selection_banner(app))
+        return
+    _set_pending_selection(app, request)
+    if _request_key(request) == _request_key(app.selection_active):
+        app.selection_active = request
+        app.selection_pending = None
+        app.selection_active_var.set(_selection_banner(app))
+        app.root.after_idle(completion)
+        return
+    if app.busy:
+        app.selection_status_var.set(
+            "Waiting for the current operation before switching save composition…"
+        )
+        if app._selection_ensure_after is None:
+            app._selection_ensure_after = app.root.after(
+                50,
+                lambda: _retry_selection_for_save(app, completion),
+            )
+        return
+    app._selection_ensure_after = None
+    app.selection_status_var.set("Applying the save composition before loading the NPC…")
+    apply_selection(app, completion=completion)
+
+
+def _retry_selection_for_save(app: Any, completion: Callable[[], None]) -> None:
+    app._selection_ensure_after = None
+    ensure_selection_for_save(app, completion)
 
 
 __all__ = [
@@ -478,4 +683,5 @@ __all__ = [
     "selection_preset_changed",
     "selection_provider_changed",
     "validate_selection",
+    "ensure_selection_for_save",
 ]

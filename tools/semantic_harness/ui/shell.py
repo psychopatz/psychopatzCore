@@ -694,8 +694,10 @@ class SemanticHarnessApp:
         self,
         operation: Callable[[LuaSemanticWorker], Any],
         callback: Callable[[Any], None],
+        *,
+        label: str | None = None,
     ) -> bool:
-        return start_operation(self, operation, callback)
+        return start_operation(self, operation, callback, label=label)
 
     def _start_background_operation(
         self,

@@ -42,6 +42,10 @@ def initialize_app(app: Any, root: Any, arguments: argparse.Namespace) -> None:
     app.selection_catalog = app.selection_manager.describe()
     app.selection_active: dict[str, Any] = {}
     app.selection_pending: dict[str, Any] | None = None
+    app._selection_syncing = False
+    app._selection_completion: Any | None = None
+    app._selection_inflight: dict[str, Any] | None = None
+    app._selection_ensure_after: Any | None = None
     app._selection_future: Any | None = None
     app._selection_poll_after: Any | None = None
     repository = Path(arguments.repository) if arguments.repository else None
@@ -114,6 +118,8 @@ def initialize_app(app: Any, root: Any, arguments: argparse.Namespace) -> None:
     app._background_busy = False
     app._background_future = None
     app._foreground_poll_after = None
+    app._foreground_operation_label = None
+    app._foreground_operation_started = None
     app._background_poll_after = None
     app._start_worker_after = None
     app._worker_ready_hydration_after = None

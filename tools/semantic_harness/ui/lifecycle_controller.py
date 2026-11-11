@@ -26,6 +26,7 @@ def close_app(app: Any) -> None:
         app._foreground_poll_after,
         app._background_poll_after,
         getattr(app, "_worker_ready_hydration_after", None),
+        getattr(app, "_selection_ensure_after", None),
         getattr(app, "_initial_ui_ready_after", None),
         getattr(app, "_studio_editor_build_after", None),
         getattr(app, "_selection_poll_after", None),

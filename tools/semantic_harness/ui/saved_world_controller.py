@@ -7,7 +7,7 @@ from typing import Any
 
 from tools.semantic_harness.inspection.rendering import pretty
 from .ui_state_persistence import remember_active_source
-from .selection_surface import save_source_selected
+from .selection_surface import ensure_selection_for_save, save_source_selected
 
 
 def discover_saved_worlds(app: Any) -> None:
@@ -76,7 +76,11 @@ def discover_saved_worlds(app: Any) -> None:
             )
             app._set_controls(True)
 
-    app._start_operation(lambda worker: worker.save_catalog(), finish)
+    app._start_operation(
+        lambda worker: worker.save_catalog(),
+        finish,
+        label="Discovering saved worlds…",
+    )
 
 
 def selected_saved_world_entry(app: Any) -> dict[str, Any] | None:
@@ -174,7 +178,9 @@ def inspect_saved_world(app: Any) -> None:
         app._set_controls(True)
 
     app._start_operation(
-        lambda worker: worker.save_browser(Path(save_path)), finish
+        lambda worker: worker.save_browser(Path(save_path)),
+        finish,
+        label="Reading selected save…",
     )
 
 
@@ -191,48 +197,74 @@ def import_saved_world_target(app: Any) -> None:
         )
         return
 
-    def finish(result: dict[str, Any]) -> None:
-        scenario = result.get("scenario") if isinstance(result, dict) else None
-        if isinstance(scenario, dict):
-            app.scenario = scenario
-            app._sync_workbench_from_scenario(scenario)
-        app._update_simulation_projection(result)
-        app._set_save_backed_mode(True)
-        remember_active_source(
-            app,
-            "SAVE",
-            save_path=str(entry.get("path") or ""),
-            player_id=str(player.get("uuid") or player.get("id") or ""),
-            npc_id=str(npc.get("id") or ""),
+    def start_import() -> None:
+        current_entry = app._selected_saved_world_entry()
+        current_player = getattr(app, "saved_world_player_labels", {}).get(
+            app.saved_world_player_var.get()
         )
-        app._refresh_npc_dossier_if_selected()
-        app.saved_world_target_var.set(
-            f"Loaded Player {player.get('label')} → NPC {npc.get('label')}"
+        current_selection = app.saved_world_tree.selection()
+        current_npc = (
+            app.saved_world_tree_actor_rows.get(current_selection[0])
+            if current_selection
+            else None
         )
-        source = (result.get("sourceSnapshot") or {}).get("metadata", {})
-        app.saved_world_status_var.set(
-            "Imported saved target: "
-            f"{player.get('label')} → {npc.get('label')} · "
-            f"source {source.get('sourceKind', 'SAVE')}"
-        )
-        app._set_text(app.trace, pretty(result))
-        app._append(
-            "SYSTEM",
-            f"Imported saved target {npc.get('label')} from read-only source save.",
-        )
-        app._append(
-            "SYSTEM",
-            "Saved target loaded; click Open conversation to start the native "
-            "Conversation session. Preview is optional and does not send input.",
-        )
-        app._save_ui_state()
-        app.main_tabs.select(app.simulation_tab)
+        if current_entry is None or not current_player or not current_npc:
+            app.saved_world_status_var.set(
+                "Choose a save, Player, and NPC from the World hierarchy first."
+            )
+            return
 
-    app._start_operation(
-        lambda worker: worker.import_saved_selection(
-            Path(str(entry.get("path"))),
-            player_uuid=str(player.get("uuid") or player.get("id")),
-            npc_id=str(npc.get("id")),
-        ),
-        finish,
-    )
+        def finish(result: dict[str, Any]) -> None:
+            scenario = result.get("scenario") if isinstance(result, dict) else None
+            if isinstance(scenario, dict):
+                app.scenario = scenario
+                app._sync_workbench_from_scenario(scenario)
+            app._update_simulation_projection(result)
+            app._set_save_backed_mode(True)
+            remember_active_source(
+                app,
+                "SAVE",
+                save_path=str(current_entry.get("path") or ""),
+                player_id=str(
+                    current_player.get("uuid") or current_player.get("id") or ""
+                ),
+                npc_id=str(current_npc.get("id") or ""),
+            )
+            app._refresh_npc_dossier_if_selected()
+            app.saved_world_target_var.set(
+                f"Loaded Player {current_player.get('label')} → "
+                f"NPC {current_npc.get('label')}"
+            )
+            source = (result.get("sourceSnapshot") or {}).get("metadata", {})
+            app.saved_world_status_var.set(
+                "Imported saved target: "
+                f"{current_player.get('label')} → {current_npc.get('label')} · "
+                f"source {source.get('sourceKind', 'SAVE')}"
+            )
+            app._set_text(app.trace, pretty(result))
+            app._append(
+                "SYSTEM",
+                "Imported saved target "
+                f"{current_npc.get('label')} from read-only source save.",
+            )
+            app._append(
+                "SYSTEM",
+                "Saved target loaded; click Open conversation to start the native "
+                "Conversation session. Preview is optional and does not send input.",
+            )
+            app._save_ui_state()
+            app.main_tabs.select(app.simulation_tab)
+
+        app._start_operation(
+            lambda worker: worker.import_saved_selection(
+                Path(str(current_entry.get("path"))),
+                player_uuid=str(
+                    current_player.get("uuid") or current_player.get("id")
+                ),
+                npc_id=str(current_npc.get("id")),
+            ),
+            finish,
+            label=f"Importing saved NPC {current_npc.get('label') or current_npc.get('id')}…",
+        )
+
+    ensure_selection_for_save(app, start_import)
