@@ -51,6 +51,8 @@ function RuntimeState.new()
         semanticClickReceipts = {},
         loadedModules = {},
         moduleManifest = {},
+        loadedRuntimeBootstraps = { entries = {}, count = 0 },
+        providerBootstrapLogs = {},
         headlessRequires = {},
 
         -- Adopter extension slots. Core preserves these values as opaque state

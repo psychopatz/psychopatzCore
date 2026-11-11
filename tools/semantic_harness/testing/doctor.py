@@ -33,7 +33,7 @@ def run_doctor(
     mods: tuple[str, ...] | None = None,
     preset: str | None = None,
     lua_bin: str | Path | None = None,
-    profile: str = "core",
+    profile: str = "pnc",
     startup_timeout: float = 8.0,
     request_timeout: float = 5.0,
     json_output: bool = False,

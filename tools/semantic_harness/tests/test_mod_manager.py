@@ -5,11 +5,11 @@ import unittest
 from pathlib import Path
 
 from tools.semantic_harness.providers.mod_manager import (
+    CORE_PROVIDER_ID,
     ModManager,
     ModManagerError,
     ProviderSpec,
 )
-from tools.semantic_harness.providers.provider_registry import CORE_PROVIDER_ID
 
 
 def spec(
@@ -161,8 +161,48 @@ class ModManagerTests(unittest.TestCase):
 
         self.assertIn("ProjectHoomans", plan.provider_ids)
         self.assertIn("DTHoomans", plan.provider_ids)
+        self.assertIn("DTCommon", plan.provider_ids)
+        self.assertEqual(
+            [entry["providerID"] for entry in plan.runtime_bootstraps],
+            ["PsychopatzCore", "DTCommon", "DTHoomans"],
+        )
         self.assertNotIn("provider/DTAbstract", plan.modules)
         self.assertIn("provider/DTHoomans", plan.modules)
+
+    def test_live_product_compositions_have_dependency_closed_bootstraps(self) -> None:
+        manager = ModManager.discover(
+            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            repository_roots=(
+                "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
+                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+            ),
+        )
+
+        expected = {
+            "pnc": (
+                ("PsychopatzCore", "ProjectHoomans"),
+                ("PsychopatzCore",),
+            ),
+            "dtabstract": (
+                ("PsychopatzCore", "DTCommon", "DTAbstract"),
+                ("PsychopatzCore", "DTCommon", "DTAbstract"),
+            ),
+            "pnc-with-dthoomans": (
+                ("PsychopatzCore", "ProjectHoomans", "DTCommon", "DTHoomans"),
+                ("PsychopatzCore", "DTCommon", "DTHoomans"),
+            ),
+        }
+        for preset, (providers, bootstrap_providers) in expected.items():
+            with self.subTest(preset=preset):
+                plan = manager.resolve(preset=preset)
+                self.assertEqual(plan.provider_ids, providers)
+                self.assertEqual(
+                    tuple(entry["providerID"] for entry in plan.runtime_bootstraps),
+                    bootstrap_providers,
+                )
+                self.assertTrue(
+                    all(Path(entry["entrypoint"]).is_file() for entry in plan.runtime_bootstraps)
+                )
 
     def test_core_catalog_exposes_only_canonical_presets(self) -> None:
         manager = ModManager.discover(
@@ -174,13 +214,37 @@ class ModManagerTests(unittest.TestCase):
         self.assertEqual(
             preset_ids,
             {
-                "core",
                 "dtabstract",
-                "dthoomans",
                 "pnc",
                 "pnc-with-dthoomans",
             },
         )
+
+    def test_dynamic_trading_hoomans_includes_project_hoomans_dependency(self) -> None:
+        manager = ModManager.discover(
+            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+            repository_roots=(
+                "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
+                "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
+            ),
+        )
+
+        plan = manager.resolve(provider_ids=("DTHoomans",))
+
+        self.assertEqual(
+            plan.provider_ids,
+            ("PsychopatzCore", "ProjectHoomans", "DTCommon", "DTHoomans"),
+        )
+
+    def test_core_is_not_a_standalone_preset(self) -> None:
+        manager = ModManager.discover(
+            core_repository="/home/psychopatz/Zomboid/Workshop/psychopatzCore",
+        )
+
+        with self.assertRaisesRegex(ModManagerError, "not a standalone"):
+            manager.resolve(preset="core")
+        with self.assertRaisesRegex(ModManagerError, "not a standalone"):
+            manager.resolve(provider_ids=(CORE_PROVIDER_ID,))
 
 
 if __name__ == "__main__":

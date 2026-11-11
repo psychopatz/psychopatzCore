@@ -1,1 +1,1 @@
-"""Provider discovery, registry, and composition services."""
+"""Manifest-driven provider discovery and composition services."""

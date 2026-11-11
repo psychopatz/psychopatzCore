@@ -31,11 +31,9 @@ The harness is composed from provider manifests. Named compositions are
 data-defined presets; new providers can be added without changing Core code.
 
 ```text
-core                  PsychopatzCore only
 pnc                   PsychopatzCore + ProjectHoomans
 dtabstract            PsychopatzCore + DTCommon + DTAbstract
-dthoomans             PsychopatzCore + DTCommon + DTHoomans
-pnc-with-dthoomans    ProjectHoomans conversation + DTHoomans trading
+pnc-with-dthoomans    PsychopatzCore + ProjectHoomans + DTCommon + DTHoomans
 ```
 
 Inspect the available providers and presets:
@@ -49,7 +47,7 @@ bash tools/semantic_harness/run_harness.sh --list-presets --jsonl
 
 ```bash
 PYTHONPATH=/path/to/psychopatzCore \
-  python3 -m tools.semantic_harness --preset core --ping --no-gui
+  python3 -m tools.semantic_harness --preset dtabstract --ping --no-gui
 ```
 
 ```bash

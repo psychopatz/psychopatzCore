@@ -28,11 +28,11 @@ def _preset_names() -> tuple[str, ...]:
             return tuple(sorted(str(name) for name in presets))
     except (OSError, json.JSONDecodeError):
         pass
-    return ("core",)
+    return ("pnc",)
 
 
-# Compatibility aliases remain data-defined. Core does not branch on adopter
-# names; the manager resolves the selected preset/provider manifests.
+# Preset aliases remain data-defined. Core does not branch on adopter names;
+# the manager resolves the selected preset/provider manifests.
 PROFILE_ALIASES = {name: name for name in _preset_names()}
 
 
@@ -179,7 +179,7 @@ class HarnessConfig:
     core_repository: Path
     lua_bin: Path
     worker_script: Path
-    profile: str = "core"
+    profile: str = "pnc"
     provider_ids: tuple[str, ...] = ("PsychopatzCore",)
     materialization_mode: str = "none"
     provider_module_paths: tuple[str, ...] = ()
@@ -210,7 +210,7 @@ class HarnessConfig:
         preset: str | None = None,
         lua_bin: str | Path | None = None,
         worker_script: str | Path | None = None,
-        profile: str | None = "core",
+        profile: str | None = "pnc",
         startup_timeout: float = 8.0,
         request_timeout: float = 5.0,
         shutdown_timeout: float = 1.0,
@@ -231,7 +231,7 @@ class HarnessConfig:
             plan = manager.resolve(
                 provider_ids=selected,
                 preset=preset,
-                alias=None if selected or preset else (profile or "core"),
+                alias=None if selected or preset else (profile or "pnc"),
             )
         except ModManagerError as error:
             raise ConfigurationError(str(error)) from error

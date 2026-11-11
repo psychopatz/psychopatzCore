@@ -30,7 +30,7 @@ class WorkerLaunchSpec:
     worker_script: Path
     core_repository: Path
     working_directory: Path | None = None
-    profile: str = "core"
+    profile: str = "pnc"
     provider_ids: tuple[str, ...] = ()
     materialization_mode: str = "none"
     provider_module_paths: tuple[str, ...] = ()

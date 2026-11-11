@@ -1,11 +1,6 @@
 {
   "schema": "semantic.harness.selection_presets.v1",
   "presets": {
-    "core": {
-      "displayName": "PsychopatzCore only",
-      "providers": ["PsychopatzCore"],
-      "materializationMode": "none"
-    },
     "pnc": {
       "displayName": "Project Hoomans",
       "providers": ["ProjectHoomans"],
@@ -18,20 +13,15 @@
       "materializationMode": "abstract",
       "executionProviderID": "DTAbstract"
     },
-    "dthoomans": {
-      "displayName": "Dynamic Trading Hoomans",
-      "providers": ["DTHoomans"],
-      "materializationMode": "physical",
-      "executionProviderID": "DTHoomans"
-    },
     "pnc-with-dthoomans": {
-      "displayName": "Project Hoomans with DTHoomans",
+      "displayName": "Project Hoomans with Dynamic Trading",
       "providers": ["ProjectHoomans", "DTHoomans"],
       "materializationMode": "physical",
       "routes": {
         "semantic.conversation": "ProjectHoomans",
         "semantic.identity": "ProjectHoomans",
         "semantic.interaction": "ProjectHoomans",
+        "semantic.suggestions": "ProjectHoomans",
         "world.discovery": "ProjectHoomans",
         "world.radio": "ProjectHoomans",
         "trading.conversation": "DTHoomans",

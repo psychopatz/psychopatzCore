@@ -7,6 +7,11 @@ import unittest
 from pathlib import Path
 
 from tools.semantic_harness.transport.protocol import decode_message, encode_request
+from tools.semantic_harness.runtime.config import (
+    HarnessConfig,
+    build_worker_launch_spec,
+)
+from tools.semantic_harness.transport.process import LuaProcess
 
 
 CORE_ROOT = Path(__file__).resolve().parents[3]
@@ -14,6 +19,34 @@ WORKER = CORE_ROOT / "tools/semantic_harness/lua/worker.lua"
 
 
 class CoreWorkerTests(unittest.TestCase):
+    def test_dtabstract_loads_live_core_and_dynamic_trading_bootstraps(self) -> None:
+        config = HarnessConfig.discover(
+            core_repository=CORE_ROOT,
+            dynamic_trading_repository=CORE_ROOT.parent / "DynamicTrading",
+            preset="dtabstract",
+            lua_bin="lua",
+        )
+        runtime = LuaProcess(build_worker_launch_spec(config))
+        try:
+            hello = runtime.start()
+            self.assertEqual(
+                hello["providers"],
+                ["PsychopatzCore", "DTCommon", "DTAbstract"],
+            )
+            self.assertEqual(
+                [
+                    entry["providerID"]
+                    for entry in hello["runtimeBootstraps"]["entries"]
+                ],
+                ["PsychopatzCore", "DTCommon", "DTAbstract"],
+            )
+            self.assertEqual(
+                hello["providerAdapters"][0]["providerID"],
+                "DTAbstract",
+            )
+        finally:
+            runtime.close()
+
     def test_core_worker_boots_without_adopters(self) -> None:
         process = subprocess.Popen(
             ["lua", str(WORKER), str(CORE_ROOT)],

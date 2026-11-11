@@ -7,7 +7,10 @@ from typing import Any
 
 from tools.semantic_harness.core.worker_session import WorkerReady
 from tools.semantic_harness.inspection.rendering import pretty
-from tools.semantic_harness.providers.mod_manager import ModManagerError
+from tools.semantic_harness.providers.mod_manager import (
+    CORE_PROVIDER_ID,
+    ModManagerError,
+)
 from tools.semantic_harness.runtime.scenario import load_scenario
 from tools.semantic_harness.runtime.worker import LuaSemanticWorker
 
@@ -136,6 +139,8 @@ def build_selection_surface(app: Any, parent: Any, ttk: Any, scrolled_text: Any)
     app.selection_provider_ids_by_label: dict[str, str] = {}
     provider_labels: list[str] = []
     for provider in app.selection_manager.providers():
+        if provider.provider_id == CORE_PROVIDER_ID:
+            continue
         label = f"{provider.display_name} · {provider.provider_id}"
         provider_labels.append(label)
         app.selection_provider_ids_by_label[label] = provider.provider_id
@@ -191,7 +196,7 @@ def build_selection_surface(app: Any, parent: Any, ttk: Any, scrolled_text: Any)
         wanted = str(
             getattr(app.arguments, "preset", None)
             or getattr(app.arguments, "profile", None)
-            or "core"
+            or "pnc"
         ).strip()
         wanted_label = next(
             (
@@ -279,7 +284,7 @@ def validate_selection(app: Any) -> dict[str, Any] | None:
 
 def _selection_worker_kwargs(app: Any, request: dict[str, Any]) -> dict[str, Any]:
     kwargs = app._worker_kwargs()
-    kwargs["profile"] = "core"
+    kwargs["profile"] = str(request.get("presetID") or "pnc")
     kwargs["preset"] = request.get("presetID")
     kwargs["mods"] = (
         tuple(request["providerIDs"])

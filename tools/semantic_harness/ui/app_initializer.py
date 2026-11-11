@@ -87,8 +87,8 @@ def initialize_app(app: Any, root: Any, arguments: argparse.Namespace) -> None:
     selected_profile = str(
         getattr(arguments, "preset", None)
         or getattr(arguments, "profile", None)
-        or "core"
-    ).strip() or "core"
+        or "pnc"
+    ).strip() or "pnc"
     root.title(f"Semantic Lab — {selected_profile}")
     root.minsize(1080, 700)
     screen_width = root.winfo_screenwidth()

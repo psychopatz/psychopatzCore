@@ -1,8 +1,8 @@
 -- Minimal Core-only semantic harness worker.
 --
--- This is the first executable migration seam. It intentionally loads only
--- PsychopatzCore and provides a small lifecycle surface while the full
--- authoring/runtime application moves behind the provider registry.
+-- This direct worker is an infrastructure diagnostic. Product compositions
+-- are selected through Core's manifest manager and loaded by the same worker
+-- path with live provider bootstraps.
 
 local coreRepository = arg[1]
     or os.getenv("SEMANTIC_HARNESS_CORE_REPOSITORY")
@@ -25,8 +25,6 @@ if coreRuntime and coreRuntime ~= "" then
     )
 end
 packagePaths[#packagePaths + 1] = path(coreRepository, "tools/semantic_harness/lua/?.lua")
-packagePaths[#packagePaths + 1] = path(coreRepository, "Contents/mods/PsychopatzCore/common/media/lua/client/?.lua")
-packagePaths[#packagePaths + 1] = path(coreRepository, "Contents/mods/PsychopatzCore/" .. (coreRuntime or "") .. "/media/lua/client/?.lua")
 package.path = table.concat(packagePaths, ";") .. ";" .. package.path
 
 local Protocol = require "Protocol"
@@ -54,6 +52,25 @@ local profileID = launch.profile
 local selectedProviders = launch.providers
 local materializationMode = launch.materializationMode
 
+ProviderLoader.installActivationGlobals(selectedProviders)
+local bootstrapLogs = {}
+print = function(...)
+    bootstrapLogs[#bootstrapLogs + 1] = table.concat({ ... }, " ")
+end
+-- Core is infrastructure for every composition.  Load its shared
+-- composition before any manifest-selected adopter bootstrap so capability
+-- packs such as DTCommon can resolve through the real Core kernel.
+require "PsychopatzCore/Composition/PC_SharedComposition"
+ProviderLoader.extendRuntimePackagePaths(
+    packagePaths,
+    providerLaunch.runtimeBootstraps
+)
+package.path = table.concat(packagePaths, ";") .. ";" .. package.path
+local runtimeLoad, runtimeLoadReason = ProviderLoader.loadRuntime(providerLaunch)
+if not runtimeLoad then
+    error(runtimeLoadReason)
+end
+
 local Runtime = RuntimeState.new()
 local Context = {
     repository = repository,
@@ -62,7 +79,14 @@ local Context = {
     profile = profileID,
     providers = selectedProviders,
     materializationMode = materializationMode,
+    activeProviders = selectedProviders,
+    runtimeBootstraps = runtimeLoad,
 }
+Runtime.launchProfile = profileID
+Runtime.launchProviders = selectedProviders
+Runtime.launchMaterializationMode = materializationMode
+Runtime.loadedRuntimeBootstraps = runtimeLoad
+Runtime.providerBootstrapLogs = bootstrapLogs
 
 local function callbackContext(context)
     return {
@@ -161,6 +185,8 @@ local function hello()
             materializationMode = materializationMode,
         },
         providerAdapters = providerRuntime.descriptions,
+        runtimeBootstraps = runtimeLoad,
+        providerBootstrapLogs = bootstrapLogs,
         executionProviderID = providerRuntime.executionProviderID,
         routes = providerRuntime.routes,
         activationPlan = providerRuntime.activationPlan,

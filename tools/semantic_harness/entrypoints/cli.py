@@ -446,7 +446,7 @@ def cli(arguments: argparse.Namespace) -> int:
                 provider_roots=tuple(getattr(arguments, "provider_root", None) or ()),
                 mods=_selected_mods(arguments),
                 preset=getattr(arguments, "preset", None),
-                profile=getattr(arguments, "profile", "core"),
+                profile=getattr(arguments, "profile", "pnc"),
             )
             _print_result(config.activation_plan or {}, arguments.jsonl)
             return 0
@@ -1088,8 +1088,8 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--core-repository", help="PsychopatzCore repository")
     parser.add_argument(
         "--profile",
-        default="core",
-        help="compatibility profile alias; use --preset or --mods for composition",
+        default="pnc",
+        help="composition alias; use --preset or --mods for provider selection",
     )
     parser.add_argument("--preset", help="manifest-driven provider selection preset")
     parser.add_argument(

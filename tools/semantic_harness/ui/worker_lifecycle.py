@@ -15,7 +15,7 @@ def worker_kwargs(app: Any) -> dict[str, Any]:
         "core_repository": Path(app.arguments.core_repository)
         if app.arguments.core_repository
         else None,
-        "profile": getattr(app.arguments, "profile", "core"),
+        "profile": getattr(app.arguments, "profile", "pnc"),
         "preset": getattr(app.arguments, "preset", None),
         "mods": getattr(app.arguments, "mods", None),
         "provider_roots": tuple(getattr(app.arguments, "provider_root", None) or ()),

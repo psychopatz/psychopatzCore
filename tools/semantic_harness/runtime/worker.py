@@ -43,7 +43,7 @@ class LuaSemanticWorker:
                 preset=kwargs.get("preset"),
                 lua_bin=kwargs.get("lua_bin"),
                 worker_script=kwargs.get("worker_script"),
-                profile=kwargs.get("profile", "core"),
+                profile=kwargs.get("profile", "pnc"),
                 startup_timeout=kwargs.get("startup_timeout", 8.0),
                 request_timeout=kwargs.get("request_timeout", 5.0),
                 shutdown_timeout=kwargs.get("shutdown_timeout", 1.0),

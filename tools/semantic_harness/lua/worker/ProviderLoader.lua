@@ -7,6 +7,8 @@
 
 local ProviderLoader = {}
 
+local Json = require "PsychopatzCore/Serialization/PsychopatzJson"
+
 local function environment(name)
     if os and type(os.getenv) == "function" then
         return os.getenv(name)
@@ -46,8 +48,25 @@ local function routes(value)
     return result
 end
 
+local function activationPlan(defaults)
+    local encoded = environment("SEMANTIC_HARNESS_ACTIVATION_PLAN")
+    if type(encoded) == "string" and encoded ~= "" then
+        local decoded, reason = Json.Decode(encoded)
+        if type(decoded) ~= "table" then
+            error("invalid semantic harness activation plan: " .. tostring(reason))
+        end
+        return decoded, encoded
+    end
+    if type(defaults.activationPlan) == "table" then
+        return defaults.activationPlan, nil
+    end
+    return {}, nil
+end
+
 function ProviderLoader.readConfiguration(defaults)
     defaults = type(defaults) == "table" and defaults or {}
+    local plan, encodedPlan = activationPlan(defaults)
+    local moduleDocument = type(plan.modules) == "table" and plan.modules or {}
     local modulePaths = split(
         environment("SEMANTIC_HARNESS_PROVIDER_MODULE_PATHS"),
         ";"
@@ -59,12 +78,18 @@ function ProviderLoader.readConfiguration(defaults)
     if #modulePaths == 0 and type(defaults.modulePaths) == "table" then
         modulePaths = defaults.modulePaths
     end
+    if #modulePaths == 0 and type(moduleDocument.paths) == "table" then
+        modulePaths = moduleDocument.paths
+    end
     if #modules == 0 and type(defaults.modules) == "table" then
         modules = defaults.modules
     end
+    if #modules == 0 and type(moduleDocument.names) == "table" then
+        modules = moduleDocument.names
+    end
     local executionProviderID = environment(
         "SEMANTIC_HARNESS_EXECUTION_PROVIDER_ID"
-    ) or defaults.executionProviderID
+    ) or defaults.executionProviderID or plan.executionProviderID
     if type(executionProviderID) == "string" then
         executionProviderID = string.gsub(executionProviderID, "^%s+", "")
         executionProviderID = string.gsub(executionProviderID, "%s+$", "")
@@ -76,12 +101,20 @@ function ProviderLoader.readConfiguration(defaults)
     if next(routeTable) == nil and type(defaults.routes) == "table" then
         routeTable = defaults.routes
     end
+    if next(routeTable) == nil and type(plan.routes) == "table" then
+        routeTable = plan.routes
+    end
     return {
         modulePaths = modulePaths,
         modules = modules,
         executionProviderID = executionProviderID,
         routes = routeTable,
-        activationPlan = environment("SEMANTIC_HARNESS_ACTIVATION_PLAN"),
+        runtimeBootstraps = type(plan.runtimeBootstraps) == "table"
+            and plan.runtimeBootstraps
+            or defaults.runtimeBootstraps
+            or {},
+        activationPlan = plan,
+        activationPlanJSON = encodedPlan,
     }
 end
 
@@ -92,6 +125,80 @@ function ProviderLoader.extendPackagePaths(packagePaths, modulePaths)
         end
     end
     return packagePaths
+end
+
+function ProviderLoader.extendRuntimePackagePaths(packagePaths, bootstraps)
+    for _, bootstrap in ipairs(type(bootstraps) == "table" and bootstraps or {}) do
+        ProviderLoader.extendPackagePaths(packagePaths, bootstrap.modulePaths)
+    end
+    return packagePaths
+end
+
+function ProviderLoader.installActivationGlobals(selectedProviders)
+    local active = {}
+    for _, providerID in ipairs(
+        type(selectedProviders) == "table" and selectedProviders or {}
+    ) do
+        active[tostring(providerID)] = true
+    end
+    -- The real game supplies getActivatedMods.  The headless worker supplies
+    -- the same observation contract from the validated activation plan before
+    -- provider bootstraps execute, so conflict policies cannot depend on
+    -- fixture scenario data.
+    getActivatedMods = function()
+        return {
+            contains = function(_, providerID)
+                return active[tostring(providerID or "")] == true
+            end,
+        }
+    end
+    return active
+end
+
+function ProviderLoader.loadRuntime(configuration)
+    configuration = type(configuration) == "table" and configuration or {}
+    local loaded = {}
+    for _, bootstrap in ipairs(configuration.runtimeBootstraps or {}) do
+        local entrypoint = type(bootstrap) == "table"
+            and tostring(bootstrap.entrypoint or "")
+            or ""
+        local required = type(bootstrap) ~= "table"
+            or bootstrap.required ~= false
+        local bootstrapID = type(bootstrap) == "table"
+            and tostring(bootstrap.id or "")
+            or ""
+        if entrypoint == "" then
+            if required then
+                return nil, "runtime_bootstrap_entrypoint_missing:" .. bootstrapID
+            end
+        else
+            local handle = io.open(entrypoint, "rb")
+            if not handle then
+                if required then
+                    return nil, "runtime_bootstrap_file_missing:" .. entrypoint
+                end
+            else
+                handle:close()
+                -- A manifest-selected repository is an external provider
+                -- boundary. Keep its startup failure bounded and report it
+                -- through the normal worker handshake.
+                local ok, reason = pcall(dofile, entrypoint)
+                if not ok then
+                    return nil, "runtime_bootstrap_failed:" .. bootstrapID
+                        .. ":" .. tostring(reason)
+                end
+                loaded[#loaded + 1] = {
+                    id = bootstrapID,
+                    providerID = type(bootstrap) == "table"
+                        and bootstrap.providerID
+                        or nil,
+                    entrypoint = entrypoint,
+                    status = "loaded",
+                }
+            end
+        end
+    end
+    return { entries = loaded, count = #loaded }
 end
 
 local function contains(values, wanted)

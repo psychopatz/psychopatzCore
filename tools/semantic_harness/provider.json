@@ -1,0 +1,36 @@
+{
+  "schema": "semantic.provider_manifest.v2",
+  "providerID": "PsychopatzCore",
+  "displayName": "PsychopatzCore infrastructure",
+  "repositoryKind": "core",
+  "providers": [
+    {
+      "providerID": "PsychopatzCore",
+      "displayName": "PsychopatzCore infrastructure",
+      "repositoryKind": "core",
+      "capabilities": [
+        "semantic.parse",
+        "semantic.ir",
+        "semantic.conversation"
+      ],
+      "routeClaims": {
+        "semantic.parse": 0,
+        "semantic.ir": 0
+      },
+      "materializationModes": ["none", "abstract", "physical"],
+      "optional": false,
+      "runtimeModules": ["PsychopatzCore"],
+      "runtimeBootstrap": [
+        {
+          "id": "PsychopatzCore.shared",
+          "entrypoint": "${repository}/Contents/mods/PsychopatzCore/${runtime:PsychopatzCore}/media/lua/shared/PsychopatzCore/00_PsychopatzCore_Init.lua",
+          "modulePaths": [
+            "${repository}/Contents/mods/PsychopatzCore/common/media/lua/shared/?.lua",
+            "${repository}/Contents/mods/PsychopatzCore/${runtime:PsychopatzCore}/media/lua/shared/?.lua"
+          ],
+          "required": true
+        }
+      ]
+    }
+  ]
+}
