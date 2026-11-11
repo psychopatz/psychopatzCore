@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.health",
+  "kind": "content",
   "domain": "health",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
   "groups": {
     "facts": {
       "contentOwner": "projecthoomans.dialogue_content.facts"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "facts",
@@ -332,12 +336,5 @@
       }
     }
   ],
-  "playerChoices": [],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Dialogue Content Registry",
-    "version": "3"
-  },
-  "version": 1
+  "playerChoices": []
 }

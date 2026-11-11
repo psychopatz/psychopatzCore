@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.event.combat.horde.reactions",
+  "kind": "content",
   "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.horde.combat.reaction.content.6b85f7eeca",
   "groups": {
     "events": {
       "contentOwner": "projecthoomans.dialogue_content.events"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "events",
@@ -205,12 +209,5 @@
         ]
       }
     }
-  ],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Horde Combat Reaction Content",
-    "version": "1"
-  },
-  "version": 1
+  ]
 }

@@ -1,4 +1,10 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.beats.social.argument.escalation",
+  "kind": "beats",
+  "domain": "social",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.d587a67cc2",
   "beats": [
     {
       "baseRelevance": 0.7,
@@ -67,14 +73,5 @@
       ],
       "version": 1
     }
-  ],
-  "domain": "social",
-  "kind": "beats",
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Pragmatic Interaction",
-    "version": "1"
-  },
-  "version": 1
+  ]
 }

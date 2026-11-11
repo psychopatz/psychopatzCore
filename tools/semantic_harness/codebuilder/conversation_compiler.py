@@ -64,7 +64,7 @@ from .generation_ownership import (
 
 
 CONVERSATION_MANIFEST_SCHEMA = "pnc.conversation.manifest.v1"
-CONVERSATION_SHARD_SCHEMA = "pnc.conversation.shard.v1"
+CONVERSATION_SHARD_SCHEMA = "psychopatz.semantic.shard.v2"
 CONVERSATION_MODEL_SCHEMA = "pnc.conversation.model.v1"
 CONVERSATION_SOURCE_RELATIVE = Path(
     "tools/semantic_harness/codebuilder/sources/conversation"
@@ -153,8 +153,23 @@ def _manifest_entry(raw, *, label, root, seen_paths):
     path = root / Path(*PurePosixPath(path_value).parts)
     if not path.is_file():
         raise CompileError(f"Conversation manifest shard is missing: {path_value}")
+    try:
+        owner = normalize_owner(raw.get("owner"))
+    except OwnerConfigurationError as error:
+        raise CompileError(f"{label}.owner is required: {error}") from error
+    shard_id = _validate_id(raw.get("shardId"), f"{label}.shardId")
+    source_profile = _validate_id(raw.get("sourceProfile"), f"{label}.sourceProfile")
     seen_paths.add(path_value)
-    return {**_copy_json(raw), "path": path_value, "kind": kind, "domain": domain, "order": order}
+    return {
+        **_copy_json(raw),
+        "path": path_value,
+        "kind": kind,
+        "domain": domain,
+        "order": order,
+        "owner": owner,
+        "shardId": shard_id,
+        "sourceProfile": source_profile,
+    }
 
 
 def _source_root_entries(manifest, *, root, seen_paths):
@@ -180,10 +195,20 @@ def _source_root_entries(manifest, *, root, seen_paths):
         order = raw.get("order")
         if isinstance(order, bool) or not isinstance(order, int) or order < 0:
             raise CompileError(f"{label}.order must be a non-negative integer")
+        try:
+            owner = normalize_owner(raw.get("owner"))
+        except OwnerConfigurationError as error:
+            raise CompileError(f"{label}.owner is required: {error}") from error
         directory = root / Path(*PurePosixPath(root_path).parts)
         if not directory.is_dir():
             raise CompileError(f"Conversation source root is missing: {root_path}")
-        roots.append({"path": root_path, "kind": kind, "domain": domain, "order": order})
+        roots.append({
+            "path": root_path,
+            "kind": kind,
+            "domain": domain,
+            "order": order,
+            "owner": owner,
+        })
     if roots != sorted(roots, key=lambda item: (item["order"], item["path"])):
         raise CompileError("Conversation sourceRoots must use canonical order")
     entries = []
@@ -207,6 +232,7 @@ def _source_root_entries(manifest, *, root, seen_paths):
                 "kind": source_root["kind"],
                 "domain": source_root["domain"],
                 "order": source_root["order"],
+                "owner": source_root["owner"],
                 "discoveredFrom": source_root["path"],
             })
     return entries
@@ -239,6 +265,13 @@ def _load_manifest(
         raise CompileError(f"invalid Conversation manifest ownership: {error}") from error
     manifest["defaultOwner"] = default_owner
     manifest["registryOwner"] = registry_owner
+    source_profiles = manifest.get("sourceProfiles")
+    if not isinstance(source_profiles, dict) or not source_profiles:
+        raise CompileError("Conversation manifest requires non-empty sourceProfiles")
+    for profile_id, profile in source_profiles.items():
+        _validate_id(profile_id, "Conversation manifest sourceProfiles key")
+        if not isinstance(profile, dict):
+            raise CompileError(f"Conversation source profile {profile_id} must be an object")
     shards = manifest.get("shards")
     if not isinstance(shards, list) or not shards:
         raise CompileError("Conversation manifest requires at least one shard")
@@ -265,6 +298,13 @@ def _load_manifest(
         )
     except SourceManifestError as error:
         raise CompileError(str(error)) from error
+    for entry in external_entries:
+        entry["shardId"] = _validate_id(
+            entry.get("shardId"), f"external shard {entry['path']}.shardId"
+        )
+        entry["sourceProfile"] = _validate_id(
+            entry.get("sourceProfile"), f"external shard {entry['path']}.sourceProfile"
+        )
     entries = sorted(
         [*explicit_entries, *discovered_entries, *external_entries],
         key=lambda item: (item["order"], item["path"]),
@@ -937,6 +977,34 @@ def _hydrate_catalog_translations(
     walk(document)
 
 
+def _hydrate_shard_provenance(
+    document: dict[str, Any],
+    entry: Mapping[str, Any],
+    source_profiles: Mapping[str, Any],
+) -> None:
+    """Reconstruct compiler-only provenance from the v2 manifest index."""
+
+    path = str(entry.get("path", "<shard>"))
+    if document.get("schema") != CONVERSATION_SHARD_SCHEMA:
+        raise CompileError(f"Conversation shard {path} requires schema {CONVERSATION_SHARD_SCHEMA}")
+    if entry.get("shardId") is not None and document.get("shardId") != entry.get("shardId"):
+        raise CompileError(f"Conversation shard {path} does not match its manifest shardId")
+    if document.get("owner") != entry.get("owner"):
+        raise CompileError(f"Conversation shard {path} does not match its manifest owner")
+    profile_id = document.get("sourceProfile")
+    if entry.get("sourceProfile") is not None and profile_id != entry.get("sourceProfile"):
+        raise CompileError(f"Conversation shard {path} does not match its manifest sourceProfile")
+    profile = source_profiles.get(profile_id)
+    if not isinstance(profile, dict):
+        raise CompileError(f"Conversation shard {path} references unknown sourceProfile {profile_id!r}")
+    # The compiler's domain validators still consume a normalized provenance
+    # object. It is reconstructed in memory only; the authoring shard remains
+    # free of the old inline source envelope.
+    document["source"] = _copy_json(profile)
+    document["source"].setdefault("owner", entry["owner"])
+    document["version"] = document["source"].get("version", "1")
+
+
 def _compile_shard(
     document: dict[str, Any],
     entry: dict[str, Any],
@@ -1219,6 +1287,7 @@ def compile_conversation_sources(
         package_repositories=resolved_package_repositories,
     )
     def compile_shard(document: dict[str, Any], entry: dict[str, Any]) -> Any:
+        _hydrate_shard_provenance(document, entry, manifest["sourceProfiles"])
         return _compile_shard(
             document,
             entry,
@@ -1228,12 +1297,8 @@ def compile_conversation_sources(
             package_repositories=resolved_package_repositories,
         )
 
-    def owner_for(document: dict[str, Any], _entry: dict[str, Any]) -> str:
-        source_meta = document.get("source")
-        return normalize_owner(
-            source_meta.get("owner") if isinstance(source_meta, dict) else None,
-            default=manifest["defaultOwner"],
-        )
+    def owner_for(_document: dict[str, Any], entry: dict[str, Any]) -> str:
+        return normalize_owner(entry.get("owner"))
 
     loaded, shard_reports, source_documents = assemble_shards(
         entries,
@@ -1268,10 +1333,8 @@ def compile_conversation_sources(
     for document, entry, _fingerprint_value in loaded:
         if entry["kind"] != "packs":
             continue
-        source_meta = document.get("source") if isinstance(document, dict) else None
         owner = normalize_owner(
-            source_meta.get("owner") if isinstance(source_meta, dict) else None,
-            default=manifest["defaultOwner"],
+            entry.get("owner"),
         )
         for pack in document.get("packs", []):
             record = _copy_json(pack)
@@ -1288,13 +1351,9 @@ def compile_conversation_sources(
     locations: dict[str, dict[str, Any]] = {}
     for document, entry, _fingerprint_value in loaded:
         path = entry["path"]
-        source_meta = document.get("source") if isinstance(document, dict) else None
         entry = {
             **entry,
-            "owner": normalize_owner(
-                source_meta.get("owner") if isinstance(source_meta, dict) else None,
-                default=manifest["defaultOwner"],
-            ),
+            "owner": normalize_owner(entry.get("owner")),
         }
         if entry["kind"] == "content":
             for family in document.get("phraseFamilies", []):

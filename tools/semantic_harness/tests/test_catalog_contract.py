@@ -26,6 +26,7 @@ class CatalogContractTests(unittest.TestCase):
             "kind": "content",
             "domain": "social.reactions",
             "owner": "PsychopatzCore",
+            "sourceProfile": "conversation.source.core.1234567890",
             "records": [
                 {"id": "greeting.001", "translationKey": "conversation.greeting.001"}
             ],

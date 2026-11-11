@@ -24,187 +24,280 @@
       "domain": "greeting",
       "kind": "content",
       "order": 1200,
-      "path": "content/greeting.json"
+      "path": "content/greeting.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.greeting",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "social",
       "kind": "content",
       "order": 1301,
-      "path": "content/social/reactions.json"
+      "path": "content/social/reactions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.social.reactions",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "conversation",
       "kind": "content",
       "order": 1310,
-      "path": "content/conversation.json"
+      "path": "content/conversation.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.conversation",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "apology",
       "kind": "content",
       "order": 1320,
-      "path": "content/social_apology.json"
+      "path": "content/social_apology.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.social.apology",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "health",
       "kind": "content",
       "order": 1330,
-      "path": "content/health.json"
+      "path": "content/health.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.health",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "knowledge",
       "kind": "content",
       "order": 1340,
-      "path": "content/knowledge.json"
+      "path": "content/knowledge.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.knowledge",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "wellbeing",
       "kind": "content",
       "order": 1350,
-      "path": "content/wellbeing.json"
+      "path": "content/wellbeing.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.wellbeing",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "needs",
       "kind": "content",
       "order": 1370,
-      "path": "content/needs.json"
+      "path": "content/needs.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.needs",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "navigation",
       "kind": "content",
       "order": 1390,
-      "path": "content/navigation.json"
+      "path": "content/navigation.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.navigation",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "command",
       "kind": "content",
       "order": 1400,
-      "path": "content/command/player.json"
+      "path": "content/command/player.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.command.player",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "command",
       "kind": "content",
       "order": 1401,
-      "path": "content/command/replies.json"
+      "path": "content/command/replies.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.command.replies",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "event",
       "kind": "content",
       "order": 1500,
-      "path": "content/event/medical.json"
+      "path": "content/event/medical.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.event.medical",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "event",
       "kind": "content",
       "order": 1501,
-      "path": "content/event/reactions.json"
+      "path": "content/event/reactions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.event.reactions",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "event",
       "kind": "content",
       "order": 1502,
-      "path": "content/event/combat_kill_witness_reactions.json"
+      "path": "content/event/combat_kill_witness_reactions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.event.combat.kill.witness.reactions",
+      "sourceProfile": "conversation.source.project.hoomans.combat.kill.witness.reaction.content.821cb843df"
     },
     {
       "domain": "event",
       "kind": "content",
       "order": 1503,
-      "path": "content/event/combat_kill_killer_reactions.json"
+      "path": "content/event/combat_kill_killer_reactions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.event.combat.kill.killer.reactions",
+      "sourceProfile": "conversation.source.project.hoomans.combat.kill.killer.reaction.content.2964fec4fc"
     },
     {
       "domain": "event",
       "kind": "content",
       "order": 1504,
-      "path": "content/event/combat_horde_reactions.json"
+      "path": "content/event/combat_horde_reactions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.event.combat.horde.reactions",
+      "sourceProfile": "conversation.source.project.hoomans.horde.combat.reaction.content.6b85f7eeca"
     },
     {
       "domain": "combat",
       "kind": "content",
       "order": 1510,
-      "path": "content/combat/player_assault_reactions.json"
+      "path": "content/combat/player_assault_reactions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.combat.player.assault.reactions",
+      "sourceProfile": "conversation.source.project.hoomans.combat.reaction.content.7c2490ce89"
     },
     {
       "domain": "combat_banter",
       "kind": "content",
       "order": 1550,
-      "path": "content/combat_banter/weapon_kill_reactions.json"
+      "path": "content/combat_banter/weapon_kill_reactions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.combat.banter.weapon.kill.reactions",
+      "sourceProfile": "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58"
     },
     {
       "domain": "combat_human_banter",
       "kind": "content",
       "order": 1560,
-      "path": "content/combat_human_banter/human_kill_reactions.json"
+      "path": "content/combat_human_banter/human_kill_reactions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.combat.human.banter.human.kill.reactions",
+      "sourceProfile": "conversation.source.project.hoomans.hostile.human.kill.banter.e965e02b70"
     },
     {
       "domain": "compatibility",
       "kind": "content",
       "order": 1600,
-      "path": "content/compatibility.json"
+      "path": "content/compatibility.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.compatibility",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "quest",
       "kind": "content",
       "order": 1650,
-      "path": "content/quest.json"
+      "path": "content/quest.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.content.quest",
+      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
       "domain": "common",
       "kind": "patterns",
       "order": 1800,
-      "path": "patterns/common/greeting_whats_up.json"
+      "path": "patterns/common/greeting_whats_up.json",
+      "owner": "PsychopatzCore",
+      "shardId": "conversation.patterns.common.greeting.whats.up",
+      "sourceProfile": "conversation.source.psychopatzcore.common.interaction.seed.90325218e8"
     },
     {
       "domain": "common",
       "kind": "patterns",
       "order": 1801,
-      "path": "patterns/common/wellbeing_activity.json"
+      "path": "patterns/common/wellbeing_activity.json",
+      "owner": "PsychopatzCore",
+      "shardId": "conversation.patterns.common.wellbeing.activity",
+      "sourceProfile": "conversation.source.psychopatzcore.common.interaction.seed.90325218e8"
     },
     {
       "domain": "common",
       "kind": "patterns",
       "order": 1804,
-      "path": "patterns/common/weather_needs.json"
+      "path": "patterns/common/weather_needs.json",
+      "owner": "PsychopatzCore",
+      "shardId": "conversation.patterns.common.weather.needs",
+      "sourceProfile": "conversation.source.psychopatzcore.common.interaction.seed.90325218e8"
     },
     {
       "domain": "common",
       "kind": "responses",
       "order": 1900,
-      "path": "flows/common/social.json"
+      "path": "flows/common/social.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.responses.common.social",
+      "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
     },
     {
       "domain": "common",
       "kind": "responses",
       "order": 1901,
-      "path": "flows/common/questions.json"
+      "path": "flows/common/questions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.responses.common.questions",
+      "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
     },
     {
       "domain": "common",
       "kind": "responses",
       "order": 1902,
-      "path": "flows/common/needs_weather.json"
+      "path": "flows/common/needs_weather.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.responses.common.needs.weather",
+      "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
     },
     {
       "domain": "grounded_personal",
       "kind": "patterns",
       "order": 2000,
-      "path": "patterns/grounded_personal.json"
+      "path": "patterns/grounded_personal.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.patterns.grounded.personal",
+      "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de"
     },
     {
       "domain": "grounded_personal",
       "kind": "responses",
       "order": 2100,
-      "path": "flows/grounded_personal_responses.json"
+      "path": "flows/grounded_personal_responses.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.responses.grounded.personal.responses",
+      "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de"
     },
     {
       "domain": "semantic",
       "kind": "flows",
       "order": 2200,
-      "path": "flows/semantic_flows.json"
+      "path": "flows/semantic_flows.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.flows.semantic.flows",
+      "sourceProfile": "conversation.source.projecthoomans.8378f35867"
     },
     {
       "domain": "static_suggestions",
       "kind": "ui",
       "order": 2301,
-      "path": "ui/static_suggestions.json"
+      "path": "ui/static_suggestions.json",
+      "owner": "ProjectHoomans",
+      "shardId": "conversation.ui.static.suggestions",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "externalShards": [
@@ -214,7 +307,9 @@
       "order": 1802,
       "owner": "PsychopatzCore",
       "path": "patterns/common/identity.json",
-      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/patterns/common/identity.json"
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/patterns/common/identity.json",
+      "shardId": "conversation.patterns.common.identity",
+      "sourceProfile": "conversation.source.psychopatzcore.common.interaction.seed.90325218e8"
     },
     {
       "domain": "common",
@@ -222,7 +317,9 @@
       "order": 1803,
       "owner": "PsychopatzCore",
       "path": "patterns/common/identity_facets.json",
-      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/patterns/common/identity_facets.json"
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/patterns/common/identity_facets.json",
+      "shardId": "conversation.patterns.common.identity.facets",
+      "sourceProfile": "conversation.source.psychopatzcore.identity.facets.2d5d841ade"
     },
     {
       "domain": "dynamic_trading",
@@ -231,7 +328,9 @@
       "optional": true,
       "owner": "DTCommon",
       "path": "packs/dynamic_trading.json",
-      "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/packs/dynamic_trading.json"
+      "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/packs/dynamic_trading.json",
+      "shardId": "conversation.packs.dynamic.trading",
+      "sourceProfile": "conversation.source.dtcommon.247519f6f9"
     },
     {
       "domain": "static_suggestions",
@@ -239,7 +338,9 @@
       "order": 2300,
       "owner": "PsychopatzCore",
       "path": "ui/static_suggestions_core.json",
-      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/ui/static_suggestions_core.json"
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/ui/static_suggestions_core.json",
+      "shardId": "conversation.ui.static.suggestions.core",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     }
   ],
   "source": {
@@ -252,56 +353,360 @@
       "domain": "social",
       "kind": "content",
       "order": 1300,
-      "path": "content/social/emotes"
+      "path": "content/social/emotes",
+      "owner": "ProjectHoomans"
     },
     {
       "domain": "social",
       "kind": "content",
       "order": 1302,
-      "path": "content/social/tool_replies"
+      "path": "content/social/tool_replies",
+      "owner": "ProjectHoomans"
     },
     {
       "domain": "social",
       "kind": "content",
       "order": 1303,
-      "path": "content/social/interaction"
+      "path": "content/social/interaction",
+      "owner": "ProjectHoomans"
     },
     {
       "domain": "command",
       "kind": "content",
       "order": 1402,
-      "path": "content/command/lifecycle"
+      "path": "content/command/lifecycle",
+      "owner": "ProjectHoomans"
     },
     {
       "domain": "task",
       "kind": "content",
       "order": 1700,
-      "path": "content/task/lifecycle"
+      "path": "content/task/lifecycle",
+      "owner": "ProjectHoomans"
     },
     {
       "domain": "task",
       "kind": "content",
       "order": 1701,
-      "path": "content/task/tool_replies"
+      "path": "content/task/tool_replies",
+      "owner": "ProjectHoomans"
     },
     {
       "domain": "social",
       "kind": "behaviors",
       "order": 2250,
-      "path": "behaviors/social"
+      "path": "behaviors/social",
+      "owner": "ProjectHoomans"
     },
     {
       "domain": "social",
       "kind": "beats",
       "order": 2260,
-      "path": "beats/social"
+      "path": "beats/social",
+      "owner": "ProjectHoomans"
     },
     {
       "domain": "social",
       "kind": "realization",
       "order": 2270,
-      "path": "realization/social"
+      "path": "realization/social",
+      "owner": "ProjectHoomans"
     }
   ],
-  "version": 1
+  "version": 1,
+  "sourceProfiles": {
+    "conversation.source.dtcommon.247519f6f9": {
+      "owner": "DTCommon",
+      "version": "1",
+      "contentLicense": "Dynamic Trading authored semantic pack data"
+    },
+    "conversation.source.project.hoomans.combat.kill.killer.reaction.content.2964fec4fc": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Combat Kill Killer Reaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.combat.kill.witness.reaction.content.821cb843df": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Combat Kill Witness Reaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.combat.reaction.content.7c2490ce89": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Combat Reaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Common Interaction Seed",
+      "owner": "ProjectHoomans",
+      "references": [
+        {
+          "license": "ACL Anthology terms; metadata-only reference",
+          "name": "DailyDialog",
+          "reviewedOn": "2026-10-19",
+          "url": "https://aclanthology.org/I17-1099/",
+          "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+        },
+        {
+          "license": "CC BY 4.0; metadata-only reference",
+          "name": "EmpatheticDialogues",
+          "reviewedOn": "2026-10-19",
+          "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+          "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+        },
+        {
+          "license": "WordNet 3.0 license",
+          "name": "WordNet 3.0",
+          "reviewedOn": "2026-10-19",
+          "url": "https://wordnet.princeton.edu/",
+          "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+        },
+        {
+          "importStatus": {
+            "approved": 1,
+            "compiled": 1,
+            "imported": 1,
+            "mapped": 1,
+            "workerVerified": 1
+          },
+          "license": "CC BY 4.0",
+          "name": "MASSIVE",
+          "recordRefs": [
+            {
+              "intent": "weather_query",
+              "locale": "en-US",
+              "partition": "train",
+              "recordID": "98"
+            }
+          ],
+          "reviewedOn": "2026-10-19",
+          "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+          "sourceVersion": "1.0",
+          "url": "https://github.com/alexa/massive",
+          "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+        },
+        {
+          "importStatus": {
+            "approved": 1,
+            "compiled": 1,
+            "imported": 1,
+            "mapped": 1,
+            "workerVerified": 1
+          },
+          "license": "CC BY-SA 4.0",
+          "name": "SGD",
+          "recordRefs": [
+            {
+              "dialogueID": "90_00031",
+              "intent": "GetWeather",
+              "service": "Weather_1",
+              "turn": 6
+            }
+          ],
+          "reviewedOn": "2026-10-19",
+          "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+          "sourceVersion": "DSTC8 train",
+          "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+          "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+        }
+      ],
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.contextual.clarification.7566bb2296": {
+      "name": "Project Hoomans contextual clarification",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.contextual.replies.661f723f41": {
+      "name": "Project Hoomans contextual replies",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.conversation.authoring.51ad5f4261": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Conversation Authoring",
+      "owner": "ProjectHoomans",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Dialogue Content Registry",
+      "version": "3"
+    },
+    "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Dynamic Conversation Realization",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Grounded Personal Dialogue",
+      "references": [
+        {
+          "license": "Project Hoomans authored content",
+          "name": "Project Hoomans Authoring Review",
+          "reviewedOn": "2026-10-20",
+          "url": "https://github.com/psychopatz/ProjectHoomans",
+          "use": "Reviewed semantic shapes for identity-seeded personal backstory questions and bounded follow-up references."
+        }
+      ],
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.horde.combat.reaction.content.6b85f7eeca": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Horde Combat Reaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.hostile.human.kill.banter.e965e02b70": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Hostile Human Kill Banter",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.pragmatic.interaction.content.94c0f33556": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Pragmatic Interaction Content",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.pragmatic.interaction.d587a67cc2": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Pragmatic Interaction",
+      "version": "1"
+    },
+    "conversation.source.project.hoomans.scene.runtime.adopter.content.e852ad5c7e": {
+      "name": "Project Hoomans Scene Runtime Adopter Content",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.scene.runtime.adopters.3354ce55df": {
+      "name": "Project Hoomans Scene Runtime Adopters",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.social.conversation.director.0cab482bd0": {
+      "name": "Project Hoomans Social Conversation Director",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.social.conversation.director.content.91a6fbca03": {
+      "name": "Project Hoomans Social Conversation Director Content",
+      "version": "1",
+      "contentLicense": "Project Hoomans authored content"
+    },
+    "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "Project Hoomans Weapon-Aware Zombie Kill Reactions",
+      "version": "1"
+    },
+    "conversation.source.projecthoomans.8378f35867": {
+      "owner": "ProjectHoomans",
+      "version": "1"
+    },
+    "conversation.source.psychopatzcore.common.interaction.seed.90325218e8": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "PsychopatzCore Common Interaction Seed",
+      "owner": "PsychopatzCore",
+      "references": [
+        {
+          "license": "ACL Anthology terms; metadata-only reference",
+          "name": "DailyDialog",
+          "reviewedOn": "2026-10-19",
+          "url": "https://aclanthology.org/I17-1099/",
+          "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+        },
+        {
+          "license": "CC BY 4.0; metadata-only reference",
+          "name": "EmpatheticDialogues",
+          "reviewedOn": "2026-10-19",
+          "url": "https://github.com/facebookresearch/EmpatheticDialogues",
+          "use": "Emotion-aware interaction coverage guidance; no corpus turns are copied."
+        },
+        {
+          "license": "WordNet 3.0 license",
+          "name": "WordNet 3.0",
+          "reviewedOn": "2026-10-19",
+          "url": "https://wordnet.princeton.edu/",
+          "use": "Reviewed FETCH lexical sense guidance for the pick-up paraphrase; no dictionary files ship at runtime."
+        },
+        {
+          "importStatus": {
+            "approved": 1,
+            "compiled": 1,
+            "imported": 1,
+            "mapped": 1,
+            "workerVerified": 1
+          },
+          "license": "CC BY 4.0",
+          "name": "MASSIVE",
+          "recordRefs": [
+            {
+              "intent": "weather_query",
+              "locale": "en-US",
+              "partition": "train",
+              "recordID": "98"
+            }
+          ],
+          "reviewedOn": "2026-10-19",
+          "sourceSha256": "c70f75c6a543a26e249ec383df67733ad9b1066f6c0406c2e04a3f03356e407e",
+          "sourceVersion": "1.0",
+          "url": "https://github.com/alexa/massive",
+          "use": "Build-time reviewed English intent record imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+        },
+        {
+          "importStatus": {
+            "approved": 1,
+            "compiled": 1,
+            "imported": 1,
+            "mapped": 1,
+            "workerVerified": 1
+          },
+          "license": "CC BY-SA 4.0",
+          "name": "SGD",
+          "recordRefs": [
+            {
+              "dialogueID": "90_00031",
+              "intent": "GetWeather",
+              "service": "Weather_1",
+              "turn": 6
+            }
+          ],
+          "reviewedOn": "2026-10-19",
+          "sourceSha256": "78310f5e8e4c5a48cb600d36ba762448d13ebdd91f30ef09831251f5345fa836",
+          "sourceVersion": "DSTC8 train",
+          "url": "https://github.com/google-research-datasets/dstc8-schema-guided-dialogue",
+          "use": "Build-time reviewed Weather_1 user turn imported and mapped to the existing WEATHER route; raw corpus stays outside runtime media."
+        }
+      ],
+      "version": "1"
+    },
+    "conversation.source.psychopatzcore.identity.facets.2d5d841ade": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "PsychopatzCore Identity Facets",
+      "owner": "PsychopatzCore",
+      "references": [
+        {
+          "license": "ACL Anthology terms; metadata-only reference",
+          "name": "PsychopatzCore Identity Facets Review",
+          "reviewedOn": "2026-10-19",
+          "url": "https://aclanthology.org/I17-1099/",
+          "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+        }
+      ],
+      "version": "1"
+    },
+    "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686": {
+      "contentLicense": "Project Hoomans authored content",
+      "name": "PsychopatzCore Static Conversation Suggestions",
+      "owner": "PsychopatzCore",
+      "references": [
+        {
+          "license": "ACL Anthology terms; metadata-only reference",
+          "name": "PsychopatzCore Static Suggestions Review",
+          "reviewedOn": "2026-10-19",
+          "url": "https://aclanthology.org/I17-1099/",
+          "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
+        }
+      ],
+      "version": "1"
+    }
+  }
 }

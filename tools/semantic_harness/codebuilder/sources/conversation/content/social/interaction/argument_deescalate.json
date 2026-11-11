@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.social.interaction.argument.deescalate",
+  "kind": "content",
   "domain": "social",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.content.94c0f33556",
   "groups": {
     "interaction": {
       "contentOwner": "projecthoomans.dialogue_content.social_interaction"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "interaction",
@@ -62,12 +66,5 @@
       }
     }
   ],
-  "playerChoices": [],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Pragmatic Interaction Content",
-    "version": "1"
-  },
-  "version": 1
+  "playerChoices": []
 }

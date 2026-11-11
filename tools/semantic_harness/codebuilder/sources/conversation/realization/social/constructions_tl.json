@@ -1,13 +1,10 @@
 {
-  "schema": "pnc.conversation.shard.v1",
-  "version": 1,
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.realization.social.constructions.tl",
   "kind": "realization",
   "domain": "social",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Dynamic Conversation Realization",
-    "version": "1"
-  },
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6",
   "realizations": [
     {
       "id": "construction.tl.social.mirror_retort",

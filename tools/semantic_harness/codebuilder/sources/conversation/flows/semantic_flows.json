@@ -1,4 +1,10 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.flows.semantic.flows",
+  "kind": "flows",
+  "domain": "semantic",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.projecthoomans.8378f35867",
   "definitions": [
     {
       "capability": "pnc:companion.follow",
@@ -108,13 +114,5 @@
         ]
       }
     }
-  ],
-  "domain": "semantic",
-  "kind": "flows",
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "owner": "ProjectHoomans",
-    "version": "1"
-  },
-  "version": 1
+  ]
 }

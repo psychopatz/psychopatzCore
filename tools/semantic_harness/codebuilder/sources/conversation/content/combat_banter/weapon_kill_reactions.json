@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.combat.banter.weapon.kill.reactions",
+  "kind": "content",
   "domain": "combat_banter",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58",
   "groups": {
     "events": {
       "contentOwner": "projecthoomans.dialogue_content.events"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "events",
@@ -475,12 +479,5 @@
         ]
       }
     }
-  ],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Weapon-Aware Zombie Kill Reactions",
-    "version": "1"
-  },
-  "version": 1
+  ]
 }

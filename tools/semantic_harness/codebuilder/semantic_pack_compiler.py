@@ -6,6 +6,8 @@ import copy
 import re
 from typing import Any
 
+from .catalog_contract import SHARD_SCHEMA
+
 
 _ID = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
 _PACK_ID = re.compile(r"^[A-Za-z][A-Za-z0-9_.:-]{0,127}$")
@@ -75,9 +77,9 @@ def compile_semantic_pack_shard(
     path: str,
 ) -> dict[str, Any]:
     """Validate static pack data while leaving runtime callbacks to adopters."""
-    if document.get("schema") != "pnc.conversation.shard.v1":
+    if document.get("schema") != SHARD_SCHEMA:
         raise SemanticPackCompileError(
-            f"Conversation pack shard {path} requires schema pnc.conversation.shard.v1"
+            f"Conversation pack shard {path} requires schema {SHARD_SCHEMA}"
         )
     if document.get("kind") != "packs":
         raise SemanticPackCompileError(

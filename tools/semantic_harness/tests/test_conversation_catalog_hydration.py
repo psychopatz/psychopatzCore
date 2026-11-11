@@ -6,6 +6,7 @@ import unittest
 
 from tools.semantic_harness.codebuilder.conversation_compiler import (
     _hydrate_catalog_translations,
+    _hydrate_shard_provenance,
 )
 from tools.semantic_harness.codebuilder.dialogue_content import phrase_translation_key
 from tools.semantic_harness.codebuilder.errors import CompileError
@@ -51,6 +52,60 @@ class ConversationCatalogHydrationTests(unittest.TestCase):
                 document,
                 {"kind": "content", "path": "content/test.json"},
                 {"EN": {key: "Hello."}, "TL": {key: "Kumusta."}},
+            )
+
+    def test_hydrates_provenance_from_manifest_profile(self) -> None:
+        document = {
+            "schema": "psychopatz.semantic.shard.v2",
+            "shardId": "conversation.content.social.test",
+            "kind": "content",
+            "domain": "social",
+            "owner": "ProjectHoomans",
+            "sourceProfile": "conversation.source.fixture.1234567890",
+            "phraseFamilies": [],
+        }
+        _hydrate_shard_provenance(
+            document,
+            {
+                "path": "content/test.json",
+                "kind": "content",
+                "domain": "social",
+                "owner": "ProjectHoomans",
+                "shardId": "conversation.content.social.test",
+                "sourceProfile": "conversation.source.fixture.1234567890",
+            },
+            {
+                "conversation.source.fixture.1234567890": {
+                    "name": "Fixture",
+                    "version": "1",
+                },
+            },
+        )
+        self.assertEqual(document["source"]["name"], "Fixture")
+        self.assertEqual(document["source"]["owner"], "ProjectHoomans")
+
+    def test_rejects_manifest_shard_identity_mismatch(self) -> None:
+        document = {
+            "schema": "psychopatz.semantic.shard.v2",
+            "shardId": "conversation.content.social.actual",
+            "kind": "content",
+            "domain": "social",
+            "owner": "ProjectHoomans",
+            "sourceProfile": "conversation.source.fixture.1234567890",
+            "phraseFamilies": [],
+        }
+        with self.assertRaises(CompileError):
+            _hydrate_shard_provenance(
+                document,
+                {
+                    "path": "content/test.json",
+                    "kind": "content",
+                    "domain": "social",
+                    "owner": "ProjectHoomans",
+                    "shardId": "conversation.content.social.expected",
+                    "sourceProfile": "conversation.source.fixture.1234567890",
+                },
+                {"conversation.source.fixture.1234567890": {"name": "Fixture"}},
             )
 
 

@@ -1,13 +1,10 @@
 {
-  "domain": "static_suggestions",
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.ui.static.suggestions",
   "kind": "ui",
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Conversation Authoring",
-    "owner": "ProjectHoomans",
-    "version": "1"
-  },
+  "domain": "static_suggestions",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261",
   "suggestions": [
     {
       "dialogueFollowUp": "NEEDS_QUANTITY",
@@ -60,6 +57,5 @@
       "topic": "gossip",
       "utteranceKey": "UI_PNC_Conversation_Suggestion_Gossip_Utterance"
     }
-  ],
-  "version": 1
+  ]
 }

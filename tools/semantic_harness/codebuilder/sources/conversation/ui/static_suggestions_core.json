@@ -1,22 +1,10 @@
 {
-  "domain": "static_suggestions",
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.ui.static.suggestions.core",
   "kind": "ui",
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "PsychopatzCore Static Conversation Suggestions",
-    "owner": "PsychopatzCore",
-    "references": [
-      {
-        "license": "ACL Anthology terms; metadata-only reference",
-        "name": "PsychopatzCore Static Suggestions Review",
-        "reviewedOn": "2026-10-19",
-        "url": "https://aclanthology.org/I17-1099/",
-        "use": "Everyday dialogue-act coverage guidance; no corpus turns are copied."
-      }
-    ],
-    "version": "1"
-  },
+  "domain": "static_suggestions",
+  "owner": "PsychopatzCore",
+  "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686",
   "suggestions": [
     {
       "extensions": {
@@ -136,6 +124,5 @@
       "topic": "wellbeing",
       "utteranceKey": "UI_PNC_Conversation_Suggestion_WellbeingDetail_Utterance"
     }
-  ],
-  "version": 1
+  ]
 }

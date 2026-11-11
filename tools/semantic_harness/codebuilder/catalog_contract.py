@@ -21,7 +21,19 @@ VALID_KINDS = frozenset({
     "content", "patterns", "responses", "flows", "behaviors", "beats",
     "realization", "packs", "ui",
 })
+PAYLOAD_FIELDS = {
+    "content": ("phraseFamilies", "playerChoices"),
+    "patterns": ("patterns",),
+    "responses": ("responsePools",),
+    "flows": ("definitions",),
+    "behaviors": ("behaviors",),
+    "beats": ("beats",),
+    "realization": ("realizations",),
+    "packs": ("packs",),
+    "ui": ("suggestions",),
+}
 ID_PATTERN = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
+PACK_ID_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_.:-]{0,127}$")
 LOCALE_PATTERN = re.compile(r"^[A-Z][A-Z0-9_-]{1,15}$")
 TRANSLATION_KEY_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_.:-]{0,191}$")
 PLACEHOLDER_PATTERN = re.compile(r"%(?:\d+|[sd])|\{[A-Za-z][A-Za-z0-9_.-]*\}")
@@ -153,13 +165,13 @@ def validate_shard(
     if not _validate_identity(domain, "domain"):
         issues.append(_issue("shard_domain", "domain must be a bounded semantic ID", path=path))
     if _validate_identity(shard_id, "shardId") and isinstance(kind, str) and _validate_identity(domain, "domain"):
-        expected = f"conversation.{kind}.{domain}"
-        if shard_id != expected:
+        expected_prefix = f"conversation.{kind}."
+        if not shard_id.startswith(expected_prefix):
             issues.append(_issue(
                 "shard_identity",
-                "shardId must be derived from kind and domain",
+                "shardId must use the kind-qualified conversation namespace",
                 path=path,
-                details={"expected": expected, "actual": shard_id},
+                details={"expectedPrefix": expected_prefix, "actual": shard_id},
             ))
     if not _is_non_empty_string(owner):
         issues.append(_issue("shard_owner", "owner is required and cannot be implicit", path=path))
@@ -170,19 +182,35 @@ def validate_shard(
             path=path,
             details={"owner": owner},
         ))
-    records = document.get("records")
-    if not isinstance(records, list):
-        issues.append(_issue("shard_records", "records must be a list", path=path))
-    else:
+    source_profile = document.get("sourceProfile")
+    if not _validate_identity(source_profile, "sourceProfile"):
+        issues.append(_issue("shard_source_profile", "sourceProfile is required", path=path))
+    payload_fields = PAYLOAD_FIELDS.get(kind, ()) if isinstance(kind, str) else ()
+    if "records" in document:
+        payload_fields = (*payload_fields, "records")
+    present_payloads = [field for field in payload_fields if field in document]
+    if not present_payloads:
+        issues.append(_issue("shard_payload", "typed shard payload is missing", path=path))
+    for payload_field in present_payloads:
+        records = document.get(payload_field)
+        if not isinstance(records, list):
+            issues.append(_issue("shard_payload", f"{payload_field} must be a list", path=f"{path}.{payload_field}"))
+            continue
         seen_ids: set[str] = set()
         for index, record in enumerate(records):
-            record_path = f"{path}.records[{index}]"
+            record_path = f"{path}.{payload_field}[{index}]"
             if not isinstance(record, Mapping):
                 issues.append(_issue("record_not_object", "record must be an object", path=record_path))
                 continue
-            record_id = record.get("id")
-            if not _validate_identity(record_id, "record.id"):
-                issues.append(_issue("record_id", "record.id must be a bounded semantic ID", path=record_path))
+            record_id_key = (
+                "semanticTemplateID"
+                if kind == "content" and payload_field == "phraseFamilies"
+                else "id"
+            )
+            record_id = record.get(record_id_key)
+            record_pattern = PACK_ID_PATTERN if kind == "packs" else ID_PATTERN
+            if not _validate_identity(record_id, record_id_key, pattern=record_pattern):
+                issues.append(_issue("record_id", f"{record_id_key} must be a bounded semantic ID", path=record_path))
             elif record_id in seen_ids:
                 issues.append(_issue("record_id_duplicate", "record.id is duplicated within the shard", path=record_path, details={"id": record_id}))
             else:

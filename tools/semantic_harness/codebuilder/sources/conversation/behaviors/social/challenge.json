@@ -1,4 +1,10 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.behaviors.social.challenge",
+  "kind": "behaviors",
+  "domain": "social",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.d587a67cc2",
   "behaviors": [
     {
       "act": "CHALLENGE",
@@ -40,14 +46,5 @@
         ]
       }
     }
-  ],
-  "domain": "social",
-  "kind": "behaviors",
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Pragmatic Interaction",
-    "version": "1"
-  },
-  "version": 1
+  ]
 }

@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.combat.human.banter.human.kill.reactions",
+  "kind": "content",
   "domain": "combat_human_banter",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.hostile.human.kill.banter.e965e02b70",
   "groups": {
     "combat_human": {
       "contentOwner": "projecthoomans.dialogue_content.combat_human"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "combat_human",
@@ -385,12 +389,5 @@
         ]
       }
     }
-  ],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Hostile Human Kill Banter",
-    "version": "1"
-  },
-  "version": 1
+  ]
 }

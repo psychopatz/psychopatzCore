@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.command.lifecycle.stay",
+  "kind": "content",
   "domain": "command",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
   "groups": {
     "commands_emotes": {
       "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "commands_emotes",
@@ -133,12 +137,5 @@
         ]
       }
     }
-  ],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Dialogue Content Registry",
-    "version": "3"
-  },
-  "version": 1
+  ]
 }

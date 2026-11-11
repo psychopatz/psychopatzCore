@@ -1,13 +1,10 @@
 {
-  "schema": "pnc.conversation.shard.v1",
-  "version": 1,
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.behaviors.social.scene.runtime.adopters",
   "kind": "behaviors",
   "domain": "social",
-  "source": {
-    "name": "Project Hoomans Scene Runtime Adopters",
-    "version": "1",
-    "contentLicense": "Project Hoomans authored content"
-  },
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.scene.runtime.adopters.3354ce55df",
   "behaviors": [
     {
       "id": "behavior.scene_horde_prompt",

@@ -1,13 +1,10 @@
 {
-  "schema": "pnc.conversation.shard.v1",
-  "version": 1,
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.social.interaction.context.clarify",
   "kind": "content",
   "domain": "social",
-  "source": {
-    "name": "Project Hoomans contextual clarification",
-    "version": "1",
-    "contentLicense": "Project Hoomans authored content"
-  },
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.contextual.clarification.7566bb2296",
   "groups": {
     "interaction": {
       "contentOwner": "projecthoomans.dialogue_content.social_interaction"

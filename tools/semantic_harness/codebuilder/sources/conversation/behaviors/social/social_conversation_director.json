@@ -1,13 +1,10 @@
 {
-  "schema": "pnc.conversation.shard.v1",
-  "version": 1,
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.behaviors.social.social.conversation.director",
   "kind": "behaviors",
   "domain": "social",
-  "source": {
-    "name": "Project Hoomans Social Conversation Director",
-    "version": "1",
-    "contentLicense": "Project Hoomans authored content"
-  },
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.social.conversation.director.0cab482bd0",
   "behaviors": [
     {
       "id": "behavior.scene_task_work_assigned",

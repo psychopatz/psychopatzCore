@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.compatibility",
+  "kind": "content",
   "domain": "compatibility",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
   "groups": {
     "compatibility": {
       "contentOwner": "projecthoomans.dialogue_content.compatibility"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "compatibility",
@@ -251,12 +255,5 @@
       }
     }
   ],
-  "playerChoices": [],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Dialogue Content Registry",
-    "version": "3"
-  },
-  "version": 1
+  "playerChoices": []
 }

@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.task.lifecycle.drink",
+  "kind": "content",
   "domain": "task",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
   "groups": {
     "tool_replies": {
       "contentOwner": "projecthoomans.dialogue_content.tool_replies"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "tool_replies",
@@ -97,12 +101,5 @@
         ]
       }
     }
-  ],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Dialogue Content Registry",
-    "version": "3"
-  },
-  "version": 1
+  ]
 }

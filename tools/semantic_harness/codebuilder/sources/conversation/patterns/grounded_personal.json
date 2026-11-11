@@ -1,6 +1,10 @@
 {
-  "domain": "grounded_personal",
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.patterns.grounded.personal",
   "kind": "patterns",
+  "domain": "grounded_personal",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de",
   "patterns": [
     {
       "confidence": 0.99,
@@ -234,21 +238,5 @@
       ],
       "utterance": "do you miss it"
     }
-  ],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Grounded Personal Dialogue",
-    "references": [
-      {
-        "license": "Project Hoomans authored content",
-        "name": "Project Hoomans Authoring Review",
-        "reviewedOn": "2026-10-20",
-        "url": "https://github.com/psychopatz/ProjectHoomans",
-        "use": "Reviewed semantic shapes for identity-seeded personal backstory questions and bounded follow-up references."
-      }
-    ],
-    "version": "1"
-  },
-  "version": 1
+  ]
 }

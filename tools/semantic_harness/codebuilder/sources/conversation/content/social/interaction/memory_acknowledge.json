@@ -1,13 +1,10 @@
 {
-  "schema": "pnc.conversation.shard.v1",
-  "version": 1,
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.social.interaction.memory.acknowledge",
   "kind": "content",
   "domain": "social",
-  "source": {
-    "name": "Project Hoomans Pragmatic Interaction Content",
-    "version": "1",
-    "contentLicense": "Project Hoomans authored content"
-  },
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.content.94c0f33556",
   "groups": {
     "interaction": {
       "contentOwner": "projecthoomans.dialogue_content.social_interaction"

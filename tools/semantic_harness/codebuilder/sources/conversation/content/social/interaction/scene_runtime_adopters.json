@@ -1,13 +1,10 @@
 {
-  "schema": "pnc.conversation.shard.v1",
-  "version": 1,
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.social.interaction.scene.runtime.adopters",
   "kind": "content",
   "domain": "social",
-  "source": {
-    "name": "Project Hoomans Scene Runtime Adopter Content",
-    "version": "1",
-    "contentLicense": "Project Hoomans authored content"
-  },
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.scene.runtime.adopter.content.e852ad5c7e",
   "groups": {
     "interaction": {
       "contentOwner": "projecthoomans.dialogue_content.social_interaction"

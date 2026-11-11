@@ -1,13 +1,10 @@
 {
-  "schema": "pnc.conversation.shard.v1",
-  "version": 1,
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.realization.social.contextual.replies.en",
   "kind": "realization",
   "domain": "social",
-  "source": {
-    "name": "Project Hoomans contextual replies",
-    "version": "1",
-    "contentLicense": "Project Hoomans authored content"
-  },
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.contextual.replies.661f723f41",
   "realizations": [
     {
       "id": "construction.en.social.contextual_accept",

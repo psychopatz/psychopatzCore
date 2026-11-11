@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.combat.player.assault.reactions",
+  "kind": "content",
   "domain": "combat",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.combat.reaction.content.7c2490ce89",
   "groups": {
     "player_assault": {
       "contentOwner": "projecthoomans.dialogue_content.combat"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "player_assault",
@@ -98,12 +102,5 @@
       }
     }
   ],
-  "playerChoices": [],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Combat Reaction Content",
-    "version": "1"
-  },
-  "version": 1
+  "playerChoices": []
 }

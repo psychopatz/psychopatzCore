@@ -1,11 +1,15 @@
 {
+  "schema": "psychopatz.semantic.shard.v2",
+  "shardId": "conversation.content.event.combat.kill.witness.reactions",
+  "kind": "content",
   "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.combat.kill.witness.reaction.content.821cb843df",
   "groups": {
     "events": {
       "contentOwner": "projecthoomans.dialogue_content.events"
     }
   },
-  "kind": "content",
   "phraseFamilies": [
     {
       "group": "events",
@@ -385,12 +389,5 @@
         ]
       }
     }
-  ],
-  "schema": "pnc.conversation.shard.v1",
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Combat Kill Witness Reaction Content",
-    "version": "1"
-  },
-  "version": 1
+  ]
 }
