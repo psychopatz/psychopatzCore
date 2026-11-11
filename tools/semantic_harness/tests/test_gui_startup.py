@@ -29,6 +29,30 @@ class _LayoutApp:
         self._ui_state = {}
 
 
+class _PaintBootstrap:
+    def __init__(self, events: list[str]) -> None:
+        self.events = events
+
+    def destroy(self) -> None:
+        self.events.append("destroy")
+
+
+class _PaintRoot:
+    def __init__(self) -> None:
+        self.events: list[object] = []
+        self._semantic_harness_bootstrap = _PaintBootstrap(self.events)
+
+    def update_idletasks(self) -> None:
+        self.events.append("idle")
+
+    def update(self) -> None:
+        self.events.append("update")
+
+    def after(self, delay: int, callback: object) -> str:
+        self.events.append(("after", delay, callback))
+        return "studio-after"
+
+
 class GuiStartupTests(unittest.TestCase):
     def test_layout_restore_waits_for_mapped_window_timer(self) -> None:
         app = _LayoutApp()
@@ -62,6 +86,21 @@ class GuiStartupTests(unittest.TestCase):
         self.assertEqual(summary["engineFacts"], 5000)
         self.assertNotIn("factCatalog", summary)
         self.assertLess(len(json.dumps(summary)), 2000)
+
+    def test_base_shell_paints_before_deferred_studio_build(self) -> None:
+        root = _PaintRoot()
+        app = object.__new__(SemanticHarnessApp)
+        app.root = root
+        app._tk = SimpleNamespace(TclError=RuntimeError)
+        app.closed = False
+        app._initial_ui_ready_after = "base-after"
+        app._studio_editor_build_after = None
+
+        app._show_base_ui()
+
+        self.assertIsNone(root._semantic_harness_bootstrap)
+        self.assertEqual(root.events[:4], ["idle", "destroy", "idle", "update"])
+        self.assertEqual(root.events[4][0:2], ("after", 50))
 
     @unittest.skipUnless(os.environ.get("DISPLAY"), "requires a Tk display")
     def test_saved_selection_mode_builds_world_controls_before_restore(self) -> None:

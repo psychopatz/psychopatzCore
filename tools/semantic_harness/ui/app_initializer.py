@@ -119,6 +119,7 @@ def initialize_app(app: Any, root: Any, arguments: argparse.Namespace) -> None:
     app._worker_ready_hydration_after = None
     app._pending_worker_ready = None
     app._capabilities_loading = False
+    app._initial_ui_ready_after = None
     app._studio_editor_build_after = None
     app._studio_editors_ready = False
     app._startup_after = None
@@ -196,9 +197,10 @@ def initialize_app(app: Any, root: Any, arguments: argparse.Namespace) -> None:
         activity_path=str(app.activity_log.path or ""),
     )
     app._build_ui()
-    bootstrap = getattr(root, "_semantic_harness_bootstrap", None)
-    if bootstrap is not None:
-        bootstrap.destroy()
-        root._semantic_harness_bootstrap = None
     root.protocol("WM_DELETE_WINDOW", app.close)
     app._set_status("Starting Lua worker…")
+    # Keep the small bootstrap visible until Tk has had a chance to map the
+    # base notebook. Destroying it here leaves a newly-created, but still
+    # unpainted, widget tree behind it; the deferred Studio build then blocks
+    # the event loop and the user sees a blank gray window.
+    app._initial_ui_ready_after = root.after(0, app._show_base_ui)

@@ -152,6 +152,3 @@ def build_ui(app: Any) -> None:
         "scrolled_text": scrolled_text,
     }
     app._studio_editors_ready = False
-    app._studio_editor_build_after = app.root.after(
-        0, app._build_deferred_studio_editors
-    )

@@ -246,6 +246,30 @@ class SemanticHarnessApp:
     def _build_ui(self) -> None:
         build_ui(self)
 
+    def _show_base_ui(self) -> None:
+        """Paint the lightweight shell before constructing heavy Studio panes."""
+        if self.closed:
+            return
+        self._initial_ui_ready_after = None
+        try:
+            # The bootstrap is the only mapped child while the shell is being
+            # assembled. Let Tk calculate the new notebook geometry, remove
+            # the bootstrap, then flush one paint pass before Studio starts.
+            self.root.update_idletasks()
+            bootstrap = getattr(self.root, "_semantic_harness_bootstrap", None)
+            if bootstrap is not None:
+                bootstrap.destroy()
+                self.root._semantic_harness_bootstrap = None
+            self.root.update_idletasks()
+            self.root.update()
+        except self._tk.TclError:
+            return
+        if self.closed:
+            return
+        self._studio_editor_build_after = self.root.after(
+            50, self._build_deferred_studio_editors
+        )
+
     def _build_deferred_studio_editors(self) -> None:
         if self.closed or self._studio_editors_ready:
             return
