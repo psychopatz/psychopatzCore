@@ -88,7 +88,9 @@ def _relative_json_files(root: Path, manifest_path: Path) -> list[Path]:
     return sorted(
         path
         for path in root.rglob("*.json")
-        if path.is_file() and path.resolve() != manifest_path.resolve()
+        if path.is_file()
+        and path.resolve() != manifest_path.resolve()
+        and LOCALE_CATALOG_DIRECTORY not in path.relative_to(root).parts
     )
 
 

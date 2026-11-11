@@ -183,7 +183,12 @@ def _source_root_entries(manifest, *, root, seen_paths):
     entries = []
     for source_root in roots:
         directory = root / Path(*PurePosixPath(source_root["path"]).parts)
-        files = sorted(path for path in directory.rglob("*.json") if path.is_file())
+        files = sorted(
+            path
+            for path in directory.rglob("*.json")
+            if path.is_file()
+            and "translations" not in path.relative_to(root).parts
+        )
         if not files:
             raise CompileError(f"Conversation source root contains no JSON shards: {source_root['path']}")
         for file_path in files:
@@ -262,7 +267,11 @@ def _load_manifest(
     discovered = {
         path.relative_to(root).as_posix()
         for path in root.rglob("*.json")
-        if path.is_file() and path.name != "manifest.json"
+        if (
+            path.is_file()
+            and path.name != "manifest.json"
+            and "translations" not in path.relative_to(root).parts
+        )
     }
     unregistered = sorted(discovered - seen_paths)
     if unregistered:

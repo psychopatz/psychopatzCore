@@ -218,7 +218,9 @@ def validate_translation_catalog(
 
 
 def _placeholders(text: str) -> tuple[str, ...]:
-    return tuple(sorted(PLACEHOLDER_PATTERN.findall(text)))
+    # A translation may repeat an argument for natural phrasing. Validation
+    # must ensure every argument remains available, not forbid repetition.
+    return tuple(sorted(set(PLACEHOLDER_PATTERN.findall(text))))
 
 
 def validate_locale_set(
