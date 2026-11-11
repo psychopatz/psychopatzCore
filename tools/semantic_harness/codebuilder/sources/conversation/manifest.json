@@ -343,6 +343,9 @@
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     }
   ],
+  "auxiliaryFiles": [
+    "legacy_bundles.json"
+  ],
   "source": {
     "contentLicense": "Project Hoomans authored content",
     "name": "Project Hoomans Conversation Authoring",

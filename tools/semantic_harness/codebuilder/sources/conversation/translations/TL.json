@@ -56068,6 +56068,3934 @@
       "sourceShard": "conversation.generated.ui",
       "text": "Ano ang balita?"
     },
+    "conversation.legacy.ask.about.member.basic.choice.background": {
+      "text": "Sabihin mo sa akin ang tungkol sa iyong lumang buhay.",
+      "context": "legacy.ask_about.member.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.member.basic.choice.skills": {
+      "text": "What can you teach the grupo?",
+      "context": "legacy.ask_about.member.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.member.basic.opening": {
+      "text": "Sige, {playerFirstName}. Ano ang gusto mong itanong?",
+      "context": "legacy.ask_about.member.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.member.basic.response.background": {
+      "text": "Parang may buhay ng iba ngayon.",
+      "context": "legacy.ask_about.member.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.member.basic.response.skills": {
+      "text": "Bigyan mo ako ng trabaho at ipapakita ko sa iyo.",
+      "context": "legacy.ask_about.member.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.neutral.basic.choice.background": {
+      "text": "Ano ang ginawa mo bago ang lahat ng ito?",
+      "context": "legacy.ask_about.neutral.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.neutral.basic.choice.skills": {
+      "text": "Ano ang kaya mong gawin?",
+      "context": "legacy.ask_about.neutral.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.neutral.basic.opening": {
+      "text": "Ano ang gusto mong malaman?",
+      "context": "legacy.ask_about.neutral.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.neutral.basic.response.background": {
+      "text": "mahabang kwento yan. Siguro isa na dapat sabihin.",
+      "context": "legacy.ask_about.neutral.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.neutral.basic.response.skills": {
+      "text": "Sapat na ang mga bagay para mabuhay ng ganito katagal.",
+      "context": "legacy.ask_about.neutral.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.special.basic.choice.background": {
+      "text": "Sabihin mo sa akin ang tungkol sa iyong dating buhay.",
+      "context": "legacy.ask_about.special.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.special.basic.choice.skills": {
+      "text": "Ano ang ipinagmamalaki mo?",
+      "context": "legacy.ask_about.special.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.special.basic.opening": {
+      "text": "Maaari mo akong tanungin tungkol sa kahit ano, {playerFirstName}.",
+      "context": "legacy.ask_about.special.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.special.basic.response.background": {
+      "text": "Kung sasabihin mo lang sa akin ang tungkol sa iyo pagkatapos.",
+      "context": "legacy.ask_about.special.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.ask.about.special.basic.response.skills": {
+      "text": "Nakaligtas nang sapat upang makilala ka.",
+      "context": "legacy.ask_about.special.basic",
+      "sourceShard": "conversation.content.legacy.ask.about",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.education.nursing.program": {
+      "text": "programa sa pag-aalaga",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.education.trade.school": {
+      "text": "paaralang teknikal",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.family.grew.up.with.siblings": {
+      "text": "lumaki kasama ang mga kapatid",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.family.only.child": {
+      "text": "nag-iisang anak",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.family.raised.by.grandparents": {
+      "text": "pinalaki ng mga lolo at lola",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.fear.fire": {
+      "text": "sunog",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.fear.isolation": {
+      "text": "pag-iisa",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.hobby.fishing": {
+      "text": "pangingisda",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.hobby.gardening": {
+      "text": "paghahalaman",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.hobby.music": {
+      "text": "musika",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.hometown.louisville": {
+      "text": "Louisville",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.hometown.riverside": {
+      "text": "Riverside",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.hometown.rosewood": {
+      "text": "Rosewood",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.hometown.west.point": {
+      "text": "West Point",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.carpenter": {
+      "text": "karpintero",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.cook": {
+      "text": "tagapagluto",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.doctor": {
+      "text": "doktor",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.driver": {
+      "text": "drayber",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.farmer": {
+      "text": "magsasaka",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.mechanic": {
+      "text": "mekaniko",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.nurse": {
+      "text": "nars",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.scavenger": {
+      "text": "mangangalap ng gamit",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.security.guard": {
+      "text": "guwardiya",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.smuggler": {
+      "text": "puslitero",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.occupation.teacher": {
+      "text": "guro",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.survival.evacuation": {
+      "text": "pagsama sa convoy ng paglikas",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.survival.roadside": {
+      "text": "pagka-stranded sa highway",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.tragedy.lost.home": {
+      "text": "pagkawala ng kanilang tahanan",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.tragedy.lost.sibling": {
+      "text": "pagkawala ng kapatid",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.tragedy.workplace.accident": {
+      "text": "malubhang aksidente sa trabaho",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.value.mutual.aid": {
+      "text": "pagtutulungan",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.backstory.shared.facts.value.self.reliance": {
+      "text": "pagsasarili",
+      "context": "legacy.backstory.shared.facts",
+      "sourceShard": "conversation.content.legacy.backstory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.dynamic_trading.caravan.shared.basic.category.caravan.referral": {
+      "text": "Karabana",
+      "context": "legacy.caravan.shared.basic",
+      "sourceShard": "conversation.content.legacy.caravan",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.dynamic_trading.caravan.shared.basic.choice.trader.referral": {
+      "text": "Sino ang namamahala sa kalakalan?",
+      "context": "legacy.caravan.shared.basic",
+      "sourceShard": "conversation.content.legacy.caravan",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.dynamic_trading.caravan.shared.basic.opening": {
+      "text": "Narito lang ako para magbantay. Ano ang kailangan mo?",
+      "context": "legacy.caravan.shared.basic",
+      "sourceShard": "conversation.content.legacy.caravan",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.dynamic_trading.caravan.shared.basic.response.trader.referral": {
+      "text": "Mercenary lang ako. Ang trader namin ang namamahala sa mga kasunduan.",
+      "context": "legacy.caravan.shared.basic",
+      "sourceShard": "conversation.content.legacy.caravan",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.dynamic_trading.trader.shared.basic.category.trade": {
+      "text": "Kalakalan",
+      "context": "legacy.trader.shared.basic",
+      "sourceShard": "conversation.content.legacy.trader",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.dynamic_trading.trader.shared.basic.choice.trade": {
+      "text": "Buksan ang kalakalan",
+      "context": "legacy.trader.shared.basic",
+      "sourceShard": "conversation.content.legacy.trader",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.dynamic_trading.trader.shared.basic.opening.trade": {
+      "text": "Ano ang kailangan mo?",
+      "context": "legacy.trader.shared.basic",
+      "sourceShard": "conversation.content.legacy.trader",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.dynamic_trading.trader.shared.basic.response.trade": {
+      "text": "Tingnan natin kung ano ang maaari nating ipagpalit.",
+      "context": "legacy.trader.shared.basic",
+      "sourceShard": "conversation.content.legacy.trader",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.choice.goodbye": {
+      "text": "Iyon lang. Manatiling ligtas.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye": {
+      "text": "Ikaw rin.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.1": {
+      "text": "Ikaw rin.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.10": {
+      "text": "Maging maingat ka palagi sa labas.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.2": {
+      "text": "Mag-ingat ka sa labas.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.3": {
+      "text": "Ingat. Magkikita pa tayo.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.4": {
+      "text": "Bantayan mo ang likod mo.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.5": {
+      "text": "Manatiling ligtas. Huwag sumuong sa panganib.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.6": {
+      "text": "Hanggang sa muli. Maging alerto.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.7": {
+      "text": "Sige. Magkita na lang tayo mamaya.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.8": {
+      "text": "Dahan-dahan ka lang sa daan.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.goodbye.shared.goodbye.response.goodbye.9": {
+      "text": "Sige na. Huwag kang papakita sa mga 'yun.",
+      "context": "legacy.goodbye.shared.goodbye",
+      "sourceShard": "conversation.content.legacy.goodbye",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.comrade.01": {
+      "text": "Nabawasan na naman tayo, {subject}. Nakakainis.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.comrade.02": {
+      "text": "Kasama ka ng {faction}, {subject}. Hindi ka namin kalilimutan.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.comrade.03": {
+      "text": "Magkatabi tayong lumaban, {subject}. Pahinga ka na.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.comrade.04": {
+      "text": "Hindi ka umatras, {subject}. Itutuloy namin ito.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.comrade.05": {
+      "text": "Sana maalala ng {faction} ang lahat ng ibinigay mo.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.friend.01": {
+      "text": "Dapat sabay nating nalagpasan ito, {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.friend.02": {
+      "text": "Lagi mo akong ipinagtatanggol, {subject}. Dapat ginawa ko rin iyon para sa'yo.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.friend.03": {
+      "text": "Hindi kita hahayaang makalimutan nila, {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.friend.04": {
+      "text": "Magpahinga ka na, {subject}. Sapat na ang ginawa mo.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.friend.05": {
+      "text": "May utang pa tayong inumin sa isa't isa, {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.hostile.01": {
+      "text": "Dito pala magtatapos para sa'yo, {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.hostile.02": {
+      "text": "Marami kang naging kaaway, {subject}. Isa ako roon.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.hostile.03": {
+      "text": "Hindi kita ipagluluksa, {subject}, pero hindi ko ito malilimutan.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.hostile.04": {
+      "text": "Wala na ang banta. Tuloy lang.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.hostile.05": {
+      "text": "Baka nakahanap ka na rin ng katahimikan, {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.neutral.01": {
+      "text": "Hindi kita nakilala, {subject}. Hindi mo dapat naranasan ito.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.neutral.02": {
+      "text": "Sana may makaalala pa sa pangalan mo, {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.neutral.03": {
+      "text": "Nilalamon ng lugar na ito ang lahat, ano?",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.neutral.04": {
+      "text": "Sana may nakakita sa'yo nang mas maaga, {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.neutral.05": {
+      "text": "Magpahinga ka, {subject}. Hindi kita hahayaang mabaon nang walang pangalan.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.relative.01": {
+      "text": "Hindi... si {subject}. Pamilya tayo.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.relative.02": {
+      "text": "Akala ko magkikita pa tayo, {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.relative.03": {
+      "text": "Dapat nakauwi ka pa, {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.relative.04": {
+      "text": "Dadalahin kita sa alaala ko, {subject}. Pangako.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.relative.05": {
+      "text": "{subject}, patawad at wala ako roon.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.comrade.01": {
+      "text": "Putang ina, {killer}. Kasama ni {subject} ang {faction}; gaganti kami.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.comrade.02": {
+      "text": "Nawalan kami ng kasama, {subject}. Ginawang kaaway ni {killer} ang lahat sa amin.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.comrade.03": {
+      "text": "Nakita naming pinatay ni {killer} si {subject}. Hindi pa tapos ito.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.comrade.04": {
+      "text": "Pinatay ni {killer} ang kasapi ng {faction}. Tatandaan namin ito.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.comrade.05": {
+      "text": "Tumakbo ka habang may oras pa, {killer}. Hindi namin kalilimutan ang nangyari kay {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.comrade.06": {
+      "text": "Lintik, {subject}. Magbabayad si {killer} dahil pinahina niya kami.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.comrade.07": {
+      "text": "May nawala sa {faction} ngayon. Sinimulan ito ni {killer} at hindi niya matatapos.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.comrade.08": {
+      "text": "Hindi namin kinakalimutan ang mga kasama namin, {subject}. Mananagot si {killer}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.friend.01": {
+      "text": "Bwisit ka, {killer}. Kaibigan ko si {subject}; pagbabayaran mo ito.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.friend.02": {
+      "text": "Nakita kong bumagsak si {subject}. Mananagot si {killer}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.friend.03": {
+      "text": "Lintik, {subject}. Hindi malilimutan ang ginawa ni {killer}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.friend.04": {
+      "text": "Hindi ko hahayaang makalimutan si {subject}, at hindi makakatakas si {killer}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.friend.05": {
+      "text": "Lagi akong ipinagtatanggol ni {subject}. Ngayon, ako naman ang hahabol kay {killer}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.friend.06": {
+      "text": "Putang ina, {killer}. Mahalaga sa amin si {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.friend.07": {
+      "text": "Sana alam ni {killer} ang inagaw niya sa amin nang pinatay niya si {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.friend.08": {
+      "text": "Wala nang babala. Pinatay ni {killer} ang isa sa amin, si {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.relative.01": {
+      "text": "Putang ina, {killer}. Inagaw mo si {subject} sa pamilya niya. Hindi ito palalampasin.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.relative.02": {
+      "text": "Nakita kong bumagsak si {subject}. Mananagot si {killer} sa ginawa niya, isinusumpa ko.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.relative.03": {
+      "text": "Hindi ko mapapatawad ang ginawa ni {killer} kay {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.relative.04": {
+      "text": "Lintik, {subject}. Magbabayad si {killer} sa ginawa niya.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.relative.05": {
+      "text": "Hindi ko hahayaang walang hustisya ang pagkamatay ni {subject}. Sinimulan ito ni {killer}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.relative.06": {
+      "text": "Hindi. Hindi si {subject}. Ginawa itong personal ni {killer}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.relative.07": {
+      "text": "Pamilya si {subject}. Pagsisisihan ito ni {killer}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.corpse.revenge.relative.08": {
+      "text": "Magpahinga ka muna, {subject}. Sana tumakbo si {killer}, dahil hahabulin ko siya.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.death.report": {
+      "text": "Balita ko, hindi na nakabalik si {subject}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.death.sacrifice": {
+      "text": "Sabi nila, nagpaiwan si {subject} para makatakas ang iba.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.negative.mockery.gear": {
+      "text": "Sabi nila, hindi maalagaan ni {subject} ang sarili niyang gamit.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.negative.mockery.retreat": {
+      "text": "Malakas ang loob magsalita ni {subject}, pero umurong nang kailangan nang kumilos.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.negative.suspicion.story": {
+      "text": "Bantayan si {subject}; pabago-bago ang kuwento niya.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.negative.warning.abandoned": {
+      "text": "Iniwan ni {subject} ang kasama niya nang sumalakay ang mga zombie.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.negative.warning.danger": {
+      "text": "May nakapansing panganib malapit sa {place}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.neutral.horde.survival": {
+      "text": "Nakatakas ako nang habulin ako ng napakaraming zombie.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.neutral.sighting": {
+      "text": "May nakakita raw kay {subject} malapit sa {place}.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.positive.praise.help": {
+      "text": "Inaalalayan ni {subject} ang mga tao.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.positive.protection": {
+      "text": "Ipinagtanggol ni {subject} ang isang tao nang may umatake.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.positive.rescue.return": {
+      "text": "Naiuwi ni {subject} nang buhay ang isang tao.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.gossip.shared.templates.positive.sympathy.loss": {
+      "text": "Narinig ko ang nangyari kay {subject}. Sana kinakaya niya.",
+      "context": "legacy.gossip.shared.templates",
+      "sourceShard": "conversation.content.legacy.gossip",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.ambient.visit.arrival.response.ambient.visit.accepted.1": {
+      "text": "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
+      "context": "legacy.greetings.ambient_visit.arrival",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.hostile.parley.choice.ceasefire": {
+      "text": "Ceasefire. Tumayo sa ngayon.",
+      "context": "legacy.greetings.hostile.parley",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.hostile.parley.opening": {
+      "text": "Maingat kang pinagmamasdan ng survivor, handang lumaban.",
+      "context": "legacy.greetings.hostile.parley",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.hostile.parley.response.ceasefire": {
+      "text": "Humihingi ka ng maikling tigil-putukan.",
+      "context": "legacy.greetings.hostile.parley",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.hostile.parley.result.accepted": {
+      "text": "Tinanggap ang tigil-putukan sa loob ng isang oras.",
+      "context": "legacy.greetings.hostile.parley",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.hostile.parley.result.rejected": {
+      "text": "Tumanggi ang tigil-putukan.",
+      "context": "legacy.greetings.hostile.parley",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dawn.greeting.001": {
+      "text": "Gising ka na. Mabuti—marami tayong gagawin.",
+      "context": "legacy.greetings.member.member_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dawn.greeting.002": {
+      "text": "Umaga. Sinuri ko na ang perimeter.",
+      "context": "legacy.greetings.member.member_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dawn.greeting.003": {
+      "text": "Hindi rin makatulog? Maaari rin tayong magsimula.",
+      "context": "legacy.greetings.member.member_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dawn.greeting.004": {
+      "text": "Unang liwanag. Ano ang plano ngayon?",
+      "context": "legacy.greetings.member.member_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dawn.greeting.005": {
+      "text": "Umaga. Tulog pa ang iba kaya kami na lang.",
+      "context": "legacy.greetings.member.member_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dusk.greeting.001": {
+      "text": "Gabi. Mukhang malinaw ang perimeter.",
+      "context": "legacy.greetings.member.member_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dusk.greeting.002": {
+      "text": "Kailangan mo ba ako bago ang pagbabantay sa gabi?",
+      "context": "legacy.greetings.member.member_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dusk.greeting.003": {
+      "text": "Narito pa rin tayong lahat. Ituturing ko iyong magandang araw.",
+      "context": "legacy.greetings.member.member_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dusk.greeting.004": {
+      "text": "Manahimik ka. Umayos na yung iba.",
+      "context": "legacy.greetings.member.member_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.dusk.greeting.005": {
+      "text": "Maaari akong kumuha ng unang panonood kung kailangan mo ang iba pa.",
+      "context": "legacy.greetings.member.member_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunrise.greeting.001": {
+      "text": "Umaga. Handa kung kailan ka na.",
+      "context": "legacy.greetings.member.member_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunrise.greeting.002": {
+      "text": "Buti nandito ka. Ano ang ginagawa natin ngayon?",
+      "context": "legacy.greetings.member.member_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunrise.greeting.003": {
+      "text": "Panibagong araw kasama ang crew. Maaaring mas masahol pa.",
+      "context": "legacy.greetings.member.member_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunrise.greeting.004": {
+      "text": "Umaga. Ang mga suplay ay hawak sa ngayon.",
+      "context": "legacy.greetings.member.member_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunrise.greeting.005": {
+      "text": "Hinahanap na sana kita. Anong meron?",
+      "context": "legacy.greetings.member.member_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunset.greeting.001": {
+      "text": "Nalampasan natin ang araw. May halaga iyon.",
+      "context": "legacy.greetings.member.member_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunset.greeting.002": {
+      "text": "Hey. Kailangan ng kamay bago tayo magtapos?",
+      "context": "legacy.greetings.member.member_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunset.greeting.003": {
+      "text": "Mahabang araw, pero handa pa rin ako kung kailangan mo ako.",
+      "context": "legacy.greetings.member.member_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunset.greeting.004": {
+      "text": "Lahat ng tao accounted para sa?",
+      "context": "legacy.greetings.member.member_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.sunset.greeting.005": {
+      "text": "Kumukupas na ang liwanag. Dapat na tayong magtapos.",
+      "context": "legacy.greetings.member.member_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.twilight.greeting.001": {
+      "text": "Dapat nagpapahinga ka. Ano ang problema?",
+      "context": "legacy.greetings.member.member_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.twilight.greeting.002": {
+      "text": "Tahimik na gabi hanggang ngayon. Panatilihin natin itong paraan.",
+      "context": "legacy.greetings.member.member_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.twilight.greeting.003": {
+      "text": "Nakabantay ako. may kailangan ka ba?",
+      "context": "legacy.greetings.member.member_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.twilight.greeting.004": {
+      "text": "Buti, ikaw pala. Nakarinig ako ng mga yabag.",
+      "context": "legacy.greetings.member.member_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.member.member.twilight.greeting.005": {
+      "text": "Hindi makatulog? Hilahin ang isang upuan, ngunit panatilihing mahina ang iyong boses.",
+      "context": "legacy.greetings.member.member_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dawn.greeting.001": {
+      "text": "Gising ka rin nang maaga. Ayos ba ang lahat?",
+      "context": "legacy.greetings.neutral.acquaintance_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dawn.greeting.002": {
+      "text": "Umaga. Hindi ko inaasahan na makikita kita bago sumikat ang araw.",
+      "context": "legacy.greetings.neutral.acquaintance_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dawn.greeting.003": {
+      "text": "hindi makatulog? Hindi ko rin kaya.",
+      "context": "legacy.greetings.neutral.acquaintance_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dawn.greeting.004": {
+      "text": "Buti, ikaw pala. Ano ang nagdudulot sa iyo ng ganito kaaga?",
+      "context": "legacy.greetings.neutral.acquaintance_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dawn.greeting.005": {
+      "text": "Dawn patrol, o may kailangan ka?",
+      "context": "legacy.greetings.neutral.acquaintance_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dusk.greeting.001": {
+      "text": "Gabi. Kailangan mo ng isang bagay bago tayo lumiko?",
+      "context": "legacy.greetings.neutral.acquaintance_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dusk.greeting.002": {
+      "text": "Buti, ikaw lang. Ginulat mo ako.",
+      "context": "legacy.greetings.neutral.acquaintance_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dusk.greeting.003": {
+      "text": "Wala na masyadong liwanag ng araw. kausapin mo ako.",
+      "context": "legacy.greetings.neutral.acquaintance_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dusk.greeting.004": {
+      "text": "Hey. Nagmamasid, o dumadaan lang?",
+      "context": "legacy.greetings.neutral.acquaintance_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.dusk.greeting.005": {
+      "text": "Dapat tahimik lang tayo rito, pero nakikinig ako.",
+      "context": "legacy.greetings.neutral.acquaintance_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunrise.greeting.001": {
+      "text": "Umaga. Ang sarap makakita ng pamilyar na mukha.",
+      "context": "legacy.greetings.neutral.acquaintance_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunrise.greeting.002": {
+      "text": "Hey. Kumusta ang pagtrato sa iyo ng araw?",
+      "context": "legacy.greetings.neutral.acquaintance_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunrise.greeting.003": {
+      "text": "Narito ka pala. Kailangan mo ba ng sandali?",
+      "context": "legacy.greetings.neutral.acquaintance_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunrise.greeting.004": {
+      "text": "Umaga. Parang may iniisip ka.",
+      "context": "legacy.greetings.neutral.acquaintance_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunrise.greeting.005": {
+      "text": "Natutuwa akong makita kang nagtagumpay sa isa pang gabi.",
+      "context": "legacy.greetings.neutral.acquaintance_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunset.greeting.001": {
+      "text": "Hey. Isang mahabang araw?",
+      "context": "legacy.greetings.neutral.acquaintance_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunset.greeting.002": {
+      "text": "Magandang timing. Malapit na akong tumira.",
+      "context": "legacy.greetings.neutral.acquaintance_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunset.greeting.003": {
+      "text": "Narito ka pala. May nakita ka bang kapaki-pakinabang ngayon?",
+      "context": "legacy.greetings.neutral.acquaintance_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunset.greeting.004": {
+      "text": "Palubog na ang araw. Anong meron?",
+      "context": "legacy.greetings.neutral.acquaintance_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.sunset.greeting.005": {
+      "text": "Mukha kang pagod. Ayos ka lang ba?",
+      "context": "legacy.greetings.neutral.acquaintance_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.twilight.greeting.001": {
+      "text": "Gabi na. Anong gising mo?",
+      "context": "legacy.greetings.neutral.acquaintance_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.twilight.greeting.002": {
+      "text": "Nakakatuwang makita ang isang taong kilala ko dito.",
+      "context": "legacy.greetings.neutral.acquaintance_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.twilight.greeting.003": {
+      "text": "Panatilihin ito pababa. Ang tunog ay nagdadala sa gabi.",
+      "context": "legacy.greetings.neutral.acquaintance_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.twilight.greeting.004": {
+      "text": "Ayos ka lang ba? Gabi na para magpagala-gala.",
+      "context": "legacy.greetings.neutral.acquaintance_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.acquaintance.twilight.greeting.005": {
+      "text": "Hey. Bilisan mo bago tayo makatawag ng pansin.",
+      "context": "legacy.greetings.neutral.acquaintance_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dawn.greeting.001": {
+      "text": "Humawak ka dyan. Hindi kita kilala, at ang bukang-liwayway ay isang kakaibang oras para sa pagpapakilala.",
+      "context": "legacy.greetings.neutral.firstmeet_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dawn.greeting.002": {
+      "text": "Gising ka bago pa manahimik ang mga patay. Sino ka?",
+      "context": "legacy.greetings.neutral.firstmeet_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dawn.greeting.003": {
+      "text": "Madali. Bahagyang nakapatay ang ilaw, at hindi ko inaasahan ang makakasama ko.",
+      "context": "legacy.greetings.neutral.firstmeet_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dawn.greeting.004": {
+      "text": "Umaga, kumbaga. Itago ang iyong mga kamay kung saan ko sila makikita.",
+      "context": "legacy.greetings.neutral.firstmeet_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dawn.greeting.005": {
+      "text": "Unang liwanag at bagong mukha. Sabihin mo sa akin kung ano ang kailangan mo.",
+      "context": "legacy.greetings.neutral.firstmeet_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dusk.greeting.001": {
+      "text": "Tumigil ka dyan. Dahil sa takipsilim, mahirap basahin ang mga estranghero.",
+      "context": "legacy.greetings.neutral.firstmeet_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dusk.greeting.002": {
+      "text": "Wala nang gaanong ilaw. Magpakilala ka.",
+      "context": "legacy.greetings.neutral.firstmeet_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dusk.greeting.003": {
+      "text": "Nagulat mo ako. Ano ang kailangan mo?",
+      "context": "legacy.greetings.neutral.firstmeet_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dusk.greeting.004": {
+      "text": "Hinaan mo ang boses mo at sabihin sa akin kung bakit ka nandito.",
+      "context": "legacy.greetings.neutral.firstmeet_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.dusk.greeting.005": {
+      "text": "Hindi ko maaninag ang mukha mo. Huwag kang lalapit.",
+      "context": "legacy.greetings.neutral.firstmeet_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunrise.greeting.001": {
+      "text": "Umaga. Hindi pa kita nakikita kanina.",
+      "context": "legacy.greetings.neutral.firstmeet_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunrise.greeting.002": {
+      "text": "Malapit na yun. Magsimula sa iyong pangalan.",
+      "context": "legacy.greetings.neutral.firstmeet_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunrise.greeting.003": {
+      "text": "Bagong mukha. Ikaw ba ay dumadaan o may hinahanap?",
+      "context": "legacy.greetings.neutral.firstmeet_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunrise.greeting.004": {
+      "text": "Pinapadali ito ng liwanag ng araw. sino ka ba",
+      "context": "legacy.greetings.neutral.firstmeet_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunrise.greeting.005": {
+      "text": "hindi kita kilala. Mag-usap, at panatilihin itong kalmado.",
+      "context": "legacy.greetings.neutral.firstmeet_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunset.greeting.001": {
+      "text": "Huli na para lumapit sa isang estranghero.",
+      "context": "legacy.greetings.neutral.firstmeet_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunset.greeting.002": {
+      "text": "Ang ilaw ay pupunta. Sabihin mo kung ano ang gusto mong sabihin.",
+      "context": "legacy.greetings.neutral.firstmeet_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunset.greeting.003": {
+      "text": "Hindi kita kilala, pero nakikinig ako.",
+      "context": "legacy.greetings.neutral.firstmeet_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunset.greeting.004": {
+      "text": "Bago dumilim, sabihin mo sa akin kung sino ka.",
+      "context": "legacy.greetings.neutral.firstmeet_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.sunset.greeting.005": {
+      "text": "Isa pang nakaligtas. Friendly, sana?",
+      "context": "legacy.greetings.neutral.firstmeet_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.twilight.greeting.001": {
+      "text": "Madilim sa labas. Manatili ka kung saan kita makikita.",
+      "context": "legacy.greetings.neutral.firstmeet_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.twilight.greeting.002": {
+      "text": "Ang isang estranghero na naglalakad sa gabi ay karaniwang nangangahulugan ng problema.",
+      "context": "legacy.greetings.neutral.firstmeet_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.twilight.greeting.003": {
+      "text": "Panatilihing mahina ang iyong boses. sino ka ba",
+      "context": "legacy.greetings.neutral.firstmeet_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.twilight.greeting.004": {
+      "text": "You chose a bad time to sneak up buhay someone.",
+      "context": "legacy.greetings.neutral.firstmeet_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.neutral.firstmeet.twilight.greeting.005": {
+      "text": "Huwag kang lalapit. Maaari tayong mag-usap mula doon.",
+      "context": "legacy.greetings.neutral.firstmeet_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.settlement.admission.arrival.opening.001": {
+      "text": "Please... hayaan mo akong manatili. Ilang araw na kaming naglalakad, at hindi ko alam kung gaano katagal kayang magpatuloy ang iba.",
+      "context": "legacy.greetings.settlement_admission.arrival",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.settlement.admission.arrival.opening.002": {
+      "text": "Hindi ako humihingi ng marami. Isang bubong, isang pagkain, at isang pagkakataon na maging kapaki-pakinabang. Mangyaring hayaan mo kaming samahan ka.",
+      "context": "legacy.greetings.settlement_admission.arrival",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.settlement.admission.arrival.opening.003": {
+      "text": "You have a pamayanan. We have nothing left but each other. If there is room, I will trabaho for it.",
+      "context": "legacy.greetings.settlement_admission.arrival",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.settlement.admission.arrival.response.settlement.admission.accepted.1": {
+      "text": "salamat po. Naisip ko na kailangan kong magpatuloy sa paglalakad hanggang sa wala na akong mapupuntahan.",
+      "context": "legacy.greetings.settlement_admission.arrival",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dawn.greeting.001": {
+      "text": "You're awake already. I was hoping you'd tulog a little longer.",
+      "context": "legacy.greetings.special.lover_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dawn.greeting.002": {
+      "text": "Umaga, mahal. Halika dito bago magsimula ang araw.",
+      "context": "legacy.greetings.special.lover_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dawn.greeting.003": {
+      "text": "Namiss kita, tulog ka lang.",
+      "context": "legacy.greetings.special.lover_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dawn.greeting.004": {
+      "text": "Mas maganda ang unang liwanag kapag kasama ka rito.",
+      "context": "legacy.greetings.special.lover_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dawn.greeting.005": {
+      "text": "Hindi makatulog nang hindi sinusuri ang lahat, hindi ba?",
+      "context": "legacy.greetings.special.lover_dawn",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dusk.greeting.001": {
+      "text": "Manatili sa akin ng isang minuto bago manood ng gabi.",
+      "context": "legacy.greetings.special.lover_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dusk.greeting.002": {
+      "text": "Gabi, mahal. Mukha kang pagod.",
+      "context": "legacy.greetings.special.lover_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dusk.greeting.003": {
+      "text": "Ligtas ka. Muli na akong makahihinga.",
+      "context": "legacy.greetings.special.lover_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dusk.greeting.004": {
+      "text": "Lumapit ka. Hindi kami nakakakuha ng maraming tahimik na sandali.",
+      "context": "legacy.greetings.special.lover_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.dusk.greeting.005": {
+      "text": "Iniligtas kita ng isang lugar sa tabi ko.",
+      "context": "legacy.greetings.special.lover_dusk",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunrise.greeting.001": {
+      "text": "Umaga, mahal. Matulog ka na okay?",
+      "context": "legacy.greetings.special.lover_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunrise.greeting.002": {
+      "text": "Narito ka pala. Nagsisimula na kitang ma-miss.",
+      "context": "legacy.greetings.special.lover_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunrise.greeting.003": {
+      "text": "Magandang umaga po. Manatiling malapit ngayon, okay?",
+      "context": "legacy.greetings.special.lover_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunrise.greeting.004": {
+      "text": "Ang una mong makita ay halos normal pa rin ang pakiramdam ng lugar na ito.",
+      "context": "legacy.greetings.special.lover_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunrise.greeting.005": {
+      "text": "Umaga. Kung ano man ang mangyari ngayon, sabay nating haharapin.",
+      "context": "legacy.greetings.special.lover_sunrise",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunset.greeting.001": {
+      "text": "Narito ka pala. Nag-alala ako nang matagal kang wala.",
+      "context": "legacy.greetings.special.lover_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunset.greeting.002": {
+      "text": "Halika maupo ka sa akin bago mamatay ang ilaw.",
+      "context": "legacy.greetings.special.lover_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunset.greeting.003": {
+      "text": "Mahabang araw. Natutuwa akong narito ka sa dulo nito.",
+      "context": "legacy.greetings.special.lover_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunset.greeting.004": {
+      "text": "Nakabalik ka. Iyon lang ang kailangan kong makita.",
+      "context": "legacy.greetings.special.lover_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.sunset.greeting.005": {
+      "text": "Halos nagmumukhang payapa ang lugar na ito sa dapit-hapon.",
+      "context": "legacy.greetings.special.lover_sunset",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.twilight.greeting.001": {
+      "text": "Hindi makatulog? Hindi ko rin kaya.",
+      "context": "legacy.greetings.special.lover_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.twilight.greeting.002": {
+      "text": "ayos lang. nandito ako.",
+      "context": "legacy.greetings.special.lover_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.twilight.greeting.003": {
+      "text": "Halika upo sa akin. Maaari tayong magbantay nang magkasama.",
+      "context": "legacy.greetings.special.lover_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.twilight.greeting.004": {
+      "text": "Tinakot mo ako sa paglalakad nang ganito kagabi.",
+      "context": "legacy.greetings.special.lover_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.greetings.special.lover.twilight.greeting.005": {
+      "text": "Manatili kang malapit ngayong gabi. Seryoso ako.",
+      "context": "legacy.greetings.special.lover_twilight",
+      "sourceShard": "conversation.content.legacy.greetings",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.choice.gift": {
+      "text": "Mayroon akong isang bagay na maaaring kailanganin mo.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.choice.gift.return": {
+      "text": "Hahawakan ko ang natitira.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.choice.medical": {
+      "text": "May nangangailangan ba ng tulong medikal?",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.choice.supplies": {
+      "text": "What supplies are we short buhay?",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.gift.offer.multiple": {
+      "text": "Mayroon akong {giftItemSummary} para sa grupo.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.gift.offer.multiple.alt": {
+      "text": "Ilagay ang mga ito sa aming mga tindahan: {giftItemSummary}.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.gift.offer.single": {
+      "text": "Narito ang {giftItemName} para sa grupo.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.gift.offer.single.alt": {
+      "text": "Dinala ko ito para sa atin: {giftItemName}.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.gift.opening": {
+      "text": "Pumili ng ibibigay sa akin, pagkatapos ay bumalik sa usapan.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.gift.received.equipment": {
+      "text": "Iyan mismo ang uri ng kontribusyon na nagpapanatili sa isang komunidad na gumagalaw.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.gift.received.food": {
+      "text": "Perpektong timing. Sisiguraduhin kong makakarating ito sa taong nangangailangan nito.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.gift.received.general": {
+      "text": "salamat po. Ilalagay ko ito kung saan ito nagdudulot ng pinakamabuti.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.gift.received.medical": {
+      "text": "Diretso ito sa ating mga reserba. Ginawa mo lang mas ligtas ang buong grupo.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.opening": {
+      "text": "Hayaan akong isipin kung ano ang kulang sa grupo.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.response.gift": {
+      "text": "Hayaan akong makita kung ano ang maaari mong matitira.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.response.gift.return": {
+      "text": "Understood.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.response.medical": {
+      "text": "Walang kagyat, ngunit suriin ang mga bendahe.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.member.basic.response.supplies": {
+      "text": "Pagkain, tubig, at mga kasangkapan. Ang karaniwan.",
+      "context": "legacy.needs.member.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.choice.gift": {
+      "text": "Mayroon akong isang bagay na maaaring kailanganin mo.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.choice.gift.return": {
+      "text": "Hahawakan ko ang natitira.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.choice.medical": {
+      "text": "Anumang mga medikal na problema?",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.choice.supplies": {
+      "text": "Kailangan ng anumang mga supply?",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.gift.offer.multiple": {
+      "text": "Mayroon akong {giftItemSummary} para sa iyo.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.gift.offer.multiple.alt": {
+      "text": "Kunin ang mga ito kung magagamit mo ang mga ito: {giftItemSummary}.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.gift.offer.single": {
+      "text": "Narito ang {giftItemName}.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.gift.offer.single.alt": {
+      "text": "Maaari ko itong iligtas: {giftItemName}.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.gift.opening": {
+      "text": "Pumili ng ibibigay sa akin, pagkatapos ay bumalik sa usapan.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.gift.received.equipment": {
+      "text": "Magandang pagpipilian. Maaaring pigilan ng isang bagay na tulad nito ang masamang araw na lumala.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.gift.received.food": {
+      "text": "Hindi ito mauubos. Pinapahalagahan ko ang pagbabahagi mo nito sa akin.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.gift.received.general": {
+      "text": "Magagamit ko ito. salamat po.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.gift.received.medical": {
+      "text": "Kapaki-pakinabang iyan. Salamat sa pag-iisip nang maaga sa halip na maghintay ng krisis.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.opening": {
+      "text": "May ilang bagay akong magagamit.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.response.gift": {
+      "text": "Hayaan akong makita kung ano ang maaari mong matitira.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.response.gift.return": {
+      "text": "Understood.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.response.medical": {
+      "text": "Wala akong kakayanin ngayon.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.neutral.basic.response.supplies": {
+      "text": "Ang pagkain at malinis na tubig ay hindi nasaktan.",
+      "context": "legacy.needs.neutral.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.choice.gift": {
+      "text": "Mayroon akong isang bagay na maaaring kailanganin mo.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.choice.gift.return": {
+      "text": "Hahawakan ko ang natitira.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.choice.medical": {
+      "text": "nasaktan ka ba",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.choice.supplies": {
+      "text": "Ano ang maaari kong dalhin sa iyo?",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.gift.offer.multiple": {
+      "text": "Nagdala ako ng {giftItemSummary} para sa iyo.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.gift.offer.multiple.alt": {
+      "text": "Iyo ang mga ito kung kailangan mo: {giftItemSummary}.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.gift.offer.single": {
+      "text": "Narito ang {giftItemName}. Akala ko magagamit mo.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.gift.offer.single.alt": {
+      "text": "Para sa iyo ito: {giftItemName}.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.gift.opening": {
+      "text": "Pumili ng ibibigay sa akin, pagkatapos ay bumalik sa usapan.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.gift.received.equipment": {
+      "text": "Kapaki-pakinabang, pinag-isipan, at mahusay na pinili. Natututuhan mo na kung paano ako mag-isip.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.gift.received.food": {
+      "text": "Naalala mo ako. Masisiyahan ako rito, at maaalala ko ang ginawa mong ito.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.gift.received.general": {
+      "text": "Iyan ay nag-iisip sa iyo. salamat po.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.gift.received.medical": {
+      "text": "Napansin mo ang kailangan ko bago ko pa hingin. Mas mahalaga iyon kaysa sa mismong gamot.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.opening": {
+      "text": "Dahil ikaw ito, sasabihin ko sa iyo kung ano ang kailangan ko.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.response.gift": {
+      "text": "Hayaan akong makita kung ano ang maaari mong matitira.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.response.gift.return": {
+      "text": "Understood.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.response.medical": {
+      "text": "Hindi. Sasabihin ko sa iyo kung ako nga.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.needs.special.basic.response.supplies": {
+      "text": "Bumalik ka na lang ng matiwasay. Anumang bagay ay dagdag.",
+      "context": "legacy.needs.special.basic",
+      "sourceShard": "conversation.content.legacy.needs",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.personal.special.basic.choice.trust": {
+      "text": "Maaari kang magtiwala sa akin.",
+      "context": "legacy.personal.special.basic",
+      "sourceShard": "conversation.content.legacy.personal",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.personal.special.basic.locked.familiarity": {
+      "text": "Hindi pa sapat ang pagkakakilala ninyo sa isa't isa.",
+      "context": "legacy.personal.special.basic",
+      "sourceShard": "conversation.content.legacy.personal",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.personal.special.basic.opening": {
+      "text": "Sige, {playerFirstName}. Maaari naming pag-usapan ang tungkol sa amin.",
+      "context": "legacy.personal.special.basic",
+      "sourceShard": "conversation.content.legacy.personal",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.personal.special.basic.response.trust": {
+      "text": "alam ko. Nangangahulugan pa rin iyon ng higit pa sa masasabi ko.",
+      "context": "legacy.personal.special.basic",
+      "sourceShard": "conversation.content.legacy.personal",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.relationship.special.basic.choice.us": {
+      "text": "Maaari ba nating pag-usapan ang tungkol sa atin?",
+      "context": "legacy.relationship.special.basic",
+      "sourceShard": "conversation.content.legacy.relationship",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.relationship.special.basic.locked.approval": {
+      "text": "Hindi pa sapat ang pagiging malapit ng relasyong ito.",
+      "context": "legacy.relationship.special.basic",
+      "sourceShard": "conversation.content.legacy.relationship",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.relationship.special.basic.opening": {
+      "text": "Nakikinig ako, {playerFirstName}. Sabihin ang kailangan mong sabihin.",
+      "context": "legacy.relationship.special.basic",
+      "sourceShard": "conversation.content.legacy.relationship",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.relationship.special.basic.response.us": {
+      "text": "Oo. Malamang dapat nga.",
+      "context": "legacy.relationship.special.basic",
+      "sourceShard": "conversation.content.legacy.relationship",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.set.territory.member.basic.choice.set.territory": {
+      "text": "Itakda ang Teritoryo",
+      "context": "legacy.set_territory.member.basic",
+      "sourceShard": "conversation.content.legacy.set.territory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.set.territory.member.basic.locked.base.established": {
+      "text": "Ang aming teritoryo ay naitatag na.",
+      "context": "legacy.set_territory.member.basic",
+      "sourceShard": "conversation.content.legacy.set.territory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.set.territory.member.basic.opening": {
+      "text": "We have enough people to stop surviving from one night to the next. Pick a place, mark it as ours, and we can simulan gusali something that lasts.",
+      "context": "legacy.set_territory.member.basic",
+      "sourceShard": "conversation.content.legacy.set.territory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.set.territory.member.basic.response.set.territory": {
+      "text": "Then let us find ground worth defending. I will tulong turn it into home.",
+      "context": "legacy.set_territory.member.basic",
+      "sourceShard": "conversation.content.legacy.set.territory",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.member.basic.choice.quiet.day": {
+      "text": "Tahimik na araw hanggang ngayon.",
+      "context": "legacy.small_talk.member.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.member.basic.choice.weather": {
+      "text": "Ilang panahon ang nararanasan natin.",
+      "context": "legacy.small_talk.member.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.member.basic.opening": {
+      "text": "Ang isang tahimik na pag-uusap ay pakinggan ngayon.",
+      "context": "legacy.small_talk.member.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.member.basic.response.quiet.day": {
+      "text": "Karapat-dapat iyon ng grupo.",
+      "context": "legacy.small_talk.member.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.member.basic.response.weather": {
+      "text": "Maaaring mas masahol pa. Mas malala ang pinagdaanan namin.",
+      "context": "legacy.small_talk.member.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.neutral.basic.choice.quiet.day": {
+      "text": "Tahimik na araw hanggang ngayon.",
+      "context": "legacy.small_talk.neutral.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.neutral.basic.choice.weather": {
+      "text": "Ilang panahon ang nararanasan natin.",
+      "context": "legacy.small_talk.neutral.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.neutral.basic.opening": {
+      "text": "Sige. Maaari tayong mag-usap sandali.",
+      "context": "legacy.small_talk.neutral.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.neutral.basic.response.quiet.day": {
+      "text": "Huwag tuksuhin ang kapalaran, ngunit kukunin ko ito.",
+      "context": "legacy.small_talk.neutral.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.neutral.basic.response.weather": {
+      "text": "At least natatakpan ng ulan ang mga yapak namin.",
+      "context": "legacy.small_talk.neutral.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.special.basic.choice.quiet.day": {
+      "text": "Tahimik na araw hanggang ngayon.",
+      "context": "legacy.small_talk.special.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.special.basic.choice.weather": {
+      "text": "Ilang panahon ang nararanasan natin.",
+      "context": "legacy.small_talk.special.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.special.basic.opening": {
+      "text": "Palagi akong may oras para sa iyo, {playerFirstName}.",
+      "context": "legacy.small_talk.special.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.special.basic.response.quiet.day": {
+      "text": "Kung gayon, gugulin mo ang bahagi nito kasama ako.",
+      "context": "legacy.small_talk.special.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.small.talk.special.basic.response.weather": {
+      "text": "bahagya kong napansin. pinapanood kita.",
+      "context": "legacy.small_talk.special.basic",
+      "sourceShard": "conversation.content.legacy.small.talk",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.ask.about": {
+      "text": "Magtanong tungkol sa...",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.goodbye": {
+      "text": "Paalam",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.greetings": {
+      "text": "Pagbati",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.needs": {
+      "text": "Kailangan mo ng kahit ano?",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.personal": {
+      "text": "Personal",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.relationship": {
+      "text": "Relasyon",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.set.territory": {
+      "text": "Itakda ang Teritoryo",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.small.talk": {
+      "text": "Mag-usap tayo.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.wellbeing": {
+      "text": "kamusta ka na?",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.category.work.orders": {
+      "text": "Trabaho / Orders",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.choice.ambient.visit": {
+      "text": "Maaari kang manatili muna sa amin kung kailangan mo ng ligtas na lugar.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.choice.ask.name": {
+      "text": "Ano ang pangalan mo?",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.choice.disband": {
+      "text": "Sabihin sa kanila na umalis sa grupo",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.choice.disband.cancel": {
+      "text": "Hindi. Patuloy na magsalita.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.choice.disband.confirm": {
+      "text": "Oo. Naiintindihan kong aalis sila sa atin.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.choice.recruit": {
+      "text": "Gusto mo bang sumali sa amin?",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.choice.settlement.admission": {
+      "text": "Maaari kang magkaroon ng lugar sa amin kung gusto mo.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.choice.show.debug.text": {
+      "text": "Ipakita ang Debug Text",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.choice.view.dossier": {
+      "text": "Tingnan ang dossier",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.context.talk": {
+      "text": "Mag-usap",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.identity.stranger": {
+      "text": "estranghero",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.llm.input.tooltip": {
+      "text": "Mag-type ng mensahe para sa NPC na ito.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.llm.mode.nearby": {
+      "text": "KALAPIT na NPCS",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.llm.mode.nearest": {
+      "text": "ISANG NPC",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.llm.send": {
+      "text": "IPADALA",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.llm.status.off": {
+      "text": "LLM BRIDGE PATAY",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.llm.status.open": {
+      "text": "MAGBUKAS NG USAPAN",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.llm.status.speaking": {
+      "text": "NPC ANG Nagsasalita...",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.llm.status.waiting": {
+      "text": "NAGHIHINTAY NG SAGOT NG NPC...",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.locked.approval": {
+      "text": "Hindi pa sapat ang lalim ng relasyong ito.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.locked.familiarity": {
+      "text": "Hindi pa sapat ang pagkakakilala ninyo sa isa't isa.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.panel.current.relation": {
+      "text": "KASALUKUYANG KAUGNAYAN",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.panel.current.relation.edit": {
+      "text": "Kasalukuyang relasyon",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.panel.llm.inline.input": {
+      "text": "KAusapin mo",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.panel.llm.input": {
+      "text": "TYPE TO talk",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.ask.name": {
+      "text": "Nagpakilala sila.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.departure.confirmed": {
+      "text": "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.departure.rejected": {
+      "text": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.departure.warning": {
+      "text": "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.admire.1": {
+      "text": "Sige. Nakikita ko ang kahulugan sa pagsunod sa isang taong nakakuha ng aking tiwala.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.admire.2": {
+      "text": "Sana magtanong ka. Bigyan mo ako ng lugar sa iyong grupo at hihilahin ko ang aking timbang.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.admire.3": {
+      "text": "Oo. Nirerespeto ko ang itinatayo mo, at mas gusto kong tumulong kaysa manatili sa labas nito.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.fear.1": {
+      "text": "Hindi ako mahilig ma-corner, pero alam ko kapag outmatched ako. sasama ako sayo.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.fear.2": {
+      "text": "ayos lang. Susundan ko muna. Panatilihin ang iyong salita at hindi kami magkakaroon ng problema.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.fear.3": {
+      "text": "Nagawa mo na ang punto mo. Sasama ako, pero huwag mong mapagkamalang pagkakaibigan ang pag-iingat ko.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.cooldown.1": {
+      "text": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.cooldown.2": {
+      "text": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.general.1": {
+      "text": "Hindi ko magawa ang desisyong iyon sa ngayon. Masyadong maraming nagtatrabaho laban dito.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.general.2": {
+      "text": "Hindi. Pinahahalagahan ko ang alok, ngunit hindi posible ang pagsali sa iyo sa ngayon.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.general.3": {
+      "text": "Kailangan kong ayusin ang ilang bagay bago ko maisipang umalis kasama ka.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.hostile.1": {
+      "text": "Gusto mong sumama ako sa iyo? Lumayo ka.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.hostile.2": {
+      "text": "Hindi ako sasama sa iyo. Huwag mong ipagkamali ang pag-uusap na ito sa tiwala.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.leader.1": {
+      "text": "May mga tao na akong umaasa sa akin. Hindi ako maaaring lumayo sa kanila para sa iyong grupo.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.leader.2": {
+      "text": "Ako ang may pananagutan sa kanlungang ito. Hanggang sa magbago iyon, nananatili ako rito.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.member.1": {
+      "text": "Kasama na kita. Magtanong ka na lang tungkol sa mga utos kaysa i-recruit akong muli.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.member.2": {
+      "text": "Bahagi na ako ng grupong ito.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.1": {
+      "text": "Hindi pa ako handang ibigay ang buhay ko sa iyong mga kamay. Kailangan namin ng mas maraming oras bago mo itanong iyon muli.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.10": {
+      "text": "Mag-usap muna tayo at tingnan kung paano tayo magkakasundo bago magdesisyon.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.2": {
+      "text": "Mukhang may kakayahan ka, pero hindi pa kita gaanong kilala para sumama sa grupo mo.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.3": {
+      "text": "Seryosong pangako 'yan. Wala pa tayong sapat na tiwala para pumayag ako.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.4": {
+      "text": "Sa panahong ito, kailangan ng matibay na tiwala bago sumama. Hindi pa tayo ganoon kalapit.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.5": {
+      "text": "Hindi ako basta-basta sumasama sa taong kakikilala ko pa lang.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.6": {
+      "text": "Wala pa tayong pinagsamahan para makapagdesisyon ako nang ganoon kabilis.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.7": {
+      "text": "Bigyan muna natin ng oras. Hindi biro ang sumama sa isang grupo.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.8": {
+      "text": "Salamat sa alok, pero gusto ko munang makita kung paano ka kumilos sa labas.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.relationship.9": {
+      "text": "Kaya ko pa namang mag-isa sa ngayon habang hindi ko pa nasisigurado kung sino ang maaasahan ko.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.unavailable.1": {
+      "text": "Hindi ko magagawa ang desisyong iyon habang hindi ako available.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.response.recruit.reject.unavailable.2": {
+      "text": "Hindi ko maaaring pag-usapan iyan ngayon.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.semantic.gift.preference.dislike": {
+      "text": "Ayaw ko niyan.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.semantic.gift.preference.like": {
+      "text": "Gusto ko iyan.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.semantic.gift.preference.neutral": {
+      "text": "Wala akong matinding kagustuhan tungkol diyan.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.semantic.gift.preference.unknown": {
+      "text": "Hindi ko alam kung anong gamit ang tinutukoy mo.",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.status.block.unavailable": {
+      "text": "Ang paksang iyon ay hindi available sa ngayon ({reason}).",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.status.choice.rejected": {
+      "text": "Tinanggihan ang pagpipiliang iyon ({reason}).",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.categories.status.loading": {
+      "text": "Sinusuri kung ano ang iyong nalalaman...",
+      "context": "legacy.system.shared.categories",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.approval.down": {
+      "text": "Pag-apruba -5",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.approval.up": {
+      "text": "Pag-apruba +5",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.audience": {
+      "text": "Target na tagapakinig: {audience}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.familiarity.down": {
+      "text": "Pamilyar -5",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.familiarity.up": {
+      "text": "Pamilyar +5",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.history": {
+      "text": "Ginagamit ng kasaysayan ang: {uses}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.hour": {
+      "text": "Oras: {hour}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.personality": {
+      "text": "Gate personalidad +0.1",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.refresh": {
+      "text": "I-refresh",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.respect.down": {
+      "text": "Paggalang -5",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.respect.up": {
+      "text": "Paggalang +5",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.simulate": {
+      "text": "Buksan ang Pag-uusap sa Sandbox",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.button.skill": {
+      "text": "Kasanayan sa gate +1",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.category": {
+      "text": "Kategorya: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.choice": {
+      "text": "CHOICE {id} karapat-dapat={eligible} {reason}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.effect": {
+      "text": "EPEKTO {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.eligible": {
+      "text": "Kwalipikado: {value} {reason}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.error": {
+      "text": "Mali: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.id": {
+      "text": "ID ng detalye: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.before.after": {
+      "text": "Bago -> pagkatapos",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.category": {
+      "text": "Kategorya",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.choice": {
+      "text": "Pagpipilian",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.choice.status": {
+      "text": "Katayuan ng pagpili",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.effect": {
+      "text": "Epekto",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.eligibility": {
+      "text": "I-block ang pagiging karapat-dapat",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.error": {
+      "text": "Error",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.fallback": {
+      "text": "Fallback sa pagsasalin",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.id": {
+      "text": "ID ng Block",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.networked": {
+      "text": "Naka-network",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.next": {
+      "text": "Susunod na node",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.node": {
+      "text": "Node",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.node.text": {
+      "text": "Text ng node",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.outcome": {
+      "text": "kinalabasan",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.outcome.status": {
+      "text": "Katayuan ng kinalabasan",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.owner": {
+      "text": "May-ari",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.persistence": {
+      "text": "Nagpumilit",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.reason": {
+      "text": "Dahilan",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.registry": {
+      "text": "Pagpapatala",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.relationship": {
+      "text": "axis ng relasyon",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.response": {
+      "text": "Susi ng pagtugon",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.sandbox.outcome": {
+      "text": "Kinalabasan ng sandbox",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.sandbox.roll": {
+      "text": "Roll ng sandbox",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.seed": {
+      "text": "Binhi ng pagpili",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.source": {
+      "text": "Pinagmulan",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.text.error": {
+      "text": "Error sa pagsasalin",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.translation": {
+      "text": "Pagsasalin",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.label.weight": {
+      "text": "Timbang",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.node": {
+      "text": "NODE {id} teksto={text}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.outcome": {
+      "text": "OUTCOME {id} karapat-dapat={eligible} timbang={weight} susunod={next} {reason}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.owner": {
+      "text": "May-ari: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.registry.valid": {
+      "text": "Wasto ang pagpapatala: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.seed": {
+      "text": "Binhi: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.source": {
+      "text": "Pinagmulan: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.text.error": {
+      "text": "TEKSTO: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.translation.fallback": {
+      "text": "Gumamit ng fallback sa pagsasalin: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.detail.translation.valid": {
+      "text": "Wasto ang pagsasalin: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.back.to.blocks": {
+      "text": "Bumalik sa mga bloke ng pag-uusap ng kategoryang ito",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.back.to.categories": {
+      "text": "Lahat ng mga kategorya ng pag-uusap",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.block.choice": {
+      "text": "{id} [{audiences}] — {status}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.categories.prompt": {
+      "text": "Sandbox registry: pumili ng kategorya ng pag-uusap ({count} runnable blocks).",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.category.prompt": {
+      "text": "Pumili ng nakarehistrong {category} block ({count} kabuuan).",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.no.mutation": {
+      "text": "SANDBOX persisted=false networked=false",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.open.failed": {
+      "text": "Hindi mabuksan ng SANDBOX: {reason}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.outcome": {
+      "text": "SANDBOX kinalabasan: {value}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.relationship": {
+      "text": "SANDBOX na relasyon {axis}: {before} -> {after}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.sandbox.roll": {
+      "text": "Roll ng SANDBOX: {roll}/{total}",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.status.eligible": {
+      "text": "eligible",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.status.invalid": {
+      "text": "invalid",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.status.no": {
+      "text": "Hindi",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.status.text.fallback": {
+      "text": "text:fallback",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.status.text.missing": {
+      "text": "text:missing",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.status.text.ok": {
+      "text": "text:ok",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.status.unknown": {
+      "text": "Unknown",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.status.valid": {
+      "text": "valid",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.status.yes": {
+      "text": "Yes",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.system.shared.debugger.title": {
+      "text": "DEBUGGER NG PAG-UUSAP BLOCK",
+      "context": "legacy.system.shared.debugger",
+      "sourceShard": "conversation.content.legacy.system",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.member.basic.choice.condition": {
+      "text": "Kamusta ka na?",
+      "context": "legacy.wellbeing.member.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.member.basic.choice.offer.help": {
+      "text": "Kailangan mo ba ng anumang tulong?",
+      "context": "legacy.wellbeing.member.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.member.basic.opening": {
+      "text": "Nakatayo pa rin. Sige na.",
+      "context": "legacy.wellbeing.member.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.member.basic.response.condition": {
+      "text": "Tired, but ready if the grupo needs me.",
+      "context": "legacy.wellbeing.member.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.member.basic.response.offer.help": {
+      "text": "Makakatulong ang kaunting pahinga. Pinahahalagahan ko ang pagtatanong mo.",
+      "context": "legacy.wellbeing.member.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.neutral.basic.choice.condition": {
+      "text": "Kamusta ka na?",
+      "context": "legacy.wellbeing.neutral.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.neutral.basic.choice.offer.help": {
+      "text": "Kailangan mo ba ng anumang tulong?",
+      "context": "legacy.wellbeing.neutral.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.neutral.basic.opening": {
+      "text": "pinamamahalaan ko. Ano ang gusto mong itanong?",
+      "context": "legacy.wellbeing.neutral.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.neutral.basic.response.condition": {
+      "text": "humihinga pa ako. Tama na sa ngayon.",
+      "context": "legacy.wellbeing.neutral.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.neutral.basic.response.offer.help": {
+      "text": "Aayusin ko, pero salamat sa pagtatanong.",
+      "context": "legacy.wellbeing.neutral.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.special.basic.choice.condition": {
+      "text": "Kamusta ka na talaga?",
+      "context": "legacy.wellbeing.special.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.special.basic.choice.offer.help": {
+      "text": "Hayaan mo akong tumulong.",
+      "context": "legacy.wellbeing.special.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.special.basic.opening": {
+      "text": "Magiging tapat ako sa iyo, {playerFirstName}. Magtanong.",
+      "context": "legacy.wellbeing.special.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.special.basic.response.condition": {
+      "text": "Mas mabuti na ngayong nandito ka na.",
+      "context": "legacy.wellbeing.special.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.wellbeing.special.basic.response.offer.help": {
+      "text": "Sige. Manatiling malapit sa isang minuto.",
+      "context": "legacy.wellbeing.special.basic",
+      "sourceShard": "conversation.content.legacy.wellbeing",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.work.orders.member.basic.choice.orders": {
+      "text": "may trabaho ako sayo.",
+      "context": "legacy.work_orders.member.basic",
+      "sourceShard": "conversation.content.legacy.work.orders",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.work.orders.member.basic.choice.status": {
+      "text": "Mag-ulat sa iyong kasalukuyang gawain.",
+      "context": "legacy.work_orders.member.basic",
+      "sourceShard": "conversation.content.legacy.work.orders",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.work.orders.member.basic.opening": {
+      "text": "handa na ako. Ano ang kailangang gawin?",
+      "context": "legacy.work_orders.member.basic",
+      "sourceShard": "conversation.content.legacy.work.orders",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.work.orders.member.basic.response.orders": {
+      "text": "Sabihin mo sa akin kung ano ang kailangang gawin.",
+      "context": "legacy.work_orders.member.basic",
+      "sourceShard": "conversation.content.legacy.work.orders",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
+    "conversation.legacy.work.orders.member.basic.response.status": {
+      "text": "Ang lahat ay nasa track sa ngayon.",
+      "context": "legacy.work_orders.member.basic",
+      "sourceShard": "conversation.content.legacy.work.orders",
+      "owners": [
+        "ProjectHoomans"
+      ]
+    },
     "semantic.accept.dataset.pending_care": {
       "context": "dialogue",
       "owners": [

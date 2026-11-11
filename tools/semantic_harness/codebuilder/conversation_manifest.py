@@ -252,7 +252,23 @@ def load_manifest(
             and "translations" not in path.relative_to(root).parts
         )
     }
-    unregistered = sorted(discovered - seen_paths)
+    raw_auxiliary = manifest.get("auxiliaryFiles", [])
+    if raw_auxiliary is None:
+        raw_auxiliary = []
+    if not isinstance(raw_auxiliary, list):
+        raise CompileError("Conversation manifest auxiliaryFiles must be a list")
+    auxiliary_paths: set[str] = set()
+    for index, raw_path in enumerate(raw_auxiliary):
+        auxiliary_path = _validate_relative_json_path(
+            raw_path,
+            f"auxiliaryFiles[{index}]",
+        )
+        if auxiliary_path in seen_paths:
+            raise CompileError(f"Conversation auxiliary file is also a shard: {auxiliary_path}")
+        if not (root / Path(*PurePosixPath(auxiliary_path).parts)).is_file():
+            raise CompileError(f"Conversation auxiliary file is missing: {auxiliary_path}")
+        auxiliary_paths.add(auxiliary_path)
+    unregistered = sorted(discovered - seen_paths - auxiliary_paths)
     if unregistered:
         raise CompileError(
             "unregistered Conversation shards: " + ", ".join(unregistered)

@@ -48,6 +48,9 @@ if __package__ in {None, ""}:
         render_conversation_runtime_plan,
         render_conversation_ui_module,
     )
+    from tools.semantic_harness.codebuilder.legacy_bundle_catalog import (
+        write_legacy_runtime_catalogs,
+    )
 else:
     from .lexicon_compiler import (  # noqa: E402
         CompileError,
@@ -80,6 +83,7 @@ else:
         render_conversation_runtime_plan,
         render_conversation_ui_module,
     )
+    from .legacy_bundle_catalog import write_legacy_runtime_catalogs
 
 
 def default_lexicon_output(core_repository: Path | None = None) -> Path:
@@ -437,6 +441,36 @@ def write_conversation_output(
                 package_descriptor(owner).translation_manifest_relative,
             )
         )
+
+    legacy_manifest = CONVERSATION_SOURCE_ROOT / "legacy_bundles.json"
+    if legacy_manifest.is_file() and HOOMANS_OWNER in enabled_owners:
+        package_translation_root = translation_root(
+            repository,
+            HOOMANS_OWNER,
+            core_repository=core_repository,
+            dynamic_trading_repository=dynamic_trading_repository,
+            runtime_root=repository,
+        )
+        paths.extend(write_legacy_runtime_catalogs(
+            legacy_manifest,
+            CONVERSATION_SOURCE_ROOT / "translations",
+            package_translation_root,
+            owner=HOOMANS_OWNER,
+        ))
+        if dynamic_trading_repository is not None:
+            dt_translation_root = translation_root(
+                repository,
+                DT_COMMON_OWNER,
+                core_repository=core_repository,
+                dynamic_trading_repository=dynamic_trading_repository,
+                runtime_root=repository,
+            )
+            paths.extend(write_legacy_runtime_catalogs(
+                legacy_manifest,
+                CONVERSATION_SOURCE_ROOT / "translations",
+                dt_translation_root,
+                owner=DT_COMMON_OWNER,
+            ))
 
     return paths
 
