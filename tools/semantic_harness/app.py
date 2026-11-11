@@ -4,9 +4,29 @@ from __future__ import annotations
 
 from typing import Sequence
 
-from .cli import _parser, cli
+from .cli import AUTHORING_OPERATIONS, CLI_OPERATIONS, _parser, cli
 from .process import install_shutdown_handler
 from .testing.doctor import run_doctor
+
+
+def _should_run_cli(arguments: object) -> bool:
+    """Select headless mode only when an operation was actually requested.
+
+    The original Project Hoomans harness opened its Tk UI for a bare
+    ``run_harness.sh`` invocation.  Keep that file-manager-friendly default
+    while preserving explicit CLI and diagnostic operations as headless.
+    """
+
+    if getattr(arguments, "no_gui", False):
+        return True
+    operations = (
+        *AUTHORING_OPERATIONS,
+        *CLI_OPERATIONS,
+        "list_mods",
+        "list_presets",
+        "show_selection",
+    )
+    return any(getattr(arguments, operation, None) for operation in operations)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -31,11 +51,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             request_timeout=arguments.timeout,
             json_output=arguments.doctor_json,
         )
-    if arguments.gui and not arguments.no_gui:
-        from .ui.shell import run_gui
+    if not arguments.gui and _should_run_cli(arguments):
+        return cli(arguments)
 
-        return run_gui(arguments)
-    return cli(arguments)
+    from .ui.shell import run_gui
+
+    return run_gui(arguments)
 
 
 if __name__ == "__main__":
