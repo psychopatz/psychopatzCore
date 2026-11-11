@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.combat.banter.weapon.kill.shaken",
+  "kind": "content",
+  "domain": "combat_banter",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.shaken.firearm_low_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Jesus... I actually hit it.",
+            "TL": "Diyos ko... tinamaan ko talaga."
+          },
+          {
+            "EN": "My hands are shaking... but it's down.",
+            "TL": "Nanginginig ang mga kamay ko... pero bagsak na."
+          },
+          {
+            "EN": "Did I get it? God, I think it's dead.",
+            "TL": "Napatay ko ba? Diyos ko, sa tingin ko patay na."
+          },
+          {
+            "EN": "That was way too close...",
+            "TL": "Masyadong malapit 'yon..."
+          },
+          {
+            "EN": "I panicked and fired... thank God.",
+            "TL": "Nag-panic ako at bumaril... salamat sa Diyos."
+          },
+          {
+            "EN": "Is it dead? Please tell me it's dead.",
+            "TL": "Patay na ba? Sabihin mo sa akin kung patay na."
+          },
+          {
+            "EN": "Heart's beating out of my chest...",
+            "TL": "Lulukso ang puso ko sa kaba..."
+          },
+          {
+            "EN": "I didn't think that shot would land.",
+            "TL": "Hindi ko akalaing tatama ang putok na 'yon."
+          },
+          {
+            "EN": "It's down... don't let another one get close.",
+            "TL": "Bagsak na... huwag mong hayaang may makalapit pang iba."
+          },
+          {
+            "EN": "God... that sound... it's finally quiet.",
+            "TL": "Diyos ko... ang tunog na 'yon... tahimik na rin sa wakas."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.shaken.blade_head_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Oh God... there's blood everywhere.",
+            "TL": "Diyos ko... may dugo kahit saan."
+          },
+          {
+            "EN": "It's in pieces... I need a second.",
+            "TL": "Pira-piraso na... kailangan ko ng saglit."
+          },
+          {
+            "EN": "The smell... God, I think I'm gonna be sick.",
+            "TL": "Ang amoy... Diyos ko, masusuka yata ako."
+          },
+          {
+            "EN": "I can still feel the crunch...",
+            "TL": "Ramdam ko pa rin ang lagutok..."
+          },
+          {
+            "EN": "It came right at me... had to cut it.",
+            "TL": "Diretso sa akin... kailangan kong hiwain."
+          },
+          {
+            "EN": "Hands won't stop trembling...",
+            "TL": "Ayaw tumigil ng panginginig ng mga kamay ko..."
+          },
+          {
+            "EN": "Is it really dead? Look at it...",
+            "TL": "Patay na ba talaga? Tingnan mo..."
+          },
+          {
+            "EN": "That was horrible... but it's over.",
+            "TL": "Kakila-kilabot 'yon... pero tapos na."
+          },
+          {
+            "EN": "God, I hate doing this...",
+            "TL": "Diyos ko, ayaw na ayaw kong ginagawa 'to..."
+          },
+          {
+            "EN": "Head's gone... let's just step back.",
+            "TL": "Wala nang ulo... umatras muna tayo."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.shaken.unarmed_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Oh God. I did that with my hands.",
+            "TL": "Diyos ko. Kamay ko lang ang ginamit ko."
+          },
+          {
+            "EN": "I had to shove it down... my bare hands.",
+            "TL": "Kinailangan kong itulak pabagsak... mga kamay ko lang."
+          },
+          {
+            "EN": "It almost bit me. Look at my arms shaking.",
+            "TL": "Halos makagat ako. Tingnan mo ang nanginginig kong braso."
+          },
+          {
+            "EN": "I need a weapon. I can't do that again.",
+            "TL": "Kailangan ko ng sandata. Hindi ko na mauulit 'yon."
+          },
+          {
+            "EN": "I felt its teeth scrape near my jacket.",
+            "TL": "Naramdaman ko ang ngipin nito malapit sa jacket ko."
+          },
+          {
+            "EN": "Stomped on its head... God forgive me.",
+            "TL": "Tinapakan ko ang ulo... patawarin ako ng Diyos."
+          },
+          {
+            "EN": "That was pure desperation.",
+            "TL": "Dala lang 'yon ng matinding takot."
+          },
+          {
+            "EN": "My hands are bruised... but I'm alive.",
+            "TL": "Pasa-pasa ang mga kamay ko... pero buhay pa ako."
+          },
+          {
+            "EN": "Never want to be that close again.",
+            "TL": "Ayoko nang mapalapit nang gano'n kailanman."
+          },
+          {
+            "EN": "It's dead... I pushed it off and stomped.",
+            "TL": "Patay na... itinulak ko at tinapakan."
+          }
+        ]
+      }
+    }
+  ]
+}

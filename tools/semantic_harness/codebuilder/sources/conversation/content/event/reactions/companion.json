@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.reactions.companion",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.companion.reaction.abandonment",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Stay with me next time. We watch each other's backs.",
+            "TL": "Sumabay ka sa akin sa susunod. Nagbabantayan tayo ng likod."
+          },
+          {
+            "EN": "Don't leave me behind like that. We survive together.",
+            "TL": "Huwag mo akong iiwan nang gano'n. Sabay tayong mabubuhay."
+          },
+          {
+            "EN": "I almost got swarmed when you ran off. Stick close.",
+            "TL": "Halos makuyog ako no'ng umalis ka. Dumikit ka lang."
+          },
+          {
+            "EN": "We're a team. Don't take off on your own.",
+            "TL": "Magkasama tayo. Huwag kang aalis nang mag-isa."
+          },
+          {
+            "EN": "Where did you go?! You can't just vanish.",
+            "TL": "Saan ka pumunta?! Hindi ka pwedeng mawala na lang."
+          },
+          {
+            "EN": "Next time, warn me before you leave.",
+            "TL": "Sa susunod, sabihan mo ako bago ka umalis."
+          },
+          {
+            "EN": "Thought I was on my own out there. Stay together.",
+            "TL": "Akala ko naiwan na akong mag-isa. Magsama tayo."
+          },
+          {
+            "EN": "Leaving your partner gets people killed. Keep near.",
+            "TL": "Ang pag-iwan sa kasama ay nakakamatay. Dumikit ka."
+          },
+          {
+            "EN": "Glad you're back, but don't ditch me again.",
+            "TL": "Mabuti at bumalik ka, pero huwag mo na akong iiwan ulit."
+          },
+          {
+            "EN": "Stick with me. We're stronger as a pair.",
+            "TL": "Sumabay ka sa akin. Mas malakas tayo kapag magkasama."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.companion.reaction.camp_rejected",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "I can't find a safe room or campfire nearby.",
+            "TL": "Wala akong makitang ligtas na kwarto o campfire sa malapit."
+          },
+          {
+            "EN": "Nowhere safe to rest around here. We need better cover.",
+            "TL": "Walang ligtas na pahingahan dito. Kailangan natin ng mas maayos na silungan."
+          },
+          {
+            "EN": "Can't camp in the open like this. Too dangerous.",
+            "TL": "Hindi pwedeng magkampo sa lantad nang ganito. Masyadong delikado."
+          },
+          {
+            "EN": "We need walls or a fire before we settle down.",
+            "TL": "Kailangan natin ng pader o apoy bago huminto."
+          },
+          {
+            "EN": "This spot isn't secure enough for camp. Keep walking.",
+            "TL": "Hindi sapat ang kaligtasan ng pwestong 'to para sa kampo. Lakad pa."
+          },
+          {
+            "EN": "No shelter here. Let's find four walls first.",
+            "TL": "Walang masisilungan dito. Maghanap muna tayo ng apat na pader."
+          },
+          {
+            "EN": "Can't sleep here. Infected could walk right in.",
+            "TL": "Hindi pwedeng matulog dito. Madaling makakapasok ang mga infected."
+          },
+          {
+            "EN": "We need a barricaded room or a campfire before resting.",
+            "TL": "Kailangan natin ng may barikadang kwarto o campfire bago magpahinga."
+          },
+          {
+            "EN": "Not pitching camp here. Let's find a secure building.",
+            "TL": "Hindi ako magkakampo rito. Maghanap tayo ng ligtas na gusali."
+          },
+          {
+            "EN": "Too exposed. Find us a real camp spot.",
+            "TL": "Masyadong lantad. Hanapan mo tayo ng tunay na matutuluyan."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.companion.reaction.default",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "I heard you. We will handle it together.",
+            "TL": "Narinig kita. Sabay natin 'yang haharapin."
+          },
+          {
+            "EN": "Understood. I'm right here with you.",
+            "TL": "Naintindihan ko. Nandito lang ako kasama mo."
+          },
+          {
+            "EN": "Got your message. Let's get it done.",
+            "TL": "Nakuha ko ang sabi mo. Tapusin na natin."
+          },
+          {
+            "EN": "I'm with you. Lead the way.",
+            "TL": "Kasama mo ako. Ikaw ang manguna."
+          },
+          {
+            "EN": "Heard. Whatever comes, we take it on.",
+            "TL": "Narinig ko. Kahit ano'ng dumating, lalabanan natin."
+          },
+          {
+            "EN": "Copy that. Staying right by your side.",
+            "TL": "Kopya. Dito lang ako sa tabi mo."
+          },
+          {
+            "EN": "I hear you loud and clear. Let's move.",
+            "TL": "Malinaw kong narinig. Kilos na tayo."
+          },
+          {
+            "EN": "Count on me. We're in this together.",
+            "TL": "Maaasahan mo ako. Magkasama tayo rito."
+          },
+          {
+            "EN": "Understood. Let's keep our heads clear.",
+            "TL": "Naiintindihan ko. Panatilihing malinaw ang isip natin."
+          },
+          {
+            "EN": "Right behind you. Let's handle this.",
+            "TL": "Nasa likod mo lang ako. Asikasuhin natin 'to."
+          }
+        ]
+      }
+    }
+  ]
+}

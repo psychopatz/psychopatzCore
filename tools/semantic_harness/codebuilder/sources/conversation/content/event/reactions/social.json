@@ -1,0 +1,63 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.reactions.social",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.social.reaction.default",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "I hear you.",
+            "TL": "Narinig kita."
+          },
+          {
+            "EN": "Understood.",
+            "TL": "Naiintindihan ko."
+          },
+          {
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
+          },
+          {
+            "EN": "I'm listening.",
+            "TL": "Nakikinig ako."
+          },
+          {
+            "EN": "Fair enough.",
+            "TL": "Makatarungan 'yan."
+          },
+          {
+            "EN": "Sounds good.",
+            "TL": "Mabuti 'yan."
+          },
+          {
+            "EN": "Copy that.",
+            "TL": "Kopya."
+          },
+          {
+            "EN": "Noted.",
+            "TL": "Tandaan ko 'yan."
+          },
+          {
+            "EN": "Makes sense.",
+            "TL": "May punto ka."
+          },
+          {
+            "EN": "I agree.",
+            "TL": "Sumasang-ayon ako."
+          }
+        ]
+      }
+    }
+  ]
+}

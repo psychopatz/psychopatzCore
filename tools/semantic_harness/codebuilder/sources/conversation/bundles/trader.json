@@ -1,0 +1,48 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.shard.v1",
+  "shardId": "conversation.content.trader",
+  "owner": "DTCommon",
+  "bundles": [
+    {
+      "bundleId": "conversation.bundle.dynamic_trading.trader.shared.basic",
+      "owner": "DTCommon",
+      "modID": "DTCommon",
+      "domain": "pnc.trader.shared.basic",
+      "kind": "trader",
+      "audience": "shared",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/trader/shared/basic.json",
+      "sourceShard": "conversation.content.trader",
+      "keys": [
+        {
+          "key": "category.trade",
+          "text": {
+            "EN": "Trade",
+            "TL": "Kalakalan"
+          }
+        },
+        {
+          "key": "choice.trade",
+          "text": {
+            "EN": "Open trading",
+            "TL": "Buksan ang kalakalan"
+          }
+        },
+        {
+          "key": "opening.trade",
+          "text": {
+            "EN": "What do you need?",
+            "TL": "Ano ang kailangan mo?"
+          }
+        },
+        {
+          "key": "response.trade",
+          "text": {
+            "EN": "Let's see what we can trade.",
+            "TL": "Tingnan natin kung ano ang maaari nating ipagpalit."
+          }
+        }
+      ]
+    }
+  ]
+}

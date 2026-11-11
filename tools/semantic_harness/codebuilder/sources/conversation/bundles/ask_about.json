@@ -1,0 +1,151 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.shard.v1",
+  "shardId": "conversation.content.ask.about",
+  "owner": "ProjectHoomans",
+  "bundles": [
+    {
+      "bundleId": "conversation.bundle.ask.about.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.ask.about.member.basic",
+      "kind": "ask_about",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/ask_about/member/basic.json",
+      "sourceShard": "conversation.content.ask.about",
+      "keys": [
+        {
+          "key": "choice.background",
+          "text": {
+            "EN": "Tell me about your old life.",
+            "TL": "Sabihin mo sa akin ang tungkol sa iyong lumang buhay."
+          }
+        },
+        {
+          "key": "choice.skills",
+          "text": {
+            "EN": "What can you teach the group?",
+            "TL": "What can you teach the grupo?"
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "Go ahead, {playerFirstName}. What do you want to ask about?",
+            "TL": "Sige, {playerFirstName}. Ano ang gusto mong itanong?"
+          }
+        },
+        {
+          "key": "response.background",
+          "text": {
+            "EN": "It feels like someone else's life now.",
+            "TL": "Parang may buhay ng iba ngayon."
+          }
+        },
+        {
+          "key": "response.skills",
+          "text": {
+            "EN": "Give me a job and I'll show you.",
+            "TL": "Bigyan mo ako ng trabaho at ipapakita ko sa iyo."
+          }
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.ask.about.neutral.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.ask.about.neutral.basic",
+      "kind": "ask_about",
+      "audience": "neutral",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/ask_about/neutral/basic.json",
+      "sourceShard": "conversation.content.ask.about",
+      "keys": [
+        {
+          "key": "choice.background",
+          "text": {
+            "EN": "What did you do before all this?",
+            "TL": "Ano ang ginawa mo bago ang lahat ng ito?"
+          }
+        },
+        {
+          "key": "choice.skills",
+          "text": {
+            "EN": "What are you good at?",
+            "TL": "Ano ang kaya mong gawin?"
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "What do you want to know?",
+            "TL": "Ano ang gusto mong malaman?"
+          }
+        },
+        {
+          "key": "response.background",
+          "text": {
+            "EN": "That's a long story. Maybe one worth telling.",
+            "TL": "mahabang kwento yan. Siguro isa na dapat sabihin."
+          }
+        },
+        {
+          "key": "response.skills",
+          "text": {
+            "EN": "Enough things to have survived this long.",
+            "TL": "Sapat na ang mga bagay para mabuhay ng ganito katagal."
+          }
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.ask.about.special.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.ask.about.special.basic",
+      "kind": "ask_about",
+      "audience": "special",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/ask_about/special/basic.json",
+      "sourceShard": "conversation.content.ask.about",
+      "keys": [
+        {
+          "key": "choice.background",
+          "text": {
+            "EN": "Tell me something about your old life.",
+            "TL": "Sabihin mo sa akin ang tungkol sa iyong dating buhay."
+          }
+        },
+        {
+          "key": "choice.skills",
+          "text": {
+            "EN": "What are you proud of?",
+            "TL": "Ano ang ipinagmamalaki mo?"
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "You can ask me anything, {playerFirstName}.",
+            "TL": "Maaari mo akong tanungin tungkol sa kahit ano, {playerFirstName}."
+          }
+        },
+        {
+          "key": "response.background",
+          "text": {
+            "EN": "Only if you tell me something about yours afterward.",
+            "TL": "Kung sasabihin mo lang sa akin ang tungkol sa iyo pagkatapos."
+          }
+        },
+        {
+          "key": "response.skills",
+          "text": {
+            "EN": "Surviving long enough to meet you.",
+            "TL": "Nakaligtas nang sapat upang makilala ka."
+          }
+        }
+      ]
+    }
+  ]
+}

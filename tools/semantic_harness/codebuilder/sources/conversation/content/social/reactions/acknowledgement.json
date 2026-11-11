@@ -1,0 +1,357 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.social.reactions.acknowledgement",
+  "kind": "content",
+  "domain": "social",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.social.acknowledged",
+      "styles": {
+        "bond_guarded": [
+          {
+            "EN": "%s, understood. We'll leave it there.",
+            "TL": "%s, naiintindihan ko. Tama na iyon."
+          },
+          {
+            "EN": "%s, I hear you. Let's keep our heads on.",
+            "TL": "%s, narinig kita. Mag-ingat na lang tayo."
+          },
+          {
+            "EN": "%s, message received. Eyes open.",
+            "TL": "%s, nakuha ko ang mensahe. Buksan ang mga mata."
+          },
+          {
+            "EN": "%s, got it. No need to push further.",
+            "TL": "%s, nakuha ko. Hindi na kailangang magpumilit."
+          },
+          {
+            "EN": "%s, all right. Let's watch the perimeter.",
+            "TL": "%s, sige. Bantayan natin ang paligid."
+          },
+          {
+            "EN": "%s, acknowledged. We keep our guard up.",
+            "TL": "%s, naintindihan. Huwag nating ibaba ang bantay."
+          },
+          {
+            "EN": "%s, I take your point. Let's be smart about this.",
+            "TL": "%s, nakuha ko ang punto mo. Maging maingat tayo rito."
+          },
+          {
+            "EN": "%s, clear enough. Leaving it at that.",
+            "TL": "%s, sapat ang linaw. Iwan na natin doon."
+          },
+          {
+            "EN": "%s, noted. We stay sharp.",
+            "TL": "%s, tala ko na. Manatili tayong alerto."
+          },
+          {
+            "EN": "%s, fair enough. Let's move carefully.",
+            "TL": "%s, makatwiran. Kumilos tayo nang maingat."
+          }
+        ],
+        "bond_neutral": [
+          {
+            "EN": "%s, all right.",
+            "TL": "%s, sige."
+          },
+          {
+            "EN": "%s, understood.",
+            "TL": "%s, naiintindihan ko."
+          },
+          {
+            "EN": "%s, I hear what you're saying.",
+            "TL": "%s, naririnig ko ang sinasabi mo."
+          },
+          {
+            "EN": "%s, got it. Makes sense.",
+            "TL": "%s, nakuha ko. May katuturan."
+          },
+          {
+            "EN": "%s, sounds reasonable.",
+            "TL": "%s, mukhang makatwiran."
+          },
+          {
+            "EN": "%s, message received.",
+            "TL": "%s, natanggap ang mensahe."
+          },
+          {
+            "EN": "%s, fair enough. We'll roll with that.",
+            "TL": "%s, may punto ka. Susundin natin 'yan."
+          },
+          {
+            "EN": "%s, acknowledged. Let's get to work.",
+            "TL": "%s, naintindihan. Simulan na natin ang trabaho."
+          },
+          {
+            "EN": "%s, point taken.",
+            "TL": "%s, nakuha ko ang punto mo."
+          },
+          {
+            "EN": "%s, right with you on that.",
+            "TL": "%s, sang-ayon ako sa 'yo riyan."
+          }
+        ],
+        "bond_terse": [
+          {
+            "EN": "%s, all right.",
+            "TL": "%s, sige."
+          },
+          {
+            "EN": "%s, understood.",
+            "TL": "%s, naintindihan."
+          },
+          {
+            "EN": "%s, got it.",
+            "TL": "%s, nakuha ko."
+          },
+          {
+            "EN": "%s, heard.",
+            "TL": "%s, narinig ko."
+          },
+          {
+            "EN": "%s, clear.",
+            "TL": "%s, malinaw."
+          },
+          {
+            "EN": "%s, right.",
+            "TL": "%s, tama."
+          },
+          {
+            "EN": "%s, noted.",
+            "TL": "%s, tala ko na."
+          },
+          {
+            "EN": "%s, good.",
+            "TL": "%s, mabuti."
+          },
+          {
+            "EN": "%s, agreed.",
+            "TL": "%s, sang-ayon."
+          },
+          {
+            "EN": "%s, done.",
+            "TL": "%s, tapos."
+          }
+        ],
+        "bond_warm": [
+          {
+            "EN": "%s, all right. I hear you.",
+            "TL": "%s, sige. Narinig kita."
+          },
+          {
+            "EN": "%s, got it. Always good to talk with you.",
+            "TL": "%s, nakuha ko. Laging magandang makausap ka."
+          },
+          {
+            "EN": "%s, understood completely. I'm with you on this.",
+            "TL": "%s, lubos kong naiintindihan. Kasama mo ako rito."
+          },
+          {
+            "EN": "%s, sounds like a solid plan, partner.",
+            "TL": "%s, magandang plano 'yan, kasama."
+          },
+          {
+            "EN": "%s, I hear you loud and clear. Take care.",
+            "TL": "%s, narinig kita nang malakas at malinaw. Mag-ingat ka."
+          },
+          {
+            "EN": "%s, you've got my support. Let's do it.",
+            "TL": "%s, nasa sa 'yo ang suporta ko. Gawin natin."
+          },
+          {
+            "EN": "%s, glad we're in agreement. Stay safe.",
+            "TL": "%s, mabuti at nagkasundo tayo. Manatiling ligtas."
+          },
+          {
+            "EN": "%s, noted with thanks. Good thinking.",
+            "TL": "%s, salamat sa pagbabahagi. Magandang kaisipan."
+          },
+          {
+            "EN": "%s, clear as day. Glad you're on my side.",
+            "TL": "%s, kasing-linaw ng araw. Mabuti at kakampi kita."
+          },
+          {
+            "EN": "%s, got your back. Let's make it count.",
+            "TL": "%s, hawak ko ang likod mo. Sulitin natin ito."
+          }
+        ],
+        "guarded": [
+          {
+            "EN": "Understood. We'll leave it there.",
+            "TL": "Naiintindihan ko. Tama na iyon."
+          },
+          {
+            "EN": "I hear you. Don't press it any further.",
+            "TL": "Narinig kita. Huwag mo nang ipagpilitan pa."
+          },
+          {
+            "EN": "Message received. Keep your distance.",
+            "TL": "Nakuha ko. Manatili ka sa puwesto mo."
+          },
+          {
+            "EN": "Got it. Let's stay alert.",
+            "TL": "Naintindihan. Maging alerto tayo."
+          },
+          {
+            "EN": "Understood. No need for more words.",
+            "TL": "Naiintindihan ko. Hindi na kailangan ng salita."
+          },
+          {
+            "EN": "All right. Watching my back, you watch yours.",
+            "TL": "Sige. Babantayan ko ang likod ko, bantayan mo ang sa 'yo."
+          },
+          {
+            "EN": "Noted. Keep your eyes on the road.",
+            "TL": "Tala ko na. Iwan mo ang paningin mo sa daan."
+          },
+          {
+            "EN": "Heard. Leaving it at that.",
+            "TL": "Narinig ko. Iiwan ko na roon."
+          },
+          {
+            "EN": "Clear enough. Let's focus on surviving.",
+            "TL": "Malinaw na. Magpokus na lang tayo sa pananatiling buhay."
+          },
+          {
+            "EN": "Fair enough. Step back a bit.",
+            "TL": "Makatwiran. Umatras ka nang kaunti."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "All right. Understood.",
+            "TL": "Sige. Naiintindihan ko."
+          },
+          {
+            "EN": "I hear you. Makes sense.",
+            "TL": "Narinig kita. May katuturan."
+          },
+          {
+            "EN": "Got it. We can work with that.",
+            "TL": "Nakuha ko. Pwede nating gamitin 'yan."
+          },
+          {
+            "EN": "Message received. Moving forward.",
+            "TL": "Natanggap ang mensahe. Magpapatuloy na."
+          },
+          {
+            "EN": "Sounds fair to me.",
+            "TL": "Mukhang makatwiran para sa akin."
+          },
+          {
+            "EN": "Point taken.",
+            "TL": "Nakuha ko ang punto mo."
+          },
+          {
+            "EN": "Understood. Let's proceed.",
+            "TL": "Naiintindihan ko. Magpatuloy na tayo."
+          },
+          {
+            "EN": "All right. We're on the same page.",
+            "TL": "Sige. Pareho tayo ng takbo ng isip."
+          },
+          {
+            "EN": "Fair enough. Good to know.",
+            "TL": "Makatwiran. Mabuting malaman."
+          },
+          {
+            "EN": "Acknowledged. Let's get it done.",
+            "TL": "Kinikilala ko. Tapusin na natin."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "All right.",
+            "TL": "Sige."
+          },
+          {
+            "EN": "Understood.",
+            "TL": "Naintindihan."
+          },
+          {
+            "EN": "Heard.",
+            "TL": "Narinig ko."
+          },
+          {
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
+          },
+          {
+            "EN": "Clear.",
+            "TL": "Malinaw."
+          },
+          {
+            "EN": "Right.",
+            "TL": "Tama."
+          },
+          {
+            "EN": "Noted.",
+            "TL": "Tala ko na."
+          },
+          {
+            "EN": "Good.",
+            "TL": "Mabuti."
+          },
+          {
+            "EN": "Done.",
+            "TL": "Tapos."
+          },
+          {
+            "EN": "Agreed.",
+            "TL": "Sang-ayon."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "All right. I hear you.",
+            "TL": "Sige. Narinig kita."
+          },
+          {
+            "EN": "Got it, friend. Glad we talked.",
+            "TL": "Nakuha ko, kaibigan. Mabuti at nagkausap tayo."
+          },
+          {
+            "EN": "I completely understand. Thanks for explaining.",
+            "TL": "Lubos kong nauunawaan. Salamat sa pagpapaliwanag."
+          },
+          {
+            "EN": "Sounds great. Glad we're in this together.",
+            "TL": "Napakaganda. Mabuti at magkasama tayo rito."
+          },
+          {
+            "EN": "Understood. Take care of yourself out there.",
+            "TL": "Naiintindihan ko. Ingatan mo ang sarili mo sa labas."
+          },
+          {
+            "EN": "I'm with you on that. Good call.",
+            "TL": "Kasama mo ako riyan. Magandang desisyon."
+          },
+          {
+            "EN": "Heard and appreciated. We've got this.",
+            "TL": "Narinig at pinahahalagahan. Kayang-kaya natin ito."
+          },
+          {
+            "EN": "Clear as crystal. Happy to follow your lead.",
+            "TL": "Napakalinaw. Masayang sumunod sa 'yo."
+          },
+          {
+            "EN": "Got it. Always a pleasure working with you.",
+            "TL": "Nakuha ko. Laging masarap kang makatrabaho."
+          },
+          {
+            "EN": "All right. Let's look out for each other.",
+            "TL": "Sige. Magtulungan tayo sa isa't isa."
+          }
+        ]
+      }
+    }
+  ]
+}

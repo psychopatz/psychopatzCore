@@ -1,0 +1,538 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.health.medical.bite",
+  "kind": "content",
+  "domain": "health",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
+  "groups": {
+    "facts": {
+      "contentOwner": "projecthoomans.dialogue_content.facts"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "facts",
+      "semanticTemplateID": "semantic.question.medical_bite.negative",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "No bite. Leave it there.",
+            "TL": "Walang kagat. Tama na."
+          },
+          {
+            "EN": "I'm clean. Don't look at me like that.",
+            "TL": "Malinis ako. Huwag mo akong tingnan nang ganyan."
+          },
+          {
+            "EN": "Not bitten. Stop inspecting me.",
+            "TL": "Hindi nakagat. Itigil mo ang pagsusuri sa akin."
+          },
+          {
+            "EN": "No teeth touched my skin. Back off.",
+            "TL": "Walang ngiping tumama sa balat ko. Lumayo ka."
+          },
+          {
+            "EN": "I checked thoroughly. I am not infected.",
+            "TL": "Sinuri ko nang maayos. Hindi ako infected."
+          },
+          {
+            "EN": "No bite marks anywhere. Put your weapon down.",
+            "TL": "Walang bakas ng kagat kahit saan. Ibaba mo ang armas mo."
+          },
+          {
+            "EN": "I know the protocol. I don't have a bite.",
+            "TL": "Alam ko ang patakaran. Wala akong kagat."
+          },
+          {
+            "EN": "Clean skin. Don't jump to conclusions.",
+            "TL": "Malinis ang balat ko. Huwag kang magbintang agad."
+          },
+          {
+            "EN": "Not a single bite mark. Keep your distance regardless.",
+            "TL": "Kahit isang bakas ng kagat wala. Lumayo ka pa rin."
+          },
+          {
+            "EN": "I am not turning. Drop the interrogation.",
+            "TL": "Hindi ako magiging isa sa kanila. Itigil ang pagtatanong."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "No, I don't have a recorded bite.",
+            "TL": "Hindi, wala akong naitalang kagat."
+          },
+          {
+            "EN": "Checked myself over. No bites anywhere.",
+            "TL": "Sinuri ko ang sarili ko. Walang kagat kahit saan."
+          },
+          {
+            "EN": "I'm clean. None of them got their teeth in me.",
+            "TL": "Malinis ako. Walang nakakagat sa akin sa kanila."
+          },
+          {
+            "EN": "No bite marks at all, thankfully.",
+            "TL": "Walang anumang bakas ng kagat, salamat sa Diyos."
+          },
+          {
+            "EN": "Skin's intact. No bites from the dead.",
+            "TL": "Buo ang balat ko. Walang kagat mula sa mga patay."
+          },
+          {
+            "EN": "I made sure to inspect every scratch. No bites.",
+            "TL": "Tiningnan ko bawat gasgas. Walang kagat."
+          },
+          {
+            "EN": "Free and clear of any bite wounds.",
+            "TL": "Ligtas at malinis ako sa anumang sugat ng kagat."
+          },
+          {
+            "EN": "Didn't get bitten. The armor held up.",
+            "TL": "Hindi nakagat. Nakatulong ang proteksyon."
+          },
+          {
+            "EN": "No bites on me, I can assure you.",
+            "TL": "Walang kagat sa akin, makakasiguro ka."
+          },
+          {
+            "EN": "I checked carefully. No bites, just scratches.",
+            "TL": "Sinuri kong mabuti. Walang kagat, gasgas lang."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "No bite.",
+            "TL": "Walang kagat."
+          },
+          {
+            "EN": "Clean.",
+            "TL": "Malinis."
+          },
+          {
+            "EN": "Not bitten.",
+            "TL": "Hindi nakagat."
+          },
+          {
+            "EN": "No teeth marks.",
+            "TL": "Walang bakas."
+          },
+          {
+            "EN": "Skin intact.",
+            "TL": "Buo ang balat."
+          },
+          {
+            "EN": "I'm clear.",
+            "TL": "Ligtas ako."
+          },
+          {
+            "EN": "Negative.",
+            "TL": "Negatibo."
+          },
+          {
+            "EN": "All clear.",
+            "TL": "Lahat malinis."
+          },
+          {
+            "EN": "No infection.",
+            "TL": "Walang impeksyon."
+          },
+          {
+            "EN": "Not turning.",
+            "TL": "Hindi magbabago."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "No, I don't have a recorded bite. Thanks for checking.",
+            "TL": "Hindi, wala akong naitalang kagat. Salamat sa pagsuri."
+          },
+          {
+            "EN": "I'm clean, friend. None of them got through my guard.",
+            "TL": "Malinis ako, kaibigan. Walang nakalusot sa depensa ko."
+          },
+          {
+            "EN": "No bite marks on me. Good to know you're looking out for camp.",
+            "TL": "Walang kagat sa akin. Mabuti at nagbabantay ka para sa kampo."
+          },
+          {
+            "EN": "Completely free of bites, thank God. Appreciate the check.",
+            "TL": "Ligtas sa anumang kagat, salamat sa Diyos. Salamat sa pagsuri."
+          },
+          {
+            "EN": "I checked thoroughly, nothing to fear. We're safe.",
+            "TL": "Sinuri ko nang maayos, walang dapat ikatakot. Ligtas tayo."
+          },
+          {
+            "EN": "No bites! Relieved to tell you I'm completely in the clear.",
+            "TL": "Walang kagat! Masaya akong sabihing ligtas na ligtas ako."
+          },
+          {
+            "EN": "Skin is clean. Thank you for doing the hard safety checks.",
+            "TL": "Malinis ang balat ko. Salamat sa pagsasagawa ng mahigpit na pagsusuri."
+          },
+          {
+            "EN": "You can breathe easy, no bites on me.",
+            "TL": "Makakahinga ka nang maluwag, walang kagat sa akin."
+          },
+          {
+            "EN": "All clear on the bite front. Thank you for your care.",
+            "TL": "Walang anumang kagat. Salamat sa pag-aalala mo."
+          },
+          {
+            "EN": "Not bitten at all, friend. I'm staying right here with you.",
+            "TL": "Hinding-hindi nakagat, kaibigan. Mananatili ako rito kasama mo."
+          }
+        ]
+      }
+    },
+    {
+      "group": "facts",
+      "semanticTemplateID": "semantic.question.medical_bite.positive",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "Yes. I've been bitten. That's all.",
+            "TL": "Oo. Nakagat ako. Tama na."
+          },
+          {
+            "EN": "They got me. Don't make a scene.",
+            "TL": "Nakuha nila ako. Huwag kang magsisigaw."
+          },
+          {
+            "EN": "I was bitten. Keep your gun ready if you must.",
+            "TL": "Nakagat ako. Ihanda mo ang baril mo kung kinakailangan."
+          },
+          {
+            "EN": "Yes, it happened. Stay back from me.",
+            "TL": "Oo, nangyari. Lumayo ka sa akin."
+          },
+          {
+            "EN": "Got teeth in my arm. I know what that means.",
+            "TL": "May kagat sa braso ko. Alam ko ang ibig sabihin niyan."
+          },
+          {
+            "EN": "Bitten. Don't touch me.",
+            "TL": "Nakagat. Huwag mo akong hawakan."
+          },
+          {
+            "EN": "It's true. I don't want your sympathy.",
+            "TL": "Totoo. Hindi ko kailangan ang awa mo."
+          },
+          {
+            "EN": "One of them bit me. Step away.",
+            "TL": "Kinagat ako ng isa sa kanila. Umatras ka."
+          },
+          {
+            "EN": "I'm marked. Do what you have to do.",
+            "TL": "May marka na ako. Gawin mo ang dapat mong gawin."
+          },
+          {
+            "EN": "Yes. I won't let myself become a danger to you.",
+            "TL": "Oo. Hindi ko hahayaang maging panganib ako sa 'yo."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "Yes, I've been bitten.",
+            "TL": "Oo, nakagat ako."
+          },
+          {
+            "EN": "One of them got their teeth in me. It's bad.",
+            "TL": "Nabaon ng isa sa kanila ang ngipin sa akin. Masama ito."
+          },
+          {
+            "EN": "I got bitten during the struggle. No denying it.",
+            "TL": "Nakagat ako habang nagpupumiglas. Hindi maikakaila."
+          },
+          {
+            "EN": "There's a bite mark on my shoulder. I'm infected.",
+            "TL": "May bakas ng kagat sa balikat ko. Nahawaan ako."
+          },
+          {
+            "EN": "It broke the skin. I know what's coming.",
+            "TL": "Bumaon sa balat. Alam ko kung ano ang kahihinatnan."
+          },
+          {
+            "EN": "Yes, unfortunately. I was bitten.",
+            "TL": "Oo, sa kasamaang-palad. Nakagat ako."
+          },
+          {
+            "EN": "They got through my sleeve. It's a bite.",
+            "TL": "Lumusot sa manggas ko. Kagat nga."
+          },
+          {
+            "EN": "I've been bitten. We need to plan for what comes next.",
+            "TL": "Nakagat ako. Kailangan nating pag-isipan ang susunod na gagawin."
+          },
+          {
+            "EN": "Found the mark earlier. I was bitten.",
+            "TL": "Nakita ko ang marka kanina. Nakagat talaga ako."
+          },
+          {
+            "EN": "I'm infected. A walker bit me.",
+            "TL": "Nahawaan na ako. Kinagat ako ng patay."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Yes. I've been bitten.",
+            "TL": "Oo. Nakagat ako."
+          },
+          {
+            "EN": "Bitten.",
+            "TL": "Nakagat."
+          },
+          {
+            "EN": "They got me.",
+            "TL": "Nakuha ako."
+          },
+          {
+            "EN": "It's a bite.",
+            "TL": "Kagat ito."
+          },
+          {
+            "EN": "Infected.",
+            "TL": "Nahawaan."
+          },
+          {
+            "EN": "I'm turned.",
+            "TL": "Mamamatay ako."
+          },
+          {
+            "EN": "Bite mark.",
+            "TL": "Bakas ng kagat."
+          },
+          {
+            "EN": "Yes.",
+            "TL": "Oo."
+          },
+          {
+            "EN": "Skin broke.",
+            "TL": "Bumaon."
+          },
+          {
+            "EN": "It's over.",
+            "TL": "Tapos na."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "Yes. I've been bitten, and I appreciate you checking.",
+            "TL": "Oo. Nakagat ako, at salamat sa pagsuri."
+          },
+          {
+            "EN": "They got me, friend. I'm sorry to bring you this news.",
+            "TL": "Nakuha nila ako, kaibigan. Pasensya na sa masamang balita."
+          },
+          {
+            "EN": "I was bitten. Thank you for caring enough to ask me directly.",
+            "TL": "Nakagat ako. Salamat sa pagtatanong nang diretso sa akin."
+          },
+          {
+            "EN": "It happened. I'm just glad I got to know you before the end.",
+            "TL": "Nangyari na. Masaya akong nakilala kita bago ang lahat."
+          },
+          {
+            "EN": "I've been bitten. Please, keep yourself safe when the time comes.",
+            "TL": "Nakagat ako. Pakiusap, protektahan mo ang sarili mo pagdating ng oras."
+          },
+          {
+            "EN": "Yes, they got their teeth in me. Thank you for standing by me.",
+            "TL": "Oo, kinagat nila ako. Salamat sa pananatili sa tabi ko."
+          },
+          {
+            "EN": "I won't hide it from you. I was bitten. Take care of yourself.",
+            "TL": "Hindi ko itatago sa 'yo. Nakagat ako. Alagaan mo ang sarili mo."
+          },
+          {
+            "EN": "It's a bite, friend. I appreciate all the times we shared.",
+            "TL": "Kagat nga, kaibigan. Salamat sa lahat ng pinagsamahan natin."
+          },
+          {
+            "EN": "I'm infected. Thank you for treating me like a human being.",
+            "TL": "Nahawaan na ako. Salamat sa pagtrato sa akin bilang kapwa tao."
+          },
+          {
+            "EN": "They bit me. Don't be sad; we fought as hard as we could.",
+            "TL": "Kinagat nila ako. Huwag kang malungkot; lumaban tayo nang buong husay."
+          }
+        ]
+      }
+    },
+    {
+      "group": "facts",
+      "semanticTemplateID": "semantic.question.medical_bite.unknown",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "I can't confirm that. Don't press me.",
+            "TL": "Hindi ko makumpirma. Huwag mo nang ipilit."
+          },
+          {
+            "EN": "Haven't checked yet. Keep your distance until I do.",
+            "TL": "Hindi pa ako nakakatingin. Lumayo ka muna hangga't hindi pa."
+          },
+          {
+            "EN": "I don't know for sure. Back off and let me look.",
+            "TL": "Hindi ako sigurado. Umatras ka at hayaan mo akong tingnan."
+          },
+          {
+            "EN": "Can't tell through this armor. Don't jump to conclusions.",
+            "TL": "Hindi masabi dahil sa suot ko. Huwag kang magbintang."
+          },
+          {
+            "EN": "Too much blood to tell whose it is. Back away.",
+            "TL": "Masyadong maraming dugo para malaman kung kanino. Umatras ka."
+          },
+          {
+            "EN": "I need a mirror first. Stop staring at me.",
+            "TL": "Kailangan ko ng salamin muna. Huwag mo akong titigan."
+          },
+          {
+            "EN": "Unsure. I'll inspect myself in private.",
+            "TL": "Hindi sigurado. Magsusuri ako nang mag-isa."
+          },
+          {
+            "EN": "Can't confirm. Keep your weapon holstered.",
+            "TL": "Hindi makumpirma. Huwag mong ilabas ang armas mo."
+          },
+          {
+            "EN": "I don't know yet. Don't treat me like an infected.",
+            "TL": "Hindi ko pa alam. Huwag mo akong itrato na parang infected."
+          },
+          {
+            "EN": "Unknown. Stay where you are until I know.",
+            "TL": "Hindi alam. Diyan ka lang hangga't hindi ko nasisiguro."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "I can't confirm whether I've been bitten.",
+            "TL": "Hindi ko makumpirma kung nakagat ako."
+          },
+          {
+            "EN": "Haven't had a chance to strip down and check properly.",
+            "TL": "Hindi pa ako nagkakaroon ng oras para maghubad at suriin."
+          },
+          {
+            "EN": "There were too many hands grabbing at me to be certain.",
+            "TL": "Masyadong maraming humawak sa akin para makasiguro."
+          },
+          {
+            "EN": "Felt teeth scrape, but can't see if it broke the skin.",
+            "TL": "Naramdaman ko ang ngipin, pero hindi kita kung bumaon."
+          },
+          {
+            "EN": "Need someone with good light to inspect my back.",
+            "TL": "Kailangan ng may maayos na ilaw para tingnan ang likod ko."
+          },
+          {
+            "EN": "Not sure yet. The wound is covered in dirt and blood.",
+            "TL": "Hindi pa sigurado. Balot ng dumi at dugo ang sugat."
+          },
+          {
+            "EN": "Could be a scratch, could be teeth. Can't tell yet.",
+            "TL": "Pwedeng gasgas, pwedeng ngipin. Hindi pa masabi."
+          },
+          {
+            "EN": "I haven't checked every spot yet. Need a minute.",
+            "TL": "Hindi ko pa nasusuri ang bawat parte. Bigyan mo ako ng sandali."
+          },
+          {
+            "EN": "Cloth is torn, but not sure if the skin is punctured.",
+            "TL": "Punit ang damit, pero hindi sigurado kung bumaon sa balat."
+          },
+          {
+            "EN": "Bite status is unknown right now. Waiting to check.",
+            "TL": "Hindi pa alam kung nakagat. Naghihintay masuri."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Can't confirm.",
+            "TL": "Hindi makumpirma."
+          },
+          {
+            "EN": "Not sure.",
+            "TL": "Hindi sigurado."
+          },
+          {
+            "EN": "Haven't checked.",
+            "TL": "Hindi pa nasusuri."
+          },
+          {
+            "EN": "Unknown.",
+            "TL": "Hindi alam."
+          },
+          {
+            "EN": "Need to look.",
+            "TL": "Kailangang tingnan."
+          },
+          {
+            "EN": "Hard to tell.",
+            "TL": "Mahirap sabihin."
+          },
+          {
+            "EN": "Torn cloth.",
+            "TL": "Punit na damit."
+          },
+          {
+            "EN": "Uncertain.",
+            "TL": "Hindi tiyak."
+          },
+          {
+            "EN": "Can't see it.",
+            "TL": "Hindi ko makita."
+          },
+          {
+            "EN": "Waiting to check.",
+            "TL": "Titingnan pa."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "I can't confirm it, but thanks for checking.",
+            "TL": "Hindi ko makumpirma, pero salamat sa pagsuri."
+          },
+          {
+            "EN": "I'm not sure yet, friend. I'll check carefully in a safe spot.",
+            "TL": "Hindi pa ako sigurado, kaibigan. Titingnan ko nang maayos sa ligtas na lugar."
+          },
+          {
+            "EN": "Haven't had a proper look, but thank you for looking out for me.",
+            "TL": "Hindi ko pa natingnan nang maigi, pero salamat sa pagbabantay sa akin."
+          },
+          {
+            "EN": "Hard to see back there. Mind helping me take a look soon?",
+            "TL": "Mahirap makita sa likod. Pwede mo ba akong tulungang tingnan mamaya?"
+          },
+          {
+            "EN": "Unsure right now, but I promise I'll be honest with you.",
+            "TL": "Hindi sigurado ngayon, pero nangangako akong magiging tapat ako sa 'yo."
+          },
+          {
+            "EN": "I pray it's just a tear in my jacket. Thanks for asking gently.",
+            "TL": "Sana punit lang sa jacket. Salamat sa maingat na pagtatanong."
+          },
+          {
+            "EN": "Not certain yet, but let's find shelter before we inspect.",
+            "TL": "Hindi pa tiyak, pero maghanap muna tayo ng masisilungan bago sumuri."
+          },
+          {
+            "EN": "Could be nothing, could be bad. Thank you for staying calm.",
+            "TL": "Pwedeng wala lang, pwedeng masama. Salamat sa pananatiling kalmado."
+          },
+          {
+            "EN": "I haven't checked every scratch, but your concern warms my heart.",
+            "TL": "Hindi ko pa nasusuri ang bawat gasgas, pero nagpapasalamat ako sa pag-alala mo."
+          },
+          {
+            "EN": "I'll let you know the moment I check. Thank you for your care.",
+            "TL": "Sasabihin ko agad pagkatapos kong masuri. Salamat sa malasakit mo."
+          }
+        ]
+      }
+    }
+  ],
+  "playerChoices": []
+}

@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.combat.kill.witness.reserved",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.combat.kill.witness.reaction.content.821cb843df",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_witness_reserved_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "One down.",
+            "TL": "Isa na."
+          },
+          {
+            "EN": "Down.",
+            "TL": "Bagsak."
+          },
+          {
+            "EN": "Hit.",
+            "TL": "Tinamaan."
+          },
+          {
+            "EN": "Dropped.",
+            "TL": "Naitumba."
+          },
+          {
+            "EN": "Eliminated.",
+            "TL": "Naalis."
+          },
+          {
+            "EN": "Dead.",
+            "TL": "Patay."
+          },
+          {
+            "EN": "Finished.",
+            "TL": "Tapos."
+          },
+          {
+            "EN": "Ceased.",
+            "TL": "Tumigil."
+          },
+          {
+            "EN": "One less.",
+            "TL": "Bawas isa."
+          },
+          {
+            "EN": "Target down.",
+            "TL": "Target bagsak."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_witness_reserved_02",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Good.",
+            "TL": "Ayos."
+          },
+          {
+            "EN": "Clean.",
+            "TL": "Malinis."
+          },
+          {
+            "EN": "Handled.",
+            "TL": "Naasikaso."
+          },
+          {
+            "EN": "Solid.",
+            "TL": "Solido."
+          },
+          {
+            "EN": "Done.",
+            "TL": "Yari."
+          },
+          {
+            "EN": "Fine.",
+            "TL": "Sige."
+          },
+          {
+            "EN": "Alright.",
+            "TL": "Mabuti."
+          },
+          {
+            "EN": "Resolved.",
+            "TL": "Tapos."
+          },
+          {
+            "EN": "Effective.",
+            "TL": "Mabisa."
+          },
+          {
+            "EN": "Cleared.",
+            "TL": "Nalinis."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_witness_reserved_03",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Keep moving.",
+            "TL": "Tuloy."
+          },
+          {
+            "EN": "Move.",
+            "TL": "Galaw."
+          },
+          {
+            "EN": "Forward.",
+            "TL": "Sulong."
+          },
+          {
+            "EN": "Next.",
+            "TL": "Sunod."
+          },
+          {
+            "EN": "Walk.",
+            "TL": "Lakad."
+          },
+          {
+            "EN": "Proceed.",
+            "TL": "Abante."
+          },
+          {
+            "EN": "Step through.",
+            "TL": "Lusot."
+          },
+          {
+            "EN": "Push.",
+            "TL": "Paspas."
+          },
+          {
+            "EN": "Don't stop.",
+            "TL": "Huwag hinto."
+          },
+          {
+            "EN": "Keep going.",
+            "TL": "Tuloy lang."
+          }
+        ]
+      }
+    }
+  ]
+}

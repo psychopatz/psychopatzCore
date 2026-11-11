@@ -1,0 +1,244 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.shard.v1",
+  "shardId": "conversation.content.backstory",
+  "owner": "ProjectHoomans",
+  "bundles": [
+    {
+      "bundleId": "conversation.bundle.backstory.shared.facts",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.backstory.shared.facts",
+      "kind": "backstory",
+      "audience": "shared",
+      "bundle": "facts",
+      "runtimePath": "Conversation/Bundles/backstory/shared/facts.json",
+      "sourceShard": "conversation.content.backstory",
+      "keys": [
+        {
+          "key": "education.nursing_program",
+          "text": {
+            "EN": "nursing program",
+            "TL": "programa sa pag-aalaga"
+          }
+        },
+        {
+          "key": "education.trade_school",
+          "text": {
+            "EN": "trade school",
+            "TL": "paaralang teknikal"
+          }
+        },
+        {
+          "key": "family.grew_up_with_siblings",
+          "text": {
+            "EN": "someone who grew up with siblings",
+            "TL": "lumaki kasama ang mga kapatid"
+          }
+        },
+        {
+          "key": "family.only_child",
+          "text": {
+            "EN": "an only child",
+            "TL": "nag-iisang anak"
+          }
+        },
+        {
+          "key": "family.raised_by_grandparents",
+          "text": {
+            "EN": "someone raised by their grandparents",
+            "TL": "pinalaki ng mga lolo at lola"
+          }
+        },
+        {
+          "key": "fear.fire",
+          "text": {
+            "EN": "fire",
+            "TL": "sunog"
+          }
+        },
+        {
+          "key": "fear.isolation",
+          "text": {
+            "EN": "being alone",
+            "TL": "pag-iisa"
+          }
+        },
+        {
+          "key": "hobby.fishing",
+          "text": {
+            "EN": "fishing",
+            "TL": "pangingisda"
+          }
+        },
+        {
+          "key": "hobby.gardening",
+          "text": {
+            "EN": "gardening",
+            "TL": "paghahalaman"
+          }
+        },
+        {
+          "key": "hobby.music",
+          "text": {
+            "EN": "music",
+            "TL": "musika"
+          }
+        },
+        {
+          "key": "hometown.louisville",
+          "text": {
+            "EN": "Louisville",
+            "TL": "Louisville"
+          }
+        },
+        {
+          "key": "hometown.riverside",
+          "text": {
+            "EN": "Riverside",
+            "TL": "Riverside"
+          }
+        },
+        {
+          "key": "hometown.rosewood",
+          "text": {
+            "EN": "Rosewood",
+            "TL": "Rosewood"
+          }
+        },
+        {
+          "key": "hometown.west_point",
+          "text": {
+            "EN": "West Point",
+            "TL": "West Point"
+          }
+        },
+        {
+          "key": "occupation.carpenter",
+          "text": {
+            "EN": "carpenter",
+            "TL": "karpintero"
+          }
+        },
+        {
+          "key": "occupation.cook",
+          "text": {
+            "EN": "cook",
+            "TL": "tagapagluto"
+          }
+        },
+        {
+          "key": "occupation.doctor",
+          "text": {
+            "EN": "doctor",
+            "TL": "doktor"
+          }
+        },
+        {
+          "key": "occupation.driver",
+          "text": {
+            "EN": "driver",
+            "TL": "drayber"
+          }
+        },
+        {
+          "key": "occupation.farmer",
+          "text": {
+            "EN": "farmer",
+            "TL": "magsasaka"
+          }
+        },
+        {
+          "key": "occupation.mechanic",
+          "text": {
+            "EN": "mechanic",
+            "TL": "mekaniko"
+          }
+        },
+        {
+          "key": "occupation.nurse",
+          "text": {
+            "EN": "nurse",
+            "TL": "nars"
+          }
+        },
+        {
+          "key": "occupation.scavenger",
+          "text": {
+            "EN": "scavenger",
+            "TL": "mangangalap ng gamit"
+          }
+        },
+        {
+          "key": "occupation.security_guard",
+          "text": {
+            "EN": "security guard",
+            "TL": "guwardiya"
+          }
+        },
+        {
+          "key": "occupation.smuggler",
+          "text": {
+            "EN": "smuggler",
+            "TL": "puslitero"
+          }
+        },
+        {
+          "key": "occupation.teacher",
+          "text": {
+            "EN": "teacher",
+            "TL": "guro"
+          }
+        },
+        {
+          "key": "survival.evacuation",
+          "text": {
+            "EN": "an evacuation convoy",
+            "TL": "pagsama sa convoy ng paglikas"
+          }
+        },
+        {
+          "key": "survival.roadside",
+          "text": {
+            "EN": "being stranded on the highway",
+            "TL": "pagka-stranded sa highway"
+          }
+        },
+        {
+          "key": "tragedy.lost_home",
+          "text": {
+            "EN": "losing their home",
+            "TL": "pagkawala ng kanilang tahanan"
+          }
+        },
+        {
+          "key": "tragedy.lost_sibling",
+          "text": {
+            "EN": "losing a sibling",
+            "TL": "pagkawala ng kapatid"
+          }
+        },
+        {
+          "key": "tragedy.workplace_accident",
+          "text": {
+            "EN": "a serious workplace accident",
+            "TL": "malubhang aksidente sa trabaho"
+          }
+        },
+        {
+          "key": "value.mutual_aid",
+          "text": {
+            "EN": "mutual aid",
+            "TL": "pagtutulungan"
+          }
+        },
+        {
+          "key": "value.self_reliance",
+          "text": {
+            "EN": "self-reliance",
+            "TL": "pagsasarili"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.manifest.v1",
+  "bundleSchema": "psychopatz.semantic.text-bundle.shard.v1",
+  "shards": [
+    {
+      "path": "ask_about.json",
+      "shardId": "conversation.content.ask.about",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "backstory.json",
+      "shardId": "conversation.content.backstory",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "caravan.json",
+      "shardId": "conversation.content.caravan",
+      "owner": "DTCommon"
+    },
+    {
+      "path": "goodbye.json",
+      "shardId": "conversation.content.goodbye",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "gossip.json",
+      "shardId": "conversation.content.gossip",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "greetings.json",
+      "shardId": "conversation.content.greetings",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "needs.json",
+      "shardId": "conversation.content.needs",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "personal.json",
+      "shardId": "conversation.content.personal",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "relationship.json",
+      "shardId": "conversation.content.relationship",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "set_territory.json",
+      "shardId": "conversation.content.set.territory",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "small_talk.json",
+      "shardId": "conversation.content.small.talk",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system.json",
+      "shardId": "conversation.content.system",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "trader.json",
+      "shardId": "conversation.content.trader",
+      "owner": "DTCommon"
+    },
+    {
+      "path": "wellbeing.json",
+      "shardId": "conversation.content.wellbeing",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "work_orders.json",
+      "shardId": "conversation.content.work.orders",
+      "owner": "ProjectHoomans"
+    }
+  ]
+}

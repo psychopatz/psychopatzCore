@@ -1,0 +1,48 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.shard.v1",
+  "shardId": "conversation.content.relationship",
+  "owner": "ProjectHoomans",
+  "bundles": [
+    {
+      "bundleId": "conversation.bundle.relationship.special.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.relationship.special.basic",
+      "kind": "relationship",
+      "audience": "special",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/relationship/special/basic.json",
+      "sourceShard": "conversation.content.relationship",
+      "keys": [
+        {
+          "key": "choice.us",
+          "text": {
+            "EN": "Can we talk about us?",
+            "TL": "Maaari ba nating pag-usapan ang tungkol sa atin?"
+          }
+        },
+        {
+          "key": "locked.approval",
+          "text": {
+            "EN": "This relationship is not close enough yet.",
+            "TL": "Hindi pa sapat ang pagiging malapit ng relasyong ito."
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "I'm listening, {playerFirstName}. Say what you need to say.",
+            "TL": "Nakikinig ako, {playerFirstName}. Sabihin ang kailangan mong sabihin."
+          }
+        },
+        {
+          "key": "response.us",
+          "text": {
+            "EN": "Yes. We probably should.",
+            "TL": "Oo. Malamang dapat nga."
+          }
+        }
+      ]
+    }
+  ]
+}

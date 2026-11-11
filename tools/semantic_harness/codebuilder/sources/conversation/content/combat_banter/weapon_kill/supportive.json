@@ -1,0 +1,111 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.combat.banter.weapon.kill.supportive",
+  "kind": "content",
+  "domain": "combat_banter",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.supportive.firearm_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Got it. You good?",
+            "TL": "Nakuha ko. Ayos ka?"
+          },
+          {
+            "EN": "Threat's down. Check yourself.",
+            "TL": "Bagsak ang banta. Tignan mo sarili mo."
+          },
+          {
+            "EN": "Downed that one. I've got your back.",
+            "TL": "Ibinagsak ko ang isa. Hawak ko ang likod mo."
+          },
+          {
+            "EN": "Clear! You hurt anywhere?",
+            "TL": "Malinis! May tama ka ba kahit saan?"
+          },
+          {
+            "EN": "Got him off us. Stay close.",
+            "TL": "Nailayo ko sa atin. Dumikit ka."
+          },
+          {
+            "EN": "Dropped that one. Keep your eyes open.",
+            "TL": "Bagsak na 'yon. Manatiling gising ang mata."
+          },
+          {
+            "EN": "Took care of it. Are you alright?",
+            "TL": "Inasikaso ko na. Ayos ka lang?"
+          },
+          {
+            "EN": "Shot landed. You safe?",
+            "TL": "Tumama ang putok. Ligtas ka?"
+          },
+          {
+            "EN": "Target down. Covering you.",
+            "TL": "Bagsak ang target. Sinasalag kita."
+          },
+          {
+            "EN": "That one's finished. Watch the flanks.",
+            "TL": "Tapos na ang isang 'yon. Bantayan ang gilid."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.supportive.melee_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "It's down. Keep close.",
+            "TL": "Bagsak na. Dumikit ka lang."
+          },
+          {
+            "EN": "Got it off you. You alright?",
+            "TL": "Nailayo ko sa'yo. Ayos ka lang?"
+          },
+          {
+            "EN": "Downed it. Check your corners.",
+            "TL": "Ibinagsak ko na. Tignan ang sulok mo."
+          },
+          {
+            "EN": "I'm right here with you. It's dead.",
+            "TL": "Nandito lang ako kasama mo. Patay na."
+          },
+          {
+            "EN": "Crushed it before it got close.",
+            "TL": "Dinurog bago pa makalapit."
+          },
+          {
+            "EN": "Stay behind me. That one's done.",
+            "TL": "Manatili sa likod ko. Tapos na 'yon."
+          },
+          {
+            "EN": "Took it down. Catch your breath.",
+            "TL": "Ibinagsak ko na. Huminga ka muna."
+          },
+          {
+            "EN": "Dead on the floor. You holding up?",
+            "TL": "Patay sa sahig. Nakakayanan mo pa?"
+          },
+          {
+            "EN": "I've got this line. Watch behind us.",
+            "TL": "Hawak ko ang linyang 'to. Bantayan ang likod."
+          },
+          {
+            "EN": "It's over for that one. We're okay.",
+            "TL": "Tapos na ang isang 'yon. Ayos lang tayo."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,711 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.social.reactions.disputes",
+  "kind": "content",
+  "domain": "social",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.social.dispute_friendly",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "I disagree. Leave it there.",
+            "TL": "Hindi ako sang-ayon. Tama na."
+          },
+          {
+            "EN": "I see it differently. Don't push it.",
+            "TL": "Iba ang tingin ko. Huwag mo nang ipilit."
+          },
+          {
+            "EN": "We don't agree on this. Drop it.",
+            "TL": "Hindi tayo nagtutugma rito. Iwan mo na."
+          },
+          {
+            "EN": "Not buying that. Let's move on.",
+            "TL": "Hindi ako kumbinsido. Lumipat na tayo ng usapan."
+          },
+          {
+            "EN": "I'm not on board with that idea.",
+            "TL": "Hindi ako sang-ayon sa kaisipang 'yan."
+          },
+          {
+            "EN": "I disagree, and I'm not budging.",
+            "TL": "Hindi ako sang-ayon, at hindi ako uusad."
+          },
+          {
+            "EN": "That won't work for me. End of story.",
+            "TL": "Hindi uubra sa akin 'yan. Diyan nagtatapos 'yon."
+          },
+          {
+            "EN": "You have your view, I have mine. Back off.",
+            "TL": "May pananaw ka, mayroon din ako. Umatras ka."
+          },
+          {
+            "EN": "I dispute that. We leave it alone.",
+            "TL": "Pinasisinungalingan ko 'yan. Hayaan na natin."
+          },
+          {
+            "EN": "No. I don't see it that way at all.",
+            "TL": "Hindi. Hindi ko talaga tinitingnan nang ganyan."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "I disagree, but I hear what you're saying.",
+            "TL": "Hindi ako sang-ayon, pero naririnig ko ang punto mo."
+          },
+          {
+            "EN": "I see things differently on this one.",
+            "TL": "Iba ang pananaw ko sa bagay na ito."
+          },
+          {
+            "EN": "We'll have to agree to disagree here.",
+            "TL": "Kailangan na lang nating tanggaping magkaiba tayo rito."
+          },
+          {
+            "EN": "I don't think that's the best way forward.",
+            "TL": "Sa tingin ko hindi 'yan ang pinakamagandang hakbang."
+          },
+          {
+            "EN": "I have reservations about that plan.",
+            "TL": "May pag-aalinlangan ako sa planong 'yan."
+          },
+          {
+            "EN": "Fair point, but I still see a problem with it.",
+            "TL": "May punto ka, pero may nakikita pa rin akong aberya."
+          },
+          {
+            "EN": "I respectfully disagree with your take.",
+            "TL": "May galang akong hindi sumasang-ayon sa 'yo."
+          },
+          {
+            "EN": "That's not how I read the situation.",
+            "TL": "Hindi ganyan ang pagbasa ko sa sitwasyon."
+          },
+          {
+            "EN": "I don't see it that way, honestly.",
+            "TL": "Sa totoo lang, hindi ganoon ang tingin ko."
+          },
+          {
+            "EN": "We have different opinions on this. That's fine.",
+            "TL": "Magkaiba tayo ng opinyon dito. Ayos lang 'yon."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Disagree.",
+            "TL": "Di sang-ayon."
+          },
+          {
+            "EN": "No.",
+            "TL": "Hindi."
+          },
+          {
+            "EN": "Not how I see it.",
+            "TL": "Di ganyan ang tingin ko."
+          },
+          {
+            "EN": "Don't agree.",
+            "TL": "Di ako sang-ayon."
+          },
+          {
+            "EN": "Doubtful.",
+            "TL": "Malamang hindi."
+          },
+          {
+            "EN": "Not buying it.",
+            "TL": "Di ako kumbinsido."
+          },
+          {
+            "EN": "Different take.",
+            "TL": "Ibang pananaw."
+          },
+          {
+            "EN": "Negative.",
+            "TL": "Hindi pwede."
+          },
+          {
+            "EN": "Pass on that.",
+            "TL": "Lalampasan ko 'yan."
+          },
+          {
+            "EN": "Nope.",
+            "TL": "Hindi."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "I disagree, friend, but I respect your perspective.",
+            "TL": "Hindi ako sang-ayon, kaibigan, pero iginagalang ko ang opinyon mo."
+          },
+          {
+            "EN": "We don't see eye to eye on this, but we're still good.",
+            "TL": "Hindi tayo pareho ng paningin dito, pero maayos pa rin tayo."
+          },
+          {
+            "EN": "I see where you're coming from, but I look at it differently.",
+            "TL": "Nauunawaan ko ang pinanggagalingan mo, pero iba ang tingin ko."
+          },
+          {
+            "EN": "No hard feelings, but I'd handle it another way.",
+            "TL": "Walang samaan ng loob, pero iba ang gagawin kong paraan."
+          },
+          {
+            "EN": "I value your thoughts, even when we don't agree.",
+            "TL": "Pinahahalagahan ko ang isip mo, kahit di tayo magkasundo."
+          },
+          {
+            "EN": "We're allowed to differ. We still have each other's backs.",
+            "TL": "Pwede tayong magkaiba. Hawak pa rin natin ang likod ng bawat isa."
+          },
+          {
+            "EN": "I don't agree with the plan, but I trust you as a comrade.",
+            "TL": "Di ako sang-ayon sa plano, pero may tiwala ako sa 'yo."
+          },
+          {
+            "EN": "Let's talk through it without getting worked up.",
+            "TL": "Pag-usapan natin ito nang hindi nagkakainitan."
+          },
+          {
+            "EN": "I disagree, but I'm glad you felt comfortable saying it.",
+            "TL": "Hindi ako sang-ayon, pero mabuti't malaya mong nasabi."
+          },
+          {
+            "EN": "We can disagree and still keep each other alive.",
+            "TL": "Pwede tayong magkaiba at manatili pa ring buhay magkasama."
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.social.dispute_stressed",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "I hear you. Not now.",
+            "TL": "Naririnig kita. Hindi ngayon."
+          },
+          {
+            "EN": "We don't have time to fight. Stand down.",
+            "TL": "Wala tayong oras para mag-away. Tumigil ka."
+          },
+          {
+            "EN": "Too much on the line to argue. Shut it down.",
+            "TL": "Masyadong malaki ang nakataya para magtalo. Itigil mo na."
+          },
+          {
+            "EN": "I'm stressed, you're stressed. Drop it.",
+            "TL": "Pagod ako, pagod ka. Hayaan mo na."
+          },
+          {
+            "EN": "Don't push an argument while we're in danger.",
+            "TL": "Huwag kang magpumilit makipagtalo habang delikado."
+          },
+          {
+            "EN": "One more word about this and I walk away.",
+            "TL": "Isa pang salita tungkol dito at aalis ako."
+          },
+          {
+            "EN": "Save the bickering before it gets us killed.",
+            "TL": "Itabi ang bangayan bago tayo mapatay nito."
+          },
+          {
+            "EN": "Not the time. Eyes forward.",
+            "TL": "Hindi ito ang tamang oras. Tumingin sa unahan."
+          },
+          {
+            "EN": "I'm done debating under pressure.",
+            "TL": "Tapos na akong makipagtalo sa gitna ng tensiyon."
+          },
+          {
+            "EN": "Cut the argument right now.",
+            "TL": "Putulin mo ang pagtatalo ngayon din."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "Tensions are high. Let's table this for later.",
+            "TL": "Mataas ang tensiyon. Ipagpaliban muna natin mamaya."
+          },
+          {
+            "EN": "We're both stressed. Let's not make bad calls right now.",
+            "TL": "Pareho tayong pagod. Huwag tayong gumawa ng maling desisyon."
+          },
+          {
+            "EN": "Now isn't the moment to hash this out.",
+            "TL": "Hindi ngayon ang oras para pagtalunan ito."
+          },
+          {
+            "EN": "Let's catch our breath before we argue further.",
+            "TL": "Huminga muna tayo bago magpatuloy sa pagtatalo."
+          },
+          {
+            "EN": "We need clear heads right now, not arguments.",
+            "TL": "Kailangan natin ng malinaw na isip, hindi bangayan."
+          },
+          {
+            "EN": "I understand you're upset, but we need to survive first.",
+            "TL": "Naiintindihan kong galit ka, pero kaligtasan muna."
+          },
+          {
+            "EN": "Let's put a pin in this until we're safe.",
+            "TL": "Iwan muna natin ito hanggang sa maging ligtas tayo."
+          },
+          {
+            "EN": "Arguing right now only helps the dead.",
+            "TL": "Ang pagtatalo ngayon ay pabor lang sa mga patay."
+          },
+          {
+            "EN": "I hear the frustration. Let's focus on the threat.",
+            "TL": "Naririnig ko ang inis mo. Magpokus tayo sa banta."
+          },
+          {
+            "EN": "We can settle this once we're behind walls.",
+            "TL": "Maaayos natin ito kapag nasa loob na tayo ng pader."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Not now.",
+            "TL": "Hindi ngayon."
+          },
+          {
+            "EN": "Stop.",
+            "TL": "Tigil."
+          },
+          {
+            "EN": "Cool it.",
+            "TL": "Kumalma ka."
+          },
+          {
+            "EN": "Later.",
+            "TL": "Mamaya na."
+          },
+          {
+            "EN": "Drop it.",
+            "TL": "Hayaan mo na."
+          },
+          {
+            "EN": "Too tense.",
+            "TL": "Masyadong delikado."
+          },
+          {
+            "EN": "Hold your tongue.",
+            "TL": "Pigilin ang dila."
+          },
+          {
+            "EN": "Focus.",
+            "TL": "Magpokus."
+          },
+          {
+            "EN": "Enough.",
+            "TL": "Sapat na."
+          },
+          {
+            "EN": "Quiet.",
+            "TL": "Tahimik."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "Hey, we're both frayed right now. Let's take a breath.",
+            "TL": "Huy, pagod tayong pareho ngayon. Huminga muna tayo nang malalim."
+          },
+          {
+            "EN": "I know you're hurting and tense. I'm right here. Let's pause.",
+            "TL": "Alam kong nahihirapan ka at tensiyonado. Narito lang ako. Huminto muna tayo."
+          },
+          {
+            "EN": "Don't let the stress tear us apart. We're partners.",
+            "TL": "Huwag nating hayaang paglayuin tayo ng pagod. Magkasama tayo."
+          },
+          {
+            "EN": "I hear your worry, but let's get somewhere safe first.",
+            "TL": "Naririnig ko ang kaba mo, pero lumipat muna tayo sa ligtas."
+          },
+          {
+            "EN": "I care about what you think, just not while we're in danger.",
+            "TL": "Mahalaga sa akin ang opinyon mo, pero huwag habang nasa panganib."
+          },
+          {
+            "EN": "Let's take a second to reset. We're on the same side.",
+            "TL": "Maglaan tayo ng sandali para kumalma. Magkakampi tayo."
+          },
+          {
+            "EN": "Breathe with me. We'll work through this disagreement later.",
+            "TL": "Sumabay kang huminga sa akin. Aayusin natin ito mamaya."
+          },
+          {
+            "EN": "I'm not fighting you. Let's keep each other alive.",
+            "TL": "Hindi kita kalaban. Panatilihin nating buhay ang isa't isa."
+          },
+          {
+            "EN": "Stress is talking right now. Let's be gentle on each other.",
+            "TL": "Pagod lang ang nagsasalita ngayon. Maging mahinahon tayo."
+          },
+          {
+            "EN": "We'll talk this through when the dust settles, I promise.",
+            "TL": "Pag-uusapan natin ito kapag humupa na ang gulo, pangako."
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.social.dispute_trusted",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "I still don't agree. Leave it there.",
+            "TL": "Hindi pa rin ako sang-ayon. Tama na."
+          },
+          {
+            "EN": "Even between us, I draw the line here.",
+            "TL": "Kahit sa ating dalawa, may hangganan ako rito."
+          },
+          {
+            "EN": "I trust you, but I won't back this decision.",
+            "TL": "Tiwala ako sa 'yo, pero di ko susuportahan ang desisyong ito."
+          },
+          {
+            "EN": "We've been through a lot, but I disagree on this.",
+            "TL": "Marami na tayong pinagdaanan, pero di ako sang-ayon dito."
+          },
+          {
+            "EN": "Don't lean on our history to push a bad idea.",
+            "TL": "Huwag mong gamitin ang samahan natin para ipilit ang maling plano."
+          },
+          {
+            "EN": "I trust your survival skills, not this specific take.",
+            "TL": "Tiwala ako sa galing mo, pero hindi sa opinyong ito."
+          },
+          {
+            "EN": "Stand down on this. I won't follow blindly.",
+            "TL": "Bumitiw ka rito. Hindi ako susunod nang pikit-mata."
+          },
+          {
+            "EN": "Trust goes both ways. Hear my disagreement.",
+            "TL": "May dalawang panig ang tiwala. Pakinggan mo ang pagtutol ko."
+          },
+          {
+            "EN": "I won't let friendship blind me to a bad risk.",
+            "TL": "Hindi ko hahayaang bulagin ng samahan ang maling sugal."
+          },
+          {
+            "EN": "We're close, but on this, you're dead wrong.",
+            "TL": "Malapit tayo, pero rito, maling-mali ka."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "I trust your judgment usually, but not on this.",
+            "TL": "Kadalasan may tiwala ako sa desisyon mo, pero hindi ngayon."
+          },
+          {
+            "EN": "We've earned the right to speak plainly: I disagree.",
+            "TL": "Karapatan nating maging tapat: hindi ako sang-ayon."
+          },
+          {
+            "EN": "Because I trust you, I'm telling you this is a mistake.",
+            "TL": "Dahil may tiwala ako sa 'yo, sasabihin kong pagkakamali ito."
+          },
+          {
+            "EN": "I value our track record, but I have to push back here.",
+            "TL": "Mahalaga ang pinagsamahan natin, pero kailangan kong tumutol."
+          },
+          {
+            "EN": "You're one of the best survivors I know, but I disagree.",
+            "TL": "Isa ka sa pinakamagaling na nakilala ko, pero di ako sang-ayon."
+          },
+          {
+            "EN": "Let's examine the facts together. Something doesn't add up.",
+            "TL": "Suriin nating mabuti ang katotohanan. May hindi tama."
+          },
+          {
+            "EN": "I respect you too much to nod along when you're wrong.",
+            "TL": "Masyado kitang iginagalang para tumango kapag mali ka."
+          },
+          {
+            "EN": "We see this from two different angles.",
+            "TL": "Nakikita natin ito mula sa dalawang magkaibang anggulo."
+          },
+          {
+            "EN": "Hear me out before you lock in your stance.",
+            "TL": "Pakinggan mo muna ako bago mo isara ang isip mo."
+          },
+          {
+            "EN": "We have solid trust, so let's weigh the risks properly.",
+            "TL": "Matibay ang tiwala natin, kaya timbangin natin ang panganib."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Not this time.",
+            "TL": "Hindi sa pagkakataong ito."
+          },
+          {
+            "EN": "Trust you, but no.",
+            "TL": "Tiwala ako sa 'yo, pero hindi."
+          },
+          {
+            "EN": "Bad call.",
+            "TL": "Maling pasya."
+          },
+          {
+            "EN": "Disagree, partner.",
+            "TL": "Di ako sang-ayon, kasama."
+          },
+          {
+            "EN": "Can't back it.",
+            "TL": "Di ko masusuportahan."
+          },
+          {
+            "EN": "Wrong move.",
+            "TL": "Maling galaw."
+          },
+          {
+            "EN": "Reconsider.",
+            "TL": "Pag-isipan mo ulit."
+          },
+          {
+            "EN": "I'm out on that.",
+            "TL": "Labas ako riyan."
+          },
+          {
+            "EN": "No dice.",
+            "TL": "Hindi uubra."
+          },
+          {
+            "EN": "Think again.",
+            "TL": "Mag-isip ka ulit."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "You know I'd follow you through hell, but not into this.",
+            "TL": "Alam mong sasamahan kita kahit saan, pero hindi sa bagay na ito."
+          },
+          {
+            "EN": "I love how bold you are, but this risk is too steep.",
+            "TL": "Hanga ako sa tapang mo, pero masyadong mataas ang sugal na ito."
+          },
+          {
+            "EN": "Because I care about you, I have to say no to this.",
+            "TL": "Dahil nagmamalasakit ako sa 'yo, kailangan kong tumanggi rito."
+          },
+          {
+            "EN": "We've kept each other alive this long. Trust me on this disagreement.",
+            "TL": "Matagal na nating binubuhay ang isa't isa. Magtiwala ka sa pagtutol ko."
+          },
+          {
+            "EN": "You're my closest ally, so listen to my gut on this one.",
+            "TL": "Pinakamalapit kitang kasama, kaya pakinggan mo ang kutob ko."
+          },
+          {
+            "EN": "I'm telling you this because I want us both to live to see tomorrow.",
+            "TL": "Sinasabi ko ito dahil gusto kong mabuhay tayong pareho bukas."
+          },
+          {
+            "EN": "No matter what happens, we're solid. But I disagree here.",
+            "TL": "Kahit anong mangyari, matibay tayo. Pero di ako sang-ayon dito."
+          },
+          {
+            "EN": "Let's find a compromise that keeps both of us safe.",
+            "TL": "Humanap tayo ng paraan na magpapanatiling ligtas sa ating dalawa."
+          },
+          {
+            "EN": "I value our bond above any single disagreement.",
+            "TL": "Mas mahalaga ang samahan natin kaysa sa anumang pagtatalo."
+          },
+          {
+            "EN": "We'll work it out together like we always do.",
+            "TL": "Aayusin natin ito nang magkasama gaya ng dati."
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.social.dispute_withdrawn",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "Let's leave it there.",
+            "TL": "Tama na iyon."
+          },
+          {
+            "EN": "I'm not arguing with you anymore.",
+            "TL": "Hindi na ako makikipagtalo sa 'yo."
+          },
+          {
+            "EN": "Done talking about this.",
+            "TL": "Tapos na akong pag-usapan ito."
+          },
+          {
+            "EN": "Subject is closed. Back off.",
+            "TL": "Sarado na ang paksa. Umatras ka."
+          },
+          {
+            "EN": "I've said my piece. Leave it alone.",
+            "TL": "Nasabi ko na ang parte ko. Hayaan mo na."
+          },
+          {
+            "EN": "Drop it before I get angry.",
+            "TL": "Itigil mo 'yan bago pa ako magalit."
+          },
+          {
+            "EN": "Nothing more to say.",
+            "TL": "Wala nang dapat sabihin pa."
+          },
+          {
+            "EN": "We're done here.",
+            "TL": "Tapos na tayo rito."
+          },
+          {
+            "EN": "Walk away.",
+            "TL": "Umalis ka na."
+          },
+          {
+            "EN": "I'm finished with this conversation.",
+            "TL": "Tapos na ako sa usapang ito."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "All right. Let's step back from this.",
+            "TL": "Sige. Umatras muna tayo sa usapang ito."
+          },
+          {
+            "EN": "We're not getting anywhere. Let's move on.",
+            "TL": "Wala tayong mararating. Magpatuloy na tayo."
+          },
+          {
+            "EN": "I think we've said enough on the matter.",
+            "TL": "Sa tingin ko sapat na ang nasabi natin sa usapin."
+          },
+          {
+            "EN": "Let's take a break from this topic.",
+            "TL": "Magpahinga muna tayo sa paksang ito."
+          },
+          {
+            "EN": "Fair enough. Let's focus on other priorities.",
+            "TL": "Makatwiran. Magpokus na lang tayo sa ibang gawain."
+          },
+          {
+            "EN": "No point spinning our wheels. Let's work.",
+            "TL": "Walang silbing magpaulit-ulit. Magtrabaho na tayo."
+          },
+          {
+            "EN": "Understood. We'll leave it at that.",
+            "TL": "Naintindihan. Diyan na muna natin iiwan."
+          },
+          {
+            "EN": "Agreed. Moving past it now.",
+            "TL": "Sang-ayon. Lumilipas na tayo roon."
+          },
+          {
+            "EN": "We can revisit this when things settle down.",
+            "TL": "Mababalikan natin ito kapag maayos na ang lahat."
+          },
+          {
+            "EN": "All right. Let's put our energy elsewhere.",
+            "TL": "Sige. Dalhin na lang natin ang lakas sa iba."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Drop it.",
+            "TL": "Hayaan mo na."
+          },
+          {
+            "EN": "Done.",
+            "TL": "Tapos na."
+          },
+          {
+            "EN": "Enough.",
+            "TL": "Sapat na."
+          },
+          {
+            "EN": "No more.",
+            "TL": "Wala na."
+          },
+          {
+            "EN": "Moving on.",
+            "TL": "Tuloy na."
+          },
+          {
+            "EN": "Leave it.",
+            "TL": "Tama na."
+          },
+          {
+            "EN": "Finished.",
+            "TL": "Tapos."
+          },
+          {
+            "EN": "Closed.",
+            "TL": "Sarado."
+          },
+          {
+            "EN": "End of it.",
+            "TL": "Diyan nagtatapos."
+          },
+          {
+            "EN": "Drop the topic.",
+            "TL": "Iwan ang paksa."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "Let's leave it there for now, friend. We're still good.",
+            "TL": "Tama na muna iyon, kaibigan. Maayos pa rin tayo."
+          },
+          {
+            "EN": "I don't want this to come between us. Let's rest on it.",
+            "TL": "Ayokong masira tayo dahil dito. Ipahinga na muna natin."
+          },
+          {
+            "EN": "We've said what we needed to say. All love here.",
+            "TL": "Nasabi na natin ang kailangan. Maayos ang kalooban dito."
+          },
+          {
+            "EN": "Let's pause this. You're more important to me than this argument.",
+            "TL": "Tigil muna. Mas mahalaga ka sa akin kaysa sa pagtatalong ito."
+          },
+          {
+            "EN": "All good. Let's go grab a drink and clear our heads.",
+            "TL": "Ayos lang. Uminom muna tayo para mahimasmasan."
+          },
+          {
+            "EN": "I hear you, and I respect you. Let's let the dust settle.",
+            "TL": "Narinig kita, at iginagalang kita. Hayaang lumipas ang alikabok."
+          },
+          {
+            "EN": "We don't need to fight. We're on the same team.",
+            "TL": "Di natin kailangang mag-away. Nasa iisang koponan tayo."
+          },
+          {
+            "EN": "It's all right. We can let this one slide.",
+            "TL": "Ayos lang. Pwede nating palampasin ang isang 'to."
+          },
+          {
+            "EN": "I value our partnership too much to push this.",
+            "TL": "Masyadong mahalaga ang samahan natin para ipagpilitan ito."
+          },
+          {
+            "EN": "We'll be okay. Let's take a breather.",
+            "TL": "Magiging maayos tayo. Huminga muna tayo nang malalim."
+          }
+        ]
+      }
+    }
+  ]
+}

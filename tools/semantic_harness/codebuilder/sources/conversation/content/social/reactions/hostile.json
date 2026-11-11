@@ -1,0 +1,711 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.social.reactions.hostile",
+  "kind": "content",
+  "domain": "social",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
+  "groups": {
+    "commands_emotes": {
+      "contentOwner": "projecthoomans.dialogue_content.commands_emotes"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.social.hostile_boundary",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "Don't talk to me like that.",
+            "TL": "Huwag mo akong kausapin nang ganyan."
+          },
+          {
+            "EN": "Check yourself before you speak to me again.",
+            "TL": "Pagsabihan mo ang sarili mo bago ka makipag-usap sa 'kin ulit."
+          },
+          {
+            "EN": "You're stepping way out of line.",
+            "TL": "Sumusobra ka na sa linya."
+          },
+          {
+            "EN": "Mind your mouth around me.",
+            "TL": "Bantayan mo ang bibig mo sa harap ko."
+          },
+          {
+            "EN": "I don't take disrespect from anyone.",
+            "TL": "Hindi ako pumapayag na bastusin ng kahit sino."
+          },
+          {
+            "EN": "You cross that boundary again and see what happens.",
+            "TL": "Tawirin mo ulit ang hangganang 'yan at tingnan natin."
+          },
+          {
+            "EN": "Watch how you address me.",
+            "TL": "Bantayan mo kung paano mo ako kausapin."
+          },
+          {
+            "EN": "Keep your tone in check.",
+            "TL": "Ayusin mo ang tono mo."
+          },
+          {
+            "EN": "You are playing with a short fuse.",
+            "TL": "Naglalaro ka sa maikling mitsa."
+          },
+          {
+            "EN": "Back off that attitude.",
+            "TL": "Alisin mo ang ganyang ugali."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "That tone isn't acceptable.",
+            "TL": "Hindi katanggap-tanggap ang ganyang tono."
+          },
+          {
+            "EN": "Speak to me with respect or don't speak to me at all.",
+            "TL": "Kausapin mo ako nang may galang o huwag na lang."
+          },
+          {
+            "EN": "We need to keep this professional and decent.",
+            "TL": "Kailangan nating panatilihing maayos at magalang ito."
+          },
+          {
+            "EN": "There's no call for hostility here.",
+            "TL": "Walang dahilan para maging marahas dito."
+          },
+          {
+            "EN": "I won't be spoken to that way.",
+            "TL": "Hindi ako papayag na ganyanin ang pananalita sa akin."
+          },
+          {
+            "EN": "Keep your hostility out of this conversation.",
+            "TL": "Alisin mo ang galit sa usapang ito."
+          },
+          {
+            "EN": "We have boundaries here. Respect them.",
+            "TL": "May mga hangganan tayo rito. Igalang mo ang mga 'yon."
+          },
+          {
+            "EN": "That kind of talk isn't going to get you anywhere.",
+            "TL": "Walang patutunguhan ang ganyang pananalita."
+          },
+          {
+            "EN": "Lower your voice and adjust your attitude.",
+            "TL": "Hinaan mo ang boses mo at ayusin ang asal mo."
+          },
+          {
+            "EN": "I expect basic decency from the people around me.",
+            "TL": "Umaasa ako sa simpleng respeto mula sa mga kasama ko."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Watch it.",
+            "TL": "Mag-ingat ka."
+          },
+          {
+            "EN": "Out of line.",
+            "TL": "Sobra na."
+          },
+          {
+            "EN": "Stop.",
+            "TL": "Tigil."
+          },
+          {
+            "EN": "Tone it down.",
+            "TL": "Hinaan mo."
+          },
+          {
+            "EN": "Respect.",
+            "TL": "Respeto."
+          },
+          {
+            "EN": "Check yourself.",
+            "TL": "Ayusin mo sarili mo."
+          },
+          {
+            "EN": "Enough.",
+            "TL": "Sapat na."
+          },
+          {
+            "EN": "Not with me.",
+            "TL": "Huwag sa akin."
+          },
+          {
+            "EN": "Line crossed.",
+            "TL": "Lumagpas ka na."
+          },
+          {
+            "EN": "Back off.",
+            "TL": "Umatras ka."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "Hey, where is this hostility coming from? We're allies.",
+            "TL": "Huy, saan nanggagaling ang galit na 'yan? Magkakampi tayo."
+          },
+          {
+            "EN": "Don't snap at me like that. I've only ever helped you.",
+            "TL": "Huwag mo akong sigawan nang ganyan. Tumulong lang ako sa 'yo."
+          },
+          {
+            "EN": "I care about you, but that doesn't mean you can disrespect me.",
+            "TL": "Nagmamalasakit ako sa 'yo, pero di ibig sabihing pwede mo akong bastusin."
+          },
+          {
+            "EN": "Please, let's treat each other better than this.",
+            "TL": "Pakiusap, magtrato tayo nang mas maayos kaysa rito."
+          },
+          {
+            "EN": "That hurt, coming from you. Let's dial it back.",
+            "TL": "Masakit marinig galing sa 'yo. Bawiin mo 'yan."
+          },
+          {
+            "EN": "We've got enough enemies out there without turning on each other.",
+            "TL": "Marami na tayong kaaway sa labas, huwag na tayong mag-away."
+          },
+          {
+            "EN": "Take a breath. I'm not your enemy.",
+            "TL": "Huminga ka muna. Hindi mo ako kalaban."
+          },
+          {
+            "EN": "I don't deserve that kind of anger from you.",
+            "TL": "Hindi ako karapat-dapat sa ganyang galit mo."
+          },
+          {
+            "EN": "Let's remember who we are to each other.",
+            "TL": "Tandaan natin kung sino tayo sa isa't isa."
+          },
+          {
+            "EN": "Don't burn this bridge over a bad temper.",
+            "TL": "Huwag mong sirain ang samahan natin dahil sa init ng ulo."
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.social.hostile_short",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "Watch your mouth. Now.",
+            "TL": "Bantayan mo ang pananalita mo. Ngayon."
+          },
+          {
+            "EN": "Shut your mouth before I shut it for you.",
+            "TL": "Itikom mo ang bibig mo bago ko pa itikom 'yan."
+          },
+          {
+            "EN": "You're pushing me. Stop.",
+            "TL": "Sinasagad mo ako. Tigil."
+          },
+          {
+            "EN": "One more word out of you.",
+            "TL": "Isa pang salita mula sa 'yo."
+          },
+          {
+            "EN": "Mind yourself right now.",
+            "TL": "Bantayan mo ang kilos mo ngayon."
+          },
+          {
+            "EN": "You're testing the wrong survivor.",
+            "TL": "Maling tao ang sinusubukan mo."
+          },
+          {
+            "EN": "Quiet. Before things get violent.",
+            "TL": "Tahimik. Bago maging bayolente ito."
+          },
+          {
+            "EN": "You want trouble? Keep talking.",
+            "TL": "Gusto mo ng gulo? Sige, magsalita ka pa."
+          },
+          {
+            "EN": "Hold your tongue.",
+            "TL": "Pigilan mo ang dila mo."
+          },
+          {
+            "EN": "Bite your tongue now.",
+            "TL": "Kagatin mo ang dila mo ngayon."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "Watch your language.",
+            "TL": "Bantayan mo ang pananalita mo."
+          },
+          {
+            "EN": "That kind of talk is dangerous here.",
+            "TL": "Mapanganib ang ganyang salita rito."
+          },
+          {
+            "EN": "Keep your words civil.",
+            "TL": "Panatilihing maayos ang mga salita mo."
+          },
+          {
+            "EN": "I'm warning you to calm down.",
+            "TL": "Binabalaan kitang kumalma."
+          },
+          {
+            "EN": "Don't escalate this situation.",
+            "TL": "Huwag mong palalain ang sitwasyong ito."
+          },
+          {
+            "EN": "Control your temper.",
+            "TL": "Pigilan mo ang init ng ulo mo."
+          },
+          {
+            "EN": "There's no place for that attitude here.",
+            "TL": "Walang puwang ang ganyang asal dito."
+          },
+          {
+            "EN": "Watch your mouth and think before you speak.",
+            "TL": "Ingatan ang bibig at mag-isip bago magsalita."
+          },
+          {
+            "EN": "You need to rein that in.",
+            "TL": "Kailangan mong kontrolin 'yan."
+          },
+          {
+            "EN": "Keep it civil or step away.",
+            "TL": "Maging maayos ka o lumayo ka na."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Shut it.",
+            "TL": "Tumahimik ka."
+          },
+          {
+            "EN": "Watch it.",
+            "TL": "Mag-ingat ka."
+          },
+          {
+            "EN": "Enough.",
+            "TL": "Sapat na."
+          },
+          {
+            "EN": "Quiet.",
+            "TL": "Tahimik."
+          },
+          {
+            "EN": "Careful.",
+            "TL": "Mag-ingat."
+          },
+          {
+            "EN": "Bite it.",
+            "TL": "Itikom mo."
+          },
+          {
+            "EN": "Stop.",
+            "TL": "Tigil."
+          },
+          {
+            "EN": "Cool it.",
+            "TL": "Kumalma ka."
+          },
+          {
+            "EN": "Done.",
+            "TL": "Tapos."
+          },
+          {
+            "EN": "Last warning.",
+            "TL": "Huling babala."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "Hey, watch your mouth, friend. We're better than that.",
+            "TL": "Huy, ingatan mo ang bibig mo, kaibigan. Mas maayos tayo riyan."
+          },
+          {
+            "EN": "Don't talk like that. You're better than this anger.",
+            "TL": "Huwag kang magsalita nang ganyan. Higit ka sa galit mong 'yan."
+          },
+          {
+            "EN": "Come on, watch your tone with me.",
+            "TL": "Sige na, ayusin mo ang tono mo sa akin."
+          },
+          {
+            "EN": "Take a breath before you say something you'll regret.",
+            "TL": "Huminga ka muna bago ka magsabi ng pagsisisihan mo."
+          },
+          {
+            "EN": "I know you're frustrated, but don't lash out at me.",
+            "TL": "Alam kong naiinis ka, pero huwag mong ibunton sa akin."
+          },
+          {
+            "EN": "Easy now. We're on the same team.",
+            "TL": "Dahan-dahan lang. Magkasama tayo rito."
+          },
+          {
+            "EN": "Check yourself, partner. I'm with you, not against you.",
+            "TL": "Ayusin mo sarili mo, kasama. Kakampi mo ako, hindi kalaban."
+          },
+          {
+            "EN": "Don't let the anger win today. Stay with me.",
+            "TL": "Huwag mong hayaang manalo ang galit ngayon. Sumama ka sa 'kin."
+          },
+          {
+            "EN": "I'm giving you space, but watch what you say.",
+            "TL": "Binibigyan kita ng puwang, pero bantayan mo ang sinasabi mo."
+          },
+          {
+            "EN": "Hold your words. We can talk when you're calmer.",
+            "TL": "Pigilan mo ang salita mo. Mag-usap tayo kapag kalmado ka na."
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.social.hostile_stressed",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "That's enough. Back away.",
+            "TL": "Tama na. Umatras ka."
+          },
+          {
+            "EN": "Get back before I make you.",
+            "TL": "Umatras ka bago pa kita pilitin."
+          },
+          {
+            "EN": "Give me space right now.",
+            "TL": "Bigyan mo ako ng puwang ngayon din."
+          },
+          {
+            "EN": "Step back and keep your hands where I can see them.",
+            "TL": "Umatras ka at panatilihin ang kamay sa kita ko."
+          },
+          {
+            "EN": "I am armed and exhausted. Back off.",
+            "TL": "May armas ako at pagod na. Lumayo ka."
+          },
+          {
+            "EN": "Back away from me immediately.",
+            "TL": "Lumayo ka sa akin agad-agad."
+          },
+          {
+            "EN": "Don't crowd me while my nerves are on edge.",
+            "TL": "Huwag mo akong dikitan habang tensiyonado ako."
+          },
+          {
+            "EN": "Move back now.",
+            "TL": "Umatras ka ngayon."
+          },
+          {
+            "EN": "I'm not warning you again. Step back.",
+            "TL": "Hindi na kita babalaan ulit. Umatras ka."
+          },
+          {
+            "EN": "Stay five paces away from me.",
+            "TL": "Manatili kang limang hakbang ang layo sa akin."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "That's enough. Everyone needs to step back.",
+            "TL": "Tama na. Kailangang umatras ng lahat."
+          },
+          {
+            "EN": "Please give me some space to cool off.",
+            "TL": "Pakiusap bigyan mo ako ng puwang para kumalma."
+          },
+          {
+            "EN": "We're all too stressed for this. Step away.",
+            "TL": "Masyado tayong tensiyonado para rito. Lumayo muna."
+          },
+          {
+            "EN": "Back up. Let's not make things worse.",
+            "TL": "Umatras ka. Huwag nating palalain ang sitwasyon."
+          },
+          {
+            "EN": "I need room to think. Step back.",
+            "TL": "Kailangan ko ng espasyo para mag-isip. Umatras ka."
+          },
+          {
+            "EN": "Let's put some distance between us right now.",
+            "TL": "Maglagay muna tayo ng distansya ngayon."
+          },
+          {
+            "EN": "Back away until tempers settle down.",
+            "TL": "Umatras muna hanggang sa humupa ang init ng ulo."
+          },
+          {
+            "EN": "Stop crowding me. Take a few steps back.",
+            "TL": "Huwag mo akong sikipin. Umatras ka nang ilang hakbang."
+          },
+          {
+            "EN": "We need space right now. Move back.",
+            "TL": "Kailangan natin ng puwang ngayon. Umatras ka."
+          },
+          {
+            "EN": "Give it some breathing room.",
+            "TL": "Bigyan mo ng puwang para makahinga."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Back off.",
+            "TL": "Umatras ka."
+          },
+          {
+            "EN": "Step back.",
+            "TL": "Lumayo ka."
+          },
+          {
+            "EN": "Space.",
+            "TL": "Puwang."
+          },
+          {
+            "EN": "Away.",
+            "TL": "Malayo."
+          },
+          {
+            "EN": "Back up.",
+            "TL": "Abante pabalik."
+          },
+          {
+            "EN": "Not close.",
+            "TL": "Huwag lumapit."
+          },
+          {
+            "EN": "Distance.",
+            "TL": "Distansya."
+          },
+          {
+            "EN": "Enough.",
+            "TL": "Sapat na."
+          },
+          {
+            "EN": "Move.",
+            "TL": "Kilos."
+          },
+          {
+            "EN": "Off me.",
+            "TL": "Umalis ka sa tabi ko."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "Hey, please, give me some space. I'm overwhelmed.",
+            "TL": "Huy, pakiusap, bigyan mo ako ng puwang. Sobra na ang bigat."
+          },
+          {
+            "EN": "I don't want to snap at you, so please step back for a moment.",
+            "TL": "Ayokong masigawan ka, kaya pakiusap umatras ka muna."
+          },
+          {
+            "EN": "I love you as a friend, but I really need room to breathe right now.",
+            "TL": "Mahalaga ka sa 'kin bilang kaibigan, pero kailangan ko talagang makahinga ngayon."
+          },
+          {
+            "EN": "Let's put a little distance between us so we don't say things we regret.",
+            "TL": "Maglagay muna tayo ng kaunting distansya para di tayo magkasakitan."
+          },
+          {
+            "EN": "I'm asking gently: please back away for a minute.",
+            "TL": "Nakikiusap ako nang maayos: umatras ka muna sandali."
+          },
+          {
+            "EN": "I'm on the verge of breaking. Give me a minute alone.",
+            "TL": "Bibigay na ako. Bigyan mo muna ako ng sandaling mag-isa."
+          },
+          {
+            "EN": "Step back, partner. Let's both catch our breath.",
+            "TL": "Umatras ka muna, kasama. Huminga muna tayong pareho."
+          },
+          {
+            "EN": "We're going to be okay, but I need physical space right now.",
+            "TL": "Magiging maayos tayo, pero kailangan ko ng espasyo ngayon."
+          },
+          {
+            "EN": "Please, just let me sit with my thoughts for a bit.",
+            "TL": "Pakiusap, hayaan mo muna akong mapag-isa nang kaunti."
+          },
+          {
+            "EN": "Back away for now. We'll talk when my head clears.",
+            "TL": "Lumayo muna ngayon. Mag-uusap tayo kapag luminaw na ang isip ko."
+          }
+        ]
+      }
+    },
+    {
+      "group": "commands_emotes",
+      "semanticTemplateID": "semantic.social.hostile_withdrawn",
+      "styles": {
+        "guarded": [
+          {
+            "EN": "Leave me alone. Now.",
+            "TL": "Iwan mo ako. Ngayon."
+          },
+          {
+            "EN": "Get out of my sight.",
+            "TL": "Umalis ka sa paningin ko."
+          },
+          {
+            "EN": "Don't come near me.",
+            "TL": "Huwag kang lalapit sa akin."
+          },
+          {
+            "EN": "I have nothing to say to you. Go.",
+            "TL": "Wala akong sasabihin sa 'yo. Umalis ka na."
+          },
+          {
+            "EN": "Walk away while you still can.",
+            "TL": "Lumakad ka palayo habang kaya mo pa."
+          },
+          {
+            "EN": "Leave me be.",
+            "TL": "Hayaan mo akong mag-isa."
+          },
+          {
+            "EN": "I'm done with you. Get lost.",
+            "TL": "Tapos na ako sa 'yo. Lumayas ka na."
+          },
+          {
+            "EN": "Stay away from my corner.",
+            "TL": "Huwag kang pupunta sa pwesto ko."
+          },
+          {
+            "EN": "Leave. Immediately.",
+            "TL": "Umalis ka. Ngayon din."
+          },
+          {
+            "EN": "Don't speak to me.",
+            "TL": "Huwag mo akong kausapin."
+          }
+        ],
+        "neutral": [
+          {
+            "EN": "Please leave me alone.",
+            "TL": "Pakiusap iwan mo akong mag-isa."
+          },
+          {
+            "EN": "I need to be on my own right now.",
+            "TL": "Kailangan kong mapag-isa ngayon."
+          },
+          {
+            "EN": "I'm asking for privacy. Please respect it.",
+            "TL": "Hinihiling ko ang katahimikan. Pakiusap igalang mo."
+          },
+          {
+            "EN": "Go on. I'll be fine by myself.",
+            "TL": "Sige na. Ayos lang ako nang mag-isa."
+          },
+          {
+            "EN": "Let's not interact for the rest of today.",
+            "TL": "Huwag muna tayong mag-usap sa buong araw na ito."
+          },
+          {
+            "EN": "I'd prefer not to speak to anyone right now.",
+            "TL": "Mas gusto kong walang makausap ngayon."
+          },
+          {
+            "EN": "Please walk away.",
+            "TL": "Pakiusap lumayo ka na."
+          },
+          {
+            "EN": "Give me time to myself.",
+            "TL": "Bigyan mo ako ng oras para sa sarili ko."
+          },
+          {
+            "EN": "I need some quiet. Leave me be.",
+            "TL": "Kailangan ko ng katahimikan. Hayaan mo ako."
+          },
+          {
+            "EN": "We're done talking for now.",
+            "TL": "Tapos na tayong mag-usap sa ngayon."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Leave.",
+            "TL": "Umalis ka."
+          },
+          {
+            "EN": "Go.",
+            "TL": "Alis."
+          },
+          {
+            "EN": "Away.",
+            "TL": "Malayo."
+          },
+          {
+            "EN": "Alone.",
+            "TL": "Mag-isa."
+          },
+          {
+            "EN": "Out.",
+            "TL": "Labas."
+          },
+          {
+            "EN": "Walk.",
+            "TL": "Lakad na."
+          },
+          {
+            "EN": "Done.",
+            "TL": "Tapos na."
+          },
+          {
+            "EN": "Quiet.",
+            "TL": "Tahimik."
+          },
+          {
+            "EN": "Not now.",
+            "TL": "Hindi ngayon."
+          },
+          {
+            "EN": "Get lost.",
+            "TL": "Lumayas ka."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "I just need some time alone, friend. Please.",
+            "TL": "Kailangan ko lang ng oras mag-isa, kaibigan. Pakiusap."
+          },
+          {
+            "EN": "It's not you, I promise. I just need to be by myself.",
+            "TL": "Hindi ikaw ang may sala, pangako. Kailangan ko lang mapag-isa."
+          },
+          {
+            "EN": "Please give me some quiet time. We'll talk later.",
+            "TL": "Pakiusap bigyan mo ako ng katahimikan. Mag-usap tayo mamaya."
+          },
+          {
+            "EN": "I'm in a dark headspace. I don't want to bring you down with me.",
+            "TL": "Mabigat ang iniisip ko. Ayokong mahawa ka sa akin."
+          },
+          {
+            "EN": "I need to withdraw for a little while. Take care of yourself.",
+            "TL": "Kailangan ko munang lumayo sandali. Ingatan mo sarili mo."
+          },
+          {
+            "EN": "Let me sit in the quiet. I'll find you when I'm ready.",
+            "TL": "Hayaan mo muna akong maupo sa tahimik. Hahanapin kita kapag handa na."
+          },
+          {
+            "EN": "Thank you for understanding. I just need space today.",
+            "TL": "Salamat sa pag-unawa. Kailangan ko lang ng espasyo ngayon."
+          },
+          {
+            "EN": "Don't worry about me, but please let me be for now.",
+            "TL": "Huwag kang mag-alala sa 'kin, pero hayaan mo muna ako ngayon."
+          },
+          {
+            "EN": "I promise I'll be okay. Just give me this time.",
+            "TL": "Pangako magiging maayos ako. Ibigay mo lang ang oras na ito."
+          },
+          {
+            "EN": "See you later, friend. I need the silence right now.",
+            "TL": "Kita tayo mamaya, kaibigan. Kailangan ko ng katahimikan ngayon."
+          }
+        ]
+      }
+    }
+  ]
+}

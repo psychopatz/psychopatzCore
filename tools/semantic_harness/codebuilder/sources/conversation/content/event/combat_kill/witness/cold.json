@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.combat.kill.witness.cold",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.combat.kill.witness.reaction.content.821cb843df",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_witness_cold_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Don't expect applause.",
+            "TL": "Huwag kang umasa ng palakpak."
+          },
+          {
+            "EN": "Basic survival. Nothing to celebrate.",
+            "TL": "Pangkaraniwang kaligtasan. Walang ipagdiriwang."
+          },
+          {
+            "EN": "You did what was expected. Move.",
+            "TL": "Ginawa mo ang inaasahan. Kilos."
+          },
+          {
+            "EN": "One kill doesn't earn a trophy.",
+            "TL": "Ang isang patay ay hindi para ipagmalaki."
+          },
+          {
+            "EN": "A child could swing that weapon. Walk.",
+            "TL": "Kahit bata kayang ihataw ang sandatang 'yan. Lakad."
+          },
+          {
+            "EN": "Don't smirk. Keep walking.",
+            "TL": "Huwag kang ngumisi. Magpatuloy sa paglalakad."
+          },
+          {
+            "EN": "That was the minimum requirement.",
+            "TL": "Iyon ang pinakamababang kailangan."
+          },
+          {
+            "EN": "You hit it. Congratulations on living.",
+            "TL": "Tinamaan mo. Binabati kita sa pananatiling buhay."
+          },
+          {
+            "EN": "Save the pride for when we're safe.",
+            "TL": "Itago ang yabang kapag ligtas na tayo."
+          },
+          {
+            "EN": "Routine takedown. Move on.",
+            "TL": "Pangkaraniwang patay. Tuloy."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_witness_cold_02",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "You killed one. So what?",
+            "TL": "Napatay mo ang isa. Ano ngayon?"
+          },
+          {
+            "EN": "One corpse among millions. Step over.",
+            "TL": "Isang bangkay sa milyun-milyon. Hakbangan."
+          },
+          {
+            "EN": "That was one. There are thousands more.",
+            "TL": "Isa lang 'yan. May libu-libo pa."
+          },
+          {
+            "EN": "Do not admire your work. Advance.",
+            "TL": "Huwag mong hangaan ang gawa mo. Sulong."
+          },
+          {
+            "EN": "A rotten corpse fell. Big deal.",
+            "TL": "Bumagsak ang isang bulok. Ano naman."
+          },
+          {
+            "EN": "Don't pause over it. Keep moving.",
+            "TL": "Huwag kang tumigil diyan. Kilos."
+          },
+          {
+            "EN": "One less dead body standing. Next.",
+            "TL": "Bawas ang isang nakatayong bangkay. Sunod."
+          },
+          {
+            "EN": "You survived a contact. Keep walking.",
+            "TL": "Nakaligtas ka sa isang engkwentro. Lakad."
+          },
+          {
+            "EN": "It was in the way. It fell. Move.",
+            "TL": "Nakaharang, bumagsak. Kilos."
+          },
+          {
+            "EN": "Hardly impressive. Keep your weapon ready.",
+            "TL": "Hindi nakakahanga. Ihanda ang sandata mo."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_witness_cold_03",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Fine. One less.",
+            "TL": "Sige. Isa na lang ang nabawas."
+          },
+          {
+            "EN": "Acceptable. Keep moving.",
+            "TL": "Pwede na. Tuloy ang lakad."
+          },
+          {
+            "EN": "One obstacle eliminated.",
+            "TL": "Isang sagabal ang naalis."
+          },
+          {
+            "EN": "Target down. Sufficient.",
+            "TL": "Bagsak ang target. Sapat na."
+          },
+          {
+            "EN": "Threat neutralized. Proceed.",
+            "TL": "Banta naalis na. Magpatuloy."
+          },
+          {
+            "EN": "One down. March on.",
+            "TL": "Isang bagsak. Magmartsa."
+          },
+          {
+            "EN": "Handled. Next sector.",
+            "TL": "Naasikaso. Susunod na bahagi."
+          },
+          {
+            "EN": "Done. Do not linger.",
+            "TL": "Tapos. Huwag magtagal."
+          },
+          {
+            "EN": "Adequate strike. Keep the pace.",
+            "TL": "Sapat na tama. Panatilihin ang bilis."
+          },
+          {
+            "EN": "Casualty verified. Step forward.",
+            "TL": "Kumpirmadong biktima. Hakbang pasulong."
+          }
+        ]
+      }
+    }
+  ]
+}

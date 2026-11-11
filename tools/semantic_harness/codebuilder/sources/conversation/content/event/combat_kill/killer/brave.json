@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.combat.kill.killer.brave",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.combat.kill.killer.reaction.content.2964fec4fc",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_brave_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Down. Keep moving.",
+            "TL": "Patay. Tuloy tayo."
+          },
+          {
+            "EN": "Threat eliminated. Push forward.",
+            "TL": "Banta naalis na. Sulong."
+          },
+          {
+            "EN": "Target down. Don't break stride.",
+            "TL": "Target bagsak na. Huwag huminto."
+          },
+          {
+            "EN": "Dead. Move through the sector.",
+            "TL": "Patay na. Lusot sa bahaging 'to."
+          },
+          {
+            "EN": "Handled. Keep the momentum.",
+            "TL": "Naasikaso. Panatilihin ang bilis."
+          },
+          {
+            "EN": "Downed. Advance.",
+            "TL": "Bagsak. Abante."
+          },
+          {
+            "EN": "One kill confirmed. Step up.",
+            "TL": "Isang kumpirmadong patay. Sulong."
+          },
+          {
+            "EN": "Clear here. Continue the push.",
+            "TL": "Malinis dito. Tuloy ang pagsulong."
+          },
+          {
+            "EN": "It's down. Walk through.",
+            "TL": "Bagsak na. Lakad lang."
+          },
+          {
+            "EN": "Finished. Keep pace.",
+            "TL": "Tapos na. Panatilihin ang hakbang."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_brave_02",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Got it. Watch my side.",
+            "TL": "Nakuha ko. Bantayan mo ang gilid ko."
+          },
+          {
+            "EN": "Threat down. Cover my flank.",
+            "TL": "Banta bagsak na. Salagin mo ang gilid ko."
+          },
+          {
+            "EN": "Took that one out. Check my blind spot.",
+            "TL": "Tinapos ko 'yon. Tignan ang bulag na parte ko."
+          },
+          {
+            "EN": "Target eliminated. Guard the flank.",
+            "TL": "Target naalis. Bantayan ang tabi."
+          },
+          {
+            "EN": "Downed. Keep eyes on my right.",
+            "TL": "Bagsak. Tumingin ka sa kanan ko."
+          },
+          {
+            "EN": "Handled that one. Watch my shoulder.",
+            "TL": "Inasikaso ko ang isang 'yon. Bantayan ang balikat ko."
+          },
+          {
+            "EN": "It's dead. Don't let anything sneak up on us.",
+            "TL": "Patay na. Huwag hayaang may makapanambang sa atin."
+          },
+          {
+            "EN": "Dead. Keep the flank tight.",
+            "TL": "Patay na. Hawakan nang mahigpit ang gilid."
+          },
+          {
+            "EN": "Got it. Keep looking left and right.",
+            "TL": "Nakuha ko na. Tumingin ka sa kaliwa't kanan."
+          },
+          {
+            "EN": "Finished. Watch our perimeter.",
+            "TL": "Tapos na. Bantayan ang buong paligid natin."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_brave_03",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "One less. Stay sharp.",
+            "TL": "Isa na lang ang nabawas. Magmatyag."
+          },
+          {
+            "EN": "Threat neutralized. Keep your senses up.",
+            "TL": "Banta naalis. Maging alerto."
+          },
+          {
+            "EN": "One down. Stay alert.",
+            "TL": "Isang bagsak. Manatiling gising."
+          },
+          {
+            "EN": "Dead. Don't get complacent.",
+            "TL": "Patay na. Huwag maging kampante."
+          },
+          {
+            "EN": "Count one off. Eyes everywhere.",
+            "TL": "Bawas ang isa. Tumingin sa lahat ng direksyon."
+          },
+          {
+            "EN": "Downed. Keep your edge.",
+            "TL": "Bagsak na. Panatilihin ang talas ng pakiramdam."
+          },
+          {
+            "EN": "One less danger. Stay focused.",
+            "TL": "Bawas ang isang panganib. Manatiling nakapokus."
+          },
+          {
+            "EN": "Target gone. Keep watching corners.",
+            "TL": "Wala na ang target. Patuloy na bantayan ang mga sulok."
+          },
+          {
+            "EN": "Handled. Vigilance stays up.",
+            "TL": "Naasikaso na. Huwag ibaba ang pag-iingat."
+          },
+          {
+            "EN": "One less threat. Keep your weapon ready.",
+            "TL": "Bawas ang isang banta. Ihanda ang sandata."
+          }
+        ]
+      }
+    }
+  ]
+}

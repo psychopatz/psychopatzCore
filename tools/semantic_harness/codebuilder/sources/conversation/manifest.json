@@ -30,15 +30,6 @@
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
-      "domain": "social",
-      "kind": "content",
-      "order": 1301,
-    "path": "content/social/social_reactions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.social.reactions",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
       "domain": "conversation",
       "kind": "content",
       "order": 1310,
@@ -54,33 +45,6 @@
       "path": "content/social_apology.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.content.social.apology",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "health",
-      "kind": "content",
-      "order": 1330,
-      "path": "content/health.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.health",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "knowledge",
-      "kind": "content",
-      "order": 1340,
-      "path": "content/knowledge.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.knowledge",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "wellbeing",
-      "kind": "content",
-      "order": 1350,
-      "path": "content/wellbeing.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.wellbeing",
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
@@ -122,42 +86,6 @@
     {
       "domain": "event",
       "kind": "content",
-      "order": 1500,
-      "path": "content/event/medical.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.event.medical",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "event",
-      "kind": "content",
-      "order": 1501,
-    "path": "content/event/event_reactions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.event.reactions",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "event",
-      "kind": "content",
-      "order": 1502,
-      "path": "content/event/combat_kill_witness_reactions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.event.combat.kill.witness.reactions",
-      "sourceProfile": "conversation.source.project.hoomans.combat.kill.witness.reaction.content.821cb843df"
-    },
-    {
-      "domain": "event",
-      "kind": "content",
-      "order": 1503,
-      "path": "content/event/combat_kill_killer_reactions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.event.combat.kill.killer.reactions",
-      "sourceProfile": "conversation.source.project.hoomans.combat.kill.killer.reaction.content.2964fec4fc"
-    },
-    {
-      "domain": "event",
-      "kind": "content",
       "order": 1504,
       "path": "content/event/combat_horde_reactions.json",
       "owner": "ProjectHoomans",
@@ -172,24 +100,6 @@
       "owner": "ProjectHoomans",
       "shardId": "conversation.content.combat.player.assault.reactions",
       "sourceProfile": "conversation.source.project.hoomans.combat.reaction.content.7c2490ce89"
-    },
-    {
-      "domain": "combat_banter",
-      "kind": "content",
-      "order": 1550,
-      "path": "content/combat_banter/weapon_kill_reactions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.combat.banter.weapon.kill.reactions",
-      "sourceProfile": "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58"
-    },
-    {
-      "domain": "combat_human_banter",
-      "kind": "content",
-      "order": 1560,
-      "path": "content/combat_human_banter/human_kill_reactions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.combat.human.banter.human.kill.reactions",
-      "sourceProfile": "conversation.source.project.hoomans.hostile.human.kill.banter.e965e02b70"
     },
     {
       "domain": "compatibility",
@@ -240,7 +150,7 @@
       "domain": "common",
       "kind": "responses",
       "order": 1900,
-    "path": "responses/common/social.json",
+      "path": "responses/common/social.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.responses.common.social",
       "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
@@ -249,7 +159,7 @@
       "domain": "common",
       "kind": "responses",
       "order": 1901,
-    "path": "responses/common/questions.json",
+      "path": "responses/common/questions.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.responses.common.questions",
       "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
@@ -258,7 +168,7 @@
       "domain": "common",
       "kind": "responses",
       "order": 1902,
-    "path": "responses/common/needs_weather.json",
+      "path": "responses/common/needs_weather.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.responses.common.needs.weather",
       "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
@@ -276,7 +186,7 @@
       "domain": "grounded_personal",
       "kind": "responses",
       "order": 2100,
-    "path": "responses/grounded_personal_responses.json",
+      "path": "responses/grounded_personal_responses.json",
       "owner": "ProjectHoomans",
       "shardId": "conversation.responses.grounded.personal.responses",
       "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de"
@@ -372,9 +282,6 @@
       "sourceProfile": "conversation.source.dtcommon.247519f6f9"
     }
   ],
-  "auxiliaryFiles": [
-    "conversation_bundles.json"
-  ],
   "source": {
     "contentLicense": "Project Hoomans authored content",
     "name": "Project Hoomans Conversation Authoring",
@@ -386,6 +293,13 @@
       "kind": "content",
       "order": 1300,
       "path": "content/social/emotes",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "domain": "social",
+      "kind": "content",
+      "order": 1301,
+      "path": "content/social/reactions",
       "owner": "ProjectHoomans"
     },
     {
@@ -403,10 +317,73 @@
       "owner": "ProjectHoomans"
     },
     {
+      "domain": "health",
+      "kind": "content",
+      "order": 1330,
+      "path": "content/health",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "domain": "knowledge",
+      "kind": "content",
+      "order": 1340,
+      "path": "content/knowledge",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "domain": "wellbeing",
+      "kind": "content",
+      "order": 1350,
+      "path": "content/wellbeing",
+      "owner": "ProjectHoomans"
+    },
+    {
       "domain": "command",
       "kind": "content",
       "order": 1402,
       "path": "content/command/lifecycle",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "domain": "event",
+      "kind": "content",
+      "order": 1500,
+      "path": "content/event/medical",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "domain": "event",
+      "kind": "content",
+      "order": 1501,
+      "path": "content/event/reactions",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "domain": "event",
+      "kind": "content",
+      "order": 1502,
+      "path": "content/event/combat_kill/witness",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "domain": "event",
+      "kind": "content",
+      "order": 1503,
+      "path": "content/event/combat_kill/killer",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "domain": "combat_banter",
+      "kind": "content",
+      "order": 1550,
+      "path": "content/combat_banter/weapon_kill",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "domain": "combat_human_banter",
+      "kind": "content",
+      "order": 1560,
+      "path": "content/combat_human_banter/human_kill",
       "owner": "ProjectHoomans"
     },
     {
@@ -740,5 +717,8 @@
       ],
       "version": "1"
     }
-  }
+  },
+  "auxiliaryRoots": [
+    "bundles"
+  ]
 }

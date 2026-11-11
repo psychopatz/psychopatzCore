@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.combat.human.banter.kill.cold",
+  "kind": "content",
+  "domain": "combat_human_banter",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.hostile.human.kill.banter.e965e02b70",
+  "groups": {
+    "combat_human": {
+      "contentOwner": "projecthoomans.dialogue_content.combat_human"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "combat_human",
+      "semanticTemplateID": "semantic.combat.human_kill.cold.line_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "One less problem.",
+            "TL": "Isang problema ang nabawas."
+          },
+          {
+            "EN": "Ammunition well spent.",
+            "TL": "Maayos na nagamit ang bala."
+          },
+          {
+            "EN": "He made his calculation and failed.",
+            "TL": "Nagkamali siya sa kalkula niya."
+          },
+          {
+            "EN": "Threat terminated efficiently.",
+            "TL": "Mabilis na tinapos ang banta."
+          },
+          {
+            "EN": "No further resistance from this one.",
+            "TL": "Wala nang laban mula sa isang 'to."
+          },
+          {
+            "EN": "He chose to fight. Result was inevitable.",
+            "TL": "Pinili niyang lumaban. Inaasahan ang naging resulta."
+          },
+          {
+            "EN": "Target eliminated without incident.",
+            "TL": "Naalis ang target nang walang aberya."
+          },
+          {
+            "EN": "Hostile ceased functioning.",
+            "TL": "Tumigil sa paggalaw ang kalaban."
+          },
+          {
+            "EN": "One shooter off the board.",
+            "TL": "Bawas ang isang bumaril sa talaan."
+          },
+          {
+            "EN": "Dead. Expected outcome.",
+            "TL": "Patay. Inaasahang kalalabasan."
+          }
+        ]
+      }
+    },
+    {
+      "group": "combat_human",
+      "semanticTemplateID": "semantic.combat.human_kill.cold.line_02",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "He's dead. Move.",
+            "TL": "Patay na siya. Kilos."
+          },
+          {
+            "EN": "Corpse is of no concern. Step forward.",
+            "TL": "Walang silbi ang bangkay. Abante."
+          },
+          {
+            "EN": "Leave him where he fell. Advance.",
+            "TL": "Iwan kung saan bumagsak. Sulong."
+          },
+          {
+            "EN": "Casualty confirmed. Continue the route.",
+            "TL": "Patay kumpirmado. Ipagpatuloy ang ruta."
+          },
+          {
+            "EN": "Do not stare. Keep moving.",
+            "TL": "Huwag tumitig. Tuloy sa paglakad."
+          },
+          {
+            "EN": "Body is neutralized. March on.",
+            "TL": "Naitumba na ang katawan. Magmartsa."
+          },
+          {
+            "EN": "He is irrelevant now. Step over.",
+            "TL": "Wala na siyang halaga ngayon. Hakbangan."
+          },
+          {
+            "EN": "Target inactive. Proceed immediately.",
+            "TL": "Hindi na aktibo ang target. Magpatuloy agad."
+          },
+          {
+            "EN": "Nothing left to witness here. Move.",
+            "TL": "Wala nang panonoorin dito. Kilos."
+          },
+          {
+            "EN": "Down. Keep your focus on living targets.",
+            "TL": "Bagsak. Tutukan ang mga buhay pang kalaban."
+          }
+        ]
+      }
+    },
+    {
+      "group": "combat_human",
+      "semanticTemplateID": "semantic.combat.human_kill.cold.line_03",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Finished. Check the others.",
+            "TL": "Tapos na. Tingnan ang iba."
+          },
+          {
+            "EN": "Target expired. Search remaining hostiles.",
+            "TL": "Patay na ang target. Hanapin ang iba pang kalaban."
+          },
+          {
+            "EN": "One confirmed kill. Check their positions.",
+            "TL": "Isang kumpirmadong patay. Tignan ang mga posisyon nila."
+          },
+          {
+            "EN": "Handled. Now account for the rest.",
+            "TL": "Naasikaso na. Bilangin naman ang natitira."
+          },
+          {
+            "EN": "Done here. Shift focus to secondary contacts.",
+            "TL": "Tapos na rito. Ilipat ang pansin sa iba."
+          },
+          {
+            "EN": "He is dead. Check the perimeter for his group.",
+            "TL": "Patay na siya. Tignan ang paligid kung nasaan ang grupo niya."
+          },
+          {
+            "EN": "Casualty verified. Confirm no further threats.",
+            "TL": "Kumpirmadong biktima. Tiyaking wala nang banta."
+          },
+          {
+            "EN": "Finished. Look for reinforcements.",
+            "TL": "Tapos na. Maghanap ng posibleng saklolo."
+          },
+          {
+            "EN": "Threat neutralized. Scan surrounding cover.",
+            "TL": "Banta naalis. Suriin ang mga kublihan sa paligid."
+          },
+          {
+            "EN": "One eliminated. Assess the remainder.",
+            "TL": "Isa ang tinanggal. Suriin ang natitira."
+          }
+        ]
+      }
+    }
+  ]
+}

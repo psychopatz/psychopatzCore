@@ -1,0 +1,48 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.shard.v1",
+  "shardId": "conversation.content.set.territory",
+  "owner": "ProjectHoomans",
+  "bundles": [
+    {
+      "bundleId": "conversation.bundle.set.territory.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.set.territory.member.basic",
+      "kind": "set_territory",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/set_territory/member/basic.json",
+      "sourceShard": "conversation.content.set.territory",
+      "keys": [
+        {
+          "key": "choice.set_territory",
+          "text": {
+            "EN": "Set Territory",
+            "TL": "Itakda ang Teritoryo"
+          }
+        },
+        {
+          "key": "locked.base_established",
+          "text": {
+            "EN": "Our territory is already established.",
+            "TL": "Ang aming teritoryo ay naitatag na."
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "We have enough people to stop surviving from one night to the next. Pick a place, mark it as ours, and we can start building something that lasts.",
+            "TL": "We have enough people to stop surviving from one night to the next. Pick a place, mark it as ours, and we can simulan gusali something that lasts."
+          }
+        },
+        {
+          "key": "response.set_territory",
+          "text": {
+            "EN": "Then let us find ground worth defending. I will help turn it into home.",
+            "TL": "Then let us find ground worth defending. I will tulong turn it into home."
+          }
+        }
+      ]
+    }
+  ]
+}

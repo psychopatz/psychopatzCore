@@ -1,0 +1,111 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.reactions.safety",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.conversation.safety.danger",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Watch out. We need to move now.",
+            "TL": "Mag-ingat. Kailangan nating kumilos ngayon din."
+          },
+          {
+            "EN": "Danger close! Move, move!",
+            "TL": "Malapit ang panganib! Kilos, kilos!"
+          },
+          {
+            "EN": "Not safe here. Clear out now.",
+            "TL": "Hindi ligtas dito. Lumikas na ngayon."
+          },
+          {
+            "EN": "Look around! We need to leave this spot.",
+            "TL": "Tumingin ka sa paligid! Kailangan nating umalis dito."
+          },
+          {
+            "EN": "Infected coming! Get into cover right now.",
+            "TL": "Paparating ang mga infected! Magtago na ngayon din."
+          },
+          {
+            "EN": "Trouble's right on us. Relocate immediately.",
+            "TL": "Nandito na ang gulo. Lumipat agad."
+          },
+          {
+            "EN": "Heads up! We're in the open and exposed.",
+            "TL": "Ulo niyo! Lantad tayo sa bukas na lugar."
+          },
+          {
+            "EN": "Drop what you're doing, we have to move.",
+            "TL": "Bitawan ang ginagawa mo, kailangan nating tumakbo."
+          },
+          {
+            "EN": "Danger! Don't freeze up, run!",
+            "TL": "Panganib! Huwag kang matulala, takbo!"
+          },
+          {
+            "EN": "Move now! We're getting cornered.",
+            "TL": "Kilos na! Naiipit na tayo."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.conversation.safety.default",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Stay alert.",
+            "TL": "Manatiling alerto."
+          },
+          {
+            "EN": "Keep your eyes peeled.",
+            "TL": "Buksan ang mga mata."
+          },
+          {
+            "EN": "Watch our surroundings.",
+            "TL": "Bantayan ang paligid natin."
+          },
+          {
+            "EN": "Don't let your guard down.",
+            "TL": "Huwag ibaba ang depensa."
+          },
+          {
+            "EN": "Stay sharp out here.",
+            "TL": "Maging handa rito sa labas."
+          },
+          {
+            "EN": "Keep quiet and listen.",
+            "TL": "Tumahimik at makinig."
+          },
+          {
+            "EN": "Keep checking the corners.",
+            "TL": "Tignan palagi ang mga sulok."
+          },
+          {
+            "EN": "Stay cautious.",
+            "TL": "Mag-ingat palagi."
+          },
+          {
+            "EN": "Eyes front and back.",
+            "TL": "Tumingin sa harap at likod."
+          },
+          {
+            "EN": "Stay focused.",
+            "TL": "Manatiling nakapokus."
+          }
+        ]
+      }
+    }
+  ]
+}

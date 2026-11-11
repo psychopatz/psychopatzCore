@@ -1,0 +1,189 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.social.interaction.memory.followup",
+  "kind": "content",
+  "domain": "social",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.content.94c0f33556",
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.memory.followup",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "You did? What happened after that?",
+            "TL": "Talaga? Ano ang nangyari pagkatapos noon?"
+          },
+          {
+            "EN": "How did you manage to get through it?",
+            "TL": "Paano mo nagawang malusutan iyon?"
+          },
+          {
+            "EN": "Did anyone else make it out with you?",
+            "TL": "May iba pa bang nakaligtas kasama mo?"
+          },
+          {
+            "EN": "Where did you go once that went down?",
+            "TL": "Saan ka pumunta nang mangyari iyon?"
+          },
+          {
+            "EN": "What made you think of that just now?",
+            "TL": "Bakit mo biglang naisip iyon ngayon?"
+          },
+          {
+            "EN": "How long ago was that?",
+            "TL": "Gaano na katagal mula noon?"
+          },
+          {
+            "EN": "Were there many casualties back then?",
+            "TL": "Marami bang nasawi noong panahong iyon?"
+          },
+          {
+            "EN": "What did you end up doing about it?",
+            "TL": "Ano ang naging aksyon mo tungkol doon?"
+          },
+          {
+            "EN": "That sounds intense. What came next?",
+            "TL": "Matindi 'yon. Ano ang sumunod?"
+          },
+          {
+            "EN": "Did you ever go back to that place?",
+            "TL": "Bumalik ka pa ba sa lugar na iyon kailanman?"
+          }
+        ],
+        "warm": [
+          {
+            "EN": "Really? Tell me more about that.",
+            "TL": "Talaga? Kuwento mo pa sa akin."
+          },
+          {
+            "EN": "That sounds like quite a memory. How did it feel?",
+            "TL": "Mukhang napakagandang alaala. Anong naramdaman mo?"
+          },
+          {
+            "EN": "I'd love to hear the rest of that story if you want to share.",
+            "TL": "Gusto kong marinig ang karugtong ng kuwento kung nais mong ibahagi."
+          },
+          {
+            "EN": "It must have taken real courage. How did you hold up?",
+            "TL": "Kailangan ng tunay na tapang doon. Paano mo kinaya?"
+          },
+          {
+            "EN": "You went through so much. I'm glad you're here to talk about it.",
+            "TL": "Napakalaki ng pinagdaanan mo. Mabuti at narito ka para ikuwento."
+          },
+          {
+            "EN": "Were you able to save anything from back then?",
+            "TL": "May naisalba ka ba mula noong panahong iyon?"
+          },
+          {
+            "EN": "I'm listening, friend. Take all the time you need.",
+            "TL": "Nakikinig ako, kaibigan. Huwag kang magmadali."
+          },
+          {
+            "EN": "That sounds like someone who mattered deeply to you.",
+            "TL": "Mukhang may taong napakahalaga sa 'yo sa kuwentong 'yan."
+          },
+          {
+            "EN": "What a journey. What kept you holding on?",
+            "TL": "Napakalaking paglalakbay. Ano ang nagpatatag sa 'yo?"
+          },
+          {
+            "EN": "Thank you for trusting me with that memory. What happened next?",
+            "TL": "Salamat sa pagtitiwala sa akin ng alaalang 'yan. Ano sumunod?"
+          }
+        ],
+        "terse": [
+          {
+            "EN": "And then?",
+            "TL": "Tapos?"
+          },
+          {
+            "EN": "What happened?",
+            "TL": "Anong nangyari?"
+          },
+          {
+            "EN": "After that?",
+            "TL": "Pagkatapos?"
+          },
+          {
+            "EN": "How so?",
+            "TL": "Paano?"
+          },
+          {
+            "EN": "Who survived?",
+            "TL": "Sinong nakaligtas?"
+          },
+          {
+            "EN": "When?",
+            "TL": "Kailan?"
+          },
+          {
+            "EN": "Outcome?",
+            "TL": "Kinahinatnan?"
+          },
+          {
+            "EN": "Next?",
+            "TL": "Kasunod?"
+          },
+          {
+            "EN": "Details?",
+            "TL": "Mga detalye?"
+          },
+          {
+            "EN": "End result?",
+            "TL": "Huling resulta?"
+          }
+        ],
+        "guarded": [
+          {
+            "EN": "Why are you telling me that?",
+            "TL": "Bakit mo sinasabi sa akin iyan?"
+          },
+          {
+            "EN": "What's the point of bringing that up now?",
+            "TL": "Anong layunin sa pagbubukas niyan ngayon?"
+          },
+          {
+            "EN": "Are you testing my reaction?",
+            "TL": "Sinusubukan mo ba ang magiging reaksyon ko?"
+          },
+          {
+            "EN": "Who else knows about that story?",
+            "TL": "Sino pa ang nakakaalam ng kuwentong 'yan?"
+          },
+          {
+            "EN": "Why share something so personal with me?",
+            "TL": "Bakit mo ibinabahagi ang ganyang personal na bagay sa akin?"
+          },
+          {
+            "EN": "Sounds like an angle. What do you really want?",
+            "TL": "Mukhang may pakay ka. Ano ba talaga ang gusto mo?"
+          },
+          {
+            "EN": "Does that story have anything to do with our safety here?",
+            "TL": "May kinalaman ba ang kuwentong 'yan sa kaligtasan natin dito?"
+          },
+          {
+            "EN": "Be careful what details you hand out to people.",
+            "TL": "Mag-ingat ka sa mga detalyeng ipinamamahagi mo sa iba."
+          },
+          {
+            "EN": "Are you trying to gauge where my loyalties lie?",
+            "TL": "Sinusubukan mo bang alamin kung kanino ako tapat?"
+          },
+          {
+            "EN": "Keep your personal history to yourself.",
+            "TL": "Itago mo na lang sa sarili mo ang sarili mong nakaraan."
+          }
+        ]
+      }
+    }
+  ]
+}

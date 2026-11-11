@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.combat.banter.weapon.kill.cold",
+  "kind": "content",
+  "domain": "combat_banter",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.cold.firearm_high_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Clean shot.",
+            "TL": "Malinis na tira."
+          },
+          {
+            "EN": "Target expired. Moving.",
+            "TL": "Patay ang target. Kilos."
+          },
+          {
+            "EN": "Zero waste. Proceed.",
+            "TL": "Walang aksaya. Tuloy."
+          },
+          {
+            "EN": "Bullet found the brain. Next.",
+            "TL": "Bumaon ang bala sa utak. Sunod."
+          },
+          {
+            "EN": "Dropped efficiently.",
+            "TL": "Bumagsak nang walang aberya."
+          },
+          {
+            "EN": "Threat terminated.",
+            "TL": "Banta tinapos na."
+          },
+          {
+            "EN": "Simple precision.",
+            "TL": "Simpleng asinta."
+          },
+          {
+            "EN": "One less obstacle.",
+            "TL": "Nabawasan ng isang sagabal."
+          },
+          {
+            "EN": "Expired instantly.",
+            "TL": "Patay agad."
+          },
+          {
+            "EN": "Path opened.",
+            "TL": "Bukas na ang daan."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.cold.blade_head_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Head came apart. Moving on.",
+            "TL": "Nawasak ang ulo. Tuloy."
+          },
+          {
+            "EN": "Severed at the neck. Proceed.",
+            "TL": "Nahiwa sa leeg. Tuloy."
+          },
+          {
+            "EN": "Anatomical destruction complete.",
+            "TL": "Winasak ang ulo nang buo."
+          },
+          {
+            "EN": "Ceased function. Next.",
+            "TL": "Tumigil ang galaw. Sunod."
+          },
+          {
+            "EN": "Cranium broken. Moving forward.",
+            "TL": "Basag ang bungo. Pasulong."
+          },
+          {
+            "EN": "Irreversible damage. Clear.",
+            "TL": "Wala nang buhay. Malinis."
+          },
+          {
+            "EN": "Neck cleaved. Done.",
+            "TL": "Hiwa ang leeg. Tapos."
+          },
+          {
+            "EN": "No remaining reflex. Move.",
+            "TL": "Walang natitirang kilos. Abante."
+          },
+          {
+            "EN": "Head split. Continue.",
+            "TL": "Biyak ang ulo. Magpatuloy."
+          },
+          {
+            "EN": "Decapitation verified.",
+            "TL": "Kumpirmadong napugutan."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.cold.heavy_melee_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Crushed it.",
+            "TL": "Dinurog."
+          },
+          {
+            "EN": "Structural skull collapse. Done.",
+            "TL": "Basag ang istruktura ng bungo. Tapos."
+          },
+          {
+            "EN": "Pulverized. Moving on.",
+            "TL": "Durog na. Tuloy."
+          },
+          {
+            "EN": "Impact sufficient. Next.",
+            "TL": "Sapat ang lakas ng tama. Sunod."
+          },
+          {
+            "EN": "Ceased all motor function.",
+            "TL": "Tumigil ang lahat ng galaw."
+          },
+          {
+            "EN": "Crushed flat.",
+            "TL": "Pinitpit."
+          },
+          {
+            "EN": "Bones splintered. Clear.",
+            "TL": "Nabasag ang mga buto. Malinis."
+          },
+          {
+            "EN": "Force delivered. Finished.",
+            "TL": "Naitama ang bigat. Tapos."
+          },
+          {
+            "EN": "Obliterated. Advance.",
+            "TL": "Winasak. Abante."
+          },
+          {
+            "EN": "Skull collapsed inward.",
+            "TL": "Lumalubog ang bungo sa lakas."
+          }
+        ]
+      }
+    }
+  ]
+}

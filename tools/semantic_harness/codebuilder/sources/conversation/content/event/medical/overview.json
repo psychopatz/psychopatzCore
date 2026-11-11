@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.medical.overview",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.default",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "I need help with this wound.",
+            "TL": "Kailangan ko ng tulong sa sugat na 'to."
+          },
+          {
+            "EN": "Hurting pretty badly here. Need aid.",
+            "TL": "Medyo malala ang tama ko rito. Kailangan ng gamot."
+          },
+          {
+            "EN": "Got injured. Can someone look at this?",
+            "TL": "Nasugatan ako. May makakatingin ba nito?"
+          },
+          {
+            "EN": "Need medical attention before this gets worse.",
+            "TL": "Kailangan ng panggagamot bago lumala 'to."
+          },
+          {
+            "EN": "Wound is throbbing. I need a hand.",
+            "TL": "Pumipintig ang sugat. Kailangan ko ng saklolo."
+          },
+          {
+            "EN": "Took some damage. Could use first aid.",
+            "TL": "Nasaktan ako. Kailangan ko ng first aid."
+          },
+          {
+            "EN": "This cut is nasty. Help me clean it.",
+            "TL": "Marumi ang hiwa na 'to. Tulungan mo akong linisin."
+          },
+          {
+            "EN": "I'm in pain here. Need medical supplies.",
+            "TL": "Nasasaktan ako rito. Kailangan ko ng gamot."
+          },
+          {
+            "EN": "Injured and slowing down. Need treatment.",
+            "TL": "Sugatan at bumabagal na. Kailangan ng lunas."
+          },
+          {
+            "EN": "Got banged up pretty good. Help me patch up.",
+            "TL": "Nabugbog ako nang husto. Tulungan mo akong magbenda."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.mercy",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Please. I need help with this wound, don't let me die.",
+            "TL": "Pakiusap. Tulungan mo ako sa sugat na 'to, huwag mo akong hayaang mamatay."
+          },
+          {
+            "EN": "Have mercy on me... patch me up, please.",
+            "TL": "Maawa ka sa akin... bendahan mo ako, pakiusap."
+          },
+          {
+            "EN": "I won't survive this cut without your mercy.",
+            "TL": "Hindi ako mabubuhay sa hiwang 'to kung wala ang awa mo."
+          },
+          {
+            "EN": "Please help... I'm begging for aid.",
+            "TL": "Pakiusap tulungan mo ako... nagmamakaawa ako sa lunas."
+          },
+          {
+            "EN": "Don't leave me to bleed out like an animal.",
+            "TL": "Huwag mo akong iwang maubusan ng dugo na parang hayop."
+          },
+          {
+            "EN": "Show some kindness. This wound is killing me.",
+            "TL": "Magpakita ka ng kabutihan. Pinapatay ako ng sugat na 'to."
+          },
+          {
+            "EN": "Please, just dress the wound. That's all I ask.",
+            "TL": "Pakiusap, gamutin lang ang sugat. 'Yon lang ang hinihiling ko."
+          },
+          {
+            "EN": "I'm at your mercy. Help stop this pain.",
+            "TL": "Nasa awa mo ako. Tulungan mong matigil ang sakit."
+          },
+          {
+            "EN": "Spare my life and treat this injury, please.",
+            "TL": "Iligtas mo ang buhay ko at gamutin 'tong pinsala, pakiusap."
+          },
+          {
+            "EN": "I have so much to live for... please help me.",
+            "TL": "Marami pa akong dahilan para mabuhay... tulungan mo ako."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.medical.distress.urgent",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "I am hurt! I need help now!",
+            "TL": "Sugatan ako! Kailangan ko ng tulong ngayon na!"
+          },
+          {
+            "EN": "Emergency! I need immediate medical attention!",
+            "TL": "Kagipitan! Kailangan ko ng agarang gamot ngayon din!"
+          },
+          {
+            "EN": "Hit bad! Come over here right now!",
+            "TL": "Grabe ang tama ko! Halika rito ngayon din!"
+          },
+          {
+            "EN": "Urgent! I'm bleeding and falling down!",
+            "TL": "Apurahan! Dumurugo ako at bumabagsak!"
+          },
+          {
+            "EN": "I need aid this second! Hurry!",
+            "TL": "Kailangan ko ng gamot sa segundong ito! Bilis!"
+          },
+          {
+            "EN": "Severe injury! Drop what you're doing and help me!",
+            "TL": "Malubhang pinsala! Bitawan ang ginagawa mo at tulungan mo ako!"
+          },
+          {
+            "EN": "I won't last long without treatment! Now!",
+            "TL": "Hindi ako magtatagal nang walang gamot! Ngayon na!"
+          },
+          {
+            "EN": "Critical wound! Bandage me now!",
+            "TL": "Kritikal na sugat! Bendahan mo ako ngayon din!"
+          },
+          {
+            "EN": "I'm going down hard! Medic, help me!",
+            "TL": "Bumabagsak na ako! Saklolo, tulungan mo ako!"
+          },
+          {
+            "EN": "Urgent distress! Someone patch me up right now!",
+            "TL": "Apurahang saklolo! May magbenda sa akin ngayon din!"
+          }
+        ]
+      }
+    }
+  ]
+}

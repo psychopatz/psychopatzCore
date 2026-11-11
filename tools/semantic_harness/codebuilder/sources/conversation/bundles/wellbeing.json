@@ -1,0 +1,151 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.shard.v1",
+  "shardId": "conversation.content.wellbeing",
+  "owner": "ProjectHoomans",
+  "bundles": [
+    {
+      "bundleId": "conversation.bundle.wellbeing.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.wellbeing.member.basic",
+      "kind": "wellbeing",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/wellbeing/member/basic.json",
+      "sourceShard": "conversation.content.wellbeing",
+      "keys": [
+        {
+          "key": "choice.condition",
+          "text": {
+            "EN": "How are you holding up?",
+            "TL": "Kamusta ka na?"
+          }
+        },
+        {
+          "key": "choice.offer_help",
+          "text": {
+            "EN": "Do you need any help?",
+            "TL": "Kailangan mo ba ng anumang tulong?"
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "Still standing. Go ahead.",
+            "TL": "Nakatayo pa rin. Sige na."
+          }
+        },
+        {
+          "key": "response.condition",
+          "text": {
+            "EN": "Tired, but ready if the group needs me.",
+            "TL": "Tired, but ready if the grupo needs me."
+          }
+        },
+        {
+          "key": "response.offer_help",
+          "text": {
+            "EN": "A little rest would help. I appreciate you asking.",
+            "TL": "Makakatulong ang kaunting pahinga. Pinahahalagahan ko ang pagtatanong mo."
+          }
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.wellbeing.neutral.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.wellbeing.neutral.basic",
+      "kind": "wellbeing",
+      "audience": "neutral",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/wellbeing/neutral/basic.json",
+      "sourceShard": "conversation.content.wellbeing",
+      "keys": [
+        {
+          "key": "choice.condition",
+          "text": {
+            "EN": "How are you holding up?",
+            "TL": "Kamusta ka na?"
+          }
+        },
+        {
+          "key": "choice.offer_help",
+          "text": {
+            "EN": "Do you need any help?",
+            "TL": "Kailangan mo ba ng anumang tulong?"
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "I'm managing. What did you want to ask?",
+            "TL": "pinamamahalaan ko. Ano ang gusto mong itanong?"
+          }
+        },
+        {
+          "key": "response.condition",
+          "text": {
+            "EN": "I'm still breathing. That's enough for now.",
+            "TL": "humihinga pa ako. Tama na sa ngayon."
+          }
+        },
+        {
+          "key": "response.offer_help",
+          "text": {
+            "EN": "I'll manage, but thanks for asking.",
+            "TL": "Aayusin ko, pero salamat sa pagtatanong."
+          }
+        }
+      ]
+    },
+    {
+      "bundleId": "conversation.bundle.wellbeing.special.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.wellbeing.special.basic",
+      "kind": "wellbeing",
+      "audience": "special",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/wellbeing/special/basic.json",
+      "sourceShard": "conversation.content.wellbeing",
+      "keys": [
+        {
+          "key": "choice.condition",
+          "text": {
+            "EN": "How are you really doing?",
+            "TL": "Kamusta ka na talaga?"
+          }
+        },
+        {
+          "key": "choice.offer_help",
+          "text": {
+            "EN": "Let me help.",
+            "TL": "Hayaan mo akong tumulong."
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "I'll be honest with you, {playerFirstName}. Ask.",
+            "TL": "Magiging tapat ako sa iyo, {playerFirstName}. Magtanong."
+          }
+        },
+        {
+          "key": "response.condition",
+          "text": {
+            "EN": "Better now that you're here.",
+            "TL": "Mas mabuti na ngayong nandito ka na."
+          }
+        },
+        {
+          "key": "response.offer_help",
+          "text": {
+            "EN": "All right. Just stay close for a minute.",
+            "TL": "Sige. Manatiling malapit sa isang minuto."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -101,6 +101,7 @@ CONVERSATION_SOURCE_ROOT = (
     ROOT / "tools" / "semantic_harness" / "codebuilder" / "sources"
     / "conversation"
 )
+CONVERSATION_BUNDLE_MANIFEST = CONVERSATION_SOURCE_ROOT / "bundles" / "manifest.json"
 DEFAULT_CONVERSATION_MANIFEST = CONVERSATION_SOURCE_ROOT / "manifest.json"
 
 
@@ -441,7 +442,7 @@ def write_conversation_output(
             )
         )
 
-    bundle_manifest = CONVERSATION_SOURCE_ROOT / "conversation_bundles.json"
+    bundle_manifest = CONVERSATION_BUNDLE_MANIFEST
     if bundle_manifest.is_file() and HOOMANS_OWNER in enabled_owners:
         package_translation_root = translation_root(
             repository,

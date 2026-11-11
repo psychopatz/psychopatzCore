@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.combat.kill.witness.practical",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.combat.kill.witness.reaction.content.821cb843df",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_witness_practical_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Good. Check the area.",
+            "TL": "Ayos. Suriin natin ang paligid."
+          },
+          {
+            "EN": "Nice kill. Scan before moving in.",
+            "TL": "Magandang patay. Magmasid bago lumapit."
+          },
+          {
+            "EN": "Target down. Clear your corners.",
+            "TL": "Bagsak ang target. Linisin ang mga sulok."
+          },
+          {
+            "EN": "Good takedown. Check for flankers.",
+            "TL": "Magandang pagpabagsak. Tignan kung may pumapaligid."
+          },
+          {
+            "EN": "Downed. Watch the shadows.",
+            "TL": "Bagsak na. Bantayan ang mga anino."
+          },
+          {
+            "EN": "Solid strike. Secure the room first.",
+            "TL": "Solidong tama. Siguraduhin muna ang kwarto."
+          },
+          {
+            "EN": "Well handled. Don't step out without scanning.",
+            "TL": "Maayos na napigilan. Huwag lalabas nang hindi nagmamasid."
+          },
+          {
+            "EN": "Threat cleared. Look all around.",
+            "TL": "Banta naalis. Tumingin sa buong paligid."
+          },
+          {
+            "EN": "Clean hit. Ensure the perimeter is safe.",
+            "TL": "Malinis na tama. Tiyaking ligtas ang paligid."
+          },
+          {
+            "EN": "Dropped it. Scan before continuing.",
+            "TL": "Naibagsak mo. Magmasid bago magpatuloy."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_witness_practical_02",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "One down. Watch for more.",
+            "TL": "Isa na. Bantayan ang iba."
+          },
+          {
+            "EN": "Good hit. Expect stragglers.",
+            "TL": "Magandang tama. Asahan ang mga naiwan."
+          },
+          {
+            "EN": "That's one. Don't assume the area is clear.",
+            "TL": "Isa 'yan. Huwag ipalagay na malinis na ang lugar."
+          },
+          {
+            "EN": "Downed. Listen for more footsteps.",
+            "TL": "Bagsak. Makinig kung may mga yabag pa."
+          },
+          {
+            "EN": "One eliminated. Watch the windows.",
+            "TL": "Isa ang tinanggal. Bantayan ang mga bintana."
+          },
+          {
+            "EN": "Threat dead. Stay alert for secondary threats.",
+            "TL": "Patay ang banta. Maging alerto sa mga susunod."
+          },
+          {
+            "EN": "Handled that one. Watch the hallway.",
+            "TL": "Naasikaso 'yon. Bantayan ang pasilyo."
+          },
+          {
+            "EN": "One in the dirt. Keep your guard raised.",
+            "TL": "Isa sa lupa. Panatilihing nakataas ang depensa."
+          },
+          {
+            "EN": "Good takedown. More could be nearby.",
+            "TL": "Magandang pagtumba. Baka may iba pang malapit."
+          },
+          {
+            "EN": "Down. Keep your ears open.",
+            "TL": "Bagsak. Buksan ang pandinig."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_witness_practical_03",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Nice. Let's make sure it's clear.",
+            "TL": "Maganda. Siguraduhin nating malinaw ang paligid."
+          },
+          {
+            "EN": "Clean drop. Verify the whole sector.",
+            "TL": "Malinis na pagbagsak. Kumpirmahin ang buong bahagi."
+          },
+          {
+            "EN": "Good hit. Check behind all doors.",
+            "TL": "Magandang tama. Tignan sa likod ng lahat ng pinto."
+          },
+          {
+            "EN": "Target down. Confirm no further movement.",
+            "TL": "Bagsak ang target. Kumpirmahing wala nang galaw."
+          },
+          {
+            "EN": "Well done. Let's sweep the rest of the room.",
+            "TL": "Magaling. Linisin natin ang natitira sa kwarto."
+          },
+          {
+            "EN": "Threat neutralized. Methodical check next.",
+            "TL": "Banta naalis. Maingat na pagsusuri ang susunod."
+          },
+          {
+            "EN": "Solid kill. Sweep the perimeter together.",
+            "TL": "Solidong patay. Sabay nating linisin ang paligid."
+          },
+          {
+            "EN": "Downed cleanly. Verify our exit is open.",
+            "TL": "Malinis na naibagsak. Tiyaking bukas ang labasan natin."
+          },
+          {
+            "EN": "Handled. Make sure nothing is creeping up.",
+            "TL": "Naasikaso na. Siguruhing walang gumagapang palapit."
+          },
+          {
+            "EN": "Good work. Let's make certain the coast is clear.",
+            "TL": "Magandang trabaho. Tiyakin nating malinis ang daan."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.combat.kill.killer.aggressive",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.combat.kill.killer.reaction.content.2964fec4fc",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_aggressive_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Got one. Who's next?",
+            "TL": "Isa na. Sino'ng susunod?"
+          },
+          {
+            "EN": "Dropped that one cold. Line 'em up.",
+            "TL": "Bagsak ang isa. Ihanay ang susunod."
+          },
+          {
+            "EN": "That one's dead. Send another.",
+            "TL": "Patay ang isang 'yon. Magpadala pa ng isa."
+          },
+          {
+            "EN": "Downed it. Who else wants some?",
+            "TL": "Ibinagsak ko na. Sino pa may gusto?"
+          },
+          {
+            "EN": "First down. Bring on the rest.",
+            "TL": "Unang bagsak. Dalhin ang iba."
+          },
+          {
+            "EN": "Crushed that skull. Next target.",
+            "TL": "Durog ang bungo. Susunod na target."
+          },
+          {
+            "EN": "Stay in the dirt. Next!",
+            "TL": "Manatili ka sa lupa. Sunod!"
+          },
+          {
+            "EN": "That one's history. Moving to the next.",
+            "TL": "Burado na 'yon. Lilipat sa susunod."
+          },
+          {
+            "EN": "One less rotting bastard. Who's next?",
+            "TL": "Bawas ang isang bulok. Sino susunod?"
+          },
+          {
+            "EN": "Put it down hard. Step up if you dare.",
+            "TL": "Ibinagsak nang malupit. Lumapit ang may tapang."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_aggressive_02",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Down. Give me another.",
+            "TL": "Patay. May kasunod pa ba?"
+          },
+          {
+            "EN": "Dropped. Bring them on.",
+            "TL": "Bagsak. Dalhin niyo rito."
+          },
+          {
+            "EN": "Dead. Who's stepping up?",
+            "TL": "Patay na. Sino'ng lalapit?"
+          },
+          {
+            "EN": "Finished that one. Send the next.",
+            "TL": "Tinapos ko 'yon. Ipadala ang kasunod."
+          },
+          {
+            "EN": "Downed. Keep feeding them to me.",
+            "TL": "Bagsak. Iharap niyo lang sa akin."
+          },
+          {
+            "EN": "Cracked open. Next in line.",
+            "TL": "Basag na. Susunod sa pila."
+          },
+          {
+            "EN": "That one's done. Give me another target.",
+            "TL": "Tapos na ang isang 'yon. Bigyan pa ako ng target."
+          },
+          {
+            "EN": "Dead on the ground. Next one step forward.",
+            "TL": "Patay sa lupa. Susunod lumapit."
+          },
+          {
+            "EN": "Flattened. Who's next to die?",
+            "TL": "Pinitpit. Sino susunod na mamamatay?"
+          },
+          {
+            "EN": "One down. Not even winded.",
+            "TL": "Isang bagsak. Hindi man lang ako hinihingal."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_aggressive_03",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "That's one. Keep them coming.",
+            "TL": "Isa na. Sige, lapit pa."
+          },
+          {
+            "EN": "One less rotten. Keep 'em coming.",
+            "TL": "Bawas ang isang bulok. Lapit lang."
+          },
+          {
+            "EN": "First blood. Line them up.",
+            "TL": "Unang tama. Ihanay niyo sila."
+          },
+          {
+            "EN": "That's one down. I can do this all day.",
+            "TL": "Isang bagsak na 'yan. Kaya ko 'to buong araw."
+          },
+          {
+            "EN": "Score one for us. Keep pushing.",
+            "TL": "Puntos sa atin. Tuloy ang sugod."
+          },
+          {
+            "EN": "Count one dead. Come get some.",
+            "TL": "Bilangin ang isang patay. Halika rito."
+          },
+          {
+            "EN": "That's one less mouth to feed. Next.",
+            "TL": "Bawas ang isang kakain. Sunod."
+          },
+          {
+            "EN": "One crushed. Keep 'em coming my way.",
+            "TL": "Durog ang isa. Papuntahin niyo rito."
+          },
+          {
+            "EN": "Downed one. Who wants the same?",
+            "TL": "Nagpabagsak ng isa. Sino may gusto ng gano'n din?"
+          },
+          {
+            "EN": "One in the grave. Keep them coming.",
+            "TL": "Isa sa hukay. Sige, tuloy lang."
+          }
+        ]
+      }
+    }
+  ]
+}

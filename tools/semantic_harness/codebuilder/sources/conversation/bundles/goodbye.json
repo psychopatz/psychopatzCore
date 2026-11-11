@@ -1,0 +1,104 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.shard.v1",
+  "shardId": "conversation.content.goodbye",
+  "owner": "ProjectHoomans",
+  "bundles": [
+    {
+      "bundleId": "conversation.bundle.goodbye.shared.goodbye",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.goodbye.shared.goodbye",
+      "kind": "goodbye",
+      "audience": "shared",
+      "bundle": "goodbye",
+      "runtimePath": "Conversation/Bundles/goodbye/shared/goodbye.json",
+      "sourceShard": "conversation.content.goodbye",
+      "keys": [
+        {
+          "key": "choice.goodbye",
+          "text": {
+            "EN": "That's all. Stay safe.",
+            "TL": "Iyon lang. Manatiling ligtas."
+          }
+        },
+        {
+          "key": "response.goodbye",
+          "text": {
+            "EN": "You too.",
+            "TL": "Ikaw rin."
+          }
+        },
+        {
+          "key": "response.goodbye.1",
+          "text": {
+            "EN": "You too.",
+            "TL": "Ikaw rin."
+          }
+        },
+        {
+          "key": "response.goodbye.10",
+          "text": {
+            "EN": "Be careful on the roads.",
+            "TL": "Maging maingat ka palagi sa labas."
+          }
+        },
+        {
+          "key": "response.goodbye.2",
+          "text": {
+            "EN": "Watch your back out there.",
+            "TL": "Mag-ingat ka sa labas."
+          }
+        },
+        {
+          "key": "response.goodbye.3",
+          "text": {
+            "EN": "Take care. See you around.",
+            "TL": "Ingat. Magkikita pa tayo."
+          }
+        },
+        {
+          "key": "response.goodbye.4",
+          "text": {
+            "EN": "Keep your eyes open.",
+            "TL": "Bantayan mo ang likod mo."
+          }
+        },
+        {
+          "key": "response.goodbye.5",
+          "text": {
+            "EN": "Stay safe. Don't take unnecessary risks.",
+            "TL": "Manatiling ligtas. Huwag sumuong sa panganib."
+          }
+        },
+        {
+          "key": "response.goodbye.6",
+          "text": {
+            "EN": "Until next time. Stay sharp.",
+            "TL": "Hanggang sa muli. Maging alerto."
+          }
+        },
+        {
+          "key": "response.goodbye.7",
+          "text": {
+            "EN": "Yeah. Catch you later.",
+            "TL": "Sige. Magkita na lang tayo mamaya."
+          }
+        },
+        {
+          "key": "response.goodbye.8",
+          "text": {
+            "EN": "Take it easy out there.",
+            "TL": "Dahan-dahan ka lang sa daan."
+          }
+        },
+        {
+          "key": "response.goodbye.9",
+          "text": {
+            "EN": "See you. Keep your head down.",
+            "TL": "Sige na. Huwag kang papakita sa mga 'yun."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.event.combat.kill.killer.reserved",
+  "kind": "content",
+  "domain": "event",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.combat.kill.killer.reaction.content.2964fec4fc",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_reserved_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Down.",
+            "TL": "Patay."
+          },
+          {
+            "EN": "Eliminated.",
+            "TL": "Naalis."
+          },
+          {
+            "EN": "Dead.",
+            "TL": "Bagsak."
+          },
+          {
+            "EN": "Handled.",
+            "TL": "Naasikaso."
+          },
+          {
+            "EN": "Dropped.",
+            "TL": "Tumba."
+          },
+          {
+            "EN": "Target down.",
+            "TL": "Bagsak ang target."
+          },
+          {
+            "EN": "Neutralized.",
+            "TL": "Naitumba."
+          },
+          {
+            "EN": "Done.",
+            "TL": "Tapos."
+          },
+          {
+            "EN": "Fell.",
+            "TL": "Nalugmok."
+          },
+          {
+            "EN": "Ceased.",
+            "TL": "Tumigil."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_reserved_02",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Got it.",
+            "TL": "Nakuha ko."
+          },
+          {
+            "EN": "Took it.",
+            "TL": "Tinamaan ko."
+          },
+          {
+            "EN": "Hit.",
+            "TL": "Sapul."
+          },
+          {
+            "EN": "Finished.",
+            "TL": "Yari."
+          },
+          {
+            "EN": "Cleared.",
+            "TL": "Malinis."
+          },
+          {
+            "EN": "Taken care of.",
+            "TL": "Naayos na."
+          },
+          {
+            "EN": "Struck.",
+            "TL": "Tinamaan."
+          },
+          {
+            "EN": "Resolved.",
+            "TL": "Tapos na."
+          },
+          {
+            "EN": "Dealt with.",
+            "TL": "Nalutas."
+          },
+          {
+            "EN": "Connected.",
+            "TL": "Tumama."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.reaction.kill_killer_reserved_03",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Clear.",
+            "TL": "Malinis."
+          },
+          {
+            "EN": "Path open.",
+            "TL": "Bukas ang daan."
+          },
+          {
+            "EN": "Secure.",
+            "TL": "Ligtas."
+          },
+          {
+            "EN": "Nothing here.",
+            "TL": "Walang anuman dito."
+          },
+          {
+            "EN": "Clean.",
+            "TL": "Maayos."
+          },
+          {
+            "EN": "No contacts.",
+            "TL": "Walang kalaban."
+          },
+          {
+            "EN": "Lane clear.",
+            "TL": "Malinis ang linya."
+          },
+          {
+            "EN": "Safe.",
+            "TL": "Ayos."
+          },
+          {
+            "EN": "Open.",
+            "TL": "Bukas."
+          },
+          {
+            "EN": "Quiet now.",
+            "TL": "Tahimik na."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,711 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.social.interaction.scene.horde",
+  "kind": "content",
+  "domain": "social",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.scene.runtime.adopter.content.e852ad5c7e",
+  "groups": {
+    "interaction": {
+      "contentOwner": "projecthoomans.dialogue_content.social_interaction"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "semanticTemplateID": "semantic.interaction.scene.horde_prompt",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "That's a horde. We fighting through or pulling back?",
+            "TL": "Kawan iyan. Lalaban ba tayo o uurong?"
+          },
+          {
+            "EN": "Look at that crowd. Do we stand our ground or run?",
+            "TL": "Tingnan mo ang dami nila. Maninindigan ba tayo o tatakbo?"
+          },
+          {
+            "EN": "Huge pack ahead. What's the call: fight or retreat?",
+            "TL": "Malaking kawan sa unahan. Anong pasya: lalaban o aatras?"
+          },
+          {
+            "EN": "That is a serious horde. Do we engage or bypass?",
+            "TL": "Matinding kawan 'yan. Lalabanan ba natin o iiwasan?"
+          },
+          {
+            "EN": "They're swarming. Are we cutting through or falling back?",
+            "TL": "Dumudumog sila. Babasagin ba natin o aatras tayo?"
+          },
+          {
+            "EN": "Too many bodies out there. What do you want to do?",
+            "TL": "Napakaraming patay sa labas. Ano ang gusto mong gawin?"
+          },
+          {
+            "EN": "Horde spotted. We taking them on or finding another route?",
+            "TL": "May kawan sa unahan. Lalabanan ba natin o maghahanap ng ibang daan?"
+          },
+          {
+            "EN": "Massive group approaching. Engage or evacuate?",
+            "TL": "Napakalaking grupo ang papalapit. Lalaban o lilikas?"
+          },
+          {
+            "EN": "That's a swarm. Give the order: fight or retreat?",
+            "TL": "Kawan 'yan. Mag-utos ka: laban o urong?"
+          },
+          {
+            "EN": "Look at that numbers disadvantage. Stand or withdraw?",
+            "TL": "Tingnan mo ang dami nila laban sa atin. Tatayo o aatras?"
+          }
+        ],
+        "warm": [
+          {
+            "EN": "That's a lot of them. Stay close—fight or fall back?",
+            "TL": "Ang dami nila. Dumikit ka—lalaban o uurong?"
+          },
+          {
+            "EN": "Too many for comfort, friend. What's your gut say: fight or run?",
+            "TL": "Masyadong marami para maging panatag, kaibigan. Anong kutob mo: laban o takbo?"
+          },
+          {
+            "EN": "Stay right next to me. Do we take them together or get out?",
+            "TL": "Manatili ka sa tabi ko. Sabay ba nating lalabanan o aalis tayo?"
+          },
+          {
+            "EN": "That swarm is dangerous. I want us alive—fight or retreat?",
+            "TL": "Delikado ang kawang 'yan. Gusto kong mabuhay tayo—laban o urong?"
+          },
+          {
+            "EN": "I'm with you whatever you decide. Are we pushing through or retreating?",
+            "TL": "Kasama mo ako kahit anong desisyon mo. Susulong ba tayo o aatras?"
+          },
+          {
+            "EN": "Careful, partner. That's a massive pack. Call the play.",
+            "TL": "Mag-ingat, kasama. Malaking kawan 'yan. Sabihin mo ang plano."
+          },
+          {
+            "EN": "Look out, friend! Do we clear them or save our strength and run?",
+            "TL": "Mag-ingat, kaibigan! Uubusin ba natin sila o magtitipid ng lakas at tatakbo?"
+          },
+          {
+            "EN": "They're everywhere. Stick by me—fight or fall back?",
+            "TL": "Nasa lahat sila ng sulok. Dumikit ka—laban o urong?"
+          },
+          {
+            "EN": "I trust your call. Are we taking this swarm on or heading back?",
+            "TL": "Tiwala ako sa pasya mo. Lalabanan ba natin ang kawang ito o babalik?"
+          },
+          {
+            "EN": "Big herd ahead. Don't worry, we're a team. What's the plan?",
+            "TL": "Malaking kawan sa unahan. Huwag kang mag-alala, magkasama tayo. Anong plano?"
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Horde. Fight or fall back?",
+            "TL": "Kawan. Laban o urong?"
+          },
+          {
+            "EN": "Too many. Call it: stand or run?",
+            "TL": "Sobra sila. Magpasya: tayo o takbo?"
+          },
+          {
+            "EN": "Swarm ahead. Fight or retreat?",
+            "TL": "Kawan sa unahan. Laban o urong?"
+          },
+          {
+            "EN": "Herd. What's the call?",
+            "TL": "Kawan. Anong desisyon?"
+          },
+          {
+            "EN": "Massive group. Push or pull?",
+            "TL": "Malaking grupo. Sulong o urong?"
+          },
+          {
+            "EN": "Numbers are bad. Engage?",
+            "TL": "Masama ang bilang. Lalaban?"
+          },
+          {
+            "EN": "Horde spotted. Decision now.",
+            "TL": "Kawan nakita. Desisyon ngayon na."
+          },
+          {
+            "EN": "Dozens of them. Stand or flee?",
+            "TL": "Dose-dosena sila. Lalaban o tatakas?"
+          },
+          {
+            "EN": "Swarm incoming. Your call.",
+            "TL": "Kawan parating. Pasya mo."
+          },
+          {
+            "EN": "Crowd ahead. Fight or back off?",
+            "TL": "Grupo sa harap. Laban o atras?"
+          }
+        ],
+        "guarded": [
+          {
+            "EN": "Big group ahead. We decide now: engage or avoid.",
+            "TL": "Malaking grupo sa harap. Magpasya tayo ngayon: lumaban o umiwas."
+          },
+          {
+            "EN": "That horde will tear us apart if we hesitate. What's the move?",
+            "TL": "Lalapain tayo ng kawang 'yan kapag nag-atubili tayo. Anong galaw?"
+          },
+          {
+            "EN": "Bad odds. We fight with discipline or we slip away right now.",
+            "TL": "Masamang tsansa. Lumaban nang may disiplina o tumakas agad ngayon."
+          },
+          {
+            "EN": "I'm not dying here. Decide: cut through or fall back?",
+            "TL": "Di ako mamamatay dito. Magpasya ka: basagin o umatras?"
+          },
+          {
+            "EN": "Check the numbers. Engage only if we have choke points.",
+            "TL": "Tingnan mo ang dami. Lumaban lang kung may masisikipang daan."
+          },
+          {
+            "EN": "Horde is closing in. Make a choice before they surround us.",
+            "TL": "Palapit na ang kawan. Pumili bago nila tayo mapaligiran."
+          },
+          {
+            "EN": "We can't afford mistakes against that herd. Stand or withdraw?",
+            "TL": "Di tayo pwede magkamali sa kawang 'yan. Lalaban o aatras?"
+          },
+          {
+            "EN": "Watch the flanks. Do we fight or get the hell out?",
+            "TL": "Bantayan ang tagiliran. Lalaban ba tayo o aalis na agad?"
+          },
+          {
+            "EN": "They'll overwhelm an open position. Call it now.",
+            "TL": "Tatalunin nila tayo sa bukas na lugar. Magpasya ka na."
+          },
+          {
+            "EN": "Huge pack. If we fight, nobody breaks formation.",
+            "TL": "Malaking kawan. Kung lalaban, walang sisira sa pormasyon."
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.horde_reply_brave",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "We can take them.",
+            "TL": "Kaya natin sila."
+          },
+          {
+            "EN": "We've handled worse. Let's clear them.",
+            "TL": "Nakalusot na tayo sa mas malala. Ubusin natin sila."
+          },
+          {
+            "EN": "Stand firm. We fight through.",
+            "TL": "Tumayo nang matatag. Lalabanan natin sila."
+          },
+          {
+            "EN": "We have the weapons. Let's put them down.",
+            "TL": "Nasa atin ang armas. Patumbahin natin sila."
+          },
+          {
+            "EN": "Ready up. We're not running from this.",
+            "TL": "Humanda ka. Hindi natin tatakbuhan ito."
+          },
+          {
+            "EN": "We take the fight to them. Stay sharp.",
+            "TL": "Sasalubungin natin sila. Maging alerto."
+          },
+          {
+            "EN": "Line them up. We can win this.",
+            "TL": "Pilahin sila. Kayang-kaya natin ito."
+          },
+          {
+            "EN": "No backing down. We push through.",
+            "TL": "Walang atrasan. Babasagin natin 'to."
+          },
+          {
+            "EN": "We hold here and eliminate the threat.",
+            "TL": "Dito tayo tatayo at aalisin ang banta."
+          },
+          {
+            "EN": "I'm ready. Let's make every strike count.",
+            "TL": "Handa na ako. Tiyaking may tama ang bawat palo."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "I'm with you. We can take them.",
+            "TL": "Kasama mo ako. Kaya natin sila."
+          },
+          {
+            "EN": "Together, nothing can stop us! Let's do this.",
+            "TL": "Kapag magkasama tayo, walang makapipigil sa atin! Tara na."
+          },
+          {
+            "EN": "I've got your back, friend. We fight as one.",
+            "TL": "Hawak ko ang likod mo, kaibigan. Iisang laban tayo."
+          },
+          {
+            "EN": "We survive together, we fight together. Let's clear them out!",
+            "TL": "Sabay tayong nabubuhay, sabay tayong lalaban. Ubusin natin sila!"
+          },
+          {
+            "EN": "With you beside me, I'm not afraid. Let's take them down.",
+            "TL": "Dahil katabi kita, hindi ako natatakot. Patumbahin natin sila."
+          },
+          {
+            "EN": "Let's show them what real survivors are made of!",
+            "TL": "Ipakita natin sa kanila kung ano ang tunay na nakaligtas!"
+          },
+          {
+            "EN": "Right by your side, partner. We won't lose today.",
+            "TL": "Nasa tabi mo lang ako, kasama. Hindi tayo matatalo ngayon."
+          },
+          {
+            "EN": "I trust us. Let's stand tall and fight.",
+            "TL": "Tiwala ako sa atin. Tumindig tayo at lumaban."
+          },
+          {
+            "EN": "We've got this, friend. Watch my back and I'll watch yours.",
+            "TL": "Kayang-kaya natin, kaibigan. Bantayan ang isa't isa."
+          },
+          {
+            "EN": "Stay close and hit hard! We'll celebrate after.",
+            "TL": "Manatiling dikit at humampas nang malakas! Magdiriwang tayo mamaya."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Stand and fight.",
+            "TL": "Tumayo at lumaban."
+          },
+          {
+            "EN": "We take them.",
+            "TL": "Kaya natin sila."
+          },
+          {
+            "EN": "No retreat.",
+            "TL": "Walang urungan."
+          },
+          {
+            "EN": "Draw weapons.",
+            "TL": "Bunot ng armas."
+          },
+          {
+            "EN": "Kill them all.",
+            "TL": "Ubusin sila."
+          },
+          {
+            "EN": "Fight through.",
+            "TL": "Lumaban pasulong."
+          },
+          {
+            "EN": "Ready.",
+            "TL": "Handa."
+          },
+          {
+            "EN": "Holding ground.",
+            "TL": "Hawak ang pwesto."
+          },
+          {
+            "EN": "Let's do this.",
+            "TL": "Gawin na natin."
+          },
+          {
+            "EN": "Bring them on.",
+            "TL": "Ilabas sila."
+          }
+        ],
+        "guarded": [
+          {
+            "EN": "If we commit, we hit hard and stay together.",
+            "TL": "Kung lalaban tayo, sabay at todo ang tira."
+          },
+          {
+            "EN": "No heroics. Funnel them into a choke point and execute.",
+            "TL": "Walang magpapakabayani. Ipitin sila sa sikip at tapusin."
+          },
+          {
+            "EN": "Watch your stamina. Don't swing wild and get exhausted.",
+            "TL": "Bantayan ang lakas. Huwag magwala para di kapusin ng hangin."
+          },
+          {
+            "EN": "Keep the line tight. If one falls, we both die.",
+            "TL": "Higpitan ang pormasyon. Kapag may bumagsak, patay tayong dalawa."
+          },
+          {
+            "EN": "Target the leaders first. Clear them systematically.",
+            "TL": "Unahin ang mga nasa harap. Ubusin nang may sistema."
+          },
+          {
+            "EN": "We fight, but maintain an escape route behind us.",
+            "TL": "Lalaban tayo, pero tiyaking may takasan sa likod natin."
+          },
+          {
+            "EN": "Every strike must be lethal. No wasted energy.",
+            "TL": "Bawat tama dapat nakamamatay. Walang sayang na lakas."
+          },
+          {
+            "EN": "Don't let them surround us. Push when I push.",
+            "TL": "Huwag magpapaligid sa kanila. Sumulong kapag sumulong ako."
+          },
+          {
+            "EN": "We can win this if we keep cool heads and steady hands.",
+            "TL": "Mananalo tayo kung mananatiling malamig ang ulo at matatag ang kamay."
+          },
+          {
+            "EN": "Agreed. Take out the front rank and hold the doorway.",
+            "TL": "Sang-ayon. Patumbahin ang unahan at hawakan ang pinto."
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.horde_reply_cautious",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Too many. We should pull back.",
+            "TL": "Sobra sila. Dapat umatras tayo."
+          },
+          {
+            "EN": "The odds are terrible. Let's retreat and find another way.",
+            "TL": "Napakasama ng tsansa. Umatras tayo at maghanap ng ibang daan."
+          },
+          {
+            "EN": "Fighting here is a death sentence. Fall back.",
+            "TL": "Kamatayan ang lumaban dito. Umatras na."
+          },
+          {
+            "EN": "We don't have the ammunition or stamina for this. Pull back.",
+            "TL": "Kulang tayo sa bala at lakas para rito. Umatras."
+          },
+          {
+            "EN": "Better to live and fight another day. Let's withdraw.",
+            "TL": "Mas mabuting mabuhay para lumaban sa ibang araw. Umatras tayo."
+          },
+          {
+            "EN": "We're completely outmatched. Retreat orderly.",
+            "TL": "Lupig tayo sa dami nila. Umatras nang maayos."
+          },
+          {
+            "EN": "Back up slowly. Don't make sudden noises.",
+            "TL": "Umatras nang dahan-dahan. Huwag gumawa ng ingay."
+          },
+          {
+            "EN": "Let's slip away while they haven't locked onto us.",
+            "TL": "Tumakas na tayo habang hindi pa sila nakapokus sa atin."
+          },
+          {
+            "EN": "Too risky. We need to withdraw immediately.",
+            "TL": "Masyadong mapanganib. Kailangan nating umatras agad."
+          },
+          {
+            "EN": "I agree with retreating. Turn around and move quietly.",
+            "TL": "Sang-ayon akong umatras. Lumingon at lumakad nang tahimik."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "I'd rather get us out of this alive. Pull back.",
+            "TL": "Mas gusto kong makaalis tayong buhay. Umatras tayo."
+          },
+          {
+            "EN": "I care too much about you to risk this. Let's retreat, friend.",
+            "TL": "Masyado kitang pinahahalagahan para isugal ito. Umatras tayo, kaibigan."
+          },
+          {
+            "EN": "Please, let's fall back together. We don't have to die here.",
+            "TL": "Pakiusap, sabay tayong umatras. Di natin kailangang mamatay rito."
+          },
+          {
+            "EN": "I need you alive, partner. Turn around, let's go.",
+            "TL": "Kailangan kitang buhay, kasama. Lumingon ka, tara na."
+          },
+          {
+            "EN": "Let's save our strength for our people back home. Retreat.",
+            "TL": "Itabi natin ang lakas natin para sa kasama sa kampo. Umatras."
+          },
+          {
+            "EN": "Take my hand if you need to, but we have to pull back now.",
+            "TL": "Hawakan mo ang kamay ko kung kailangan, pero aatras na tayo ngayon."
+          },
+          {
+            "EN": "There's no shame in living to fight tomorrow. Fall back with me.",
+            "TL": "Walang kahihiyan sa pananatiling buhay. Umatras ka kasama ko."
+          },
+          {
+            "EN": "Let's back away gently, together. I've got you.",
+            "TL": "Umatras tayo nang marahan, nang magkasama. Hawak kita."
+          },
+          {
+            "EN": "We can find supplies elsewhere. Let's keep each other safe and run.",
+            "TL": "Makakahanap tayo ng gamit sa iba. Manatiling ligtas at tumakbo."
+          },
+          {
+            "EN": "I'm not leaving without you, so let's both back up right now.",
+            "TL": "Di ako aalis nang wala ka, kaya umatras tayong pareho ngayon."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Pull back.",
+            "TL": "Umatras."
+          },
+          {
+            "EN": "Too many. Run.",
+            "TL": "Sobra sila. Takbo."
+          },
+          {
+            "EN": "Retreat.",
+            "TL": "Urong."
+          },
+          {
+            "EN": "Fall back now.",
+            "TL": "Atras na ngayon."
+          },
+          {
+            "EN": "Bad odds. Leave.",
+            "TL": "Masamang tsansa. Alis."
+          },
+          {
+            "EN": "Out. Now.",
+            "TL": "Labas. Ngayon."
+          },
+          {
+            "EN": "Back up.",
+            "TL": "Umatras."
+          },
+          {
+            "EN": "Not here. Move.",
+            "TL": "Huwag dito. Kilos."
+          },
+          {
+            "EN": "Escape.",
+            "TL": "Takas."
+          },
+          {
+            "EN": "Away.",
+            "TL": "Malayo."
+          }
+        ],
+        "guarded": [
+          {
+            "EN": "Bad odds. Give them space.",
+            "TL": "Masama ang tsansa. Lumayo tayo."
+          },
+          {
+            "EN": "Fighting that pack is suicide. Withdraw in formation.",
+            "TL": "Pagpapakamatay ang labanang 'yan. Umatras nang may pormasyon."
+          },
+          {
+            "EN": "Step back quietly. Do not alert the rear flank.",
+            "TL": "Umatras nang tahimik. Huwag gisingin ang nasa likod."
+          },
+          {
+            "EN": "Keep your weapon raised, but reverse your footsteps.",
+            "TL": "Itaas ang armas, pero ihakbang pabalik ang paa."
+          },
+          {
+            "EN": "We have zero tactical advantage. We fall back immediately.",
+            "TL": "Wala tayong kalamangan sa posisyon. Aatras tayo agad."
+          },
+          {
+            "EN": "Don't let adrenaline make you stupid. We withdraw.",
+            "TL": "Huwag magpadala sa kaba at maging tanga. Aatras tayo."
+          },
+          {
+            "EN": "Back away into the shadows. Let them wander past.",
+            "TL": "Umatras sa dilim. Hayaang lumampas sila."
+          },
+          {
+            "EN": "I refuse to be butchered in an open field. Retreat.",
+            "TL": "Ayokong malapa sa bukas na damuhan. Umatras."
+          },
+          {
+            "EN": "Keep low and retreat to the last secure building.",
+            "TL": "Yumuko at umatras sa huling ligtas na gusali."
+          },
+          {
+            "EN": "Orderly withdrawal. If anyone runs screaming, they're dead.",
+            "TL": "Maayos na pag-atras. Kapag may nagpanic at sumigaw, patay 'yon."
+          }
+        ]
+      }
+    },
+    {
+      "semanticTemplateID": "semantic.interaction.scene.horde_reply_steady",
+      "group": "interaction",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Hold here. Don't rush it.",
+            "TL": "Dito muna. Huwag padalos-dalos."
+          },
+          {
+            "EN": "Wait for them to thin out before making a move.",
+            "TL": "Hintaying mabawasan sila bago gumalaw."
+          },
+          {
+            "EN": "Stay in position. Let's see which way they drift.",
+            "TL": "Manatili sa pwesto. Tingnan kung saan sila papunta."
+          },
+          {
+            "EN": "Hold your ground and observe their path.",
+            "TL": "Hawakan ang pwesto at bantayan ang ruta nila."
+          },
+          {
+            "EN": "No sudden movements. Let them pass if possible.",
+            "TL": "Walang biglaang galaw. Hayaang lumampas kung maaari."
+          },
+          {
+            "EN": "Keep calm and hold the line right here.",
+            "TL": "Kumalma at hawakan ang linya dito."
+          },
+          {
+            "EN": "Patience. Let's wait for the right opening.",
+            "TL": "Pasensya muna. Hintayin ang tamang puwang."
+          },
+          {
+            "EN": "Hold steady. We decide when we have better information.",
+            "TL": "Maging matatag. Magpapasya tayo kapag mas marami nang impormasyon."
+          },
+          {
+            "EN": "Don't panic. Hold position behind cover.",
+            "TL": "Huwag mag-panic. Manatili sa likod ng kublihan."
+          },
+          {
+            "EN": "Steady now. Let's assess before we commit.",
+            "TL": "Dahan-dahan lang. Timbangin muna bago sumugod."
+          }
+        ],
+        "warm": [
+          {
+            "EN": "Stay together. Let's hold before we commit.",
+            "TL": "Magkakasama tayo. Humawak muna bago sumugod."
+          },
+          {
+            "EN": "Breathe easy, friend. We hold right here by each other.",
+            "TL": "Huminga ka nang maluwag, kaibigan. Hawak-kamay tayo rito."
+          },
+          {
+            "EN": "I'm right beside you. Let's wait for a safe moment.",
+            "TL": "Nasa tabi mo lang ako. Hintayin natin ang ligtas na sandali."
+          },
+          {
+            "EN": "Hold steady, partner. We don't have to rush into danger.",
+            "TL": "Magpakatatag ka, kasama. Di natin kailangang magpadalos-dalos."
+          },
+          {
+            "EN": "Stay low with me. Let's watch their movements together.",
+            "TL": "Yumuko ka kasabay ko. Sabay nating bantayan ang galaw nila."
+          },
+          {
+            "EN": "Keep calm. As long as we hold together, we'll be fine.",
+            "TL": "Manatiling kalmado. Hangga't magkasama tayo, magiging maayos tayo."
+          },
+          {
+            "EN": "Just hold on for a minute. Let the worst of the herd pass.",
+            "TL": "Sandali lang. Hayaang lumampas ang pinakamalaking kawan."
+          },
+          {
+            "EN": "Steady, friend. I'm right here with you in the quiet.",
+            "TL": "Dahan-dahan, kaibigan. Narito lang ako kasama mo sa katahimikan."
+          },
+          {
+            "EN": "Don't be scared. We hold this spot until we have a clean shot.",
+            "TL": "Huwag kang matakot. Hawakan ang pwesto hanggang may malinaw na daan."
+          },
+          {
+            "EN": "Together and steady. Let's let them drift away.",
+            "TL": "Sama-sama at matatag. Hayaan natin silang lumayo."
+          }
+        ],
+        "terse": [
+          {
+            "EN": "Hold. Watch them.",
+            "TL": "Hawak. Bantayan sila."
+          },
+          {
+            "EN": "Hold position.",
+            "TL": "Hawakan ang pwesto."
+          },
+          {
+            "EN": "Wait.",
+            "TL": "Teka."
+          },
+          {
+            "EN": "Stay low.",
+            "TL": "Yumuko."
+          },
+          {
+            "EN": "Steady.",
+            "TL": "Magpakatatag."
+          },
+          {
+            "EN": "Do not move.",
+            "TL": "Huwag gagalaw."
+          },
+          {
+            "EN": "Hold.",
+            "TL": "Hawak."
+          },
+          {
+            "EN": "Patience.",
+            "TL": "Pasensya."
+          },
+          {
+            "EN": "Freeze.",
+            "TL": "Tigil."
+          },
+          {
+            "EN": "Quiet. Watch.",
+            "TL": "Tahimik. Magmasid."
+          }
+        ],
+        "guarded": [
+          {
+            "EN": "No rush. Hold position and watch the pressure.",
+            "TL": "Walang pagmamadali. Humawak at bantayan ang galaw nila."
+          },
+          {
+            "EN": "Hold here. If you twitch, you draw the whole pack.",
+            "TL": "Dito muna. Kapag kumilos ka, mahahatak mo ang buong kawan."
+          },
+          {
+            "EN": "Stay rooted. Wait until their lead walkers pass.",
+            "TL": "Manatiling nakatuntong. Hintaying lumampas ang nauuna."
+          },
+          {
+            "EN": "Maintain silence and hold the corner.",
+            "TL": "Panatilihin ang katahimikan at hawakan ang kanto."
+          },
+          {
+            "EN": "Do not engage prematurely. Let the herd scatter.",
+            "TL": "Huwag aatake nang maaga. Hayaang maghiwa-hiwalay ang kawan."
+          },
+          {
+            "EN": "Hold your breath if you have to, but don't move.",
+            "TL": "Pigilin ang hininga kung kailangan, pero huwag gagalaw."
+          },
+          {
+            "EN": "We wait for an exploitable mistake. Stay still.",
+            "TL": "Hintayin natin ang pagkakamali nila. Huwag gumalaw."
+          },
+          {
+            "EN": "Keep your weapon ready, but do not fire yet. Hold.",
+            "TL": "Ihanda ang armas, pero huwag munang puputok. Hawak."
+          },
+          {
+            "EN": "Hold tight against the wall. Let them walk past.",
+            "TL": "Dumikit sa pader. Hayaang maglakad sila palampas."
+          },
+          {
+            "EN": "Steady. Any sound will turn this into a slaughterhouse.",
+            "TL": "Dahan-dahan. Anumang ingay ay gagawin itong katayan."
+          }
+        ]
+      }
+    }
+  ]
+}

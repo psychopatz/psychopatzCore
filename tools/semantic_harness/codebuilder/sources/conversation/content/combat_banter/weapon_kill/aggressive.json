@@ -1,0 +1,303 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.combat.banter.weapon.kill.aggressive",
+  "kind": "content",
+  "domain": "combat_banter",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.aggressive.firearm_high_named_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "This {combatWeaponDisplayName} still shoots straight.",
+            "TL": "Tuwid pa ring bumaril itong {combatWeaponDisplayName}."
+          },
+          {
+            "EN": "Nothing beats this {combatWeaponDisplayName} when it counts.",
+            "TL": "Walang tatalo sa {combatWeaponDisplayName} na 'to kapag kailangan."
+          },
+          {
+            "EN": "Good old {combatWeaponDisplayName}. Never lets me down.",
+            "TL": "Maaasahang {combatWeaponDisplayName}. Hindi ako binibigo."
+          },
+          {
+            "EN": "Told you this {combatWeaponDisplayName} has stopping power.",
+            "TL": "Sabi ko sa'yo may lakas pumigil itong {combatWeaponDisplayName}."
+          },
+          {
+            "EN": "That {combatWeaponDisplayName} put it right in the dirt.",
+            "TL": "Ibinagsak agad ng {combatWeaponDisplayName} sa lupa."
+          },
+          {
+            "EN": "Clean work with the {combatWeaponDisplayName}.",
+            "TL": "Malinis na trabaho gamit ang {combatWeaponDisplayName}."
+          },
+          {
+            "EN": "This {combatWeaponDisplayName} punched right through.",
+            "TL": "Tumagos agad itong {combatWeaponDisplayName}."
+          },
+          {
+            "EN": "Glad I had this {combatWeaponDisplayName} ready.",
+            "TL": "Mabuti na lang at handa itong {combatWeaponDisplayName}."
+          },
+          {
+            "EN": "One round from this {combatWeaponDisplayName} is all it takes.",
+            "TL": "Isang bala lang mula sa {combatWeaponDisplayName} na 'to, sapat na."
+          },
+          {
+            "EN": "The {combatWeaponDisplayName} tore right through its skull.",
+            "TL": "Winasak ng {combatWeaponDisplayName} ang bungo nito."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.aggressive.firearm_high_named_02",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Right where I wanted it. Down.",
+            "TL": "Eksakto sa gusto ko. Bagsak."
+          },
+          {
+            "EN": "Dropped it in one shot. Beautiful.",
+            "TL": "Bumagsak sa isang putok. Ayos."
+          },
+          {
+            "EN": "Right between the eyes. Got him.",
+            "TL": "Sa pagitan mismo ng mga mata. Sapul."
+          },
+          {
+            "EN": "That's how you put one down.",
+            "TL": "Ganyan magpabagsak ng isa."
+          },
+          {
+            "EN": "Dead on arrival. Love it.",
+            "TL": "Tigok agad. Ayos."
+          },
+          {
+            "EN": "Drilled that one clean.",
+            "TL": "Sapul na sapul ang isang 'yon."
+          },
+          {
+            "EN": "Saw the opening and took it.",
+            "TL": "Nakakita ng butas at tinamaan agad."
+          },
+          {
+            "EN": "Dropped like a stone.",
+            "TL": "Bumagsak na parang bato."
+          },
+          {
+            "EN": "Target down. Who's next?",
+            "TL": "Bagsak ang target. Sino susunod?"
+          },
+          {
+            "EN": "Put that lead right where it hurts.",
+            "TL": "Ipinasok ang tingga sa dapat kalagyan."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.aggressive.blade_head_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Took its head clean off.",
+            "TL": "Tanggal ang ulo."
+          },
+          {
+            "EN": "Split the skull wide open.",
+            "TL": "Biyak ang bungo."
+          },
+          {
+            "EN": "Severed the spine. Done.",
+            "TL": "Naputol ang gulugod. Tapos."
+          },
+          {
+            "EN": "Nothing stands up without a head.",
+            "TL": "Walang tatayo kapag walang ulo."
+          },
+          {
+            "EN": "Carved right through rotten bone.",
+            "TL": "Bumaon diretso sa bulok na buto."
+          },
+          {
+            "EN": "Off with its neck. Stay down.",
+            "TL": "Putol ang leeg. Diyan ka lang."
+          },
+          {
+            "EN": "Sliced it down to the dirt.",
+            "TL": "Hiniwa hanggang bumagsak sa lupa."
+          },
+          {
+            "EN": "Blade went straight through.",
+            "TL": "Dire-diretso ang talim."
+          },
+          {
+            "EN": "Head's gone. That one's not getting up.",
+            "TL": "Wala nang ulo. Hindi na tatayo 'yan."
+          },
+          {
+            "EN": "Clean decapitation. Keep moving.",
+            "TL": "Malinis na pugot. Tuloy lang."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.aggressive.axe_head_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Split that rotten head wide open.",
+            "TL": "Biyak na biyak ang bulok na ulo."
+          },
+          {
+            "EN": "Axe bit deep right into the skull.",
+            "TL": "Bumaon nang malalim ang palakol sa bungo."
+          },
+          {
+            "EN": "Cleft in two. Stay in the dirt.",
+            "TL": "Biyak sa dalawa. Manatili ka sa lupa."
+          },
+          {
+            "EN": "Buried the axe right between its ears.",
+            "TL": "Ibaon ang palakol sa gitna ng tenga nito."
+          },
+          {
+            "EN": "Heavy swing. Done for good.",
+            "TL": "Mabigat na hataw. Tapos magpakailanman."
+          },
+          {
+            "EN": "Crushed the crown with one chop.",
+            "TL": "Durog ang tuktok sa isang taga."
+          },
+          {
+            "EN": "That skull never stood a chance.",
+            "TL": "Walang laban ang bungong 'yon."
+          },
+          {
+            "EN": "Broke right through bone.",
+            "TL": "Bumasag diretso sa buto."
+          },
+          {
+            "EN": "Split it down to the neck.",
+            "TL": "Biyak hanggang leeg."
+          },
+          {
+            "EN": "One hard chop and it's over.",
+            "TL": "Isang malakas na taga at tapos na."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.aggressive.blunt_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Felt that one crack.",
+            "TL": "Ramdam ko ang pag-crack no'n."
+          },
+          {
+            "EN": "Crushed its skull to pieces.",
+            "TL": "Durog ang bungo sa pira-piraso."
+          },
+          {
+            "EN": "Smashed that head like a melon.",
+            "TL": "Pinitpit ang ulo na parang pakwan."
+          },
+          {
+            "EN": "Nothing gets up after a hit like that.",
+            "TL": "Walang tatayo pagkatapos ng gano'ng hampas."
+          },
+          {
+            "EN": "Broke every bone in its face.",
+            "TL": "Basag ang bawat buto sa mukha."
+          },
+          {
+            "EN": "Felt the impact straight up my arms.",
+            "TL": "Ramdam hanggang braso ang impact."
+          },
+          {
+            "EN": "Caved that rotten skull right in.",
+            "TL": "Lubog ang bulok na bungo papasok."
+          },
+          {
+            "EN": "Heavy hit. Stay down.",
+            "TL": "Mabigat na tama. Huwag ka nang babangon."
+          },
+          {
+            "EN": "Pounded that one into the floor.",
+            "TL": "Ibinagsak sa sahig sa lakas ng palo."
+          },
+          {
+            "EN": "Cracked wide open. Moving on.",
+            "TL": "Basag nang todo. Tuloy."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.aggressive.spear_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "That's why I like the reach.",
+            "TL": "Kaya gusto ko ang abot nito."
+          },
+          {
+            "EN": "Punched right through the eye socket.",
+            "TL": "Tumagos sa butas ng mata."
+          },
+          {
+            "EN": "Kept my distance and pinned it down.",
+            "TL": "Dumistansya at itinarak pabagsak."
+          },
+          {
+            "EN": "Spear through the brain. Done.",
+            "TL": "Sibat sa utak. Tapos."
+          },
+          {
+            "EN": "Stuck it before it could touch me.",
+            "TL": "Itinarak bago pa ako mahawakan."
+          },
+          {
+            "EN": "Straight thrust. Dropped immediately.",
+            "TL": "Diretsong saksak. Bagsak agad."
+          },
+          {
+            "EN": "Punctured the skull cleanly.",
+            "TL": "Bumutas sa bungo nang malinis."
+          },
+          {
+            "EN": "Pinned and dropped. Next target.",
+            "TL": "Tinuhog at ibinagsak. Susunod na target."
+          },
+          {
+            "EN": "Reach wins every time.",
+            "TL": "Laging panalo ang mahabang abot."
+          },
+          {
+            "EN": "Skewer through the forehead. Over.",
+            "TL": "Tuhog sa noo. Tapos."
+          }
+        ]
+      }
+    }
+  ]
+}

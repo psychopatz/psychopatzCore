@@ -1,0 +1,55 @@
+{
+  "schema": "psychopatz.semantic.text-bundle.shard.v1",
+  "shardId": "conversation.content.work.orders",
+  "owner": "ProjectHoomans",
+  "bundles": [
+    {
+      "bundleId": "conversation.bundle.work.orders.member.basic",
+      "owner": "ProjectHoomans",
+      "modID": "ProjectHoomans",
+      "domain": "pnc.work.orders.member.basic",
+      "kind": "work_orders",
+      "audience": "member",
+      "bundle": "basic",
+      "runtimePath": "Conversation/Bundles/work_orders/member/basic.json",
+      "sourceShard": "conversation.content.work.orders",
+      "keys": [
+        {
+          "key": "choice.orders",
+          "text": {
+            "EN": "I have work for you.",
+            "TL": "may trabaho ako sayo."
+          }
+        },
+        {
+          "key": "choice.status",
+          "text": {
+            "EN": "Report on your current work.",
+            "TL": "Mag-ulat sa iyong kasalukuyang gawain."
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "I'm ready. What needs doing?",
+            "TL": "handa na ako. Ano ang kailangang gawin?"
+          }
+        },
+        {
+          "key": "response.orders",
+          "text": {
+            "EN": "Tell me what needs doing.",
+            "TL": "Sabihin mo sa akin kung ano ang kailangang gawin."
+          }
+        },
+        {
+          "key": "response.status",
+          "text": {
+            "EN": "Everything is on track for now.",
+            "TL": "Ang lahat ay nasa track sa ngayon."
+          }
+        }
+      ]
+    }
+  ]
+}

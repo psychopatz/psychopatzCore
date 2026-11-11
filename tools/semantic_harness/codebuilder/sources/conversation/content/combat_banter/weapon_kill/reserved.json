@@ -1,0 +1,111 @@
+{
+  "schema": "psychopatz.semantic.shard.v3",
+  "shardId": "conversation.content.combat.banter.weapon.kill.reserved",
+  "kind": "content",
+  "domain": "combat_banter",
+  "owner": "ProjectHoomans",
+  "sourceProfile": "conversation.source.project.hoomans.weapon.aware.zombie.kill.reactions.5faabe7f58",
+  "groups": {
+    "events": {
+      "contentOwner": "projecthoomans.dialogue_content.events"
+    }
+  },
+  "phraseFamilies": [
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.reserved.firearm_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Hit.",
+            "TL": "Tinamaan."
+          },
+          {
+            "EN": "Down.",
+            "TL": "Bagsak."
+          },
+          {
+            "EN": "Target neutral.",
+            "TL": "Target bagsak."
+          },
+          {
+            "EN": "One round.",
+            "TL": "Isang bala."
+          },
+          {
+            "EN": "Clear.",
+            "TL": "Malinis."
+          },
+          {
+            "EN": "Eliminated.",
+            "TL": "Tanggal."
+          },
+          {
+            "EN": "Dropped.",
+            "TL": "Naitumba."
+          },
+          {
+            "EN": "Shot connected.",
+            "TL": "Tumama ang putok."
+          },
+          {
+            "EN": "Neutralized.",
+            "TL": "Naalis."
+          },
+          {
+            "EN": "Done.",
+            "TL": "Tapos."
+          }
+        ]
+      }
+    },
+    {
+      "group": "events",
+      "semanticTemplateID": "semantic.combat.kill.killer.reserved.blade_01",
+      "styles": {
+        "neutral": [
+          {
+            "EN": "Cut down.",
+            "TL": "Nahati."
+          },
+          {
+            "EN": "Head severed.",
+            "TL": "Pugot."
+          },
+          {
+            "EN": "Down.",
+            "TL": "Bagsak."
+          },
+          {
+            "EN": "Done.",
+            "TL": "Tapos."
+          },
+          {
+            "EN": "Clear.",
+            "TL": "Malinis."
+          },
+          {
+            "EN": "Finished.",
+            "TL": "Yari."
+          },
+          {
+            "EN": "Eliminated.",
+            "TL": "Tanggal."
+          },
+          {
+            "EN": "Fell.",
+            "TL": "Bumagsak."
+          },
+          {
+            "EN": "Clean strike.",
+            "TL": "Malinis na tama."
+          },
+          {
+            "EN": "Moving.",
+            "TL": "Lalakad na."
+          }
+        ]
+      }
+    }
+  ]
+}

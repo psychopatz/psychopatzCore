@@ -268,6 +268,39 @@ def load_manifest(
         if not (root / Path(*PurePosixPath(auxiliary_path).parts)).is_file():
             raise CompileError(f"Conversation auxiliary file is missing: {auxiliary_path}")
         auxiliary_paths.add(auxiliary_path)
+    raw_auxiliary_roots = manifest.get("auxiliaryRoots", [])
+    if raw_auxiliary_roots is None:
+        raw_auxiliary_roots = []
+    if not isinstance(raw_auxiliary_roots, list):
+        raise CompileError("Conversation manifest auxiliaryRoots must be a list")
+    seen_auxiliary_roots: set[str] = set()
+    for index, raw_path in enumerate(raw_auxiliary_roots):
+        auxiliary_root = _validate_relative_directory_path(
+            raw_path,
+            f"auxiliaryRoots[{index}]",
+        )
+        if auxiliary_root in seen_auxiliary_roots:
+            raise CompileError(
+                f"duplicate Conversation auxiliary root: {auxiliary_root}"
+            )
+        seen_auxiliary_roots.add(auxiliary_root)
+        directory = root / Path(*PurePosixPath(auxiliary_root).parts)
+        if not directory.is_dir():
+            raise CompileError(
+                f"Conversation auxiliary root is missing: {auxiliary_root}"
+            )
+        files = sorted(path for path in directory.rglob("*.json") if path.is_file())
+        if not files:
+            raise CompileError(
+                f"Conversation auxiliary root contains no JSON files: {auxiliary_root}"
+            )
+        for file_path in files:
+            relative = file_path.relative_to(root).as_posix()
+            if relative in seen_paths:
+                raise CompileError(
+                    f"Conversation auxiliary file is also a shard: {relative}"
+                )
+            auxiliary_paths.add(relative)
     unregistered = sorted(discovered - seen_paths - auxiliary_paths)
     if unregistered:
         raise CompileError(
