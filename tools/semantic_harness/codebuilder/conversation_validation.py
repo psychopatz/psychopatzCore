@@ -11,11 +11,11 @@ from typing import Any
 
 from .conversation_manifest import validate_id as _validate_id
 from .conversation_model import copy_json as _copy_json
+from .conversation_contract import CONVERSATION_MAX_RECORDS_PER_SHARD
 from .errors import CompileError
 from .generation_ownership import normalize_owner
 
 
-CONVERSATION_MAX_RECORDS_PER_SHARD = 32
 _DIRECTOR_PREDICATE_OPS = frozenset((
     "eq", "neq", "gt", "gte", "lt", "lte", "in", "not_in", "truthy", "falsy",
 ))

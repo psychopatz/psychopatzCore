@@ -10,13 +10,13 @@ from tools.semantic_harness.codebuilder.catalog_naming import (
 )
 
 from .conversation_model import copy_json as _copy_json, runtime_records as _runtime_records
+from .conversation_contract import (
+    CONVERSATION_MAX_RECORDS_PER_SHARD,
+    CONVERSATION_MAX_SHARD_BYTES,
+)
 from .errors import CompileError
 from .generation_ownership import conversation_prefix
 from .dialogue_content import _lua_value
-
-
-CONVERSATION_MAX_SHARD_BYTES = 192 * 1024
-CONVERSATION_MAX_RECORDS_PER_SHARD = 32
 
 
 def render_conversation_ui_module(model: dict[str, Any]) -> str:

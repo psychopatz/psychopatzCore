@@ -7,12 +7,10 @@ from typing import Any, Iterable
 from tools.semantic_harness.codebuilder.catalog_naming import pascal_segment
 
 from .conversation_model import runtime_records as _runtime_records
+from .conversation_contract import CONVERSATION_MAX_INDEX_BYTES
 from .errors import CompileError
 from .generation_ownership import conversation_prefix, normalize_owner
 from .dialogue_content import _lua_value
-
-
-CONVERSATION_MAX_INDEX_BYTES = 192 * 1024
 
 
 def _registry_owner(model: dict[str, Any]) -> str:
