@@ -9,7 +9,7 @@ from typing import Any
 
 from .scenario import DEFAULT_SCENARIO, merge
 from .save_catalog import SaveCatalog, SaveCatalogError, _load_core_reader
-from tools.semantic_harness.item_catalog import item_type_registry_fixture
+from tools.semantic_harness.core.item_catalog import item_type_registry_fixture
 from .player_engine_state import OfflinePlayerEngineStateProvider
 
 

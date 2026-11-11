@@ -3,7 +3,7 @@ from __future__ import annotations
 from threading import Event, Lock
 import unittest
 
-from tools.semantic_harness.worker_session import SessionClosedError, WorkerSession
+from tools.semantic_harness.core.worker_session import SessionClosedError, WorkerSession
 
 
 class FakeWorker:

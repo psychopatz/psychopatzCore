@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.semantic_harness.scenario import (
+from tools.semantic_harness.core.scenario import (
     deep_merge,
     derive_actor_identifier,
     derive_display_name,

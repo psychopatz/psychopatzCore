@@ -8,6 +8,23 @@ Adopters register provider manifests from their own repositories. Project
 Hoomans/PNC and Dynamic Trading/DT provide policy, production adapters, and
 content; neither repository contains another harness package.
 
+The Python package is organized by ownership rather than keeping implementation
+modules in this directory:
+
+```text
+entrypoints/  executable GUI and CLI modules
+core/         provider-neutral lifecycle, state, and projection code
+transport/    JSON-lines process and protocol primitives
+providers/    provider discovery, profiles, and composition
+discovery/    runtime and engine discovery
+runtime/      Core worker orchestration and save/profile adapters
+inspection/   transcript, response, and observatory views
+codebuilder/  authoring and semantic generation pipeline
+```
+
+The package root contains only the package initializer and `__main__.py`; all
+callers use the concrete modules in these owned packages.
+
 ## Selection manager
 
 The harness is composed from provider manifests. Compatibility profiles are

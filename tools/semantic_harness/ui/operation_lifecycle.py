@@ -7,8 +7,8 @@ from typing import Any, Callable
 
 from tools.semantic_harness.runtime.config import ConfigurationError
 from tools.semantic_harness.runtime.worker import LuaSemanticWorker
-from tools.semantic_harness.process import HarnessError
-from tools.semantic_harness.worker_session import WorkerResult
+from tools.semantic_harness.transport.process import HarnessError
+from tools.semantic_harness.core.worker_session import WorkerResult
 
 
 def poll_future(

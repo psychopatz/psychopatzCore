@@ -9,9 +9,9 @@ from typing import Any
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.inspection.transcript import TranscriptBuffer
 from tools.semantic_harness.runtime.scenario import load_scenario
-from tools.semantic_harness.activity import ActivityLog, default_activity_path
+from tools.semantic_harness.core.activity import ActivityLog, default_activity_path
 from tools.semantic_harness.runtime.worker import LuaSemanticWorker
-from tools.semantic_harness.worker_session import WorkerSession
+from tools.semantic_harness.core.worker_session import WorkerSession
 from .dialogs.catalog_control import CatalogControlField
 from .state import load as load_ui_state
 from .state import state_path as ui_state_path

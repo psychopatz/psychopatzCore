@@ -3,7 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 import unittest
 
-from tools.semantic_harness.state import (
+from tools.semantic_harness.core.state import (
     HarnessWorkingWorld,
     ImportedSourceSnapshot,
     Provenance,

@@ -4,12 +4,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.semantic_harness.mod_manager import (
+from tools.semantic_harness.providers.mod_manager import (
     ModManager,
     ModManagerError,
     ProviderSpec,
 )
-from tools.semantic_harness.provider_registry import CORE_PROVIDER_ID
+from tools.semantic_harness.providers.provider_registry import CORE_PROVIDER_ID
 
 
 def spec(

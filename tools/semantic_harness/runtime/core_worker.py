@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Mapping
 
-from ..worker import SemanticWorker
+from ..core.worker import SemanticWorker
 from .config import HarnessConfig, build_worker_launch_spec
 
 

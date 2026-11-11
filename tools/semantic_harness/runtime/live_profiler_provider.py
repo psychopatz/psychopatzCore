@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Mapping
 
-from tools.semantic_harness.live_profiler_provider import (
+from tools.semantic_harness.core.live_profiler_provider import (
     DEFAULT_CONFIG_NAME,
     DEFAULT_SNAPSHOT_NAME,
     FORBIDDEN_OPERATIONS,

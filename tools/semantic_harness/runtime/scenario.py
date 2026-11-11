@@ -5,8 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from tools.semantic_harness.health import normalize_scenario, validate_npc_health
-from tools.semantic_harness.scenario import (
+from tools.semantic_harness.core.health import normalize_scenario, validate_npc_health
+from tools.semantic_harness.core.scenario import (
     derive_actor_identifier,
     derive_display_name,
     deep_merge,

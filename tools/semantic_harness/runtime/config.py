@@ -8,10 +8,10 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Sequence
 
-from ..mod_manager import ModManager, ModManagerError
-from ..process import WorkerLaunchSpec
-from ..protocol import DEFAULT_MAX_MESSAGE_BYTES
-from ..runtime_discovery import (
+from ..providers.mod_manager import ModManager, ModManagerError
+from ..transport.process import WorkerLaunchSpec
+from ..transport.protocol import DEFAULT_MAX_MESSAGE_BYTES
+from ..discovery.runtime import (
     ConfigurationError,
     discover_lua,
     discover_newest_runtime,

@@ -15,9 +15,9 @@ from ..runtime.config import (
     HarnessConfig,
     discover_core_repository,
 )
-from ..runtime_discovery import discover_lua, probe_lua
+from ..discovery.runtime import discover_lua, probe_lua
 from ..runtime.worker import LuaSemanticWorker
-from tools.semantic_harness.process import HarnessError
+from tools.semantic_harness.transport.process import HarnessError
 
 
 def _check(name: str, ok: bool, detail: str, *, required: bool = True) -> dict[str, Any]:

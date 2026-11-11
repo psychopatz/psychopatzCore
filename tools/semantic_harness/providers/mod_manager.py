@@ -415,7 +415,7 @@ class ModManager:
         return cls(core, providers)
 
     def _load_presets(self) -> Mapping[str, Mapping[str, Any]]:
-        path = Path(__file__).with_name("selection_presets.json")
+        path = Path(__file__).resolve().parents[1] / "selection_presets.json"
         try:
             document = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as error:

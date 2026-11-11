@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from tools.semantic_harness.player_engine_state import (
+from tools.semantic_harness.core.player_engine_state import (
     PLAYER_WORLD_VERSION,
     PlayerEngineStateError,
     OfflinePlayerEngineStateProvider as _CorePlayerEngineStateProvider,

@@ -11,25 +11,25 @@ import sys
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.codebuilder.translation_support import normalize_language
 from tools.semantic_harness.inspection.rendering import print_result as _print_result
-from .inspection.response_candidate import preview_authored_variant
-from .inspection.response_turn_trace import inspect_response_turn
-from .inspection.response_selection_coverage import selection_coverage
-from .inspection.response_source_lineage import inspect_codebuilder_lineage
-from .inspection.response_translation_coverage import translation_coverage
-from .inspection.response_observatory import (
+from ..inspection.response_candidate import preview_authored_variant
+from ..inspection.response_turn_trace import inspect_response_turn
+from ..inspection.response_selection_coverage import selection_coverage
+from ..inspection.response_source_lineage import inspect_codebuilder_lineage
+from ..inspection.response_translation_coverage import translation_coverage
+from ..inspection.response_observatory import (
     run_quality_matrix, source_evidence, source_evidence_from_paths,
     review_variant_proposal, compare_quality_reports,
 )
 from tools.semantic_harness.testing.runner import ConflictLedger, load_case, run_case
-from tools.semantic_harness.mod_manager import ModManager, ModManagerError
+from tools.semantic_harness.providers.mod_manager import ModManager, ModManagerError
 from tools.semantic_harness.runtime.config import ConfigurationError
 from tools.semantic_harness.runtime.config import HarnessConfig, discover_core_repository
 from tools.semantic_harness.runtime.scenario import load_scenario
 from tools.semantic_harness.runtime.save_browser import SavedWorldBrowser
 from tools.semantic_harness.runtime.save_catalog import SaveCatalog
 from tools.semantic_harness.runtime.worker import LuaSemanticWorker
-from tools.semantic_harness.process import HarnessError
-from tools.semantic_harness.activity import (
+from tools.semantic_harness.transport.process import HarnessError
+from tools.semantic_harness.core.activity import (
     ActivityLog,
     default_activity_path,
     format_activity_event,

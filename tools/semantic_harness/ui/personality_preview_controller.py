@@ -6,7 +6,7 @@ from concurrent.futures import Future
 from typing import Any
 
 from tools.semantic_harness.runtime.config import ConfigurationError
-from tools.semantic_harness.process import HarnessError
+from tools.semantic_harness.transport.process import HarnessError
 
 
 def schedule_personality_preview(app: Any) -> None:

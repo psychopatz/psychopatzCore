@@ -12,7 +12,7 @@ from tools.semantic_harness.inspection.rendering import pretty
 from .dialogs.catalog_control import CatalogControlField
 from .dialogs.settings import open_runtime_settings as show_runtime_settings
 from tools.semantic_harness.runtime.worker import LuaSemanticWorker
-from tools.semantic_harness.worker_session import WorkerReady
+from tools.semantic_harness.core.worker_session import WorkerReady
 from .suggestion_projection import (
     npc_message_text,
     semantic_hub_diagnostic_projection,

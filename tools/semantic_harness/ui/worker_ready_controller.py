@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from tools.semantic_harness.inspection.rendering import pretty
-from tools.semantic_harness.worker_session import WorkerReady
+from tools.semantic_harness.core.worker_session import WorkerReady
 from .ui_state_persistence import remember_active_source
 
 

@@ -6,7 +6,7 @@ from concurrent.futures import Future
 from typing import Any
 
 from tools.semantic_harness.runtime.config import ConfigurationError
-from tools.semantic_harness.process import HarnessError
+from tools.semantic_harness.transport.process import HarnessError
 
 def set_relationship_preview_from_projection(self) -> None:
     if self.relationship_preview_var is None:

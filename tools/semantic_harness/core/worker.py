@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any, Callable, Mapping
 
 from .activity import ActivityLog, default_activity_path
-from .process import LuaProcess, WorkerLaunchSpec
+from ..transport.process import LuaProcess, WorkerLaunchSpec
 from .scenario import load_json_document
 from .state import HarnessWorkingWorld, ImportedSourceSnapshot, Provenance
 

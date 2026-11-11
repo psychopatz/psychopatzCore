@@ -6,11 +6,11 @@ import sqlite3
 import tempfile
 import unittest
 
-from tools.semantic_harness.fixture_provider import OfflineEngineFixtureProvider
-from tools.semantic_harness.health import normalize_scenario
-from tools.semantic_harness.item_catalog import _parse_script_text
-from tools.semantic_harness.live_profiler_provider import LiveProfilerProvider
-from tools.semantic_harness.player_engine_state import OfflinePlayerEngineStateProvider
+from tools.semantic_harness.core.fixture_provider import OfflineEngineFixtureProvider
+from tools.semantic_harness.core.health import normalize_scenario
+from tools.semantic_harness.core.item_catalog import _parse_script_text
+from tools.semantic_harness.core.live_profiler_provider import LiveProfilerProvider
+from tools.semantic_harness.core.player_engine_state import OfflinePlayerEngineStateProvider
 
 
 CORE_REPOSITORY = Path(__file__).resolve().parents[3]

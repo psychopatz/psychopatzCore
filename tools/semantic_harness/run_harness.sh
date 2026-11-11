@@ -46,4 +46,4 @@ if [ -z "${SEMANTIC_HARNESS_CORE_REPOSITORY:-}" ]; then
     export SEMANTIC_HARNESS_CORE_REPOSITORY="$REPOSITORY_ROOT"
 fi
 
-exec "$VENV_PYTHON" -m tools.semantic_harness.app "${HARNESS_ARGS[@]}"
+exec "$VENV_PYTHON" -m tools.semantic_harness.entrypoints.app "${HARNESS_ARGS[@]}"

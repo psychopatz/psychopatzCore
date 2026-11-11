@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 from types import SimpleNamespace
 
-from tools.semantic_harness.app import _should_run_cli
+from tools.semantic_harness.entrypoints.app import _should_run_cli
 
 
 class AppDispatchTests(unittest.TestCase):

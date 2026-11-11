@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from threading import Lock
 from typing import Any, Callable, Generic, TypeVar
 
-from .process import HarnessError
+from ..transport.process import HarnessError
 
 
 WorkerT = TypeVar("WorkerT")
