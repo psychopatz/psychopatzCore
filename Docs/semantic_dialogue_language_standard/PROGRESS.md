@@ -141,6 +141,14 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - The superseded Core command/player, command/replies, command/lifecycle, and combat-horde content sources and generated Content modules are removed. Core's manifest now routes the four adopter-owned PSDL shards; Hoomans generated indexes/registries are downstream-only.
 - Parity covers 76 records in both EN and TL (152 locale entries), direct command realization and horde acknowledgement smokes pass, Core's semantic harness remains green at 109 tests, and the three-repository S0 audit/guard reports zero violations. The broad presentation-only companion smoke still has its known camp-rejection handoff failure after direct semantic resolution succeeds and is tracked as baseline evidence rather than treated as migration parity.
 
+## S5 social apology, hostility, and reconciliation migration chunk
+
+- ProjectHoomans now owns `psdl/dialogue/social_apology.json` as the final authored source for the four apology/reconciliation families: default, friendly, stressed, and withdrawn. Each family is split into four bounded style plans (neutral, warm, terse, guarded), preserving 160 EN/TL phrase pairs through the Core PSDL compiler.
+- The existing Hoomans response catalog remains the selector. Its social adapter projects Core-generated plans back into the existing `PHRASE_FAMILIES` authority, grouping variants by authored style and retaining the existing `SpeechRealization`, relationship, stress, and withdrawal behavior.
+- Core validation now recognizes a PSDL-declared `responseTemplateID` alias when an existing Core-owned behavior references that semantic content template. This is a generic compiler validation seam; it does not create a second content schema or runtime.
+- Superseded Core `content/social_apology.json`, Core/Hoomans Apology translation files, generated SocialApology/Apology outputs, and their translation-manifest entries are removed. The old semantic IDs remain only as runtime contract IDs and PSDL metadata lineage, not as parallel authoring sources.
+- Source parity reports 4 families, 16 style plans, and 320 locale values with zero differences. Core's 109-test harness, PSDL build, S0 guard, social source/plan tests, direct Lua style-family load, and changed-file Kahlua scans pass. The Lua worker remains blocked by the pre-existing duplicate automatic-flow registration `semantic.generated.simple_command.camp.failed` after startup advances past the former apology-template check.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.

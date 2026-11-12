@@ -39,15 +39,6 @@
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
-      "domain": "apology",
-      "kind": "content",
-      "order": 1320,
-      "path": "content/social_apology.json",
-      "owner": "PsychopatzCore",
-      "shardId": "conversation.content.social.apology",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
       "domain": "needs",
       "kind": "content",
       "order": 1370,
@@ -352,6 +343,16 @@
       "path": "psdl/dialogue/companion_commands_combat.json",
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/companion_commands_combat.json",
       "shardId": "conversation.psdl.companion.commands.combat",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_apology",
+      "kind": "psdl",
+      "order": 2312,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_apology.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_apology.json",
+      "shardId": "conversation.psdl.social.apology",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],

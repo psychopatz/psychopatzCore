@@ -1,7 +1,6 @@
 {
   "languages": {
     "EN": [
-      "EN/Conversation/Apology.json",
       "EN/Conversation/Conversation.json",
       "EN/Conversation/Greeting.json",
       "EN/Conversation/Health.json",
@@ -12,7 +11,6 @@
       "EN/Conversation/Wellbeing.json"
     ],
     "TL": [
-      "TL/Conversation/Apology.json",
       "TL/Conversation/Conversation.json",
       "TL/Conversation/Greeting.json",
       "TL/Conversation/Health.json",

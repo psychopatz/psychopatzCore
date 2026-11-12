@@ -290,6 +290,25 @@ failure.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 social apology, hostility, and reconciliation migration checkpoint
+
+ProjectHoomans now owns the final `psdl/dialogue/social_apology.json` source
+for the default, friendly, stressed, and withdrawn apology/reconciliation
+families. Each family is represented by four bounded style plans (neutral,
+warm, terse, guarded), preserving 160 EN/TL phrase pairs and 320 locale
+values. The existing Hoomans response catalog remains the selector; its social
+adapter projects Core-generated plans into the existing phrase-family and
+SpeechRealization authorities. Core validation recognizes the PSDL-declared
+`responseTemplateID` alias used by existing Core-owned behaviors without
+creating a second schema or runtime. Superseded Core/Hoomans Apology sources,
+generated SocialApology/Apology outputs, and translation-manifest entries are
+removed. Source parity, Core harness, PSDL build, S0 guard, direct Lua family
+load, and changed-file Kahlua gates pass. The Lua worker retains the known
+duplicate automatic-flow registration baseline after advancing past the former
+apology-template failure.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.

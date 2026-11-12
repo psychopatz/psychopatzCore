@@ -8,8 +8,8 @@ Registry.REGISTRY_NAMESPACE = "PsychopatzCore.Semantics.ConversationRegistry"
 Registry.REGISTRY_MODULE = "PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry"
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
-Registry.CONTENT_FINGERPRINT = "43a8206d46b29a150da728d6cef90cb789cb55071c9969d98144579ced6c576d"
-Registry.WHOLE_MODEL_FINGERPRINT = "2b5edcc7c8b0d44f8f63927493b41927deceb8fa92b6845454919f1d4af64749"
+Registry.CONTENT_FINGERPRINT = "bca0ee8aea508a91dcc0ea08c025f4e1175c158a861b7bbdb51ce3ca9678536d"
+Registry.WHOLE_MODEL_FINGERPRINT = "4ed37fa18eee39f16e9bc5053bb0404a2c109ac7f378d55955386904ec29a386"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -112,7 +112,6 @@ appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/S
 appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Relationship")
 appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Romantic")
 appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Sexual")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/SocialApology")
 appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Wellbeing/Emotional")
 appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Wellbeing/General")
 appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Wellbeing/Needs")

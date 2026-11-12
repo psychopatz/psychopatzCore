@@ -374,6 +374,21 @@ def compile_conversation_sources(
         for item in content.get("phraseFamilies", [])
         if isinstance(item, dict)
     }
+    # PSDL adopter records may split a bounded response family into multiple
+    # runtime plans while retaining the existing semantic content-template ID
+    # used by Core-owned behaviors. The adopter runtime projects those plans
+    # back into the existing phrase-family authority; Core validation must
+    # therefore recognize the declared alias without creating a second
+    # content authoring format or runtime.
+    for compiled_psdl, _entry in psdl_documents:
+        for record in compiled_psdl.get("records", []):
+            payload = record.get("payload")
+            metadata = payload.get("metadata") if isinstance(payload, dict) else None
+            if not isinstance(metadata, dict):
+                continue
+            template_id = metadata.get("responseTemplateID")
+            if isinstance(template_id, str) and template_id.strip():
+                available_content_templates.add(template_id.strip())
     behavior_by_id = {
         record["id"]: record for record in behaviors["records"]
     }
