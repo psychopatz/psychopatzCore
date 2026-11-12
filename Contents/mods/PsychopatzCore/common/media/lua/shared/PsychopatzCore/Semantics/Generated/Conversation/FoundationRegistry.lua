@@ -64,6 +64,15 @@ local function appendPSDL(loaded)
             if type(templateID) == "string" and templateID ~= "" then
                 Registry.PSDL_RESPONSE_TEMPLATES[templateID] = true
             end
+            local outputs = type(payload) == "table" and payload.outputs or nil
+            if type(outputs) == "table" then
+                for _, output in pairs(outputs) do
+                    local outputTemplate = type(output) == "table" and output.contentTemplateID or nil
+                    if type(outputTemplate) == "string" and outputTemplate ~= "" then
+                        Registry.PSDL_RESPONSE_TEMPLATES[outputTemplate] = true
+                    end
+                end
+            end
         end
     end
 end
