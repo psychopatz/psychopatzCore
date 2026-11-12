@@ -5,18 +5,19 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
 phase_commit_phase: "S5"
-phase_commit_message: "phase(S5): migrate needs conversations through PSDL"
+phase_commit_message: "phase(S5): reconcile needs handoff residual"
 phase_commit_vector: "project-hoomans=2447aa9443579226e50dcf8a70ac556414eed7da;psychopatz-core=self;dynamic-trading=a0ce125d2b4fdb4e999b7841608e14e98e574a58"
-phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=658e67bb93d7561c4d6c268b6125a0050018621a386e5af5572a60afa212eb12;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
-residual_worktree_fingerprint: "658e67bb93d7561c4d6c268b6125a0050018621a386e5af5572a60afa212eb12"
+phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
+residual_worktree_fingerprint: "056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108"
 codebase_memory_indexed_commit: "5075fb7f7334c33b4cfd0991dcf5dd9b4a9c3b88"
-updated_at: "2026-11-12T15:51:11.721849Z"
+updated_at: "2026-11-12T15:51:20.412748Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S5 — first-party domain migration and deletion"
 chunk: "migrate one coherent first-party semantic domain in each mandatory adopter through the Core PSDL mechanism"
 retrieval_tier: "verify"
 ---
+
 
 
 
