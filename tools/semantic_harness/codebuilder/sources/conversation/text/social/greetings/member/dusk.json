@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.member.member.dusk",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.member.member.dusk",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/member/dusk",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Evening. Perimeter looks clear.",
+            "TL": "Gabi. Mukhang malinaw ang perimeter."
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "Need me for something before night watch?",
+            "TL": "Kailangan mo ba ako bago ang pagbabantay sa gabi?"
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "We're all still here. I'll call that a good day.",
+            "TL": "Narito pa rin tayong lahat. Ituturing ko iyong magandang araw."
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "Keep it quiet. The others are settling down.",
+            "TL": "Manahimik ka. Umayos na yung iba."
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "I can take first watch if you need the rest.",
+            "TL": "Maaari akong kumuha ng unang panonood kung kailangan mo ang iba pa."
+          }
+        }
+      ]
+    }
+  ]
+}

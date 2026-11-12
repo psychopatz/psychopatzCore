@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.neutral.acquaintance.sunrise",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.neutral.acquaintance.sunrise",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/neutral/acquaintance/sunrise",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Morning. Good to see a familiar face.",
+            "TL": "Umaga. Ang sarap makakita ng pamilyar na mukha."
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "Hey. How's the day treating you?",
+            "TL": "Hey. Kumusta ang pagtrato sa iyo ng araw?"
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "There you are. Need a minute?",
+            "TL": "Narito ka pala. Kailangan mo ba ng sandali?"
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "Morning. You look like you have something on your mind.",
+            "TL": "Umaga. Parang may iniisip ka."
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "Nice to see you made it through another night.",
+            "TL": "Natutuwa akong makita kang nagtagumpay sa isa pang gabi."
+          }
+        }
+      ]
+    }
+  ]
+}

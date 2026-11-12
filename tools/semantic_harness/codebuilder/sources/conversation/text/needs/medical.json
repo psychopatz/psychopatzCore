@@ -1,0 +1,70 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.needs.medical",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.needs.member.support.medical.member",
+      "owner": "ProjectHoomans",
+      "target": "needs/member/support",
+      "entries": [
+        {
+          "key": "choice.medical",
+          "text": {
+            "EN": "Does anyone need medical help?",
+            "TL": "May nangangailangan ba ng tulong medikal?"
+          }
+        },
+        {
+          "key": "response.medical",
+          "text": {
+            "EN": "Nothing urgent, but check the bandages.",
+            "TL": "Walang kagyat, ngunit suriin ang mga bendahe."
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.needs.neutral.support.medical.neutral",
+      "owner": "ProjectHoomans",
+      "target": "needs/neutral/support",
+      "entries": [
+        {
+          "key": "choice.medical",
+          "text": {
+            "EN": "Any medical problems?",
+            "TL": "Anumang mga medikal na problema?"
+          }
+        },
+        {
+          "key": "response.medical",
+          "text": {
+            "EN": "Nothing I cannot handle right now.",
+            "TL": "Wala akong kakayanin ngayon."
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.needs.special.support.medical.special",
+      "owner": "ProjectHoomans",
+      "target": "needs/special/support",
+      "entries": [
+        {
+          "key": "choice.medical",
+          "text": {
+            "EN": "Are you hurt?",
+            "TL": "nasaktan ka ba"
+          }
+        },
+        {
+          "key": "response.medical",
+          "text": {
+            "EN": "No. I would tell you if I was.",
+            "TL": "Hindi. Sasabihin ko sa iyo kung ako nga."
+          }
+        }
+      ]
+    }
+  ]
+}

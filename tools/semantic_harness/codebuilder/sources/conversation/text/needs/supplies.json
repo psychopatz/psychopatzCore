@@ -1,0 +1,70 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.needs.supplies",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.needs.member.support.supplies.member",
+      "owner": "ProjectHoomans",
+      "target": "needs/member/support",
+      "entries": [
+        {
+          "key": "choice.supplies",
+          "text": {
+            "EN": "What supplies are we short on?",
+            "TL": "What supplies are we short buhay?"
+          }
+        },
+        {
+          "key": "response.supplies",
+          "text": {
+            "EN": "Food, water, and tools. The usual.",
+            "TL": "Pagkain, tubig, at mga kasangkapan. Ang karaniwan."
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.needs.neutral.support.supplies.neutral",
+      "owner": "ProjectHoomans",
+      "target": "needs/neutral/support",
+      "entries": [
+        {
+          "key": "choice.supplies",
+          "text": {
+            "EN": "Need any supplies?",
+            "TL": "Kailangan ng anumang mga supply?"
+          }
+        },
+        {
+          "key": "response.supplies",
+          "text": {
+            "EN": "Food and clean water never hurt.",
+            "TL": "Ang pagkain at malinis na tubig ay hindi nasaktan."
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.needs.special.support.supplies.special",
+      "owner": "ProjectHoomans",
+      "target": "needs/special/support",
+      "entries": [
+        {
+          "key": "choice.supplies",
+          "text": {
+            "EN": "What can I bring you?",
+            "TL": "Ano ang maaari kong dalhin sa iyo?"
+          }
+        },
+        {
+          "key": "response.supplies",
+          "text": {
+            "EN": "Just come back safely. Anything else is extra.",
+            "TL": "Bumalik ka na lang ng matiwasay. Anumang bagay ay dagdag."
+          }
+        }
+      ]
+    }
+  ]
+}

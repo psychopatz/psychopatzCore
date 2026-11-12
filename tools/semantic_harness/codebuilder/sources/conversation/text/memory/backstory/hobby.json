@@ -1,0 +1,35 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.backstory.hobby",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.backstory.facts.hobby",
+      "owner": "ProjectHoomans",
+      "target": "memory/backstory/facts",
+      "entries": [
+        {
+          "key": "hobby.fishing",
+          "text": {
+            "EN": "fishing",
+            "TL": "pangingisda"
+          }
+        },
+        {
+          "key": "hobby.gardening",
+          "text": {
+            "EN": "gardening",
+            "TL": "paghahalaman"
+          }
+        },
+        {
+          "key": "hobby.music",
+          "text": {
+            "EN": "music",
+            "TL": "musika"
+          }
+        }
+      ]
+    }
+  ]
+}

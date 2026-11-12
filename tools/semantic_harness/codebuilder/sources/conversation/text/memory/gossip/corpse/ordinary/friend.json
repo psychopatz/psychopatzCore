@@ -6,7 +6,7 @@
     {
       "catalogId": "conversation.text.memory.gossip.corpse.ordinary.friend",
       "owner": "ProjectHoomans",
-      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "target": "memory/gossip",
       "entries": [
         {
           "key": "corpse.friend.01",

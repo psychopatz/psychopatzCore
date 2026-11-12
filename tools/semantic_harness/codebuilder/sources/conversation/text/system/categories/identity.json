@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.categories.identity",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.categories.identity",
+      "owner": "ProjectHoomans",
+      "target": "system/categories",
+      "entries": [
+        {
+          "key": "identity.stranger",
+          "text": {
+            "EN": "Stranger",
+            "TL": "estranghero"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.categories.response",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.categories.response",
+      "owner": "ProjectHoomans",
+      "target": "system/categories",
+      "entries": [
+        {
+          "key": "response.ask_name",
+          "text": {
+            "EN": "They introduce themselves.",
+            "TL": "Nagpakilala sila."
+          }
+        },
+        {
+          "key": "response.departure.confirmed",
+          "text": {
+            "EN": "Understood. I will take my chances elsewhere. Remember what you chose.",
+            "TL": "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo."
+          }
+        },
+        {
+          "key": "response.departure.rejected",
+          "text": {
+            "EN": "I am not leaving with you. That decision is not yours to make right now.",
+            "TL": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon."
+          }
+        },
+        {
+          "key": "response.departure.warning",
+          "text": {
+            "EN": "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
+            "TL": "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon."
+          }
+        },
+        {
+          "key": "response.recruit.admire.1",
+          "text": {
+            "EN": "All right. I can see the sense in following someone who has earned my trust.",
+            "TL": "Sige. Nakikita ko ang kahulugan sa pagsunod sa isang taong nakakuha ng aking tiwala."
+          }
+        },
+        {
+          "key": "response.recruit.admire.2",
+          "text": {
+            "EN": "I was hoping you would ask. Give me a place in your group and I will pull my weight.",
+            "TL": "Sana magtanong ka. Bigyan mo ako ng lugar sa iyong grupo at hihilahin ko ang aking timbang."
+          }
+        },
+        {
+          "key": "response.recruit.admire.3",
+          "text": {
+            "EN": "Yes. I respect what you are building, and I would rather help than stand outside it.",
+            "TL": "Oo. Nirerespeto ko ang itinatayo mo, at mas gusto kong tumulong kaysa manatili sa labas nito."
+          }
+        },
+        {
+          "key": "response.recruit.fear.1",
+          "text": {
+            "EN": "I do not like being cornered, but I know when I am outmatched. I will come with you.",
+            "TL": "Hindi ako mahilig ma-corner, pero alam ko kapag outmatched ako. sasama ako sayo."
+          }
+        },
+        {
+          "key": "response.recruit.fear.2",
+          "text": {
+            "EN": "Fine. I will follow for now. Keep your word and we will not have a problem.",
+            "TL": "ayos lang. Susundan ko muna. Panatilihin ang iyong salita at hindi kami magkakaroon ng problema."
+          }
+        },
+        {
+          "key": "response.recruit.fear.3",
+          "text": {
+            "EN": "You have made your point. I will join, but do not mistake caution for friendship yet.",
+            "TL": "Nagawa mo na ang punto mo. Sasama ako, pero huwag mong mapagkamalang pagkakaibigan ang pag-iingat ko."
+          }
+        },
+        {
+          "key": "response.recruit.reject.cooldown.1",
+          "text": {
+            "EN": "We already had this conversation today. Give me time to think before you press me again.",
+            "TL": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin."
+          }
+        },
+        {
+          "key": "response.recruit.reject.cooldown.2",
+          "text": {
+            "EN": "Not again today. Let us see how things stand tomorrow.",
+            "TL": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas."
+          }
+        },
+        {
+          "key": "response.recruit.reject.general.1",
+          "text": {
+            "EN": "I cannot make that decision right now. There is too much working against it.",
+            "TL": "Hindi ko magawa ang desisyong iyon sa ngayon. Masyadong maraming nagtatrabaho laban dito."
+          }
+        },
+        {
+          "key": "response.recruit.reject.general.2",
+          "text": {
+            "EN": "No. I appreciate the offer, but joining you is not possible at the moment.",
+            "TL": "Hindi. Pinahahalagahan ko ang alok, ngunit hindi posible ang pagsali sa iyo sa ngayon."
+          }
+        },
+        {
+          "key": "response.recruit.reject.general.3",
+          "text": {
+            "EN": "I need to sort out a few things before I can even consider leaving with you.",
+            "TL": "Kailangan kong ayusin ang ilang bagay bago ko maisipang umalis kasama ka."
+          }
+        },
+        {
+          "key": "response.recruit.reject.hostile.1",
+          "text": {
+            "EN": "You want me to join you? Keep your distance.",
+            "TL": "Gusto mong sumama ako sa iyo? Lumayo ka."
+          }
+        },
+        {
+          "key": "response.recruit.reject.hostile.2",
+          "text": {
+            "EN": "I am not joining you. Do not mistake this conversation for trust.",
+            "TL": "Hindi ako sasama sa iyo. Huwag mong ipagkamali ang pag-uusap na ito sa tiwala."
+          }
+        },
+        {
+          "key": "response.recruit.reject.leader.1",
+          "text": {
+            "EN": "I already have people depending on me. I cannot walk away from them for your group.",
+            "TL": "May mga tao na akong umaasa sa akin. Hindi ako maaaring lumayo sa kanila para sa iyong grupo."
+          }
+        },
+        {
+          "key": "response.recruit.reject.leader.2",
+          "text": {
+            "EN": "I am responsible for this shelter. Until that changes, I am staying here.",
+            "TL": "Ako ang may pananagutan sa kanlungang ito. Hanggang sa magbago iyon, nananatili ako rito."
+          }
+        },
+        {
+          "key": "response.recruit.reject.member.1",
+          "text": {
+            "EN": "You are already with us. Ask me about orders instead of recruiting me again.",
+            "TL": "Kasama na kita. Magtanong ka na lang tungkol sa mga utos kaysa i-recruit akong muli."
+          }
+        },
+        {
+          "key": "response.recruit.reject.member.2",
+          "text": {
+            "EN": "I am already part of this group.",
+            "TL": "Bahagi na ako ng grupong ito."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.1",
+          "text": {
+            "EN": "I am not ready to put my life in your hands. We need more time before you ask that again.",
+            "TL": "Hindi pa ako handang ibigay ang buhay ko sa iyong mga kamay. Kailangan namin ng mas maraming oras bago mo itanong iyon muli."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.10",
+          "text": {
+            "EN": "Let's keep talking and see how we manage before making any commitments.",
+            "TL": "Mag-usap muna tayo at tingnan kung paano tayo magkakasundo bago magdesisyon."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.2",
+          "text": {
+            "EN": "You seem capable, but I do not know you well enough to join your group.",
+            "TL": "Mukhang may kakayahan ka, pero hindi pa kita gaanong kilala para sumama sa grupo mo."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.3",
+          "text": {
+            "EN": "That is a serious promise. We have not built enough trust for me to make it.",
+            "TL": "Seryosong pangako 'yan. Wala pa tayong sapat na tiwala para pumayag ako."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.4",
+          "text": {
+            "EN": "Out here, joining up takes real trust. We aren't there yet.",
+            "TL": "Sa panahong ito, kailangan ng matibay na tiwala bago sumama. Hindi pa tayo ganoon kalapit."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.5",
+          "text": {
+            "EN": "I'm not looking to tie myself to people I barely know.",
+            "TL": "Hindi ako basta-basta sumasama sa taong kakikilala ko pa lang."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.6",
+          "text": {
+            "EN": "We haven't been through enough together for me to make that call.",
+            "TL": "Wala pa tayong pinagsamahan para makapagdesisyon ako nang ganoon kabilis."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.7",
+          "text": {
+            "EN": "Give it time. Asking someone to join your group isn't a small thing.",
+            "TL": "Bigyan muna natin ng oras. Hindi biro ang sumama sa isang grupo."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.8",
+          "text": {
+            "EN": "I appreciate the thought, but I need to see how you operate first.",
+            "TL": "Salamat sa alok, pero gusto ko munang makita kung paano ka kumilos sa labas."
+          }
+        },
+        {
+          "key": "response.recruit.reject.relationship.9",
+          "text": {
+            "EN": "I'm surviving on my own for now until I'm certain about who has my back.",
+            "TL": "Kaya ko pa namang mag-isa sa ngayon habang hindi ko pa nasisigurado kung sino ang maaasahan ko."
+          }
+        },
+        {
+          "key": "response.recruit.reject.unavailable.1",
+          "text": {
+            "EN": "I cannot make that decision while I am unavailable.",
+            "TL": "Hindi ko magagawa ang desisyong iyon habang hindi ako available."
+          }
+        },
+        {
+          "key": "response.recruit.reject.unavailable.2",
+          "text": {
+            "EN": "This is not a conversation I can have right now.",
+            "TL": "Hindi ko maaaring pag-usapan iyan ngayon."
+          }
+        }
+      ]
+    }
+  ]
+}

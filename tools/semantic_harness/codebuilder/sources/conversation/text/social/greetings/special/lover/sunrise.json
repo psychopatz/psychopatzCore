@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.special.lover.sunrise",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.special.lover.sunrise",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/special/lover/sunrise",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Morning, love. You sleep all right?",
+            "TL": "Umaga, mahal. Matulog ka na okay?"
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "There you are. I was starting to miss you.",
+            "TL": "Narito ka pala. Nagsisimula na kitang ma-miss."
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "Good morning. Stay close today, okay?",
+            "TL": "Magandang umaga po. Manatiling malapit ngayon, okay?"
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "Seeing you first thing still makes this place feel almost normal.",
+            "TL": "Ang una mong makita ay halos normal pa rin ang pakiramdam ng lugar na ito."
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "Morning. Whatever happens today, we handle it together.",
+            "TL": "Umaga. Kung ano man ang mangyari ngayon, sabay nating haharapin."
+          }
+        }
+      ]
+    }
+  ]
+}

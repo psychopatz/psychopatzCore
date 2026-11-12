@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.neutral.first.meet.dusk",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.neutral.first.meet.dusk",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/neutral/first_meet/dusk",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Stop there. Dusk makes strangers hard to read.",
+            "TL": "Tumigil ka dyan. Dahil sa takipsilim, mahirap basahin ang mga estranghero."
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "Not much light left. Introduce yourself.",
+            "TL": "Wala nang gaanong ilaw. Magpakilala ka."
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "You surprised me. What do you want?",
+            "TL": "Nagulat mo ako. Ano ang kailangan mo?"
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "Keep your voice down and tell me why you're here.",
+            "TL": "Hinaan mo ang boses mo at sabihin sa akin kung bakit ka nandito."
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "I can't make out your face. Come no closer.",
+            "TL": "Hindi ko maaninag ang mukha mo. Huwag kang lalapit."
+          }
+        }
+      ]
+    }
+  ]
+}

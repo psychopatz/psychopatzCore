@@ -1,0 +1,28 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.backstory.education",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.backstory.facts.education",
+      "owner": "ProjectHoomans",
+      "target": "memory/backstory/facts",
+      "entries": [
+        {
+          "key": "education.nursing_program",
+          "text": {
+            "EN": "nursing program",
+            "TL": "programa sa pag-aalaga"
+          }
+        },
+        {
+          "key": "education.trade_school",
+          "text": {
+            "EN": "trade school",
+            "TL": "paaralang teknikal"
+          }
+        }
+      ]
+    }
+  ]
+}

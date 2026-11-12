@@ -1,0 +1,42 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.categories.semantic",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.categories.semantic",
+      "owner": "ProjectHoomans",
+      "target": "system/categories",
+      "entries": [
+        {
+          "key": "semantic.gift.preference.dislike",
+          "text": {
+            "EN": "I don't like that.",
+            "TL": "Ayaw ko niyan."
+          }
+        },
+        {
+          "key": "semantic.gift.preference.like",
+          "text": {
+            "EN": "I like that.",
+            "TL": "Gusto ko iyan."
+          }
+        },
+        {
+          "key": "semantic.gift.preference.neutral",
+          "text": {
+            "EN": "I don't have a strong preference.",
+            "TL": "Wala akong matinding kagustuhan tungkol diyan."
+          }
+        },
+        {
+          "key": "semantic.gift.preference.unknown",
+          "text": {
+            "EN": "I'm not sure which item you mean.",
+            "TL": "Hindi ko alam kung anong gamit ang tinutukoy mo."
+          }
+        }
+      ]
+    }
+  ]
+}

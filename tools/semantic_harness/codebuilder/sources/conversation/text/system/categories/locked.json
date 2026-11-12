@@ -1,0 +1,28 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.categories.locked",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.categories.locked",
+      "owner": "ProjectHoomans",
+      "target": "system/categories",
+      "entries": [
+        {
+          "key": "locked.approval",
+          "text": {
+            "EN": "This relationship is not close enough yet.",
+            "TL": "Hindi pa sapat ang lalim ng relasyong ito."
+          }
+        },
+        {
+          "key": "locked.familiarity",
+          "text": {
+            "EN": "You do not know each other well enough yet.",
+            "TL": "Hindi pa sapat ang pagkakakilala ninyo sa isa't isa."
+          }
+        }
+      ]
+    }
+  ]
+}

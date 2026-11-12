@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.neutral.acquaintance.dusk",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.neutral.acquaintance.dusk",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/neutral/acquaintance/dusk",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Evening. Need something before we turn in?",
+            "TL": "Gabi. Kailangan mo ng isang bagay bago tayo lumiko?"
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "Good, it's only you. You startled me.",
+            "TL": "Buti, ikaw lang. Ginulat mo ako."
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "Not much daylight left. Talk to me.",
+            "TL": "Wala na masyadong liwanag ng araw. kausapin mo ako."
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "Hey. Keeping watch, or just passing by?",
+            "TL": "Hey. Nagmamasid, o dumadaan lang?"
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "We should keep this quiet, but I'm listening.",
+            "TL": "Dapat tahimik lang tayo rito, pero nakikinig ako."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.backstory.hometown",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.backstory.facts.hometown",
+      "owner": "ProjectHoomans",
+      "target": "memory/backstory/facts",
+      "entries": [
+        {
+          "key": "hometown.louisville",
+          "text": {
+            "EN": "Louisville",
+            "TL": "Louisville"
+          }
+        },
+        {
+          "key": "hometown.riverside",
+          "text": {
+            "EN": "Riverside",
+            "TL": "Riverside"
+          }
+        },
+        {
+          "key": "hometown.rosewood",
+          "text": {
+            "EN": "Rosewood",
+            "TL": "Rosewood"
+          }
+        },
+        {
+          "key": "hometown.west_point",
+          "text": {
+            "EN": "West Point",
+            "TL": "West Point"
+          }
+        }
+      ]
+    }
+  ]
+}

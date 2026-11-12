@@ -1,0 +1,91 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.wellbeing.condition",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.wellbeing.member.condition.member",
+      "owner": "ProjectHoomans",
+      "target": "social/wellbeing/member",
+      "entries": [
+        {
+          "key": "choice.condition",
+          "text": {
+            "EN": "How are you holding up?",
+            "TL": "Kamusta ka na?"
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "Still standing. Go ahead.",
+            "TL": "Nakatayo pa rin. Sige na."
+          }
+        },
+        {
+          "key": "response.condition",
+          "text": {
+            "EN": "Tired, but ready if the group needs me.",
+            "TL": "Tired, but ready if the grupo needs me."
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.social.wellbeing.neutral.condition.neutral",
+      "owner": "ProjectHoomans",
+      "target": "social/wellbeing/neutral",
+      "entries": [
+        {
+          "key": "choice.condition",
+          "text": {
+            "EN": "How are you holding up?",
+            "TL": "Kamusta ka na?"
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "I'm managing. What did you want to ask?",
+            "TL": "pinamamahalaan ko. Ano ang gusto mong itanong?"
+          }
+        },
+        {
+          "key": "response.condition",
+          "text": {
+            "EN": "I'm still breathing. That's enough for now.",
+            "TL": "humihinga pa ako. Tama na sa ngayon."
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.social.wellbeing.special.condition.special",
+      "owner": "ProjectHoomans",
+      "target": "social/wellbeing/special",
+      "entries": [
+        {
+          "key": "choice.condition",
+          "text": {
+            "EN": "How are you really doing?",
+            "TL": "Kamusta ka na talaga?"
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "I'll be honest with you, {playerFirstName}. Ask.",
+            "TL": "Magiging tapat ako sa iyo, {playerFirstName}. Magtanong."
+          }
+        },
+        {
+          "key": "response.condition",
+          "text": {
+            "EN": "Better now that you're here.",
+            "TL": "Mas mabuti na ngayong nandito ka na."
+          }
+        }
+      ]
+    }
+  ]
+}

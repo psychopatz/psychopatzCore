@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.special.lover.dusk",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.special.lover.dusk",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/special/lover/dusk",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Stay with me a minute before night watch.",
+            "TL": "Manatili sa akin ng isang minuto bago manood ng gabi."
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "Evening, love. You look exhausted.",
+            "TL": "Gabi, mahal. Mukha kang pagod."
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "You're safe. I can breathe again.",
+            "TL": "Ligtas ka. Muli na akong makahihinga."
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "Come closer. We don't get many quiet moments.",
+            "TL": "Lumapit ka. Hindi kami nakakakuha ng maraming tahimik na sandali."
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "I saved you a place by me.",
+            "TL": "Iniligtas kita ng isang lugar sa tabi ko."
+          }
+        }
+      ]
+    }
+  ]
+}

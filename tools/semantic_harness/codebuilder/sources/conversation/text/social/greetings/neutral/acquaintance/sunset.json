@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.neutral.acquaintance.sunset",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.neutral.acquaintance.sunset",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/neutral/acquaintance/sunset",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Hey. Been a long day?",
+            "TL": "Hey. Isang mahabang araw?"
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "Good timing. I was about to settle in.",
+            "TL": "Magandang timing. Malapit na akong tumira."
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "There you are. Find anything useful today?",
+            "TL": "Narito ka pala. May nakita ka bang kapaki-pakinabang ngayon?"
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "The day's winding down. What's up?",
+            "TL": "Palubog na ang araw. Anong meron?"
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "You look tired. Everything okay?",
+            "TL": "Mukha kang pagod. Ayos ka lang ba?"
+          }
+        }
+      ]
+    }
+  ]
+}

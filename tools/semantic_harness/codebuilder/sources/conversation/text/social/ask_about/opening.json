@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.ask.about.opening",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.ask.about.member.opening.member",
+      "owner": "ProjectHoomans",
+      "target": "social/ask_about/member",
+      "entries": [
+        {
+          "key": "opening",
+          "text": {
+            "EN": "Go ahead, {playerFirstName}. What do you want to ask about?",
+            "TL": "Sige, {playerFirstName}. Ano ang gusto mong itanong?"
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.social.ask.about.neutral.opening.neutral",
+      "owner": "ProjectHoomans",
+      "target": "social/ask_about/neutral",
+      "entries": [
+        {
+          "key": "opening",
+          "text": {
+            "EN": "What do you want to know?",
+            "TL": "Ano ang gusto mong malaman?"
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.social.ask.about.special.opening.special",
+      "owner": "ProjectHoomans",
+      "target": "social/ask_about/special",
+      "entries": [
+        {
+          "key": "opening",
+          "text": {
+            "EN": "You can ask me anything, {playerFirstName}.",
+            "TL": "Maaari mo akong tanungin tungkol sa kahit ano, {playerFirstName}."
+          }
+        }
+      ]
+    }
+  ]
+}

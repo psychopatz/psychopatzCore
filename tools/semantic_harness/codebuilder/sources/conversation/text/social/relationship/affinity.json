@@ -1,0 +1,42 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.relationship.affinity",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.relationship.special.affinity",
+      "owner": "ProjectHoomans",
+      "target": "social/relationship/special/affinity",
+      "entries": [
+        {
+          "key": "choice.us",
+          "text": {
+            "EN": "Can we talk about us?",
+            "TL": "Maaari ba nating pag-usapan ang tungkol sa atin?"
+          }
+        },
+        {
+          "key": "locked.approval",
+          "text": {
+            "EN": "This relationship is not close enough yet.",
+            "TL": "Hindi pa sapat ang pagiging malapit ng relasyong ito."
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "I'm listening, {playerFirstName}. Say what you need to say.",
+            "TL": "Nakikinig ako, {playerFirstName}. Sabihin ang kailangan mong sabihin."
+          }
+        },
+        {
+          "key": "response.us",
+          "text": {
+            "EN": "Yes. We probably should.",
+            "TL": "Oo. Malamang dapat nga."
+          }
+        }
+      ]
+    }
+  ]
+}

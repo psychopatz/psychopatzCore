@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.special.lover.twilight",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.special.lover.twilight",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/special/lover/twilight",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Can't sleep? Neither can I.",
+            "TL": "Hindi makatulog? Hindi ko rin kaya."
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "It's all right. I'm here.",
+            "TL": "ayos lang. nandito ako."
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "Come sit with me. We can keep watch together.",
+            "TL": "Halika upo sa akin. Maaari tayong magbantay nang magkasama."
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "You scared me walking around this late.",
+            "TL": "Tinakot mo ako sa paglalakad nang ganito kagabi."
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "Stay close tonight. I mean it.",
+            "TL": "Manatili kang malapit ngayong gabi. Seryoso ako."
+          }
+        }
+      ]
+    }
+  ]
+}

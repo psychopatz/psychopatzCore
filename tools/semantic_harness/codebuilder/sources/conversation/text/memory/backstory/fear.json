@@ -1,0 +1,28 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.backstory.fear",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.backstory.facts.fear",
+      "owner": "ProjectHoomans",
+      "target": "memory/backstory/facts",
+      "entries": [
+        {
+          "key": "fear.fire",
+          "text": {
+            "EN": "fire",
+            "TL": "sunog"
+          }
+        },
+        {
+          "key": "fear.isolation",
+          "text": {
+            "EN": "being alone",
+            "TL": "pag-iisa"
+          }
+        }
+      ]
+    }
+  ]
+}

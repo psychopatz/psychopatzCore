@@ -1,0 +1,42 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.dynamic.trading.caravan.referral",
+  "owner": "DTCommon",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.dynamic.trading.caravan.referral.guard",
+      "owner": "DTCommon",
+      "target": "dynamic_trading/caravan/referral/guard",
+      "entries": [
+        {
+          "key": "category.caravan_referral",
+          "text": {
+            "EN": "Caravan",
+            "TL": "Karabana"
+          }
+        },
+        {
+          "key": "choice.trader_referral",
+          "text": {
+            "EN": "Who handles the trading?",
+            "TL": "Sino ang namamahala sa kalakalan?"
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "I am only here to keep watch. What do you need?",
+            "TL": "Narito lang ako para magbantay. Ano ang kailangan mo?"
+          }
+        },
+        {
+          "key": "response.trader_referral",
+          "text": {
+            "EN": "I am just a mercenary. Our trader handles the deals.",
+            "TL": "Mercenary lang ako. Ang trader namin ang namamahala sa mga kasunduan."
+          }
+        }
+      ]
+    }
+  ]
+}

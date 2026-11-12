@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.debugger.title",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.debugger.title",
+      "owner": "ProjectHoomans",
+      "target": "system/debugger",
+      "entries": [
+        {
+          "key": "title",
+          "text": {
+            "EN": "CONVERSATION BLOCK DEBUGGER",
+            "TL": "DEBUGGER NG PAG-UUSAP BLOCK"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,7 @@
     {
       "catalogId": "conversation.text.memory.gossip.reactions.negative.mockery",
       "owner": "ProjectHoomans",
-      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "target": "memory/gossip",
       "entries": [
         {
           "key": "negative.mockery.gear",

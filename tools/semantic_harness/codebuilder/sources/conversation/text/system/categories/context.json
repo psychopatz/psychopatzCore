@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.categories.context",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.categories.context",
+      "owner": "ProjectHoomans",
+      "target": "system/categories",
+      "entries": [
+        {
+          "key": "context.talk",
+          "text": {
+            "EN": "Talk",
+            "TL": "Mag-usap"
+          }
+        }
+      ]
+    }
+  ]
+}

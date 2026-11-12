@@ -27,6 +27,23 @@ def _relative_path(value: Any, *, field: str) -> str:
     return path.as_posix()
 
 
+def _output_path_for_target(value: Any, *, catalog_id: str) -> str:
+    """Validate a semantic target and map it to its runtime JSON path."""
+
+    target = _relative_path(value, field="target")
+    if target.endswith(".json"):
+        raise ValueError(
+            f"Conversation text target must omit the .json extension: {catalog_id}"
+        )
+    forbidden = {"basic", "default", "shared"}
+    if any(part in forbidden for part in PurePosixPath(target).parts):
+        raise ValueError(
+            "Conversation text target contains a generic segment "
+            f"({target!r}); use a semantic catalog name: {catalog_id}"
+        )
+    return f"Conversation/Text/{target}.json"
+
+
 def _load_catalogs(manifest_path: Path) -> list[dict[str, Any]]:
     manifest = _load_object(manifest_path)
     if manifest.get("schema") != CONVERSATION_TEXT_MANIFEST_SCHEMA:
@@ -88,24 +105,23 @@ def write_runtime_text_catalogs(
     catalogs = _load_catalogs(Path(manifest_path).expanduser().resolve())
     runtime_root = Path(runtime_translation_root).expanduser().resolve()
     grouped: dict[str, list[dict[str, Any]]] = {}
-    keys_by_runtime: dict[str, set[str]] = {}
+    keys_by_output: dict[str, set[str]] = {}
     for catalog in catalogs:
         if owner is not None and catalog.get("owner") != owner:
             continue
         entries = catalog.get("entries")
         if not isinstance(entries, list):
             raise ValueError(f"Conversation text requires entries: {catalog['catalogId']}")
-        runtime_path = catalog.get("runtimePath")
-        if not isinstance(runtime_path, str) or not runtime_path.startswith(
-            "Conversation/Text/"
-        ):
+        if "runtimePath" in catalog:
             raise ValueError(
-                "Conversation text runtimePath must be under "
-                f"Conversation/Text/: {runtime_path!r}"
+                "Conversation text catalogs use semantic target, not runtimePath: "
+                f"{catalog['catalogId']}"
             )
-        relative_runtime_path = _relative_path(runtime_path, field="runtimePath")
-        grouped.setdefault(relative_runtime_path, []).append(catalog)
-        seen_keys = keys_by_runtime.setdefault(relative_runtime_path, set())
+        relative_output_path = _output_path_for_target(
+            catalog.get("target"), catalog_id=catalog["catalogId"]
+        )
+        grouped.setdefault(relative_output_path, []).append(catalog)
+        seen_keys = keys_by_output.setdefault(relative_output_path, set())
         for item in entries:
             if not isinstance(item, dict):
                 raise ValueError("Conversation text entries must be objects")
@@ -115,7 +131,7 @@ def write_runtime_text_catalogs(
                 raise ValueError("Conversation text entry requires a string ID")
             if key in seen_keys:
                 raise ValueError(
-                    f"duplicate Conversation text key in {relative_runtime_path}: {key}"
+                    f"duplicate Conversation text key in {relative_output_path}: {key}"
                 )
             if not isinstance(text, dict):
                 raise ValueError(f"Conversation text entry {key} requires inline locale text")
@@ -125,16 +141,33 @@ def write_runtime_text_catalogs(
                     raise ValueError(f"missing {language} text for Conversation text key: {key}")
             seen_keys.add(key)
 
+    desired_outputs = set(grouped)
+    for language in LOCALES:
+        language_root = runtime_root / language
+        text_root = language_root / "Conversation" / "Text"
+        if not text_root.is_dir():
+            continue
+        for path in sorted(text_root.rglob("*.json")):
+            relative = path.relative_to(language_root).as_posix()
+            if relative not in desired_outputs:
+                path.unlink()
+        for directory in sorted(text_root.rglob("*"), reverse=True):
+            if directory.is_dir():
+                try:
+                    directory.rmdir()
+                except OSError:
+                    pass
+
     rendered_paths: list[Path] = []
     for language in LOCALES:
-        for relative_runtime_path in sorted(grouped):
+        for relative_output_path in sorted(grouped):
             values: dict[str, str] = {}
-            for catalog in grouped[relative_runtime_path]:
+            for catalog in grouped[relative_output_path]:
                 for item in catalog["entries"]:
                     key = item["key"]
                     localized = item["text"][language]
                     values[key] = localized
-            path = runtime_root / language / Path(*PurePosixPath(relative_runtime_path).parts)
+            path = runtime_root / language / Path(*PurePosixPath(relative_output_path).parts)
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(
                 json.dumps(values, ensure_ascii=False, indent=2) + "\n",

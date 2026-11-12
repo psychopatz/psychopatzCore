@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.member.member.sunrise",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.member.member.sunrise",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/member/sunrise",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Morning. Ready when you are.",
+            "TL": "Umaga. Handa kung kailan ka na."
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "Good, you're here. What are we doing today?",
+            "TL": "Buti nandito ka. Ano ang ginagawa natin ngayon?"
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "Another day with the crew. Could be worse.",
+            "TL": "Panibagong araw kasama ang crew. Maaaring mas masahol pa."
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "Morning. Supplies are holding for now.",
+            "TL": "Umaga. Ang mga suplay ay hawak sa ngayon."
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "I was about to look for you. What's up?",
+            "TL": "Hinahanap na sana kita. Anong meron?"
+          }
+        }
+      ]
+    }
+  ]
+}

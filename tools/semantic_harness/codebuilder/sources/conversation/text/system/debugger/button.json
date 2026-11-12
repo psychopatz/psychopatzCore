@@ -1,0 +1,105 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.debugger.button",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.debugger.button",
+      "owner": "ProjectHoomans",
+      "target": "system/debugger",
+      "entries": [
+        {
+          "key": "button.approval_down",
+          "text": {
+            "EN": "Approval -5",
+            "TL": "Pag-apruba -5"
+          }
+        },
+        {
+          "key": "button.approval_up",
+          "text": {
+            "EN": "Approval +5",
+            "TL": "Pag-apruba +5"
+          }
+        },
+        {
+          "key": "button.audience",
+          "text": {
+            "EN": "Audience: {audience}",
+            "TL": "Target na tagapakinig: {audience}"
+          }
+        },
+        {
+          "key": "button.familiarity_down",
+          "text": {
+            "EN": "Familiarity -5",
+            "TL": "Pamilyar -5"
+          }
+        },
+        {
+          "key": "button.familiarity_up",
+          "text": {
+            "EN": "Familiarity +5",
+            "TL": "Pamilyar +5"
+          }
+        },
+        {
+          "key": "button.history",
+          "text": {
+            "EN": "History uses: {uses}",
+            "TL": "Ginagamit ng kasaysayan ang: {uses}"
+          }
+        },
+        {
+          "key": "button.hour",
+          "text": {
+            "EN": "Hour: {hour}",
+            "TL": "Oras: {hour}"
+          }
+        },
+        {
+          "key": "button.personality",
+          "text": {
+            "EN": "Gate personality +0.1",
+            "TL": "Gate personalidad +0.1"
+          }
+        },
+        {
+          "key": "button.refresh",
+          "text": {
+            "EN": "Refresh",
+            "TL": "I-refresh"
+          }
+        },
+        {
+          "key": "button.respect_down",
+          "text": {
+            "EN": "Respect -5",
+            "TL": "Paggalang -5"
+          }
+        },
+        {
+          "key": "button.respect_up",
+          "text": {
+            "EN": "Respect +5",
+            "TL": "Paggalang +5"
+          }
+        },
+        {
+          "key": "button.simulate",
+          "text": {
+            "EN": "Open Sandbox Conversation",
+            "TL": "Buksan ang Pag-uusap sa Sandbox"
+          }
+        },
+        {
+          "key": "button.skill",
+          "text": {
+            "EN": "Gate skill +1",
+            "TL": "Kasanayan sa gate +1"
+          }
+        }
+      ]
+    }
+  ]
+}

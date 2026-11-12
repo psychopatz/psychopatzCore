@@ -3,23 +3,58 @@
   "sourceSchema": "psychopatz.semantic.text-source.v1",
   "sources": [
     {
-      "path": "ask_about.json",
-      "sourceId": "conversation.content.ask.about",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "path": "backstory.json",
-      "sourceId": "conversation.content.backstory",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "path": "caravan.json",
-      "sourceId": "conversation.content.caravan",
+      "path": "dynamic_trading/caravan/referral.json",
+      "sourceId": "conversation.content.dynamic.trading.caravan.referral",
       "owner": "DTCommon"
     },
     {
-      "path": "goodbye.json",
-      "sourceId": "conversation.content.goodbye",
+      "path": "dynamic_trading/trade/opening.json",
+      "sourceId": "conversation.content.dynamic.trading.trade.opening",
+      "owner": "DTCommon"
+    },
+    {
+      "path": "memory/backstory/education.json",
+      "sourceId": "conversation.content.memory.backstory.education",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/backstory/family.json",
+      "sourceId": "conversation.content.memory.backstory.family",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/backstory/fear.json",
+      "sourceId": "conversation.content.memory.backstory.fear",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/backstory/hobby.json",
+      "sourceId": "conversation.content.memory.backstory.hobby",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/backstory/hometown.json",
+      "sourceId": "conversation.content.memory.backstory.hometown",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/backstory/occupation.json",
+      "sourceId": "conversation.content.memory.backstory.occupation",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/backstory/survival.json",
+      "sourceId": "conversation.content.memory.backstory.survival",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/backstory/tragedy.json",
+      "sourceId": "conversation.content.memory.backstory.tragedy",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/backstory/value.json",
+      "sourceId": "conversation.content.memory.backstory.value",
       "owner": "ProjectHoomans"
     },
     {
@@ -88,13 +123,13 @@
       "owner": "ProjectHoomans"
     },
     {
-      "path": "memory/gossip/reactions/neutral/survival.json",
-      "sourceId": "conversation.content.memory.gossip.reactions.neutral.survival",
+      "path": "memory/gossip/reactions/neutral/sighting.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.neutral.sighting",
       "owner": "ProjectHoomans"
     },
     {
-      "path": "memory/gossip/reactions/neutral/sighting.json",
-      "sourceId": "conversation.content.memory.gossip.reactions.neutral.sighting",
+      "path": "memory/gossip/reactions/neutral/survival.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.neutral.survival",
       "owner": "ProjectHoomans"
     },
     {
@@ -118,63 +153,273 @@
       "owner": "ProjectHoomans"
     },
     {
-      "path": "greetings.json",
-      "sourceId": "conversation.content.greetings",
+      "path": "needs/gifts.json",
+      "sourceId": "conversation.content.needs.gifts",
       "owner": "ProjectHoomans"
     },
     {
-      "path": "needs.json",
-      "sourceId": "conversation.content.needs",
+      "path": "needs/medical.json",
+      "sourceId": "conversation.content.needs.medical",
       "owner": "ProjectHoomans"
     },
     {
-      "path": "personal.json",
-      "sourceId": "conversation.content.personal",
+      "path": "needs/supplies.json",
+      "sourceId": "conversation.content.needs.supplies",
       "owner": "ProjectHoomans"
     },
     {
-      "path": "relationship.json",
-      "sourceId": "conversation.content.relationship",
+      "path": "social/ask_about/background.json",
+      "sourceId": "conversation.content.social.ask.about.background",
       "owner": "ProjectHoomans"
     },
     {
-      "path": "set_territory.json",
-      "sourceId": "conversation.content.set.territory",
+      "path": "social/ask_about/opening.json",
+      "sourceId": "conversation.content.social.ask.about.opening",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/ask_about/skills.json",
+      "sourceId": "conversation.content.social.ask.about.skills",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/goodbye/closing.json",
+      "sourceId": "conversation.content.social.goodbye.closing",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/ambient_visit/arrival.json",
+      "sourceId": "conversation.content.social.greetings.ambient.visit.arrival",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/hostile/parley.json",
+      "sourceId": "conversation.content.social.greetings.hostile.parley",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/member/dawn.json",
+      "sourceId": "conversation.content.social.greetings.member.member.dawn",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/member/dusk.json",
+      "sourceId": "conversation.content.social.greetings.member.member.dusk",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/member/sunrise.json",
+      "sourceId": "conversation.content.social.greetings.member.member.sunrise",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/member/sunset.json",
+      "sourceId": "conversation.content.social.greetings.member.member.sunset",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/member/twilight.json",
+      "sourceId": "conversation.content.social.greetings.member.member.twilight",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/acquaintance/dawn.json",
+      "sourceId": "conversation.content.social.greetings.neutral.acquaintance.dawn",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/acquaintance/dusk.json",
+      "sourceId": "conversation.content.social.greetings.neutral.acquaintance.dusk",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/acquaintance/sunrise.json",
+      "sourceId": "conversation.content.social.greetings.neutral.acquaintance.sunrise",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/acquaintance/sunset.json",
+      "sourceId": "conversation.content.social.greetings.neutral.acquaintance.sunset",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/acquaintance/twilight.json",
+      "sourceId": "conversation.content.social.greetings.neutral.acquaintance.twilight",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/first_meet/dawn.json",
+      "sourceId": "conversation.content.social.greetings.neutral.first.meet.dawn",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/first_meet/dusk.json",
+      "sourceId": "conversation.content.social.greetings.neutral.first.meet.dusk",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/first_meet/sunrise.json",
+      "sourceId": "conversation.content.social.greetings.neutral.first.meet.sunrise",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/first_meet/sunset.json",
+      "sourceId": "conversation.content.social.greetings.neutral.first.meet.sunset",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/neutral/first_meet/twilight.json",
+      "sourceId": "conversation.content.social.greetings.neutral.first.meet.twilight",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/settlement_admission/arrival.json",
+      "sourceId": "conversation.content.social.greetings.settlement.admission.arrival",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/special/lover/dawn.json",
+      "sourceId": "conversation.content.social.greetings.special.lover.dawn",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/special/lover/dusk.json",
+      "sourceId": "conversation.content.social.greetings.special.lover.dusk",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/special/lover/sunrise.json",
+      "sourceId": "conversation.content.social.greetings.special.lover.sunrise",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/special/lover/sunset.json",
+      "sourceId": "conversation.content.social.greetings.special.lover.sunset",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/greetings/special/lover/twilight.json",
+      "sourceId": "conversation.content.social.greetings.special.lover.twilight",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/personal/trust.json",
+      "sourceId": "conversation.content.social.personal.trust",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/relationship/affinity.json",
+      "sourceId": "conversation.content.social.relationship.affinity",
       "owner": "ProjectHoomans"
     },
     {
       "path": "social/small_talk/opening.json",
-      "sourceId": "conversation.content.small.talk.opening",
+      "sourceId": "conversation.content.social.small.talk.opening",
       "owner": "ProjectHoomans"
     },
     {
       "path": "social/small_talk/quiet_day.json",
-      "sourceId": "conversation.content.small.talk.quiet_day",
+      "sourceId": "conversation.content.social.small.talk.quiet_day",
       "owner": "ProjectHoomans"
     },
     {
       "path": "social/small_talk/weather.json",
-      "sourceId": "conversation.content.small.talk.weather",
+      "sourceId": "conversation.content.social.small.talk.weather",
       "owner": "ProjectHoomans"
     },
     {
-      "path": "system.json",
-      "sourceId": "conversation.content.system",
+      "path": "social/territory/claim.json",
+      "sourceId": "conversation.content.social.territory.claim",
       "owner": "ProjectHoomans"
     },
     {
-      "path": "trader.json",
-      "sourceId": "conversation.content.trader",
-      "owner": "DTCommon"
-    },
-    {
-      "path": "wellbeing.json",
-      "sourceId": "conversation.content.wellbeing",
+      "path": "social/wellbeing/condition.json",
+      "sourceId": "conversation.content.social.wellbeing.condition",
       "owner": "ProjectHoomans"
     },
     {
-      "path": "work_orders.json",
-      "sourceId": "conversation.content.work.orders",
+      "path": "social/wellbeing/offer_help.json",
+      "sourceId": "conversation.content.social.wellbeing.offer.help",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/category.json",
+      "sourceId": "conversation.content.system.categories.category",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/choice.json",
+      "sourceId": "conversation.content.system.categories.choice",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/context.json",
+      "sourceId": "conversation.content.system.categories.context",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/identity.json",
+      "sourceId": "conversation.content.system.categories.identity",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/llm.json",
+      "sourceId": "conversation.content.system.categories.llm",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/locked.json",
+      "sourceId": "conversation.content.system.categories.locked",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/panel.json",
+      "sourceId": "conversation.content.system.categories.panel",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/response.json",
+      "sourceId": "conversation.content.system.categories.response",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/semantic.json",
+      "sourceId": "conversation.content.system.categories.semantic",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/categories/status.json",
+      "sourceId": "conversation.content.system.categories.status",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/debugger/button.json",
+      "sourceId": "conversation.content.system.debugger.button",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/debugger/detail.json",
+      "sourceId": "conversation.content.system.debugger.detail",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/debugger/sandbox.json",
+      "sourceId": "conversation.content.system.debugger.sandbox",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/debugger/status.json",
+      "sourceId": "conversation.content.system.debugger.status",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system/debugger/title.json",
+      "sourceId": "conversation.content.system.debugger.title",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "work_orders/status.json",
+      "sourceId": "conversation.content.work.orders.status",
       "owner": "ProjectHoomans"
     }
   ]

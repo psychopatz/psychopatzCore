@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.ambient.visit.arrival",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.ambient.visit.arrival",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/ambient_visit/arrival",
+      "entries": [
+        {
+          "key": "response.ambient_visit.accepted.1",
+          "text": {
+            "EN": "Thank you. I could use somewhere safe to rest for a while.",
+            "TL": "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga."
+          }
+        }
+      ]
+    }
+  ]
+}

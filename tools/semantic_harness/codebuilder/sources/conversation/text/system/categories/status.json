@@ -1,0 +1,35 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.categories.status",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.categories.status",
+      "owner": "ProjectHoomans",
+      "target": "system/categories",
+      "entries": [
+        {
+          "key": "status.block_unavailable",
+          "text": {
+            "EN": "That topic is not available right now ({reason}).",
+            "TL": "Ang paksang iyon ay hindi available sa ngayon ({reason})."
+          }
+        },
+        {
+          "key": "status.choice_rejected",
+          "text": {
+            "EN": "That choice was rejected ({reason}).",
+            "TL": "Tinanggihan ang pagpipiliang iyon ({reason})."
+          }
+        },
+        {
+          "key": "status.loading",
+          "text": {
+            "EN": "Checking what you know...",
+            "TL": "Sinusuri kung ano ang iyong nalalaman..."
+          }
+        }
+      ]
+    }
+  ]
+}

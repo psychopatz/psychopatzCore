@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.neutral.first.meet.dawn",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.neutral.first.meet.dawn",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/neutral/first_meet/dawn",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "Hold there. I don't know you, and dawn is a strange time for introductions.",
+            "TL": "Humawak ka dyan. Hindi kita kilala, at ang bukang-liwayway ay isang kakaibang oras para sa pagpapakilala."
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "You're up before the dead settle down. Who are you?",
+            "TL": "Gising ka bago pa manahimik ang mga patay. Sino ka?"
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "Easy. The light is barely up, and I wasn't expecting company.",
+            "TL": "Madali. Bahagyang nakapatay ang ilaw, at hindi ko inaasahan ang makakasama ko."
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "Morning, I suppose. Keep your hands where I can see them.",
+            "TL": "Umaga, kumbaga. Itago ang iyong mga kamay kung saan ko sila makikita."
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "First light and a new face. Tell me what you need.",
+            "TL": "Unang liwanag at bagong mukha. Sabihin mo sa akin kung ano ang kailangan mo."
+          }
+        }
+      ]
+    }
+  ]
+}

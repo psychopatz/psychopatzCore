@@ -1,0 +1,77 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.categories.choice",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.categories.choice",
+      "owner": "ProjectHoomans",
+      "target": "system/categories",
+      "entries": [
+        {
+          "key": "choice.ambient_visit",
+          "text": {
+            "EN": "You can stay with us for a while if you need a safe place.",
+            "TL": "Maaari kang manatili muna sa amin kung kailangan mo ng ligtas na lugar."
+          }
+        },
+        {
+          "key": "choice.ask_name",
+          "text": {
+            "EN": "What's your name?",
+            "TL": "Ano ang pangalan mo?"
+          }
+        },
+        {
+          "key": "choice.disband",
+          "text": {
+            "EN": "Tell them to leave the group",
+            "TL": "Sabihin sa kanila na umalis sa grupo"
+          }
+        },
+        {
+          "key": "choice.disband_cancel",
+          "text": {
+            "EN": "No. Keep talking.",
+            "TL": "Hindi. Patuloy na magsalita."
+          }
+        },
+        {
+          "key": "choice.disband_confirm",
+          "text": {
+            "EN": "Yes. I understand they will leave us.",
+            "TL": "Oo. Naiintindihan kong aalis sila sa atin."
+          }
+        },
+        {
+          "key": "choice.recruit",
+          "text": {
+            "EN": "Would you like to join us?",
+            "TL": "Gusto mo bang sumali sa amin?"
+          }
+        },
+        {
+          "key": "choice.settlement_admission",
+          "text": {
+            "EN": "You can have a place with us if you want it.",
+            "TL": "Maaari kang magkaroon ng lugar sa amin kung gusto mo."
+          }
+        },
+        {
+          "key": "choice.show_debug_text",
+          "text": {
+            "EN": "Show Debug Text",
+            "TL": "Ipakita ang Debug Text"
+          }
+        },
+        {
+          "key": "choice.view_dossier",
+          "text": {
+            "EN": "View dossier",
+            "TL": "Tingnan ang dossier"
+          }
+        }
+      ]
+    }
+  ]
+}

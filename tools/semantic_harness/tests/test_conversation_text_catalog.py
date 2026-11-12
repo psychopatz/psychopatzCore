@@ -23,9 +23,9 @@ class ConversationTextCatalogTests(unittest.TestCase):
             "owner": "ProjectHoomans",
             "catalogs": [
                 {
-                    "catalogId": "conversation.text.greetings.neutral.basic",
+                    "catalogId": "conversation.text.greetings.neutral.opening",
                     "owner": "ProjectHoomans",
-                    "runtimePath": "Conversation/Text/greetings/neutral/basic.json",
+                    "target": "greetings/neutral/opening",
                     "entries": [
                         {
                             "key": "opening",
@@ -36,7 +36,7 @@ class ConversationTextCatalogTests(unittest.TestCase):
                 {
                     "catalogId": "conversation.text.greetings.neutral.weather",
                     "owner": "ProjectHoomans",
-                    "runtimePath": "Conversation/Text/greetings/neutral/basic.json",
+                    "target": "greetings/neutral/opening",
                     "entries": [
                         {
                             "key": "weather",
@@ -76,14 +76,14 @@ class ConversationTextCatalogTests(unittest.TestCase):
             self.assertEqual(len(paths), 2)
             self.assertEqual(
                 json.loads(
-                    (runtime / "EN/Conversation/Text/greetings/neutral/basic.json")
+                    (runtime / "EN/Conversation/Text/greetings/neutral/opening.json")
                     .read_text(encoding="utf-8")
                 ),
                 {"opening": "Hello.", "weather": "Nice weather."},
             )
             self.assertEqual(
                 json.loads(
-                    (runtime / "TL/Conversation/Text/greetings/neutral/basic.json")
+                    (runtime / "TL/Conversation/Text/greetings/neutral/opening.json")
                     .read_text(encoding="utf-8")
                 ),
                 {"opening": "Kumusta.", "weather": "Magandang panahon."},
@@ -96,6 +96,17 @@ class ConversationTextCatalogTests(unittest.TestCase):
 
             self.assertEqual(paths, [])
             self.assertFalse((runtime / "EN").exists())
+
+    def test_rendering_prunes_stale_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source, runtime = self._fixture(Path(temporary))
+            stale = runtime / "EN/Conversation/Text/old/obsolete.json"
+            stale.parent.mkdir(parents=True)
+            stale.write_text("{}\n", encoding="utf-8")
+
+            write_runtime_text_catalogs(source, runtime)
+
+            self.assertFalse(stale.exists())
 
     def test_duplicate_catalog_ids_across_sources_are_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -147,6 +158,38 @@ class ConversationTextCatalogTests(unittest.TestCase):
             source.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
             with self.assertRaisesRegex(ValueError, "duplicate Conversation text key"):
+                write_runtime_text_catalogs(source, runtime)
+
+    def test_generic_targets_are_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source, runtime = self._fixture(Path(temporary))
+            source_root = source.parent
+            document = json.loads(
+                (source_root / "greetings.json").read_text(encoding="utf-8")
+            )
+            document["catalogs"][0]["target"] = "greetings/neutral/basic"
+            (source_root / "greetings.json").write_text(
+                json.dumps(document, indent=2) + "\n", encoding="utf-8"
+            )
+
+            with self.assertRaisesRegex(ValueError, "generic segment"):
+                write_runtime_text_catalogs(source, runtime)
+
+    def test_runtime_paths_are_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source, runtime = self._fixture(Path(temporary))
+            source_root = source.parent
+            document = json.loads(
+                (source_root / "greetings.json").read_text(encoding="utf-8")
+            )
+            document["catalogs"][0]["runtimePath"] = (
+                "Conversation/Text/greetings/neutral/opening.json"
+            )
+            (source_root / "greetings.json").write_text(
+                json.dumps(document, indent=2) + "\n", encoding="utf-8"
+            )
+
+            with self.assertRaisesRegex(ValueError, "semantic target"):
                 write_runtime_text_catalogs(source, runtime)
 
 

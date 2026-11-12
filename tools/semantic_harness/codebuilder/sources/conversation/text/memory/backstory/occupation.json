@@ -1,0 +1,91 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.backstory.occupation",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.backstory.facts.occupation",
+      "owner": "ProjectHoomans",
+      "target": "memory/backstory/facts",
+      "entries": [
+        {
+          "key": "occupation.carpenter",
+          "text": {
+            "EN": "carpenter",
+            "TL": "karpintero"
+          }
+        },
+        {
+          "key": "occupation.cook",
+          "text": {
+            "EN": "cook",
+            "TL": "tagapagluto"
+          }
+        },
+        {
+          "key": "occupation.doctor",
+          "text": {
+            "EN": "doctor",
+            "TL": "doktor"
+          }
+        },
+        {
+          "key": "occupation.driver",
+          "text": {
+            "EN": "driver",
+            "TL": "drayber"
+          }
+        },
+        {
+          "key": "occupation.farmer",
+          "text": {
+            "EN": "farmer",
+            "TL": "magsasaka"
+          }
+        },
+        {
+          "key": "occupation.mechanic",
+          "text": {
+            "EN": "mechanic",
+            "TL": "mekaniko"
+          }
+        },
+        {
+          "key": "occupation.nurse",
+          "text": {
+            "EN": "nurse",
+            "TL": "nars"
+          }
+        },
+        {
+          "key": "occupation.scavenger",
+          "text": {
+            "EN": "scavenger",
+            "TL": "mangangalap ng gamit"
+          }
+        },
+        {
+          "key": "occupation.security_guard",
+          "text": {
+            "EN": "security guard",
+            "TL": "guwardiya"
+          }
+        },
+        {
+          "key": "occupation.smuggler",
+          "text": {
+            "EN": "smuggler",
+            "TL": "puslitero"
+          }
+        },
+        {
+          "key": "occupation.teacher",
+          "text": {
+            "EN": "teacher",
+            "TL": "guro"
+          }
+        }
+      ]
+    }
+  ]
+}

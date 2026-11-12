@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.greetings.member.member.twilight",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.greetings.member.member.twilight",
+      "owner": "ProjectHoomans",
+      "target": "social/greetings/member/twilight",
+      "entries": [
+        {
+          "key": "greeting.001",
+          "text": {
+            "EN": "You're supposed to be resting. What's wrong?",
+            "TL": "Dapat nagpapahinga ka. Ano ang problema?"
+          }
+        },
+        {
+          "key": "greeting.002",
+          "text": {
+            "EN": "Quiet night so far. Let's keep it that way.",
+            "TL": "Tahimik na gabi hanggang ngayon. Panatilihin natin itong paraan."
+          }
+        },
+        {
+          "key": "greeting.003",
+          "text": {
+            "EN": "I'm on watch. Did you need something?",
+            "TL": "Nakabantay ako. may kailangan ka ba?"
+          }
+        },
+        {
+          "key": "greeting.004",
+          "text": {
+            "EN": "Good, it's you. I heard footsteps.",
+            "TL": "Buti, ikaw pala. Nakarinig ako ng mga yabag."
+          }
+        },
+        {
+          "key": "greeting.005",
+          "text": {
+            "EN": "Can't sleep? Pull up a chair, but keep your voice low.",
+            "TL": "Hindi makatulog? Hilahin ang isang upuan, ngunit panatilihing mahina ang iyong boses."
+          }
+        }
+      ]
+    }
+  ]
+}

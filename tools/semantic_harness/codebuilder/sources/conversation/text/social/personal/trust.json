@@ -1,0 +1,42 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.personal.trust",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.personal.special.trust",
+      "owner": "ProjectHoomans",
+      "target": "social/personal/special/trust",
+      "entries": [
+        {
+          "key": "choice.trust",
+          "text": {
+            "EN": "You can trust me.",
+            "TL": "Maaari kang magtiwala sa akin."
+          }
+        },
+        {
+          "key": "locked.familiarity",
+          "text": {
+            "EN": "You do not know each other well enough yet.",
+            "TL": "Hindi pa sapat ang pagkakakilala ninyo sa isa't isa."
+          }
+        },
+        {
+          "key": "opening",
+          "text": {
+            "EN": "All right, {playerFirstName}. We can talk about us.",
+            "TL": "Sige, {playerFirstName}. Maaari naming pag-usapan ang tungkol sa amin."
+          }
+        },
+        {
+          "key": "response.trust",
+          "text": {
+            "EN": "I know. That still means more than I can say.",
+            "TL": "alam ko. Nangangahulugan pa rin iyon ng higit pa sa masasabi ko."
+          }
+        }
+      ]
+    }
+  ]
+}

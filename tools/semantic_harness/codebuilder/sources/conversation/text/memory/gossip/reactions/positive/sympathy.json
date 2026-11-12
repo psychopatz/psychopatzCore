@@ -6,7 +6,7 @@
     {
       "catalogId": "conversation.text.memory.gossip.reactions.positive.sympathy",
       "owner": "ProjectHoomans",
-      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "target": "memory/gossip",
       "entries": [
         {
           "key": "positive.sympathy.loss",

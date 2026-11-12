@@ -1,0 +1,28 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.backstory.value",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.backstory.facts.value",
+      "owner": "ProjectHoomans",
+      "target": "memory/backstory/facts",
+      "entries": [
+        {
+          "key": "value.mutual_aid",
+          "text": {
+            "EN": "mutual aid",
+            "TL": "pagtutulungan"
+          }
+        },
+        {
+          "key": "value.self_reliance",
+          "text": {
+            "EN": "self-reliance",
+            "TL": "pagsasarili"
+          }
+        }
+      ]
+    }
+  ]
+}

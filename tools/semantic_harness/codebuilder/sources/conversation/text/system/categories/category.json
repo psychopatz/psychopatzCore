@@ -1,0 +1,84 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.categories.category",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.categories.category",
+      "owner": "ProjectHoomans",
+      "target": "system/categories",
+      "entries": [
+        {
+          "key": "category.ask_about",
+          "text": {
+            "EN": "Ask about...",
+            "TL": "Magtanong tungkol sa..."
+          }
+        },
+        {
+          "key": "category.goodbye",
+          "text": {
+            "EN": "Goodbye",
+            "TL": "Paalam"
+          }
+        },
+        {
+          "key": "category.greetings",
+          "text": {
+            "EN": "Greeting",
+            "TL": "Pagbati"
+          }
+        },
+        {
+          "key": "category.needs",
+          "text": {
+            "EN": "Need anything?",
+            "TL": "Kailangan mo ng kahit ano?"
+          }
+        },
+        {
+          "key": "category.personal",
+          "text": {
+            "EN": "Personal",
+            "TL": "Personal"
+          }
+        },
+        {
+          "key": "category.relationship",
+          "text": {
+            "EN": "Relationship",
+            "TL": "Relasyon"
+          }
+        },
+        {
+          "key": "category.set_territory",
+          "text": {
+            "EN": "Set Territory",
+            "TL": "Itakda ang Teritoryo"
+          }
+        },
+        {
+          "key": "category.small_talk",
+          "text": {
+            "EN": "Let's talk.",
+            "TL": "Mag-usap tayo."
+          }
+        },
+        {
+          "key": "category.wellbeing",
+          "text": {
+            "EN": "How are you doing?",
+            "TL": "kamusta ka na?"
+          }
+        },
+        {
+          "key": "category.work_orders",
+          "text": {
+            "EN": "Work / Orders",
+            "TL": "Trabaho / Orders"
+          }
+        }
+      ]
+    }
+  ]
+}

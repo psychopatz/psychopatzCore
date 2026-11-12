@@ -1,0 +1,35 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.backstory.tragedy",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.backstory.facts.tragedy",
+      "owner": "ProjectHoomans",
+      "target": "memory/backstory/facts",
+      "entries": [
+        {
+          "key": "tragedy.lost_home",
+          "text": {
+            "EN": "losing their home",
+            "TL": "pagkawala ng kanilang tahanan"
+          }
+        },
+        {
+          "key": "tragedy.lost_sibling",
+          "text": {
+            "EN": "losing a sibling",
+            "TL": "pagkawala ng kapatid"
+          }
+        },
+        {
+          "key": "tragedy.workplace_accident",
+          "text": {
+            "EN": "a serious workplace accident",
+            "TL": "malubhang aksidente sa trabaho"
+          }
+        }
+      ]
+    }
+  ]
+}

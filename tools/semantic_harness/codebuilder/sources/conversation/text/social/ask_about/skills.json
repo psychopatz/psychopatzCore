@@ -1,0 +1,70 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.social.ask.about.skills",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.ask.about.member.skills.member",
+      "owner": "ProjectHoomans",
+      "target": "social/ask_about/member",
+      "entries": [
+        {
+          "key": "choice.skills",
+          "text": {
+            "EN": "What can you teach the group?",
+            "TL": "What can you teach the grupo?"
+          }
+        },
+        {
+          "key": "response.skills",
+          "text": {
+            "EN": "Give me a job and I'll show you.",
+            "TL": "Bigyan mo ako ng trabaho at ipapakita ko sa iyo."
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.social.ask.about.neutral.skills.neutral",
+      "owner": "ProjectHoomans",
+      "target": "social/ask_about/neutral",
+      "entries": [
+        {
+          "key": "choice.skills",
+          "text": {
+            "EN": "What are you good at?",
+            "TL": "Ano ang kaya mong gawin?"
+          }
+        },
+        {
+          "key": "response.skills",
+          "text": {
+            "EN": "Enough things to have survived this long.",
+            "TL": "Sapat na ang mga bagay para mabuhay ng ganito katagal."
+          }
+        }
+      ]
+    },
+    {
+      "catalogId": "conversation.text.social.ask.about.special.skills.special",
+      "owner": "ProjectHoomans",
+      "target": "social/ask_about/special",
+      "entries": [
+        {
+          "key": "choice.skills",
+          "text": {
+            "EN": "What are you proud of?",
+            "TL": "Ano ang ipinagmamalaki mo?"
+          }
+        },
+        {
+          "key": "response.skills",
+          "text": {
+            "EN": "Surviving long enough to meet you.",
+            "TL": "Nakaligtas nang sapat upang makilala ka."
+          }
+        }
+      ]
+    }
+  ]
+}

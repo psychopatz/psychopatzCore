@@ -6,7 +6,7 @@
     {
       "catalogId": "conversation.text.memory.gossip.death.report",
       "owner": "ProjectHoomans",
-      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "target": "memory/gossip",
       "entries": [
         {
           "key": "death.report",

@@ -1,12 +1,12 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
-  "sourceId": "conversation.content.small.talk.opening",
+  "sourceId": "conversation.content.social.small.talk.opening",
   "owner": "ProjectHoomans",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.small_talk.opening.member",
+      "catalogId": "conversation.text.social.small.talk.member.opening",
       "owner": "ProjectHoomans",
-      "runtimePath": "Conversation/Text/small_talk/member/basic.json",
+      "target": "social/small_talk/member",
       "entries": [
         {
           "key": "opening",
@@ -21,9 +21,9 @@
       }
     },
     {
-      "catalogId": "conversation.text.social.small_talk.opening.neutral",
+      "catalogId": "conversation.text.social.small.talk.neutral.opening",
       "owner": "ProjectHoomans",
-      "runtimePath": "Conversation/Text/small_talk/neutral/basic.json",
+      "target": "social/small_talk/neutral",
       "entries": [
         {
           "key": "opening",
@@ -38,9 +38,9 @@
       }
     },
     {
-      "catalogId": "conversation.text.social.small_talk.opening.special",
+      "catalogId": "conversation.text.social.small.talk.special.opening",
       "owner": "ProjectHoomans",
-      "runtimePath": "Conversation/Text/small_talk/special/basic.json",
+      "target": "social/small_talk/special",
       "entries": [
         {
           "key": "opening",

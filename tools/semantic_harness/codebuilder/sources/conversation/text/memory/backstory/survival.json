@@ -1,0 +1,28 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.backstory.survival",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.backstory.facts.survival",
+      "owner": "ProjectHoomans",
+      "target": "memory/backstory/facts",
+      "entries": [
+        {
+          "key": "survival.evacuation",
+          "text": {
+            "EN": "an evacuation convoy",
+            "TL": "pagsama sa convoy ng paglikas"
+          }
+        },
+        {
+          "key": "survival.roadside",
+          "text": {
+            "EN": "being stranded on the highway",
+            "TL": "pagka-stranded sa highway"
+          }
+        }
+      ]
+    }
+  ]
+}

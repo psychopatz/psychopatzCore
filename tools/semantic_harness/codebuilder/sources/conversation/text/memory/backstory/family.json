@@ -1,0 +1,35 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.backstory.family",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.backstory.facts.family",
+      "owner": "ProjectHoomans",
+      "target": "memory/backstory/facts",
+      "entries": [
+        {
+          "key": "family.grew_up_with_siblings",
+          "text": {
+            "EN": "someone who grew up with siblings",
+            "TL": "lumaki kasama ang mga kapatid"
+          }
+        },
+        {
+          "key": "family.only_child",
+          "text": {
+            "EN": "an only child",
+            "TL": "nag-iisang anak"
+          }
+        },
+        {
+          "key": "family.raised_by_grandparents",
+          "text": {
+            "EN": "someone raised by their grandparents",
+            "TL": "pinalaki ng mga lolo at lola"
+          }
+        }
+      ]
+    }
+  ]
+}

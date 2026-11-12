@@ -1,0 +1,77 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system.debugger.status",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.system.debugger.status",
+      "owner": "ProjectHoomans",
+      "target": "system/debugger",
+      "entries": [
+        {
+          "key": "status.eligible",
+          "text": {
+            "EN": "eligible",
+            "TL": "eligible"
+          }
+        },
+        {
+          "key": "status.invalid",
+          "text": {
+            "EN": "invalid",
+            "TL": "invalid"
+          }
+        },
+        {
+          "key": "status.no",
+          "text": {
+            "EN": "No",
+            "TL": "Hindi"
+          }
+        },
+        {
+          "key": "status.text_fallback",
+          "text": {
+            "EN": "text:fallback",
+            "TL": "text:fallback"
+          }
+        },
+        {
+          "key": "status.text_missing",
+          "text": {
+            "EN": "text:missing",
+            "TL": "text:missing"
+          }
+        },
+        {
+          "key": "status.text_ok",
+          "text": {
+            "EN": "text:ok",
+            "TL": "text:ok"
+          }
+        },
+        {
+          "key": "status.unknown",
+          "text": {
+            "EN": "Unknown",
+            "TL": "Unknown"
+          }
+        },
+        {
+          "key": "status.valid",
+          "text": {
+            "EN": "valid",
+            "TL": "valid"
+          }
+        },
+        {
+          "key": "status.yes",
+          "text": {
+            "EN": "Yes",
+            "TL": "Yes"
+          }
+        }
+      ]
+    }
+  ]
+}
