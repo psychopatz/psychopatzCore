@@ -71,6 +71,7 @@ def render_conversation_registry(
         "Registry.BEHAVIORS = {}",
         "Registry.BEATS = {}",
           "Registry.PACKS = {}",
+        "Registry.PSDL_PLANS = {}",
         "Registry.UI = {}",
     ]
     lines.extend([
@@ -106,6 +107,14 @@ def render_conversation_registry(
           "    if type(loaded) ~= \"table\" then return end",
           "    for _, value in ipairs(loaded) do Registry.PACKS[#Registry.PACKS + 1] = value end",
           "end",
+        "local function appendPSDL(loaded)",
+        "    if type(loaded) ~= \"table\" then return end",
+        "    for _, value in ipairs(loaded) do",
+        "        if type(value) == \"table\" and value.id then",
+        "            Registry.PSDL_PLANS[tostring(value.id)] = value",
+        "        end",
+        "    end",
+        "end",
         "local function appendUI(loaded)",
         "    if type(loaded) ~= \"table\" then return end",
         "    for _, value in ipairs(loaded) do Registry.UI[#Registry.UI + 1] = value end",
@@ -139,6 +148,8 @@ def render_conversation_registry(
             lines.append(f"appendBeats({loaded_name})")
         elif report["kind"] == "Packs":
             lines.append(f"appendPacks({loaded_name})")
+        elif report["kind"] == "PSDL":
+            lines.append(f"appendPSDL({loaded_name})")
         elif report["kind"] == "UI":
             lines.append(f"appendUI({loaded_name})")
     lines.extend([
@@ -158,6 +169,9 @@ def render_conversation_registry(
         "end",
         "function Registry.PlayerChoice(contentID)",
         "    return Registry.PLAYER_CHOICES[tostring(contentID or \"\")]",
+        "end",
+        "function Registry.PSDLPlan(planID)",
+        "    return Registry.PSDL_PLANS[tostring(planID or \"\")]",
         "end",
         "return Registry",
         "",

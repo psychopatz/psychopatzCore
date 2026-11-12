@@ -41,6 +41,7 @@ def _runtime_record_index(model: dict[str, Any]) -> dict[str, dict[str, Any]]:
     add(model.get("beats", []))
     add(model.get("realization", []))
     add(model.get("packs", []))
+    add(model.get("psdlRuntimePlans", []))
     add(model.get("ui", []))
     return records
 

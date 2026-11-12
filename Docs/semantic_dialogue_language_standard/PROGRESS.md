@@ -83,6 +83,15 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Core's combined writer now emits the DTCommon provider-local generated manifest alongside its routed registry, so standalone DT runtime metadata remains synchronized with the combined model fingerprint.
 - Core static-suggestion parity and caller/reference-zero checks pass; no maintained code references `StaticSuggestionsCore`, `static_suggestions_core.json`, or the superseded static shard ID.
 
+## S5 runtime-plan and social-check-in chunk
+
+- Core now emits registry-addressable PSDL runtime plans through the existing conversation registry/discovery/generation path. `Registry.PSDLPlan(id)` is a lookup seam for adopters; it is not a second dialogue runtime.
+- Core's compiler projects explicitly opted-in PSDL inline response/offer text into downstream `Conversation/Text` catalogs with data-driven locale discovery and the existing text-catalog contract. PSDL remains the only maintained source for those records.
+- ProjectHoomans now owns six actor-neutral PSDL dialogue records for wellbeing and small talk, preserving the existing opening turns, semantic offer frames, relationship gates, effects, EN/TL text and runtime block identities.
+- The Hoomans adapter maps those Core-generated plans into the existing `Registry.RegisterBlock` authority; no PSDL-specific lifecycle, choice evaluator or effect runtime was added.
+- Superseded Hoomans `00`, `40`, and `50` conversation definition files and five Core social text source files are removed. Caller/reference-zero searches are clean, and the Hoomans block smoke now checks text routing, opening text, choice keys and response keys directly.
+- Core harness (109 tests), Hoomans conversation/authority/composition/semantic smokes, DynamicTrading trader/PSDL smokes, the three-repository S0 guard and changed Conversation Kahlua scans pass.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -110,10 +119,11 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 ## Next Chunk
 
 Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the
-Core compiler: migrate the next coherent maintained domain, prove parity and
-caller/reference zero, then remove its superseded source. The two adopter
-chunks and the Core static-suggestion migration above are accepted; S5-S8
-remain open.
+Core compiler: commit the current social-check-in chunk with adopter repos
+first, then migrate the next coherent maintained domain, prove parity and
+caller/reference zero, and remove its superseded source. The prior two
+adopter chunks, Core static-suggestion migration, and current runtime-plan /
+social-check-in work remain bounded S5 checkpoints; S5-S8 remain open.
 
 ## Evidence status
 
@@ -124,6 +134,7 @@ remain open.
 - `TEST_VERIFIED`: S3 Core/Hoomans response, offer and binding fixtures pass; changed Lua files pass Kahlua verification.
 - `TEST_VERIFIED`: S4 Core behavior/beat projection fixtures and the full 106-test semantic harness pass.
 - `TEST_VERIFIED`: current Core semantic harness passes 109 tests after the bounded S5 adopter projection; DT and Hoomans adopter smokes pass.
+- `TEST_VERIFIED`: current Core semantic harness passes 109 tests after runtime-plan/text-catalog integration; the Hoomans social-check-in, DT trader, three-repository guard and changed Conversation Kahlua gates pass.
 - `STATIC_ONLY`: S5–S8 migration and final acceptance gates remain open.
 
 ## Stop conditions

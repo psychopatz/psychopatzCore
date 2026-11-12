@@ -280,6 +280,16 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/companion_check_in.json",
       "shardId": "conversation.psdl.companion.check_in",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_check_in",
+      "kind": "psdl",
+      "order": 2304,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_check_in.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_check_in.json",
+      "shardId": "conversation.psdl.social.check_in",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {

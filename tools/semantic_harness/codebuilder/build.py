@@ -513,6 +513,34 @@ def write_conversation_output(
                 owner=owner,
             ))
 
+    # PSDL response text is authored inline and therefore has no entry in the
+    # legacy text-source manifest.  Emit its declared Text/ compatibility
+    # catalogs after that manifest's cleanup pass so adopters can continue to
+    # use the accepted TextCatalog source contract without retaining a second
+    # translation authoring surface.
+    for owner, catalogs in sorted(catalogs_by_owner.items()):
+        if owner not in enabled_owners:
+            continue
+        package_translation_root = translation_root(
+            repository,
+            owner,
+            core_repository=core_repository,
+            dynamic_trading_repository=dynamic_trading_repository,
+            runtime_root=repository,
+        )
+        for language, domains in sorted(catalogs.items()):
+            for domain, values in sorted(domains.items()):
+                if not domain.startswith("Text/"):
+                    continue
+                path = package_translation_root / f"{language}/Conversation/{domain}.json"
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(
+                    pretty_json(values),
+                    encoding="utf-8",
+                    newline="\n",
+                )
+                paths.append(path)
+
     return paths
 
 

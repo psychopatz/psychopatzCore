@@ -19,7 +19,19 @@ function Registry.ValidateCategory(id, definition)
     then
         Internal.AddError(errors, "ownerModID is required")
     end
-    Internal.ValidateTextSource(definition.textSource, errors)
+    if definition.textSource ~= nil then
+        Internal.ValidateTextSource(definition.textSource, errors)
+    elseif not (
+        type(definition.labelKey) == "string"
+        and string.match(definition.labelKey, "^UI_Psychopatz") ~= nil
+    ) and not (
+        PsychopatzCore
+        and PsychopatzCore.Translation
+        and type(PsychopatzCore.Translation.IsCoreKey) == "function"
+        and PsychopatzCore.Translation.IsCoreKey(definition.labelKey) == true
+    ) then
+        Internal.AddError(errors, "textSource is required unless labelKey is a Core translation key")
+    end
     if type(definition.labelKey) ~= "string"
         or definition.labelKey == ""
     then

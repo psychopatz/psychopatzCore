@@ -313,34 +313,9 @@
       "owner": "PsychopatzCore"
     },
     {
-      "path": "social/small_talk/opening.json",
-      "sourceId": "conversation.content.social.small.talk.opening",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "social/small_talk/quiet_day.json",
-      "sourceId": "conversation.content.social.small.talk.quiet_day",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "social/small_talk/weather.json",
-      "sourceId": "conversation.content.social.small.talk.weather",
-      "owner": "PsychopatzCore"
-    },
-    {
       "path": "social/territory/claim.json",
       "sourceId": "conversation.content.social.territory.claim",
       "owner": "ProjectHoomans"
-    },
-    {
-      "path": "social/wellbeing/condition.json",
-      "sourceId": "conversation.content.social.wellbeing.condition",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "social/wellbeing/offer_help.json",
-      "sourceId": "conversation.content.social.wellbeing.offer.help",
-      "owner": "PsychopatzCore"
     },
     {
       "path": "needs/gifts/preference.json",

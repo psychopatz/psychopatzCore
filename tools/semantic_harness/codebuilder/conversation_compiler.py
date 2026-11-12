@@ -77,7 +77,11 @@ from tools.semantic_harness.codebuilder.conversation_model import (
     register_global_id as _register_global_id_core,
 )
 from tools.semantic_harness.codebuilder.conversation_assembler import assemble_shards
-from tools.semantic_harness.codebuilder.translation_support import DEFAULT_LANGUAGE, merge_language_sets
+from tools.semantic_harness.codebuilder.translation_support import (
+    DEFAULT_LANGUAGE,
+    merge_language_sets,
+    normalize_language,
+)
 from .generation_ownership import (
     HOOMANS_OWNER,
     conversation_prefix,
@@ -90,6 +94,7 @@ from .psdl_compiler import (
     compile_psdl_document,
     render_psdl_director_plan,
     render_psdl_semantic_pack_plan,
+    render_psdl_runtime_plan,
     render_psdl_ui_plan,
 )
 
@@ -209,7 +214,14 @@ def compile_conversation_sources(
     psdl_documents = _compiled_psdl_documents(loaded)
     psdl_ui: list[dict[str, Any]] = []
     psdl_packs: list[dict[str, Any]] = []
+    psdl_runtime_plans: list[dict[str, Any]] = []
     for compiled_psdl, entry in psdl_documents:
+        for plan in render_psdl_runtime_plan(compiled_psdl):
+            runtime_plan = _copy_json(plan)
+            runtime_plan["owner"] = normalize_owner(entry.get("owner"))
+            runtime_plan["domain"] = entry["domain"]
+            runtime_plan["sourceShard"] = entry["path"]
+            psdl_runtime_plans.append(runtime_plan)
         director_plan = render_psdl_director_plan(compiled_psdl)
         for record in director_plan["behaviors"]:
             record["sourceShard"] = entry["path"]
@@ -231,6 +243,7 @@ def compile_conversation_sources(
             psdl_packs.append(record)
     behaviors["records"].sort(key=lambda item: str(item.get("id", "")))
     beats["records"].sort(key=lambda item: str(item.get("id", "")))
+    psdl_runtime_plans.sort(key=lambda item: str(item.get("id", "")))
     packs = [*psdl_packs]
     for document, entry, _fingerprint_value in loaded:
         if entry["kind"] != "packs":
@@ -456,6 +469,7 @@ def compile_conversation_sources(
         "beats": beats["records"],
         "realization": realization["records"],
         "packs": packs,
+        "psdlRuntimePlans": psdl_runtime_plans,
         "ui": ui,
         "uiTexts": ui_texts,
     }
@@ -481,6 +495,7 @@ def compile_conversation_sources(
         "beats": beats["records"],
         "realization": realization["records"],
         "packs": packs,
+        "psdlRuntimePlans": psdl_runtime_plans,
         "ui": ui,
         "uiTexts": ui_texts,
         "uiTranslations": _ui_translations(ui, ui_texts),
@@ -513,10 +528,137 @@ def conversation_languages(model: dict[str, Any]) -> tuple[str, ...]:
         model.get("uiTranslations", {}),
         model.get("dialogue", {}).get("translations", {}),
         model.get("semantic", {}).get("translations", {}),
+        {
+            language: {}
+            for plan in model.get("psdlRuntimePlans", [])
+            for language in _psdl_plan_languages(plan)
+        },
     )
     if DEFAULT_LANGUAGE not in languages:
         raise CompileError(f"Conversation content requires {DEFAULT_LANGUAGE} fallback translations")
     return languages
+
+
+def _psdl_plan_languages(plan: Mapping[str, Any]) -> tuple[str, ...]:
+    """Return locales carried by one PSDL runtime plan's authored payload."""
+    languages: set[str] = set()
+
+    def visit(value: Any) -> None:
+        if isinstance(value, Mapping):
+            keys = list(value)
+            if DEFAULT_LANGUAGE in value:
+                for raw_language in keys:
+                    if isinstance(raw_language, str):
+                        languages.add(normalize_language(raw_language, "PSDL locale"))
+            for child in value.values():
+                visit(child)
+        elif isinstance(value, list):
+            for child in value:
+                visit(child)
+
+    visit(plan.get("payload"))
+    return tuple(sorted(languages))
+
+
+def _psdl_plan_text_rows(
+    plan: Mapping[str, Any],
+) -> list[tuple[str, str, str, str]]:
+    """Project explicitly requested PSDL text targets into flat catalogs.
+
+    PSDL response text remains authored inline.  Only records that declare a
+    ``metadata.textTarget`` opt into the native Conversation/Text compatibility
+    boundary used by adopter runtimes; UI-only PSDL records continue through
+    the normal generated UI catalog path.
+    """
+    payload = plan.get("payload")
+    if not isinstance(payload, Mapping):
+        return []
+    metadata = payload.get("metadata")
+    if not isinstance(metadata, Mapping):
+        return []
+    target = metadata.get("textTarget")
+    if not isinstance(target, str) or not target.strip():
+        return []
+    target = target.strip().strip("/")
+    domain = "Text/" + target
+    rows: list[tuple[str, str, str, str]] = []
+
+    def add(localized: Any, key: Any) -> None:
+        if not isinstance(localized, Mapping) or not isinstance(key, str):
+            return
+        for raw_language, raw_values in localized.items():
+            if not isinstance(raw_language, str):
+                continue
+            language = normalize_language(raw_language, "PSDL text locale")
+            values = raw_values if isinstance(raw_values, list) else [raw_values]
+            if values and isinstance(values[0], str):
+                rows.append((language, domain, key, values[0]))
+
+    def metadata_key(value: Any, field: str, fallback: str) -> str:
+        if isinstance(value, Mapping):
+            candidate = value.get(field)
+            if isinstance(candidate, str) and candidate.strip():
+                return candidate.strip()
+        return fallback
+
+    record_id = str(plan.get("id") or "record")
+    response = payload.get("response")
+    if isinstance(response, Mapping):
+        response_text = response.get("text")
+        if response_text is not None:
+            add(response_text, metadata_key(metadata, "responseKey", "response"))
+        turns = response.get("turns")
+    else:
+        turns = payload.get("turns")
+    if turns is None:
+        turns = payload.get("turns")
+    if isinstance(turns, list):
+        for index, turn in enumerate(turns):
+            if not isinstance(turn, Mapping):
+                continue
+            turn_metadata = turn.get("metadata")
+            turn_id = str(turn.get("id") or f"turn_{index + 1}")
+            key = metadata_key(turn_metadata, "textKey", f"turn.{turn_id}")
+            add(turn.get("text"), key)
+            for offer in turn.get("offers", []):
+                if not isinstance(offer, Mapping):
+                    continue
+                offer_id = str(offer.get("id") or "offer")
+                offer_metadata = offer.get("metadata")
+                choice_key = metadata_key(
+                    offer_metadata,
+                    "choiceKey",
+                    f"offer.{offer_id}.label",
+                )
+                utterance_key = metadata_key(
+                    offer_metadata,
+                    "utteranceKey",
+                    f"offer.{offer_id}.utterance",
+                )
+                add(offer.get("label"), choice_key)
+                add(offer.get("utterance"), utterance_key)
+                if isinstance(offer_metadata, Mapping):
+                    add(offer_metadata.get("responseText"), metadata_key(
+                        offer_metadata,
+                        "responseKey",
+                        f"offer.{offer_id}.response",
+                    ))
+    for field in ("text", "label", "utterance"):
+        if field in payload:
+            add(payload.get(field), metadata_key(metadata, f"{field}Key", field))
+    if isinstance(payload.get("offers"), list):
+        for offer in payload["offers"]:
+            if not isinstance(offer, Mapping):
+                continue
+            offer_id = str(offer.get("id") or "offer")
+            offer_metadata = offer.get("metadata")
+            add(offer.get("label"), metadata_key(
+                offer_metadata, "choiceKey", f"offer.{offer_id}.label"
+            ))
+            add(offer.get("utterance"), metadata_key(
+                offer_metadata, "utteranceKey", f"offer.{offer_id}.utterance"
+            ))
+    return rows
 
 
 def conversation_translation_catalogs(model: dict[str, Any]) -> dict[str, dict[str, dict[str, str]]]:
@@ -554,6 +696,10 @@ def conversation_translation_catalogs(model: dict[str, Any]) -> dict[str, dict[s
             add(language, "Patterns", key, value)
         for key, value in model.get("semantic", {}).get("translations", {}).get(language, {}).items():
             add(language, "Flows", key, value)
+    for plan in model.get("psdlRuntimePlans", []):
+        for language, domain, key, value in _psdl_plan_text_rows(plan):
+            add(language, domain, key, value)
+    for language in languages:
         catalogs[language] = {
             domain: {key: values[key] for key in sorted(values)}
             for domain, values in sorted(catalogs[language].items())
@@ -658,6 +804,11 @@ def conversation_translation_catalogs_by_owner(
             add(registry_owner, language, "Patterns", key, value)
         for key, value in model.get("semantic", {}).get("translations", {}).get(language, {}).items():
             add(semantic_owner, language, "Flows", key, value)
+
+    for plan in model.get("psdlRuntimePlans", []):
+        owner = normalize_owner(plan.get("owner"), default=default_owner)
+        for language, domain, key, value in _psdl_plan_text_rows(plan):
+            add(owner, language, domain, key, value)
 
     return {
         owner: {
@@ -779,6 +930,30 @@ def render_conversation_runtime_plan(
         pack_records,
         module_prefix=prefix,
     )
+    psdl_modules: list[tuple[str, str]] = []
+    psdl_reports: list[dict[str, Any]] = []
+    for plan in model.get("psdlRuntimePlans", []):
+        module = str(plan.get("module") or "")
+        record_id = str(plan.get("id") or "")
+        if not module or not record_id:
+            raise CompileError("PSDL runtime plan requires module and id")
+        source = render_conversation_lua_records([plan])
+        size = len(source.encode("utf-8"))
+        if size > CONVERSATION_MAX_SHARD_BYTES:
+            raise CompileError(
+                "PSDL runtime plan renders above the generated shard budget: "
+                + record_id
+            )
+        psdl_modules.append((module, source))
+        psdl_reports.append({
+            "module": module,
+            "kind": "PSDL",
+            "domain": str(plan.get("domain") or "general"),
+            "sourceShard": str(plan.get("sourceShard") or ""),
+            "recordCount": 1,
+            "recordIDs": [record_id],
+            "bytes": size,
+        })
     ui_modules, ui_reports = _chunk_records(
         ui_records, kind="UI", module_prefix=prefix
     )
@@ -791,6 +966,7 @@ def render_conversation_runtime_plan(
         *beat_modules,
         *realization_modules,
         *pack_modules,
+        *psdl_modules,
         *ui_modules,
     ]
     reports = [
@@ -802,6 +978,7 @@ def render_conversation_runtime_plan(
         *beat_reports,
         *realization_reports,
         *pack_reports,
+        *psdl_reports,
         *ui_reports,
     ]
 

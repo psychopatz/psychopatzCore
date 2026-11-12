@@ -213,6 +213,15 @@ ten records and refreshed both adopter projections. Continue S5 with the
 remaining maintained ProjectHoomans and DynamicTrading surfaces; this
 checkpoint does not close S5.
 
+The next S5 chunk is also implemented pending its adopter-first commit
+boundary: Core now emits registry-addressable PSDL runtime plans and explicit
+downstream text catalogs, while ProjectHoomans owns six actor-neutral social
+check-in dialogue records for wellbeing and small talk. The adopter adapter
+projects those plans into the existing Core conversation block registry; it
+does not introduce a PSDL runtime. The superseded Hoomans wellbeing/small-talk
+definition files and five Core social text source files are removed, with
+EN/TL placeholder parity and caller/reference-zero checks passing.
+
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
 ## S6 — taxonomy, layout and generated-output cleanup

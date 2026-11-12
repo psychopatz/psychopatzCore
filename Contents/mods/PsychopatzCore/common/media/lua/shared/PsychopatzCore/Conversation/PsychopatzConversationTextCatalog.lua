@@ -21,6 +21,25 @@ local function isCoreKey(key)
 end
 
 function Loader.EnsureSource(source, requiredKeys)
+    if type(source) ~= "table" then
+        local translation = PsychopatzCore and PsychopatzCore.Translation
+        local allCore = type(requiredKeys) == "table"
+        for _, key in ipairs(requiredKeys or {}) do
+            local isCoreKey = type(key) == "string"
+                and string.match(key, "^UI_Psychopatz") ~= nil
+            if not isCoreKey and translation
+                and type(translation.IsCoreKey) == "function"
+            then
+                isCoreKey = translation.IsCoreKey(key) == true
+            end
+            if not isCoreKey
+            then
+                allCore = false
+                break
+            end
+        end
+        if allCore then return true end
+    end
     local english, reason = Loader.Load(source, "EN")
     if not english then
         Loader.diagnostics[source and source.domain or "unknown"] = {
@@ -99,14 +118,18 @@ function Loader.ValidateSource(source, requiredKeys)
         and PsychopatzCore.Conversation.Text or nil
     local translation = PsychopatzCore and PsychopatzCore.Translation or nil
     for _, key in ipairs(requiredKeys or {}) do
-        local value
-        if text and type(text.Resolve) == "function" then
-            value = text.Resolve({ key = key })
-        elseif translation and type(translation.GetKey) == "function" then
-            value = translation.GetKey(key, nil)
-        end
-        if type(value) ~= "string" or value == "" or value == key then
-            errors[#errors + 1] = "missing Core translation key " .. tostring(key)
+        local coreKey = type(key) == "string"
+            and string.match(key, "^UI_Psychopatz") ~= nil
+        if not coreKey then
+            local value
+            if text and type(text.Resolve) == "function" then
+                value = text.Resolve({ key = key })
+            elseif translation and type(translation.GetKey) == "function" then
+                value = translation.GetKey(key, nil)
+            end
+            if type(value) ~= "string" or value == "" or value == key then
+                errors[#errors + 1] = "missing Core translation key " .. tostring(key)
+            end
         end
     end
     if #errors > 0 then return false, errors end

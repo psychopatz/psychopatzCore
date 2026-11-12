@@ -1,7 +1,0 @@
-{
-  "choice.condition": "How are you holding up?",
-  "opening": "Still standing. Go ahead.",
-  "response.condition": "Tired, but ready if the group needs me.",
-  "choice.offer_help": "Do you need any help?",
-  "response.offer_help": "A little rest would help. I appreciate you asking."
-}
