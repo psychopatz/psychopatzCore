@@ -1,5 +1,6 @@
 PsychopatzCore = PsychopatzCore or {}
 
+require "PsychopatzCore/Conversation/Registry/PsychopatzConversationRegistry"
 require "PsychopatzCore/Conversation/PsychopatzSocialFlavor"
 require "PsychopatzCore/Conversation/PsychopatzNameParts"
 -- Public, opt-in voice transport. Loading this module only defines the API;
