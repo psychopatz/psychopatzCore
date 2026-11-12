@@ -5,12 +5,12 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
 phase_commit_phase: "S5"
-phase_commit_message: "phase(S5): accept navigation migration"
-phase_commit_vector: "project-hoomans=2ec7082c6e2888727803cf34e2fbe72488a3d097;psychopatz-core=self;dynamic-trading=af29c88e6f7262d6958c17227036b783b9344b2d"
+phase_commit_message: "phase(S5): accept knowledge migration"
+phase_commit_vector: "project-hoomans=f365e5b8b424ad043a675c6da430151a33fb6f9c;psychopatz-core=self;dynamic-trading=4b84faad9aeece88f2674fa6cfaf3429fa507f15"
 phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
 residual_worktree_fingerprint: "056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108"
 codebase_memory_indexed_commit: "5075fb7f7334c33b4cfd0991dcf5dd9b4a9c3b88"
-updated_at: "2026-11-12T16:57:48Z"
+updated_at: "2026-11-12T17:19:31Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S5 — first-party domain migration deletion"
@@ -32,17 +32,19 @@ retrieval_tier: "verify"
 - The social migration preserves 160 EN/TL phrase pairs (320 locale values), removes superseded Core/Hoomans Apology sources and generated outputs, and keeps the Core-owned reconcile/acknowledge-repair behavior IDs as runtime contracts through the PSDL `responseTemplateID` validation seam.
 - ProjectHoomans navigation wording is now authored in final `psdl/dialogue/navigation.json` with five semantic families and twenty bounded style plans. The existing navigation response catalog projects those plans into the established phrase-family/SpeechRealization authority.
 - The navigation migration preserves 200 EN/TL phrase pairs (400 locale values), removes the superseded Core navigation source, Hoomans manual navigation phrase-family source, generated Content modules, and split Navigation translations, and leaves navigation branch/gameplay authority unchanged.
+- PsychopatzCore knowledge, identity, activity, and gossip wording is now authored in four final PSDL shards with seven semantic families and 32 bounded style plans. The existing Hoomans question response catalog projects the Core-generated plans into its phrase-family/SpeechRealization authority with actor-neutral `speaker.name`, `target.name`, and `addressee.name` bindings.
+- The knowledge migration preserves 320 phrase pairs and 640 EN/TL locale values, removes superseded Core knowledge content/source/translation surfaces and Hoomans Knowledge phrase-family/generated-index/split-translation surfaces, and leaves knowledge/context selection and gameplay authority in the adopter.
 
 ## Remaining
 
-- Execute S5-S8 across all three repositories. Migrate the remaining knowledge/world-event and other maintained first-party domains through Core PSDL, prove parity and caller/reference zero, remove superseded first-party authoring, and complete taxonomy, authoring-service, and exhaustive acceptance gates.
+- Execute S5-S8 across all three repositories. Migrate the remaining world-event/event and other maintained first-party domains through Core PSDL, prove parity and caller/reference zero, remove superseded first-party authoring, and complete taxonomy, authoring-service, and exhaustive acceptance gates.
 
 ## Resume
 
 Use Codebase Memory at the recorded retrieval tier for each repository, then read current dirty source before relying on stale structural references.
 
 1. Re-inspect PsychopatzCore, ProjectHoomans, and DynamicTrading worktrees and current PSDL/legacy authoring surfaces.
-2. Select the next coherent production domain, beginning with knowledge/world-event dialogue.
+2. Select the next coherent production domain, beginning with world-event/event dialogue.
 3. Author its final PSDL source through the Core compiler, regenerate downstream artifacts, run parity/caller-zero checks, and remove the superseded first-party source in the same accepted phase.
 4. Continue through remaining ProjectHoomans surfaces and any remaining DynamicTrading/DTCommon surfaces before S6-S8 closure.
 
@@ -54,6 +56,7 @@ Use Codebase Memory at the recorded retrieval tier for each repository, then rea
 - `TEST_VERIFIED`: command parity covers 76 semantic phrase families and 152 EN/TL entries; production searches found no references to superseded Core command/combat content module IDs.
 - `TEST_VERIFIED`: social apology parity covers 4 families, 16 style plans, and 320 EN/TL locale values; production searches find no superseded `social_apology` source, generated SocialApology module, or Apology translation file.
 - `TEST_VERIFIED`: navigation parity covers 5 families, 20 style plans, and 400 EN/TL locale values; focused navigation/response-catalog smokes, generated ownership tests, direct Lua family load, Core 109-test harness, three-repository audit/guard, and changed-file Kahlua gates pass.
+- `TEST_VERIFIED`: knowledge parity covers 7 semantic families, 32 bounded style plans, 320 phrase pairs, and 640 EN/TL locale values; Core 109-test harness, PSDL build, focused knowledge/world-knowledge smokes, generated ownership tests, direct Lua family load, three-repository audit/guard, and changed-file Conversation Kahlua gates pass. The broader worker trio retains its known startup transport baseline and is not counted as a migration failure.
 - `BASELINE_EVIDENCE`: the broad `pnc_companion_commands_smoke` still fails at its known presentation-path camp-rejection handoff after direct semantic resolution succeeds; this remains separate from the PSDL parity and caller-zero gates.
 - `BASELINE_EVIDENCE`: the Lua worker social suite advances beyond the former apology-template validation but still hits the pre-existing duplicate automatic-flow registration `semantic.generated.simple_command.camp.failed`.
 - `STATIC_ONLY`: S5 remaining migration and S6-S8 final acceptance remain incomplete.
@@ -64,8 +67,8 @@ Use Codebase Memory at the recorded retrieval tier for each repository, then rea
 
 ## Acceptance
 
-The navigation chunk is accepted with one adopter-owned PSDL shard, 5-family/
-20-plan/400-locale parity, existing semantic response authority,
+The knowledge chunk is accepted with four Core-owned PSDL shards, 7-family/
+32-plan/640-locale parity, existing semantic response authority,
 caller/reference-zero evidence, and removal of superseded first-party sources.
 The next acceptance boundary is the next coherent S5 domain through the same
 Core-owned compiler.

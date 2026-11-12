@@ -355,6 +355,46 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/navigation.json",
       "shardId": "conversation.psdl.navigation",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "core_knowledge_activity",
+      "kind": "psdl",
+      "order": 2314,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_knowledge_activity.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_knowledge_activity.json",
+      "shardId": "conversation.psdl.core.knowledge.activity",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_knowledge_gossip",
+      "kind": "psdl",
+      "order": 2315,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_knowledge_gossip.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_knowledge_gossip.json",
+      "shardId": "conversation.psdl.core.knowledge.gossip",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_knowledge_identity",
+      "kind": "psdl",
+      "order": 2316,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_knowledge_identity.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_knowledge_identity.json",
+      "shardId": "conversation.psdl.core.knowledge.identity",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_knowledge_facts",
+      "kind": "psdl",
+      "order": 2317,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_knowledge_facts.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_knowledge_facts.json",
+      "shardId": "conversation.psdl.core.knowledge.facts",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     }
   ],
   "source": {
@@ -396,13 +436,6 @@
       "kind": "content",
       "order": 1330,
       "path": "content/health",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "knowledge",
-      "kind": "content",
-      "order": 1340,
-      "path": "content/knowledge",
       "owner": "PsychopatzCore"
     },
     {

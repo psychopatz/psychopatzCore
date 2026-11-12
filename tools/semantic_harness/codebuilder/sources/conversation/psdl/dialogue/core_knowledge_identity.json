@@ -1,0 +1,1077 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "records": [
+    {
+      "kind": "dialogue",
+      "id": "semantic.question.identity.guarded",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/identity.json",
+        "responseTemplateID": "semantic.question.identity",
+        "style": "guarded"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "guarded.01",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.01"
+            },
+            "text": {
+              "EN": "Who's asking? Names can be dangerous out here.",
+              "TL": "Sino'ng nagtatanong? Ang mga pangalan ay delikado rito."
+            }
+          },
+          {
+            "id": "guarded.02",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.02"
+            },
+            "text": {
+              "EN": "Why do you need to know who I am?",
+              "TL": "Bakit kailangan mong malaman kung sino ako?"
+            }
+          },
+          {
+            "id": "guarded.03",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.03"
+            },
+            "text": {
+              "EN": "Just a survivor trying not to die. Leave it at that.",
+              "TL": "Survivor lang na sumusubok mabuhay. Hanggang doon na lang."
+            }
+          },
+          {
+            "id": "guarded.04",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.04"
+            },
+            "text": {
+              "EN": "I don't give my background to just anyone.",
+              "TL": "Hindi ko ibinibigay ang pinagmulan ko sa kahit sino."
+            }
+          },
+          {
+            "id": "guarded.05",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.05"
+            },
+            "text": {
+              "EN": "A survivor with a weapon. That's all that matters.",
+              "TL": "Isang survivor na may sandata. 'Yon lang ang mahalaga."
+            }
+          },
+          {
+            "id": "guarded.06",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.06"
+            },
+            "text": {
+              "EN": "Don't pry into my identity. Keep focused on the road.",
+              "TL": "Huwag mong kalkalin ang pagkatao ko. Magpokus sa kalsada."
+            }
+          },
+          {
+            "id": "guarded.07",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.07"
+            },
+            "text": {
+              "EN": "Names don't keep the infected away. What do you want?",
+              "TL": "Hindi itinataboy ng pangalan ang mga infected. Ano'ng gusto mo?"
+            }
+          },
+          {
+            "id": "guarded.08",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.08"
+            },
+            "text": {
+              "EN": "You don't need my life story to walk beside me.",
+              "TL": "Hindi mo kailangan ng kwento ng buhay ko para sumabay sa akin."
+            }
+          },
+          {
+            "id": "guarded.09",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.09"
+            },
+            "text": {
+              "EN": "I keep my identity to myself until I know I can trust you.",
+              "TL": "Itinatago ko ang pagkatao ko hangga't hindi kita lubos na pinagkakatiwalaan."
+            }
+          },
+          {
+            "id": "guarded.10",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.guarded.10"
+            },
+            "text": {
+              "EN": "I am who I need to be to survive.",
+              "TL": "Ako ay kung sino ang kailangan para mabuhay."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "dialogue",
+      "id": "semantic.question.identity.neutral",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/identity.json",
+        "responseTemplateID": "semantic.question.identity",
+        "style": "neutral"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "neutral.01",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.01"
+            },
+            "text": {
+              "EN": "I'm just a survivor trying to make it through.",
+              "TL": "Isa lang akong survivor na sumusubok makaraos."
+            }
+          },
+          {
+            "id": "neutral.02",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.02"
+            },
+            "text": {
+              "EN": "I used to be someone else before all this fell apart.",
+              "TL": "Ibang tao ako noon bago nagkawasak-wasak ang lahat."
+            }
+          },
+          {
+            "id": "neutral.03",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.03"
+            },
+            "text": {
+              "EN": "Just another person looking for shelter and food.",
+              "TL": "Isa lang akong tao na naghahanap ng masisilungan at makakain."
+            }
+          },
+          {
+            "id": "neutral.04",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.04"
+            },
+            "text": {
+              "EN": "I'm surviving day by day, same as you.",
+              "TL": "Nabubuhay ako araw-araw, tulad mo rin."
+            }
+          },
+          {
+            "id": "neutral.05",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.05"
+            },
+            "text": {
+              "EN": "Not much to tell. Just doing what it takes to live.",
+              "TL": "Walang gaanong maikukwento. Ginagawa lang ang kailangan para mabuhay."
+            }
+          },
+          {
+            "id": "neutral.06",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.06"
+            },
+            "text": {
+              "EN": "I'm a survivor out here in the county.",
+              "TL": "Isa akong survivor dito sa lugar."
+            }
+          },
+          {
+            "id": "neutral.07",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.07"
+            },
+            "text": {
+              "EN": "Just someone trying to stay one step ahead of the dead.",
+              "TL": "Isang tao lang na sumusubok mauna sa mga patay."
+            }
+          },
+          {
+            "id": "neutral.08",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.08"
+            },
+            "text": {
+              "EN": "I've been on the road since the outbreak started.",
+              "TL": "Nasa kalsada na ako simula no'ng magsimula ang outbreak."
+            }
+          },
+          {
+            "id": "neutral.09",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.09"
+            },
+            "text": {
+              "EN": "Simple survivor. That's about the extent of it.",
+              "TL": "Simpleng survivor lang. Hanggang doon lang."
+            }
+          },
+          {
+            "id": "neutral.10",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.neutral.10"
+            },
+            "text": {
+              "EN": "Trying to stay breathing, same as everyone else.",
+              "TL": "Sinusubukang manatiling humihinga, tulad ng iba."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "dialogue",
+      "id": "semantic.question.identity.terse",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/identity.json",
+        "responseTemplateID": "semantic.question.identity",
+        "style": "terse"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "terse.01",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.01"
+            },
+            "text": {
+              "EN": "A survivor.",
+              "TL": "Isang survivor."
+            }
+          },
+          {
+            "id": "terse.02",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.02"
+            },
+            "text": {
+              "EN": "Just me.",
+              "TL": "Ako lang."
+            }
+          },
+          {
+            "id": "terse.03",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.03"
+            },
+            "text": {
+              "EN": "Doesn't matter.",
+              "TL": "Walang halaga."
+            }
+          },
+          {
+            "id": "terse.04",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.04"
+            },
+            "text": {
+              "EN": "Another wanderer.",
+              "TL": "Isa pang lagalag."
+            }
+          },
+          {
+            "id": "terse.05",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.05"
+            },
+            "text": {
+              "EN": "Just surviving.",
+              "TL": "Nabubuhay lang."
+            }
+          },
+          {
+            "id": "terse.06",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.06"
+            },
+            "text": {
+              "EN": "Nobody special.",
+              "TL": "Walang espesyal."
+            }
+          },
+          {
+            "id": "terse.07",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.07"
+            },
+            "text": {
+              "EN": "A fighter.",
+              "TL": "Isang mandirigma."
+            }
+          },
+          {
+            "id": "terse.08",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.08"
+            },
+            "text": {
+              "EN": "Same as you.",
+              "TL": "Tulad mo rin."
+            }
+          },
+          {
+            "id": "terse.09",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.09"
+            },
+            "text": {
+              "EN": "Just a stranger.",
+              "TL": "Isang estranghero lang."
+            }
+          },
+          {
+            "id": "terse.10",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.terse.10"
+            },
+            "text": {
+              "EN": "Still breathing.",
+              "TL": "Humihinga pa."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "dialogue",
+      "id": "semantic.question.identity.warm",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/identity.json",
+        "responseTemplateID": "semantic.question.identity",
+        "style": "warm"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "warm.01",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.01"
+            },
+            "text": {
+              "EN": "I'm glad to share this road with you, friend.",
+              "TL": "Masaya akong kasama ka sa kalsadang 'to, kaibigan."
+            }
+          },
+          {
+            "id": "warm.02",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.02"
+            },
+            "text": {
+              "EN": "Just an old soul trying to do some good in a ruined world.",
+              "TL": "Isang simpleng tao na sumusubok gumawa ng kabutihan sa sirang mundong 'to."
+            }
+          },
+          {
+            "id": "warm.03",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.03"
+            },
+            "text": {
+              "EN": "I'm someone who values good company out here.",
+              "TL": "Isa akong taong nagpapahalaga sa mabuting kasama rito."
+            }
+          },
+          {
+            "id": "warm.04",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.04"
+            },
+            "text": {
+              "EN": "Call me a friend. We're in this struggle together.",
+              "TL": "Tawagin mo akong kaibigan. Magkasama tayo sa laban na 'to."
+            }
+          },
+          {
+            "id": "warm.05",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.05"
+            },
+            "text": {
+              "EN": "I used to have a regular life, but now I have people I care about.",
+              "TL": "May normal akong buhay noon, pero ngayon may mga taong mahalaga na sa akin."
+            }
+          },
+          {
+            "id": "warm.06",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.06"
+            },
+            "text": {
+              "EN": "Just someone grateful to have found you in all this chaos.",
+              "TL": "Nagpapasalamat lang na nakatagpo kita sa gitna ng kaguluhang ito."
+            }
+          },
+          {
+            "id": "warm.07",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.07"
+            },
+            "text": {
+              "EN": "A friend and ally. That's who I want to be for you.",
+              "TL": "Isang kaibigan at kakampi. 'Yan ang nais kong maging para sa'yo."
+            }
+          },
+          {
+            "id": "warm.08",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.08"
+            },
+            "text": {
+              "EN": "I'm just happy to be standing here talking to you.",
+              "TL": "Masaya lang ako na nakatayo rito at nakakausap ka."
+            }
+          },
+          {
+            "id": "warm.09",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.09"
+            },
+            "text": {
+              "EN": "We're partners out here. That's all that matters to me.",
+              "TL": "Magkasosyo tayo rito. 'Yon lang ang mahalaga sa akin."
+            }
+          },
+          {
+            "id": "warm.10",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.warm.10"
+            },
+            "text": {
+              "EN": "A loyal companion on the long road ahead.",
+              "TL": "Isang tapat na kasama sa mahabang daan sa unahan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "dialogue",
+      "id": "semantic.question.identity.known.guarded",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/identity.json",
+        "responseTemplateID": "semantic.question.identity.known",
+        "style": "guarded"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "guarded.01",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.01"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}. You should already know that.",
+              "TL": "Ako si {speaker.name}. Dapat alam mo na 'yan."
+            }
+          },
+          {
+            "id": "guarded.02",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.02"
+            },
+            "text": {
+              "EN": "It's {speaker.name}. Don't act like you forgot.",
+              "TL": "Si {speaker.name} 'to. Huwag kang umastang nakalimot ka."
+            }
+          },
+          {
+            "id": "guarded.03",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.03"
+            },
+            "text": {
+              "EN": "You know my name, {speaker.name}. Don't play games.",
+              "TL": "Alam mo ang pangalan ko, si {speaker.name}. Huwag kang makipaglaro."
+            }
+          },
+          {
+            "id": "guarded.04",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.04"
+            },
+            "text": {
+              "EN": "Still {speaker.name}. Nothing has changed.",
+              "TL": "{speaker.name} pa rin. Walang nagbago."
+            }
+          },
+          {
+            "id": "guarded.05",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.05"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}. Stop asking questions you know the answers to.",
+              "TL": "Ako si {speaker.name}. Tigilan mo ang pagtatanong sa alam mo na ang sagot."
+            }
+          },
+          {
+            "id": "guarded.06",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.06"
+            },
+            "text": {
+              "EN": "Name's {speaker.name}. Keep your head focused on our perimeter.",
+              "TL": "Pangalan ko ay {speaker.name}. Ituon ang isip sa paligid natin."
+            }
+          },
+          {
+            "id": "guarded.07",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.07"
+            },
+            "text": {
+              "EN": "I am {speaker.name}. We've walked together long enough for you to know.",
+              "TL": "Ako si {speaker.name}. Matagal na tayong magkasama para malaman mo."
+            }
+          },
+          {
+            "id": "guarded.08",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.08"
+            },
+            "text": {
+              "EN": "Still {speaker.name}. Keep your eyes sharp.",
+              "TL": "{speaker.name} pa rin. Maging matalas ang paningin."
+            }
+          },
+          {
+            "id": "guarded.09",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.09"
+            },
+            "text": {
+              "EN": "You know me, {speaker.name}. What's the real question?",
+              "TL": "Kilala mo ako, si {speaker.name}. Ano ang totoong tanong mo?"
+            }
+          },
+          {
+            "id": "guarded.10",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.identity.known.guarded.10"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}. Let's get back to surviving.",
+              "TL": "Ako si {speaker.name}. Bumalik na tayo sa kaligtasan."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "dialogue",
+      "id": "semantic.question.identity.known.neutral",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/identity.json",
+        "responseTemplateID": "semantic.question.identity.known",
+        "style": "neutral"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "neutral.01",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.01"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}. We already know each other.",
+              "TL": "Ako si {speaker.name}. Magkakilala na tayo."
+            }
+          },
+          {
+            "id": "neutral.02",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.02"
+            },
+            "text": {
+              "EN": "My name is {speaker.name}, as you know.",
+              "TL": "Ang pangalan ko ay {speaker.name}, tulad ng alam mo na."
+            }
+          },
+          {
+            "id": "neutral.03",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.03"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}. We've met before.",
+              "TL": "Ako si {speaker.name}. Nagkita na tayo noon."
+            }
+          },
+          {
+            "id": "neutral.04",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.04"
+            },
+            "text": {
+              "EN": "It's me, {speaker.name}.",
+              "TL": "Ako 'to, si {speaker.name}."
+            }
+          },
+          {
+            "id": "neutral.05",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.05"
+            },
+            "text": {
+              "EN": "You remember me, right? {speaker.name}.",
+              "TL": "Naaalala mo ako, di ba? Si {speaker.name}."
+            }
+          },
+          {
+            "id": "neutral.06",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.06"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}. Good to speak with you again.",
+              "TL": "Ako si {speaker.name}. Mabuting makausap ka ulit."
+            }
+          },
+          {
+            "id": "neutral.07",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.07"
+            },
+            "text": {
+              "EN": "Still {speaker.name}, same as yesterday.",
+              "TL": "{speaker.name} pa rin, tulad kahapon."
+            }
+          },
+          {
+            "id": "neutral.08",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.08"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}. We're on the same team.",
+              "TL": "Ako si {speaker.name}. Nasa iisang grupo tayo."
+            }
+          },
+          {
+            "id": "neutral.09",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.09"
+            },
+            "text": {
+              "EN": "You know me well enough, I'm {speaker.name}.",
+              "TL": "Kilala mo na ako nang maigi, ako si {speaker.name}."
+            }
+          },
+          {
+            "id": "neutral.10",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.identity.known.neutral.10"
+            },
+            "text": {
+              "EN": "It's {speaker.name}. Just checking in?",
+              "TL": "Si {speaker.name} 'to. Nangungumusta lang?"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "dialogue",
+      "id": "semantic.question.identity.known.terse",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/identity.json",
+        "responseTemplateID": "semantic.question.identity.known",
+        "style": "terse"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "terse.01",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.01"
+            },
+            "text": {
+              "EN": "You know me. I'm {speaker.name}.",
+              "TL": "Kilala mo ako. Ako si {speaker.name}."
+            }
+          },
+          {
+            "id": "terse.02",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.02"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}.",
+              "TL": "Ako si {speaker.name}."
+            }
+          },
+          {
+            "id": "terse.03",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.03"
+            },
+            "text": {
+              "EN": "Still {speaker.name}.",
+              "TL": "{speaker.name} pa rin."
+            }
+          },
+          {
+            "id": "terse.04",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.04"
+            },
+            "text": {
+              "EN": "{speaker.name}. That's me.",
+              "TL": "{speaker.name}. Ako 'yan."
+            }
+          },
+          {
+            "id": "terse.05",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.05"
+            },
+            "text": {
+              "EN": "It's {speaker.name}.",
+              "TL": "Si {speaker.name}."
+            }
+          },
+          {
+            "id": "terse.06",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.06"
+            },
+            "text": {
+              "EN": "Name's {speaker.name}.",
+              "TL": "Pangalan ay {speaker.name}."
+            }
+          },
+          {
+            "id": "terse.07",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.07"
+            },
+            "text": {
+              "EN": "Me. {speaker.name}.",
+              "TL": "Ako. Si {speaker.name}."
+            }
+          },
+          {
+            "id": "terse.08",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.08"
+            },
+            "text": {
+              "EN": "Remember? {speaker.name}.",
+              "TL": "Tanda mo? Si {speaker.name}."
+            }
+          },
+          {
+            "id": "terse.09",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.09"
+            },
+            "text": {
+              "EN": "Just {speaker.name}.",
+              "TL": "Si {speaker.name} lang."
+            }
+          },
+          {
+            "id": "terse.10",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.identity.known.terse.10"
+            },
+            "text": {
+              "EN": "{speaker.name}.",
+              "TL": "{speaker.name}."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "dialogue",
+      "id": "semantic.question.identity.known.warm",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/identity.json",
+        "responseTemplateID": "semantic.question.identity.known",
+        "style": "warm"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "warm.01",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.01"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}. Good to see you again.",
+              "TL": "Ako si {speaker.name}. Masayang makita ka ulit."
+            }
+          },
+          {
+            "id": "warm.02",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.02"
+            },
+            "text": {
+              "EN": "You know it's me, {speaker.name}! Always glad to be by your side.",
+              "TL": "Alam mong ako 'to, si {speaker.name}! Laging masayang nasa tabi mo."
+            }
+          },
+          {
+            "id": "warm.03",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.03"
+            },
+            "text": {
+              "EN": "It's {speaker.name}, my friend. I'm right here.",
+              "TL": "Si {speaker.name} 'to, kaibigan. Nandito lang ako."
+            }
+          },
+          {
+            "id": "warm.04",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.04"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}. It's truly a pleasure knowing you.",
+              "TL": "Ako si {speaker.name}. Tunay na karangalan ang makilala ka."
+            }
+          },
+          {
+            "id": "warm.05",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.05"
+            },
+            "text": {
+              "EN": "You know your friend {speaker.name}. How are you holding up?",
+              "TL": "Kilala mo ang kaibigan mong si {speaker.name}. Kamusta ka na?"
+            }
+          },
+          {
+            "id": "warm.06",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.06"
+            },
+            "text": {
+              "EN": "Still {speaker.name}, and always here to watch your back.",
+              "TL": "{speaker.name} pa rin, at laging nandito para bantayan ang likod mo."
+            }
+          },
+          {
+            "id": "warm.07",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.07"
+            },
+            "text": {
+              "EN": "It's me, {speaker.name}. So glad we're traveling together.",
+              "TL": "Ako 'to, si {speaker.name}. Masaya akong magkasama tayo sa paglalakbay."
+            }
+          },
+          {
+            "id": "warm.08",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.08"
+            },
+            "text": {
+              "EN": "I'm {speaker.name}, your companion through all of this.",
+              "TL": "Ako si {speaker.name}, ang kasama mo sa lahat ng ito."
+            }
+          },
+          {
+            "id": "warm.09",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.09"
+            },
+            "text": {
+              "EN": "You know me, {speaker.name}. Let's keep each other safe.",
+              "TL": "Kilala mo ako, si {speaker.name}. Ingatan natin ang isa't isa."
+            }
+          },
+          {
+            "id": "warm.10",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.identity.known.warm.10"
+            },
+            "text": {
+              "EN": "It's {speaker.name}! Always happy when you say hello.",
+              "TL": "Si {speaker.name} 'to! Laging masaya kapag bumabati ka."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

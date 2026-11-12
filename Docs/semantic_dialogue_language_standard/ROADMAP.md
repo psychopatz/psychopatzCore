@@ -326,6 +326,24 @@ direct Lua family load, and changed-file Kahlua validation pass.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 knowledge, identity, activity, and gossip migration checkpoint
+
+PsychopatzCore now owns four final PSDL shards for activity, gossip, identity,
+and knowledge wording. They preserve seven semantic families, 32 bounded style
+plans, 320 phrase pairs, and 640 EN/TL locale values. ProjectHoomans' existing
+question response catalog remains the selector and projects Core-generated
+plans into the established phrase-family and SpeechRealization authorities.
+The adapter uses actor-neutral `{speaker.name}`, `{target.name}`, and
+`{addressee.name}` bindings while leaving knowledge/context selection and
+gameplay authority in Hoomans. Superseded Core knowledge content sources,
+generated modules, translations, the Hoomans Knowledge phrase-family source,
+generated index, and split translations are removed. Parity, caller/reference
+zero, Core harness, PSDL build, focused knowledge smokes, three-repository S0
+guard, direct Lua family load, generated ownership, and changed-file Kahlua
+gates pass.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.
