@@ -172,6 +172,13 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Superseded Core world-event content and behavior sources/generated modules/translations are removed. The Core manifest routes two PSDL dialogue shards and one PSDL behavior shard; caller/reference-zero searches are clean outside lineage metadata and generated outputs.
 - World-event parity, direct Lua family/behavior loads, Core's 109-test harness, PSDL build, three-repository S0 guard, and changed-file Kahlua scans pass. The worker authoring suite still hits the pre-existing duplicate automatic-flow registration `semantic.generated.simple_command.camp.failed`; temporary-copy compiler tests retain the existing mandatory external-adopter fixture assumption.
 
+## S5 medical-event migration chunk
+
+- ProjectHoomans now owns six final PSDL medical-event shards named by semantic response surface: `medical_event_call.json`, `medical_event_overview.json`, `medical_event_repeat.json`, `medical_event_teammate.json`, `medical_event_treatment.json`, and `medical_event_update.json`. Together they preserve 32 semantic families, 32 bounded records, 320 phrase pairs, and 640 EN/TL locale values without numeric or legacy shard copies.
+- The existing Hoomans medical response catalog remains the selector and its Core adapter projects PSDL plans into the established phrase-family/SpeechRealization authority. Medical distress predicates, follow-up offers, response plans, treatment logic, and health gameplay remain adopter-owned.
+- Superseded Core medical content sources/generated modules and split Event translations are removed. The Core manifest routes the six adopter-owned PSDL shards; DynamicTrading receives only generated manifest/registry routing and no medical dialogue authority.
+- Medical parity reports 32 families, 320 phrase pairs, and 640 EN/TL locale values with zero differences. Core's 109-test harness, PSDL build, direct Lua family loads, three-repository S0 guard, and changed-file Kahlua scans pass. The broader worker startup and temporary-copy compiler fixture baselines remain separate from this parity gate.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -198,7 +205,7 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 ## Next Chunk
 
-Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: migrate the next coherent medical/event surface, then remaining ProjectHoomans and DynamicTrading/DTCommon surfaces. For each domain, prove parity and caller/reference zero, remove its superseded source, and keep Core as the sole mechanism owner; S5-S8 remain open.
+Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: migrate the next coherent event-reaction/combat surface, then remaining ProjectHoomans and DynamicTrading/DTCommon surfaces. For each domain, prove parity and caller/reference zero, remove its superseded source, and keep Core as the sole mechanism owner; S5-S8 remain open.
 
 ## Evidence status
 
@@ -215,6 +222,7 @@ Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Co
 - `TEST_VERIFIED`: navigation PSDL preserves 5 semantic families, 20 bounded style plans, and 400 EN/TL locale values; navigation/response-catalog smokes, generated ownership tests, Core 109-test, three-repository audit/guard, direct Lua family load, and changed-file Kahlua gates pass.
 - `TEST_VERIFIED`: knowledge PSDL preserves 7 semantic families, 32 bounded style plans, 320 phrase pairs, and 640 EN/TL locale values; Core 109-test, PSDL build, three-repository audit/guard, focused knowledge/world-knowledge smokes, generated ownership tests, direct Lua family load, and changed-file Kahlua scans pass.
 - `TEST_VERIFIED`: world-event PSDL preserves 2 semantic families, 8 bounded style plans, 80 phrase pairs, and 160 EN/TL locale values; the existing behavior contract, direct Lua family/behavior loads, Core 109-test harness, PSDL build, three-repository audit/guard, and changed-file Kahlua scans pass.
+- `TEST_VERIFIED`: medical-event PSDL preserves 32 semantic families/records, 320 phrase pairs, and 640 EN/TL locale values across six semantic shards; Core 109-test harness, PSDL build, direct Lua family loads, three-repository audit/guard, and changed-file Kahlua scans pass.
 - `BASELINE_EVIDENCE`: the broad `pnc_companion_commands_smoke` still fails at its pre-existing presentation-path camp-rejection handoff after the direct semantic resolver succeeds; no new Core or PSDL caller/reference failure is present.
 - `STATIC_ONLY`: S5–S8 migration and final acceptance gates remain open.
 

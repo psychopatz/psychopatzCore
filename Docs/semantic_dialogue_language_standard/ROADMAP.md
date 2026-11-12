@@ -360,6 +360,22 @@ three-repository S0 guard, and changed-file Kahlua gates pass.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 medical-event migration checkpoint
+
+ProjectHoomans now owns six final PSDL medical-event shards named by semantic
+response surface: call, overview, repeat, teammate, treatment, and update.
+Together they preserve 32 semantic families/records, 320 phrase pairs, and
+640 EN/TL locale values. The existing Hoomans medical response catalog remains
+the selector; its adapter projects Core-generated PSDL plans into the existing
+phrase-family/SpeechRealization authority while medical predicates, follow-up
+offers, response plans, treatment, and health gameplay remain adopter-owned.
+Superseded Core medical content sources/generated modules and split Event
+translations are removed. Parity, caller/reference-zero, direct Lua family
+loads, Core harness, PSDL build, three-repository guard, and changed-file
+Kahlua gates pass.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.

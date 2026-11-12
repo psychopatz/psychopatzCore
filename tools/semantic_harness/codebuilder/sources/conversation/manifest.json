@@ -428,6 +428,72 @@
       "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/behavior/core_world_event_warn.json",
       "shardId": "conversation.psdl.core.world.event.behavior.warn",
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+
+    {
+      "domain": "medical_event_call",
+      "kind": "psdl",
+      "order": 2321,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/medical_event_call.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/medical_event_call.json",
+      "shardId": "conversation.psdl.medical.event.call",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "medical_event_overview",
+      "kind": "psdl",
+      "order": 2322,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/medical_event_overview.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/medical_event_overview.json",
+      "shardId": "conversation.psdl.medical.event.overview",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "medical_event_repeat",
+      "kind": "psdl",
+      "order": 2323,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/medical_event_repeat.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/medical_event_repeat.json",
+      "shardId": "conversation.psdl.medical.event.repeat",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "medical_event_teammate",
+      "kind": "psdl",
+      "order": 2324,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/medical_event_teammate.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/medical_event_teammate.json",
+      "shardId": "conversation.psdl.medical.event.teammate",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "medical_event_treatment",
+      "kind": "psdl",
+      "order": 2325,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/medical_event_treatment.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/medical_event_treatment.json",
+      "shardId": "conversation.psdl.medical.event.treatment",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "medical_event_update",
+      "kind": "psdl",
+      "order": 2326,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/medical_event_update.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/medical_event_update.json",
+      "shardId": "conversation.psdl.medical.event.update",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {
@@ -477,13 +543,6 @@
       "order": 1350,
       "path": "content/wellbeing",
       "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "event",
-      "kind": "content",
-      "order": 1500,
-      "path": "content/event/medical",
-      "owner": "ProjectHoomans"
     },
     {
       "domain": "event",
