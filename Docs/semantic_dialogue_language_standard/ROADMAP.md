@@ -1,6 +1,6 @@
 # Roadmap — Psychopatz Semantic Dialogue Language Standard
 
-**Parent status:** IN PROGRESS — S0-S3 ACCEPTED; continuing automatically through S4-S8.
+**Parent status:** IN PROGRESS — S0-S4 ACCEPTED; continuing automatically through S5-S8.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
@@ -149,6 +149,10 @@ Kahlua scans pass.
 
 ## S4 — behaviors and beats under PSDL
 
+**Status:** ACCEPTED on 2026-11-12. Core PSDL behavior/beat records now
+validate against and project into the existing Interaction Director contracts;
+no PSDL-specific beat director or wording authority was added.
+
 Migrate behavior/beat authoring to PSDL while preserving the accepted Interaction Director.
 
 Required:
@@ -164,6 +168,11 @@ Required:
 Prove argument/reconciliation/suspicious-first-contact parity first.
 
 **Gate:** existing representative beat/director tests pass from PSDL-generated definitions and NPC-generated semantic acts continue to enter at the semantic-stimulus layer.
+
+**Evidence:** `render_psdl_director_plan` in Core's PSDL compiler, the
+representative behavior/beat fixture in `test_psdl_compiler.py`, shared
+predicate normalization, and the existing Core conversation validation/registry
+contracts. The full Core semantic harness passes 106 tests.
 
 ## S5 — first-party domain migration and deletion
 

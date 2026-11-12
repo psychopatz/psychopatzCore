@@ -1,8 +1,8 @@
 # Progress — Psychopatz Semantic Dialogue Language Standard
 
-**Status:** IN PROGRESS — S0-S3 ACCEPTED; continuing automatically through S4-S8.
+**Status:** IN PROGRESS — S0-S4 ACCEPTED; continuing automatically through S5-S8.
 **Branch:** existing `main` in each participant repository.
-**Active phase:** S4 — behaviors and beats under PSDL.
+**Active phase:** S5 — first-party domain migration and deletion.
 **Developer completion boundary:** S8.
 
 ## Current verified architecture
@@ -60,6 +60,15 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Core and Hoomans adopter smoke fixtures pass for dynamic `{speaker.name}`, `{addressee.name}`, `{target.name}`-style presentation, two-turn delivery, collection constraints and semantic offer frames.
 - Full Core semantic harness remains green at 105 tests; changed Core/Hoomans Lua files pass the Kahlua error scan.
 
+## S4 acceptance now verified
+
+- Core PSDL behavior and beat records validate against the existing Interaction Director contracts; the compiler does not introduce a PSDL-specific director.
+- Behavior records retain reusable semantic strategy fields: `act`, `mode`, `stimuli`, capabilities, outputs, relevance modifiers and continuation policy.
+- Beat records retain `entry`, `maintain`, `exit`, candidate relevance, cooldown, maximum turns and optional group fields, and must reference behavior records.
+- Beat wording is rejected and simple dialogue remains independently expressible; behavior/beat predicates use the same Core predicate normalizer as dialogue and offers.
+- `render_psdl_director_plan` projects deterministic Core PSDL records into the existing behavior/beat registry shapes, with no second runtime or wording authority.
+- The representative argument-beat fixture compiles and projects through the existing director contract; the full Core semantic harness passes 106 tests.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -82,13 +91,13 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 
 All three repositories may contain concurrent work. At the latest documentation checkpoint, PsychopatzCore contains the Core-owned PSDL documentation and CodeBuilder README changes; ProjectHoomans contains successor annotations; DynamicTrading already has unrelated dirty/untracked work that predates this scope clarification.
 
-Do not infer that earlier work was discarded or that HEAD is permanently authoritative. S0 must re-inspect **all three repositories** and current Git history/worktrees before editing, preserve any concurrent work, and treat exact current source as truth.
+Do not infer that earlier work was discarded or that HEAD is permanently authoritative. Each phase must re-inspect **all three repositories** and current Git history/worktrees before editing, preserve any concurrent work, and treat exact current source as truth.
 
 ## Next Chunk
 
-Execute **S4** in PsychopatzCore and adopter fixtures: express behaviors and
-beats through PSDL while continuing to use the existing Interaction Director,
-with shared predicates and no beat-owned wording.
+Execute **S5** across ProjectHoomans and DynamicTrading/DTCommon through the
+Core compiler: migrate one coherent first-party semantic domain, prove parity
+and caller/reference zero, then remove its superseded source.
 
 ## Evidence status
 
@@ -97,7 +106,8 @@ with shared predicates and no beat-owned wording.
 - `TEST_VERIFIED`: S0 guard and focused audit tests pass; the current three-repository guard pass is recorded in the inventory.
 - `TEST_VERIFIED`: S1 Core/adopter contract fixtures and the full 100-test semantic harness pass; changed Lua files pass Kahlua verification.
 - `TEST_VERIFIED`: S3 Core/Hoomans response, offer and binding fixtures pass; changed Lua files pass Kahlua verification.
-- `STATIC_ONLY`: S4–S8 implementation gates remain open.
+- `TEST_VERIFIED`: S4 Core behavior/beat projection fixtures and the full 106-test semantic harness pass.
+- `STATIC_ONLY`: S5–S8 migration and final acceptance gates remain open.
 
 ## Stop conditions
 

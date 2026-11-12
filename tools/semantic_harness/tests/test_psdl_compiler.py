@@ -1,4 +1,4 @@
-"""S2 Core-owned PSDL compiler and language-validation tests."""
+"""Core-owned PSDL compiler and language-validation tests."""
 
 from __future__ import annotations
 
@@ -10,6 +10,7 @@ from tools.semantic_harness.codebuilder.psdl_compiler import (
     PSDL_COMPILED_SCHEMA,
     compile_psdl_document,
     compile_psdl_sources,
+    render_psdl_director_plan,
     render_psdl_runtime_plan,
 )
 
@@ -24,13 +25,32 @@ def _catalog() -> dict:
                 "owner": "ProjectHoomans",
                 "stimuli": ["NPC_SEMANTIC_ACT"],
                 "act": "BOUNDARY_WARNING",
+                "mode": "beat",
+                "requiredCapabilities": ["speech"],
+                "outputs": {
+                    "speech": {
+                        "dialogueAct": "BOUNDARY_WARNING",
+                        "contentTemplateID": "semantic.social.boundary_warning",
+                    }
+                },
+                "baseRelevance": 0.65,
+                "modifiers": [
+                    {
+                        "delta": 0.1,
+                        "reason": "admitted",
+                        "when": {"pragmatic.admitted": {"truthy": True}},
+                    }
+                ],
                 "when": {"pragmatic.admitted": {"truthy": True}},
             },
             {
                 "kind": "beat",
                 "id": "beat.social.argument",
                 "owner": "ProjectHoomans",
+                "stimuli": ["NPC_SEMANTIC_ACT"],
                 "entry": {"stimulus.semantic.speechAct": {"in": ["THREATEN"]}},
+                "maintain": {"history.hostilityCount": {">": 0}},
+                "exit": {"scene.ended": {"truthy": True}},
                 "candidates": [{"behavior": "behavior.social.warn", "relevance": 0.65}],
                 "cooldownTurns": 3,
                 "maxTurns": 6,
@@ -114,6 +134,13 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["segments"][0]["kind"], "translation")
         self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["offers"][0]["labelFallback"], "Ask for directions")
         self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["offers"][0]["consumers"], ["participant"])
+        director_plan = render_psdl_director_plan(compiled)
+        self.assertEqual([item["id"] for item in director_plan["behaviors"]], ["behavior.social.warn"])
+        self.assertEqual([item["id"] for item in director_plan["beats"]], ["beat.social.argument"])
+        self.assertEqual(director_plan["behaviors"][0]["outputs"]["speech"]["dialogueAct"], "BOUNDARY_WARNING")
+        self.assertEqual(director_plan["beats"][0]["maintain"]["op"], "gt")
+        self.assertNotIn("text", director_plan["behaviors"][0])
+        self.assertNotIn("text", director_plan["beats"][0])
 
     def test_compilation_is_deterministic_and_source_path_is_lineage_only(self) -> None:
         source = _catalog()
@@ -128,6 +155,52 @@ class PSDLCompilerTests(unittest.TestCase):
         sources = {"b.json": source, "a.json": {"schema": source["schema"], "records": [copy.deepcopy(source["records"][-1])]}}
         with self.assertRaises(CompileError):
             compile_psdl_sources(sources)
+
+    def test_representative_social_beats_project_through_one_director_contract(self) -> None:
+        source = _catalog()
+        source["records"].extend(
+            [
+                {
+                    "kind": "beat",
+                    "id": "beat.social.reconciliation",
+                    "owner": "ProjectHoomans",
+                    "stimuli": ["NPC_SEMANTIC_ACT"],
+                    "entry": {"stimulus.semantic.intent": {"in": ["APOLOGIZE"]}},
+                    "maintain": {"history.hostilityCount": {">": 0}},
+                    "exit": {"scene.ended": {"truthy": True}},
+                    "candidates": [{"behavior": "behavior.social.warn", "relevance": 0.45}],
+                    "group": "beat_group.social_primary",
+                    "cooldownTurns": 2,
+                    "maxTurns": 4,
+                },
+                {
+                    "kind": "beat",
+                    "id": "beat.social.suspicious_first_contact",
+                    "owner": "ProjectHoomans",
+                    "stimuli": ["NPC_SEMANTIC_ACT"],
+                    "entry": {"stimulus.semantic.intent": {"in": ["INTRODUCE"]}},
+                    "maintain": {"not": {"path": "scene.ended", "op": "truthy"}},
+                    "exit": {"scene.ended": {"truthy": True}},
+                    "candidates": [{"behavior": "behavior.social.warn", "relevance": 0.25}],
+                    "group": "beat_group.social_primary",
+                    "cooldownTurns": 1,
+                    "maxTurns": 3,
+                },
+            ]
+        )
+        compiled = compile_psdl_document(source)
+        director_plan = render_psdl_director_plan(compiled)
+        self.assertEqual(
+            [item["id"] for item in director_plan["beats"]],
+            [
+                "beat.social.argument",
+                "beat.social.reconciliation",
+                "beat.social.suspicious_first_contact",
+            ],
+        )
+        self.assertTrue(
+            all(item["stimuli"] == ["NPC_SEMANTIC_ACT"] for item in director_plan["beats"])
+        )
 
     def test_translation_and_binding_validation_fails_closed(self) -> None:
         invalid = _catalog()
@@ -185,6 +258,17 @@ class PSDLCompilerTests(unittest.TestCase):
             "owner": "ProjectHoomans",
             "notAField": True,
         }
+        with self.assertRaises(CompileError):
+            compile_psdl_document(invalid)
+
+    def test_director_contract_fields_are_required(self) -> None:
+        invalid = _catalog()
+        invalid["records"][0].pop("stimuli")
+        with self.assertRaises(CompileError):
+            compile_psdl_document(invalid)
+
+        invalid = _catalog()
+        invalid["records"][1].pop("maintain")
         with self.assertRaises(CompileError):
             compile_psdl_document(invalid)
 

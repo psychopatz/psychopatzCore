@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 from .conversation_model import fingerprint
+from .conversation_validation import _validate_behavior_shard, _validate_beat_shard
 from .errors import CompileError
 from .generation_ownership import (
     OwnerConfigurationError,
@@ -39,10 +40,11 @@ PSDL_COMPILED_SCHEMA = "psychopatz.semantic.dialogue-compiled.v1"
 PSDL_KINDS = frozenset({"dialogue", "behavior", "beat", "realization"})
 PSDL_DOCUMENT_FIELDS = frozenset({"schema", "records", "owner", "metadata"})
 PSDL_RECORD_FIELDS = frozenset({
-    "schema", "kind", "id", "owner", "participants", "target", "slots",
+    "schema", "kind", "id", "version", "owner", "participants", "target", "slots",
     "references", "when", "constraints", "on", "respond", "response",
     "variants", "turns", "offers", "transitions", "bindings", "text",
-    "label", "utterance", "stimuli", "act", "respondWith", "baseRelevance",
+    "label", "utterance", "stimuli", "act", "mode", "requiredCapabilities",
+    "outputs", "modifiers", "continuation", "baseRelevance",
     "entry", "maintain", "exit", "candidates", "group", "cooldownTurns",
     "maxTurns", "effects", "policy", "metadata", "style", "resolver",
 })
@@ -448,9 +450,9 @@ def _normalize_module_payload(
     ):
         raise CompileError(f"{label} requires a response, turns, variants, offers or text")
     if kind == "behavior" and not any(
-        field in payload for field in ("act", "respondWith")
+        field in payload for field in ("act",)
     ):
-        raise CompileError(f"{label} requires act or respondWith")
+        raise CompileError(f"{label}.act is required for a behavior")
     if kind == "realization" and not any(
         field in payload for field in ("text", "variants")
     ):
@@ -473,6 +475,54 @@ def _normalize_module_payload(
         if not isinstance(value, (int, float)) or not 0 <= value <= 1:
             raise CompileError(f"{label}.baseRelevance must be between 0 and 1")
     return payload
+
+
+def _director_record_projection(record: Mapping[str, Any]) -> dict[str, Any]:
+    """Validate and normalize one record for the existing director registry."""
+    kind = str(record.get("kind") or "")
+    if kind not in {"behavior", "beat"}:
+        raise CompileError(f"{record.get('id', 'record')} is not a director record")
+    payload = _copy(record.get("payload") or {})
+    if not isinstance(payload, dict):
+        raise CompileError(f"{record['id']}.payload must be an object")
+    payload["id"] = record["id"]
+    payload["owner"] = record["owner"]
+    payload.setdefault("version", 1)
+    if record.get("when") is not None:
+        payload["when"] = _copy(record["when"])
+
+    if kind == "behavior":
+        unsupported = set(payload) - {
+            "id", "version", "owner", "act", "mode", "stimuli",
+            "requiredCapabilities", "outputs", "continuation", "when",
+            "baseRelevance", "modifiers",
+        }
+        if unsupported:
+            raise CompileError(
+                f"{record['id']} contains fields outside the Interaction Director behavior contract: "
+                + ", ".join(sorted(unsupported))
+            )
+        return _validate_behavior_shard(
+            {"behaviors": [payload]},
+            f"PSDL {record['id']}",
+            default_owner=record["owner"],
+        )["records"][0]
+
+    unsupported = set(payload) - {
+        "id", "version", "owner", "group", "baseRelevance", "entry",
+        "maintain", "exit", "candidates", "cooldownTurns", "maxTurns",
+        "stimuli",
+    }
+    if unsupported:
+        raise CompileError(
+            f"{record['id']} contains fields outside the Interaction Director beat contract: "
+            + ", ".join(sorted(unsupported))
+        )
+    return _validate_beat_shard(
+        {"beats": [payload]},
+        f"PSDL {record['id']}",
+        default_owner=record["owner"],
+    )["records"][0]
 
 
 def _normalize_record(
@@ -507,6 +557,13 @@ def _normalize_record(
         canonical["kind"], canonical["payload"], label=record_id
     )
     canonical["owner"] = record["owner"]
+    if canonical["kind"] in {"behavior", "beat"}:
+        director_record = _director_record_projection(canonical)
+        canonical["payload"] = {
+            key: _copy(value)
+            for key, value in director_record.items()
+            if key not in {"id", "owner"}
+        }
     canonical["lineage"]["sourceId"] = record_id
     return canonical
 
@@ -739,11 +796,28 @@ def render_psdl_runtime_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]
     return plans
 
 
+def render_psdl_director_plan(compiled: Mapping[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    """Project PSDL behaviors and beats into the existing director registries."""
+    if compiled.get("schema") != PSDL_COMPILED_SCHEMA:
+        raise CompileError("compiled PSDL payload has an invalid schema")
+    plan: dict[str, list[dict[str, Any]]] = {"behaviors": [], "beats": []}
+    for record in compiled.get("records", []):
+        kind = record.get("kind")
+        if kind == "behavior":
+            plan["behaviors"].append(_director_record_projection(record))
+        elif kind == "beat":
+            plan["beats"].append(_director_record_projection(record))
+    plan["behaviors"].sort(key=lambda item: item["id"])
+    plan["beats"].sort(key=lambda item: item["id"])
+    return plan
+
+
 __all__ = [
     "PSDL_COMPILED_SCHEMA",
     "PSDL_KINDS",
     "PSDL_SCHEMA",
     "compile_psdl_document",
     "compile_psdl_sources",
+    "render_psdl_director_plan",
     "render_psdl_runtime_plan",
 ]
