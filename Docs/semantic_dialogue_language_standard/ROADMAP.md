@@ -1,6 +1,6 @@
 # Roadmap — Psychopatz Semantic Dialogue Language Standard
 
-**Parent status:** IN PROGRESS — S0-S1 ACCEPTED; continuing automatically through S2-S8.
+**Parent status:** IN PROGRESS — S0-S2 ACCEPTED; continuing automatically through S3-S8.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
@@ -83,6 +83,11 @@ semantic harness tests and the changed-file Kahlua scan pass.
 
 ## S2 — PSDL parser/compiler and language validation
 
+**Status:** ACCEPTED on 2026-11-12. The Core-owned compiler, language
+validation, deterministic runtime plan projection, and authoring-service
+preview seam pass the representative multi-kind fixture; no adopter compiler
+or schema copy was added.
+
 Implement `psychopatz.semantic.dialogue-language.v1` as the canonical authoring envelope **inside PsychopatzCore's CodeBuilder/tooling and reusable runtime contract surface**. ProjectHoomans and DynamicTrading must consume this Core implementation; a compiler/schema copy in either adopter fails S2.
 
 Required initial kinds:
@@ -107,6 +112,11 @@ Implement:
 Existing old formats may have bounded migration readers, but no new checked-in compatibility copy of source records is allowed.
 
 **Gate:** representative PSDL fixtures compile deterministically into existing runtime-compatible artifacts; malformed/ambiguous source fails with precise diagnostics.
+
+**Evidence:** `tools/semantic_harness/codebuilder/psdl_compiler.py`,
+`tools/semantic_harness/tests/test_psdl_compiler.py`, the Core service preview
+methods, and the 105-test semantic harness. Runtime plans use existing
+ResponsePlan/offer-shaped contracts and Core package routing.
 
 ## S3 — turns, bindings, slots and participant-neutral offers
 

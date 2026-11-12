@@ -25,6 +25,17 @@ IR.PUBLIC_CONTEXT_ROOTS = {
     slot = true,
     reference = true,
     conversation = true,
+    pragmatic = true,
+    stimulus = true,
+    history = true,
+    capability = true,
+    knowledge = true,
+    interaction = true,
+    flow = true,
+    social = true,
+    task = true,
+    action = true,
+    decision = true,
 }
 
 local function copyValue(value, depth)

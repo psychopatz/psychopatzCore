@@ -38,6 +38,8 @@ TARGET_TYPES = REFERENCE_TYPES
 CONTEXT_ROOTS = frozenset({
     "speaker", "addressee", "initiator", "observer", "participants", "target",
     "relationship", "scene", "world", "slot", "reference", "conversation",
+    "pragmatic", "stimulus", "history", "capability", "knowledge", "interaction",
+    "flow", "social", "task", "action", "decision",
 })
 PRIVATE_SEGMENTS = frozenset({"private", "secret", "undiscovered", "java", "lua", "callback"})
 _NAME = re.compile(r"^[a-z][a-z0-9_]{0,31}$")

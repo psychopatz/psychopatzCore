@@ -41,6 +41,11 @@ from .conversation_compiler import (
     render_conversation_registry,
     render_conversation_runtime_plan,
 )
+from .psdl_compiler import (
+    compile_psdl_document as _compile_psdl_document,
+    compile_psdl_sources as _compile_psdl_sources,
+    render_psdl_runtime_plan,
+)
 from .lexicon_compiler import CompileError
 from .generation_ownership import (
     CORE_OWNER,
@@ -174,6 +179,32 @@ class SemanticLabAuthoringService:
             runtime_root=self.runtime_root,
             package_repositories=self.package_repositories,
         )
+
+    def preview_psdl_document(
+        self,
+        document: dict[str, Any],
+        *,
+        source_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        """Compile PSDL through the shared Core service without writing output."""
+        compiled = _compile_psdl_document(document, source_path=source_path)
+        return {
+            "ok": True,
+            "compiled": compiled,
+            "runtimePlan": render_psdl_runtime_plan(compiled),
+        }
+
+    def preview_psdl_sources(
+        self,
+        sources: dict[str | Path, dict[str, Any]],
+    ) -> dict[str, Any]:
+        """Compile multiple adopter-owned PSDL sources through Core."""
+        compiled = _compile_psdl_sources(sources)
+        return {
+            "ok": True,
+            "compiled": compiled,
+            "runtimePlan": render_psdl_runtime_plan(compiled),
+        }
 
     def _conversation_registry_location(
         self,

@@ -69,6 +69,14 @@ from .semantic_dialogue_ir import (
     validate_canonical_ir,
     validate_context_path,
 )
+from .psdl_compiler import (
+    PSDL_COMPILED_SCHEMA,
+    PSDL_KINDS,
+    PSDL_SCHEMA,
+    compile_psdl_document,
+    compile_psdl_sources,
+    render_psdl_runtime_plan,
+)
 
 __all__ = [
     "CatalogNameError",
@@ -117,4 +125,10 @@ __all__ = [
     "normalize_target",
     "validate_canonical_ir",
     "validate_context_path",
+    "PSDL_COMPILED_SCHEMA",
+    "PSDL_KINDS",
+    "PSDL_SCHEMA",
+    "compile_psdl_document",
+    "compile_psdl_sources",
+    "render_psdl_runtime_plan",
 ]

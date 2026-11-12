@@ -1,8 +1,8 @@
 # Progress — Psychopatz Semantic Dialogue Language Standard
 
-**Status:** IN PROGRESS — S0-S1 ACCEPTED; continuing automatically through S2-S8.
+**Status:** IN PROGRESS — S0-S2 ACCEPTED; continuing automatically through S3-S8.
 **Branch:** existing `main` in each participant repository.
-**Active phase:** S2 — PSDL parser/compiler and language validation.
+**Active phase:** S3 — turns, bindings, slots and participant-neutral offers.
 **Developer completion boundary:** S8.
 
 ## Current verified architecture
@@ -42,6 +42,15 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Core semantic harness tests pass: 100 tests; the focused S1 contract suite is included. Changed Lua runtime and harness files pass the Kahlua error scan.
 - DynamicTrading was re-inspected in the same phase; its trader pack/static suggestions remain migration input and do not gain a parallel predicate/IR implementation.
 
+## S2 acceptance now verified
+
+- Core now owns `psdl_compiler.py`, the only PSDL parser/normalizer/compiler entry point; it accepts single records and bounded catalogs for `dialogue`, `behavior`, `beat`, and `realization`.
+- The compiler routes every record through the Core canonical IR and shared predicate normalizer, validates owner/package identity, typed slots/references, public bindings, locale fallback and placeholder parity, bounded turns/offers/transitions, beat behavior references, and legacy/ambiguous source rejection.
+- Runtime planning emits existing ResponsePlan/semantic-affordance-shaped data with package-routed module identities; it does not create a second dialogue runtime.
+- `SemanticLabAuthoringService.preview_psdl_document` and `preview_psdl_sources` expose the same Core compiler without writing generated output.
+- The S2 fixture compiles a translated multi-kind catalog deterministically and rejects malformed translations, inaccessible bindings, unknown fields, legacy identities, beat wording and dangling behavior references.
+- Full Core semantic harness passes: 105 tests.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -68,18 +77,18 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 ## Next Chunk
 
-Execute **S2** in PsychopatzCore: implement the canonical
-`psychopatz.semantic.dialogue-language.v1` parser/compiler and language
-validation on top of the accepted Core IR and predicate contracts. Keep
-ProjectHoomans and DynamicTrading as consumers of the Core implementation.
+Execute **S3** in PsychopatzCore and adopter fixtures: map compact/simple and
+multi-turn PSDL responses to the accepted ResponsePlan and BranchOffers
+authorities, prove typed binding/slot behavior and participant-neutral offer
+consumption without UI-text reparsing.
 
 ## Evidence status
 
 - `CODE_VERIFIED`: runtime capabilities listed above were inspected in current source before this roadmap was written.
-- `STATIC_ONLY`: PSDL source/compiler does not exist yet as the canonical production standard.
+- `TEST_VERIFIED`: S2 Core compiler fixtures and the full 105-test semantic harness pass.
 - `TEST_VERIFIED`: S0 guard and focused audit tests pass; the current three-repository guard pass is recorded in the inventory.
 - `TEST_VERIFIED`: S1 Core/adopter contract fixtures and the full 100-test semantic harness pass; changed Lua files pass Kahlua verification.
-- `STATIC_ONLY`: S2–S8 implementation gates remain open.
+- `STATIC_ONLY`: S3–S8 implementation gates remain open.
 
 ## Stop conditions
 
