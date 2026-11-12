@@ -109,8 +109,11 @@ class PSDLCompilerTests(unittest.TestCase):
         dialogue_plan = next(item for item in plans if item["id"] == "social.location.ask")
         self.assertEqual(dialogue_plan["owner"], "ProjectHoomans")
         self.assertTrue(dialogue_plan["module"].startswith("PNC/Semantics/Generated/Conversation/PSDL/"))
+        self.assertEqual(dialogue_plan["responsePlan"]["schemaVersion"], 1)
+        self.assertEqual(dialogue_plan["responsePlan"]["kind"], "dialogue_act_plan")
         self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["segments"][0]["kind"], "translation")
         self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["offers"][0]["labelFallback"], "Ask for directions")
+        self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["offers"][0]["consumers"], ["participant"])
 
     def test_compilation_is_deterministic_and_source_path_is_lineage_only(self) -> None:
         source = _catalog()

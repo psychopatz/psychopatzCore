@@ -6,6 +6,10 @@ local Semantics = PsychopatzCore.Semantics
 Semantics.IR = require "PsychopatzCore/Semantics/PsychopatzSemanticIR"
 Semantics.Predicate = require
     "PsychopatzCore/Semantics/PsychopatzSemanticPredicate"
+Semantics.Offer = require
+    "PsychopatzCore/Semantics/PsychopatzSemanticOffer"
+Semantics.TextBinding = require
+    "PsychopatzCore/Semantics/PsychopatzSemanticTextBinding"
 Semantics.Provider = require
     "PsychopatzCore/Semantics/PsychopatzSemanticProvider"
 Semantics.DialogueState = require

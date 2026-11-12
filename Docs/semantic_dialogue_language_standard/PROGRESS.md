@@ -1,8 +1,8 @@
 # Progress — Psychopatz Semantic Dialogue Language Standard
 
-**Status:** IN PROGRESS — S0-S2 ACCEPTED; continuing automatically through S3-S8.
+**Status:** IN PROGRESS — S0-S3 ACCEPTED; continuing automatically through S4-S8.
 **Branch:** existing `main` in each participant repository.
-**Active phase:** S3 — turns, bindings, slots and participant-neutral offers.
+**Active phase:** S4 — behaviors and beats under PSDL.
 **Developer completion boundary:** S8.
 
 ## Current verified architecture
@@ -51,6 +51,15 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - The S2 fixture compiles a translated multi-kind catalog deterministically and rejects malformed translations, inaccessible bindings, unknown fields, legacy identities, beat wording and dangling behavior references.
 - Full Core semantic harness passes: 105 tests.
 
+## S3 acceptance now verified
+
+- Core owns the reusable participant-neutral semantic offer contract; the Hoomans BranchOffers path is now a compatibility façade rather than a second implementation.
+- PSDL response projections map compact/simple and bounded multi-turn text into the accepted ResponsePlan shape, including translation template IDs, EN fallbacks, typed binding metadata and semantic offer frames.
+- Offer consumers remain explicit (`participant`, `player`, `npc`) and are preserved for both player presentation and NPC semantic-choice policy; no rendered button text is reparsed.
+- Core text bindings resolve actor-neutral context paths and registered typed resolvers, with private/inaccessible paths rejected.
+- Core and Hoomans adopter smoke fixtures pass for dynamic `{speaker.name}`, `{addressee.name}`, `{target.name}`-style presentation, two-turn delivery, collection constraints and semantic offer frames.
+- Full Core semantic harness remains green at 105 tests; changed Core/Hoomans Lua files pass the Kahlua error scan.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -77,10 +86,9 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 ## Next Chunk
 
-Execute **S3** in PsychopatzCore and adopter fixtures: map compact/simple and
-multi-turn PSDL responses to the accepted ResponsePlan and BranchOffers
-authorities, prove typed binding/slot behavior and participant-neutral offer
-consumption without UI-text reparsing.
+Execute **S4** in PsychopatzCore and adopter fixtures: express behaviors and
+beats through PSDL while continuing to use the existing Interaction Director,
+with shared predicates and no beat-owned wording.
 
 ## Evidence status
 
@@ -88,7 +96,8 @@ consumption without UI-text reparsing.
 - `TEST_VERIFIED`: S2 Core compiler fixtures and the full 105-test semantic harness pass.
 - `TEST_VERIFIED`: S0 guard and focused audit tests pass; the current three-repository guard pass is recorded in the inventory.
 - `TEST_VERIFIED`: S1 Core/adopter contract fixtures and the full 100-test semantic harness pass; changed Lua files pass Kahlua verification.
-- `STATIC_ONLY`: S3–S8 implementation gates remain open.
+- `TEST_VERIFIED`: S3 Core/Hoomans response, offer and binding fixtures pass; changed Lua files pass Kahlua verification.
+- `STATIC_ONLY`: S4–S8 implementation gates remain open.
 
 ## Stop conditions
 

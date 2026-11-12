@@ -11,6 +11,9 @@ end
 
 local Predicate = require
     "PsychopatzCore/Semantics/PsychopatzSemanticPredicate"
+local Offers = require "PsychopatzCore/Semantics/PsychopatzSemanticOffer"
+local TextBinding = require
+    "PsychopatzCore/Semantics/PsychopatzSemanticTextBinding"
 local IR = require "PsychopatzCore/Semantics/PsychopatzSemanticIR"
 local State = require
     "PsychopatzCore/Semantics/PsychopatzSemanticDialogueState"
@@ -39,6 +42,37 @@ local swapped = Predicate.Evaluate(predicate, {
     target = {kind = "door"},
 })
 truthy(swapped.allowed, "actor-swapped predicate evaluation")
+
+local offer, offerReason = Offers.Normalize({
+    id = "ask.direction",
+    labelKey = "psdl.social.location.ask.offer.label",
+    labelFallback = "Ask for directions",
+    utteranceKey = "psdl.social.location.ask.offer.utterance",
+    utteranceFallback = "Which way?",
+    frame = {intent = "QUESTION", subject = "LOCATION_DIRECTION"},
+    consumers = {"participant", "player", "npc"},
+    constraints = {path = "speaker.traits", op = "contains", value = "brave"},
+})
+truthy(offer, offerReason)
+equal(offer.consumers[3], "npc", "participant-neutral offer consumers")
+
+TextBinding.ClearResolvers()
+local registered = TextBinding.RegisterResolver("spatial.direction", function(value)
+    return value == "north" and "north" or "unknown"
+end)
+truthy(registered, "typed text resolver registration")
+local rendered, renderReason = TextBinding.Render(
+    "Hello, {addressee.name}. {direction} of here.",
+    {
+        addressee = {name = "One"},
+        target = {position = "north"},
+    },
+    {direction = {resolver = "spatial.direction", from = "target.position"}}
+)
+truthy(rendered, renderReason)
+equal(rendered, "Hello, One. north of here.", "actor-neutral text binding")
+local privateText = TextBinding.Render("{speaker.private}", context)
+equal(privateText, nil, "private text binding rejected")
 
 local rejected = Predicate.Evaluate({
     path = "speaker.privateMemory",

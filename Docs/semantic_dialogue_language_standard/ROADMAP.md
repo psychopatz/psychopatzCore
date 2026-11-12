@@ -1,6 +1,6 @@
 # Roadmap — Psychopatz Semantic Dialogue Language Standard
 
-**Parent status:** IN PROGRESS — S0-S2 ACCEPTED; continuing automatically through S3-S8.
+**Parent status:** IN PROGRESS — S0-S3 ACCEPTED; continuing automatically through S4-S8.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
@@ -120,6 +120,11 @@ ResponsePlan/offer-shaped contracts and Core package routing.
 
 ## S3 — turns, bindings, slots and participant-neutral offers
 
+**Status:** ACCEPTED on 2026-11-12. Core owns the semantic offer and text
+binding contracts; PSDL response plans project into the existing ResponsePlan
+and BranchOffers authorities, and the Hoomans adopter façade preserves the
+public path without duplicating generic logic.
+
 Make ordinary interactive dialogue fully expressible in PSDL.
 
 Required:
@@ -135,6 +140,12 @@ Required:
 - nested semantic offer/navigation composition without a second UI graph.
 
 **Gate:** one source definition demonstrates translated multi-turn dialogue with dynamic target names and nested offers, consumed as a real player response surface and as an NPC semantic affordance without reparsing rendered text.
+
+**Evidence:** Core `PsychopatzSemanticOffer.lua` and
+`PsychopatzSemanticTextBinding.lua`, PSDL runtime-plan projection, the Core
+semantic smoke fixture, and Hoomans
+`tests/pnc_psdl_core_response_offer_smoke.lua`; 105 Core tests and changed-file
+Kahlua scans pass.
 
 ## S4 — behaviors and beats under PSDL
 

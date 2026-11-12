@@ -52,9 +52,9 @@ TRANSITION_KINDS = frozenset({
 })
 CONSUMERS = frozenset({"participant", "player", "npc"})
 MAX_RECORDS = 512
-MAX_TURNS = 16
+MAX_TURNS = 4
 MAX_VARIANTS = 32
-MAX_OFFERS = 32
+MAX_OFFERS = 8
 MAX_BINDINGS = 32
 MAX_LOCALES = 32
 MAX_TEXT_VARIANTS = 16
@@ -117,7 +117,7 @@ def _normalize_locale_text(
             if not isinstance(raw_text, str) or not raw_text.strip():
                 raise CompileError(f"{label}.{language}[{index}] must be non-empty text")
             text = raw_text.strip()
-            if len(text) > 1024 or any(ord(char) < 32 for char in text):
+            if len(text) > 256 or any(ord(char) < 32 for char in text):
                 raise CompileError(f"{label}.{language}[{index}] is unbounded or contains control text")
             matches = _PLACEHOLDER.findall(text)
             if text.count("{") != len(matches) or text.count("}") != len(matches):
@@ -697,6 +697,8 @@ def _response_plan_projection(record: Mapping[str, Any]) -> dict[str, Any] | Non
     if not turns:
         return None
     return {
+        "schemaVersion": 1,
+        "kind": "dialogue_act_plan",
         "responsePlanID": record["id"],
         "dialogueAct": source.get("act"),
         "turns": turns,
