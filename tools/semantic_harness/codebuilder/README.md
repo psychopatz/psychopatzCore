@@ -77,15 +77,15 @@ python3 tools/semantic_harness/codebuilder/build.py \
   --conversation-manifest \
   tools/semantic_harness/codebuilder/sources/conversation/manifest.json \
   --conversation-output-root . \
-  --core-repository ../psychopatzCore \
-  --interface-text-manifest \
-  tools/providers/pnc/codebuilder/sources/debugger/manifest.json
+  --core-repository ../psychopatzCore
 ```
 
 This deterministically generates owner-routed bounded Lua modules, composition
 registries, and package-owned Conversation translation catalogs from the
-canonical shard model. Interface text manifests are compiled separately and
-are not loaded as Conversation dialogue sources.
+canonical shard model. UI strings are maintained in the owning mod's common
+translation catalogs and are not CodeBuilder dialogue sources. Generated UI
+entries are merged into the existing package catalog so shared Core UI keys
+authored outside CodeBuilder are never deleted by a rebuild.
 
 Generated Lua/JSON is never an authoring source.
 
@@ -95,7 +95,11 @@ Move a generated artifact between packages by changing the canonical shard's `so
 
 Logical Semantic Lab datasets may combine shards from different owners. Editing such a dataset preserves each physical shard's existing owner. A logical edit must not migrate package ownership as a side effect.
 
-Generic Core-owned source currently includes the common parser pattern shards. Hoomans-specific dialogue content, response pools, backstory, gameplay capabilities, social behaviors/beats, commands/tasks, and UI remain Hoomans-owned unless their canonical source is explicitly migrated.
+Generic Core-owned source currently includes the common parser pattern shards
+and shared conversation UI translations. Hoomans-specific dialogue content,
+response pools, backstory, gameplay capabilities, social behaviors/beats,
+commands/tasks, and suggestion definitions remain Hoomans-owned unless their
+canonical source is explicitly migrated.
 
 ## Authoring service
 

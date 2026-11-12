@@ -16,13 +16,6 @@
           }
         },
         {
-          "key": "locked.familiarity",
-          "text": {
-            "EN": "You do not know each other well enough yet.",
-            "TL": "Hindi pa sapat ang pagkakakilala ninyo sa isa't isa."
-          }
-        },
-        {
           "key": "opening",
           "text": {
             "EN": "All right, {playerFirstName}. We can talk about us.",

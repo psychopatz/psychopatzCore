@@ -76,7 +76,7 @@
     {
       "expected": {
         "conversationClosed": false,
-        "lastKey": "response.departure.rejected",
+        "lastKey": "departure.rejected",
         "maxActions": 0,
         "maxFallbackLookups": 0,
         "maxTransportCount": 1,
@@ -98,7 +98,7 @@
     {
       "expected": {
         "conversationClosed": false,
-        "lastKey": "response.departure.rejected",
+        "lastKey": "departure.rejected",
         "maxActions": 0,
         "maxFallbackLookups": 0,
         "maxTransportCount": 1,

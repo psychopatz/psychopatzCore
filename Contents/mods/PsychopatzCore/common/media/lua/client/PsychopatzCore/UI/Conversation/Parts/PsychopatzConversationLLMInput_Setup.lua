@@ -10,7 +10,7 @@ function LLMInput:new(x, y, width, height, options)
     options.minimumWidth = options.minimumWidth or 280
     options.minimumHeight = options.minimumHeight or 82
     options.title = options.title or {
-        key = "UI_PsychopatzConversation_LLMInput",
+        key = "UI_PsychopatzConversation_Panel_LLMInput",
         fallback = "TYPE TO TALK",
     }
     local object = PsychopatzConversationPart.new(

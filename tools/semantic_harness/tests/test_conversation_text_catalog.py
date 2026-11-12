@@ -108,21 +108,6 @@ class ConversationTextCatalogTests(unittest.TestCase):
 
             self.assertFalse(stale.exists())
 
-    def test_secondary_manifest_can_add_text_without_pruning_dialogue(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
-            source, runtime = self._fixture(Path(temporary))
-            existing = runtime / "EN/Conversation/Text/dialogue/keep.json"
-            existing.parent.mkdir(parents=True)
-            existing.write_text('{"keep":"yes"}\n', encoding="utf-8")
-
-            write_runtime_text_catalogs(source, runtime, clean=False)
-
-            self.assertTrue(existing.exists())
-            self.assertTrue(
-                (runtime / "EN/Conversation/Text/greetings/neutral/opening.json")
-                .exists()
-            )
-
     def test_duplicate_catalog_ids_across_sources_are_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             source, runtime = self._fixture(Path(temporary))

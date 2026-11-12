@@ -46,16 +46,22 @@ assert(Manager._initialized == true, "boot callback initializes the manager")
 
 assert(Manager.getLanguage() == "TL",
     "the manager follows the native language selector")
-assert(Translation.Get("Conversation", "UI_PsychopatzConversation_Goodbye")
-    == "Paalam.", "Tagalog catalog resolves through the Core facade")
+assert(Translation.Get("Conversation",
+    "UI_PsychopatzConversation_Debugger_Title")
+    == "DEBUGGER NG PAG-UUSAP BLOCK",
+    "Core-owned conversation debugger title resolves in Tagalog")
+assert(Translation.Get("Conversation",
+    "UI_PsychopatzConversation_Debugger_Button_Audience")
+    == "Target na tagapakinig: {audience}",
+    "Core-owned conversation debugger formatting text resolves in Tagalog")
 local conversationDiagnostics = Manager.Diagnostics["PsychopatzCore:Conversation"]
 assert(conversationDiagnostics
     and conversationDiagnostics.englishPath
-        == "media/translation/EN/Conversation/Conversation.json",
-    "Core uses the per-system English catalog path")
+        == "media/translation/manifests/Conversation.json",
+    "Core uses the Conversation translation manifest")
 assert(conversationDiagnostics.localizedPath
-    == "media/translation/TL/Conversation/Conversation.json",
-    "Core uses the per-system Tagalog catalog path")
+    == "media/translation/manifests/Conversation.json",
+    "Core uses the Conversation translation manifest for Tagalog")
 assert(Translation.Get("Core", "UI_PsychopatzCore_SettingsTitle")
     == "Psychopatz Core", "Core catalog resolves shared settings text")
 assert(Translation.Get("Debug", "UI_PsychopatzDebugHub_Profiler_Title")
@@ -74,7 +80,7 @@ assert(coverage.language == "TL",
 assert(coverage.counts.missing_key == 0
     and coverage.counts.missing_catalog == 0,
     "Core catalogs have no missing Tagalog keys or catalogs")
-assert(coverage.counts.total == 391,
+assert(coverage.counts.total == 4050,
     "Core coverage snapshot counts every modular catalog key")
 
 language = "FR"
@@ -84,8 +90,10 @@ language = "FR"
 Manager.clearLanguageOverride()
 assert(Manager.getLanguage() == "FR",
     "the manager follows a different native language selection")
-assert(Translation.Get("Conversation", "UI_PsychopatzConversation_Goodbye")
-    == "Goodbye.", "unsupported language falls back to English")
+assert(Translation.Get("Conversation",
+    "UI_PsychopatzConversation_Debugger_Title")
+    == "CONVERSATION BLOCK DEBUGGER",
+    "unsupported language falls back to English")
 assert(Translation.Get("Conversation", "missing.key", "Visible fallback")
     == "Visible fallback", "caller fallback remains available")
 assert(Manager.Data.PsychopatzCore.Conversation ~= nil,
@@ -98,8 +106,9 @@ assert(readersClosed >= 3,
 local scoped = Manager.forMod("PsychopatzCore")
 assert(scoped, "mod-scoped facade is available")
 local scopedConversation = scoped.registerSystem(
-    "Conversation", "media/translation")
-assert(scopedConversation:get("UI_PsychopatzConversation_Goodbye")
-    == "Goodbye.", "scoped facade keeps two-argument registration clean")
+    "Conversation", "media/translation", "manifests/Conversation.json")
+assert(scopedConversation:get("UI_PsychopatzConversation_Debugger_Title")
+    == "CONVERSATION BLOCK DEBUGGER",
+    "scoped facade keeps manifest registration clean")
 
 print("psychopatz_custom_core_translation_smoke: ok")

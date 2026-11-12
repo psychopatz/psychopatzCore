@@ -159,7 +159,7 @@ function Input.GetState(view)
         visible = true,
         enabled = interactive(view),
         statusText = status or "",
-        sendKey = config.sendKey or "UI_PsychopatzConversation_Send",
+        sendKey = config.sendKey or "UI_PsychopatzConversation_LLM_Send",
     }
 end
 
@@ -186,7 +186,7 @@ function Input.CreatePart(bounds, options)
     options.minimumWidth = options.minimumWidth or 280
     options.minimumHeight = options.minimumHeight or 82
     options.title = options.title or {
-        key = "UI_PsychopatzConversation_LLMInput",
+        key = "UI_PsychopatzConversation_Panel_LLMInput",
         fallback = "TYPE TO TALK",
     }
     options.submit = options.submit or Input.Submit
@@ -196,9 +196,9 @@ function Input.CreatePart(bounds, options)
         or Input.MAX_INPUT_LENGTH
     options.submitOnEnter = options.submitOnEnter ~= false
     options.tooltipKey = options.tooltipKey
-        or "UI_PsychopatzConversation_LLMInputTooltip"
+        or "UI_PsychopatzConversation_LLM_InputTooltip"
     options.sendKey = options.sendKey
-        or "UI_PsychopatzConversation_Send"
+        or "UI_PsychopatzConversation_LLM_Send"
     options.sendTitle = options.sendTitle or "SEND"
     return PsychopatzConversationLLMInput:new(
         bounds.x, bounds.y, bounds.width, bounds.height, options

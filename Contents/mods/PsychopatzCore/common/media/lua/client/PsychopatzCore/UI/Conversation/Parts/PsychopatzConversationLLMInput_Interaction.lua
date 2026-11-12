@@ -98,7 +98,7 @@ function LLMInput:refreshControls()
         self.sendButton:setTitle(resolved(
             self.resolveText,
             state.sendKey or self.options.sendKey
-                or "UI_PsychopatzConversation_Send",
+                or "UI_PsychopatzConversation_LLM_Send",
             state.sendTitle or self.options.sendTitle or "SEND"
         ))
         notifyNativeControlState(self, "before_send_setEnable", self.sendButton)

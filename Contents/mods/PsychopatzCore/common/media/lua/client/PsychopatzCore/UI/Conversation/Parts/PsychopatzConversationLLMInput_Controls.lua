@@ -67,7 +67,7 @@ function Internal.createTextEntry(component, options)
         maxTextLength = component.maxInputLength,
         tooltip = resolved(
             component.resolveText,
-            options.tooltipKey or "UI_PsychopatzConversation_LLMInputTooltip",
+            options.tooltipKey or "UI_PsychopatzConversation_LLM_InputTooltip",
             options.tooltip or "Type a message for this NPC."
         ),
     })
@@ -98,7 +98,7 @@ function Internal.createActionButtons(component, options)
         id = "send",
         title = resolved(
             component.resolveText,
-            options.sendKey or "UI_PsychopatzConversation_Send",
+            options.sendKey or "UI_PsychopatzConversation_LLM_Send",
             options.sendTitle or "SEND"
         ),
         target = component,

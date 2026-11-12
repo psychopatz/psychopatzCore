@@ -168,6 +168,40 @@ def _write_conversation_translation_manifest(
     )
     return manifest_path
 
+
+def merge_translation_catalog(
+    path: Path,
+    generated: dict[str, str],
+) -> dict[str, str]:
+    """Merge generated entries without deleting package-owned translations.
+
+    Conversation UI catalogs are package assets, not disposable CodeBuilder
+    output.  CodeBuilder may add generated suggestion text to them, but it
+    must preserve shared Core UI text authored directly in the owning mod.
+    Generated keys win when the same key is intentionally regenerated.
+    """
+    if not path.is_file():
+        return dict(generated)
+    try:
+        existing = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise CompileError(
+            "cannot merge existing translation catalog "
+            + str(path)
+            + ": "
+            + str(error)
+        ) from error
+    if not isinstance(existing, dict) or any(
+        not isinstance(key, str) or not isinstance(value, str)
+        for key, value in existing.items()
+    ):
+        raise CompileError(
+            "translation catalog must be a flat string map: " + str(path)
+        )
+    merged = dict(existing)
+    merged.update(generated)
+    return merged
+
 def _shared_lua_root(path: Path) -> Path:
     parts = path.parts
     for index in range(len(parts) - 2):
@@ -231,9 +265,8 @@ def write_conversation_output(
     *,
     core_repository: Path | None = None,
     dynamic_trading_repository: Path | None = None,
-    interface_text_manifests: tuple[Path, ...] = (),
 ) -> list[Path]:
-    """Write Conversation artifacts and optional non-dialogue text catalogs."""
+    """Write manifest-backed Conversation artifacts."""
     repository = repository.expanduser().resolve()
     core_repository = resolve_core_repository(
         repository,
@@ -430,8 +463,13 @@ def write_conversation_output(
                 relative = f"{language}/Conversation/{domain}.json"
                 path = package_translation_root / relative
                 path.parent.mkdir(parents=True, exist_ok=True)
+                output_values = (
+                    merge_translation_catalog(path, values)
+                    if domain == "UI"
+                    else values
+                )
                 path.write_text(
-                    pretty_json(values),
+                    pretty_json(output_values),
                     encoding="utf-8",
                     newline="\n",
                 )
@@ -457,27 +495,6 @@ def write_conversation_output(
                 text_manifest,
                 package_translation_root,
                 owner=owner,
-            ))
-
-    for interface_manifest in interface_text_manifests:
-        interface_manifest = interface_manifest.expanduser().resolve()
-        if not interface_manifest.is_file():
-            raise CompileError(
-                f"interface text manifest is missing: {interface_manifest}"
-            )
-        for owner in sorted(enabled_owners):
-            package_translation_root = translation_root(
-                repository,
-                owner,
-                core_repository=core_repository,
-                dynamic_trading_repository=dynamic_trading_repository,
-                runtime_root=repository,
-            )
-            paths.extend(write_runtime_text_catalogs(
-                interface_manifest,
-                package_translation_root,
-                owner=owner,
-                clean=False,
             ))
 
     return paths
@@ -521,13 +538,6 @@ def main(arguments: list[str] | None = None) -> int:
         type=Path,
         default=None,
         help="DynamicTrading repository receiving DTCommon-owned generated artifacts",
-    )
-    parser.add_argument(
-        "--interface-text-manifest",
-        type=Path,
-        action="append",
-        default=[],
-        help="additional localized interface text manifest outside Conversation dialogue",
     )
     options = parser.parse_args(arguments)
 
@@ -594,7 +604,6 @@ def main(arguments: list[str] | None = None) -> int:
             compiled_conversation,
             core_repository=options.core_repository,
             dynamic_trading_repository=options.dynamic_trading_repository,
-            interface_text_manifests=tuple(options.interface_text_manifest),
         )
         print(
             "wrote manifest-backed Conversation output and "

@@ -343,53 +343,23 @@
       "owner": "PsychopatzCore"
     },
     {
-      "path": "system/categories/category.json",
-      "sourceId": "conversation.content.system.categories.category",
+      "path": "needs/gifts/preference.json",
+      "sourceId": "conversation.content.needs.gifts.preference",
       "owner": "PsychopatzCore"
     },
     {
-      "path": "system/categories/choice.json",
-      "sourceId": "conversation.content.system.categories.choice",
+      "path": "social/departure/response.json",
+      "sourceId": "conversation.content.social.departure.response",
       "owner": "PsychopatzCore"
     },
     {
-      "path": "system/categories/context.json",
-      "sourceId": "conversation.content.system.categories.context",
+      "path": "social/identity/response.json",
+      "sourceId": "conversation.content.social.identity.response",
       "owner": "PsychopatzCore"
     },
     {
-      "path": "system/categories/identity.json",
-      "sourceId": "conversation.content.system.categories.identity",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "system/categories/llm.json",
-      "sourceId": "conversation.content.system.categories.llm",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "system/categories/locked.json",
-      "sourceId": "conversation.content.system.categories.locked",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "system/categories/panel.json",
-      "sourceId": "conversation.content.system.categories.panel",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "system/categories/response.json",
-      "sourceId": "conversation.content.system.categories.response",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "system/categories/semantic.json",
-      "sourceId": "conversation.content.system.categories.semantic",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "system/categories/status.json",
-      "sourceId": "conversation.content.system.categories.status",
+      "path": "social/recruitment/response.json",
+      "sourceId": "conversation.content.social.recruitment.response",
       "owner": "PsychopatzCore"
     },
     {

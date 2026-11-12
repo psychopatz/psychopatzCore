@@ -16,13 +16,6 @@
           }
         },
         {
-          "key": "locked.approval",
-          "text": {
-            "EN": "This relationship is not close enough yet.",
-            "TL": "Hindi pa sapat ang pagiging malapit ng relasyong ito."
-          }
-        },
-        {
           "key": "opening",
           "text": {
             "EN": "I'm listening, {playerFirstName}. Say what you need to say.",

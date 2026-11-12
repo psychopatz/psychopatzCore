@@ -50,11 +50,15 @@ local systemNames = {
 
 for _, systemName in ipairs(systemNames) do
     if not Translation.Systems[systemName] then
-        Translation.Systems[systemName] = Manager.registerSystem({
+        local registration = {
             modID = MOD_ID,
             systemName = systemName,
             basePath = BASE_PATH,
-        })
+        }
+        if systemName == "Conversation" then
+            registration.manifestPath = "manifests/Conversation.json"
+        end
+        Translation.Systems[systemName] = Manager.registerSystem(registration)
     end
 end
 
