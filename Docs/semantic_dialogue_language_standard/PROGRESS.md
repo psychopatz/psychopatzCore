@@ -124,6 +124,14 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - The superseded Hoomans 90–93 definition modules and four Core text sources/generated catalogs were removed. The retained needs definition remains loaded unchanged; no unrelated domain was removed from composition.
 - Hoomans conversation smoke now checks the migrated block routing, offers, effects, gate diagnostics and block-count parity. Companion text parity, caller/reference-zero, three-repository S0 audit/guard, Core 109-test harness, DynamicTrading smokes, and changed Conversation Kahlua scans pass.
 
+## S5 needs and gift-continuation migration chunk
+
+- ProjectHoomans now owns the final `psdl/dialogue/needs_support.json` source for neutral, member, and special needs conversations.
+- EN/TL parity covers all 120 legacy audience-locale entries, including gift offer/received text and existing gift-item placeholders; the PSDL output is now adopter-routed under `psdl/needs/{audience}/support.json`.
+- The Hoomans PSDL adapter now projects bounded multi-turn plans into the existing conversation registry nodes, preserving the three opening offers, gift continuation transition, gift continuation turn, and return-to-root outcome without introducing a second runtime.
+- The superseded Hoomans needs definition and three Core needs text sources/generated catalogs were removed. The independent `needs/gifts/preference.json` surface remains intact.
+- Hoomans conversation/translation checks, needs parity, Core 109-test harness, DynamicTrading smokes, S0 three-repository audit/guard, and changed Conversation Kahlua scans pass.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -150,7 +158,7 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 ## Next Chunk
 
-Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: commit the current companion-topics chunk in adopter repositories first, then migrate the next coherent maintained domain, prove parity and caller/reference zero, and remove its superseded source. Prior adopter chunks, Core static-suggestion/runtime-plan/social-check-in work, greetings, ask-about, and settlement admission remain bounded S5 checkpoints; S5-S8 remain open.
+Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: commit the current needs-and-gift-continuation chunk in adopter repositories first, then migrate the next coherent maintained domain, prove parity and caller/reference zero, and remove its superseded source. Prior adopter chunks, Core static-suggestion/runtime-plan/social-check-in work, greetings, ask-about, settlement admission, and companion topics remain bounded S5 checkpoints; S5-S8 remain open.
 
 ## Evidence status
 

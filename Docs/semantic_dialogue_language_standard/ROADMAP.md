@@ -252,6 +252,19 @@ unchanged.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 needs and gift-continuation migration checkpoint
+
+ProjectHoomans' neutral, member, and special needs conversations now share one
+final adopter-owned `psdl/dialogue/needs_support.json` source. The Core
+compiler routes the plans and EN/TL catalogs under adopter-owned PSDL text
+targets; the Hoomans projection preserves all three opening offers, the gift
+continuation turn, the return-to-root transition, and existing gift-item
+placeholder/received-text contracts. All 120 legacy audience-locale entries
+have parity, the superseded needs definition and three Core text sources are
+removed, and the independent gift-preference catalog remains unchanged.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ### S5 ask-about migration checkpoint
 
 ProjectHoomans' neutral/member/special ask-about records now have one final adopter-owned PSDL source, routed through Core's compiler and existing conversation block registry. EN/TL parity covers all 30 legacy entries; the two legacy player-name bindings are intentionally authored as `{addressee.name}` and resolve through Core's shared actor-neutral text-binding seam. The superseded Hoomans definition and Core ask-about text sources/generated catalogs are removed, with exact caller/reference-zero evidence and the three-repository authoring guard passing.

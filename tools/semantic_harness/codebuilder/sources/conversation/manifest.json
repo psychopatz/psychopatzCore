@@ -330,6 +330,16 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_companion_topics.json",
       "shardId": "conversation.psdl.social.companion_topics",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "needs_support",
+      "kind": "psdl",
+      "order": 2307,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/needs_support.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/needs_support.json",
+      "shardId": "conversation.psdl.needs.support",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {

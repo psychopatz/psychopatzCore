@@ -153,21 +153,6 @@
       "owner": "PsychopatzCore"
     },
     {
-      "path": "needs/gifts.json",
-      "sourceId": "conversation.content.needs.gifts",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "needs/medical.json",
-      "sourceId": "conversation.content.needs.medical",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "needs/supplies.json",
-      "sourceId": "conversation.content.needs.supplies",
-      "owner": "PsychopatzCore"
-    },
-    {
       "path": "social/goodbye/closing.json",
       "sourceId": "conversation.content.social.goodbye.closing",
       "owner": "PsychopatzCore"

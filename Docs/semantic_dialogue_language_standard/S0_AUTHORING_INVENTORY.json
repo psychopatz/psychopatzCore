@@ -1,5 +1,5 @@
 {
-  "generatedAtUtc": "2026-11-12T15:39:48.088454+00:00",
+  "generatedAtUtc": "2026-11-12T15:50:07.158559+00:00",
   "guard": {
     "passed": true,
     "repositories": [
@@ -10,19 +10,27 @@
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/personal/special/trust.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/member/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/relationship/special/affinity.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/neutral/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/personal/special/trust.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/special/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/relationship/special/affinity.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/member/support.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/neutral/support.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/special/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -70,28 +78,26 @@
             "reason": "manifest_control_plane"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/personal/trust.json",
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/needs/gifts.json",
             "reason": "superseded_source_removal"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/relationship/affinity.json",
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/needs/medical.json",
             "reason": "superseded_source_removal"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/territory/claim.json",
-            "reason": "superseded_source_removal"
-          },
-          {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/work_orders/status.json",
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/needs/supplies.json",
             "reason": "superseded_source_removal"
           }
         ],
         "changed_paths": [
           "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry.lua",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/personal/special/trust.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/relationship/special/affinity.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/personal/special/trust.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/relationship/special/affinity.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/member/support.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/neutral/support.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/special/support.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/member/support.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/neutral/support.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/special/support.json",
           "Docs/semantic_dialogue_language_standard/HANDOFF.md",
           "Docs/semantic_dialogue_language_standard/PROGRESS.md",
           "Docs/semantic_dialogue_language_standard/ROADMAP.md",
@@ -99,10 +105,9 @@
           "tools/semantic_harness/codebuilder/README.md",
           "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
           "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/personal/trust.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/relationship/affinity.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/territory/claim.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/work_orders/status.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/needs/gifts.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/needs/medical.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/needs/supplies.json",
           "Docs/semantic_dialogue_language_standard/AGENT_RUNBOOK.md",
           "Docs/semantic_dialogue_language_standard/ARCHITECTURE.md",
           "Docs/semantic_dialogue_language_standard/LANGUAGE_SPEC.md",
@@ -115,23 +120,15 @@
       {
         "accepted": [
           {
+            "path": "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Conversation/Blocks/ConversationComposer/PNC_ConversationComposer_GiftPresentation.lua",
+            "reason": "outside_frozen_authoring_root"
+          },
+          {
             "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Composition/PNC_ConversationAdopterDefinitions.lua",
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/90_PNC_ConversationWorkOrders.lua",
-            "reason": "superseded_source_removal"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/91_PNC_ConversationPersonal.lua",
-            "reason": "superseded_source_removal"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/92_PNC_ConversationRelationship.lua",
-            "reason": "superseded_source_removal"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/93_PNC_ConversationSetTerritory.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/70_PNC_ConversationNeeds.lua",
             "reason": "superseded_source_removal"
           },
           {
@@ -139,7 +136,7 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCompanionTopics.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/NeedsSupport.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -151,19 +148,15 @@
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_personal_special_trust.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_member_support.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_relationship_special_affinity.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_neutral_support.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_set_territory_member_claim.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/work_orders_member_status.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_special_support.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -171,51 +164,27 @@
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/personal/special/trust.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/needs/member/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/relationship/special/affinity.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/needs/neutral/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/territory/member/claim.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/needs/special/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/work_orders/member/status.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/needs/member/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/territory/member/claim.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/needs/neutral/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/work_orders/member/status.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/personal/special/trust.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/relationship/special/affinity.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/territory/member/claim.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/work_orders/member/status.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/territory/member/claim.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/work_orders/member/status.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/needs/special/support.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -267,32 +236,22 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "docs/Systems/ConversationBlocks.md",
-            "reason": "outside_frozen_authoring_root"
-          },
-          {
             "path": "tests/pnc_conversation_smoke.lua",
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_companion_topics.json",
+            "path": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/needs_support.json",
             "reason": "psdl_record"
           }
         ],
         "changed_paths": [
+          "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Conversation/Blocks/ConversationComposer/PNC_ConversationComposer_GiftPresentation.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Composition/PNC_ConversationAdopterDefinitions.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/90_PNC_ConversationWorkOrders.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/91_PNC_ConversationPersonal.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/92_PNC_ConversationRelationship.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/93_PNC_ConversationSetTerritory.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/70_PNC_ConversationNeeds.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/PSDL/PNC_ConversationPSDLBlocks.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Registry.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Registry.lua",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/territory/member/claim.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/work_orders/member/status.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/territory/member/claim.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/work_orders/member/status.json",
           "docs/Jobs/PragmaticDialogueBeatDirector/ARCHITECTURE.md",
           "docs/Jobs/SemanticSocialConversationDirector/ARCHITECTURE.md",
           "docs/Jobs/SemanticSocialConversationDirector/ROADMAP.md",
@@ -304,23 +263,19 @@
           "docs/Jobs/UnifiedSemanticDialogueAuthority/PROGRESS.md",
           "docs/Jobs/UnifiedSemanticDialogueAuthority/README.md",
           "docs/Jobs/UnifiedSemanticDialogueAuthority/ROADMAP.md",
-          "docs/Systems/ConversationBlocks.md",
           "tests/pnc_conversation_smoke.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCompanionTopics.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_personal_special_trust.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_relationship_special_affinity.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_set_territory_member_claim.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/work_orders_member_status.lua",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/personal/special/trust.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/relationship/special/affinity.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/territory/member/claim.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/work_orders/member/status.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/personal/special/trust.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/relationship/special/affinity.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/territory/member/claim.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/work_orders/member/status.json",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/NeedsSupport.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_member_support.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_neutral_support.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_special_support.lua",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/needs/member/support.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/needs/neutral/support.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/needs/special/support.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/needs/member/support.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/needs/neutral/support.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/needs/special/support.json",
           "docs/Jobs/SemanticDialogueLanguageStandard/README.md",
-          "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_companion_topics.json"
+          "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/needs_support.json"
         ],
         "repository": "ProjectHoomans",
         "root": "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
@@ -368,8 +323,8 @@
     {
       "git": {
         "dirty": true,
-        "head": "7a40055ab06294a0b94901eac533e0079ec07631",
-        "statusCount": 20
+        "head": "5a270d8e59dc82d9e3b93c6679f805d546721773",
+        "statusCount": 21
       },
       "name": "PsychopatzCore",
       "root": "/home/psychopatz/Zomboid/Workshop/psychopatzCore",
@@ -378,8 +333,8 @@
     {
       "git": {
         "dirty": true,
-        "head": "aace968408c0d62203081723e37d91a9b90351f1",
-        "statusCount": 41
+        "head": "bb0614a4299f6530313b3c0f86af545b7995c5df",
+        "statusCount": 27
       },
       "name": "ProjectHoomans",
       "root": "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
@@ -388,7 +343,7 @@
     {
       "git": {
         "dirty": true,
-        "head": "e834f7efd7b6919917dbbc14109c24aee6495e6c",
+        "head": "50524d28db12cd91c90cf07e82df21f0e6390a1a",
         "statusCount": 5
       },
       "name": "DynamicTrading",
@@ -827,10 +782,7 @@
         "tools/semantic_harness/codebuilder/sources/conversation/text/memory/gossip/reactions/positive/protection.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/memory/gossip/reactions/positive/rescue.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/memory/gossip/reactions/positive/sympathy.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/needs/gifts.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/needs/gifts/preference.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/needs/medical.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/needs/supplies.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/departure/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/goodbye/closing.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/ambient_visit/arrival.json",
@@ -847,27 +799,27 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 215,
+          ".json": 212,
           ".md": 1,
           ".py": 49,
           ".pyc": 99
         },
-        "fileCount": 364,
+        "fileCount": 361,
         "invalidJsonCount": 0,
-        "jsonFileCount": 215,
+        "jsonFileCount": 212,
         "owners": {
           "DTCommon": 2,
           "ProjectHoomans": 85,
-          "PsychopatzCore": 124
+          "PsychopatzCore": 121
         },
         "schemas": {
           "pnc.conversation.manifest.v1": 1,
           "psychopatz.semantic.dialogue-language.v1": 2,
           "psychopatz.semantic.shard.v3": 170,
           "psychopatz.semantic.text-source.manifest.v1": 1,
-          "psychopatz.semantic.text-source.v1": 39
+          "psychopatz.semantic.text-source.v1": 36
         },
-        "totalBytes": 3569894
+        "totalBytes": 3555784
       }
     },
     {
@@ -982,9 +934,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/memory/backstory/facts.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/memory/gossip.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/gifts/preference.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/member/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/neutral/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/special/support.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/ambient_visit/arrival.json",
@@ -1010,9 +959,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/memory/backstory/facts.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/memory/gossip.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/gifts/preference.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/member/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/neutral/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/special/support.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/ambient_visit/arrival.json",
@@ -1273,10 +1219,7 @@
         "tools/semantic_harness/codebuilder/sources/conversation/text/memory/gossip/reactions/positive/protection.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/memory/gossip/reactions/positive/rescue.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/memory/gossip/reactions/positive/sympathy.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/needs/gifts.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/needs/gifts/preference.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/needs/medical.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/needs/supplies.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/departure/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/goodbye/closing.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/ambient_visit/arrival.json",
@@ -1290,24 +1233,24 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 213
+          ".json": 210
         },
-        "fileCount": 213,
+        "fileCount": 210,
         "invalidJsonCount": 0,
-        "jsonFileCount": 213,
+        "jsonFileCount": 210,
         "owners": {
           "DTCommon": 2,
           "ProjectHoomans": 85,
-          "PsychopatzCore": 124
+          "PsychopatzCore": 121
         },
         "schemas": {
           "pnc.conversation.manifest.v1": 1,
           "psychopatz.semantic.dialogue-language.v1": 2,
           "psychopatz.semantic.shard.v3": 170,
           "psychopatz.semantic.text-source.manifest.v1": 1,
-          "psychopatz.semantic.text-source.v1": 39
+          "psychopatz.semantic.text-source.v1": 36
         },
-        "totalBytes": 1362848
+        "totalBytes": 1348738
       }
     },
     {
@@ -1328,9 +1271,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/memory/backstory/facts.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/memory/gossip.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/gifts/preference.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/member/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/neutral/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/special/support.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/ambient_visit/arrival.json",
@@ -1356,9 +1296,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/memory/backstory/facts.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/memory/gossip.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/gifts/preference.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/member/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/neutral/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/special/support.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/ambient_visit/arrival.json",
@@ -1437,10 +1374,7 @@
         "tools/semantic_harness/codebuilder/sources/conversation/text/memory/gossip/reactions/positive/protection.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/memory/gossip/reactions/positive/rescue.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/memory/gossip/reactions/positive/sympathy.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/needs/gifts.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/needs/gifts/preference.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/needs/medical.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/needs/supplies.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/departure/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/goodbye/closing.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/ambient_visit/arrival.json",
@@ -1452,20 +1386,20 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 40
+          ".json": 37
         },
-        "fileCount": 40,
+        "fileCount": 37,
         "invalidJsonCount": 0,
-        "jsonFileCount": 40,
+        "jsonFileCount": 37,
         "owners": {
           "DTCommon": 2,
-          "PsychopatzCore": 37
+          "PsychopatzCore": 34
         },
         "schemas": {
           "psychopatz.semantic.text-source.manifest.v1": 1,
-          "psychopatz.semantic.text-source.v1": 39
+          "psychopatz.semantic.text-source.v1": 36
         },
-        "totalBytes": 66824
+        "totalBytes": 52286
       }
     },
     {
@@ -1607,9 +1541,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/memory/backstory/facts.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/memory/gossip.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/gifts/preference.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/member/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/neutral/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/needs/special/support.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/ambient_visit/arrival.json",
@@ -1635,9 +1566,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/memory/backstory/facts.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/memory/gossip.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/gifts/preference.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/member/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/neutral/support.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/needs/special/support.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/ambient_visit/arrival.json",
@@ -1660,15 +1588,15 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 57,
+          ".json": 51,
           ".lua": 91
         },
-        "fileCount": 148,
+        "fileCount": 142,
         "invalidJsonCount": 0,
-        "jsonFileCount": 57,
+        "jsonFileCount": 51,
         "owners": {},
         "schemas": {},
-        "totalBytes": 2450120
+        "totalBytes": 2442347
       }
     },
     {
@@ -1783,6 +1711,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreIdentity.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/NeedsSupport.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCompanionTopics.lua",
@@ -1806,6 +1735,9 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/Trading.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/UiText/StaticSuggestions.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_member_support.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_neutral_support.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_special_support.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_member.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_neutral.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_special.lua",
@@ -1891,7 +1823,6 @@
       "source_files": [
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/01_PNC_ConversationDefinitionHelpers.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/10_PNC_ConversationCategories.lua",
-        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/70_PNC_ConversationNeeds.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/Memory/00_PNC_ConversationMemoryDefinitions.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/Memory/Backstories/00_PNC_ConversationBackstories.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/Memory/Backstories/Colonist/Jobs/Carpenter/01_PNC_Backstory.lua",
@@ -1979,15 +1910,15 @@
       ],
       "source_summary": {
         "extensions": {
-          ".lua": 83,
+          ".lua": 82,
           ".md": 1
         },
-        "fileCount": 84,
+        "fileCount": 83,
         "invalidJsonCount": 0,
         "jsonFileCount": 0,
         "owners": {},
         "schemas": {},
-        "totalBytes": 43041
+        "totalBytes": 42022
       }
     },
     {
@@ -2149,6 +2080,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreIdentity.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/NeedsSupport.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCompanionTopics.lua",
@@ -2172,6 +2104,9 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/Trading.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/UiText/StaticSuggestions.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_member_support.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_neutral_support.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_special_support.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_member.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_neutral.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_special.lua",
@@ -2241,6 +2176,9 @@
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Social.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Task.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Telemetry/Diagnostics.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/needs/member/support.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/needs/neutral/support.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/needs/special/support.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/ask_about/member.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/ask_about/neutral.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/ask_about/special.json",
@@ -2320,6 +2258,9 @@
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Social.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Task.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Telemetry/Diagnostics.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/needs/member/support.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/needs/neutral/support.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/needs/special/support.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/ask_about/member.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/ask_about/neutral.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/ask_about/special.json",
@@ -2379,15 +2320,15 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 159,
-          ".lua": 169
+          ".json": 165,
+          ".lua": 173
         },
-        "fileCount": 328,
+        "fileCount": 338,
         "invalidJsonCount": 0,
-        "jsonFileCount": 159,
+        "jsonFileCount": 165,
         "owners": {},
         "schemas": {},
-        "totalBytes": 4197845
+        "totalBytes": 4266629
       }
     },
     {
@@ -2437,6 +2378,7 @@
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Quest.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Task.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCheckIn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/NeedsSupport.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCompanionTopics.lua",
@@ -2449,6 +2391,9 @@
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/ResponsePool/Semantic.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/CompanionCheckIn.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_member_support.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_neutral_support.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/needs_special_support.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_member.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_neutral.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_special.lua",
@@ -5859,7 +5804,7 @@
         "jsonFileCount": 1,
         "owners": {},
         "schemas": {},
-        "totalBytes": 21673629
+        "totalBytes": 21673641
       }
     },
     {
