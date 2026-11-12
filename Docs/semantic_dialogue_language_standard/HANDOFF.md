@@ -5,18 +5,19 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
 phase_commit_phase: "S5"
-phase_commit_message: "phase(S5): phase(S5): accept first adopter PSDL migration chunk"
-phase_commit_vector: "project-hoomans=34f67e1cb2484ec3e9bc8163379be88c9299aafc;psychopatz-core=self;dynamic-trading=53c5aaff8dab3b406c4f06da9909c3c0b940b096"
-phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
-residual_worktree_fingerprint: "056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108"
+phase_commit_message: "phase(S5): phase(S5): migrate Core static dialogue through PSDL"
+phase_commit_vector: "project-hoomans=a0ee642394d5ab5303f911403558fb07e1aec24b;psychopatz-core=self;dynamic-trading=ba6d2ca3ea17430044dd8a1dbe640114167da4f5"
+phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=7a3dae83842524f49a12c3310c3dfa9dea2833ae586097ca751cb8b17e7ef387;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
+residual_worktree_fingerprint: "7a3dae83842524f49a12c3310c3dfa9dea2833ae586097ca751cb8b17e7ef387"
 codebase_memory_indexed_commit: "5075fb7f7334c33b4cfd0991dcf5dd9b4a9c3b88"
-updated_at: "2026-11-12T13:36:50.163062Z"
+updated_at: "2026-11-12T14:03:23.169303Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S5 — first-party domain migration and deletion"
 chunk: "migrate one coherent first-party semantic domain in each mandatory adopter through the Core PSDL mechanism"
 retrieval_tier: "verify"
 ---
+
 
 
 
@@ -33,6 +34,9 @@ retrieval_tier: "verify"
 - Behaviors retain semantic strategy fields; beats retain entry/maintain/exit, candidate relevance, cooldown, maximum turns and groups; beats do not own wording.
 - Shared Core predicate normalization is used by dialogue, offers, behaviors and beats. Simple dialogue remains valid without a beat.
 - DynamicTrading and ProjectHoomans were inspected at the S4 boundary; neither adopter received a duplicate director or PSDL compiler.
+- Core's remaining static suggestion authoring now lives in final PSDL shards `psdl/dialogue/core_check_in.json` and `psdl/dialogue/core_identity.json`, with ten-record parity against the superseded Core UI source.
+- Hoomans and DTCommon generated projections were refreshed through the Core compiler; DTCommon now retains a synchronized provider-local generated manifest.
+- Current cross-repository checks pass: Core 109-test harness, Hoomans ownership/smoke suites, DT trader smokes, and Kahlua scans for all changed generated/runtime Lua.
 
 ## Remaining
 

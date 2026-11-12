@@ -78,6 +78,10 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Superseded DT pack/static source files, Hoomans static suggestion source, old generated static/trading modules and the Hoomans static provider's old require path were removed or redirected; targeted caller/reference searches show no remaining production reference to those superseded modules.
 - Core recognition projection preserves the existing DT semantic-pack contract, while Hoomans UI projection preserves hub, slot, target, extension, locale and pattern metadata.
 - Current Core semantic harness passes 109 tests; changed adopter Lua passes the Kahlua error scan.
+- Core's remaining static suggestion authoring surface is now split into final semantic PSDL shards `psdl/dialogue/core_check_in.json` and `psdl/dialogue/core_identity.json`, preserving all ten IDs, EN/TL text, ordering and semantic frame metadata.
+- The Core-owned PSDL UI records route to `PsychopatzCore/Semantics/Generated/Conversation/UI/Psdl/Dialogue/CoreCheckIn` and `CoreIdentity`; Hoomans receives only downstream indexes/aggregate runtime output, and no duplicate Core compiler or schema is introduced.
+- Core's combined writer now emits the DTCommon provider-local generated manifest alongside its routed registry, so standalone DT runtime metadata remains synchronized with the combined model fingerprint.
+- Core static-suggestion parity and caller/reference-zero checks pass; no maintained code references `StaticSuggestionsCore`, `static_suggestions_core.json`, or the superseded static shard ID.
 
 ## Normative decisions now frozen
 
@@ -107,8 +111,9 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the
 Core compiler: migrate the next coherent maintained domain, prove parity and
-caller/reference zero, then remove its superseded source. The first adopter
-chunk above is accepted; S5-S8 remain open.
+caller/reference zero, then remove its superseded source. The two adopter
+chunks and the Core static-suggestion migration above are accepted; S5-S8
+remain open.
 
 ## Evidence status
 

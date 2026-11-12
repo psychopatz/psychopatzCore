@@ -1,0 +1,99 @@
+-- Generated; do not edit by hand.
+return {
+    {
+        ["display"] = {
+            ["EN"] = {
+                ["label"] = "Ask who they are",
+                ["utterance"] = "Who are you?",
+            },
+            ["TL"] = {
+                ["label"] = "Itanong kung sino siya",
+                ["utterance"] = "Sino ka?",
+            },
+        },
+        ["domain"] = "identity",
+        ["id"] = "question.identity",
+        ["intent"] = "QUESTION",
+        ["labelFallback"] = "Ask who they are",
+        ["labelKey"] = "UI_PNC_Conversation_Suggestion_Identity_Label",
+        ["order"] = 50,
+        ["patternID"] = "pnc.question.identity",
+        ["speechAct"] = "QUESTION",
+        ["subject"] = "IDENTITY",
+        ["topic"] = "identity",
+        ["utteranceFallback"] = "Who are you?",
+        ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_Identity_Utterance",
+    },
+    {
+        ["display"] = {
+            ["EN"] = {
+                ["label"] = "Ask what people call them",
+                ["utterance"] = "What do people call you?",
+            },
+            ["TL"] = {
+                ["label"] = "Itanong kung ano ang tawag sa kanya",
+                ["utterance"] = "Ano ang tawag sa iyo ng mga tao?",
+            },
+        },
+        ["domain"] = "identity_nickname",
+        ["id"] = "question.identity_nickname",
+        ["intent"] = "QUESTION",
+        ["labelFallback"] = "Ask what people call them",
+        ["labelKey"] = "UI_PNC_Conversation_Suggestion_IdentityNickname_Label",
+        ["order"] = 51,
+        ["patternID"] = "pnc.question.identity.nickname",
+        ["speechAct"] = "QUESTION",
+        ["subject"] = "IDENTITY_NICKNAME",
+        ["topic"] = "identity_nickname",
+        ["utteranceFallback"] = "What do people call you?",
+        ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_IdentityNickname_Utterance",
+    },
+    {
+        ["display"] = {
+            ["EN"] = {
+                ["label"] = "Ask their surname",
+                ["utterance"] = "What's your surname?",
+            },
+            ["TL"] = {
+                ["label"] = "Itanong ang apelyido niya",
+                ["utterance"] = "Ano ang apelyido mo?",
+            },
+        },
+        ["domain"] = "identity_surname",
+        ["id"] = "question.identity_surname",
+        ["intent"] = "QUESTION",
+        ["labelFallback"] = "Ask their surname",
+        ["labelKey"] = "UI_PNC_Conversation_Suggestion_IdentitySurname_Label",
+        ["order"] = 52,
+        ["patternID"] = "pnc.question.identity.surname",
+        ["speechAct"] = "QUESTION",
+        ["subject"] = "IDENTITY_SURNAME",
+        ["topic"] = "identity_surname",
+        ["utteranceFallback"] = "What's your surname?",
+        ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_IdentitySurname_Utterance",
+    },
+    {
+        ["display"] = {
+            ["EN"] = {
+                ["label"] = "Ask who they are with",
+                ["utterance"] = "Who are you with?",
+            },
+            ["TL"] = {
+                ["label"] = "Itanong kung kanino siya kasama",
+                ["utterance"] = "Sino ang kasama mo?",
+            },
+        },
+        ["domain"] = "identity_faction",
+        ["id"] = "question.identity_faction",
+        ["intent"] = "QUESTION",
+        ["labelFallback"] = "Ask who they are with",
+        ["labelKey"] = "UI_PNC_Conversation_Suggestion_IdentityFaction_Label",
+        ["order"] = 53,
+        ["patternID"] = "pnc.question.identity.faction",
+        ["speechAct"] = "QUESTION",
+        ["subject"] = "IDENTITY_FACTION",
+        ["topic"] = "identity_faction",
+        ["utteranceFallback"] = "Who are you with?",
+        ["utteranceKey"] = "UI_PNC_Conversation_Suggestion_IdentityFaction_Utterance",
+    },
+}

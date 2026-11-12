@@ -207,8 +207,11 @@ Do **not** move superseded content into `Legacy/`, `Compat/`, `V1/` or alias reg
 The first bounded adopter chunk is accepted: DynamicTrading/DTCommon trader
 pack/static suggestions and ProjectHoomans companion `whats_up` check-in
 suggestions now have final Core-compiled PSDL sources, parity smokes and
-superseded-source removal. Continue S5 with the remaining maintained
-ProjectHoomans and DynamicTrading surfaces; this checkpoint does not close S5.
+superseded-source removal. The next bounded chunk also moved Core's remaining
+static suggestion authoring into final Core-owned PSDL shards, preserved all
+ten records and refreshed both adopter projections. Continue S5 with the
+remaining maintained ProjectHoomans and DynamicTrading surfaces; this
+checkpoint does not close S5.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 

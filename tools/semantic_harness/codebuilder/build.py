@@ -416,6 +416,22 @@ def write_conversation_output(
             newline="\n",
         )
         paths.append(dt_registry_path)
+        dt_manifest_path = dt_registry_root / "Manifest.lua"
+        dt_manifest_reports = [
+            report
+            for report in reports
+            if report.get("owner") == DT_COMMON_OWNER
+        ]
+        dt_manifest_path.write_text(
+            render_conversation_manifest_lua(
+                model,
+                dt_manifest_reports,
+                registry_owner=DT_COMMON_OWNER,
+            ),
+            encoding="utf-8",
+            newline="\n",
+        )
+        paths.append(dt_manifest_path)
     manifest_path = registry_root / "Manifest.lua"
     primary_report_owners = set(primary_registry_owners or (registry_owner,))
     manifest_reports = [

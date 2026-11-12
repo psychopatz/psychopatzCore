@@ -252,13 +252,23 @@
       "sourceProfile": "conversation.source.dtcommon.247519f6f9"
     },
     {
-      "domain": "static_suggestions",
-      "kind": "ui",
+      "domain": "core_identity",
+      "kind": "psdl",
+      "order": 2299,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_identity.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_identity.json",
+      "shardId": "conversation.psdl.core.identity",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_check_in",
+      "kind": "psdl",
       "order": 2300,
       "owner": "PsychopatzCore",
-      "path": "ui/static_suggestions_core.json",
-      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/ui/static_suggestions_core.json",
-      "shardId": "conversation.ui.static.suggestions.core",
+      "path": "psdl/dialogue/core_check_in.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_check_in.json",
+      "shardId": "conversation.psdl.core.check_in",
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     },
     {
