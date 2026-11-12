@@ -5,18 +5,19 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
 phase_commit_phase: "S5"
-phase_commit_message: "phase(S5): migrate Hoomans greetings through PSDL"
-phase_commit_vector: "project-hoomans=0d00c8ff0d3e8be1d5b2aa85e0a0a0141a178628;psychopatz-core=self;dynamic-trading=5df64e8e9a0a3529d144a2c95211cc39a8819fdc"
-phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
-residual_worktree_fingerprint: "056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108"
+phase_commit_message: "phase(S5): migrate ask-about and actor-neutral text binding"
+phase_commit_vector: "project-hoomans=4de3a9b6d6d9678421c98b1b62cb35fad41023e4;psychopatz-core=self;dynamic-trading=33f4339d49db81e2de5edecab9601331ea751e9e"
+phase_residual_vector: "project-hoomans=2ced7092f8fb9c43166168c7a5b2d3ca0d9983be56aec525881a525a699c7aa3;psychopatz-core=ab8546ca9b2d53b4b4bf2b5da05dc9c1c56bc1b463b311bd284ae8d6b1a652d6;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
+residual_worktree_fingerprint: "ab8546ca9b2d53b4b4bf2b5da05dc9c1c56bc1b463b311bd284ae8d6b1a652d6"
 codebase_memory_indexed_commit: "5075fb7f7334c33b4cfd0991dcf5dd9b4a9c3b88"
-updated_at: "2026-11-12T14:58:31.023927Z"
+updated_at: "2026-11-12T15:13:04.623462Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S5 — first-party domain migration and deletion"
 chunk: "migrate one coherent first-party semantic domain in each mandatory adopter through the Core PSDL mechanism"
 retrieval_tier: "verify"
 ---
+
 
 
 
@@ -53,8 +54,9 @@ read current dirty source before relying on stale structural references.
 Exact next action:
 
 1. Re-inspect PsychopatzCore, ProjectHoomans and DynamicTrading worktrees and current PSDL/legacy authoring surfaces.
-2. Select the next coherent domain with production callers in ProjectHoomans and/or DynamicTrading.
-3. Author its final PSDL source through the Core compiler, regenerate downstream artifacts, run parity/caller-zero checks, and remove the superseded first-party source in the same accepted phase.
+2. Commit the current ProjectHoomans ask-about adopter chunk first, including the shared Core text-binding seam and generated DynamicTrading fingerprint update.
+3. Select the next coherent domain with production callers in ProjectHoomans and/or DynamicTrading.
+4. Author its final PSDL source through the Core compiler, regenerate downstream artifacts, run parity/caller-zero checks, and remove the superseded first-party source in the same accepted phase.
 
 ## Evidence
 

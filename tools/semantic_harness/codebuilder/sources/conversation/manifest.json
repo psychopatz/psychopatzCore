@@ -292,6 +292,16 @@
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
     {
+      "domain": "social_ask_about",
+      "kind": "psdl",
+      "order": 2303,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_ask_about.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_ask_about.json",
+      "shardId": "conversation.psdl.social.ask_about",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
       "domain": "social_check_in",
       "kind": "psdl",
       "order": 2304,

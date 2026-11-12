@@ -1,7 +1,0 @@
-{
-  "choice.background": "Tell me something about your old life.",
-  "response.background": "Only if you tell me something about yours afterward.",
-  "opening": "You can ask me anything, {playerFirstName}.",
-  "choice.skills": "What are you proud of?",
-  "response.skills": "Surviving long enough to meet you."
-}

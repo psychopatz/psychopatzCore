@@ -168,21 +168,6 @@
       "owner": "PsychopatzCore"
     },
     {
-      "path": "social/ask_about/background.json",
-      "sourceId": "conversation.content.social.ask.about.background",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "social/ask_about/opening.json",
-      "sourceId": "conversation.content.social.ask.about.opening",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "social/ask_about/skills.json",
-      "sourceId": "conversation.content.social.ask.about.skills",
-      "owner": "PsychopatzCore"
-    },
-    {
       "path": "social/goodbye/closing.json",
       "sourceId": "conversation.content.social.goodbye.closing",
       "owner": "PsychopatzCore"

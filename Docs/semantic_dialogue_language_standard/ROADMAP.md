@@ -232,6 +232,12 @@ caller/reference-zero evidence and EN/TL parity.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 ask-about migration checkpoint
+
+ProjectHoomans' neutral/member/special ask-about records now have one final adopter-owned PSDL source, routed through Core's compiler and existing conversation block registry. EN/TL parity covers all 30 legacy entries; the two legacy player-name bindings are intentionally authored as `{addressee.name}` and resolve through Core's shared actor-neutral text-binding seam. The superseded Hoomans definition and Core ask-about text sources/generated catalogs are removed, with exact caller/reference-zero evidence and the three-repository authoring guard passing.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.

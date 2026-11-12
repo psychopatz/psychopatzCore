@@ -8,6 +8,9 @@ Text.domains = Text.domains or {}
 Text.tables = Text.tables or {}
 Text.fallbacks = Text.fallbacks or {}
 local CoreTranslation = PsychopatzCore.Translation
+local TextBinding = PsychopatzCore.Semantics
+    and PsychopatzCore.Semantics.TextBinding
+    or require "PsychopatzCore/Semantics/PsychopatzSemanticTextBinding"
 
 local function copyArgs(values)
     local output = {}
@@ -113,6 +116,16 @@ local function format(value, args)
                 function() return tostring(replacement) end
             )
         end
+    end
+    -- PSDL uses the shared actor-neutral binding contract for nested paths
+    -- such as {speaker.name} and {addressee.name}. Keep the flat formatter
+    -- above for established catalogs, then let Core resolve only public
+    -- semantic paths from the same argument context.
+    if TextBinding and type(TextBinding.Render) == "function"
+        and string.find(output, "{[a-z][a-z0-9_.]*}")
+    then
+        local rendered = TextBinding.Render(output, args)
+        if rendered ~= nil then output = rendered end
     end
     return output
 end
