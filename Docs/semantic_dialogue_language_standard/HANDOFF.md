@@ -2,9 +2,9 @@ handoff_schema: 2
 checkpoint_mode: "dirty_snapshot"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-head: "this Core commit"
-worktree_fingerprint: "updated after final Core commit"
-participant_heads: "project-hoomans=e9c9b154;dynamic-trading=ff1906e0"
+head: "current Core HEAD after final handoff commit"
+worktree_fingerprint: "phase-owned paths committed; unrelated dirty paths preserved"
+participant_heads: "project-hoomans=c10b3f94;dynamic-trading=f4a68eb9"
 participant_fingerprints: "recompute from clean committed trees"
 state: "S8_ACCEPTANCE_READY"
 parent_status: "IN_PROGRESS"
@@ -25,11 +25,10 @@ unaccepted until the exhaustive final audit below passes.
 
 ## Three-repository commit vector
 
-- ProjectHoomans: `e9c9b154` — `phase(S5): close Hoomans PSDL adoption`
-- DynamicTrading: `ff1906e0` — `phase(S5): close DynamicTrading PSDL adoption`
-- PsychopatzCore: this final Core commit — contains the Core compiler/IR/
-  service/audit/UI/runtime-contract fixes, migrated Core PSDL sources and
-  deletions, packed generation, generated outputs, and reconciled job docs.
+- ProjectHoomans: `c10b3f94` — `test: bootstrap canonical PSDL response catalog`
+- DynamicTrading: `f4a68eb9` — `build: index PSDL output templates`
+- PsychopatzCore: `0d5fd97` — `fix: index PSDL output templates`; this final
+  handoff commit records the current vector and residual worktree state.
 
 No repository was pushed, tagged, published, rebased, amended, or force-updated.
 
@@ -61,12 +60,14 @@ No repository was pushed, tagged, published, rebased, amended, or force-updated.
 
 - Core full semantic harness: 112/112.
 - ProjectHoomans focused conversation/semantic/PSDL gate: 11/11.
+- ProjectHoomans broad semantic/conversation/PSDL sweep: 51/51, including
+  NPC↔NPC scene speech presentation.
 - DynamicTrading focused conversation/PSDL gate: 9/9.
 - Three-repository authoring guard: zero violations.
 - Generated Conversation Kahlua: Core/Hoomans/DT 42/208/5 files, zero issues.
 - Deterministic two-pass generation: 255 Conversation hashes identical.
-- Runtime-tree sizes: Core 42/973,234 bytes; Hoomans 208/5,503,182;
-  DynamicTrading 5/72,329.
+- Runtime-tree sizes: Core 42/973,739 bytes; Hoomans 208/5,503,687;
+  DynamicTrading 5/72,834.
 - Hoomans generated manifest: 304,306 bytes, zero local declarations.
 - Cache/temp/interpreter noise is excluded from source evidence.
 

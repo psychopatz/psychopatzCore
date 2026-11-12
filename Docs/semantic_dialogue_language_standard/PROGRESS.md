@@ -83,15 +83,17 @@ migration-copy tree was created.
 - Core GUI shell/startup plus PSDL tests: **22/22 passed**.
 - ProjectHoomans repaired migration-facing conversation tests:
   `pnc_conversation_smoke` and `pnc_psdl_core_response_offer_smoke`: **2/2 passed**.
+- ProjectHoomans broad semantic/conversation/PSDL sweep, including the
+  NPC↔NPC scene presentation regression: **51/51 passed**.
 - DynamicTrading trader/conversation/PSDL focused set: **9/9 passed**.
 - Core, ProjectHoomans, and DTCommon generated Conversation trees pass the
   Kahlua compatibility scan: **42/208/5 files, zero errors/warnings**.
 - Deterministic two-pass generation: **255 Conversation output hashes,
   identical on both passes**.
 - Current generated Conversation scale after packing:
-  - Core: 42 files / 973,234 bytes;
-  - ProjectHoomans: 208 files / 5,503,182 bytes;
-  - DynamicTrading: 5 files / 72,329 bytes.
+  - Core: 42 files / 973,739 bytes;
+  - ProjectHoomans: 208 files / 5,503,687 bytes;
+  - DynamicTrading: 5 files / 72,834 bytes.
   The combined builder reports 457 generated downstream artifacts. Hoomans'
   304,306-byte manifest has zero local declarations. PSDL runtime catalogs are
   packed to bounded shards while preserving package routing, source lineage,
