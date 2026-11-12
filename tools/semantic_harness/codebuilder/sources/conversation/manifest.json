@@ -872,56 +872,160 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/task_tool_replies.json",
       "shardId": "conversation.psdl.task.tool.replies",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_emotes",
+      "kind": "psdl",
+      "order": 2365,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_emotes.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_emotes.json",
+      "shardId": "conversation.psdl.social.emotes",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_reactions_ack_dispute",
+      "kind": "psdl",
+      "order": 2366,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_reactions_ack_dispute.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_reactions_ack_dispute.json",
+      "shardId": "conversation.psdl.social.reactions.ack.dispute",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_tool_replies_affirmation",
+      "kind": "psdl",
+      "order": 2367,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_tool_replies_affirmation.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_tool_replies_affirmation.json",
+      "shardId": "conversation.psdl.social.tool.replies.affirmation",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_interaction_argument",
+      "kind": "psdl",
+      "order": 2368,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_interaction_argument.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_interaction_argument.json",
+      "shardId": "conversation.psdl.social.interaction.argument",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_interaction_context",
+      "kind": "psdl",
+      "order": 2369,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_interaction_context.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_interaction_context.json",
+      "shardId": "conversation.psdl.social.interaction.context",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_interaction_first_contact",
+      "kind": "psdl",
+      "order": 2370,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_interaction_first_contact.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_interaction_first_contact.json",
+      "shardId": "conversation.psdl.social.interaction.first.contact",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_interaction_memory",
+      "kind": "psdl",
+      "order": 2371,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_interaction_memory.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_interaction_memory.json",
+      "shardId": "conversation.psdl.social.interaction.memory",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_interaction_news",
+      "kind": "psdl",
+      "order": 2372,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_interaction_news.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_interaction_news.json",
+      "shardId": "conversation.psdl.social.interaction.news",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_interaction_scene_combat",
+      "kind": "psdl",
+      "order": 2373,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_interaction_scene_combat.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_interaction_scene_combat.json",
+      "shardId": "conversation.psdl.social.interaction.scene.combat",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_interaction_scene_travel_news",
+      "kind": "psdl",
+      "order": 2374,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_interaction_scene_travel_news.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_interaction_scene_travel_news.json",
+      "shardId": "conversation.psdl.social.interaction.scene.travel.news",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "health_content",
+      "kind": "psdl",
+      "order": 2375,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/health_content.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/health_content.json",
+      "shardId": "conversation.psdl.health.content",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "wellbeing_content",
+      "kind": "psdl",
+      "order": 2376,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/wellbeing_content.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/wellbeing_content.json",
+      "shardId": "conversation.psdl.wellbeing.content",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_reactions_hostile_offer_threat",
+      "kind": "psdl",
+      "order": 2377,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_reactions_hostile_offer_threat.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_reactions_hostile_offer_threat.json",
+      "shardId": "conversation.psdl.social.reactions.hostile.offer.threat",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_tool_replies_boundary_identity",
+      "kind": "psdl",
+      "order": 2378,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_tool_replies_boundary_identity.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_tool_replies_boundary_identity.json",
+      "shardId": "conversation.psdl.social.tool.replies.boundary.identity",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_interaction_scene_horde_work",
+      "kind": "psdl",
+      "order": 2379,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_interaction_scene_horde_work.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_interaction_scene_horde_work.json",
+      "shardId": "conversation.psdl.social.interaction.scene.horde.work",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
-  "source": {
-    "contentLicense": "Project Hoomans authored content",
-    "name": "Project Hoomans Conversation Authoring",
-    "version": "1"
-  },
+  "version": "1",
   "sourceRoots": [
-    {
-      "domain": "social",
-      "kind": "content",
-      "order": 1300,
-      "path": "content/social/emotes",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "social",
-      "kind": "content",
-      "order": 1301,
-      "path": "content/social/reactions",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "social",
-      "kind": "content",
-      "order": 1302,
-      "path": "content/social/tool_replies",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "social",
-      "kind": "content",
-      "order": 1303,
-      "path": "content/social/interaction",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "health",
-      "kind": "content",
-      "order": 1330,
-      "path": "content/health",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "wellbeing",
-      "kind": "content",
-      "order": 1350,
-      "path": "content/wellbeing",
-      "owner": "PsychopatzCore"
-    },
     {
       "domain": "social",
       "kind": "behaviors",

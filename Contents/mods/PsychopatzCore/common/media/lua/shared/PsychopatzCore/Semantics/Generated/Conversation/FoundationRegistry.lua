@@ -8,8 +8,8 @@ Registry.REGISTRY_NAMESPACE = "PsychopatzCore.Semantics.ConversationRegistry"
 Registry.REGISTRY_MODULE = "PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry"
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
-Registry.CONTENT_FINGERPRINT = "1666c5648b089badf3f851361a2c9ff2e1536972252ff3972b4e33fb52e6d14a"
-Registry.WHOLE_MODEL_FINGERPRINT = "5a015ee0a608d7d1cbf4d454fa1a8202bec39ff2d44181dc18e89bacc9c98933"
+Registry.CONTENT_FINGERPRINT = "da8aa97e970ec2802c5063caa0801459c0d1a0643eea56c5d489368ee50b22e1"
+Registry.WHOLE_MODEL_FINGERPRINT = "daeb672f9cf143dbd99d74a1c4d7f2a68e1d01cd7aded5e19b60c900a4492e53"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -66,49 +66,7 @@ local function appendUI(loaded)
 end
 appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Conversation")
 appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Greeting")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Health/HealthState")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Health/MedicalBite")
 appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Needs")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Emotes/EmotesConversation")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Emotes/EmotesPlayer")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Emotes/Reply")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Argument/Deescalate")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Argument/Retaliate")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Context/Clarify")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/FirstContact/Challenge")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Memory/Acknowledge")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Memory/AcknowledgeFlavor")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Memory/Followup")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/News/Acknowledge")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Scene/Combat/TacticalSpatial")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Scene/Excursion")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Scene/GroundedNews")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Scene/Horde")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Scene/PostCombat")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Interaction/Scene/Work")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Reactions/Acknowledgement")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Reactions/Disputes")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Reactions/Hostile")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Reactions/Offers")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/Reactions/Threats")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/AcceptedGeneric")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Admire")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Apology")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/AskName")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Comfort")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Compliment")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Flirt")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Hostile")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Insult")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Orientation")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Personality")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Praise")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Relationship")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Romantic")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Social/ToolReplies/Sexual")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Wellbeing/Emotional")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Wellbeing/General")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Wellbeing/Needs")
 appendContentChoices(require "PsychopatzCore/Semantics/Generated/Conversation/Content/PlayerChoices")
 appendPatterns(require "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/GreetingWhatsUp")
 appendPatterns(require "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/Identity")

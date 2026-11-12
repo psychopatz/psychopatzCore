@@ -1,5 +1,4 @@
 # Progress — Psychopatz Semantic Dialogue Language Standard
-
 **Status:** IN PROGRESS — S0-S4 ACCEPTED; continuing automatically through S5-S8.
 **Branch:** existing `main` in each participant repository.
 **Active phase:** S5 — first-party domain migration and deletion.
@@ -259,3 +258,9 @@ Stop only when:
 - or all developer work is complete and only explicit user-owned native acceptance remains.
 
 No push or Workshop publication.
+## S5 social, health, wellbeing migration checkpoint
+
+- ProjectHoomans now owns final Core-compiled PSDL sources for social emotes/reactions/tool replies/interaction scenes plus health and wellbeing content. Oversized surfaces are split by semantic domain, not migration-copy naming.
+- The migrated source set preserves 261 semantic families, 2,554 EN/TL phrase pairs, and exact locale parity after actor-neutral placeholder normalization (`{names}` → `{addressee.name}`, tactical `{clock}`/`{relative}` → public `scene.*` context paths).
+- Core removed the superseded social, health, and wellbeing source roots and routes the adopter-owned PSDL shards through the shared compiler. Hoomans projects plans into the existing phrase-family/SpeechRealization authority; social/medical/wellbeing gameplay selection remains adopter-owned. Old downstream Social/Health/Wellbeing translation catalogs were removed.
+- Core 109-test harness, shared PSDL build (1,037 generated files), seven focused Hoomans semantic/authority/presentation tests, three-repository S0 guard (11 surfaces, zero violations), and changed-file Kahlua checks pass.

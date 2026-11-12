@@ -3,20 +3,14 @@
     "EN": [
       "EN/Conversation/Conversation.json",
       "EN/Conversation/Greeting.json",
-      "EN/Conversation/Health.json",
       "EN/Conversation/Needs.json",
-      "EN/Conversation/Social.json",
-      "EN/Conversation/UI.json",
-      "EN/Conversation/Wellbeing.json"
+      "EN/Conversation/UI.json"
     ],
     "TL": [
       "TL/Conversation/Conversation.json",
       "TL/Conversation/Greeting.json",
-      "TL/Conversation/Health.json",
       "TL/Conversation/Needs.json",
-      "TL/Conversation/Social.json",
-      "TL/Conversation/UI.json",
-      "TL/Conversation/Wellbeing.json"
+      "TL/Conversation/UI.json"
     ]
   },
   "version": 1

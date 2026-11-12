@@ -1,5 +1,4 @@
 # Roadmap — Psychopatz Semantic Dialogue Language Standard
-
 **Parent status:** IN PROGRESS — S0-S4 ACCEPTED; continuing automatically through S5-S8.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`
@@ -522,3 +521,6 @@ For a cross-repo phase:
 6. continue automatically.
 
 Never push automatically.
+### S5 social, health, wellbeing migration checkpoint
+
+ProjectHoomans owns final PSDL authoring for the remaining Core social, health, and wellbeing content. The source is partitioned by semantic surface (`social_reactions_ack_dispute`, `social_reactions_hostile_offer_threat`, `social_tool_replies_affirmation`, `social_tool_replies_boundary_identity`, `social_interaction_scene_travel_news`, and `social_interaction_scene_horde_work`) so each shard remains bounded without `PartNN` or migration-copy identity. Core removed the superseded source roots and Hoomans’ old Social/Health/Wellbeing translation catalogs; the existing response-family/SpeechRealization authority remains the runtime seam. Exact parity is 261 families and 2,554 EN/TL phrase pairs; the Core harness, shared build, focused Hoomans tests, three-repository S0 guard, and changed-file Kahlua checks pass.
