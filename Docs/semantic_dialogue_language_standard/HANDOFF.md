@@ -5,18 +5,19 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
 phase_commit_phase: "S2"
-phase_commit_message: "phase(S2): phase(S2): add Core-owned PSDL compiler"
+phase_commit_message: "phase(S2): phase(S2): reconcile committed handoff residual vector"
 phase_commit_vector: "project-hoomans=999b816f2e12335f5d367cdc1b8e460ea80eed0c;psychopatz-core=self;dynamic-trading=806d1842c536861f1ed5d5e856683626a5aca4d7"
-phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=fc45d99bf561f61be6f50d92484196cef18c574932facf47aced81e607c0da95;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
-residual_worktree_fingerprint: "fc45d99bf561f61be6f50d92484196cef18c574932facf47aced81e607c0da95"
+phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
+residual_worktree_fingerprint: "056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108"
 codebase_memory_indexed_commit: "5075fb7f7334c33b4cfd0991dcf5dd9b4a9c3b88"
-updated_at: "2026-11-12T12:24:23.571592Z"
+updated_at: "2026-11-12T12:24:31.108312Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S3 — turns, bindings, slots and participant-neutral offers"
 chunk: "map PSDL responses to existing ResponsePlan and BranchOffers with typed bindings and slots"
 retrieval_tier: "verify"
 ---
+
 
 
 # Session Handoff
