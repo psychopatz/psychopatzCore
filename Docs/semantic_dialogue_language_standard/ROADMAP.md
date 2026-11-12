@@ -309,6 +309,23 @@ apology-template failure.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 navigation migration checkpoint
+
+ProjectHoomans now owns the final `psdl/dialogue/navigation.json` source for
+the camp, empty-camp, default, orders, and subject-change navigation families.
+Each family is represented by four bounded style plans, preserving 200 EN/TL
+entries and 400 locale values. The existing Hoomans navigation response
+catalog projects Core-generated PSDL plans into the established phrase-family
+and SpeechRealization authority while leaving navigation branch and gameplay
+ownership unchanged. The superseded Core navigation content source, Hoomans
+manual navigation phrase-family source, generated Content modules, and split
+EN/TL Navigation translations are removed; the Core manifest routes the
+adopter-owned PSDL shard. Navigation parity, focused navigation and response
+catalog smokes, generated ownership tests, Core's 109-test harness, S0 guard,
+direct Lua family load, and changed-file Kahlua validation pass.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.

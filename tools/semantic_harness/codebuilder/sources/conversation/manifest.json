@@ -48,15 +48,6 @@
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
-      "domain": "navigation",
-      "kind": "content",
-      "order": 1390,
-      "path": "content/navigation.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.navigation",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
       "domain": "combat",
       "kind": "content",
       "order": 1510,
@@ -353,6 +344,16 @@
       "path": "psdl/dialogue/social_apology.json",
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_apology.json",
       "shardId": "conversation.psdl.social.apology",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "navigation",
+      "kind": "psdl",
+      "order": 2313,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/navigation.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/navigation.json",
+      "shardId": "conversation.psdl.navigation",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],

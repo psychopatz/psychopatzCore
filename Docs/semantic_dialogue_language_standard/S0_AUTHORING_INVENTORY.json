@@ -1,10 +1,14 @@
 {
-  "generatedAtUtc": "2026-11-12T16:42:32.038078+00:00",
+  "generatedAtUtc": "2026-11-12T16:50:17.705995+00:00",
   "guard": {
     "passed": true,
     "repositories": [
       {
         "accepted": [
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
           {
             "path": "Docs/semantic_dialogue_language_standard/AGENT_RUNBOOK.md",
             "reason": "outside_frozen_authoring_root"
@@ -22,12 +26,28 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
+            "path": "Docs/semantic_dialogue_language_standard/S0_AUTHORING_INVENTORY.json",
+            "reason": "outside_frozen_authoring_root"
+          },
+          {
             "path": "tools/semantic_harness/codebuilder/README.md",
+            "reason": "outside_frozen_authoring_root"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/content/navigation.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
             "reason": "outside_frozen_authoring_root"
           }
         ],
         "changed_paths": [
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry.lua",
+          "Docs/semantic_dialogue_language_standard/S0_AUTHORING_INVENTORY.json",
           "tools/semantic_harness/codebuilder/README.md",
+          "tools/semantic_harness/codebuilder/sources/conversation/content/navigation.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
           "Docs/semantic_dialogue_language_standard/AGENT_RUNBOOK.md",
           "Docs/semantic_dialogue_language_standard/ARCHITECTURE.md",
           "Docs/semantic_dialogue_language_standard/LANGUAGE_SPEC.md",
@@ -39,6 +59,126 @@
       },
       {
         "accepted": [
+          {
+            "path": "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SemanticDialogueResponseCatalog/PNC_SemanticDialogueResponseCatalog_Navigation.lua",
+            "reason": "outside_frozen_authoring_root"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SpeechRealization/Families/Navigation.lua",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Navigation.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Navigation.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Navigation.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Registry.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_guarded.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_neutral.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_terse.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_warm.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_guarded.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_neutral.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_terse.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_warm.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_guarded.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_neutral.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_terse.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_warm.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_guarded.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_neutral.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_terse.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_warm.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_guarded.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_neutral.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_terse.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_warm.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Registry.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Navigation.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Navigation.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
           {
             "path": "docs/Jobs/PragmaticDialogueBeatDirector/ARCHITECTURE.md",
             "reason": "outside_frozen_authoring_root"
@@ -86,9 +226,22 @@
           {
             "path": "docs/Jobs/UnifiedSemanticDialogueAuthority/ROADMAP.md",
             "reason": "outside_frozen_authoring_root"
+          },
+          {
+            "path": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/navigation.json",
+            "reason": "psdl_record"
           }
         ],
         "changed_paths": [
+          "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SemanticDialogueResponseCatalog/PNC_SemanticDialogueResponseCatalog_Navigation.lua",
+          "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SpeechRealization/Families/Navigation.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Navigation.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Navigation.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Registry.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Registry.lua",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Navigation.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Navigation.json",
           "docs/Jobs/PragmaticDialogueBeatDirector/ARCHITECTURE.md",
           "docs/Jobs/SemanticSocialConversationDirector/ARCHITECTURE.md",
           "docs/Jobs/SemanticSocialConversationDirector/ROADMAP.md",
@@ -100,7 +253,29 @@
           "docs/Jobs/UnifiedSemanticDialogueAuthority/PROGRESS.md",
           "docs/Jobs/UnifiedSemanticDialogueAuthority/README.md",
           "docs/Jobs/UnifiedSemanticDialogueAuthority/ROADMAP.md",
-          "docs/Jobs/SemanticDialogueLanguageStandard/README.md"
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Navigation.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_warm.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_warm.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_warm.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_warm.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_warm.lua",
+          "docs/Jobs/SemanticDialogueLanguageStandard/README.md",
+          "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/navigation.json"
         ],
         "repository": "ProjectHoomans",
         "root": "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
@@ -108,6 +283,14 @@
       },
       {
         "accepted": [
+          {
+            "path": "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Manifest.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Registry.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
           {
             "path": "Docs/Jobs/SemanticDialogueLanguageStandard/README.md",
             "reason": "outside_frozen_authoring_root"
@@ -123,6 +306,8 @@
         ],
         "changed_paths": [
           "architecture-refactor/output/architecture-audit.md",
+          "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Manifest.lua",
+          "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Registry.lua",
           "Docs/Jobs/SemanticDialogueLanguageStandard/README.md",
           "tools/providers/dt/__pycache__/__init__.cpython-312.pyc"
         ],
@@ -138,8 +323,8 @@
     {
       "git": {
         "dirty": true,
-        "head": "da0b3ffcd87f14833364df8e2a4b42e51014adbe",
-        "statusCount": 5
+        "head": "130f5b5de17541994603e8aa61f2dd6df9ee4e43",
+        "statusCount": 9
       },
       "name": "PsychopatzCore",
       "root": "/home/psychopatz/Zomboid/Workshop/psychopatzCore",
@@ -149,7 +334,7 @@
       "git": {
         "dirty": true,
         "head": "0102013b158fc8cac4e28b1fb361a15c0d83c09b",
-        "statusCount": 12
+        "statusCount": 43
       },
       "name": "ProjectHoomans",
       "root": "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
@@ -159,7 +344,7 @@
       "git": {
         "dirty": true,
         "head": "18dc77c50b3e57d34137599b182f3b07c3e5b1ac",
-        "statusCount": 3
+        "statusCount": 5
       },
       "name": "DynamicTrading",
       "root": "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
@@ -465,7 +650,6 @@
         "tools/semantic_harness/codebuilder/sources/conversation/content/knowledge/gossip.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/knowledge/identity.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/knowledge/knowledge.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/content/navigation.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/needs.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/quest.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/social/emotes/emotes_conversation.json",
@@ -605,27 +789,27 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 203,
+          ".json": 202,
           ".md": 1,
           ".py": 49,
           ".pyc": 99
         },
-        "fileCount": 352,
+        "fileCount": 351,
         "invalidJsonCount": 0,
-        "jsonFileCount": 203,
+        "jsonFileCount": 202,
         "owners": {
           "DTCommon": 2,
-          "ProjectHoomans": 77,
+          "ProjectHoomans": 76,
           "PsychopatzCore": 120
         },
         "schemas": {
           "pnc.conversation.manifest.v1": 1,
           "psychopatz.semantic.dialogue-language.v1": 2,
-          "psychopatz.semantic.shard.v3": 161,
+          "psychopatz.semantic.shard.v3": 160,
           "psychopatz.semantic.text-source.manifest.v1": 1,
           "psychopatz.semantic.text-source.v1": 36
         },
-        "totalBytes": 3421334
+        "totalBytes": 3393006
       }
     },
     {
@@ -890,7 +1074,6 @@
         "tools/semantic_harness/codebuilder/sources/conversation/content/knowledge/gossip.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/knowledge/identity.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/knowledge/knowledge.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/content/navigation.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/needs.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/quest.json",
         "tools/semantic_harness/codebuilder/sources/conversation/content/social/emotes/emotes_conversation.json",
@@ -1027,24 +1210,24 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 201
+          ".json": 200
         },
-        "fileCount": 201,
+        "fileCount": 200,
         "invalidJsonCount": 0,
-        "jsonFileCount": 201,
+        "jsonFileCount": 200,
         "owners": {
           "DTCommon": 2,
-          "ProjectHoomans": 77,
+          "ProjectHoomans": 76,
           "PsychopatzCore": 120
         },
         "schemas": {
           "pnc.conversation.manifest.v1": 1,
           "psychopatz.semantic.dialogue-language.v1": 2,
-          "psychopatz.semantic.shard.v3": 161,
+          "psychopatz.semantic.shard.v3": 160,
           "psychopatz.semantic.text-source.manifest.v1": 1,
           "psychopatz.semantic.text-source.v1": 36
         },
-        "totalBytes": 1212752
+        "totalBytes": 1184424
       }
     },
     {
@@ -1438,7 +1621,6 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Event/Reactions/LeaderLoss.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Event/Reactions/Safety.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Event/Reactions/Social.lua",
-        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Navigation.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Quest.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Task/Lifecycle/Consume.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Task/Lifecycle/Drink.lua",
@@ -1481,7 +1663,6 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Greeting.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Health.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Knowledge.lua",
-        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Navigation.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Needs.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Quest.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Social.lua",
@@ -1494,6 +1675,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCommandsReplies.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreIdentity.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Navigation.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/NeedsSupport.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialApology.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
@@ -1598,6 +1780,26 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_command_stop_following_queued_trusted.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_command_stop_following_queued_withdrawn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_command_stop_following_rejected.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_warm.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_warm.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_warm.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_warm.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_warm.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_social_apology_default_guarded.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_social_apology_default_neutral.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_social_apology_default_terse.lua",
@@ -1837,6 +2039,7 @@
           "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/PNC_SemanticUtterancePlan.lua",
           "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/PNC_SpeechRealization.lua",
           "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SemanticDialogueResponseCatalog/PNC_SemanticDialogueResponseCatalog_CompanionCommands.lua",
+          "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SemanticDialogueResponseCatalog/PNC_SemanticDialogueResponseCatalog_Navigation.lua",
           "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SemanticDialogueResponseCatalog/PNC_SemanticDialogueResponseCatalog_Social_Core.lua",
           "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SemanticDialogueSuggestions/PNC_SemanticDialogueSuggestions_StaticProvider.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/PSDL/PNC_ConversationPSDLBlocks.lua",
@@ -1896,7 +2099,6 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Event/Reactions/LeaderLoss.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Event/Reactions/Safety.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Event/Reactions/Social.lua",
-        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Navigation.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Quest.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Task/Lifecycle/Consume.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Content/Task/Lifecycle/Drink.lua",
@@ -1939,7 +2141,6 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Greeting.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Health.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Knowledge.lua",
-        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Navigation.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Needs.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Quest.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Social.lua",
@@ -1952,6 +2153,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCommandsReplies.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreIdentity.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Navigation.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/NeedsSupport.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialApology.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
@@ -2056,6 +2258,26 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_command_stop_following_queued_trusted.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_command_stop_following_queued_withdrawn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_command_stop_following_rejected.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_warm.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_warm.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_warm.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_warm.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_guarded.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_neutral.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_terse.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_warm.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_social_apology_default_guarded.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_social_apology_default_neutral.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_social_apology_default_terse.lua",
@@ -2128,7 +2350,6 @@
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Identity/Responses.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Journal/Events.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Knowledge.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Navigation.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Needs.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/PBrainZ/Interface.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Patterns.json",
@@ -2209,7 +2430,6 @@
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Identity/Responses.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Journal/Events.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Knowledge.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Navigation.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Needs.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/PBrainZ/Interface.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Patterns.json",
@@ -2283,15 +2503,15 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 163,
-          ".lua": 260
+          ".json": 161,
+          ".lua": 279
         },
-        "fileCount": 423,
+        "fileCount": 440,
         "invalidJsonCount": 0,
-        "jsonFileCount": 163,
+        "jsonFileCount": 161,
         "owners": {},
         "schemas": {},
-        "totalBytes": 4577541
+        "totalBytes": 4649087
       }
     },
     {
@@ -2336,7 +2556,6 @@
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/CombatHumanBanter.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Compatibility.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Event.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Navigation.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Quest.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Task.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCheckIn.lua",
@@ -2344,6 +2563,7 @@
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCommandsLifecycle.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCommandsPlayer.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCommandsReplies.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Navigation.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/NeedsSupport.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialApology.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
@@ -2437,6 +2657,26 @@
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_command_stop_following_queued_trusted.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_command_stop_following_queued_withdrawn.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_command_stop_following_rejected.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_empty_warm.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_camp_warm.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_default_warm.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_orders_warm.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_guarded.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_neutral.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_terse.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_navigation_subject_change_warm.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_social_apology_default_guarded.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_social_apology_default_neutral.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_social_apology_default_terse.lua",
@@ -5838,7 +6078,6 @@
         "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SemanticSocial/PNC_SemanticSocialTurnPolicy.lua",
         "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SpeechRealization/Families/Conversation.lua",
         "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SpeechRealization/Families/Knowledge.lua",
-        "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SpeechRealization/Families/Navigation.lua",
         "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SpeechRealization/Families/Social.lua",
         "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Semantics/SpeechRealization/Families/Status.lua",
         "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Translation/PNC_TranslationBootstrap.lua",
@@ -5854,16 +6093,16 @@
       "source_summary": {
         "extensions": {
           ".json": 1,
-          ".lua": 3329,
+          ".lua": 3328,
           ".zst": 1,
           "<none>": 1
         },
-        "fileCount": 3332,
+        "fileCount": 3331,
         "invalidJsonCount": 0,
         "jsonFileCount": 1,
         "owners": {},
         "schemas": {},
-        "totalBytes": 21680066
+        "totalBytes": 21681374
       }
     },
     {

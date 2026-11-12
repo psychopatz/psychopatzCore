@@ -149,6 +149,13 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Superseded Core `content/social_apology.json`, Core/Hoomans Apology translation files, generated SocialApology/Apology outputs, and their translation-manifest entries are removed. The old semantic IDs remain only as runtime contract IDs and PSDL metadata lineage, not as parallel authoring sources.
 - Source parity reports 4 families, 16 style plans, and 320 locale values with zero differences. Core's 109-test harness, PSDL build, S0 guard, social source/plan tests, direct Lua style-family load, and changed-file Kahlua scans pass. The Lua worker remains blocked by the pre-existing duplicate automatic-flow registration `semantic.generated.simple_command.camp.failed` after startup advances past the former apology-template check.
 
+## S5 navigation migration chunk
+
+- ProjectHoomans now owns the final `psdl/dialogue/navigation.json` source for the five maintained navigation families: camp, empty camp, default, orders, and subject change. Each family is represented by four bounded style plans (neutral, warm, terse, guarded), preserving 200 EN/TL entries and 400 locale values.
+- The existing Hoomans navigation response catalog remains the selector. Its adapter loads Core-generated `Registry.PSDLPlan` variants into the existing phrase-family/SpeechRealization authority, preserving navigation subjects, priorities, and gameplay branch ownership without adding a PSDL runtime.
+- The superseded Core navigation content source, Hoomans navigation phrase-family source, generated Content modules, and split EN/TL Navigation translation files are removed. Core's manifest routes the adopter-owned PSDL shard; generated indexes and registries remain downstream-only.
+- Navigation parity reports 5 families, 20 style plans, and 400 EN/TL locale values with zero differences. Core's 109-test harness, PSDL build, S0 guard, focused navigation/response-catalog smokes, generated ownership tests, direct Lua family load, and changed-file Kahlua scan pass.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -175,7 +182,7 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 ## Next Chunk
 
-Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: commit the current task/command/companion-action chunk in adopter repositories first, then migrate social apology/hostility/reconciliation, navigation/knowledge/world-event, remaining ProjectHoomans surfaces, and any remaining DynamicTrading/DTCommon surfaces. For each domain, prove parity and caller/reference zero, remove its superseded source, and keep Core as the sole mechanism owner; S5-S8 remain open.
+Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: migrate the next coherent knowledge/world-event surface, then remaining ProjectHoomans and DynamicTrading/DTCommon surfaces. For each domain, prove parity and caller/reference zero, remove its superseded source, and keep Core as the sole mechanism owner; S5-S8 remain open.
 
 ## Evidence status
 
@@ -189,6 +196,7 @@ Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Co
 - `TEST_VERIFIED`: current Core semantic harness passes 109 tests after runtime-plan/text-catalog integration; the Hoomans social-check-in, DT trader, three-repository guard and changed Conversation Kahlua gates pass.
 - `TEST_VERIFIED`: greeting PSDL preserves 210 legacy EN/TL keys, Hoomans greeting selection/variant/ceasefire parity passes, and the generated registry remains Kahlua-safe after the local-budget fix.
 - `TEST_VERIFIED`: task/command/companion-action PSDL preserves 76 semantic phrase families and 152 EN/TL locale entries; direct command realization, horde acknowledgement, Core 109-test, three-repository audit/guard, and changed Conversation Kahlua gates pass.
+- `TEST_VERIFIED`: navigation PSDL preserves 5 semantic families, 20 bounded style plans, and 400 EN/TL locale values; navigation/response-catalog smokes, generated ownership tests, Core 109-test, three-repository audit/guard, direct Lua family load, and changed-file Kahlua gates pass.
 - `BASELINE_EVIDENCE`: the broad `pnc_companion_commands_smoke` still fails at its pre-existing presentation-path camp-rejection handoff after the direct semantic resolver succeeds; no new Core or PSDL caller/reference failure is present.
 - `STATIC_ONLY`: S5–S8 migration and final acceptance gates remain open.
 
