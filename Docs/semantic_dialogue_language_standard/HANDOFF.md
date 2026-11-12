@@ -5,18 +5,19 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
 phase_commit_phase: "S1"
-phase_commit_message: "phase(S1): phase(S1): establish Core semantic dialogue contracts"
+phase_commit_message: "phase(S1): phase(S1): reconcile committed handoff residual vector"
 phase_commit_vector: "project-hoomans=999b816f2e12335f5d367cdc1b8e460ea80eed0c;psychopatz-core=self;dynamic-trading=806d1842c536861f1ed5d5e856683626a5aca4d7"
-phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=fc69fc22b642e2363e27b1643e21ea2d60a2e8dc8364b9e084888a903963114f;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
-residual_worktree_fingerprint: "fc69fc22b642e2363e27b1643e21ea2d60a2e8dc8364b9e084888a903963114f"
+phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
+residual_worktree_fingerprint: "056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108"
 codebase_memory_indexed_commit: "5075fb7f7334c33b4cfd0991dcf5dd9b4a9c3b88"
-updated_at: "2026-11-12T12:11:31.011694Z"
+updated_at: "2026-11-12T12:11:56.582043Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S2 — PSDL parser/compiler and language validation"
 chunk: "implement the Core-owned PSDL parser/compiler on the accepted canonical IR and predicate contracts"
 retrieval_tier: "verify"
 ---
+
 
 
 
