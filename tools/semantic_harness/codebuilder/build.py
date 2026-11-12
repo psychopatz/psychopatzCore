@@ -231,8 +231,9 @@ def write_conversation_output(
     *,
     core_repository: Path | None = None,
     dynamic_trading_repository: Path | None = None,
+    interface_text_manifests: tuple[Path, ...] = (),
 ) -> list[Path]:
-    """Write the manifest-backed Conversation runtime and audit artifacts."""
+    """Write Conversation artifacts and optional non-dialogue text catalogs."""
     repository = repository.expanduser().resolve()
     core_repository = resolve_core_repository(
         repository,
@@ -458,6 +459,27 @@ def write_conversation_output(
                 owner=owner,
             ))
 
+    for interface_manifest in interface_text_manifests:
+        interface_manifest = interface_manifest.expanduser().resolve()
+        if not interface_manifest.is_file():
+            raise CompileError(
+                f"interface text manifest is missing: {interface_manifest}"
+            )
+        for owner in sorted(enabled_owners):
+            package_translation_root = translation_root(
+                repository,
+                owner,
+                core_repository=core_repository,
+                dynamic_trading_repository=dynamic_trading_repository,
+                runtime_root=repository,
+            )
+            paths.extend(write_runtime_text_catalogs(
+                interface_manifest,
+                package_translation_root,
+                owner=owner,
+                clean=False,
+            ))
+
     return paths
 
 
@@ -499,6 +521,13 @@ def main(arguments: list[str] | None = None) -> int:
         type=Path,
         default=None,
         help="DynamicTrading repository receiving DTCommon-owned generated artifacts",
+    )
+    parser.add_argument(
+        "--interface-text-manifest",
+        type=Path,
+        action="append",
+        default=[],
+        help="additional localized interface text manifest outside Conversation dialogue",
     )
     options = parser.parse_args(arguments)
 
@@ -565,6 +594,7 @@ def main(arguments: list[str] | None = None) -> int:
             compiled_conversation,
             core_repository=options.core_repository,
             dynamic_trading_repository=options.dynamic_trading_repository,
+            interface_text_manifests=tuple(options.interface_text_manifest),
         )
         print(
             "wrote manifest-backed Conversation output and "

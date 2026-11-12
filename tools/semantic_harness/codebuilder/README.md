@@ -77,12 +77,15 @@ python3 tools/semantic_harness/codebuilder/build.py \
   --conversation-manifest \
   tools/semantic_harness/codebuilder/sources/conversation/manifest.json \
   --conversation-output-root . \
-  --core-repository ../psychopatzCore
+  --core-repository ../psychopatzCore \
+  --interface-text-manifest \
+  tools/providers/pnc/codebuilder/sources/debugger/manifest.json
 ```
 
 This deterministically generates owner-routed bounded Lua modules, composition
 registries, and package-owned Conversation translation catalogs from the
-canonical shard model.
+canonical shard model. Interface text manifests are compiled separately and
+are not loaded as Conversation dialogue sources.
 
 Generated Lua/JSON is never an authoring source.
 

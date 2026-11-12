@@ -99,8 +99,15 @@ def write_runtime_text_catalogs(
     runtime_translation_root: str | Path,
     *,
     owner: str | None = None,
+    clean: bool = True,
 ) -> list[Path]:
-    """Render selected owners' focused text catalogs into flat runtime JSON."""
+    """Render selected owners' focused text catalogs into flat runtime JSON.
+
+    ``clean`` is disabled for secondary catalog manifests that share the
+    package translation tree with the primary Conversation text manifest.
+    Those manifests may add their own generated files without deleting the
+    primary dialogue catalogs.
+    """
 
     catalogs = _load_catalogs(Path(manifest_path).expanduser().resolve())
     runtime_root = Path(runtime_translation_root).expanduser().resolve()
@@ -141,22 +148,23 @@ def write_runtime_text_catalogs(
                     raise ValueError(f"missing {language} text for Conversation text key: {key}")
             seen_keys.add(key)
 
-    desired_outputs = set(grouped)
-    for language in LOCALES:
-        language_root = runtime_root / language
-        text_root = language_root / "Conversation" / "Text"
-        if not text_root.is_dir():
-            continue
-        for path in sorted(text_root.rglob("*.json")):
-            relative = path.relative_to(language_root).as_posix()
-            if relative not in desired_outputs:
-                path.unlink()
-        for directory in sorted(text_root.rglob("*"), reverse=True):
-            if directory.is_dir():
-                try:
-                    directory.rmdir()
-                except OSError:
-                    pass
+    if clean:
+        desired_outputs = set(grouped)
+        for language in LOCALES:
+            language_root = runtime_root / language
+            text_root = language_root / "Conversation" / "Text"
+            if not text_root.is_dir():
+                continue
+            for path in sorted(text_root.rglob("*.json")):
+                relative = path.relative_to(language_root).as_posix()
+                if relative not in desired_outputs:
+                    path.unlink()
+            for directory in sorted(text_root.rglob("*"), reverse=True):
+                if directory.is_dir():
+                    try:
+                        directory.rmdir()
+                    except OSError:
+                        pass
 
     rendered_paths: list[Path] = []
     for language in LOCALES:

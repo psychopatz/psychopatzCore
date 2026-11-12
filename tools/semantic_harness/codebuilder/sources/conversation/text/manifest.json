@@ -393,31 +393,6 @@
       "owner": "PsychopatzCore"
     },
     {
-      "path": "system/debugger/button.json",
-      "sourceId": "conversation.content.system.debugger.button",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "path": "system/debugger/detail.json",
-      "sourceId": "conversation.content.system.debugger.detail",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "path": "system/debugger/sandbox.json",
-      "sourceId": "conversation.content.system.debugger.sandbox",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "path": "system/debugger/status.json",
-      "sourceId": "conversation.content.system.debugger.status",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "path": "system/debugger/title.json",
-      "sourceId": "conversation.content.system.debugger.title",
-      "owner": "ProjectHoomans"
-    },
-    {
       "path": "work_orders/status.json",
       "sourceId": "conversation.content.work.orders.status",
       "owner": "ProjectHoomans"
