@@ -4,7 +4,7 @@
   "owner": "ProjectHoomans",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.greetings.settlement.admission.arrival",
+      "catalogId": "conversation.social.greetings.settlement_admission.arrival",
       "owner": "ProjectHoomans",
       "target": "social/greetings/settlement_admission/arrival",
       "entries": [

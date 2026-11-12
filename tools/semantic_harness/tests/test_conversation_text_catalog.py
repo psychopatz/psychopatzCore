@@ -23,7 +23,7 @@ class ConversationTextCatalogTests(unittest.TestCase):
             "owner": "ProjectHoomans",
             "catalogs": [
                 {
-                    "catalogId": "conversation.text.greetings.neutral.opening",
+                    "catalogId": "conversation.greetings.neutral.opening",
                     "owner": "ProjectHoomans",
                     "target": "greetings/neutral/opening",
                     "entries": [
@@ -34,7 +34,7 @@ class ConversationTextCatalogTests(unittest.TestCase):
                     ],
                 },
                 {
-                    "catalogId": "conversation.text.greetings.neutral.weather",
+                    "catalogId": "conversation.greetings.neutral.weather",
                     "owner": "ProjectHoomans",
                     "target": "greetings/neutral/opening",
                     "entries": [
@@ -141,8 +141,8 @@ class ConversationTextCatalogTests(unittest.TestCase):
                 (source_root / "greetings.json").read_text(encoding="utf-8")
             )
             duplicate["sourceId"] = "conversation.content.duplicate"
-            duplicate["catalogs"][0]["catalogId"] = "conversation.text.greetings.neutral.followup"
-            duplicate["catalogs"][1]["catalogId"] = "conversation.text.greetings.neutral.weather_followup"
+            duplicate["catalogs"][0]["catalogId"] = "conversation.greetings.neutral.followup"
+            duplicate["catalogs"][1]["catalogId"] = "conversation.greetings.neutral.weather_followup"
             (source_root / "duplicate.json").write_text(
                 json.dumps(duplicate, indent=2) + "\n",
                 encoding="utf-8",

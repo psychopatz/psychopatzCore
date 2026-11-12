@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.social.goodbye.closing",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.goodbye.closing",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.goodbye.closing",
+      "owner": "PsychopatzCore",
       "target": "social/goodbye/closing",
       "entries": [
         {

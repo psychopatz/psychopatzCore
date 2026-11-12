@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.memory.gossip.death.report",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.memory.gossip.death.report",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.memory.gossip.death.report",
+      "owner": "PsychopatzCore",
       "target": "memory/gossip",
       "entries": [
         {

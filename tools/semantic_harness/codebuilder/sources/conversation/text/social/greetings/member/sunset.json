@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.social.greetings.member.member.sunset",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.greetings.member.member.sunset",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.greetings.member.sunset",
+      "owner": "PsychopatzCore",
       "target": "social/greetings/member/sunset",
       "entries": [
         {

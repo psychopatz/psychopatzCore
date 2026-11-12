@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.social.small.talk.weather",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.small.talk.member.weather",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.small_talk.member.weather",
+      "owner": "PsychopatzCore",
       "target": "social/small_talk/member",
       "entries": [
         {
@@ -28,8 +28,8 @@
       }
     },
     {
-      "catalogId": "conversation.text.social.small.talk.neutral.weather",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.small_talk.neutral.weather",
+      "owner": "PsychopatzCore",
       "target": "social/small_talk/neutral",
       "entries": [
         {
@@ -52,8 +52,8 @@
       }
     },
     {
-      "catalogId": "conversation.text.social.small.talk.special.weather",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.small_talk.special.weather",
+      "owner": "PsychopatzCore",
       "target": "social/small_talk/special",
       "entries": [
         {

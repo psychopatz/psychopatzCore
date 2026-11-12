@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.memory.backstory.hobby",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.memory.backstory.facts.hobby",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.memory.backstory.facts.hobby",
+      "owner": "PsychopatzCore",
       "target": "memory/backstory/facts",
       "entries": [
         {

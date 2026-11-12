@@ -1,0 +1,20 @@
+{
+  "choice.gift": "I have something you might need.",
+  "choice.gift_return": "I will hold on to the rest.",
+  "gift.offer.multiple": "I have {giftItemSummary} for the group.",
+  "gift.offer.multiple.alt": "Put these into our stores: {giftItemSummary}.",
+  "gift.offer.single": "Here's {giftItemName} for the group.",
+  "gift.offer.single.alt": "I brought this for us: {giftItemName}.",
+  "gift.opening": "Choose something to give me, then return to the conversation.",
+  "gift.received.equipment": "That is exactly the kind of contribution that keeps a community moving.",
+  "gift.received.food": "Perfect timing. I will make sure it reaches someone who needs it.",
+  "gift.received.general": "Thank you. I will put it where it does the most good.",
+  "gift.received.medical": "This goes straight into our reserves. You just made the whole group safer.",
+  "opening": "Let me think about what the group is short on.",
+  "response.gift": "Let me see what you can spare.",
+  "response.gift_return": "Understood.",
+  "choice.medical": "Does anyone need medical help?",
+  "response.medical": "Nothing urgent, but check the bandages.",
+  "choice.supplies": "What supplies are we short on?",
+  "response.supplies": "Food, water, and tools. The usual."
+}

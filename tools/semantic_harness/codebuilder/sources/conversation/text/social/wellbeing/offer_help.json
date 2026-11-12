@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.social.wellbeing.offer.help",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.wellbeing.member.offer.help.member",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.wellbeing.member.offer_help",
+      "owner": "PsychopatzCore",
       "target": "social/wellbeing/member",
       "entries": [
         {
@@ -25,8 +25,8 @@
       ]
     },
     {
-      "catalogId": "conversation.text.social.wellbeing.neutral.offer.help.neutral",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.wellbeing.neutral.offer_help",
+      "owner": "PsychopatzCore",
       "target": "social/wellbeing/neutral",
       "entries": [
         {
@@ -46,8 +46,8 @@
       ]
     },
     {
-      "catalogId": "conversation.text.social.wellbeing.special.offer.help.special",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.wellbeing.special.offer_help",
+      "owner": "PsychopatzCore",
       "target": "social/wellbeing/special",
       "entries": [
         {

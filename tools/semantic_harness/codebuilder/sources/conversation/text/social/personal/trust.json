@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.social.personal.trust",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.personal.special.trust",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.personal.special.trust",
+      "owner": "PsychopatzCore",
       "target": "social/personal/special/trust",
       "entries": [
         {

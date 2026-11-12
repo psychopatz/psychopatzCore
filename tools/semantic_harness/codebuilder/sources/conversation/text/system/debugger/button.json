@@ -4,7 +4,7 @@
   "owner": "ProjectHoomans",
   "catalogs": [
     {
-      "catalogId": "conversation.text.system.debugger.button",
+      "catalogId": "conversation.system.debugger.button",
       "owner": "ProjectHoomans",
       "target": "system/debugger",
       "entries": [

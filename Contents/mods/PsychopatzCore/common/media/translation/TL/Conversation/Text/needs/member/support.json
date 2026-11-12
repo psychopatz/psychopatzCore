@@ -1,0 +1,20 @@
+{
+  "choice.gift": "Mayroon akong isang bagay na maaaring kailanganin mo.",
+  "choice.gift_return": "Hahawakan ko ang natitira.",
+  "gift.offer.multiple": "Mayroon akong {giftItemSummary} para sa grupo.",
+  "gift.offer.multiple.alt": "Ilagay ang mga ito sa aming mga tindahan: {giftItemSummary}.",
+  "gift.offer.single": "Narito ang {giftItemName} para sa grupo.",
+  "gift.offer.single.alt": "Dinala ko ito para sa atin: {giftItemName}.",
+  "gift.opening": "Pumili ng ibibigay sa akin, pagkatapos ay bumalik sa usapan.",
+  "gift.received.equipment": "Iyan mismo ang uri ng kontribusyon na nagpapanatili sa isang komunidad na gumagalaw.",
+  "gift.received.food": "Perpektong timing. Sisiguraduhin kong makakarating ito sa taong nangangailangan nito.",
+  "gift.received.general": "salamat po. Ilalagay ko ito kung saan ito nagdudulot ng pinakamabuti.",
+  "gift.received.medical": "Diretso ito sa ating mga reserba. Ginawa mo lang mas ligtas ang buong grupo.",
+  "opening": "Hayaan akong isipin kung ano ang kulang sa grupo.",
+  "response.gift": "Hayaan akong makita kung ano ang maaari mong matitira.",
+  "response.gift_return": "Understood.",
+  "choice.medical": "May nangangailangan ba ng tulong medikal?",
+  "response.medical": "Walang kagyat, ngunit suriin ang mga bendahe.",
+  "choice.supplies": "What supplies are we short buhay?",
+  "response.supplies": "Pagkain, tubig, at mga kasangkapan. Ang karaniwan."
+}

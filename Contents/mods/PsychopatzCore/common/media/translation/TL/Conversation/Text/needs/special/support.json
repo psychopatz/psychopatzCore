@@ -1,0 +1,20 @@
+{
+  "choice.gift": "Mayroon akong isang bagay na maaaring kailanganin mo.",
+  "choice.gift_return": "Hahawakan ko ang natitira.",
+  "gift.offer.multiple": "Nagdala ako ng {giftItemSummary} para sa iyo.",
+  "gift.offer.multiple.alt": "Iyo ang mga ito kung kailangan mo: {giftItemSummary}.",
+  "gift.offer.single": "Narito ang {giftItemName}. Akala ko magagamit mo.",
+  "gift.offer.single.alt": "Para sa iyo ito: {giftItemName}.",
+  "gift.opening": "Pumili ng ibibigay sa akin, pagkatapos ay bumalik sa usapan.",
+  "gift.received.equipment": "Kapaki-pakinabang, pinag-isipan, at mahusay na pinili. Natututuhan mo na kung paano ako mag-isip.",
+  "gift.received.food": "Naalala mo ako. Masisiyahan ako rito, at maaalala ko ang ginawa mong ito.",
+  "gift.received.general": "Iyan ay nag-iisip sa iyo. salamat po.",
+  "gift.received.medical": "Napansin mo ang kailangan ko bago ko pa hingin. Mas mahalaga iyon kaysa sa mismong gamot.",
+  "opening": "Dahil ikaw ito, sasabihin ko sa iyo kung ano ang kailangan ko.",
+  "response.gift": "Hayaan akong makita kung ano ang maaari mong matitira.",
+  "response.gift_return": "Understood.",
+  "choice.medical": "nasaktan ka ba",
+  "response.medical": "Hindi. Sasabihin ko sa iyo kung ako nga.",
+  "choice.supplies": "Ano ang maaari kong dalhin sa iyo?",
+  "response.supplies": "Bumalik ka na lang ng matiwasay. Anumang bagay ay dagdag."
+}

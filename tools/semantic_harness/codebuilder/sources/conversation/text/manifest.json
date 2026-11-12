@@ -15,182 +15,182 @@
     {
       "path": "memory/backstory/education.json",
       "sourceId": "conversation.content.memory.backstory.education",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/backstory/family.json",
       "sourceId": "conversation.content.memory.backstory.family",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/backstory/fear.json",
       "sourceId": "conversation.content.memory.backstory.fear",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/backstory/hobby.json",
       "sourceId": "conversation.content.memory.backstory.hobby",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/backstory/hometown.json",
       "sourceId": "conversation.content.memory.backstory.hometown",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/backstory/occupation.json",
       "sourceId": "conversation.content.memory.backstory.occupation",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/backstory/survival.json",
       "sourceId": "conversation.content.memory.backstory.survival",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/backstory/tragedy.json",
       "sourceId": "conversation.content.memory.backstory.tragedy",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/backstory/value.json",
       "sourceId": "conversation.content.memory.backstory.value",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/corpse/ordinary/comrade.json",
       "sourceId": "conversation.content.memory.gossip.corpse.ordinary.comrade",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/corpse/ordinary/friend.json",
       "sourceId": "conversation.content.memory.gossip.corpse.ordinary.friend",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/corpse/ordinary/hostile.json",
       "sourceId": "conversation.content.memory.gossip.corpse.ordinary.hostile",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/corpse/ordinary/neutral.json",
       "sourceId": "conversation.content.memory.gossip.corpse.ordinary.neutral",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/corpse/ordinary/relative.json",
       "sourceId": "conversation.content.memory.gossip.corpse.ordinary.relative",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/corpse/revenge/comrade.json",
       "sourceId": "conversation.content.memory.gossip.corpse.revenge.comrade",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/corpse/revenge/friend.json",
       "sourceId": "conversation.content.memory.gossip.corpse.revenge.friend",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/corpse/revenge/relative.json",
       "sourceId": "conversation.content.memory.gossip.corpse.revenge.relative",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/death/report.json",
       "sourceId": "conversation.content.memory.gossip.death.report",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/death/sacrifice.json",
       "sourceId": "conversation.content.memory.gossip.death.sacrifice",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/reactions/negative/mockery.json",
       "sourceId": "conversation.content.memory.gossip.reactions.negative.mockery",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/reactions/negative/suspicion.json",
       "sourceId": "conversation.content.memory.gossip.reactions.negative.suspicion",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/reactions/negative/warning.json",
       "sourceId": "conversation.content.memory.gossip.reactions.negative.warning",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/reactions/neutral/sighting.json",
       "sourceId": "conversation.content.memory.gossip.reactions.neutral.sighting",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/reactions/neutral/survival.json",
       "sourceId": "conversation.content.memory.gossip.reactions.neutral.survival",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/reactions/positive/praise.json",
       "sourceId": "conversation.content.memory.gossip.reactions.positive.praise",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/reactions/positive/protection.json",
       "sourceId": "conversation.content.memory.gossip.reactions.positive.protection",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/reactions/positive/rescue.json",
       "sourceId": "conversation.content.memory.gossip.reactions.positive.rescue",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "memory/gossip/reactions/positive/sympathy.json",
       "sourceId": "conversation.content.memory.gossip.reactions.positive.sympathy",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "needs/gifts.json",
       "sourceId": "conversation.content.needs.gifts",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "needs/medical.json",
       "sourceId": "conversation.content.needs.medical",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "needs/supplies.json",
       "sourceId": "conversation.content.needs.supplies",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/ask_about/background.json",
       "sourceId": "conversation.content.social.ask.about.background",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/ask_about/opening.json",
       "sourceId": "conversation.content.social.ask.about.opening",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/ask_about/skills.json",
       "sourceId": "conversation.content.social.ask.about.skills",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/goodbye/closing.json",
       "sourceId": "conversation.content.social.goodbye.closing",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/ambient_visit/arrival.json",
       "sourceId": "conversation.content.social.greetings.ambient.visit.arrival",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/hostile/parley.json",
@@ -200,77 +200,77 @@
     {
       "path": "social/greetings/member/dawn.json",
       "sourceId": "conversation.content.social.greetings.member.member.dawn",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/member/dusk.json",
       "sourceId": "conversation.content.social.greetings.member.member.dusk",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/member/sunrise.json",
       "sourceId": "conversation.content.social.greetings.member.member.sunrise",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/member/sunset.json",
       "sourceId": "conversation.content.social.greetings.member.member.sunset",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/member/twilight.json",
       "sourceId": "conversation.content.social.greetings.member.member.twilight",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/acquaintance/dawn.json",
       "sourceId": "conversation.content.social.greetings.neutral.acquaintance.dawn",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/acquaintance/dusk.json",
       "sourceId": "conversation.content.social.greetings.neutral.acquaintance.dusk",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/acquaintance/sunrise.json",
       "sourceId": "conversation.content.social.greetings.neutral.acquaintance.sunrise",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/acquaintance/sunset.json",
       "sourceId": "conversation.content.social.greetings.neutral.acquaintance.sunset",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/acquaintance/twilight.json",
       "sourceId": "conversation.content.social.greetings.neutral.acquaintance.twilight",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/first_meet/dawn.json",
       "sourceId": "conversation.content.social.greetings.neutral.first.meet.dawn",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/first_meet/dusk.json",
       "sourceId": "conversation.content.social.greetings.neutral.first.meet.dusk",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/first_meet/sunrise.json",
       "sourceId": "conversation.content.social.greetings.neutral.first.meet.sunrise",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/first_meet/sunset.json",
       "sourceId": "conversation.content.social.greetings.neutral.first.meet.sunset",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/neutral/first_meet/twilight.json",
       "sourceId": "conversation.content.social.greetings.neutral.first.meet.twilight",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/settlement_admission/arrival.json",
@@ -280,52 +280,52 @@
     {
       "path": "social/greetings/special/lover/dawn.json",
       "sourceId": "conversation.content.social.greetings.special.lover.dawn",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/special/lover/dusk.json",
       "sourceId": "conversation.content.social.greetings.special.lover.dusk",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/special/lover/sunrise.json",
       "sourceId": "conversation.content.social.greetings.special.lover.sunrise",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/special/lover/sunset.json",
       "sourceId": "conversation.content.social.greetings.special.lover.sunset",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/greetings/special/lover/twilight.json",
       "sourceId": "conversation.content.social.greetings.special.lover.twilight",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/personal/trust.json",
       "sourceId": "conversation.content.social.personal.trust",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/relationship/affinity.json",
       "sourceId": "conversation.content.social.relationship.affinity",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/small_talk/opening.json",
       "sourceId": "conversation.content.social.small.talk.opening",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/small_talk/quiet_day.json",
       "sourceId": "conversation.content.social.small.talk.quiet_day",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/small_talk/weather.json",
       "sourceId": "conversation.content.social.small.talk.weather",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/territory/claim.json",
@@ -335,62 +335,62 @@
     {
       "path": "social/wellbeing/condition.json",
       "sourceId": "conversation.content.social.wellbeing.condition",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "social/wellbeing/offer_help.json",
       "sourceId": "conversation.content.social.wellbeing.offer.help",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/category.json",
       "sourceId": "conversation.content.system.categories.category",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/choice.json",
       "sourceId": "conversation.content.system.categories.choice",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/context.json",
       "sourceId": "conversation.content.system.categories.context",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/identity.json",
       "sourceId": "conversation.content.system.categories.identity",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/llm.json",
       "sourceId": "conversation.content.system.categories.llm",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/locked.json",
       "sourceId": "conversation.content.system.categories.locked",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/panel.json",
       "sourceId": "conversation.content.system.categories.panel",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/response.json",
       "sourceId": "conversation.content.system.categories.response",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/semantic.json",
       "sourceId": "conversation.content.system.categories.semantic",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/categories/status.json",
       "sourceId": "conversation.content.system.categories.status",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "path": "system/debugger/button.json",

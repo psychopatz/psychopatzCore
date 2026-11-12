@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.social.relationship.affinity",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.relationship.special.affinity",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.relationship.special.affinity",
+      "owner": "PsychopatzCore",
       "target": "social/relationship/special/affinity",
       "entries": [
         {

@@ -1,0 +1,6 @@
+{
+  "choice.trust": "You can trust me.",
+  "locked.familiarity": "You do not know each other well enough yet.",
+  "opening": "All right, {playerFirstName}. We can talk about us.",
+  "response.trust": "I know. That still means more than I can say."
+}

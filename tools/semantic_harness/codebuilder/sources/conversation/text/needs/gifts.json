@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.needs.gifts",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.needs.member.support.gifts.member",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.needs.member.support.gifts",
+      "owner": "PsychopatzCore",
       "target": "needs/member/support",
       "entries": [
         {
@@ -109,8 +109,8 @@
       ]
     },
     {
-      "catalogId": "conversation.text.needs.neutral.support.gifts.neutral",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.needs.neutral.support.gifts",
+      "owner": "PsychopatzCore",
       "target": "needs/neutral/support",
       "entries": [
         {
@@ -214,8 +214,8 @@
       ]
     },
     {
-      "catalogId": "conversation.text.needs.special.support.gifts.special",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.needs.special.support.gifts",
+      "owner": "PsychopatzCore",
       "target": "needs/special/support",
       "entries": [
         {

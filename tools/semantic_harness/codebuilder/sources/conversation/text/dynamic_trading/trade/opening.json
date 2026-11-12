@@ -4,7 +4,7 @@
   "owner": "DTCommon",
   "catalogs": [
     {
-      "catalogId": "conversation.text.dynamic.trading.trade.opening",
+      "catalogId": "conversation.dynamic_trading.trade.opening",
       "owner": "DTCommon",
       "target": "dynamic_trading/trade/opening",
       "entries": [

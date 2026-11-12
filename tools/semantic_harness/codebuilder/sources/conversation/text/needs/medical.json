@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.needs.medical",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.needs.member.support.medical.member",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.needs.member.support.medical",
+      "owner": "PsychopatzCore",
       "target": "needs/member/support",
       "entries": [
         {
@@ -25,8 +25,8 @@
       ]
     },
     {
-      "catalogId": "conversation.text.needs.neutral.support.medical.neutral",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.needs.neutral.support.medical",
+      "owner": "PsychopatzCore",
       "target": "needs/neutral/support",
       "entries": [
         {
@@ -46,8 +46,8 @@
       ]
     },
     {
-      "catalogId": "conversation.text.needs.special.support.medical.special",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.needs.special.support.medical",
+      "owner": "PsychopatzCore",
       "target": "needs/special/support",
       "entries": [
         {

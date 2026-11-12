@@ -8,7 +8,10 @@ from collections import Counter
 from pathlib import Path, PurePosixPath
 from typing import Any
 
-from conversation_text_catalog import _load_catalogs
+try:
+    from .conversation_text_catalog import _load_catalogs
+except ImportError:
+    from conversation_text_catalog import _load_catalogs
 
 
 DEFAULT_MANIFEST = (

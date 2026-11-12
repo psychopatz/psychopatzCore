@@ -1,0 +1,7 @@
+{
+  "choice.condition": "How are you really doing?",
+  "opening": "I'll be honest with you, {playerFirstName}. Ask.",
+  "response.condition": "Better now that you're here.",
+  "choice.offer_help": "Let me help.",
+  "response.offer_help": "All right. Just stay close for a minute."
+}

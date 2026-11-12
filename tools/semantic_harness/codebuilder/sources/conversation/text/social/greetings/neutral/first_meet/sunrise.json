@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.social.greetings.neutral.first.meet.sunrise",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.greetings.neutral.first.meet.sunrise",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.social.greetings.neutral.first_meet.sunrise",
+      "owner": "PsychopatzCore",
       "target": "social/greetings/neutral/first_meet/sunrise",
       "entries": [
         {

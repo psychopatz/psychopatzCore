@@ -4,7 +4,7 @@
   "owner": "ProjectHoomans",
   "catalogs": [
     {
-      "catalogId": "conversation.text.work.orders.member.status",
+      "catalogId": "conversation.work_orders.member.status",
       "owner": "ProjectHoomans",
       "target": "work_orders/member/status",
       "entries": [

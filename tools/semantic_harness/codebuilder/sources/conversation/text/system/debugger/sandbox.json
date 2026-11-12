@@ -4,7 +4,7 @@
   "owner": "ProjectHoomans",
   "catalogs": [
     {
-      "catalogId": "conversation.text.system.debugger.sandbox",
+      "catalogId": "conversation.system.debugger.sandbox",
       "owner": "ProjectHoomans",
       "target": "system/debugger",
       "entries": [

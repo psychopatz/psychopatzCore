@@ -4,7 +4,7 @@
   "owner": "ProjectHoomans",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.territory.member.claim",
+      "catalogId": "conversation.social.territory.member.claim",
       "owner": "ProjectHoomans",
       "target": "social/territory/member/claim",
       "entries": [

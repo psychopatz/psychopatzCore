@@ -443,31 +443,19 @@ def write_conversation_output(
         )
 
     text_manifest = CONVERSATION_TEXT_MANIFEST
-    if text_manifest.is_file() and HOOMANS_OWNER in enabled_owners:
-        package_translation_root = translation_root(
-            repository,
-            HOOMANS_OWNER,
-            core_repository=core_repository,
-            dynamic_trading_repository=dynamic_trading_repository,
-            runtime_root=repository,
-        )
-        paths.extend(write_runtime_text_catalogs(
-            text_manifest,
-            package_translation_root,
-            owner=HOOMANS_OWNER,
-        ))
-        if dynamic_trading_repository is not None:
-            dt_translation_root = translation_root(
+    if text_manifest.is_file():
+        for owner in sorted(enabled_owners):
+            package_translation_root = translation_root(
                 repository,
-                DT_COMMON_OWNER,
+                owner,
                 core_repository=core_repository,
                 dynamic_trading_repository=dynamic_trading_repository,
                 runtime_root=repository,
             )
             paths.extend(write_runtime_text_catalogs(
                 text_manifest,
-                dt_translation_root,
-                owner=DT_COMMON_OWNER,
+                package_translation_root,
+                owner=owner,
             ))
 
     return paths

@@ -92,6 +92,7 @@ addDescriptor({
     roles = { shared = true, client = true, server = true },
     depends = { "core.semantics", "core.translation" },
     load = function()
+        require "PsychopatzCore/Conversation/PsychopatzConversationTextCatalog"
         require "PsychopatzCore/Conversation/PsychopatzSocialFlavor"
         require "PsychopatzCore/Conversation/PsychopatzNameParts"
         return require "PsychopatzCore/Conversation/PsychopatzActorConversationService"

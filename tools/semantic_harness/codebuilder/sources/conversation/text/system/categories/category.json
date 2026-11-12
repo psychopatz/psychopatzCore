@@ -1,11 +1,11 @@
 {
   "schema": "psychopatz.semantic.text-source.v1",
   "sourceId": "conversation.content.system.categories.category",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "catalogs": [
     {
-      "catalogId": "conversation.text.system.categories.category",
-      "owner": "ProjectHoomans",
+      "catalogId": "conversation.system.categories.category",
+      "owner": "PsychopatzCore",
       "target": "system/categories",
       "entries": [
         {

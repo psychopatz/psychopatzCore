@@ -4,7 +4,7 @@
   "owner": "ProjectHoomans",
   "catalogs": [
     {
-      "catalogId": "conversation.text.social.greetings.hostile.parley",
+      "catalogId": "conversation.social.greetings.hostile.parley",
       "owner": "ProjectHoomans",
       "target": "social/greetings/hostile/parley",
       "entries": [
