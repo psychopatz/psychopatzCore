@@ -5,18 +5,19 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
 phase_commit_phase: "S5"
-phase_commit_message: "phase(S5): migrate ask-about and actor-neutral text binding"
+phase_commit_message: "phase(S5): reconcile ask-about handoff residual"
 phase_commit_vector: "project-hoomans=4de3a9b6d6d9678421c98b1b62cb35fad41023e4;psychopatz-core=self;dynamic-trading=33f4339d49db81e2de5edecab9601331ea751e9e"
-phase_residual_vector: "project-hoomans=2ced7092f8fb9c43166168c7a5b2d3ca0d9983be56aec525881a525a699c7aa3;psychopatz-core=ab8546ca9b2d53b4b4bf2b5da05dc9c1c56bc1b463b311bd284ae8d6b1a652d6;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
-residual_worktree_fingerprint: "ab8546ca9b2d53b4b4bf2b5da05dc9c1c56bc1b463b311bd284ae8d6b1a652d6"
+phase_residual_vector: "project-hoomans=2ced7092f8fb9c43166168c7a5b2d3ca0d9983be56aec525881a525a699c7aa3;psychopatz-core=056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
+residual_worktree_fingerprint: "056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108"
 codebase_memory_indexed_commit: "5075fb7f7334c33b4cfd0991dcf5dd9b4a9c3b88"
-updated_at: "2026-11-12T15:13:04.623462Z"
+updated_at: "2026-11-12T15:13:51.320121Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S5 — first-party domain migration and deletion"
 chunk: "migrate one coherent first-party semantic domain in each mandatory adopter through the Core PSDL mechanism"
 retrieval_tier: "verify"
 ---
+
 
 
 
