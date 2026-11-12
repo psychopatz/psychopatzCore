@@ -395,6 +395,39 @@
       "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_knowledge_facts.json",
       "shardId": "conversation.psdl.core.knowledge.facts",
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+
+    {
+      "domain": "social",
+      "kind": "psdl",
+      "order": 2318,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_world_event_warning.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_world_event_warning.json",
+      "shardId": "conversation.psdl.core.world.event.warning",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+
+    {
+      "domain": "social",
+      "kind": "psdl",
+      "order": 2319,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_world_event_warning_flavor.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_world_event_warning_flavor.json",
+      "shardId": "conversation.psdl.core.world.event.warning.flavor",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+
+    {
+      "domain": "social",
+      "kind": "psdl",
+      "order": 2320,
+      "owner": "PsychopatzCore",
+      "path": "psdl/behavior/core_world_event_warn.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/behavior/core_world_event_warn.json",
+      "shardId": "conversation.psdl.core.world.event.behavior.warn",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     }
   ],
   "source": {

@@ -344,6 +344,22 @@ gates pass.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 world-event warning migration checkpoint
+
+PsychopatzCore now owns final PSDL dialogue records for the world-event warning
+and warning-flavor families, preserving two semantic families, eight bounded
+style plans, 80 phrase pairs, and 160 EN/TL locale values. The existing
+`behavior.world_event_warn` Interaction Director contract is also authored as
+Core PSDL with its act, stimuli, predicate, relevance, emote, and speech/flavor
+template references preserved. ProjectHoomans' adopter adapter projects the
+wording into the established phrase-family/SpeechRealization authority while
+world-event lifecycle and arbitration remain unchanged. Superseded Core
+content/behavior sources, generated modules, and translations are removed.
+Parity, caller/reference-zero, direct Lua loads, the Core harness, PSDL build,
+three-repository S0 guard, and changed-file Kahlua gates pass.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.
