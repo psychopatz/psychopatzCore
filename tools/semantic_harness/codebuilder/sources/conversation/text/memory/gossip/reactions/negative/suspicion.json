@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.reactions.negative.suspicion",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.reactions.negative.suspicion",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "negative.suspicion.story",
+          "text": {
+            "EN": "Watch {subject}; their story keeps changing.",
+            "TL": "Bantayan si {subject}; pabago-bago ang kuwento niya."
+          }
+        }
+      ]
+    }
+  ]
+}

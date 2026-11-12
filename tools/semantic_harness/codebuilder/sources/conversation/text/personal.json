@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.personal",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.personal",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.personal.special.basic",
+      "catalogId": "conversation.text.personal.special.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.personal.special.basic",
-      "kind": "personal",
-      "audience": "special",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/personal/special/basic.json",
-      "sourceShard": "conversation.content.personal",
-      "keys": [
+      "runtimePath": "Conversation/Text/personal/special/basic.json",
+      "entries": [
         {
           "key": "choice.trust",
           "text": {

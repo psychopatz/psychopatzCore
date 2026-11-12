@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.death.report",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.death.report",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "death.report",
+          "text": {
+            "EN": "I heard {subject} did not make it back.",
+            "TL": "Balita ko, hindi na nakabalik si {subject}."
+          }
+        }
+      ]
+    }
+  ]
+}

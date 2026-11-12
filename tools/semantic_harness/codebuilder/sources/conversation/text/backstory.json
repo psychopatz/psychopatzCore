@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.backstory",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.backstory",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.backstory.shared.facts",
+      "catalogId": "conversation.text.backstory.shared.facts",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.backstory.shared.facts",
-      "kind": "backstory",
-      "audience": "shared",
-      "bundle": "facts",
-      "runtimePath": "Conversation/Bundles/backstory/shared/facts.json",
-      "sourceShard": "conversation.content.backstory",
-      "keys": [
+      "runtimePath": "Conversation/Text/backstory/shared/facts.json",
+      "entries": [
         {
           "key": "education.nursing_program",
           "text": {

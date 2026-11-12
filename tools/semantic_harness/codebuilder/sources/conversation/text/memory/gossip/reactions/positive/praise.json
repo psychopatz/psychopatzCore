@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.reactions.positive.praise",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.reactions.positive.praise",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "positive.praise.help",
+          "text": {
+            "EN": "{subject} has been looking out for people.",
+            "TL": "Inaalalayan ni {subject} ang mga tao."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.corpse.ordinary.friend",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.corpse.ordinary.friend",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "corpse.friend.01",
+          "text": {
+            "EN": "We were supposed to get through this together, {subject}.",
+            "TL": "Dapat sabay nating nalagpasan ito, {subject}."
+          }
+        },
+        {
+          "key": "corpse.friend.02",
+          "text": {
+            "EN": "You always had my back, {subject}. I should've had yours.",
+            "TL": "Lagi mo akong ipinagtatanggol, {subject}. Dapat ginawa ko rin iyon para sa'yo."
+          }
+        },
+        {
+          "key": "corpse.friend.03",
+          "text": {
+            "EN": "I won't let them forget you, {subject}.",
+            "TL": "Hindi kita hahayaang makalimutan nila, {subject}."
+          }
+        },
+        {
+          "key": "corpse.friend.04",
+          "text": {
+            "EN": "Rest now, {subject}. You did enough.",
+            "TL": "Magpahinga ka na, {subject}. Sapat na ang ginawa mo."
+          }
+        },
+        {
+          "key": "corpse.friend.05",
+          "text": {
+            "EN": "We still owed each other a drink, {subject}.",
+            "TL": "May utang pa tayong inumin sa isa't isa, {subject}."
+          }
+        }
+      ]
+    }
+  ]
+}

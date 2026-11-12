@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.caravan",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.caravan",
   "owner": "DTCommon",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.dynamic_trading.caravan.shared.basic",
+      "catalogId": "conversation.text.dynamic_trading.caravan.shared.basic",
       "owner": "DTCommon",
-      "modID": "DTCommon",
-      "domain": "pnc.caravan.shared.basic",
-      "kind": "caravan",
-      "audience": "shared",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/caravan/shared/basic.json",
-      "sourceShard": "conversation.content.caravan",
-      "keys": [
+      "runtimePath": "Conversation/Text/caravan/shared/basic.json",
+      "entries": [
         {
           "key": "category.caravan_referral",
           "text": {

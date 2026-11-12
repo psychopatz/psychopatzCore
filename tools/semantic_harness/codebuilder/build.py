@@ -42,14 +42,14 @@ if __package__ in {None, ""}:
         CONVERSATION_UI_RUNTIME_RELATIVE,
         compile_conversation_sources,
         conversation_context_health,
-        conversation_translation_bundles_by_owner,
+        conversation_translation_catalogs_by_owner,
         render_conversation_registry,
         render_conversation_manifest_lua,
         render_conversation_runtime_plan,
         render_conversation_ui_module,
     )
-    from tools.semantic_harness.codebuilder.conversation_bundle_catalog import (
-        write_runtime_bundle_catalogs,
+    from tools.semantic_harness.codebuilder.conversation_text_catalog import (
+        write_runtime_text_catalogs,
     )
 else:
     from .lexicon_compiler import (  # noqa: E402
@@ -77,13 +77,13 @@ else:
         CONVERSATION_UI_RUNTIME_RELATIVE,
         compile_conversation_sources,
         conversation_context_health,
-        conversation_translation_bundles_by_owner,
+        conversation_translation_catalogs_by_owner,
         render_conversation_registry,
         render_conversation_manifest_lua,
         render_conversation_runtime_plan,
         render_conversation_ui_module,
     )
-    from .conversation_bundle_catalog import write_runtime_bundle_catalogs
+    from .conversation_text_catalog import write_runtime_text_catalogs
 
 
 def default_lexicon_output(core_repository: Path | None = None) -> Path:
@@ -101,7 +101,7 @@ CONVERSATION_SOURCE_ROOT = (
     ROOT / "tools" / "semantic_harness" / "codebuilder" / "sources"
     / "conversation"
 )
-CONVERSATION_BUNDLE_MANIFEST = CONVERSATION_SOURCE_ROOT / "bundles" / "manifest.json"
+CONVERSATION_TEXT_MANIFEST = CONVERSATION_SOURCE_ROOT / "text" / "manifest.json"
 DEFAULT_CONVERSATION_MANIFEST = CONVERSATION_SOURCE_ROOT / "manifest.json"
 
 
@@ -136,16 +136,16 @@ def _conversation_locale_directories(translation_root: Path) -> list[tuple[str, 
 def _write_conversation_translation_manifest(
     translation_root: Path,
     manifest_relative: Path = Path("manifests/Conversation.json"),
-    bundles: dict[str, dict[str, dict[str, str]]] | None = None,
+    catalogs: dict[str, dict[str, dict[str, str]]] | None = None,
 ) -> Path:
-    """Generate a package manifest from canonical bundles or locale files."""
-    if bundles is None:
+    """Generate a package manifest from canonical text or locale files."""
+    if catalogs is None:
         languages: dict[str, list[str]] = {}
         for language, directory in _conversation_locale_directories(translation_root):
             entries: list[str] = []
             for path in sorted((directory / "Conversation").rglob("*.json")):
                 relative_from_language = path.relative_to(directory).as_posix()
-                if relative_from_language.startswith("Conversation/Bundles/"):
+                if relative_from_language.startswith("Conversation/Text/"):
                     continue
                 entries.append(path.relative_to(translation_root).as_posix())
             if entries:
@@ -156,7 +156,7 @@ def _write_conversation_translation_manifest(
                 f"{language}/Conversation/{domain}.json"
                 for domain in sorted(domains)
             ]
-            for language, domains in sorted(bundles.items())
+            for language, domains in sorted(catalogs.items())
             if domains
         }
     manifest_path = translation_root / manifest_relative
@@ -410,11 +410,11 @@ def write_conversation_output(
     )
     paths.append(ui_runtime_path)
 
-    bundles_by_owner = conversation_translation_bundles_by_owner(
+    catalogs_by_owner = conversation_translation_catalogs_by_owner(
         model,
         package_repositories=package_repositories,
     )
-    for owner, bundles in sorted(bundles_by_owner.items()):
+    for owner, catalogs in sorted(catalogs_by_owner.items()):
         if owner not in enabled_owners:
             continue
         package_translation_root = translation_root(
@@ -424,8 +424,8 @@ def write_conversation_output(
             dynamic_trading_repository=dynamic_trading_repository,
             runtime_root=repository,
         )
-        for language in sorted(bundles):
-            for domain, values in sorted(bundles[language].items()):
+        for language in sorted(catalogs):
+            for domain, values in sorted(catalogs[language].items()):
                 relative = f"{language}/Conversation/{domain}.json"
                 path = package_translation_root / relative
                 path.parent.mkdir(parents=True, exist_ok=True)
@@ -442,8 +442,8 @@ def write_conversation_output(
             )
         )
 
-    bundle_manifest = CONVERSATION_BUNDLE_MANIFEST
-    if bundle_manifest.is_file() and HOOMANS_OWNER in enabled_owners:
+    text_manifest = CONVERSATION_TEXT_MANIFEST
+    if text_manifest.is_file() and HOOMANS_OWNER in enabled_owners:
         package_translation_root = translation_root(
             repository,
             HOOMANS_OWNER,
@@ -451,8 +451,8 @@ def write_conversation_output(
             dynamic_trading_repository=dynamic_trading_repository,
             runtime_root=repository,
         )
-        paths.extend(write_runtime_bundle_catalogs(
-            bundle_manifest,
+        paths.extend(write_runtime_text_catalogs(
+            text_manifest,
             package_translation_root,
             owner=HOOMANS_OWNER,
         ))
@@ -464,8 +464,8 @@ def write_conversation_output(
                 dynamic_trading_repository=dynamic_trading_repository,
                 runtime_root=repository,
             )
-            paths.extend(write_runtime_bundle_catalogs(
-                bundle_manifest,
+            paths.extend(write_runtime_text_catalogs(
+                text_manifest,
                 dt_translation_root,
                 owner=DT_COMMON_OWNER,
             ))

@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.needs",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.needs",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.needs.member.basic",
+      "catalogId": "conversation.text.needs.member.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.needs.member.basic",
-      "kind": "needs",
-      "audience": "member",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/needs/member/basic.json",
-      "sourceShard": "conversation.content.needs",
-      "keys": [
+      "runtimePath": "Conversation/Text/needs/member/basic.json",
+      "entries": [
         {
           "key": "choice.gift",
           "text": {
@@ -143,16 +137,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.needs.neutral.basic",
+      "catalogId": "conversation.text.needs.neutral.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.needs.neutral.basic",
-      "kind": "needs",
-      "audience": "neutral",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/needs/neutral/basic.json",
-      "sourceShard": "conversation.content.needs",
-      "keys": [
+      "runtimePath": "Conversation/Text/needs/neutral/basic.json",
+      "entries": [
         {
           "key": "choice.gift",
           "text": {
@@ -282,16 +270,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.needs.special.basic",
+      "catalogId": "conversation.text.needs.special.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.needs.special.basic",
-      "kind": "needs",
-      "audience": "special",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/needs/special/basic.json",
-      "sourceShard": "conversation.content.needs",
-      "keys": [
+      "runtimePath": "Conversation/Text/needs/special/basic.json",
+      "entries": [
         {
           "key": "choice.gift",
           "text": {

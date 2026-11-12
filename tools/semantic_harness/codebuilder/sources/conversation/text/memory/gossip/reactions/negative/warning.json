@@ -1,0 +1,28 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.reactions.negative.warning",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.reactions.negative.warning",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "negative.warning.abandoned",
+          "text": {
+            "EN": "{subject} left someone behind when the zombies closed in.",
+            "TL": "Iniwan ni {subject} ang kasama niya nang sumalakay ang mga zombie."
+          }
+        },
+        {
+          "key": "negative.warning.danger",
+          "text": {
+            "EN": "People have spotted danger near {place}.",
+            "TL": "May nakapansing panganib malapit sa {place}."
+          }
+        }
+      ]
+    }
+  ]
+}

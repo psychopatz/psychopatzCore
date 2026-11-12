@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.work.orders",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.work.orders",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.work.orders.member.basic",
+      "catalogId": "conversation.text.work.orders.member.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.work.orders.member.basic",
-      "kind": "work_orders",
-      "audience": "member",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/work_orders/member/basic.json",
-      "sourceShard": "conversation.content.work.orders",
-      "keys": [
+      "runtimePath": "Conversation/Text/work_orders/member/basic.json",
+      "entries": [
         {
           "key": "choice.orders",
           "text": {

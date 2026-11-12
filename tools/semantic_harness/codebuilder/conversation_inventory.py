@@ -13,7 +13,7 @@ def inventory_from_model(model: Mapping[str, Any]) -> dict[str, Any]:
 
     from .conversation_compiler import (
         conversation_languages,
-        conversation_translation_bundles_by_owner,
+        conversation_translation_catalogs_by_owner,
     )
 
     shards = []
@@ -29,13 +29,13 @@ def inventory_from_model(model: Mapping[str, Any]) -> dict[str, Any]:
             "fingerprint": shard.get("fingerprint"),
         })
 
-    bundles = conversation_translation_bundles_by_owner(model)
+    catalogs = conversation_translation_catalogs_by_owner(model)
     translations: dict[str, Any] = {}
-    for owner, language_bundles in sorted(bundles.items()):
+    for owner, language_catalogs in sorted(catalogs.items()):
         translations[owner] = {}
-        for language, domain_bundles in sorted(language_bundles.items()):
+        for language, domain_catalogs in sorted(language_catalogs.items()):
             translations[owner][language] = {}
-            for domain, values in sorted(domain_bundles.items()):
+            for domain, values in sorted(domain_catalogs.items()):
                 translations[owner][language][domain] = {
                     "keyCount": len(values),
                     "keys": sorted(str(key) for key in values),

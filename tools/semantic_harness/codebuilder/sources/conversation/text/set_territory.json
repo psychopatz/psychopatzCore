@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.set.territory",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.set.territory",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.set.territory.member.basic",
+      "catalogId": "conversation.text.set.territory.member.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.set.territory.member.basic",
-      "kind": "set_territory",
-      "audience": "member",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/set_territory/member/basic.json",
-      "sourceShard": "conversation.content.set.territory",
-      "keys": [
+      "runtimePath": "Conversation/Text/set_territory/member/basic.json",
+      "entries": [
         {
           "key": "choice.set_territory",
           "text": {

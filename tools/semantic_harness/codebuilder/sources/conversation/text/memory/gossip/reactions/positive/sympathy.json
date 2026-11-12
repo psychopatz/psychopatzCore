@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.reactions.positive.sympathy",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.reactions.positive.sympathy",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "positive.sympathy.loss",
+          "text": {
+            "EN": "I heard what happened to {subject}. I hope they are holding up.",
+            "TL": "Narinig ko ang nangyari kay {subject}. Sana kinakaya niya."
+          }
+        }
+      ]
+    }
+  ]
+}

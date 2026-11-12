@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.corpse.ordinary.neutral",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.corpse.ordinary.neutral",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "corpse.neutral.01",
+          "text": {
+            "EN": "I didn't know you, {subject}. You deserved better.",
+            "TL": "Hindi kita nakilala, {subject}. Hindi mo dapat naranasan ito."
+          }
+        },
+        {
+          "key": "corpse.neutral.02",
+          "text": {
+            "EN": "I hope someone remembers your name, {subject}.",
+            "TL": "Sana may makaalala pa sa pangalan mo, {subject}."
+          }
+        },
+        {
+          "key": "corpse.neutral.03",
+          "text": {
+            "EN": "This place takes everyone, doesn't it?",
+            "TL": "Nilalamon ng lugar na ito ang lahat, ano?"
+          }
+        },
+        {
+          "key": "corpse.neutral.04",
+          "text": {
+            "EN": "Someone should have found you sooner, {subject}.",
+            "TL": "Sana may nakakita sa'yo nang mas maaga, {subject}."
+          }
+        },
+        {
+          "key": "corpse.neutral.05",
+          "text": {
+            "EN": "Rest now, {subject}. I won't leave you unnamed.",
+            "TL": "Magpahinga ka, {subject}. Hindi kita hahayaang mabaon nang walang pangalan."
+          }
+        }
+      ]
+    }
+  ]
+}

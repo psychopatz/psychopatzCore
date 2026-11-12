@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.ask.about",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.ask.about",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.ask.about.member.basic",
+      "catalogId": "conversation.text.ask.about.member.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.ask.about.member.basic",
-      "kind": "ask_about",
-      "audience": "member",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/ask_about/member/basic.json",
-      "sourceShard": "conversation.content.ask.about",
-      "keys": [
+      "runtimePath": "Conversation/Text/ask_about/member/basic.json",
+      "entries": [
         {
           "key": "choice.background",
           "text": {
@@ -52,16 +46,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.ask.about.neutral.basic",
+      "catalogId": "conversation.text.ask.about.neutral.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.ask.about.neutral.basic",
-      "kind": "ask_about",
-      "audience": "neutral",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/ask_about/neutral/basic.json",
-      "sourceShard": "conversation.content.ask.about",
-      "keys": [
+      "runtimePath": "Conversation/Text/ask_about/neutral/basic.json",
+      "entries": [
         {
           "key": "choice.background",
           "text": {
@@ -100,16 +88,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.ask.about.special.basic",
+      "catalogId": "conversation.text.ask.about.special.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.ask.about.special.basic",
-      "kind": "ask_about",
-      "audience": "special",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/ask_about/special/basic.json",
-      "sourceShard": "conversation.content.ask.about",
-      "keys": [
+      "runtimePath": "Conversation/Text/ask_about/special/basic.json",
+      "entries": [
         {
           "key": "choice.background",
           "text": {

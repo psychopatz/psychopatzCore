@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.system",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.system",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.system.shared.categories",
+      "catalogId": "conversation.text.system.shared.categories",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.system.shared.categories",
-      "kind": "system",
-      "audience": "shared",
-      "bundle": "categories",
-      "runtimePath": "Conversation/Bundles/system/shared/categories.json",
-      "sourceShard": "conversation.content.system",
-      "keys": [
+      "runtimePath": "Conversation/Text/system/shared/categories.json",
+      "entries": [
         {
           "key": "category.ask_about",
           "text": {
@@ -542,16 +536,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.system.shared.debugger",
+      "catalogId": "conversation.text.system.shared.debugger",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.system.shared.debugger",
-      "kind": "system",
-      "audience": "shared",
-      "bundle": "debugger",
-      "runtimePath": "Conversation/Bundles/system/shared/debugger.json",
-      "sourceShard": "conversation.content.system",
-      "keys": [
+      "runtimePath": "Conversation/Text/system/shared/debugger.json",
+      "entries": [
         {
           "key": "button.approval_down",
           "text": {

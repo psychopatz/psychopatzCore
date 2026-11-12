@@ -25,7 +25,7 @@ from .conversation_compiler import (
     CONVERSATION_SOURCE_RELATIVE,
     CONVERSATION_UI_RUNTIME_RELATIVE,
     compile_conversation_sources,
-    conversation_translation_bundles_by_owner,
+    conversation_translation_catalogs_by_owner,
     render_conversation_manifest_lua,
     render_conversation_registry,
     render_conversation_runtime_plan,
@@ -276,8 +276,8 @@ class SemanticInteractionAuthoring:
                 "",
             ),
         ])
-        for owner, bundles in sorted(
-            conversation_translation_bundles_by_owner(
+        for owner, catalogs in sorted(
+            conversation_translation_catalogs_by_owner(
                 model,
                 package_repositories=self.dataset_catalog.package_repositories,
             ).items()
@@ -299,7 +299,7 @@ class SemanticInteractionAuthoring:
             translation_relative_root = package_translation_root.relative_to(
                 translation_repository
             )
-            for language, domains in sorted(bundles.items()):
+            for language, domains in sorted(catalogs.items()):
                 for domain, values in sorted(domains.items()):
                     expected_artifacts.append(
                         (
@@ -317,7 +317,7 @@ class SemanticInteractionAuthoring:
                     f"{language}/Conversation/{domain}.json"
                     for domain in sorted(domains)
                 ]
-                for language, domains in sorted(bundles.items())
+                for language, domains in sorted(catalogs.items())
             }
             expected_artifacts.append(
                 (

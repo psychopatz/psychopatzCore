@@ -1,0 +1,58 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.small.talk.opening",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.small_talk.opening.member",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/small_talk/member/basic.json",
+      "entries": [
+        {
+          "key": "opening",
+          "text": {
+            "EN": "A quiet conversation sounds good right now.",
+            "TL": "Ang isang tahimik na pag-uusap ay pakinggan ngayon."
+          }
+        }
+      ],
+      "variant": {
+        "audience": "member"
+      }
+    },
+    {
+      "catalogId": "conversation.text.social.small_talk.opening.neutral",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/small_talk/neutral/basic.json",
+      "entries": [
+        {
+          "key": "opening",
+          "text": {
+            "EN": "All right. We can talk for a minute.",
+            "TL": "Sige. Maaari tayong mag-usap sandali."
+          }
+        }
+      ],
+      "variant": {
+        "audience": "neutral"
+      }
+    },
+    {
+      "catalogId": "conversation.text.social.small_talk.opening.special",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/small_talk/special/basic.json",
+      "entries": [
+        {
+          "key": "opening",
+          "text": {
+            "EN": "I always have time for you, {playerFirstName}.",
+            "TL": "Palagi akong may oras para sa iyo, {playerFirstName}."
+          }
+        }
+      ],
+      "variant": {
+        "audience": "special"
+      }
+    }
+  ]
+}

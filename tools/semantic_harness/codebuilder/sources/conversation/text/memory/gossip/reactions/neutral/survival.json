@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.reactions.neutral.survival",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.reactions.neutral.survival",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "neutral.horde_survival",
+          "text": {
+            "EN": "I got away when a whole horde came after me.",
+            "TL": "Nakatakas ako nang habulin ako ng napakaraming zombie."
+          }
+        }
+      ]
+    }
+  ]
+}

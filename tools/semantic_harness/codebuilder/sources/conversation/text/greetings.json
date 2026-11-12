@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.greetings",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.greetings",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.greetings.ambient.visit.arrival",
+      "catalogId": "conversation.text.greetings.ambient.visit.arrival",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.ambient.visit.arrival",
-      "kind": "greetings",
-      "audience": "ambient_visit",
-      "bundle": "arrival",
-      "runtimePath": "Conversation/Bundles/greetings/ambient_visit/arrival.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/ambient_visit/arrival.json",
+      "entries": [
         {
           "key": "response.ambient_visit.accepted.1",
           "text": {
@@ -24,16 +18,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.hostile.parley",
+      "catalogId": "conversation.text.greetings.hostile.parley",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.hostile.parley",
-      "kind": "greetings",
-      "audience": "hostile",
-      "bundle": "parley",
-      "runtimePath": "Conversation/Bundles/greetings/hostile/parley.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/hostile/parley.json",
+      "entries": [
         {
           "key": "choice.ceasefire",
           "text": {
@@ -72,16 +60,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.member.member.dawn",
+      "catalogId": "conversation.text.greetings.member.member.dawn",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.member.member.dawn",
-      "kind": "greetings",
-      "audience": "member",
-      "bundle": "member_dawn",
-      "runtimePath": "Conversation/Bundles/greetings/member/member_dawn.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/member/member_dawn.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -120,16 +102,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.member.member.dusk",
+      "catalogId": "conversation.text.greetings.member.member.dusk",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.member.member.dusk",
-      "kind": "greetings",
-      "audience": "member",
-      "bundle": "member_dusk",
-      "runtimePath": "Conversation/Bundles/greetings/member/member_dusk.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/member/member_dusk.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -168,16 +144,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.member.member.sunrise",
+      "catalogId": "conversation.text.greetings.member.member.sunrise",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.member.member.sunrise",
-      "kind": "greetings",
-      "audience": "member",
-      "bundle": "member_sunrise",
-      "runtimePath": "Conversation/Bundles/greetings/member/member_sunrise.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/member/member_sunrise.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -216,16 +186,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.member.member.sunset",
+      "catalogId": "conversation.text.greetings.member.member.sunset",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.member.member.sunset",
-      "kind": "greetings",
-      "audience": "member",
-      "bundle": "member_sunset",
-      "runtimePath": "Conversation/Bundles/greetings/member/member_sunset.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/member/member_sunset.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -264,16 +228,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.member.member.twilight",
+      "catalogId": "conversation.text.greetings.member.member.twilight",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.member.member.twilight",
-      "kind": "greetings",
-      "audience": "member",
-      "bundle": "member_twilight",
-      "runtimePath": "Conversation/Bundles/greetings/member/member_twilight.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/member/member_twilight.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -312,16 +270,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.dawn",
+      "catalogId": "conversation.text.greetings.neutral.acquaintance.dawn",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.acquaintance.dawn",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "acquaintance_dawn",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_dawn.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/acquaintance_dawn.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -360,16 +312,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.dusk",
+      "catalogId": "conversation.text.greetings.neutral.acquaintance.dusk",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.acquaintance.dusk",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "acquaintance_dusk",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_dusk.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/acquaintance_dusk.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -408,16 +354,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.sunrise",
+      "catalogId": "conversation.text.greetings.neutral.acquaintance.sunrise",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.acquaintance.sunrise",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "acquaintance_sunrise",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_sunrise.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/acquaintance_sunrise.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -456,16 +396,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.sunset",
+      "catalogId": "conversation.text.greetings.neutral.acquaintance.sunset",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.acquaintance.sunset",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "acquaintance_sunset",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_sunset.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/acquaintance_sunset.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -504,16 +438,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.acquaintance.twilight",
+      "catalogId": "conversation.text.greetings.neutral.acquaintance.twilight",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.acquaintance.twilight",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "acquaintance_twilight",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/acquaintance_twilight.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/acquaintance_twilight.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -552,16 +480,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.dawn",
+      "catalogId": "conversation.text.greetings.neutral.firstmeet.dawn",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.firstmeet.dawn",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "firstmeet_dawn",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_dawn.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/firstmeet_dawn.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -600,16 +522,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.dusk",
+      "catalogId": "conversation.text.greetings.neutral.firstmeet.dusk",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.firstmeet.dusk",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "firstmeet_dusk",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_dusk.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/firstmeet_dusk.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -648,16 +564,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.sunrise",
+      "catalogId": "conversation.text.greetings.neutral.firstmeet.sunrise",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.firstmeet.sunrise",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "firstmeet_sunrise",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_sunrise.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/firstmeet_sunrise.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -696,16 +606,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.sunset",
+      "catalogId": "conversation.text.greetings.neutral.firstmeet.sunset",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.firstmeet.sunset",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "firstmeet_sunset",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_sunset.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/firstmeet_sunset.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -744,16 +648,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.neutral.firstmeet.twilight",
+      "catalogId": "conversation.text.greetings.neutral.firstmeet.twilight",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.neutral.firstmeet.twilight",
-      "kind": "greetings",
-      "audience": "neutral",
-      "bundle": "firstmeet_twilight",
-      "runtimePath": "Conversation/Bundles/greetings/neutral/firstmeet_twilight.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/neutral/firstmeet_twilight.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -792,16 +690,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.settlement.admission.arrival",
+      "catalogId": "conversation.text.greetings.settlement.admission.arrival",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.settlement.admission.arrival",
-      "kind": "greetings",
-      "audience": "settlement_admission",
-      "bundle": "arrival",
-      "runtimePath": "Conversation/Bundles/greetings/settlement_admission/arrival.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/settlement_admission/arrival.json",
+      "entries": [
         {
           "key": "opening.001",
           "text": {
@@ -833,16 +725,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.special.lover.dawn",
+      "catalogId": "conversation.text.greetings.special.lover.dawn",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.special.lover.dawn",
-      "kind": "greetings",
-      "audience": "special",
-      "bundle": "lover_dawn",
-      "runtimePath": "Conversation/Bundles/greetings/special/lover_dawn.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/special/lover_dawn.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -881,16 +767,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.special.lover.dusk",
+      "catalogId": "conversation.text.greetings.special.lover.dusk",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.special.lover.dusk",
-      "kind": "greetings",
-      "audience": "special",
-      "bundle": "lover_dusk",
-      "runtimePath": "Conversation/Bundles/greetings/special/lover_dusk.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/special/lover_dusk.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -929,16 +809,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.special.lover.sunrise",
+      "catalogId": "conversation.text.greetings.special.lover.sunrise",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.special.lover.sunrise",
-      "kind": "greetings",
-      "audience": "special",
-      "bundle": "lover_sunrise",
-      "runtimePath": "Conversation/Bundles/greetings/special/lover_sunrise.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/special/lover_sunrise.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -977,16 +851,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.special.lover.sunset",
+      "catalogId": "conversation.text.greetings.special.lover.sunset",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.special.lover.sunset",
-      "kind": "greetings",
-      "audience": "special",
-      "bundle": "lover_sunset",
-      "runtimePath": "Conversation/Bundles/greetings/special/lover_sunset.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/special/lover_sunset.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {
@@ -1025,16 +893,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.greetings.special.lover.twilight",
+      "catalogId": "conversation.text.greetings.special.lover.twilight",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.greetings.special.lover.twilight",
-      "kind": "greetings",
-      "audience": "special",
-      "bundle": "lover_twilight",
-      "runtimePath": "Conversation/Bundles/greetings/special/lover_twilight.json",
-      "sourceShard": "conversation.content.greetings",
-      "keys": [
+      "runtimePath": "Conversation/Text/greetings/special/lover_twilight.json",
+      "entries": [
         {
           "key": "greeting.001",
           "text": {

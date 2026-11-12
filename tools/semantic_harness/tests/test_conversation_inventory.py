@@ -35,7 +35,7 @@ class ConversationInventoryTests(unittest.TestCase):
             "tools.semantic_harness.codebuilder.conversation_compiler.conversation_languages",
             return_value=("EN", "TL"),
         ), patch(
-            "tools.semantic_harness.codebuilder.conversation_compiler.conversation_translation_bundles_by_owner",
+            "tools.semantic_harness.codebuilder.conversation_compiler.conversation_translation_catalogs_by_owner",
             return_value={
                 "ProjectHoomans": {
                     "EN": {"Social": {"key.b": "B", "key.a": "A"}},

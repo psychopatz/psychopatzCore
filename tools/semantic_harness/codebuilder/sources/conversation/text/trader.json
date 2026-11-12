@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.trader",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.trader",
   "owner": "DTCommon",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.dynamic_trading.trader.shared.basic",
+      "catalogId": "conversation.text.dynamic_trading.trader.shared.basic",
       "owner": "DTCommon",
-      "modID": "DTCommon",
-      "domain": "pnc.trader.shared.basic",
-      "kind": "trader",
-      "audience": "shared",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/trader/shared/basic.json",
-      "sourceShard": "conversation.content.trader",
-      "keys": [
+      "runtimePath": "Conversation/Text/trader/shared/basic.json",
+      "entries": [
         {
           "key": "category.trade",
           "text": {

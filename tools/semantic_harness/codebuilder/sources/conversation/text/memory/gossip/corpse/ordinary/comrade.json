@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.corpse.ordinary.comrade",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.corpse.ordinary.comrade",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "corpse.comrade.01",
+          "text": {
+            "EN": "One less of us, {subject}. Damn.",
+            "TL": "Nabawasan na naman tayo, {subject}. Nakakainis."
+          }
+        },
+        {
+          "key": "corpse.comrade.02",
+          "text": {
+            "EN": "You stood with {faction}, {subject}. We won't forget.",
+            "TL": "Kasama ka ng {faction}, {subject}. Hindi ka namin kalilimutan."
+          }
+        },
+        {
+          "key": "corpse.comrade.03",
+          "text": {
+            "EN": "We fought side by side, {subject}. Rest easy.",
+            "TL": "Magkatabi tayong lumaban, {subject}. Pahinga ka na."
+          }
+        },
+        {
+          "key": "corpse.comrade.04",
+          "text": {
+            "EN": "{subject} held the line. We'll carry on.",
+            "TL": "Hindi ka umatras, {subject}. Itutuloy namin ito."
+          }
+        },
+        {
+          "key": "corpse.comrade.05",
+          "text": {
+            "EN": "I hope {faction} remembers what you gave.",
+            "TL": "Sana maalala ng {faction} ang lahat ng ibinigay mo."
+          }
+        }
+      ]
+    }
+  ]
+}

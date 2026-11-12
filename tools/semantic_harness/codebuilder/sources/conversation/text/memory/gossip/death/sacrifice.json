@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.death.sacrifice",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.death.sacrifice",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "death.sacrifice",
+          "text": {
+            "EN": "They say {subject} stayed behind so others could escape.",
+            "TL": "Sabi nila, nagpaiwan si {subject} para makatakas ang iba."
+          }
+        }
+      ]
+    }
+  ]
+}

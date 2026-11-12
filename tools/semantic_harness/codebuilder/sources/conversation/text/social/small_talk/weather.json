@@ -1,0 +1,79 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.small.talk.weather",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.small_talk.weather.member",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/small_talk/member/basic.json",
+      "entries": [
+        {
+          "key": "choice.weather",
+          "text": {
+            "EN": "Some weather we're having.",
+            "TL": "Ilang panahon ang nararanasan natin."
+          }
+        },
+        {
+          "key": "response.weather",
+          "text": {
+            "EN": "Could be worse. We've worked through worse.",
+            "TL": "Maaaring mas masahol pa. Mas malala ang pinagdaanan namin."
+          }
+        }
+      ],
+      "variant": {
+        "audience": "member"
+      }
+    },
+    {
+      "catalogId": "conversation.text.social.small_talk.weather.neutral",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/small_talk/neutral/basic.json",
+      "entries": [
+        {
+          "key": "choice.weather",
+          "text": {
+            "EN": "Some weather we're having.",
+            "TL": "Ilang panahon ang nararanasan natin."
+          }
+        },
+        {
+          "key": "response.weather",
+          "text": {
+            "EN": "At least the rain covers our footsteps.",
+            "TL": "At least natatakpan ng ulan ang mga yapak namin."
+          }
+        }
+      ],
+      "variant": {
+        "audience": "neutral"
+      }
+    },
+    {
+      "catalogId": "conversation.text.social.small_talk.weather.special",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/small_talk/special/basic.json",
+      "entries": [
+        {
+          "key": "choice.weather",
+          "text": {
+            "EN": "Some weather we're having.",
+            "TL": "Ilang panahon ang nararanasan natin."
+          }
+        },
+        {
+          "key": "response.weather",
+          "text": {
+            "EN": "I barely noticed. I was watching you.",
+            "TL": "bahagya kong napansin. pinapanood kita."
+          }
+        }
+      ],
+      "variant": {
+        "audience": "special"
+      }
+    }
+  ]
+}

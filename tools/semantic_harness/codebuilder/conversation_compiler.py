@@ -444,15 +444,15 @@ def conversation_languages(model: dict[str, Any]) -> tuple[str, ...]:
     return languages
 
 
-def conversation_translation_bundles(model: dict[str, Any]) -> dict[str, dict[str, dict[str, str]]]:
+def conversation_translation_catalogs(model: dict[str, Any]) -> dict[str, dict[str, dict[str, str]]]:
     """Partition generated translations by Conversation domain, not history."""
     languages = conversation_languages(model)
-    bundles = {language: {} for language in languages}
+    catalogs = {language: {} for language in languages}
 
     def add(language: str, domain: str, key: str, value: Any) -> None:
-        if language not in bundles or not isinstance(key, str) or not isinstance(value, str):
+        if language not in catalogs or not isinstance(key, str) or not isinstance(value, str):
             return
-        bundles[language].setdefault(domain, {})[key] = value
+        catalogs[language].setdefault(domain, {})[key] = value
 
     for family in model["content"].get("phraseFamilies", []):
         domain = str(family.get("conversationDomain") or family.get("group") or "general").title()
@@ -479,15 +479,15 @@ def conversation_translation_bundles(model: dict[str, Any]) -> dict[str, dict[st
             add(language, "Patterns", key, value)
         for key, value in model.get("semantic", {}).get("translations", {}).get(language, {}).items():
             add(language, "Flows", key, value)
-        bundles[language] = {
+        catalogs[language] = {
             domain: {key: values[key] for key in sorted(values)}
-            for domain, values in sorted(bundles[language].items())
+            for domain, values in sorted(catalogs[language].items())
             if values
         }
-    return bundles
+    return catalogs
 
 
-def conversation_translation_bundles_by_owner(
+def conversation_translation_catalogs_by_owner(
     model: dict[str, Any],
     *,
     package_repositories: Mapping[str, Path] | None = None,
@@ -500,7 +500,7 @@ def conversation_translation_bundles_by_owner(
         manifest.get("registryOwner"),
         default=default_owner,
     )
-    bundles: dict[str, dict[str, dict[str, dict[str, str]]]] = {}
+    catalogs: dict[str, dict[str, dict[str, dict[str, str]]]] = {}
 
     def add(
         owner: Any,
@@ -516,9 +516,9 @@ def conversation_translation_bundles_by_owner(
         ):
             return
         canonical_owner = normalize_owner(owner, default=registry_owner)
-        owner_bundles = bundles.setdefault(canonical_owner, {})
-        language_bundles = owner_bundles.setdefault(language, {})
-        language_bundles.setdefault(domain, {})[key] = value
+        owner_catalogs = catalogs.setdefault(canonical_owner, {})
+        language_catalogs = owner_catalogs.setdefault(language, {})
+        language_catalogs.setdefault(domain, {})[key] = value
 
     def record_owner(canonical_id: str) -> str:
         record = conversation_record(model, canonical_id) or {}
@@ -565,8 +565,8 @@ def conversation_translation_bundles_by_owner(
             owner = ui_key_owners.get(key, registry_owner)
             add(owner, language, "UI", key, value)
             # The adopter registry is a runtime composition boundary.  Its
-            # package-owned UI bundle must include Core UI text because the
-            # composed PNC surface loads one package bundle in lightweight
+            # package-owned UI catalog must include Core UI text because the
+            # composed PNC surface loads one package catalog in lightweight
             # harnesses and in installations that do not merge translation
             # manifests across dependencies.
             if owner != registry_owner:
@@ -593,7 +593,7 @@ def conversation_translation_bundles_by_owner(
             }
             for language, domains in sorted(languages_by_owner.items())
         }
-        for owner, languages_by_owner in sorted(bundles.items())
+        for owner, languages_by_owner in sorted(catalogs.items())
     }
 
 

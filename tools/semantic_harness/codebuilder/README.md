@@ -57,7 +57,7 @@ The compiler expands that record to the existing locale-specific runtime IDs;
 
 Generated artifacts follow the canonical source owner's package. Ownership is
 declared by the manifest entry and its source profile; a missing owner defaults
-to `ProjectHoomans`. Runtime translation bundles are emitted under each
+to `ProjectHoomans`. Runtime translation catalogs are emitted under each
 owning mod's `common/media/translation/<LANG>` tree.
 
 Current package routes are:
@@ -81,7 +81,7 @@ python3 tools/semantic_harness/codebuilder/build.py \
 ```
 
 This deterministically generates owner-routed bounded Lua modules, composition
-registries, and package-owned Conversation translation bundles from the
+registries, and package-owned Conversation translation catalogs from the
 canonical shard model.
 
 Generated Lua/JSON is never an authoring source.

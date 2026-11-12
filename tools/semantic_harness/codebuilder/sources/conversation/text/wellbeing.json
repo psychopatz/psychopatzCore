@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.wellbeing",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.wellbeing",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.wellbeing.member.basic",
+      "catalogId": "conversation.text.wellbeing.member.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.wellbeing.member.basic",
-      "kind": "wellbeing",
-      "audience": "member",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/wellbeing/member/basic.json",
-      "sourceShard": "conversation.content.wellbeing",
-      "keys": [
+      "runtimePath": "Conversation/Text/wellbeing/member/basic.json",
+      "entries": [
         {
           "key": "choice.condition",
           "text": {
@@ -52,16 +46,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.wellbeing.neutral.basic",
+      "catalogId": "conversation.text.wellbeing.neutral.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.wellbeing.neutral.basic",
-      "kind": "wellbeing",
-      "audience": "neutral",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/wellbeing/neutral/basic.json",
-      "sourceShard": "conversation.content.wellbeing",
-      "keys": [
+      "runtimePath": "Conversation/Text/wellbeing/neutral/basic.json",
+      "entries": [
         {
           "key": "choice.condition",
           "text": {
@@ -100,16 +88,10 @@
       ]
     },
     {
-      "bundleId": "conversation.bundle.wellbeing.special.basic",
+      "catalogId": "conversation.text.wellbeing.special.basic",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.wellbeing.special.basic",
-      "kind": "wellbeing",
-      "audience": "special",
-      "bundle": "basic",
-      "runtimePath": "Conversation/Bundles/wellbeing/special/basic.json",
-      "sourceShard": "conversation.content.wellbeing",
-      "keys": [
+      "runtimePath": "Conversation/Text/wellbeing/special/basic.json",
+      "entries": [
         {
           "key": "choice.condition",
           "text": {

@@ -1,0 +1,70 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.corpse.revenge.comrade",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.corpse.revenge.comrade",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "corpse.revenge.comrade.01",
+          "text": {
+            "EN": "Damn {killer}. {subject} stood with {faction}; we will answer for this.",
+            "TL": "Putang ina, {killer}. Kasama ni {subject} ang {faction}; gaganti kami."
+          }
+        },
+        {
+          "key": "corpse.revenge.comrade.02",
+          "text": {
+            "EN": "One of ours is down, {subject}. {killer} made enemies of all of us.",
+            "TL": "Nawalan kami ng kasama, {subject}. Ginawang kaaway ni {killer} ang lahat sa amin."
+          }
+        },
+        {
+          "key": "corpse.revenge.comrade.03",
+          "text": {
+            "EN": "We saw {killer} take {subject}. This is not finished.",
+            "TL": "Nakita naming pinatay ni {killer} si {subject}. Hindi pa tapos ito."
+          }
+        },
+        {
+          "key": "corpse.revenge.comrade.04",
+          "text": {
+            "EN": "{killer} killed a member of {faction}. We will remember.",
+            "TL": "Pinatay ni {killer} ang kasapi ng {faction}. Tatandaan namin ito."
+          }
+        },
+        {
+          "key": "corpse.revenge.comrade.05",
+          "text": {
+            "EN": "Run while you can, {killer}. We will not forget what happened to {subject}.",
+            "TL": "Tumakbo ka habang may oras pa, {killer}. Hindi namin kalilimutan ang nangyari kay {subject}."
+          }
+        },
+        {
+          "key": "corpse.revenge.comrade.06",
+          "text": {
+            "EN": "Hell, {subject}. {killer} will pay for making us weaker.",
+            "TL": "Lintik, {subject}. Magbabayad si {killer} dahil pinahina niya kami."
+          }
+        },
+        {
+          "key": "corpse.revenge.comrade.07",
+          "text": {
+            "EN": "{faction} lost one today. {killer} started something they cannot finish.",
+            "TL": "May nawala sa {faction} ngayon. Sinimulan ito ni {killer} at hindi niya matatapos."
+          }
+        },
+        {
+          "key": "corpse.revenge.comrade.08",
+          "text": {
+            "EN": "We do not forget our own, {subject}. {killer} will answer for this.",
+            "TL": "Hindi namin kinakalimutan ang mga kasama namin, {subject}. Mananagot si {killer}."
+          }
+        }
+      ]
+    }
+  ]
+}

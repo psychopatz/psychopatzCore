@@ -1,0 +1,79 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.small.talk.quiet_day",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.social.small_talk.quiet_day.member",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/small_talk/member/basic.json",
+      "entries": [
+        {
+          "key": "choice.quiet_day",
+          "text": {
+            "EN": "Quiet day so far.",
+            "TL": "Tahimik na araw hanggang ngayon."
+          }
+        },
+        {
+          "key": "response.quiet_day",
+          "text": {
+            "EN": "The crew earned one.",
+            "TL": "Karapat-dapat iyon ng grupo."
+          }
+        }
+      ],
+      "variant": {
+        "audience": "member"
+      }
+    },
+    {
+      "catalogId": "conversation.text.social.small_talk.quiet_day.neutral",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/small_talk/neutral/basic.json",
+      "entries": [
+        {
+          "key": "choice.quiet_day",
+          "text": {
+            "EN": "Quiet day so far.",
+            "TL": "Tahimik na araw hanggang ngayon."
+          }
+        },
+        {
+          "key": "response.quiet_day",
+          "text": {
+            "EN": "Do not tempt fate, but I'll take it.",
+            "TL": "Huwag tuksuhin ang kapalaran, ngunit kukunin ko ito."
+          }
+        }
+      ],
+      "variant": {
+        "audience": "neutral"
+      }
+    },
+    {
+      "catalogId": "conversation.text.social.small_talk.quiet_day.special",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/small_talk/special/basic.json",
+      "entries": [
+        {
+          "key": "choice.quiet_day",
+          "text": {
+            "EN": "Quiet day so far.",
+            "TL": "Tahimik na araw hanggang ngayon."
+          }
+        },
+        {
+          "key": "response.quiet_day",
+          "text": {
+            "EN": "Then spend part of it with me.",
+            "TL": "Kung gayon, gugulin mo ang bahagi nito kasama ako."
+          }
+        }
+      ],
+      "variant": {
+        "audience": "special"
+      }
+    }
+  ]
+}

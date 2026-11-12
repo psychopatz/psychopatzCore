@@ -1,0 +1,21 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.reactions.positive.rescue",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.reactions.positive.rescue",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "positive.rescue.return",
+          "text": {
+            "EN": "{subject} got someone home alive.",
+            "TL": "Naiuwi ni {subject} nang buhay ang isang tao."
+          }
+        }
+      ]
+    }
+  ]
+}

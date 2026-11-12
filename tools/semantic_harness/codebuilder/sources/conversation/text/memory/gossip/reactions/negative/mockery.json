@@ -1,0 +1,28 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.reactions.negative.mockery",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.reactions.negative.mockery",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "negative.mockery.gear",
+          "text": {
+            "EN": "Someone says {subject} cannot keep track of their own gear.",
+            "TL": "Sabi nila, hindi maalagaan ni {subject} ang sarili niyang gamit."
+          }
+        },
+        {
+          "key": "negative.mockery.retreat",
+          "text": {
+            "EN": "{subject} talked big, then backed down when it mattered.",
+            "TL": "Malakas ang loob magsalita ni {subject}, pero umurong nang kailangan nang kumilos."
+          }
+        }
+      ]
+    }
+  ]
+}

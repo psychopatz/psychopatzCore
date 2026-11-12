@@ -1,0 +1,70 @@
+{
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.memory.gossip.corpse.revenge.friend",
+  "owner": "ProjectHoomans",
+  "catalogs": [
+    {
+      "catalogId": "conversation.text.memory.gossip.corpse.revenge.friend",
+      "owner": "ProjectHoomans",
+      "runtimePath": "Conversation/Text/memory/gossip.json",
+      "entries": [
+        {
+          "key": "corpse.revenge.friend.01",
+          "text": {
+            "EN": "Damn {killer}. {subject} was my friend, and this will cost you.",
+            "TL": "Bwisit ka, {killer}. Kaibigan ko si {subject}; pagbabayaran mo ito."
+          }
+        },
+        {
+          "key": "corpse.revenge.friend.02",
+          "text": {
+            "EN": "I saw {subject} fall. {killer} will answer for it.",
+            "TL": "Nakita kong bumagsak si {subject}. Mananagot si {killer}."
+          }
+        },
+        {
+          "key": "corpse.revenge.friend.03",
+          "text": {
+            "EN": "Hell, {subject}. What {killer} did will not be forgotten.",
+            "TL": "Lintik, {subject}. Hindi malilimutan ang ginawa ni {killer}."
+          }
+        },
+        {
+          "key": "corpse.revenge.friend.04",
+          "text": {
+            "EN": "I will not let {subject} be forgotten, and {killer} will not get away with it.",
+            "TL": "Hindi ko hahayaang makalimutan si {subject}, at hindi makakatakas si {killer}."
+          }
+        },
+        {
+          "key": "corpse.revenge.friend.05",
+          "text": {
+            "EN": "{subject} always had my back. Today, I am coming for {killer}.",
+            "TL": "Lagi akong ipinagtatanggol ni {subject}. Ngayon, ako naman ang hahabol kay {killer}."
+          }
+        },
+        {
+          "key": "corpse.revenge.friend.06",
+          "text": {
+            "EN": "Damn {killer}. {subject} mattered to us.",
+            "TL": "Putang ina, {killer}. Mahalaga sa amin si {subject}."
+          }
+        },
+        {
+          "key": "corpse.revenge.friend.07",
+          "text": {
+            "EN": "I hope {killer} knows what they took from us when they killed {subject}.",
+            "TL": "Sana alam ni {killer} ang inagaw niya sa amin nang pinatay niya si {subject}."
+          }
+        },
+        {
+          "key": "corpse.revenge.friend.08",
+          "text": {
+            "EN": "No more warnings. {killer} killed one of ours, {subject}.",
+            "TL": "Wala nang babala. Pinatay ni {killer} ang isa sa amin, si {subject}."
+          }
+        }
+      ]
+    }
+  ]
+}

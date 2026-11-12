@@ -1,0 +1,181 @@
+{
+  "schema": "psychopatz.semantic.text-source.manifest.v1",
+  "sourceSchema": "psychopatz.semantic.text-source.v1",
+  "sources": [
+    {
+      "path": "ask_about.json",
+      "sourceId": "conversation.content.ask.about",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "backstory.json",
+      "sourceId": "conversation.content.backstory",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "caravan.json",
+      "sourceId": "conversation.content.caravan",
+      "owner": "DTCommon"
+    },
+    {
+      "path": "goodbye.json",
+      "sourceId": "conversation.content.goodbye",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/corpse/ordinary/comrade.json",
+      "sourceId": "conversation.content.memory.gossip.corpse.ordinary.comrade",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/corpse/ordinary/friend.json",
+      "sourceId": "conversation.content.memory.gossip.corpse.ordinary.friend",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/corpse/ordinary/hostile.json",
+      "sourceId": "conversation.content.memory.gossip.corpse.ordinary.hostile",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/corpse/ordinary/neutral.json",
+      "sourceId": "conversation.content.memory.gossip.corpse.ordinary.neutral",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/corpse/ordinary/relative.json",
+      "sourceId": "conversation.content.memory.gossip.corpse.ordinary.relative",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/corpse/revenge/comrade.json",
+      "sourceId": "conversation.content.memory.gossip.corpse.revenge.comrade",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/corpse/revenge/friend.json",
+      "sourceId": "conversation.content.memory.gossip.corpse.revenge.friend",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/corpse/revenge/relative.json",
+      "sourceId": "conversation.content.memory.gossip.corpse.revenge.relative",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/death/report.json",
+      "sourceId": "conversation.content.memory.gossip.death.report",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/death/sacrifice.json",
+      "sourceId": "conversation.content.memory.gossip.death.sacrifice",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/reactions/negative/mockery.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.negative.mockery",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/reactions/negative/suspicion.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.negative.suspicion",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/reactions/negative/warning.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.negative.warning",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/reactions/neutral/survival.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.neutral.survival",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/reactions/neutral/sighting.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.neutral.sighting",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/reactions/positive/praise.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.positive.praise",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/reactions/positive/protection.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.positive.protection",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/reactions/positive/rescue.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.positive.rescue",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "memory/gossip/reactions/positive/sympathy.json",
+      "sourceId": "conversation.content.memory.gossip.reactions.positive.sympathy",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "greetings.json",
+      "sourceId": "conversation.content.greetings",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "needs.json",
+      "sourceId": "conversation.content.needs",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "personal.json",
+      "sourceId": "conversation.content.personal",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "relationship.json",
+      "sourceId": "conversation.content.relationship",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "set_territory.json",
+      "sourceId": "conversation.content.set.territory",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/small_talk/opening.json",
+      "sourceId": "conversation.content.small.talk.opening",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/small_talk/quiet_day.json",
+      "sourceId": "conversation.content.small.talk.quiet_day",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "social/small_talk/weather.json",
+      "sourceId": "conversation.content.small.talk.weather",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "system.json",
+      "sourceId": "conversation.content.system",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "trader.json",
+      "sourceId": "conversation.content.trader",
+      "owner": "DTCommon"
+    },
+    {
+      "path": "wellbeing.json",
+      "sourceId": "conversation.content.wellbeing",
+      "owner": "ProjectHoomans"
+    },
+    {
+      "path": "work_orders.json",
+      "sourceId": "conversation.content.work.orders",
+      "owner": "ProjectHoomans"
+    }
+  ]
+}

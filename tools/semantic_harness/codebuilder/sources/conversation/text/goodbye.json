@@ -1,19 +1,13 @@
 {
-  "schema": "psychopatz.semantic.text-bundle.shard.v1",
-  "shardId": "conversation.content.goodbye",
+  "schema": "psychopatz.semantic.text-source.v1",
+  "sourceId": "conversation.content.goodbye",
   "owner": "ProjectHoomans",
-  "bundles": [
+  "catalogs": [
     {
-      "bundleId": "conversation.bundle.goodbye.shared.goodbye",
+      "catalogId": "conversation.text.goodbye.shared.goodbye",
       "owner": "ProjectHoomans",
-      "modID": "ProjectHoomans",
-      "domain": "pnc.goodbye.shared.goodbye",
-      "kind": "goodbye",
-      "audience": "shared",
-      "bundle": "goodbye",
-      "runtimePath": "Conversation/Bundles/goodbye/shared/goodbye.json",
-      "sourceShard": "conversation.content.goodbye",
-      "keys": [
+      "runtimePath": "Conversation/Text/goodbye/shared/goodbye.json",
+      "entries": [
         {
           "key": "choice.goodbye",
           "text": {
