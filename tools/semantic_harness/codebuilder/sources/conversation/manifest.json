@@ -48,33 +48,6 @@
       "sourceProfile": "conversation.source.psychopatzcore.common.interaction.seed.90325218e8"
     },
     {
-      "domain": "common",
-      "kind": "responses",
-      "order": 1900,
-      "path": "responses/common/social.json",
-      "owner": "PsychopatzCore",
-      "shardId": "conversation.responses.common.social",
-      "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
-    },
-    {
-      "domain": "common",
-      "kind": "responses",
-      "order": 1901,
-      "path": "responses/common/questions.json",
-      "owner": "PsychopatzCore",
-      "shardId": "conversation.responses.common.questions",
-      "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
-    },
-    {
-      "domain": "common",
-      "kind": "responses",
-      "order": 1902,
-      "path": "responses/common/needs_weather.json",
-      "owner": "PsychopatzCore",
-      "shardId": "conversation.responses.common.needs.weather",
-      "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
-    },
-    {
       "domain": "grounded_personal",
       "kind": "patterns",
       "order": 2000,
@@ -82,42 +55,6 @@
       "owner": "PsychopatzCore",
       "shardId": "conversation.patterns.grounded.personal",
       "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de"
-    },
-    {
-      "domain": "grounded_personal",
-      "kind": "responses",
-      "order": 2100,
-      "path": "responses/grounded_personal_responses.json",
-      "owner": "PsychopatzCore",
-      "shardId": "conversation.responses.grounded.personal.responses",
-      "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de"
-    },
-    {
-      "domain": "semantic",
-      "kind": "flows",
-      "order": 2200,
-      "path": "flows/semantic_flows.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.flows.semantic.flows",
-      "sourceProfile": "conversation.source.projecthoomans.8378f35867"
-    },
-    {
-      "domain": "static_suggestions",
-      "kind": "ui",
-      "order": 2302,
-      "path": "ui/suggestion_text_context.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.ui.suggestion.text.context",
-      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
-    },
-    {
-      "domain": "static_suggestions",
-      "kind": "ui",
-      "order": 2303,
-      "path": "ui/suggestion_text_actions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.ui.suggestion.text.actions",
-      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "externalShards": [
@@ -151,6 +88,66 @@
       "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
       "shardId": "conversation.psdl.trading",
       "sourceProfile": "conversation.source.dtcommon.247519f6f9"
+    },
+    {
+      "domain": "social_director",
+      "kind": "psdl",
+      "order": 2250,
+      "owner": "PsychopatzCore",
+      "path": "psdl/director/social.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "shardId": "conversation.psdl.social.director",
+      "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.d587a67cc2"
+    },
+    {
+      "domain": "social_affirmation",
+      "kind": "psdl",
+      "order": 2270,
+      "owner": "PsychopatzCore",
+      "path": "psdl/realization/social_affirmation.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/realization/social_affirmation.json",
+      "shardId": "conversation.psdl.social.realization.affirmation",
+      "sourceProfile": "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6"
+    },
+    {
+      "domain": "social_challenge",
+      "kind": "psdl",
+      "order": 2271,
+      "owner": "PsychopatzCore",
+      "path": "psdl/realization/social_challenge.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/realization/social_challenge.json",
+      "shardId": "conversation.psdl.social.realization.challenge",
+      "sourceProfile": "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6"
+    },
+    {
+      "domain": "social_identity_closure",
+      "kind": "psdl",
+      "order": 2272,
+      "owner": "PsychopatzCore",
+      "path": "psdl/realization/social_identity_closure.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/realization/social_identity_closure.json",
+      "shardId": "conversation.psdl.social.realization.identity_closure",
+      "sourceProfile": "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6"
+    },
+    {
+      "domain": "social_warning_wellbeing",
+      "kind": "psdl",
+      "order": 2273,
+      "owner": "PsychopatzCore",
+      "path": "psdl/realization/social_warning_wellbeing.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/realization/social_warning_wellbeing.json",
+      "shardId": "conversation.psdl.social.realization.warning_wellbeing",
+      "sourceProfile": "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6"
+    },
+    {
+      "domain": "social_lexemes",
+      "kind": "psdl",
+      "order": 2274,
+      "owner": "PsychopatzCore",
+      "path": "psdl/realization/social_lexemes.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/realization/social_lexemes.json",
+      "shardId": "conversation.psdl.social.realization.lexemes",
+      "sourceProfile": "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6"
     },
     {
       "domain": "core_identity",
@@ -342,7 +339,6 @@
       "shardId": "conversation.psdl.core.knowledge.facts",
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     },
-
     {
       "domain": "social",
       "kind": "psdl",
@@ -353,7 +349,6 @@
       "shardId": "conversation.psdl.core.world.event.warning",
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     },
-
     {
       "domain": "social",
       "kind": "psdl",
@@ -364,7 +359,6 @@
       "shardId": "conversation.psdl.core.world.event.warning.flavor",
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     },
-
     {
       "domain": "social",
       "kind": "psdl",
@@ -375,7 +369,6 @@
       "shardId": "conversation.psdl.core.world.event.behavior.warn",
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     },
-
     {
       "domain": "medical_event_call",
       "kind": "psdl",
@@ -386,7 +379,6 @@
       "shardId": "conversation.psdl.medical.event.call",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "medical_event_overview",
       "kind": "psdl",
@@ -397,7 +389,6 @@
       "shardId": "conversation.psdl.medical.event.overview",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "medical_event_repeat",
       "kind": "psdl",
@@ -408,7 +399,6 @@
       "shardId": "conversation.psdl.medical.event.repeat",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "medical_event_teammate",
       "kind": "psdl",
@@ -419,7 +409,6 @@
       "shardId": "conversation.psdl.medical.event.teammate",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "medical_event_treatment",
       "kind": "psdl",
@@ -430,7 +419,6 @@
       "shardId": "conversation.psdl.medical.event.treatment",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "medical_event_update",
       "kind": "psdl",
@@ -441,7 +429,6 @@
       "shardId": "conversation.psdl.medical.event.update",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "event_reactions_combat",
       "kind": "psdl",
@@ -452,7 +439,6 @@
       "shardId": "conversation.psdl.event.reactions.combat",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "event_reactions_companion",
       "kind": "psdl",
@@ -463,7 +449,6 @@
       "shardId": "conversation.psdl.event.reactions.companion",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "event_reactions_corpse",
       "kind": "psdl",
@@ -474,7 +459,6 @@
       "shardId": "conversation.psdl.event.reactions.corpse",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "event_reactions_farewell",
       "kind": "psdl",
@@ -485,7 +469,6 @@
       "shardId": "conversation.psdl.event.reactions.farewell",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "event_reactions_leader_loss",
       "kind": "psdl",
@@ -496,7 +479,6 @@
       "shardId": "conversation.psdl.event.reactions.leader.loss",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "event_reactions_safety",
       "kind": "psdl",
@@ -507,7 +489,6 @@
       "shardId": "conversation.psdl.event.reactions.safety",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     },
-
     {
       "domain": "event_reactions_social",
       "kind": "psdl",
@@ -1027,33 +1008,140 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/quest_content.json",
       "shardId": "conversation.psdl.quest.content",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
-    }
-  ],
-  "version": "1",
-  "sourceRoots": [
-    {
-      "domain": "social",
-      "kind": "behaviors",
-      "order": 2250,
-      "path": "behaviors/social",
-      "owner": "PsychopatzCore"
     },
     {
-      "domain": "social",
-      "kind": "beats",
-      "order": 2260,
-      "path": "beats/social",
-      "owner": "PsychopatzCore"
+      "domain": "core_semantic_responses",
+      "kind": "psdl",
+      "order": 2385,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/core_semantic_responses.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/core_semantic_responses.json",
+      "shardId": "conversation.psdl.core.semantic.responses",
+      "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
     },
     {
-      "domain": "social",
-      "kind": "realization",
-      "order": 2270,
-      "path": "realization/social",
-      "owner": "PsychopatzCore"
+      "domain": "companion_flows",
+      "kind": "psdl",
+      "order": 2386,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/companion_flows.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/companion_flows.json",
+      "shardId": "conversation.psdl.companion.flows",
+      "sourceProfile": "conversation.source.projecthoomans.8378f35867"
+    },
+    {
+      "domain": "static_suggestion_text",
+      "kind": "psdl",
+      "order": 2387,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/static_suggestion_text.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/static_suggestion_text.json",
+      "shardId": "conversation.psdl.static.suggestion.text",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "core_text_memory_gossip_corpse_ordinary",
+      "kind": "psdl",
+      "order": 2388,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+      "shardId": "conversation.psdl.core.text.memory_gossip_corpse_ordinary",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_text_memory_gossip_corpse_revenge",
+      "kind": "psdl",
+      "order": 2389,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+      "shardId": "conversation.psdl.core.text.memory_gossip_corpse_revenge",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_text_memory_gossip_death",
+      "kind": "psdl",
+      "order": 2390,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_memory_gossip_death.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_death.json",
+      "shardId": "conversation.psdl.core.text.memory_gossip_death",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_text_memory_gossip_reactions",
+      "kind": "psdl",
+      "order": 2391,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_memory_gossip_reactions.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions.json",
+      "shardId": "conversation.psdl.core.text.memory_gossip_reactions",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_text_needs_gifts",
+      "kind": "psdl",
+      "order": 2392,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_needs_gifts.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_needs_gifts.json",
+      "shardId": "conversation.psdl.core.text.needs_gifts",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_text_social_departure",
+      "kind": "psdl",
+      "order": 2393,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_social_departure.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_departure.json",
+      "shardId": "conversation.psdl.core.text.social_departure",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_text_social_goodbye",
+      "kind": "psdl",
+      "order": 2394,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_social_goodbye.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_goodbye.json",
+      "shardId": "conversation.psdl.core.text.social_goodbye",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_text_social_greetings",
+      "kind": "psdl",
+      "order": 2395,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_social_greetings.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_greetings.json",
+      "shardId": "conversation.psdl.core.text.social_greetings",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_text_social_identity",
+      "kind": "psdl",
+      "order": 2396,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_social_identity.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_identity.json",
+      "shardId": "conversation.psdl.core.text.social_identity",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
+    },
+    {
+      "domain": "core_text_social_recruitment",
+      "kind": "psdl",
+      "order": 2397,
+      "owner": "PsychopatzCore",
+      "path": "psdl/dialogue/core_text_social_recruitment.json",
+      "sourcePath": "tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_recruitment.json",
+      "shardId": "conversation.psdl.core.text.social_recruitment",
+      "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     }
   ],
   "version": 1,
+  "sourceRoots": [],
   "sourceProfiles": {
     "conversation.source.dtcommon.247519f6f9": {
       "owner": "DTCommon",

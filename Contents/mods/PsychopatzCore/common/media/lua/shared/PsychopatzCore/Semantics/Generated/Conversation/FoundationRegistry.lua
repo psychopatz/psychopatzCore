@@ -9,7 +9,7 @@ Registry.REGISTRY_MODULE = "PsychopatzCore/Semantics/Generated/Conversation/Foun
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
 Registry.CONTENT_FINGERPRINT = "0c0dd14df241eb4b742a95ede0729f2131a3ac66d66cb1497ea50aff9d9e9e39"
-Registry.WHOLE_MODEL_FINGERPRINT = "b5e099b14d9c4e6855d0962d47f17e996925c6e459a54b3a2cf9f04db00682eb"
+Registry.WHOLE_MODEL_FINGERPRINT = "e45f890bf0ca07241a587899c44e5da9b0d266fe661e77d513ff689c9cf4d3cd"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -19,6 +19,7 @@ Registry.BEHAVIORS = {}
 Registry.BEATS = {}
 Registry.PACKS = {}
 Registry.PSDL_PLANS = {}
+Registry.PSDL_RESPONSE_TEMPLATES = {}
 Registry.UI = {}
 local function appendContent(loaded)
     if type(loaded) ~= "table" then return end
@@ -57,6 +58,12 @@ local function appendPSDL(loaded)
     for _, value in ipairs(loaded) do
         if type(value) == "table" and value.id then
             Registry.PSDL_PLANS[tostring(value.id)] = value
+            local payload = value.payload
+            local metadata = type(payload) == "table" and payload.metadata or nil
+            local templateID = type(metadata) == "table" and metadata.responseTemplateID or nil
+            if type(templateID) == "string" and templateID ~= "" then
+                Registry.PSDL_RESPONSE_TEMPLATES[templateID] = true
+            end
         end
     end
 end
@@ -70,72 +77,34 @@ appendPatterns(require "PsychopatzCore/Semantics/Generated/Conversation/Patterns
 appendPatterns(require "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/WeatherNeeds")
 appendPatterns(require "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/WellbeingActivity")
 appendPatterns(require "PsychopatzCore/Semantics/Generated/Conversation/Patterns/GroundedPersonal")
-appendResponses(require "PsychopatzCore/Semantics/Generated/Conversation/Responses/Common/NeedsWeather")
-appendResponses(require "PsychopatzCore/Semantics/Generated/Conversation/Responses/Common/Questions")
-appendResponses(require "PsychopatzCore/Semantics/Generated/Conversation/Responses/Common/Social")
-appendResponses(require "PsychopatzCore/Semantics/Generated/Conversation/Responses/GroundedPersonalResponses")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/AcknowledgeMemory")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/AcknowledgeNews")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/AcknowledgeRepair")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/AcknowledgeReply")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/AcknowledgeThanks")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/AskMemoryFollowup")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/Challenge")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/ClarifyContext")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/Deescalate")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/EndConversation")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/Reconcile")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/RetaliateVerbally")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/SceneRuntimeBehaviors")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/SocialConversationDire__fa8f3cfb")
-appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Social/Warn")
 appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Psdl/Behavior/CoreWorldEventWarn")
-appendBeats(require "PsychopatzCore/Semantics/Generated/Conversation/Beats/Social/ArgumentEscalation")
-appendBeats(require "PsychopatzCore/Semantics/Generated/Conversation/Beats/Social/Reconciliation")
-appendBeats(require "PsychopatzCore/Semantics/Generated/Conversation/Beats/Social/SuspiciousFirstContact")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Behavior/behavior_world_event_warn")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_gossip_unknown_bond_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_gossip_unknown_bond_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_gossip_unknown_bond_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_gossip_unknown_bond_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_gossip_unknown_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_gossip_unknown_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_gossip_unknown_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_gossip_unknown_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_interaction_world_event_warning_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_interaction_world_event_warning_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_interaction_world_event_warning_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_interaction_world_event_warning_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_interaction_world_event_warning_flavor_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_interaction_world_event_warning_flavor_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_interaction_world_event_warning_flavor_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_interaction_world_event_warning_flavor_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_activity_dataset_keep_moving_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_activity_dataset_keep_moving_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_activity_dataset_keep_moving_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_activity_dataset_keep_moving_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_activity_fishing_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_activity_fishing_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_activity_fishing_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_activity_fishing_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_identity_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_identity_known_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_identity_known_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_identity_known_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_identity_known_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_identity_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_identity_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_identity_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_knowledge_known_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_knowledge_known_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_knowledge_known_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_knowledge_known_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_knowledge_unknown_guarded")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_knowledge_unknown_neutral")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_knowledge_unknown_terse")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/semantic_question_knowledge_unknown_warm")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/social_core_check_in")
-appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/social_core_identity")
+appendBehaviors(require "PsychopatzCore/Semantics/Generated/Conversation/Behaviors/Psdl/Director/Social")
+appendBeats(require "PsychopatzCore/Semantics/Generated/Conversation/Beats/Psdl/Director/Social")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Beat/SocialDirector/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Behavior/Social/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Behavior/SocialDirector/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreCheckIn/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreIdentity/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreKnowledgeActivity/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreKnowledgeFacts/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreKnowledgeGossip/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreKnowledgeIdentity/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipCorpseOrdinary/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipCorpseRevenge/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipDeath/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextNeedsGifts/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextSocialDeparture/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextSocialGoodbye/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextSocialGreetings/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextSocialIdentity/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextSocialRecruitment/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/Social/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Realization/SocialAffirmation/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Realization/SocialChallenge/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Realization/SocialIdentityClosure/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Realization/SocialLexemes/Catalog")
+appendPSDL(require "PsychopatzCore/Semantics/Generated/Conversation/PSDL/Realization/SocialWarningWellbeing/Catalog")
 appendUI(require "PsychopatzCore/Semantics/Generated/Conversation/UI/Psdl/Dialogue/CoreCheckIn")
 appendUI(require "PsychopatzCore/Semantics/Generated/Conversation/UI/Psdl/Dialogue/CoreIdentity")
 for key, family in pairs(Registry.PHRASE_FAMILIES) do

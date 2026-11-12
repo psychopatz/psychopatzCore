@@ -1,0 +1,57 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "migration": "Core-owned PSDL social lexeme realization records; SpeechRealization remains runtime authority"
+  },
+  "records": [
+    {
+      "aliases": [
+        "fuck",
+        "fuck you",
+        "fuck u",
+        "f*ck you",
+        "f**k you",
+        "f*** you"
+      ],
+      "concept": "PROFANITY_FUCK",
+      "forms": {
+        "EN": "fuck",
+        "TL": "Putang ina mo"
+      },
+      "id": "lexeme.social.profanity.fuck",
+      "type": "lexeme",
+      "kind": "realization"
+    },
+    {
+      "concept": "APOLOGY_SORRY",
+      "forms": {
+        "EN": "sorry",
+        "TL": "pasensya"
+      },
+      "id": "lexeme.social.apology.sorry",
+      "type": "lexeme",
+      "kind": "realization"
+    },
+    {
+      "concept": "AGREEMENT_YES",
+      "forms": {
+        "EN": "yeah",
+        "TL": "oo"
+      },
+      "id": "lexeme.social.agreement.yes",
+      "type": "lexeme",
+      "kind": "realization"
+    },
+    {
+      "concept": "DISAGREEMENT_NO",
+      "forms": {
+        "EN": "no",
+        "TL": "hindi"
+      },
+      "id": "lexeme.social.disagreement.no",
+      "type": "lexeme",
+      "kind": "realization"
+    }
+  ]
+}

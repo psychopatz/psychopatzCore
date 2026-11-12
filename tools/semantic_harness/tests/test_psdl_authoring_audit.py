@@ -85,6 +85,33 @@ class PSDLAuthoringGuardTests(unittest.TestCase):
         self.assertIn("psdl_record", {item["reason"] for item in accepted})
         self.assertIn("generated_output_or_translation_boundary", {item["reason"] for item in accepted})
 
+    def test_inventory_ignores_interpreter_editor_and_cache_noise(self) -> None:
+        from tools.semantic_harness.codebuilder.psdl_authoring_audit import (
+            _surface_files,
+        )
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "tools/semantic_harness/codebuilder/sources/conversation"
+            (source / "psdl").mkdir(parents=True)
+            (source / "__pycache__").mkdir()
+            (source / "psdl/authoring.json").write_text("{}", encoding="utf-8")
+            (source / "__pycache__/authoring.cpython-311.pyc").write_bytes(b"cache")
+            (source / "editor.json~").write_text("{}", encoding="utf-8")
+            (source / "authoring.json.swp").write_text("{}", encoding="utf-8")
+
+            files = _surface_files(
+                root,
+                ["tools/semantic_harness/codebuilder/sources/conversation"],
+            )
+
+        self.assertEqual(
+            files,
+            [
+                "tools/semantic_harness/codebuilder/sources/conversation/psdl/authoring.json",
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

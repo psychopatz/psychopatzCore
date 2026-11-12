@@ -1,0 +1,67 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "metadata": {
+    "migration": "Maintained Core wording moved from split text catalogs into PSDL; translation catalog is downstream output"
+  },
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.death.report",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.death.report",
+        "sourcePath": "memory/gossip/death/report.json",
+        "textKey": "death.report",
+        "textRows": [
+          {
+            "key": "death.report",
+            "text": {
+              "EN": "I heard {target.name} did not make it back.",
+              "TL": "Balita ko, hindi na nakabalik si {target.name}."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "I heard {target.name} did not make it back.",
+        "TL": "Balita ko, hindi na nakabalik si {target.name}."
+      }
+    },
+    {
+      "id": "text.death.sacrifice",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.death.sacrifice",
+        "sourcePath": "memory/gossip/death/sacrifice.json",
+        "textKey": "death.sacrifice",
+        "textRows": [
+          {
+            "key": "death.sacrifice",
+            "text": {
+              "EN": "They say {target.name} stayed behind so others could escape.",
+              "TL": "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "They say {target.name} stayed behind so others could escape.",
+        "TL": "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba."
+      }
+    }
+  ]
+}

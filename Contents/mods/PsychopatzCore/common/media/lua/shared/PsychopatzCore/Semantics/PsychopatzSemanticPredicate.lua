@@ -179,12 +179,14 @@ local function compare(value, predicate)
             if type(values[index]) ~= type(value) then return nil end
             if typedEqual(value, values[index]) then found = true break end
         end
-        return op == "in" and found or not found
+        if op == "in" then return found end
+        return not found
     end
     if op == "contains" or op == "not_contains" then
         local found = collectionContains(value, expected)
         if found == nil then return nil end
-        return op == "contains" and found or not found
+        if op == "contains" then return found end
+        return not found
     end
     if op == "contains_any" or op == "contains_all" then
         if type(value) ~= "table" or type(predicate.values) ~= "table" then

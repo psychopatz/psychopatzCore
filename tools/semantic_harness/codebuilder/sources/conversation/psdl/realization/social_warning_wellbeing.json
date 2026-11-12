@@ -1,0 +1,219 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "migration": "Core-owned PSDL social warning wellbeing realization records; SpeechRealization remains runtime authority"
+  },
+  "records": [
+    {
+      "dialogueAct": "BOUNDARY_WARNING",
+      "id": "construction.social.warn_consequence",
+      "strategy": "WARN",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Keep talking like that and we're going to have a problem."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Kapag itinuloy mo 'yan, magkakaproblema tayo."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "BOUNDARY_WARNING",
+      "id": "construction.social.warn_direct",
+      "strategy": "WARN",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Don't talk to me like that."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Huwag mo akong kausapin nang ganyan."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "BOUNDARY_WARNING",
+      "id": "construction.social.warn_mouth",
+      "strategy": "WARN",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Watch your mouth."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Ayusin mo ang pananalita mo."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "BOUNDARY_WARNING",
+      "id": "construction.social.warn_stop",
+      "strategy": "WARN",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Cut that out."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Tigilan mo 'yan."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "INFORM",
+      "id": "construction.social.wellbeing_negative",
+      "strategy": "WELLBEING_NEGATIVE",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "I've had better days."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Medyo mahirap ngayon."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "INFORM",
+      "id": "construction.social.wellbeing_neutral",
+      "strategy": "WELLBEING_NEUTRAL",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "I'm doing okay."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Kinakaya ko."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "INFORM",
+      "id": "construction.social.wellbeing_positive",
+      "strategy": "WELLBEING_POSITIVE",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "I'm doing pretty good."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Okay naman ako."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "ACCEPT",
+      "id": "construction.social.contextual_accept",
+      "strategy": "ACCEPT",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Yes, I accept."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Oo, pumapayag ako."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "REFUSE",
+      "id": "construction.social.contextual_refuse",
+      "strategy": "REFUSE",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "No, I'll pass."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Hindi, salamat na lang."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "THANK",
+      "id": "construction.social.contextual_thank",
+      "strategy": "THANK",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Thank you."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Salamat."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    }
+  ]
+}

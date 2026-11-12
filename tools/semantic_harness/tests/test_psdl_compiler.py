@@ -247,6 +247,32 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertNotIn("text", director_plan["behaviors"][0])
         self.assertNotIn("text", director_plan["beats"][0])
 
+    def test_service_indexes_manifest_routed_psdl_sources_for_studio(self) -> None:
+        workspace = Path(__file__).resolve().parents[3]
+        hoomans = workspace.parent / "ProjectHoomans"
+        dynamic_trading = workspace.parent / "DynamicTrading"
+        service = SemanticLabAuthoringService(
+            repository=hoomans,
+            core_repository=workspace,
+            dynamic_trading_repository=dynamic_trading,
+        )
+        sources = service.list_psdl_sources()
+        self.assertGreaterEqual(len(sources), 3)
+        self.assertEqual(
+            {"PsychopatzCore", "ProjectHoomans", "DTCommon"},
+            {item["owner"] for item in sources},
+        )
+        trading = next(
+            item for item in sources if item["path"] == "psdl/dialogue/trading.json"
+        )
+        self.assertTrue(trading["exists"])
+        document = service.load_psdl_source(trading["sourceID"])
+        self.assertEqual(document["schema"], "psychopatz.semantic.dialogue-language.v1")
+        self.assertEqual(
+            {"trade.conversation.suggestions", "trade.conversation.opening", "trade.conversation.referral"},
+            {record["id"] for record in document["records"]},
+        )
+
     def test_compilation_is_deterministic_and_source_path_is_lineage_only(self) -> None:
         source = _catalog()
         left = compile_psdl_document(source, source_path="one.json")

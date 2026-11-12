@@ -1,0 +1,147 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "migration": "Core-owned PSDL social affirmation realization records; SpeechRealization remains runtime authority"
+  },
+  "records": [
+    {
+      "dialogueAct": "ACKNOWLEDGE",
+      "id": "construction.social.acknowledge",
+      "strategy": "ACKNOWLEDGE",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "I hear you."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Naiintindihan ko."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "AGREE",
+      "id": "construction.social.agree",
+      "strategy": "AGREE",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Yeah, I agree."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Oo, sang-ayon ako."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "APOLOGIZE",
+      "id": "construction.social.apologize",
+      "strategy": "APOLOGIZE",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "I'm "
+          },
+          {
+            "kind": "lexeme",
+            "slot": "primary"
+          },
+          {
+            "kind": "literal",
+            "value": "."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "lexeme",
+            "slot": "primary"
+          },
+          {
+            "kind": "literal",
+            "value": " na."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "QUESTION",
+      "id": "construction.social.comfort",
+      "strategy": "COMFORT",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "What's really bothering you?"
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Ano ba talaga ang bumabagabag sa'yo?"
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "DEESCALATE",
+      "id": "construction.social.deescalate",
+      "strategy": "DEESCALATE",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "Let's calm down."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Kumalma tayo."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    },
+    {
+      "dialogueAct": "DISAGREE",
+      "id": "construction.social.disagree",
+      "strategy": "DISAGREE",
+      "translations": {
+        "EN": [
+          {
+            "kind": "literal",
+            "value": "No, I don't agree."
+          }
+        ],
+        "TL": [
+          {
+            "kind": "literal",
+            "value": "Hindi ako sang-ayon."
+          }
+        ]
+      },
+      "type": "construction",
+      "kind": "realization"
+    }
+  ]
+}

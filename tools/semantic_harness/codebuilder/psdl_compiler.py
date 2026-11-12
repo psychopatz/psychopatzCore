@@ -51,6 +51,7 @@ PSDL_RECORD_FIELDS = frozenset({
     "entry", "maintain", "exit", "candidates", "group", "cooldownTurns",
     "maxTurns", "effects", "policy", "metadata", "style", "resolver",
     "recognition",
+    "type", "strategy", "dialogueAct", "concept", "forms", "translations", "aliases",
 })
 TRANSITION_KINDS = frozenset({
     "continue", "await_participant", "terminate", "resume_previous",
@@ -504,10 +505,61 @@ def _normalize_module_payload(
         field in payload for field in ("act",)
     ):
         raise CompileError(f"{label}.act is required for a behavior")
-    if kind == "realization" and not any(
-        field in payload for field in ("text", "variants")
-    ):
-        raise CompileError(f"{label} requires text or variants")
+    if kind == "realization":
+        realization_type = payload.get("type")
+        if realization_type is None:
+            if not any(field in payload for field in ("text", "variants")):
+                raise CompileError(f"{label} requires text or variants")
+        elif realization_type == "lexeme":
+            concept = payload.get("concept")
+            forms = payload.get("forms")
+            if not isinstance(concept, str) or not concept.strip():
+                raise CompileError(f"{label}.concept is required for a lexeme")
+            if not isinstance(forms, Mapping) or not forms:
+                raise CompileError(f"{label}.forms is required for a lexeme")
+            if len(forms) > 8:
+                raise CompileError(f"{label}.forms contains too many locales")
+            if any(
+                not isinstance(locale, str)
+                or not locale.strip()
+                or not isinstance(value, str)
+                or not value.strip()
+                for locale, value in forms.items()
+            ):
+                raise CompileError(f"{label}.forms must map locales to bounded text")
+            aliases = payload.get("aliases")
+            if aliases is not None:
+                if not isinstance(aliases, list) or len(aliases) > MAX_LIST_ITEMS:
+                    raise CompileError(f"{label}.aliases must be a bounded list")
+                if any(not isinstance(item, str) or not item.strip() for item in aliases):
+                    raise CompileError(f"{label}.aliases must contain text strings")
+        elif realization_type == "construction":
+            strategy = payload.get("strategy")
+            translations = payload.get("translations")
+            if not isinstance(strategy, str) or not strategy.strip():
+                raise CompileError(f"{label}.strategy is required for a construction")
+            if not isinstance(translations, Mapping) or not translations:
+                raise CompileError(f"{label}.translations is required for a construction")
+            if "EN" not in {str(locale).upper() for locale in translations}:
+                raise CompileError(f"{label}.translations requires EN fallback")
+            for locale, tokens in translations.items():
+                if not isinstance(locale, str) or not locale.strip():
+                    raise CompileError(f"{label}.translations has an invalid locale")
+                if not isinstance(tokens, list) or not tokens or len(tokens) > 12:
+                    raise CompileError(f"{label}.translations[{locale}] requires 1-12 tokens")
+                for index, token in enumerate(tokens):
+                    if not isinstance(token, Mapping):
+                        raise CompileError(f"{label}.translations[{locale}][{index}] must be an object")
+                    token_kind = token.get("kind")
+                    if token_kind not in {"literal", "lexeme", "slot"}:
+                        raise CompileError(f"{label}.translations[{locale}][{index}].kind is unsupported")
+                    if token_kind == "literal":
+                        if not isinstance(token.get("value"), str) or len(token["value"]) > 128:
+                            raise CompileError(f"{label}.translations[{locale}][{index}].value is invalid")
+                    elif not isinstance(token.get("slot"), str) or not token["slot"].strip():
+                        raise CompileError(f"{label}.translations[{locale}][{index}].slot is required")
+        else:
+            raise CompileError(f"{label}.type must be lexeme or construction")
     for field in ("stimuli",):
         if field in payload:
             values = _bounded_list(payload[field], f"{label}.{field}", MAX_LIST_ITEMS)
@@ -861,6 +913,163 @@ def render_psdl_director_plan(compiled: Mapping[str, Any]) -> dict[str, list[dic
     plan["behaviors"].sort(key=lambda item: item["id"])
     plan["beats"].sort(key=lambda item: item["id"])
     return plan
+
+
+def _legacy_condition_projection(predicate: Any) -> Any:
+    """Project a public PSDL predicate for the existing bounded selector seam.
+
+    The selector remains a runtime consumer; the semantic condition is authored
+    and validated in PSDL.  Flat ``conversation.*`` leaves are projected to the
+    selector's historical context keys so adopters do not need a second
+    predicate language during the migration.
+    """
+    if predicate is None:
+        return None
+    if not isinstance(predicate, Mapping):
+        return _copy(predicate)
+    if "all" in predicate:
+        projected = [_legacy_condition_projection(item) for item in predicate["all"]]
+        if all(isinstance(item, Mapping) and len(item) == 1 for item in projected):
+            output: dict[str, Any] = {}
+            for item in projected:
+                output.update(item)
+            return output
+        return {"all": projected}
+    if "any" in predicate:
+        return {"any": [_legacy_condition_projection(item) for item in predicate["any"]]}
+    if "not" in predicate:
+        return {"not": _legacy_condition_projection(predicate["not"])}
+    path = str(predicate.get("path", predicate.get("field", "")))
+    if path.startswith("conversation.") and path.count(".") == 1:
+        field = path.split(".", 1)[1]
+        op = predicate.get("op", "eq")
+        value = predicate.get("values", predicate.get("value"))
+        if op == "in":
+            return {field: _copy(value)}
+        if op == "eq":
+            return {field: _copy(value)}
+    return _copy(predicate)
+
+
+def render_psdl_response_pool_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Project PSDL response variants into the existing ResponsePlan catalog."""
+    if compiled.get("schema") != PSDL_COMPILED_SCHEMA:
+        raise CompileError("compiled PSDL payload has an invalid schema")
+    pools: list[dict[str, Any]] = []
+    for record in compiled.get("records", []):
+        if record.get("kind") != "dialogue":
+            continue
+        payload = record.get("payload") or {}
+        response = payload.get("response")
+        if not isinstance(response, Mapping):
+            continue
+        metadata = payload.get("metadata") or {}
+        pool_id = metadata.get("responsePoolID") if isinstance(metadata, Mapping) else None
+        variants = response.get("variants")
+        if not isinstance(pool_id, str) or not pool_id.strip() or not isinstance(variants, list):
+            continue
+        output_variants: list[dict[str, Any]] = []
+        for variant in variants:
+            if not isinstance(variant, Mapping):
+                continue
+            variant_metadata = variant.get("metadata") or {}
+            if not isinstance(variant_metadata, Mapping):
+                variant_metadata = {}
+            text = variant.get("text") or {}
+            if not isinstance(text, Mapping) or not text.get(DEFAULT_LANGUAGE):
+                continue
+            item: dict[str, Any] = {
+                "id": variant["id"],
+                "templateID": variant_metadata.get("templateID", variant["id"]),
+                "translations": _copy(text),
+                "fallback": variant_metadata.get(
+                    "fallback", text[DEFAULT_LANGUAGE][0]
+                ),
+            }
+            if variant.get("when") is not None:
+                item["when"] = _legacy_condition_projection(variant["when"])
+            for field in (
+                "priority", "translationArgs", "plan", "dialogueAct",
+                "topic", "groundedFactRefs", "uncertainty", "tone",
+                "personalityStyle", "contentOwner", "reviewed", "sourceRefs",
+            ):
+                if field in variant_metadata:
+                    item[field] = _copy(variant_metadata[field])
+            if "dialogueAct" not in item and response.get("act") is not None:
+                item["dialogueAct"] = response["act"]
+            output_variants.append(item)
+        if output_variants:
+            pools.append({"id": pool_id, "variants": output_variants})
+    pools.sort(key=lambda item: str(item["id"]))
+    return pools
+
+
+def render_psdl_flow_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Project PSDL authored triggers into the accepted flow registry shape."""
+    if compiled.get("schema") != PSDL_COMPILED_SCHEMA:
+        raise CompileError("compiled PSDL payload has an invalid schema")
+    flows: list[dict[str, Any]] = []
+    for record in compiled.get("records", []):
+        if record.get("kind") != "dialogue":
+            continue
+        payload = record.get("payload") or {}
+        metadata = payload.get("metadata") or {}
+        if not isinstance(metadata, Mapping):
+            continue
+        flow_spec = metadata.get("flow")
+        if not isinstance(flow_spec, Mapping):
+            continue
+        flow_id = flow_spec.get("id", f"{record['id']}.flow")
+        flows.append({
+            "id": flow_id,
+            "version": flow_spec.get("version", 1),
+            "owner": flow_spec.get(
+                "owner",
+                metadata.get("originalOwner", record["owner"]),
+            ),
+            "initial": flow_spec.get("initial", "accepted"),
+            "nodes": _copy(flow_spec.get("nodes") or {}),
+            "triggers": _copy(metadata.get("triggers") or []),
+        })
+    flows.sort(key=lambda item: str(item["id"]))
+    return flows
+
+
+def render_psdl_realization_plan(
+    compiled: Mapping[str, Any],
+    *,
+    source_path: str = "psdl/realization.json",
+) -> list[dict[str, Any]]:
+    """Project structured PSDL realization records into SpeechRealization input."""
+    if compiled.get("schema") != PSDL_COMPILED_SCHEMA:
+        raise CompileError("compiled PSDL payload has an invalid schema")
+    output: list[dict[str, Any]] = []
+    for record in compiled.get("records", []):
+        if record.get("kind") != "realization":
+            continue
+        payload = _copy(record.get("payload") or {})
+        realization_type = payload.get("type")
+        payload["id"] = record["id"]
+        payload["owner"] = record["owner"]
+        payload["sourceShard"] = source_path
+        if realization_type == "lexeme":
+            output.append(payload)
+            continue
+        translations = payload.pop("translations", {})
+        for raw_locale, tokens in sorted(translations.items(), key=lambda item: str(item[0])):
+            locale = str(raw_locale).upper()
+            base_parts = record["id"].split(".")
+            if len(base_parts) < 3 or base_parts[0] != "construction":
+                raise CompileError(
+                    f"{record['id']} must be construction.<domain>.<name>"
+                )
+            item = _copy(payload)
+            item["id"] = ".".join(("construction", locale.lower(), *base_parts[1:]))
+            item["locale"] = locale
+            item["tokens"] = _copy(tokens)
+            output.append(item)
+    output.sort(key=lambda item: str(item.get("id", "")))
+    return output
 
 
 def render_psdl_ui_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:

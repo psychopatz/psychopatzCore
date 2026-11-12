@@ -72,6 +72,7 @@ def render_conversation_registry(
         "Registry.BEATS = {}",
           "Registry.PACKS = {}",
         "Registry.PSDL_PLANS = {}",
+        "Registry.PSDL_RESPONSE_TEMPLATES = {}",
         "Registry.UI = {}",
     ]
     lines.extend([
@@ -112,6 +113,12 @@ def render_conversation_registry(
         "    for _, value in ipairs(loaded) do",
         "        if type(value) == \"table\" and value.id then",
         "            Registry.PSDL_PLANS[tostring(value.id)] = value",
+        "            local payload = value.payload",
+        "            local metadata = type(payload) == \"table\" and payload.metadata or nil",
+        "            local templateID = type(metadata) == \"table\" and metadata.responseTemplateID or nil",
+        "            if type(templateID) == \"string\" and templateID ~= \"\" then",
+        "                Registry.PSDL_RESPONSE_TEMPLATES[templateID] = true",
+        "            end",
         "        end",
         "    end",
         "end",

@@ -1,0 +1,884 @@
+-- Generated; do not edit by hand.
+return {
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.negative.mockery.gear",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.negative.mockery.gear",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[0]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.mockery",
+                ["sourcePath"] = "memory/gossip/reactions/negative/mockery.json",
+                ["textKey"] = "negative.mockery.gear",
+                ["textRows"] = {
+                    {
+                        ["key"] = "negative.mockery.gear",
+                        ["text"] = {
+                            ["EN"] = "Someone says {target.name} cannot keep track of their own gear.",
+                            ["TL"] = "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "Someone says {target.name} cannot keep track of their own gear.",
+                },
+                ["TL"] = {
+                    "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.negative.mockery.gear",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "Someone says {target.name} cannot keep track of their own gear.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.negative.mockery.gear.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = true,
+            ["type"] = "entity.person",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.negative.mockery.retreat",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.negative.mockery.retreat",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[1]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.mockery",
+                ["sourcePath"] = "memory/gossip/reactions/negative/mockery.json",
+                ["textKey"] = "negative.mockery.retreat",
+                ["textRows"] = {
+                    {
+                        ["key"] = "negative.mockery.retreat",
+                        ["text"] = {
+                            ["EN"] = "{target.name} talked big, then backed down when it mattered.",
+                            ["TL"] = "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "{target.name} talked big, then backed down when it mattered.",
+                },
+                ["TL"] = {
+                    "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.negative.mockery.retreat",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "{target.name} talked big, then backed down when it mattered.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.negative.mockery.retreat.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = true,
+            ["type"] = "entity.person",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.negative.suspicion.story",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.negative.suspicion.story",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[2]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.suspicion",
+                ["sourcePath"] = "memory/gossip/reactions/negative/suspicion.json",
+                ["textKey"] = "negative.suspicion.story",
+                ["textRows"] = {
+                    {
+                        ["key"] = "negative.suspicion.story",
+                        ["text"] = {
+                            ["EN"] = "Watch {target.name}; their story keeps changing.",
+                            ["TL"] = "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "Watch {target.name}; their story keeps changing.",
+                },
+                ["TL"] = {
+                    "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.negative.suspicion.story",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "Watch {target.name}; their story keeps changing.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.negative.suspicion.story.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = true,
+            ["type"] = "entity.person",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.negative.warning.abandoned",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.negative.warning.abandoned",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[3]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.warning",
+                ["sourcePath"] = "memory/gossip/reactions/negative/warning.json",
+                ["textKey"] = "negative.warning.abandoned",
+                ["textRows"] = {
+                    {
+                        ["key"] = "negative.warning.abandoned",
+                        ["text"] = {
+                            ["EN"] = "{target.name} left someone behind when the zombies closed in.",
+                            ["TL"] = "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "{target.name} left someone behind when the zombies closed in.",
+                },
+                ["TL"] = {
+                    "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.negative.warning.abandoned",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "{target.name} left someone behind when the zombies closed in.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.negative.warning.abandoned.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = true,
+            ["type"] = "entity.person",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.negative.warning.danger",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.negative.warning.danger",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[4]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.warning",
+                ["sourcePath"] = "memory/gossip/reactions/negative/warning.json",
+                ["textKey"] = "negative.warning.danger",
+                ["textRows"] = {
+                    {
+                        ["key"] = "negative.warning.danger",
+                        ["text"] = {
+                            ["EN"] = "People have spotted danger near {slot.place.name}.",
+                            ["TL"] = "May nakapansing panganib malapit sa {slot.place.name}.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "People have spotted danger near {slot.place.name}.",
+                },
+                ["TL"] = {
+                    "May nakapansing panganib malapit sa {slot.place.name}.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.negative.warning.danger",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "People have spotted danger near {slot.place.name}.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.negative.warning.danger.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+            ["place"] = {
+                ["multiple"] = false,
+                ["public"] = true,
+                ["required"] = true,
+                ["type"] = "entity.location",
+            },
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = false,
+            ["type"] = "entity.any",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.neutral.horde_survival",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.neutral.horde_survival",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[6]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.neutral.survival",
+                ["sourcePath"] = "memory/gossip/reactions/neutral/survival.json",
+                ["textKey"] = "neutral.horde_survival",
+                ["textRows"] = {
+                    {
+                        ["key"] = "neutral.horde_survival",
+                        ["text"] = {
+                            ["EN"] = "I got away when a whole horde came after me.",
+                            ["TL"] = "Nakatakas ako nang habulin ako ng napakaraming zombie.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "I got away when a whole horde came after me.",
+                },
+                ["TL"] = {
+                    "Nakatakas ako nang habulin ako ng napakaraming zombie.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.neutral.horde_survival",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "I got away when a whole horde came after me.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.neutral.horde_survival.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = false,
+            ["type"] = "entity.any",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.neutral.sighting",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.neutral.sighting",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[5]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.neutral.sighting",
+                ["sourcePath"] = "memory/gossip/reactions/neutral/sighting.json",
+                ["textKey"] = "neutral.sighting",
+                ["textRows"] = {
+                    {
+                        ["key"] = "neutral.sighting",
+                        ["text"] = {
+                            ["EN"] = "Word is {target.name} was seen near {slot.place.name}.",
+                            ["TL"] = "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "Word is {target.name} was seen near {slot.place.name}.",
+                },
+                ["TL"] = {
+                    "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.neutral.sighting",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "Word is {target.name} was seen near {slot.place.name}.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.neutral.sighting.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+            ["place"] = {
+                ["multiple"] = false,
+                ["public"] = true,
+                ["required"] = true,
+                ["type"] = "entity.location",
+            },
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = true,
+            ["type"] = "entity.person",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.positive.praise.help",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.positive.praise.help",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[7]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.positive.praise",
+                ["sourcePath"] = "memory/gossip/reactions/positive/praise.json",
+                ["textKey"] = "positive.praise.help",
+                ["textRows"] = {
+                    {
+                        ["key"] = "positive.praise.help",
+                        ["text"] = {
+                            ["EN"] = "{target.name} has been looking out for people.",
+                            ["TL"] = "Inaalalayan ni {target.name} ang mga tao.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "{target.name} has been looking out for people.",
+                },
+                ["TL"] = {
+                    "Inaalalayan ni {target.name} ang mga tao.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.positive.praise.help",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "{target.name} has been looking out for people.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.positive.praise.help.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = true,
+            ["type"] = "entity.person",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.positive.protection",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.positive.protection",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[8]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.positive.protection",
+                ["sourcePath"] = "memory/gossip/reactions/positive/protection.json",
+                ["textKey"] = "positive.protection",
+                ["textRows"] = {
+                    {
+                        ["key"] = "positive.protection",
+                        ["text"] = {
+                            ["EN"] = "{target.name} stood up for someone when an attacker closed in.",
+                            ["TL"] = "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "{target.name} stood up for someone when an attacker closed in.",
+                },
+                ["TL"] = {
+                    "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.positive.protection",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "{target.name} stood up for someone when an attacker closed in.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.positive.protection.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = true,
+            ["type"] = "entity.person",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.positive.rescue.return",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.positive.rescue.return",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[9]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.positive.rescue",
+                ["sourcePath"] = "memory/gossip/reactions/positive/rescue.json",
+                ["textKey"] = "positive.rescue.return",
+                ["textRows"] = {
+                    {
+                        ["key"] = "positive.rescue.return",
+                        ["text"] = {
+                            ["EN"] = "{target.name} got someone home alive.",
+                            ["TL"] = "Naiuwi ni {target.name} nang buhay ang isang tao.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "{target.name} got someone home alive.",
+                },
+                ["TL"] = {
+                    "Naiuwi ni {target.name} nang buhay ang isang tao.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.positive.rescue.return",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "{target.name} got someone home alive.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.positive.rescue.return.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = true,
+            ["type"] = "entity.person",
+        },
+        ["when"] = nil,
+    },
+    {
+        ["domain"] = "core_text_memory_gossip_reactions",
+        ["id"] = "text.positive.sympathy.loss",
+        ["kind"] = "dialogue",
+        ["lineage"] = {
+            ["sourceId"] = "text.positive.sympathy.loss",
+            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_reactions.json#records[10]",
+        },
+        ["module"] = "PNC/Semantics/Generated/Conversation/PSDL/Dialogue/CoreTextMemoryGossipReactions/Catalog",
+        ["owner"] = "PsychopatzCore",
+        ["participants"] = {
+            ["addressee"] = {
+                "participant",
+            },
+            ["speaker"] = {
+                "participant",
+            },
+        },
+        ["payload"] = {
+            ["metadata"] = {
+                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
+                ["sourceCatalog"] = "conversation.memory.gossip.reactions.positive.sympathy",
+                ["sourcePath"] = "memory/gossip/reactions/positive/sympathy.json",
+                ["textKey"] = "positive.sympathy.loss",
+                ["textRows"] = {
+                    {
+                        ["key"] = "positive.sympathy.loss",
+                        ["text"] = {
+                            ["EN"] = "I heard what happened to {target.name}. I hope they are holding up.",
+                            ["TL"] = "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
+                        },
+                    },
+                },
+                ["textTarget"] = "memory/gossip",
+            },
+            ["text"] = {
+                ["EN"] = {
+                    "I heard what happened to {target.name}. I hope they are holding up.",
+                },
+                ["TL"] = {
+                    "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
+                },
+            },
+        },
+        ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = nil,
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "text.positive.sympathy.loss",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "response",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "I heard what happened to {target.name}. I hope they are holding up.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.text.positive.sympathy.loss.response",
+                        },
+                    },
+                },
+            },
+        },
+        ["slots"] = {
+        },
+        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_reactions.json",
+        ["target"] = {
+            ["multiple"] = false,
+            ["required"] = true,
+            ["type"] = "entity.person",
+        },
+        ["when"] = nil,
+    },
+}

@@ -1,0 +1,84 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "metadata": {
+    "migration": "Maintained Core wording moved from split text catalogs into PSDL; translation catalog is downstream output"
+  },
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.departure.confirmed",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.departure.response",
+        "sourcePath": "social/departure/response.json",
+        "textKey": "departure.confirmed",
+        "textRows": [
+          {
+            "key": "departure.confirmed",
+            "text": {
+              "EN": "Understood. I will take my chances elsewhere. Remember what you chose.",
+              "TL": "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo."
+            }
+          }
+        ],
+        "textTarget": "social/departure/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "Understood. I will take my chances elsewhere. Remember what you chose.",
+        "TL": "Naiintindihan. Susubukan ko ang kapalaran ko sa ibang lugar. Tandaan mo ang pinili mo."
+      }
+    },
+    {
+      "id": "text.departure.rejected",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.departure.response",
+        "sourcePath": "social/departure/response.json",
+        "textKey": "departure.rejected",
+        "textRows": [
+          {
+            "key": "departure.rejected",
+            "text": {
+              "EN": "I am not leaving with you. That decision is not yours to make right now.",
+              "TL": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon."
+            }
+          }
+        ],
+        "textTarget": "social/departure/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "I am not leaving with you. That decision is not yours to make right now.",
+        "TL": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon."
+      }
+    },
+    {
+      "id": "text.departure.warning",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.departure.response",
+        "sourcePath": "social/departure/response.json",
+        "textKey": "departure.warning",
+        "textRows": [
+          {
+            "key": "departure.warning",
+            "text": {
+              "EN": "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
+              "TL": "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon."
+            }
+          }
+        ],
+        "textTarget": "social/departure/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
+        "TL": "Kung paalisin mo ako, aalis ako sa grupong ito at gagawa ng sarili kong paraan. Hindi mo na maibabalik iyon."
+      }
+    }
+  ]
+}

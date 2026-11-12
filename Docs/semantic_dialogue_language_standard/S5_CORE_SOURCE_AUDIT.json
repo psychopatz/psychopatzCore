@@ -1,0 +1,1356 @@
+{
+  "schema": "psychopatz.semantic.dialogue.source-audit.v1",
+  "objective": "S5 corrective closure: exact surviving Core Conversation source inventory",
+  "repository": "PsychopatzCore",
+  "source_root": "tools/semantic_harness/codebuilder/sources/conversation",
+  "noise_exclusions": [
+    "__pycache__",
+    ".pyc",
+    ".pyo",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "editor backups",
+    "temporary files"
+  ],
+  "classification_rules": {
+    "core-mechanism-recognition": "recognition/NLU authority; may remain outside PSDL",
+    "core-mechanism-semantic-memory": "fact-value semantic memory data; may remain outside PSDL",
+    "core-mechanism-routing": "manifest/routing contract; not dialogue wording",
+    "core-owned-psdl-adopter-record": "maintained semantic dialogue/behavior/beat/realization authoring; must be PSDL"
+  },
+  "surviving_sources": [
+    {
+      "source": "manifest.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-routing",
+      "authority": "manifest routing/ownership contract",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained canonical routing authority",
+      "record_count": null
+    },
+    {
+      "source": "patterns/common/greeting_whats_up.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-recognition",
+      "authority": "recognition/NLU data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "PsychopatzCore/Semantics/Generated/Conversation/Patterns"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Patterns",
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Registry.lua"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified non-dialogue mechanism; contains no maintained response wording, offer, flow, behavior, beat, or realization",
+      "record_count": null
+    },
+    {
+      "source": "patterns/common/identity.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-recognition",
+      "authority": "recognition/NLU data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "PsychopatzCore/Semantics/Generated/Conversation/Patterns"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Patterns",
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Registry.lua"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified non-dialogue mechanism; contains no maintained response wording, offer, flow, behavior, beat, or realization",
+      "record_count": null
+    },
+    {
+      "source": "patterns/common/identity_facets.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-recognition",
+      "authority": "recognition/NLU data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "PsychopatzCore/Semantics/Generated/Conversation/Patterns"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Patterns",
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Registry.lua"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified non-dialogue mechanism; contains no maintained response wording, offer, flow, behavior, beat, or realization",
+      "record_count": null
+    },
+    {
+      "source": "patterns/common/weather_needs.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-recognition",
+      "authority": "recognition/NLU data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "PsychopatzCore/Semantics/Generated/Conversation/Patterns"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Patterns",
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Registry.lua"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified non-dialogue mechanism; contains no maintained response wording, offer, flow, behavior, beat, or realization",
+      "record_count": null
+    },
+    {
+      "source": "patterns/common/wellbeing_activity.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-recognition",
+      "authority": "recognition/NLU data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "PsychopatzCore/Semantics/Generated/Conversation/Patterns"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Patterns",
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Registry.lua"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified non-dialogue mechanism; contains no maintained response wording, offer, flow, behavior, beat, or realization",
+      "record_count": null
+    },
+    {
+      "source": "patterns/grounded_personal.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-recognition",
+      "authority": "recognition/NLU data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "PsychopatzCore/Semantics/Generated/Conversation/Patterns"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Patterns",
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/Registry.lua"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified non-dialogue mechanism; contains no maintained response wording, offer, flow, behavior, beat, or realization",
+      "record_count": null
+    },
+    {
+      "source": "psdl/behavior/core_world_event_warn.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_behavior_core_world_event_warn.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/behavior/core_world_event_warn.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 1
+    },
+    {
+      "source": "psdl/dialogue/core_check_in.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_check_in.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_check_in.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": null
+    },
+    {
+      "source": "psdl/dialogue/core_identity.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_identity.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_identity.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": null
+    },
+    {
+      "source": "psdl/dialogue/core_knowledge_activity.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_knowledge_activity.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_knowledge_activity.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 8
+    },
+    {
+      "source": "psdl/dialogue/core_knowledge_facts.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_knowledge_facts.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_knowledge_facts.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 8
+    },
+    {
+      "source": "psdl/dialogue/core_knowledge_gossip.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_knowledge_gossip.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_knowledge_gossip.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 8
+    },
+    {
+      "source": "psdl/dialogue/core_knowledge_identity.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_knowledge_identity.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_knowledge_identity.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 8
+    },
+    {
+      "source": "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_memory_gossip_corpse_ordinary.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 25
+    },
+    {
+      "source": "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_memory_gossip_corpse_revenge.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 24
+    },
+    {
+      "source": "psdl/dialogue/core_text_memory_gossip_death.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_memory_gossip_death.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_memory_gossip_death.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 2
+    },
+    {
+      "source": "psdl/dialogue/core_text_memory_gossip_reactions.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_memory_gossip_reactions.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_memory_gossip_reactions.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 11
+    },
+    {
+      "source": "psdl/dialogue/core_text_needs_gifts.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_needs_gifts.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_needs_gifts.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 4
+    },
+    {
+      "source": "psdl/dialogue/core_text_social_departure.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_social_departure.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_social_departure.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 3
+    },
+    {
+      "source": "psdl/dialogue/core_text_social_goodbye.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_social_goodbye.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_social_goodbye.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 12
+    },
+    {
+      "source": "psdl/dialogue/core_text_social_greetings.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_social_greetings.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_social_greetings.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 1
+    },
+    {
+      "source": "psdl/dialogue/core_text_social_identity.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_social_identity.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_social_identity.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 1
+    },
+    {
+      "source": "psdl/dialogue/core_text_social_recruitment.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_text_social_recruitment.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_text_social_recruitment.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 29
+    },
+    {
+      "source": "psdl/dialogue/core_world_event_warning.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_world_event_warning.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_world_event_warning.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 4
+    },
+    {
+      "source": "psdl/dialogue/core_world_event_warning_flavor.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_dialogue_core_world_event_warning_flavor.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/dialogue/core_world_event_warning_flavor.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 4
+    },
+    {
+      "source": "psdl/director/social.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_director_social.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/director/social.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 32
+    },
+    {
+      "source": "psdl/realization/social_affirmation.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_realization_social_affirmation.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/realization/social_affirmation.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 6
+    },
+    {
+      "source": "psdl/realization/social_challenge.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_realization_social_challenge.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/realization/social_challenge.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 9
+    },
+    {
+      "source": "psdl/realization/social_identity_closure.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_realization_social_identity_closure.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/realization/social_identity_closure.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 6
+    },
+    {
+      "source": "psdl/realization/social_lexemes.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_realization_social_lexemes.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/realization/social_lexemes.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 4
+    },
+    {
+      "source": "psdl/realization/social_warning_wellbeing.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-owned-psdl-adopter-record",
+      "authority": "PSDL authoring",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py",
+        "tools/semantic_harness/codebuilder/psdl_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/psdl_realization_social_warning_wellbeing.lua"
+      ],
+      "external_compatibility": {
+        "status": "runtime projection",
+        "accepted_authority": "existing runtime contract; PSDL is only authoring input"
+      },
+      "final_psdl_destination": "psdl/realization/social_warning_wellbeing.json",
+      "migration_removal_status": "retained canonical PSDL source; no superseded source remains",
+      "record_count": 10
+    },
+    {
+      "source": "text/manifest.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-routing",
+      "authority": "text-source routing for retained semantic-memory fact fragments",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained; only backstory fact fragments remain outside PSDL",
+      "record_count": null
+    },
+    {
+      "source": "text/memory/backstory/education.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-semantic-memory",
+      "authority": "semantic-memory fact-value data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_text_catalog.py",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text",
+        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified mechanism/data boundary; generated text catalog is downstream and does not select dialogue",
+      "record_count": null
+    },
+    {
+      "source": "text/memory/backstory/family.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-semantic-memory",
+      "authority": "semantic-memory fact-value data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_text_catalog.py",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text",
+        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified mechanism/data boundary; generated text catalog is downstream and does not select dialogue",
+      "record_count": null
+    },
+    {
+      "source": "text/memory/backstory/fear.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-semantic-memory",
+      "authority": "semantic-memory fact-value data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_text_catalog.py",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text",
+        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified mechanism/data boundary; generated text catalog is downstream and does not select dialogue",
+      "record_count": null
+    },
+    {
+      "source": "text/memory/backstory/hobby.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-semantic-memory",
+      "authority": "semantic-memory fact-value data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_text_catalog.py",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text",
+        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified mechanism/data boundary; generated text catalog is downstream and does not select dialogue",
+      "record_count": null
+    },
+    {
+      "source": "text/memory/backstory/hometown.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-semantic-memory",
+      "authority": "semantic-memory fact-value data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_text_catalog.py",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text",
+        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified mechanism/data boundary; generated text catalog is downstream and does not select dialogue",
+      "record_count": null
+    },
+    {
+      "source": "text/memory/backstory/occupation.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-semantic-memory",
+      "authority": "semantic-memory fact-value data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_text_catalog.py",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text",
+        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified mechanism/data boundary; generated text catalog is downstream and does not select dialogue",
+      "record_count": null
+    },
+    {
+      "source": "text/memory/backstory/survival.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-semantic-memory",
+      "authority": "semantic-memory fact-value data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_text_catalog.py",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text",
+        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified mechanism/data boundary; generated text catalog is downstream and does not select dialogue",
+      "record_count": null
+    },
+    {
+      "source": "text/memory/backstory/tragedy.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-semantic-memory",
+      "authority": "semantic-memory fact-value data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_text_catalog.py",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text",
+        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified mechanism/data boundary; generated text catalog is downstream and does not select dialogue",
+      "record_count": null
+    },
+    {
+      "source": "text/memory/backstory/value.json",
+      "repository": "PsychopatzCore",
+      "package_owner": "PsychopatzCore",
+      "classification": "core-mechanism-semantic-memory",
+      "authority": "semantic-memory fact-value data",
+      "production_callers_or_references": [
+        "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
+        "tools/semantic_harness/codebuilder/conversation_text_catalog.py",
+        "tools/semantic_harness/codebuilder/conversation_compiler.py"
+      ],
+      "generated_outputs": [
+        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text",
+        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text"
+      ],
+      "external_compatibility": {
+        "status": "none",
+        "accepted_authority": null
+      },
+      "final_psdl_destination": null,
+      "migration_removal_status": "retained justified mechanism/data boundary; generated text catalog is downstream and does not select dialogue",
+      "record_count": null
+    }
+  ],
+  "removed_first_party_authoring": [
+    {
+      "source": "beats/social/argument_escalation.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "beats/social/reconciliation.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "beats/social/suspicious_first_contact.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/acknowledge_memory.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/acknowledge_news.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/acknowledge_repair.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/acknowledge_reply.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/acknowledge_thanks.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/ask_memory_followup.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/challenge.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/clarify_context.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/deescalate.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/end_conversation.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/reconcile.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/retaliate_verbally.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/scene_runtime_behaviors.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/social_conversation_director_behaviors.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "behaviors/social/warn.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/director/social.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "flows/semantic_flows.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "ProjectHoomans/tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/companion_flows.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "realization/social/constructions_core.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/realization/*.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "realization/social/constructions_followups.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/realization/*.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "realization/social/contextual_replies.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/realization/*.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "realization/social/lexemes.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/realization/*.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "responses/common/needs_weather.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "ProjectHoomans/tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/core_semantic_responses.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "responses/common/questions.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "ProjectHoomans/tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/core_semantic_responses.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "responses/common/social.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "ProjectHoomans/tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/core_semantic_responses.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "responses/grounded_personal_responses.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "ProjectHoomans/tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/core_semantic_responses.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/dynamic_trading/caravan/referral.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_dynamic_trading_caravan.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/dynamic_trading/trade/opening.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_dynamic_trading_trade.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/corpse/ordinary/comrade.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/corpse/ordinary/friend.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/corpse/ordinary/hostile.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/corpse/ordinary/neutral.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/corpse/ordinary/relative.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/corpse/revenge/comrade.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/corpse/revenge/friend.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/corpse/revenge/relative.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/death/report.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_death.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/death/sacrifice.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_death.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/reactions/negative/mockery.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions_negative.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/reactions/negative/suspicion.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions_negative.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/reactions/negative/warning.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions_negative.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/reactions/neutral/sighting.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions_neutral.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/reactions/neutral/survival.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions_neutral.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/reactions/positive/praise.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions_positive.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/reactions/positive/protection.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions_positive.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/reactions/positive/rescue.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions_positive.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/memory/gossip/reactions/positive/sympathy.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_memory_gossip_reactions_positive.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/needs/gifts/preference.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_needs_gifts.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/social/departure/response.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_departure.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/social/goodbye/closing.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_goodbye.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/social/greetings/ambient_visit/arrival.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_greetings_ambient_visit.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/social/identity/response.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_identity.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "text/social/recruitment/response.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "PsychopatzCore/tools/semantic_harness/codebuilder/sources/conversation/psdl/dialogue/core_text_social_recruitment.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "ui/suggestion_text_actions.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "ProjectHoomans/tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/static_suggestion_text.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    },
+    {
+      "source": "ui/suggestion_text_context.json",
+      "repository": "PsychopatzCore",
+      "classification": "superseded-first-party-authoring",
+      "final_psdl_destination": "ProjectHoomans/tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/static_suggestion_text.json",
+      "migration_removal_status": "deleted after PSDL parity path was compiled; callers now consume generated Core contract"
+    }
+  ],
+  "summary": {
+    "surviving_source_count": 42,
+    "surviving_psdl_record_files": 25,
+    "surviving_justified_non_psdl_files": 15,
+    "removed_first_party_authoring_count": 56,
+    "new_psdl_authority_count": 25
+  }
+}

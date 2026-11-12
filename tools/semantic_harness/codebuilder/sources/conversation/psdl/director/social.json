@@ -1,0 +1,1351 @@
+{
+  "metadata": {
+    "migration": "Core-owned PSDL director records; Interaction Director remains runtime authority",
+    "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.d587a67cc2"
+  },
+  "records": [
+    {
+      "act": "ACKNOWLEDGE_MEMORY",
+      "baseRelevance": 0.5,
+      "id": "behavior.acknowledge_memory",
+      "mode": "one_shot",
+      "modifiers": [
+        {
+          "delta": 0.25,
+          "reason": "empathy_favors_acknowledgement",
+          "when": {
+            "op": "gte",
+            "path": "actor.disposition.empathy",
+            "value": 0.6
+          }
+        },
+        {
+          "delta": 0.1,
+          "reason": "low_sociability_favors_acknowledgement",
+          "when": {
+            "op": "lt",
+            "path": "actor.disposition.sociability",
+            "value": 0.4
+          }
+        }
+      ],
+      "outputs": {
+        "emote": {
+          "id": "emote.nod"
+        },
+        "flavor": {
+          "contentTemplateID": "semantic.interaction.memory.acknowledge_flavor",
+          "presentationAct": "AMBIENT_FLAVOR"
+        },
+        "speech": {
+          "contentTemplateID": "semantic.interaction.memory.acknowledge",
+          "dialogueAct": "ACKNOWLEDGE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [],
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "SHARE_MEMORY"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "ACKNOWLEDGE_NEWS",
+      "baseRelevance": 0.55,
+      "id": "behavior.acknowledge_news",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "emote": {
+          "id": "emote.nod"
+        },
+        "speech": {
+          "contentTemplateID": "semantic.interaction.news.acknowledge",
+          "dialogueAct": "ACKNOWLEDGE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [],
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "SHARE_NEWS"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "ACKNOWLEDGE_REPAIR",
+      "baseRelevance": 0.55,
+      "id": "behavior.acknowledge_repair",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.social.apology.friendly",
+          "dialogueAct": "ACKNOWLEDGE_REPAIR"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "all": [
+          {
+            "op": "truthy",
+            "path": "pragmatic.contextualAdmission.admitted"
+          },
+          {
+            "op": "eq",
+            "path": "pragmatic.contextualAdmission.selected.relation",
+            "value": "repair"
+          }
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "ACKNOWLEDGE_REPLY",
+      "baseRelevance": 0.65,
+      "id": "behavior.acknowledge_reply",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.social.acknowledged",
+          "dialogueAct": "ACKNOWLEDGE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "all": [
+          {
+            "op": "truthy",
+            "path": "pragmatic.contextualAdmission.admitted"
+          },
+          {
+            "op": "eq",
+            "path": "pragmatic.contextualAdmission.selected.relation",
+            "value": "response"
+          }
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "ACKNOWLEDGE_THANKS",
+      "baseRelevance": 0.55,
+      "id": "behavior.acknowledge_thanks",
+      "mode": "one_shot",
+      "modifiers": [
+        {
+          "delta": 0.1,
+          "reason": "sociable_acknowledgement",
+          "when": {
+            "op": "gte",
+            "path": "actor.disposition.sociability",
+            "value": 0.65
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.social.acknowledged",
+          "dialogueAct": "ACKNOWLEDGE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "all": [
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "THANK"
+          },
+          {
+            "op": "truthy",
+            "path": "pragmatic.contextualAdmission.admitted"
+          },
+          {
+            "op": "eq",
+            "path": "pragmatic.contextualAdmission.selected.relation",
+            "value": "gratitude"
+          }
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "ASK_MEMORY_FOLLOWUP",
+      "baseRelevance": 0.45,
+      "id": "behavior.ask_memory_followup",
+      "mode": "one_shot",
+      "modifiers": [
+        {
+          "delta": 0.25,
+          "reason": "sociability_favors_followup",
+          "when": {
+            "op": "gte",
+            "path": "actor.disposition.sociability",
+            "value": 0.6
+          }
+        },
+        {
+          "delta": 0.1,
+          "reason": "familiarity_favors_followup",
+          "when": {
+            "op": "gte",
+            "path": "relationship.familiarity",
+            "value": 2
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.memory.followup",
+          "dialogueAct": "ASK_FOLLOWUP"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "SHARE_MEMORY"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "CHALLENGE",
+      "baseRelevance": 0.5,
+      "id": "behavior.challenge",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.12,
+          "reason": "confidence_supports_challenge",
+          "when": {
+            "op": "gte",
+            "path": "actor.disposition.confidence",
+            "value": 0.55
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.first_contact.challenge",
+          "dialogueAct": "CHALLENGE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "in",
+        "path": "stimulus.semantic.intent",
+        "values": [
+          "GREET",
+          "GOSSIP"
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "ASK_CLARIFICATION",
+      "baseRelevance": 0.95,
+      "id": "behavior.clarify_context",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.context.clarify",
+          "dialogueAct": "ASK_CLARIFICATION"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "any": [
+          {
+            "op": "eq",
+            "path": "pragmatic.contextualAdmission.status",
+            "value": "unresolved"
+          },
+          {
+            "op": "eq",
+            "path": "pragmatic.contextualAdmission.status",
+            "value": "ambiguous"
+          }
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "DEESCALATE",
+      "baseRelevance": 0.35,
+      "id": "behavior.deescalate",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.4,
+          "reason": "fear_favors_deescalation",
+          "when": {
+            "op": "gte",
+            "path": "actor.condition.panic",
+            "value": 0.6
+          }
+        },
+        {
+          "delta": 0.2,
+          "reason": "danger_favors_deescalation",
+          "when": {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.argument.deescalate",
+          "dialogueAct": "DEESCALATE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "any": [
+          {
+            "op": "in",
+            "path": "stimulus.semantic.speechAct",
+            "values": [
+              "INSULT",
+              "HOSTILE_REMARK",
+              "THREATEN"
+            ]
+          },
+          {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "END_INTERACTION",
+      "baseRelevance": 0.2,
+      "id": "behavior.end_conversation",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.3,
+          "reason": "danger_favors_exit",
+          "when": {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        },
+        {
+          "delta": 0.45,
+          "reason": "low_forgiveness_favors_exit",
+          "when": {
+            "op": "lt",
+            "path": "actor.disposition.forgiveness",
+            "value": 0.25
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.social.hostile_withdrawn",
+          "dialogueAct": "END_CONVERSATION"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "any": [
+          {
+            "op": "in",
+            "path": "stimulus.semantic.speechAct",
+            "values": [
+              "INSULT",
+              "HOSTILE_REMARK",
+              "THREATEN"
+            ]
+          },
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "APOLOGIZE"
+          },
+          {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "RECONCILE",
+      "baseRelevance": 0.6,
+      "id": "behavior.reconcile",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.15,
+          "reason": "relationship_recoverable",
+          "when": {
+            "op": "gte",
+            "path": "relationship.approval",
+            "value": -20
+          }
+        },
+        {
+          "delta": -0.2,
+          "reason": "low_forgiveness",
+          "when": {
+            "op": "lt",
+            "path": "actor.disposition.forgiveness",
+            "value": 0.35
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.social.apology.friendly",
+          "dialogueAct": "RECONCILE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "all": [
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "APOLOGIZE"
+          },
+          {
+            "op": "truthy",
+            "path": "pragmatic.contextualAdmission.admitted"
+          }
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "RETALIATE_VERBALLY",
+      "baseRelevance": 0.55,
+      "id": "behavior.retaliate_verbally",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.2,
+          "reason": "aggressive_personality",
+          "when": {
+            "op": "gte",
+            "path": "actor.disposition.aggression",
+            "value": 0.65
+          }
+        },
+        {
+          "delta": -0.3,
+          "reason": "fear_suppresses_retaliation",
+          "when": {
+            "op": "gte",
+            "path": "actor.condition.panic",
+            "value": 0.6
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.argument.retaliate",
+          "dialogueAct": "RETALIATE_VERBALLY"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "in",
+        "path": "stimulus.semantic.speechAct",
+        "values": [
+          "INSULT",
+          "HOSTILE_REMARK",
+          "THREATEN"
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "COMBAT_HORDE_PROMPT",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "intent": "COMBAT_HORDE_REPLY",
+        "mode": "emit",
+        "speechAct": "REPLY",
+        "target": "other"
+      },
+      "id": "behavior.scene_horde_prompt",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "emote": {
+          "id": "emote.alert"
+        },
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.horde_prompt",
+          "dialogueAct": "WARN"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "DANGER_CHANGED"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "COMBAT_HORDE_ALERT"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "COMBAT_HORDE_REPLY",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "mode": "terminate"
+      },
+      "id": "behavior.scene_horde_reply_brave",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.horde_reply_brave",
+          "dialogueAct": "PROPOSE_ENGAGE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "all": [
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "COMBAT_HORDE_REPLY"
+          },
+          {
+            "op": "gte",
+            "path": "actor.disposition.confidence",
+            "value": 0.65
+          }
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "COMBAT_HORDE_REPLY",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "mode": "terminate"
+      },
+      "id": "behavior.scene_horde_reply_cautious",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.horde_reply_cautious",
+          "dialogueAct": "PROPOSE_AVOID"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "all": [
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "COMBAT_HORDE_REPLY"
+          },
+          {
+            "op": "lt",
+            "path": "actor.disposition.confidence",
+            "value": 0.35
+          }
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "COMBAT_HORDE_REPLY",
+      "baseRelevance": 0.65,
+      "continuation": {
+        "mode": "terminate"
+      },
+      "id": "behavior.scene_horde_reply_steady",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.horde_reply_steady",
+          "dialogueAct": "PROPOSE_HOLD"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "COMBAT_HORDE_REPLY"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "SHARE_NEWS",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "intent": "SHARE_GROUNDED_NEWS",
+        "mode": "emit",
+        "speechAct": "INFORM",
+        "target": "other"
+      },
+      "id": "behavior.scene_grounded_news_share",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.grounded_news_share",
+          "dialogueAct": "DISCLOSE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "AMBIENT_SOCIAL_OPPORTUNITY"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "SHARE_GROUNDED_NEWS"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "ASK_NEWS_FOLLOWUP",
+      "baseRelevance": 0.45,
+      "continuation": {
+        "intent": "ASK_NEWS_FOLLOWUP",
+        "mode": "emit",
+        "speechAct": "ASK_FOLLOWUP",
+        "target": "source"
+      },
+      "id": "behavior.scene_news_followup",
+      "mode": "one_shot",
+      "modifiers": [
+        {
+          "delta": 0.25,
+          "reason": "sociability_favors_news_followup",
+          "when": {
+            "op": "gte",
+            "path": "actor.disposition.sociability",
+            "value": 0.6
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.memory.followup",
+          "dialogueAct": "ASK_FOLLOWUP"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "SHARE_GROUNDED_NEWS"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "ANSWER_NEWS",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "mode": "terminate"
+      },
+      "id": "behavior.scene_news_followup_answer",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.grounded_news_answer",
+          "dialogueAct": "ANSWER"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "ASK_NEWS_FOLLOWUP"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "EXCURSION_STATUS_REPORT",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "mode": "emit",
+        "speechAct": "ACKNOWLEDGE",
+        "target": "other"
+      },
+      "id": "behavior.scene_excursion_preparing",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.excursion_preparing",
+          "dialogueAct": "INFORM"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "EXCURSION_PREPARING"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "EXCURSION_STATUS_REPORT",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "mode": "emit",
+        "speechAct": "ACKNOWLEDGE",
+        "target": "other"
+      },
+      "id": "behavior.scene_excursion_departing",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.excursion_departing",
+          "dialogueAct": "INFORM"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "EXCURSION_DEPARTING"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "EXCURSION_STATUS_REPORT",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "mode": "emit",
+        "speechAct": "ACKNOWLEDGE",
+        "target": "other"
+      },
+      "id": "behavior.scene_excursion_returning",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.excursion_returning",
+          "dialogueAct": "INFORM"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "EXCURSION_RETURNING"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "EXCURSION_STATUS_REPORT",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "mode": "emit",
+        "speechAct": "ACKNOWLEDGE",
+        "target": "other"
+      },
+      "id": "behavior.scene_excursion_home",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.excursion_home",
+          "dialogueAct": "INFORM"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "EXCURSION_HOME"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "EXCURSION_STATUS_REPORT",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "intent": "ACKNOWLEDGE_EXCURSION",
+        "mode": "emit",
+        "speechAct": "ACKNOWLEDGE",
+        "target": "other"
+      },
+      "id": "behavior.scene_excursion_failed",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.excursion_failed",
+          "dialogueAct": "INFORM"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "EXCURSION_FAILED"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "ACKNOWLEDGE",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "mode": "terminate"
+      },
+      "id": "behavior.scene_excursion_acknowledge",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "emote": {
+          "id": "emote.nod"
+        },
+        "speech": {
+          "contentTemplateID": "semantic.social.acknowledged",
+          "dialogueAct": "ACKNOWLEDGE"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [],
+      "stimuli": [
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "ACKNOWLEDGE_EXCURSION"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "TASK_WORK_STATUS",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "mode": "terminate"
+      },
+      "id": "behavior.scene_task_work_assigned",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.task_work_assigned",
+          "dialogueAct": "INFORM"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "TASK_WORK_ASSIGNED"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "TASK_WORK_STATUS",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "mode": "terminate"
+      },
+      "id": "behavior.scene_task_work_completed",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.task_work_completed",
+          "dialogueAct": "INFORM"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "TASK_EVENT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "TASK_WORK_COMPLETED"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "POST_COMBAT_REACTION",
+      "baseRelevance": 1.0,
+      "continuation": {
+        "mode": "terminate"
+      },
+      "id": "behavior.scene_post_combat_clear",
+      "mode": "one_shot",
+      "modifiers": [],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.interaction.scene.post_combat_clear",
+          "dialogueAct": "INFORM"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "DANGER_CHANGED"
+      ],
+      "version": 1,
+      "when": {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "POST_COMBAT_CLEAR"
+      },
+      "kind": "behavior"
+    },
+    {
+      "act": "WARN",
+      "baseRelevance": 0.65,
+      "id": "behavior.warn",
+      "mode": "beat",
+      "modifiers": [
+        {
+          "delta": 0.12,
+          "reason": "low_approval",
+          "when": {
+            "op": "lt",
+            "path": "relationship.approval",
+            "value": 0
+          }
+        },
+        {
+          "delta": 0.08,
+          "reason": "confident",
+          "when": {
+            "op": "gte",
+            "path": "actor.disposition.confidence",
+            "value": 0.6
+          }
+        }
+      ],
+      "outputs": {
+        "speech": {
+          "contentTemplateID": "semantic.social.hostile_boundary",
+          "dialogueAct": "BOUNDARY_WARNING"
+        }
+      },
+      "owner": "PsychopatzCore",
+      "requiredCapabilities": [
+        "speech"
+      ],
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "when": {
+        "op": "in",
+        "path": "stimulus.semantic.speechAct",
+        "values": [
+          "INSULT",
+          "HOSTILE_REMARK",
+          "THREATEN"
+        ]
+      },
+      "kind": "behavior"
+    },
+    {
+      "baseRelevance": 0.7,
+      "candidates": [
+        {
+          "behavior": "behavior.warn",
+          "relevance": 0.65
+        },
+        {
+          "behavior": "behavior.retaliate_verbally",
+          "relevance": 0.55
+        },
+        {
+          "behavior": "behavior.deescalate",
+          "relevance": 0.35
+        },
+        {
+          "behavior": "behavior.end_conversation",
+          "relevance": 0.2
+        }
+      ],
+      "cooldownTurns": 3,
+      "entry": {
+        "op": "in",
+        "path": "stimulus.semantic.speechAct",
+        "values": [
+          "INSULT",
+          "HOSTILE_REMARK",
+          "THREATEN"
+        ]
+      },
+      "exit": {
+        "any": [
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "APOLOGIZE"
+          },
+          {
+            "op": "truthy",
+            "path": "scene.ended"
+          },
+          {
+            "op": "gte",
+            "path": "beat.turnsInBeat",
+            "value": 6
+          },
+          {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        ]
+      },
+      "group": "beat_group.social_primary",
+      "id": "beat.argument_escalation",
+      "maintain": {
+        "op": "gt",
+        "path": "history.hostilityCount",
+        "value": 0
+      },
+      "maxTurns": 6,
+      "owner": "PsychopatzCore",
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "kind": "beat"
+    },
+    {
+      "baseRelevance": 0.85,
+      "candidates": [
+        {
+          "behavior": "behavior.reconcile",
+          "relevance": 0.65
+        },
+        {
+          "behavior": "behavior.warn",
+          "relevance": 0.3
+        },
+        {
+          "behavior": "behavior.end_conversation",
+          "relevance": 0.15
+        }
+      ],
+      "cooldownTurns": 4,
+      "entry": {
+        "all": [
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "APOLOGIZE"
+          },
+          {
+            "op": "truthy",
+            "path": "pragmatic.contextualAdmission.admitted"
+          },
+          {
+            "op": "eq",
+            "path": "pragmatic.contextualAdmission.selected.relation",
+            "value": "repair"
+          }
+        ]
+      },
+      "exit": {
+        "any": [
+          {
+            "op": "gte",
+            "path": "beat.turnsInBeat",
+            "value": 2
+          },
+          {
+            "op": "truthy",
+            "path": "scene.ended"
+          },
+          {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        ]
+      },
+      "group": "beat_group.social_primary",
+      "id": "beat.reconciliation",
+      "maintain": {
+        "op": "falsy",
+        "path": "scene.ended"
+      },
+      "maxTurns": 2,
+      "owner": "PsychopatzCore",
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "kind": "beat"
+    },
+    {
+      "baseRelevance": 0.55,
+      "candidates": [
+        {
+          "behavior": "behavior.challenge",
+          "relevance": 0.6
+        },
+        {
+          "behavior": "behavior.warn",
+          "relevance": 0.45
+        },
+        {
+          "behavior": "behavior.deescalate",
+          "relevance": 0.35
+        }
+      ],
+      "cooldownTurns": 2,
+      "entry": {
+        "all": [
+          {
+            "op": "truthy",
+            "path": "scene.firstContact"
+          },
+          {
+            "op": "lte",
+            "path": "relationship.familiarity",
+            "value": 0
+          },
+          {
+            "op": "eq",
+            "path": "stimulus.semantic.intent",
+            "value": "GREET"
+          }
+        ]
+      },
+      "exit": {
+        "any": [
+          {
+            "op": "gte",
+            "path": "beat.turnsInBeat",
+            "value": 3
+          },
+          {
+            "op": "truthy",
+            "path": "scene.ended"
+          },
+          {
+            "op": "truthy",
+            "path": "world.immediateDanger"
+          }
+        ]
+      },
+      "group": "beat_group.social_primary",
+      "id": "beat.suspicious_first_contact",
+      "maintain": {
+        "op": "falsy",
+        "path": "scene.ended"
+      },
+      "maxTurns": 3,
+      "owner": "PsychopatzCore",
+      "stimuli": [
+        "HUMAN_UTTERANCE",
+        "NPC_SEMANTIC_ACT"
+      ],
+      "version": 1,
+      "kind": "beat"
+    }
+  ],
+  "schema": "psychopatz.semantic.dialogue-language.v1"
+}

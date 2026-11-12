@@ -208,6 +208,79 @@ class SemanticLabAuthoringService:
             "runtimePlan": render_psdl_runtime_plan(compiled),
         }
 
+    def list_psdl_sources(self) -> list[dict[str, Any]]:
+        """List manifest-routed PSDL sources across Core and adopter packages.
+
+        Semantic Lab uses this index for structured authoring.  The source
+        path is resolved through the manifest owner, so the UI cannot
+        accidentally write a ProjectHoomans or DynamicTrading record into
+        the Core checkout (or vice versa).
+        """
+        model = self._conversation_model()
+        manifest = model.get("manifest") or {}
+        documents = model.get("_source_documents") or {}
+        sources: list[dict[str, Any]] = []
+        for entry in manifest.get("externalShards", []):
+            if not isinstance(entry, dict) or entry.get("kind") != "psdl":
+                continue
+            owner = normalize_owner(
+                entry.get("owner"),
+                default=normalize_owner(manifest.get("defaultOwner")),
+            )
+            repository = owner_repository(
+                self.repository,
+                owner,
+                core_repository=self.core_repository,
+                dynamic_trading_repository=self.dynamic_trading_repository,
+                runtime_root=self.runtime_root,
+            )
+            source_path = repository / str(entry.get("sourcePath", entry.get("path", "")))
+            document = documents.get(entry.get("path"))
+            records = document.get("records", []) if isinstance(document, dict) else []
+            source_id = f"{owner}:{entry.get('path')}"
+            sources.append(
+                {
+                    "sourceID": source_id,
+                    "path": entry.get("path"),
+                    "sourcePath": str(source_path),
+                    "owner": owner,
+                    "domain": entry.get("domain"),
+                    "shardID": entry.get("shardId"),
+                    "sourceProfile": entry.get("sourceProfile"),
+                    "exists": source_path.is_file(),
+                    "editable": source_path.is_file(),
+                    "schema": document.get("schema") if isinstance(document, dict) else None,
+                    "recordCount": len(records) if isinstance(records, list) else 0,
+                    "recordIDs": [
+                        item.get("id")
+                        for item in records
+                        if isinstance(item, dict) and isinstance(item.get("id"), str)
+                    ],
+                }
+            )
+        return sorted(sources, key=lambda item: (str(item.get("owner")), str(item.get("path"))))
+
+    def load_psdl_source(self, source_ref: str | Path) -> dict[str, Any]:
+        """Load one manifest-routed PSDL document for structured editing."""
+        reference = str(source_ref)
+        source = next(
+            (
+                item
+                for item in self.list_psdl_sources()
+                if reference in {str(item.get("sourceID")), str(item.get("path")), str(item.get("sourcePath"))}
+            ),
+            None,
+        )
+        if source is None:
+            raise CompileError(f"unknown PSDL source: {reference}")
+        target = Path(str(source["sourcePath"])).expanduser().resolve()
+        if not target.is_file():
+            raise CompileError(f"PSDL source is missing: {target}")
+        document = json.loads(target.read_text(encoding="utf-8"))
+        if not isinstance(document, dict):
+            raise CompileError(f"PSDL source must contain an object: {target}")
+        return document
+
     @staticmethod
     def _psdl_authoring_records(document: dict[str, Any]) -> list[dict[str, Any]]:
         """Return mutable record copies for Core-owned source editing."""
@@ -399,10 +472,19 @@ class SemanticLabAuthoringService:
         if not target.is_absolute():
             target = self.repository / target
         target = target.expanduser().resolve()
-        try:
-            target.relative_to(self.repository)
-        except ValueError as error:
-            raise CompileError("PSDL source must remain inside the service repository") from error
+        allowed_roots = {
+            self.repository.resolve(),
+            self.core_repository.resolve(),
+        }
+        if self.dynamic_trading_repository is not None:
+            allowed_roots.add(self.dynamic_trading_repository.resolve())
+        if not any(
+            target == root or root in target.parents
+            for root in allowed_roots
+        ):
+            raise CompileError(
+                "PSDL source must remain inside the service or a manifest-routed package repository"
+            )
         if target.suffix.lower() != ".json":
             raise CompileError("PSDL source must be a JSON file")
         if expected_source_fingerprint and target.is_file():

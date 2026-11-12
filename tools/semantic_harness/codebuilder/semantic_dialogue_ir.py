@@ -37,6 +37,7 @@ REFERENCE_TYPES = SLOT_TYPES | frozenset({"entity.event", "entity.fact"})
 TARGET_TYPES = REFERENCE_TYPES
 CONTEXT_ROOTS = frozenset({
     "speaker", "addressee", "initiator", "observer", "participants", "target",
+    "actor", "beat",
     "relationship", "scene", "world", "slot", "reference", "conversation",
     "pragmatic", "stimulus", "history", "capability", "knowledge", "interaction",
     "flow", "social", "task", "action", "decision",

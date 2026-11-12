@@ -49,6 +49,7 @@ from .conversation_rendering import (
     render_conversation_lua_records,
     render_conversation_ui_module,
 )
+from .catalog_naming import ModuleNameRegistry, module_path
 from .conversation_discovery import (
     conversation_discovery_index,
     render_conversation_discovery_indexes,
@@ -93,6 +94,9 @@ from .generation_ownership import (
 from .psdl_compiler import (
     compile_psdl_document,
     render_psdl_director_plan,
+    render_psdl_flow_plan,
+    render_psdl_realization_plan,
+    render_psdl_response_pool_plan,
     render_psdl_semantic_pack_plan,
     render_psdl_runtime_plan,
     render_psdl_ui_plan,
@@ -215,6 +219,9 @@ def compile_conversation_sources(
     psdl_ui: list[dict[str, Any]] = []
     psdl_packs: list[dict[str, Any]] = []
     psdl_runtime_plans: list[dict[str, Any]] = []
+    psdl_response_pools: list[dict[str, Any]] = []
+    psdl_flows: list[dict[str, Any]] = []
+    psdl_realizations: list[dict[str, Any]] = []
     for compiled_psdl, entry in psdl_documents:
         for plan in render_psdl_runtime_plan(compiled_psdl):
             runtime_plan = _copy_json(plan)
@@ -241,6 +248,20 @@ def compile_conversation_sources(
             record["domain"] = entry["domain"]
             record["sourceShard"] = entry["path"]
             psdl_packs.append(record)
+        psdl_response_pools.extend(render_psdl_response_pool_plan(compiled_psdl))
+        psdl_flows.extend(render_psdl_flow_plan(compiled_psdl))
+        psdl_realizations.extend(
+            render_psdl_realization_plan(compiled_psdl, source_path=entry["path"])
+        )
+    if psdl_response_pools:
+        dialogue["responsePools"].extend(psdl_response_pools)
+        dialogue["responsePools"].sort(key=lambda item: str(item.get("id", "")))
+    if psdl_flows:
+        semantic["flows"].extend(psdl_flows)
+        semantic["flows"].sort(key=lambda item: str(item.get("id", "")))
+    if psdl_realizations:
+        realization["records"].extend(psdl_realizations)
+        realization["records"].sort(key=lambda item: str(item.get("id", "")))
     behaviors["records"].sort(key=lambda item: str(item.get("id", "")))
     beats["records"].sort(key=lambda item: str(item.get("id", "")))
     psdl_runtime_plans.sort(key=lambda item: str(item.get("id", "")))
@@ -964,28 +985,53 @@ def render_conversation_runtime_plan(
     )
     psdl_modules: list[tuple[str, str]] = []
     psdl_reports: list[dict[str, Any]] = []
+    psdl_groups: dict[tuple[str, str, str], list[dict[str, Any]]] = {}
     for plan in model.get("psdlRuntimePlans", []):
-        module = str(plan.get("module") or "")
         record_id = str(plan.get("id") or "")
-        if not module or not record_id:
-            raise CompileError("PSDL runtime plan requires module and id")
-        source = render_conversation_lua_records([plan])
-        size = len(source.encode("utf-8"))
-        if size > CONVERSATION_MAX_SHARD_BYTES:
-            raise CompileError(
-                "PSDL runtime plan renders above the generated shard budget: "
-                + record_id
+        if not record_id:
+            raise CompileError("PSDL runtime plan requires id")
+        owner = normalize_owner(plan.get("owner"))
+        kind = str(plan.get("kind") or "dialogue").lower()
+        domain = str(plan.get("domain") or "general")
+        psdl_groups.setdefault((owner, kind, domain), []).append(plan)
+
+    psdl_names = ModuleNameRegistry()
+    for (owner, kind, domain), grouped_plans in sorted(psdl_groups.items()):
+        grouped_plans.sort(key=lambda item: str(item.get("id") or ""))
+        for start in range(0, len(grouped_plans), CONVERSATION_MAX_RECORDS_PER_SHARD):
+            chunk = grouped_plans[start : start + CONVERSATION_MAX_RECORDS_PER_SHARD]
+            first_id = str(chunk[0].get("id") or "record")
+            last_id = str(chunk[-1].get("id") or first_id)
+            chunk_key = f"{owner}:{kind}:{domain}:{first_id}:{last_id}"
+            module = module_path(
+                f"{prefix}/PSDL",
+                [kind.title(), domain, "catalog"],
+                chunk_key,
+                psdl_names,
             )
-        psdl_modules.append((module, source))
-        psdl_reports.append({
-            "module": module,
-            "kind": "PSDL",
-            "domain": str(plan.get("domain") or "general"),
-            "sourceShard": str(plan.get("sourceShard") or ""),
-            "recordCount": 1,
-            "recordIDs": [record_id],
-            "bytes": size,
-        })
+            for plan in chunk:
+                plan["module"] = module
+            source = render_conversation_lua_records(chunk)
+            size = len(source.encode("utf-8"))
+            if size > CONVERSATION_MAX_SHARD_BYTES:
+                raise CompileError(
+                    "PSDL runtime plan shard renders above the generated budget: "
+                    + f"{owner}/{kind}/{domain}/{first_id}"
+                )
+            psdl_modules.append((module, source))
+            psdl_reports.append({
+                "module": module,
+                "kind": "PSDL",
+                "domain": domain,
+                "sourceShard": str(chunk[0].get("sourceShard") or ""),
+                "recordCount": len(chunk),
+                "recordIDs": [
+                    str(item.get("id"))
+                    for item in chunk
+                    if isinstance(item.get("id"), str)
+                ],
+                "bytes": size,
+            })
     ui_modules, ui_reports = _chunk_records(
         ui_records, kind="UI", module_prefix=prefix
     )
@@ -1038,6 +1084,54 @@ def render_conversation_runtime_plan(
         report["module"] = routed_module
         routed_modules.append((routed_module, source))
     modules = routed_modules
+
+    # The existing Hoomans UtterancePlan loader consumes one stable social
+    # realization discovery module. Keep that runtime contract while routing
+    # the actual flattened realization shards through the Core-owned builder.
+    # This is generated package wiring only; PSDL remains the sole source.
+    realization_entries = [
+        {
+            "kind": "realization",
+            "generated": [report["module"]],
+            "id": report["module"],
+        }
+        for report in reports
+        if report.get("kind") == "Realization"
+    ]
+    if realization_entries:
+        realization_entries.sort(key=lambda item: str(item["id"]))
+        realization_index_module = (
+            f"{prefix}/Index/Realization/Social"
+        )
+        realization_index_source = (
+            "-- Generated Conversation realization discovery index; do not edit by hand.\n"
+            "return " + _lua_value(
+                {
+                    entry["id"]: entry
+                    for entry in realization_entries
+                },
+                0,
+            ) + "\n"
+        )
+        realization_index_size = len(realization_index_source.encode("utf-8"))
+        if realization_index_size > CONVERSATION_MAX_INDEX_BYTES:
+            raise CompileError(
+                "Conversation realization discovery index exceeds the hard index budget"
+            )
+        modules.append((realization_index_module, realization_index_source))
+        reports.append({
+            "module": realization_index_module,
+            "kind": "Index",
+            "domain": "realization",
+            "indexKind": "Realization",
+            "sourceShard": "@index/realization/social",
+            "recordCount": len(realization_entries),
+            "recordIDs": [entry["id"] for entry in realization_entries],
+            "bytes": realization_index_size,
+            "shardOwner": registry_owner,
+            "owner": registry_owner,
+            "registryOwner": registry_owner,
+        })
 
     index_modules, index_reports, _ = render_conversation_discovery_indexes(
         model,

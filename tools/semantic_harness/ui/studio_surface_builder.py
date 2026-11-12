@@ -9,6 +9,7 @@ from ..studio.dataset_library import DatasetLibraryPane
 from ..studio.dialogue_content_pane import DialogueContentPane
 from ..studio.interaction_explorer_pane import InteractionExplorerPane
 from ..studio.interaction_spec_pane import InteractionSpecPane
+from ..studio.psdl_authoring_pane import PSDLAuthoringPane
 from ..studio.source_explorer_pane import CanonicalSourceExplorerPane
 from ..studio.workflow import SemanticLabWorkflowPane
 from ..studio.observatory_pane import SemanticObservatoryPane
@@ -112,7 +113,8 @@ def build_studio_editors(
     blocks_frame = ttk.Frame(advanced_notebook)
     composer_frame = ttk.Frame(advanced_notebook)
     workflow_frame = ttk.Frame(advanced_notebook)
-    for panel in (library_frame, blocks_frame, composer_frame, workflow_frame):
+    psdl_frame = ttk.Frame(advanced_notebook)
+    for panel in (library_frame, blocks_frame, composer_frame, workflow_frame, psdl_frame):
         panel.rowconfigure(0, weight=1)
         panel.columnconfigure(0, weight=1)
     advanced_notebook.add(interaction_modules_frame, text="Interaction Modules")
@@ -121,11 +123,13 @@ def build_studio_editors(
     advanced_notebook.add(blocks_frame, text="Block contracts")
     advanced_notebook.add(composer_frame, text="Interaction composer")
     advanced_notebook.add(workflow_frame, text="Workflow composer")
+    advanced_notebook.add(psdl_frame, text="PSDL authoring")
     app.interaction_modules_frame = interaction_modules_frame
     app.flow_editor_frame = flow_frame
     app.library_tab = library_frame
     app.blocks_tab = blocks_frame
     app.composer_tab = composer_frame
+    app.psdl_authoring_frame = psdl_frame
 
     app.interaction_modules = InteractionModulesPane(
         interaction_modules_frame,
@@ -195,4 +199,12 @@ def build_studio_editors(
         app.authoring_service,
         on_generate=app.generate_workflow,
         on_inspect=app.inspect_live_worker,
+    )
+    app.psdl_authoring = PSDLAuthoringPane(
+        psdl_frame,
+        app._tk,
+        ttk,
+        scrolled_text,
+        app._messagebox,
+        app.authoring_service,
     )

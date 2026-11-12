@@ -22,6 +22,41 @@ AUDIT_SCHEMA = "psychopatz.semantic.dialogue-authoring-audit.v1"
 GUARD_SCHEMA = "psychopatz.semantic.dialogue-authoring-guard.v1"
 PSDL_SCHEMA = "psychopatz.semantic.dialogue-language.v1"
 
+# Authoring evidence must describe maintained source, not interpreter/build
+# residue.  Keep this filter centralized because both the inventory and the
+# reference scan consume repository file discovery.
+_AUDIT_NOISE_PARTS = frozenset({
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".coverage",
+    "node_modules",
+})
+_AUDIT_NOISE_SUFFIXES = frozenset({
+    ".pyc",
+    ".pyo",
+    ".class",
+    ".tmp",
+    ".swp",
+    ".swo",
+    ".bak",
+    ".orig",
+})
+
+
+def _is_audit_noise(relative: str) -> bool:
+    """Return whether a path is non-source interpreter/editor/build noise."""
+    path = Path(_normalise(relative))
+    if any(part in _AUDIT_NOISE_PARTS for part in path.parts):
+        return True
+    name = path.name
+    return (
+        name.startswith("~$")
+        or name.endswith("~")
+        or path.suffix.lower() in _AUDIT_NOISE_SUFFIXES
+    )
+
 
 SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
     "PsychopatzCore": (
@@ -297,7 +332,13 @@ def _git_files(root: Path) -> list[str]:
         capture_output=True,
         text=True,
     )
-    return sorted(_normalise(line) for line in completed.stdout.splitlines() if line.strip())
+    return sorted(
+        relative
+        for relative in (
+            _normalise(line) for line in completed.stdout.splitlines() if line.strip()
+        )
+        if not _is_audit_noise(relative)
+    )
 
 
 def _git_state(root: Path) -> dict[str, Any]:
@@ -327,6 +368,7 @@ def _surface_files(root: Path, source_roots: Iterable[str]) -> list[str]:
                 _normalise(str(candidate.relative_to(root)))
                 for candidate in path.rglob("*")
                 if candidate.is_file()
+                and not _is_audit_noise(str(candidate.relative_to(root)))
             )
     return sorted(set(files))
 
@@ -385,7 +427,7 @@ def _reference_files(root: Path, files: list[str], surface: Mapping[str, Any]) -
         "generated": [],
     }
     for relative in _git_files(root):
-        if relative in source_files or relative.endswith((".pyc", ".class")):
+        if relative in source_files or _is_audit_noise(relative):
             continue
         path = root / relative
         if not path.is_file() or path.stat().st_size > 2 * 1024 * 1024:
