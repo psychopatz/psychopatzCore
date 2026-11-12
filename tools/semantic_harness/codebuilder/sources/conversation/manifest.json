@@ -310,6 +310,16 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_check_in.json",
       "shardId": "conversation.psdl.social.check_in",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_settlement_admission",
+      "kind": "psdl",
+      "order": 2305,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_settlement_admission.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_settlement_admission.json",
+      "shardId": "conversation.psdl.social.settlement_admission",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {

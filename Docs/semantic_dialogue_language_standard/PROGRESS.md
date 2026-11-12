@@ -109,6 +109,13 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - The superseded Hoomans ask-about definition and three Core-owned ask-about text sources/generated catalogs were removed. Exact caller/reference-zero and frozen-old-surface checks pass.
 - Hoomans conversation smoke, Core 109-test harness, DynamicTrading conversation/adopter smokes, S0 three-repository audit/guard, and changed Conversation Kahlua scans pass.
 
+## S5 settlement-admission migration chunk
+
+- ProjectHoomans now owns the final `psdl/dialogue/social_settlement_admission.json` record, with three preserved opening variants and the accepted-response text row.
+- The adopter adapter projects the shared `relationship.settlementVisit.active` predicate to the existing `pnc:settlement_visit` authority gate and preserves the existing admission request, server authority, diary, and relationship-refresh flow.
+- The superseded Hoomans settlement-admission definition and Core-owned arrival text source/generated catalogs were removed. EN/TL parity covers all 8 legacy entries, with exact caller/reference-zero evidence.
+- Hoomans settlement selector/variant/gate smoke, Core 109-test harness, DynamicTrading conversation/adopter smokes, S0 three-repository audit/guard, and changed Conversation Kahlua scans pass.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -135,7 +142,7 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 ## Next Chunk
 
-Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: commit the current ask-about chunk in adopter repositories first, then migrate the next coherent maintained domain, prove parity and caller/reference zero, and remove its superseded source. Prior adopter chunks, Core static-suggestion/runtime-plan/social-check-in work, greetings, and ask-about remain bounded S5 checkpoints; S5-S8 remain open.
+Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: commit the current settlement-admission chunk in adopter repositories first, then migrate the next coherent maintained domain, prove parity and caller/reference zero, and remove its superseded source. Prior adopter chunks, Core static-suggestion/runtime-plan/social-check-in work, greetings, ask-about, and settlement admission remain bounded S5 checkpoints; S5-S8 remain open.
 
 ## Evidence status
 

@@ -1,40 +1,12 @@
 {
-  "generatedAtUtc": "2026-11-12T15:08:38.127222+00:00",
+  "generatedAtUtc": "2026-11-12T15:20:07.979453+00:00",
   "guard": {
     "passed": true,
     "repositories": [
       {
         "accepted": [
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationText.lua",
-            "reason": "outside_frozen_authoring_root"
-          },
-          {
             "path": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/ask_about/member.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/ask_about/neutral.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/ask_about/special.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/ask_about/member.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/ask_about/neutral.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/ask_about/special.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -66,33 +38,16 @@
             "reason": "manifest_control_plane"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/ask_about/background.json",
-            "reason": "superseded_source_removal"
-          },
-          {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/ask_about/opening.json",
-            "reason": "superseded_source_removal"
-          },
-          {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/ask_about/skills.json",
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/settlement_admission/arrival.json",
             "reason": "superseded_source_removal"
           }
         ],
         "changed_paths": [
-          "Contents/mods/PsychopatzCore/common/media/lua/client/PsychopatzCore/UI/Conversation/PsychopatzConversationText.lua",
           "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry.lua",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/ask_about/member.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/ask_about/neutral.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/ask_about/special.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/ask_about/member.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/ask_about/neutral.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/ask_about/special.json",
           "tools/semantic_harness/codebuilder/README.md",
           "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
           "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/ask_about/background.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/ask_about/opening.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/ask_about/skills.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/settlement_admission/arrival.json",
           "Docs/semantic_dialogue_language_standard/AGENT_RUNBOOK.md",
           "Docs/semantic_dialogue_language_standard/ARCHITECTURE.md",
           "Docs/semantic_dialogue_language_standard/LANGUAGE_SPEC.md",
@@ -105,7 +60,7 @@
       {
         "accepted": [
           {
-            "path": "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Conversation/Blocks/ConversationComposer/PNC_ConversationComposer_Context.lua",
+            "path": "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Conversation/Blocks/ConversationComposer/PNC_ConversationComposer_SettlementAdmission.lua",
             "reason": "outside_frozen_authoring_root"
           },
           {
@@ -113,7 +68,7 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/60_PNC_ConversationAskAbout.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/21_PNC_ConversationSettlementAdmission.lua",
             "reason": "superseded_source_removal"
           },
           {
@@ -121,7 +76,7 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialSettlementAdmission.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -133,15 +88,7 @@
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_member.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_neutral.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_special.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_settlement_admission.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -149,27 +96,19 @@
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/ask_about/member.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/settlement_admission/arrival.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/ask_about/neutral.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/greetings/settlement_admission/arrival.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/ask_about/special.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/settlement_admission/arrival.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/ask_about/member.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/ask_about/neutral.json",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/ask_about/special.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/greetings/settlement_admission/arrival.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -221,18 +160,24 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_ask_about.json",
+            "path": "tests/pnc_conversation_smoke.lua",
+            "reason": "outside_frozen_authoring_root"
+          },
+          {
+            "path": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_settlement_admission.json",
             "reason": "psdl_record"
           }
         ],
         "changed_paths": [
-          "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Conversation/Blocks/ConversationComposer/PNC_ConversationComposer_Context.lua",
+          "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Conversation/Blocks/ConversationComposer/PNC_ConversationComposer_SettlementAdmission.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Composition/PNC_ConversationAdopterDefinitions.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/60_PNC_ConversationAskAbout.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/21_PNC_ConversationSettlementAdmission.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/PSDL/PNC_ConversationPSDLBlocks.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Registry.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Registry.lua",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/greetings/settlement_admission/arrival.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/greetings/settlement_admission/arrival.json",
           "docs/Jobs/PragmaticDialogueBeatDirector/ARCHITECTURE.md",
           "docs/Jobs/SemanticSocialConversationDirector/ARCHITECTURE.md",
           "docs/Jobs/SemanticSocialConversationDirector/ROADMAP.md",
@@ -244,18 +189,13 @@
           "docs/Jobs/UnifiedSemanticDialogueAuthority/PROGRESS.md",
           "docs/Jobs/UnifiedSemanticDialogueAuthority/README.md",
           "docs/Jobs/UnifiedSemanticDialogueAuthority/ROADMAP.md",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_member.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_neutral.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_ask_about_special.lua",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/ask_about/member.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/ask_about/neutral.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/ask_about/special.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/ask_about/member.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/ask_about/neutral.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/ask_about/special.json",
+          "tests/pnc_conversation_smoke.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialSettlementAdmission.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_settlement_admission.lua",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/settlement_admission/arrival.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/settlement_admission/arrival.json",
           "docs/Jobs/SemanticDialogueLanguageStandard/README.md",
-          "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_ask_about.json"
+          "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_settlement_admission.json"
         ],
         "repository": "ProjectHoomans",
         "root": "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
@@ -303,8 +243,8 @@
     {
       "git": {
         "dirty": true,
-        "head": "a422a20c1adbf507aff7bd0df14b2deaf6cbfe95",
-        "statusCount": 18
+        "head": "a68150eeb56604333e69bb36b754e7c9ed53d0c6",
+        "statusCount": 9
       },
       "name": "PsychopatzCore",
       "root": "/home/psychopatz/Zomboid/Workshop/psychopatzCore",
@@ -313,8 +253,8 @@
     {
       "git": {
         "dirty": true,
-        "head": "0d00c8ff0d3e8be1d5b2aa85e0a0a0141a178628",
-        "statusCount": 26
+        "head": "4de3a9b6d6d9678421c98b1b62cb35fad41023e4",
+        "statusCount": 27
       },
       "name": "ProjectHoomans",
       "root": "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
@@ -323,7 +263,7 @@
     {
       "git": {
         "dirty": true,
-        "head": "5df64e8e9a0a3529d144a2c95211cc39a8819fdc",
+        "head": "33f4339d49db81e2de5edecab9601331ea751e9e",
         "statusCount": 5
       },
       "name": "DynamicTrading",
@@ -769,7 +709,6 @@
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/departure/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/goodbye/closing.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/ambient_visit/arrival.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/settlement_admission/arrival.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/identity/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/personal/trust.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/recruitment/response.json",
@@ -787,17 +726,17 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 220,
+          ".json": 219,
           ".md": 1,
           ".py": 49,
           ".pyc": 99
         },
-        "fileCount": 369,
+        "fileCount": 368,
         "invalidJsonCount": 0,
-        "jsonFileCount": 220,
+        "jsonFileCount": 219,
         "owners": {
           "DTCommon": 2,
-          "ProjectHoomans": 88,
+          "ProjectHoomans": 87,
           "PsychopatzCore": 126
         },
         "schemas": {
@@ -805,9 +744,9 @@
           "psychopatz.semantic.dialogue-language.v1": 2,
           "psychopatz.semantic.shard.v3": 170,
           "psychopatz.semantic.text-source.manifest.v1": 1,
-          "psychopatz.semantic.text-source.v1": 44
+          "psychopatz.semantic.text-source.v1": 43
         },
-        "totalBytes": 3576309
+        "totalBytes": 3574776
       }
     },
     {
@@ -1224,7 +1163,6 @@
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/departure/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/goodbye/closing.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/ambient_visit/arrival.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/settlement_admission/arrival.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/identity/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/personal/trust.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/recruitment/response.json",
@@ -1239,14 +1177,14 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 218
+          ".json": 217
         },
-        "fileCount": 218,
+        "fileCount": 217,
         "invalidJsonCount": 0,
-        "jsonFileCount": 218,
+        "jsonFileCount": 217,
         "owners": {
           "DTCommon": 2,
-          "ProjectHoomans": 88,
+          "ProjectHoomans": 87,
           "PsychopatzCore": 126
         },
         "schemas": {
@@ -1254,9 +1192,9 @@
           "psychopatz.semantic.dialogue-language.v1": 2,
           "psychopatz.semantic.shard.v3": 170,
           "psychopatz.semantic.text-source.manifest.v1": 1,
-          "psychopatz.semantic.text-source.v1": 44
+          "psychopatz.semantic.text-source.v1": 43
         },
-        "totalBytes": 1369263
+        "totalBytes": 1367730
       }
     },
     {
@@ -1397,7 +1335,6 @@
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/departure/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/goodbye/closing.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/ambient_visit/arrival.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/settlement_admission/arrival.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/identity/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/personal/trust.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/recruitment/response.json",
@@ -1410,21 +1347,21 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 45
+          ".json": 44
         },
-        "fileCount": 45,
+        "fileCount": 44,
         "invalidJsonCount": 0,
-        "jsonFileCount": 45,
+        "jsonFileCount": 44,
         "owners": {
           "DTCommon": 2,
-          "ProjectHoomans": 3,
+          "ProjectHoomans": 2,
           "PsychopatzCore": 39
         },
         "schemas": {
           "psychopatz.semantic.text-source.manifest.v1": 1,
-          "psychopatz.semantic.text-source.v1": 44
+          "psychopatz.semantic.text-source.v1": 43
         },
-        "totalBytes": 74191
+        "totalBytes": 72174
       }
     },
     {
@@ -1749,6 +1686,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialGreetings.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialSettlementAdmission.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Trading.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Flow/Semantic.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/FlowDefinition/Semantic.lua",
@@ -1792,6 +1730,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunrise.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunset.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_twilight.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_settlement_admission.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_member.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_neutral.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_special.lua",
@@ -1849,7 +1788,6 @@
       "source_files": [
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/01_PNC_ConversationDefinitionHelpers.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/10_PNC_ConversationCategories.lua",
-        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/21_PNC_ConversationSettlementAdmission.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/70_PNC_ConversationNeeds.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/90_PNC_ConversationWorkOrders.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/91_PNC_ConversationPersonal.lua",
@@ -1942,15 +1880,15 @@
       ],
       "source_summary": {
         "extensions": {
-          ".lua": 88,
+          ".lua": 87,
           ".md": 1
         },
-        "fileCount": 89,
+        "fileCount": 88,
         "invalidJsonCount": 0,
         "jsonFileCount": 0,
         "owners": {},
         "schemas": {},
-        "totalBytes": 45629
+        "totalBytes": 44938
       }
     },
     {
@@ -2114,6 +2052,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialGreetings.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialSettlementAdmission.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Trading.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Flow/Semantic.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/FlowDefinition/Semantic.lua",
@@ -2157,6 +2096,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunrise.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunset.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_twilight.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_settlement_admission.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_member.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_neutral.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_special.lua",
@@ -2215,6 +2155,7 @@
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunrise.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunset.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/twilight.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/settlement_admission/arrival.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/dawn.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/dusk.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/sunrise.json",
@@ -2226,7 +2167,6 @@
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/member.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/neutral.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/special.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/greetings/settlement_admission/arrival.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/territory/member/claim.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/work_orders/member/status.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/UI.json",
@@ -2292,6 +2232,7 @@
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunrise.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunset.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/twilight.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/settlement_admission/arrival.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/dawn.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/dusk.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/sunrise.json",
@@ -2303,7 +2244,6 @@
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/member.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/neutral.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/special.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/greetings/settlement_admission/arrival.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/territory/member/claim.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/work_orders/member/status.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/UI.json",
@@ -2331,14 +2271,14 @@
       "source_summary": {
         "extensions": {
           ".json": 155,
-          ".lua": 162
+          ".lua": 164
         },
-        "fileCount": 317,
+        "fileCount": 319,
         "invalidJsonCount": 0,
         "jsonFileCount": 155,
         "owners": {},
         "schemas": {},
-        "totalBytes": 4154467
+        "totalBytes": 4161289
       }
     },
     {
@@ -2391,6 +2331,7 @@
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialAskAbout.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialGreetings.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialSettlementAdmission.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Flow/Semantic.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/FlowDefinition/Semantic.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Pattern/Semantic.lua",
@@ -2423,6 +2364,7 @@
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunrise.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunset.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_twilight.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_settlement_admission.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_member.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_neutral.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_special.lua",
@@ -5803,7 +5745,7 @@
         "jsonFileCount": 1,
         "owners": {},
         "schemas": {},
-        "totalBytes": 21673612
+        "totalBytes": 21673629
       }
     },
     {

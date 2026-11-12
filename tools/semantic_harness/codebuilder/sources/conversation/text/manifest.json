@@ -178,11 +178,6 @@
       "owner": "PsychopatzCore"
     },
     {
-      "path": "social/greetings/settlement_admission/arrival.json",
-      "sourceId": "conversation.content.social.greetings.settlement.admission.arrival",
-      "owner": "ProjectHoomans"
-    },
-    {
       "path": "social/personal/trust.json",
       "sourceId": "conversation.content.social.personal.trust",
       "owner": "PsychopatzCore"
