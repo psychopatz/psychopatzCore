@@ -31,6 +31,8 @@ from .translation_support import (
     pretty_json,
 )
 from .rule_contract import (
+    PREDICATE_OPERATORS,
+    normalize_predicate,
     validate_predicate,
     validate_scalar_conditions,
     validate_source_refs,
@@ -56,6 +58,17 @@ from .conversation_assembler import (
 from .conversation_source_audit import (
     audit_conversation_sources,
 )
+from .semantic_dialogue_ir import (
+    CANONICAL_IR_SCHEMA,
+    canonical_ir_fingerprint,
+    canonicalize_dialogue,
+    normalize_participants,
+    normalize_references,
+    normalize_slots,
+    normalize_target,
+    validate_canonical_ir,
+    validate_context_path,
+)
 
 __all__ = [
     "CatalogNameError",
@@ -75,6 +88,8 @@ __all__ = [
     "normalize_translations",
     "pascal_segment",
     "pretty_json",
+    "PREDICATE_OPERATORS",
+    "normalize_predicate",
     "source_owned_module",
     "validate_predicate",
     "validate_scalar_conditions",
@@ -93,4 +108,13 @@ __all__ = [
     "runtime_records",
     "assemble_shards",
     "audit_conversation_sources",
+    "CANONICAL_IR_SCHEMA",
+    "canonical_ir_fingerprint",
+    "canonicalize_dialogue",
+    "normalize_participants",
+    "normalize_references",
+    "normalize_slots",
+    "normalize_target",
+    "validate_canonical_ir",
+    "validate_context_path",
 ]

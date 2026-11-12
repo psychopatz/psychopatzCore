@@ -15,53 +15,20 @@ from .conversation_contract import CONVERSATION_MAX_RECORDS_PER_SHARD
 from .conversation_ui_contract import validate_ui_shard
 from .errors import CompileError
 from .generation_ownership import normalize_owner
-
-
-_DIRECTOR_PREDICATE_OPS = frozenset((
-    "eq", "neq", "gt", "gte", "lt", "lte", "in", "not_in", "truthy", "falsy",
-))
+from .rule_contract import normalize_predicate
 
 
 def _validate_director_predicate(value: Any, label: str, *, depth: int = 0) -> dict[str, Any]:
-    if not isinstance(value, dict):
+    normalized = normalize_predicate(
+        value,
+        label,
+        depth,
+        max_depth=4,
+        max_items=16,
+    )
+    if not isinstance(normalized, dict):
         raise CompileError(f"{label} must be an object")
-    if depth > 4:
-        raise CompileError(f"{label} exceeds predicate depth")
-    structural = [key for key in ("all", "any", "not") if key in value]
-    if structural:
-        if len(structural) != 1 or len(value) != 1:
-            raise CompileError(f"{label} must contain exactly one structural predicate")
-        key = structural[0]
-        if key == "not":
-            return {"not": _validate_director_predicate(value[key], f"{label}.not", depth=depth + 1)}
-        items = value[key]
-        if not isinstance(items, list) or not items or len(items) > 16:
-            raise CompileError(f"{label}.{key} must contain 1-16 predicates")
-        return {
-            key: [
-                _validate_director_predicate(item, f"{label}.{key}[{index}]", depth=depth + 1)
-                for index, item in enumerate(items)
-            ]
-        }
-    path = value.get("path")
-    op = value.get("op")
-    if not isinstance(path, str) or not path or len(path) > 128:
-        raise CompileError(f"{label}.path must be a bounded field path")
-    if op not in _DIRECTOR_PREDICATE_OPS:
-        raise CompileError(f"{label}.op is unsupported: {op!r}")
-    result: dict[str, Any] = {"path": path, "op": op}
-    if op in ("truthy", "falsy"):
-        return result
-    if op in ("in", "not_in"):
-        values = value.get("values")
-        if not isinstance(values, list) or not values or len(values) > 16:
-            raise CompileError(f"{label}.values must contain 1-16 values")
-        result["values"] = _copy_json(values)
-        return result
-    if "value" not in value:
-        raise CompileError(f"{label}.value is required")
-    result["value"] = _copy_json(value["value"])
-    return result
+    return normalized
 
 def _validate_behavior_shard(
     document: dict[str, Any],

@@ -1,8 +1,8 @@
 # Progress — Psychopatz Semantic Dialogue Language Standard
 
-**Status:** IN PROGRESS — S0 ACCEPTED; continuing automatically through S1-S8.
+**Status:** IN PROGRESS — S0-S1 ACCEPTED; continuing automatically through S2-S8.
 **Branch:** existing `main` in each participant repository.
-**Active phase:** S1 — canonical IR, reference model and predicate v2.
+**Active phase:** S2 — PSDL parser/compiler and language validation.
 **Developer completion boundary:** S8.
 
 ## Current verified architecture
@@ -33,6 +33,15 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - `psdl_authoring_audit.py --check` passes against the current Core, ProjectHoomans and DynamicTrading worktrees.
 - The focused guard rejects changed first-party authoring under each frozen old root while accepting Core-compiled PSDL records, generated outputs and compatibility adapters outside those roots.
 
+## S1 acceptance now verified
+
+- Core owns the actor-neutral canonical IR contract with `speaker`, `addressee`, `target`, bounded participants, typed slots/references, public context paths and stable schema validation.
+- Core owns the single normalized predicate contract across dialogue/runtime validation, including scalar/logical operations and bounded `contains`, `not_contains`, `contains_any`, and `contains_all` operations.
+- ProjectHoomans' former generic predicate evaluator is now a thin compatibility seam to the Core evaluator; its suggestion predicate façade remains an adopter alias rather than a second implementation.
+- Controlled Lua fixtures pass for NPC→player and player→NPC actor swaps, generic target references, typed slot/reference projections, collection predicates and fail-closed private paths.
+- Core semantic harness tests pass: 100 tests; the focused S1 contract suite is included. Changed Lua runtime and harness files pass the Kahlua error scan.
+- DynamicTrading was re-inspected in the same phase; its trader pack/static suggestions remain migration input and do not gain a parallel predicate/IR implementation.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -59,18 +68,18 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 ## Next Chunk
 
-Execute **S1** in PsychopatzCore: implement the actor-neutral Canonical
-Semantic Dialogue IR, typed participant/reference/slot contracts, public
-context paths, shared predicate normalization and bounded collection
-operations. Preserve the accepted evaluator and prove actor-swapped fixtures
-before closing the phase.
+Execute **S2** in PsychopatzCore: implement the canonical
+`psychopatz.semantic.dialogue-language.v1` parser/compiler and language
+validation on top of the accepted Core IR and predicate contracts. Keep
+ProjectHoomans and DynamicTrading as consumers of the Core implementation.
 
 ## Evidence status
 
 - `CODE_VERIFIED`: runtime capabilities listed above were inspected in current source before this roadmap was written.
 - `STATIC_ONLY`: PSDL source/compiler does not exist yet as the canonical production standard.
 - `TEST_VERIFIED`: S0 guard and focused audit tests pass; the current three-repository guard pass is recorded in the inventory.
-- `STATIC_ONLY`: S1–S8 implementation gates remain open.
+- `TEST_VERIFIED`: S1 Core/adopter contract fixtures and the full 100-test semantic harness pass; changed Lua files pass Kahlua verification.
+- `STATIC_ONLY`: S2–S8 implementation gates remain open.
 
 ## Stop conditions
 

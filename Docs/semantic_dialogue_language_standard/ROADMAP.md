@@ -1,6 +1,6 @@
 # Roadmap — Psychopatz Semantic Dialogue Language Standard
 
-**Parent status:** IN PROGRESS — S0 ACCEPTED; continuing automatically through S1-S8.
+**Parent status:** IN PROGRESS — S0-S1 ACCEPTED; continuing automatically through S2-S8.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/DynamicTrading`
@@ -54,6 +54,11 @@ Add a guard that prevents **new** first-party authoring from being added to froz
 
 ## S1 — canonical IR, reference model and predicate v2
 
+**Status:** ACCEPTED on 2026-11-12. Core owns the canonical IR and shared
+predicate contract; the ProjectHoomans generic evaluator now routes through
+Core, DynamicTrading was audited without adding a duplicate mechanism, and
+the actor-swapped contract gate passes.
+
 Implement the shared canonical Semantic Dialogue IR and actor-neutral reference model **in PsychopatzCore**. Adopters may project their domain context into this Core contract; they may not implement parallel IR/predicate/reference engines.
 
 Required:
@@ -70,6 +75,11 @@ Required:
 Preserve existing predicate/runtime behavior through adapters where necessary, but do not create a second evaluator.
 
 **Gate:** controlled fixtures prove the same predicate/dialogue context works with player↔NPC and NPC↔NPC actor swaps, including trait, gender/identity, relationship, role/capability and situation constraints.
+
+**Evidence:** `tools/semantic_harness/codebuilder/semantic_dialogue_ir.py`,
+the Core Lua semantic IR/predicate/state contracts, the Hoomans Core predicate
+seam, and `tests/psychopatz_semantic_dialogue_contract_smoke.lua`; 100 Core
+semantic harness tests and the changed-file Kahlua scan pass.
 
 ## S2 — PSDL parser/compiler and language validation
 

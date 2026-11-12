@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import math
 import re
-from collections.abc import Collection
+import copy
+from collections.abc import Collection, Mapping
 from typing import Any
 
 from .errors import CompileError
@@ -20,6 +21,23 @@ _PREDICATE_FIELDS = {
     "value",
     "values",
 }
+PREDICATE_OPERATORS = frozenset({
+    "exists", "eq", "equals", "neq", "not_equals", "in", "not_in",
+    "gt", "gte", "lt", "lte", "truthy", "falsy",
+    "contains", "not_contains", "contains_any", "contains_all",
+})
+_OPERATOR_ALIASES = {
+    "==": "eq",
+    "=": "eq",
+    "!=": "neq",
+    ">": "gt",
+    ">=": "gte",
+    "<": "lt",
+    "<=": "lte",
+}
+_GROUP_OPERATORS = frozenset({"all", "any", "not"})
+_VALUES_OPERATORS = frozenset({"in", "not_in", "contains_any", "contains_all"})
+_NO_VALUE_OPERATORS = frozenset({"exists", "truthy", "falsy"})
 _ARGUMENT_NAME = re.compile(r"[a-z][a-zA-Z0-9_]{0,31}")
 
 
@@ -60,7 +78,7 @@ def validate_predicate(
     if unsupported:
         raise CompileError(
             f"{label} contains unsupported predicate fields: "
-            + ", ".join(sorted(unsupported))
+            + ", ".join(sorted((str(item) for item in unsupported)))
         )
     structural = [key for key in ("all", "any", "not") if key in value]
     has_leaf = "path" in value or "field" in value
@@ -97,11 +115,36 @@ def validate_predicate(
             max_depth=max_depth,
             max_items=max_items,
         )
+    if structural:
+        return value
     if "path" in value and "field" in value:
         raise CompileError(f"{label} cannot contain both path and field")
     for key in ("path", "field", "op"):
         if key in value and (not isinstance(value[key], str) or not value[key]):
             raise CompileError(f"{label}.{key} must be a non-empty string")
+    if "path" not in value and "field" not in value:
+        raise CompileError(f"{label} requires path or field")
+    operation = str(value.get("op", "eq")).lower()
+    if operation not in PREDICATE_OPERATORS:
+        raise CompileError(f"{label}.op is unsupported: {operation!r}")
+    if operation in _NO_VALUE_OPERATORS:
+        if "value" in value or "values" in value:
+            raise CompileError(f"{label}.{operation} does not accept a value")
+        return value
+    if operation in _VALUES_OPERATORS:
+        values = value.get("values", value.get("value"))
+        if not isinstance(values, list) or not values or len(values) > max_items:
+            raise CompileError(
+                f"{label}.values must contain 1..{max_items} scalar values"
+            )
+        if any(
+            not isinstance(item, (str, int, float, bool)) or item is None
+            for item in values
+        ):
+            raise CompileError(f"{label}.values must contain scalar values")
+        return value
+    if "value" not in value:
+        raise CompileError(f"{label}.value is required for {operation}")
     if "values" in value:
         values = value["values"]
         if not isinstance(values, list) or len(values) > max_items:
@@ -119,6 +162,158 @@ def validate_predicate(
     ):
         raise CompileError(f"{label}.value must be a scalar value")
     return value
+
+
+def _normalize_operator(value: Any, label: str) -> str:
+    operation = str(value or "").strip().lower()
+    operation = _OPERATOR_ALIASES.get(operation, operation)
+    if operation not in PREDICATE_OPERATORS:
+        raise CompileError(f"{label} contains unsupported predicate operator {value!r}")
+    return operation
+
+
+def _normalize_leaf(
+    value: Mapping[str, Any],
+    label: str,
+    *,
+    max_items: int = 8,
+) -> dict[str, Any]:
+    unsupported = set(value) - _PREDICATE_FIELDS
+    if unsupported:
+        raise CompileError(
+            f"{label} contains unsupported predicate fields: "
+            + ", ".join(sorted(unsupported))
+        )
+    if "path" in value and "field" in value:
+        raise CompileError(f"{label} cannot contain both path and field")
+    path = value.get("path", value.get("field"))
+    if not isinstance(path, str) or not path.strip() or len(path) > 128:
+        raise CompileError(f"{label}.path must be a bounded field path")
+    operation = _normalize_operator(value.get("op", "eq"), f"{label}.op")
+    output: dict[str, Any] = {"path": path.strip(), "op": operation}
+    if operation in _NO_VALUE_OPERATORS:
+        if "value" in value or "values" in value:
+            raise CompileError(f"{label}.{operation} does not accept a value")
+        return output
+    if operation in _VALUES_OPERATORS:
+        values = value.get("values", value.get("value"))
+        if not isinstance(values, list) or not values or len(values) > max_items:
+            raise CompileError(
+                f"{label}.values must contain 1..{max_items} scalar values"
+            )
+        if any(
+            not isinstance(item, (str, int, float, bool)) or item is None
+            for item in values
+        ):
+            raise CompileError(f"{label}.values must contain scalar values")
+        output["values"] = copy.deepcopy(values)
+        return output
+    if "value" not in value:
+        raise CompileError(f"{label}.value is required")
+    if "values" in value:
+        raise CompileError(f"{label}.{operation} accepts value, not values")
+    if (
+        not isinstance(value["value"], (str, int, float, bool))
+        or value["value"] is None
+    ):
+        raise CompileError(f"{label}.value must be a scalar value")
+    output["value"] = copy.deepcopy(value["value"])
+    return output
+
+
+def normalize_predicate(
+    value: Any,
+    label: str = "predicate",
+    depth: int = 0,
+    *,
+    max_depth: int = 6,
+    max_items: int = 8,
+) -> Any:
+    """Normalize explicit and friendly predicate forms to one canonical AST.
+
+    The normalizer is shared by dialogue, variants, offers, behaviors and
+    beats.  It only produces bounded data; runtime evaluation remains a
+    consumer of this contract.
+    """
+    if value is None:
+        return None
+    if depth > max_depth or not isinstance(value, dict):
+        raise CompileError(f"{label} must be a bounded predicate object")
+    structural = [key for key in _GROUP_OPERATORS if key in value]
+    if structural:
+        if len(structural) != 1 or len(value) != 1:
+            raise CompileError(f"{label} has an invalid predicate shape")
+        key = structural[0]
+        if key == "not":
+            return {"not": normalize_predicate(
+                value[key],
+                f"{label}.not",
+                depth + 1,
+                max_depth=max_depth,
+                max_items=max_items,
+            )}
+        items = value[key]
+        if not isinstance(items, list) or not items or len(items) > max_items:
+            raise CompileError(f"{label}.{key} must contain 1..{max_items} predicates")
+        return {
+            key: [
+                normalize_predicate(item, f"{label}.{key}[{index}]", depth + 1, max_depth=max_depth, max_items=max_items)
+                for index, item in enumerate(items)
+            ]
+        }
+    if "path" in value or "field" in value or "op" in value:
+        return _normalize_leaf(value, label, max_items=max_items)
+
+    # Friendly sugar is a mapping of field paths to either a scalar (eq) or
+    # an operation map, for example {"speaker.traits": {"contains": "Brave"}}.
+    if not value:
+        raise CompileError(f"{label} must not be empty")
+    leaves: list[dict[str, Any]] = []
+    for path in sorted(value, key=lambda item: str(item)):
+        if not isinstance(path, str) or not path.strip():
+            raise CompileError(f"{label} contains an invalid field path")
+        specification = value[path]
+        if not isinstance(specification, dict):
+            leaves.append(_normalize_leaf(
+                {"path": path, "op": "eq", "value": specification},
+                f"{label}.{path}",
+                max_items=max_items,
+            ))
+            continue
+        if not specification:
+            raise CompileError(f"{label}.{path} must contain an operator")
+        if "op" in specification:
+            if "path" in specification or "field" in specification:
+                raise CompileError(
+                    f"{label}.{path} operation maps cannot redefine the field path"
+                )
+            leaves.append(_normalize_leaf(
+                {"path": path, **specification},
+                f"{label}.{path}",
+                max_items=max_items,
+            ))
+            continue
+        for operator in sorted(specification, key=lambda item: str(item)):
+            operation = _normalize_operator(operator, f"{label}.{path}")
+            argument = specification[operator]
+            leaf: dict[str, Any] = {"path": path, "op": operation}
+            if operation in _NO_VALUE_OPERATORS:
+                if argument not in (None, True):
+                    raise CompileError(f"{label}.{path}.{operator} does not accept an argument")
+            elif operation in _VALUES_OPERATORS:
+                leaf["values"] = argument
+            else:
+                leaf["value"] = argument
+            leaves.append(_normalize_leaf(
+                leaf,
+                f"{label}.{path}.{operator}",
+                max_items=max_items,
+            ))
+    if len(leaves) == 1:
+        return leaves[0]
+    if len(leaves) > max_items:
+        raise CompileError(f"{label} contains more than {max_items} predicates")
+    return {"all": leaves}
 
 
 def validate_typed_arguments(
@@ -189,6 +384,8 @@ def validate_scalar_conditions(
 
 
 __all__ = [
+    "PREDICATE_OPERATORS",
+    "normalize_predicate",
     "validate_predicate",
     "validate_scalar_conditions",
     "validate_source_refs",
