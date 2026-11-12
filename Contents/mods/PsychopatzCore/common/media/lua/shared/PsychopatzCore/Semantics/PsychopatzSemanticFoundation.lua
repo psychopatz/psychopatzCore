@@ -114,6 +114,55 @@ function Foundation.GetStaticSuggestions(context)
     return output
 end
 
+local function stableIndex(seed, count)
+    count = tonumber(count) or 0
+    if count <= 0 then return nil end
+    seed = tostring(seed or "")
+    if seed == "" then return 1 end
+    local total = 0
+    for index = 1, #seed do
+        total = total + (string.byte(seed, index) or 0)
+    end
+    return (total % count) + 1
+end
+
+local function selectedVariant(variants, options)
+    if type(variants) ~= "table" or #variants == 0 then return nil end
+    options = type(options) == "table" and options or {}
+    local index = tonumber(options.index)
+    if index == nil then
+        index = stableIndex(options.seed, #variants)
+    end
+    index = math.floor(index or 1)
+    if index < 1 then index = 1 end
+    return variants[((index - 1) % #variants) + 1]
+end
+
+function Foundation.GetResponse(poolID, options)
+    poolID = tostring(poolID or "")
+    for _, pool in ipairs(Registry.RESPONSE_POOLS or {}) do
+        if type(pool) == "table" and tostring(pool.id or "") == poolID then
+            return clone(selectedVariant(pool.variants, options))
+        end
+    end
+    return nil
+end
+
+function Foundation.GetPhrase(templateID, style, options)
+    local family, phrases, selectedStyle = Registry.FamilyFor(
+        tostring(templateID or ""),
+        style
+    )
+    if type(phrases) ~= "table" then return nil end
+    local phrase = selectedVariant(phrases, options)
+    if type(phrase) ~= "table" then return nil end
+    local output = clone(phrase)
+    output.templateID = output.templateID or templateID
+    output.style = selectedStyle
+    output.familyID = family and family.id
+    return output
+end
+
 function Foundation.IsAvailable()
     return Foundation.Registered == true
         and type(Registry) == "table"

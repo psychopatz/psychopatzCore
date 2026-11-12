@@ -166,6 +166,13 @@ def document_owner(
 
 
 def source_owner(model: dict[str, Any], source_shard: str | None) -> str:
+    for report in model.get("shards") or []:
+        if (
+            isinstance(report, dict)
+            and str(report.get("path") or "") == str(source_shard or "")
+            and report.get("owner")
+        ):
+            return normalize_owner(report["owner"])
     documents = model.get("_source_documents") or {}
     document = documents.get(str(source_shard or ""))
     manifest = model.get("manifest")

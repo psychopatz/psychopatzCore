@@ -54,7 +54,11 @@ def _hydrate_shard_provenance(
     # object. It is reconstructed in memory only; the authoring shard remains
     # free of the old inline source envelope.
     document["source"] = _copy_json(profile)
-    document["source"].setdefault("owner", entry["owner"])
+    # The manifest entry is the ownership authority. A source profile may be
+    # shared by shards that route to different packages, so retaining the
+    # profile's historical owner would silently emit a shard into the wrong
+    # repository.
+    document["source"]["owner"] = entry["owner"]
     document["version"] = document["source"].get("version", "1")
 
 def _compile_shard(

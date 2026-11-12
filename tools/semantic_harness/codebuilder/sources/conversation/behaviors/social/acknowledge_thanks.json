@@ -3,7 +3,7 @@
   "shardId": "conversation.behaviors.social.acknowledge.thanks",
   "kind": "behaviors",
   "domain": "social",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.d587a67cc2",
   "behaviors": [
     {
@@ -28,7 +28,7 @@
           "dialogueAct": "ACKNOWLEDGE"
         }
       },
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "requiredCapabilities": [
         "speech"
       ],

@@ -3,13 +3,13 @@
   "shardId": "conversation.behaviors.social.scene.runtime.adopters",
   "kind": "behaviors",
   "domain": "social",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.scene.runtime.adopters.3354ce55df",
   "behaviors": [
     {
       "id": "behavior.scene_horde_prompt",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "COMBAT_HORDE_PROMPT",
       "mode": "one_shot",
       "stimuli": [
@@ -44,7 +44,7 @@
     {
       "id": "behavior.scene_horde_reply_brave",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "COMBAT_HORDE_REPLY",
       "mode": "one_shot",
       "stimuli": [
@@ -82,7 +82,7 @@
     {
       "id": "behavior.scene_horde_reply_cautious",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "COMBAT_HORDE_REPLY",
       "mode": "one_shot",
       "stimuli": [
@@ -120,7 +120,7 @@
     {
       "id": "behavior.scene_horde_reply_steady",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "COMBAT_HORDE_REPLY",
       "mode": "one_shot",
       "stimuli": [
@@ -149,7 +149,7 @@
     {
       "id": "behavior.scene_grounded_news_share",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "SHARE_NEWS",
       "mode": "one_shot",
       "stimuli": [
@@ -181,7 +181,7 @@
     {
       "id": "behavior.scene_news_followup",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "ASK_NEWS_FOLLOWUP",
       "mode": "one_shot",
       "stimuli": [
@@ -223,7 +223,7 @@
     {
       "id": "behavior.scene_news_followup_answer",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "ANSWER_NEWS",
       "mode": "one_shot",
       "stimuli": [
@@ -252,7 +252,7 @@
     {
       "id": "behavior.scene_excursion_preparing",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "EXCURSION_STATUS_REPORT",
       "mode": "one_shot",
       "stimuli": [
@@ -284,7 +284,7 @@
     {
       "id": "behavior.scene_excursion_departing",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "EXCURSION_STATUS_REPORT",
       "mode": "one_shot",
       "stimuli": [
@@ -316,7 +316,7 @@
     {
       "id": "behavior.scene_excursion_returning",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "EXCURSION_STATUS_REPORT",
       "mode": "one_shot",
       "stimuli": [
@@ -348,7 +348,7 @@
     {
       "id": "behavior.scene_excursion_home",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "EXCURSION_STATUS_REPORT",
       "mode": "one_shot",
       "stimuli": [
@@ -380,7 +380,7 @@
     {
       "id": "behavior.scene_excursion_failed",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "EXCURSION_STATUS_REPORT",
       "mode": "one_shot",
       "stimuli": [
@@ -412,7 +412,7 @@
     {
       "id": "behavior.scene_excursion_acknowledge",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "ACKNOWLEDGE",
       "mode": "one_shot",
       "stimuli": [

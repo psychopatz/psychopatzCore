@@ -3,13 +3,13 @@
   "shardId": "conversation.behaviors.social.acknowledge.news",
   "kind": "behaviors",
   "domain": "social",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.d587a67cc2",
   "behaviors": [
     {
       "id": "behavior.acknowledge_news",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "ACKNOWLEDGE_NEWS",
       "mode": "one_shot",
       "stimuli": [

@@ -3,7 +3,7 @@
   "shardId": "conversation.content.health.health.state",
   "kind": "content",
   "domain": "health",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
   "groups": {
     "facts": {

@@ -3,7 +3,7 @@
   "shardId": "conversation.behaviors.social.end.conversation",
   "kind": "behaviors",
   "domain": "social",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.pragmatic.interaction.d587a67cc2",
   "behaviors": [
     {
@@ -36,7 +36,7 @@
           "dialogueAct": "END_CONVERSATION"
         }
       },
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "requiredCapabilities": [
         "speech"
       ],

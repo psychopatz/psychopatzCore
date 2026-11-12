@@ -3,7 +3,7 @@
   "shardId": "conversation.realization.social.lexemes",
   "kind": "realization",
   "domain": "social",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.dynamic.conversation.realization.0c0ce7d4b6",
   "realizations": [
     {

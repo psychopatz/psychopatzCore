@@ -3,13 +3,13 @@
   "shardId": "conversation.behaviors.social.social.conversation.director",
   "kind": "behaviors",
   "domain": "social",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.social.conversation.director.0cab482bd0",
   "behaviors": [
     {
       "id": "behavior.scene_task_work_assigned",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "TASK_WORK_STATUS",
       "mode": "one_shot",
       "stimuli": [
@@ -38,7 +38,7 @@
     {
       "id": "behavior.scene_task_work_completed",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "TASK_WORK_STATUS",
       "mode": "one_shot",
       "stimuli": [
@@ -67,7 +67,7 @@
     {
       "id": "behavior.scene_post_combat_clear",
       "version": 1,
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "act": "POST_COMBAT_REACTION",
       "mode": "one_shot",
       "stimuli": [

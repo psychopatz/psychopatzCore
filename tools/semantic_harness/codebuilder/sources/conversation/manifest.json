@@ -25,7 +25,7 @@
       "kind": "content",
       "order": 1200,
       "path": "content/greeting.json",
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "shardId": "conversation.content.greeting",
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
@@ -34,7 +34,7 @@
       "kind": "content",
       "order": 1310,
       "path": "content/conversation.json",
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "shardId": "conversation.content.conversation",
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
@@ -43,7 +43,7 @@
       "kind": "content",
       "order": 1320,
       "path": "content/social_apology.json",
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "shardId": "conversation.content.social.apology",
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
@@ -52,7 +52,7 @@
       "kind": "content",
       "order": 1370,
       "path": "content/needs.json",
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "shardId": "conversation.content.needs",
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
@@ -151,7 +151,7 @@
       "kind": "responses",
       "order": 1900,
       "path": "responses/common/social.json",
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "shardId": "conversation.responses.common.social",
       "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
     },
@@ -160,7 +160,7 @@
       "kind": "responses",
       "order": 1901,
       "path": "responses/common/questions.json",
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "shardId": "conversation.responses.common.questions",
       "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
     },
@@ -169,7 +169,7 @@
       "kind": "responses",
       "order": 1902,
       "path": "responses/common/needs_weather.json",
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "shardId": "conversation.responses.common.needs.weather",
       "sourceProfile": "conversation.source.project.hoomans.common.interaction.seed.7a0582ab2e"
     },
@@ -178,7 +178,7 @@
       "kind": "patterns",
       "order": 2000,
       "path": "patterns/grounded_personal.json",
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "shardId": "conversation.patterns.grounded.personal",
       "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de"
     },
@@ -187,7 +187,7 @@
       "kind": "responses",
       "order": 2100,
       "path": "responses/grounded_personal_responses.json",
-      "owner": "ProjectHoomans",
+      "owner": "PsychopatzCore",
       "shardId": "conversation.responses.grounded.personal.responses",
       "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de"
     },
@@ -293,49 +293,49 @@
       "kind": "content",
       "order": 1300,
       "path": "content/social/emotes",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "domain": "social",
       "kind": "content",
       "order": 1301,
       "path": "content/social/reactions",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "domain": "social",
       "kind": "content",
       "order": 1302,
       "path": "content/social/tool_replies",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "domain": "social",
       "kind": "content",
       "order": 1303,
       "path": "content/social/interaction",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "domain": "health",
       "kind": "content",
       "order": 1330,
       "path": "content/health",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "domain": "knowledge",
       "kind": "content",
       "order": 1340,
       "path": "content/knowledge",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "domain": "wellbeing",
       "kind": "content",
       "order": 1350,
       "path": "content/wellbeing",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "domain": "command",
@@ -405,21 +405,21 @@
       "kind": "behaviors",
       "order": 2250,
       "path": "behaviors/social",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "domain": "social",
       "kind": "beats",
       "order": 2260,
       "path": "beats/social",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     },
     {
       "domain": "social",
       "kind": "realization",
       "order": 2270,
       "path": "realization/social",
-      "owner": "ProjectHoomans"
+      "owner": "PsychopatzCore"
     }
   ],
   "version": 1,

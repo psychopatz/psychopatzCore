@@ -1,0 +1,61 @@
+-- Generated; do not edit by hand.
+return {
+    {
+        ["act"] = "DEESCALATE",
+        ["baseRelevance"] = 0.35,
+        ["domain"] = "social",
+        ["id"] = "behavior.deescalate",
+        ["mode"] = "beat",
+        ["modifiers"] = {
+            {
+                ["delta"] = 0.4,
+                ["reason"] = "fear_favors_deescalation",
+                ["when"] = {
+                    ["op"] = "gte",
+                    ["path"] = "actor.condition.panic",
+                    ["value"] = 0.6,
+                },
+            },
+            {
+                ["delta"] = 0.2,
+                ["reason"] = "danger_favors_deescalation",
+                ["when"] = {
+                    ["op"] = "truthy",
+                    ["path"] = "world.immediateDanger",
+                },
+            },
+        },
+        ["outputs"] = {
+            ["speech"] = {
+                ["contentTemplateID"] = "semantic.interaction.argument.deescalate",
+                ["dialogueAct"] = "DEESCALATE",
+            },
+        },
+        ["owner"] = "PsychopatzCore",
+        ["requiredCapabilities"] = {
+            "speech",
+        },
+        ["stimuli"] = {
+            "HUMAN_UTTERANCE",
+            "NPC_SEMANTIC_ACT",
+        },
+        ["version"] = 1,
+        ["when"] = {
+            ["any"] = {
+                {
+                    ["op"] = "in",
+                    ["path"] = "stimulus.semantic.speechAct",
+                    ["values"] = {
+                        "INSULT",
+                        "HOSTILE_REMARK",
+                        "THREATEN",
+                    },
+                },
+                {
+                    ["op"] = "truthy",
+                    ["path"] = "world.immediateDanger",
+                },
+            },
+        },
+    },
+}

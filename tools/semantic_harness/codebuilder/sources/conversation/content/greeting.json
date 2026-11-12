@@ -3,7 +3,7 @@
   "shardId": "conversation.content.greeting",
   "kind": "content",
   "domain": "greeting",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
   "groups": {
     "commands_emotes": {

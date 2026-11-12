@@ -3,7 +3,7 @@
   "shardId": "conversation.responses.grounded.personal.responses",
   "kind": "responses",
   "domain": "grounded_personal",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.grounded.personal.dialogue.7a107f20de",
   "responsePools": [
     {

@@ -17,9 +17,28 @@ from tools.semantic_harness.codebuilder import (
     validate_source_refs,
     validate_typed_arguments,
 )
+from tools.semantic_harness.codebuilder.generation_ownership import source_owner
 
 
 class CoreCodeBuilderTests(unittest.TestCase):
+    def test_manifest_shard_owner_controls_generated_routing(self) -> None:
+        model = {
+            "manifest": {"defaultOwner": "ProjectHoomans"},
+            "shards": [{
+                "path": "responses/common/social.json",
+                "owner": "PsychopatzCore",
+            }],
+            "_source_documents": {
+                "responses/common/social.json": {
+                    "source": {"owner": "ProjectHoomans"},
+                },
+            },
+        }
+        self.assertEqual(
+            source_owner(model, "responses/common/social.json"),
+            "PsychopatzCore",
+        )
+
     def test_typed_dataset_compiler_owns_envelope_and_ordering(self) -> None:
         document = {
             "schemaVersion": 1,

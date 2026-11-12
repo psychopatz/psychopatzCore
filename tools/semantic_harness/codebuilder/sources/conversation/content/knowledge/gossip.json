@@ -3,7 +3,7 @@
   "shardId": "conversation.content.knowledge.gossip",
   "kind": "content",
   "domain": "knowledge",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f",
   "groups": {
     "knowledge": {

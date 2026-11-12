@@ -3,7 +3,7 @@
   "shardId": "conversation.content.social.interaction.scene.excursion",
   "kind": "content",
   "domain": "social",
-  "owner": "ProjectHoomans",
+  "owner": "PsychopatzCore",
   "sourceProfile": "conversation.source.project.hoomans.scene.runtime.adopter.content.e852ad5c7e",
   "groups": {
     "interaction": {
