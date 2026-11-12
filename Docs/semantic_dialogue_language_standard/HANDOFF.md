@@ -5,18 +5,19 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
 phase_commit_phase: "S5"
-phase_commit_message: "phase(S5): reconcile settlement handoff residual"
-phase_commit_vector: "project-hoomans=aace968408c0d62203081723e37d91a9b90351f1;psychopatz-core=self;dynamic-trading=e834f7efd7b6919917dbbc14109c24aee6495e6c"
-phase_residual_vector: "project-hoomans=078076fd447dc7d94a1f9baa09f9e4c41674d9950389d0943b64004ba7f7d417;psychopatz-core=056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
-residual_worktree_fingerprint: "056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108"
+phase_commit_message: "phase(S5): migrate companion topics through PSDL"
+phase_commit_vector: "project-hoomans=bb0614a4299f6530313b3c0f86af545b7995c5df;psychopatz-core=self;dynamic-trading=50524d28db12cd91c90cf07e82df21f0e6390a1a"
+phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=cde78329d90760047de5337221bd66be113b0b93bfef620bbeb4610998e4f723;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
+residual_worktree_fingerprint: "cde78329d90760047de5337221bd66be113b0b93bfef620bbeb4610998e4f723"
 codebase_memory_indexed_commit: "5075fb7f7334c33b4cfd0991dcf5dd9b4a9c3b88"
-updated_at: "2026-11-12T15:21:50.011242Z"
+updated_at: "2026-11-12T15:41:49.392506Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S5 — first-party domain migration and deletion"
 chunk: "migrate one coherent first-party semantic domain in each mandatory adopter through the Core PSDL mechanism"
 retrieval_tier: "verify"
 ---
+
 
 
 
@@ -43,6 +44,7 @@ retrieval_tier: "verify"
 - DynamicTrading and ProjectHoomans were inspected at the S4 boundary; neither adopter received a duplicate director or PSDL compiler.
 - Core's remaining static suggestion authoring now lives in final PSDL shards `psdl/dialogue/core_check_in.json` and `psdl/dialogue/core_identity.json`, with ten-record parity against the superseded Core UI source.
 - Hoomans and DTCommon generated projections were refreshed through the Core compiler; DTCommon now retains a synchronized provider-local generated manifest.
+- ProjectHoomans companion topics are now authored in final PSDL as one actor-neutral source covering personal trust, relationship affinity, territory claim and member work-orders, with EN/TL parity and the existing territory diagnostic/effect contracts preserved.
 - Current cross-repository checks pass: Core 109-test harness, Hoomans ownership/smoke suites, DT trader smokes, and Kahlua scans for all changed generated/runtime Lua.
 
 ## Remaining
@@ -57,7 +59,7 @@ read current dirty source before relying on stale structural references.
 Exact next action:
 
 1. Re-inspect PsychopatzCore, ProjectHoomans and DynamicTrading worktrees and current PSDL/legacy authoring surfaces.
-2. Commit the current ProjectHoomans settlement-admission adopter chunk first, including the generated DynamicTrading fingerprint update.
+2. Commit the current ProjectHoomans companion-topics adopter chunk first, including the generated DynamicTrading fingerprint update.
 3. Select the next coherent domain with production callers in ProjectHoomans and/or DynamicTrading.
 4. Author its final PSDL source through the Core compiler, regenerate downstream artifacts, run parity/caller-zero checks, and remove the superseded first-party source in the same accepted phase.
 
@@ -78,10 +80,10 @@ Exact next action:
 
 ## Acceptance
 
-S4 is accepted only when PSDL behavior/beat records are validated by the
-existing Core Interaction Director contract, project deterministically into its
-registry shape, preserve shared predicates and beat references, and keep
-wording outside beats. The next acceptance boundary is S5's first domain
-migration with parity and superseded-source removal.
+S5's companion-topics chunk is accepted only when the four adopter-owned
+domains preserve text, gates, offers, effects, diagnostics, caller/reference
+zero and removal of their superseded first-party source. The next acceptance
+boundary is the next coherent S5 domain migration through the same Core-owned
+compiler.
 
 > Replace this file on the next handoff; do not append a diary.

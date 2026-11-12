@@ -178,21 +178,6 @@
       "owner": "PsychopatzCore"
     },
     {
-      "path": "social/personal/trust.json",
-      "sourceId": "conversation.content.social.personal.trust",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "social/relationship/affinity.json",
-      "sourceId": "conversation.content.social.relationship.affinity",
-      "owner": "PsychopatzCore"
-    },
-    {
-      "path": "social/territory/claim.json",
-      "sourceId": "conversation.content.social.territory.claim",
-      "owner": "ProjectHoomans"
-    },
-    {
       "path": "needs/gifts/preference.json",
       "sourceId": "conversation.content.needs.gifts.preference",
       "owner": "PsychopatzCore"
@@ -211,11 +196,6 @@
       "path": "social/recruitment/response.json",
       "sourceId": "conversation.content.social.recruitment.response",
       "owner": "PsychopatzCore"
-    },
-    {
-      "path": "work_orders/status.json",
-      "sourceId": "conversation.content.work.orders.status",
-      "owner": "ProjectHoomans"
     }
   ]
 }

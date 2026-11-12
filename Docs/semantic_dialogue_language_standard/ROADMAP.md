@@ -238,6 +238,20 @@ ProjectHoomans' settlement-admission greeting now has one final adopter-owned PS
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 companion-topics migration checkpoint
+
+ProjectHoomans' personal trust, relationship affinity, territory claim, and
+member work-orders topics now share one final adopter-owned
+`psdl/dialogue/social_companion_topics.json` source. The Core compiler routes
+the plans and EN/TL catalogs; the adopter projection preserves actor-neutral
+bindings, relationship/audience/base gates, territory diagnostics, priorities,
+relationship effects, and the territory-claim effect. All 30 legacy text
+entries have parity, the superseded Hoomans 90–93 modules and four Core text
+sources/generated catalogs are removed, and the retained needs authority is
+unchanged.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ### S5 ask-about migration checkpoint
 
 ProjectHoomans' neutral/member/special ask-about records now have one final adopter-owned PSDL source, routed through Core's compiler and existing conversation block registry. EN/TL parity covers all 30 legacy entries; the two legacy player-name bindings are intentionally authored as `{addressee.name}` and resolve through Core's shared actor-neutral text-binding seam. The superseded Hoomans definition and Core ask-about text sources/generated catalogs are removed, with exact caller/reference-zero evidence and the three-repository authoring guard passing.

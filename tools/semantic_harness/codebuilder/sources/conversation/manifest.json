@@ -320,6 +320,16 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_settlement_admission.json",
       "shardId": "conversation.psdl.social.settlement_admission",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "social_companion_topics",
+      "kind": "psdl",
+      "order": 2306,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/social_companion_topics.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_companion_topics.json",
+      "shardId": "conversation.psdl.social.companion_topics",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {
