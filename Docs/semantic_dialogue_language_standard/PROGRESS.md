@@ -200,6 +200,42 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Superseded Core task lifecycle/tool-reply sources, generated Content/index modules, and split Task translations are removed. Core's manifest routes the two adopter-owned PSDL shards; DynamicTrading receives only generated manifest/registry routing and no task dialogue authority.
 - Task parity reports 86 families, 860 phrase pairs, and 1,720 EN/TL locale values with zero differences. Focused Hoomans tool-result/authority/content smokes pass 5/5, the Core harness remains green at 109 tests, the three-repository S0 guard reports zero violations, and the adapter passes Kahlua verification with only a token-bloat warning.
 
+## S5 final legacy content migration chunk
+
+- ProjectHoomans now owns the final PSDL sources for the remaining Core content
+  surfaces: greeting/player landing choice, conversation/what's-up, needs,
+  compatibility, and quest. The migration preserves 85 semantic families,
+  607 EN/TL phrase pairs, and the existing `conversation.landing:whats_up`
+  player-choice contract.
+- Core removed the five superseded `content/*.json` authorities and their
+  generated Content/translation outputs. The Core manifest routes five
+  adopter-owned PSDL shards; DynamicTrading remains on its single final
+  `DTCommon` PSDL trader source and receives only refreshed generated routing.
+- The Core compiler now supports a PSDL-only Conversation manifest with an
+  empty compatibility content projection, so no synthetic legacy content
+  shard is required. The Hoomans response-catalog entry loads Core-compiled
+  PSDL wording before existing semantic providers normalize fallbacks; no
+  second selector or runtime was added.
+- Exact parity, focused Hoomans 7/7, DynamicTrading 8/8, Core 110-test,
+  three-repository S0 guard, generated Kahlua, and two-pass deterministic
+  generation (1,043 files) pass.
+
+## S6-S8 developer acceptance
+
+- S6 naming/layout cleanup passes: maintained adopter conversation sources are
+  PSDL-only, Core has no legacy content shards, no forbidden migration-copy
+  directories exist, generated output is bounded/deterministic, and no
+  adopter contains a PSDL compiler/schema copy.
+- S7 is Core-owned end to end. `SemanticLabAuthoringService` now validates
+  and previews PSDL plus effect-free create/edit/duplicate/delete/reorder
+  operations and writes only validated source JSON; generated Lua and
+  translation artifacts remain downstream-only.
+- S8 acceptance passes across all three repositories: PSDL is the maintained
+  first-party semantic dialogue standard, existing semantic/runtime
+  authorities remain the selectors, EN fallback and optional locale handling
+  remain data-driven, and no native Project Zomboid or Workshop publication
+  step is required for developer acceptance.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -226,7 +262,9 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 ## Next Chunk
 
-Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: migrate the next coherent event-reaction/combat surface, then remaining ProjectHoomans and DynamicTrading/DTCommon surfaces. For each domain, prove parity and caller/reference zero, remove its superseded source, and keep Core as the sole mechanism owner; S5-S8 remain open.
+No developer-side PSDL work remains. Only explicit user-owned native feel or
+visual acceptance could remain; native Project Zomboid was not launched and
+Workshop content was not published.
 
 ## Evidence status
 
@@ -245,7 +283,15 @@ Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Co
 - `TEST_VERIFIED`: world-event PSDL preserves 2 semantic families, 8 bounded style plans, 80 phrase pairs, and 160 EN/TL locale values; the existing behavior contract, direct Lua family/behavior loads, Core 109-test harness, PSDL build, three-repository audit/guard, and changed-file Kahlua scans pass.
 - `TEST_VERIFIED`: medical-event PSDL preserves 32 semantic families/records, 320 phrase pairs, and 640 EN/TL locale values across six semantic shards; Core 109-test harness, PSDL build, direct Lua family loads, three-repository audit/guard, and changed-file Kahlua scans pass.
 - `BASELINE_EVIDENCE`: the broad `pnc_companion_commands_smoke` still fails at its pre-existing presentation-path camp-rejection handoff after the direct semantic resolver succeeds; no new Core or PSDL caller/reference failure is present.
-- `STATIC_ONLY`: S5–S8 migration and final acceptance gates remain open.
+- `TEST_VERIFIED`: S5 final content migration preserves 85 families, 607
+  EN/TL phrase pairs and one player choice; Hoomans 7/7, DynamicTrading 8/8,
+  Core 110-test, S0 guard, Kahlua, and deterministic two-pass generation pass.
+- `TEST_VERIFIED`: S7 Core authoring-service mutation and validated-source
+  write tests pass; no generated output is written by the service.
+- `TEST_VERIFIED`: S6-S8 structural acceptance passes across all three
+  repositories with no forbidden authoring copies or adopter compiler/schema.
+- `ACCEPTED`: S0-S8 developer objective is complete; native runtime/visual
+  acceptance remains explicitly user-owned only.
 
 ## Stop conditions
 

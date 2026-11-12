@@ -8,6 +8,7 @@ implementation for its report shapes and public helper functions.
 
 from __future__ import annotations
 
+import copy
 import json
 import shutil
 import tempfile
@@ -41,6 +42,7 @@ from .conversation_compiler import (
     render_conversation_registry,
     render_conversation_runtime_plan,
 )
+from .conversation_model import fingerprint
 from .psdl_compiler import (
     compile_psdl_document as _compile_psdl_document,
     compile_psdl_sources as _compile_psdl_sources,
@@ -204,6 +206,233 @@ class SemanticLabAuthoringService:
             "ok": True,
             "compiled": compiled,
             "runtimePlan": render_psdl_runtime_plan(compiled),
+        }
+
+    @staticmethod
+    def _psdl_authoring_records(document: dict[str, Any]) -> list[dict[str, Any]]:
+        """Return mutable record copies for Core-owned source editing."""
+        if not isinstance(document, dict):
+            raise CompileError("PSDL authoring document must be an object")
+        if document.get("schema") != "psychopatz.semantic.dialogue-language.v1":
+            raise CompileError(
+                "PSDL authoring document must use "
+                "psychopatz.semantic.dialogue-language.v1"
+            )
+        records = document.get("records")
+        if not isinstance(records, list) or not records:
+            raise CompileError(
+                "PSDL authoring operations require a non-empty records list"
+            )
+        if any(not isinstance(record, dict) for record in records):
+            raise CompileError("PSDL authoring records must be objects")
+        return records
+
+    def validate_psdl_document(
+        self,
+        document: dict[str, Any],
+        *,
+        source_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        """Return bounded diagnostics for an effect-free PSDL validation pass."""
+        try:
+            return self.preview_psdl_document(document, source_path=source_path)
+        except (CompileError, OSError, TypeError, ValueError) as error:
+            return {
+                "ok": False,
+                "previewOnly": True,
+                "effectFree": True,
+                "diagnostics": [{"severity": "error", "message": str(error)}],
+                "writes": [],
+            }
+
+    def _psdl_authoring_result(
+        self,
+        document: dict[str, Any],
+        *,
+        source_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        report = self.validate_psdl_document(document, source_path=source_path)
+        if report.get("ok") is not True:
+            return report
+        return {
+            "ok": True,
+            "previewOnly": True,
+            "effectFree": True,
+            "document": document,
+            "sourceFingerprint": fingerprint(document),
+            "compiledFingerprint": report["compiled"]["fingerprint"],
+            "preview": report,
+            "writes": [],
+        }
+
+    def create_psdl_record(
+        self,
+        document: dict[str, Any],
+        record: dict[str, Any],
+        *,
+        index: int | None = None,
+        source_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        """Create one source record, then validate the complete catalog."""
+        candidate = copy.deepcopy(document)
+        records = self._psdl_authoring_records(candidate)
+        if not isinstance(record, dict):
+            raise CompileError("PSDL record must be an object")
+        record_id = record.get("id")
+        if not isinstance(record_id, str) or not record_id.strip():
+            raise CompileError("PSDL record.id is required")
+        if any(item.get("id") == record_id for item in records):
+            raise CompileError(f"PSDL authoring record already exists: {record_id}")
+        if index is None:
+            records.append(copy.deepcopy(record))
+        else:
+            if isinstance(index, bool) or not isinstance(index, int):
+                raise CompileError("PSDL record index must be an integer")
+            if index < 0 or index > len(records):
+                raise CompileError("PSDL record index is outside the catalog")
+            records.insert(index, copy.deepcopy(record))
+        return self._psdl_authoring_result(candidate, source_path=source_path)
+
+    def edit_psdl_record(
+        self,
+        document: dict[str, Any],
+        record_id: str,
+        patch: dict[str, Any],
+        *,
+        source_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        """Apply a bounded top-level edit without changing the canonical ID."""
+        candidate = copy.deepcopy(document)
+        records = self._psdl_authoring_records(candidate)
+        if not isinstance(patch, dict):
+            raise CompileError("PSDL record patch must be an object")
+        matches = [item for item in records if item.get("id") == record_id]
+        if len(matches) != 1:
+            raise CompileError(f"unknown PSDL authoring record: {record_id}")
+        if "id" in patch and patch["id"] != record_id:
+            raise CompileError("PSDL authoring edits cannot change record.id")
+        target = matches[0]
+        target.update(copy.deepcopy(patch))
+        return self._psdl_authoring_result(candidate, source_path=source_path)
+
+    def duplicate_psdl_record(
+        self,
+        document: dict[str, Any],
+        record_id: str,
+        new_record_id: str,
+        *,
+        overrides: dict[str, Any] | None = None,
+        index: int | None = None,
+        source_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        """Duplicate a record with an explicit semantic identity."""
+        candidate = copy.deepcopy(document)
+        records = self._psdl_authoring_records(candidate)
+        source = next((item for item in records if item.get("id") == record_id), None)
+        if source is None:
+            raise CompileError(f"unknown PSDL authoring record: {record_id}")
+        if not isinstance(new_record_id, str) or not new_record_id.strip():
+            raise CompileError("new PSDL record.id is required")
+        duplicate = copy.deepcopy(source)
+        duplicate["id"] = new_record_id
+        if overrides is not None:
+            if not isinstance(overrides, dict):
+                raise CompileError("PSDL duplicate overrides must be an object")
+            if "id" in overrides and overrides["id"] != new_record_id:
+                raise CompileError("PSDL duplicate overrides cannot change record.id")
+            duplicate.update(copy.deepcopy(overrides))
+            duplicate["id"] = new_record_id
+        if index is None:
+            records.append(duplicate)
+        else:
+            if isinstance(index, bool) or not isinstance(index, int):
+                raise CompileError("PSDL record index must be an integer")
+            if index < 0 or index > len(records):
+                raise CompileError("PSDL record index is outside the catalog")
+            records.insert(index, duplicate)
+        return self._psdl_authoring_result(candidate, source_path=source_path)
+
+    def delete_psdl_record(
+        self,
+        document: dict[str, Any],
+        record_id: str,
+        *,
+        source_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        """Delete one source record and validate remaining references."""
+        candidate = copy.deepcopy(document)
+        records = self._psdl_authoring_records(candidate)
+        kept = [item for item in records if item.get("id") != record_id]
+        if len(kept) == len(records):
+            raise CompileError(f"unknown PSDL authoring record: {record_id}")
+        if not kept:
+            raise CompileError("PSDL authoring catalogs cannot become empty")
+        candidate["records"] = kept
+        return self._psdl_authoring_result(candidate, source_path=source_path)
+
+    def reorder_psdl_records(
+        self,
+        document: dict[str, Any],
+        record_ids: list[str],
+        *,
+        source_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        """Reorder authored records while preserving canonical ID identity."""
+        candidate = copy.deepcopy(document)
+        records = self._psdl_authoring_records(candidate)
+        current = [item.get("id") for item in records]
+        if sorted(record_ids) != sorted(current) or len(record_ids) != len(current):
+            raise CompileError("PSDL reorder must name every record exactly once")
+        by_id = {item["id"]: item for item in records}
+        candidate["records"] = [by_id[record_id] for record_id in record_ids]
+        return self._psdl_authoring_result(candidate, source_path=source_path)
+
+    def write_psdl_source(
+        self,
+        source_path: str | Path,
+        document: dict[str, Any],
+        *,
+        expected_source_fingerprint: str | None = None,
+    ) -> dict[str, Any]:
+        """Write only a validated PSDL source; generated output stays downstream."""
+        target = Path(source_path)
+        if not target.is_absolute():
+            target = self.repository / target
+        target = target.expanduser().resolve()
+        try:
+            target.relative_to(self.repository)
+        except ValueError as error:
+            raise CompileError("PSDL source must remain inside the service repository") from error
+        if target.suffix.lower() != ".json":
+            raise CompileError("PSDL source must be a JSON file")
+        if expected_source_fingerprint and target.is_file():
+            current = json.loads(target.read_text(encoding="utf-8"))
+            actual = fingerprint(current)
+            if actual != expected_source_fingerprint:
+                return {
+                    "ok": False,
+                    "stale": True,
+                    "reason": "source_fingerprint_mismatch",
+                    "expectedSourceFingerprint": expected_source_fingerprint,
+                    "sourceFingerprint": actual,
+                    "writes": [],
+                }
+        report = self.validate_psdl_document(document, source_path=target)
+        if report.get("ok") is not True:
+            return report
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(
+            json.dumps(document, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        return {
+            "ok": True,
+            "writeApproved": True,
+            "generatedOutputRequired": True,
+            "sourcePath": str(target),
+            "sourceFingerprint": fingerprint(document),
+            "compiledFingerprint": report["compiled"]["fingerprint"],
+            "writes": [str(target)],
         }
 
     def _conversation_registry_location(

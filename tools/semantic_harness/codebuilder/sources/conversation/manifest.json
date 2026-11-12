@@ -21,51 +21,6 @@
   "registryOwner": "ProjectHoomans",
   "shards": [
     {
-      "domain": "greeting",
-      "kind": "content",
-      "order": 1200,
-      "path": "content/greeting.json",
-      "owner": "PsychopatzCore",
-      "shardId": "conversation.content.greeting",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "conversation",
-      "kind": "content",
-      "order": 1310,
-      "path": "content/conversation.json",
-      "owner": "PsychopatzCore",
-      "shardId": "conversation.content.conversation",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "needs",
-      "kind": "content",
-      "order": 1370,
-      "path": "content/needs.json",
-      "owner": "PsychopatzCore",
-      "shardId": "conversation.content.needs",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "compatibility",
-      "kind": "content",
-      "order": 1600,
-      "path": "content/compatibility.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.compatibility",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "quest",
-      "kind": "content",
-      "order": 1650,
-      "path": "content/quest.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.quest",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
       "domain": "common",
       "kind": "patterns",
       "order": 1800,
@@ -1021,6 +976,56 @@
       "path": "psdl/dialogue/social_interaction_scene_horde_work.json",
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_interaction_scene_horde_work.json",
       "shardId": "conversation.psdl.social.interaction.scene.horde.work",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "conversation_greeting",
+      "kind": "psdl",
+      "order": 2380,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/conversation_greeting.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/conversation_greeting.json",
+      "shardId": "conversation.psdl.conversation.greeting",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "conversation_whats_up",
+      "kind": "psdl",
+      "order": 2381,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/conversation_whats_up.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/conversation_whats_up.json",
+      "shardId": "conversation.psdl.conversation.whats.up",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "conversation_needs",
+      "kind": "psdl",
+      "order": 2382,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/conversation_needs.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/conversation_needs.json",
+      "shardId": "conversation.psdl.conversation.needs",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "compatibility_content",
+      "kind": "psdl",
+      "order": 2383,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/compatibility_content.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/compatibility_content.json",
+      "shardId": "conversation.psdl.compatibility.content",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "quest_content",
+      "kind": "psdl",
+      "order": 2384,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/quest_content.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/quest_content.json",
+      "shardId": "conversation.psdl.quest.content",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],

@@ -9,6 +9,7 @@ from .conversation_contract import CONVERSATION_SHARD_SCHEMA
 from .conversation_model import (
     canonical_json as _canonical_json,
     copy_json as _copy_json,
+    fingerprint as _fingerprint,
     merge_source_metadata as _source_metadata,
     register_global_id as _register_global_id_core,
 )
@@ -202,7 +203,26 @@ def _content_source(
 ) -> tuple[dict[str, Any], dict[str, str]]:
     documents = [document for document, entry, _ in shards if entry["kind"] == "content"]
     if not documents:
-        raise CompileError("Conversation manifest requires at least one content shard")
+        # PSDL is the canonical authoring surface.  A manifest containing only
+        # PSDL, patterns, flows, or other first-class modules must not be
+        # forced to retain a synthetic legacy content shard merely to satisfy
+        # the aggregate model shape.  Keep the runtime contract stable with an
+        # empty content projection and a deterministic fingerprint.
+        source = {
+            "name": "Manifest-backed Semantic Dialogue",
+            "version": "1",
+            "references": [],
+        }
+        content = {
+            "schema": "pnc.semantic_dialogue_content.v4",
+            "schemaVersion": 4,
+            "source": source,
+            "phraseFamilies": [],
+            "playerChoices": [],
+            "translations": {},
+        }
+        content["contentFingerprint"] = _fingerprint(content)
+        return content, source
     groups: dict[str, Any] = {}
     families: list[dict[str, Any]] = []
     choices: list[dict[str, Any]] = []

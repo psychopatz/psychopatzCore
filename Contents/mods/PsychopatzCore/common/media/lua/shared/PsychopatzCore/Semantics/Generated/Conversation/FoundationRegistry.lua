@@ -8,8 +8,8 @@ Registry.REGISTRY_NAMESPACE = "PsychopatzCore.Semantics.ConversationRegistry"
 Registry.REGISTRY_MODULE = "PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry"
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
-Registry.CONTENT_FINGERPRINT = "da8aa97e970ec2802c5063caa0801459c0d1a0643eea56c5d489368ee50b22e1"
-Registry.WHOLE_MODEL_FINGERPRINT = "daeb672f9cf143dbd99d74a1c4d7f2a68e1d01cd7aded5e19b60c900a4492e53"
+Registry.CONTENT_FINGERPRINT = "0c0dd14df241eb4b742a95ede0729f2131a3ac66d66cb1497ea50aff9d9e9e39"
+Registry.WHOLE_MODEL_FINGERPRINT = "b5e099b14d9c4e6855d0962d47f17e996925c6e459a54b3a2cf9f04db00682eb"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -64,10 +64,6 @@ local function appendUI(loaded)
     if type(loaded) ~= "table" then return end
     for _, value in ipairs(loaded) do Registry.UI[#Registry.UI + 1] = value end
 end
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Conversation")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Greeting")
-appendContent(require "PsychopatzCore/Semantics/Generated/Conversation/Content/Needs")
-appendContentChoices(require "PsychopatzCore/Semantics/Generated/Conversation/Content/PlayerChoices")
 appendPatterns(require "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/GreetingWhatsUp")
 appendPatterns(require "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/Identity")
 appendPatterns(require "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/IdentityFacets")

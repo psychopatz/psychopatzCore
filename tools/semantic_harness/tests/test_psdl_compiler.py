@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import copy
+from pathlib import Path
 import unittest
+from tempfile import TemporaryDirectory
 
 from tools.semantic_harness.codebuilder import CompileError
+from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.codebuilder.psdl_compiler import (
     PSDL_COMPILED_SCHEMA,
     compile_psdl_document,
@@ -111,6 +114,106 @@ def _catalog() -> dict:
 
 
 class PSDLCompilerTests(unittest.TestCase):
+    def test_core_authoring_service_mutates_and_validates_psdl_catalogs(self) -> None:
+        repository = Path(__file__).resolve().parents[3]
+        service = SemanticLabAuthoringService(
+            repository=repository,
+            core_repository=repository,
+        )
+        document = {
+            "schema": "psychopatz.semantic.dialogue-language.v1",
+            "records": [{
+                "kind": "dialogue",
+                "id": "social.authoring.seed",
+                "owner": "ProjectHoomans",
+                "participants": {
+                    "speaker": ["participant"],
+                    "addressee": ["participant"],
+                },
+                "response": {
+                    "act": "REPLY",
+                    "turns": [{
+                        "id": "reply",
+                        "text": {
+                            "EN": "Hello, {addressee.name}.",
+                            "TL": "Kumusta, {addressee.name}.",
+                        },
+                    }],
+                },
+            }],
+        }
+        created = service.create_psdl_record(
+            document,
+            {
+                "kind": "dialogue",
+                "id": "social.authoring.created",
+                "owner": "ProjectHoomans",
+                "participants": {
+                    "speaker": ["participant"],
+                    "addressee": ["participant"],
+                },
+                "response": {
+                    "act": "REPLY",
+                    "turns": [{"id": "reply", "text": {
+                        "EN": "Welcome.", "TL": "Maligayang pagdating."
+                    }}],
+                },
+            },
+        )
+        self.assertTrue(created["ok"])
+        edited = service.edit_psdl_record(
+            created["document"],
+            "social.authoring.created",
+            {"metadata": {"topic": "welcome"}},
+        )
+        self.assertTrue(edited["ok"])
+        duplicated = service.duplicate_psdl_record(
+            edited["document"],
+            "social.authoring.created",
+            "social.authoring.duplicate",
+        )
+        self.assertTrue(duplicated["ok"])
+        reordered = service.reorder_psdl_records(
+            duplicated["document"],
+            [
+                "social.authoring.duplicate",
+                "social.authoring.seed",
+                "social.authoring.created",
+            ],
+        )
+        self.assertTrue(reordered["ok"])
+        deleted = service.delete_psdl_record(
+            reordered["document"],
+            "social.authoring.duplicate",
+        )
+        self.assertTrue(deleted["ok"])
+        self.assertEqual(
+            [item["id"] for item in deleted["document"]["records"]],
+            ["social.authoring.seed", "social.authoring.created"],
+        )
+
+        invalid = service.validate_psdl_document({
+            "schema": "psychopatz.semantic.dialogue-language.v1",
+            "records": [],
+        })
+        self.assertFalse(invalid["ok"])
+        self.assertTrue(invalid["effectFree"])
+
+        with TemporaryDirectory() as temporary:
+            writable = SemanticLabAuthoringService(
+                repository=Path(temporary),
+                core_repository=repository,
+            )
+            written = writable.write_psdl_source(
+                "psdl/dialogue/authoring.json",
+                deleted["document"],
+            )
+            self.assertTrue(written["ok"])
+            self.assertTrue(written["generatedOutputRequired"])
+            self.assertTrue(
+                (Path(temporary) / "psdl/dialogue/authoring.json").is_file()
+            )
+
     def test_catalog_compiles_to_one_core_ir_and_runtime_plan(self) -> None:
         compiled = compile_psdl_document(_catalog(), source_path="dialogue/social.json")
         self.assertEqual(compiled["schema"], PSDL_COMPILED_SCHEMA)

@@ -1,15 +1,9 @@
 {
   "languages": {
     "EN": [
-      "EN/Conversation/Conversation.json",
-      "EN/Conversation/Greeting.json",
-      "EN/Conversation/Needs.json",
       "EN/Conversation/UI.json"
     ],
     "TL": [
-      "TL/Conversation/Conversation.json",
-      "TL/Conversation/Greeting.json",
-      "TL/Conversation/Needs.json",
       "TL/Conversation/UI.json"
     ]
   },

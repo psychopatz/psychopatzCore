@@ -430,6 +430,11 @@ the three-repository guard, and changed-file Kahlua gates pass.
 
 ## S6 — taxonomy, layout and generated-output cleanup
 
+**Status:** ACCEPTED on 2026-11-13. The final maintained adopter dialogue
+surfaces are PSDL records routed through Core; generated output is bounded and
+byte-identical across two passes, and the forbidden-path/compiler-copy audits
+pass in all three repositories.
+
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.
 
 Required:
@@ -446,6 +451,12 @@ Required:
 **Gate:** source audit reports zero first-party duplicate authoring authorities, zero forbidden migration-copy directories and zero forbidden steady-state naming patterns.
 
 ## S7 — Semantic Lab / agent authoring experience
+
+**Status:** ACCEPTED on 2026-11-13. Core's reusable authoring service now
+validates/previews PSDL, supports effect-free record create/edit/duplicate/
+delete/reorder operations, and writes only validated source JSON. Generated
+Lua/translation artifacts remain downstream-only and the service mutation/write
+fixture passes.
 
 Make PSDL genuinely easy to author rather than only architecturally clean. The reusable authoring/validation service is Core-owned; adopter tooling calls that service and supplies adopter-owned records/context rather than forking it.
 
@@ -470,6 +481,11 @@ GUI and agents must use the same authoring service and compiler APIs.
 **Gate:** a new dialogue with nested offers, constraints, translations and an optional beat can be created through the canonical service without hand-editing generated Lua/translation output.
 
 ## S8 — exhaustive acceptance and old-authority removal
+
+**Status:** ACCEPTED on 2026-11-13 for developer-side work. All three
+repositories consume the same Core-owned PSDL mechanism, superseded first-party
+content authorities are removed, the shared runtime selectors remain in place,
+and only explicit user-owned native feel/visual acceptance may remain.
 
 Final developer acceptance must prove:
 
@@ -524,3 +540,17 @@ Never push automatically.
 ### S5 social, health, wellbeing migration checkpoint
 
 ProjectHoomans owns final PSDL authoring for the remaining Core social, health, and wellbeing content. The source is partitioned by semantic surface (`social_reactions_ack_dispute`, `social_reactions_hostile_offer_threat`, `social_tool_replies_affirmation`, `social_tool_replies_boundary_identity`, `social_interaction_scene_travel_news`, and `social_interaction_scene_horde_work`) so each shard remains bounded without `PartNN` or migration-copy identity. Core removed the superseded source roots and Hoomans’ old Social/Health/Wellbeing translation catalogs; the existing response-family/SpeechRealization authority remains the runtime seam. Exact parity is 261 families and 2,554 EN/TL phrase pairs; the Core harness, shared build, focused Hoomans tests, three-repository S0 guard, and changed-file Kahlua checks pass.
+
+### S5 final Core content migration checkpoint
+
+ProjectHoomans now owns final PSDL authoring for the remaining greeting/player
+landing choice, conversation/what's-up, needs, compatibility, and quest
+content. The five PSDL shards preserve 85 semantic families, 607 EN/TL phrase
+pairs, and the existing `conversation.landing:whats_up` choice contract. Core
+removed the superseded content shards and generated Content/translation
+outputs, and its compiler now accepts a PSDL-only manifest without retaining a
+synthetic legacy content shard. The Hoomans response catalog loads the
+Core-compiled wording before semantic providers normalize response fallbacks;
+the accepted response/realization authorities remain unchanged. Exact parity,
+Hoomans 7/7, DynamicTrading 8/8, Core 110-test, S0 guard, Kahlua and
+two-pass deterministic generation pass.
