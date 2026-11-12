@@ -1,5 +1,5 @@
 # Roadmap — Psychopatz Semantic Dialogue Language Standard
-**Parent status:** IN PROGRESS — S0-S4 ACCEPTED; continuing automatically through S5-S8.
+**Parent status:** COMPLETE — S0-S8 developer acceptance passed on 2026-11-13.
 **Primary/owning repository:** `/home/psychopatz/Zomboid/Workshop/psychopatzCore`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/ProjectHoomans`
 **Mandatory adopter repository:** `/home/psychopatz/Zomboid/Workshop/DynamicTrading`

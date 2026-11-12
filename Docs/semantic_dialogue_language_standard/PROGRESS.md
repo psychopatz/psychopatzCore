@@ -1,5 +1,5 @@
 # Progress — Psychopatz Semantic Dialogue Language Standard
-**Status:** IN PROGRESS — S0-S4 ACCEPTED; continuing automatically through S5-S8.
+**Status:** COMPLETE — S0-S8 developer acceptance passed on 2026-11-13.
 **Branch:** existing `main` in each participant repository.
 **Active phase:** S5 — first-party domain migration and deletion.
 **Developer completion boundary:** S8.
