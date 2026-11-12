@@ -6,10 +6,10 @@ head: "current Core HEAD after final handoff commit"
 worktree_fingerprint: "phase-owned paths committed; unrelated dirty paths preserved"
 participant_heads: "project-hoomans=c10b3f94;dynamic-trading=f4a68eb9"
 participant_fingerprints: "recompute from clean committed trees"
-state: "S8_ACCEPTANCE_READY"
-parent_status: "IN_PROGRESS"
+state: "COMPLETE"
+parent_status: "COMPLETE"
 phase: "S8 fresh exhaustive acceptance"
-chunk: "run and record the final three-repository acceptance; do not restore S8 COMPLETE from prior prose"
+chunk: "S8 fresh exhaustive acceptance completed; developer-side objective closed"
 retrieval_tier: "verify"
 updated_at: "2026-11-13"
 ---
@@ -18,10 +18,10 @@ updated_at: "2026-11-13"
 
 ## Current truth
 
-The previous S8 completion claim was rejected by fresh audit. S0-S7 are now
-closed with current source evidence, adopter-first commits, Core-owned
-mechanisms, bounded generated output, and fresh focused gates. S8 remains
-unaccepted until the exhaustive final audit below passes.
+The previous S8 completion claim was rejected by fresh audit. S0-S7 were
+reclosed from current source evidence, adopter-first commits, Core-owned
+mechanisms, bounded generated output, and fresh focused gates. S8 now passes
+the exhaustive final audit across all three repositories.
 
 ## Three-repository commit vector
 
@@ -85,9 +85,9 @@ Preserve and do not stage or rewrite these unrelated changes:
 - Core: any pre-existing non-PSDL README/job/documentation changes not listed
   in the final Core staged path audit.
 
-## Final S8 gate
+## Final S8 acceptance evidence
 
-Run a fresh audit from current Git state, not from this handoff:
+Fresh audit from current Git state:
 
 1. Inspect all three branches/HEADs/status/worktrees and verify the exact commit
    vector.
@@ -107,7 +107,7 @@ Run a fresh audit from current Git state, not from this handoff:
 7. Verify all goal-owned docs and adopter pointers are committed and no
    phase-owned untracked files remain.
 
-Only after every developer-side item passes may S8 be accepted. Do not publish
-Workshop content or launch native Project Zomboid for this developer gate;
-native live/visual/feel acceptance remains user-owned.
+Every developer-side item passes. Workshop publication and native Project
+Zomboid launch remain out of scope; native live/visual/feel acceptance is
+user-owned.
 

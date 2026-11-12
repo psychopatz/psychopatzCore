@@ -1,9 +1,9 @@
 # Progress — Psychopatz Semantic Dialogue Language Standard
 
-**Status:** IN PROGRESS — S8 remains deliberately unaccepted.
+**Status:** COMPLETE — S0-S8 accepted after fresh three-repository audit.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S8 fresh exhaustive acceptance.
-**Completion boundary:** fresh three-repository S8 acceptance.
+**Active phase:** S8 accepted.
+**Completion boundary:** fresh three-repository S8 acceptance achieved.
 
 ## Mandatory ownership and scope
 
@@ -41,8 +41,10 @@
 - **S7 ACCEPTED.** Core service CRUD/preview/write APIs remain the sole
   authority and Semantic Lab exposes a structured PSDL authoring tab. Native
   visual/runtime acceptance remains user-owned.
-- **S8 NOT ACCEPTED.** Do not restore a completion claim until all three repos,
-  source audits, generation, tests, docs, and the S4-S7 gates pass freshly.
+- **S8 ACCEPTED.** Fresh exhaustive acceptance passed across Core,
+  ProjectHoomans, and DynamicTrading/DTCommon: ownership, source closure,
+  actor-neutral runtime projections, tests, audits, deterministic generation,
+  Kahlua compilation, cache-free evidence, and committed handoff all pass.
 
 ## S5 corrective source evidence
 
@@ -122,13 +124,8 @@ Semantic Lab's Developer Tools and provides:
 The existing runtime-oriented editors remain compatibility views; they do not
 own a second PSDL format or compiler.
 
-## Next chunk
+## Completion boundary
 
-1. Run fresh exhaustive S8 acceptance across all three repositories.
-2. Verify the final three-HEAD commit vector and residual unrelated worktree
-   state; preserve it in `HANDOFF.md`.
-3. Do not mark S8 complete if any phase-owned path is untracked or if any
-   acceptance gate is only inferred from the prior agent's prose.
-
-Native Project Zomboid feel/visual/live acceptance remains user-owned only after
-all developer-side S8 gates pass.
+All developer-side S8 gates pass and all phase-owned paths are committed.
+Only optional native Project Zomboid feel/visual/live acceptance remains
+user-owned; it is not required for this developer-side objective.
