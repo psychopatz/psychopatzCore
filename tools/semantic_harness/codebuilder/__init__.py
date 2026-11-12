@@ -76,6 +76,8 @@ from .psdl_compiler import (
     compile_psdl_document,
     compile_psdl_sources,
     render_psdl_director_plan,
+    render_psdl_semantic_pack_plan,
+    render_psdl_ui_plan,
     render_psdl_runtime_plan,
 )
 
@@ -132,5 +134,7 @@ __all__ = [
     "compile_psdl_document",
     "compile_psdl_sources",
     "render_psdl_director_plan",
+    "render_psdl_semantic_pack_plan",
+    "render_psdl_ui_plan",
     "render_psdl_runtime_plan",
 ]

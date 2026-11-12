@@ -11,6 +11,8 @@ from tools.semantic_harness.codebuilder.psdl_compiler import (
     compile_psdl_document,
     compile_psdl_sources,
     render_psdl_director_plan,
+    render_psdl_semantic_pack_plan,
+    render_psdl_ui_plan,
     render_psdl_runtime_plan,
 )
 
@@ -201,6 +203,99 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertTrue(
             all(item["stimuli"] == ["NPC_SEMANTIC_ACT"] for item in director_plan["beats"])
         )
+
+    def test_semantic_offers_project_to_existing_ui_suggestion_rows(self) -> None:
+        compiled = compile_psdl_document(
+            {
+                "schema": "psychopatz.semantic.dialogue-language.v1",
+                "kind": "dialogue",
+                "id": "trade.conversation.suggestions",
+                "owner": "DTCommon",
+                "metadata": {"textNamespace": "UI_DT_Conversation_Suggestion"},
+                "offers": [
+                    {
+                        "id": "question.trader",
+                        "label": {"EN": "Ask who they are", "TL": "Itanong kung sino sila"},
+                        "utterance": {"EN": "Who are you?", "TL": "Sino kayo?"},
+                        "frame": {
+                            "intent": "QUESTION",
+                            "speechAct": "QUESTION",
+                            "subject": "TRADER",
+                            "topic": "identity",
+                            "patternID": "pattern.trade.concept_who",
+                            "extensions": {"hubID": "trading"},
+                        },
+                        "consumers": ["participant"],
+                        "metadata": {"order": 10, "domain": "identity"},
+                    }
+                ],
+            }
+        )
+        rows = render_psdl_ui_plan(compiled)
+        self.assertEqual([row["id"] for row in rows], ["question.trader"])
+        self.assertEqual(rows[0]["labelKey"], "UI_DT_Conversation_Suggestion_Trader_Label")
+        self.assertEqual(rows[0]["utteranceFallback"], "Who are you?")
+        self.assertEqual(rows[0]["patternID"], "pattern.trade.concept_who")
+        self.assertEqual(rows[0]["domain"], "identity")
+        self.assertEqual(rows[0]["extensions"]["hubID"], "trading")
+
+    def test_recognition_projects_to_existing_semantic_pack_contract(self) -> None:
+        compiled = compile_psdl_document(
+            {
+                "schema": "psychopatz.semantic.dialogue-language.v1",
+                "kind": "dialogue",
+                "id": "trade.conversation.recognition",
+                "owner": "DTCommon",
+                "offers": [
+                    {
+                        "id": "action.trade",
+                        "frame": {"intent": "TRADE", "patternID": "pattern.trade.open"},
+                        "consumers": ["participant"],
+                    }
+                ],
+                "recognition": {
+                    "packID": "pack.DT.trader_story",
+                    "ownerModID": "DynamicTrading",
+                    "version": 2,
+                    "concepts": [
+                        {
+                            "id": "concept.trade.open",
+                            "aliases": ["trade", "barter"],
+                            "kind": "intent",
+                            "priority": 100,
+                        }
+                    ],
+                    "speechActs": [
+                        {
+                            "id": "act.trade.request",
+                            "definition": {"id": "act.trade.request", "intent": "TRADE"},
+                        }
+                    ],
+                    "patterns": [
+                        {
+                            "id": "pattern.trade.open",
+                            "match": [{"concept": "concept.trade.open"}],
+                            "emit": {
+                                "intent": "TRADE",
+                                "speechAct": "act.trade.request",
+                            },
+                        }
+                    ],
+                    "actionProviders": [
+                        {
+                            "id": "DT.trade_action",
+                            "sourceKind": "dynamic_trading",
+                            "effectID": "DT.trade",
+                        }
+                    ],
+                },
+            }
+        )
+        packs = render_psdl_semantic_pack_plan(compiled)
+        self.assertEqual([item["id"] for item in packs], ["pack.DT.trader_story"])
+        self.assertEqual(packs[0]["concepts"][0]["aliases"], ["trade", "barter"])
+        self.assertEqual(packs[0]["patterns"][0]["emit"]["intent"], "TRADE")
+        self.assertEqual(packs[0]["actionProviders"][0]["effectID"], "DT.trade")
 
     def test_translation_and_binding_validation_fails_closed(self) -> None:
         invalid = _catalog()

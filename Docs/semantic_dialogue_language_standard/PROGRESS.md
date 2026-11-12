@@ -69,6 +69,16 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - `render_psdl_director_plan` projects deterministic Core PSDL records into the existing behavior/beat registry shapes, with no second runtime or wording authority.
 - The representative argument-beat fixture compiles and projects through the existing director contract; the full Core semantic harness passes 106 tests.
 
+## S5 bounded adopter chunk now verified
+
+- DynamicTrading/DTCommon's trader conversation pack and static suggestion surface are consolidated into one final `psdl/dialogue/trading.json` dialogue record owned by `DTCommon`.
+- ProjectHoomans' companion `whats_up` check-in suggestions are consolidated into `psdl/dialogue/companion_check_in.json` owned by `ProjectHoomans`.
+- Both adopter surfaces compile through Core's PSDL compiler; generated pack/UI/index artifacts remain downstream-only and package-routed.
+- Existing DT semantic-pack registration, trader conversation parity/pending/roster smokes, and Hoomans static-suggestion/identity availability smokes pass.
+- Superseded DT pack/static source files, Hoomans static suggestion source, old generated static/trading modules and the Hoomans static provider's old require path were removed or redirected; targeted caller/reference searches show no remaining production reference to those superseded modules.
+- Core recognition projection preserves the existing DT semantic-pack contract, while Hoomans UI projection preserves hub, slot, target, extension, locale and pattern metadata.
+- Current Core semantic harness passes 109 tests; changed adopter Lua passes the Kahlua error scan.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -89,15 +99,16 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 
 ## Workspace/concurrency warning
 
-All three repositories may contain concurrent work. At the latest documentation checkpoint, PsychopatzCore contains the Core-owned PSDL documentation and CodeBuilder README changes; ProjectHoomans contains successor annotations; DynamicTrading already has unrelated dirty/untracked work that predates this scope clarification.
+All three repositories may contain concurrent work. At the latest documentation checkpoint, PsychopatzCore contains the Core-owned PSDL documentation and CodeBuilder changes; ProjectHoomans and DynamicTrading contain the bounded S5 adopter migration alongside unrelated dirty/untracked work that predates this scope clarification.
 
 Do not infer that earlier work was discarded or that HEAD is permanently authoritative. Each phase must re-inspect **all three repositories** and current Git history/worktrees before editing, preserve any concurrent work, and treat exact current source as truth.
 
 ## Next Chunk
 
-Execute **S5** across ProjectHoomans and DynamicTrading/DTCommon through the
-Core compiler: migrate one coherent first-party semantic domain, prove parity
-and caller/reference zero, then remove its superseded source.
+Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the
+Core compiler: migrate the next coherent maintained domain, prove parity and
+caller/reference zero, then remove its superseded source. The first adopter
+chunk above is accepted; S5-S8 remain open.
 
 ## Evidence status
 
@@ -107,6 +118,7 @@ and caller/reference zero, then remove its superseded source.
 - `TEST_VERIFIED`: S1 Core/adopter contract fixtures and the full 100-test semantic harness pass; changed Lua files pass Kahlua verification.
 - `TEST_VERIFIED`: S3 Core/Hoomans response, offer and binding fixtures pass; changed Lua files pass Kahlua verification.
 - `TEST_VERIFIED`: S4 Core behavior/beat projection fixtures and the full 106-test semantic harness pass.
+- `TEST_VERIFIED`: current Core semantic harness passes 109 tests after the bounded S5 adopter projection; DT and Hoomans adopter smokes pass.
 - `STATIC_ONLY`: S5–S8 migration and final acceptance gates remain open.
 
 ## Stop conditions

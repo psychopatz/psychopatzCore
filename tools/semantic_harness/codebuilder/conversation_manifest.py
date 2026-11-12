@@ -21,7 +21,7 @@ from .source_manifest import SourceManifestError, load_external_shard_entries
 CONVERSATION_MANIFEST_SCHEMA = "pnc.conversation.manifest.v1"
 SHARD_KINDS = frozenset((
     "content", "patterns", "responses", "flows", "beats", "behaviors",
-    "realization", "ui", "packs",
+    "realization", "ui", "packs", "psdl",
 ))
 ID_PATTERN = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
 

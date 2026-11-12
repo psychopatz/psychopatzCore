@@ -27,6 +27,7 @@ from .semantic_definition_compiler import (
     discover_registered_capability_ids,
 )
 from .semantic_pack_compiler import compile_semantic_pack_shard
+from .psdl_compiler import compile_psdl_document, render_psdl_semantic_pack_plan
 from .translation_support import DEFAULT_LANGUAGE, normalize_language
 
 
@@ -38,6 +39,12 @@ def _hydrate_shard_provenance(
     """Reconstruct compiler-only provenance from the v3 manifest index."""
 
     path = str(entry.get("path", "<shard>"))
+    if entry.get("kind") == "psdl":
+        if document.get("schema") != "psychopatz.semantic.dialogue-language.v1":
+            raise CompileError(
+                f"PSDL shard {path} requires schema psychopatz.semantic.dialogue-language.v1"
+            )
+        return
     if document.get("schema") != CONVERSATION_SHARD_SCHEMA:
         raise CompileError(f"Conversation shard {path} requires schema {CONVERSATION_SHARD_SCHEMA}")
     if entry.get("shardId") is not None and document.get("shardId") != entry.get("shardId"):
@@ -72,6 +79,9 @@ def _compile_shard(
     kind = entry["kind"]
     path = entry["path"]
     if document.get("schema") != CONVERSATION_SHARD_SCHEMA:
+        if kind == "psdl":
+            compiled = compile_psdl_document(document, source_path=path)
+            return compiled
         raise CompileError(f"Conversation shard {path} requires schema {CONVERSATION_SHARD_SCHEMA}")
     if document.get("kind") != kind or document.get("domain") != entry["domain"]:
         raise CompileError(f"Conversation shard {path} does not match its manifest entry")
@@ -273,6 +283,25 @@ def _conversation_record_ids(
     entry: dict[str, Any],
 ) -> list[str]:
     kind = entry["kind"]
+    if kind == "psdl":
+        records = document.get("records")
+        compiled = compile_psdl_document(document, source_path=entry["path"])
+        record_ids = (
+            [
+                str(item["id"])
+                for item in records
+                if isinstance(item, dict) and "id" in item
+            ]
+            if isinstance(records, list)
+            else ([str(document["id"])] if isinstance(document.get("id"), str) else [])
+        )
+        return [
+            *record_ids,
+            *[
+                str(item["id"])
+                for item in render_psdl_semantic_pack_plan(compiled)
+            ],
+        ]
     fields = {
         "content": ("phraseFamilies", "playerChoices"),
         "patterns": ("patterns",),

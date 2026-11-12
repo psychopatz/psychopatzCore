@@ -76,7 +76,11 @@ def _chunk_records(
     for source_shard in sorted(grouped):
         items = sorted(
             grouped[source_shard],
-            key=lambda item: str(item.get("id", "")),
+            key=(
+                (lambda item: (item.get("order", 0), str(item.get("id", ""))))
+                if kind == "UI"
+                else (lambda item: str(item.get("id", "")))
+            ),
         )
         if len(items) > CONVERSATION_MAX_RECORDS_PER_SHARD:
             raise CompileError(

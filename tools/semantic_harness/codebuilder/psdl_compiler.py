@@ -15,8 +15,10 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+from .conversation_contract import CONVERSATION_SHARD_SCHEMA
 from .conversation_model import fingerprint
 from .conversation_validation import _validate_behavior_shard, _validate_beat_shard
+from .conversation_ui_contract import validate_ui_shard
 from .errors import CompileError
 from .generation_ownership import (
     OwnerConfigurationError,
@@ -25,6 +27,7 @@ from .generation_ownership import (
     package_descriptor,
 )
 from .rule_contract import normalize_predicate
+from .semantic_pack_compiler import compile_semantic_pack_shard
 from .semantic_dialogue_ir import (
     CANONICAL_IR_SCHEMA,
     PSDL_SCHEMA,
@@ -47,6 +50,7 @@ PSDL_RECORD_FIELDS = frozenset({
     "outputs", "modifiers", "continuation", "baseRelevance",
     "entry", "maintain", "exit", "candidates", "group", "cooldownTurns",
     "maxTurns", "effects", "policy", "metadata", "style", "resolver",
+    "recognition",
 })
 TRANSITION_KINDS = frozenset({
     "continue", "await_participant", "terminate", "resume_previous",
@@ -61,6 +65,7 @@ MAX_BINDINGS = 32
 MAX_LOCALES = 32
 MAX_TEXT_VARIANTS = 16
 MAX_LIST_ITEMS = 32
+MAX_RECOGNITION_RECORDS = 256
 _ID = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
 _NAME = re.compile(r"^[a-z][a-z0-9_]{0,31}$")
 _RESOLVER = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
@@ -371,6 +376,48 @@ def _normalize_response(value: Any, label: str, *, bindings: Mapping[str, Any]) 
     return output
 
 
+def _normalize_recognition(value: Any, label: str) -> dict[str, Any]:
+    """Normalize semantic recognition data before projecting the Core pack contract."""
+    if not isinstance(value, Mapping):
+        raise CompileError(f"{label} must be a semantic recognition object")
+    allowed = {
+        "packID", "ownerModID", "version", "concepts", "speechActs",
+        "patterns", "actionProviders", "dialogueBlocks",
+    }
+    unsupported = set(value) - allowed
+    if unsupported:
+        raise CompileError(
+            f"{label} contains unsupported fields: "
+            + ", ".join(sorted(str(item) for item in unsupported))
+        )
+    pack_id = value.get("packID")
+    if not isinstance(pack_id, str) or not pack_id.strip():
+        raise CompileError(f"{label}.packID must be a semantic-pack ID")
+    version = value.get("version", 1)
+    if isinstance(version, bool) or not isinstance(version, int) or version < 1:
+        raise CompileError(f"{label}.version must be a positive integer")
+    output: dict[str, Any] = {"packID": pack_id.strip(), "version": version}
+    if "ownerModID" in value:
+        owner_mod_id = value["ownerModID"]
+        if not isinstance(owner_mod_id, str) or not owner_mod_id.strip():
+            raise CompileError(f"{label}.ownerModID must be a non-empty string")
+        output["ownerModID"] = owner_mod_id.strip()
+    for field in ("concepts", "speechActs", "patterns", "actionProviders", "dialogueBlocks"):
+        if field not in value:
+            continue
+        item = value[field]
+        if not isinstance(item, (list, dict)):
+            raise CompileError(f"{label}.{field} must be a list or object")
+        if isinstance(item, list) and len(item) > MAX_RECOGNITION_RECORDS:
+            raise CompileError(
+                f"{label}.{field} must contain at most {MAX_RECOGNITION_RECORDS} items"
+            )
+        output[field] = _copy(item)
+    for field in ("concepts", "speechActs", "patterns"):
+        output.setdefault(field, [])
+    return output
+
+
 def _normalize_module_payload(
     kind: str,
     payload: dict[str, Any],
@@ -382,6 +429,10 @@ def _normalize_module_payload(
         payload["bindings"] = bindings
     else:
         payload.pop("bindings", None)
+    if "recognition" in payload:
+        payload["recognition"] = _normalize_recognition(
+            payload["recognition"], f"{label}.recognition"
+        )
 
     if "on" in payload:
         if not isinstance(payload["on"], Mapping):
@@ -812,6 +863,129 @@ def render_psdl_director_plan(compiled: Mapping[str, Any]) -> dict[str, list[dic
     return plan
 
 
+def render_psdl_ui_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Project top-level PSDL offers into the existing UI suggestion rows."""
+    if compiled.get("schema") != PSDL_COMPILED_SCHEMA:
+        raise CompileError("compiled PSDL payload has an invalid schema")
+    rows_by_namespace: dict[str, list[dict[str, Any]]] = {}
+    for record in compiled.get("records", []):
+        if record.get("kind") != "dialogue":
+            continue
+        payload = record.get("payload") or {}
+        metadata = payload.get("metadata") or {}
+        if not isinstance(metadata, Mapping):
+            raise CompileError(f"{record['id']}.metadata must be an object")
+        namespace = metadata.get("textNamespace", "UI_Conversation_Suggestion")
+        if not isinstance(namespace, str) or not namespace.strip():
+            raise CompileError(f"{record['id']}.metadata.textNamespace must be a namespace")
+        for offer in payload.get("offers", []):
+            frame = offer.get("frame") or {}
+            offer_metadata = offer.get("metadata") or {}
+            if not isinstance(frame, Mapping) or not isinstance(offer_metadata, Mapping):
+                raise CompileError(f"{record['id']} offer metadata must be objects")
+            pattern_id = frame.get("patternID") or offer_metadata.get("patternID")
+            if not isinstance(pattern_id, str) or not pattern_id.strip():
+                raise CompileError(
+                    f"{record['id']}.{offer['id']} requires frame.patternID for UI projection"
+                )
+            order = offer_metadata.get("order")
+            if isinstance(order, bool) or not isinstance(order, int):
+                raise CompileError(
+                    f"{record['id']}.{offer['id']}.metadata.order must be an integer"
+                )
+            label = offer.get("label")
+            utterance = offer.get("utterance")
+            if not isinstance(label, Mapping) or not isinstance(utterance, Mapping):
+                raise CompileError(
+                    f"{record['id']}.{offer['id']} requires localized label and utterance"
+                )
+            languages = sorted(set(label) | set(utterance))
+            display: dict[str, dict[str, str]] = {}
+            for language in languages:
+                label_values = label.get(language) or label.get(DEFAULT_LANGUAGE)
+                utterance_values = utterance.get(language) or utterance.get(DEFAULT_LANGUAGE)
+                if not isinstance(label_values, list) or not label_values:
+                    raise CompileError(
+                        f"{record['id']}.{offer['id']}.label lacks {language} fallback text"
+                    )
+                if not isinstance(utterance_values, list) or not utterance_values:
+                    raise CompileError(
+                        f"{record['id']}.{offer['id']}.utterance lacks {language} fallback text"
+                    )
+                display[language] = {
+                    "label": label_values[0],
+                    "utterance": utterance_values[0],
+                }
+            row: dict[str, Any] = {
+                "id": offer["id"],
+                "order": order,
+                "patternID": pattern_id,
+                "display": display,
+                "sourceRecordID": record["id"],
+                "owner": record["owner"],
+            }
+            for field in ("intent", "speechAct", "subject", "topic"):
+                if field in frame:
+                    row[field] = frame[field]
+            for field, value in frame.items():
+                if field not in row and field != "patternID":
+                    row[field] = _copy(value)
+            if "domain" in offer_metadata:
+                row["domain"] = offer_metadata["domain"]
+            rows_by_namespace.setdefault(namespace, []).append(row)
+    rows: list[dict[str, Any]] = []
+    for namespace in sorted(rows_by_namespace):
+        rows.extend(
+            validate_ui_shard(
+                {
+                    "textNamespace": namespace,
+                    "suggestions": rows_by_namespace[namespace],
+                },
+                f"PSDL UI projection {namespace}",
+            )["suggestions"]
+        )
+    rows.sort(key=lambda item: (item["order"], item["id"]))
+    return rows
+
+
+def render_psdl_semantic_pack_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Project PSDL recognition declarations into the existing semantic-pack authority."""
+    if compiled.get("schema") != PSDL_COMPILED_SCHEMA:
+        raise CompileError("compiled PSDL payload has an invalid schema")
+    packs: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for record in compiled.get("records", []):
+        recognition = (record.get("payload") or {}).get("recognition")
+        if recognition is None:
+            continue
+        pack = {
+            "id": recognition["packID"],
+            "version": recognition["version"],
+            "concepts": _copy(recognition.get("concepts", [])),
+            "speechActs": _copy(recognition.get("speechActs", [])),
+            "patterns": _copy(recognition.get("patterns", [])),
+        }
+        for field in ("ownerModID", "actionProviders", "dialogueBlocks"):
+            if field in recognition:
+                pack[field] = _copy(recognition[field])
+        if pack["id"] in seen:
+            raise CompileError(
+                f"PSDL document repeats semantic-pack ID: {pack['id']}"
+            )
+        seen.add(pack["id"])
+        validated = compile_semantic_pack_shard(
+            {
+                "schema": CONVERSATION_SHARD_SCHEMA,
+                "kind": "packs",
+                "source": {"owner": record["owner"], "version": "1"},
+                "packs": [pack],
+            },
+            f"PSDL {record['id']}.recognition",
+        )
+        packs.extend(validated["packs"])
+    return sorted(packs, key=lambda item: str(item.get("id", "")))
+
+
 __all__ = [
     "PSDL_COMPILED_SCHEMA",
     "PSDL_KINDS",
@@ -819,5 +993,7 @@ __all__ = [
     "compile_psdl_document",
     "compile_psdl_sources",
     "render_psdl_director_plan",
+    "render_psdl_ui_plan",
+    "render_psdl_semantic_pack_plan",
     "render_psdl_runtime_plan",
 ]

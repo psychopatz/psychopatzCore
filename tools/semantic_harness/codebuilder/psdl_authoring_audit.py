@@ -158,36 +158,36 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
         {
             "id": "dt.trader_conversation_pack",
             "source_roots": [
-                "tools/providers/dt/codebuilder/sources/conversation/packs/dynamic_trading.json",
+                "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
             ],
             "classification": "adopter_record",
             "owner": "DTCommon",
-            "destination": "DTCommon-owned PSDL dialogue/behavior/realization records compiled by Core",
-            "migration_status": "frozen first-party pack; migrate concepts, acts, patterns and action providers by domain",
+            "destination": "DTCommon-owned PSDL dialogue recognition and offer records compiled by Core",
+            "migration_status": "S5 migrated and consolidated into final DTCommon PSDL dialogue; superseded pack source removed with semantic-pack parity retained",
             "generated_roots": [
-                "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Packs",
+                "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Packs/Psdl/Dialogue",
             ],
             "external_compatibility": {
                 "status": "provider action seam remains DTCommon-owned",
                 "paths": ["DT.trade_action", "DT.referral_action", "DT.rumors_action"],
             },
             "reference_tokens": [
-                "tools/providers/dt/codebuilder/sources/conversation",
-                "DTCommon/Semantics/Generated/Conversation/Packs/DynamicTrading",
+                "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
+                "DTCommon/Semantics/Generated/Conversation/Packs/Psdl/Dialogue/Trading",
                 "DTCommon_SemanticPack",
             ],
         },
         {
             "id": "dt.static_suggestions",
             "source_roots": [
-                "tools/providers/dt/codebuilder/sources/conversation/ui/static_suggestions.json",
+                "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
             ],
             "classification": "adopter_record",
             "owner": "DTCommon",
             "destination": "Core PSDL participant-neutral offers projected to player UI or NPC affordance policy",
-            "migration_status": "frozen split static suggestion authority; fold labels, utterances and semantic frames into PSDL offers",
+            "migration_status": "S5 consolidated into the final DTCommon PSDL dialogue with recognition; superseded static suggestion source removed and generated UI parity retained",
             "generated_roots": [
-                "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/UI",
+                "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/UI/Psdl/Dialogue",
                 "Contents/mods/DTCommon/common/media/translation",
             ],
             "external_compatibility": {
@@ -195,8 +195,8 @@ SURFACES: dict[str, tuple[dict[str, Any], ...]] = {
                 "paths": ["DTCommon_TraderConversation.lua"],
             },
             "reference_tokens": [
-                "static_suggestions.json",
-                "DTCommon/Semantics/Generated/Conversation/UI/DynamicTradingSuggestions",
+                "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
+                "DTCommon/Semantics/Generated/Conversation/UI/Psdl/Dialogue/Trading",
                 "GetStaticSuggestions",
             ],
         },
@@ -477,9 +477,18 @@ def guard_changed_paths(
             if _is_under(relative, GENERATED_PREFIXES[name]):
                 accepted.append({"path": relative, "reason": "generated_output_or_translation_boundary"})
                 continue
+            if "D" in status:
+                accepted.append({"path": relative, "reason": "superseded_source_removal"})
+                continue
             if not _is_under(relative, FROZEN_PREFIXES[name]):
                 reason = "psdl_record" if _looks_like_psdl_record(root, relative) else "outside_frozen_authoring_root"
                 accepted.append({"path": relative, "reason": reason})
+                continue
+            if Path(relative).name == "manifest.json" or _looks_like_psdl_record(root, relative):
+                accepted.append({
+                    "path": relative,
+                    "reason": "manifest_control_plane" if Path(relative).name == "manifest.json" else "psdl_record",
+                })
                 continue
             repo_violations.append({
                 "repository": name,

@@ -203,15 +203,6 @@
     {
       "domain": "static_suggestions",
       "kind": "ui",
-      "order": 2301,
-      "path": "ui/static_suggestions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.ui.static.suggestions",
-      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
-    },
-    {
-      "domain": "static_suggestions",
-      "kind": "ui",
       "order": 2302,
       "path": "ui/suggestion_text_context.json",
       "owner": "ProjectHoomans",
@@ -250,14 +241,14 @@
       "sourceProfile": "conversation.source.psychopatzcore.identity.facets.2d5d841ade"
     },
     {
-      "domain": "dynamic_trading",
-      "kind": "packs",
+      "domain": "trading",
+      "kind": "psdl",
       "order": 1810,
       "optional": true,
       "owner": "DTCommon",
-      "path": "packs/dynamic_trading.json",
-      "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/packs/dynamic_trading.json",
-      "shardId": "conversation.packs.dynamic.trading",
+      "path": "psdl/dialogue/trading.json",
+      "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/psdl/dialogue/trading.json",
+      "shardId": "conversation.psdl.trading",
       "sourceProfile": "conversation.source.dtcommon.247519f6f9"
     },
     {
@@ -271,15 +262,14 @@
       "sourceProfile": "conversation.source.psychopatzcore.static.conversation.suggestions.6c3fa8a686"
     },
     {
-      "domain": "trading_suggestions",
-      "kind": "ui",
-      "order": 2302,
-      "owner": "DTCommon",
-      "optional": true,
-      "path": "ui/dynamic_trading_suggestions.json",
-      "sourcePath": "tools/providers/dt/codebuilder/sources/conversation/ui/static_suggestions.json",
-      "shardId": "conversation.ui.dynamic.trading.suggestions",
-      "sourceProfile": "conversation.source.dtcommon.247519f6f9"
+      "domain": "companion_check_in",
+      "kind": "psdl",
+      "order": 2301,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/companion_check_in.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/companion_check_in.json",
+      "shardId": "conversation.psdl.companion.check_in",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {

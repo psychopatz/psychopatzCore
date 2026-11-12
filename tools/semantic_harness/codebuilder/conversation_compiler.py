@@ -86,6 +86,12 @@ from .generation_ownership import (
     resolve_core_repository,
     source_owner,
 )
+from .psdl_compiler import (
+    compile_psdl_document,
+    render_psdl_director_plan,
+    render_psdl_semantic_pack_plan,
+    render_psdl_ui_plan,
+)
 
 
 
@@ -94,6 +100,22 @@ def _registry_owner(model: dict[str, Any]) -> str:
     manifest = model.get("manifest")
     owner = manifest.get("registryOwner") if isinstance(manifest, dict) else None
     return normalize_owner(owner)
+
+
+def _compiled_psdl_documents(
+    loaded: list[tuple[dict[str, Any], dict[str, Any], str]],
+) -> list[tuple[dict[str, Any], dict[str, Any]]]:
+    compiled: list[tuple[dict[str, Any], dict[str, Any]]] = []
+    for document, entry, _fingerprint_value in loaded:
+        if entry.get("kind") != "psdl":
+            continue
+        compiled.append(
+            (
+                compile_psdl_document(document, source_path=entry["path"]),
+                entry,
+            )
+        )
+    return compiled
 
 
 
@@ -184,7 +206,32 @@ def compile_conversation_sources(
         default_owner=manifest["defaultOwner"],
     )
     realization = _merge_realization_sources(loaded)
-    packs = []
+    psdl_documents = _compiled_psdl_documents(loaded)
+    psdl_ui: list[dict[str, Any]] = []
+    psdl_packs: list[dict[str, Any]] = []
+    for compiled_psdl, entry in psdl_documents:
+        director_plan = render_psdl_director_plan(compiled_psdl)
+        for record in director_plan["behaviors"]:
+            record["sourceShard"] = entry["path"]
+            record["domain"] = entry["domain"]
+            behaviors["records"].append(record)
+        for record in director_plan["beats"]:
+            record["sourceShard"] = entry["path"]
+            record["domain"] = entry["domain"]
+            beats["records"].append(record)
+        for row in render_psdl_ui_plan(compiled_psdl):
+            row.pop("sourceRecordID", None)
+            row.pop("owner", None)
+            psdl_ui.append(row)
+        for pack in render_psdl_semantic_pack_plan(compiled_psdl):
+            record = _copy_json(pack)
+            record["owner"] = normalize_owner(entry.get("owner"))
+            record["domain"] = entry["domain"]
+            record["sourceShard"] = entry["path"]
+            psdl_packs.append(record)
+    behaviors["records"].sort(key=lambda item: str(item.get("id", "")))
+    beats["records"].sort(key=lambda item: str(item.get("id", "")))
+    packs = [*psdl_packs]
     for document, entry, _fingerprint_value in loaded:
         if entry["kind"] != "packs":
             continue
@@ -204,7 +251,7 @@ def compile_conversation_sources(
             for document, entry, _ in loaded
             if entry["kind"] == "ui"
             for item in document.get("suggestions", [])
-        ],
+        ] + psdl_ui,
         key=lambda item: (item.get("order", 0), item.get("id", "")),
     )
     ui_texts = sorted(
@@ -274,6 +321,34 @@ def compile_conversation_sources(
                     shard=entry,
                     path=path,
                 )
+        elif entry["kind"] == "psdl":
+            for compiled_psdl, psdl_entry in psdl_documents:
+                if psdl_entry["path"] != path:
+                    continue
+                for record in compiled_psdl["records"]:
+                    _add_global_id(
+                        locations,
+                        record.get("id"),
+                        kind=record.get("kind", "psdl"),
+                        shard=entry,
+                        path=path,
+                    )
+                for row in render_psdl_ui_plan(compiled_psdl):
+                    _add_global_id(
+                        locations,
+                        row.get("id"),
+                        kind="ui",
+                        shard=entry,
+                        path=path,
+                    )
+                for pack in render_psdl_semantic_pack_plan(compiled_psdl):
+                    _add_global_id(
+                        locations,
+                        pack.get("id"),
+                        kind="pack",
+                        shard=entry,
+                        path=path,
+                    )
         else:
             for suggestion in document.get("suggestions", []):
                 _add_global_id(locations, suggestion.get("id"), kind="ui", shard=entry, path=path)
@@ -615,10 +690,8 @@ def render_conversation_runtime_plan(
     def owned(item: dict[str, Any], *, domain: str) -> dict[str, Any]:
         record_id = str(item.get("id") or "")
         owner = locations.get(record_id) if record_id else None
-        source_shard = (
-            owner.get("sourceShard")
-            if isinstance(owner, dict)
-            else None
+        source_shard = item.get("sourceShard") or (
+            owner.get("sourceShard") if isinstance(owner, dict) else None
         )
         return {
             **item,

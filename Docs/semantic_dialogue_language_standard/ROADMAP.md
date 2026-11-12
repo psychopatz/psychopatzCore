@@ -202,6 +202,14 @@ For each domain:
 
 Do **not** move superseded content into `Legacy/`, `Compat/`, `V1/` or alias registries.
 
+### Current S5 execution checkpoint
+
+The first bounded adopter chunk is accepted: DynamicTrading/DTCommon trader
+pack/static suggestions and ProjectHoomans companion `whats_up` check-in
+suggestions now have final Core-compiled PSDL sources, parity smokes and
+superseded-source removal. Continue S5 with the remaining maintained
+ProjectHoomans and DynamicTrading surfaces; this checkpoint does not close S5.
+
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
 ## S6 — taxonomy, layout and generated-output cleanup
