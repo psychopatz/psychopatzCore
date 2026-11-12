@@ -194,6 +194,13 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Superseded Core combat content sources, generated Content/index modules, and split Combat/Event translations are removed. Core's manifest routes all 29 adopter-owned PSDL shards; DynamicTrading receives only generated manifest/registry routing and no combat dialogue authority.
 - Combat parity reports 94 families, 940 phrase pairs, and 1,880 EN/TL locale values with zero differences after typed-slot normalization. Focused Hoomans combat/reaction/authority smokes pass 10/10, the Core harness passes 109 tests, the three-repository S0 guard reports zero violations, and changed combat Lua passes Kahlua verification (with only the pre-existing combat-service token-bloat warning).
 
+## S5 task and tool-reply migration chunk
+
+- ProjectHoomans now owns two final PSDL dialogue shards, `task_lifecycle.json` and `task_tool_replies.json`, covering the remaining lifecycle and tool-result authoring. Together they preserve 86 semantic families, 860 phrase pairs, and 1,720 EN/TL locale values.
+- The existing Hoomans tool-result realization catalog remains the selector and gameplay/tool-handler boundary. Its adapter projects Core-generated PSDL plans into the existing phrase-family/SpeechRealization authority; task execution, queued-result status, and command/tool semantics remain adopter-owned.
+- Superseded Core task lifecycle/tool-reply sources, generated Content/index modules, and split Task translations are removed. Core's manifest routes the two adopter-owned PSDL shards; DynamicTrading receives only generated manifest/registry routing and no task dialogue authority.
+- Task parity reports 86 families, 860 phrase pairs, and 1,720 EN/TL locale values with zero differences. Focused Hoomans tool-result/authority/content smokes pass 5/5, the Core harness remains green at 109 tests, the three-repository S0 guard reports zero violations, and the adapter passes Kahlua verification with only a token-bloat warning.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.

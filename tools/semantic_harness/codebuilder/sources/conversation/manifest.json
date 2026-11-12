@@ -852,6 +852,26 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_human_banter_human_kill_supportive.json",
       "shardId": "conversation.psdl.combat.human.banter.human.kill.supportive",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "task_lifecycle",
+      "kind": "psdl",
+      "order": 2363,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/task_lifecycle.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/task_lifecycle.json",
+      "shardId": "conversation.psdl.task.lifecycle",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "task_tool_replies",
+      "kind": "psdl",
+      "order": 2364,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/task_tool_replies.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/task_tool_replies.json",
+      "shardId": "conversation.psdl.task.tool.replies",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {
@@ -901,20 +921,6 @@
       "order": 1350,
       "path": "content/wellbeing",
       "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "task",
-      "kind": "content",
-      "order": 1700,
-      "path": "content/task/lifecycle",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "domain": "task",
-      "kind": "content",
-      "order": 1701,
-      "path": "content/task/tool_replies",
-      "owner": "ProjectHoomans"
     },
     {
       "domain": "social",

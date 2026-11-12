@@ -411,6 +411,24 @@ three-repository guard, and changed-file Kahlua gates pass.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 task and tool-reply migration checkpoint
+
+ProjectHoomans now owns two final PSDL dialogue shards, `task_lifecycle.json`
+and `task_tool_replies.json`, covering the remaining lifecycle and tool-result
+authoring. They preserve 86 semantic families, 860 phrase pairs, and 1,720
+EN/TL locale values. The existing Hoomans tool-result realization catalog
+remains the selector and gameplay/tool-handler boundary; its adapter projects
+Core-generated plans into the existing phrase-family/SpeechRealization
+authority while task execution, queued-result status, and command/tool
+semantics remain adopter-owned. Superseded Core task lifecycle/tool-reply
+sources, generated Content/index modules, and split Task translations are
+removed. Core routes the two adopter-owned PSDL shards and DynamicTrading
+receives only generated manifest/registry routing. Exact parity, caller/reference
+zero, focused tool-result/authority/content smokes, the 109-test Core harness,
+the three-repository guard, and changed-file Kahlua gates pass.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.
