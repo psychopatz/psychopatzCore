@@ -271,6 +271,25 @@ ProjectHoomans' neutral/member/special ask-about records now have one final adop
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 task, command, and companion-action migration checkpoint
+
+ProjectHoomans now owns four final PSDL dialogue shards covering player
+commands, companion replies, lifecycle actions, and combat/horde reactions.
+They preserve 76 legacy semantic phrase families with actor-neutral
+`speaker`/`addressee` bindings and 152 EN/TL locale entries. The existing
+semantic response catalog and companion speech authority project wording from
+Core-generated PSDL plans, while command execution, horde acknowledgement,
+safety, effects, and gameplay authorities remain unchanged. The superseded
+Core command/player, command/replies, command/lifecycle, and combat-horde
+sources and generated Content modules are removed, and the Core manifest routes
+the four adopter-owned PSDL shards. Direct command and horde smokes, Core
+harness, caller/reference-zero checks, and the three-repository guard pass. A
+broad presentation smoke retains a known baseline camp-rejection handoff
+failure after direct semantic resolution and is not counted as PSDL parity
+failure.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.

@@ -66,33 +66,6 @@
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
-      "domain": "command",
-      "kind": "content",
-      "order": 1400,
-      "path": "content/command/player.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.command.player",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "command",
-      "kind": "content",
-      "order": 1401,
-      "path": "content/command/replies.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.command.replies",
-      "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
-    },
-    {
-      "domain": "event",
-      "kind": "content",
-      "order": 1504,
-      "path": "content/event/combat_horde_reactions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.event.combat.horde.reactions",
-      "sourceProfile": "conversation.source.project.hoomans.horde.combat.reaction.content.6b85f7eeca"
-    },
-    {
       "domain": "combat",
       "kind": "content",
       "order": 1510,
@@ -340,6 +313,46 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/needs_support.json",
       "shardId": "conversation.psdl.needs.support",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "companion_commands_player",
+      "kind": "psdl",
+      "order": 2308,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/companion_commands_player.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/companion_commands_player.json",
+      "shardId": "conversation.psdl.companion.commands.player",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "companion_commands_replies",
+      "kind": "psdl",
+      "order": 2309,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/companion_commands_replies.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/companion_commands_replies.json",
+      "shardId": "conversation.psdl.companion.commands.replies",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "companion_commands_lifecycle",
+      "kind": "psdl",
+      "order": 2310,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/companion_commands_lifecycle.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/companion_commands_lifecycle.json",
+      "shardId": "conversation.psdl.companion.commands.lifecycle",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "companion_commands_combat",
+      "kind": "psdl",
+      "order": 2311,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/companion_commands_combat.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/companion_commands_combat.json",
+      "shardId": "conversation.psdl.companion.commands.combat",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {
@@ -396,13 +409,6 @@
       "order": 1350,
       "path": "content/wellbeing",
       "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "command",
-      "kind": "content",
-      "order": 1402,
-      "path": "content/command/lifecycle",
-      "owner": "ProjectHoomans"
     },
     {
       "domain": "event",

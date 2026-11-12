@@ -132,6 +132,15 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - The superseded Hoomans needs definition and three Core needs text sources/generated catalogs were removed. The independent `needs/gifts/preference.json` surface remains intact.
 - Hoomans conversation/translation checks, needs parity, Core 109-test harness, DynamicTrading smokes, S0 three-repository audit/guard, and changed Conversation Kahlua scans pass.
 
+## S5 task, command, and companion-action migration chunk
+
+- ProjectHoomans now owns four final PSDL dialogue shards for the maintained companion command surface: player commands, companion replies, lifecycle actions, and combat/horde reactions. The four shards preserve all 76 legacy semantic phrase families and route through the Core compiler.
+- The authored participants are actor-neutral `speaker`/`addressee` pairs. Legacy player-name and plural-name wording is represented through `{addressee.name}` bindings; one mismatched legacy TL placeholder was corrected during parity validation so EN/TL placeholder contracts are valid.
+- The existing Hoomans semantic response catalog remains the gameplay selector and response-plan authority. It now projects wording from Core-generated `Registry.PSDLPlan` variants, with data-driven locale selection and EN fallback; no second command runtime or UI-text reparse path was added.
+- Existing companion speech normalization preserves command aliases (`camp_none`/`camp_rejected`) and maps legacy flat render tokens into the actor-neutral binding contract. Existing command execution, horde acknowledgement, effects, and safety authority remain unchanged.
+- The superseded Core command/player, command/replies, command/lifecycle, and combat-horde content sources and generated Content modules are removed. Core's manifest now routes the four adopter-owned PSDL shards; Hoomans generated indexes/registries are downstream-only.
+- Parity covers 76 records in both EN and TL (152 locale entries), direct command realization and horde acknowledgement smokes pass, Core's semantic harness remains green at 109 tests, and the three-repository S0 audit/guard reports zero violations. The broad presentation-only companion smoke still has its known camp-rejection handoff failure after direct semantic resolution succeeds and is tracked as baseline evidence rather than treated as migration parity.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -158,7 +167,7 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 
 ## Next Chunk
 
-Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: commit the current needs-and-gift-continuation chunk in adopter repositories first, then migrate the next coherent maintained domain, prove parity and caller/reference zero, and remove its superseded source. Prior adopter chunks, Core static-suggestion/runtime-plan/social-check-in work, greetings, ask-about, settlement admission, and companion topics remain bounded S5 checkpoints; S5-S8 remain open.
+Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Core compiler: commit the current task/command/companion-action chunk in adopter repositories first, then migrate social apology/hostility/reconciliation, navigation/knowledge/world-event, remaining ProjectHoomans surfaces, and any remaining DynamicTrading/DTCommon surfaces. For each domain, prove parity and caller/reference zero, remove its superseded source, and keep Core as the sole mechanism owner; S5-S8 remain open.
 
 ## Evidence status
 
@@ -171,6 +180,8 @@ Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the Co
 - `TEST_VERIFIED`: current Core semantic harness passes 109 tests after the bounded S5 adopter projection; DT and Hoomans adopter smokes pass.
 - `TEST_VERIFIED`: current Core semantic harness passes 109 tests after runtime-plan/text-catalog integration; the Hoomans social-check-in, DT trader, three-repository guard and changed Conversation Kahlua gates pass.
 - `TEST_VERIFIED`: greeting PSDL preserves 210 legacy EN/TL keys, Hoomans greeting selection/variant/ceasefire parity passes, and the generated registry remains Kahlua-safe after the local-budget fix.
+- `TEST_VERIFIED`: task/command/companion-action PSDL preserves 76 semantic phrase families and 152 EN/TL locale entries; direct command realization, horde acknowledgement, Core 109-test, three-repository audit/guard, and changed Conversation Kahlua gates pass.
+- `BASELINE_EVIDENCE`: the broad `pnc_companion_commands_smoke` still fails at its pre-existing presentation-path camp-rejection handoff after the direct semantic resolver succeeds; no new Core or PSDL caller/reference failure is present.
 - `STATIC_ONLY`: S5–S8 migration and final acceptance gates remain open.
 
 ## Stop conditions
