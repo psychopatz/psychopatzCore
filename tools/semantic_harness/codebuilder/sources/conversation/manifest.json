@@ -494,6 +494,83 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/medical_event_update.json",
       "shardId": "conversation.psdl.medical.event.update",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "event_reactions_combat",
+      "kind": "psdl",
+      "order": 2327,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/event_reactions_combat.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/event_reactions_combat.json",
+      "shardId": "conversation.psdl.event.reactions.combat",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "event_reactions_companion",
+      "kind": "psdl",
+      "order": 2328,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/event_reactions_companion.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/event_reactions_companion.json",
+      "shardId": "conversation.psdl.event.reactions.companion",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "event_reactions_corpse",
+      "kind": "psdl",
+      "order": 2329,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/event_reactions_corpse.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/event_reactions_corpse.json",
+      "shardId": "conversation.psdl.event.reactions.corpse",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "event_reactions_farewell",
+      "kind": "psdl",
+      "order": 2330,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/event_reactions_farewell.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/event_reactions_farewell.json",
+      "shardId": "conversation.psdl.event.reactions.farewell",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "event_reactions_leader_loss",
+      "kind": "psdl",
+      "order": 2331,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/event_reactions_leader_loss.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/event_reactions_leader_loss.json",
+      "shardId": "conversation.psdl.event.reactions.leader.loss",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "event_reactions_safety",
+      "kind": "psdl",
+      "order": 2332,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/event_reactions_safety.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/event_reactions_safety.json",
+      "shardId": "conversation.psdl.event.reactions.safety",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+
+    {
+      "domain": "event_reactions_social",
+      "kind": "psdl",
+      "order": 2333,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/event_reactions_social.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/event_reactions_social.json",
+      "shardId": "conversation.psdl.event.reactions.social",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {
@@ -543,13 +620,6 @@
       "order": 1350,
       "path": "content/wellbeing",
       "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "event",
-      "kind": "content",
-      "order": 1501,
-      "path": "content/event/reactions",
-      "owner": "ProjectHoomans"
     },
     {
       "domain": "event",

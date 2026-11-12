@@ -376,6 +376,21 @@ Kahlua gates pass.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 event-reaction migration checkpoint
+
+ProjectHoomans now owns seven final event-reaction PSDL shards named by semantic
+surface: combat, companion, corpse, farewell, leader loss, safety, and social.
+They preserve 19 semantic families, 190 phrase pairs, and 380 EN/TL locale
+values. The existing Hoomans social-reaction response catalog remains the
+selector; its adapter projects Core-generated plans into the existing
+phrase-family/SpeechRealization authority while combat predicates, follow-up
+offers, and gameplay response behavior remain adopter-owned. Superseded Core
+event-reaction sources and generated Content modules are removed. Parity,
+caller/reference-zero, direct Lua family loads, Core harness, PSDL build,
+three-repository guard, and changed-file Kahlua gates pass.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.

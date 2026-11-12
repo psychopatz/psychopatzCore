@@ -179,6 +179,13 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Superseded Core medical content sources/generated modules and split Event translations are removed. The Core manifest routes the six adopter-owned PSDL shards; DynamicTrading receives only generated manifest/registry routing and no medical dialogue authority.
 - Medical parity reports 32 families, 320 phrase pairs, and 640 EN/TL locale values with zero differences. Core's 109-test harness, PSDL build, direct Lua family loads, three-repository S0 guard, and changed-file Kahlua scans pass. The broader worker startup and temporary-copy compiler fixture baselines remain separate from this parity gate.
 
+## S5 event-reaction migration chunk
+
+- ProjectHoomans now owns seven final event-reaction PSDL shards: combat, companion, corpse, farewell, leader loss, safety, and social. Together they preserve 19 semantic families, 190 phrase pairs, and 380 EN/TL locale values.
+- The existing Hoomans social-reaction response catalog remains the gameplay selector. Its Core adapter projects Core-generated PSDL variants into the established phrase-family/SpeechRealization authority; combat predicates, leader/corpse/safety context, follow-up offers, and response-plan behavior remain adopter-owned.
+- Superseded Core event-reaction content sources and generated Content modules are removed. The Core manifest routes the seven adopter-owned PSDL shards; DynamicTrading receives only generated manifest/registry routing and no event-reaction authority.
+- Event-reaction parity reports 19 families, 190 phrase pairs, and 380 EN/TL locale values with zero differences. Core's 109-test harness, PSDL build, direct Lua family load, three-repository S0 guard, caller/reference-zero scan, and changed-file Kahlua gates pass.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.

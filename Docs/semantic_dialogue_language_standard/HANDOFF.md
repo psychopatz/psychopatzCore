@@ -5,12 +5,12 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 phase_commit: "self"
 phase_commit_phase: "S5"
-phase_commit_message: "phase(S5): accept medical event migration"
-phase_commit_vector: "project-hoomans=396a83c2e6a8ed5aec66d11304d809277ab9896b;psychopatz-core=self;dynamic-trading=966adc22a5c85e7e027f4c1250dddf2c9d701bb7"
+phase_commit_message: "phase(S5): accept event-reaction migration"
+phase_commit_vector: "project-hoomans=69646d28125da07f68ac5578fce543771032d3b4;psychopatz-core=self;dynamic-trading=ca56e7c36660a4d481a7db6d92852a236ba092c7"
 phase_residual_vector: "project-hoomans=a01a7eb210e939424c3c16adf8194c3b3157f2635716037693b0e99c35286961;psychopatz-core=056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108;dynamic-trading=2dd8d943662ee7381ab631614ca5e1765276051c909b40d0c07b3483dfc246e5"
 residual_worktree_fingerprint: "056633bafff892c20a41afd30a857c15eab98132ebb467b2f3b447cae9353108"
 codebase_memory_indexed_commit: "5075fb7f7334c33b4cfd0991dcf5dd9b4a9c3b88"
-updated_at: "2026-11-12T17:42:24Z"
+updated_at: "2026-11-12T18:07:14Z"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S5 — first-party domain migration deletion"
@@ -32,6 +32,7 @@ retrieval_tier: "verify"
 - The existing Hoomans medical response catalog remains the selector; its Core adapter projects PSDL plans into the established phrase-family/SpeechRealization authority. Medical predicates, follow-up offers, response plans, treatment logic, and health gameplay remain adopter-owned. Superseded Core medical content sources/generated modules and split Event translations are removed.
 
 ## Remaining
+- The event-reaction shard is accepted. Continue S5 through the remaining combat-kill/banter and other maintained first-party domains, then close S6-S8 across all three repositories.
 
 - Execute S5-S8 across all three repositories. Migrate the remaining event-reaction/combat and other maintained first-party domains through Core PSDL, prove parity and caller/reference zero, remove superseded first-party authoring, and complete taxonomy, authoring-service, and exhaustive acceptance gates.
 
@@ -40,11 +41,12 @@ retrieval_tier: "verify"
 Use Codebase Memory at the recorded retrieval tier for each repository, then read current dirty source before relying on stale structural references.
 
 1. Re-inspect PsychopatzCore, ProjectHoomans, and DynamicTrading worktrees and current PSDL/legacy authoring surfaces.
-2. Select the next coherent production domain, beginning with event-reaction/combat dialogue.
+2. Select the next coherent production domain, beginning with remaining combat-kill/banter dialogue.
 3. Author its final PSDL source through the Core compiler, regenerate downstream artifacts, run parity/caller-zero checks, and remove the superseded first-party source in the same accepted phase.
 4. Continue through remaining ProjectHoomans surfaces and any remaining DynamicTrading/DTCommon surfaces before S6-S8 closure.
 
 ## Evidence
+- `TEST_VERIFIED`: event-reaction parity covers 19 families, 190 phrase pairs, and 380 EN/TL locale values; Core 109-test harness, PSDL build, direct Lua family load, focused Hoomans event/social smokes, three-repository guard, caller/reference-zero, and changed-file Kahlua gates pass.
 
 - `CODE_VERIFIED`: all three repositories were independently inspected at current `main` HEAD/worktree state before this boundary; adopter repositories were committed before Core.
 - `CODE_VERIFIED`: Core remains the only PSDL mechanism owner. DynamicTrading trader packs/static suggestions, generated outputs, and runtime callers remain mandatory migration inputs, not duplicate Core mechanism.
@@ -61,6 +63,7 @@ Use Codebase Memory at the recorded retrieval tier for each repository, then rea
 - None.
 
 ## Acceptance
+The event-reaction chunk is accepted with seven adopter-owned PSDL dialogue shards, 19-family/190-pair/380-locale parity, existing social response and SpeechRealization authorities, caller/reference-zero evidence, and removal of superseded first-party sources. The next acceptance boundary is the remaining combat-kill/banter domain through the same Core-owned compiler.
 
 The medical-event chunk is accepted with six adopter-owned PSDL dialogue
 shards, 32-family/320-pair/640-locale parity, existing medical response and
