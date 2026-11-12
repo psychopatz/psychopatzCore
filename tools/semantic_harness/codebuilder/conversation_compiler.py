@@ -607,6 +607,17 @@ def _psdl_plan_text_rows(
         response_text = response.get("text")
         if response_text is not None:
             add(response_text, metadata_key(metadata, "responseKey", "response"))
+        variants = response.get("variants")
+        if isinstance(variants, list):
+            for index, variant in enumerate(variants):
+                if not isinstance(variant, Mapping):
+                    continue
+                variant_metadata = variant.get("metadata")
+                variant_id = str(variant.get("id") or f"variant_{index + 1}")
+                add(
+                    variant.get("text"),
+                    metadata_key(variant_metadata, "textKey", variant_id),
+                )
         turns = response.get("turns")
     else:
         turns = payload.get("turns")
@@ -658,6 +669,12 @@ def _psdl_plan_text_rows(
             add(offer.get("utterance"), metadata_key(
                 offer_metadata, "utteranceKey", f"offer.{offer_id}.utterance"
             ))
+    text_rows = metadata.get("textRows")
+    if isinstance(text_rows, list):
+        for row in text_rows:
+            if not isinstance(row, Mapping):
+                continue
+            add(row.get("text"), row.get("key"))
     return rows
 
 

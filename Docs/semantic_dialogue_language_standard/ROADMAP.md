@@ -222,6 +222,14 @@ does not introduce a PSDL runtime. The superseded Hoomans wellbeing/small-talk
 definition files and five Core social text source files are removed, with
 EN/TL placeholder parity and caller/reference-zero checks passing.
 
+The following S5 chunk is implemented pending its commit boundary: the
+ProjectHoomans greetings domain now has one final PSDL source containing the
+20 relationship/time greeting records and hostile parley. Core preserves
+variant text catalogs and registry module bounds, while the Hoomans adapter
+maps the shared relationship/time predicates and existing ceasefire/portrait
+authorities. The old greetings definition and 21 legacy Core text sources have
+caller/reference-zero evidence and EN/TL parity.
+
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
 ## S6 — taxonomy, layout and generated-output cleanup

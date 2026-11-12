@@ -1,76 +1,172 @@
 {
-  "generatedAtUtc": "2026-11-12T14:32:56.386432+00:00",
+  "generatedAtUtc": "2026-11-12T14:56:10.011998+00:00",
   "guard": {
     "passed": true,
     "repositories": [
       {
         "accepted": [
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Conversation/PsychopatzConversationTextCatalog.lua",
-            "reason": "outside_frozen_authoring_root"
-          },
-          {
-            "path": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Conversation/Registry/PsychopatzConversationRegistry/Validation.lua",
-            "reason": "outside_frozen_authoring_root"
-          },
-          {
             "path": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/social_core_check_in.lua",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dawn.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/social_core_identity.lua",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dusk.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/small_talk/member.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunrise.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/small_talk/neutral.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunset.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/small_talk/special.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/twilight.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/wellbeing/member.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/wellbeing/neutral.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/wellbeing/special.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/small_talk/member.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/small_talk/neutral.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/small_talk/special.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/wellbeing/member.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/wellbeing/neutral.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/wellbeing/special.json",
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/twilight.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -94,15 +190,7 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/build.py",
-            "reason": "outside_frozen_authoring_root"
-          },
-          {
             "path": "tools/semantic_harness/codebuilder/conversation_compiler.py",
-            "reason": "outside_frozen_authoring_root"
-          },
-          {
-            "path": "tools/semantic_harness/codebuilder/conversation_discovery.py",
             "reason": "outside_frozen_authoring_root"
           },
           {
@@ -118,56 +206,158 @@
             "reason": "manifest_control_plane"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/small_talk/opening.json",
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/hostile/parley.json",
             "reason": "superseded_source_removal"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/small_talk/quiet_day.json",
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dawn.json",
             "reason": "superseded_source_removal"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/small_talk/weather.json",
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dusk.json",
             "reason": "superseded_source_removal"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/wellbeing/condition.json",
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunrise.json",
             "reason": "superseded_source_removal"
           },
           {
-            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/wellbeing/offer_help.json",
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunset.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/twilight.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dawn.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dusk.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunrise.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunset.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/twilight.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dawn.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dusk.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunrise.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunset.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/twilight.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dawn.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dusk.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunrise.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunset.json",
+            "reason": "superseded_source_removal"
+          },
+          {
+            "path": "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/twilight.json",
             "reason": "superseded_source_removal"
           }
         ],
         "changed_paths": [
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Conversation/PsychopatzConversationTextCatalog.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Conversation/Registry/PsychopatzConversationRegistry/Validation.lua",
           "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry.lua",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/small_talk/member.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/small_talk/neutral.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/small_talk/special.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/wellbeing/member.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/wellbeing/neutral.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/wellbeing/special.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/small_talk/member.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/small_talk/neutral.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/small_talk/special.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/wellbeing/member.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/wellbeing/neutral.json",
-          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/wellbeing/special.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dawn.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dusk.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunrise.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunset.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/twilight.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dawn.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dusk.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunrise.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunset.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/twilight.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dawn.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dusk.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunrise.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunset.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/twilight.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dawn.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dusk.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunrise.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunset.json",
+          "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/twilight.json",
           "tools/semantic_harness/codebuilder/README.md",
-          "tools/semantic_harness/codebuilder/build.py",
           "tools/semantic_harness/codebuilder/conversation_compiler.py",
-          "tools/semantic_harness/codebuilder/conversation_discovery.py",
           "tools/semantic_harness/codebuilder/conversation_registry.py",
           "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
           "tools/semantic_harness/codebuilder/sources/conversation/text/manifest.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/small_talk/opening.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/small_talk/quiet_day.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/small_talk/weather.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/wellbeing/condition.json",
-          "tools/semantic_harness/codebuilder/sources/conversation/text/social/wellbeing/offer_help.json",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/social_core_check_in.lua",
-          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/Semantics/Generated/Conversation/PSDL/Dialogue/social_core_identity.lua",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/hostile/parley.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dawn.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dusk.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunrise.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunset.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/twilight.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dawn.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dusk.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunrise.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunset.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/twilight.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dawn.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dusk.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunrise.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunset.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/twilight.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dawn.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dusk.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunrise.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunset.json",
+          "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/twilight.json",
           "Docs/semantic_dialogue_language_standard/AGENT_RUNBOOK.md",
           "Docs/semantic_dialogue_language_standard/ARCHITECTURE.md",
           "Docs/semantic_dialogue_language_standard/LANGUAGE_SPEC.md",
@@ -180,7 +370,7 @@
       {
         "accepted": [
           {
-            "path": "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Conversation/Composition/PNC_ConversationSharedComposition.lua",
+            "path": "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Conversation/Definition/PNC_ConversationDefinition_Lifecycle_Open.lua",
             "reason": "outside_frozen_authoring_root"
           },
           {
@@ -188,15 +378,7 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/00_PNC_ConversationDefinitions.lua",
-            "reason": "superseded_source_removal"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/40_PNC_ConversationWellbeing.lua",
-            "reason": "superseded_source_removal"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/50_PNC_ConversationSmallTalk.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/20_PNC_ConversationGreetings.lua",
             "reason": "superseded_source_removal"
           },
           {
@@ -204,31 +386,7 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCheckIn.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreCheckIn.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreIdentity.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Trading.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Pack/Trading.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Pattern/Common.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialGreetings.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -236,51 +394,91 @@
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/CompanionCheckIn.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/CoreCheckIn.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/CoreIdentity.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/Trading.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
             "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_companion_check_in.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dawn.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_member.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dusk.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_neutral.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunrise.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_special.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunset.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_wellbeing_member.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_twilight.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_wellbeing_neutral.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dawn.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_wellbeing_special.lua",
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dusk.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunrise.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunset.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_twilight.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_hostile_parley.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dawn.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dusk.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunrise.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunset.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_twilight.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dawn.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dusk.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunrise.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunset.lua",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_twilight.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -288,51 +486,179 @@
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/small_talk/member.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/hostile/parley.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/small_talk/neutral.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/dawn.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/small_talk/special.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/dusk.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/member.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/sunrise.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/neutral.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/sunset.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/special.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/twilight.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/small_talk/member.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dawn.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/small_talk/neutral.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dusk.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/small_talk/special.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunrise.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/member.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunset.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/neutral.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/twilight.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
-            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/special.json",
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/greetings/hostile/parley.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/hostile/parley.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/dawn.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/dusk.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/sunrise.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/sunset.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/twilight.json",
+            "reason": "generated_output_or_translation_boundary"
+          },
+          {
+            "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/greetings/hostile/parley.json",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -384,44 +710,24 @@
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "tests/pnc_composition_bootstrap_smoke.lua",
-            "reason": "outside_frozen_authoring_root"
-          },
-          {
-            "path": "tests/pnc_conversation_authority_smoke.lua",
-            "reason": "outside_frozen_authoring_root"
-          },
-          {
             "path": "tests/pnc_conversation_smoke.lua",
             "reason": "outside_frozen_authoring_root"
           },
           {
-            "path": "tests/pnc_trader_conversation_ownership_smoke.lua",
-            "reason": "outside_frozen_authoring_root"
-          },
-          {
-            "path": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_check_in.json",
+            "path": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_greetings.json",
             "reason": "psdl_record"
           }
         ],
         "changed_paths": [
-          "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/Conversation/Composition/PNC_ConversationSharedComposition.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/00_PNC_ConversationDefinitions.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/40_PNC_ConversationWellbeing.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/50_PNC_ConversationSmallTalk.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCheckIn.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreCheckIn.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreIdentity.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Trading.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Pack/Trading.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Pattern/Common.lua",
+          "Contents/mods/ProjectHoomans/42.20/media/lua/client/PNC/Conversation/Definition/PNC_ConversationDefinition_Lifecycle_Open.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Composition/PNC_ConversationAdopterDefinitions.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/20_PNC_ConversationGreetings.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/PSDL/PNC_ConversationPSDLBlocks.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Registry.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/CompanionCheckIn.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/CoreCheckIn.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/CoreIdentity.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/Trading.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Registry.lua",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/greetings/hostile/parley.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/greetings/hostile/parley.json",
           "docs/Jobs/PragmaticDialogueBeatDirector/ARCHITECTURE.md",
           "docs/Jobs/SemanticSocialConversationDirector/ARCHITECTURE.md",
           "docs/Jobs/SemanticSocialConversationDirector/ROADMAP.md",
@@ -433,34 +739,73 @@
           "docs/Jobs/UnifiedSemanticDialogueAuthority/PROGRESS.md",
           "docs/Jobs/UnifiedSemanticDialogueAuthority/README.md",
           "docs/Jobs/UnifiedSemanticDialogueAuthority/ROADMAP.md",
-          "tests/pnc_composition_bootstrap_smoke.lua",
-          "tests/pnc_conversation_authority_smoke.lua",
           "tests/pnc_conversation_smoke.lua",
-          "tests/pnc_trader_conversation_ownership_smoke.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Composition/PNC_ConversationAdopterDefinitions.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/PSDL/PNC_ConversationPSDLBlocks.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_companion_check_in.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_member.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_neutral.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_special.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_wellbeing_member.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_wellbeing_neutral.lua",
-          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_wellbeing_special.lua",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/small_talk/member.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/small_talk/neutral.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/small_talk/special.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/member.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/neutral.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/special.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/small_talk/member.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/small_talk/neutral.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/small_talk/special.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/member.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/neutral.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/special.json",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialGreetings.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dawn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dusk.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunrise.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunset.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_twilight.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dawn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dusk.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunrise.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunset.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_twilight.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_hostile_parley.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dawn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dusk.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunrise.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunset.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_twilight.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dawn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dusk.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunrise.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunset.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_twilight.lua",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/hostile/parley.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/dawn.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/dusk.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/sunrise.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/sunset.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/twilight.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dawn.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dusk.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunrise.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunset.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/twilight.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/dawn.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/dusk.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunrise.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunset.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/twilight.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/dawn.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/dusk.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/sunrise.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/sunset.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/twilight.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/hostile/parley.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/dawn.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/dusk.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/sunrise.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/sunset.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/twilight.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dawn.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dusk.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunrise.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunset.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/twilight.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/dawn.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/dusk.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunrise.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunset.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/twilight.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/dawn.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/dusk.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/sunrise.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/sunset.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/twilight.json",
           "docs/Jobs/SemanticDialogueLanguageStandard/README.md",
-          "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_check_in.json"
+          "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/social_greetings.json"
         ],
         "repository": "ProjectHoomans",
         "root": "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
@@ -470,10 +815,6 @@
         "accepted": [
           {
             "path": "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Manifest.lua",
-            "reason": "generated_output_or_translation_boundary"
-          },
-          {
-            "path": "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/PSDL/Dialogue/trade_conversation_suggestions.lua",
             "reason": "generated_output_or_translation_boundary"
           },
           {
@@ -497,7 +838,6 @@
           "architecture-refactor/output/architecture-audit.md",
           "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Manifest.lua",
           "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/Registry.lua",
-          "Contents/mods/DTCommon/common/media/lua/shared/DTCommon/Semantics/Generated/Conversation/PSDL/Dialogue/trade_conversation_suggestions.lua",
           "Docs/Jobs/SemanticDialogueLanguageStandard/README.md",
           "tools/providers/dt/__pycache__/__init__.cpython-312.pyc"
         ],
@@ -513,8 +853,8 @@
     {
       "git": {
         "dirty": true,
-        "head": "e5e6fc277bc1e280e9cf98c5a5f643f9f3be9452",
-        "statusCount": 32
+        "head": "634db0af87003884388d990077c94cf067467ad4",
+        "statusCount": 71
       },
       "name": "PsychopatzCore",
       "root": "/home/psychopatz/Zomboid/Workshop/psychopatzCore",
@@ -523,8 +863,8 @@
     {
       "git": {
         "dirty": true,
-        "head": "a0ee642394d5ab5303f911403558fb07e1aec24b",
-        "statusCount": 40
+        "head": "d4ce03298c95bbfd022fedfd35ed31b9f5a271e7",
+        "statusCount": 47
       },
       "name": "ProjectHoomans",
       "root": "/home/psychopatz/Zomboid/Workshop/ProjectHoomans",
@@ -533,8 +873,8 @@
     {
       "git": {
         "dirty": true,
-        "head": "ba6d2ca3ea17430044dd8a1dbe640114167da4f5",
-        "statusCount": 6
+        "head": "c77c801d1b9b6a1fc7f2e0de165d0153f74c75d9",
+        "statusCount": 5
       },
       "name": "DynamicTrading",
       "root": "/home/psychopatz/Zomboid/Workshop/DynamicTrading",
@@ -982,28 +1322,7 @@
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/departure/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/goodbye/closing.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/ambient_visit/arrival.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/hostile/parley.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/twilight.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/twilight.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/twilight.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/settlement_admission/arrival.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/twilight.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/identity/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/personal/trust.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/recruitment/response.json",
@@ -1021,27 +1340,27 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 244,
+          ".json": 223,
           ".md": 1,
           ".py": 49,
           ".pyc": 99
         },
-        "fileCount": 393,
+        "fileCount": 372,
         "invalidJsonCount": 0,
-        "jsonFileCount": 244,
+        "jsonFileCount": 223,
         "owners": {
           "DTCommon": 2,
-          "ProjectHoomans": 89,
-          "PsychopatzCore": 149
+          "ProjectHoomans": 88,
+          "PsychopatzCore": 129
         },
         "schemas": {
           "pnc.conversation.manifest.v1": 1,
           "psychopatz.semantic.dialogue-language.v1": 2,
           "psychopatz.semantic.shard.v3": 170,
           "psychopatz.semantic.text-source.manifest.v1": 1,
-          "psychopatz.semantic.text-source.v1": 68
+          "psychopatz.semantic.text-source.v1": 47
         },
-        "totalBytes": 3614828
+        "totalBytes": 3581662
       }
     },
     {
@@ -1165,26 +1484,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/ambient_visit/arrival.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/twilight.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/identity/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/personal/special/trust.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/recruitment/response.json",
@@ -1218,26 +1517,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/ambient_visit/arrival.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/twilight.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/identity/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/personal/special/trust.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/recruitment/response.json",
@@ -1507,28 +1786,7 @@
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/departure/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/goodbye/closing.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/ambient_visit/arrival.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/hostile/parley.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/twilight.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/twilight.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/twilight.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/settlement_admission/arrival.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/twilight.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/identity/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/personal/trust.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/recruitment/response.json",
@@ -1543,24 +1801,24 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 242
+          ".json": 221
         },
-        "fileCount": 242,
+        "fileCount": 221,
         "invalidJsonCount": 0,
-        "jsonFileCount": 242,
+        "jsonFileCount": 221,
         "owners": {
           "DTCommon": 2,
-          "ProjectHoomans": 89,
-          "PsychopatzCore": 149
+          "ProjectHoomans": 88,
+          "PsychopatzCore": 129
         },
         "schemas": {
           "pnc.conversation.manifest.v1": 1,
           "psychopatz.semantic.dialogue-language.v1": 2,
           "psychopatz.semantic.shard.v3": 170,
           "psychopatz.semantic.text-source.manifest.v1": 1,
-          "psychopatz.semantic.text-source.v1": 68
+          "psychopatz.semantic.text-source.v1": 47
         },
-        "totalBytes": 1409165
+        "totalBytes": 1374616
       }
     },
     {
@@ -1590,26 +1848,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/ambient_visit/arrival.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/twilight.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/identity/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/personal/special/trust.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/recruitment/response.json",
@@ -1643,26 +1881,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/ambient_visit/arrival.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/twilight.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/identity/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/personal/special/trust.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/recruitment/response.json",
@@ -1690,6 +1908,7 @@
       ],
       "references": {
         "documentation": [
+          "Docs/semantic_dialogue_language_standard/PROGRESS.md",
           "Docs/semantic_dialogue_language_standard/S0_AUTHORING_INVENTORY.json"
         ],
         "generated": [],
@@ -1749,28 +1968,7 @@
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/departure/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/goodbye/closing.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/ambient_visit/arrival.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/hostile/parley.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/member/twilight.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/acquaintance/twilight.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/neutral/first_meet/twilight.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/settlement_admission/arrival.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dawn.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/dusk.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunrise.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/sunset.json",
-        "tools/semantic_harness/codebuilder/sources/conversation/text/social/greetings/special/lover/twilight.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/identity/response.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/personal/trust.json",
         "tools/semantic_harness/codebuilder/sources/conversation/text/social/recruitment/response.json",
@@ -1783,21 +1981,21 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 69
+          ".json": 48
         },
-        "fileCount": 69,
+        "fileCount": 48,
         "invalidJsonCount": 0,
-        "jsonFileCount": 69,
+        "jsonFileCount": 48,
         "owners": {
           "DTCommon": 2,
-          "ProjectHoomans": 4,
-          "PsychopatzCore": 62
+          "ProjectHoomans": 3,
+          "PsychopatzCore": 42
         },
         "schemas": {
           "psychopatz.semantic.text-source.manifest.v1": 1,
-          "psychopatz.semantic.text-source.v1": 68
+          "psychopatz.semantic.text-source.v1": 47
         },
-        "totalBytes": 114973
+        "totalBytes": 79984
       }
     },
     {
@@ -1948,26 +2146,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/ambient_visit/arrival.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/member/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/greetings/special/lover/twilight.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/identity/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/personal/special/trust.json",
         "Contents/mods/PsychopatzCore/common/media/translation/EN/Conversation/Text/social/recruitment/response.json",
@@ -2001,26 +2179,6 @@
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/departure/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/goodbye/closing.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/ambient_visit/arrival.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/member/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/acquaintance/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/neutral/first_meet/twilight.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dawn.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/dusk.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunrise.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/sunset.json",
-        "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/greetings/special/lover/twilight.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/identity/response.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/personal/special/trust.json",
         "Contents/mods/PsychopatzCore/common/media/translation/TL/Conversation/Text/social/recruitment/response.json",
@@ -2042,15 +2200,15 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 107,
+          ".json": 67,
           ".lua": 91
         },
-        "fileCount": 198,
+        "fileCount": 158,
         "invalidJsonCount": 0,
-        "jsonFileCount": 107,
+        "jsonFileCount": 67,
         "owners": {},
         "schemas": {},
-        "totalBytes": 2469089
+        "totalBytes": 2452828
       }
     },
     {
@@ -2166,6 +2324,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreIdentity.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialGreetings.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Trading.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Flow/Semantic.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/FlowDefinition/Semantic.lua",
@@ -2185,6 +2344,27 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/UiText/StaticSuggestions.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_companion_check_in.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dawn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dusk.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunrise.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunset.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_twilight.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dawn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dusk.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunrise.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunset.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_twilight.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_hostile_parley.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dawn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dusk.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunrise.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunset.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_twilight.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dawn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dusk.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunrise.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunset.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_twilight.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_member.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_neutral.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_special.lua",
@@ -2242,7 +2422,6 @@
       "source_files": [
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/01_PNC_ConversationDefinitionHelpers.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/10_PNC_ConversationCategories.lua",
-        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/20_PNC_ConversationGreetings.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/21_PNC_ConversationSettlementAdmission.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/60_PNC_ConversationAskAbout.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Conversation/Definitions/70_PNC_ConversationNeeds.lua",
@@ -2337,15 +2516,15 @@
       ],
       "source_summary": {
         "extensions": {
-          ".lua": 90,
+          ".lua": 89,
           ".md": 1
         },
-        "fileCount": 91,
+        "fileCount": 90,
         "invalidJsonCount": 0,
         "jsonFileCount": 0,
         "owners": {},
         "schemas": {},
-        "totalBytes": 48820
+        "totalBytes": 45961
       }
     },
     {
@@ -2507,6 +2686,7 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreCheckIn.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CoreIdentity.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialGreetings.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/Trading.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Flow/Semantic.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/FlowDefinition/Semantic.lua",
@@ -2526,6 +2706,27 @@
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/UiText/StaticSuggestions.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_companion_check_in.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dawn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dusk.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunrise.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunset.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_twilight.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dawn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dusk.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunrise.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunset.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_twilight.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_hostile_parley.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dawn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dusk.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunrise.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunset.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_twilight.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dawn.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dusk.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunrise.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunset.lua",
+        "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_twilight.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_member.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_neutral.lua",
         "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_special.lua",
@@ -2565,13 +2766,33 @@
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Social.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Task.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Telemetry/Diagnostics.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/hostile/parley.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/dawn.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/dusk.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/sunrise.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/sunset.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/member/twilight.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dawn.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dusk.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunrise.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunset.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/acquaintance/twilight.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/dawn.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/dusk.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunrise.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunset.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/neutral/first_meet/twilight.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/dawn.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/dusk.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/sunrise.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/sunset.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/greetings/special/lover/twilight.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/small_talk/member.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/small_talk/neutral.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/small_talk/special.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/member.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/neutral.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/social/wellbeing/special.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/greetings/hostile/parley.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/greetings/settlement_admission/arrival.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/social/territory/member/claim.json",
         "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/work_orders/member/status.json",
@@ -2619,13 +2840,33 @@
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Social.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Task.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Telemetry/Diagnostics.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/hostile/parley.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/dawn.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/dusk.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/sunrise.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/sunset.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/member/twilight.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dawn.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/dusk.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunrise.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/sunset.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/acquaintance/twilight.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/dawn.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/dusk.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunrise.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/sunset.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/neutral/first_meet/twilight.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/dawn.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/dusk.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/sunrise.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/sunset.json",
+        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/greetings/special/lover/twilight.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/small_talk/member.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/small_talk/neutral.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/small_talk/special.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/member.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/neutral.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/psdl/social/wellbeing/special.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/greetings/hostile/parley.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/greetings/settlement_admission/arrival.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/social/territory/member/claim.json",
         "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Text/work_orders/member/status.json",
@@ -2653,15 +2894,15 @@
       ],
       "source_summary": {
         "extensions": {
-          ".json": 109,
-          ".lua": 136
+          ".json": 149,
+          ".lua": 158
         },
-        "fileCount": 245,
+        "fileCount": 307,
         "invalidJsonCount": 0,
-        "jsonFileCount": 109,
+        "jsonFileCount": 149,
         "owners": {},
         "schemas": {},
-        "totalBytes": 3969586
+        "totalBytes": 4121142
       }
     },
     {
@@ -2712,6 +2953,7 @@
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Content/Task.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/CompanionCheckIn.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialCheckIn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Dialogue/SocialGreetings.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Flow/Semantic.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/FlowDefinition/Semantic.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Pattern/Semantic.lua",
@@ -2720,6 +2962,27 @@
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Index/Ui/CompanionCheckIn.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/Manifest.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_companion_check_in.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dawn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_dusk.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunrise.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_sunset.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_acquaintance_twilight.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dawn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_dusk.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunrise.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_sunset.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_firstmeet_twilight.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_hostile_parley.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dawn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_dusk.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunrise.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_sunset.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_lover_twilight.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dawn.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_dusk.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunrise.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_sunset.lua",
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_greetings_member_twilight.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_member.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_neutral.lua",
           "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/Semantics/Generated/Conversation/PSDL/Dialogue/social_small_talk_special.lua",
@@ -6100,7 +6363,7 @@
         "jsonFileCount": 1,
         "owners": {},
         "schemas": {},
-        "totalBytes": 21672803
+        "totalBytes": 21672820
       }
     },
     {
@@ -6295,7 +6558,7 @@
         "jsonFileCount": 9,
         "owners": {},
         "schemas": {},
-        "totalBytes": 71530
+        "totalBytes": 71452
       }
     },
     {

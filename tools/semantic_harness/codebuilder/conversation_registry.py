@@ -120,7 +120,6 @@ def render_conversation_registry(
         "    for _, value in ipairs(loaded) do Registry.UI[#Registry.UI + 1] = value end",
         "end",
     ])
-    loaded_index = 0
     for report in reports:
         if report.get("kind") in ("Index", "IndexRegistry"):
             continue
@@ -129,29 +128,27 @@ def render_conversation_registry(
         if normalized_include_owners is not None and report.get("owner") not in normalized_include_owners:
             continue
         name = report["module"]
-        loaded_index += 1
-        loaded_name = f"loaded{loaded_index:02d}"
-        lines.append(f"local {loaded_name} = require {_lua_string(name)}")
+        loaded_expression = f"require {_lua_string(name)}"
         if report["kind"] == "Content":
-            lines.append(f"appendContent({loaded_name})")
+            lines.append(f"appendContent({loaded_expression})")
         elif report["kind"] == "ContentChoices":
-            lines.append(f"appendContentChoices({loaded_name})")
+            lines.append(f"appendContentChoices({loaded_expression})")
         elif report["kind"] == "Patterns":
-            lines.append(f"appendPatterns({loaded_name})")
+            lines.append(f"appendPatterns({loaded_expression})")
         elif report["kind"] == "Responses":
-            lines.append(f"appendResponses({loaded_name})")
+            lines.append(f"appendResponses({loaded_expression})")
         elif report["kind"] == "Flows":
-            lines.append(f"appendFlows({loaded_name})")
+            lines.append(f"appendFlows({loaded_expression})")
         elif report["kind"] == "Behaviors":
-            lines.append(f"appendBehaviors({loaded_name})")
+            lines.append(f"appendBehaviors({loaded_expression})")
         elif report["kind"] == "Beats":
-            lines.append(f"appendBeats({loaded_name})")
+            lines.append(f"appendBeats({loaded_expression})")
         elif report["kind"] == "Packs":
-            lines.append(f"appendPacks({loaded_name})")
+            lines.append(f"appendPacks({loaded_expression})")
         elif report["kind"] == "PSDL":
-            lines.append(f"appendPSDL({loaded_name})")
+            lines.append(f"appendPSDL({loaded_expression})")
         elif report["kind"] == "UI":
-            lines.append(f"appendUI({loaded_name})")
+            lines.append(f"appendUI({loaded_expression})")
     lines.extend([
         "for key, family in pairs(Registry.PHRASE_FAMILIES) do",
         "    if type(family) == \"table\" and family.id then Registry.PHRASE_FAMILIES[key] = family end",

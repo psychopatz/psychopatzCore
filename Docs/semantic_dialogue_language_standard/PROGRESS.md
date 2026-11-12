@@ -92,6 +92,15 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Superseded Hoomans `00`, `40`, and `50` conversation definition files and five Core social text source files are removed. Caller/reference-zero searches are clean, and the Hoomans block smoke now checks text routing, opening text, choice keys and response keys directly.
 - Core harness (109 tests), Hoomans conversation/authority/composition/semantic smokes, DynamicTrading trader/PSDL smokes, the three-repository S0 guard and changed Conversation Kahlua scans pass.
 
+## S5 greetings chunk
+
+- ProjectHoomans now owns `psdl/dialogue/social_greetings.json`, with 21 final dialogue records: 20 relationship/time greeting variants plus hostile parley.
+- Core compiler text projection now handles response variants and explicit bounded compatibility text rows, preserving all 210 EN/TL legacy greeting keys. The generated Hoomans catalogs contain only downstream PSDL text output; two semantic offer utterance rows are intentional additional bindings.
+- The Hoomans PSDL adapter maps actor-neutral relationship state and world-hour predicates to the existing PNC relationship/time gates, preserves randomized greeting variants and portrait animation, and maps hostile parley to the existing ceasefire effect/close authority.
+- The superseded Hoomans greetings definition, 21 Core greeting text sources, old generated Core/Hoomans greeting catalogs, and the stale ceasefire text path are removed or redirected. Reference searches are clean for the old authoring paths.
+- Core registry generation now appends required modules directly, avoiding a persistent Lua local per generated module and keeping the Build 42 200-local limit safe as PSDL plans grow.
+- Greeting parity, all Hoomans conversation/authority/composition smokes, all DT smokes, Core 109-test harness, three-repository S0 guard, and changed Conversation Kahlua scans pass.
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.
@@ -119,11 +128,11 @@ Do not infer that earlier work was discarded or that HEAD is permanently authori
 ## Next Chunk
 
 Continue **S5** across ProjectHoomans and DynamicTrading/DTCommon through the
-Core compiler: commit the current social-check-in chunk with adopter repos
-first, then migrate the next coherent maintained domain, prove parity and
-caller/reference zero, and remove its superseded source. The prior two
-adopter chunks, Core static-suggestion migration, and current runtime-plan /
-social-check-in work remain bounded S5 checkpoints; S5-S8 remain open.
+Core compiler: commit the current greetings chunk with adopter repos first,
+then migrate the next coherent maintained domain, prove parity and
+caller/reference zero, and remove its superseded source. The prior adopter
+chunks, Core static-suggestion migration, runtime-plan/social-check-in work,
+and greetings work remain bounded S5 checkpoints; S5-S8 remain open.
 
 ## Evidence status
 
@@ -135,6 +144,7 @@ social-check-in work remain bounded S5 checkpoints; S5-S8 remain open.
 - `TEST_VERIFIED`: S4 Core behavior/beat projection fixtures and the full 106-test semantic harness pass.
 - `TEST_VERIFIED`: current Core semantic harness passes 109 tests after the bounded S5 adopter projection; DT and Hoomans adopter smokes pass.
 - `TEST_VERIFIED`: current Core semantic harness passes 109 tests after runtime-plan/text-catalog integration; the Hoomans social-check-in, DT trader, three-repository guard and changed Conversation Kahlua gates pass.
+- `TEST_VERIFIED`: greeting PSDL preserves 210 legacy EN/TL keys, Hoomans greeting selection/variant/ceasefire parity passes, and the generated registry remains Kahlua-safe after the local-budget fix.
 - `STATIC_ONLY`: S5–S8 migration and final acceptance gates remain open.
 
 ## Stop conditions
