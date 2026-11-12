@@ -48,15 +48,6 @@
       "sourceProfile": "conversation.source.project.hoomans.dialogue.content.registry.bcf424b92f"
     },
     {
-      "domain": "combat",
-      "kind": "content",
-      "order": 1510,
-      "path": "content/combat/player_assault_reactions.json",
-      "owner": "ProjectHoomans",
-      "shardId": "conversation.content.combat.player.assault.reactions",
-      "sourceProfile": "conversation.source.project.hoomans.combat.reaction.content.7c2490ce89"
-    },
-    {
       "domain": "compatibility",
       "kind": "content",
       "order": 1600,
@@ -571,6 +562,296 @@
       "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/event_reactions_social.json",
       "shardId": "conversation.psdl.event.reactions.social",
       "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_player_assault_reactions",
+      "kind": "psdl",
+      "order": 2334,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_player_assault_reactions.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_player_assault_reactions.json",
+      "shardId": "conversation.psdl.combat.player.assault.reactions",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_killer_aggressive",
+      "kind": "psdl",
+      "order": 2335,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_killer_aggressive.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_killer_aggressive.json",
+      "shardId": "conversation.psdl.combat.kill.killer.aggressive",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_killer_brave",
+      "kind": "psdl",
+      "order": 2336,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_killer_brave.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_killer_brave.json",
+      "shardId": "conversation.psdl.combat.kill.killer.brave",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_killer_cold",
+      "kind": "psdl",
+      "order": 2337,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_killer_cold.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_killer_cold.json",
+      "shardId": "conversation.psdl.combat.kill.killer.cold",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_killer_practical",
+      "kind": "psdl",
+      "order": 2338,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_killer_practical.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_killer_practical.json",
+      "shardId": "conversation.psdl.combat.kill.killer.practical",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_killer_reserved",
+      "kind": "psdl",
+      "order": 2339,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_killer_reserved.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_killer_reserved.json",
+      "shardId": "conversation.psdl.combat.kill.killer.reserved",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_killer_shaken",
+      "kind": "psdl",
+      "order": 2340,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_killer_shaken.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_killer_shaken.json",
+      "shardId": "conversation.psdl.combat.kill.killer.shaken",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_killer_supportive",
+      "kind": "psdl",
+      "order": 2341,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_killer_supportive.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_killer_supportive.json",
+      "shardId": "conversation.psdl.combat.kill.killer.supportive",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_witness_aggressive",
+      "kind": "psdl",
+      "order": 2342,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_witness_aggressive.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_witness_aggressive.json",
+      "shardId": "conversation.psdl.combat.kill.witness.aggressive",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_witness_brave",
+      "kind": "psdl",
+      "order": 2343,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_witness_brave.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_witness_brave.json",
+      "shardId": "conversation.psdl.combat.kill.witness.brave",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_witness_cold",
+      "kind": "psdl",
+      "order": 2344,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_witness_cold.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_witness_cold.json",
+      "shardId": "conversation.psdl.combat.kill.witness.cold",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_witness_practical",
+      "kind": "psdl",
+      "order": 2345,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_witness_practical.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_witness_practical.json",
+      "shardId": "conversation.psdl.combat.kill.witness.practical",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_witness_reserved",
+      "kind": "psdl",
+      "order": 2346,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_witness_reserved.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_witness_reserved.json",
+      "shardId": "conversation.psdl.combat.kill.witness.reserved",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_witness_shaken",
+      "kind": "psdl",
+      "order": 2347,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_witness_shaken.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_witness_shaken.json",
+      "shardId": "conversation.psdl.combat.kill.witness.shaken",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_kill_witness_supportive",
+      "kind": "psdl",
+      "order": 2348,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_kill_witness_supportive.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_kill_witness_supportive.json",
+      "shardId": "conversation.psdl.combat.kill.witness.supportive",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_banter_weapon_kill_aggressive",
+      "kind": "psdl",
+      "order": 2349,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_banter_weapon_kill_aggressive.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_banter_weapon_kill_aggressive.json",
+      "shardId": "conversation.psdl.combat.banter.weapon.kill.aggressive",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_banter_weapon_kill_brave",
+      "kind": "psdl",
+      "order": 2350,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_banter_weapon_kill_brave.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_banter_weapon_kill_brave.json",
+      "shardId": "conversation.psdl.combat.banter.weapon.kill.brave",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_banter_weapon_kill_cold",
+      "kind": "psdl",
+      "order": 2351,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_banter_weapon_kill_cold.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_banter_weapon_kill_cold.json",
+      "shardId": "conversation.psdl.combat.banter.weapon.kill.cold",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_banter_weapon_kill_practical",
+      "kind": "psdl",
+      "order": 2352,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_banter_weapon_kill_practical.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_banter_weapon_kill_practical.json",
+      "shardId": "conversation.psdl.combat.banter.weapon.kill.practical",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_banter_weapon_kill_reserved",
+      "kind": "psdl",
+      "order": 2353,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_banter_weapon_kill_reserved.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_banter_weapon_kill_reserved.json",
+      "shardId": "conversation.psdl.combat.banter.weapon.kill.reserved",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_banter_weapon_kill_shaken",
+      "kind": "psdl",
+      "order": 2354,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_banter_weapon_kill_shaken.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_banter_weapon_kill_shaken.json",
+      "shardId": "conversation.psdl.combat.banter.weapon.kill.shaken",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_banter_weapon_kill_supportive",
+      "kind": "psdl",
+      "order": 2355,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_banter_weapon_kill_supportive.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_banter_weapon_kill_supportive.json",
+      "shardId": "conversation.psdl.combat.banter.weapon.kill.supportive",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_human_banter_human_kill_aggressive",
+      "kind": "psdl",
+      "order": 2356,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_human_banter_human_kill_aggressive.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_human_banter_human_kill_aggressive.json",
+      "shardId": "conversation.psdl.combat.human.banter.human.kill.aggressive",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_human_banter_human_kill_brave",
+      "kind": "psdl",
+      "order": 2357,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_human_banter_human_kill_brave.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_human_banter_human_kill_brave.json",
+      "shardId": "conversation.psdl.combat.human.banter.human.kill.brave",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_human_banter_human_kill_cold",
+      "kind": "psdl",
+      "order": 2358,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_human_banter_human_kill_cold.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_human_banter_human_kill_cold.json",
+      "shardId": "conversation.psdl.combat.human.banter.human.kill.cold",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_human_banter_human_kill_practical",
+      "kind": "psdl",
+      "order": 2359,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_human_banter_human_kill_practical.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_human_banter_human_kill_practical.json",
+      "shardId": "conversation.psdl.combat.human.banter.human.kill.practical",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_human_banter_human_kill_reserved",
+      "kind": "psdl",
+      "order": 2360,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_human_banter_human_kill_reserved.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_human_banter_human_kill_reserved.json",
+      "shardId": "conversation.psdl.combat.human.banter.human.kill.reserved",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_human_banter_human_kill_shaken",
+      "kind": "psdl",
+      "order": 2361,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_human_banter_human_kill_shaken.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_human_banter_human_kill_shaken.json",
+      "shardId": "conversation.psdl.combat.human.banter.human.kill.shaken",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
+    },
+    {
+      "domain": "combat_human_banter_human_kill_supportive",
+      "kind": "psdl",
+      "order": 2362,
+      "owner": "ProjectHoomans",
+      "path": "psdl/dialogue/combat_human_banter_human_kill_supportive.json",
+      "sourcePath": "tools/providers/pnc/codebuilder/sources/conversation/psdl/dialogue/combat_human_banter_human_kill_supportive.json",
+      "shardId": "conversation.psdl.combat.human.banter.human.kill.supportive",
+      "sourceProfile": "conversation.source.project.hoomans.conversation.authoring.51ad5f4261"
     }
   ],
   "source": {
@@ -620,34 +901,6 @@
       "order": 1350,
       "path": "content/wellbeing",
       "owner": "PsychopatzCore"
-    },
-    {
-      "domain": "event",
-      "kind": "content",
-      "order": 1502,
-      "path": "content/event/combat_kill/witness",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "domain": "event",
-      "kind": "content",
-      "order": 1503,
-      "path": "content/event/combat_kill/killer",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "domain": "combat_banter",
-      "kind": "content",
-      "order": 1550,
-      "path": "content/combat_banter/weapon_kill",
-      "owner": "ProjectHoomans"
-    },
-    {
-      "domain": "combat_human_banter",
-      "kind": "content",
-      "order": 1560,
-      "path": "content/combat_human_banter/human_kill",
-      "owner": "ProjectHoomans"
     },
     {
       "domain": "task",

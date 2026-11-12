@@ -186,6 +186,14 @@ The problem is authoring fragmentation, not absence of those runtime capabilitie
 - Superseded Core event-reaction content sources and generated Content modules are removed. The Core manifest routes the seven adopter-owned PSDL shards; DynamicTrading receives only generated manifest/registry routing and no event-reaction authority.
 - Event-reaction parity reports 19 families, 190 phrase pairs, and 380 EN/TL locale values with zero differences. Core's 109-test harness, PSDL build, direct Lua family load, three-repository S0 guard, caller/reference-zero scan, and changed-file Kahlua gates pass.
 
+## S5 combat-kill and banter migration chunk
+
+- ProjectHoomans now owns 29 final PSDL dialogue shards for player assault, zombie-kill killer/witness reactions, weapon-kill banter, and human-kill banter. Together they preserve 94 semantic families, 940 phrase pairs, and 1,880 EN/TL locale values.
+- The existing Hoomans social conflict/reaction catalog remains the selector and gameplay authority. Its combat adapter projects Core-generated PSDL plans into the existing phrase-family/SpeechRealization path; the combat moment, role/style selection, weapon safety, and human-kill gameplay remain adopter-owned.
+- Weapon wording uses the Core typed slot contract `{slot.weapon.name}` with `entity.item` metadata. The adopter only projects that typed slot at the final realization seam into the existing authoritative combat moment display name.
+- Superseded Core combat content sources, generated Content/index modules, and split Combat/Event translations are removed. Core's manifest routes all 29 adopter-owned PSDL shards; DynamicTrading receives only generated manifest/registry routing and no combat dialogue authority.
+- Combat parity reports 94 families, 940 phrase pairs, and 1,880 EN/TL locale values with zero differences after typed-slot normalization. Focused Hoomans combat/reaction/authority smokes pass 10/10, the Core harness passes 109 tests, the three-repository S0 guard reports zero violations, and changed combat Lua passes Kahlua verification (with only the pre-existing combat-service token-bloat warning).
+
 ## Normative decisions now frozen
 
 - PSDL is the target first-party authoring standard across PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon.

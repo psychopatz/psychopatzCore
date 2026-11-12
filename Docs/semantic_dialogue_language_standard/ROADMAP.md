@@ -391,6 +391,26 @@ three-repository guard, and changed-file Kahlua gates pass.
 
 **Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
 
+### S5 combat-kill and banter migration checkpoint
+
+ProjectHoomans now owns 29 final PSDL dialogue shards covering player assault,
+zombie-kill killer/witness reactions, weapon-kill banter, and human-kill
+banter. They preserve 94 semantic families, 940 phrase pairs, and 1,880
+EN/TL locale values. The existing Hoomans social conflict/reaction catalog
+remains the selector and gameplay authority; its adapter projects Core-generated
+plans into the existing phrase-family/SpeechRealization path. Combat moment,
+role/style selection, weapon safety, and human-kill behavior remain adopter
+owned. The weapon-name wording uses Core's typed `entity.item` slot contract
+`{slot.weapon.name}`, projected at the final realization seam into the existing
+authoritative combat moment display name. Superseded Core combat sources,
+generated Content/index modules, and split Combat/Event translations are
+removed. Core routes all 29 adopter-owned PSDL shards and DynamicTrading
+receives only generated manifest/registry routing. Exact parity, caller/reference
+zero, focused combat/reaction/authority smokes, the 109-test Core harness, the
+three-repository guard, and changed-file Kahlua gates pass.
+
+**Gate:** each accepted domain has one maintained PSDL authoring authority and no duplicate first-party source.
+
 ## S6 — taxonomy, layout and generated-output cleanup
 
 Reach the final naming/layout standard in `NAMING_AND_LAYOUT.md`.
