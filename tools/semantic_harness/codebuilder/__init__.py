@@ -72,6 +72,12 @@ from .semantic_dialogue_ir import (
     validate_canonical_ir,
     validate_context_path,
 )
+from .convo_engine_authoring import (
+    apply_family_patch,
+    build_convo_engine_family_document,
+    prepare_shard_documents,
+    resolve_authorized_source_path,
+)
 from .convo_engine_exchange import (
     RUNTIME_TEXT_ROLES,
     TEXT_ROLE_BUTTON_LABEL,
@@ -142,6 +148,8 @@ __all__ = [
     "TEXT_ROLE_BUTTON_LABEL",
     "TEXT_ROLE_RESPONSE",
     "TEXT_ROLE_SPOKEN_ACTION",
+    "apply_family_patch",
+    "build_convo_engine_family_document",
     "canonical_ir_fingerprint",
     "canonicalize_dialogue",
     "compile_convo_engine_document",
@@ -150,7 +158,9 @@ __all__ = [
     "normalize_references",
     "normalize_slots",
     "normalize_target",
+    "prepare_shard_documents",
     "render_convo_engine_runtime_plan",
+    "resolve_authorized_source_path",
     "validate_canonical_ir",
     "validate_context_path",
     "validate_semantic_reference",

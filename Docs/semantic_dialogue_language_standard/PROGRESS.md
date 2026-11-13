@@ -310,20 +310,23 @@ Filesystem path is discoverability, not canonical identity.
 - **S6M:** ACTIVE.
   - **S6M0:** accepted baseline audit (`MODULARITY_AUDIT.md`).
   - **S6M1A:** ACCEPTED (compact exchange-family compiler + CodeBuilder preview/validation seam; 120 `tools/semantic_harness/tests` tests passing).
+  - **S6M1B:** ACCEPTED (headless CodeBuilder `convo_engine_authoring.py` / `convo_engine_cli.py` + `SemanticLabAuthoringService` create/edit/move/shard/write API; 124 `tools/semantic_harness/tests` tests passing).
 - **S7:** PARTIAL / REOPENED because editor must support the final exchange-family/affordance/reply/action-result model.
 - **S8:** NOT ACCEPTED.
 
-## Immediate Next Chunk — S6M1B
+## Immediate Next Chunk — S6M2A
 
 Responsibility:
 
-> Add a small headless CodeBuilder ConvoEngine create/edit/move/shard/write
-> command/API and prove agents can perform validated content migration and
-> write a validated fixture without raw filesystem JSON generation.
+> Inventory current runtime modules and references across all three repositories
+> (`psychopatzCore`, `ProjectHoomans`, `DynamicTrading`), classify each relevant
+> module as either ConvoEngine-owned or generic Core semantic infrastructure
+> (without classifying by filename alone), verify `<Owner>/ConvoEngine/`
+> collision safety, and produce machine-readable evidence.
 
-Following bounded chunks after S6M1B:
+Following bounded chunks after S6M2A:
 
-- **S6M2A:** inventory/classify ConvoEngine-owned runtime modules versus generic Core semantic infrastructure;
+- **S6M2B:** root-cause namespace/naming migration (`<Owner>/ConvoEngine/...`, semantic module names, ConvoEngine APIs, full regeneration, caller-zero cleanup);
 - **S6M2B:** migrate proven ConvoEngine-owned routing from `Semantics/Generated/Conversation/PSDL` (and conversation-specific `Semantics/...` modules where proven) to `<Owner>/ConvoEngine/...`, fix semantic module naming, regenerate atomically, and prove old-path caller zero;
 - **S6M3-S6M5:** migrate/shard content **through CodeBuilder**, never by manually
   manufacturing destination JSON;

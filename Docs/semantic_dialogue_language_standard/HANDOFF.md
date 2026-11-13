@@ -8,10 +8,10 @@ participant_heads: "project-hoomans=c10b3f94f7a83b77547fed55d4da676823c42b75;dyn
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S6M — ConvoEngine normalization"
-chunk: "S6M1B — headless CodeBuilder create/edit/move/shard/write command/API"
+chunk: "S6M2A — ConvoEngine vs generic Semantics ownership inventory"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-13T09:56:00Z"
+updated_at: "2026-11-13T18:00:00Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -216,35 +216,35 @@ Read-only candidate discovery is separate from mutation.
 
 This is S6M6, not the current chunk.
 
-## What became true in S6M1A
+## What became true in S6M1B
 
-- Implemented `tools/semantic_harness/codebuilder/convo_engine_exchange.py` and wired it into `semantic_dialogue_ir.py`, `psdl_compiler.py`, `service.py`, and `__init__.py`.
-- Added canonical schema `psychopatz.convo-engine.v1` with bounded read-only compatibility for `psychopatz.semantic.dialogue-language.v1` (rejected when `allow_legacy_schema=False` or when compact exchange-family fields use the legacy schema).
-- Added compact exchange-family support (`kind / namespace / id`, direct single `say`, stable sparse numeric `say` keys, independent named `reply` outcomes, `invoke`, `affordance.label`, `after`, `slots.*.suggest/limit`).
-- Normalized explicit runtime text roles (`button_label`, `spoken_action`, `response`) with fail-closed rejection of `button_label -> spoken_action` fallback and rejection of semantic references targeting wording realization keys.
-- Exposed `preview_convo_engine_document`, `validate_convo_engine_document`, and `preview_convo_engine_sources` on `SemanticLabAuthoringService` and verified `tools/semantic_harness/tests/fixtures/convo_engine_ask_person.json`.
-- Verification: `python3 -m unittest discover -s tools/semantic_harness/tests -p "test_*.py"` ran 120 tests, all passing.
+- Added `tools/semantic_harness/codebuilder/convo_engine_authoring.py` (`resolve_authorized_source_path`, `build_convo_engine_family_document`, `apply_family_patch`, `prepare_shard_documents`, JSON/fingerprint helpers) rejecting forbidden compatibility path segments and legacy schemas on write.
+- Exposed `write_convo_engine_source`, `create_convo_engine_family`, `edit_convo_engine_family`, `move_convo_engine_source`, and `shard_convo_engine_source` on `SemanticLabAuthoringService` and exported the authoring helpers from `tools/semantic_harness/codebuilder/__init__.py`.
+- Added headless CLI `tools/semantic_harness/codebuilder/convo_engine_cli.py` (`validate`, `preview`, `create`, `edit`, `move`, `shard`, `write`).
+- Added `tools/semantic_harness/tests/test_convo_engine_authoring.py` verifying create/edit/move/shard/write and CLI subprocess validation without raw JSON manufacturing.
+- Verification: `python3 -m unittest discover -s tools/semantic_harness/tests -p "test_*.py"` ran 124 tests, all passing.
 
-## Immediate Next Chunk — S6M1B
+## Immediate Next Chunk — S6M2A
 
 Responsibility:
 
-> Add a small headless CodeBuilder ConvoEngine create/edit/move/shard/write
-> command/API and prove agents can perform validated content migration and
-> write a validated fixture without raw filesystem JSON generation.
+> Inventory current runtime modules and references across `psychopatzCore`,
+> `ProjectHoomans`, and `DynamicTrading`; classify each relevant module as
+> ConvoEngine-owned vs generic Core semantic infrastructure using symbol/caller
+> evidence (not filename alone); verify `<Owner>/ConvoEngine/` collision safety;
+> and produce machine-readable evidence + test coverage.
 
 Do not:
 
-- migrate production content yet;
-- change runtime output paths yet;
+- move or delete runtime files yet (`S6M2B`);
+- regenerate adopter/Core Lua trees yet;
 - implement action/results yet;
-- rewrite Semantic Lab;
-- hand-edit generated Lua.
+- rewrite Semantic Lab.
 
 Pass gate:
 
-- headless CLI + service methods create, edit, move/shard, validate, and write a canonical ConvoEngine fixture;
-- focused tests pass.
+- machine-readable ownership inventory covers all three repos with evidence-backed classification and collision check;
+- focused inventory tests pass.
 
 ## Following bounded chunks
 
