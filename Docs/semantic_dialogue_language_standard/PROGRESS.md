@@ -1,131 +1,380 @@
-# Progress — Psychopatz Semantic Dialogue Language Standard
+# Progress — ConvoEngine
 
-**Status:** COMPLETE — S0-S8 accepted after fresh three-repository audit.
+**Status:** IN PROGRESS — S8 reopened by modularity/generated-naming audit on 2026-11-13.
+**Estimated developer progress:** ~86%.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S8 accepted.
-**Completion boundary:** fresh three-repository S8 acceptance achieved.
+**Active phase:** S6M — compact exchange-family, realization/reply/action-result normalization, and semantic generated naming.
+**Completion boundary:** fresh S8 after S6M, S7 exchange-family/action-result UX, and broad regression closure.
 
 ## Mandatory ownership and scope
 
-- PsychopatzCore owns the PSDL schema/language, Canonical Semantic Dialogue IR,
+- PsychopatzCore owns ConvoEngine: the conversation schema/Canonical Semantic Dialogue IR,
   compiler/normalizer, generic validation/predicates, actor-neutral references,
-  typed slots/bindings, package routing, authoring service, and runtime contracts.
-- ProjectHoomans and DynamicTrading/DTCommon own only adopter records, adapters,
-  gameplay-specific constraints, tests, and translations/content.
+  typed slots/bindings, exchange-family/realization/reply rules, registered
+  action-result contracts, package routing, modularity audit, CodeBuilder authoring service,
+  and generated naming policy. `PSDL`/`psdl` is migration compatibility only.
+- ProjectHoomans and DynamicTrading/DTCommon own adopter semantic records,
+  adapters, gameplay constraints, tests, and translations/content.
 - Existing ResponsePlan, BranchOffers, Interaction Director, Scene Runtime,
-  Semantic Social Conversation, SpeechRealization, and gameplay authorities
-  remain runtime authorities. PSDL is authoring and compilation, not a second
-  dialogue runtime.
+  Semantic Social Conversation, SpeechRealization and gameplay authorities
+  remain runtime authorities. ConvoEngine remains authoring/compilation/orchestration rather than a replacement gameplay authority.
 
-## Phase truth
+## Accepted foundation
 
-- **S0 ACCEPTED.** All three repositories are inventoried by the Core-owned
-  machine-readable guard; new first-party additions to frozen old surfaces are
-  rejected without rejecting legitimate adopter PSDL records or compatibility
-  boundaries.
-- **S1 ACCEPTED.** Core owns actor-neutral IR/reference/predicate contracts.
-- **S2 ACCEPTED.** Core owns the only PSDL schema/compiler/normalizer.
-- **S3 ACCEPTED.** Participant-neutral offers, ResponsePlan projection, typed
-  slots/references, bindings, and runtime seams are proven.
-- **S4 ACCEPTED for the corrective slice.** Maintained Core behavior, beat, and
-  realization catalogs now use PSDL module records. Interaction Director and
-  SpeechRealization remain the accepted consumers.
-- **S5 ACCEPTED.** The
-  surviving Core source inventory is PSDL plus explicitly justified recognition,
-  semantic-memory, and routing data. The remaining response/flow/UI/text/
-  behavior/beat/realization authorities were migrated and superseded sources
-  removed. DynamicTrading wording is in the final DTCommon PSDL trader source.
-- **S6 ACCEPTED.** Output fan-out is packed into bounded deterministic shards;
-  cache-free inventories, package routing, source lineage, Kahlua checks, and
-  two-pass generation all pass.
-- **S7 ACCEPTED.** Core service CRUD/preview/write APIs remain the sole
-  authority and Semantic Lab exposes a structured PSDL authoring tab. Native
-  visual/runtime acceptance remains user-owned.
-- **S8 ACCEPTED.** Fresh exhaustive acceptance passed across Core,
-  ProjectHoomans, and DynamicTrading/DTCommon: ownership, source closure,
-  actor-neutral runtime projections, tests, audits, deterministic generation,
-  Kahlua compilation, cache-free evidence, and committed handoff all pass.
+The previous corrective work remains useful and must not be discarded:
 
-## S5 corrective source evidence
+- S0-S5 architecture/source-authority migration is accepted foundation.
+- Core owns the only ConvoEngine compiler/schema/IR/shared service; `PSDL`/`psdl` survives only as migration compatibility.
+- maintained old Core flow/response/UI/behavior/beat authoring roots were removed;
+- DynamicTrading consumes the same Core mechanism;
+- ProjectHoomans has extensive migration-era PSDL conversion feeding the ConvoEngine target;
+- Core Semantic Lab already exposes a structured PSDL pane;
+- deterministic generation/runtime packing work exists.
 
-`Docs/semantic_dialogue_language_standard/S5_CORE_SOURCE_AUDIT.json` is the
-machine-readable per-file inventory. It records:
+The newly discovered defect is **how the PSDL source itself is organized and
+identified**, plus how the generator names modules.
 
-- 42 surviving Core Conversation JSON sources, including 25 maintained PSDL
-  record files, six recognition/NLU files, nine semantic-memory backstory fact
-  catalogs, and two routing manifests;
-- explicit reasons why recognition and fact-value data are not competing
-  dialogue authoring authorities;
-- production references, generated output boundaries, compatibility status,
-  final PSDL destination, and migration status for every maintained source;
-- 56 deleted superseded first-party authoring files and their final destinations.
+## Modularity audit findings
 
-The strict Core source audit reports 41 source JSON files (the manifest itself
-is excluded from that source count), zero issues, zero hard/preferred oversize
-files, and zero cache/interpreter/editor artifacts. The PSDL authoring guard
-for Core, ProjectHoomans, and DynamicTrading reports zero violations.
+Normative evidence is in `MODULARITY_AUDIT.md`.
 
-Surviving Core source layout is now:
+### ProjectHoomans source shape
+
+Current measured state:
 
 ```text
-sources/conversation/manifest.json
-sources/conversation/text/manifest.json
-sources/conversation/patterns/**/*.json                 recognition authority
-sources/conversation/text/memory/backstory/*.json       semantic-memory facts
-sources/conversation/psdl/**/*.json                     maintained PSDL records
+80 PSDL files
+all 80 directly under psdl/dialogue/
+25 files > 32 KiB
+12 files > 64 KiB
+19 files > 16 top-level records
+11 files > 24 top-level records
+largest: task_tool_replies.json = 128,652 bytes / 46 records
 ```
 
-No maintained Core `flows/`, `responses/`, `ui/`, `beats/`, `behaviors/`, or
-legacy `realization/` authoring tree remains. No new Legacy/Compat/Old/V1 or
-migration-copy tree was created.
+Representative aggregates:
 
-## Current validation evidence
+```text
+task_tool_replies.json                  46 records
+task_lifecycle.json                     40 records
+companion_commands_lifecycle.json       35 records
+social_interaction_scene_horde_work     28 records
+social_interaction_scene_travel_news    28 records
+social_reactions_ack_dispute            28 records
+social_tool_replies_affirmation         25 records
+social_emotes                            30 records
+health_content                           24 records
+```
 
-- Core full semantic harness: **112/112 passed**.
-- Core GUI shell/startup plus PSDL tests: **22/22 passed**.
-- ProjectHoomans repaired migration-facing conversation tests:
-  `pnc_conversation_smoke` and `pnc_psdl_core_response_offer_smoke`: **2/2 passed**.
-- ProjectHoomans broad semantic/conversation/PSDL sweep, including the
-  NPC↔NPC scene presentation regression: **51/51 passed**.
-- DynamicTrading trader/conversation/PSDL focused set: **9/9 passed**.
-- Core, ProjectHoomans, and DTCommon generated Conversation trees pass the
-  Kahlua compatibility scan: **42/208/5 files, zero errors/warnings**.
-- Deterministic two-pass generation: **255 Conversation output hashes,
-  identical on both passes**.
-- Current generated Conversation scale after packing:
-  - Core: 42 files / 973,739 bytes;
-  - ProjectHoomans: 208 files / 5,503,687 bytes;
-  - DynamicTrading: 5 files / 72,834 bytes.
-  The combined builder reports 457 generated downstream artifacts. Hoomans'
-  304,306-byte manifest has zero local declarations. PSDL runtime catalogs are
-  packed to bounded shards while preserving package routing, source lineage,
-  deterministic generation, and lookup IDs.
+These are migration buckets rather than the intended self-contained semantic
+modules.
 
-## S7 Semantic Lab surface
+### Canonical IDs
 
-`SemanticLabAuthoringService` remains Core-owned and now indexes manifest-routed
-PSDL sources across all three repositories. `PSDLAuthoringPane` is exposed in
-Semantic Lab's Developer Tools and provides:
+ProjectHoomans currently has approximately:
 
-- source browse/select with owner, shard, record IDs, and source lineage;
-- create, edit, duplicate, delete, reorder, validate, preview, and explicit
-  write operations through the shared service;
-- dialogue/behavior/beat/realization kind selection;
-- speaker/addressee participant editing, generic target, typed slots and
-  references;
-- predicate/collection constraints, bindings/resolvers, turns, nested offers,
-  transitions, behavior candidates, beat entry/maintain/exit, realization
-  translations/forms, and EN/TL fields;
-- actor-neutral speaker/addressee/target preview context and a bounded
-  predicate → beat → behavior → variant → offer trace;
-- source fingerprint/owner routing and compile diagnostics. Generated output
-  remains downstream-only.
+```text
+804 PSDL records
+715 IDs beginning semantic. (~88.9%)
+```
 
-The existing runtime-oriented editors remain compatibility views; they do not
-own a second PSDL format or compiler.
+The routine `semantic.` prefix is redundant because PSDL is already the
+semantic authoring language.
 
-## Completion boundary
+Current long IDs frequently repeat domain/style information already known from
+source/module context.
 
-All developer-side S8 gates pass and all phase-owned paths are committed.
-Only optional native Project Zomboid feel/visual/live acceptance remains
-user-owned; it is not required for this developer-side objective.
+### Stable realization keys
+
+Numeric `1`, `2`, `3`, ... keys remain useful, but the audit/planning
+decision has been refined:
+
+> numeric wording keys are stable **realization identities**, not separate
+> semantic family identities.
+
+The target stack is:
+
+```text
+semantic family
+  → optional named reply outcome
+      → stable say realization key 1 / 2 / 3 / ...
+          → style/context variant
+              → localized phrase alternative
+```
+
+Example:
+
+```text
+social.knowledge.ask_person
+
+initiating say
+  1
+  2
+
+reply.known
+  say.1
+  say.2
+
+reply.unknown
+  say.1
+  say.2
+```
+
+Semantic callers reference `social.knowledge.ask_person` or a meaningful reply
+outcome, never wording key `1`/`2`.
+
+A family with one realization may author `say` directly without an artificial
+`"1"`. Numeric keys become useful when multiple stable alternatives exist.
+
+Existing numbered semantic IDs must be classified during S6M:
+
+- if the number means only alternate wording, collapse it into a `say`
+  realization key;
+- if the number hides genuinely different semantic meaning, give that meaning a
+  descriptive family/outcome name;
+- do not renumber surviving realization keys merely to remove gaps.
+
+### Style duplication
+
+Current Hoomans measurements:
+
+```text
+804 total PSDL records
+623 style-like top-level records
+at least 66 response-template families with multiple top-level style records
+```
+
+Example current shape:
+
+```text
+semantic.interaction.scene.horde_prompt.neutral
+semantic.interaction.scene.horde_prompt.warm
+semantic.interaction.scene.horde_prompt.terse
+semantic.interaction.scene.horde_prompt.guarded
+```
+
+Those records point to the same semantic response-template family. Style should
+normally be nested inside a stable `say` realization using PSDL variants and
+`when` predicates.
+
+### Migration metadata residue
+
+Across Core + Hoomans + DynamicTrading PSDL records:
+
+```text
+~71% metadata.sourceSurface
+~71% metadata.responseTemplateID
+~60% metadata.contentOwner
+~75% metadata.category
+```
+
+Much of this is migration-era duplication and should become compiler-derived
+where runtime consumers allow it.
+
+## Generated naming defect
+
+The screenshot's vague generated `Catalog.lua` leaves are generator-created.
+
+Current Core `conversation_compiler.py`:
+
+1. groups PSDL runtime plans by `(owner, kind, domain)`;
+2. uses the broad current source/domain bucket;
+3. calls the shared module naming function with:
+   `[kind.title(), domain, "catalog"]`.
+
+That intentionally produces:
+
+```text
+PSDL/Dialogue/CombatBanterWeaponKillBrave/Catalog.lua
+PSDL/Dialogue/SocialInteractionArgument/Catalog.lua
+```
+
+Do not rename those files manually.
+
+Target CodeBuilder mapping:
+
+```text
+sources/conversation/dialogue/social/argument/deescalate.json
+→ <Owner>/ConvoEngine/Dialogue/Social/Argument/Deescalate.lua
+
+sources/conversation/dialogue/social/scene/horde/brave_reply.json
+→ <Owner>/ConvoEngine/Dialogue/Social/Scene/Horde/BraveReply.lua
+```
+
+The final ConvoEngine-owned runtime path has no redundant `Semantics`,
+`Generated`, `Conversation`, or `PSDL` wrapper.
+
+Generic Core semantic infrastructure that is broader than conversation remains
+under `PsychopatzCore/Semantics/`.
+
+Use/extend Core's existing collision-safe `catalog_naming.py` helpers.
+
+## New normative compact language direction
+
+Ordinary dialogue/content PSDL now uses one compact **exchange family**:
+
+```json
+{
+  "kind": "dialogue",
+  "namespace": "social.knowledge",
+  "id": "ask_person",
+
+  "invoke": { ... },
+
+  "affordance": {
+    "label": "Ask about {slot.person.name}"
+  },
+
+  "say": {
+    "1": "Have you seen {slot.person.name} lately?",
+    "2": "Do you know where {slot.person.name} is?"
+  },
+
+  "reply": {
+    "known": {
+      "say": {
+        "1": "...",
+        "2": "..."
+      }
+    },
+    "unknown": {
+      "say": "..."
+    }
+  },
+
+  "after": { ... }
+}
+```
+
+The root owns semantic family identity once. Manifest/provider ownership
+supplies ordinary adopter owner unless an explicit override is required.
+
+PSDL must keep the following roles distinct:
+
+```text
+affordance.label
+= UI-only recommendation label
+
+say
+= initiating actor's actual speech
+
+invoke
+= semantic meaning
+
+reply.<outcome>.say
+= responder speech after semantic/result outcome selection
+```
+
+Initiating and reply realization keys are independent. There is no
+`say.1 -> reply.say.1` pairing.
+
+Player buttons and NPC choices are projections of the same bound Core semantic
+affordance instances. NPC selection uses semantic utility/predicates, never
+rendered text.
+
+PSDL also now requires a typed gameplay execution seam:
+
+```text
+invoke
+→ optional execute registered action contract
+→ bounded public result.*
+→ named reply outcome
+→ reply say
+```
+
+Example:
+
+```json
+"execute": "pnc.companion.camp"
+```
+
+PsychopatzCore owns the generic action-contract/result mechanism; ProjectHoomans
+retains the real camp gameplay/validation/server authority. Raw Lua callbacks
+and raw return tables are not PSDL.
+
+Read-only candidate/binding resolvers remain separate from mutation/execution.
+Asynchronous results must be correlated/idempotent and may drive
+pending/accepted/rejected/failed/completed replies.
+
+Filesystem path is discoverability, not canonical identity.
+
+## Current phase truth
+
+- **S0:** accepted foundation.
+- **S1:** accepted foundation.
+- **S2:** accepted foundation, but compiler needs S6M exchange-family/reply/action-result extension.
+- **S3:** accepted foundation.
+- **S4:** accepted runtime concept; source modules still need S6M sharding.
+- **S5:** accepted old-authority closure; current migration-era conversation source organization needs ConvoEngine S6M normalization.
+- **S6:** PARTIAL / REOPENED.
+- **S6M:** ACTIVE.
+  - **S6M0:** accepted baseline audit (`MODULARITY_AUDIT.md`).
+  - **S6M1A:** ACCEPTED (compact exchange-family compiler + CodeBuilder preview/validation seam; 120 `tools/semantic_harness/tests` tests passing).
+- **S7:** PARTIAL / REOPENED because editor must support the final exchange-family/affordance/reply/action-result model.
+- **S8:** NOT ACCEPTED.
+
+## Immediate Next Chunk — S6M1B
+
+Responsibility:
+
+> Add a small headless CodeBuilder ConvoEngine create/edit/move/shard/write
+> command/API and prove agents can perform validated content migration and
+> write a validated fixture without raw filesystem JSON generation.
+
+Following bounded chunks after S6M1B:
+
+- **S6M2A:** inventory/classify ConvoEngine-owned runtime modules versus generic Core semantic infrastructure;
+- **S6M2B:** migrate proven ConvoEngine-owned routing from `Semantics/Generated/Conversation/PSDL` (and conversation-specific `Semantics/...` modules where proven) to `<Owner>/ConvoEngine/...`, fix semantic module naming, regenerate atomically, and prove old-path caller zero;
+- **S6M3-S6M5:** migrate/shard content **through CodeBuilder**, never by manually
+  manufacturing destination JSON;
+- **S6M6:** registered gameplay action/result contract + CAMP acceptance;
+- **S6M7-S6M8:** metadata cleanup, regeneration, broad audit/acceptance;
+- **S7:** final ConvoEngine Semantic Lab UX;
+- **S8:** exhaustive three-repo acceptance.
+
+## Regression closure remains required
+
+The prior broad Hoomans semantic/conversation/PSDL run exposed failures beyond
+the small recorded S8 subset. S8 may not be accepted until the same broad
+selection is rerun and each failure is either fixed or proven as an
+independently accepted unrelated baseline.
+
+Do not weaken tests simply to obtain green output.
+
+## Final completion boundary
+
+S8 can close only when:
+
+- source is hierarchically organized by coherent semantic family;
+- ordinary dialogue uses compact exchange-family identity;
+- manifest/provider ownership removes unnecessary owner boilerplate;
+- numeric wording keys are stable realization handles, not semantic family IDs;
+- a single realization does not require artificial `"1"`;
+- reply outcomes carry semantic names and own independent reply realizations;
+- initiator and reply wording keys are never positionally coupled;
+- style/context/phrase alternatives occupy the correct nested dimensions;
+- canonical IDs are concise/non-redundant;
+- reusable targets own `invoke` + UI-only `affordance.label`;
+- runtime text roles normalize explicitly with no label→speech fallback;
+- player and NPC use the same bound semantic affordance instances;
+- NPC choice can use relationship/traits/stats/context utility without parsing
+  rendered text;
+- registered typed `execute` contracts preserve adopter gameplay authority;
+- only bounded contract-declared `result.*` fields enter dialogue context;
+- sync and async results safely drive named reply outcomes/bindings;
+- duplicate/stale async results cannot replay mutation or duplicate speech;
+- read-only query/candidate discovery never performs mutating execution;
+- Hoomans CAMP proves the action/result/reply path using its existing authority;
+- static suggestion/hub text is not a separate first-party authority;
+- chaining uses bounded `after.recommend` / `after.goto` / end / resume;
+- generated ConvoEngine modules use semantic filenames under `<Owner>/ConvoEngine/...`;
+- no generated artifacts are hand edited;
+- Semantic Lab authors/traces the final exchange/affordance/reply/action-result
+  model;
+- broad Core/Hoomans/DynamicTrading tests pass;
+- deterministic generation/Kahlua/source audits pass;
+- goal-owned docs/adopter pointers are committed;
+- final handoff records exact three-repository HEADs/residual worktrees.
+
+Native Project Zomboid live/visual/feel acceptance remains user-owned after
+developer-side S8 genuinely passes.

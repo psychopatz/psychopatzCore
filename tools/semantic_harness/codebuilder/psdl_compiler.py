@@ -28,11 +28,23 @@ from .generation_ownership import (
 )
 from .rule_contract import normalize_predicate
 from .semantic_pack_compiler import compile_semantic_pack_shard
+from .convo_engine_exchange import (
+    EXCHANGE_FAMILY_FIELDS,
+    collect_disallowed_realization_targets,
+    collect_semantic_references,
+    normalize_exchange_family_payload,
+    project_exchange_family_runtime,
+    resolve_family_identity,
+    validate_semantic_reference,
+)
 from .semantic_dialogue_ir import (
     CANONICAL_IR_SCHEMA,
+    CONVO_ENGINE_SCHEMA,
+    LEGACY_PSDL_SCHEMA,
     PSDL_SCHEMA,
     REFERENCE_TYPES,
     SLOT_TYPES,
+    SUPPORTED_SOURCE_SCHEMAS,
     canonicalize_dialogue,
     validate_context_path,
 )
@@ -40,10 +52,11 @@ from .translation_support import DEFAULT_LANGUAGE, normalize_language
 
 
 PSDL_COMPILED_SCHEMA = "psychopatz.semantic.dialogue-compiled.v1"
+CONVO_ENGINE_COMPILED_SCHEMA = PSDL_COMPILED_SCHEMA
 PSDL_KINDS = frozenset({"dialogue", "behavior", "beat", "realization"})
 PSDL_DOCUMENT_FIELDS = frozenset({"schema", "records", "owner", "metadata"})
 PSDL_RECORD_FIELDS = frozenset({
-    "schema", "kind", "id", "version", "owner", "participants", "target", "slots",
+    "schema", "kind", "namespace", "id", "version", "owner", "participants", "target", "slots",
     "references", "when", "constraints", "on", "respond", "response",
     "variants", "turns", "offers", "transitions", "bindings", "text",
     "label", "utterance", "stimuli", "act", "mode", "requiredCapabilities",
@@ -52,7 +65,7 @@ PSDL_RECORD_FIELDS = frozenset({
     "maxTurns", "effects", "policy", "metadata", "style", "resolver",
     "recognition",
     "type", "strategy", "dialogueAct", "concept", "forms", "translations", "aliases",
-})
+}) | (EXCHANGE_FAMILY_FIELDS - {"namespace"})
 TRANSITION_KINDS = frozenset({
     "continue", "await_participant", "terminate", "resume_previous",
     "enter_flow", "exit_flow",
@@ -70,7 +83,7 @@ MAX_RECOGNITION_RECORDS = 256
 _ID = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
 _NAME = re.compile(r"^[a-z][a-z0-9_]{0,31}$")
 _RESOLVER = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
-_PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9_.]*)\}")
+_PLACEHOLDER = re.compile(r"\{([a-z][a-zA-Z0-9_.]*)\}")
 _FORBIDDEN_ID_PARTS = frozenset({
     "generated", "legacy", "compat", "old", "v1", "automatic_flow",
     "parameterized_task", "part02", "part03", "part04", "part05",
@@ -424,6 +437,9 @@ def _normalize_module_payload(
     payload: dict[str, Any],
     *,
     label: str,
+    slots: Mapping[str, Any] | None = None,
+    source_schema: str = LEGACY_PSDL_SCHEMA,
+    has_namespace: bool = False,
 ) -> dict[str, Any]:
     bindings = _normalize_bindings(payload.get("bindings"), f"{label}.bindings")
     if bindings:
@@ -433,6 +449,17 @@ def _normalize_module_payload(
     if "recognition" in payload:
         payload["recognition"] = _normalize_recognition(
             payload["recognition"], f"{label}.recognition"
+        )
+
+    exchange_keys = EXCHANGE_FAMILY_FIELDS - {"namespace"}
+    uses_exchange_syntax = has_namespace or any(key in payload for key in exchange_keys)
+    if uses_exchange_syntax and source_schema != CONVO_ENGINE_SCHEMA:
+        raise CompileError(
+            f"{label} uses compact exchange-family syntax and must declare schema {CONVO_ENGINE_SCHEMA}"
+        )
+    if kind != "dialogue" and any(key in payload for key in exchange_keys):
+        raise CompileError(
+            f"{label} compact exchange-family fields are supported only for kind 'dialogue'"
         )
 
     if "on" in payload:
@@ -497,10 +524,23 @@ def _normalize_module_payload(
             payload["candidates"] = normalized_candidates
             if not normalized_candidates:
                 raise CompileError(f"{label}.candidates must contain at least one behavior")
+    if kind == "dialogue":
+        if any(key in payload for key in ("invoke", "affordance", "say", "reply", "after")):
+            normalize_exchange_family_payload(
+                payload,
+                label=label,
+                slots=slots or {},
+                bindings=bindings,
+                normalize_locale_text=_normalize_locale_text,
+                normalize_predicate=_normalize_predicate,
+                normalize_transition=_normalize_transition,
+                normalize_turn=_normalize_turn,
+                consumers=CONSUMERS,
+            )
     if kind == "dialogue" and not any(
-        field in payload for field in ("respond", "response", "variants", "turns", "text", "offers")
+        field in payload for field in ("respond", "response", "variants", "turns", "text", "offers", "say", "reply")
     ):
-        raise CompileError(f"{label} requires a response, turns, variants, offers or text")
+        raise CompileError(f"{label} requires a say, reply, response, turns, variants, offers or text")
     if kind == "behavior" and not any(
         field in payload for field in ("act",)
     ):
@@ -633,21 +673,37 @@ def _normalize_record(
     *,
     source_path: str | None,
     default_owner: Any = None,
+    document_schema: str = LEGACY_PSDL_SCHEMA,
+    allow_legacy_schema: bool = True,
 ) -> dict[str, Any]:
     if not isinstance(raw, Mapping):
-        raise CompileError("PSDL record must be an object")
+        raise CompileError("ConvoEngine record must be an object")
     unsupported = set(raw) - PSDL_RECORD_FIELDS
     if unsupported:
         raise CompileError(
-            "PSDL record contains unsupported fields: "
+            "ConvoEngine record contains unsupported fields: "
             + ", ".join(sorted((str(item) for item in unsupported)))
         )
     record = _copy(dict(raw))
     if "schema" not in record:
-        record["schema"] = PSDL_SCHEMA
+        record["schema"] = document_schema
+    record_schema = record["schema"]
+    if record_schema not in SUPPORTED_SOURCE_SCHEMAS:
+        raise CompileError(
+            f"ConvoEngine record.schema must be {CONVO_ENGINE_SCHEMA} (or migration {LEGACY_PSDL_SCHEMA})"
+        )
+    if not allow_legacy_schema and record_schema == LEGACY_PSDL_SCHEMA:
+        raise CompileError(
+            f"Legacy schema {LEGACY_PSDL_SCHEMA} is read-only migration compatibility; use {CONVO_ENGINE_SCHEMA}"
+        )
     if "owner" not in record and default_owner is not None:
         record["owner"] = default_owner
-    record_id = _id(record.get("id"), "PSDL record.id")
+    record_id, namespace, _local_id = resolve_family_identity(
+        record.get("namespace"),
+        record.get("id"),
+        strict_convo_engine=(record_schema == CONVO_ENGINE_SCHEMA),
+        label="ConvoEngine record",
+    )
     try:
         record["owner"] = normalize_owner(record.get("owner"))
         package_descriptor(record["owner"])
@@ -657,7 +713,12 @@ def _normalize_record(
         raise CompileError(f"{record_id} cannot define both when and constraints")
     canonical = canonicalize_dialogue(record, source_path=source_path)
     canonical["payload"] = _normalize_module_payload(
-        canonical["kind"], canonical["payload"], label=record_id
+        canonical["kind"],
+        canonical["payload"],
+        label=record_id,
+        slots=canonical["slots"],
+        source_schema=record_schema,
+        has_namespace=(namespace is not None),
     )
     canonical["owner"] = record["owner"]
     if canonical["kind"] in {"behavior", "beat"}:
@@ -671,26 +732,42 @@ def _normalize_record(
     return canonical
 
 
-def _record_values(document: Mapping[str, Any]) -> tuple[list[Mapping[str, Any]], Any]:
-    if not isinstance(document, Mapping) or document.get("schema") != PSDL_SCHEMA:
-        raise CompileError(f"PSDL document.schema must be {PSDL_SCHEMA}")
+def _record_values(
+    document: Mapping[str, Any],
+    *,
+    allow_legacy_schema: bool = True,
+) -> tuple[list[Mapping[str, Any]], Any, str]:
+    if not isinstance(document, Mapping):
+        raise CompileError("ConvoEngine document must be an object")
+    schema = document.get("schema")
+    if schema not in SUPPORTED_SOURCE_SCHEMAS:
+        raise CompileError(
+            f"ConvoEngine document.schema must be {CONVO_ENGINE_SCHEMA} (or migration {LEGACY_PSDL_SCHEMA})"
+        )
+    if not allow_legacy_schema and schema == LEGACY_PSDL_SCHEMA:
+        raise CompileError(
+            f"Legacy schema {LEGACY_PSDL_SCHEMA} is read-only migration compatibility; use {CONVO_ENGINE_SCHEMA}"
+        )
     if "records" in document:
         unsupported = set(document) - PSDL_DOCUMENT_FIELDS
         if unsupported:
             raise CompileError(
-                "PSDL document contains unsupported fields: "
+                "ConvoEngine document contains unsupported fields: "
                 + ", ".join(sorted((str(item) for item in unsupported)))
             )
         records = document.get("records")
         if not isinstance(records, list) or not records or len(records) > MAX_RECORDS:
-            raise CompileError(f"PSDL document.records must contain 1..{MAX_RECORDS} records")
-        return records, document.get("owner")
-    return [document], None
+            raise CompileError(f"ConvoEngine document.records must contain 1..{MAX_RECORDS} records")
+        return records, document.get("owner"), schema
+    return [document], None, schema
 
 
 def _validate_cross_references(records: list[dict[str, Any]]) -> None:
     behavior_ids = {record["id"] for record in records if record["kind"] == "behavior"}
     record_ids = {record["id"] for record in records}
+    disallowed_realization_targets: set[str] = set()
+    for record in records:
+        disallowed_realization_targets.update(collect_disallowed_realization_targets(record))
     for record in records:
         payload = record["payload"]
         if record["kind"] == "beat":
@@ -705,15 +782,27 @@ def _validate_cross_references(records: list[dict[str, Any]]) -> None:
                 raise CompileError(
                     f"{record['id']} references unknown module {reference}"
                 )
+        for field_label, reference in collect_semantic_references(record):
+            validate_semantic_reference(reference, field_label)
+            if reference in disallowed_realization_targets:
+                raise CompileError(
+                    f"{field_label} cannot target wording realization key {reference!r}"
+                )
 
 
-def compile_psdl_document(
+def compile_convo_engine_document(
     document: Mapping[str, Any],
     *,
     source_path: str | Path | None = None,
+    default_owner: Any = None,
+    allow_legacy_schema: bool = True,
 ) -> dict[str, Any]:
-    """Compile one PSDL record or a bounded PSDL record catalog."""
-    raw_records, default_owner = _record_values(document)
+    """Compile one ConvoEngine/PSDL record or a bounded record catalog."""
+    raw_records, doc_owner, doc_schema = _record_values(
+        document,
+        allow_legacy_schema=allow_legacy_schema,
+    )
+    resolved_default_owner = doc_owner if doc_owner is not None else default_owner
     display_path = str(source_path) if source_path is not None else None
     records = [
         _normalize_record(
@@ -723,7 +812,9 @@ def compile_psdl_document(
                 if display_path is not None and len(raw_records) > 1
                 else display_path
             ),
-            default_owner=default_owner,
+            default_owner=resolved_default_owner,
+            document_schema=doc_schema,
+            allow_legacy_schema=allow_legacy_schema,
         )
         for index, raw in enumerate(raw_records)
     ]
@@ -731,35 +822,57 @@ def compile_psdl_document(
     ids = [record["id"] for record in records]
     if len(set(ids)) != len(ids):
         duplicates = sorted({item for item in ids if ids.count(item) > 1})
-        raise CompileError("PSDL document repeats IDs: " + ", ".join(duplicates))
+        raise CompileError("ConvoEngine document repeats IDs: " + ", ".join(duplicates))
     _validate_cross_references(records)
     payload = {
         "schema": PSDL_COMPILED_SCHEMA,
         "version": 1,
         "canonicalIRSchema": CANONICAL_IR_SCHEMA,
+        "sourceSchema": doc_schema,
         "records": records,
     }
     payload["fingerprint"] = fingerprint(payload)
     return payload
 
 
-def compile_psdl_sources(
+def compile_psdl_document(
+    document: Mapping[str, Any],
+    *,
+    source_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Compatibility alias for ``compile_convo_engine_document``."""
+    return compile_convo_engine_document(
+        document,
+        source_path=source_path,
+        allow_legacy_schema=True,
+    )
+
+
+def compile_convo_engine_sources(
     sources: Mapping[str | Path, Mapping[str, Any]],
+    *,
+    default_owner: Any = None,
+    allow_legacy_schema: bool = True,
 ) -> dict[str, Any]:
     """Compile multiple source documents with deterministic path/ID routing."""
     if not isinstance(sources, Mapping) or not sources:
-        raise CompileError("PSDL sources must contain at least one document")
+        raise CompileError("ConvoEngine sources must contain at least one document")
     records: list[dict[str, Any]] = []
     reports: list[dict[str, Any]] = []
     seen_ids: set[str] = set()
     for raw_path in sorted(sources, key=lambda item: str(item)):
         path = str(raw_path)
-        compiled = compile_psdl_document(sources[raw_path], source_path=path)
+        compiled = compile_convo_engine_document(
+            sources[raw_path],
+            source_path=path,
+            default_owner=default_owner,
+            allow_legacy_schema=allow_legacy_schema,
+        )
         ids = [record["id"] for record in compiled["records"]]
         duplicates = sorted(set(ids) & seen_ids)
         if duplicates:
             raise CompileError(
-                f"PSDL source {path} repeats IDs from another source: {', '.join(duplicates)}"
+                f"ConvoEngine source {path} repeats IDs from another source: {', '.join(duplicates)}"
             )
         seen_ids.update(ids)
         records.extend(compiled["records"])
@@ -775,6 +888,13 @@ def compile_psdl_sources(
     }
     output["fingerprint"] = fingerprint(output)
     return output
+
+
+def compile_psdl_sources(
+    sources: Mapping[str | Path, Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Compatibility alias for ``compile_convo_engine_sources``."""
+    return compile_convo_engine_sources(sources, allow_legacy_schema=True)
 
 
 def _translation_segment(
@@ -865,10 +985,10 @@ def _response_plan_projection(record: Mapping[str, Any]) -> dict[str, Any] | Non
     }
 
 
-def render_psdl_runtime_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
+def render_convo_engine_runtime_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
     """Render bounded Core-owned plans consumed by existing runtime authorities."""
     if compiled.get("schema") != PSDL_COMPILED_SCHEMA:
-        raise CompileError("compiled PSDL payload has an invalid schema")
+        raise CompileError("compiled ConvoEngine payload has an invalid schema")
     plans: list[dict[str, Any]] = []
     for record in compiled.get("records", []):
         owner = normalize_owner(record.get("owner"))
@@ -892,11 +1012,22 @@ def render_psdl_runtime_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]
             "lineage": _copy(record["lineage"]),
             "payload": _copy(record["payload"]),
         }
+        if "namespace" in record:
+            plan["namespace"] = record["namespace"]
+        exchange_family = project_exchange_family_runtime(record)
+        if exchange_family is not None:
+            plan["exchangeFamily"] = exchange_family
+            plan["textRoles"] = exchange_family["textRoles"]
         response_plan = _response_plan_projection(record)
         if response_plan is not None:
             plan["responsePlan"] = response_plan
         plans.append(plan)
     return plans
+
+
+def render_psdl_runtime_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """Compatibility alias for ``render_convo_engine_runtime_plan``."""
+    return render_convo_engine_runtime_plan(compiled)
 
 
 def render_psdl_director_plan(compiled: Mapping[str, Any]) -> dict[str, list[dict[str, Any]]]:
@@ -1196,11 +1327,18 @@ def render_psdl_semantic_pack_plan(compiled: Mapping[str, Any]) -> list[dict[str
 
 
 __all__ = [
+    "CONVO_ENGINE_COMPILED_SCHEMA",
+    "CONVO_ENGINE_SCHEMA",
+    "LEGACY_PSDL_SCHEMA",
     "PSDL_COMPILED_SCHEMA",
     "PSDL_KINDS",
     "PSDL_SCHEMA",
+    "SUPPORTED_SOURCE_SCHEMAS",
+    "compile_convo_engine_document",
+    "compile_convo_engine_sources",
     "compile_psdl_document",
     "compile_psdl_sources",
+    "render_convo_engine_runtime_plan",
     "render_psdl_director_plan",
     "render_psdl_ui_plan",
     "render_psdl_semantic_pack_plan",

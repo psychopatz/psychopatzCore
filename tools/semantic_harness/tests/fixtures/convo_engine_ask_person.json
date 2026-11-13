@@ -1,0 +1,91 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "social.knowledge",
+  "id": "ask_person",
+  "owner": "ProjectHoomans",
+  "participants": {
+    "speaker": ["participant"],
+    "addressee": ["participant"]
+  },
+  "slots": {
+    "person": {
+      "type": "entity.person",
+      "required": true,
+      "suggest": "knowledge.people",
+      "limit": 4
+    }
+  },
+  "invoke": {
+    "intent": "QUESTION",
+    "subject": "PERSON_LOCATION",
+    "target": "$slot.person"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask about {slot.person.name}",
+      "TL": "Magtanong tungkol kay {slot.person.name}"
+    },
+    "consumers": ["participant"],
+    "groups": ["social.info"],
+    "priority": 50,
+    "utility": {
+      "curiosity": 0.8
+    }
+  },
+  "say": {
+    "1": {
+      "variants": [
+        {
+          "id": "warm",
+          "when": {
+            "path": "relationship.speakerToAddressee.approval",
+            "op": "gte",
+            "value": 20
+          },
+          "text": {
+            "EN": ["Hey, have you seen {slot.person.name} lately?"],
+            "TL": ["Uy, nakita mo ba si {slot.person.name} kamakailan?"]
+          }
+        },
+        {
+          "id": "guarded",
+          "text": {
+            "EN": ["Do you know where {slot.person.name} is?"],
+            "TL": ["Alam mo ba kung nasaan si {slot.person.name}?"]
+          }
+        }
+      ]
+    },
+    "4": {
+      "EN": "Have you heard anything about {slot.person.name}?",
+      "TL": "May balita ka ba tungkol kay {slot.person.name}?"
+    }
+  },
+  "reply": {
+    "known": {
+      "when": {
+        "path": "slot.person.knownLocation",
+        "op": "exists"
+      },
+      "say": {
+        "2": {
+          "EN": "{slot.person.name} is around {slot.person.knownLocation.name}.",
+          "TL": "Nasa bandang {slot.person.knownLocation.name} si {slot.person.name}."
+        }
+      },
+      "after": {
+        "recommend": ["navigation.ask_direction"]
+      }
+    },
+    "unknown": {
+      "say": {
+        "EN": "Sorry, I haven't seen {slot.person.name}.",
+        "TL": "Pasensya na, hindi ko nakita si {slot.person.name}."
+      }
+    }
+  },
+  "after": {
+    "recommend": ["social.topic.change"]
+  }
+}

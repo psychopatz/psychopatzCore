@@ -12,6 +12,7 @@ import re
 from collections.abc import Mapping
 from typing import Any
 
+from .convo_engine_exchange import resolve_family_identity
 from .conversation_model import canonical_json, fingerprint
 from .errors import CompileError
 from .rule_contract import normalize_predicate
@@ -19,10 +20,14 @@ from .rule_contract import normalize_predicate
 
 CANONICAL_IR_SCHEMA = "psychopatz.semantic.dialogue-ir.v1"
 CANONICAL_IR_VERSION = 1
-PSDL_SCHEMA = "psychopatz.semantic.dialogue-language.v1"
+CONVO_ENGINE_SCHEMA = "psychopatz.convo-engine.v1"
+LEGACY_PSDL_SCHEMA = "psychopatz.semantic.dialogue-language.v1"
+PSDL_SCHEMA = LEGACY_PSDL_SCHEMA
+SUPPORTED_SOURCE_SCHEMAS = frozenset({CONVO_ENGINE_SCHEMA, LEGACY_PSDL_SCHEMA})
 MAX_PARTICIPANTS = 8
 MAX_SLOTS = 16
 MAX_REFERENCES = 16
+MAX_SLOT_SUGGEST_LIMIT = 8
 MAX_CONTEXT_PATH_LENGTH = 128
 MAX_CONTEXT_SEGMENTS = 8
 
@@ -104,11 +109,16 @@ def _normalize_typed_map(
     label: str,
     allowed_types: frozenset[str],
     maximum: int,
+    *,
+    allow_suggest: bool = False,
 ) -> dict[str, dict[str, Any]]:
     if value is None:
         return {}
     if not isinstance(value, Mapping) or len(value) > maximum:
         raise CompileError(f"{label} must contain at most {maximum} typed entries")
+    allowed_keys = {"type", "required", "multiple", "public"}
+    if allow_suggest:
+        allowed_keys = allowed_keys | {"suggest", "limit"}
     output: dict[str, dict[str, Any]] = {}
     for name in sorted(value, key=lambda item: str(item)):
         if not isinstance(name, str) or not _NAME.fullmatch(name):
@@ -117,23 +127,41 @@ def _normalize_typed_map(
         definition = {"type": raw} if isinstance(raw, str) else raw
         if not isinstance(definition, Mapping):
             raise CompileError(f"{label}.{name} must be a type or metadata object")
-        if set(definition) - {"type", "required", "multiple", "public"}:
+        if set(definition) - allowed_keys:
             raise CompileError(f"{label}.{name} contains unsupported metadata")
         type_name = definition.get("type")
         if type_name not in allowed_types:
             raise CompileError(f"{label}.{name}.type is unsupported: {type_name!r}")
-        normalized = {
+        normalized: dict[str, Any] = {
             "type": type_name,
             "required": definition.get("required", False) is True,
             "multiple": definition.get("multiple", False) is True,
             "public": definition.get("public", True) is not False,
         }
+        if allow_suggest:
+            if "suggest" in definition:
+                suggest = definition["suggest"]
+                if not isinstance(suggest, str) or not suggest.strip():
+                    raise CompileError(f"{label}.{name}.suggest must be a registered provider ID")
+                normalized["suggest"] = suggest.strip()
+            if "limit" in definition:
+                limit = definition["limit"]
+                if (
+                    isinstance(limit, bool)
+                    or not isinstance(limit, int)
+                    or limit < 1
+                    or limit > MAX_SLOT_SUGGEST_LIMIT
+                ):
+                    raise CompileError(
+                        f"{label}.{name}.limit must be an integer 1..{MAX_SLOT_SUGGEST_LIMIT}"
+                    )
+                normalized["limit"] = limit
         output[name] = normalized
     return output
 
 
 def normalize_slots(value: Any, label: str = "slots") -> dict[str, dict[str, Any]]:
-    return _normalize_typed_map(value, label, SLOT_TYPES, MAX_SLOTS)
+    return _normalize_typed_map(value, label, SLOT_TYPES, MAX_SLOTS, allow_suggest=True)
 
 
 def normalize_references(value: Any, label: str = "references") -> dict[str, dict[str, Any]]:
@@ -171,18 +199,24 @@ def _validate_predicate_paths(value: Any, label: str = "predicate") -> None:
 
 
 def canonicalize_dialogue(source: Mapping[str, Any], *, source_path: str | None = None) -> dict[str, Any]:
-    """Normalize one PSDL envelope into the Core Canonical Semantic Dialogue IR."""
+    """Normalize one ConvoEngine/PSDL envelope into the Core Canonical Semantic Dialogue IR."""
     if not isinstance(source, Mapping):
-        raise CompileError("PSDL source must be an object")
-    if source.get("schema") != PSDL_SCHEMA:
-        raise CompileError(f"source.schema must be {PSDL_SCHEMA}")
+        raise CompileError("ConvoEngine source must be an object")
+    source_schema = source.get("schema")
+    if source_schema not in SUPPORTED_SOURCE_SCHEMAS:
+        raise CompileError(
+            f"source.schema must be {CONVO_ENGINE_SCHEMA} (or migration {LEGACY_PSDL_SCHEMA})"
+        )
     kind = source.get("kind")
     if kind not in {"dialogue", "behavior", "beat", "realization"}:
         raise CompileError(f"source.kind is unsupported: {kind!r}")
-    record_id = source.get("id")
+    record_id, namespace, local_id = resolve_family_identity(
+        source.get("namespace"),
+        source.get("id"),
+        strict_convo_engine=(source_schema == CONVO_ENGINE_SCHEMA),
+        label="source",
+    )
     owner = source.get("owner")
-    if not isinstance(record_id, str) or not record_id.strip():
-        raise CompileError("source.id must be a stable semantic identity")
     if not isinstance(owner, str) or not owner.strip():
         raise CompileError("source.owner must name the adopter/package owner")
 
@@ -196,14 +230,21 @@ def canonicalize_dialogue(source: Mapping[str, Any], *, source_path: str | None 
         key: copy_json(source[key])
         for key in sorted(source)
         if key not in {
-            "schema", "kind", "id", "owner", "participants", "target",
+            "schema", "kind", "namespace", "id", "owner", "participants", "target",
             "slots", "references", "when", "constraints",
         }
     }
-    lineage: dict[str, Any] = {"sourceId": record_id}
+    lineage: dict[str, Any] = {
+        "sourceId": record_id,
+        "sourceSchema": source_schema,
+    }
+    if namespace is not None:
+        lineage["localId"] = local_id
+    if source_schema == LEGACY_PSDL_SCHEMA:
+        lineage["migrationReadOnly"] = True
     if source_path is not None:
         lineage["sourcePath"] = source_path
-    return {
+    ir: dict[str, Any] = {
         "schema": CANONICAL_IR_SCHEMA,
         "version": CANONICAL_IR_VERSION,
         "kind": kind,
@@ -217,6 +258,9 @@ def canonicalize_dialogue(source: Mapping[str, Any], *, source_path: str | None 
         "payload": payload,
         "lineage": lineage,
     }
+    if namespace is not None:
+        ir["namespace"] = namespace
+    return ir
 
 
 def canonical_ir_fingerprint(ir: Mapping[str, Any]) -> str:
@@ -250,11 +294,15 @@ def validate_canonical_ir(ir: Any) -> bool:
 __all__ = [
     "CANONICAL_IR_SCHEMA",
     "CANONICAL_IR_VERSION",
+    "CONVO_ENGINE_SCHEMA",
     "CONTEXT_ROOTS",
+    "LEGACY_PSDL_SCHEMA",
     "PARTICIPANT_KINDS",
     "PARTICIPANT_ROLES",
+    "PSDL_SCHEMA",
     "REFERENCE_TYPES",
     "SLOT_TYPES",
+    "SUPPORTED_SOURCE_SCHEMAS",
     "TARGET_TYPES",
     "canonical_ir_fingerprint",
     "canonicalize_dialogue",

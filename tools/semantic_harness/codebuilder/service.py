@@ -44,9 +44,12 @@ from .conversation_compiler import (
 )
 from .conversation_model import fingerprint
 from .psdl_compiler import (
-    compile_psdl_document as _compile_psdl_document,
-    compile_psdl_sources as _compile_psdl_sources,
-    render_psdl_runtime_plan,
+    CONVO_ENGINE_SCHEMA,
+    LEGACY_PSDL_SCHEMA,
+    SUPPORTED_SOURCE_SCHEMAS,
+    compile_convo_engine_document as _compile_convo_engine_document,
+    compile_convo_engine_sources as _compile_convo_engine_sources,
+    render_convo_engine_runtime_plan,
 )
 from .lexicon_compiler import CompileError
 from .generation_ownership import (
@@ -182,31 +185,145 @@ class SemanticLabAuthoringService:
             package_repositories=self.package_repositories,
         )
 
+    def _resolve_convo_engine_default_owner(
+        self,
+        source_path: str | Path | None,
+    ) -> str | None:
+        if source_path is None:
+            return None
+        manifest_file = self.repository / CONVERSATION_MANIFEST_RELATIVE
+        if not manifest_file.is_file():
+            return None
+        raw_path = str(source_path).replace("\\", "/")
+        manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
+        if not isinstance(manifest, dict):
+            return None
+        default_owner = manifest.get("defaultOwner")
+        for entry in manifest.get("externalShards", []):
+            if not isinstance(entry, dict):
+                continue
+            entry_path = str(entry.get("path", "")).replace("\\", "/")
+            entry_source_path = str(entry.get("sourcePath", "")).replace("\\", "/")
+            if raw_path in {entry_path, entry_source_path} or (
+                entry_path and raw_path.endswith("/" + entry_path)
+            ):
+                return normalize_owner(entry.get("owner"), default=default_owner)
+        if default_owner is not None:
+            return normalize_owner(default_owner)
+        return None
+
+    def preview_convo_engine_document(
+        self,
+        document: dict[str, Any],
+        *,
+        source_path: str | Path | None = None,
+        default_owner: str | None = None,
+        allow_legacy_schema: bool = True,
+    ) -> dict[str, Any]:
+        """Compile ConvoEngine (or migration PSDL) through Core without writing output."""
+        resolved_owner = default_owner
+        if resolved_owner is None and isinstance(document, dict) and document.get("owner") is None:
+            resolved_owner = self._resolve_convo_engine_default_owner(source_path)
+        compiled = _compile_convo_engine_document(
+            document,
+            source_path=source_path,
+            default_owner=resolved_owner,
+            allow_legacy_schema=allow_legacy_schema,
+        )
+        diagnostics: list[dict[str, str]] = []
+        if any(
+            (record.get("lineage") or {}).get("migrationReadOnly")
+            for record in compiled.get("records", [])
+        ):
+            diagnostics.append({
+                "severity": "warning",
+                "code": "legacy_schema_migration_only",
+                "message": (
+                    f"{LEGACY_PSDL_SCHEMA} is read-only migration compatibility; "
+                    f"author new sources with {CONVO_ENGINE_SCHEMA}"
+                ),
+            })
+        return {
+            "ok": True,
+            "previewOnly": True,
+            "effectFree": True,
+            "schema": compiled["schema"],
+            "sourceSchema": compiled.get("sourceSchema"),
+            "compiled": compiled,
+            "runtimePlan": render_convo_engine_runtime_plan(compiled),
+            "diagnostics": diagnostics,
+            "writes": [],
+        }
+
+    def validate_convo_engine_document(
+        self,
+        document: dict[str, Any],
+        *,
+        source_path: str | Path | None = None,
+        default_owner: str | None = None,
+        allow_legacy_schema: bool = True,
+    ) -> dict[str, Any]:
+        """Return bounded diagnostics for an effect-free ConvoEngine validation pass."""
+        try:
+            return self.preview_convo_engine_document(
+                document,
+                source_path=source_path,
+                default_owner=default_owner,
+                allow_legacy_schema=allow_legacy_schema,
+            )
+        except (CompileError, OSError, TypeError, ValueError) as error:
+            return {
+                "ok": False,
+                "previewOnly": True,
+                "effectFree": True,
+                "diagnostics": [{"severity": "error", "message": str(error)}],
+                "writes": [],
+            }
+
+    def preview_convo_engine_sources(
+        self,
+        sources: dict[str | Path, dict[str, Any]],
+        *,
+        default_owner: str | None = None,
+        allow_legacy_schema: bool = True,
+    ) -> dict[str, Any]:
+        """Compile multiple adopter-owned ConvoEngine sources through Core."""
+        compiled = _compile_convo_engine_sources(
+            sources,
+            default_owner=default_owner,
+            allow_legacy_schema=allow_legacy_schema,
+        )
+        return {
+            "ok": True,
+            "previewOnly": True,
+            "effectFree": True,
+            "compiled": compiled,
+            "runtimePlan": render_convo_engine_runtime_plan(compiled),
+            "writes": [],
+        }
+
     def preview_psdl_document(
         self,
         document: dict[str, Any],
         *,
         source_path: str | Path | None = None,
     ) -> dict[str, Any]:
-        """Compile PSDL through the shared Core service without writing output."""
-        compiled = _compile_psdl_document(document, source_path=source_path)
-        return {
-            "ok": True,
-            "compiled": compiled,
-            "runtimePlan": render_psdl_runtime_plan(compiled),
-        }
+        """Compatibility alias for ``preview_convo_engine_document``."""
+        return self.preview_convo_engine_document(
+            document,
+            source_path=source_path,
+            allow_legacy_schema=True,
+        )
 
     def preview_psdl_sources(
         self,
         sources: dict[str | Path, dict[str, Any]],
     ) -> dict[str, Any]:
-        """Compile multiple adopter-owned PSDL sources through Core."""
-        compiled = _compile_psdl_sources(sources)
-        return {
-            "ok": True,
-            "compiled": compiled,
-            "runtimePlan": render_psdl_runtime_plan(compiled),
-        }
+        """Compatibility alias for ``preview_convo_engine_sources``."""
+        return self.preview_convo_engine_sources(
+            sources,
+            allow_legacy_schema=True,
+        )
 
     def list_psdl_sources(self) -> list[dict[str, Any]]:
         """List manifest-routed PSDL sources across Core and adopter packages.
@@ -285,19 +402,19 @@ class SemanticLabAuthoringService:
     def _psdl_authoring_records(document: dict[str, Any]) -> list[dict[str, Any]]:
         """Return mutable record copies for Core-owned source editing."""
         if not isinstance(document, dict):
-            raise CompileError("PSDL authoring document must be an object")
-        if document.get("schema") != "psychopatz.semantic.dialogue-language.v1":
+            raise CompileError("ConvoEngine authoring document must be an object")
+        if document.get("schema") not in SUPPORTED_SOURCE_SCHEMAS:
             raise CompileError(
-                "PSDL authoring document must use "
-                "psychopatz.semantic.dialogue-language.v1"
+                f"ConvoEngine authoring document must use {CONVO_ENGINE_SCHEMA} "
+                f"(or migration {LEGACY_PSDL_SCHEMA})"
             )
         records = document.get("records")
         if not isinstance(records, list) or not records:
             raise CompileError(
-                "PSDL authoring operations require a non-empty records list"
+                "ConvoEngine authoring operations require a non-empty records list"
             )
         if any(not isinstance(record, dict) for record in records):
-            raise CompileError("PSDL authoring records must be objects")
+            raise CompileError("ConvoEngine authoring records must be objects")
         return records
 
     def validate_psdl_document(
@@ -306,17 +423,12 @@ class SemanticLabAuthoringService:
         *,
         source_path: str | Path | None = None,
     ) -> dict[str, Any]:
-        """Return bounded diagnostics for an effect-free PSDL validation pass."""
-        try:
-            return self.preview_psdl_document(document, source_path=source_path)
-        except (CompileError, OSError, TypeError, ValueError) as error:
-            return {
-                "ok": False,
-                "previewOnly": True,
-                "effectFree": True,
-                "diagnostics": [{"severity": "error", "message": str(error)}],
-                "writes": [],
-            }
+        """Compatibility alias for ``validate_convo_engine_document``."""
+        return self.validate_convo_engine_document(
+            document,
+            source_path=source_path,
+            allow_legacy_schema=True,
+        )
 
     def _psdl_authoring_result(
         self,

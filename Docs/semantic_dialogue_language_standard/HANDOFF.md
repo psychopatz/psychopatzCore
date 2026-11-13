@@ -1,113 +1,270 @@
+---
 handoff_schema: 2
-checkpoint_mode: "dirty_snapshot"
+checkpoint_mode: "committed_handoff"
+phase_commit: "self"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-head: "current Core HEAD after final handoff commit"
-worktree_fingerprint: "phase-owned paths committed; unrelated dirty paths preserved"
-participant_heads: "project-hoomans=c10b3f94;dynamic-trading=f4a68eb9"
-participant_fingerprints: "recompute from clean committed trees"
-state: "COMPLETE"
-parent_status: "COMPLETE"
-phase: "S8 fresh exhaustive acceptance"
-chunk: "S8 fresh exhaustive acceptance completed; developer-side objective closed"
+participant_heads: "project-hoomans=c10b3f94f7a83b77547fed55d4da676823c42b75;dynamic-trading=f4a68eb971910092409d8bff447f50a15ffe296a"
+state: "CLEAN_CHECKPOINT"
+parent_status: "IN_PROGRESS"
+phase: "S6M — ConvoEngine normalization"
+chunk: "S6M1B — headless CodeBuilder create/edit/move/shard/write command/API"
+evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-13"
+updated_at: "2026-11-13T09:56:00Z"
 ---
 
-# Session Handoff
+# ConvoEngine Session Handoff
 
 ## Current truth
 
-The previous S8 completion claim was rejected by fresh audit. S0-S7 were
-reclosed from current source evidence, adopter-first commits, Core-owned
-mechanisms, bounded generated output, and fresh focused gates. S8 now passes
-the exhaustive final audit across all three repositories.
+The old public/project name **PSDL** meant **Psychopatz Semantic Dialogue
+Language**.
 
-## Three-repository commit vector
+The target name is now **ConvoEngine**.
 
-- ProjectHoomans: `c10b3f94` — `test: bootstrap canonical PSDL response catalog`
-- DynamicTrading: `f4a68eb9` — `build: index PSDL output templates`
-- PsychopatzCore: `0d5fd97` — `fix: index PSDL output templates`; this final
-  handoff commit records the current vector and residual worktree state.
+Treat `PSDL` / `psdl` as migration-era internal identifiers only. Do not do
+a blind repository-wide rename. Retire them through tested Core compiler/service
+changes and caller-zero evidence.
 
-No repository was pushed, tagged, published, rebased, amended, or force-updated.
+The existing compiler/runtime migration is useful. Do not undo it.
 
-## Accepted corrective work
+## Mandatory repositories
 
-- Core is the only PSDL schema/compiler/normalizer/IR/predicate/binding/
-  authoring-service owner.
-- Core’s source inventory has 42 entries and classifies all surviving records;
-  the strict source audit reports 41 JSON sources and zero issues.
-- Core maintained dialogue, response-pool, flow, suggestion, behavior, beat,
-  realization, and text authorities were migrated to final PSDL sources.
-  Superseded first-party authoring sources were deleted; no migration-copy tree
-  was added.
-- ProjectHoomans and DynamicTrading use the same Core mechanism and retain only
-  adopter records/adapters/tests/translations/content.
-- Core generated a response-template index, a realization discovery alias for
-  the existing UtterancePlan loader, and bounded PSDL runtime catalogs. The
-  packed output preserves source lineage, package routing, deterministic
-  generation, and existing runtime authorities.
-- The shared Core predicate evaluator’s false branches for `in`, `contains`,
-  and negative membership operations are explicit and regression-tested.
-- Semantic Lab exposes the structured Core PSDL authoring pane with source
-  browse, CRUD/reorder, all four PSDL kinds, actor-neutral participants and
-  preview, predicates/collections, slots/references/bindings, locales, turns/
-  offers/transitions, beat/behavior editing, realization fields, diagnostics,
-  lineage, and semantic trace.
+```text
+Core
+/home/psychopatz/Zomboid/Workshop/psychopatzCore
+HEAD 9d9f9406666fda1e9e1a53f835890d2710fec399
 
-## Evidence already rerun
+Hoomans
+/home/psychopatz/Zomboid/Workshop/ProjectHoomans
+HEAD c10b3f94f7a83b77547fed55d4da676823c42b75
 
-- Core full semantic harness: 112/112.
-- ProjectHoomans focused conversation/semantic/PSDL gate: 11/11.
-- ProjectHoomans broad semantic/conversation/PSDL sweep: 51/51, including
-  NPC↔NPC scene speech presentation.
-- DynamicTrading focused conversation/PSDL gate: 9/9.
-- Three-repository authoring guard: zero violations.
-- Generated Conversation Kahlua: Core/Hoomans/DT 42/208/5 files, zero issues.
-- Deterministic two-pass generation: 255 Conversation hashes identical.
-- Runtime-tree sizes: Core 42/973,739 bytes; Hoomans 208/5,503,687;
-  DynamicTrading 5/72,834.
-- Hoomans generated manifest: 304,306 bytes, zero local declarations.
-- Cache/temp/interpreter noise is excluded from source evidence.
+DynamicTrading
+/home/psychopatz/Zomboid/Workshop/DynamicTrading
+HEAD f4a68eb971910092409d8bff447f50a15ffe296a
+```
 
-## Residual unrelated work
+Reinspect Git state before edits. Preserve unrelated work.
 
-Preserve and do not stage or rewrite these unrelated changes:
+## Small-model startup
 
-- ProjectHoomans: dirty job documentation under
-  `docs/Jobs/PragmaticDialogueBeatDirector/`,
-  `docs/Jobs/SemanticSocialConversationDirector/`, and
-  `docs/Jobs/UnifiedSemanticDialogueAuthority/`.
-- DynamicTrading: dirty
-  `.architecture-refactor/output/architecture-audit.md` and untracked
-  `tools/providers/dt/__pycache__/`.
-- Core: any pre-existing non-PSDL README/job/documentation changes not listed
-  in the final Core staged path audit.
+Read only:
 
-## Final S8 acceptance evidence
+1. `PROGRESS.md`;
+2. this file;
+3. `CONVO_ENGINE.md`;
+4. the one ROADMAP/spec section for the active chunk;
+5. exact source/tests being changed.
 
-Fresh audit from current Git state:
+Do not load the full documentation set unless the active chunk requires it.
 
-1. Inspect all three branches/HEADs/status/worktrees and verify the exact commit
-   vector.
-2. Run the Core full harness and relevant broad ProjectHoomans/DynamicTrading
-   suites, plus focused actor-neutral, shared-offer, multi-turn/nested-offer,
-   beat/behavior, realization, translation, fuzzy-safety, and trading gates.
-3. Re-run the three-repository authoring guard and strict Core source audit.
-4. Verify no maintained old node/choice/outcome, static-suggestion, response-
-   pool, behavior, beat, or realization authoring authority remains outside
-   PSDL except explicitly justified recognition/mechanism/compatibility data.
-5. Verify EN fallback and optional-locale placeholder parity, participant
-   permutations, typed references/bindings, shared player/NPC affordances,
-   NPC↔NPC/mixed scenes, and mutation-safe fuzzy resolution.
-6. Verify deterministic two-pass generation, bounded shard/manifest sizes,
-   Kahlua compatibility, downstream-only generated output, and cache-free
-   evidence.
-7. Verify all goal-owned docs and adopter pointers are committed and no
-   phase-owned untracked files remain.
+## Core architecture
 
-Every developer-side item passes. Workshop publication and native Project
-Zomboid launch remain out of scope; native live/visual/feel acceptance is
-user-owned.
+One coherent conversation family:
 
+```text
+family
+├─ kind / namespace / id
+├─ participants? / slots? / when?
+├─ invoke
+├─ execute?             # optional registered gameplay action
+├─ affordance.label     # UI-only
+├─ say                  # initiating actor speech
+├─ reply
+│  ├─ named_outcome
+│  │  ├─ say
+│  │  └─ after?
+│  └─ ...
+└─ after?
+```
+
+Numeric keys under `say` are stable wording realization handles only.
+
+```json
+"say": {
+  "1": "Who are you?",
+  "2": "What's your name?"
+}
+```
+
+They are not semantic IDs.
+
+A single realization may simply be:
+
+```json
+"say": "Who are you?"
+```
+
+Reply outcomes such as `known`, `unknown`, `accepted`, `rejected`,
+`pending`, and `completed` carry semantic meaning.
+
+Initiating `say.1` is never positionally paired with reply `say.1`.
+
+## Button/speech rule
+
+```text
+affordance.label
+= UI button description
+
+say
+= what the selecting actor actually says
+
+invoke
+= semantic meaning
+
+reply.<outcome>.say
+= responder speech
+```
+
+Player and NPC consume the same bound semantic affordance.
+
+NPC choice uses semantic context/utility, not rendered text.
+
+## CodeBuilder-only content workflow
+
+Conversation content must be migrated/authored through the Core CodeBuilder
+ConvoEngine authoring/migration path.
+
+Allowed workflow:
+
+```text
+CodeBuilder preview/validate
+→ CodeBuilder write canonical source
+→ CodeBuilder build/regenerate
+→ tests/audits
+```
+
+Do not manually manufacture dozens of JSON shards.
+
+Do not manually edit or move generated runtime Lua/JSON.
+
+Direct file edits are appropriate for the CodeBuilder implementation, tests,
+and docs themselves.
+
+## Source layout target
+
+No extra language-name nesting:
+
+```text
+sources/conversation/
+├─ manifest.json
+├─ dialogue/
+├─ behavior/
+├─ beat/
+└─ realization/
+```
+
+The current `psdl/` folder is migration input.
+
+## Runtime namespace target
+
+Current generated conversation path:
+
+```text
+<Owner>/Semantics/Generated/Conversation/PSDL/...
+```
+
+Final ConvoEngine-owned namespace:
+
+```text
+PsychopatzCore/ConvoEngine/...
+PNC/ConvoEngine/...
+DTCommon/ConvoEngine/...
+```
+
+Do not retain conversation-owned `Semantics`, `Generated`, `Conversation`,
+or `PSDL` path wrappers.
+
+This is scoped. Core `PsychopatzCore/Semantics/` also contains generic parser,
+predicate, fuzzy/entity resolution, semantic IR, lexicon, and other reusable
+semantic infrastructure. Those remain there unless S6M2A proves a module is
+ConvoEngine-owned.
+
+S6M2A must classify runtime modules/references by ownership before path edits.
+S6M2B then changes Core routing/generator logic, migrates only proven
+ConvoEngine-owned hand-authored runtime modules, regenerates all owners, updates
+exact requires/tests, proves old-path caller zero, and removes old paths after
+parity.
+
+Generated provenance belongs in file headers, CodeBuilder manifests,
+fingerprints, and lineage—not the folder name. Never manually move generated
+files.
+
+## Gameplay functions/results
+
+ConvoEngine never embeds arbitrary Lua callbacks.
+
+```text
+invoke
+→ optional execute registered action
+→ bounded result.*
+→ reply outcome
+→ reply speech
+```
+
+Example:
+
+```json
+"execute": "pnc.companion.camp"
+```
+
+Core owns the generic action/result contract. Hoomans keeps the real camp
+gameplay/server authority.
+
+Read-only candidate discovery is separate from mutation.
+
+This is S6M6, not the current chunk.
+
+## What became true in S6M1A
+
+- Implemented `tools/semantic_harness/codebuilder/convo_engine_exchange.py` and wired it into `semantic_dialogue_ir.py`, `psdl_compiler.py`, `service.py`, and `__init__.py`.
+- Added canonical schema `psychopatz.convo-engine.v1` with bounded read-only compatibility for `psychopatz.semantic.dialogue-language.v1` (rejected when `allow_legacy_schema=False` or when compact exchange-family fields use the legacy schema).
+- Added compact exchange-family support (`kind / namespace / id`, direct single `say`, stable sparse numeric `say` keys, independent named `reply` outcomes, `invoke`, `affordance.label`, `after`, `slots.*.suggest/limit`).
+- Normalized explicit runtime text roles (`button_label`, `spoken_action`, `response`) with fail-closed rejection of `button_label -> spoken_action` fallback and rejection of semantic references targeting wording realization keys.
+- Exposed `preview_convo_engine_document`, `validate_convo_engine_document`, and `preview_convo_engine_sources` on `SemanticLabAuthoringService` and verified `tools/semantic_harness/tests/fixtures/convo_engine_ask_person.json`.
+- Verification: `python3 -m unittest discover -s tools/semantic_harness/tests -p "test_*.py"` ran 120 tests, all passing.
+
+## Immediate Next Chunk — S6M1B
+
+Responsibility:
+
+> Add a small headless CodeBuilder ConvoEngine create/edit/move/shard/write
+> command/API and prove agents can perform validated content migration and
+> write a validated fixture without raw filesystem JSON generation.
+
+Do not:
+
+- migrate production content yet;
+- change runtime output paths yet;
+- implement action/results yet;
+- rewrite Semantic Lab;
+- hand-edit generated Lua.
+
+Pass gate:
+
+- headless CLI + service methods create, edit, move/shard, validate, and write a canonical ConvoEngine fixture;
+- focused tests pass.
+
+## Following bounded chunks
+
+- **S6M1B:** small headless CodeBuilder create/edit/move/shard/write API.
+- **S6M2A:** classify ConvoEngine-owned runtime modules versus generic semantic infrastructure.
+- **S6M2B:** migrate proven conversation runtime to `<Owner>/ConvoEngine/...` + semantic generated filenames through root-cause routing/regeneration.
+- **S6M3-S6M5:** source migration/sharding through CodeBuilder.
+- **S6M6:** registered action/result contract + CAMP parity.
+- **S6M7-S6M8:** metadata cleanup + regeneration/audit.
+- **S7:** final ConvoEngine Semantic Lab UX.
+- **S8:** exhaustive three-repo acceptance.
+
+## Safety
+
+- no new branch;
+- no reset/stash/discard of uncertain work;
+- no broad staging;
+- no push/PR/tag/release/publish without explicit authorization;
+- accepted cross-repo phase commits: adopters first, Core last;
+- do not call S8 complete until every gate is freshly proven.
+
+Native Project Zomboid live/visual acceptance remains user-owned after
+developer-side completion.
