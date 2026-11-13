@@ -1,0 +1,546 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "kind": "dialogue",
+      "id": "neutral",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:world_event",
+        "sourceSurface": "content/social/interaction/world_event/warning.json",
+        "responseTemplateID": "semantic.interaction.world_event.warning",
+        "style": "neutral"
+      },
+      "response": {
+        "act": "WORLD_WARNING",
+        "variants": [
+          {
+            "id": "neutral.01",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.01"
+            },
+            "text": {
+              "EN": "Heads up. Something's wrong out there.",
+              "TL": "Mag-ingat. May mali sa labas."
+            }
+          },
+          {
+            "id": "neutral.02",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.02"
+            },
+            "text": {
+              "EN": "Look alive. The situation outside is shifting.",
+              "TL": "Maging alerto. Nagbabago ang sitwasyon sa labas."
+            }
+          },
+          {
+            "id": "neutral.03",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.03"
+            },
+            "text": {
+              "EN": "Pay attention. We have unexpected movement outside.",
+              "TL": "Makinig ka. May di-inaasahang galaw sa labas."
+            }
+          },
+          {
+            "id": "neutral.04",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.04"
+            },
+            "text": {
+              "EN": "Warning. Something big is happening nearby.",
+              "TL": "Babala. May malaking nangyayari sa malapit."
+            }
+          },
+          {
+            "id": "neutral.05",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.05"
+            },
+            "text": {
+              "EN": "Heads up, everyone. Check your gear.",
+              "TL": "Mag-ingat ang lahat. Suriin ang mga gamit niyo."
+            }
+          },
+          {
+            "id": "neutral.06",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.06"
+            },
+            "text": {
+              "EN": "Listen close. An event is unfolding out there.",
+              "TL": "Makinig nang mabuti. May kaganapan sa labas."
+            }
+          },
+          {
+            "id": "neutral.07",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.07"
+            },
+            "text": {
+              "EN": "Alert. We need to be ready for trouble.",
+              "TL": "Alerto. Kailangan nating maging handa sa gulo."
+            }
+          },
+          {
+            "id": "neutral.08",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.08"
+            },
+            "text": {
+              "EN": "Keep your eyes open. That sound wasn't normal.",
+              "TL": "Buksan ang mga mata. Hindi karaniwan ang tunog na 'yon."
+            }
+          },
+          {
+            "id": "neutral.09",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.09"
+            },
+            "text": {
+              "EN": "Stay sharp. The perimeter is showing activity.",
+              "TL": "Maging alerto. May aktibidad sa paligid."
+            }
+          },
+          {
+            "id": "neutral.10",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.interaction.world_event.warning.neutral.10"
+            },
+            "text": {
+              "EN": "Heads up. Let's not get caught unprepared.",
+              "TL": "Mag-ingat. Huwag tayong mahuling walang paghahanda."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.interaction.world_event.warning"
+    },
+    {
+      "kind": "dialogue",
+      "id": "warm",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:world_event",
+        "sourceSurface": "content/social/interaction/world_event/warning.json",
+        "responseTemplateID": "semantic.interaction.world_event.warning",
+        "style": "warm"
+      },
+      "response": {
+        "act": "WORLD_WARNING",
+        "variants": [
+          {
+            "id": "warm.01",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.01"
+            },
+            "text": {
+              "EN": "Stay close. Something's wrong out there.",
+              "TL": "Manatili kang malapit. May mali sa labas."
+            }
+          },
+          {
+            "id": "warm.02",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.02"
+            },
+            "text": {
+              "EN": "Stick by me, friend. We have trouble brewing outside.",
+              "TL": "Dumikit ka sa akin, kaibigan. May namumuong gulo sa labas."
+            }
+          },
+          {
+            "id": "warm.03",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.03"
+            },
+            "text": {
+              "EN": "Don't wander off. Something bad is moving out there.",
+              "TL": "Huwag kang lalayo. May masamang gumagalaw sa labas."
+            }
+          },
+          {
+            "id": "warm.04",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.04"
+            },
+            "text": {
+              "EN": "Keep close and stay low. I'll protect you.",
+              "TL": "Manatiling malapit at yumuko. Poprotektahan kita."
+            }
+          },
+          {
+            "id": "warm.05",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.05"
+            },
+            "text": {
+              "EN": "Hey, stay behind me until we know what that was.",
+              "TL": "Huy, manatili ka sa likod ko hanggang malaman natin 'yon."
+            }
+          },
+          {
+            "id": "warm.06",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.06"
+            },
+            "text": {
+              "EN": "Careful, everyone! Let's look out for one another.",
+              "TL": "Mag-ingat ang lahat! Magbantayan tayo sa isa't isa."
+            }
+          },
+          {
+            "id": "warm.07",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.07"
+            },
+            "text": {
+              "EN": "Hold on to each other. Danger is nearby.",
+              "TL": "Kumapit sa isa't isa. Malapit lang ang panganib."
+            }
+          },
+          {
+            "id": "warm.08",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.08"
+            },
+            "text": {
+              "EN": "Stay safe by my side. Trouble is coming.",
+              "TL": "Manatiling ligtas sa tabi ko. Parating ang panganib."
+            }
+          },
+          {
+            "id": "warm.09",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.09"
+            },
+            "text": {
+              "EN": "Heads up, partner. Whatever happens, we stick together.",
+              "TL": "Mag-ingat, kasama. Anuman ang mangyari, sama-sama tayo."
+            }
+          },
+          {
+            "id": "warm.10",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.interaction.world_event.warning.warm.10"
+            },
+            "text": {
+              "EN": "Keep close. I don't want anyone getting separated.",
+              "TL": "Dumikit ka. Ayokong may mahiwalay sa atin."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.interaction.world_event.warning"
+    },
+    {
+      "kind": "dialogue",
+      "id": "terse",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:world_event",
+        "sourceSurface": "content/social/interaction/world_event/warning.json",
+        "responseTemplateID": "semantic.interaction.world_event.warning",
+        "style": "terse"
+      },
+      "response": {
+        "act": "WORLD_WARNING",
+        "variants": [
+          {
+            "id": "terse.01",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.01"
+            },
+            "text": {
+              "EN": "Heads up!",
+              "TL": "Mag-ingat!"
+            }
+          },
+          {
+            "id": "terse.02",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.02"
+            },
+            "text": {
+              "EN": "Incoming!",
+              "TL": "Paparating!"
+            }
+          },
+          {
+            "id": "terse.03",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.03"
+            },
+            "text": {
+              "EN": "Danger!",
+              "TL": "Panganib!"
+            }
+          },
+          {
+            "id": "terse.04",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.04"
+            },
+            "text": {
+              "EN": "Look out!",
+              "TL": "Mag-ingat ka!"
+            }
+          },
+          {
+            "id": "terse.05",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.05"
+            },
+            "text": {
+              "EN": "Alert!",
+              "TL": "Alerto!"
+            }
+          },
+          {
+            "id": "terse.06",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.06"
+            },
+            "text": {
+              "EN": "Listen!",
+              "TL": "Makinig!"
+            }
+          },
+          {
+            "id": "terse.07",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.07"
+            },
+            "text": {
+              "EN": "Trouble!",
+              "TL": "Gulo!"
+            }
+          },
+          {
+            "id": "terse.08",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.08"
+            },
+            "text": {
+              "EN": "Ready weapons!",
+              "TL": "Ihanda ang armas!"
+            }
+          },
+          {
+            "id": "terse.09",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.09"
+            },
+            "text": {
+              "EN": "Movement!",
+              "TL": "May gumagalaw!"
+            }
+          },
+          {
+            "id": "terse.10",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.interaction.world_event.warning.terse.10"
+            },
+            "text": {
+              "EN": "Cover!",
+              "TL": "Magtago!"
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.interaction.world_event.warning"
+    },
+    {
+      "kind": "dialogue",
+      "id": "guarded",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:world_event",
+        "sourceSurface": "content/social/interaction/world_event/warning.json",
+        "responseTemplateID": "semantic.interaction.world_event.warning",
+        "style": "guarded"
+      },
+      "response": {
+        "act": "WORLD_WARNING",
+        "variants": [
+          {
+            "id": "guarded.01",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.01"
+            },
+            "text": {
+              "EN": "Stay sharp. We've got trouble.",
+              "TL": "Mag-ingat ka. May problema tayo."
+            }
+          },
+          {
+            "id": "guarded.02",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.02"
+            },
+            "text": {
+              "EN": "Weapons drawn, now. Danger outside.",
+              "TL": "Ibunot ang armas, ngayon na. May panganib sa labas."
+            }
+          },
+          {
+            "id": "guarded.03",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.03"
+            },
+            "text": {
+              "EN": "Shut up and listen. Something is coming.",
+              "TL": "Tumahimik at makinig. May paparating."
+            }
+          },
+          {
+            "id": "guarded.04",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.04"
+            },
+            "text": {
+              "EN": "Lock the doors and watch every angle.",
+              "TL": "Ikandado ang pinto at bantayan ang bawat sulok."
+            }
+          },
+          {
+            "id": "guarded.05",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.05"
+            },
+            "text": {
+              "EN": "If it moves through that entrance, put it down.",
+              "TL": "Kapag may gumalaw sa lagusang 'yan, patumbahin mo."
+            }
+          },
+          {
+            "id": "guarded.06",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.06"
+            },
+            "text": {
+              "EN": "Trouble's coming. Don't freeze up on me.",
+              "TL": "Parating ang gulo. Huwag kang tatanga-tanga."
+            }
+          },
+          {
+            "id": "guarded.07",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.07"
+            },
+            "text": {
+              "EN": "Get into defensive positions immediately.",
+              "TL": "Pumwesto sa depensa agad-agad."
+            }
+          },
+          {
+            "id": "guarded.08",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.08"
+            },
+            "text": {
+              "EN": "Keep quiet. You don't want to draw them here.",
+              "TL": "Manahimik ka. Ayaw mong maakit sila rito."
+            }
+          },
+          {
+            "id": "guarded.09",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.09"
+            },
+            "text": {
+              "EN": "Threat incoming. Expect the worst.",
+              "TL": "Banta parating. Asahan ang pinakamasama."
+            }
+          },
+          {
+            "id": "guarded.10",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.interaction.world_event.warning.guarded.10"
+            },
+            "text": {
+              "EN": "Eyes on the perimeter. Shoot on sight.",
+              "TL": "Bantayan ang paligid. Barilin agad kapag nakita."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.interaction.world_event.warning"
+    }
+  ]
+}

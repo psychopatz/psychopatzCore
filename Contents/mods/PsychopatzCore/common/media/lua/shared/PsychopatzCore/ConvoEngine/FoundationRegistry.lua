@@ -9,7 +9,7 @@ Registry.REGISTRY_MODULE = "PsychopatzCore/ConvoEngine/FoundationRegistry"
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
 Registry.CONTENT_FINGERPRINT = "0c0dd14df241eb4b742a95ede0729f2131a3ac66d66cb1497ea50aff9d9e9e39"
-Registry.WHOLE_MODEL_FINGERPRINT = "d597010a99115c459ca0c2be5fb4a66e8df7ca2940a504ffe0f15b9d3d1ec684"
+Registry.WHOLE_MODEL_FINGERPRINT = "d52df465134086d6374d6c2d481740a6a51a6a60c91a29820a202a5e2ba7240c"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -86,12 +86,10 @@ appendPatterns(require "PsychopatzCore/ConvoEngine/Patterns/Common/IdentityFacet
 appendPatterns(require "PsychopatzCore/ConvoEngine/Patterns/Common/WeatherNeeds")
 appendPatterns(require "PsychopatzCore/ConvoEngine/Patterns/Common/WellbeingActivity")
 appendPatterns(require "PsychopatzCore/ConvoEngine/Patterns/GroundedPersonal")
-appendBehaviors(require "PsychopatzCore/ConvoEngine/Behaviors/Behavior/CoreWorldEventWarn")
 appendBehaviors(require "PsychopatzCore/ConvoEngine/Behaviors/Director/Social")
 appendBeats(require "PsychopatzCore/ConvoEngine/Beats/Director/Social")
-appendConvoPlans(require "PsychopatzCore/ConvoEngine/Beat/SocialDirector")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Beat/Social")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social")
-appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/SocialDirector")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreIdentity")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeActivity")

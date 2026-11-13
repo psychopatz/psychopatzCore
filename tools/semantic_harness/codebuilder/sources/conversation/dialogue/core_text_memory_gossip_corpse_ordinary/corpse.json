@@ -1,0 +1,147 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.corpse.neutral.01",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.neutral",
+        "sourcePath": "memory/gossip/corpse/ordinary/neutral.json",
+        "textKey": "corpse.neutral.01",
+        "textRows": [
+          {
+            "key": "corpse.neutral.01",
+            "text": {
+              "EN": "I didn't know you, {target.name}. You deserved better.",
+              "TL": "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "I didn't know you, {target.name}. You deserved better.",
+        "TL": "Hindi kita nakilala, {target.name}. Hindi mo dapat naranasan ito."
+      }
+    },
+    {
+      "id": "text.corpse.neutral.02",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.neutral",
+        "sourcePath": "memory/gossip/corpse/ordinary/neutral.json",
+        "textKey": "corpse.neutral.02",
+        "textRows": [
+          {
+            "key": "corpse.neutral.02",
+            "text": {
+              "EN": "I hope someone remembers your name, {target.name}.",
+              "TL": "Sana may makaalala pa sa pangalan mo, {target.name}."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "I hope someone remembers your name, {target.name}.",
+        "TL": "Sana may makaalala pa sa pangalan mo, {target.name}."
+      }
+    },
+    {
+      "id": "text.corpse.neutral.03",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.neutral",
+        "sourcePath": "memory/gossip/corpse/ordinary/neutral.json",
+        "textKey": "corpse.neutral.03",
+        "textRows": [
+          {
+            "key": "corpse.neutral.03",
+            "text": {
+              "EN": "This place takes everyone, doesn't it?",
+              "TL": "Nilalamon ng lugar na ito ang lahat, ano?"
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "This place takes everyone, doesn't it?",
+        "TL": "Nilalamon ng lugar na ito ang lahat, ano?"
+      }
+    },
+    {
+      "id": "text.corpse.neutral.04",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.neutral",
+        "sourcePath": "memory/gossip/corpse/ordinary/neutral.json",
+        "textKey": "corpse.neutral.04",
+        "textRows": [
+          {
+            "key": "corpse.neutral.04",
+            "text": {
+              "EN": "Someone should have found you sooner, {target.name}.",
+              "TL": "Sana may nakakita sa'yo nang mas maaga, {target.name}."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "Someone should have found you sooner, {target.name}.",
+        "TL": "Sana may nakakita sa'yo nang mas maaga, {target.name}."
+      }
+    },
+    {
+      "id": "text.corpse.neutral.05",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.neutral",
+        "sourcePath": "memory/gossip/corpse/ordinary/neutral.json",
+        "textKey": "corpse.neutral.05",
+        "textRows": [
+          {
+            "key": "corpse.neutral.05",
+            "text": {
+              "EN": "Rest now, {target.name}. I won't leave you unnamed.",
+              "TL": "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "Rest now, {target.name}. I won't leave you unnamed.",
+        "TL": "Magpahinga ka, {target.name}. Hindi kita hahayaang mabaon nang walang pangalan."
+      }
+    }
+  ]
+}

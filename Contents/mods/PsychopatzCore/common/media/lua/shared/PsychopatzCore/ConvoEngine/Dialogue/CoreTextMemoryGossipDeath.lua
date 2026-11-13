@@ -5,12 +5,13 @@ return {
         ["id"] = "text.death.report",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "report",
             ["sourceId"] = "text.death.report",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_death.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_death/death_report.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipDeath",
+        ["namespace"] = "text.death",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -73,7 +74,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_death.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_death/death_report.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -86,12 +87,13 @@ return {
         ["id"] = "text.death.sacrifice",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "sacrifice",
             ["sourceId"] = "text.death.sacrifice",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_death.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_death/death_sacrifice.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipDeath",
+        ["namespace"] = "text.death",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -154,7 +156,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_death.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_death/death_sacrifice.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,

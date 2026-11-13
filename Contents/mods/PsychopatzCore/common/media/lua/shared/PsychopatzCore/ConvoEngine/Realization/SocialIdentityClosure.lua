@@ -5,12 +5,13 @@ return {
         ["id"] = "construction.social.disclose_name",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "disclose_name",
             ["sourceId"] = "construction.social.disclose_name",
-            ["sourcePath"] = "psdl/realization/social_identity_closure.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_identity_closure/social_disclose_name.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -59,7 +60,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_identity_closure.json",
+        ["sourceShard"] = "realization/social_identity_closure/social_disclose_name.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -72,12 +73,13 @@ return {
         ["id"] = "construction.social.end_conversation_done",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "end_conversation_done",
             ["sourceId"] = "construction.social.end_conversation_done",
-            ["sourcePath"] = "psdl/realization/social_identity_closure.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_identity_closure/social_end_conversation_done.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -110,7 +112,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_identity_closure.json",
+        ["sourceShard"] = "realization/social_identity_closure/social_end_conversation_done.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -123,12 +125,13 @@ return {
         ["id"] = "construction.social.end_conversation_withdraw",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "end_conversation_withdraw",
             ["sourceId"] = "construction.social.end_conversation_withdraw",
-            ["sourcePath"] = "psdl/realization/social_identity_closure.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_identity_closure/social_end_conversation_withdraw.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -161,7 +164,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_identity_closure.json",
+        ["sourceShard"] = "realization/social_identity_closure/social_end_conversation_withdraw.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -174,12 +177,13 @@ return {
         ["id"] = "construction.social.mirror_retort",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "mirror_retort",
             ["sourceId"] = "construction.social.mirror_retort",
-            ["sourcePath"] = "psdl/realization/social_identity_closure.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_identity_closure/social_mirror_retort.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -220,7 +224,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_identity_closure.json",
+        ["sourceShard"] = "realization/social_identity_closure/social_mirror_retort.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -233,12 +237,13 @@ return {
         ["id"] = "construction.social.mirror_retort_challenge",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "mirror_retort_challenge",
             ["sourceId"] = "construction.social.mirror_retort_challenge",
-            ["sourcePath"] = "psdl/realization/social_identity_closure.json#records[4]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_identity_closure/social_mirror_retort_challenge.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -287,7 +292,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_identity_closure.json",
+        ["sourceShard"] = "realization/social_identity_closure/social_mirror_retort_challenge.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -300,12 +305,13 @@ return {
         ["id"] = "construction.social.refuse_identity",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "refuse_identity",
             ["sourceId"] = "construction.social.refuse_identity",
-            ["sourcePath"] = "psdl/realization/social_identity_closure.json#records[5]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_identity_closure/social_refuse_identity.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialIdentityClosure",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -338,7 +344,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_identity_closure.json",
+        ["sourceShard"] = "realization/social_identity_closure/social_refuse_identity.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

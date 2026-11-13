@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "QUESTION",
+  "id": "comfort",
+  "strategy": "COMFORT",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "What's really bothering you?"
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Ano ba talaga ang bumabagabag sa'yo?"
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

@@ -1,0 +1,35 @@
+{
+  "act": "SHARE_NEWS",
+  "baseRelevance": 1.0,
+  "continuation": {
+    "intent": "SHARE_GROUNDED_NEWS",
+    "mode": "emit",
+    "speechAct": "INFORM",
+    "target": "other"
+  },
+  "id": "scene_grounded_news_share",
+  "mode": "one_shot",
+  "modifiers": [],
+  "outputs": {
+    "speech": {
+      "contentTemplateID": "semantic.interaction.scene.grounded_news_share",
+      "dialogueAct": "DISCLOSE"
+    }
+  },
+  "owner": "PsychopatzCore",
+  "requiredCapabilities": [
+    "speech"
+  ],
+  "stimuli": [
+    "AMBIENT_SOCIAL_OPPORTUNITY"
+  ],
+  "version": 1,
+  "when": {
+    "op": "eq",
+    "path": "stimulus.semantic.intent",
+    "value": "SHARE_GROUNDED_NEWS"
+  },
+  "kind": "behavior",
+  "namespace": "behavior",
+  "schema": "psychopatz.convo-engine.v1"
+}

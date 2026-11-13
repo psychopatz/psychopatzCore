@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "ACCEPT",
+  "id": "contextual_accept",
+  "strategy": "ACCEPT",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "Yes, I accept."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Oo, pumapayag ako."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

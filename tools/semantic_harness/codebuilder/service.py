@@ -47,6 +47,7 @@ from .convo_engine_authoring import (
     apply_family_patch,
     build_convo_engine_family_document,
     load_json_document,
+    prepare_bucket_migration,
     prepare_shard_documents,
     resolve_authorized_source_path,
     source_fingerprint_mismatch,
@@ -567,19 +568,12 @@ class SemanticLabAuthoringService:
             "writes": [str(dst)],
         }
 
-    def shard_convo_engine_source(
+    def _load_authorized_source(
         self,
         source_or_doc: str | Path | dict[str, Any],
-        plan: list[dict[str, Any]],
         *,
-        default_owner: str | None = None,
-        write: bool = False,
-        overwrite: bool = False,
-        prune_source: bool = False,
-    ) -> dict[str, Any]:
-        """Split/migrate a multi-record source into validated canonical ConvoEngine shards."""
-        allowed = self._convo_engine_allowed_roots()
-        src_path: Path | None = None
+        allowed: list[Path],
+    ) -> tuple[Path | None, dict[str, Any]]:
         if isinstance(source_or_doc, (str, Path)):
             src_path = resolve_authorized_source_path(
                 source_or_doc,
@@ -587,26 +581,37 @@ class SemanticLabAuthoringService:
                 allowed_roots=allowed,
                 check_forbidden_segments=False,
             )
-            source_doc = load_json_document(src_path)
-        else:
-            source_doc = source_or_doc
+            return src_path, load_json_document(src_path)
+        return None, source_or_doc
 
-        prepared, consumed_ids, compiled = prepare_shard_documents(
-            source_doc,
-            plan,
-            repository=self.repository,
-            allowed_roots=allowed,
-            default_owner=default_owner,
-        )
+    def _execute_shard_plan(
+        self,
+        *,
+        src_path: Path | None,
+        source_doc: dict[str, Any],
+        prepared: list[tuple[Path, dict[str, Any], list[str]]],
+        consumed_ids: list[str],
+        compiled_fingerprint: str,
+        write: bool,
+        overwrite: bool,
+        prune_source: bool,
+        extra_summary: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
         planned_writes = [
             {
                 "destPath": str(dest),
-                "id": doc.get("id") if doc.get("namespace") is None else f"{doc['namespace']}.{doc['id']}",
+                "id": (
+                    f"{doc['namespace']}.{doc['id']}"
+                    if doc.get("namespace") is not None and doc.get("id") is not None
+                    else doc.get("id")
+                ),
+                "schema": doc.get("schema"),
                 "sourceRecordIds": consumed,
                 "sourceFingerprint": fingerprint(doc),
             }
             for dest, doc, consumed in prepared
         ]
+        summary = dict(extra_summary or {})
         if not write:
             return {
                 "ok": True,
@@ -615,8 +620,9 @@ class SemanticLabAuthoringService:
                 "sourcePath": str(src_path) if src_path is not None else None,
                 "consumedRecordIds": consumed_ids,
                 "plannedWrites": planned_writes,
-                "compiledFingerprint": compiled["fingerprint"],
+                "compiledFingerprint": compiled_fingerprint,
                 "shardedDocuments": {str(dest): doc for dest, doc, _ in prepared},
+                **summary,
                 "writes": [],
             }
 
@@ -631,13 +637,18 @@ class SemanticLabAuthoringService:
 
         removed_source: str | None = None
         remaining_records: int | None = None
-        if prune_source and src_path is not None and isinstance(source_doc.get("records"), list):
+        if prune_source and src_path is not None:
             consumed_set = set(consumed_ids)
-            remaining = [
-                item
-                for item in source_doc["records"]
-                if not (isinstance(item, dict) and item.get("id") in consumed_set)
-            ]
+            if isinstance(source_doc.get("records"), list):
+                remaining = [
+                    item
+                    for item in source_doc["records"]
+                    if not (isinstance(item, dict) and item.get("id") in consumed_set)
+                ]
+            elif isinstance(source_doc.get("id"), str) and source_doc.get("id") in consumed_set:
+                remaining = []
+            else:
+                remaining = [source_doc]
             remaining_records = len(remaining)
             if not remaining:
                 src_path.unlink()
@@ -656,9 +667,80 @@ class SemanticLabAuthoringService:
             "removedSource": removed_source,
             "remainingSourceRecords": remaining_records,
             "plannedWrites": planned_writes,
-            "compiledFingerprint": compiled["fingerprint"],
+            "compiledFingerprint": compiled_fingerprint,
+            **summary,
             "writes": written_paths,
         }
+
+    def shard_convo_engine_source(
+        self,
+        source_or_doc: str | Path | dict[str, Any],
+        plan: list[dict[str, Any]],
+        *,
+        default_owner: str | None = None,
+        write: bool = False,
+        overwrite: bool = False,
+        prune_source: bool = False,
+    ) -> dict[str, Any]:
+        """Split/migrate a multi-record source into validated canonical ConvoEngine shards."""
+        allowed = self._convo_engine_allowed_roots()
+        src_path, source_doc = self._load_authorized_source(source_or_doc, allowed=allowed)
+        prepared, consumed_ids, compiled = prepare_shard_documents(
+            source_doc,
+            plan,
+            repository=self.repository,
+            allowed_roots=allowed,
+            default_owner=default_owner,
+        )
+        return self._execute_shard_plan(
+            src_path=src_path,
+            source_doc=source_doc,
+            prepared=prepared,
+            consumed_ids=consumed_ids,
+            compiled_fingerprint=str(compiled["fingerprint"]),
+            write=write,
+            overwrite=overwrite,
+            prune_source=prune_source,
+        )
+
+    def migrate_convo_engine_bucket(
+        self,
+        source_or_doc: str | Path | dict[str, Any],
+        plan: list[dict[str, Any]],
+        *,
+        default_owner: str | None = None,
+        require_complete: bool = True,
+        write: bool = False,
+        overwrite: bool = False,
+        prune_source: bool = False,
+    ) -> dict[str, Any]:
+        """Accountably migrate a PSDL bucket into coherent ConvoEngine family files."""
+        allowed = self._convo_engine_allowed_roots()
+        src_path, source_doc = self._load_authorized_source(source_or_doc, allowed=allowed)
+        if prune_source and not require_complete:
+            raise CompileError("prune_source=True requires require_complete=True")
+        prepared, consumed_ids, summary = prepare_bucket_migration(
+            source_doc,
+            plan,
+            repository=self.repository,
+            allowed_roots=allowed,
+            default_owner=default_owner,
+            require_complete=require_complete,
+        )
+        return self._execute_shard_plan(
+            src_path=src_path,
+            source_doc=source_doc,
+            prepared=prepared,
+            consumed_ids=consumed_ids,
+            compiled_fingerprint=str(summary["fingerprint"]),
+            write=write,
+            overwrite=overwrite,
+            prune_source=prune_source,
+            extra_summary={
+                "canonicalCount": summary["canonicalCount"],
+                "preNormalizationLegacyCount": summary["preNormalizationLegacyCount"],
+            },
+        )
 
     def preview_psdl_document(
         self,
@@ -694,9 +776,15 @@ class SemanticLabAuthoringService:
         model = self._conversation_model()
         manifest = model.get("manifest") or {}
         documents = model.get("_source_documents") or {}
+        entries = model.get("_manifest_entries")
+        if not isinstance(entries, list):
+            entries = [
+                *(manifest.get("shards") or []),
+                *(manifest.get("externalShards") or []),
+            ]
         sources: list[dict[str, Any]] = []
-        for entry in manifest.get("externalShards", []):
-            if not isinstance(entry, dict) or entry.get("kind") != "psdl":
+        for entry in entries:
+            if not isinstance(entry, dict) or entry.get("kind") not in {"psdl", "convo_engine"}:
                 continue
             owner = normalize_owner(
                 entry.get("owner"),
@@ -711,8 +799,21 @@ class SemanticLabAuthoringService:
             )
             source_path = repository / str(entry.get("sourcePath", entry.get("path", "")))
             document = documents.get(entry.get("path"))
-            records = document.get("records", []) if isinstance(document, dict) else []
+            if isinstance(document, dict) and isinstance(document.get("records"), list):
+                records = document.get("records", [])
+            elif isinstance(document, dict) and isinstance(document.get("id"), str):
+                records = [document]
+            else:
+                records = []
             source_id = f"{owner}:{entry.get('path')}"
+            record_ids = []
+            for item in records:
+                if not isinstance(item, dict):
+                    continue
+                if isinstance(item.get("namespace"), str) and isinstance(item.get("id"), str):
+                    record_ids.append(f"{item['namespace']}.{item['id']}")
+                elif isinstance(item.get("id"), str):
+                    record_ids.append(item["id"])
             sources.append(
                 {
                     "sourceID": source_id,
@@ -725,12 +826,8 @@ class SemanticLabAuthoringService:
                     "exists": source_path.is_file(),
                     "editable": source_path.is_file(),
                     "schema": document.get("schema") if isinstance(document, dict) else None,
-                    "recordCount": len(records) if isinstance(records, list) else 0,
-                    "recordIDs": [
-                        item.get("id")
-                        for item in records
-                        if isinstance(item, dict) and isinstance(item.get("id"), str)
-                    ],
+                    "recordCount": len(records),
+                    "recordIDs": record_ids,
                 }
             )
         return sorted(sources, key=lambda item: (str(item.get("owner")), str(item.get("path"))))

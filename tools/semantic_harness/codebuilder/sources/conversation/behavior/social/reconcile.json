@@ -1,0 +1,57 @@
+{
+  "act": "RECONCILE",
+  "baseRelevance": 0.6,
+  "id": "reconcile",
+  "mode": "beat",
+  "modifiers": [
+    {
+      "delta": 0.15,
+      "reason": "relationship_recoverable",
+      "when": {
+        "op": "gte",
+        "path": "relationship.approval",
+        "value": -20
+      }
+    },
+    {
+      "delta": -0.2,
+      "reason": "low_forgiveness",
+      "when": {
+        "op": "lt",
+        "path": "actor.disposition.forgiveness",
+        "value": 0.35
+      }
+    }
+  ],
+  "outputs": {
+    "speech": {
+      "contentTemplateID": "semantic.social.apology.friendly",
+      "dialogueAct": "RECONCILE"
+    }
+  },
+  "owner": "PsychopatzCore",
+  "requiredCapabilities": [
+    "speech"
+  ],
+  "stimuli": [
+    "HUMAN_UTTERANCE",
+    "NPC_SEMANTIC_ACT"
+  ],
+  "version": 1,
+  "when": {
+    "all": [
+      {
+        "op": "eq",
+        "path": "stimulus.semantic.intent",
+        "value": "APOLOGIZE"
+      },
+      {
+        "op": "truthy",
+        "path": "pragmatic.contextualAdmission.admitted"
+      }
+    ]
+  },
+  "kind": "behavior",
+  "namespace": "behavior",
+  "schema": "psychopatz.convo-engine.v1"
+}

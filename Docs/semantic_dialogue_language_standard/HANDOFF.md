@@ -4,14 +4,14 @@ checkpoint_mode: "committed_handoff"
 phase_commit: "self"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-participant_heads: "project-hoomans=a92c83a78606bc99136d193baca90a55d693ff84;dynamic-trading=87435bacae563750f87cb7c7a2ba5b4b62bc081c"
+participant_heads: "project-hoomans=13ae8008316227eb1042314acb5400be0c011d48;dynamic-trading=e05d4b277934b8aafe5871d60b3bfb4937a37c07"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S6M — ConvoEngine normalization"
-chunk: "S6M3 — CodeBuilder source sharding and canonical normalization"
+chunk: "S6M4 — Realization/style normalization and canonical ID cleanup"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-13T18:43:00Z"
+updated_at: "2026-11-13T19:10:00Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -34,15 +34,15 @@ The existing compiler/runtime migration is useful. Do not undo it.
 ```text
 Core
 /home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD f695be0 (parent of this S6M2B commit)
+HEAD 8dd946300f407dbcbf2987a77133398f9a58027b (parent of this S6M3 commit)
 
 Hoomans
 /home/psychopatz/Zomboid/Workshop/ProjectHoomans
-HEAD a92c83a78606bc99136d193baca90a55d693ff84
+HEAD 13ae8008316227eb1042314acb5400be0c011d48
 
 DynamicTrading
 /home/psychopatz/Zomboid/Workshop/DynamicTrading
-HEAD 87435bacae563750f87cb7c7a2ba5b4b62bc081c
+HEAD e05d4b277934b8aafe5871d60b3bfb4937a37c07
 ```
 
 Reinspect Git state before edits. Preserve unrelated work.
@@ -223,19 +223,24 @@ This is S6M6, not the current chunk.
 - Regenerated 457 generated files across all three repositories via CodeBuilder, updated all Lua/Python callers and tests, and verified zero remaining Lua callers on removed `Semantics/Generated/Conversation`, `Conversation/PSDL`, `PSDLPlan`, and old `PsychopatzSemanticDialogue*` paths.
 - Verification: Core Python `tools/semantic_harness/tests` 127/127 OK, `refactor_binding_smoke.py` PASS, all 12 Core Lua smoke tests PASS; DynamicTrading `tests/run_tests.py` PASS 89/89; ProjectHoomans `tests/run_tests.py` 1003/1020 PASS (17 pre-existing S1/S5 baseline failures recorded for S6M3-S8 closure, including `FlowGenerator_Registration` missing `projecthoomans:task_lifecycle` projection in `SocialContent_Core` from S5 `1c88d83c`); `test_generation_ownership.py` 7/8 PASS (1 pre-existing S5 fixture path `behaviors/social`).
 
-## Immediate Next Chunk — S6M3
+## What became true in S6M3
+
+- Extended CodeBuilder manifest loading, bucket migration (`SemanticLabAuthoringService.migrate_convo_engine_bucket` & `convo_engine_cli.py migrate-bucket`), assembly, and domain-level Lua module chunking (`moduleSourceShard` + byte-aware chunk splitting) so every bucket under `sources/conversation/` compiles from recursive `sourceRoots` / `externalSourceRoots`.
+- Migrated all 106 `psdl/` buckets (1029 records) across PsychopatzCore, ProjectHoomans, and DynamicTrading via CodeBuilder into 688 coherent family shards under `sources/conversation/{behavior,beat,realization,dialogue}/...`, leaving zero `psdl/` directories in all three repositories.
+- Regenerated 454 generated files cleanly via `build.py` (with `DTCommon` marked `optional: true` in Core `externalSourceRoots` so Hoomans-only compiler tests remain self-contained).
+- Verified Core Python `tools/semantic_harness/tests` 129/129 OK, `refactor_binding_smoke.py` PASS, Core semantic Lua smokes 9/9 PASS, DynamicTrading `tests/run_tests.py` 89/89 PASS, ProjectHoomans `tests/run_tests.py` 1003/1020 PASS (exact pre-existing S1/S5 baseline).
+
+## Immediate Next Chunk — S6M4
 
 Responsibility:
 
-> Shard and migrate canonical ConvoEngine source content through the CodeBuilder
-> authoring/migration API/CLI (`one file = one coherent semantic family`) under
-> `sources/conversation/{dialogue,behavior,beat,realization}/...`, eliminating bulk
-> `psdl/*` migration buckets without manual JSON manufacturing.
+> Normalize the 57 remaining pre-normalization numeric-ID shards (`psychopatz.semantic.dialogue-language.v1` `.01/.1/.2` wording IDs) and style-sibling shards (`.neutral/.warm/.terse/.guarded/.friendly`) + redundant routine `semantic.` prefixes into canonical `psychopatz.convo-engine.v1` family modules via CodeBuilder, updating callers/tests atomically to reach zero `psychopatz.semantic.dialogue-language.v1` sources.
 
 Pass gate:
 
-- Source shards live cleanly under `sources/conversation/` without giant multi-family buckets;
-- CodeBuilder preview/validation/build/regeneration passes cleanly with tests.
+- Numeric `.01/.1/.2` wording IDs live as stable `say` realization keys (or single-`say` shorthand) inside coherent family files;
+- Style-sibling variants fold under family style/context dimensions;
+- Zero `psychopatz.semantic.dialogue-language.v1` files remain across Core/Hoomans/DynamicTrading and tests pass.
 
 ## Following bounded chunks
 

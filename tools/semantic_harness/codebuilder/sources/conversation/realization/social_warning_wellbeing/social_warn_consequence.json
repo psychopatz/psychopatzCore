@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "BOUNDARY_WARNING",
+  "id": "warn_consequence",
+  "strategy": "WARN",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "Keep talking like that and we're going to have a problem."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Kapag itinuloy mo 'yan, magkakaproblema tayo."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

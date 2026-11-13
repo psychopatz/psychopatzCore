@@ -1,0 +1,21 @@
+{
+  "aliases": [
+    "fuck",
+    "fuck you",
+    "fuck u",
+    "f*ck you",
+    "f**k you",
+    "f*** you"
+  ],
+  "concept": "PROFANITY_FUCK",
+  "forms": {
+    "EN": "fuck",
+    "TL": "Putang ina mo"
+  },
+  "id": "fuck",
+  "type": "lexeme",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "lexeme.social.profanity",
+  "schema": "psychopatz.convo-engine.v1"
+}

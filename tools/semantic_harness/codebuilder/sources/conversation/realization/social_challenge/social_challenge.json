@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "CHALLENGE",
+  "id": "challenge",
+  "strategy": "CHALLENGE",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "Say that again."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Ulitin mo nga."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

@@ -50,6 +50,11 @@ class ModuleNameRegistry:
     def __init__(self) -> None:
         self._names: dict[tuple[str, str], str] = {}
 
+    def clone(self) -> "ModuleNameRegistry":
+        cloned = ModuleNameRegistry()
+        cloned._names = dict(self._names)
+        return cloned
+
     def child(
         self,
         parent: str,

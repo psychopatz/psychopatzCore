@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "DISAGREE",
+  "id": "disagree",
+  "strategy": "DISAGREE",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "No, I don't agree."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Hindi ako sang-ayon."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

@@ -796,6 +796,7 @@ def compile_convo_engine_document(
     source_path: str | Path | None = None,
     default_owner: Any = None,
     allow_legacy_schema: bool = True,
+    validate_cross_references: bool = True,
 ) -> dict[str, Any]:
     """Compile one ConvoEngine/PSDL record or a bounded record catalog."""
     raw_records, doc_owner, doc_schema = _record_values(
@@ -823,7 +824,8 @@ def compile_convo_engine_document(
     if len(set(ids)) != len(ids):
         duplicates = sorted({item for item in ids if ids.count(item) > 1})
         raise CompileError("ConvoEngine document repeats IDs: " + ", ".join(duplicates))
-    _validate_cross_references(records)
+    if validate_cross_references:
+        _validate_cross_references(records)
     payload = {
         "schema": PSDL_COMPILED_SCHEMA,
         "version": 1,
@@ -839,12 +841,16 @@ def compile_psdl_document(
     document: Mapping[str, Any],
     *,
     source_path: str | Path | None = None,
+    default_owner: Any = None,
+    validate_cross_references: bool = True,
 ) -> dict[str, Any]:
     """Compatibility alias for ``compile_convo_engine_document``."""
     return compile_convo_engine_document(
         document,
         source_path=source_path,
+        default_owner=default_owner,
         allow_legacy_schema=True,
+        validate_cross_references=validate_cross_references,
     )
 
 
@@ -853,6 +859,7 @@ def compile_convo_engine_sources(
     *,
     default_owner: Any = None,
     allow_legacy_schema: bool = True,
+    validate_cross_references: bool = True,
 ) -> dict[str, Any]:
     """Compile multiple source documents with deterministic path/ID routing."""
     if not isinstance(sources, Mapping) or not sources:
@@ -867,6 +874,7 @@ def compile_convo_engine_sources(
             source_path=path,
             default_owner=default_owner,
             allow_legacy_schema=allow_legacy_schema,
+            validate_cross_references=validate_cross_references,
         )
         ids = [record["id"] for record in compiled["records"]]
         duplicates = sorted(set(ids) & seen_ids)
@@ -878,7 +886,8 @@ def compile_convo_engine_sources(
         records.extend(compiled["records"])
         reports.append({"path": path, "recordIDs": ids, "fingerprint": compiled["fingerprint"]})
     records.sort(key=lambda item: item["id"])
-    _validate_cross_references(records)
+    if validate_cross_references:
+        _validate_cross_references(records)
     output = {
         "schema": PSDL_COMPILED_SCHEMA,
         "version": 1,

@@ -1,0 +1,36 @@
+{
+  "dialogueAct": "APOLOGIZE",
+  "id": "apologize",
+  "strategy": "APOLOGIZE",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "I'm "
+      },
+      {
+        "kind": "lexeme",
+        "slot": "primary"
+      },
+      {
+        "kind": "literal",
+        "value": "."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "lexeme",
+        "slot": "primary"
+      },
+      {
+        "kind": "literal",
+        "value": " na."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

@@ -1,0 +1,32 @@
+{
+  "dialogueAct": "RETORT",
+  "id": "mirror_retort",
+  "strategy": "MIRROR",
+  "translations": {
+    "EN": [
+      {
+        "kind": "lexeme",
+        "slot": "primary"
+      },
+      {
+        "kind": "literal",
+        "value": " you too."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "lexeme",
+        "slot": "primary"
+      },
+      {
+        "kind": "literal",
+        "value": " rin."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

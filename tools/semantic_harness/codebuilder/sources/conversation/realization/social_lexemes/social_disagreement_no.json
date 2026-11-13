@@ -1,0 +1,13 @@
+{
+  "concept": "DISAGREEMENT_NO",
+  "forms": {
+    "EN": "no",
+    "TL": "hindi"
+  },
+  "id": "no",
+  "type": "lexeme",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "lexeme.social.disagreement",
+  "schema": "psychopatz.convo-engine.v1"
+}

@@ -1,0 +1,546 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "kind": "dialogue",
+      "id": "guarded",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/gossip.json",
+        "responseTemplateID": "semantic.gossip.unknown",
+        "style": "guarded"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "guarded.01",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.01"
+            },
+            "text": {
+              "EN": "I don't have anything to share.",
+              "TL": "Wala akong maibabahagi sa'yo."
+            }
+          },
+          {
+            "id": "guarded.02",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.02"
+            },
+            "text": {
+              "EN": "I don't traffic in rumors. Keep moving.",
+              "TL": "Hindi ako nakikipagtsismisan. Lakad na."
+            }
+          },
+          {
+            "id": "guarded.03",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.03"
+            },
+            "text": {
+              "EN": "No news worth risking our necks over.",
+              "TL": "Walang balitang karapat-dapat ipagsapalaran ang buhay natin."
+            }
+          },
+          {
+            "id": "guarded.04",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.04"
+            },
+            "text": {
+              "EN": "I keep my ears open for danger, not talk.",
+              "TL": "Bukas ang tenga ko sa panganib, hindi sa kwento."
+            }
+          },
+          {
+            "id": "guarded.05",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.05"
+            },
+            "text": {
+              "EN": "Haven't heard anything reliable. Watch yourself.",
+              "TL": "Wala akong narinig na mapagkakatiwalaan. Mag-ingat ka."
+            }
+          },
+          {
+            "id": "guarded.06",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.06"
+            },
+            "text": {
+              "EN": "Rumors are cheap and usually wrong. Nothing to say.",
+              "TL": "Mura ang tsismis at kadalasang mali. Walang masasabi."
+            }
+          },
+          {
+            "id": "guarded.07",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.07"
+            },
+            "text": {
+              "EN": "I don't listen to chatter. Mind your business.",
+              "TL": "Hindi ako nakikinig sa daldalan. Asikasuhin mo ang sarili mo."
+            }
+          },
+          {
+            "id": "guarded.08",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.08"
+            },
+            "text": {
+              "EN": "No word that concerns you.",
+              "TL": "Walang balitang may kinalaman sa'yo."
+            }
+          },
+          {
+            "id": "guarded.09",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.09"
+            },
+            "text": {
+              "EN": "Nothing to share. Keep your guard up.",
+              "TL": "Walang maibabahagi. Panatilihing mataas ang depensa."
+            }
+          },
+          {
+            "id": "guarded.10",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.gossip.unknown.guarded.10"
+            },
+            "text": {
+              "EN": "Don't ask me for gossip.",
+              "TL": "Huwag kang magtanong sa akin ng tsismis."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.gossip.unknown"
+    },
+    {
+      "kind": "dialogue",
+      "id": "neutral",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/gossip.json",
+        "responseTemplateID": "semantic.gossip.unknown",
+        "style": "neutral"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "neutral.01",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.01"
+            },
+            "text": {
+              "EN": "I haven't heard any news lately.",
+              "TL": "Wala akong narinig na balita kamakailan."
+            }
+          },
+          {
+            "id": "neutral.02",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.02"
+            },
+            "text": {
+              "EN": "Things have been fairly quiet on that front.",
+              "TL": "Medyo tahimik ang mga bagay sa bahaging 'yan."
+            }
+          },
+          {
+            "id": "neutral.03",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.03"
+            },
+            "text": {
+              "EN": "No recent rumors have reached me.",
+              "TL": "Walang kamakailang tsismis ang nakarating sa akin."
+            }
+          },
+          {
+            "id": "neutral.04",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.04"
+            },
+            "text": {
+              "EN": "Haven't picked up any word from other survivors.",
+              "TL": "Walang nasagap na balita mula sa ibang survivor."
+            }
+          },
+          {
+            "id": "neutral.05",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.05"
+            },
+            "text": {
+              "EN": "I don't have any updates to share right now.",
+              "TL": "Wala akong anumang balita na maibabahagi ngayon."
+            }
+          },
+          {
+            "id": "neutral.06",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.06"
+            },
+            "text": {
+              "EN": "Nothing new to report on that topic.",
+              "TL": "Walang bagong maiuulat sa paksang 'yan."
+            }
+          },
+          {
+            "id": "neutral.07",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.07"
+            },
+            "text": {
+              "EN": "Word travels slow. Haven't heard anything.",
+              "TL": "Mabagal kumalat ang balita. Wala akong narinig."
+            }
+          },
+          {
+            "id": "neutral.08",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.08"
+            },
+            "text": {
+              "EN": "I haven't caught any talk recently.",
+              "TL": "Wala akong nasagap na usapan kamakailan."
+            }
+          },
+          {
+            "id": "neutral.09",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.09"
+            },
+            "text": {
+              "EN": "No gossip on my radar at the moment.",
+              "TL": "Walang tsismis sa akin sa ngayon."
+            }
+          },
+          {
+            "id": "neutral.10",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.gossip.unknown.neutral.10"
+            },
+            "text": {
+              "EN": "Haven't heard much of anything lately.",
+              "TL": "Halos wala akong narinig na anuman kamakailan."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.gossip.unknown"
+    },
+    {
+      "kind": "dialogue",
+      "id": "terse",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/gossip.json",
+        "responseTemplateID": "semantic.gossip.unknown",
+        "style": "terse"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "terse.01",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.01"
+            },
+            "text": {
+              "EN": "No news.",
+              "TL": "Walang balita."
+            }
+          },
+          {
+            "id": "terse.02",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.02"
+            },
+            "text": {
+              "EN": "Heard nothing.",
+              "TL": "Walang narinig."
+            }
+          },
+          {
+            "id": "terse.03",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.03"
+            },
+            "text": {
+              "EN": "Nothing.",
+              "TL": "Wala."
+            }
+          },
+          {
+            "id": "terse.04",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.04"
+            },
+            "text": {
+              "EN": "Quiet.",
+              "TL": "Tahimik."
+            }
+          },
+          {
+            "id": "terse.05",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.05"
+            },
+            "text": {
+              "EN": "No rumors.",
+              "TL": "Walang tsismis."
+            }
+          },
+          {
+            "id": "terse.06",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.06"
+            },
+            "text": {
+              "EN": "No word.",
+              "TL": "Walang balita."
+            }
+          },
+          {
+            "id": "terse.07",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.07"
+            },
+            "text": {
+              "EN": "Nothing new.",
+              "TL": "Walang bago."
+            }
+          },
+          {
+            "id": "terse.08",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.08"
+            },
+            "text": {
+              "EN": "All quiet.",
+              "TL": "Tahimik lahat."
+            }
+          },
+          {
+            "id": "terse.09",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.09"
+            },
+            "text": {
+              "EN": "Zero news.",
+              "TL": "Walang balita."
+            }
+          },
+          {
+            "id": "terse.10",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.gossip.unknown.terse.10"
+            },
+            "text": {
+              "EN": "Blank.",
+              "TL": "Wala."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.gossip.unknown"
+    },
+    {
+      "kind": "dialogue",
+      "id": "warm",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/gossip.json",
+        "responseTemplateID": "semantic.gossip.unknown",
+        "style": "warm"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "warm.01",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.01"
+            },
+            "text": {
+              "EN": "I haven't heard any news, sorry.",
+              "TL": "Wala akong narinig na balita, pasensya na."
+            }
+          },
+          {
+            "id": "warm.02",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.02"
+            },
+            "text": {
+              "EN": "Wish I had something interesting to tell you.",
+              "TL": "Sana may magandang balita akong maikwento sa'yo."
+            }
+          },
+          {
+            "id": "warm.03",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.03"
+            },
+            "text": {
+              "EN": "Haven't heard any rumors, but I'll let you know.",
+              "TL": "Walang narinig na tsismis, pero sasabihan kita."
+            }
+          },
+          {
+            "id": "warm.04",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.04"
+            },
+            "text": {
+              "EN": "All quiet on my side, but I'll keep an ear out.",
+              "TL": "Tahimik sa panig ko, pero makikinig ako."
+            }
+          },
+          {
+            "id": "warm.05",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.05"
+            },
+            "text": {
+              "EN": "Sorry, no fresh news today, my friend.",
+              "TL": "Pasensya na, walang bagong balita ngayon, kaibigan."
+            }
+          },
+          {
+            "id": "warm.06",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.06"
+            },
+            "text": {
+              "EN": "Nothing reaching my ears lately. Hope all is well.",
+              "TL": "Walang dumarating sa akin kamakailan. Sana ayos ka lang."
+            }
+          },
+          {
+            "id": "warm.07",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.07"
+            },
+            "text": {
+              "EN": "I'll be sure to tell you if I hear anything new.",
+              "TL": "Tiyak na sasabihin ko sa'yo kapag may narinig akong bago."
+            }
+          },
+          {
+            "id": "warm.08",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.08"
+            },
+            "text": {
+              "EN": "Quiet days out there. No rumors to report.",
+              "TL": "Tahimik ang mga araw sa labas. Walang maiuulat na tsismis."
+            }
+          },
+          {
+            "id": "warm.09",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.09"
+            },
+            "text": {
+              "EN": "Nothing to share right now, but stay safe.",
+              "TL": "Walang maibabahagi ngayon, pero mag-ingat ka."
+            }
+          },
+          {
+            "id": "warm.10",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.gossip.unknown.warm.10"
+            },
+            "text": {
+              "EN": "I haven't heard any stories, but I'm glad you asked.",
+              "TL": "Wala akong narinig na kwento, pero salamat sa pagtatanong."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.gossip.unknown"
+    }
+  ]
+}

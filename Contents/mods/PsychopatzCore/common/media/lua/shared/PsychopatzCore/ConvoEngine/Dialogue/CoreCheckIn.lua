@@ -5,12 +5,13 @@ return {
         ["id"] = "social.core_check_in",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "core_check_in",
             ["sourceId"] = "social.core_check_in",
-            ["sourcePath"] = "psdl/dialogue/core_check_in.json",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_check_in/social_core_check_in.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreCheckIn",
+        ["namespace"] = "social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -241,7 +242,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_check_in.json",
+        ["sourceShard"] = "dialogue/core_check_in/social_core_check_in.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

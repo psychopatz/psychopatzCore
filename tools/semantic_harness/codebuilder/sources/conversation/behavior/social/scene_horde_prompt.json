@@ -1,0 +1,38 @@
+{
+  "act": "COMBAT_HORDE_PROMPT",
+  "baseRelevance": 1.0,
+  "continuation": {
+    "intent": "COMBAT_HORDE_REPLY",
+    "mode": "emit",
+    "speechAct": "REPLY",
+    "target": "other"
+  },
+  "id": "scene_horde_prompt",
+  "mode": "one_shot",
+  "modifiers": [],
+  "outputs": {
+    "emote": {
+      "id": "emote.alert"
+    },
+    "speech": {
+      "contentTemplateID": "semantic.interaction.scene.horde_prompt",
+      "dialogueAct": "WARN"
+    }
+  },
+  "owner": "PsychopatzCore",
+  "requiredCapabilities": [
+    "speech"
+  ],
+  "stimuli": [
+    "DANGER_CHANGED"
+  ],
+  "version": 1,
+  "when": {
+    "op": "eq",
+    "path": "stimulus.semantic.intent",
+    "value": "COMBAT_HORDE_ALERT"
+  },
+  "kind": "behavior",
+  "namespace": "behavior",
+  "schema": "psychopatz.convo-engine.v1"
+}

@@ -1,0 +1,159 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.corpse.comrade.01",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.comrade",
+        "sourcePath": "memory/gossip/corpse/ordinary/comrade.json",
+        "textKey": "corpse.comrade.01",
+        "textRows": [
+          {
+            "key": "corpse.comrade.01",
+            "text": {
+              "EN": "One less of us, {target.name}. Damn.",
+              "TL": "Nabawasan na naman tayo, {target.name}. Nakakainis."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "One less of us, {target.name}. Damn.",
+        "TL": "Nabawasan na naman tayo, {target.name}. Nakakainis."
+      }
+    },
+    {
+      "id": "text.corpse.comrade.02",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.comrade",
+        "sourcePath": "memory/gossip/corpse/ordinary/comrade.json",
+        "textKey": "corpse.comrade.02",
+        "textRows": [
+          {
+            "key": "corpse.comrade.02",
+            "text": {
+              "EN": "You stood with {slot.faction.name}, {target.name}. We won't forget.",
+              "TL": "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "slots": {
+        "faction": {
+          "required": true,
+          "type": "entity.faction"
+        }
+      },
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "You stood with {slot.faction.name}, {target.name}. We won't forget.",
+        "TL": "Kasama ka ng {slot.faction.name}, {target.name}. Hindi ka namin kalilimutan."
+      }
+    },
+    {
+      "id": "text.corpse.comrade.03",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.comrade",
+        "sourcePath": "memory/gossip/corpse/ordinary/comrade.json",
+        "textKey": "corpse.comrade.03",
+        "textRows": [
+          {
+            "key": "corpse.comrade.03",
+            "text": {
+              "EN": "We fought side by side, {target.name}. Rest easy.",
+              "TL": "Magkatabi tayong lumaban, {target.name}. Pahinga ka na."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "We fought side by side, {target.name}. Rest easy.",
+        "TL": "Magkatabi tayong lumaban, {target.name}. Pahinga ka na."
+      }
+    },
+    {
+      "id": "text.corpse.comrade.04",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.comrade",
+        "sourcePath": "memory/gossip/corpse/ordinary/comrade.json",
+        "textKey": "corpse.comrade.04",
+        "textRows": [
+          {
+            "key": "corpse.comrade.04",
+            "text": {
+              "EN": "{target.name} held the line. We'll carry on.",
+              "TL": "Hindi ka umatras, {target.name}. Itutuloy namin ito."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "{target.name} held the line. We'll carry on.",
+        "TL": "Hindi ka umatras, {target.name}. Itutuloy namin ito."
+      }
+    },
+    {
+      "id": "text.corpse.comrade.05",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.comrade",
+        "sourcePath": "memory/gossip/corpse/ordinary/comrade.json",
+        "textKey": "corpse.comrade.05",
+        "textRows": [
+          {
+            "key": "corpse.comrade.05",
+            "text": {
+              "EN": "I hope {slot.faction.name} remembers what you gave.",
+              "TL": "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "slots": {
+        "faction": {
+          "required": true,
+          "type": "entity.faction"
+        }
+      },
+      "text": {
+        "EN": "I hope {slot.faction.name} remembers what you gave.",
+        "TL": "Sana maalala ng {slot.faction.name} ang lahat ng ibinigay mo."
+      }
+    }
+  ]
+}

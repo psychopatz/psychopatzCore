@@ -1,0 +1,32 @@
+{
+  "act": "POST_COMBAT_REACTION",
+  "baseRelevance": 1.0,
+  "continuation": {
+    "mode": "terminate"
+  },
+  "id": "scene_post_combat_clear",
+  "mode": "one_shot",
+  "modifiers": [],
+  "outputs": {
+    "speech": {
+      "contentTemplateID": "semantic.interaction.scene.post_combat_clear",
+      "dialogueAct": "INFORM"
+    }
+  },
+  "owner": "PsychopatzCore",
+  "requiredCapabilities": [
+    "speech"
+  ],
+  "stimuli": [
+    "DANGER_CHANGED"
+  ],
+  "version": 1,
+  "when": {
+    "op": "eq",
+    "path": "stimulus.semantic.intent",
+    "value": "POST_COMBAT_CLEAR"
+  },
+  "kind": "behavior",
+  "namespace": "behavior",
+  "schema": "psychopatz.convo-engine.v1"
+}

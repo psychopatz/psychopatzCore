@@ -5,12 +5,13 @@ return {
         ["id"] = "semantic.gossip.unknown.bond_guarded",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "bond_guarded",
             ["sourceId"] = "semantic.gossip.unknown.bond_guarded",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_gossip.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown_bond_guarded.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
+        ["namespace"] = "semantic.gossip.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -187,7 +188,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_gossip.json",
+        ["sourceShard"] = "dialogue/core_knowledge_gossip/gossip_unknown_bond_guarded.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -200,12 +201,13 @@ return {
         ["id"] = "semantic.gossip.unknown.bond_neutral",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "bond_neutral",
             ["sourceId"] = "semantic.gossip.unknown.bond_neutral",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_gossip.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown_bond_neutral.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
+        ["namespace"] = "semantic.gossip.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -382,7 +384,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_gossip.json",
+        ["sourceShard"] = "dialogue/core_knowledge_gossip/gossip_unknown_bond_neutral.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -395,12 +397,13 @@ return {
         ["id"] = "semantic.gossip.unknown.bond_terse",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "bond_terse",
             ["sourceId"] = "semantic.gossip.unknown.bond_terse",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_gossip.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown_bond_terse.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
+        ["namespace"] = "semantic.gossip.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -577,7 +580,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_gossip.json",
+        ["sourceShard"] = "dialogue/core_knowledge_gossip/gossip_unknown_bond_terse.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -590,12 +593,13 @@ return {
         ["id"] = "semantic.gossip.unknown.bond_warm",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "bond_warm",
             ["sourceId"] = "semantic.gossip.unknown.bond_warm",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_gossip.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown_bond_warm.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
+        ["namespace"] = "semantic.gossip.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -772,7 +776,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_gossip.json",
+        ["sourceShard"] = "dialogue/core_knowledge_gossip/gossip_unknown_bond_warm.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -785,12 +789,13 @@ return {
         ["id"] = "semantic.gossip.unknown.guarded",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "guarded",
             ["sourceId"] = "semantic.gossip.unknown.guarded",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_gossip.json#records[4]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown.json#records[0]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
+        ["namespace"] = "semantic.gossip.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -967,7 +972,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_gossip.json",
+        ["sourceShard"] = "dialogue/core_knowledge_gossip/gossip_unknown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -980,12 +985,13 @@ return {
         ["id"] = "semantic.gossip.unknown.neutral",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "neutral",
             ["sourceId"] = "semantic.gossip.unknown.neutral",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_gossip.json#records[5]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown.json#records[1]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
+        ["namespace"] = "semantic.gossip.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1162,7 +1168,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_gossip.json",
+        ["sourceShard"] = "dialogue/core_knowledge_gossip/gossip_unknown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1175,12 +1181,13 @@ return {
         ["id"] = "semantic.gossip.unknown.terse",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "terse",
             ["sourceId"] = "semantic.gossip.unknown.terse",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_gossip.json#records[6]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown.json#records[2]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
+        ["namespace"] = "semantic.gossip.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1357,7 +1364,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_gossip.json",
+        ["sourceShard"] = "dialogue/core_knowledge_gossip/gossip_unknown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1370,12 +1377,13 @@ return {
         ["id"] = "semantic.gossip.unknown.warm",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warm",
             ["sourceId"] = "semantic.gossip.unknown.warm",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_gossip.json#records[7]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown.json#records[3]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
+        ["namespace"] = "semantic.gossip.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1552,7 +1560,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_gossip.json",
+        ["sourceShard"] = "dialogue/core_knowledge_gossip/gossip_unknown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

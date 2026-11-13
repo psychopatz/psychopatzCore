@@ -5,12 +5,13 @@ return {
         ["id"] = "construction.social.contextual_accept",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "contextual_accept",
             ["sourceId"] = "construction.social.contextual_accept",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[7]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_contextual_accept.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -43,7 +44,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_contextual_accept.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -56,12 +57,13 @@ return {
         ["id"] = "construction.social.contextual_refuse",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "contextual_refuse",
             ["sourceId"] = "construction.social.contextual_refuse",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[8]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_contextual_refuse.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -94,7 +96,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_contextual_refuse.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -107,12 +109,13 @@ return {
         ["id"] = "construction.social.contextual_thank",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "contextual_thank",
             ["sourceId"] = "construction.social.contextual_thank",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[9]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_contextual_thank.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -145,7 +148,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_contextual_thank.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -158,12 +161,13 @@ return {
         ["id"] = "construction.social.warn_consequence",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warn_consequence",
             ["sourceId"] = "construction.social.warn_consequence",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_warn_consequence.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -196,7 +200,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_warn_consequence.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -209,12 +213,13 @@ return {
         ["id"] = "construction.social.warn_direct",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warn_direct",
             ["sourceId"] = "construction.social.warn_direct",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_warn_direct.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -247,7 +252,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_warn_direct.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -260,12 +265,13 @@ return {
         ["id"] = "construction.social.warn_mouth",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warn_mouth",
             ["sourceId"] = "construction.social.warn_mouth",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_warn_mouth.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -298,7 +304,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_warn_mouth.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -311,12 +317,13 @@ return {
         ["id"] = "construction.social.warn_stop",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warn_stop",
             ["sourceId"] = "construction.social.warn_stop",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_warn_stop.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -349,7 +356,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_warn_stop.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -362,12 +369,13 @@ return {
         ["id"] = "construction.social.wellbeing_negative",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "wellbeing_negative",
             ["sourceId"] = "construction.social.wellbeing_negative",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[4]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_wellbeing_negative.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -400,7 +408,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_wellbeing_negative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -413,12 +421,13 @@ return {
         ["id"] = "construction.social.wellbeing_neutral",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "wellbeing_neutral",
             ["sourceId"] = "construction.social.wellbeing_neutral",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[5]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_wellbeing_neutral.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -451,7 +460,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_wellbeing_neutral.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -464,12 +473,13 @@ return {
         ["id"] = "construction.social.wellbeing_positive",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "wellbeing_positive",
             ["sourceId"] = "construction.social.wellbeing_positive",
-            ["sourcePath"] = "psdl/realization/social_warning_wellbeing.json#records[6]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_warning_wellbeing/social_wellbeing_positive.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialWarningWellbeing",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -502,7 +512,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_warning_wellbeing.json",
+        ["sourceShard"] = "realization/social_warning_wellbeing/social_wellbeing_positive.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

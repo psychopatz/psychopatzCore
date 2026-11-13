@@ -1,0 +1,33 @@
+{
+  "act": "ACKNOWLEDGE",
+  "baseRelevance": 1.0,
+  "continuation": {
+    "mode": "terminate"
+  },
+  "id": "scene_excursion_acknowledge",
+  "mode": "one_shot",
+  "modifiers": [],
+  "outputs": {
+    "emote": {
+      "id": "emote.nod"
+    },
+    "speech": {
+      "contentTemplateID": "semantic.social.acknowledged",
+      "dialogueAct": "ACKNOWLEDGE"
+    }
+  },
+  "owner": "PsychopatzCore",
+  "requiredCapabilities": [],
+  "stimuli": [
+    "NPC_SEMANTIC_ACT"
+  ],
+  "version": 1,
+  "when": {
+    "op": "eq",
+    "path": "stimulus.semantic.intent",
+    "value": "ACKNOWLEDGE_EXCURSION"
+  },
+  "kind": "behavior",
+  "namespace": "behavior",
+  "schema": "psychopatz.convo-engine.v1"
+}

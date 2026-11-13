@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "INFORM",
+  "id": "wellbeing_neutral",
+  "strategy": "WELLBEING_NEUTRAL",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "I'm doing okay."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Kinakaya ko."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

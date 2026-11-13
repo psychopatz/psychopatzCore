@@ -7,7 +7,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.comrade.01",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[0]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -73,7 +73,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -88,7 +88,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.comrade.02",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[1]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -160,7 +160,7 @@ return {
                 ["type"] = "entity.faction",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -175,7 +175,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.comrade.03",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[2]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -241,7 +241,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -256,7 +256,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.comrade.04",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[3]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -322,7 +322,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -337,7 +337,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.comrade.05",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[4]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -409,7 +409,7 @@ return {
                 ["type"] = "entity.faction",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -424,7 +424,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.friend.01",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[5]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -490,7 +490,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -505,7 +505,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.friend.02",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[6]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -571,7 +571,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -586,7 +586,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.friend.03",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[7]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -652,7 +652,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -667,7 +667,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.friend.04",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[8]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -733,7 +733,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -748,7 +748,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.friend.05",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[9]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -814,7 +814,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -829,7 +829,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.hostile.01",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[10]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -895,7 +895,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -910,7 +910,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.hostile.02",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[11]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -976,7 +976,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -991,7 +991,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.hostile.03",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[12]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1057,7 +1057,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1072,7 +1072,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.hostile.04",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[13]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1138,7 +1138,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1153,7 +1153,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.hostile.05",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[14]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1219,7 +1219,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_hostile.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1234,7 +1234,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.neutral.01",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[15]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1300,7 +1300,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1315,7 +1315,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.neutral.02",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[16]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1381,7 +1381,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1396,7 +1396,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.neutral.03",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[17]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1462,7 +1462,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1477,7 +1477,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.neutral.04",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[18]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1543,7 +1543,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1558,7 +1558,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.neutral.05",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[19]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1624,7 +1624,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1639,7 +1639,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.relative.01",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[20]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1705,7 +1705,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1720,7 +1720,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.relative.02",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[21]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1786,7 +1786,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1801,7 +1801,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.relative.03",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[22]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1867,7 +1867,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1882,7 +1882,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.relative.04",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[23]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -1948,7 +1948,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1963,7 +1963,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.relative.05",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json#records[24]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__790002e8",
@@ -2029,7 +2029,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_ordinary.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_ordinary/corpse_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,

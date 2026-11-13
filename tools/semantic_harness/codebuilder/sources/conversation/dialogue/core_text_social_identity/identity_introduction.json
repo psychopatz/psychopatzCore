@@ -1,0 +1,27 @@
+{
+  "id": "introduction",
+  "kind": "dialogue",
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.social.identity.response",
+    "sourcePath": "social/identity/response.json",
+    "textKey": "identity.introduction",
+    "textRows": [
+      {
+        "key": "identity.introduction",
+        "text": {
+          "EN": "They introduce themselves.",
+          "TL": "Nagpakilala sila."
+        }
+      }
+    ],
+    "textTarget": "social/identity/response"
+  },
+  "owner": "PsychopatzCore",
+  "text": {
+    "EN": "They introduce themselves.",
+    "TL": "Nagpakilala sila."
+  },
+  "namespace": "text.identity",
+  "schema": "psychopatz.convo-engine.v1"
+}

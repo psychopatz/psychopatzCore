@@ -7,7 +7,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.comrade.01",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[0]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -85,7 +85,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -100,7 +100,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.comrade.02",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[1]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -172,7 +172,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -187,7 +187,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.comrade.03",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[2]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -259,7 +259,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -274,7 +274,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.comrade.04",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[3]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -352,7 +352,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -367,7 +367,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.comrade.05",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[4]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -439,7 +439,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -454,7 +454,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.comrade.06",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[5]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json#records[5]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -526,7 +526,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -541,7 +541,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.comrade.07",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[6]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json#records[6]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -619,7 +619,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -634,7 +634,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.comrade.08",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[7]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json#records[7]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -706,7 +706,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_comrade.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -721,7 +721,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.friend.01",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[8]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -793,7 +793,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -808,7 +808,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.friend.02",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[9]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -880,7 +880,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -895,7 +895,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.friend.03",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[10]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -967,7 +967,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -982,7 +982,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.friend.04",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[11]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1054,7 +1054,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1069,7 +1069,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.friend.05",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[12]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1141,7 +1141,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1156,7 +1156,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.friend.06",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[13]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json#records[5]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1228,7 +1228,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1243,7 +1243,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.friend.07",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[14]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json#records[6]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1315,7 +1315,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1330,7 +1330,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.friend.08",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[15]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json#records[7]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1402,7 +1402,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_friend.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1417,7 +1417,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.relative.01",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[16]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1489,7 +1489,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1504,7 +1504,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.relative.02",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[17]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1576,7 +1576,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1591,7 +1591,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.relative.03",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[18]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1663,7 +1663,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1678,7 +1678,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.relative.04",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[19]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1750,7 +1750,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1765,7 +1765,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.relative.05",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[20]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1837,7 +1837,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1852,7 +1852,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.relative.06",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[21]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json#records[5]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -1924,7 +1924,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -1939,7 +1939,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.relative.07",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[22]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json#records[6]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -2011,7 +2011,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,
@@ -2026,7 +2026,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.corpse.revenge.relative.08",
-            ["sourcePath"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json#records[23]",
+            ["sourcePath"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json#records[7]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__21ee73f7",
@@ -2098,7 +2098,7 @@ return {
                 ["type"] = "entity.person",
             },
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_memory_gossip_corpse_revenge.json",
+        ["sourceShard"] = "dialogue/core_text_memory_gossip_corpse_revenge/corpse_revenge_relative.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = true,

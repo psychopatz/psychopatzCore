@@ -1,0 +1,151 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.corpse.relative.01",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.relative",
+        "sourcePath": "memory/gossip/corpse/ordinary/relative.json",
+        "textKey": "corpse.relative.01",
+        "textRows": [
+          {
+            "key": "corpse.relative.01",
+            "text": {
+              "EN": "No, {target.name}. You were family.",
+              "TL": "Hindi... si {target.name}. Pamilya tayo."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "No, {target.name}. You were family.",
+        "TL": "Hindi... si {target.name}. Pamilya tayo."
+      }
+    },
+    {
+      "id": "text.corpse.relative.02",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.relative",
+        "sourcePath": "memory/gossip/corpse/ordinary/relative.json",
+        "textKey": "corpse.relative.02",
+        "textRows": [
+          {
+            "key": "corpse.relative.02",
+            "text": {
+              "EN": "I thought we'd meet again, {target.name}.",
+              "TL": "Akala ko magkikita pa tayo, {target.name}."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "I thought we'd meet again, {target.name}.",
+        "TL": "Akala ko magkikita pa tayo, {target.name}."
+      }
+    },
+    {
+      "id": "text.corpse.relative.03",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.relative",
+        "sourcePath": "memory/gossip/corpse/ordinary/relative.json",
+        "textKey": "corpse.relative.03",
+        "textRows": [
+          {
+            "key": "corpse.relative.03",
+            "text": {
+              "EN": "You should have made it home, {target.name}.",
+              "TL": "Dapat nakauwi ka pa, {target.name}."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "You should have made it home, {target.name}.",
+        "TL": "Dapat nakauwi ka pa, {target.name}."
+      }
+    },
+    {
+      "id": "text.corpse.relative.04",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.relative",
+        "sourcePath": "memory/gossip/corpse/ordinary/relative.json",
+        "textKey": "corpse.relative.04",
+        "textRows": [
+          {
+            "key": "corpse.relative.04",
+            "text": {
+              "EN": "I'll carry you with me, {target.name}. I promise.",
+              "TL": "Dadalahin kita sa alaala ko, {target.name}. Pangako."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "I'll carry you with me, {target.name}. I promise.",
+        "TL": "Dadalahin kita sa alaala ko, {target.name}. Pangako."
+      }
+    },
+    {
+      "id": "text.corpse.relative.05",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.relative",
+        "sourcePath": "memory/gossip/corpse/ordinary/relative.json",
+        "textKey": "corpse.relative.05",
+        "textRows": [
+          {
+            "key": "corpse.relative.05",
+            "text": {
+              "EN": "{target.name}, I'm sorry I wasn't there.",
+              "TL": "{target.name}, patawad at wala ako roon."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "{target.name}, I'm sorry I wasn't there.",
+        "TL": "{target.name}, patawad at wala ako roon."
+      }
+    }
+  ]
+}

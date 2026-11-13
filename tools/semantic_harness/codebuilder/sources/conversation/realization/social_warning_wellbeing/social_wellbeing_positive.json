@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "INFORM",
+  "id": "wellbeing_positive",
+  "strategy": "WELLBEING_POSITIVE",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "I'm doing pretty good."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Okay naman ako."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

@@ -205,13 +205,13 @@ class PSDLCompilerTests(unittest.TestCase):
                 core_repository=repository,
             )
             written = writable.write_psdl_source(
-                "psdl/dialogue/authoring.json",
+                "dialogue/authoring/authoring.json",
                 deleted["document"],
             )
             self.assertTrue(written["ok"])
             self.assertTrue(written["generatedOutputRequired"])
             self.assertTrue(
-                (Path(temporary) / "psdl/dialogue/authoring.json").is_file()
+                (Path(temporary) / "dialogue/authoring/authoring.json").is_file()
             )
 
     def test_catalog_compiles_to_one_core_ir_and_runtime_plan(self) -> None:
@@ -263,15 +263,14 @@ class PSDLCompilerTests(unittest.TestCase):
             {item["owner"] for item in sources},
         )
         trading = next(
-            item for item in sources if item["path"] == "psdl/dialogue/trading.json"
+            item for item in sources if item["path"] == "adopters/dt/dialogue/trading/trade_conversation_suggestions.json"
         )
         self.assertTrue(trading["exists"])
         document = service.load_psdl_source(trading["sourceID"])
-        self.assertEqual(document["schema"], "psychopatz.semantic.dialogue-language.v1")
-        self.assertEqual(
-            {"trade.conversation.suggestions", "trade.conversation.opening", "trade.conversation.referral"},
-            {record["id"] for record in document["records"]},
-        )
+        self.assertEqual(document["schema"], "psychopatz.convo-engine.v1")
+        self.assertEqual(document["kind"], "dialogue")
+        self.assertEqual(document["namespace"], "trade.conversation")
+        self.assertEqual(document["id"], "suggestions")
 
     def test_compilation_is_deterministic_and_source_path_is_lineage_only(self) -> None:
         source = _catalog()

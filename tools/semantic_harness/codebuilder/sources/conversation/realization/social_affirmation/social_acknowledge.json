@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "ACKNOWLEDGE",
+  "id": "acknowledge",
+  "strategy": "ACKNOWLEDGE",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "I hear you."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Naiintindihan ko."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

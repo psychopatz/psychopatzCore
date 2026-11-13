@@ -1,0 +1,31 @@
+{
+  "id": "protection",
+  "kind": "dialogue",
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.memory.gossip.reactions.positive.protection",
+    "sourcePath": "memory/gossip/reactions/positive/protection.json",
+    "textKey": "positive.protection",
+    "textRows": [
+      {
+        "key": "positive.protection",
+        "text": {
+          "EN": "{target.name} stood up for someone when an attacker closed in.",
+          "TL": "Ipinagtanggol ni {target.name} ang isang tao nang may umatake."
+        }
+      }
+    ],
+    "textTarget": "memory/gossip"
+  },
+  "owner": "PsychopatzCore",
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
+  "text": {
+    "EN": "{target.name} stood up for someone when an attacker closed in.",
+    "TL": "Ipinagtanggol ni {target.name} ang isang tao nang may umatake."
+  },
+  "namespace": "text.positive",
+  "schema": "psychopatz.convo-engine.v1"
+}

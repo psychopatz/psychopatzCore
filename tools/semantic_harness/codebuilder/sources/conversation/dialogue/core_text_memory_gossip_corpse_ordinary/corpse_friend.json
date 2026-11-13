@@ -1,0 +1,151 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.corpse.friend.01",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.friend",
+        "sourcePath": "memory/gossip/corpse/ordinary/friend.json",
+        "textKey": "corpse.friend.01",
+        "textRows": [
+          {
+            "key": "corpse.friend.01",
+            "text": {
+              "EN": "We were supposed to get through this together, {target.name}.",
+              "TL": "Dapat sabay nating nalagpasan ito, {target.name}."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "We were supposed to get through this together, {target.name}.",
+        "TL": "Dapat sabay nating nalagpasan ito, {target.name}."
+      }
+    },
+    {
+      "id": "text.corpse.friend.02",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.friend",
+        "sourcePath": "memory/gossip/corpse/ordinary/friend.json",
+        "textKey": "corpse.friend.02",
+        "textRows": [
+          {
+            "key": "corpse.friend.02",
+            "text": {
+              "EN": "You always had my back, {target.name}. I should've had yours.",
+              "TL": "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "You always had my back, {target.name}. I should've had yours.",
+        "TL": "Lagi mo akong ipinagtatanggol, {target.name}. Dapat ginawa ko rin iyon para sa'yo."
+      }
+    },
+    {
+      "id": "text.corpse.friend.03",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.friend",
+        "sourcePath": "memory/gossip/corpse/ordinary/friend.json",
+        "textKey": "corpse.friend.03",
+        "textRows": [
+          {
+            "key": "corpse.friend.03",
+            "text": {
+              "EN": "I won't let them forget you, {target.name}.",
+              "TL": "Hindi kita hahayaang makalimutan nila, {target.name}."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "I won't let them forget you, {target.name}.",
+        "TL": "Hindi kita hahayaang makalimutan nila, {target.name}."
+      }
+    },
+    {
+      "id": "text.corpse.friend.04",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.friend",
+        "sourcePath": "memory/gossip/corpse/ordinary/friend.json",
+        "textKey": "corpse.friend.04",
+        "textRows": [
+          {
+            "key": "corpse.friend.04",
+            "text": {
+              "EN": "Rest now, {target.name}. You did enough.",
+              "TL": "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "Rest now, {target.name}. You did enough.",
+        "TL": "Magpahinga ka na, {target.name}. Sapat na ang ginawa mo."
+      }
+    },
+    {
+      "id": "text.corpse.friend.05",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.friend",
+        "sourcePath": "memory/gossip/corpse/ordinary/friend.json",
+        "textKey": "corpse.friend.05",
+        "textRows": [
+          {
+            "key": "corpse.friend.05",
+            "text": {
+              "EN": "We still owed each other a drink, {target.name}.",
+              "TL": "May utang pa tayong inumin sa isa't isa, {target.name}."
+            }
+          }
+        ],
+        "textTarget": "memory/gossip"
+      },
+      "owner": "PsychopatzCore",
+      "target": {
+        "required": true,
+        "type": "entity.person"
+      },
+      "text": {
+        "EN": "We still owed each other a drink, {target.name}.",
+        "TL": "May utang pa tayong inumin sa isa't isa, {target.name}."
+      }
+    }
+  ]
+}

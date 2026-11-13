@@ -5,12 +5,13 @@ return {
         ["id"] = "social.core_identity",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "core_identity",
             ["sourceId"] = "social.core_identity",
-            ["sourcePath"] = "psdl/dialogue/core_identity.json",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_identity/social_core_identity.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreIdentity",
+        ["namespace"] = "social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -163,7 +164,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_identity.json",
+        ["sourceShard"] = "dialogue/core_identity/social_core_identity.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

@@ -1,0 +1,112 @@
+{
+  "kind": "dialogue",
+  "id": "core_identity",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion"
+  },
+  "offers": [
+    {
+      "id": "question.identity",
+      "label": {
+        "EN": "Ask who they are",
+        "TL": "Itanong kung sino siya"
+      },
+      "utterance": {
+        "EN": "Who are you?",
+        "TL": "Sino ka?"
+      },
+      "frame": {
+        "intent": "QUESTION",
+        "patternID": "pnc.question.identity",
+        "speechAct": "QUESTION",
+        "subject": "IDENTITY",
+        "topic": "identity"
+      },
+      "consumers": [
+        "participant"
+      ],
+      "metadata": {
+        "order": 50,
+        "domain": "identity"
+      }
+    },
+    {
+      "id": "question.identity_faction",
+      "label": {
+        "EN": "Ask who they are with",
+        "TL": "Itanong kung kanino siya kasama"
+      },
+      "utterance": {
+        "EN": "Who are you with?",
+        "TL": "Sino ang kasama mo?"
+      },
+      "frame": {
+        "intent": "QUESTION",
+        "patternID": "pnc.question.identity.faction",
+        "speechAct": "QUESTION",
+        "subject": "IDENTITY_FACTION",
+        "topic": "identity_faction"
+      },
+      "consumers": [
+        "participant"
+      ],
+      "metadata": {
+        "order": 53,
+        "domain": "identity_faction"
+      }
+    },
+    {
+      "id": "question.identity_nickname",
+      "label": {
+        "EN": "Ask what people call them",
+        "TL": "Itanong kung ano ang tawag sa kanya"
+      },
+      "utterance": {
+        "EN": "What do people call you?",
+        "TL": "Ano ang tawag sa iyo ng mga tao?"
+      },
+      "frame": {
+        "intent": "QUESTION",
+        "patternID": "pnc.question.identity.nickname",
+        "speechAct": "QUESTION",
+        "subject": "IDENTITY_NICKNAME",
+        "topic": "identity_nickname"
+      },
+      "consumers": [
+        "participant"
+      ],
+      "metadata": {
+        "order": 51,
+        "domain": "identity_nickname"
+      }
+    },
+    {
+      "id": "question.identity_surname",
+      "label": {
+        "EN": "Ask their surname",
+        "TL": "Itanong ang apelyido niya"
+      },
+      "utterance": {
+        "EN": "What's your surname?",
+        "TL": "Ano ang apelyido mo?"
+      },
+      "frame": {
+        "intent": "QUESTION",
+        "patternID": "pnc.question.identity.surname",
+        "speechAct": "QUESTION",
+        "subject": "IDENTITY_SURNAME",
+        "topic": "identity_surname"
+      },
+      "consumers": [
+        "participant"
+      ],
+      "metadata": {
+        "order": 52,
+        "domain": "identity_surname"
+      }
+    }
+  ],
+  "namespace": "social",
+  "schema": "psychopatz.convo-engine.v1"
+}

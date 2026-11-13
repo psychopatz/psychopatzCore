@@ -5,12 +5,13 @@ return {
         ["id"] = "lexeme.social.agreement.yes",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "yes",
             ["sourceId"] = "lexeme.social.agreement.yes",
-            ["sourcePath"] = "psdl/realization/social_lexemes.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_lexemes/social_agreement_yes.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialLexemes",
+        ["namespace"] = "lexeme.social.agreement",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -32,7 +33,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_lexemes.json",
+        ["sourceShard"] = "realization/social_lexemes/social_agreement_yes.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -45,12 +46,13 @@ return {
         ["id"] = "lexeme.social.apology.sorry",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "sorry",
             ["sourceId"] = "lexeme.social.apology.sorry",
-            ["sourcePath"] = "psdl/realization/social_lexemes.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_lexemes/social_apology_sorry.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialLexemes",
+        ["namespace"] = "lexeme.social.apology",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -72,7 +74,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_lexemes.json",
+        ["sourceShard"] = "realization/social_lexemes/social_apology_sorry.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -85,12 +87,13 @@ return {
         ["id"] = "lexeme.social.disagreement.no",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "no",
             ["sourceId"] = "lexeme.social.disagreement.no",
-            ["sourcePath"] = "psdl/realization/social_lexemes.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_lexemes/social_disagreement_no.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialLexemes",
+        ["namespace"] = "lexeme.social.disagreement",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -112,7 +115,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_lexemes.json",
+        ["sourceShard"] = "realization/social_lexemes/social_disagreement_no.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -125,12 +128,13 @@ return {
         ["id"] = "lexeme.social.profanity.fuck",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "fuck",
             ["sourceId"] = "lexeme.social.profanity.fuck",
-            ["sourcePath"] = "psdl/realization/social_lexemes.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_lexemes/social_profanity_fuck.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialLexemes",
+        ["namespace"] = "lexeme.social.profanity",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -160,7 +164,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_lexemes.json",
+        ["sourceShard"] = "realization/social_lexemes/social_profanity_fuck.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

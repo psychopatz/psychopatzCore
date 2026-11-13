@@ -7,7 +7,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.ambient_visit.accepted.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_greetings.json",
+            ["sourcePath"] = "dialogue/core_text_social_greetings/response_ambient_visit_accepted.json",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGreetings",
@@ -73,7 +73,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_greetings.json",
+        ["sourceShard"] = "dialogue/core_text_social_greetings/response_ambient_visit_accepted.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

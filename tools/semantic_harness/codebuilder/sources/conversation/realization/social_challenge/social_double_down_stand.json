@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "HOSTILE_REMARK",
+  "id": "double_down_stand",
+  "strategy": "DOUBLE_DOWN",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "I stand by it."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Paninindigan ko 'yon."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

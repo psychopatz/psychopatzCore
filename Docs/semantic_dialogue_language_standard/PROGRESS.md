@@ -313,19 +313,17 @@ Filesystem path is discoverability, not canonical identity.
   - **S6M1B:** ACCEPTED (headless CodeBuilder `convo_engine_authoring.py` / `convo_engine_cli.py` + `SemanticLabAuthoringService` create/edit/move/shard/write API; 124 `tools/semantic_harness/tests` tests passing).
   - **S6M2A:** ACCEPTED (three-repo ownership inventory in `convo_engine_ownership_inventory.py` + `S6M2A_OWNERSHIP_INVENTORY.json`: 805 modules classified into 530 `convo_engine` vs 275 `generic_semantic_infrastructure`, collision check passing, 127 tests passing).
   - **S6M2B:** ACCEPTED (root-cause ConvoEngine routing across Core, ProjectHoomans, and DynamicTrading to `<Owner>/ConvoEngine/...` with semantic module filenames and zero `Catalog.lua` leaves; migrated proven ConvoEngine-owned runtime modules/identifiers while preserving Core generic `Semantics/`; regenerated 457 files cleanly via CodeBuilder; verified caller-zero in Lua across all 3 repos; Core Python 127/127 OK, Core refactor smoke PASS, Core 12 Lua smoke tests PASS, DynamicTrading 89/89 PASS, ProjectHoomans Lua 1003/1020 with 17 pre-existing S1/S5 baseline failures recorded for S6M3-S8 closure).
+  - **S6M3:** ACCEPTED (migrated/sharded all 106 `psdl/` buckets / 1029 records across Core, ProjectHoomans, and DynamicTrading via `SemanticLabAuthoringService.migrate_convo_engine_bucket` & `convo_engine_cli.py migrate-bucket` into 688 coherent family shards under `sources/conversation/{behavior,beat,realization,dialogue}/...`, leaving zero `psdl/` directories across all three repos; regenerated 454 files via `build.py`; verified Core Python 129/129 OK, Core refactor smoke PASS, Core semantic Lua smokes 9/9 PASS, DynamicTrading 89/89 PASS, ProjectHoomans Lua 1003/1020 matching exact pre-existing S1/S5 baseline; verified `DTCommon` optional `externalSourceRoots` compatibility with Hoomans ownership/apology compiler tests).
 - **S7:** PARTIAL / REOPENED because editor must support the final exchange-family/affordance/reply/action-result model.
 - **S8:** NOT ACCEPTED.
 
-## Immediate Next Chunk — S6M3
+## Immediate Next Chunk — S6M4
 
 Responsibility:
 
-> Migrate and shard canonical ConvoEngine source content through the CodeBuilder
-> authoring/migration API/CLI (`one file = one coherent semantic family`) under
-> `sources/conversation/{dialogue,behavior,beat,realization}/...`, eliminating bulk
-> `psdl/dialogue/*` migration buckets without manual JSON generation or hand edits.
+> Normalize numeric `.01/.1/.2` wording IDs into stable `say` realization keys (or single-`say` shorthand) and fold style-sibling families (`.neutral/.warm/.terse/.guarded/.friendly`) + redundant routine `semantic.` ID prefixes into coherent canonical `psychopatz.convo-engine.v1` family modules through CodeBuilder, updating all runtime callers/tests atomically to prove source/caller zero for `psychopatz.semantic.dialogue-language.v1`.
 
-Following bounded chunks after S6M3:
+Following bounded chunks after S6M4:
 
 - **S6M3-S6M5:** migrate/shard content **through CodeBuilder**, never by manually
   manufacturing destination JSON;

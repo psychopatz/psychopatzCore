@@ -1,0 +1,81 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.recruitment.admire.1",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.recruitment.response",
+        "sourcePath": "social/recruitment/response.json",
+        "textKey": "recruitment.admire.1",
+        "textRows": [
+          {
+            "key": "recruitment.admire.1",
+            "text": {
+              "EN": "All right. I can see the sense in following someone who has earned my trust.",
+              "TL": "Sige. Nakikita ko ang kahulugan sa pagsunod sa isang taong nakakuha ng aking tiwala."
+            }
+          }
+        ],
+        "textTarget": "social/recruitment/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "All right. I can see the sense in following someone who has earned my trust.",
+        "TL": "Sige. Nakikita ko ang kahulugan sa pagsunod sa isang taong nakakuha ng aking tiwala."
+      }
+    },
+    {
+      "id": "text.recruitment.admire.2",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.recruitment.response",
+        "sourcePath": "social/recruitment/response.json",
+        "textKey": "recruitment.admire.2",
+        "textRows": [
+          {
+            "key": "recruitment.admire.2",
+            "text": {
+              "EN": "I was hoping you would ask. Give me a place in your group and I will pull my weight.",
+              "TL": "Sana magtanong ka. Bigyan mo ako ng lugar sa iyong grupo at hihilahin ko ang aking timbang."
+            }
+          }
+        ],
+        "textTarget": "social/recruitment/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "I was hoping you would ask. Give me a place in your group and I will pull my weight.",
+        "TL": "Sana magtanong ka. Bigyan mo ako ng lugar sa iyong grupo at hihilahin ko ang aking timbang."
+      }
+    },
+    {
+      "id": "text.recruitment.admire.3",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.recruitment.response",
+        "sourcePath": "social/recruitment/response.json",
+        "textKey": "recruitment.admire.3",
+        "textRows": [
+          {
+            "key": "recruitment.admire.3",
+            "text": {
+              "EN": "Yes. I respect what you are building, and I would rather help than stand outside it.",
+              "TL": "Oo. Nirerespeto ko ang itinatayo mo, at mas gusto kong tumulong kaysa manatili sa labas nito."
+            }
+          }
+        ],
+        "textTarget": "social/recruitment/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "Yes. I respect what you are building, and I would rather help than stand outside it.",
+        "TL": "Oo. Nirerespeto ko ang itinatayo mo, at mas gusto kong tumulong kaysa manatili sa labas nito."
+      }
+    }
+  ]
+}

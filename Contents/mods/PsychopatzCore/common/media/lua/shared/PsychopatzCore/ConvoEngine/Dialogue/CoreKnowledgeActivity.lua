@@ -5,12 +5,13 @@ return {
         ["id"] = "semantic.question.activity.dataset.keep_moving.guarded",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "guarded",
             ["sourceId"] = "semantic.question.activity.dataset.keep_moving.guarded",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_activity.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json#records[0]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["namespace"] = "semantic.question.activity.dataset.keep_moving",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -187,7 +188,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_activity.json",
+        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -200,12 +201,13 @@ return {
         ["id"] = "semantic.question.activity.dataset.keep_moving.neutral",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "neutral",
             ["sourceId"] = "semantic.question.activity.dataset.keep_moving.neutral",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_activity.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json#records[1]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["namespace"] = "semantic.question.activity.dataset.keep_moving",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -382,7 +384,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_activity.json",
+        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -395,12 +397,13 @@ return {
         ["id"] = "semantic.question.activity.dataset.keep_moving.terse",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "terse",
             ["sourceId"] = "semantic.question.activity.dataset.keep_moving.terse",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_activity.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json#records[2]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["namespace"] = "semantic.question.activity.dataset.keep_moving",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -577,7 +580,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_activity.json",
+        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -590,12 +593,13 @@ return {
         ["id"] = "semantic.question.activity.dataset.keep_moving.warm",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warm",
             ["sourceId"] = "semantic.question.activity.dataset.keep_moving.warm",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_activity.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json#records[3]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["namespace"] = "semantic.question.activity.dataset.keep_moving",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -772,7 +776,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_activity.json",
+        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -785,12 +789,13 @@ return {
         ["id"] = "semantic.question.activity.fishing.guarded",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "guarded",
             ["sourceId"] = "semantic.question.activity.fishing.guarded",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_activity.json#records[4]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json#records[0]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["namespace"] = "semantic.question.activity.fishing",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -967,7 +972,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_activity.json",
+        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_fishing.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -980,12 +985,13 @@ return {
         ["id"] = "semantic.question.activity.fishing.neutral",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "neutral",
             ["sourceId"] = "semantic.question.activity.fishing.neutral",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_activity.json#records[5]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json#records[1]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["namespace"] = "semantic.question.activity.fishing",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1162,7 +1168,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_activity.json",
+        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_fishing.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1175,12 +1181,13 @@ return {
         ["id"] = "semantic.question.activity.fishing.terse",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "terse",
             ["sourceId"] = "semantic.question.activity.fishing.terse",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_activity.json#records[6]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json#records[2]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["namespace"] = "semantic.question.activity.fishing",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1357,7 +1364,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_activity.json",
+        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_fishing.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1370,12 +1377,13 @@ return {
         ["id"] = "semantic.question.activity.fishing.warm",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warm",
             ["sourceId"] = "semantic.question.activity.fishing.warm",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_activity.json#records[7]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json#records[3]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
+        ["namespace"] = "semantic.question.activity.fishing",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1552,7 +1560,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_activity.json",
+        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_fishing.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

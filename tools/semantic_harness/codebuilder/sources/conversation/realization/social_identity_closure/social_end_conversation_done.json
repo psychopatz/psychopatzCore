@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "END_CONVERSATION",
+  "id": "end_conversation_done",
+  "strategy": "END_CONVERSATION",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "We're done here."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Tapos na tayo rito."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

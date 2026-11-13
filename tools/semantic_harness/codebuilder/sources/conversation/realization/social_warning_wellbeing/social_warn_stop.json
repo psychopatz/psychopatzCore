@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "BOUNDARY_WARNING",
+  "id": "warn_stop",
+  "strategy": "WARN",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "Cut that out."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Tigilan mo 'yan."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

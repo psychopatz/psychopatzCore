@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "REFUSE",
+  "id": "refuse_identity",
+  "strategy": "REFUSE_IDENTITY",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "I'd rather not say."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Ayoko munang sabihin."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.recruitment.reject.leader.1",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.recruitment.response",
+        "sourcePath": "social/recruitment/response.json",
+        "textKey": "recruitment.reject.leader.1",
+        "textRows": [
+          {
+            "key": "recruitment.reject.leader.1",
+            "text": {
+              "EN": "I already have people depending on me. I cannot walk away from them for your group.",
+              "TL": "May mga tao na akong umaasa sa akin. Hindi ako maaaring lumayo sa kanila para sa iyong grupo."
+            }
+          }
+        ],
+        "textTarget": "social/recruitment/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "I already have people depending on me. I cannot walk away from them for your group.",
+        "TL": "May mga tao na akong umaasa sa akin. Hindi ako maaaring lumayo sa kanila para sa iyong grupo."
+      }
+    },
+    {
+      "id": "text.recruitment.reject.leader.2",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.recruitment.response",
+        "sourcePath": "social/recruitment/response.json",
+        "textKey": "recruitment.reject.leader.2",
+        "textRows": [
+          {
+            "key": "recruitment.reject.leader.2",
+            "text": {
+              "EN": "I am responsible for this shelter. Until that changes, I am staying here.",
+              "TL": "Ako ang may pananagutan sa kanlungang ito. Hanggang sa magbago iyon, nananatili ako rito."
+            }
+          }
+        ],
+        "textTarget": "social/recruitment/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "I am responsible for this shelter. Until that changes, I am staying here.",
+        "TL": "Ako ang may pananagutan sa kanlungang ito. Hanggang sa magbago iyon, nananatili ako rito."
+      }
+    }
+  ]
+}

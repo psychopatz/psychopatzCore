@@ -1,0 +1,546 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "kind": "dialogue",
+      "id": "guarded",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/knowledge.json",
+        "responseTemplateID": "semantic.question.knowledge.unknown",
+        "style": "guarded"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "guarded.01",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.01"
+            },
+            "text": {
+              "EN": "I don't know anything about that.",
+              "TL": "Wala akong alam tungkol diyan."
+            }
+          },
+          {
+            "id": "guarded.02",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.02"
+            },
+            "text": {
+              "EN": "Haven't heard of it. Don't waste time on wild goose chases.",
+              "TL": "Hindi ko narinig 'yan. Huwag magsayang ng oras sa walang kabuluhan."
+            }
+          },
+          {
+            "id": "guarded.03",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.03"
+            },
+            "text": {
+              "EN": "No idea. Keep your thoughts on what's in front of us.",
+              "TL": "Walang ideya. Ituon ang isip sa kung ano ang nasa harap natin."
+            }
+          },
+          {
+            "id": "guarded.04",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.04"
+            },
+            "text": {
+              "EN": "I know nothing about that topic. Drop it.",
+              "TL": "Wala akong alam sa paksang 'yan. Kalimutan mo na."
+            }
+          },
+          {
+            "id": "guarded.05",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.05"
+            },
+            "text": {
+              "EN": "Never crossed my path. Stay alert.",
+              "TL": "Hindi pa dumaan sa akin 'yan. Maging alerto."
+            }
+          },
+          {
+            "id": "guarded.06",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.06"
+            },
+            "text": {
+              "EN": "Can't help you there. Don't get distracted.",
+              "TL": "Hindi kita matutulungan diyan. Huwag mawala sa pokus."
+            }
+          },
+          {
+            "id": "guarded.07",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.07"
+            },
+            "text": {
+              "EN": "I'm in the dark on that. Watch the road.",
+              "TL": "Wala akong alam diyan. Bantayan ang daan."
+            }
+          },
+          {
+            "id": "guarded.08",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.08"
+            },
+            "text": {
+              "EN": "No clue. Don't go looking for things that aren't there.",
+              "TL": "Walang ideya. Huwag maghanap ng mga bagay na wala naman."
+            }
+          },
+          {
+            "id": "guarded.09",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.09"
+            },
+            "text": {
+              "EN": "Nothing I've ever encountered. Move along.",
+              "TL": "Hindi ko pa kailanman nakaharap 'yan. Tuloy sa lakad."
+            }
+          },
+          {
+            "id": "guarded.10",
+            "metadata": {
+              "style": "guarded",
+              "textKey": "semantic.question.knowledge.unknown.guarded.10"
+            },
+            "text": {
+              "EN": "I don't know and I don't care to guess.",
+              "TL": "Hindi ko alam at ayaw kong manghula."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.question.knowledge.unknown"
+    },
+    {
+      "kind": "dialogue",
+      "id": "neutral",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/knowledge.json",
+        "responseTemplateID": "semantic.question.knowledge.unknown",
+        "style": "neutral"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "neutral.01",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.01"
+            },
+            "text": {
+              "EN": "I don't have reliable information about that.",
+              "TL": "Wala akong maaasahang impormasyon tungkol diyan."
+            }
+          },
+          {
+            "id": "neutral.02",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.02"
+            },
+            "text": {
+              "EN": "I'm not familiar with that subject.",
+              "TL": "Hindi ako pamilyar sa paksang iyon."
+            }
+          },
+          {
+            "id": "neutral.03",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.03"
+            },
+            "text": {
+              "EN": "I haven't encountered that information before.",
+              "TL": "Hindi ko pa nalaman ang impormasyong iyon noon."
+            }
+          },
+          {
+            "id": "neutral.04",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.04"
+            },
+            "text": {
+              "EN": "I have no knowledge on that matter.",
+              "TL": "Wala akong kaalaman sa bagay na iyon."
+            }
+          },
+          {
+            "id": "neutral.05",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.05"
+            },
+            "text": {
+              "EN": "That's unfamiliar to me, sorry.",
+              "TL": "Bago 'yan sa akin, pasensya na."
+            }
+          },
+          {
+            "id": "neutral.06",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.06"
+            },
+            "text": {
+              "EN": "I can't answer that. I simply don't know.",
+              "TL": "Hindi ko masasagot 'yan. Talagang hindi ko alam."
+            }
+          },
+          {
+            "id": "neutral.07",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.07"
+            },
+            "text": {
+              "EN": "Haven't come across that in my travels.",
+              "TL": "Hindi ko pa 'yan nasalubong sa paglalakbay ko."
+            }
+          },
+          {
+            "id": "neutral.08",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.08"
+            },
+            "text": {
+              "EN": "I don't have the answers on that one.",
+              "TL": "Wala sa akin ang mga sagot tungkol diyan."
+            }
+          },
+          {
+            "id": "neutral.09",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.09"
+            },
+            "text": {
+              "EN": "I'm unaware of that topic.",
+              "TL": "Wala akong kamalayan sa paksang iyon."
+            }
+          },
+          {
+            "id": "neutral.10",
+            "metadata": {
+              "style": "neutral",
+              "textKey": "semantic.question.knowledge.unknown.neutral.10"
+            },
+            "text": {
+              "EN": "Sorry, that's outside my knowledge.",
+              "TL": "Pasensya na, labas 'yan sa kaalaman ko."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.question.knowledge.unknown"
+    },
+    {
+      "kind": "dialogue",
+      "id": "terse",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/knowledge.json",
+        "responseTemplateID": "semantic.question.knowledge.unknown",
+        "style": "terse"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "terse.01",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.01"
+            },
+            "text": {
+              "EN": "Don't know.",
+              "TL": "Hindi alam."
+            }
+          },
+          {
+            "id": "terse.02",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.02"
+            },
+            "text": {
+              "EN": "No idea.",
+              "TL": "Walang ideya."
+            }
+          },
+          {
+            "id": "terse.03",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.03"
+            },
+            "text": {
+              "EN": "Unfamiliar.",
+              "TL": "Hindi pamilyar."
+            }
+          },
+          {
+            "id": "terse.04",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.04"
+            },
+            "text": {
+              "EN": "Never heard of it.",
+              "TL": "Hindi narinig."
+            }
+          },
+          {
+            "id": "terse.05",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.05"
+            },
+            "text": {
+              "EN": "Can't say.",
+              "TL": "Hindi masabi."
+            }
+          },
+          {
+            "id": "terse.06",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.06"
+            },
+            "text": {
+              "EN": "Unknown.",
+              "TL": "Hindi batid."
+            }
+          },
+          {
+            "id": "terse.07",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.07"
+            },
+            "text": {
+              "EN": "No clue.",
+              "TL": "Walang muwang."
+            }
+          },
+          {
+            "id": "terse.08",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.08"
+            },
+            "text": {
+              "EN": "Not a clue.",
+              "TL": "Wala talaga."
+            }
+          },
+          {
+            "id": "terse.09",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.09"
+            },
+            "text": {
+              "EN": "Nothing.",
+              "TL": "Wala."
+            }
+          },
+          {
+            "id": "terse.10",
+            "metadata": {
+              "style": "terse",
+              "textKey": "semantic.question.knowledge.unknown.terse.10"
+            },
+            "text": {
+              "EN": "Blank on that.",
+              "TL": "Walang alam."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.question.knowledge.unknown"
+    },
+    {
+      "kind": "dialogue",
+      "id": "warm",
+      "owner": "PsychopatzCore",
+      "participants": {
+        "speaker": [
+          "participant"
+        ],
+        "addressee": [
+          "participant"
+        ]
+      },
+      "metadata": {
+        "category": "psychopatzcore:knowledge",
+        "sourceSurface": "content/knowledge/knowledge.json",
+        "responseTemplateID": "semantic.question.knowledge.unknown",
+        "style": "warm"
+      },
+      "response": {
+        "act": "KNOWLEDGE_RESPONSE",
+        "variants": [
+          {
+            "id": "warm.01",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.01"
+            },
+            "text": {
+              "EN": "I wish I knew, but I don't know anything about that.",
+              "TL": "Sana may alam ako, pero wala akong alam tungkol diyan."
+            }
+          },
+          {
+            "id": "warm.02",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.02"
+            },
+            "text": {
+              "EN": "I'm sorry, friend, I haven't heard about that.",
+              "TL": "Pasensya na, kaibigan, wala akong narinig tungkol diyan."
+            }
+          },
+          {
+            "id": "warm.03",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.03"
+            },
+            "text": {
+              "EN": "I wish I could help you with that, but I'm unfamiliar.",
+              "TL": "Gusto sana kitang tulungan diyan, pero hindi ako pamilyar."
+            }
+          },
+          {
+            "id": "warm.04",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.04"
+            },
+            "text": {
+              "EN": "I don't know, but we can try to find out together.",
+              "TL": "Hindi ko alam, pero pwede nating alamin nang magkasama."
+            }
+          },
+          {
+            "id": "warm.05",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.05"
+            },
+            "text": {
+              "EN": "Sorry I can't be more helpful on that topic.",
+              "TL": "Pasensya na kung hindi ako masyadong makatulong sa paksang 'yan."
+            }
+          },
+          {
+            "id": "warm.06",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.06"
+            },
+            "text": {
+              "EN": "That's new to me! I wish I had more answers for you.",
+              "TL": "Bago 'yan sa akin! Sana may mga sagot ako para sa'yo."
+            }
+          },
+          {
+            "id": "warm.07",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.07"
+            },
+            "text": {
+              "EN": "I haven't learned about that yet, my friend.",
+              "TL": "Hindi ko pa natututunan 'yan, kaibigan."
+            }
+          },
+          {
+            "id": "warm.08",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.08"
+            },
+            "text": {
+              "EN": "Wish I could answer that, but I'm in the dark too.",
+              "TL": "Sana masasagot ko 'yan, pero wala rin akong alam."
+            }
+          },
+          {
+            "id": "warm.09",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.09"
+            },
+            "text": {
+              "EN": "I don't know about that, but let's keep learning together.",
+              "TL": "Hindi ko alam 'yan, pero magkasama tayong mag-aral."
+            }
+          },
+          {
+            "id": "warm.10",
+            "metadata": {
+              "style": "warm",
+              "textKey": "semantic.question.knowledge.unknown.warm.10"
+            },
+            "text": {
+              "EN": "Sorry to disappoint, but that's unfamiliar to me.",
+              "TL": "Pasensya na kung mabigo kita, pero hindi ako pamilyar diyan."
+            }
+          }
+        ]
+      },
+      "namespace": "semantic.question.knowledge.unknown"
+    }
+  ]
+}

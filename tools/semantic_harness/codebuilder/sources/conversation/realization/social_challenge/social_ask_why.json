@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "QUESTION",
+  "id": "ask_why",
+  "strategy": "ASK_WHY",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "Why would you say that?"
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Bakit mo sinabi 'yan?"
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

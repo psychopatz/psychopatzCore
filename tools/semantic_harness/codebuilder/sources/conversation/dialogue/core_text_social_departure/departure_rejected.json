@@ -1,0 +1,27 @@
+{
+  "id": "rejected",
+  "kind": "dialogue",
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.social.departure.response",
+    "sourcePath": "social/departure/response.json",
+    "textKey": "departure.rejected",
+    "textRows": [
+      {
+        "key": "departure.rejected",
+        "text": {
+          "EN": "I am not leaving with you. That decision is not yours to make right now.",
+          "TL": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon."
+        }
+      }
+    ],
+    "textTarget": "social/departure/response"
+  },
+  "owner": "PsychopatzCore",
+  "text": {
+    "EN": "I am not leaving with you. That decision is not yours to make right now.",
+    "TL": "Hindi ako aalis kasama mo. Ang desisyon na iyon ay hindi mo dapat gawin ngayon."
+  },
+  "namespace": "text.departure",
+  "schema": "psychopatz.convo-engine.v1"
+}

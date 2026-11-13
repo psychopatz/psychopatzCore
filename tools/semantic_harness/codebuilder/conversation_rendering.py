@@ -67,7 +67,8 @@ def _chunk_records(
     grouped: dict[str, list[dict[str, Any]]] = {}
     for record in records:
         source_shard = str(
-            record.get("sourceShard")
+            record.get("moduleSourceShard")
+            or record.get("sourceShard")
             or f"{kind.lower()}/{record.get('domain') or 'general'}.json"
         )
         grouped.setdefault(source_shard, []).append(record)
@@ -89,6 +90,9 @@ def _chunk_records(
                 f"split by semantic subdomain: {source_shard}"
             )
         runtime_items = _runtime_records(items)
+        for runtime_item in runtime_items:
+            if isinstance(runtime_item, dict):
+                runtime_item.pop("moduleSourceShard", None)
         source = render_conversation_lua_records(runtime_items)
         size = len(source.encode("utf-8"))
         if size > max_bytes:
@@ -111,7 +115,7 @@ def _chunk_records(
                 or items[0].get("domain")
                 or "general"
             ),
-            "sourceShard": source_shard,
+            "sourceShard": str(items[0].get("sourceShard") or source_shard),
             "recordCount": len(items),
             "recordIDs": [
                 str(item.get("id"))
@@ -130,7 +134,11 @@ def _render_pack_shard_plan(
     """Render static pack data separately from runtime callback adapters."""
     grouped: dict[str, list[dict[str, Any]]] = {}
     for record in records:
-        source_shard = str(record.get("sourceShard") or "packs/general.json")
+        source_shard = str(
+            record.get("moduleSourceShard")
+            or record.get("sourceShard")
+            or "packs/general.json"
+        )
         grouped.setdefault(source_shard, []).append(record)
     modules: list[tuple[str, str]] = []
     reports: list[dict[str, Any]] = []
@@ -140,7 +148,7 @@ def _render_pack_shard_plan(
         runtime_items = []
         for item in items:
             runtime_item = _copy_json(item)
-            for key in ("owner", "domain", "sourceShard"):
+            for key in ("owner", "domain", "sourceShard", "moduleSourceShard"):
                 runtime_item.pop(key, None)
             runtime_items.append(runtime_item)
         source = render_conversation_lua_records(runtime_items)
@@ -160,7 +168,7 @@ def _render_pack_shard_plan(
             "module": module,
             "kind": "Packs",
             "domain": str(items[0].get("domain") or "general"),
-            "sourceShard": source_shard,
+            "sourceShard": str(items[0].get("sourceShard") or source_shard),
             "recordCount": len(items),
             "recordIDs": [
                 str(item.get("id"))

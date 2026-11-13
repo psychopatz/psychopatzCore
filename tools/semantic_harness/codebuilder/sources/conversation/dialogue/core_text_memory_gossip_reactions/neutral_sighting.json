@@ -1,0 +1,37 @@
+{
+  "id": "sighting",
+  "kind": "dialogue",
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.memory.gossip.reactions.neutral.sighting",
+    "sourcePath": "memory/gossip/reactions/neutral/sighting.json",
+    "textKey": "neutral.sighting",
+    "textRows": [
+      {
+        "key": "neutral.sighting",
+        "text": {
+          "EN": "Word is {target.name} was seen near {slot.place.name}.",
+          "TL": "May nakakita raw kay {target.name} malapit sa {slot.place.name}."
+        }
+      }
+    ],
+    "textTarget": "memory/gossip"
+  },
+  "owner": "PsychopatzCore",
+  "slots": {
+    "place": {
+      "required": true,
+      "type": "entity.location"
+    }
+  },
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
+  "text": {
+    "EN": "Word is {target.name} was seen near {slot.place.name}.",
+    "TL": "May nakakita raw kay {target.name} malapit sa {slot.place.name}."
+  },
+  "namespace": "text.neutral",
+  "schema": "psychopatz.convo-engine.v1"
+}

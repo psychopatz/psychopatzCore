@@ -1,0 +1,32 @@
+{
+  "act": "COMBAT_HORDE_REPLY",
+  "baseRelevance": 0.65,
+  "continuation": {
+    "mode": "terminate"
+  },
+  "id": "scene_horde_reply_steady",
+  "mode": "one_shot",
+  "modifiers": [],
+  "outputs": {
+    "speech": {
+      "contentTemplateID": "semantic.interaction.scene.horde_reply_steady",
+      "dialogueAct": "PROPOSE_HOLD"
+    }
+  },
+  "owner": "PsychopatzCore",
+  "requiredCapabilities": [
+    "speech"
+  ],
+  "stimuli": [
+    "NPC_SEMANTIC_ACT"
+  ],
+  "version": 1,
+  "when": {
+    "op": "eq",
+    "path": "stimulus.semantic.intent",
+    "value": "COMBAT_HORDE_REPLY"
+  },
+  "kind": "behavior",
+  "namespace": "behavior",
+  "schema": "psychopatz.convo-engine.v1"
+}

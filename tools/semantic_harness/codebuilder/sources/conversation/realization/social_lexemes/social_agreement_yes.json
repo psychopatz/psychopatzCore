@@ -1,0 +1,13 @@
+{
+  "concept": "AGREEMENT_YES",
+  "forms": {
+    "EN": "yeah",
+    "TL": "oo"
+  },
+  "id": "yes",
+  "type": "lexeme",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "lexeme.social.agreement",
+  "schema": "psychopatz.convo-engine.v1"
+}

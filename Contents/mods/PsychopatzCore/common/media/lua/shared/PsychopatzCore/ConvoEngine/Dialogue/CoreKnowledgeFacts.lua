@@ -5,12 +5,13 @@ return {
         ["id"] = "semantic.question.knowledge.known.guarded",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "guarded",
             ["sourceId"] = "semantic.question.knowledge.known.guarded",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_facts.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge_known.json#records[0]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts",
+        ["namespace"] = "semantic.question.knowledge.known",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -187,7 +188,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_facts.json",
+        ["sourceShard"] = "dialogue/core_knowledge_facts/question_knowledge_known.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -200,12 +201,13 @@ return {
         ["id"] = "semantic.question.knowledge.known.neutral",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "neutral",
             ["sourceId"] = "semantic.question.knowledge.known.neutral",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_facts.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge_known.json#records[1]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts",
+        ["namespace"] = "semantic.question.knowledge.known",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -382,7 +384,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_facts.json",
+        ["sourceShard"] = "dialogue/core_knowledge_facts/question_knowledge_known.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -395,12 +397,13 @@ return {
         ["id"] = "semantic.question.knowledge.known.terse",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "terse",
             ["sourceId"] = "semantic.question.knowledge.known.terse",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_facts.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge_known.json#records[2]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts",
+        ["namespace"] = "semantic.question.knowledge.known",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -577,7 +580,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_facts.json",
+        ["sourceShard"] = "dialogue/core_knowledge_facts/question_knowledge_known.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -590,12 +593,13 @@ return {
         ["id"] = "semantic.question.knowledge.known.warm",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warm",
             ["sourceId"] = "semantic.question.knowledge.known.warm",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_facts.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge_known.json#records[3]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts",
+        ["namespace"] = "semantic.question.knowledge.known",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -772,7 +776,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_facts.json",
+        ["sourceShard"] = "dialogue/core_knowledge_facts/question_knowledge_known.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -785,12 +789,13 @@ return {
         ["id"] = "semantic.question.knowledge.unknown.guarded",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "guarded",
             ["sourceId"] = "semantic.question.knowledge.unknown.guarded",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_facts.json#records[4]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge_unknown.json#records[0]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts",
+        ["namespace"] = "semantic.question.knowledge.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -967,7 +972,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_facts.json",
+        ["sourceShard"] = "dialogue/core_knowledge_facts/question_knowledge_unknown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -980,12 +985,13 @@ return {
         ["id"] = "semantic.question.knowledge.unknown.neutral",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "neutral",
             ["sourceId"] = "semantic.question.knowledge.unknown.neutral",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_facts.json#records[5]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge_unknown.json#records[1]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts",
+        ["namespace"] = "semantic.question.knowledge.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1162,7 +1168,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_facts.json",
+        ["sourceShard"] = "dialogue/core_knowledge_facts/question_knowledge_unknown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1175,12 +1181,13 @@ return {
         ["id"] = "semantic.question.knowledge.unknown.terse",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "terse",
             ["sourceId"] = "semantic.question.knowledge.unknown.terse",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_facts.json#records[6]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge_unknown.json#records[2]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts",
+        ["namespace"] = "semantic.question.knowledge.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1357,7 +1364,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_facts.json",
+        ["sourceShard"] = "dialogue/core_knowledge_facts/question_knowledge_unknown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1370,12 +1377,13 @@ return {
         ["id"] = "semantic.question.knowledge.unknown.warm",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warm",
             ["sourceId"] = "semantic.question.knowledge.unknown.warm",
-            ["sourcePath"] = "psdl/dialogue/core_knowledge_facts.json#records[7]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge_unknown.json#records[3]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts",
+        ["namespace"] = "semantic.question.knowledge.unknown",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1552,7 +1560,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_knowledge_facts.json",
+        ["sourceShard"] = "dialogue/core_knowledge_facts/question_knowledge_unknown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

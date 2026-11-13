@@ -5,12 +5,13 @@ return {
         ["id"] = "semantic.interaction.world_event.warning.guarded",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "guarded",
             ["sourceId"] = "semantic.interaction.world_event.warning.guarded",
-            ["sourcePath"] = "psdl/dialogue/core_world_event_warning.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json#records[3]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["namespace"] = "semantic.interaction.world_event.warning",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -187,7 +188,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_world_event_warning.json",
+        ["sourceShard"] = "dialogue/social/interaction_world_event_warning.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -200,12 +201,13 @@ return {
         ["id"] = "semantic.interaction.world_event.warning.neutral",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "neutral",
             ["sourceId"] = "semantic.interaction.world_event.warning.neutral",
-            ["sourcePath"] = "psdl/dialogue/core_world_event_warning.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json#records[0]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["namespace"] = "semantic.interaction.world_event.warning",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -382,7 +384,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_world_event_warning.json",
+        ["sourceShard"] = "dialogue/social/interaction_world_event_warning.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -395,12 +397,13 @@ return {
         ["id"] = "semantic.interaction.world_event.warning.terse",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "terse",
             ["sourceId"] = "semantic.interaction.world_event.warning.terse",
-            ["sourcePath"] = "psdl/dialogue/core_world_event_warning.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json#records[2]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["namespace"] = "semantic.interaction.world_event.warning",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -577,7 +580,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_world_event_warning.json",
+        ["sourceShard"] = "dialogue/social/interaction_world_event_warning.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -590,12 +593,13 @@ return {
         ["id"] = "semantic.interaction.world_event.warning.warm",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warm",
             ["sourceId"] = "semantic.interaction.world_event.warning.warm",
-            ["sourcePath"] = "psdl/dialogue/core_world_event_warning.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json#records[1]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["namespace"] = "semantic.interaction.world_event.warning",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -772,7 +776,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_world_event_warning.json",
+        ["sourceShard"] = "dialogue/social/interaction_world_event_warning.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -785,12 +789,13 @@ return {
         ["id"] = "semantic.interaction.world_event.warning_flavor.guarded",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "guarded",
             ["sourceId"] = "semantic.interaction.world_event.warning_flavor.guarded",
-            ["sourcePath"] = "psdl/dialogue/core_world_event_warning_flavor.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json#records[3]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["namespace"] = "semantic.interaction.world_event.warning_flavor",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -967,7 +972,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_world_event_warning_flavor.json",
+        ["sourceShard"] = "dialogue/social/interaction_world_event_warning_flavor.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -980,12 +985,13 @@ return {
         ["id"] = "semantic.interaction.world_event.warning_flavor.neutral",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "neutral",
             ["sourceId"] = "semantic.interaction.world_event.warning_flavor.neutral",
-            ["sourcePath"] = "psdl/dialogue/core_world_event_warning_flavor.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json#records[0]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["namespace"] = "semantic.interaction.world_event.warning_flavor",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1162,7 +1168,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_world_event_warning_flavor.json",
+        ["sourceShard"] = "dialogue/social/interaction_world_event_warning_flavor.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1175,12 +1181,13 @@ return {
         ["id"] = "semantic.interaction.world_event.warning_flavor.terse",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "terse",
             ["sourceId"] = "semantic.interaction.world_event.warning_flavor.terse",
-            ["sourcePath"] = "psdl/dialogue/core_world_event_warning_flavor.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json#records[2]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["namespace"] = "semantic.interaction.world_event.warning_flavor",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1357,7 +1364,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_world_event_warning_flavor.json",
+        ["sourceShard"] = "dialogue/social/interaction_world_event_warning_flavor.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1370,12 +1377,13 @@ return {
         ["id"] = "semantic.interaction.world_event.warning_flavor.warm",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warm",
             ["sourceId"] = "semantic.interaction.world_event.warning_flavor.warm",
-            ["sourcePath"] = "psdl/dialogue/core_world_event_warning_flavor.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json#records[1]",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
+        ["namespace"] = "semantic.interaction.world_event.warning_flavor",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -1552,7 +1560,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_world_event_warning_flavor.json",
+        ["sourceShard"] = "dialogue/social/interaction_world_event_warning_flavor.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

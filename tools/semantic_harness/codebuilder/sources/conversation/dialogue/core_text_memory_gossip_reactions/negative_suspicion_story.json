@@ -1,0 +1,31 @@
+{
+  "id": "story",
+  "kind": "dialogue",
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.memory.gossip.reactions.negative.suspicion",
+    "sourcePath": "memory/gossip/reactions/negative/suspicion.json",
+    "textKey": "negative.suspicion.story",
+    "textRows": [
+      {
+        "key": "negative.suspicion.story",
+        "text": {
+          "EN": "Watch {target.name}; their story keeps changing.",
+          "TL": "Bantayan si {target.name}; pabago-bago ang kuwento niya."
+        }
+      }
+    ],
+    "textTarget": "memory/gossip"
+  },
+  "owner": "PsychopatzCore",
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
+  "text": {
+    "EN": "Watch {target.name}; their story keeps changing.",
+    "TL": "Bantayan si {target.name}; pabago-bago ang kuwento niya."
+  },
+  "namespace": "text.negative.suspicion",
+  "schema": "psychopatz.convo-engine.v1"
+}

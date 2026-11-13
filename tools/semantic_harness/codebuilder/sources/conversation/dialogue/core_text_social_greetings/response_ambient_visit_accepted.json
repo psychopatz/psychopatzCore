@@ -1,0 +1,31 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.response.ambient_visit.accepted.1",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.greetings.ambient_visit.arrival",
+        "sourcePath": "social/greetings/ambient_visit/arrival.json",
+        "textKey": "response.ambient_visit.accepted.1",
+        "textRows": [
+          {
+            "key": "response.ambient_visit.accepted.1",
+            "text": {
+              "EN": "Thank you. I could use somewhere safe to rest for a while.",
+              "TL": "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga."
+            }
+          }
+        ],
+        "textTarget": "social/greetings/ambient_visit/arrival"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "Thank you. I could use somewhere safe to rest for a while.",
+        "TL": "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga."
+      }
+    }
+  ]
+}

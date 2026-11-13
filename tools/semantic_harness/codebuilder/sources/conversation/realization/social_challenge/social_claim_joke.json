@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "APOLOGIZE",
+  "id": "claim_joke",
+  "strategy": "CLAIM_JOKE",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "I was joking."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Nagbibiro lang ako."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

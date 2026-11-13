@@ -1,0 +1,40 @@
+{
+  "dialogueAct": "INFORM",
+  "id": "disclose_name",
+  "strategy": "DISCLOSE_NAME",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "I'm "
+      },
+      {
+        "kind": "slot",
+        "slot": "name"
+      },
+      {
+        "kind": "literal",
+        "value": "."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Ako si "
+      },
+      {
+        "kind": "slot",
+        "slot": "name"
+      },
+      {
+        "kind": "literal",
+        "value": "."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

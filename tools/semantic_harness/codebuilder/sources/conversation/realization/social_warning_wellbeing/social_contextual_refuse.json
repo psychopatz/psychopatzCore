@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "REFUSE",
+  "id": "contextual_refuse",
+  "strategy": "REFUSE",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "No, I'll pass."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Hindi, salamat na lang."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

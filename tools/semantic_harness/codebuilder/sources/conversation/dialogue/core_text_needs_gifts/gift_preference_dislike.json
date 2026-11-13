@@ -1,0 +1,27 @@
+{
+  "id": "dislike",
+  "kind": "dialogue",
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.needs.gifts.preference",
+    "sourcePath": "needs/gifts/preference.json",
+    "textKey": "gift.preference.dislike",
+    "textRows": [
+      {
+        "key": "gift.preference.dislike",
+        "text": {
+          "EN": "I don't like that.",
+          "TL": "Ayaw ko niyan."
+        }
+      }
+    ],
+    "textTarget": "needs/gifts/preference"
+  },
+  "owner": "PsychopatzCore",
+  "text": {
+    "EN": "I don't like that.",
+    "TL": "Ayaw ko niyan."
+  },
+  "namespace": "text.gift.preference",
+  "schema": "psychopatz.convo-engine.v1"
+}

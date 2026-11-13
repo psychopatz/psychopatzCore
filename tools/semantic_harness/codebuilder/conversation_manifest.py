@@ -15,13 +15,18 @@ from .generation_ownership import (
     normalize_owner,
     resolve_core_repository,
 )
-from .source_manifest import SourceManifestError, load_external_shard_entries
+from .source_manifest import (
+    SourceManifestError,
+    derive_subdir_domain,
+    load_external_shard_entries,
+    load_external_source_root_entries,
+)
 
 
 CONVERSATION_MANIFEST_SCHEMA = "pnc.conversation.manifest.v1"
 SHARD_KINDS = frozenset((
     "content", "patterns", "responses", "flows", "beats", "behaviors",
-    "realization", "ui", "packs", "psdl",
+    "realization", "ui", "packs", "psdl", "convo_engine",
 ))
 ID_PATTERN = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
 
@@ -139,6 +144,7 @@ def _source_root_entries(
             "path": root_path,
             "kind": kind,
             "domain": domain,
+            "domainFromSubdir": bool(raw.get("domainFromSubdir", False)),
             "order": order,
             "owner": owner,
         })
@@ -159,10 +165,19 @@ def _source_root_entries(
             if relative in seen_paths:
                 raise CompileError(f"Conversation source-root shard is already registered: {relative}")
             seen_paths.add(relative)
+            entry_domain = (
+                derive_subdir_domain(
+                    file_path.relative_to(directory),
+                    fallback_domain=source_root["domain"],
+                    validate_id=validate_id,
+                )
+                if source_root["domainFromSubdir"]
+                else source_root["domain"]
+            )
             entries.append({
                 "path": relative,
                 "kind": source_root["kind"],
-                "domain": source_root["domain"],
+                "domain": entry_domain,
                 "order": source_root["order"],
                 "owner": source_root["owner"],
                 "discoveredFrom": source_root["path"],
@@ -206,8 +221,8 @@ def load_manifest(
             raise CompileError(f"Conversation source profile {profile_id} must be an object")
 
     shards = manifest.get("shards")
-    if not isinstance(shards, list) or not shards:
-        raise CompileError("Conversation manifest requires at least one shard")
+    if not isinstance(shards, list):
+        raise CompileError("Conversation manifest shards must be a list")
     root = manifest_path.parent
     seen_paths: set[str] = set()
     explicit_entries = []
@@ -229,6 +244,13 @@ def load_manifest(
             valid_kinds=SHARD_KINDS,
             validate_id=validate_id,
         )
+        external_root_entries = load_external_source_root_entries(
+            manifest,
+            seen_paths=seen_paths,
+            package_repositories=resolved_package_repositories,
+            valid_kinds=SHARD_KINDS,
+            validate_id=validate_id,
+        )
     except SourceManifestError as error:
         raise CompileError(str(error)) from error
     for entry in external_entries:
@@ -239,9 +261,11 @@ def load_manifest(
             entry.get("sourceProfile"), f"external shard {entry['path']}.sourceProfile"
         )
     entries = sorted(
-        [*explicit_entries, *discovered_entries, *external_entries],
+        [*explicit_entries, *discovered_entries, *external_entries, *external_root_entries],
         key=lambda item: (item["order"], item["path"]),
     )
+    if not entries:
+        raise CompileError("Conversation manifest requires at least one shard")
 
     discovered = {
         path.relative_to(root).as_posix()

@@ -5,12 +5,13 @@ return {
         ["id"] = "construction.social.acknowledge",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "acknowledge",
             ["sourceId"] = "construction.social.acknowledge",
-            ["sourcePath"] = "psdl/realization/social_affirmation.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_affirmation/social_acknowledge.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -43,7 +44,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_affirmation.json",
+        ["sourceShard"] = "realization/social_affirmation/social_acknowledge.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -56,12 +57,13 @@ return {
         ["id"] = "construction.social.agree",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "agree",
             ["sourceId"] = "construction.social.agree",
-            ["sourcePath"] = "psdl/realization/social_affirmation.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_affirmation/social_agree.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -94,7 +96,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_affirmation.json",
+        ["sourceShard"] = "realization/social_affirmation/social_agree.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -107,12 +109,13 @@ return {
         ["id"] = "construction.social.apologize",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "apologize",
             ["sourceId"] = "construction.social.apologize",
-            ["sourcePath"] = "psdl/realization/social_affirmation.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_affirmation/social_apologize.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -157,7 +160,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_affirmation.json",
+        ["sourceShard"] = "realization/social_affirmation/social_apologize.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -170,12 +173,13 @@ return {
         ["id"] = "construction.social.comfort",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "comfort",
             ["sourceId"] = "construction.social.comfort",
-            ["sourcePath"] = "psdl/realization/social_affirmation.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_affirmation/social_comfort.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -208,7 +212,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_affirmation.json",
+        ["sourceShard"] = "realization/social_affirmation/social_comfort.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -221,12 +225,13 @@ return {
         ["id"] = "construction.social.deescalate",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "deescalate",
             ["sourceId"] = "construction.social.deescalate",
-            ["sourcePath"] = "psdl/realization/social_affirmation.json#records[4]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_affirmation/social_deescalate.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -259,7 +264,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_affirmation.json",
+        ["sourceShard"] = "realization/social_affirmation/social_deescalate.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -272,12 +277,13 @@ return {
         ["id"] = "construction.social.disagree",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "disagree",
             ["sourceId"] = "construction.social.disagree",
-            ["sourcePath"] = "psdl/realization/social_affirmation.json#records[5]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_affirmation/social_disagree.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialAffirmation",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -310,7 +316,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_affirmation.json",
+        ["sourceShard"] = "realization/social_affirmation/social_disagree.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

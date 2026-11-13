@@ -1,0 +1,24 @@
+{
+  "dialogueAct": "HOSTILE_REMARK",
+  "id": "double_down",
+  "strategy": "DOUBLE_DOWN",
+  "translations": {
+    "EN": [
+      {
+        "kind": "literal",
+        "value": "Yeah, I meant it."
+      }
+    ],
+    "TL": [
+      {
+        "kind": "literal",
+        "value": "Oo, sinadya ko 'yon."
+      }
+    ]
+  },
+  "type": "construction",
+  "kind": "realization",
+  "owner": "PsychopatzCore",
+  "namespace": "construction.social",
+  "schema": "psychopatz.convo-engine.v1"
+}

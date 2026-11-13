@@ -28,8 +28,14 @@ from .semantic_definition_compiler import (
     discover_registered_capability_ids,
 )
 from .semantic_pack_compiler import compile_semantic_pack_shard
-from .psdl_compiler import compile_psdl_document, render_psdl_semantic_pack_plan
+from .psdl_compiler import (
+    compile_convo_engine_document,
+    render_psdl_semantic_pack_plan,
+)
+from .semantic_dialogue_ir import CONVO_ENGINE_SCHEMA, SUPPORTED_SOURCE_SCHEMAS
 from .translation_support import DEFAULT_LANGUAGE, normalize_language
+
+CONVO_ENGINE_SHARD_KINDS = frozenset({"psdl", "convo_engine"})
 
 
 def _hydrate_shard_provenance(
@@ -40,10 +46,16 @@ def _hydrate_shard_provenance(
     """Reconstruct compiler-only provenance from the v3 manifest index."""
 
     path = str(entry.get("path", "<shard>"))
-    if entry.get("kind") == "psdl":
-        if document.get("schema") != "psychopatz.semantic.dialogue-language.v1":
+    if entry.get("kind") in CONVO_ENGINE_SHARD_KINDS:
+        schema = document.get("schema")
+        if entry.get("kind") == "convo_engine":
+            if schema not in SUPPORTED_SOURCE_SCHEMAS:
+                raise CompileError(
+                    f"ConvoEngine shard {path} requires schema {CONVO_ENGINE_SCHEMA} (or migration schema)"
+                )
+        elif schema not in SUPPORTED_SOURCE_SCHEMAS:
             raise CompileError(
-                f"PSDL shard {path} requires schema psychopatz.semantic.dialogue-language.v1"
+                f"PSDL shard {path} requires schema {CONVO_ENGINE_SCHEMA} or psychopatz.semantic.dialogue-language.v1"
             )
         return
     if document.get("schema") != CONVERSATION_SHARD_SCHEMA:
@@ -80,8 +92,13 @@ def _compile_shard(
     kind = entry["kind"]
     path = entry["path"]
     if document.get("schema") != CONVERSATION_SHARD_SCHEMA:
-        if kind == "psdl":
-            compiled = compile_psdl_document(document, source_path=path)
+        if kind in CONVO_ENGINE_SHARD_KINDS:
+            compiled = compile_convo_engine_document(
+                document,
+                source_path=path,
+                default_owner=normalize_owner(entry.get("owner"), default=default_owner),
+                validate_cross_references=False,
+            )
             return compiled
         raise CompileError(f"Conversation shard {path} requires schema {CONVERSATION_SHARD_SCHEMA}")
     if document.get("kind") != kind or document.get("domain") != entry["domain"]:
@@ -303,18 +320,18 @@ def _conversation_record_ids(
     entry: dict[str, Any],
 ) -> list[str]:
     kind = entry["kind"]
-    if kind == "psdl":
-        records = document.get("records")
-        compiled = compile_psdl_document(document, source_path=entry["path"])
-        record_ids = (
-            [
-                str(item["id"])
-                for item in records
-                if isinstance(item, dict) and "id" in item
-            ]
-            if isinstance(records, list)
-            else ([str(document["id"])] if isinstance(document.get("id"), str) else [])
+    if kind in CONVO_ENGINE_SHARD_KINDS:
+        compiled = compile_convo_engine_document(
+            document,
+            source_path=entry["path"],
+            default_owner=entry.get("owner"),
+            validate_cross_references=False,
         )
+        record_ids = [
+            str(item["id"])
+            for item in compiled.get("records", [])
+            if isinstance(item, dict) and "id" in item
+        ]
         return [
             *record_ids,
             *[

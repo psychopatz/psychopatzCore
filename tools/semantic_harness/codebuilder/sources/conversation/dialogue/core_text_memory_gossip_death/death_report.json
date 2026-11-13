@@ -1,0 +1,31 @@
+{
+  "id": "report",
+  "kind": "dialogue",
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.memory.gossip.death.report",
+    "sourcePath": "memory/gossip/death/report.json",
+    "textKey": "death.report",
+    "textRows": [
+      {
+        "key": "death.report",
+        "text": {
+          "EN": "I heard {target.name} did not make it back.",
+          "TL": "Balita ko, hindi na nakabalik si {target.name}."
+        }
+      }
+    ],
+    "textTarget": "memory/gossip"
+  },
+  "owner": "PsychopatzCore",
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
+  "text": {
+    "EN": "I heard {target.name} did not make it back.",
+    "TL": "Balita ko, hindi na nakabalik si {target.name}."
+  },
+  "namespace": "text.death",
+  "schema": "psychopatz.convo-engine.v1"
+}

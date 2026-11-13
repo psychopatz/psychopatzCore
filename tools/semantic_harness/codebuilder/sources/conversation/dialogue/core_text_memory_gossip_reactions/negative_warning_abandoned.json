@@ -1,0 +1,31 @@
+{
+  "id": "abandoned",
+  "kind": "dialogue",
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.memory.gossip.reactions.negative.warning",
+    "sourcePath": "memory/gossip/reactions/negative/warning.json",
+    "textKey": "negative.warning.abandoned",
+    "textRows": [
+      {
+        "key": "negative.warning.abandoned",
+        "text": {
+          "EN": "{target.name} left someone behind when the zombies closed in.",
+          "TL": "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie."
+        }
+      }
+    ],
+    "textTarget": "memory/gossip"
+  },
+  "owner": "PsychopatzCore",
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
+  "text": {
+    "EN": "{target.name} left someone behind when the zombies closed in.",
+    "TL": "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie."
+  },
+  "namespace": "text.negative.warning",
+  "schema": "psychopatz.convo-engine.v1"
+}

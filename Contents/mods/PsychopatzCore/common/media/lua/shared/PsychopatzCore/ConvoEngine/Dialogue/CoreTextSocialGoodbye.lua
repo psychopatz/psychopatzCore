@@ -5,12 +5,13 @@ return {
         ["id"] = "text.choice.goodbye",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "goodbye",
             ["sourceId"] = "text.choice.goodbye",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/choice_goodbye.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
+        ["namespace"] = "text.choice",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -73,7 +74,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/choice_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -88,7 +89,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[1]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -154,7 +155,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -169,7 +170,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[2]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -235,7 +236,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -250,7 +251,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.10",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[3]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -316,7 +317,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -331,7 +332,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[4]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -397,7 +398,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -412,7 +413,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.3",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[5]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -478,7 +479,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -493,7 +494,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.4",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[6]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[5]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -559,7 +560,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -574,7 +575,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.5",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[7]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[6]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -640,7 +641,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -655,7 +656,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.6",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[8]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[7]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -721,7 +722,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -736,7 +737,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.7",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[9]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[8]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -802,7 +803,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -817,7 +818,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.8",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[10]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[9]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -883,7 +884,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -898,7 +899,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.response.goodbye.9",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_goodbye.json#records[11]",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[10]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
@@ -964,7 +965,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_goodbye.json",
+        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

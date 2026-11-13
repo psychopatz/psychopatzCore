@@ -7,7 +7,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.admire.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[0]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_admire.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -73,7 +73,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_admire.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -88,7 +88,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.admire.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[1]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_admire.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -154,7 +154,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_admire.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -169,7 +169,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.admire.3",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[2]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_admire.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -235,7 +235,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_admire.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -250,7 +250,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.fear.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[3]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_fear.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -316,7 +316,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_fear.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -331,7 +331,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.fear.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[4]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_fear.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -397,7 +397,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_fear.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -412,7 +412,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.fear.3",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[5]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_fear.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -478,7 +478,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_fear.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -493,7 +493,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.cooldown.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[6]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_cooldown.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -559,7 +559,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_cooldown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -574,7 +574,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.cooldown.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[7]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_cooldown.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -640,7 +640,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_cooldown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -655,7 +655,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.general.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[8]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_general.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -721,7 +721,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_general.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -736,7 +736,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.general.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[9]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_general.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -802,7 +802,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_general.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -817,7 +817,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.general.3",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[10]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_general.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -883,7 +883,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_general.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -898,7 +898,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.hostile.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[11]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_hostile.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -964,7 +964,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_hostile.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -979,7 +979,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.hostile.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[12]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_hostile.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1045,7 +1045,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_hostile.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1060,7 +1060,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.leader.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[13]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_leader.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1126,7 +1126,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_leader.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1141,7 +1141,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.leader.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[14]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_leader.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1207,7 +1207,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_leader.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1222,7 +1222,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.member.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[15]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_member.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1288,7 +1288,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_member.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1303,7 +1303,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.member.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[16]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_member.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1369,7 +1369,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_member.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1384,7 +1384,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[17]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1450,7 +1450,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1465,7 +1465,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.10",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[18]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1531,7 +1531,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1546,7 +1546,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[19]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[2]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1612,7 +1612,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1627,7 +1627,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.3",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[20]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[3]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1693,7 +1693,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1708,7 +1708,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.4",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[21]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[4]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1774,7 +1774,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1789,7 +1789,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.5",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[22]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[5]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1855,7 +1855,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1870,7 +1870,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.6",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[23]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[6]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -1936,7 +1936,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -1951,7 +1951,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.7",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[24]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[7]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -2017,7 +2017,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -2032,7 +2032,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.8",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[25]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[8]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -2098,7 +2098,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -2113,7 +2113,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.relationship.9",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[26]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json#records[9]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -2179,7 +2179,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_relationship.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -2194,7 +2194,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.unavailable.1",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[27]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_unavailable.json#records[0]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -2260,7 +2260,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_unavailable.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -2275,7 +2275,7 @@ return {
         ["lineage"] = {
             ["migrationReadOnly"] = true,
             ["sourceId"] = "text.recruitment.reject.unavailable.2",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_recruitment.json#records[28]",
+            ["sourcePath"] = "dialogue/core_text_social_recruitment/recruitment_reject_unavailable.json#records[1]",
             ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialRecruitment",
@@ -2341,7 +2341,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_recruitment.json",
+        ["sourceShard"] = "dialogue/core_text_social_recruitment/recruitment_reject_unavailable.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

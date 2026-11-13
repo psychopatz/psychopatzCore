@@ -5,12 +5,13 @@ return {
         ["id"] = "text.gift.preference.dislike",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "dislike",
             ["sourceId"] = "text.gift.preference.dislike",
-            ["sourcePath"] = "psdl/dialogue/core_text_needs_gifts.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_needs_gifts/gift_preference_dislike.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextNeedsGifts",
+        ["namespace"] = "text.gift.preference",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -73,7 +74,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_needs_gifts.json",
+        ["sourceShard"] = "dialogue/core_text_needs_gifts/gift_preference_dislike.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -86,12 +87,13 @@ return {
         ["id"] = "text.gift.preference.like",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "like",
             ["sourceId"] = "text.gift.preference.like",
-            ["sourcePath"] = "psdl/dialogue/core_text_needs_gifts.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_needs_gifts/gift_preference_like.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextNeedsGifts",
+        ["namespace"] = "text.gift.preference",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -154,7 +156,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_needs_gifts.json",
+        ["sourceShard"] = "dialogue/core_text_needs_gifts/gift_preference_like.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -167,12 +169,13 @@ return {
         ["id"] = "text.gift.preference.neutral",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "neutral",
             ["sourceId"] = "text.gift.preference.neutral",
-            ["sourcePath"] = "psdl/dialogue/core_text_needs_gifts.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_needs_gifts/gift_preference.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextNeedsGifts",
+        ["namespace"] = "text.gift.preference",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -235,7 +238,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_needs_gifts.json",
+        ["sourceShard"] = "dialogue/core_text_needs_gifts/gift_preference.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -248,12 +251,13 @@ return {
         ["id"] = "text.gift.preference.unknown",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "unknown",
             ["sourceId"] = "text.gift.preference.unknown",
-            ["sourcePath"] = "psdl/dialogue/core_text_needs_gifts.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_needs_gifts/gift_preference_unknown.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextNeedsGifts",
+        ["namespace"] = "text.gift.preference",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -316,7 +320,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_needs_gifts.json",
+        ["sourceShard"] = "dialogue/core_text_needs_gifts/gift_preference_unknown.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

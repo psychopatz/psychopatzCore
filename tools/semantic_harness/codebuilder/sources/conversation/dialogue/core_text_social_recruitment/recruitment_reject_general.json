@@ -1,0 +1,81 @@
+{
+  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "owner": "PsychopatzCore",
+  "records": [
+    {
+      "id": "text.recruitment.reject.general.1",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.recruitment.response",
+        "sourcePath": "social/recruitment/response.json",
+        "textKey": "recruitment.reject.general.1",
+        "textRows": [
+          {
+            "key": "recruitment.reject.general.1",
+            "text": {
+              "EN": "I cannot make that decision right now. There is too much working against it.",
+              "TL": "Hindi ko magawa ang desisyong iyon sa ngayon. Masyadong maraming nagtatrabaho laban dito."
+            }
+          }
+        ],
+        "textTarget": "social/recruitment/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "I cannot make that decision right now. There is too much working against it.",
+        "TL": "Hindi ko magawa ang desisyong iyon sa ngayon. Masyadong maraming nagtatrabaho laban dito."
+      }
+    },
+    {
+      "id": "text.recruitment.reject.general.2",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.recruitment.response",
+        "sourcePath": "social/recruitment/response.json",
+        "textKey": "recruitment.reject.general.2",
+        "textRows": [
+          {
+            "key": "recruitment.reject.general.2",
+            "text": {
+              "EN": "No. I appreciate the offer, but joining you is not possible at the moment.",
+              "TL": "Hindi. Pinahahalagahan ko ang alok, ngunit hindi posible ang pagsali sa iyo sa ngayon."
+            }
+          }
+        ],
+        "textTarget": "social/recruitment/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "No. I appreciate the offer, but joining you is not possible at the moment.",
+        "TL": "Hindi. Pinahahalagahan ko ang alok, ngunit hindi posible ang pagsali sa iyo sa ngayon."
+      }
+    },
+    {
+      "id": "text.recruitment.reject.general.3",
+      "kind": "dialogue",
+      "metadata": {
+        "migration": "Core PSDL text record; translation catalog is downstream output",
+        "sourceCatalog": "conversation.social.recruitment.response",
+        "sourcePath": "social/recruitment/response.json",
+        "textKey": "recruitment.reject.general.3",
+        "textRows": [
+          {
+            "key": "recruitment.reject.general.3",
+            "text": {
+              "EN": "I need to sort out a few things before I can even consider leaving with you.",
+              "TL": "Kailangan kong ayusin ang ilang bagay bago ko maisipang umalis kasama ka."
+            }
+          }
+        ],
+        "textTarget": "social/recruitment/response"
+      },
+      "owner": "PsychopatzCore",
+      "text": {
+        "EN": "I need to sort out a few things before I can even consider leaving with you.",
+        "TL": "Kailangan kong ayusin ang ilang bagay bago ko maisipang umalis kasama ka."
+      }
+    }
+  ]
+}

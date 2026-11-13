@@ -5,12 +5,13 @@ return {
         ["id"] = "text.departure.confirmed",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "confirmed",
             ["sourceId"] = "text.departure.confirmed",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_departure.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_social_departure/departure_confirmed.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialDeparture",
+        ["namespace"] = "text.departure",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -73,7 +74,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_departure.json",
+        ["sourceShard"] = "dialogue/core_text_social_departure/departure_confirmed.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -86,12 +87,13 @@ return {
         ["id"] = "text.departure.rejected",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "rejected",
             ["sourceId"] = "text.departure.rejected",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_departure.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_social_departure/departure_rejected.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialDeparture",
+        ["namespace"] = "text.departure",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -154,7 +156,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_departure.json",
+        ["sourceShard"] = "dialogue/core_text_social_departure/departure_rejected.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -167,12 +169,13 @@ return {
         ["id"] = "text.departure.warning",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "warning",
             ["sourceId"] = "text.departure.warning",
-            ["sourcePath"] = "psdl/dialogue/core_text_social_departure.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "dialogue/core_text_social_departure/departure_warning.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialDeparture",
+        ["namespace"] = "text.departure",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -235,7 +238,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/dialogue/core_text_social_departure.json",
+        ["sourceShard"] = "dialogue/core_text_social_departure/departure_warning.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,

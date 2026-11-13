@@ -1,0 +1,34 @@
+{
+  "kind": "behavior",
+  "id": "world_event_warn",
+  "owner": "PsychopatzCore",
+  "version": 1,
+  "act": "WARN_GROUP",
+  "mode": "one_shot",
+  "stimuli": [
+    "WORLD_EVENT",
+    "DANGER_CHANGED"
+  ],
+  "requiredCapabilities": [],
+  "outputs": {
+    "speech": {
+      "dialogueAct": "WORLD_WARNING",
+      "contentTemplateID": "semantic.interaction.world_event.warning"
+    },
+    "emote": {
+      "id": "emote.alert"
+    },
+    "flavor": {
+      "presentationAct": "AMBIENT_FLAVOR",
+      "contentTemplateID": "semantic.interaction.world_event.warning_flavor"
+    }
+  },
+  "when": {
+    "path": "world.immediateDanger",
+    "op": "truthy"
+  },
+  "baseRelevance": 0.8,
+  "modifiers": [],
+  "namespace": "behavior",
+  "schema": "psychopatz.convo-engine.v1"
+}

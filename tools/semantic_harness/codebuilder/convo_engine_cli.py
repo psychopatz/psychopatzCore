@@ -99,6 +99,19 @@ def build_parser() -> argparse.ArgumentParser:
     p_shard.add_argument("--prune-source", action="store_true")
     p_shard.add_argument("--write", action="store_true")
 
+    p_migrate = sub.add_parser(
+        "migrate-bucket",
+        help="Accountably migrate a legacy PSDL bucket into coherent ConvoEngine family files",
+    )
+    _add_repo_args(p_migrate)
+    p_migrate.add_argument("--source", required=True, type=Path)
+    p_migrate.add_argument("--plan", required=True, help="JSON file or inline JSON list")
+    p_migrate.add_argument("--owner", default=None)
+    p_migrate.add_argument("--allow-partial", action="store_true")
+    p_migrate.add_argument("--overwrite", action="store_true")
+    p_migrate.add_argument("--prune-source", action="store_true")
+    p_migrate.add_argument("--write", action="store_true")
+
     p_write = sub.add_parser("write", help="Validate and write a canonical ConvoEngine JSON file")
     _add_repo_args(p_write)
     p_write.add_argument("--input", required=True, help="JSON file or inline JSON object")
@@ -165,6 +178,17 @@ def main(arguments: list[str] | None = None) -> int:
                 args.source,
                 plan,
                 default_owner=args.owner,
+                write=args.write,
+                overwrite=args.overwrite,
+                prune_source=args.prune_source,
+            )
+        elif args.command == "migrate-bucket":
+            plan = _read_json_arg(args.plan)
+            result = svc.migrate_convo_engine_bucket(
+                args.source,
+                plan,
+                default_owner=args.owner,
+                require_complete=not args.allow_partial,
                 write=args.write,
                 overwrite=args.overwrite,
                 prune_source=args.prune_source,

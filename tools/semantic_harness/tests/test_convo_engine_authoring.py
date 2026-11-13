@@ -11,6 +11,7 @@ import unittest
 
 from tools.semantic_harness.codebuilder import CONVO_ENGINE_SCHEMA, LEGACY_PSDL_SCHEMA
 from tools.semantic_harness.codebuilder.convo_engine_cli import main as cli_main
+from tools.semantic_harness.codebuilder.errors import CompileError
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 
 
@@ -276,6 +277,199 @@ class ConvoEngineS6M1BAuthoringTests(unittest.TestCase):
             payload = json.loads(proc.stdout)
             self.assertTrue(payload["ok"])
             self.assertEqual(payload["sourceSchema"], CONVO_ENGINE_SCHEMA)
+
+    def test_migrate_bucket_accounts_all_records_and_rejects_unconsumed(self) -> None:
+        core_repo = Path(__file__).resolve().parents[3]
+        with TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            bucket = repo / "sources/conversation/psdl/dialogue/mixed_bucket.json"
+            bucket.parent.mkdir(parents=True, exist_ok=True)
+            bucket.write_text(
+                json.dumps({
+                    "schema": "psychopatz.semantic.dialogue-language.v1",
+                    "owner": "PsychopatzCore",
+                    "records": [
+                        {
+                            "kind": "dialogue",
+                            "id": "core.world_event.warn",
+                            "respond": {"EN": "Careful out there."},
+                        },
+                        {
+                            "kind": "dialogue",
+                            "id": "text.response.goodbye.1",
+                            "respond": {"EN": "Bye."},
+                        },
+                        {
+                            "kind": "dialogue",
+                            "id": "text.response.goodbye.2",
+                            "respond": {"EN": "See ya."},
+                        },
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            svc = SemanticLabAuthoringService(repository=repo, core_repository=core_repo)
+
+            with self.assertRaises(CompileError):
+                svc.migrate_convo_engine_bucket(
+                    bucket,
+                    [
+                        {
+                            "destPath": "sources/conversation/dialogue/world_event/warn.json",
+                            "sourceRecordIds": ["core.world_event.warn"],
+                        }
+                    ],
+                    write=False,
+                )
+
+            with self.assertRaises(CompileError):
+                svc.migrate_convo_engine_bucket(
+                    bucket,
+                    [
+                        {
+                            "destPath": "sources/conversation/dialogue/world_event/warn.json",
+                            "sourceRecordIds": ["core.world_event.warn"],
+                            "preNormalizationLegacy": True,
+                        },
+                        {
+                            "destPath": "sources/conversation/dialogue/goodbye/goodbye.json",
+                            "sourceRecordIds": [
+                                "text.response.goodbye.1",
+                                "text.response.goodbye.2",
+                            ],
+                            "preNormalizationLegacy": True,
+                        },
+                    ],
+                    write=False,
+                )
+
+            preview = svc.migrate_convo_engine_bucket(
+                bucket,
+                [
+                    {
+                        "destPath": "sources/conversation/dialogue/world_event/warn.json",
+                        "sourceRecordIds": ["core.world_event.warn"],
+                    },
+                    {
+                        "destPath": "sources/conversation/dialogue/goodbye/goodbye.json",
+                        "sourceRecordIds": [
+                            "text.response.goodbye.1",
+                            "text.response.goodbye.2",
+                        ],
+                        "preNormalizationLegacy": True,
+                    },
+                ],
+                write=False,
+            )
+            self.assertTrue(preview["ok"])
+            self.assertEqual(preview["canonicalCount"], 1)
+            self.assertEqual(preview["preNormalizationLegacyCount"], 1)
+            self.assertTrue(bucket.is_file())
+
+            plan_file = repo / "migration_plan.json"
+            plan_file.write_text(
+                json.dumps([
+                    {
+                        "destPath": "sources/conversation/dialogue/world_event/warn.json",
+                        "sourceRecordIds": ["core.world_event.warn"],
+                    },
+                    {
+                        "destPath": "sources/conversation/dialogue/goodbye/goodbye.json",
+                        "sourceRecordIds": [
+                            "text.response.goodbye.1",
+                            "text.response.goodbye.2",
+                        ],
+                        "preNormalizationLegacy": True,
+                    },
+                ]),
+                encoding="utf-8",
+            )
+            rc = cli_main([
+                "migrate-bucket",
+                "--repository", str(repo),
+                "--core-repository", str(core_repo),
+                "--source", str(bucket),
+                "--plan", str(plan_file),
+                "--write",
+                "--prune-source",
+            ])
+            self.assertEqual(rc, 0)
+            self.assertFalse(bucket.exists())
+            warn_doc = json.loads(
+                (repo / "sources/conversation/dialogue/world_event/warn.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(warn_doc["schema"], CONVO_ENGINE_SCHEMA)
+            self.assertEqual(warn_doc["namespace"], "core.world_event")
+            self.assertEqual(warn_doc["id"], "warn")
+
+    def test_external_source_roots_with_domain_from_subdir_compiles(self) -> None:
+        from tools.semantic_harness.codebuilder.conversation_manifest import load_manifest
+
+        core_repo = Path(__file__).resolve().parents[3]
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            core = root / "core"
+            adopter = root / "adopter"
+            (core / "sources/conversation/dialogue/core_domain").mkdir(parents=True)
+            (adopter / "sources/conversation/dialogue/trade").mkdir(parents=True)
+            manifest_path = core / "sources/conversation/manifest.json"
+            manifest_path.write_text(
+                json.dumps({
+                    "schema": "pnc.conversation.manifest.v1",
+                    "registryOwner": "ProjectHoomans",
+                    "defaultOwner": "PsychopatzCore",
+                    "sourceProfiles": {
+                        "convo.test": {
+                            "owner": "PsychopatzCore",
+                            "kind": "convo_engine",
+                        }
+                    },
+                    "shards": [],
+                    "sourceRoots": [
+                        {
+                            "path": "dialogue",
+                            "kind": "convo_engine",
+                            "domain": "general",
+                            "order": 1,
+                            "owner": "PsychopatzCore",
+                            "domainFromSubdir": True,
+                        }
+                    ],
+                    "externalShards": [],
+                    "externalSourceRoots": [
+                        {
+                            "path": "adopters/dt/dialogue",
+                            "kind": "convo_engine",
+                            "domain": "general",
+                            "order": 2,
+                            "owner": "DynamicTrading",
+                            "sourcePath": "sources/conversation/dialogue",
+                            "domainFromSubdir": True,
+                        }
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            (core / "sources/conversation/dialogue/core_domain/ping.json").write_text(
+                json.dumps({"schema": CONVO_ENGINE_SCHEMA, "kind": "dialogue", "namespace": "core", "id": "ping", "say": "Ping."}),
+                encoding="utf-8",
+            )
+            (adopter / "sources/conversation/dialogue/trade/hello.json").write_text(
+                json.dumps({"schema": CONVO_ENGINE_SCHEMA, "kind": "dialogue", "namespace": "trade", "id": "hello", "say": "Trade?"}),
+                encoding="utf-8",
+            )
+            _manifest, entries = load_manifest(
+                core,
+                manifest_path,
+                package_repositories={
+                    "PsychopatzCore": core,
+                    "DynamicTrading": adopter,
+                },
+            )
+            domains = {entry["path"]: entry["domain"] for entry in entries}
+            self.assertEqual(domains["dialogue/core_domain/ping.json"], "core_domain")
+            self.assertEqual(domains["adopters/dt/dialogue/trade/hello.json"], "trade")
+            self.assertTrue(core_repo.is_dir())
 
 
 if __name__ == "__main__":

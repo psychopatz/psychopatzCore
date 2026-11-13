@@ -92,7 +92,8 @@ from .generation_ownership import (
     source_owner,
 )
 from .psdl_compiler import (
-    compile_psdl_document,
+    _validate_cross_references as _validate_convo_engine_cross_references,
+    compile_convo_engine_document,
     render_psdl_director_plan,
     render_psdl_flow_plan,
     render_psdl_realization_plan,
@@ -101,8 +102,7 @@ from .psdl_compiler import (
     render_psdl_runtime_plan,
     render_psdl_ui_plan,
 )
-
-
+from .conversation_assembly import CONVO_ENGINE_SHARD_KINDS
 
 
 def _registry_owner(model: dict[str, Any]) -> str:
@@ -113,14 +113,21 @@ def _registry_owner(model: dict[str, Any]) -> str:
 
 def _compiled_psdl_documents(
     loaded: list[tuple[dict[str, Any], dict[str, Any], str]],
+    *,
+    default_owner: str | None = None,
 ) -> list[tuple[dict[str, Any], dict[str, Any]]]:
     compiled: list[tuple[dict[str, Any], dict[str, Any]]] = []
     for document, entry, _fingerprint_value in loaded:
-        if entry.get("kind") != "psdl":
+        if entry.get("kind") not in CONVO_ENGINE_SHARD_KINDS:
             continue
         compiled.append(
             (
-                compile_psdl_document(document, source_path=entry["path"]),
+                compile_convo_engine_document(
+                    document,
+                    source_path=entry["path"],
+                    default_owner=entry.get("owner") or default_owner,
+                    validate_cross_references=False,
+                ),
                 entry,
             )
         )
@@ -215,7 +222,17 @@ def compile_conversation_sources(
         default_owner=manifest["defaultOwner"],
     )
     realization = _merge_realization_sources(loaded)
-    psdl_documents = _compiled_psdl_documents(loaded)
+    psdl_documents = _compiled_psdl_documents(
+        loaded,
+        default_owner=manifest["defaultOwner"],
+    )
+    merged_convo_records = [
+        record
+        for compiled_psdl, _entry in psdl_documents
+        for record in compiled_psdl.get("records", [])
+    ]
+    if merged_convo_records:
+        _validate_convo_engine_cross_references(merged_convo_records)
     psdl_ui: list[dict[str, Any]] = []
     psdl_packs: list[dict[str, Any]] = []
     psdl_runtime_plans: list[dict[str, Any]] = []
@@ -355,7 +372,7 @@ def compile_conversation_sources(
                     shard=entry,
                     path=path,
                 )
-        elif entry["kind"] == "psdl":
+        elif entry["kind"] in CONVO_ENGINE_SHARD_KINDS:
             for compiled_psdl, psdl_entry in psdl_documents:
                 if psdl_entry["path"] != path:
                     continue
@@ -546,6 +563,7 @@ def compile_conversation_sources(
             for owner, path in (package_repositories or {}).items()
         },
         "_source_documents": source_documents,
+        "_manifest_entries": entries,
     }
     return model
 
@@ -890,6 +908,29 @@ def render_conversation_runtime_plan(
         model["content"], prefix, max_bytes=CONVERSATION_MAX_SHARD_BYTES
     )
     locations = model.get("locations") or {}
+    convo_entries_by_path = {
+        str(entry.get("path")): entry
+        for entry in (model.get("_manifest_entries") or [])
+        if isinstance(entry, dict) and entry.get("kind") == "convo_engine" and entry.get("path")
+    }
+
+    def _convo_module_shard(source_shard: str) -> str | None:
+        entry = convo_entries_by_path.get(source_shard)
+        if entry is None:
+            return None
+        domain = str(entry.get("domain") or "general")
+        parts = source_shard.split("/")
+        if len(parts) >= 3 and parts[0] == "adopters":
+            category = parts[2]
+        elif parts:
+            category = parts[0]
+        else:
+            category = "dialogue"
+        if category in {"behavior", "beat"}:
+            return f"director/{domain}.json"
+        if category == "realization":
+            return f"templates/{domain}.json"
+        return f"dialogue/{domain}.json"
 
     def owned(item: dict[str, Any], *, domain: str) -> dict[str, Any]:
         record_id = str(item.get("id") or "")
@@ -897,12 +938,16 @@ def render_conversation_runtime_plan(
         source_shard = item.get("sourceShard") or (
             owner.get("sourceShard") if isinstance(owner, dict) else None
         )
-        return {
+        resolved_shard = str(source_shard or f"{domain}/{record_id or 'general'}.json")
+        module_shard = _convo_module_shard(resolved_shard)
+        result = {
             **item,
             "domain": domain,
-            "sourceShard": source_shard
-            or f"{domain}/{record_id or 'general'}.json",
+            "sourceShard": resolved_shard,
         }
+        if module_shard is not None:
+            result["moduleSourceShard"] = module_shard
+        return result
 
     patterns = [
         *model["dialogue"].get("patterns", []),
@@ -998,26 +1043,35 @@ def render_conversation_runtime_plan(
     psdl_names = ModuleNameRegistry()
     for (owner, kind, domain), grouped_plans in sorted(psdl_groups.items()):
         grouped_plans.sort(key=lambda item: str(item.get("id") or ""))
-        for start in range(0, len(grouped_plans), CONVERSATION_MAX_RECORDS_PER_SHARD):
-            chunk = grouped_plans[start : start + CONVERSATION_MAX_RECORDS_PER_SHARD]
-            first_id = str(chunk[0].get("id") or "record")
-            last_id = str(chunk[-1].get("id") or first_id)
-            chunk_key = f"{owner}:{kind}:{domain}:{first_id}:{last_id}"
-            module = module_path(
-                prefix,
-                [kind.title(), domain],
-                chunk_key,
-                psdl_names,
-            )
-            for plan in chunk:
-                plan["module"] = module
-            source = render_conversation_lua_records(chunk)
-            size = len(source.encode("utf-8"))
-            if size > CONVERSATION_MAX_SHARD_BYTES:
-                raise CompileError(
-                    "PSDL runtime plan shard renders above the generated budget: "
-                    + f"{owner}/{kind}/{domain}/{first_id}"
+        start = 0
+        while start < len(grouped_plans):
+            end = min(start + CONVERSATION_MAX_RECORDS_PER_SHARD, len(grouped_plans))
+            while end > start:
+                chunk = grouped_plans[start:end]
+                first_id = str(chunk[0].get("id") or "record")
+                last_id = str(chunk[-1].get("id") or first_id)
+                chunk_key = f"{owner}:{kind}:{domain}:{first_id}:{last_id}"
+                temp_names = psdl_names.clone()
+                module = module_path(
+                    prefix,
+                    [kind.title(), domain],
+                    chunk_key,
+                    temp_names,
                 )
+                for plan in chunk:
+                    plan["module"] = module
+                source = render_conversation_lua_records(chunk)
+                size = len(source.encode("utf-8"))
+                if size <= CONVERSATION_MAX_SHARD_BYTES:
+                    psdl_names = temp_names
+                    break
+                if len(chunk) == 1:
+                    raise CompileError(
+                        "PSDL runtime plan shard renders above the generated budget: "
+                        + f"{owner}/{kind}/{domain}/{first_id}"
+                    )
+                end -= 1
+            start = end
             psdl_modules.append((module, source))
             psdl_reports.append({
                 "module": module,

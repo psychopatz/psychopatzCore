@@ -5,12 +5,13 @@ return {
         ["id"] = "construction.social.ask_followup",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "ask_followup",
             ["sourceId"] = "construction.social.ask_followup",
-            ["sourcePath"] = "psdl/realization/social_challenge.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_challenge/social_ask_followup.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialChallenge",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -43,7 +44,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_challenge.json",
+        ["sourceShard"] = "realization/social_challenge/social_ask_followup.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -56,12 +57,13 @@ return {
         ["id"] = "construction.social.ask_why",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "ask_why",
             ["sourceId"] = "construction.social.ask_why",
-            ["sourcePath"] = "psdl/realization/social_challenge.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_challenge/social_ask_why.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialChallenge",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -94,7 +96,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_challenge.json",
+        ["sourceShard"] = "realization/social_challenge/social_ask_why.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -107,12 +109,13 @@ return {
         ["id"] = "construction.social.call_bluff",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "call_bluff",
             ["sourceId"] = "construction.social.call_bluff",
-            ["sourcePath"] = "psdl/realization/social_challenge.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_challenge/social_call_bluff.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialChallenge",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -145,7 +148,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_challenge.json",
+        ["sourceShard"] = "realization/social_challenge/social_call_bluff.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -158,12 +161,13 @@ return {
         ["id"] = "construction.social.challenge",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "challenge",
             ["sourceId"] = "construction.social.challenge",
-            ["sourcePath"] = "psdl/realization/social_challenge.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_challenge/social_challenge.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialChallenge",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -196,7 +200,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_challenge.json",
+        ["sourceShard"] = "realization/social_challenge/social_challenge.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -209,12 +213,13 @@ return {
         ["id"] = "construction.social.claim_joke",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "claim_joke",
             ["sourceId"] = "construction.social.claim_joke",
-            ["sourcePath"] = "psdl/realization/social_challenge.json#records[4]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_challenge/social_claim_joke.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialChallenge",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -247,7 +252,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_challenge.json",
+        ["sourceShard"] = "realization/social_challenge/social_claim_joke.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -260,12 +265,13 @@ return {
         ["id"] = "construction.social.dismiss",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "dismiss",
             ["sourceId"] = "construction.social.dismiss",
-            ["sourcePath"] = "psdl/realization/social_challenge.json#records[5]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_challenge/social_dismiss.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialChallenge",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -298,7 +304,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_challenge.json",
+        ["sourceShard"] = "realization/social_challenge/social_dismiss.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -311,12 +317,13 @@ return {
         ["id"] = "construction.social.double_down",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "double_down",
             ["sourceId"] = "construction.social.double_down",
-            ["sourcePath"] = "psdl/realization/social_challenge.json#records[6]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_challenge/social_double_down.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialChallenge",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -349,7 +356,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_challenge.json",
+        ["sourceShard"] = "realization/social_challenge/social_double_down.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -362,12 +369,13 @@ return {
         ["id"] = "construction.social.double_down_direct",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "double_down_direct",
             ["sourceId"] = "construction.social.double_down_direct",
-            ["sourcePath"] = "psdl/realization/social_challenge.json#records[7]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_challenge/social_double_down_direct.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialChallenge",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -400,7 +408,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_challenge.json",
+        ["sourceShard"] = "realization/social_challenge/social_double_down_direct.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
@@ -413,12 +421,13 @@ return {
         ["id"] = "construction.social.double_down_stand",
         ["kind"] = "realization",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
+            ["localId"] = "double_down_stand",
             ["sourceId"] = "construction.social.double_down_stand",
-            ["sourcePath"] = "psdl/realization/social_challenge.json#records[8]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourcePath"] = "realization/social_challenge/social_double_down_stand.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Realization/SocialChallenge",
+        ["namespace"] = "construction.social",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -451,7 +460,7 @@ return {
         },
         ["slots"] = {
         },
-        ["sourceShard"] = "psdl/realization/social_challenge.json",
+        ["sourceShard"] = "realization/social_challenge/social_double_down_stand.json",
         ["target"] = {
             ["multiple"] = false,
             ["required"] = false,
