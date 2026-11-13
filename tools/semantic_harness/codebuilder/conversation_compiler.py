@@ -1004,8 +1004,8 @@ def render_conversation_runtime_plan(
             last_id = str(chunk[-1].get("id") or first_id)
             chunk_key = f"{owner}:{kind}:{domain}:{first_id}:{last_id}"
             module = module_path(
-                f"{prefix}/PSDL",
-                [kind.title(), domain, "catalog"],
+                prefix,
+                [kind.title(), domain],
                 chunk_key,
                 psdl_names,
             )

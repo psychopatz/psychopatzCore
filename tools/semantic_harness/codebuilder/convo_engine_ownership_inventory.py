@@ -792,6 +792,16 @@ def _scan_cross_repo_references(
 
 
 def _classify_core_module(module: str, requires: list[str], text: str) -> dict[str, Any] | None:
+    if module.startswith("PsychopatzCore/ConvoEngine/"):
+        return {
+            "classification": "convo_engine",
+            "subDomain": "migrated_convo_engine",
+            "migrationDisposition": "migrated_to_convo_engine",
+            "proposedModule": module,
+            "reasons": [
+                "Migrated Core ConvoEngine module at canonical PsychopatzCore/ConvoEngine/* namespace (S6M2B).",
+            ],
+        }
     if module.startswith("PsychopatzCore/Semantics/Generated/Conversation/"):
         target = map_generated_convo_engine_module(module)
         return {
@@ -846,6 +856,16 @@ def _classify_core_module(module: str, requires: list[str], text: str) -> dict[s
 
 
 def _classify_hoomans_module(module: str, requires: list[str]) -> dict[str, Any] | None:
+    if module.startswith("PNC/ConvoEngine/"):
+        return {
+            "classification": "convo_engine",
+            "subDomain": "migrated_convo_engine",
+            "migrationDisposition": "migrated_to_convo_engine",
+            "proposedModule": module,
+            "reasons": [
+                "Migrated ProjectHoomans ConvoEngine module at canonical PNC/ConvoEngine/* namespace (S6M2B).",
+            ],
+        }
     if module.startswith("PNC/Semantics/Generated/Conversation/"):
         target = map_generated_convo_engine_module(module)
         return {
@@ -901,6 +921,16 @@ def _classify_hoomans_module(module: str, requires: list[str]) -> dict[str, Any]
 
 
 def _classify_dt_module(module: str, requires: list[str]) -> dict[str, Any] | None:
+    if module.startswith("DTCommon/ConvoEngine/"):
+        return {
+            "classification": "convo_engine",
+            "subDomain": "migrated_convo_engine",
+            "migrationDisposition": "migrated_to_convo_engine",
+            "proposedModule": module,
+            "reasons": [
+                "Migrated DynamicTrading ConvoEngine module at canonical DTCommon/ConvoEngine/* namespace (S6M2B).",
+            ],
+        }
     if module.startswith("DTCommon/Semantics/Generated/Conversation/"):
         target = map_generated_convo_engine_module(module)
         return {
@@ -964,10 +994,18 @@ def _collision_audit(
     target_collisions = {
         target: sources for target, sources in sorted(target_owners.items()) if len(sources) > 1
     }
+    has_unmigrated_convo = any(
+        item["classification"] == "convo_engine"
+        and item.get("migrationDisposition") != "migrated_to_convo_engine"
+        for item in records
+    )
     return {
         "existingConvoEnginePaths": existing_convo_engine_files,
         "targetPathCollisions": target_collisions,
-        "collisionSafe": not existing_convo_engine_files and not target_collisions,
+        "collisionSafe": (
+            not target_collisions
+            and (not existing_convo_engine_files or not has_unmigrated_convo)
+        ),
     }
 
 

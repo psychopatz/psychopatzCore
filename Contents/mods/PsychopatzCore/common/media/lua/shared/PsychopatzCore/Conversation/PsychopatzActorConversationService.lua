@@ -12,9 +12,9 @@ local Service = Conversation.ActorService or {}
 Conversation.ActorService = Service
 
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
-local Router = Semantics.DialogueRouter
-local Turn = Semantics.DialogueTurn
-local State = Semantics.DialogueState
+local Router = require "PsychopatzCore/ConvoEngine/DialogueRouter"
+local Turn = require "PsychopatzCore/ConvoEngine/DialogueTurn"
+local State = require "PsychopatzCore/ConvoEngine/DialogueState"
 local IR = Semantics.IR
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
 local Knowledge = require "PsychopatzCore/Actors/PsychopatzActorKnowledge"

@@ -11,9 +11,9 @@ CORE_OWNER = "PsychopatzCore"
 HOOMANS_OWNER = "ProjectHoomans"
 DT_COMMON_OWNER = "DTCommon"
 
-CORE_CONVERSATION_PREFIX = "PsychopatzCore/Semantics/Generated/Conversation"
-HOOMANS_CONVERSATION_PREFIX = "PNC/Semantics/Generated/Conversation"
-DT_COMMON_CONVERSATION_PREFIX = "DTCommon/Semantics/Generated/Conversation"
+CORE_CONVERSATION_PREFIX = "PsychopatzCore/ConvoEngine"
+HOOMANS_CONVERSATION_PREFIX = "PNC/ConvoEngine"
+DT_COMMON_CONVERSATION_PREFIX = "DTCommon/ConvoEngine"
 
 CORE_SHARED_RELATIVE = Path(
     "Contents/mods/PsychopatzCore/common/media/lua/shared"
@@ -69,7 +69,7 @@ PACKAGE_DESCRIPTORS = {
         conversation_prefix=CORE_CONVERSATION_PREFIX,
         translation_relative=CORE_TRANSLATION_RELATIVE,
         registry_module=CORE_CONVERSATION_PREFIX + "/Registry",
-        registry_namespace="PsychopatzCore.Semantics.ConversationRegistry",
+        registry_namespace="PsychopatzCore.ConvoEngine.Registry",
         translation_manifest_relative=Path("manifests/Conversation.json"),
         repository_environment="PZ_TEST_CORE_REPOSITORY",
     ),
@@ -80,10 +80,11 @@ PACKAGE_DESCRIPTORS = {
         conversation_prefix=HOOMANS_CONVERSATION_PREFIX,
         translation_relative=HOOMANS_TRANSLATION_RELATIVE,
         registry_module=HOOMANS_CONVERSATION_PREFIX + "/Registry",
-        registry_namespace="PNC.Semantics.ConversationRegistry",
+        registry_namespace="PNC.ConvoEngine.Registry",
         translation_manifest_relative=Path("manifests/Conversation.json"),
         capability_globs=(
             "Contents/mods/ProjectHoomans/*/media/lua/**/PNC_Semantic*.lua",
+            "Contents/mods/ProjectHoomans/*/media/lua/**/PNC/ConvoEngine/**/*.lua",
         ),
         repository_environment="PZ_TEST_HOOMANS_REPOSITORY",
     ),
@@ -100,7 +101,7 @@ PACKAGE_DESCRIPTORS = {
         conversation_prefix=DT_COMMON_CONVERSATION_PREFIX,
         translation_relative=DT_COMMON_TRANSLATION_RELATIVE,
         registry_module=DT_COMMON_CONVERSATION_PREFIX + "/Registry",
-        registry_namespace="DTCommon.Semantics.ConversationRegistry",
+        registry_namespace="DTCommon.ConvoEngine.Registry",
         translation_manifest_relative=Path("manifests/Conversation.json"),
         capability_ids=("DT.trade",),
         capability_globs=(

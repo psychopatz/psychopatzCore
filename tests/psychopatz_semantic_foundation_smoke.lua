@@ -4,7 +4,7 @@ package.path = ROOT .. "?.lua;" .. package.path
 PsychopatzCore = {}
 
 local Foundation = require
-    "PsychopatzCore/Semantics/PsychopatzSemanticFoundation"
+    "PsychopatzCore/ConvoEngine/Foundation"
 
 local function truthy(value, label)
     if not value then error(label or "expected truthy") end

@@ -13,10 +13,10 @@ assert(type(lexicon.verbFormsBySurface["following"]) == "table",
     "generated Core lexicon must retain reviewed morphology")
 
 local modules = {
-    "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/GreetingWhatsUp",
-    "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/Identity",
-    "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/WeatherNeeds",
-    "PsychopatzCore/Semantics/Generated/Conversation/Patterns/Common/WellbeingActivity",
+    "PsychopatzCore/ConvoEngine/Patterns/Common/GreetingWhatsUp",
+    "PsychopatzCore/ConvoEngine/Patterns/Common/Identity",
+    "PsychopatzCore/ConvoEngine/Patterns/Common/WeatherNeeds",
+    "PsychopatzCore/ConvoEngine/Patterns/Common/WellbeingActivity",
 }
 
 for _, module in ipairs(modules) do

@@ -71,8 +71,8 @@ def render_conversation_registry(
         "Registry.BEHAVIORS = {}",
         "Registry.BEATS = {}",
           "Registry.PACKS = {}",
-        "Registry.PSDL_PLANS = {}",
-        "Registry.PSDL_RESPONSE_TEMPLATES = {}",
+        "Registry.CONVO_PLANS = {}",
+        "Registry.CONVO_RESPONSE_TEMPLATES = {}",
         "Registry.UI = {}",
     ]
     lines.extend([
@@ -108,23 +108,23 @@ def render_conversation_registry(
           "    if type(loaded) ~= \"table\" then return end",
           "    for _, value in ipairs(loaded) do Registry.PACKS[#Registry.PACKS + 1] = value end",
           "end",
-        "local function appendPSDL(loaded)",
+        "local function appendConvoPlans(loaded)",
         "    if type(loaded) ~= \"table\" then return end",
         "    for _, value in ipairs(loaded) do",
         "        if type(value) == \"table\" and value.id then",
-        "            Registry.PSDL_PLANS[tostring(value.id)] = value",
+        "            Registry.CONVO_PLANS[tostring(value.id)] = value",
         "            local payload = value.payload",
         "            local metadata = type(payload) == \"table\" and payload.metadata or nil",
         "            local templateID = type(metadata) == \"table\" and metadata.responseTemplateID or nil",
         "            if type(templateID) == \"string\" and templateID ~= \"\" then",
-        "                Registry.PSDL_RESPONSE_TEMPLATES[templateID] = true",
+        "                Registry.CONVO_RESPONSE_TEMPLATES[templateID] = true",
         "            end",
         "            local outputs = type(payload) == \"table\" and payload.outputs or nil",
         "            if type(outputs) == \"table\" then",
         "                for _, output in pairs(outputs) do",
         "                    local outputTemplate = type(output) == \"table\" and output.contentTemplateID or nil",
         "                    if type(outputTemplate) == \"string\" and outputTemplate ~= \"\" then",
-        "                        Registry.PSDL_RESPONSE_TEMPLATES[outputTemplate] = true",
+        "                        Registry.CONVO_RESPONSE_TEMPLATES[outputTemplate] = true",
         "                    end",
         "                end",
         "            end",
@@ -162,7 +162,7 @@ def render_conversation_registry(
         elif report["kind"] == "Packs":
             lines.append(f"appendPacks({loaded_expression})")
         elif report["kind"] == "PSDL":
-            lines.append(f"appendPSDL({loaded_expression})")
+            lines.append(f"appendConvoPlans({loaded_expression})")
         elif report["kind"] == "UI":
             lines.append(f"appendUI({loaded_expression})")
     lines.extend([
@@ -183,8 +183,8 @@ def render_conversation_registry(
         "function Registry.PlayerChoice(contentID)",
         "    return Registry.PLAYER_CHOICES[tostring(contentID or \"\")]",
         "end",
-        "function Registry.PSDLPlan(planID)",
-        "    return Registry.PSDL_PLANS[tostring(planID or \"\")]",
+        "function Registry.ConvoPlan(planID)",
+        "    return Registry.CONVO_PLANS[tostring(planID or \"\")]",
         "end",
         "return Registry",
         "",

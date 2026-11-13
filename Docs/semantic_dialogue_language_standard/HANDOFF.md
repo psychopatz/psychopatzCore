@@ -4,14 +4,14 @@ checkpoint_mode: "committed_handoff"
 phase_commit: "self"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-participant_heads: "project-hoomans=c10b3f94f7a83b77547fed55d4da676823c42b75;dynamic-trading=f4a68eb971910092409d8bff447f50a15ffe296a"
+participant_heads: "project-hoomans=a92c83a78606bc99136d193baca90a55d693ff84;dynamic-trading=87435bacae563750f87cb7c7a2ba5b4b62bc081c"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S6M — ConvoEngine normalization"
-chunk: "S6M2B — root-cause ConvoEngine namespace and naming migration"
+chunk: "S6M3 — CodeBuilder source sharding and canonical normalization"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-13T18:08:00Z"
+updated_at: "2026-11-13T18:43:00Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -34,15 +34,15 @@ The existing compiler/runtime migration is useful. Do not undo it.
 ```text
 Core
 /home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD 9d9f9406666fda1e9e1a53f835890d2710fec399
+HEAD f695be0 (parent of this S6M2B commit)
 
 Hoomans
 /home/psychopatz/Zomboid/Workshop/ProjectHoomans
-HEAD c10b3f94f7a83b77547fed55d4da676823c42b75
+HEAD a92c83a78606bc99136d193baca90a55d693ff84
 
 DynamicTrading
 /home/psychopatz/Zomboid/Workshop/DynamicTrading
-HEAD f4a68eb971910092409d8bff447f50a15ffe296a
+HEAD 87435bacae563750f87cb7c7a2ba5b4b62bc081c
 ```
 
 Reinspect Git state before edits. Preserve unrelated work.
@@ -216,38 +216,32 @@ Read-only candidate discovery is separate from mutation.
 
 This is S6M6, not the current chunk.
 
-## What became true in S6M2A
+## What became true in S6M2B
 
-- Added `tools/semantic_harness/codebuilder/convo_engine_ownership_inventory.py` and exported `OWNERSHIP_INVENTORY_SCHEMA`, `build_ownership_inventory`, and `map_generated_convo_engine_module` from `tools/semantic_harness/codebuilder/__init__.py`.
-- Generated machine-readable evidence report `Docs/semantic_dialogue_language_standard/S6M2A_OWNERSHIP_INVENTORY.json` covering 805 modules across `PsychopatzCore` (88), `ProjectHoomans` (708), and `DynamicTrading` (9): 530 `convo_engine` vs 275 `generic_semantic_infrastructure` (classified by functional exports, requires, and cross-repo callers, not filename alone), plus 49 legacy reference files.
-- Verified `<Owner>/ConvoEngine/` collision safety (`collisionSafe: true`, zero existing `ConvoEngine` paths, zero target-path collisions).
-- Added `tools/semantic_harness/tests/test_convo_engine_ownership_inventory.py` and verified all 127 tests in `tools/semantic_harness/tests` pass.
+- Updated CodeBuilder routing, naming, compiler, and registry emitters (`generation_ownership.py`, `catalog_naming.py`, `conversation_contract.py`, `conversation_compiler.py`, `psdl_compiler.py`, `conversation_registry.py`, `build.py`, `psdl_authoring_audit.py`) so all ConvoEngine-owned runtime output emits directly under `<Owner>/ConvoEngine/...` with semantic module names (zero `Catalog.lua` leaves), `CONVO_PLANS` / `ConvoPlan` / `appendConvoPlans`, and `build.py` prunes stale generated Lua before writing.
+- Migrated proven ConvoEngine-owned runtime modules in Core (`PsychopatzCore/ConvoEngine/{DialogueFlow,DialogueRouter,DialogueState*,DialogueTurn,Foundation,FoundationRegistry,Offer,TextBinding}`), DynamicTrading (`DTCommon/ConvoEngine/...`), and ProjectHoomans (`PNC/ConvoEngine/...`) while keeping Core generic semantic infrastructure under `PsychopatzCore/Semantics/`.
+- Regenerated 457 generated files across all three repositories via CodeBuilder, updated all Lua/Python callers and tests, and verified zero remaining Lua callers on removed `Semantics/Generated/Conversation`, `Conversation/PSDL`, `PSDLPlan`, and old `PsychopatzSemanticDialogue*` paths.
+- Verification: Core Python `tools/semantic_harness/tests` 127/127 OK, `refactor_binding_smoke.py` PASS, all 12 Core Lua smoke tests PASS; DynamicTrading `tests/run_tests.py` PASS 89/89; ProjectHoomans `tests/run_tests.py` 1003/1020 PASS (17 pre-existing S1/S5 baseline failures recorded for S6M3-S8 closure, including `FlowGenerator_Registration` missing `projecthoomans:task_lifecycle` projection in `SocialContent_Core` from S5 `1c88d83c`); `test_generation_ownership.py` 7/8 PASS (1 pre-existing S5 fixture path `behaviors/social`).
 
-## Immediate Next Chunk — S6M2B
+## Immediate Next Chunk — S6M3
 
 Responsibility:
 
-> Execute the root-cause namespace and naming migration across `PsychopatzCore`,
-> `ProjectHoomans`, and `DynamicTrading`:
-> - route generated ConvoEngine modules to `<Owner>/ConvoEngine/...` with semantic module names (no `Catalog.lua` leaves);
-> - migrate proven ConvoEngine-owned hand-authored modules and symbols while leaving generic Core `Semantics/` intact;
-> - regenerate all three repos via CodeBuilder;
-> - update callers, registries, manifests, diagnostics, and tests atomically;
-> - prove old ConvoEngine-owned path/symbol caller zero before deleting superseded paths.
+> Shard and migrate canonical ConvoEngine source content through the CodeBuilder
+> authoring/migration API/CLI (`one file = one coherent semantic family`) under
+> `sources/conversation/{dialogue,behavior,beat,realization}/...`, eliminating bulk
+> `psdl/*` migration buckets without manual JSON manufacturing.
 
 Pass gate:
 
-- Core, ProjectHoomans, and DynamicTrading regenerate cleanly under `<Owner>/ConvoEngine/...`;
-- Lua/Python test suites pass with zero callers on removed legacy ConvoEngine paths.
+- Source shards live cleanly under `sources/conversation/` without giant multi-family buckets;
+- CodeBuilder preview/validation/build/regeneration passes cleanly with tests.
 
 ## Following bounded chunks
 
-- **S6M1B:** small headless CodeBuilder create/edit/move/shard/write API.
-- **S6M2A:** classify ConvoEngine-owned runtime modules versus generic semantic infrastructure.
-- **S6M2B:** migrate proven conversation runtime to `<Owner>/ConvoEngine/...` + semantic generated filenames through root-cause routing/regeneration.
-- **S6M3-S6M5:** source migration/sharding through CodeBuilder.
+- **S6M3-S6M5:** source migration/sharding/normalization through CodeBuilder (`say` keys, outcomes, styles, affordances, recommendations).
 - **S6M6:** registered action/result contract + CAMP parity.
-- **S6M7-S6M8:** metadata cleanup + regeneration/audit.
+- **S6M7-S6M8:** metadata cleanup + regeneration/audit/regression closure.
 - **S7:** final ConvoEngine Semantic Lab UX.
 - **S8:** exhaustive three-repo acceptance.
 

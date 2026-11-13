@@ -11,12 +11,12 @@ end
 
 local Predicate = require
     "PsychopatzCore/Semantics/PsychopatzSemanticPredicate"
-local Offers = require "PsychopatzCore/Semantics/PsychopatzSemanticOffer"
+local Offers = require "PsychopatzCore/ConvoEngine/Offer"
 local TextBinding = require
-    "PsychopatzCore/Semantics/PsychopatzSemanticTextBinding"
+    "PsychopatzCore/ConvoEngine/TextBinding"
 local IR = require "PsychopatzCore/Semantics/PsychopatzSemanticIR"
 local State = require
-    "PsychopatzCore/Semantics/PsychopatzSemanticDialogueState"
+    "PsychopatzCore/ConvoEngine/DialogueState"
 
 local context = {
     speaker = {id = "npc:alice", traits = {"brave", "kind"}},

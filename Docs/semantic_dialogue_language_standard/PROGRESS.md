@@ -312,24 +312,21 @@ Filesystem path is discoverability, not canonical identity.
   - **S6M1A:** ACCEPTED (compact exchange-family compiler + CodeBuilder preview/validation seam; 120 `tools/semantic_harness/tests` tests passing).
   - **S6M1B:** ACCEPTED (headless CodeBuilder `convo_engine_authoring.py` / `convo_engine_cli.py` + `SemanticLabAuthoringService` create/edit/move/shard/write API; 124 `tools/semantic_harness/tests` tests passing).
   - **S6M2A:** ACCEPTED (three-repo ownership inventory in `convo_engine_ownership_inventory.py` + `S6M2A_OWNERSHIP_INVENTORY.json`: 805 modules classified into 530 `convo_engine` vs 275 `generic_semantic_infrastructure`, collision check passing, 127 tests passing).
+  - **S6M2B:** ACCEPTED (root-cause ConvoEngine routing across Core, ProjectHoomans, and DynamicTrading to `<Owner>/ConvoEngine/...` with semantic module filenames and zero `Catalog.lua` leaves; migrated proven ConvoEngine-owned runtime modules/identifiers while preserving Core generic `Semantics/`; regenerated 457 files cleanly via CodeBuilder; verified caller-zero in Lua across all 3 repos; Core Python 127/127 OK, Core refactor smoke PASS, Core 12 Lua smoke tests PASS, DynamicTrading 89/89 PASS, ProjectHoomans Lua 1003/1020 with 17 pre-existing S1/S5 baseline failures recorded for S6M3-S8 closure).
 - **S7:** PARTIAL / REOPENED because editor must support the final exchange-family/affordance/reply/action-result model.
 - **S8:** NOT ACCEPTED.
 
-## Immediate Next Chunk — S6M2B
+## Immediate Next Chunk — S6M3
 
 Responsibility:
 
-> Perform the root-cause namespace/naming migration: update Core package descriptors,
-> owner-routing constants, compiler/generator/template logic to route ConvoEngine-owned
-> output to `<Owner>/ConvoEngine/...` with semantic module names (replacing `Catalog.lua`
-> leaves), migrate proven ConvoEngine-owned hand-authored modules/symbols, regenerate all
-> three owners through CodeBuilder, update callers/tests atomically, prove old-path caller
-> zero, and remove superseded paths.
+> Migrate and shard canonical ConvoEngine source content through the CodeBuilder
+> authoring/migration API/CLI (`one file = one coherent semantic family`) under
+> `sources/conversation/{dialogue,behavior,beat,realization}/...`, eliminating bulk
+> `psdl/dialogue/*` migration buckets without manual JSON generation or hand edits.
 
-Following bounded chunks after S6M2B:
+Following bounded chunks after S6M3:
 
-- **S6M3:** semantic source sharding through CodeBuilder API/CLI (`one file = one coherent semantic family`);
-- **S6M2B:** migrate proven ConvoEngine-owned routing from `Semantics/Generated/Conversation/PSDL` (and conversation-specific `Semantics/...` modules where proven) to `<Owner>/ConvoEngine/...`, fix semantic module naming, regenerate atomically, and prove old-path caller zero;
 - **S6M3-S6M5:** migrate/shard content **through CodeBuilder**, never by manually
   manufacturing destination JSON;
 - **S6M6:** registered gameplay action/result contract + CAMP acceptance;

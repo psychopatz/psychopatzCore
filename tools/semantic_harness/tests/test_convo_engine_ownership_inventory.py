@@ -60,24 +60,23 @@ class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
         self.assertEqual(report["schema"], OWNERSHIP_INVENTORY_SCHEMA)
         self.assertEqual(report["phase"], "S6M2A")
         self.assertTrue(report["collisionCheck"]["collisionSafe"])
-        self.assertEqual(report["collisionCheck"]["existingConvoEnginePaths"], [])
         self.assertEqual(report["collisionCheck"]["targetPathCollisions"], {})
 
         by_key = {(item["repository"], item["module"]): item for item in report["modules"]}
 
-        # Core ConvoEngine-owned modules
+        # Core ConvoEngine-owned modules (canonical post-S6M2B namespace)
         for core_convo in (
-            "PsychopatzCore/Semantics/PsychopatzSemanticDialogueState",
-            "PsychopatzCore/Semantics/PsychopatzSemanticDialogueRouter",
-            "PsychopatzCore/Semantics/PsychopatzSemanticDialogueFlow",
-            "PsychopatzCore/Semantics/PsychopatzSemanticDialogueTurn",
-            "PsychopatzCore/Semantics/PsychopatzSemanticOffer",
-            "PsychopatzCore/Semantics/PsychopatzSemanticFoundation",
-            "PsychopatzCore/Semantics/Generated/Conversation/FoundationRegistry",
+            "PsychopatzCore/ConvoEngine/DialogueState",
+            "PsychopatzCore/ConvoEngine/DialogueRouter",
+            "PsychopatzCore/ConvoEngine/DialogueFlow",
+            "PsychopatzCore/ConvoEngine/DialogueTurn",
+            "PsychopatzCore/ConvoEngine/Offer",
+            "PsychopatzCore/ConvoEngine/Foundation",
+            "PsychopatzCore/ConvoEngine/FoundationRegistry",
         ):
             entry = by_key[("PsychopatzCore", core_convo)]
             self.assertEqual(entry["classification"], "convo_engine")
-            self.assertTrue(entry["proposedModule"].startswith("PsychopatzCore/ConvoEngine/"))
+            self.assertEqual(entry["proposedModule"], core_convo)
 
         # Generic Core Semantic infrastructure stays under PsychopatzCore/Semantics/
         for core_generic in (
@@ -95,7 +94,7 @@ class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
             self.assertTrue(entry["proposedModule"].startswith("PsychopatzCore/Semantics/"))
 
         # ProjectHoomans ConvoEngine vs non-ConvoEngine domain subsystems
-        psdl_adapter = by_key[("ProjectHoomans", "PNC/Conversation/PSDL/PNC_ConversationPSDLBlocks")]
+        psdl_adapter = by_key[("ProjectHoomans", "PNC/ConvoEngine/DialogueBlocks")]
         self.assertEqual(psdl_adapter["classification"], "convo_engine")
         self.assertEqual(psdl_adapter["proposedModule"], "PNC/ConvoEngine/DialogueBlocks")
 
@@ -104,7 +103,7 @@ class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
         self.assertEqual(pnc_action["subDomain"], "domain_action_and_task")
 
         # DynamicTrading generated output routes to DTCommon/ConvoEngine/*
-        dt_gen = by_key[("DynamicTrading", "DTCommon/Semantics/Generated/Conversation/Registry")]
+        dt_gen = by_key[("DynamicTrading", "DTCommon/ConvoEngine/Registry")]
         self.assertEqual(dt_gen["classification"], "convo_engine")
         self.assertEqual(dt_gen["proposedModule"], "DTCommon/ConvoEngine/Registry")
 
@@ -125,9 +124,12 @@ class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
             root = Path(tmp)
             for name in ("PsychopatzCore", "ProjectHoomans", "DynamicTrading"):
                 (root / name / "Contents" / "mods" / name / "common" / "media" / "lua" / "shared").mkdir(parents=True)
-            colliding = root / "PsychopatzCore" / "Contents" / "mods" / "PsychopatzCore" / "common" / "media" / "lua" / "shared" / "PsychopatzCore" / "ConvoEngine" / "Existing.lua"
+            colliding = root / "PsychopatzCore" / "Contents" / "mods" / "PsychopatzCore" / "common" / "media" / "lua" / "shared" / "PsychopatzCore" / "ConvoEngine" / "DialogueState.lua"
             colliding.parent.mkdir(parents=True, exist_ok=True)
             colliding.write_text("return {}\n", encoding="utf-8")
+            unmigrated = root / "PsychopatzCore" / "Contents" / "mods" / "PsychopatzCore" / "common" / "media" / "lua" / "shared" / "PsychopatzCore" / "Semantics" / "PsychopatzSemanticDialogueState.lua"
+            unmigrated.parent.mkdir(parents=True, exist_ok=True)
+            unmigrated.write_text("return {}\n", encoding="utf-8")
 
             report = build_ownership_inventory({
                 "PsychopatzCore": root / "PsychopatzCore",
@@ -135,7 +137,7 @@ class ConvoEngineOwnershipInventoryTests(unittest.TestCase):
                 "DynamicTrading": root / "DynamicTrading",
             })
             self.assertFalse(report["collisionCheck"]["collisionSafe"])
-            self.assertEqual(len(report["collisionCheck"]["existingConvoEnginePaths"]), 1)
+            self.assertIn("PsychopatzCore/ConvoEngine/DialogueState", report["collisionCheck"]["targetPathCollisions"])
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ local PackRegistry = {}
 PsychopatzCore.Semantics.PackRegistry = PackRegistry
 
 local Util = require "PsychopatzCore/Actors/PsychopatzActorUtil"
-local Flow = require "PsychopatzCore/Semantics/PsychopatzSemanticDialogueFlow"
+local Flow = require "PsychopatzCore/ConvoEngine/DialogueFlow"
 
 PackRegistry.Packs = PackRegistry.Packs or {}
 PackRegistry.ActionProviders = PackRegistry.ActionProviders or {}

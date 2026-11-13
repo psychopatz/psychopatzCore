@@ -210,11 +210,22 @@ def _shared_lua_root(path: Path) -> Path:
     raise ValueError("generated output must be under a media/lua/shared tree")
 
 
-def _clean_generated_tree(root: Path) -> None:
-    """Remove only Lua artifacts owned by one generated catalog directory."""
+def _is_codebuilder_generated_lua(path: Path) -> bool:
+    """Return True only when *path* carries the CodeBuilder generated header."""
+    try:
+        with path.open("r", encoding="utf-8", errors="replace") as handle:
+            first_line = handle.readline()
+    except OSError:
+        return False
+    return first_line.startswith("-- Generated") and "do not edit by hand." in first_line
+
+
+def _clean_generated_tree(root: Path, *, generated_only: bool = False) -> None:
+    """Remove CodeBuilder-owned generated Lua artifacts beneath *root*."""
     if root.exists():
         for path in sorted(root.rglob("*.lua"), reverse=True):
-            path.unlink()
+            if not generated_only or _is_codebuilder_generated_lua(path):
+                path.unlink()
         for directory in sorted(
             (path for path in root.rglob("*") if path.is_dir()),
             key=lambda path: len(path.parts),
@@ -333,7 +344,8 @@ def write_conversation_output(
                 core_repository=core_repository,
                 dynamic_trading_repository=dynamic_trading_repository,
                 runtime_root=repository,
-            )
+            ),
+            generated_only=True,
         )
 
     registry_root.mkdir(parents=True, exist_ok=True)
@@ -379,10 +391,7 @@ def write_conversation_output(
                 reports,
                 registry_owner=CORE_OWNER,
                 include_owner=CORE_OWNER,
-                registry_module=(
-                    "PsychopatzCore/Semantics/Generated/Conversation/"
-                    "FoundationRegistry"
-                ),
+                registry_module="PsychopatzCore/ConvoEngine/FoundationRegistry",
             ),
             encoding="utf-8",
             newline="\n",
@@ -408,9 +417,7 @@ def write_conversation_output(
                 reports,
                 registry_owner=DT_COMMON_OWNER,
                 include_owner=DT_COMMON_OWNER,
-                registry_module=(
-                    "DTCommon/Semantics/Generated/Conversation/Registry"
-                ),
+                registry_module="DTCommon/ConvoEngine/Registry",
             ),
             encoding="utf-8",
             newline="\n",

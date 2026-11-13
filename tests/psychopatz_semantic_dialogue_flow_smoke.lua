@@ -13,7 +13,7 @@ local function truthy(value, label)
 end
 
 local Semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
-local Flow = Semantics.DialogueFlow
+local Flow = require "PsychopatzCore/ConvoEngine/DialogueFlow"
 local PackRegistry = Semantics.PackRegistry
 
 PackRegistry.Reset()

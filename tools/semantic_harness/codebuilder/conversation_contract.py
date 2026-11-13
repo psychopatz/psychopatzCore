@@ -12,8 +12,7 @@ CONVERSATION_SOURCE_RELATIVE = Path(
 )
 CONVERSATION_MANIFEST_RELATIVE = CONVERSATION_SOURCE_RELATIVE / "manifest.json"
 CONVERSATION_RUNTIME_RELATIVE = Path(
-    "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/"
-    "Semantics/Generated/Conversation"
+    "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine"
 )
 CONVERSATION_UI_RUNTIME_RELATIVE = CONVERSATION_RUNTIME_RELATIVE / "UI/StaticSuggestions.lua"
 

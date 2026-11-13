@@ -104,6 +104,7 @@ SOURCE_ROOT_SEGMENTS = frozenset({
     "affordances",
     "realization",
     "packs",
+    "psdl",
 })
 
 

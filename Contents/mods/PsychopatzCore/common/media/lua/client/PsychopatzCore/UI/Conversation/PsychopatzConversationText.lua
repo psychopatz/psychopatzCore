@@ -8,9 +8,9 @@ Text.domains = Text.domains or {}
 Text.tables = Text.tables or {}
 Text.fallbacks = Text.fallbacks or {}
 local CoreTranslation = PsychopatzCore.Translation
-local TextBinding = PsychopatzCore.Semantics
-    and PsychopatzCore.Semantics.TextBinding
-    or require "PsychopatzCore/Semantics/PsychopatzSemanticTextBinding"
+local TextBinding = PsychopatzCore.ConvoEngine
+    and PsychopatzCore.ConvoEngine.TextBinding
+    or require "PsychopatzCore/ConvoEngine/TextBinding"
 
 local function copyArgs(values)
     local output = {}

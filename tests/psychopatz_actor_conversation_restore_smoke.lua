@@ -15,8 +15,8 @@ end
 local Actors = require "PsychopatzCore/Actors/PsychopatzActors"
 local ActorService = require
     "PsychopatzCore/Conversation/PsychopatzActorConversationService"
-local Router = require "PsychopatzCore/Semantics/PsychopatzSemanticDialogueRouter"
-local State = require "PsychopatzCore/Semantics/PsychopatzSemanticDialogueState"
+local Router = require "PsychopatzCore/ConvoEngine/DialogueRouter"
+local State = require "PsychopatzCore/ConvoEngine/DialogueState"
 
 local registry = Actors.NewRegistry()
 local actor, actorReason = registry:Create({

@@ -1,0 +1,311 @@
+PsychopatzCore = PsychopatzCore or {}
+PsychopatzCore.Semantics = PsychopatzCore.Semantics or {}
+PsychopatzCore.ConvoEngine = PsychopatzCore.ConvoEngine or {}
+
+local Semantics = PsychopatzCore.Semantics
+local IR = Semantics.IR
+    or require "PsychopatzCore/Semantics/PsychopatzSemanticIR"
+local ConvoEngine = PsychopatzCore.ConvoEngine
+local State = ConvoEngine.DialogueState
+    or require "PsychopatzCore/ConvoEngine/DialogueState"
+local Router = ConvoEngine.DialogueRouter or {}
+ConvoEngine.DialogueRouter = Router
+
+Router.VERSION = 1
+
+local function asTable(value)
+    return type(value) == "table" and value or {}
+end
+
+local function defaultDecision(ir, state)
+    return {
+        schemaVersion = Router.VERSION,
+        kind = "semantic_dialogue_decision",
+        route = "semantic",
+        branch = "UNHANDLED",
+        confidence = tonumber(ir and ir.confidence) or 0,
+        intent = ir and ir.intent,
+        speechAct = ir and ir.speechAct,
+        action = ir and ir.action,
+        diagnostics = {
+            reason = "no_policy",
+            stateSequence = state and state.sequence or nil,
+        },
+    }
+end
+
+function Router.New(spec)
+    spec = asTable(spec)
+    local self = {
+        version = Router.VERSION,
+        state = spec.state or State.New(spec.stateSpec),
+        parser = spec.parser or Semantics.Parser.Parse,
+        candidateParser = spec.candidateParser,
+        candidateSelector = spec.candidateSelector,
+        contextResolver = spec.contextResolver,
+        policy = spec.policy,
+        decide = spec.decide,
+        context = spec.context or {},
+        options = spec.options or {},
+        lastResult = nil,
+        lastCandidateSet = nil,
+        lastCandidateDiagnostics = nil,
+    }
+    setmetatable(self, { __index = Router })
+    return self
+end
+
+function Router:SetContext(context)
+    self.context = asTable(context)
+    return self.context
+end
+
+function Router:SetParser(parser)
+    if type(parser) ~= "function" then return false, "invalid_parser" end
+    self.parser = parser
+    return true, parser
+end
+
+function Router:SetCandidateParser(parser)
+    if parser ~= nil and type(parser) ~= "function" then
+        return false, "invalid_candidate_parser"
+    end
+    self.candidateParser = parser
+    return true, parser
+end
+
+function Router:SetCandidateSelector(selector)
+    if selector ~= nil and type(selector) ~= "function" then
+        return false, "invalid_candidate_selector"
+    end
+    self.candidateSelector = selector
+    return true, selector
+end
+
+function Router:SetContextResolver(resolver)
+    if resolver ~= nil and type(resolver) ~= "function" then
+        return false, "invalid_context_resolver"
+    end
+    self.contextResolver = resolver
+    return true, resolver
+end
+
+function Router:SetPolicy(policy)
+    self.policy = policy
+    return policy
+end
+
+function Router:SetState(state)
+    if type(state) ~= "table"
+        or type(state.Record) ~= "function"
+    then
+        return false, "invalid_state"
+    end
+    self.state = state
+    return true, state
+end
+
+function Router:Parse(text, options)
+    if type(self.parser) ~= "function" then
+        return nil, "parser_unavailable"
+    end
+    return self.parser(text, options or self.options)
+end
+
+function Router:ParseCandidates(text, options)
+    if type(self.candidateParser) ~= "function" then
+        return nil, "candidate_parser_unavailable"
+    end
+    return self.candidateParser(text, options or self.options)
+end
+
+function Router:Decide(ir, context, options)
+    context = context or self.context
+    options = options or self.options
+    if type(self.decide) == "function" then
+        return self.decide(ir, self.state, context, options)
+    end
+    if self.policy and type(self.policy.Decide) == "function" then
+        return self.policy.Decide(ir, self.state, context, options)
+    end
+    return defaultDecision(ir, self.state)
+end
+
+function Router:ResolveIR(ir, context, options)
+    if type(self.contextResolver) ~= "function" then return ir end
+
+    context = context or self.context
+    options = options or self.options
+    local ok, resolved = pcall(
+        self.contextResolver,
+        ir,
+        self.state,
+        context,
+        options
+    )
+    if not ok or type(resolved) ~= "table" then return ir end
+
+    local valid = IR.Validate(resolved)
+    if valid ~= true then return ir end
+    return resolved
+end
+
+function Router:Preview(text, context, options)
+    context = context or self.context
+    options = options or self.options
+    local parseOptions = options
+    if context and context.capabilities and (not options or not options.capabilities) then
+        parseOptions = {}
+        if options then
+            for k, v in pairs(options) do parseOptions[k] = v end
+        end
+        parseOptions.capabilities = context.capabilities
+        parseOptions.context = context
+    end
+    local ir
+    local parseReason
+    local candidateSet
+    local candidateDiagnostics
+    local usedCandidates = false
+    local candidateSelectionAttempted = false
+    self.lastCandidateSet = nil
+    self.lastCandidateDiagnostics = nil
+    if type(self.candidateParser) == "function" then
+        candidateSet, parseReason = self:ParseCandidates(text, parseOptions)
+        if type(candidateSet) == "table"
+            and type(candidateSet.candidates) == "table"
+        then
+            usedCandidates = true
+            self.lastCandidateSet = candidateSet
+            if type(self.candidateSelector) == "function" then
+                candidateSelectionAttempted = true
+                ir, candidateDiagnostics = self.candidateSelector(
+                    candidateSet,
+                    self.state,
+                    context,
+                    parseOptions,
+                    self.contextResolver
+                )
+                self.lastCandidateDiagnostics = candidateDiagnostics
+            elseif candidateSet.selected then
+                ir = candidateSet.selected.ir
+            end
+        end
+    end
+    if not usedCandidates
+        or (not candidateSelectionAttempted and not ir)
+    then
+        ir, parseReason = self:Parse(text, parseOptions)
+    end
+    if not ir then
+        return {
+            schemaVersion = Router.VERSION,
+            kind = "semantic_dialogue_preview",
+            accepted = false,
+            reason = parseReason or "parse_failed",
+            state = self.state,
+        }
+    end
+    if type(candidateDiagnostics) == "table"
+        and type(ir.diagnostics) == "table"
+    then
+        ir.diagnostics.candidateSelection = candidateDiagnostics
+    end
+    ir = self:ResolveIR(ir, context, options)
+    return {
+        schemaVersion = Router.VERSION,
+        kind = "semantic_dialogue_preview",
+        accepted = true,
+        ir = ir,
+        decision = self:Decide(ir, context, options),
+        candidates = candidateSet,
+        candidateDiagnostics = candidateDiagnostics,
+        state = self.state,
+        sequence = self.state.sequence,
+    }
+end
+
+function Router:ProcessIR(ir, context, options)
+    options = options or self.options
+    ir = self:ResolveIR(ir, context, options)
+    local valid, validationReason = IR.Validate(ir)
+    if valid ~= true then
+        return {
+            schemaVersion = Router.VERSION,
+            kind = "semantic_dialogue_result",
+            accepted = false,
+            reason = validationReason or "invalid_ir",
+            ir = ir,
+            state = self.state,
+        }
+    end
+
+    local recorded, eventOrReason = self.state:Record(ir, options)
+    if recorded ~= true then
+        return {
+            schemaVersion = Router.VERSION,
+            kind = "semantic_dialogue_result",
+            accepted = false,
+            reason = eventOrReason or "state_rejected",
+            ir = ir,
+            state = self.state,
+        }
+    end
+
+    local decision = self:Decide(ir, context, options)
+    local result = {
+        schemaVersion = Router.VERSION,
+        kind = "semantic_dialogue_result",
+        accepted = true,
+        ir = ir,
+        decision = decision,
+        event = eventOrReason,
+        candidates = self.lastCandidateSet,
+        candidateDiagnostics = self.lastCandidateDiagnostics,
+        state = self.state,
+        sequence = self.state.sequence,
+    }
+    if self.policy and type(self.policy.CommitFlow) == "function" then
+        local committedFlow = self.policy.CommitFlow(
+            decision,
+            ir,
+            self.state,
+            context or self.context,
+            options
+        )
+        if type(committedFlow) == "table" then
+            result.flow = committedFlow
+            decision.flow = committedFlow
+        end
+    end
+    if self.state and type(self.state.CompletePending) == "function" then
+        -- Decide before completing so response composition can still use the
+        -- request/question that this turn answers.
+        self.state:CompletePending(ir)
+    end
+    self.lastResult = result
+    return result
+end
+
+function Router:Process(text, context, options)
+    local preview = self:Preview(text, context, options)
+    if preview.accepted ~= true then
+        preview.kind = "semantic_dialogue_result"
+        return preview
+    end
+    return self:ProcessIR(preview.ir, context, options)
+end
+
+function Router:Snapshot()
+    return self.state and self.state:Snapshot() or nil
+end
+
+function Router:Reset()
+    if self.state and self.state.Reset then self.state:Reset() end
+    self.lastResult = nil
+    self.lastCandidateSet = nil
+    self.lastCandidateDiagnostics = nil
+    return self.state
+end
+
+return Router

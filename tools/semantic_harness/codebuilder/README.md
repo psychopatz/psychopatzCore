@@ -1,21 +1,38 @@
 # Semantic Harness CodeBuilder
 
-CodeBuilder has one canonical Conversation authoring tree:
+## Canonical authoring direction — ConvoEngine
+
+**ConvoEngine** is the Core-owned first-party conversation authoring/compiler system shared by PsychopatzCore, ProjectHoomans, and DynamicTrading/DTCommon. The previous name **PSDL** meant **Psychopatz Semantic Dialogue Language**; `PSDL`/`psdl` is migration compatibility only and should not be introduced into new public APIs or final source/runtime paths. Normative goal documentation is in `Docs/semantic_dialogue_language_standard/`, with the compact agent contract in `CONVO_ENGINE.md`.
+
+The current pre-ConvoEngine/legacy conversation source tree remains migration input while domains move to the final ConvoEngine model:
 
 ```text
 sources/conversation/
 ├─ manifest.json
-├─ content/
-├─ patterns/
-├─ flows/
-├─ behaviors/
-├─ beats/
-├─ realization/
-└─ ui/
+├─ content/       # migration input
+├─ patterns/      # migration input where dialogue-specific
+├─ flows/         # migration input
+├─ responses/     # migration input where present
+├─ ui/            # migration input for split suggestion authoring
+├─ behaviors/     # migration input
+├─ beats/         # migration input
+└─ realization/   # migration input
 ```
 
-Every recipe is self-contained. Locale text lives beside the record it
-describes; it is never read back from a generated runtime translation file.
+Target steady-state authoring is organized by semantic module kind:
+
+```text
+sources/conversation/
+├─ manifest.json
+├─ dialogue/
+├─ behaviors/
+├─ beats/
+└─ realization/
+```
+
+Do not add new first-party production dialogue to frozen old source kinds merely because migration is incomplete. Do not create `Legacy/`, `Compat/`, `Old/`, `V1/`, `Migrated/` or `PartNN/` copies. Existing old records are converted by semantic domain and deleted after parity/caller-zero proof. ProjectHoomans and DynamicTrading may own adopter-specific records, but must consume this Core compiler/service rather than duplicating it.
+
+Every authored recipe keeps locale text with the semantic record it describes; generated runtime translation files are never read back as authoring source.
 Content phrase arrays use explicit stable records; array position is not identity:
 
 ```json
@@ -88,6 +105,12 @@ entries are merged into the existing package catalog so shared Core UI keys
 authored outside CodeBuilder are never deleted by a rebuild.
 
 Generated Lua/JSON is never an authoring source.
+
+### Agent authoring rule
+
+Agents must use the shared CodeBuilder ConvoEngine authoring/migration service for bulk conversation-content creation, sharding, moves, and writes once the required operation exists. Do not manually manufacture destination JSON trees or hand-edit/move generated runtime files. Direct file edits are appropriate for CodeBuilder/compiler/tests/docs themselves. The S6M roadmap adds a small headless create/edit/move/shard/write front door so Luna-class agents can follow this rule without custom Python snippets.
+
+Final ConvoEngine runtime routing removes redundant path taxonomy: conversation-owned output converges from `<Owner>/Semantics/Generated/Conversation/PSDL/...` to `<Owner>/ConvoEngine/...`. Generic Core semantic infrastructure that is broader than conversation remains under `PsychopatzCore/Semantics/`. Generated provenance remains in headers/manifests/fingerprints rather than the directory name.
 
 ## Ownership rules
 

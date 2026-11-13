@@ -3,6 +3,7 @@ package.path = SHARED_ROOT .. "?.lua;" .. package.path
 
 PsychopatzCore = {}
 local semantics = require "PsychopatzCore/Semantics/PsychopatzSemantic"
+local dialogueTurn = require "PsychopatzCore/ConvoEngine/DialogueTurn"
 local registry = semantics.Registry
 registry.Reset()
 
@@ -21,7 +22,7 @@ local function parseCandidates(value, options)
     return semantics.Parser.ParseCandidates(value, options)
 end
 
-local turn, reason = semantics.DialogueTurn.Parse(
+local turn, reason = dialogueTurn.Parse(
     "answer, question?",
     parseCandidates,
     { enableFuzzy = false, maxCandidates = 4 }
@@ -36,7 +37,7 @@ assert(turn.parts[1].candidates.selected.patternID == "answer",
 assert(turn.parts[2].candidates.selected.patternID == "question",
     "second clause uses the existing candidate parser")
 
-local fallback, fallbackReason = semantics.DialogueTurn.Parse(
+local fallback, fallbackReason = dialogueTurn.Parse(
     "answer, unknown",
     parseCandidates,
     { enableFuzzy = false, maxCandidates = 4 }

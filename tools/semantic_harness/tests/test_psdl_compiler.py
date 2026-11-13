@@ -233,7 +233,7 @@ class PSDLCompilerTests(unittest.TestCase):
         plans = render_psdl_runtime_plan(compiled)
         dialogue_plan = next(item for item in plans if item["id"] == "social.location.ask")
         self.assertEqual(dialogue_plan["owner"], "ProjectHoomans")
-        self.assertTrue(dialogue_plan["module"].startswith("PNC/Semantics/Generated/Conversation/PSDL/"))
+        self.assertTrue(dialogue_plan["module"].startswith("PNC/ConvoEngine/Dialogue/"))
         self.assertEqual(dialogue_plan["responsePlan"]["schemaVersion"], 1)
         self.assertEqual(dialogue_plan["responsePlan"]["kind"], "dialogue_act_plan")
         self.assertEqual(dialogue_plan["responsePlan"]["turns"][0]["segments"][0]["kind"], "translation")

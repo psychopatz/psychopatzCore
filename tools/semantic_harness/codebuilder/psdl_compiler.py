@@ -994,7 +994,7 @@ def render_convo_engine_runtime_plan(compiled: Mapping[str, Any]) -> list[dict[s
         owner = normalize_owner(record.get("owner"))
         module_path = (
             conversation_prefix(owner)
-            + "/PSDL/"
+            + "/"
             + record["kind"].title()
             + "/"
             + record["id"].replace(".", "_").replace(":", "_")

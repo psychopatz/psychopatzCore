@@ -6,14 +6,8 @@ local Semantics = PsychopatzCore.Semantics
 Semantics.IR = require "PsychopatzCore/Semantics/PsychopatzSemanticIR"
 Semantics.Predicate = require
     "PsychopatzCore/Semantics/PsychopatzSemanticPredicate"
-Semantics.Offer = require
-    "PsychopatzCore/Semantics/PsychopatzSemanticOffer"
-Semantics.TextBinding = require
-    "PsychopatzCore/Semantics/PsychopatzSemanticTextBinding"
 Semantics.Provider = require
     "PsychopatzCore/Semantics/PsychopatzSemanticProvider"
-Semantics.DialogueState = require
-    "PsychopatzCore/Semantics/PsychopatzSemanticDialogueState"
 Semantics.Normalizer = require
     "PsychopatzCore/Semantics/PsychopatzSemanticNormalizer"
 Semantics.Registry = require
@@ -32,14 +26,8 @@ Semantics.PatternMatcher = require
     "PsychopatzCore/Semantics/PsychopatzSemanticPatternMatcher"
 Semantics.Parser = require
     "PsychopatzCore/Semantics/PsychopatzSemanticParser"
-Semantics.DialogueRouter = require
-    "PsychopatzCore/Semantics/PsychopatzSemanticDialogueRouter"
-Semantics.DialogueTurn = require
-    "PsychopatzCore/Semantics/PsychopatzSemanticDialogueTurn"
 Semantics.PackRegistry = require
     "PsychopatzCore/Semantics/PsychopatzSemanticPackRegistry"
-Semantics.DialogueFlow = require
-    "PsychopatzCore/Semantics/PsychopatzSemanticDialogueFlow"
 
 Semantics.VERSION = Semantics.VERSION or 1
 
