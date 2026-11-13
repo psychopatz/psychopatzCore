@@ -8,10 +8,10 @@ participant_heads: "project-hoomans=c10b3f94f7a83b77547fed55d4da676823c42b75;dyn
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S6M — ConvoEngine normalization"
-chunk: "S6M2A — ConvoEngine vs generic Semantics ownership inventory"
+chunk: "S6M2B — root-cause ConvoEngine namespace and naming migration"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-13T18:00:00Z"
+updated_at: "2026-11-13T18:08:00Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -216,35 +216,29 @@ Read-only candidate discovery is separate from mutation.
 
 This is S6M6, not the current chunk.
 
-## What became true in S6M1B
+## What became true in S6M2A
 
-- Added `tools/semantic_harness/codebuilder/convo_engine_authoring.py` (`resolve_authorized_source_path`, `build_convo_engine_family_document`, `apply_family_patch`, `prepare_shard_documents`, JSON/fingerprint helpers) rejecting forbidden compatibility path segments and legacy schemas on write.
-- Exposed `write_convo_engine_source`, `create_convo_engine_family`, `edit_convo_engine_family`, `move_convo_engine_source`, and `shard_convo_engine_source` on `SemanticLabAuthoringService` and exported the authoring helpers from `tools/semantic_harness/codebuilder/__init__.py`.
-- Added headless CLI `tools/semantic_harness/codebuilder/convo_engine_cli.py` (`validate`, `preview`, `create`, `edit`, `move`, `shard`, `write`).
-- Added `tools/semantic_harness/tests/test_convo_engine_authoring.py` verifying create/edit/move/shard/write and CLI subprocess validation without raw JSON manufacturing.
-- Verification: `python3 -m unittest discover -s tools/semantic_harness/tests -p "test_*.py"` ran 124 tests, all passing.
+- Added `tools/semantic_harness/codebuilder/convo_engine_ownership_inventory.py` and exported `OWNERSHIP_INVENTORY_SCHEMA`, `build_ownership_inventory`, and `map_generated_convo_engine_module` from `tools/semantic_harness/codebuilder/__init__.py`.
+- Generated machine-readable evidence report `Docs/semantic_dialogue_language_standard/S6M2A_OWNERSHIP_INVENTORY.json` covering 805 modules across `PsychopatzCore` (88), `ProjectHoomans` (708), and `DynamicTrading` (9): 530 `convo_engine` vs 275 `generic_semantic_infrastructure` (classified by functional exports, requires, and cross-repo callers, not filename alone), plus 49 legacy reference files.
+- Verified `<Owner>/ConvoEngine/` collision safety (`collisionSafe: true`, zero existing `ConvoEngine` paths, zero target-path collisions).
+- Added `tools/semantic_harness/tests/test_convo_engine_ownership_inventory.py` and verified all 127 tests in `tools/semantic_harness/tests` pass.
 
-## Immediate Next Chunk — S6M2A
+## Immediate Next Chunk — S6M2B
 
 Responsibility:
 
-> Inventory current runtime modules and references across `psychopatzCore`,
-> `ProjectHoomans`, and `DynamicTrading`; classify each relevant module as
-> ConvoEngine-owned vs generic Core semantic infrastructure using symbol/caller
-> evidence (not filename alone); verify `<Owner>/ConvoEngine/` collision safety;
-> and produce machine-readable evidence + test coverage.
-
-Do not:
-
-- move or delete runtime files yet (`S6M2B`);
-- regenerate adopter/Core Lua trees yet;
-- implement action/results yet;
-- rewrite Semantic Lab.
+> Execute the root-cause namespace and naming migration across `PsychopatzCore`,
+> `ProjectHoomans`, and `DynamicTrading`:
+> - route generated ConvoEngine modules to `<Owner>/ConvoEngine/...` with semantic module names (no `Catalog.lua` leaves);
+> - migrate proven ConvoEngine-owned hand-authored modules and symbols while leaving generic Core `Semantics/` intact;
+> - regenerate all three repos via CodeBuilder;
+> - update callers, registries, manifests, diagnostics, and tests atomically;
+> - prove old ConvoEngine-owned path/symbol caller zero before deleting superseded paths.
 
 Pass gate:
 
-- machine-readable ownership inventory covers all three repos with evidence-backed classification and collision check;
-- focused inventory tests pass.
+- Core, ProjectHoomans, and DynamicTrading regenerate cleanly under `<Owner>/ConvoEngine/...`;
+- Lua/Python test suites pass with zero callers on removed legacy ConvoEngine paths.
 
 ## Following bounded chunks
 

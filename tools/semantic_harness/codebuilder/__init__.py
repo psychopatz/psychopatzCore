@@ -85,6 +85,11 @@ from .convo_engine_exchange import (
     TEXT_ROLE_SPOKEN_ACTION,
     validate_semantic_reference,
 )
+from .convo_engine_ownership_inventory import (
+    OWNERSHIP_INVENTORY_SCHEMA,
+    build_ownership_inventory,
+    map_generated_convo_engine_module,
+)
 from .psdl_compiler import (
     CONVO_ENGINE_COMPILED_SCHEMA,
     PSDL_COMPILED_SCHEMA,
@@ -142,6 +147,9 @@ __all__ = [
     "CANONICAL_IR_SCHEMA",
     "CONVO_ENGINE_COMPILED_SCHEMA",
     "CONVO_ENGINE_SCHEMA",
+    "OWNERSHIP_INVENTORY_SCHEMA",
+    "build_ownership_inventory",
+    "map_generated_convo_engine_module",
     "LEGACY_PSDL_SCHEMA",
     "RUNTIME_TEXT_ROLES",
     "SUPPORTED_SOURCE_SCHEMAS",

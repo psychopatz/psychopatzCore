@@ -311,22 +311,24 @@ Filesystem path is discoverability, not canonical identity.
   - **S6M0:** accepted baseline audit (`MODULARITY_AUDIT.md`).
   - **S6M1A:** ACCEPTED (compact exchange-family compiler + CodeBuilder preview/validation seam; 120 `tools/semantic_harness/tests` tests passing).
   - **S6M1B:** ACCEPTED (headless CodeBuilder `convo_engine_authoring.py` / `convo_engine_cli.py` + `SemanticLabAuthoringService` create/edit/move/shard/write API; 124 `tools/semantic_harness/tests` tests passing).
+  - **S6M2A:** ACCEPTED (three-repo ownership inventory in `convo_engine_ownership_inventory.py` + `S6M2A_OWNERSHIP_INVENTORY.json`: 805 modules classified into 530 `convo_engine` vs 275 `generic_semantic_infrastructure`, collision check passing, 127 tests passing).
 - **S7:** PARTIAL / REOPENED because editor must support the final exchange-family/affordance/reply/action-result model.
 - **S8:** NOT ACCEPTED.
 
-## Immediate Next Chunk — S6M2A
+## Immediate Next Chunk — S6M2B
 
 Responsibility:
 
-> Inventory current runtime modules and references across all three repositories
-> (`psychopatzCore`, `ProjectHoomans`, `DynamicTrading`), classify each relevant
-> module as either ConvoEngine-owned or generic Core semantic infrastructure
-> (without classifying by filename alone), verify `<Owner>/ConvoEngine/`
-> collision safety, and produce machine-readable evidence.
+> Perform the root-cause namespace/naming migration: update Core package descriptors,
+> owner-routing constants, compiler/generator/template logic to route ConvoEngine-owned
+> output to `<Owner>/ConvoEngine/...` with semantic module names (replacing `Catalog.lua`
+> leaves), migrate proven ConvoEngine-owned hand-authored modules/symbols, regenerate all
+> three owners through CodeBuilder, update callers/tests atomically, prove old-path caller
+> zero, and remove superseded paths.
 
-Following bounded chunks after S6M2A:
+Following bounded chunks after S6M2B:
 
-- **S6M2B:** root-cause namespace/naming migration (`<Owner>/ConvoEngine/...`, semantic module names, ConvoEngine APIs, full regeneration, caller-zero cleanup);
+- **S6M3:** semantic source sharding through CodeBuilder API/CLI (`one file = one coherent semantic family`);
 - **S6M2B:** migrate proven ConvoEngine-owned routing from `Semantics/Generated/Conversation/PSDL` (and conversation-specific `Semantics/...` modules where proven) to `<Owner>/ConvoEngine/...`, fix semantic module naming, regenerate atomically, and prove old-path caller zero;
 - **S6M3-S6M5:** migrate/shard content **through CodeBuilder**, never by manually
   manufacturing destination JSON;
