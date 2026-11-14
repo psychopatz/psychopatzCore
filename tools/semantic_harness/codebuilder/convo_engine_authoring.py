@@ -477,6 +477,14 @@ def prepare_bucket_migration(
     }
 
 
+from .convo_engine_fields import (
+    CONVO_ENGINE_FIELD_DESCRIPTORS,
+    FieldDescriptor,
+    describe_unknown_fields,
+    list_field_descriptors,
+)
+
+
 def source_fingerprint_mismatch(
     target: Path,
     expected_source_fingerprint: str | None,

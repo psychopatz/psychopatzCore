@@ -2693,6 +2693,22 @@ class SemanticLabAuthoringService:
         """Convert explicit license-cleared review decisions to canonical records."""
         return promote_reviewed_candidates(report, decisions)
 
+    def describe_convo_engine_fields(
+        self,
+        *,
+        kind: str | None = None,
+        category: str | None = None,
+        editor_kind: str | None = None,
+    ) -> list[dict[str, Any]]:
+        """Expose compiler-owned ConvoEngine schema FieldDescriptors."""
+        from .convo_engine_fields import list_field_descriptors
+
+        return list_field_descriptors(
+            kind=kind,
+            category=category,
+            editor_kind=editor_kind,
+        )
+
     def run_convo_engine_s6m8_audit(
         self,
         *,

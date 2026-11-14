@@ -1,10 +1,10 @@
 # Progress — ConvoEngine
 
-**Status:** IN PROGRESS — S0-S8R ConvoEngine accepted; S9H0 and S9H1 complete, S9H2 OperationRegistry + safe ConvoTransaction next.
-**Estimated developer progress:** 94% for the expanded ConvoEngine + harness objective.
+**Status:** IN PROGRESS — S0-S8R ConvoEngine accepted; S9H0–S9H4 complete, S9H5 compact main CLI + compatibility quarantine next.
+**Estimated developer progress:** 97% for the expanded ConvoEngine + harness objective.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S9 — Semantic Harness ConvoEngine convergence.
-**Immediate Next Chunk:** S9H2 — implement `OperationRegistry` (`workspace.describe`, `convo.*`) and `ConvoTransaction` (`ChangeSet` preview/apply, owner-routed writes, identity-edit move semantics, dangling-reference rejection, fingerprint guards), remove unsafe direct `Path.unlink()` from ConvoEngine pane, and begin decomposing `SemanticLabAuthoringService` onto `HarnessContext`.
+**Immediate Next Chunk:** S9H5 — add unified `workspace` and `convo` subcommands to main CLI dispatching `OperationRegistry`, route `convo_engine_cli.py` onto it, delete dead legacy PSDL record-bucket CRUD methods once caller-free, and quarantine legacy shard readers behind explicit flags.
 
 ## Accepted ConvoEngine baseline
 
@@ -109,14 +109,14 @@ must not require full-corpus dumps or reading the giant service/CLI modules.
 - **S9H1 — WorkspaceCatalog + ConvoCatalog: COMPLETE.** Added `codebuilder/workspace_catalog.py` (`WorkspaceCatalog`, immutable bounded `WorkspaceSnapshot`, `semantic.provider_manifest.v2` conversation-source normalization, explicit override precedence, fail-closed required owners) and `codebuilder/convo_catalog.py` (`ConvoCatalog`, cached lightweight `FamilySummary` index, on-demand single-family loading, `query`/`impact`/reference validation). Migrated `SemanticLabAuthoringService`, `convo_engine_studio_trace.py`, `CanonicalSourceExplorerPane`, `convo_engine_s6m8_audit.py`, and `build.py`. Full Core Python suite verified: `171/171 OK (expected failures=10)`.
 - **S9H2 — OperationRegistry + safe ConvoTransaction: COMPLETE.** Added `codebuilder/convo_transaction.py` (`ChangeSet`, `ConvoTransaction`, `atomic_write_json`, `workspace_generation_lock`, identity-change auto-move, global dangling-reference protection, stale source-fingerprint guards), `codebuilder/harness_context.py` (`HarnessContext`), and `codebuilder/operation_registry.py` (`OperationRegistry` registering all 11 versioned operations). Routed `SemanticLabAuthoringService` and `ConvoEngineAuthoringPane` CRUD/delete through `OperationRegistry` / `ConvoTransaction`, removing direct `Path.unlink()` from the pane. Added `tools/semantic_harness/tests/test_convo_engine_s9h2_transactions.py` and cleared S9H2 regression locks (`test_01`, `test_02`, `test_03b`, `test_04b`, `test_05`). Full Core Python suite verified: `175/175 OK (expected failures=5)`.
 - **S9H3 — production Lua ConvoProbe: COMPLETE.** Added Core Lua `CONVO_PROBE` worker handler (`tools/semantic_harness/lua/worker/ConvoProbe.lua`, wired into `lua/worker.lua` and `ProjectHoomans` `CommandRouter`) and Python `ConvoProbe` client (`codebuilder/convo_probe.py`) with strict capability negotiation (`semantic.convo_probe`, explicit `ConvoProbeUnavailableError` with zero Python fallback). Migrated `convo_engine_studio_trace.py` (`simulate_convo_engine_family` and `list_registered_action_contracts`) to production Lua `ConvoProbe` + manifest/catalog discovery, deleting Python predicate/rendering duplication and hard-coded `KNOWN_ACTION_CONTRACTS`. Added `test_convo_engine_s9h3_convo_probe.py` and cleared S9H3 regression locks (`test_08`, `test_09`). Verified Core Python `178/178 OK (expected failures=3)` and Core Lua `33/33 PASS`.
-- **S9H4 — compact Studio + compiler field descriptors: NEXT.**
-- **S9H5 — compact main CLI + compatibility quarantine: NOT STARTED.**
+- **S9H4 — compact Studio + compiler field descriptors: COMPLETE.** Added compiler-owned `FieldDescriptor` registry (`codebuilder/convo_engine_fields.py`, exposed via `convo_engine_authoring.py` and `SemanticLabAuthoringService.describe_convo_engine_fields()`) and `SurfaceRegistry` (`studio/surface_registry.py`), promoted ConvoEngine (`Conversations`), `Source / Impact`, and `Review` to primary Studio tabs while gating legacy panes behind `"Show Legacy Compatibility Tools"`, updated `ConvoEngineAuthoringPane` to render fields from compiler descriptors and display/preserve unknown fields, fixed `dataset_catalog.py` so missing sources report `exists=false, editable=false` and missing workflow datasets report `workflowReady=false`, disabled edits on missing sources in `DatasetLibraryPane` / `DialogueContentPane`, added `test_convo_engine_s9h4_studio.py`, and cleared `test_06` and `test_07`. Full Core Python suite verified: `182/182 OK (expected failures=1)`.
+- **S9H5 — compact main CLI + compatibility quarantine: NEXT.**
 - **S9H6 — BuildPlanner + isolated determinism/cache/lock: NOT STARTED.**
 - **S9H7 — exhaustive acceptance + complexity audit: NOT STARTED.**
 
-## Immediate Next Chunk — S9H4 compact Studio + compiler field descriptors
+## Immediate Next Chunk — S9H5 compact main CLI + compatibility quarantine
 
-Add compiler-owned `FieldDescriptor` metadata + `SurfaceRegistry`, promote ConvoEngine to the primary Conversation Studio home (`Conversations`, `Source / Impact`, `Review`), fix `dataset_catalog.py` so missing Dataset Library sources report `exists=false, editable=false` and missing workflow datasets report `workflowReady=false`, hide zero-source legacy tabs behind explicit compatibility toggles, support structured editing + unknown field round-trip, and clear `test_06` and `test_07`.
+Add unified `workspace` and `convo` subcommands to main `entrypoints/cli.py` dispatching `OperationRegistry`, route `convo_engine_cli.py` onto the same operations, audit and remove dead legacy PSDL record-bucket CRUD methods in `SemanticLabAuthoringService` once caller-free, and quarantine legacy shard readers behind explicit flags.
 
 ## Completion boundary
 

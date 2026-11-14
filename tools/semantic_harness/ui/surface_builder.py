@@ -35,15 +35,69 @@ def build_ui(app: Any) -> None:
     studio_toolbar.grid(row=0, column=0, sticky="ew")
     studio_toolbar.columnconfigure(0, weight=1)
     studio_notebook.grid(row=1, column=0, sticky="nsew")
+    conversations_tab = ttk.Frame(studio_notebook, padding=8)
+    source_impact_tab = ttk.Frame(studio_notebook, padding=8)
+    review_tab = ttk.Frame(studio_notebook, padding=8)
     explore_tab = ttk.Frame(studio_notebook, padding=8)
     dialogue_content_tab = ttk.Frame(studio_notebook, padding=8)
-    review_tab = ttk.Frame(studio_notebook, padding=8)
-    for panel in (explore_tab, dialogue_content_tab, review_tab):
+    for panel in (
+        conversations_tab,
+        source_impact_tab,
+        review_tab,
+        explore_tab,
+        dialogue_content_tab,
+    ):
         panel.rowconfigure(0, weight=1)
         panel.columnconfigure(0, weight=1)
-    studio_notebook.add(explore_tab, text="Explore")
-    studio_notebook.add(dialogue_content_tab, text="Dialogue Content")
+    studio_notebook.add(conversations_tab, text="Conversations")
+    studio_notebook.add(source_impact_tab, text="Source / Impact")
     studio_notebook.add(review_tab, text="Review")
+    app.convo_engine_tab = conversations_tab
+    app.source_impact_tab = source_impact_tab
+
+    from ..studio.surface_registry import SurfaceRegistry
+
+    app.surface_registry = SurfaceRegistry()
+    app.show_legacy_surfaces_var = app._tk.BooleanVar(value=False)
+
+    def _toggle_legacy_surfaces(show: bool | None = None) -> bool:
+        if show is not None:
+            app.show_legacy_surfaces_var.set(bool(show))
+        visible = bool(app.show_legacy_surfaces_var.get())
+        current_tabs = set(studio_notebook.tabs())
+        legacy_tabs = (
+            (explore_tab, "Explore (Legacy)"),
+            (dialogue_content_tab, "Dialogue Content (Legacy)"),
+        )
+        if visible:
+            for widget, title in legacy_tabs:
+                if str(widget) not in current_tabs:
+                    studio_notebook.add(widget, text=title)
+        else:
+            for widget, _title in legacy_tabs:
+                if str(widget) in current_tabs:
+                    studio_notebook.forget(widget)
+            if not studio_notebook.select():
+                studio_notebook.select(conversations_tab)
+        return visible
+
+    app.toggle_legacy_surfaces = _toggle_legacy_surfaces
+    app.visible_studio_surfaces = lambda: app.surface_registry.list_surfaces(
+        include_legacy=bool(app.show_legacy_surfaces_var.get()),
+        dataset_sources=(
+            app.authoring_service.list_dataset_sources()
+            if hasattr(app, "authoring_service")
+            and hasattr(app.authoring_service, "list_dataset_sources")
+            else ()
+        ),
+    )
+    app.legacy_surfaces_toggle = ttk.Checkbutton(
+        studio_toolbar,
+        text="Show Legacy Compatibility Tools",
+        variable=app.show_legacy_surfaces_var,
+        command=_toggle_legacy_surfaces,
+    )
+    app.legacy_surfaces_toggle.grid(row=0, column=0, sticky="w")
     developer_tools_host = ttk.Frame(studio_tab, padding=(0, 6, 0, 0))
     developer_tools_host.grid(row=2, column=0, sticky="nsew")
     developer_tools_host.grid_remove()
@@ -144,6 +198,8 @@ def build_ui(app: Any) -> None:
     # event-loop turn so the core Simulation/World surfaces become usable
     # immediately. Worker startup is chained after this deferred phase.
     app._studio_editor_kwargs = {
+        "conversations_tab": conversations_tab,
+        "source_impact_tab": source_impact_tab,
         "explore_tab": explore_tab,
         "dialogue_content_tab": dialogue_content_tab,
         "review_tab": review_tab,

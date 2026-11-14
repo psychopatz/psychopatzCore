@@ -20,6 +20,8 @@ from .interaction_modules.pane import InteractionModulesPane
 def build_studio_editors(
     app: Any,
     *,
+    conversations_tab: Any = None,
+    source_impact_tab: Any = None,
     explore_tab: Any,
     dialogue_content_tab: Any,
     review_tab: Any,
@@ -27,14 +29,13 @@ def build_studio_editors(
     ttk: Any,
     scrolled_text: Any,
 ) -> None:
-    """Create the three Studio homes without taking runtime ownership.
+    """Create Studio surfaces with ConvoEngine as primary conversation home.
 
-    Explore is read-only and combines the response, interaction, and source
-    browsers. Dialogue Content owns bounded wording edits. Review owns
-    candidate-source evidence. Developer Tools contains the existing
-    structural authoring tools, including the canonical workflow composer. All
-    worker callbacks remain the existing shell/services; this function only
-    changes their navigation home.
+    Primary Studio homes are Conversations (ConvoEngineAuthoringPane),
+    Source / Impact (CanonicalSourceExplorerPane), and Review. Legacy
+    compatibility panes (Explore, Dialogue Content, Dataset Library,
+    Interaction Specs, Workflow Composer) remain available behind explicit
+    toggles without taking authoring ownership.
     """
 
     explore_notebook = ttk.Notebook(explore_tab)
@@ -45,13 +46,18 @@ def build_studio_editors(
 
     response_frame = ttk.Frame(explore_notebook, padding=6)
     interaction_frame = ttk.Frame(explore_notebook, padding=6)
-    source_frame = ttk.Frame(explore_notebook, padding=6)
-    for panel in (response_frame, interaction_frame, source_frame):
+    for panel in (response_frame, interaction_frame):
         panel.rowconfigure(0, weight=1)
         panel.columnconfigure(0, weight=1)
     explore_notebook.add(response_frame, text="Responses")
     explore_notebook.add(interaction_frame, text="Interactions")
-    explore_notebook.add(source_frame, text="Sources")
+    if source_impact_tab is None:
+        source_frame = ttk.Frame(explore_notebook, padding=6)
+        source_frame.rowconfigure(0, weight=1)
+        source_frame.columnconfigure(0, weight=1)
+        explore_notebook.add(source_frame, text="Sources")
+    else:
+        source_frame = source_impact_tab
 
     app.observatory = SemanticObservatoryPane(
         response_frame, app._tk, ttk, scrolled_text,
@@ -80,7 +86,7 @@ def build_studio_editors(
         on_preview_simulation=lambda _report: app.main_tabs.select(0),
         on_send_review=lambda report: (
             app.observatory.show_dialogue_content_review(report),
-            app.studio_notebook.select(2),
+            app.studio_notebook.select(review_tab),
         ),
     )
 
@@ -113,8 +119,13 @@ def build_studio_editors(
     blocks_frame = ttk.Frame(advanced_notebook)
     composer_frame = ttk.Frame(advanced_notebook)
     workflow_frame = ttk.Frame(advanced_notebook)
-    psdl_frame = ttk.Frame(advanced_notebook)
-    for panel in (library_frame, blocks_frame, composer_frame, workflow_frame, psdl_frame):
+    if conversations_tab is None:
+        psdl_frame = ttk.Frame(advanced_notebook)
+        psdl_frame.rowconfigure(0, weight=1)
+        psdl_frame.columnconfigure(0, weight=1)
+    else:
+        psdl_frame = conversations_tab
+    for panel in (library_frame, blocks_frame, composer_frame, workflow_frame):
         panel.rowconfigure(0, weight=1)
         panel.columnconfigure(0, weight=1)
     advanced_notebook.add(interaction_modules_frame, text="Interaction Modules")
@@ -123,7 +134,8 @@ def build_studio_editors(
     advanced_notebook.add(blocks_frame, text="Block contracts")
     advanced_notebook.add(composer_frame, text="Interaction composer")
     advanced_notebook.add(workflow_frame, text="Workflow composer")
-    advanced_notebook.add(psdl_frame, text="ConvoEngine")
+    if conversations_tab is None:
+        advanced_notebook.add(psdl_frame, text="ConvoEngine")
     app.interaction_modules_frame = interaction_modules_frame
     app.flow_editor_frame = flow_frame
     app.library_tab = library_frame
@@ -149,6 +161,9 @@ def build_studio_editors(
         on_promote=app.promote_interaction_definition,
         on_open_content=lambda content_id: (
             app.main_tabs.select(app.studio_tab),
+            app.toggle_legacy_surfaces(True)
+            if hasattr(app, "toggle_legacy_surfaces")
+            else None,
             app.studio_notebook.select(dialogue_content_tab),
             app.dialogue_content.select_content(content_id),
         ),

@@ -107,18 +107,29 @@ class DatasetLibraryPane:
         buttons = ttk.Frame(right)
         buttons.grid(row=1, column=0, sticky="ew", pady=(6, 0))
         ttk.Button(buttons, text="Load selected", command=self.load_selected).pack(side="left")
-        ttk.Button(buttons, text="Validate draft", command=self.validate_draft).pack(
-            side="left", padx=6,
+        self._validate_button = ttk.Button(
+            buttons, text="Validate draft", command=self.validate_draft,
         )
-        ttk.Button(buttons, text="Write canonical…", command=self.write_canonical).pack(
-            side="left",
+        self._validate_button.pack(side="left", padx=6)
+        self._write_button = ttk.Button(
+            buttons, text="Write canonical…", command=self.write_canonical,
         )
+        self._write_button.pack(side="left")
+        self._sources_by_id: dict[str, dict[str, Any]] = {}
         self.refresh()
 
-    def _set_editor(self, value: Any) -> None:
+    def _set_editor(self, value: Any, *, editable: bool = True) -> None:
         self._editor.configure(state="normal")
         self._editor.delete("1.0", "end")
-        self._editor.insert("1.0", json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+        if isinstance(value, str):
+            self._editor.insert("1.0", value)
+        else:
+            self._editor.insert("1.0", json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+        if not editable:
+            self._editor.configure(state="disabled")
+        button_state = "normal" if editable else "disabled"
+        self._validate_button.configure(state=button_state)
+        self._write_button.configure(state=button_state)
 
     def _selected_item(self) -> dict[str, Any] | None:
         selection = self._listbox.curselection()
@@ -130,18 +141,37 @@ class DatasetLibraryPane:
         item = self._selected_item()
         return str(item["sourceID"]) if item else None
 
+    def _source_editable(self, source_id: str | None) -> bool:
+        if not source_id:
+            return False
+        source = self._sources_by_id.get(source_id)
+        if not source:
+            return True
+        return bool(source.get("exists", True)) and bool(source.get("editable", True))
+
     def refresh(self) -> None:
+        sources = self.service.list_dataset_sources()
+        self._sources_by_id = {str(source["id"]): source for source in sources}
         self._items = [
             {
                 "sourceID": source["id"],
                 "kind": "source",
-                "label": f"{source['label']} · {source['kind']}",
+                "label": (
+                    f"{source['label']} · {source['kind']}"
+                    if source.get("exists", True)
+                    else f"{source['label']} · {source['kind']} (missing)"
+                ),
                 "path": source["path"],
+                "exists": bool(source.get("exists", True)),
+                "editable": bool(source.get("editable", True)),
             }
-            for source in self.service.list_dataset_sources()
+            for source in sources
         ]
         self._render_items()
-        self._status_var.set(f"{len(self._items)} canonical sources")
+        available = sum(1 for item in self._items if item.get("exists"))
+        self._status_var.set(
+            f"{available}/{len(self._items)} canonical sources present"
+        )
 
     def search(self) -> None:
         query = self._search_var.get().strip()
@@ -168,12 +198,21 @@ class DatasetLibraryPane:
         source_id = self._selected_source_id()
         if not source_id:
             return
+        if not self._source_editable(source_id):
+            self._set_editor(
+                f"# Canonical dataset source '{source_id}' is missing or read-only.\n"
+                "# Use ConvoEngine Studio for active conversation authoring.\n",
+                editable=False,
+            )
+            self._status_var.set(f"{source_id} unavailable (missing canonical source; read-only)")
+            return
         try:
             document = self.service.load_dataset_document(source_id)
         except (OSError, ValueError) as error:
+            self._set_editor(f"# Load failed: {error}\n", editable=False)
             self._status_var.set(f"Load failed: {error}")
             return
-        self._set_editor(document)
+        self._set_editor(document, editable=True)
         self._status_var.set(_status_text(source_id, document))
 
     def _draft_document(self) -> dict[str, Any] | None:
@@ -189,6 +228,13 @@ class DatasetLibraryPane:
 
     def validate_draft(self) -> dict[str, Any] | None:
         source_id = self._selected_source_id()
+        if source_id and not self._source_editable(source_id):
+            self._status_var.set(f"{source_id} is read-only (canonical source missing)")
+            return {
+                "ok": False,
+                "reason": "source_not_editable",
+                "diagnostics": [{"message": f"{source_id} is missing and read-only"}],
+            }
         document = self._draft_document()
         if not source_id or document is None:
             return None
@@ -203,6 +249,13 @@ class DatasetLibraryPane:
 
     def write_canonical(self) -> dict[str, Any] | None:
         source_id = self._selected_source_id()
+        if source_id and not self._source_editable(source_id):
+            self._status_var.set(f"{source_id} write blocked (canonical source missing)")
+            return {
+                "ok": False,
+                "reason": "source_not_editable",
+                "diagnostics": [{"message": f"{source_id} is missing and read-only"}],
+            }
         document = self._draft_document()
         if not source_id or document is None:
             return None

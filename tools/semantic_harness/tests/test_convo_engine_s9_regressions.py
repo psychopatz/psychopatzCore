@@ -477,7 +477,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
             pane.delete_family()
             self.assertTrue(target_path.is_file())
 
-    @unittest.expectedFailure  # S9H4: missing dataset library sources must not be editable
     def test_06_missing_dataset_library_sources_report_not_editable(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))
@@ -491,7 +490,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
                 if not row["exists"]:
                     self.assertFalse(row["editable"], f"Missing source {row['id']} advertised editable=True")
 
-    @unittest.expectedFailure  # S9H4: missing workflow datasets must report workflowReady=false
     def test_07_missing_workflow_datasets_report_not_ready(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))

@@ -113,19 +113,41 @@ class DialogueContentPane:
         self._editor.grid(row=0, column=0, sticky="nsew")
         buttons = ttk.Frame(editable)
         buttons.grid(row=1, column=0, sticky="ew", pady=(6, 0))
-        ttk.Button(buttons, text="Validate content", command=self.validate_draft).pack(side="left")
-        ttk.Button(buttons, text="Preview in Simulation", command=self.preview_in_simulation).pack(
-            side="left", padx=6
+        self._validate_button = ttk.Button(
+            buttons, text="Validate content", command=self.validate_draft,
         )
-        ttk.Button(buttons, text="Send to Review", command=self.send_to_review).pack(side="left")
-        ttk.Button(buttons, text="Write source…", command=self.write_content).pack(
-            side="left", padx=6
+        self._validate_button.pack(side="left")
+        self._preview_button = ttk.Button(
+            buttons, text="Preview in Simulation", command=self.preview_in_simulation,
         )
-        ttk.Button(
+        self._preview_button.pack(side="left", padx=6)
+        self._review_button = ttk.Button(
+            buttons, text="Send to Review", command=self.send_to_review,
+        )
+        self._review_button.pack(side="left")
+        self._write_button = ttk.Button(
+            buttons, text="Write source…", command=self.write_content,
+        )
+        self._write_button.pack(side="left", padx=6)
+        self._compile_button = ttk.Button(
             buttons,
             text="Compile artifacts",
             command=self.compile_artifacts,
-        ).pack(side="left")
+        )
+        self._compile_button.pack(side="left")
+        self._set_controls_enabled(False)
+
+    def _set_controls_enabled(self, enabled: bool) -> None:
+        state = "normal" if enabled else "disabled"
+        self._editor.configure(state=state)
+        for button in (
+            self._validate_button,
+            self._preview_button,
+            self._review_button,
+            self._write_button,
+            self._compile_button,
+        ):
+            button.configure(state=state)
 
     @staticmethod
     def _display_label(item: dict[str, Any]) -> str:
@@ -138,12 +160,31 @@ class DialogueContentPane:
         except (OSError, ValueError, KeyError) as error:
             self._items = []
             self._tree_rows = {}
-            self._status_var.set(f"Content load failed: {error}")
+            self._render_tree()
+            self._set_text(
+                self._locked_text,
+                "Legacy Dialogue Content shards unavailable in this workspace.\n",
+                disabled=True,
+            )
+            self._set_text(
+                self._editor,
+                "# Read-only compatibility view: use ConvoEngine Studio for active authoring.\n",
+                disabled=True,
+            )
+            self._set_controls_enabled(False)
+            self._status_var.set(f"Content unavailable (read-only): {error}")
             return
         self._render_tree()
-        self._status_var.set(
-            f"{len(self._items)} verified content records · select a row to inspect"
-        )
+        has_items = bool(self._items)
+        self._set_controls_enabled(has_items)
+        if has_items:
+            self._status_var.set(
+                f"{len(self._items)} verified content records · select a row to inspect"
+            )
+        else:
+            self._status_var.set(
+                "0 legacy dialogue content records · read-only compatibility view"
+            )
 
     def select_content(self, content_ref: str) -> bool:
         """Select a canonical content record by ID or semantic template ID."""

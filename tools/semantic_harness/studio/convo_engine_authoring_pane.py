@@ -13,20 +13,14 @@ import json
 from pathlib import Path
 from typing import Any
 
+from tools.semantic_harness.codebuilder.convo_engine_fields import (
+    describe_unknown_fields,
+    list_field_descriptors,
+)
+
 
 class ConvoEngineAuthoringPane:
     """Browse, edit, validate, and trace canonical ConvoEngine exchange families."""
-
-    _JSON_FIELDS = (
-        ("when", "When predicate / collection constraints"),
-        ("invoke", "Semantic invoke intent / subject / target"),
-        ("affordance", "Affordance (UI-only label, consumers, utility)"),
-        ("execute", "Registered execute action & typed inputs"),
-        ("say", "Initiating say (string or stable numeric realization keys)"),
-        ("reply", "Named reply outcomes & independent realizations"),
-        ("after", "Chaining (recommend, recommendGroup, goto, end, resume)"),
-        ("metadata", "Functional runtime metadata"),
-    )
 
     def __init__(
         self,
@@ -42,6 +36,7 @@ class ConvoEngineAuthoringPane:
         self._ScrolledText = scrolled_text
         self._messagebox = messagebox
         self.service = service
+        self._field_descriptors = self._load_field_descriptors()
         self.frame = ttk.Frame(parent, padding=6)
         self.frame.grid(row=0, column=0, sticky="nsew")
         self.frame.rowconfigure(2, weight=1)
@@ -73,6 +68,7 @@ class ConvoEngineAuthoringPane:
         self._recommend_pick_var = tk.StringVar()
         self._reply_outcome_var = tk.StringVar(value="valid")
         self._reply_say_var = tk.StringVar()
+        self._unknown_fields_var = tk.StringVar(value="(none)")
 
         self._preview_speaker_var = tk.StringVar(value="player")
         self._preview_addressee_var = tk.StringVar(value="npc")
@@ -88,6 +84,17 @@ class ConvoEngineAuthoringPane:
         self._build_toolbar()
         self._build_body()
         self.refresh()
+
+    def _load_field_descriptors(self) -> list[dict[str, Any]]:
+        describe = getattr(self.service, "describe_convo_engine_fields", None)
+        if callable(describe):
+            items = describe(category="exchange", editor_kind="json")
+            if isinstance(items, list) and items:
+                return items
+        return list_field_descriptors(category="exchange", editor_kind="json")
+
+    def field_descriptors(self) -> list[dict[str, Any]]:
+        return list(self._field_descriptors)
 
     def _build_toolbar(self) -> None:
         ttk = self._ttk
@@ -175,6 +182,7 @@ class ConvoEngineAuthoringPane:
         ttk.Entry(reply_row, textvariable=self._reply_say_var).grid(row=0, column=1, sticky="ew")
         ttk.Button(reply_row, text="Set reply", command=self.set_reply_outcome).grid(row=0, column=2, padx=(4, 2))
         ttk.Button(reply_row, text="Del reply", command=self.delete_reply_outcome).grid(row=0, column=3)
+        self._entry(identity, 7, 0, "Extra / preserved fields", self._unknown_fields_var, readonly=True)
 
         notebook = ttk.Notebook(right)
         notebook.grid(row=1, column=0, sticky="nsew")
@@ -193,9 +201,12 @@ class ConvoEngineAuthoringPane:
         lower.columnconfigure(0, weight=1)
         fields.add(upper, weight=1)
         fields.add(lower, weight=2)
-        for index, (name, label) in enumerate(self._JSON_FIELDS):
-            host = upper if index < 4 else lower
-            row = index if index < 4 else index - 4
+        split_index = max(1, (len(self._field_descriptors) + 1) // 2)
+        for index, descriptor in enumerate(self._field_descriptors):
+            name = str(descriptor["name"])
+            label = str(descriptor["label"])
+            host = upper if index < split_index else lower
+            row = index if index < split_index else index - split_index
             box = ttk.LabelFrame(host, text=label)
             box.grid(row=row, column=0, sticky="nsew", padx=2, pady=2)
             host.rowconfigure(row, weight=1)
@@ -371,8 +382,11 @@ class ConvoEngineAuthoringPane:
         self._execute_action_var.set(
             exe.get("use", "") if isinstance(exe, dict) else (exe if isinstance(exe, str) else "")
         )
-        for name, _label in self._JSON_FIELDS:
+        for descriptor in self._field_descriptors:
+            name = str(descriptor["name"])
             self._write_json_editor(name, doc.get(name))
+        unknown = describe_unknown_fields(doc)
+        self._unknown_fields_var.set(", ".join(unknown.keys()) if unknown else "(none)")
 
     def _form_document(self) -> dict[str, Any]:
         if self._document is None:
@@ -398,7 +412,8 @@ class ConvoEngineAuthoringPane:
             doc["slots"] = slots
         else:
             doc.pop("slots", None)
-        for name, _label in self._JSON_FIELDS:
+        for descriptor in self._field_descriptors:
+            name = str(descriptor["name"])
             value = self._read_json_editor(name)
             if value is None:
                 doc.pop(name, None)

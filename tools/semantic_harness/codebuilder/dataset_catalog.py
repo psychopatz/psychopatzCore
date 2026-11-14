@@ -187,19 +187,27 @@ class SemanticDatasetCatalog:
             )
         return json.loads(json.dumps(profile, ensure_ascii=False))
 
+    def _safe_source_exists(self, path: Path) -> bool:
+        try:
+            resolved = self._source_path(path)
+        except CompileError:
+            return False
+        return resolved.is_file()
+
     def list_dataset_sources(self) -> list[dict[str, Any]]:
         """Return logical authoring domains backed only by canonical shards."""
         output: list[dict[str, Any]] = []
         for spec in DATASET_SOURCE_SPECS:
             paths = self._spec_paths(spec)
+            exists = bool(paths) and all(self._safe_source_exists(path) for path in paths)
             output.append({
                 "id": spec["id"],
                 "label": spec["label"],
                 "kind": spec["kind"],
                 "path": str(paths[0]),
                 "paths": [str(path) for path in paths],
-                "exists": all(self._source_path(path).is_file() for path in paths),
-                "editable": True,
+                "exists": exists,
+                "editable": exists,
             })
         return output
 
@@ -208,7 +216,7 @@ class SemanticDatasetCatalog:
             {
                 **source,
                 "generationKind": source["kind"],
-                "workflowReady": True,
+                "workflowReady": bool(source.get("exists")),
             }
             for source in self.list_dataset_sources()
             if source["kind"] in WORKFLOW_DATASET_KINDS
