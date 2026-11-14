@@ -131,7 +131,7 @@ return {
                             },
                             ["fallback"] = "They introduce themselves.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.identity.introduction.say_1",
+                            ["templateID"] = "convo.identity.introduction.say_1",
                         },
                     },
                 },

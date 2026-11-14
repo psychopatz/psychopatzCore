@@ -131,7 +131,7 @@ return {
                             },
                             ["fallback"] = "Thank you. I could use somewhere safe to rest for a while.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.response.ambient_visit.accepted.say_1",
+                            ["templateID"] = "convo.response.ambient_visit.accepted.say_1",
                         },
                     },
                 },

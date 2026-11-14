@@ -1,10 +1,10 @@
 # Progress — ConvoEngine
 
-**Status:** DEVELOPER-SIDE COMPLETE (S8 ACCEPTED).
-**Estimated developer progress:** 100%.
+**Status:** DEVELOPER_COMPLETE — S0-S8 + S8R ACCEPTED (native PZ SP/MP live/visual acceptance remains user-owned).
+**Estimated developer progress:** 100% (developer-side complete).
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S8 — Final three-repository ConvoEngine acceptance complete (native Project Zomboid live/visual acceptance remains user-owned).
-**Completion boundary:** S6M, S7 ConvoEngine Semantic Lab UX, and fresh exhaustive three-repository S8 verification complete.
+**Active phase:** NONE — S8R final naming, audit hardening, and documentation closure complete.
+**Completion boundary:** accepted S0-S8 + S8R naming/audit/document closure + fresh exhaustive three-repository verification. Native Project Zomboid live/visual acceptance remains user-owned.
 
 ## Mandatory ownership and scope
 
@@ -27,20 +27,53 @@ The previous corrective work remains useful and must not be discarded:
 - Core owns the only ConvoEngine compiler/schema/IR/shared service; `PSDL`/`psdl` survives only as migration compatibility.
 - maintained old Core flow/response/UI/behavior/beat authoring roots were removed;
 - DynamicTrading consumes the same Core mechanism;
-- ProjectHoomans has extensive migration-era PSDL conversion feeding the ConvoEngine target;
-- Core Semantic Lab already exposes a structured PSDL pane;
-- deterministic generation/runtime packing work exists.
+- ProjectHoomans, Core, and DTCommon canonical conversation source now use `psychopatz.convo-engine.v1` family files under `sources/conversation/{dialogue,behavior,beat,realization}/...`;
+- Core Semantic Lab exposes the ConvoEngine family-oriented pane and simulation trace;
+- deterministic generation/runtime packing and `<Owner>/ConvoEngine/...` routing are accepted foundations.
 
-The newly discovered defect is **how the PSDL source itself is organized and
-identified**, plus how the generator names modules.
+## 2026-11-14 final S8R closure verification
+
+All S8R naming, audit hardening, and documentation gates have now passed and
+adopter commits have landed on `main` (`ProjectHoomans` `a21cfd5f806abe9075d97f9dd9c774a43127b412`,
+`DynamicTrading` `d7c888de62d6f90dcf6746a24e5f50d7f7346e1d`):
+
+```text
+Core Python semantic-harness                  150/150 PASS
+Core Convo/Semantic/Conversation Lua           34/34 PASS
+Core refactor_binding_smoke                    PASS (17 changed Lua files)
+Bare CLI audit-s6m8 --check-determinism        ok=true, 566 families, 404 files, 0 diffs, 0 legacyNameViolations
+DynamicTrading                                 89/89 PASS
+ProjectHoomans                               1020/1021 (focused convo/psdl Lua 27/27 PASS)
+Kahlua ConvoEngine runtime trees               0 errors (Core 52, Hoomans common 219 + 42.20 181, DT 5)
+```
+
+The single ProjectHoomans failure remains the pre-ConvoEngine
+`tests/pnc_population_director_smoke.lua:316` world-bootstrap assertion; neither
+that test nor PopulationDirector runtime changed in the ConvoEngine migration
+and `Population` Lua has zero `ConvoEngine`/`Conversation` references.
+
+Pre-S8R vs steady-state legacy identity elimination (`convo_engine_psdl_inventory.py`):
+
+```text
+generated/runtime psdl.* occurrences     Core 57 -> 0, Hoomans 524 -> 0, DTCommon 10 -> 0
+Hoomans canonical pnc.psdl.* entries     38 -> 0 (now pnc.convo.*)
+Hoomans Conversation/Text/psdl files     76 -> 0 (now Conversation/Text/convo/)
+direct Conversation/Text/psdl callers     3 -> 0
+obsolete PSDLAuthoringPane alias          1 -> 0 (deleted)
+```
+
+S8R bare audit CLI discovery (`convo_engine_cli.py audit-s6m8 --check-determinism`)
+now resolves `PsychopatzCore`, `ProjectHoomans`, and `DTCommon` automatically
+when sibling checkouts are present or fails closed with actionable repository
+diagnostics, and all goal-owned normative docs are committed cleanly.
 
 ## Modularity audit findings
 
 Normative evidence is in `MODULARITY_AUDIT.md`.
 
-### ProjectHoomans source shape
+### ProjectHoomans pre-normalization source shape
 
-Current measured state:
+Historical S6M0 measured state:
 
 ```text
 80 PSDL files
@@ -302,12 +335,12 @@ Filesystem path is discoverability, not canonical identity.
 
 - **S0:** accepted foundation.
 - **S1:** accepted foundation.
-- **S2:** accepted foundation, but compiler needs S6M exchange-family/reply/action-result extension.
+- **S2:** accepted foundation; the compact exchange-family/reply/action-result extensions were implemented in S6M.
 - **S3:** accepted foundation.
-- **S4:** accepted runtime concept; source modules still need S6M sharding.
-- **S5:** accepted old-authority closure; current migration-era conversation source organization needs ConvoEngine S6M normalization.
-- **S6:** PARTIAL / REOPENED.
-- **S6M:** ACTIVE.
+- **S4:** accepted runtime concept; required source sharding/normalization was completed in S6M.
+- **S5:** accepted old-authority closure; ConvoEngine source normalization was completed in S6M.
+- **S6:** ACCEPTED foundation.
+- **S6M:** ACCEPTED through S6M8 implementation; S8R adds the missing active-legacy-name leakage gate.
   - **S6M0:** accepted baseline audit (`MODULARITY_AUDIT.md`).
   - **S6M1A:** ACCEPTED (compact exchange-family compiler + CodeBuilder preview/validation seam; 120 `tools/semantic_harness/tests` tests passing).
   - **S6M1B:** ACCEPTED (headless CodeBuilder `convo_engine_authoring.py` / `convo_engine_cli.py` + `SemanticLabAuthoringService` create/edit/move/shard/write API; 124 `tools/semantic_harness/tests` tests passing).
@@ -319,16 +352,11 @@ Filesystem path is discoverability, not canonical identity.
   - **S6M6:** ACCEPTED (implemented Core registered Semantic Action Contract / `execute` + bounded public `result.*` compiler/IR/runtime support in `semantic_dialogue_ir.py` [`result` context root], `convo_engine_exchange.py` [`normalize_execute` rejecting Lua/callbacks + `bindings` projection], `psdl_compiler.py` [dotted binding names + `action_contracts` checks], `PsychopatzSemanticIR.lua` [`result` public root], `TextBinding.lua` [raw structured resolver inputs + camelCase placeholder names], `ActionContract.lua` [capability/input/schema validation, `discoveryOnly` guard, sync+async `CompleteAsync` correlation, duplicate/stale idempotency guard, fail-closed public `result.*` projection], and `Affordance.lua` [`ExecuteExchange` & `ApplyActionResult` + predicate `result.*` branching]; registered Hoomans `pnc.companion.camp` + `pnc.camp.location_phrase` in `PNC/ConvoEngine/CampActionContract.lua` routing through existing `PNC.Client.RequestSemanticTask` / `TaskRequestService.Submit` authority and client-observed `camp_site` hint rules; updated `command_camp.json` via `SemanticLabAuthoringService.write_convo_engine_source` and regenerated 466 artifacts via `build.py`; verified Core Python 140/140 OK [incl. `test_convo_engine_s6m6_actions.py`], `refactor_binding_smoke.py` PASS, `convo_engine_s6m6_action_contract_smoke.lua` & `convo_engine_s6m5_affordance_smoke.lua` PASS, DynamicTrading 89/89 PASS, ProjectHoomans 1013/1021 PASS [incl. `pnc_convo_engine_camp_action_smoke.lua` PASS & 10/10 camp/task filter pass, exact 8 pre-existing baseline failures, 0 regressions], and 0 Kahlua2 errors across all 6 edited/created Lua modules).
   - **S6M7-S6M8:** ACCEPTED (enforced `strip_stale_migration_metadata` in `convo_engine_authoring.py` / `SemanticLabAuthoringService.write_convo_engine_source` and fixed cross-file `compile_convo_engine_sources` + `beat`-to-sibling-`behavior` validation in `psdl_compiler.py` / `service.py`; stripped stale migration metadata [`sourceSurface`, `migration`, `sourceCatalog`, `originalOwner`, `metadata.sourcePath`, `metadata.sourceProfile`] across all 436 Core/Hoomans + 2 DynamicTrading canonical ConvoEngine sources through CodeBuilder; restored `opening.001..003` `metadata.textRows` in `social_settlement_admission.json` + regenerated 466 artifacts via `build.py`; fixed Core `UI.json` missing `UI_PsychopatzConversation_Goodbye` & `PsychopatzConversationText.lua` camelCase placeholder regex `{[a-z][a-zA-Z0-9_.]*}`; closed all 7 Hoomans ConvoEngine/semantic/translation/emote/gift/context regressions [`DialogueBlocks.lua` compact `say` support, `PNC_CompanionCommandInteractionQueue.lua` explicit player actor + synchronous pump without `OnTick`, `PNC_CompanionCommandInteraction.lua` unique per-exchange correlation ID, `PNC_TranslationBootstrap.lua` + `_Segments.lua` `^semantic.` / `^UI_DT_Conversation_` / `DebugDiscoveryRawLabel`, `Gifts_Receive_Presentation.lua` nil-guards, `pnc_conversation_smoke.lua` canonical ConvoEngine greeting plan expectation, `pnc_semantic_context_smoke.lua` & `pnc_semantic_cognition_client_smoke.lua`]; added `convo_engine_s6m8_audit.py` + CLI `audit-s6m8` + `test_convo_engine_s6m8_audit.py`; verified Core Python 144/144 OK, Core ConvoEngine S6M5/S6M6 Lua smokes PASS, `audit-s6m8` 0 violations across 566 family files & 0 diffs across 404 generated files in two-pass determinism check, Kahlua2 0 errors across 288 scanned Lua files, DynamicTrading 89/89 PASS, ProjectHoomans 1020/1021 PASS [only unrelated `pnc_population_director_smoke.lua:316` world-bootstrap check fails]).
 - **S7:** ACCEPTED (added `convo_engine_studio_trace.py` + `SemanticLabAuthoringService.{list_convo_engine_families, list_convo_engine_action_contracts, simulate_convo_engine_family}` and upgraded Semantic Lab UI via `ConvoEngineAuthoringPane` [`studio/convo_engine_authoring_pane.py`, compatibility wrapper `studio/psdl_authoring_pane.py`, `ui/studio_surface_builder.py` `"ConvoEngine"` tab] supporting hierarchical/filtered ConvoEngine family browsing across 566 families, compact family CRUD [`kind`/`namespace`/`id`/`slots`/`say`/`reply`/`execute`/`after.recommend`], registered `execute` contract picker, separated `UI Button` vs `Initiating Speech` vs `Selected Reply` simulation preview for `player<->NPC` and `NPC<->NPC` contexts, result-driven reply branch selection, full `predicate -> affordance -> invoke -> speech -> execute -> result -> reply -> after` trace, and built-in S6M8 audit runner; verified Core Python 146/146 OK incl. `test_convo_engine_studio_s7.py`).
-- **S8:** ACCEPTED (fresh exhaustive three-repository verification after S7 commit `2d667ccf98f50560c488fa4bab466ac10bfce0b4`: Core Python `tools/semantic_harness/tests` `146/146` OK; `convo_engine_cli.py audit-s6m8 --check-determinism` `"ok": true`, `familyFilesChecked: 566`, `psdlDirectories: 0`, `catalogLuaLeaves: 0`, `legacyRuntimeDirectories: 0`, `determinism.diffs: []`, `violationCount: 0`; Core ConvoEngine/Semantic/Conversation Lua suites `29/29` PASS; `DynamicTrading/tests/run_tests.py` `89/89` PASS; `ProjectHoomans/tests/run_tests.py` `1020/1021` PASS where the single failure `pnc_population_director_smoke.lua:316` is an unrelated world-bootstrap check with zero ConvoEngine/Conversation/Semantic involvement; Kahlua2 static verification via `pz_verify.py` `0` errors across `PsychopatzCore/ConvoEngine` [52 files], `PNC/ConvoEngine` [219 files], and `DTCommon/ConvoEngine` [5 files]). Native Project Zomboid live SP/MP visual/feel testing remains user-owned.
+- **S8:** ACCEPTED (566 canonical family files, 404 deterministic generated files with 0 diffs, 0 Kahlua2 errors, Core Python 150/150 OK, Core ConvoEngine/Semantic/Conversation Lua 34/34 PASS, DynamicTrading 89/89 PASS, ProjectHoomans 1020/1021 PASS with pre-existing `pnc_population_director_smoke.lua:316` proven independent).
+- **S8R:** ACCEPTED (`S8R1` classified all 279 PSDL references into `S8R1_PSDL_CLASSIFICATION.json`; `S8R2` eliminated all active `psdl.*`/`pnc.psdl.*`/`Conversation/Text/psdl/` output identity and `psdl_authoring_pane.py` obsolete alias across Core, ProjectHoomans, and DynamicTrading via CodeBuilder regeneration; `S8R3` hardened `convo_engine_s6m8_audit.py` + `convo_engine_cli.py` + `service.py` with active leakage scanning and unambiguous three-repo workspace discovery / fail-closed diagnostics; `S8R4` reconciled and committed all goal-owned normative docs; `S8R5` verified fresh three-repo regeneration and full test/Kahlua/leakage gates).
 
-## Regression closure remains required
-
-The prior broad Hoomans semantic/conversation/PSDL run exposed failures beyond
-the small recorded S8 subset. S8 may not be accepted until the same broad
-selection is rerun and each failure is either fixed or proven as an
-independently accepted unrelated baseline.
-
-Do not weaken tests simply to obtain green output.
+Developer-side ConvoEngine work is complete. Native Project Zomboid live SP/MP
+visual/feel acceptance remains user-owned.
 
 ## Final completion boundary
 
@@ -357,13 +385,22 @@ S8 can close only when:
 - static suggestion/hub text is not a separate first-party authority;
 - chaining uses bounded `after.recommend` / `after.goto` / end / resume;
 - generated ConvoEngine modules use semantic filenames under `<Owner>/ConvoEngine/...`;
+- maintained ConvoEngine source/generated/runtime/translation output emits no
+  `psdl.*`, `pnc.psdl.*`, or `Conversation/Text/psdl/` identity;
+- any remaining PSDL names are explicitly classified bounded migration
+  readers/test fixtures, not steady-state writers/output;
 - no generated artifacts are hand edited;
 - Semantic Lab authors/traces the final exchange/affordance/reply/action-result
   model;
-- broad Core/Hoomans/DynamicTrading tests pass;
-- deterministic generation/Kahlua/source audits pass;
-- goal-owned docs/adopter pointers are committed;
-- final handoff records exact three-repository HEADs/residual worktrees.
+- broad Core/Hoomans/DynamicTrading tests pass, with any unrelated accepted
+  baseline proven by fresh dependency/Git evidence;
+- deterministic generation/Kahlua/source/legacy-name audits pass;
+- bare exhaustive audit invocation either discovers all mandatory repos or
+  fails fast rather than running partial acceptance;
+- all goal-owned normative docs/adopter pointers required by the handoff are
+  committed and present in that commit;
+- final handoff records exact three-repository HEADs/residual worktrees and is
+  not marked CLEAN while phase-owned files remain dirty/untracked.
 
 Native Project Zomboid live/visual/feel acceptance remains user-owned after
 developer-side S8 genuinely passes.

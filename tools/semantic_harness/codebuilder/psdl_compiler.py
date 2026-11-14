@@ -944,9 +944,9 @@ def _offer_runtime_projection(
     utterance = offer.get("utterance") or label
     output: dict[str, Any] = {
         "id": offer_id,
-        "labelKey": f"psdl.{record_id}.offer.{offer_id}.label",
+        "labelKey": f"convo.{record_id}.offer.{offer_id}.label",
         "labelFallback": label[DEFAULT_LANGUAGE][0],
-        "utteranceKey": f"psdl.{record_id}.offer.{offer_id}.utterance",
+        "utteranceKey": f"convo.{record_id}.offer.{offer_id}.utterance",
         "utteranceFallback": utterance[DEFAULT_LANGUAGE][0],
         "frame": _copy(offer["frame"]),
         "consumers": list(offer.get("consumers", ["participant"])),
@@ -1010,7 +1010,7 @@ def _response_plan_projection(record: Mapping[str, Any]) -> dict[str, Any] | Non
         normalized_turn: dict[str, Any] = {
             "id": turn_id,
             "continuation": "end" if index == len(source_turns) - 1 else "continue",
-            "segments": [_translation_segment(text, f"psdl.{record['id']}.{turn_id}")],
+            "segments": [_translation_segment(text, f"convo.{record['id']}.{turn_id}")],
             "offers": [
                 _offer_runtime_projection(offer, str(record["id"]))
                 for offer in turn.get("offers", [])
@@ -1233,7 +1233,7 @@ def render_psdl_flow_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
 def render_psdl_realization_plan(
     compiled: Mapping[str, Any],
     *,
-    source_path: str = "psdl/realization.json",
+    source_path: str = "realization/realization.json",
 ) -> list[dict[str, Any]]:
     """Project structured PSDL realization records into SpeechRealization input."""
     if compiled.get("schema") != PSDL_COMPILED_SCHEMA:

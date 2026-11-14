@@ -33,11 +33,13 @@ def _read_json_arg(path_or_json: str) -> Any:
 
 def _service(args: argparse.Namespace) -> SemanticLabAuthoringService:
     repo = Path(args.repository).expanduser().resolve()
-    core = Path(args.core_repository).expanduser().resolve() if args.core_repository else repo
+    core = Path(args.core_repository).expanduser().resolve() if args.core_repository else None
+    hoomans = Path(args.hoomans_repository).expanduser().resolve() if args.hoomans_repository else None
     dt = Path(args.dynamic_trading_repository).expanduser().resolve() if args.dynamic_trading_repository else None
     return SemanticLabAuthoringService(
         repository=repo,
         core_repository=core,
+        hoomans_repository=hoomans,
         dynamic_trading_repository=dt,
     )
 
@@ -45,6 +47,7 @@ def _service(args: argparse.Namespace) -> SemanticLabAuthoringService:
 def _add_repo_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--repository", type=Path, default=ROOT)
     parser.add_argument("--core-repository", type=Path, default=None)
+    parser.add_argument("--hoomans-repository", type=Path, default=None)
     parser.add_argument("--dynamic-trading-repository", type=Path, default=None)
 
 

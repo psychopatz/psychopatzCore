@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from pathlib import Path
 from typing import Any, Mapping
@@ -12,6 +13,7 @@ from .convo_engine_authoring import (
     _STALE_MIGRATION_METADATA_KEYS,
     _STALE_MIGRATION_TOP_KEYS,
 )
+from .convo_engine_psdl_inventory import scan_active_legacy_name_leakage
 from .conversation_compiler import compile_conversation_sources
 from .errors import CompileError
 from .generation_ownership import (
@@ -179,14 +181,123 @@ def _collect_generated_hashes(
     return hashes
 
 
+def _is_owner_repository(owner: str, candidate: Path) -> bool:
+    """Return True when *candidate* has verified provider/mod markers for *owner*."""
+    if not candidate.is_dir():
+        return False
+    if owner == CORE_OWNER:
+        return (
+            candidate
+            / "tools/semantic_harness/codebuilder/sources/conversation/manifest.json"
+        ).is_file()
+    if owner == HOOMANS_OWNER:
+        return (
+            candidate / "tools/providers/pnc/codebuilder/sources/conversation"
+        ).is_dir() and (candidate / "Contents/mods/ProjectHoomans").is_dir()
+    if owner == DT_COMMON_OWNER:
+        return (
+            candidate / "tools/providers/dt/codebuilder/sources/conversation"
+        ).is_dir() and (candidate / "Contents/mods/DTCommon").is_dir()
+    return False
+
+
+def _resolve_owner_repository(
+    owner: str,
+    *,
+    explicit: Path | None,
+    candidates: list[Path],
+    flag_hint: str,
+) -> Path | None:
+    if explicit is not None:
+        return explicit.expanduser().resolve()
+    env_name = package_descriptor(owner).repository_environment
+    if env_name:
+        env_val = os.environ.get(env_name)
+        if env_val:
+            return Path(env_val).expanduser().resolve()
+    matched = [path for path in candidates if _is_owner_repository(owner, path)]
+    unique: list[Path] = []
+    seen: set[Path] = set()
+    for path in matched:
+        resolved = path.resolve()
+        if resolved not in seen:
+            seen.add(resolved)
+            unique.append(resolved)
+    if len(unique) > 1:
+        joined = ", ".join(str(p) for p in unique)
+        raise CompileError(
+            f"Ambiguous {owner} repository discovery ({joined}); pass {flag_hint} or set {env_name}"
+        )
+    return unique[0] if unique else None
+
+
+def discover_convo_engine_repositories(
+    anchor: str | Path,
+    *,
+    repository: str | Path | None = None,
+    core_repository: str | Path | None = None,
+    hoomans_repository: str | Path | None = None,
+    dynamic_trading_repository: str | Path | None = None,
+) -> dict[str, Path | None]:
+    """Resolve Core, Hoomans, and DTCommon repositories from args, env, or workspace siblings."""
+    anchor_path = Path(anchor).expanduser().resolve()
+    repo_path = Path(repository).expanduser().resolve() if repository is not None else None
+    candidates: list[Path] = []
+    for base in (anchor_path, repo_path):
+        if base is not None and base not in candidates:
+            candidates.append(base)
+        if base is not None and base.parent.is_dir():
+            for child in sorted(base.parent.iterdir()):
+                if child.is_dir() and child not in candidates:
+                    candidates.append(child)
+
+    explicit_hoomans = (
+        Path(hoomans_repository).expanduser().resolve()
+        if hoomans_repository is not None
+        else (repo_path if repo_path is not None and _is_owner_repository(HOOMANS_OWNER, repo_path) else None)
+    )
+    explicit_core = (
+        Path(core_repository).expanduser().resolve()
+        if core_repository is not None
+        else (repo_path if repo_path is not None and _is_owner_repository(CORE_OWNER, repo_path) else None)
+    )
+    explicit_dt = (
+        Path(dynamic_trading_repository).expanduser().resolve()
+        if dynamic_trading_repository is not None
+        else (repo_path if repo_path is not None and _is_owner_repository(DT_COMMON_OWNER, repo_path) else None)
+    )
+
+    return {
+        CORE_OWNER: _resolve_owner_repository(
+            CORE_OWNER,
+            explicit=explicit_core,
+            candidates=candidates,
+            flag_hint="--core-repository",
+        ) or anchor_path,
+        HOOMANS_OWNER: _resolve_owner_repository(
+            HOOMANS_OWNER,
+            explicit=explicit_hoomans,
+            candidates=candidates,
+            flag_hint="--hoomans-repository",
+        ),
+        DT_COMMON_OWNER: _resolve_owner_repository(
+            DT_COMMON_OWNER,
+            explicit=explicit_dt,
+            candidates=candidates,
+            flag_hint="--dynamic-trading-repository",
+        ),
+    }
+
+
 def audit_convo_engine_workspace(
     core_repository: str | Path,
     *,
     hoomans_repository: str | Path | None = None,
     dynamic_trading_repository: str | Path | None = None,
     check_determinism: bool = False,
+    require_all_owners: bool = False,
 ) -> dict[str, Any]:
-    """Run the S6M8 three-repository ConvoEngine architectural and determinism audit."""
+    """Run the S6M8/S8R three-repository ConvoEngine architectural and determinism audit."""
     core_root = Path(core_repository).expanduser().resolve()
     hoomans_root = (
         Path(hoomans_repository).expanduser().resolve()
@@ -206,7 +317,24 @@ def audit_convo_engine_workspace(
         "psdlDirectories": 0,
         "catalogLuaLeaves": 0,
         "legacyRuntimeDirectories": 0,
+        "legacyNameViolations": 0,
     }
+
+    if require_all_owners:
+        for owner_name, repo_opt, flag_hint in (
+            (HOOMANS_OWNER, hoomans_root, "--hoomans-repository / PZ_TEST_HOOMANS_REPOSITORY"),
+            (DT_COMMON_OWNER, dt_root, "--dynamic-trading-repository / PZ_TEST_DYNAMIC_TRADING_REPOSITORY"),
+        ):
+            if repo_opt is None or not _is_owner_repository(owner_name, repo_opt):
+                violations.append({
+                    "code": "missing_mandatory_repository",
+                    "owner": owner_name,
+                    "path": str(repo_opt) if repo_opt is not None else "",
+                    "message": (
+                        f"Mandatory participant repository for {owner_name} could not be resolved; "
+                        f"pass {flag_hint}"
+                    ),
+                })
 
     source_roots = _source_roots_by_owner(core_root, hoomans_root, dt_root)
     for owner, source_root in source_roots.items():
@@ -355,6 +483,14 @@ def audit_convo_engine_workspace(
                 "path": key,
                 "message": f"Two-pass build output differed for {key}",
             })
+
+    leakage = scan_active_legacy_name_leakage(
+        core_repository=core_root,
+        hoomans_repository=hoomans_root,
+        dynamic_trading_repository=dt_root,
+    )
+    stats["legacyNameViolations"] = len(leakage["violations"])
+    violations.extend(leakage["violations"])
 
     return {
         "ok": len(violations) == 0,

@@ -12,7 +12,6 @@ if str(ROOT) not in sys.path:
 
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.studio.convo_engine_authoring_pane import ConvoEngineAuthoringPane
-from tools.semantic_harness.studio.psdl_authoring_pane import PSDLAuthoringPane
 
 
 HOOMANS_ROOT = ROOT.parent / "ProjectHoomans"
@@ -184,7 +183,6 @@ class ConvoEngineStudioS7Tests(unittest.TestCase):
             svc,
         )
         self.assertIsInstance(pane, ConvoEngineAuthoringPane)
-        self.assertTrue(issubclass(PSDLAuthoringPane, ConvoEngineAuthoringPane))
         self.assertGreaterEqual(pane._family_list.size(), 40)
 
         report = pane.preview_record()

@@ -1,17 +1,17 @@
 ---
 handoff_schema: 2
-checkpoint_mode: "committed_handoff"
-phase_commit: "self"
+checkpoint_mode: "clean_checkpoint"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-participant_heads: "project-hoomans=a23890d67da3ddbd4173a5a00d69e75644fbedc1;dynamic-trading=f41df273b37057ebf99f689fb9e67bac6d47d07e"
+parent_head: "02ffe3e0df1265e9599d84f465f4478715259c4d"
+participant_heads: "project-hoomans=a21cfd5f806abe9075d97f9dd9c774a43127b412;dynamic-trading=d7c888de62d6f90dcf6746a24e5f50d7f7346e1d"
 state: "CLEAN_CHECKPOINT"
 parent_status: "DEVELOPER_COMPLETE"
-phase: "S8 — Accepted"
-chunk: "Developer-side ConvoEngine roadmap complete"
-evidence: "TEST_VERIFIED"
+phase: "S8R — final ConvoEngine naming and truthful closure"
+chunk: "COMPLETE — S0-S8 + S8R developer-side closure verified across all three repositories"
+evidence: "TEST_VERIFIED_S8R5; DEVELOPER_COMPLETE_LIVE_PZ_USER_OWNED"
 retrieval_tier: "verify"
-updated_at: "2026-11-14T18:28:00Z"
+updated_at: "2026-11-14"
 ---
 
 # ConvoEngine Session Handoff
@@ -29,23 +29,63 @@ changes and caller-zero evidence.
 
 The existing compiler/runtime migration is useful. Do not undo it.
 
-## Mandatory repositories
+Developer-side ConvoEngine **S0-S8 + S8R** work is **complete**. All S6/S7
+mechanisms remain intact, all active PSDL output identity has been replaced with
+`convo.*` / `pnc.convo.*` / `Conversation/Text/convo/...`, the S6M8/S8R audit and
+bare CLI discovery are hardened, and all goal-owned normative documents are
+committed cleanly.
+
+## S8R final acceptance — 2026-11-14
+
+All S8R1-S8R5 developer gates are complete and freshly verified:
 
 ```text
-Core
-/home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD 2d667ccf98f50560c488fa4bab466ac10bfce0b4 (parent of this S8 handoff)
-
-Hoomans
-/home/psychopatz/Zomboid/Workshop/ProjectHoomans
-HEAD a23890d67da3ddbd4173a5a00d69e75644fbedc1
-
-DynamicTrading
-/home/psychopatz/Zomboid/Workshop/DynamicTrading
-HEAD f41df273b37057ebf99f689fb9e67bac6d47d07e
+Core Python semantic-harness                150/150 PASS
+Core Convo/Semantic/Conversation Lua         34/34 PASS
+Core refactor_binding_smoke                  PASS (17 changed Lua files)
+DynamicTrading                               89/89 PASS
+ProjectHoomans                             1020/1021 (focused convo/psdl Lua 27/27 PASS)
+Kahlua ConvoEngine trees                         0 errors (Core 52, Hoomans common 219 + 42.20 181, DT 5)
+bare three-repo S6M8 audit                   ok=true
+familyFilesChecked                             566
+convoPlans                                     566
+legacyNameViolations                             0
+determinism files/diffs                    404 / 0
+compiled.fingerprint                       cbb4cb3ed7fc811f24daf61d5cdc28a1eaadeca80bf3bf479fd46a6ac31ac2ac
 ```
 
-Reinspect Git state before edits. Preserve unrelated work.
+The single Hoomans failure remains
+`pnc_population_director_smoke.lua:316`. Fresh Git/dependency evidence confirms
+neither that test nor PopulationDirector runtime changed in the ConvoEngine
+migration (`git log` at `79114089`), and `Population` Lua has `0`
+`ConvoEngine`/`Conversation` references. Do not weaken or modify it.
+
+Active legacy identity eliminated across all three repos:
+
+```text
+template IDs:            convo.<family>.<role>...  (psdl.* = 0)
+Hoomans text domains:    pnc.convo.<domain>...     (pnc.psdl.* = 0)
+conversation text tree:  Conversation/Text/convo/... (Conversation/Text/psdl/ = 0)
+Manifest/shard kind:     "ConvoEngine"             ("PSDL" = 0)
+obsolete pane alias:     deleted tools/semantic_harness/studio/psdl_authoring_pane.py
+```
+
+## Mandatory repositories and residual worktrees
+
+```text
+Core (main — clean working tree on commit)
+/home/psychopatz/Zomboid/Workshop/psychopatzCore
+
+Hoomans (main)
+/home/psychopatz/Zomboid/Workshop/ProjectHoomans
+HEAD a21cfd5f806abe9075d97f9dd9c774a43127b412
+Preserved unrelated worktree dirt: docs/Jobs/* (11 pre-existing modified markdown files)
+
+DynamicTrading (main)
+/home/psychopatz/Zomboid/Workshop/DynamicTrading
+HEAD d7c888de62d6f90dcf6746a24e5f50d7f7346e1d
+Preserved unrelated worktree dirt: .architecture-refactor/output/architecture-audit.md, tools/providers/dt/__pycache__/
+```
 
 ## Small-model startup
 
@@ -54,7 +94,7 @@ Read only:
 1. `PROGRESS.md`;
 2. this file;
 3. `CONVO_ENGINE.md`;
-4. the one ROADMAP/spec section for the active chunk;
+4. S8R in `ROADMAP.md` plus only the one deeper naming/audit spec needed for the active edit;
 5. exact source/tests being changed.
 
 Do not load the full documentation set unless the active chunk requires it.
@@ -214,7 +254,7 @@ gameplay/server authority.
 
 Read-only candidate discovery is separate from mutation.
 
-This is S6M6, not the current chunk.
+This is accepted S6M6 history, not the current chunk.
 
 ## What became true in S6M2B
 
@@ -264,7 +304,7 @@ This is S6M6, not the current chunk.
 - Replaced record-bucket PSDL UI in Semantic Lab with `ConvoEngineAuthoringPane` (`tools/semantic_harness/studio/convo_engine_authoring_pane.py`, mounted at `"ConvoEngine"` tab in `ui/studio_surface_builder.py`, with `PSDLAuthoringPane` preserved as thin subclass alias in `psdl_authoring_pane.py`), supporting family filtering/CRUD, reply outcome editing, registered `execute` contract picker, `after.recommend` picker, player<->NPC / NPC<->NPC simulation preview with separated `button_label` / `spoken_action` / `response`, full `predicate -> affordance -> invoke -> speech -> execute -> result -> reply -> after` trace, and in-UI S6M8 audit.
 - Verification: Core Python `tools/semantic_harness/tests` 146/146 OK (`test_convo_engine_studio_s7.py` + `test_convo_engine_s6m8_audit.py` PASS).
 
-## What became true in S8
+## What was verified before S8R reopening
 
 - Completed fresh exhaustive three-repository acceptance after S7 commit `2d667ccf98f50560c488fa4bab466ac10bfce0b4`:
   - Core Python suite (`python3 -m unittest discover -s tools/semantic_harness/tests -p "test_*.py" -q`): `146/146` OK.
@@ -273,6 +313,13 @@ This is S6M6, not the current chunk.
   - `DynamicTrading/tests/run_tests.py`: `89/89` PASS.
   - `ProjectHoomans/tests/run_tests.py`: `1020/1021` PASS (single unrelated failure at `pnc_population_director_smoke.lua:316` world-bootstrap check; zero ConvoEngine/Conversation/Semantic references in `Director/Population/` or `Population/`).
   - Kahlua2 static verification (`pz_verify.py --kahlua --severity ERROR`): `0` errors across `PsychopatzCore/ConvoEngine` (`52` files), `PNC/ConvoEngine` (`219` files), and `DTCommon/ConvoEngine` (`5` files).
+
+## What became true in S8R
+
+- **S8R1 (`convo_engine_psdl_inventory.py`, `S8R1_PSDL_CLASSIFICATION.json`):** inventoried and classified all `279` first-party `PSDL`/`psdl` references into `235` `active_convo_engine_identity_or_output`, `42` `bounded_migration_reader_or_test_fixture`, `1` `generic_semantic_infrastructure`, and `1` `obsolete_compatibility_alias`.
+- **S8R2 (compiler/source/caller naming closure):** switched Core `psdl_compiler.py` (`labelKey`, `utteranceKey`, turn `templateID`, default realization path) and `conversation_compiler.py` (`"ConvoEngine"` manifest/shard kind) to `convo.*` / `"ConvoEngine"`; deleted zero-caller `tools/semantic_harness/studio/psdl_authoring_pane.py`; migrated all `38` Hoomans `pnc.psdl.*` families via `SemanticLabAuthoringService.migrate_legacy_text_identity`; updated `DialogueBlocks.lua`, 3 Hoomans composer/definition runtime callers, `DTHoomans_Conversation.lua` (`convo_referral_plan_unavailable`), DT `provider.json`, and tests; regenerated all owners cleanly via CodeBuilder `build.py` (moving `76` EN/TL translation files to `Conversation/Text/convo/`); drove active legacy-name leakage down to `0` violations across all three repositories.
+- **S8R3 (`convo_engine_s6m8_audit.py`, `service.py`, `convo_engine_cli.py`, `test_convo_engine_s6m8_audit.py`):** integrated `scan_active_legacy_name_leakage` (`legacyNameViolations`) into `audit_convo_engine_workspace`, added `discover_convo_engine_repositories` + `require_all_owners=True` so bare `convo_engine_cli.py audit-s6m8 --check-determinism` discovers all three owners unambiguously or fails closed (`missing_mandatory_repository` / `CompileError`), and added negative-leakage, fail-closed discovery, and bare CLI regression tests.
+- **S8R4 & S8R5:** reconciled and committed the full goal-owned normative ConvoEngine documentation set in `psychopatzCore`, committed `DynamicTrading` and `ProjectHoomans` changes first on `main`, and verified fresh three-repo regeneration, test suites, Kahlua2 static checks, `git diff --check`, and final repository state.
 
 ## Remaining user-owned live verification
 

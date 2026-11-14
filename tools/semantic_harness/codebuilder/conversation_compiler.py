@@ -381,7 +381,7 @@ def compile_conversation_sources(
                     _add_global_id(
                         locations,
                         record.get("id"),
-                        kind=record.get("kind", "psdl"),
+                        kind=record.get("kind", "dialogue"),
                         shard=entry,
                         path=path,
                     )
@@ -1155,7 +1155,7 @@ def render_conversation_runtime_plan(
             psdl_modules.append((module, source))
             psdl_reports.append({
                 "module": module,
-                "kind": "PSDL",
+                "kind": "ConvoEngine",
                 "domain": domain,
                 "sourceShard": str(chunk[0].get("sourceShard") or ""),
                 "recordCount": len(chunk),

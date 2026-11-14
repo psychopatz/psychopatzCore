@@ -60,7 +60,10 @@ from .convo_engine_normalization import (
     normalize_source_group,
     shard_offers_to_families as _shard_offers_to_families,
 )
-from .convo_engine_s6m8_audit import audit_convo_engine_workspace
+from .convo_engine_s6m8_audit import (
+    audit_convo_engine_workspace,
+    discover_convo_engine_repositories,
+)
 from .convo_engine_studio_trace import (
     list_convo_engine_families as _list_convo_engine_families,
     list_registered_action_contracts as _list_registered_action_contracts,
@@ -98,6 +101,7 @@ class SemanticLabAuthoringService:
         *,
         runtime_root: Path | None = None,
         core_repository: Path | None = None,
+        hoomans_repository: Path | None = None,
         dynamic_trading_repository: Path | None = None,
     ) -> None:
         self.repository = (repository or authoring.REPOSITORY).expanduser().resolve()
@@ -108,6 +112,11 @@ class SemanticLabAuthoringService:
             self.repository,
             explicit=core_repository,
             runtime_root=self.runtime_root,
+        )
+        self.hoomans_repository = (
+            hoomans_repository.expanduser().resolve()
+            if hoomans_repository is not None
+            else None
         )
         self.dynamic_trading_repository = (
             dynamic_trading_repository.expanduser().resolve()
@@ -1010,6 +1019,74 @@ class SemanticLabAuthoringService:
             write=write,
             prune_source=prune_source,
         )
+
+    def migrate_legacy_text_identity(
+        self,
+        *,
+        write: bool = False,
+    ) -> dict[str, Any]:
+        """Migrate legacy ``psdl/`` textTarget and ``pnc.psdl.`` textDomain via ConvoEngine validation."""
+        allowed = self._convo_engine_allowed_roots()
+        migrated: list[dict[str, Any]] = []
+        writes: list[str] = []
+        seen_paths: set[Path] = set()
+        for root in allowed:
+            if not root.is_dir():
+                continue
+            for path in sorted(root.rglob("*.json")):
+                resolved = path.expanduser().resolve()
+                if resolved in seen_paths:
+                    continue
+                seen_paths.add(resolved)
+                if path.name == "manifest.json":
+                    continue
+                doc = load_json_document(path)
+                metadata = doc.get("metadata")
+                if not isinstance(metadata, dict):
+                    continue
+                target = metadata.get("textTarget")
+                domain = metadata.get("textDomain")
+                new_target = (
+                    "convo/" + target[len("psdl/"):]
+                    if isinstance(target, str) and target.startswith("psdl/")
+                    else target
+                )
+                new_domain = (
+                    "pnc.convo." + domain[len("pnc.psdl."):]
+                    if isinstance(domain, str) and domain.startswith("pnc.psdl.")
+                    else domain
+                )
+                if new_target == target and new_domain == domain:
+                    continue
+                updated_meta = dict(metadata)
+                if new_target != target:
+                    updated_meta["textTarget"] = new_target
+                if new_domain != domain:
+                    updated_meta["textDomain"] = new_domain
+                result = self.edit_convo_engine_family(
+                    path,
+                    {"metadata": updated_meta},
+                    expected_source_fingerprint=fingerprint(doc),
+                    write=write,
+                )
+                if result.get("ok") is not True:
+                    return result
+                migrated.append({
+                    "path": str(path),
+                    "oldTextTarget": target,
+                    "newTextTarget": new_target,
+                    "oldTextDomain": domain,
+                    "newTextDomain": new_domain,
+                })
+                writes.extend(result.get("writes") or [])
+        return {
+            "ok": True,
+            "previewOnly": not write,
+            "effectFree": not write,
+            "migratedCount": len(migrated),
+            "migrated": migrated,
+            "writes": writes,
+        }
 
     def preview_psdl_document(
         self,
@@ -2590,18 +2667,22 @@ class SemanticLabAuthoringService:
         self,
         *,
         check_determinism: bool = False,
+        require_all_owners: bool = True,
     ) -> dict[str, Any]:
         """Execute the S6M8 three-repository ConvoEngine integrity and determinism audit."""
-        hoomans_repo = (
-            self.repository
-            if (self.repository / "tools/providers/pnc/codebuilder/sources/conversation").is_dir()
-            else None
+        discovered = discover_convo_engine_repositories(
+            self.core_repository,
+            repository=self.repository,
+            core_repository=self.core_repository,
+            hoomans_repository=self.hoomans_repository,
+            dynamic_trading_repository=self.dynamic_trading_repository,
         )
         return audit_convo_engine_workspace(
-            self.core_repository,
-            hoomans_repository=hoomans_repo,
-            dynamic_trading_repository=self.dynamic_trading_repository,
+            discovered[CORE_OWNER] or self.core_repository,
+            hoomans_repository=discovered[HOOMANS_OWNER],
+            dynamic_trading_repository=discovered[DT_COMMON_OWNER],
             check_determinism=check_determinism,
+            require_all_owners=require_all_owners,
         )
 
     def list_convo_engine_families(self) -> list[dict[str, Any]]:

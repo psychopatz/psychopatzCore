@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -11,7 +12,11 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from tools.semantic_harness.codebuilder.convo_engine_authoring import strip_stale_migration_metadata
-from tools.semantic_harness.codebuilder.convo_engine_s6m8_audit import audit_convo_engine_workspace
+from tools.semantic_harness.codebuilder.convo_engine_s6m8_audit import (
+    audit_convo_engine_workspace,
+    discover_convo_engine_repositories,
+)
+from tools.semantic_harness.codebuilder.errors import CompileError
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 
 
@@ -104,6 +109,121 @@ class ConvoEngineS6M8AuditTests(unittest.TestCase):
         )
         report = svc.run_convo_engine_s6m8_audit(check_determinism=False)
         self.assertTrue(report["ok"], f"Service audit violations: {report['violations']}")
+        self.assertEqual(report["stats"]["legacyNameViolations"], 0)
+
+    def test_audit_rejects_active_psdl_output_domains_text_and_obsolete_aliases(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fake_core = Path(tmp) / "psychopatzCore"
+            fake_hoomans = Path(tmp) / "ProjectHoomans"
+            core_src = fake_core / "tools/semantic_harness/codebuilder/sources/conversation"
+            (core_src / "dialogue/social").mkdir(parents=True, exist_ok=True)
+            (core_src / "manifest.json").write_text(
+                json.dumps({"schema": "pnc.conversation.manifest.v1", "defaultOwner": "PsychopatzCore", "shards": []}),
+                encoding="utf-8",
+            )
+            (core_src / "dialogue/social/good.json").write_text(
+                json.dumps({
+                    "schema": "psychopatz.convo-engine.v1",
+                    "kind": "dialogue",
+                    "namespace": "social",
+                    "id": "good",
+                    "say": {"1": "psdl.social.leaked"},
+                }),
+                encoding="utf-8",
+            )
+            obsolete_alias = fake_core / "tools/semantic_harness/studio/psdl_authoring_pane.py"
+            obsolete_alias.parent.mkdir(parents=True, exist_ok=True)
+            obsolete_alias.write_text("PSDLAuthoringPane = object\n", encoding="utf-8")
+
+            hoomans_src = fake_hoomans / "tools/providers/pnc/codebuilder/sources/conversation/dialogue/social"
+            hoomans_src.mkdir(parents=True, exist_ok=True)
+            (hoomans_src / "sample.json").write_text(
+                json.dumps({
+                    "schema": "psychopatz.convo-engine.v1",
+                    "kind": "dialogue",
+                    "namespace": "social",
+                    "id": "sample",
+                    "metadata": {
+                        "textTarget": "psdl/social/bad",
+                        "textDomain": "pnc.psdl.social.bad",
+                    },
+                    "say": "Hello.",
+                }),
+                encoding="utf-8",
+            )
+            bad_tr = fake_hoomans / "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/bad.json"
+            bad_tr.parent.mkdir(parents=True, exist_ok=True)
+            bad_tr.write_text("{}\n", encoding="utf-8")
+            bad_gen = fake_hoomans / "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine/Dialogue/Bad.lua"
+            bad_gen.parent.mkdir(parents=True, exist_ok=True)
+            bad_gen.write_text(
+                'return { ["kind"] = "PSDL", templateID = "psdl.social.bad" }\n',
+                encoding="utf-8",
+            )
+            bad_caller = fake_hoomans / "Contents/mods/ProjectHoomans/42.20/media/lua/client/Caller.lua"
+            bad_caller.parent.mkdir(parents=True, exist_ok=True)
+            bad_caller.write_text('local p = "Conversation/Text/psdl/bad.json"\n', encoding="utf-8")
+
+            report = audit_convo_engine_workspace(
+                fake_core,
+                hoomans_repository=fake_hoomans,
+                check_determinism=False,
+                require_all_owners=True,
+            )
+            self.assertFalse(report["ok"])
+            self.assertGreaterEqual(report["stats"]["legacyNameViolations"], 5)
+            codes = {v["code"] for v in report["violations"]}
+            self.assertIn("active_legacy_psdl_identity", codes)
+            self.assertIn("obsolete_psdl_compatibility_alias", codes)
+            self.assertIn("missing_mandatory_repository", codes)
+            flagged_paths = {v["path"] for v in report["violations"]}
+            self.assertIn("tools/semantic_harness/studio/psdl_authoring_pane.py", flagged_paths)
+            self.assertIn("tools/providers/pnc/codebuilder/sources/conversation/dialogue/social/sample.json", flagged_paths)
+            self.assertIn("Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/bad.json", flagged_paths)
+            self.assertIn("Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine/Dialogue/Bad.lua", flagged_paths)
+            self.assertIn("Contents/mods/ProjectHoomans/42.20/media/lua/client/Caller.lua", flagged_paths)
+
+    def test_service_and_discovery_fail_closed_when_missing_or_ambiguous(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fake_core = Path(tmp) / "psychopatzCore"
+            src = fake_core / "tools/semantic_harness/codebuilder/sources/conversation"
+            src.mkdir(parents=True, exist_ok=True)
+            (src / "manifest.json").write_text("{}", encoding="utf-8")
+
+            svc = SemanticLabAuthoringService(fake_core, core_repository=fake_core)
+            report = svc.run_convo_engine_s6m8_audit(check_determinism=False)
+            self.assertFalse(report["ok"])
+            self.assertIn("missing_mandatory_repository", {v["code"] for v in report["violations"]})
+
+            for dup in ("HoomansA", "HoomansB"):
+                d = Path(tmp) / dup
+                (d / "tools/providers/pnc/codebuilder/sources/conversation").mkdir(parents=True, exist_ok=True)
+                (d / "Contents/mods/ProjectHoomans").mkdir(parents=True, exist_ok=True)
+            with self.assertRaises(CompileError):
+                discover_convo_engine_repositories(fake_core)
+
+    def test_bare_cli_invocation_audits_all_three_repositories(self) -> None:
+        if not HOOMANS_ROOT.is_dir() or not DT_ROOT.is_dir():
+            self.skipTest("Sibling participant repositories are unavailable")
+        proc = subprocess.run(
+            [
+                sys.executable,
+                "tools/semantic_harness/codebuilder/convo_engine_cli.py",
+                "audit-s6m8",
+            ],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        payload = json.loads(proc.stdout)
+        self.assertTrue(payload["ok"], payload["violations"])
+        self.assertEqual(
+            set(payload["stats"]["owners"]),
+            {"PsychopatzCore", "ProjectHoomans", "DTCommon"},
+        )
+        self.assertEqual(payload["stats"]["legacyNameViolations"], 0)
 
 
 if __name__ == "__main__":

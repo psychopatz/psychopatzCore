@@ -834,7 +834,7 @@ return {
                             },
                             ["fallback"] = "I haven't heard any news lately.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.gossip.unknown.say_1",
+                            ["templateID"] = "convo.gossip.unknown.say_1",
                         },
                     },
                 },
