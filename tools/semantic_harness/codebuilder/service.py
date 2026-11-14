@@ -65,6 +65,7 @@ from .convo_engine_s6m8_audit import (
     discover_convo_engine_repositories,
 )
 from .convo_catalog import ConvoCatalog
+from .convo_probe import ConvoProbe
 from .convo_transaction import ChangeSet, ConvoTransaction
 from .harness_context import HarnessContext
 from .operation_registry import OperationRegistry
@@ -162,10 +163,12 @@ class SemanticLabAuthoringService:
             self.dynamic_trading_repository,
         )
         self.convo_transaction = ConvoTransaction(self)
+        self.convo_probe = ConvoProbe(self.workspace_snapshot)
         self.harness = HarnessContext(
             workspace=self.workspace_snapshot,
             convo=self.convo_catalog,
             transaction=self.convo_transaction,
+            runtime=self.convo_probe,
             audit=audit_convo_engine_workspace,
             compat={
                 "datasets": self.dataset_catalog,
@@ -174,6 +177,15 @@ class SemanticLabAuthoringService:
             },
         )
         self.operations = OperationRegistry(self)
+
+    def close(self) -> None:
+        """Close any pooled ConvoProbe Lua worker session."""
+        if hasattr(self, "convo_probe") and self.convo_probe is not None:
+            self.convo_probe.close()
+
+    def attach_convo_probe_worker(self, worker: Any | None) -> None:
+        """Attach an existing worker (or custom test worker) to ConvoProbe."""
+        self.convo_probe.attach_worker(worker)
 
     def refresh_workspace(self) -> WorkspaceSnapshot:
         """Re-discover workspace providers and source roots via WorkspaceCatalog."""

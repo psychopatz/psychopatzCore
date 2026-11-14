@@ -70,6 +70,7 @@ local runtimeLoad, runtimeLoadReason = ProviderLoader.loadRuntime(providerLaunch
 if not runtimeLoad then
     error(runtimeLoadReason)
 end
+local ConvoProbe = require "worker/ConvoProbe"
 
 local Runtime = RuntimeState.new()
 local Context = {
@@ -160,6 +161,7 @@ local function hello()
             "semantic.parse",
             "semantic.ir",
             "semantic.conversation",
+            "semantic.convo_probe",
             "harness.runtime_state",
             "harness.value_projection",
             "harness.session_envelope",
@@ -273,6 +275,13 @@ local function dispatch(request)
             operation = operation,
             result = result,
         }, nil, false
+    end
+    if command == "CONVO_PROBE" then
+        local result, failure, shouldQuit = ConvoProbe.handle(Context, command, payload)
+        if failure then
+            return nil, failure, shouldQuit
+        end
+        return result, nil, shouldQuit
     end
     if command == "QUIT" then
         return { ok = true, type = "goodbye", profile = profileID }, nil, true

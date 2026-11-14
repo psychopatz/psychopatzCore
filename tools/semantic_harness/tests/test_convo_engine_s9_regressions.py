@@ -508,7 +508,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
                         f"Missing workflow dataset {row['id']} advertised workflowReady=True",
                     )
 
-    @unittest.expectedFailure  # S9H3: production Predicate operator parity via Lua ConvoProbe
     def test_08_production_predicate_operators_supported_in_simulation(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))
@@ -545,7 +544,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
             pred_stage = next(s for s in sim["trace"] if s["stage"] == "predicate")
             self.assertTrue(pred_stage["passed"])
 
-    @unittest.expectedFailure  # S9H3: remove hard-coded KNOWN_ACTION_CONTRACTS CAMP metadata
     def test_09_action_contract_discovery_not_hardcoded_to_camp(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))

@@ -1,47 +1,21 @@
 """Core ConvoEngine Semantic Lab index, simulation, and trace helpers.
 
-All Semantic Lab UI operations consume this module through
-SemanticLabAuthoringService so Studio never invents a second schema or
-compiler/interpreter copy.
+All Semantic Lab simulation and action-contract discovery delegate directly
+to the live production Lua runtime via ``ConvoProbe`` and the canonical
+``ConvoCatalog`` — never a duplicate Python interpreter or hard-coded
+provider action table.
 """
 
 from __future__ import annotations
 
-import copy
 import json
-import re
 from pathlib import Path
 from typing import Any, Mapping
 
 from .convo_catalog import ConvoCatalog
-from .generation_ownership import (
-    CORE_OWNER,
-    DT_COMMON_OWNER,
-    HOOMANS_OWNER,
-)
-from .translation_support import DEFAULT_LANGUAGE
+from .convo_probe import ConvoProbe
+from .translation_support import DEFAULT_LANGUAGE, normalize_language
 from .workspace_catalog import WorkspaceCatalog, WorkspaceSnapshot
-
-
-_PLACEHOLDER_RE = re.compile(r"\{([a-z][a-zA-Z0-9_.]*)\}")
-
-
-KNOWN_ACTION_CONTRACTS: dict[str, dict[str, Any]] = {
-    "pnc.companion.camp": {
-        "id": "pnc.companion.camp",
-        "owner": HOOMANS_OWNER,
-        "mode": "request_response",
-        "discoveryOnly": False,
-        "capability": "companion_command",
-        "inputs": {"target": "entity.person", "campSite": "string?"},
-        "publicResultSchema": {
-            "outcome": ["valid", "invalid", "pending", "rejected", "none"],
-            "reasonClass": "string",
-            "locationPhrase": "string",
-        },
-        "authorityPath": "PNC.Client.RequestSemanticTask / TaskRequestService.Submit",
-    },
-}
 
 
 def _workspace_snapshot(service: Any) -> WorkspaceSnapshot:
@@ -58,8 +32,47 @@ def _workspace_snapshot(service: Any) -> WorkspaceSnapshot:
     )
 
 
-def _convo_roots(service: Any) -> list[tuple[str, Path]]:
-    return _workspace_snapshot(service).source_roots_for()
+def _convo_probe(service: Any) -> ConvoProbe:
+    probe = getattr(service, "convo_probe", None)
+    if isinstance(probe, ConvoProbe):
+        return probe
+    probe = ConvoProbe(_workspace_snapshot(service))
+    try:
+        service.convo_probe = probe
+    except Exception:
+        pass
+    return probe
+
+
+def _manifest_action_contracts(snapshot: WorkspaceSnapshot) -> dict[str, dict[str, Any]]:
+    """Read optional data-driven actionContracts declared inside provider manifests."""
+    discovered: dict[str, dict[str, Any]] = {}
+    for provider in snapshot.providers:
+        manifest_file = provider.manifest_path
+        try:
+            doc = json.loads(manifest_file.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            continue
+        if not isinstance(doc, Mapping):
+            continue
+        entries: list[Any] = []
+        if isinstance(doc.get("actionContracts"), list):
+            entries.extend(doc["actionContracts"])
+        elif isinstance(doc.get("actionContracts"), Mapping):
+            for cid, spec in doc["actionContracts"].items():
+                if isinstance(spec, Mapping):
+                    entries.append({"id": cid, **spec})
+        for raw_entry in entries:
+            if not isinstance(raw_entry, Mapping):
+                continue
+            cid = str(raw_entry.get("id") or "").strip()
+            if cid:
+                item = dict(raw_entry)
+                item.setdefault("id", cid)
+                item.setdefault("owner", provider.provider_id)
+                item.setdefault("source", "provider_manifest")
+                discovered[cid] = item
+    return discovered
 
 
 def list_convo_engine_families(service: Any) -> list[dict[str, Any]]:
@@ -71,130 +84,41 @@ def list_convo_engine_families(service: Any) -> list[dict[str, Any]]:
 
 
 def list_registered_action_contracts(service: Any) -> list[dict[str, Any]]:
-    """List known registered Semantic Action Contracts and any workspace references."""
-    contracts: dict[str, dict[str, Any]] = copy.deepcopy(KNOWN_ACTION_CONTRACTS)
+    """Discover registered Semantic Action Contracts via ConvoProbe, manifests, and sources."""
+    snapshot = _workspace_snapshot(service)
+    contracts: dict[str, dict[str, Any]] = _manifest_action_contracts(snapshot)
+
+    probe = _convo_probe(service)
+    for lua_contract in probe.list_action_contracts():
+        cid = str(lua_contract.get("id") or "").strip()
+        if not cid:
+            continue
+        entry = contracts.setdefault(cid, {"id": cid})
+        entry.update(lua_contract)
+        entry.setdefault("source", "lua_runtime")
+
     for item in list_convo_engine_families(service):
         action_id = item.get("executeAction")
-        if action_id and action_id not in contracts:
-            contracts[action_id] = {
-                "id": action_id,
+        if not action_id:
+            continue
+        action_id_str = str(action_id)
+        if action_id_str not in contracts:
+            contracts[action_id_str] = {
+                "id": action_id_str,
                 "owner": item.get("owner"),
                 "mode": "request_response",
                 "discoveryOnly": False,
                 "inputs": {},
                 "publicResultSchema": {"outcome": "string", "reasonClass": "string"},
                 "declaredIn": [item["canonicalID"]],
+                "source": "convo_catalog",
             }
-        elif action_id and action_id in contracts:
-            contracts[action_id].setdefault("declaredIn", []).append(item["canonicalID"])
-    return [contracts[key] for key in sorted(contracts)]
-
-
-def _lookup_dotted(mapping: Mapping[str, Any], path: str) -> Any:
-    cur: Any = mapping
-    for part in path.split("."):
-        if isinstance(cur, Mapping) and part in cur:
-            cur = cur[part]
         else:
-            return None
-    return cur
+            contracts[action_id_str].setdefault("declaredIn", [])
+            if item["canonicalID"] not in contracts[action_id_str]["declaredIn"]:
+                contracts[action_id_str]["declaredIn"].append(item["canonicalID"])
 
-
-def _render_placeholders(text: str, env: Mapping[str, Any]) -> str:
-    def _replace(match: re.Match[str]) -> str:
-        key = match.group(1)
-        val = _lookup_dotted(env, key)
-        if val is None and key.startswith("slot."):
-            slot_short = key[len("slot."):]
-            val = _lookup_dotted(env.get("slot") or {}, slot_short)
-        return str(val) if val is not None else match.group(0)
-
-    return _PLACEHOLDER_RE.sub(_replace, str(text or ""))
-
-
-def _evaluate_predicate(predicate: Any, env: Mapping[str, Any]) -> bool:
-    if predicate is None:
-        return True
-    if not isinstance(predicate, Mapping):
-        return False
-    if "all" in predicate:
-        return all(_evaluate_predicate(child, env) for child in (predicate["all"] or []))
-    if "any" in predicate:
-        return any(_evaluate_predicate(child, env) for child in (predicate["any"] or []))
-    if "not" in predicate:
-        return not _evaluate_predicate(predicate["not"], env)
-    op = str(predicate.get("op") or "exists")
-    path = str(predicate.get("path", predicate.get("field", "")))
-    actual = _lookup_dotted(env, path)
-    if actual is None and path.startswith("result."):
-        actual = _lookup_dotted(env.get("result") or {}, path[len("result."):])
-    expected = predicate.get("value")
-    if op == "exists":
-        return actual is not None
-    if op == "truthy":
-        return bool(actual)
-    if op == "eq":
-        return actual == expected
-    if op == "neq":
-        return actual != expected
-    if op == "in":
-        return actual in (predicate.get("values") or [])
-    if op in {"gt", "gte", "lt", "lte"}:
-        if actual is None or expected is None:
-            return False
-        try:
-            a, b = float(actual), float(expected)
-        except (TypeError, ValueError):
-            return False
-        if op == "gt":
-            return a > b
-        if op == "gte":
-            return a >= b
-        if op == "lt":
-            return a < b
-        return a <= b
-    return False
-
-
-def _pick_realization_text(
-    say_projection: Mapping[str, Any] | None,
-    *,
-    realization_key: str | None,
-    style: str,
-    locale: str,
-    env: Mapping[str, Any],
-) -> dict[str, Any] | None:
-    if not isinstance(say_projection, Mapping):
-        return None
-    realizations = say_projection.get("realizations") or {}
-    key_order = say_projection.get("keyOrder") or list(realizations)
-    selected_key = realization_key if realization_key in realizations else (key_order[0] if key_order else None)
-    if selected_key is None:
-        return None
-    entry = realizations[selected_key]
-    variants = entry.get("variants") or []
-    chosen = next(
-        (v for v in variants if v.get("id") == style and _evaluate_predicate(v.get("when"), env)),
-        None,
-    )
-    if chosen is None:
-        chosen = next((v for v in variants if _evaluate_predicate(v.get("when"), env)), None)
-    if chosen is None and variants:
-        chosen = variants[0]
-    if chosen is None:
-        return None
-    translations = chosen.get("text") or {}
-    lines = translations.get(locale) or translations.get(DEFAULT_LANGUAGE) or []
-    raw_line = lines[0] if lines else ""
-    return {
-        "realizationKey": selected_key,
-        "variantID": chosen.get("id"),
-        "templateID": chosen.get("templateID"),
-        "textRole": say_projection.get("textRole"),
-        "locale": locale if locale in translations else DEFAULT_LANGUAGE,
-        "rawText": raw_line,
-        "renderedText": _render_placeholders(raw_line, env),
-    }
+    return [contracts[key] for key in sorted(contracts)]
 
 
 def simulate_convo_engine_family(
@@ -214,7 +138,7 @@ def simulate_convo_engine_family(
     context: Mapping[str, Any] | None = None,
     realization_key: str | None = None,
 ) -> dict[str, Any]:
-    """Compile and deterministically simulate a ConvoEngine family end-to-end."""
+    """Compile and simulate a ConvoEngine family through the live Lua ConvoProbe."""
     validation = service.validate_convo_engine_document(
         document,
         source_path=source_path,
@@ -231,8 +155,8 @@ def simulate_convo_engine_family(
 
     plans = validation.get("runtimePlan") or []
     plan = plans[0] if plans else {}
-    exchange = plan.get("exchangeFamily") or {}
-    payload = plan.get("payload") or {}
+    norm_locale = normalize_language(locale or DEFAULT_LANGUAGE)
+
     result_env: dict[str, Any] = dict(result_fields or {})
     if result_outcome is not None:
         result_env.setdefault("outcome", result_outcome)
@@ -248,150 +172,35 @@ def simulate_convo_engine_family(
     env["slots"] = env["slot"]
     env["result"] = result_env
 
-    # Evaluate affordance button preview strictly separately from initiating speech.
-    aff_proj = exchange.get("affordance")
-    button_preview: dict[str, Any] | None = None
-    if isinstance(aff_proj, Mapping):
-        translations = aff_proj.get("translations") or {}
-        lines = translations.get(locale) or translations.get(DEFAULT_LANGUAGE) or [aff_proj.get("labelFallback", "")]
-        button_preview = {
-            "textRole": aff_proj.get("textRole"),
-            "labelKey": aff_proj.get("labelKey"),
-            "consumers": aff_proj.get("consumers", []),
-            "renderedLabel": _render_placeholders(lines[0] if lines else "", env),
-        }
-
-    initiating_speech = _pick_realization_text(
-        exchange.get("initiatingSay"),
-        realization_key=realization_key,
-        style=style,
-        locale=locale,
-        env=env,
-    )
-
-    execute_spec = exchange.get("execute")
-    execute_trace: dict[str, Any] | None = None
-    if isinstance(execute_spec, Mapping):
-        action_id = execute_spec.get("use") or execute_spec.get("action")
-        contract = KNOWN_ACTION_CONTRACTS.get(str(action_id or ""), {})
-        resolved_inputs = {
-            k: (_lookup_dotted(env, str(v)[1:]) if isinstance(v, str) and str(v).startswith("$") else v)
-            for k, v in (execute_spec.get("with") or {}).items()
-        }
-        execute_trace = {
-            "action": action_id,
-            "mode": execute_spec.get("mode") or contract.get("mode", "sync"),
-            "resolvedWith": resolved_inputs,
-            "discoveryOnly": bool(contract.get("discoveryOnly", False)),
-            "publicResult": copy.deepcopy(result_env),
-            "authorityPath": contract.get("authorityPath"),
-        }
-        if not result_env.get("outcome"):
-            # Pick first available reply outcome for deterministic trace when caller didn't override.
-            replies_keys = sorted((exchange.get("replies") or {}).keys())
-            if replies_keys:
-                result_env["outcome"] = replies_keys[0]
-                execute_trace["publicResult"] = copy.deepcopy(result_env)
-
-    # Select reply outcome by predicate match first (result.outcome / result.reasonClass),
-    # then explicit outcome name, then deterministic first branch fallback.
-    replies = exchange.get("replies") or {}
-    selected_reply_name: str | None = None
-    selected_reply_branch: Mapping[str, Any] | None = None
-    desired_outcome = result_outcome or result_env.get("outcome")
-    for outcome_name, branch in replies.items():
-        if branch.get("when") is not None and _evaluate_predicate(branch.get("when"), env):
-            selected_reply_name = outcome_name
-            selected_reply_branch = branch
-            break
-    if selected_reply_branch is None and desired_outcome and desired_outcome in replies:
-        selected_reply_name = str(desired_outcome)
-        selected_reply_branch = replies[selected_reply_name]
-    if selected_reply_branch is None and replies:
-        for outcome_name, branch in replies.items():
-            if _evaluate_predicate(branch.get("when"), env):
-                selected_reply_name = outcome_name
-                selected_reply_branch = branch
-                break
-        if selected_reply_branch is None:
-            selected_reply_name = sorted(replies)[0]
-            selected_reply_branch = replies[selected_reply_name]
-
-    reply_speech: dict[str, Any] | None = None
-    if isinstance(selected_reply_branch, Mapping):
-        if isinstance(selected_reply_branch.get("say"), Mapping):
-            reply_speech = _pick_realization_text(
-                selected_reply_branch["say"],
-                realization_key=None,
-                style=style,
-                locale=locale,
-                env=env,
-            )
-        elif isinstance(selected_reply_branch.get("variants"), list) and selected_reply_branch["variants"]:
-            v = next(
-                (item for item in selected_reply_branch["variants"] if item.get("id") == style),
-                selected_reply_branch["variants"][0],
-            )
-            trans = v.get("text") or {}
-            lines = trans.get(locale) or trans.get(DEFAULT_LANGUAGE) or []
-            reply_speech = {
-                "variantID": v.get("id"),
-                "textRole": selected_reply_branch.get("textRole"),
-                "rawText": lines[0] if lines else "",
-                "renderedText": _render_placeholders(lines[0] if lines else "", env),
-            }
-
-    predicate_passed = _evaluate_predicate(plan.get("when"), env)
-    after_branch = (
-        selected_reply_branch.get("after")
-        if isinstance(selected_reply_branch, Mapping) and "after" in selected_reply_branch
-        else exchange.get("after")
-    )
-
-    trace = [
-        {"stage": "predicate", "passed": predicate_passed, "when": plan.get("when")},
-        {"stage": "affordance", "button": button_preview},
-        {"stage": "invoke", "invoke": exchange.get("invoke")},
-        {"stage": "speech", "speaker": speaker, "say": initiating_speech},
-        {"stage": "execute", "action": execute_trace},
-        {"stage": "result", "publicResult": copy.deepcopy(result_env)},
-        {"stage": "reply", "speaker": addressee, "outcome": selected_reply_name, "say": reply_speech},
-        {"stage": "after", "after": after_branch},
-    ]
-
-    return {
-        "ok": True,
-        "previewOnly": True,
-        "effectFree": True,
-        "familyID": plan.get("id"),
-        "kind": plan.get("kind"),
-        "owner": plan.get("owner"),
-        "compiledFingerprint": validation["compiled"]["fingerprint"],
-        "diagnostics": validation.get("diagnostics", []),
-        "previewContext": {
-            "speaker": speaker,
-            "addressee": addressee,
-            "target": target,
+    probe = _convo_probe(service)
+    lua_sim = probe.simulate_exchange(
+        plan,
+        context=env,
+        options={
+            "language": norm_locale,
+            "locale": norm_locale,
             "style": style,
-            "locale": locale,
-            "slots": dict(slot_values or {}),
-            "result": result_env,
+            "realizationKey": realization_key or "",
+            "consumer": speaker,
+            "outcome": result_outcome,
         },
-        "buttonPreview": button_preview,
-        "initiatingSpeechPreview": initiating_speech,
-        "executePreview": execute_trace,
-        "replyPreview": {
-            "outcome": selected_reply_name,
-            "speech": reply_speech,
-        },
-        "afterPreview": after_branch,
-        "textRoles": plan.get("textRoles", []),
-        "beatBehaviorPreview": {
-            "group": payload.get("group"),
-            "candidates": payload.get("candidates"),
-            "entry": payload.get("entry"),
-            "maintain": payload.get("maintain"),
-            "exit": payload.get("exit"),
-        } if plan.get("kind") in {"beat", "behavior"} else None,
-        "trace": trace,
+    )
+    lua_sim["compiledFingerprint"] = validation["compiled"]["fingerprint"]
+    lua_sim["diagnostics"] = validation.get("diagnostics", [])
+    lua_sim["previewContext"] = {
+        "speaker": speaker,
+        "addressee": addressee,
+        "target": target,
+        "style": style,
+        "locale": norm_locale,
+        "slots": dict(slot_values or {}),
+        "result": result_env,
     }
+    return lua_sim
+
+
+__all__ = [
+    "list_convo_engine_families",
+    "list_registered_action_contracts",
+    "simulate_convo_engine_family",
+]
