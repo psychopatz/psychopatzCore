@@ -3,13 +3,13 @@ handoff_schema: 2
 checkpoint_mode: "clean_phase_checkpoint"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-head: "PENDING_CORE_S9H0_COMMIT"
+head: "PENDING_CORE_S9H1_COMMIT"
 participant_heads: "project-hoomans=bd7923ae717a6d35c06ecbab75aa569685570845;dynamic-trading=d7c888de62d6f90dcf6746a24e5f50d7f7346e1d"
 state: "ACTIVE_GOAL"
 parent_status: "IN_PROGRESS"
 phase: "S9 — Semantic Harness ConvoEngine convergence"
-chunk: "S9H1 — WorkspaceCatalog + ConvoCatalog"
-evidence: "S8R_TEST_VERIFIED_BASELINE; S9_DESIGN_FROZEN; S9H0_REGRESSION_LOCK_COMPLETE"
+chunk: "S9H2 — OperationRegistry + safe ConvoTransaction"
+evidence: "S8R_TEST_VERIFIED_BASELINE; S9_DESIGN_FROZEN; S9H0_COMPLETE; S9H1_WORKSPACE_CONVO_CATALOG_PASS_171"
 retrieval_tier: "verify"
 updated_at: "2026-11-14"
 ---
@@ -20,11 +20,11 @@ updated_at: "2026-11-14"
 
 S0-S8R ConvoEngine compiler/runtime/content work is accepted. Do not reopen its architecture without a concrete regression.
 
-**S9H0 (regression-lock + architecture freeze) is complete:**
+**S9H0 + S9H1 complete:**
 
-- Added `tools/semantic_harness/tests/test_convo_engine_s9_regressions.py` (16 tests locking all 13 S9H0 regression requirements; 12 `@unittest.expectedFailure` reproducing live defects before S9H1-S9H6 fixes, 4 already-passing invariants).
-- Core Python semantic-harness suite verified: `166/166 OK (expected failures=12)`.
-- S9H0 comment-polish cleanup in Core (`PsychopatzConversationText.lua`) and ProjectHoomans (`bd7923ae717a6d35c06ecbab75aa569685570845`, 9 `Contents/` files) committed cleanly while preserving all unrelated dirty work.
+- **S9H0:** Added `tools/semantic_harness/tests/test_convo_engine_s9_regressions.py` pinning all 13 S9H0 regression requirements.
+- **S9H1:** Added `WorkspaceCatalog` (`tools/semantic_harness/codebuilder/workspace_catalog.py`) and `ConvoCatalog` (`tools/semantic_harness/codebuilder/convo_catalog.py`), migrated `SemanticLabAuthoringService`, `convo_engine_studio_trace.py`, `CanonicalSourceExplorerPane`, `convo_engine_s6m8_audit.py`, and `build.py` to the shared catalog authority, and added `tools/semantic_harness/tests/test_convo_engine_s9h1_catalog.py`.
+- Full Core Python semantic-harness suite verified: `171/171 OK (expected failures=10)`.
 
 ## Repository vector
 
@@ -43,8 +43,8 @@ S0-S8R ConvoEngine compiler/runtime/content work is accepted. Do not reopen its 
     preserve .architecture-refactor/output/architecture-audit.md
     preserve tools/providers/dt/__pycache__/
 
-## Active next phase — S9H1 WorkspaceCatalog + ConvoCatalog
+## Active next phase — S9H2 OperationRegistry + safe ConvoTransaction
 
-1. Implement `WorkspaceCatalog` producing immutable bounded `WorkspaceSnapshot` via `semantic.provider_manifest.v2` + explicit repository overrides (fixing `package_repositories[ProjectHoomans]` and unresolved required-owner fail-closed semantics).
-2. Implement lightweight compiler-owned `ConvoCatalog` (`FamilySummary` index, search/filter, source/generated routing, incoming/outgoing refs, bounded affected closure, fingerprint-keyed caching).
-3. Migrate Studio family discovery, `CanonicalSourceExplorerPane`, audit, CLI, and CodeBuilder participant lookup to the shared catalog authority, and remove `@unittest.expectedFailure` from S9H1 regression tests (`test_10` and `WorkspaceCatalog` portions of `test_01`/`test_02`/`test_12b`).
+1. Introduce `OperationRegistry` exposing versioned `workspace.describe`, `convo.catalog`, `convo.get`, `convo.impact`, `convo.validate`, `convo.simulate`, `convo.change.preview`, `convo.change.apply`, `convo.build.preview`, `convo.build.apply`, `convo.audit`.
+2. Introduce `ConvoTransaction` with unified `ChangeSet` preview/apply (owner-routed destination paths, move semantics on `id`/`namespace`/`kind` change, dangling-reference rejection across `after.goto`/`after.recommend`/behavior/beat/semantic refs, stale source-fingerprint rejection, removal of direct `Path.unlink()` from `ConvoEngineAuthoringPane`, atomic source write + CodeBuilder regeneration).
+3. Begin decomposing `SemanticLabAuthoringService` around `HarnessContext` ports and clear S9H2 regression locks (`test_01`, `test_02`, `test_03b`, `test_04b`, `test_05`).

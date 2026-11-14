@@ -13,12 +13,14 @@ import re
 from pathlib import Path
 from typing import Any, Mapping
 
+from .convo_catalog import ConvoCatalog
 from .generation_ownership import (
     CORE_OWNER,
     DT_COMMON_OWNER,
     HOOMANS_OWNER,
 )
 from .translation_support import DEFAULT_LANGUAGE
+from .workspace_catalog import WorkspaceCatalog, WorkspaceSnapshot
 
 
 _PLACEHOLDER_RE = re.compile(r"\{([a-z][a-zA-Z0-9_.]*)\}")
@@ -42,90 +44,30 @@ KNOWN_ACTION_CONTRACTS: dict[str, dict[str, Any]] = {
 }
 
 
+def _workspace_snapshot(service: Any) -> WorkspaceSnapshot:
+    snapshot = getattr(service, "workspace_snapshot", None)
+    if isinstance(snapshot, WorkspaceSnapshot):
+        return snapshot
+    return WorkspaceCatalog.discover(
+        getattr(service, "repository", None),
+        repository=getattr(service, "repository", None),
+        core_repository=getattr(service, "core_repository", None),
+        hoomans_repository=getattr(service, "hoomans_repository", None),
+        dynamic_trading_repository=getattr(service, "dynamic_trading_repository", None),
+        runtime_root=getattr(service, "runtime_root", None),
+    )
+
+
 def _convo_roots(service: Any) -> list[tuple[str, Path]]:
-    roots: list[tuple[str, Path]] = [
-        (
-            CORE_OWNER,
-            service.core_repository / "tools/semantic_harness/codebuilder/sources/conversation",
-        ),
-    ]
-    hoomans_root = service.repository / "tools/providers/pnc/codebuilder/sources/conversation"
-    if hoomans_root.is_dir():
-        roots.append((HOOMANS_OWNER, hoomans_root))
-    elif (service.core_repository.parent / "ProjectHoomans/tools/providers/pnc/codebuilder/sources/conversation").is_dir():
-        roots.append((
-            HOOMANS_OWNER,
-            service.core_repository.parent / "ProjectHoomans/tools/providers/pnc/codebuilder/sources/conversation",
-        ))
-    dt_repo = getattr(service, "dynamic_trading_repository", None)
-    if dt_repo is not None:
-        dt_root = dt_repo / "tools/providers/dt/codebuilder/sources/conversation"
-        if dt_root.is_dir():
-            roots.append((DT_COMMON_OWNER, dt_root))
-    elif (service.core_repository.parent / "DynamicTrading/tools/providers/dt/codebuilder/sources/conversation").is_dir():
-        roots.append((
-            DT_COMMON_OWNER,
-            service.core_repository.parent / "DynamicTrading/tools/providers/dt/codebuilder/sources/conversation",
-        ))
-    return roots
+    return _workspace_snapshot(service).source_roots_for()
 
 
 def list_convo_engine_families(service: Any) -> list[dict[str, Any]]:
     """Return canonical ConvoEngine single-family sources across enabled repositories."""
-    entries: list[dict[str, Any]] = []
-    seen_paths: set[str] = set()
-    for default_owner, root in _convo_roots(service):
-        if not root.is_dir():
-            continue
-        for subdir in ("dialogue", "behavior", "beat", "realization"):
-            folder = root / subdir
-            if not folder.is_dir():
-                continue
-            for file_path in sorted(folder.rglob("*.json")):
-                resolved = str(file_path.resolve())
-                if resolved in seen_paths:
-                    continue
-                seen_paths.add(resolved)
-                try:
-                    doc = json.loads(file_path.read_text(encoding="utf-8"))
-                except (OSError, json.JSONDecodeError):
-                    continue
-                if not isinstance(doc, Mapping) or "id" not in doc:
-                    continue
-                owner = str(doc.get("owner") or default_owner)
-                kind = str(doc.get("kind") or subdir)
-                namespace = doc.get("namespace")
-                raw_id = str(doc.get("id"))
-                canonical_id = f"{namespace}.{raw_id}" if isinstance(namespace, str) and namespace else raw_id
-                rel = file_path.relative_to(root).as_posix()
-                after = doc.get("after") if isinstance(doc.get("after"), Mapping) else {}
-                reply = doc.get("reply") if isinstance(doc.get("reply"), Mapping) else {}
-                execute = doc.get("execute")
-                execute_id = (
-                    execute.get("use")
-                    if isinstance(execute, Mapping)
-                    else (execute if isinstance(execute, str) else None)
-                )
-                entries.append({
-                    "sourceID": f"{owner}:{rel}",
-                    "owner": owner,
-                    "kind": kind,
-                    "namespace": namespace,
-                    "id": raw_id,
-                    "canonicalID": canonical_id,
-                    "path": rel,
-                    "sourcePath": resolved,
-                    "schema": doc.get("schema"),
-                    "hasInvoke": "invoke" in doc,
-                    "hasAffordance": "affordance" in doc,
-                    "hasExecute": bool(execute_id),
-                    "executeAction": execute_id,
-                    "replyOutcomes": sorted(str(k) for k in reply),
-                    "recommendRefs": list(after.get("recommend") or []) if isinstance(after, Mapping) else [],
-                    "gotoRef": after.get("goto") if isinstance(after, Mapping) else None,
-                })
-    entries.sort(key=lambda item: (item["owner"], item["kind"], item["canonicalID"], item["path"]))
-    return entries
+    catalog = getattr(service, "convo_catalog", None)
+    if isinstance(catalog, ConvoCatalog):
+        return catalog.list_summaries()
+    return ConvoCatalog(_workspace_snapshot(service)).list_summaries()
 
 
 def list_registered_action_contracts(service: Any) -> list[dict[str, Any]]:

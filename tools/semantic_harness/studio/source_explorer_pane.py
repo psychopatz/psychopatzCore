@@ -72,8 +72,37 @@ class CanonicalSourceExplorerPane:
         self.refresh()
 
     def refresh(self) -> None:
-        self._rows = [
-            {
+        rows: list[dict[str, Any]] = []
+        list_families = getattr(self.service, "list_convo_engine_families", None)
+        if callable(list_families):
+            for family in list_families():
+                if not isinstance(family, dict):
+                    continue
+                rows.append({
+                    "kind": "convo_family",
+                    "id": family.get("canonicalID") or family.get("id"),
+                    "canonicalID": family.get("canonicalID") or family.get("id"),
+                    "familyKind": family.get("kind"),
+                    "owner": family.get("owner"),
+                    "sourceID": family.get("sourceID"),
+                    "label": family.get("canonicalID") or family.get("id"),
+                    "sourceKind": f"convo.{family.get('kind', 'dialogue')}",
+                    "path": family.get("sourcePath") or family.get("path", "UNKNOWN"),
+                    "relativePath": family.get("path"),
+                    "sourceFingerprint": family.get("sourceFingerprint"),
+                    "generatedModules": family.get("generatedModules", []),
+                    "generatedArtifactCount": family.get("generatedArtifactCount", 0),
+                    "incomingReferenceCount": family.get("incomingReferenceCount", 0),
+                    "outgoingReferenceCount": family.get("outgoingReferenceCount", 0),
+                    "exists": True,
+                    "editable": True,
+                    "ownerStatus": "CANONICAL_SOURCE",
+                    "editableIn": "Studio → ConvoEngine",
+                })
+        for source in self.service.list_dataset_sources():
+            if not isinstance(source, dict):
+                continue
+            rows.append({
                 "kind": "source",
                 "sourceID": source.get("id"),
                 "label": source.get("label") or source.get("id"),
@@ -82,13 +111,10 @@ class CanonicalSourceExplorerPane:
                 "exists": source.get("exists", False),
                 "editable": source.get("editable", False),
                 "ownerStatus": "CANONICAL_SOURCE" if source.get("exists") else "MISSING",
-            }
-            for source in self.service.list_dataset_sources()
-            if isinstance(source, dict)
-        ]
+            })
         content_path = getattr(self.service, "dialogue_content_source_path", None)
         if content_path is not None and content_path.is_file():
-            self._rows.append({
+            rows.append({
                 "kind": "source",
                 "sourceID": "dialogue_content_registry",
                 "label": "Dialogue Content Registry",
@@ -99,6 +125,7 @@ class CanonicalSourceExplorerPane:
                 "ownerStatus": "CANONICAL_SOURCE",
                 "editableIn": "Studio → Dialogue Content",
             })
+        self._rows = rows
         self._render_rows()
         self._status.set(f"{len(self._rows)} canonical sources")
 
@@ -119,7 +146,12 @@ class CanonicalSourceExplorerPane:
     def _render_rows(self) -> None:
         self._listbox.delete(0, "end")
         for row in self._rows:
-            if row.get("kind") == "source":
+            if row.get("kind") == "convo_family":
+                label = (
+                    f"[{row.get('owner', 'UNKNOWN')}] {row.get('familyKind', 'dialogue')} · "
+                    f"{row.get('canonicalID', 'UNKNOWN')}"
+                )
+            elif row.get("kind") == "source":
                 label = f"{row.get('label')} · {row.get('sourceKind')}"
             else:
                 label = (
@@ -138,7 +170,26 @@ class CanonicalSourceExplorerPane:
         if not selection or selection[0] >= len(self._rows):
             return
         row = self._rows[selection[0]]
-        if row.get("kind") == "source":
+        if row.get("kind") == "convo_family":
+            impact_fn = getattr(self.service, "convo_impact", None)
+            impact = (
+                impact_fn(row.get("canonicalID"))
+                if callable(impact_fn) and row.get("canonicalID")
+                else None
+            )
+            detail = {
+                "canonicalID": row.get("canonicalID"),
+                "owner": row.get("owner"),
+                "familyKind": row.get("familyKind"),
+                "sourceID": row.get("sourceID"),
+                "sourcePath": row.get("path"),
+                "sourceFingerprint": row.get("sourceFingerprint"),
+                "generatedModules": row.get("generatedModules", []),
+                "generatedArtifactCount": row.get("generatedArtifactCount", 0),
+                "impact": impact,
+                "editableIn": row.get("editableIn", "Studio → ConvoEngine"),
+            }
+        elif row.get("kind") == "source":
             detail = {
                 "sourceID": row.get("sourceID"),
                 "sourceKind": row.get("sourceKind", "UNKNOWN"),

@@ -64,11 +64,13 @@ from .convo_engine_s6m8_audit import (
     audit_convo_engine_workspace,
     discover_convo_engine_repositories,
 )
+from .convo_catalog import ConvoCatalog
 from .convo_engine_studio_trace import (
     list_convo_engine_families as _list_convo_engine_families,
     list_registered_action_contracts as _list_registered_action_contracts,
     simulate_convo_engine_family as _simulate_convo_engine_family,
 )
+from .workspace_catalog import WorkspaceCatalog, WorkspaceSnapshot
 from .psdl_compiler import (
     CONVO_ENGINE_SCHEMA,
     LEGACY_PSDL_SCHEMA,
@@ -108,29 +110,37 @@ class SemanticLabAuthoringService:
         self.runtime_root = (
             runtime_root or self.repository
         ).expanduser().resolve()
-        self.core_repository = resolve_core_repository(
+        self.workspace_snapshot: WorkspaceSnapshot = WorkspaceCatalog.discover(
             self.repository,
-            explicit=core_repository,
+            repository=self.repository,
+            core_repository=core_repository,
+            hoomans_repository=hoomans_repository,
+            dynamic_trading_repository=dynamic_trading_repository,
             runtime_root=self.runtime_root,
         )
+        self.core_repository = self.workspace_snapshot.core_repository
         self.hoomans_repository = (
             hoomans_repository.expanduser().resolve()
             if hoomans_repository is not None
-            else None
+            else self.workspace_snapshot.repository_for(HOOMANS_OWNER)
         )
         self.dynamic_trading_repository = (
             dynamic_trading_repository.expanduser().resolve()
             if dynamic_trading_repository is not None
-            else None
+            else self.workspace_snapshot.repository_for(DT_COMMON_OWNER)
         )
-        self.package_repositories = {
-            HOOMANS_OWNER: self.repository,
-            CORE_OWNER: self.core_repository,
-        }
+        self.package_repositories = dict(self.workspace_snapshot.repository_by_owner)
+        self.package_repositories[CORE_OWNER] = self.core_repository
+        if self.hoomans_repository is not None:
+            self.package_repositories[HOOMANS_OWNER] = self.hoomans_repository
+        else:
+            # Isolated workspace fallback when no ProjectHoomans checkout exists.
+            self.package_repositories.setdefault(HOOMANS_OWNER, self.repository)
         if self.dynamic_trading_repository is not None:
             self.package_repositories[DT_COMMON_OWNER] = (
                 self.dynamic_trading_repository
             )
+        self.convo_catalog = ConvoCatalog(self.workspace_snapshot)
         self.dataset_catalog = SemanticDatasetCatalog(
             self.repository,
             self.runtime_root,
@@ -148,6 +158,61 @@ class SemanticLabAuthoringService:
             self.core_repository,
             self.dynamic_trading_repository,
         )
+
+    def refresh_workspace(self) -> WorkspaceSnapshot:
+        """Re-discover workspace providers and source roots via WorkspaceCatalog."""
+        self.workspace_snapshot = WorkspaceCatalog.discover(
+            self.repository,
+            repository=self.repository,
+            core_repository=self.core_repository,
+            hoomans_repository=self.hoomans_repository,
+            dynamic_trading_repository=self.dynamic_trading_repository,
+            runtime_root=self.runtime_root,
+        )
+        self.convo_catalog = ConvoCatalog(self.workspace_snapshot)
+        return self.workspace_snapshot
+
+    def describe_workspace(self) -> dict[str, Any]:
+        """Return bounded workspace/provider/source summary from WorkspaceCatalog."""
+        return self.workspace_snapshot.describe()
+
+    def query_convo_catalog(
+        self,
+        *,
+        query: str = "",
+        owner: str | None = None,
+        kind: str | None = None,
+        action: str | None = None,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> dict[str, Any]:
+        """Return bounded ConvoCatalog search/filter page without full prose docs."""
+        return self.convo_catalog.query(
+            query=query,
+            owner=owner,
+            kind=kind,
+            action=action,
+            limit=limit,
+            offset=offset,
+        )
+
+    def get_convo_family(
+        self,
+        target: str | Path,
+        *,
+        include_document: bool = True,
+    ) -> dict[str, Any] | None:
+        """Load one ConvoEngine family on demand from ConvoCatalog."""
+        return self.convo_catalog.get_family(target, include_document=include_document)
+
+    def convo_impact(
+        self,
+        target: str | Path,
+        *,
+        limit: int = 24,
+    ) -> dict[str, Any] | None:
+        """Return bounded incoming/outgoing reference & generated impact for one family."""
+        return self.convo_catalog.impact(target, limit=limit)
 
     def list_dataset_sources(self) -> list[dict[str, Any]]:
         return self.dataset_catalog.list_dataset_sources()
@@ -223,6 +288,30 @@ class SemanticLabAuthoringService:
     ) -> str | None:
         if source_path is None:
             return None
+        candidate = Path(source_path)
+        if not candidate.is_absolute():
+            candidate = self.repository / candidate
+        resolved = candidate.expanduser().resolve()
+        # First match registered conversation source roots (longest/most-specific first).
+        sorted_sources = sorted(
+            self.workspace_snapshot.source_contributions,
+            key=lambda item: len(item.source_root.parts),
+            reverse=True,
+        )
+        for src in sorted_sources:
+            root = src.source_root.resolve()
+            if resolved == root or root in resolved.parents:
+                return src.owner
+        # Next match discovered owner repositories (longest/most-specific first).
+        sorted_repos = sorted(
+            self.workspace_snapshot.repository_by_owner.items(),
+            key=lambda pair: len(pair[1].parts),
+            reverse=True,
+        )
+        for owner, repo_root in sorted_repos:
+            repo_resolved = repo_root.resolve()
+            if resolved == repo_resolved or repo_resolved in resolved.parents:
+                return owner
         manifest_file = self.repository / CONVERSATION_MANIFEST_RELATIVE
         if not manifest_file.is_file():
             return None
@@ -384,11 +473,23 @@ class SemanticLabAuthoringService:
 
     def _convo_engine_allowed_roots(self) -> list[Path]:
         roots = [self.repository.resolve(), self.core_repository.resolve()]
+        if self.hoomans_repository is not None:
+            roots.append(self.hoomans_repository.resolve())
         if self.dynamic_trading_repository is not None:
             roots.append(self.dynamic_trading_repository.resolve())
+        for repo_path in self.workspace_snapshot.repository_by_owner.values():
+            roots.append(Path(repo_path).expanduser().resolve())
+        for src in self.workspace_snapshot.source_contributions:
+            roots.append(src.source_root.resolve())
         for repo_path in self.package_repositories.values():
             roots.append(Path(repo_path).expanduser().resolve())
-        return roots
+        seen: set[Path] = set()
+        unique: list[Path] = []
+        for root in roots:
+            if root not in seen:
+                seen.add(root)
+                unique.append(root)
+        return unique
 
     def write_convo_engine_source(
         self,
@@ -2687,7 +2788,7 @@ class SemanticLabAuthoringService:
 
     def list_convo_engine_families(self) -> list[dict[str, Any]]:
         """List all canonical ConvoEngine single-family sources across repositories."""
-        return _list_convo_engine_families(self)
+        return self.convo_catalog.list_summaries()
 
     def list_convo_engine_action_contracts(self) -> list[dict[str, Any]]:
         """List registered Semantic Action Contracts available to ConvoEngine families."""

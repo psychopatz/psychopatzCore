@@ -562,7 +562,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
             contract_ids = {item["id"] for item in contracts}
             self.assertNotIn("pnc.companion.camp", contract_ids)
 
-    @unittest.expectedFailure  # S9H1: Studio and Source Explorer use shared manifest/participant authority
     def test_10_studio_and_source_explorer_use_shared_manifest_authority(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))
@@ -635,7 +634,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
             self.assertLessEqual(len(closure["closureIDs"]), 4)
             self.assertTrue(closure["truncated"])
 
-    @unittest.expectedFailure  # S9H1/S9H2: bounded workspace.describe and convo.catalog operations
     def test_12b_agent_facing_workspace_and_catalog_operations_are_bounded(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))

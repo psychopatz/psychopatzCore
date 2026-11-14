@@ -24,6 +24,7 @@ from .generation_ownership import (
     package_descriptor,
 )
 from .psdl_compiler import CONVO_ENGINE_SCHEMA, LEGACY_PSDL_SCHEMA
+from .workspace_catalog import WorkspaceCatalog
 
 
 CONVO_FAMILY_SUBDIRS = ("dialogue", "behavior", "beat", "realization")
@@ -39,19 +40,31 @@ def _source_roots_by_owner(
     hoomans_repository: Path | None,
     dynamic_trading_repository: Path | None,
 ) -> dict[str, Path]:
+    snapshot = WorkspaceCatalog.discover(
+        core_repository,
+        core_repository=core_repository,
+        hoomans_repository=hoomans_repository,
+        dynamic_trading_repository=dynamic_trading_repository,
+        allow_sibling_discovery=False,
+    )
     roots: dict[str, Path] = {
-        CORE_OWNER: (
-            core_repository / "tools/semantic_harness/codebuilder/sources/conversation"
-        ).resolve(),
+        CORE_OWNER: snapshot.source_roots_by_owner.get(
+            CORE_OWNER,
+            (core_repository / "tools/semantic_harness/codebuilder/sources/conversation").resolve(),
+        ),
     }
     if hoomans_repository is not None:
-        roots[HOOMANS_OWNER] = (
-            hoomans_repository / "tools/providers/pnc/codebuilder/sources/conversation"
-        ).resolve()
+        roots[HOOMANS_OWNER] = snapshot.source_roots_by_owner.get(
+            HOOMANS_OWNER,
+            (hoomans_repository / "tools/providers/pnc/codebuilder/sources/conversation").resolve(),
+        )
     if dynamic_trading_repository is not None:
-        roots[DT_COMMON_OWNER] = (
-            dynamic_trading_repository / "tools/providers/dt/codebuilder/sources/conversation"
-        ).resolve()
+        roots[DT_COMMON_OWNER] = snapshot.source_roots_by_owner.get(
+            DT_COMMON_OWNER,
+            (dynamic_trading_repository / "tools/providers/dt/codebuilder/sources/conversation").resolve(),
+        )
+    for owner, root in snapshot.source_roots_by_owner.items():
+        roots.setdefault(owner, root)
     return roots
 
 
@@ -239,53 +252,19 @@ def discover_convo_engine_repositories(
     hoomans_repository: str | Path | None = None,
     dynamic_trading_repository: str | Path | None = None,
 ) -> dict[str, Path | None]:
-    """Resolve Core, Hoomans, and DTCommon repositories from args, env, or workspace siblings."""
-    anchor_path = Path(anchor).expanduser().resolve()
-    repo_path = Path(repository).expanduser().resolve() if repository is not None else None
-    candidates: list[Path] = []
-    for base in (anchor_path, repo_path):
-        if base is not None and base not in candidates:
-            candidates.append(base)
-        if base is not None and base.parent.is_dir():
-            for child in sorted(base.parent.iterdir()):
-                if child.is_dir() and child not in candidates:
-                    candidates.append(child)
-
-    explicit_hoomans = (
-        Path(hoomans_repository).expanduser().resolve()
-        if hoomans_repository is not None
-        else (repo_path if repo_path is not None and _is_owner_repository(HOOMANS_OWNER, repo_path) else None)
+    """Resolve Core, Hoomans, and DTCommon repositories via WorkspaceCatalog."""
+    snapshot = WorkspaceCatalog.discover(
+        anchor,
+        repository=repository,
+        core_repository=core_repository,
+        hoomans_repository=hoomans_repository,
+        dynamic_trading_repository=dynamic_trading_repository,
+        allow_sibling_discovery=True,
     )
-    explicit_core = (
-        Path(core_repository).expanduser().resolve()
-        if core_repository is not None
-        else (repo_path if repo_path is not None and _is_owner_repository(CORE_OWNER, repo_path) else None)
-    )
-    explicit_dt = (
-        Path(dynamic_trading_repository).expanduser().resolve()
-        if dynamic_trading_repository is not None
-        else (repo_path if repo_path is not None and _is_owner_repository(DT_COMMON_OWNER, repo_path) else None)
-    )
-
     return {
-        CORE_OWNER: _resolve_owner_repository(
-            CORE_OWNER,
-            explicit=explicit_core,
-            candidates=candidates,
-            flag_hint="--core-repository",
-        ) or anchor_path,
-        HOOMANS_OWNER: _resolve_owner_repository(
-            HOOMANS_OWNER,
-            explicit=explicit_hoomans,
-            candidates=candidates,
-            flag_hint="--hoomans-repository",
-        ),
-        DT_COMMON_OWNER: _resolve_owner_repository(
-            DT_COMMON_OWNER,
-            explicit=explicit_dt,
-            candidates=candidates,
-            flag_hint="--dynamic-trading-repository",
-        ),
+        CORE_OWNER: snapshot.repository_for(CORE_OWNER),
+        HOOMANS_OWNER: snapshot.repository_for(HOOMANS_OWNER),
+        DT_COMMON_OWNER: snapshot.repository_for(DT_COMMON_OWNER),
     }
 
 

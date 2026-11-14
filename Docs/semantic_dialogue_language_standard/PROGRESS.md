@@ -1,10 +1,10 @@
 # Progress — ConvoEngine
 
-**Status:** IN PROGRESS — S0-S8R ConvoEngine accepted; S9H0 regression-lock complete, S9H1 WorkspaceCatalog + ConvoCatalog next.
-**Estimated developer progress:** 93% for the expanded ConvoEngine + harness objective.
+**Status:** IN PROGRESS — S0-S8R ConvoEngine accepted; S9H0 and S9H1 complete, S9H2 OperationRegistry + safe ConvoTransaction next.
+**Estimated developer progress:** 94% for the expanded ConvoEngine + harness objective.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S9 — Semantic Harness ConvoEngine convergence.
-**Immediate Next Chunk:** S9H1 — implement `WorkspaceCatalog` (`WorkspaceSnapshot`, manifest-driven provider/conversation-source normalization, explicit owner repository routing) and `ConvoCatalog` (lightweight compiler-owned `FamilySummary` index, search/filter, source/generated routing, refs, bounded closure), and migrate Studio/Source Explorer/audit/CLI/CodeBuilder lookup.
+**Immediate Next Chunk:** S9H2 — implement `OperationRegistry` (`workspace.describe`, `convo.*`) and `ConvoTransaction` (`ChangeSet` preview/apply, owner-routed writes, identity-edit move semantics, dangling-reference rejection, fingerprint guards), remove unsafe direct `Path.unlink()` from ConvoEngine pane, and begin decomposing `SemanticLabAuthoringService` onto `HarnessContext`.
 
 ## Accepted ConvoEngine baseline
 
@@ -105,18 +105,18 @@ must not require full-corpus dumps or reading the giant service/CLI modules.
 
 ## S9 phase status
 
-- **S9H0 — regression-lock + architecture freeze: COMPLETE.** `test_convo_engine_s9_regressions.py` pins all 13 reproduced defects/invariants (16 tests, 12 expected failures before S9H1-S9H6 fixes; full Core Python suite 166/166 OK).
-- **S9H1 — WorkspaceCatalog + ConvoCatalog: NEXT.**
-- **S9H2 — OperationRegistry + safe ConvoTransaction: NOT STARTED.**
+- **S9H0 — regression-lock + architecture freeze: COMPLETE.** `test_convo_engine_s9_regressions.py` pins all 13 reproduced defects/invariants (16 tests, originally 12 expected failures).
+- **S9H1 — WorkspaceCatalog + ConvoCatalog: COMPLETE.** Added `codebuilder/workspace_catalog.py` (`WorkspaceCatalog`, immutable bounded `WorkspaceSnapshot`, `semantic.provider_manifest.v2` conversation-source normalization, explicit override precedence, fail-closed required owners) and `codebuilder/convo_catalog.py` (`ConvoCatalog`, cached lightweight `FamilySummary` index, on-demand single-family loading, `query`/`impact`/reference validation). Migrated `SemanticLabAuthoringService`, `convo_engine_studio_trace.py`, `CanonicalSourceExplorerPane`, `convo_engine_s6m8_audit.py`, and `build.py`. Full Core Python suite verified: `171/171 OK (expected failures=10)`.
+- **S9H2 — OperationRegistry + safe ConvoTransaction: NEXT.**
 - **S9H3 — production Lua ConvoProbe: NOT STARTED.**
 - **S9H4 — compact Studio + compiler field descriptors: NOT STARTED.**
 - **S9H5 — compact main CLI + compatibility quarantine: NOT STARTED.**
 - **S9H6 — BuildPlanner + isolated determinism/cache/lock: NOT STARTED.**
 - **S9H7 — exhaustive acceptance + complexity audit: NOT STARTED.**
 
-## Immediate Next Chunk — S9H1 WorkspaceCatalog + ConvoCatalog
+## Immediate Next Chunk — S9H2 OperationRegistry + safe ConvoTransaction
 
-Build `WorkspaceCatalog` and `ConvoCatalog` as the single shared discovery authority across GUI, CLI, audit, Source Explorer, and CodeBuilder, fixing explicit Hoomans/DT owner repository routing and migrating Studio/Source Explorer off folder guesses.
+Introduce `OperationRegistry` + `ConvoTransaction` (`ChangeSet` preview/apply), enforce owner-routed writes, move semantics on identity changes, dangling-reference rejection on delete/move, source-fingerprint guards in Studio/service, remove `Path.unlink()` from the pane, and decompose `SemanticLabAuthoringService` onto `HarnessContext`.
 
 ## Completion boundary
 

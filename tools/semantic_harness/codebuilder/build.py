@@ -51,6 +51,7 @@ if __package__ in {None, ""}:
     from tools.semantic_harness.codebuilder.conversation_text_catalog import (
         write_runtime_text_catalogs,
     )
+    from tools.semantic_harness.codebuilder.workspace_catalog import WorkspaceCatalog
 else:
     from .lexicon_compiler import (  # noqa: E402
         CompileError,
@@ -84,6 +85,7 @@ else:
         render_conversation_ui_module,
     )
     from .conversation_text_catalog import write_runtime_text_catalogs
+    from .workspace_catalog import WorkspaceCatalog
 
 
 def default_lexicon_output(core_repository: Path | None = None) -> Path:
@@ -279,14 +281,18 @@ def write_conversation_output(
 ) -> list[Path]:
     """Write manifest-backed Conversation artifacts."""
     repository = repository.expanduser().resolve()
-    core_repository = resolve_core_repository(
+    workspace = WorkspaceCatalog.discover(
         repository,
-        explicit=core_repository,
+        repository=repository,
+        core_repository=core_repository,
+        dynamic_trading_repository=dynamic_trading_repository,
+        allow_sibling_discovery=False,
+        runtime_root=repository,
     )
-    package_repositories = {
-        HOOMANS_OWNER: repository,
-        CORE_OWNER: core_repository,
-    }
+    core_repository = workspace.core_repository
+    package_repositories = dict(workspace.repository_by_owner)
+    package_repositories.setdefault(HOOMANS_OWNER, repository)
+    package_repositories[CORE_OWNER] = core_repository
     if dynamic_trading_repository is not None:
         package_repositories[DT_COMMON_OWNER] = (
             dynamic_trading_repository.expanduser().resolve()
@@ -606,25 +612,26 @@ def main(arguments: list[str] | None = None) -> int:
         if options.conversation_manifest is not None:
             output_root = options.conversation_output_root.expanduser().resolve()
             manifest_path = options.conversation_manifest.expanduser().resolve()
+            workspace = WorkspaceCatalog.discover(
+                output_root,
+                repository=output_root,
+                core_repository=options.core_repository,
+                dynamic_trading_repository=options.dynamic_trading_repository,
+                allow_sibling_discovery=False,
+                runtime_root=output_root,
+            )
+            package_repositories = dict(workspace.repository_by_owner)
+            package_repositories.setdefault(HOOMANS_OWNER, output_root)
+            package_repositories[CORE_OWNER] = workspace.core_repository
+            if options.dynamic_trading_repository is not None:
+                package_repositories[DT_COMMON_OWNER] = (
+                    options.dynamic_trading_repository.expanduser().resolve()
+                )
             compiled_conversation = compile_conversation_sources(
                 output_root,
                 manifest_path=manifest_path,
                 runtime_root=output_root,
-                package_repositories={
-                    HOOMANS_OWNER: output_root,
-                    CORE_OWNER: resolve_core_repository(
-                        output_root,
-                        explicit=options.core_repository,
-                        runtime_root=output_root,
-                    ),
-                    **(
-                        {
-                            DT_COMMON_OWNER: options.dynamic_trading_repository
-                        }
-                        if options.dynamic_trading_repository is not None
-                        else {}
-                    ),
-                },
+                package_repositories=package_repositories,
             )
     except CompileError as error:
         print(f"semantic compiler error: {error}", file=sys.stderr)
