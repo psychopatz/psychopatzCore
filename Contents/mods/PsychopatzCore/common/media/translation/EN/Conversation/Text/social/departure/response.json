@@ -1,6 +1,5 @@
 {
   "departure.confirmed": "Understood. I will take my chances elsewhere. Remember what you chose.",
   "departure.rejected": "I am not leaving with you. That decision is not yours to make right now.",
-  "departure.warning": "If you cast me out, I will leave this group and make my own way. You cannot take that back.",
-  "neutral": "If you cast me out, I will leave this group and make my own way. You cannot take that back."
+  "departure.warning": "If you cast me out, I will leave this group and make my own way. You cannot take that back."
 }

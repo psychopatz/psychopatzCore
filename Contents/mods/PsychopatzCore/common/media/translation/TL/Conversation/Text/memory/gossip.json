@@ -55,7 +55,6 @@
   "negative.suspicion.story": "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
   "negative.warning.abandoned": "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
   "negative.warning.danger": "May nakapansing panganib malapit sa {slot.place.name}.",
-  "neutral": "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
   "neutral.horde_survival": "Nakatakas ako nang habulin ako ng napakaraming zombie.",
   "neutral.sighting": "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
   "positive.praise.help": "Inaalalayan ni {target.name} ang mga tao.",
