@@ -575,7 +575,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
             self.assertIn("social.core_greet", explorer_ids)
             self.assertIn("social.pnc_checkin", explorer_ids)
 
-    @unittest.expectedFailure  # S9H6: determinism audit must use isolated output, not live media/
     def test_11_deterministic_audit_does_not_write_to_live_repository(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))
@@ -585,8 +584,15 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
             real_write = build_mod.write_conversation_output
 
             def _spy_write(repository: Path, *args: Any, **kwargs: Any) -> Any:
-                write_targets.append(Path(repository).expanduser().resolve())
-                return real_write(repository, *args, **kwargs)
+                out_repos = kwargs.get("output_repositories")
+                if out_repos:
+                    for dest in out_repos.values():
+                        write_targets.append(Path(dest).expanduser().resolve())
+                else:
+                    write_targets.append(Path(repository).expanduser().resolve())
+                written = real_write(repository, *args, **kwargs)
+                write_targets.extend(Path(p).expanduser().resolve() for p in written)
+                return written
 
             with patch.object(build_mod, "write_conversation_output", side_effect=_spy_write):
                 report = audit_convo_engine_workspace(
@@ -596,14 +602,20 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
                     check_determinism=True,
                 )
             self.assertTrue(report["determinism"]["checked"])
+            self.assertTrue(report["determinism"].get("isolated"))
             self.assertGreater(report["determinism"].get("fileCount", 0), 0)
+            self.assertTrue(write_targets)
             live_roots = {
                 repos["core"].resolve(),
                 repos["hoomans"].resolve(),
                 repos["dt"].resolve(),
             }
             for target in write_targets:
-                self.assertNotIn(target, live_roots)
+                for live in live_roots:
+                    self.assertFalse(
+                        target == live or target.is_relative_to(live),
+                        f"Determinism audit wrote inside live repository: {target} under {live}",
+                    )
 
     def test_12a_affected_closure_is_bounded(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

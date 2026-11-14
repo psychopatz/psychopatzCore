@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from collections.abc import Mapping
 from pathlib import Path
 
 
@@ -278,8 +279,15 @@ def write_conversation_output(
     *,
     core_repository: Path | None = None,
     dynamic_trading_repository: Path | None = None,
+    output_repositories: Mapping[str, Path] | None = None,
 ) -> list[Path]:
-    """Write manifest-backed Conversation artifacts."""
+    """Write manifest-backed Conversation artifacts.
+
+    When *output_repositories* is provided, sources are compiled from the
+    workspace repositories while all generated Lua and translation writes are
+    redirected into the isolated destination directories without touching live
+    ``media/`` or ``Translate/`` trees.
+    """
     repository = repository.expanduser().resolve()
     workspace = WorkspaceCatalog.discover(
         repository,
@@ -301,16 +309,35 @@ def write_conversation_output(
         repository,
         package_repositories=package_repositories,
     )
+    out_overrides = (
+        {
+            normalize_owner(owner): Path(path).expanduser().resolve()
+            for owner, path in output_repositories.items()
+        }
+        if output_repositories
+        else {}
+    )
+    out_repo = out_overrides.get(HOOMANS_OWNER, repository)
+    out_core = (
+        out_overrides.get(CORE_OWNER, core_repository)
+        if core_repository is not None
+        else out_overrides.get(CORE_OWNER)
+    )
+    out_dt = (
+        out_overrides.get(DT_COMMON_OWNER, dynamic_trading_repository)
+        if dynamic_trading_repository is not None
+        else out_overrides.get(DT_COMMON_OWNER)
+    )
     manifest = model.get("manifest") if isinstance(model, dict) else None
     registry_owner = normalize_owner(
         manifest.get("registryOwner") if isinstance(manifest, dict) else None,
     )
     registry_root = generated_conversation_root(
-        repository,
+        out_repo,
         registry_owner,
-        core_repository=core_repository,
-        dynamic_trading_repository=dynamic_trading_repository,
-        runtime_root=repository,
+        core_repository=out_core,
+        dynamic_trading_repository=out_dt,
+        runtime_root=out_repo,
     )
 
     # Validate the complete plan before deleting or writing any generated
@@ -345,11 +372,11 @@ def write_conversation_output(
     for owner in sorted(owners_to_clean):
         _clean_generated_tree(
             generated_conversation_root(
-                repository,
+                out_repo,
                 owner,
-                core_repository=core_repository,
-                dynamic_trading_repository=dynamic_trading_repository,
-                runtime_root=repository,
+                core_repository=out_core,
+                dynamic_trading_repository=out_dt,
+                runtime_root=out_repo,
             ),
             generated_only=True,
         )
@@ -361,9 +388,9 @@ def write_conversation_output(
     else:
         primary_registry_owners = (registry_owner,)
     paths = _write_routed_modules(
-        repository,
-        core_repository,
-        dynamic_trading_repository,
+        out_repo,
+        out_core,
+        out_dt,
         writable_rendered,
     )
     registry_path = registry_root / "Registry.lua"
@@ -382,13 +409,13 @@ def write_conversation_output(
     # Core-owned records.  The adopter registry above remains intentionally
     # combined for Project Hoomans compatibility, but Core and standalone
     # adopters must never need to import that Hoomans-owned registry.
-    if core_repository is not None:
+    if out_core is not None:
         core_registry_root = generated_conversation_root(
-            repository,
+            out_repo,
             CORE_OWNER,
-            core_repository=core_repository,
-            dynamic_trading_repository=dynamic_trading_repository,
-            runtime_root=repository,
+            core_repository=out_core,
+            dynamic_trading_repository=out_dt,
+            runtime_root=out_repo,
         )
         core_registry_path = core_registry_root / "FoundationRegistry.lua"
         core_registry_path.write_text(
@@ -405,15 +432,15 @@ def write_conversation_output(
         paths.append(core_registry_path)
 
     if (
-        dynamic_trading_repository is not None
+        out_dt is not None
         and registry_owner != DT_COMMON_OWNER
     ):
         dt_registry_root = generated_conversation_root(
-            repository,
+            out_repo,
             DT_COMMON_OWNER,
-            core_repository=core_repository,
-            dynamic_trading_repository=dynamic_trading_repository,
-            runtime_root=repository,
+            core_repository=out_core,
+            dynamic_trading_repository=out_dt,
+            runtime_root=out_repo,
         )
         dt_registry_root.mkdir(parents=True, exist_ok=True)
         dt_registry_path = dt_registry_root / "Registry.lua"
@@ -459,7 +486,7 @@ def write_conversation_output(
     )
     paths.append(manifest_path)
 
-    ui_runtime_path = repository / CONVERSATION_UI_RUNTIME_RELATIVE
+    ui_runtime_path = out_repo / CONVERSATION_UI_RUNTIME_RELATIVE
     ui_runtime_path.parent.mkdir(parents=True, exist_ok=True)
     ui_owners = (
         (CORE_OWNER, HOOMANS_OWNER)
@@ -481,11 +508,11 @@ def write_conversation_output(
         if owner not in enabled_owners:
             continue
         package_translation_root = translation_root(
-            repository,
+            out_repo,
             owner,
-            core_repository=core_repository,
-            dynamic_trading_repository=dynamic_trading_repository,
-            runtime_root=repository,
+            core_repository=out_core,
+            dynamic_trading_repository=out_dt,
+            runtime_root=out_repo,
         )
         for language in sorted(catalogs):
             for domain, values in sorted(catalogs[language].items()):
@@ -514,11 +541,11 @@ def write_conversation_output(
     if text_manifest.is_file():
         for owner in sorted(enabled_owners):
             package_translation_root = translation_root(
-                repository,
+                out_repo,
                 owner,
-                core_repository=core_repository,
-                dynamic_trading_repository=dynamic_trading_repository,
-                runtime_root=repository,
+                core_repository=out_core,
+                dynamic_trading_repository=out_dt,
+                runtime_root=out_repo,
             )
             paths.extend(write_runtime_text_catalogs(
                 text_manifest,
@@ -535,11 +562,11 @@ def write_conversation_output(
         if owner not in enabled_owners:
             continue
         package_translation_root = translation_root(
-            repository,
+            out_repo,
             owner,
-            core_repository=core_repository,
-            dynamic_trading_repository=dynamic_trading_repository,
-            runtime_root=repository,
+            core_repository=out_core,
+            dynamic_trading_repository=out_dt,
+            runtime_root=out_repo,
         )
         for language, domains in sorted(catalogs.items()):
             for domain, values in sorted(domains.items()):

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import re
@@ -21,7 +20,6 @@ from .generation_ownership import (
     DT_COMMON_OWNER,
     HOOMANS_OWNER,
     generated_conversation_root,
-    package_descriptor,
 )
 from .psdl_compiler import CONVO_ENGINE_SCHEMA, LEGACY_PSDL_SCHEMA
 from .workspace_catalog import WorkspaceCatalog
@@ -29,10 +27,6 @@ from .workspace_catalog import WorkspaceCatalog
 
 CONVO_FAMILY_SUBDIRS = ("dialogue", "behavior", "beat", "realization")
 _NUMERIC_FAMILY_SUFFIX_RE = re.compile(r"(?:\.line_|_|\.)0*[1-9][0-9]*$")
-
-
-def _sha256_file(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _source_roots_by_owner(
@@ -158,40 +152,6 @@ def _check_source_file(
                     "path": str(file_path),
                     "message": f"{rel} retains stale metadata.{stale_key!r}",
                 })
-
-
-def _collect_generated_hashes(
-    core_repository: Path,
-    hoomans_repository: Path | None,
-    dynamic_trading_repository: Path | None,
-) -> dict[str, str]:
-    hashes: dict[str, str] = {}
-    runtime_base = hoomans_repository or core_repository
-    pairs: list[tuple[str, Path]] = [(CORE_OWNER, core_repository)]
-    if hoomans_repository is not None:
-        pairs.append((HOOMANS_OWNER, hoomans_repository))
-    if dynamic_trading_repository is not None:
-        pairs.append((DT_COMMON_OWNER, dynamic_trading_repository))
-
-    for owner, repo_root in pairs:
-        conv_root = generated_conversation_root(
-            runtime_base,
-            owner,
-            core_repository=core_repository,
-            dynamic_trading_repository=dynamic_trading_repository,
-            runtime_root=runtime_base,
-        )
-        if conv_root.is_dir():
-            for lua_file in sorted(conv_root.rglob("*.lua")):
-                hashes[f"lua:{owner}:{lua_file.relative_to(repo_root)}"] = _sha256_file(lua_file)
-        desc = package_descriptor(owner)
-        trans_root = repo_root / desc.translation_relative
-        for lang in ("EN", "TL"):
-            lang_conv = trans_root / lang / "Conversation"
-            if lang_conv.is_dir():
-                for json_file in sorted(lang_conv.rglob("*.json")):
-                    hashes[f"tr:{owner}:{json_file.relative_to(repo_root)}"] = _sha256_file(json_file)
-    return hashes
 
 
 def _is_owner_repository(owner: str, candidate: Path) -> bool:
@@ -425,37 +385,19 @@ def audit_convo_engine_workspace(
 
     determinism_summary: dict[str, Any] = {"checked": check_determinism, "diffs": []}
     if check_determinism and compiled is not None:
-        from .build import write_conversation_output
+        from .build_planner import BuildPlanner
 
-        write_conversation_output(
-            runtime_base,
-            compiled,
+        audit_workspace = WorkspaceCatalog.discover(
+            core_root,
             core_repository=core_root,
+            hoomans_repository=hoomans_root,
             dynamic_trading_repository=dt_root,
+            allow_sibling_discovery=False,
         )
-        first_hashes = _collect_generated_hashes(core_root, hoomans_root, dt_root)
-
-        compiled_second = compile_conversation_sources(
-            runtime_base,
-            manifest_path=manifest_path,
-            runtime_root=runtime_base,
-            package_repositories=package_repositories,
+        determinism_summary = BuildPlanner.from_workspace(audit_workspace).verify_determinism(
+            compiled_first=compiled,
         )
-        write_conversation_output(
-            runtime_base,
-            compiled_second,
-            core_repository=core_root,
-            dynamic_trading_repository=dt_root,
-        )
-        second_hashes = _collect_generated_hashes(core_root, hoomans_root, dt_root)
-        diff_keys = sorted(
-            key
-            for key in set(first_hashes) | set(second_hashes)
-            if first_hashes.get(key) != second_hashes.get(key)
-        )
-        determinism_summary["fileCount"] = len(second_hashes)
-        determinism_summary["diffs"] = diff_keys
-        for key in diff_keys:
+        for key in determinism_summary.get("diffs", []):
             violations.append({
                 "code": "non_deterministic_build_output",
                 "owner": CORE_OWNER,

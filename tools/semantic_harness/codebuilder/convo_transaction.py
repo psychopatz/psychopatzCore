@@ -16,6 +16,7 @@ import hashlib
 import json
 import os
 import tempfile
+import threading
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterator, Mapping
@@ -64,17 +65,50 @@ def _lock_path_for_workspace(workspace: WorkspaceSnapshot) -> Path:
     return lock_dir / f"workspace_{digest}.lock"
 
 
+_THREAD_LOCKS_GUARD = threading.Lock()
+_THREAD_LOCKS: dict[Path, threading.RLock] = {}
+_LOCK_DEPTH = threading.local()
+
+
+def _thread_lock_for(lock_file: Path) -> threading.RLock:
+    with _THREAD_LOCKS_GUARD:
+        lock = _THREAD_LOCKS.get(lock_file)
+        if lock is None:
+            lock = threading.RLock()
+            _THREAD_LOCKS[lock_file] = lock
+        return lock
+
+
 @contextlib.contextmanager
 def workspace_generation_lock(workspace: WorkspaceSnapshot) -> Iterator[Path]:
-    """Acquire an inter-process lock outside any PZ ``media/`` directory."""
+    """Acquire a reentrant thread + inter-process lock outside any PZ ``media/`` directory."""
     lock_file = _lock_path_for_workspace(workspace)
-    lock_file.parent.mkdir(parents=True, exist_ok=True)
-    with lock_file.open("a+", encoding="utf-8") as handle:
-        fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
-        try:
+    thread_lock = _thread_lock_for(lock_file)
+    thread_lock.acquire()
+    depths = getattr(_LOCK_DEPTH, "counts", None)
+    if depths is None:
+        depths = {}
+        _LOCK_DEPTH.counts = depths
+    depth = depths.get(lock_file, 0)
+    depths[lock_file] = depth + 1
+    try:
+        if depth > 0:
             yield lock_file
-        finally:
-            fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+            return
+        lock_file.parent.mkdir(parents=True, exist_ok=True)
+        with lock_file.open("a+", encoding="utf-8") as handle:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+            try:
+                yield lock_file
+            finally:
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+    finally:
+        remaining = depths[lock_file] - 1
+        if remaining <= 0:
+            depths.pop(lock_file, None)
+        else:
+            depths[lock_file] = remaining
+        thread_lock.release()
 
 
 def atomic_write_json(path: Path, document: Mapping[str, Any]) -> None:

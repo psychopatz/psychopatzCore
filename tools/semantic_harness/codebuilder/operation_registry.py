@@ -315,54 +315,28 @@ class OperationRegistry:
             realization_key=payload.get("realizationKey"),
         )
 
-    def _handle_build_preview(self, _payload: Mapping[str, Any]) -> dict[str, Any]:
-        from .conversation_compiler import compile_conversation_sources, render_conversation_runtime_plan
-        from .generation_ownership import HOOMANS_OWNER
+    def _build_planner(self) -> Any:
+        from .build_planner import BuildPlanner
 
         ws = self.service.workspace_snapshot
-        runtime_base = ws.repository_for(HOOMANS_OWNER) or ws.core_repository
-        model = compile_conversation_sources(
-            runtime_base,
-            manifest_path=ws.core_repository / "tools/semantic_harness/codebuilder/sources/conversation/manifest.json",
-            runtime_root=runtime_base,
-            package_repositories=dict(ws.repository_by_owner),
+        planner = getattr(self, "_cached_planner", None)
+        if planner is None or planner.workspace.workspace_fingerprint != ws.workspace_fingerprint:
+            planner = BuildPlanner.from_workspace(ws)
+            self._cached_planner = planner
+        return planner
+
+    def _handle_build_preview(self, payload: Mapping[str, Any]) -> dict[str, Any]:
+        return self._build_planner().preview(
+            owner=payload.get("owner"),
+            check_determinism=bool(payload.get("checkDeterminism", False)),
+            limit=int(payload.get("limit", 64)),
         )
-        rendered, reports = render_conversation_runtime_plan(model)
-        return {
-            "ok": True,
-            "previewOnly": True,
-            "effectFree": True,
-            "workspaceFingerprint": ws.workspace_fingerprint,
-            "modelFingerprint": model.get("wholeModelFingerprint"),
-            "plannedModuleCount": len(rendered),
-            "plannedModules": [module for module, _source in rendered[:64]],
-            "modulesTruncated": len(rendered) > 64,
-            "reportCount": len(reports),
-            "writes": [],
-        }
 
-    def _handle_build_apply(self, _payload: Mapping[str, Any]) -> dict[str, Any]:
-        from .build import write_conversation_output
-        from .convo_transaction import workspace_generation_lock
-        from .generation_ownership import DT_COMMON_OWNER, HOOMANS_OWNER
-
-        ws = self.service.workspace_snapshot
-        with workspace_generation_lock(ws):
-            runtime_base = ws.repository_for(HOOMANS_OWNER) or ws.core_repository
-            paths = write_conversation_output(
-                runtime_base,
-                core_repository=ws.core_repository,
-                dynamic_trading_repository=ws.repository_for(DT_COMMON_OWNER),
-            )
-            return {
-                "ok": True,
-                "previewOnly": False,
-                "effectFree": False,
-                "workspaceFingerprint": ws.workspace_fingerprint,
-                "writtenCount": len(paths),
-                "writes": [str(Path(p)) for p in paths[:64]],
-                "writesTruncated": len(paths) > 64,
-            }
+    def _handle_build_apply(self, payload: Mapping[str, Any]) -> dict[str, Any]:
+        return self._build_planner().apply(
+            owner=payload.get("owner"),
+            limit=int(payload.get("limit", 64)),
+        )
 
 
 __all__ = [

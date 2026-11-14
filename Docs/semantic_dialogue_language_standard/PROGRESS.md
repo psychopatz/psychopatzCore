@@ -1,10 +1,10 @@
 # Progress — ConvoEngine
 
-**Status:** IN PROGRESS — S0-S8R ConvoEngine accepted; S9H0–S9H5 complete, S9H6 BuildPlanner + isolated determinism/cache/lock next.
-**Estimated developer progress:** 98% for the expanded ConvoEngine + harness objective.
+**Status:** IN PROGRESS — S0-S8R ConvoEngine accepted; S9H0–S9H6 complete, S9H7 final cross-repo acceptance & complexity audit next.
+**Estimated developer progress:** 99% for the expanded ConvoEngine + harness objective.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S9 — Semantic Harness ConvoEngine convergence.
-**Immediate Next Chunk:** S9H6 — implement `BuildPlanner` (`codebuilder/build_planner.py`), move determinism/audit output comparison into isolated temporary staging directories under `workspace_generation_lock`, and clear `test_11`.
+**Immediate Next Chunk:** S9H7 — exhaustive 3-repo verification matrix, complexity/LOC metric audit, final `PROGRESS.md` / `HANDOFF.md` reconciliation, and local commits.
 
 ## Accepted ConvoEngine baseline
 
