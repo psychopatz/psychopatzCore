@@ -318,16 +318,13 @@ naming/audit/document closure are complete:
 Do not reopen source sharding, compact family syntax, action contracts, or
 runtime ownership without a concrete regression.
 
-**S9 is a harness convergence phase, not a ConvoEngine runtime redesign.**
-Semantic Lab currently exposes the accepted model but still contains duplicate
-legacy authoring surfaces and a Python approximation of runtime semantic
-behavior. S9 moves Studio/CLI onto the same service/compiler/production-Lua
-authorities, adds safe owner-routed transactional family CRUD, and removes or
-hides dead authoring surfaces. Read `SEMANTIC_HARNESS_AUDIT.md`, the relevant
-section of `SEMANTIC_HARNESS_COMPACT_ARCHITECTURE.md`, and ROADMAP S9 for the
-active plan. The compact target is WorkspaceCatalog + ConvoCatalog + a shared
-operation/transaction surface + production Lua ConvoProbe + BuildPlanner +
-thin GUI/CLI clients.
+**S9 harness convergence and S9R post-S9 closure are complete and accepted.**
+S9 established the accepted Semantic Lab model, removed the major duplicate
+legacy-authoring/runtime-simulation authorities, moved Studio/CLI onto shared
+`OperationRegistry` / `ConvoTransaction` / production-Lua `ConvoProbe` /
+`BuildPlanner` ports under `HarnessContext`, and kept legacy datasets/schemas
+compatibility-gated. See `PROGRESS.md` and `SEMANTIC_HARNESS_AUDIT.md` for
+verified acceptance evidence.
 
 ## Hard rules
 

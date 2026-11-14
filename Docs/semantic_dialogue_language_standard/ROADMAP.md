@@ -703,17 +703,9 @@ SP/MP acceptance.
 
 ## S9 — Semantic Harness ConvoEngine convergence
 
-**Status:** DESIGN FROZEN / IMPLEMENTATION NOT STARTED. S9H0 regression-lock is next.
+**Status:** COMPLETE / ACCEPTED.
 
-Read `SEMANTIC_HARNESS_AUDIT.md` for reproduced defects and
-`SEMANTIC_HARNESS_COMPACT_ARCHITECTURE.md` for the normative target design.
-S0-S8R ConvoEngine runtime/compiler architecture is accepted and must not be
-reopened without a concrete regression.
-
-### S9 compactness invariant
-
-Compactness means **authority compression**, not arbitrary file-count reduction.
-GUI, CLI, tests and agents must converge on the same six stable ports:
+S9H0-S9H7 implemented the compact six-port Semantic Harness architecture:
 
     WorkspaceCatalog
     ConvoCatalog
@@ -722,204 +714,99 @@ GUI, CLI, tests and agents must converge on the same six stable ports:
     BuildPlanner
     thin GUI/CLI clients
 
-The existing provider-manifest system remains the extension boundary. New
-providers should be discovered through capabilities and source/runtime
-descriptors, not new Core adopter branches.
+Accepted S9 results include:
 
-Current review triggers motivating S9:
+- one manifest-driven workspace/source discovery authority;
+- bounded 566-family ConvoCatalog;
+- 11-versioned-operation OperationRegistry;
+- owner-routed fingerprint-guarded ConvoTransaction;
+- production Lua ConvoProbe with no Python behavioral fallback;
+- primary Conversations / Source Impact / Review Studio surfaces;
+- compatibility-gated missing legacy dataset/workflow surfaces;
+- main CLI `workspace` + `convo` commands;
+- removal of dead public record-bucket PSDL CRUD methods;
+- isolated deterministic BuildPlanner and workspace generation lock;
+- 188/188 Core Python tests, 36/36 relevant Core Lua tests, 89/89 DynamicTrading, 1020/1021 ProjectHoomans with only the independent PopulationDirector baseline, and zero Kahlua errors across the three ConvoEngine trees.
 
-    harness-owned Python                         71,593 LOC / 277 files
-    codebuilder/service.py                        2,729 LOC / 66 public methods
-    entrypoints/cli.py                            1,425 LOC / 123 add_argument calls
-    Studio + UI                                  ~20.8k LOC
+The original S9 findings in `SEMANTIC_HARNESS_AUDIT.md` are historical baseline evidence. Do not treat them as current open defects.
 
-These are diagnostic signals, not line-count acceptance laws.
+## S9R — post-S9 closure reconciliation
 
-### S9H0 — regression-lock + architecture freeze
+**Status:** COMPLETE / ACCEPTED (verified 2026-11-14: `192/192` Core Python, `36/36` Core Lua, `566` families / `0` violations / `368` isolated determinism hashes, `89/89` DynamicTrading, `1020/1021` ProjectHoomans with only independent PopulationDirector baseline, `0` Kahlua errors).
 
-- preserve the live 566-family baseline and current participant repositories;
-- add focused tests for every reproduced harness defect before destructive cleanup;
-- freeze the six-port architecture and stable operation vocabulary;
-- inventory legacy PSDL CRUD, dead Dataset/Dialogue Content/workflow paths, duplicate repository discovery and Python semantic-policy duplication;
-- record exact production Lua Predicate/TextBinding/Affordance/ActionContract seams;
-- add token-efficiency fixtures proving bounded workspace/catalog/impact/trace outputs.
+S9R closed the five residual audit mismatches (`R1`–`R5`) without reopening S0–S9 architecture.
 
-**Gate:** defects are reproducible in tests and the implementation can proceed
-without inventing another authoring/runtime authority.
+### S9R0 — pin residual closure defects
 
-### S9H1 — WorkspaceCatalog + ConvoCatalog
+Add focused tests or assertions for:
 
-- centralize Core/Hoomans/DT and future provider discovery using
-  `semantic.provider_manifest.v2` plus explicit overrides;
-- normalize provider conversation-source contributions into one immutable
-  `WorkspaceSnapshot`;
-- fix owner mapping so an explicit Hoomans repository cannot be ignored in favor
-  of the generic `repository` field;
-- derive compact `FamilySummary` rows from compiler/manifest discovery rather
-  than Studio filesystem/sibling guesses;
-- make Source Explorer consume the same catalog, generated routing, incoming /
-  outgoing references and bounded `conversation_affected_closure()`;
-- make family search/index loading lazy and fingerprint-cached;
-- fail closed on unresolved required owners.
+1. `convo.simulate` advertises the real production runtime requirement:
+   - required capability `semantic.convo_probe`;
+   - worker requirement `required`, unless explicitly split into structural and behavioral operations.
+2. the composition root exposes a usable BuildPlanner port rather than `harness.build == None`.
+3. OperationRegistry build operations consume the composition-root BuildPlanner port.
+4. ConvoEngine Studio authoring/simulation/audit actions dispatch through the canonical operation surface, or wrappers are proven 1:1 delegates by parity tests.
+5. final continuity docs never regress to stale S9 planning state.
 
-**Gate:** GUI, CLI, audit and CodeBuilder resolve the same workspace/catalog;
-there is no Studio-specific repository discovery and no full-corpus load is
-required for ordinary search.
+**Gate:** focused tests fail on the known residuals before implementation and do not reopen already accepted S9 functionality.
 
-### S9H2 — OperationRegistry + safe ConvoTransaction
+### S9R1 — operation/composition/client wiring cleanup
 
-Expose a small versioned operation vocabulary:
+Implement only the bounded residual fixes:
 
-    workspace.describe
-    convo.catalog
-    convo.get
-    convo.impact
-    convo.validate
-    convo.simulate
-    convo.change.preview / apply
-    convo.build.preview / apply
-    convo.audit
+- correct `convo.simulate` OperationDescriptor metadata;
+- wire BuildPlanner into `HarnessContext.build` using a workspace-aware eager or lazy port;
+- remove OperationRegistry's private competing BuildPlanner construction path and consume the composition-root build port;
+- route ConvoEngine Studio through `dispatch_operation()` / OperationRegistry where practical;
+- if a typed service wrapper remains, make it a strict thin delegate to a canonical operation and cover it with parity tests;
+- do not add new public operation IDs unless required by a concrete missing semantic responsibility;
+- do not redesign ConvoEngine schema/runtime, provider manifests, ConvoProbe, BuildPlanner semantics or Studio information architecture.
 
-All create/edit/move/delete uses one change transaction:
+**Gate:** GUI, CLI and agents share the same machine-discoverable operation contract for the ConvoEngine responsibilities touched by S9R.
 
-    ChangeSet
-      -> owner routing
-      -> compile/global reference validation
-      -> affected closure
-      -> stale fingerprint check
-      -> artifact preview
-      -> approved canonical mutation
-      -> regeneration
-      -> bounded result
+### S9R2 — durable continuity reconciliation
 
-Required fixes:
+Reconcile current documentation:
 
-- new-family writes route by owner/manifest, never blindly to Core;
-- identity changes use move/rename semantics;
-- UI never calls `Path.unlink()` on canonical source;
-- delete/move rejects dangling semantic family references;
-- every existing-family change is source/workspace fingerprint guarded;
-- UI never writes generated files or performs package routing;
-- begin shrinking `SemanticLabAuthoringService` into delegating components
-  rather than adding more public methods.
+- `PROGRESS.md` contains only current truth and one immediate Next Chunk;
+- `SEMANTIC_HARNESS_AUDIT.md` clearly labels H1-H10 as pre-S9 historical findings and records their S9 resolution;
+- `ROADMAP.md` marks S9 complete and S9R active/complete accurately;
+- `HANDOFF.md` records the current participant vector and uses the correct checkpoint state;
+- `SEMANTIC_HARNESS_COMPACT_ARCHITECTURE.md` remains the normative stable design rather than a progress ledger;
+- avoid reintroducing stale PSDL/current-defect language into active docs.
 
-**Gate:** Core/Hoomans/DTCommon CRUD parity, stale-write, reference-safety and
-owner-routing tests pass through the same operation surface used by clients.
+**Gate:** grep/consistency review finds no active document claiming S9 is unimplemented or the resolved H1-H10 defects are current.
 
-### S9H3 — production Lua ConvoProbe
+### S9R3 — final acceptance and committed handoff
 
-- stop using Python as a second semantic interpreter for behavioral truth;
-- keep Python compiler/structural preview only;
-- add versioned read-only worker feature negotiation and bounded ConvoProbe
-  operations for predicate evaluation, role-text render, slot expansion,
-  affordance collect/score, NPC selection, reply selection, after resolution,
-  action-contract listing and action-result projection;
-- return a generic trace envelope with stage/authority/decision/reason rather
-  than reimplementing policy in Studio;
-- remove hard-coded `KNOWN_ACTION_CONTRACTS` after runtime/declarative parity;
-- if a required worker capability is absent, disable behavioral preview with an
-  explicit reason instead of falling back to Python semantics.
+Freshly rerun:
 
-**Gate:** parity tests cover every production Predicate operator, TextBinding
-privacy/resolver behavior, player/NPC candidate parity, utility/relationship
-selection, deterministic NPC choice, reply/after behavior and CAMP
-action-result traces.
-
-### S9H4 — compact Studio + compiler field descriptors
-
-Make ConvoEngine the obvious primary conversation authoring surface.
-
-Target conversation UX:
-
-    Conversations
-      search/list | structured family editor | preview/trace
-
-    Source / Impact
-      owner/source/fingerprint | refs | generated artifacts | affected closure
-
-    Review
-      validation | wording/translation review | build diff | audit findings
-
-Requirements:
-
-- remove/hide zero-source legacy Dialogue Content / Dataset Library / workflow
-  panes when no live canonical source backs them;
-- missing sources report `editable=false` and `workflowReady=false`;
-- use Core-owned SurfaceRegistry descriptors only for UI composition; providers
-  do not inject arbitrary UI code;
-- add compiler-owned FieldDescriptor presentation metadata so locale maps,
-  realization/style maps, replies, predicates, slots/providers, utility/prefer,
-  chaining, execute/result and beat/behavior fields do not require independent
-  grammar copies in UI and CLI;
-- preserve unknown future fields round-trip and expose raw JSON only as an
-  Advanced escape hatch;
-- keep ordinary top-level navigation bounded instead of adding a new tab for
-  every future subsystem.
-
-**Gate:** the final ConvoEngine feature set is authorable from one compact
-family-centered workflow without obsolete source models or generated-file edits.
-
-### S9H5 — compact main CLI + compatibility quarantine
-
-- make the main Semantic Harness CLI dispatch the same OperationRegistry;
-- prefer `workspace describe` and `convo ...` subcommands / canonical JSON
-  change documents over one bespoke argparse flag per future field;
-- keep `convo_engine_cli.py` only as a thin compatibility entrypoint if still
-  useful;
-- migrate tests off legacy PSDL record-bucket CRUD and remove those public
-  service methods after caller-zero;
-- keep only explicit bounded legacy-schema readers under compatibility/migration
-  seams;
-- missing legacy datasets and workflows disappear from public operation
-  discovery rather than pretending to be editable.
-
-**Gate:** one bounded, discoverable CLI/service contract is sufficient for
-humans and Luna-class agents.
-
-### S9H6 — BuildPlanner, isolated determinism, cache and lock
-
-- render artifact plans in memory or isolated temporary roots before touching
-  live generated trees;
-- determinism compares isolated renders/hashes rather than rewriting/pruning
-  live output twice;
-- serialize approved live apply with one workspace-scoped generation lock kept
-  outside Project Zomboid `media/`;
-- add fingerprint-keyed bounded caches only for derived read-only Workspace,
-  ConvoCatalog, compile/plan and trace data;
-- global identity/reference validation always runs before any incremental build;
-- incremental affected-owner/closure rendering is optional and must fall back
-  to full render when safety is not proven.
-
-**Gate:** overlapping audits/builds cannot expose half-written output and cache
-state can never become semantic authority.
-
-### S9H7 — exhaustive acceptance + complexity audit
-
-Freshly verify:
-
-- focused Studio/service/CLI operation parity;
-- production ConvoProbe parity;
-- owner-routed CRUD/reference/fingerprint safety;
-- dead-surface removal and fail-closed missing datasets;
-- workspace/catalog equality across GUI/CLI/audit;
-- no provider-specific action-contract IDs in Core Studio;
-- unknown future field round-trip preservation;
-- bounded agent bootstrap/catalog/impact/trace outputs;
-- concurrency-safe isolated determinism;
-- legacy public PSDL CRUD caller-zero or explicit quarantine;
-- Core Python suite;
-- Core ConvoEngine/Semantic/Conversation Lua suite;
-- three-repository `audit-s6m8 --check-determinism`;
+- focused S9R tests;
+- full Core Python Semantic Harness suite;
+- all 36 Core ConvoEngine/Semantic/Conversation/RuntimeRole Lua smokes;
+- unified main CLI `convo audit --check-determinism`;
 - DynamicTrading full suite;
-- ProjectHoomans full suite with the independently accepted PopulationDirector
-  baseline rechecked;
-- Kahlua ERROR verification;
-- `git diff --check` and exact residual worktrees.
+- ProjectHoomans full suite;
+- Kahlua ERROR verification for Core, ProjectHoomans and DTCommon ConvoEngine trees;
+- `git diff --check`;
+- exact Git status/HEADs for all participants.
 
-S9 closes only when adding an ordinary new ConvoEngine family, locale, action
-contract, provider or optional language field flows through the shared
-provider/compiler/operation/probe/build architecture without requiring parallel
-discovery, semantic evaluation, Studio and CLI implementations.
+The accepted PopulationDirector failure may remain only if it is still the sole Hoomans failure and fresh evidence continues to show S9R does not touch/reach it.
+
+At acceptance:
+
+1. preserve unrelated Hoomans and DynamicTrading dirt;
+2. commit changed adopter repositories first if S9R changes them;
+3. commit Core last;
+4. final Core HANDOFF must use:
+   - `checkpoint_mode: committed_handoff`;
+   - `phase_commit: self`;
+   - exact participant commit vector;
+   - residual-work fingerprints;
+   - state `USER_ACCEPTANCE` or equivalent developer-complete state;
+5. do not push.
+
+**Completion gate:** S9R is accepted only when the residual wiring/docs mismatches are closed and the full accepted test matrix remains green. After that, only user-owned native Project Zomboid SP/MP acceptance remains.
 
 ## Commit protocol
 

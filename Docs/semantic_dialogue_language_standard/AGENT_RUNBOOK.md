@@ -259,39 +259,29 @@ Before declaring S8 accepted:
 
 Do not weaken assertions or inflate limits/timeouts merely to make migration pass.
 
-### S9 Semantic Harness convergence discipline
+### S9 / S9R Semantic Harness convergence discipline
 
-For S9, read `SEMANTIC_HARNESS_AUDIT.md` first. Read only the relevant
-section of `SEMANTIC_HARNESS_COMPACT_ARCHITECTURE.md` for the active S9 chunk;
-do not load the whole deep-design document by default.
+S9H0-S9H7 and S9R0-S9R3 are complete and accepted. Do not reopen their
+architecture without a concrete regression; only user-owned native Project
+Zomboid SP/MP visual/feel acceptance remains.
 
-Compactness means fewer authorities and public concepts, not fewer files at any
-cost. New S9 code must converge on WorkspaceCatalog, ConvoCatalog, the shared
-operation/transaction surface, production Lua ConvoProbe and BuildPlanner.
+For maintenance/verification, read current `PROGRESS.md`, `HANDOFF.md`, and the
+post-S9 summary of `SEMANTIC_HARNESS_AUDIT.md`. Read the compact architecture
+when modifying one of its six stable ports.
 
-- add regression tests for a reproduced gap before replacing the old path;
-- reuse the compiler/manifest participant map; do not add Studio-only sibling
-  repository discovery;
-- family create/edit/move/delete must go through a service transaction with
-  owner routing, source fingerprint, global semantic-reference validation and
-  regeneration;
-- UI code must not call `Path.unlink()` on canonical ConvoEngine source;
-- Python structural preview is allowed, but behavioral parity comes from
-  production Lua Predicate/TextBinding/Affordance/ActionContract through the
-  worker;
-- do not hard-code adopter action contracts in Core Studio code when runtime or
-  declarative registration can provide the catalog;
-- missing canonical dataset sources are not editable and not workflow-ready;
-- remove/hide obsolete zero-source authoring panes rather than keeping empty
-  first-class surfaces;
-- expose ConvoEngine through one discoverable main harness CLI/service contract;
-- migrate tests off legacy PSDL record-bucket CRUD before deleting those
-  compatibility methods;
-- deterministic audits must not race by mutating the same live generated tree;
-  use isolated output or a workspace generation lock;
-- keep staging/temp output outside Project Zomboid `media/`.
+Preserve the accepted S9/S9R invariants:
 
-S9 acceptance reruns the complete S8R matrix after focused harness parity tests.
+- keep manifest/provider-driven workspace discovery;
+- keep all family mutation behind ConvoTransaction;
+- keep production Lua ConvoProbe as behavioral truth with no Python fallback;
+- keep missing legacy sources fail-closed and compatibility-gated;
+- keep deterministic audits isolated from live generated trees;
+- keep staging/temp output outside Project Zomboid `media/`;
+- do not add adopter-specific action IDs or repository branches to Core Studio;
+- do not expand the 11-operation public vocabulary unless a real missing
+  semantic responsibility is proven.
+
+S9R acceptance reruns the full accepted S9H7 matrix after focused closure tests.
 
 ## Git and phase close
 

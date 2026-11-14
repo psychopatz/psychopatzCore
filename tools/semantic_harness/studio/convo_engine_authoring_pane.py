@@ -286,9 +286,24 @@ class ConvoEngineAuthoringPane:
         if value is not None:
             editor.insert("1.0", self._pretty(value))
 
+    def _load_catalog_families(self) -> list[dict[str, Any]]:
+        families: list[dict[str, Any]] = []
+        offset = 0
+        while True:
+            page = self.service.dispatch_operation(
+                "convo.catalog",
+                {"query": "", "limit": 200, "offset": offset},
+            )
+            items = list(page.get("items") or [])
+            families.extend(items)
+            if not page.get("truncated") or not items:
+                break
+            offset += len(items)
+        return families
+
     def refresh(self) -> None:
         try:
-            self._families = self.service.list_convo_engine_families()
+            self._families = self._load_catalog_families()
             self._action_contracts = self.service.list_convo_engine_action_contracts()
         except (OSError, ValueError, KeyError, TypeError) as error:
             self._families = []
@@ -495,7 +510,14 @@ class ConvoEngineAuthoringPane:
             "say": "New ConvoEngine utterance.",
             "reply": {"acknowledged": {"say": "Understood."}},
         }
-        res = self.service.create_convo_engine_family(spec, write=False)
+        res = self.service.dispatch_operation(
+            "convo.change.preview",
+            {
+                "operation": "create",
+                "requestedOwner": owner,
+                "document": spec,
+            },
+        )
         if res.get("ok") is True:
             self._document = copy.deepcopy(res["document"])
             self._current_entry = None
@@ -525,21 +547,13 @@ class ConvoEngineAuthoringPane:
             f"Delete canonical source {self._current_entry['canonicalID']} ({Path(str(target)).name})?",
         ):
             return {"ok": False, "cancelled": True, "writes": []}
-        dispatch = getattr(self.service, "dispatch_operation", None)
         payload = {
             "operation": "delete",
             "target": target,
             "expectedFingerprint": self._loaded_fingerprint,
         }
         try:
-            if callable(dispatch):
-                res = dispatch("convo.change.apply", payload)
-            else:
-                res = self.service.delete_convo_engine_family(
-                    target,
-                    expected_source_fingerprint=self._loaded_fingerprint,
-                    write=True,
-                )
+            res = self.service.dispatch_operation("convo.change.apply", payload)
         except (OSError, ValueError) as error:
             res = {"ok": False, "diagnostics": [{"severity": "error", "message": str(error)}], "writes": []}
         self._set_report(res)
@@ -558,16 +572,19 @@ class ConvoEngineAuthoringPane:
         try:
             doc = self._form_document()
             slot_values = json.loads(self._preview_slots_var.get() or "{}")
-            report = self.service.simulate_convo_engine_family(
-                doc,
-                source_path=(self._current_entry or {}).get("sourcePath"),
-                speaker=self._preview_speaker_var.get().strip() or "player",
-                addressee=self._preview_addressee_var.get().strip() or "npc",
-                target=self._preview_target_var.get().strip() or None,
-                slot_values=slot_values,
-                style=self._preview_style_var.get().strip() or "neutral",
-                locale=self._preview_locale_var.get().strip() or "EN",
-                result_outcome=self._preview_outcome_var.get().strip() or None,
+            report = self.service.dispatch_operation(
+                "convo.simulate",
+                {
+                    "document": doc,
+                    "sourcePath": (self._current_entry or {}).get("sourcePath"),
+                    "speaker": self._preview_speaker_var.get().strip() or "player",
+                    "addressee": self._preview_addressee_var.get().strip() or "npc",
+                    "npcTarget": self._preview_target_var.get().strip() or None,
+                    "slotValues": slot_values,
+                    "style": self._preview_style_var.get().strip() or "neutral",
+                    "locale": self._preview_locale_var.get().strip() or "EN",
+                    "resultOutcome": self._preview_outcome_var.get().strip() or None,
+                },
             )
             btn = report.get("buttonPreview") or {}
             speech = report.get("initiatingSpeechPreview") or {}
@@ -610,16 +627,7 @@ class ConvoEngineAuthoringPane:
             "allowLegacySchema": False,
         }
         try:
-            dispatch = getattr(self.service, "dispatch_operation", None)
-            if callable(dispatch):
-                written = dispatch("convo.change.apply", payload)
-            else:
-                written = self.service.write_convo_engine_source(
-                    existing_path or doc["id"],
-                    doc,
-                    expected_source_fingerprint=self._loaded_fingerprint,
-                    allow_legacy_schema=False,
-                )
+            written = self.service.dispatch_operation("convo.change.apply", payload)
         except (OSError, ValueError) as error:
             written = {"ok": False, "diagnostics": [{"severity": "error", "message": str(error)}], "writes": []}
         self._set_report(written)
@@ -634,7 +642,7 @@ class ConvoEngineAuthoringPane:
         return written
 
     def run_s6m8_audit(self) -> dict[str, Any]:
-        report = self.service.run_convo_engine_s6m8_audit(check_determinism=False)
+        report = self.service.dispatch_operation("convo.audit", {"checkDeterminism": False})
         self._set_report(report)
         self._status_var.set(
             f"S6M8 Audit OK ({report['stats']['familyFilesChecked']} families, 0 violations)"

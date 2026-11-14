@@ -1,140 +1,100 @@
 # Semantic Harness ConvoEngine Convergence Audit
 
-**Audit date:** 2026-11-14
+**Original audit date:** 2026-11-14
+**Post-S9 re-audit:** 2026-11-14
 **Repositories:** psychopatzCore, ProjectHoomans, DynamicTrading
-**Status:** implementation supports ConvoEngine, but Semantic Lab/CLI are not yet fully converged on the final authority model.
+**Status:** PRE-S9 FINDINGS (H1-H10) AND POST-S9 RESIDUALS (R1-R5) RESOLVED (S9 + S9R ACCEPTED).
 
-## Executive finding
+## Purpose
 
-The manifest/compiler/build path is genuinely ConvoEngine-native and the S8R runtime migration is accepted. The remaining problem is the harness surface around it: several Studio and service APIs still model the retired record-bucket/dataset architecture, while the ConvoEngine Studio simulator reimplements part of production semantic policy in Python instead of asking the production Lua modules.
+This document preserves the evidence that motivated S9 and S9R while distinguishing
+historical findings from current truth.
 
-Therefore the next work is not another ConvoEngine runtime redesign. It is a bounded **Semantic Harness convergence** phase that removes duplicate/superseded authoring surfaces and makes the harness consume the same compiler/runtime authorities that the game uses.
+The original H1-H10 findings below are **historical pre-S9 baseline findings**. S9H0-S9H7
+materially resolved them.
 
-## Verified good foundations
+The R1-R5 residuals below are also **resolved and verified by S9R0-S9R3** (`test_convo_engine_s9r_closure.py`, `192/192` Core Python).
 
-- Canonical ConvoEngine family discovery sees 566 current family files across Core, ProjectHoomans, and DTCommon.
-- `SemanticLabAuthoringService` already exposes canonical create/edit/move/shard/normalize/write/validate operations.
-- `conversation_discovery_record()` and `conversation_affected_closure()` already provide compiler-owned routing/impact evidence.
-- `write_conversation_output()` is the shared generation authority.
-- The production Lua worker architecture is intentionally thin: Python sends commands while Lua owns semantic policy.
-- Core runtime already exposes the production mechanisms the Studio needs: `PsychopatzSemanticPredicate`, `TextBinding`, `ConvoEngine.Affordance`, `ConvoEngine.ActionContract`, and generated Foundation/Registry data.
-- `ActionContract.List()` / `Get()` exist; `Affordance` exposes `RenderRoleText`, `Score`, `ExpandSlots`, `Collect`, `SelectNpcAffordance`, `SelectReply`, `ResolveAfter`, `ApplyActionResult`, and `ExecuteExchange`.
+## Original pre-S9 baseline
 
-## Finding H1 — legacy PSDL record-bucket service API remains
+Before S9, the harness had these verified issues:
 
-`SemanticLabAuthoringService` still contains `list_psdl_sources`, `load_psdl_source`, record-level create/edit/duplicate/delete/reorder/write methods and compatibility helpers. Their non-definition callers are tests only. The current ConvoEngine pane does not use them.
+1. **H1 — legacy PSDL record-bucket service API remained.**
+2. **H2 — Studio simulation reimplemented semantic predicate/text behavior in Python.**
+3. **H3 — dynamic affordance/NPC selection was not runtime-faithful in Studio.**
+4. **H4 — repository/source discovery diverged across Studio/service/audit.**
+5. **H5 — ConvoEngine pane performed unsafe owner/path/delete/write behavior.**
+6. **H6 — dead legacy Studio surfaces were still presented as canonical/editable.**
+7. **H7 — the main Semantic Harness CLI did not expose ConvoEngine operations.**
+8. **H8 — structured ConvoEngine editor coverage was partial and duplicated grammar knowledge.**
+9. **H9 — deterministic audit/build could race on the live generated tree.**
+10. **H10 — the public conceptual surface was larger than necessary for agents/humans.**
 
-**Impact:** API/token clutter and a second mental model for agents. Small models can choose the wrong authoring seam.
+Measured pre-S9 review signals:
 
-**Plan:** migrate the remaining tests to ConvoEngine family APIs, isolate only the genuinely required legacy-schema reader in an explicit migration module, then delete the dead record-bucket CRUD surface after caller-zero.
+    harness Python                            71,593 LOC / 277 files
+    SemanticLabAuthoringService                2,729 lines / 66 public methods
+    main CLI                                   1,425 lines / 123 add_argument calls
+    Studio + UI                              ~20.8k LOC
 
-## Finding H2 — Studio simulation is a second semantic interpreter
+These numbers were architectural review signals, not deletion targets.
 
-`convo_engine_studio_trace.py` implements its own predicate evaluator and text renderer. Its predicate set is smaller than production: it lacks `falsy`, `not_in`, `contains`, `not_contains`, `contains_any`, and `contains_all`. Placeholder rendering also bypasses production `TextBinding` public/private path and resolver behavior.
+## S9 resolution evidence
 
-It also hard-codes `pnc.companion.camp` in `KNOWN_ACTION_CONTRACTS`, even though runtime contracts are registered by `ActionContract.Register` and can be listed from Lua.
+S9 implemented the compact six-port model:
 
-**Impact:** Studio can report a simulation result that differs from the real runtime as the language grows.
+    WorkspaceCatalog
+    ConvoCatalog
+    OperationRegistry / ConvoTransaction
+    production Lua ConvoProbe
+    BuildPlanner
+    thin GUI/CLI clients
 
-**Plan:** keep Python compilation/structural preview, but move behavioral simulation to new read-only worker commands backed by production Lua Predicate/TextBinding/Affordance/ActionContract. Python should display the returned trace, not reinterpret it.
+Resolution mapping:
 
-## Finding H3 — dynamic affordance behavior is not actually simulated
+- **H1 resolved:** dead public record-bucket PSDL CRUD methods were removed from `SemanticLabAuthoringService`; only explicit compatibility/migration schema paths remain.
+- **H2 resolved:** `convo_engine_studio_trace.py` now delegates behavioral truth to production Lua `ConvoProbe`; no Python predicate/rendering fallback remains.
+- **H3 resolved:** production Lua affordance collection/scoring/NPC selection/reply/after paths are exposed through `ConvoProbe`.
+- **H4 resolved:** `WorkspaceCatalog` and `ConvoCatalog` provide shared manifest/provider-driven discovery across GUI/CLI/audit/build.
+- **H5 resolved:** canonical family mutation uses `ConvoTransaction` with owner routing, fingerprint checks, move semantics, dangling-reference protection and generation locking; the pane no longer directly unlinks canonical source.
+- **H6 resolved:** primary Studio surfaces are `Conversations`, `Source / Impact`, and `Review`; legacy panes are compatibility-gated and missing sources are non-editable/not workflow-ready.
+- **H7 resolved:** the main CLI exposes `workspace` and `convo` operations and the specialized ConvoEngine CLI delegates to shared authority.
+- **H8 resolved at architecture level:** compiler-owned `FieldDescriptor` presentation metadata and unknown-field round-trip support reduce independent grammar copies; raw JSON remains an advanced escape hatch.
+- **H9 resolved:** `BuildPlanner` uses isolated temporary output for determinism and a workspace generation lock for live apply.
+- **H10 substantially resolved:** conversation work now has one bounded 11-operation registry even though the broader legacy service facade remains large.
 
-The current Studio trace does not exercise production candidate providers, slot expansion, utility scoring, relationship/trait preference, consumer filtering, deterministic NPC selection, recency/cooldowns, or bounded `after` recommendation resolution. It mostly picks the first viable authored realization/reply.
+Fresh post-S9 verification:
 
-**Plan:** expose production read-only operations for family detail, affordance collection, NPC selection, reply selection, after resolution, role-text rendering, and action-contract catalog. Use the exact same context projection as the worker/game path.
+    canonical ConvoEngine families                 566
+    discoverable operations                         11
+    Core Python semantic-harness                   188/188 PASS
+    Core Convo/Semantic/Conversation/Role Lua       36/36 PASS
+    isolated determinism hashes                    368 / 0 diffs
+    active legacy-name violations                    0
+    DynamicTrading                                  89/89 PASS
+    ProjectHoomans                                1020/1021
+    Kahlua ConvoEngine trees                         0 errors across 276 files
 
-## Finding H4 — family discovery and service repository ownership diverge
+The sole Hoomans failure remains the independent PopulationDirector baseline at
+`tests/pnc_population_director_smoke.lua:316`.
 
-`convo_engine_studio_trace._convo_roots()` walks folders directly and assumes sibling `ProjectHoomans` / `DynamicTrading` checkouts. This duplicates manifest/compiler repository discovery and differs from the hardened S8R audit discovery.
+## Post-S9 closure — R1–R5 resolved by S9R
 
-The service constructor also currently initializes `package_repositories[ProjectHoomans]` to `self.repository` even when a separate `hoomans_repository` argument is supplied. The main Semantic Harness CLI/GUI has no separate `--hoomans-repository` option and documents `--repository` as Project Hoomans, while ConvoEngine audit code independently discovers participants. These are three different repository-resolution models.
+All five post-S9 closure residuals have now been resolved and locked by `tools/semantic_harness/tests/test_convo_engine_s9r_closure.py`:
 
-**Plan:** centralize participant discovery in one service-level repository map, honor explicit owner repositories, and derive family/source rows from the compiled manifest/discovery index. Main GUI/CLI, ConvoEngine CLI, audit, Dataset Library, and Studio panes must consume the same map. No Studio-specific filesystem discovery.
+- **R1 resolved:** Final Core `HANDOFF.md` uses `checkpoint_mode: committed_handoff`, `phase_commit: self`, the exact participant commit vector, and residual worktree fingerprints.
+- **R2 resolved:** Continuity docs (`PROGRESS.md`, `ROADMAP.md`, `SEMANTIC_HARNESS_AUDIT.md`, `AGENT_RUNBOOK.md`, `CONVO_ENGINE.md`, `HANDOFF.md`) record H1-H10 as historical pre-S9 baseline and S9 + S9R as complete/accepted.
+- **R3 resolved:** `convo.simulate` `OperationDescriptor` now advertises `requiredCapability = "semantic.convo_probe"` and `workerRequirement = "required"`, preserving the 11-operation vocabulary and no-fallback `ConvoProbeUnavailableError`.
+- **R4 resolved:** `HarnessContext.build` exposes the workspace-aware `BuildPlanner` instance updated on `refresh_workspace()`, and `OperationRegistry` (`convo.build.preview` / `convo.build.apply`) consumes `harness.build` with no private competing factory.
+- **R5 resolved:** `ConvoEngineAuthoringPane` dispatches canonical operations (`convo.catalog`, `convo.get`, `convo.change.preview`, `convo.simulate`, `convo.change.apply`, `convo.audit`) via `dispatch_operation()` with focused parity tests.
 
-## Finding H5 — unsafe ConvoEngine CRUD in the pane
+Latest verification after S9R closure:
 
-`ConvoEngineAuthoringPane` currently:
+- `192/192` Core Python Semantic Harness (`0` expected failures)
+- `36/36` Core ConvoEngine / Semantic / Conversation / RuntimeRole Lua
+- `566`-family zero-violation isolated 3-repo audit (`368` determinism hashes, `0` diffs)
+- `89/89` DynamicTrading
+- `1020/1021` ProjectHoomans (only unrelated pre-existing `tests/pnc_population_director_smoke.lua:316`)
+- `0` Kahlua errors across `276` ConvoEngine Lua files (`52` Core, `219` Hoomans, `5` DTCommon)
 
-- defaults a new-family write path into Core even when the selected owner is ProjectHoomans or DTCommon;
-- deletes canonical source with direct `Path.unlink()`;
-- can change namespace/id in the form and write to the old path instead of using the move/rename contract;
-- does not pass an expected source fingerprint on write;
-- leaves regeneration as a separate manual instruction after write/delete.
-
-Cross-reference validation also checks reference shape and wording-key prohibition but does not prove every `after.goto` / `after.recommend` target exists. Direct deletion can therefore leave dangling semantic references.
-
-**Plan:** add one service-owned transactional family change API: preview impact -> validate global references -> fingerprint guard -> owner-routed create/edit/move/delete -> CodeBuilder regenerate -> return changed artifacts. The GUI never unlinks or chooses package roots itself.
-
-## Finding H6 — dead legacy Studio surfaces are still presented as canonical
-
-Against the real three-repository workspace:
-
-    ConvoEngine families: 566
-    Dialogue Content rows: 0
-    Dataset Library sources: 4, all exists=false
-    Workflow datasets: 3, all reported workflowReady=true despite exists=false
-
-The missing dataset IDs are the old `semantic_flows`, `common_dialogue`, `grounded_personal`, plus `wordnet_concepts`. `DatasetLibraryPane` still labels them canonical/editable. The main Studio exposes an empty `Dialogue Content` tab, while the real ConvoEngine authoring pane is hidden under Developer Tools.
-
-**Impact:** the GUI actively steers users and small agents toward obsolete paths.
-
-**Plan:** promote ConvoEngine to the primary Dialogue Content authoring surface. Hide/remove zero-source legacy tabs and fail closed on missing dataset sources (`editable=false`, `workflowReady=false`). Keep only dataset/lexicon surfaces backed by real current sources. Update Source Explorer to list ConvoEngine families and their compiler-owned discovery/affected-closure data.
-
-## Finding H7 — main Semantic Harness CLI does not expose ConvoEngine authoring
-
-The main `entrypoints/cli.py` authoring operations expose datasets/blocks/workflows, while ConvoEngine has a separate `convo_engine_cli.py`.
-
-**Plan:** add a `convo`/`convo-engine` command surface to the main CLI that delegates to the same `SemanticLabAuthoringService` APIs for list/show/validate/preview/simulate/create/edit/move/delete/regenerate/audit. Keep the specialized CLI as a thin compatibility entrypoint if needed, not a second implementation.
-
-## Finding H8 — structured ConvoEngine editor coverage is partial
-
-The pane can edit all advanced fields as raw JSON, but first-class controls are missing for locale maps, multiple stable `say` realizations, style variants, reply variants, slot candidate providers, utility/prefer, recommend groups, goto/end/resume, execute bindings/results, and behavior/beat-specific fields.
-
-**Plan:** after authority convergence, add structured controls derived from the compiler schema/projections. Raw JSON remains an advanced escape hatch, not the primary way to author final architecture features.
-
-## Finding H9 — deterministic audit/build is not concurrency-safe
-
-A concurrent Core test run plus `audit-s6m8 --check-determinism` can race while both rewrite/prune live generated output. Sequential runs pass.
-
-**Plan:** prefer deterministic renders into temporary output roots and compare hashes without mutating live `media/`. If a live regeneration is unavoidable, use one workspace generation lock. Never place staging directories inside Project Zomboid `media/`.
-
-## Finding H10 — conceptual surface is larger than the implementation needs
-
-Fresh harness-owned measurements (excluding the bundled virtualenv and caches):
-
-    Python files                                  277
-    Python LOC                                 71,593
-    CodeBuilder LOC                            25,340
-    Studio + UI LOC                           ~20,863
-    SemanticLabAuthoringService                  2,729 lines
-      methods                                       97
-      public methods                                66
-    main CLI                                     1,425 lines
-      add_argument calls                           123
-
-The counts are not defects by themselves. The problem is that callers must
-choose among many overlapping methods, flags, panes and legacy source models.
-
-**Plan:** use `SEMANTIC_HARNESS_COMPACT_ARCHITECTURE.md` as the normative S9
-target. Compactness means authority compression: one WorkspaceCatalog, one
-ConvoCatalog, a small OperationRegistry/transaction surface, production Lua
-ConvoProbe, BuildPlanner, and thin GUI/CLI clients. Soft size thresholds are
-review triggers only; do not split files without an ownership reason.
-
-## Acceptance direction
-
-The harness convergence phase is accepted only when:
-
-- Studio family browsing comes from compiler/manifest authority, not folder guesses;
-- ConvoEngine family CRUD is service-owned, owner-routed, fingerprint-guarded, reference-safe, and regenerates atomically;
-- runtime simulation/trace calls production Lua Predicate/TextBinding/Affordance/ActionContract rather than Python copies;
-- player and NPC previews expose the same candidate/utility/selection decisions as runtime;
-- action contract discovery is runtime/declarative rather than hard-coded CAMP metadata;
-- dead Dataset Library/Dialogue Content/workflow surfaces are removed or made fail-closed and non-editable;
-- ConvoEngine is the obvious primary conversation authoring surface in Studio and CLI;
-- Source Explorer includes all ConvoEngine families and impact routing;
-- deterministic audit can run without racing a live generated tree;
-- focused parity tests plus the full existing S8R test matrix remain green.
-
-Native Project Zomboid live SP/MP acceptance remains user-owned; this phase is developer-side harness convergence only.
+After S9R, only user-owned native Project Zomboid SP/MP visual/feel acceptance remains.

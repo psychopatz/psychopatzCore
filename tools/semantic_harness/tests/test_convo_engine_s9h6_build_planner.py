@@ -222,7 +222,7 @@ class ConvoEngineS9H6BuildPlannerTests(unittest.TestCase):
             self.assertLessEqual(len(applied["writes"]), 5)
             self.assertTrue(core_registry.is_file())
             self.assertTrue(any(hoomans_convo_dir.rglob("*.lua")))
-            self.assertEqual(service.operations._build_planner()._plan_cache, {})
+            self.assertEqual(service.harness.build._plan_cache, {})
 
     def test_isolated_determinism_preview_and_audit_preserve_live_sentinel_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

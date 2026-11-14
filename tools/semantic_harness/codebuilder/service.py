@@ -64,6 +64,7 @@ from .convo_engine_s6m8_audit import (
     audit_convo_engine_workspace,
     discover_convo_engine_repositories,
 )
+from .build_planner import BuildPlanner
 from .convo_catalog import ConvoCatalog
 from .convo_probe import ConvoProbe
 from .convo_transaction import ChangeSet, ConvoTransaction
@@ -164,11 +165,13 @@ class SemanticLabAuthoringService:
         )
         self.convo_transaction = ConvoTransaction(self)
         self.convo_probe = ConvoProbe(self.workspace_snapshot)
+        self.build_planner = BuildPlanner.from_workspace(self.workspace_snapshot)
         self.harness = HarnessContext(
             workspace=self.workspace_snapshot,
             convo=self.convo_catalog,
             transaction=self.convo_transaction,
             runtime=self.convo_probe,
+            build=self.build_planner,
             audit=audit_convo_engine_workspace,
             compat={
                 "datasets": self.dataset_catalog,
@@ -198,9 +201,11 @@ class SemanticLabAuthoringService:
             runtime_root=self.runtime_root,
         )
         self.convo_catalog = ConvoCatalog(self.workspace_snapshot)
+        self.build_planner = BuildPlanner.from_workspace(self.workspace_snapshot)
         if hasattr(self, "harness"):
             self.harness.workspace = self.workspace_snapshot
             self.harness.convo = self.convo_catalog
+            self.harness.build = self.build_planner
         return self.workspace_snapshot
 
     def describe_operations(self) -> list[dict[str, Any]]:

@@ -2,7 +2,7 @@
 
 **Date:** 2026-11-14
 **Scope:** PsychopatzCore Semantic Harness + ProjectHoomans + DynamicTrading provider integration
-**Status:** normative design for ROADMAP S9
+**Status:** accepted normative design; S9 implemented, S9R may only close wiring/continuity mismatches without redesigning this architecture.
 
 ## Why this document exists
 
@@ -624,7 +624,11 @@ Bad:
 - require knowing whether a function lives in the main CLI or ConvoEngine CLI;
 - return raw production state when a small public projection is sufficient.
 
-## S9 implementation mapping
+## Accepted S9 implementation mapping
+
+S9H0-S9H7 completed this mapping. The section below is retained as architectural
+traceability, not as an active task list. S9R may close only the residual
+wiring/continuity mismatches recorded in ROADMAP and the post-S9 audit.
 
 ### S9H0 — regression-lock + architecture freeze
 

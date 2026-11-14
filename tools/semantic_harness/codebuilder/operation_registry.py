@@ -165,8 +165,8 @@ class OperationRegistry:
             OperationDescriptor(
                 id="convo.simulate",
                 mode="query",
-                required_capability="semantic.conversation",
-                worker_requirement="optional",
+                required_capability="semantic.convo_probe",
+                worker_requirement="required",
                 mutates_canonical=False,
                 mutates_runtime=False,
                 input_version="1",
@@ -315,25 +315,22 @@ class OperationRegistry:
             realization_key=payload.get("realizationKey"),
         )
 
-    def _build_planner(self) -> Any:
-        from .build_planner import BuildPlanner
-
-        ws = self.service.workspace_snapshot
-        planner = getattr(self, "_cached_planner", None)
-        if planner is None or planner.workspace.workspace_fingerprint != ws.workspace_fingerprint:
-            planner = BuildPlanner.from_workspace(ws)
-            self._cached_planner = planner
+    def _build_port(self) -> Any:
+        harness = getattr(self.service, "harness", None)
+        planner = getattr(harness, "build", None)
+        if planner is None:
+            raise CompileError("BuildPlanner port is not wired in HarnessContext")
         return planner
 
     def _handle_build_preview(self, payload: Mapping[str, Any]) -> dict[str, Any]:
-        return self._build_planner().preview(
+        return self._build_port().preview(
             owner=payload.get("owner"),
             check_determinism=bool(payload.get("checkDeterminism", False)),
             limit=int(payload.get("limit", 64)),
         )
 
     def _handle_build_apply(self, payload: Mapping[str, Any]) -> dict[str, Any]:
-        return self._build_planner().apply(
+        return self._build_port().apply(
             owner=payload.get("owner"),
             limit=int(payload.get("limit", 64)),
         )
