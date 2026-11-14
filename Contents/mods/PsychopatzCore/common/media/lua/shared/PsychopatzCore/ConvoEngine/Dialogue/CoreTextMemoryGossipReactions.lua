@@ -702,6 +702,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "negative.warning",
+            ["slots"] = {
+                ["place"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = true,
+                    ["type"] = "entity.location",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "People have spotted danger near {slot.place.name}.",
@@ -1042,6 +1050,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "neutral",
+            ["slots"] = {
+                ["place"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = true,
+                    ["type"] = "entity.location",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "Word is {target.name} was seen near {slot.place.name}.",

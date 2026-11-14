@@ -9,7 +9,7 @@ Registry.REGISTRY_MODULE = "PsychopatzCore/ConvoEngine/FoundationRegistry"
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
 Registry.CONTENT_FINGERPRINT = "0c0dd14df241eb4b742a95ede0729f2131a3ac66d66cb1497ea50aff9d9e9e39"
-Registry.WHOLE_MODEL_FINGERPRINT = "d928b3977ed5ac186eb549996cac3dc79620ae6f8200b966dd9d02600422fe93"
+Registry.WHOLE_MODEL_FINGERPRINT = "15b1b92bc9c9eee6ecac482992dad5cdb347839a72e0f3d323379db5e6d25198"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -20,6 +20,7 @@ Registry.BEATS = {}
 Registry.PACKS = {}
 Registry.CONVO_PLANS = {}
 Registry.CONVO_RESPONSE_TEMPLATES = {}
+Registry.CONVO_REPLY_INDEX = {}
 Registry.UI = {}
 local function appendContent(loaded)
     if type(loaded) ~= "table" then return end
@@ -66,6 +67,17 @@ local function appendConvoPlans(loaded)
             end
             if type(value.exchangeFamily) == "table" or (type(payload) == "table" and payload.say ~= nil) then
                 Registry.CONVO_RESPONSE_TEMPLATES[tostring(value.id)] = true
+            end
+            local replies = type(value.exchangeFamily) == "table" and value.exchangeFamily.replies or nil
+            if type(replies) == "table" then
+                for outcomeName, _ in pairs(replies) do
+                    local outcomeTemplateID = tostring(value.id) .. "." .. tostring(outcomeName)
+                    Registry.CONVO_RESPONSE_TEMPLATES[outcomeTemplateID] = true
+                    Registry.CONVO_REPLY_INDEX[outcomeTemplateID] = {
+                        plan = value,
+                        outcome = tostring(outcomeName),
+                    }
+                end
             end
             local outputs = type(payload) == "table" and payload.outputs or nil
             if type(outputs) == "table" then
@@ -137,5 +149,8 @@ function Registry.PlayerChoice(contentID)
 end
 function Registry.ConvoPlan(planID)
     return Registry.CONVO_PLANS[tostring(planID or "")]
+end
+function Registry.ConvoOutcome(templateID)
+    return Registry.CONVO_REPLY_INDEX[tostring(templateID or "")]
 end
 return Registry

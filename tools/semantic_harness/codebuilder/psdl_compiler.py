@@ -538,9 +538,9 @@ def _normalize_module_payload(
                 consumers=CONSUMERS,
             )
     if kind == "dialogue" and not any(
-        field in payload for field in ("respond", "response", "variants", "turns", "text", "offers", "say", "reply")
+        field in payload for field in ("respond", "response", "variants", "turns", "text", "offers", "say", "reply", "recognition")
     ):
-        raise CompileError(f"{label} requires a say, reply, response, turns, variants, offers or text")
+        raise CompileError(f"{label} requires a say, reply, response, turns, variants, offers, recognition or text")
     if kind == "behavior" and not any(
         field in payload for field in ("act",)
     ):
@@ -1319,6 +1319,63 @@ def render_psdl_ui_plan(compiled: Mapping[str, Any]) -> list[dict[str, Any]]:
                     row[field] = _copy(value)
             if "domain" in offer_metadata:
                 row["domain"] = offer_metadata["domain"]
+            rows_by_namespace.setdefault(namespace, []).append(row)
+        affordance = payload.get("affordance")
+        aff_meta = affordance.get("metadata") if isinstance(affordance, Mapping) else None
+        ui_meta = metadata.get("ui")
+        if not isinstance(ui_meta, Mapping) and isinstance(aff_meta, Mapping):
+            ui_meta = aff_meta.get("ui")
+        if isinstance(affordance, Mapping) and isinstance(ui_meta, Mapping):
+            say = payload.get("say")
+            if not isinstance(say, Mapping) or not isinstance(say.get("realizations"), Mapping):
+                raise CompileError(f"{record['id']} requires say realizations for UI projection")
+            realizations = say["realizations"]
+            key_order = say.get("keyOrder") if isinstance(say.get("keyOrder"), list) and say["keyOrder"] else sorted(realizations)
+            first_real = realizations.get(key_order[0]) if key_order else None
+            first_variants = first_real.get("variants") if isinstance(first_real, Mapping) else None
+            utterance = first_variants[0].get("text") if isinstance(first_variants, list) and first_variants else None
+            invoke = payload.get("invoke") if isinstance(payload.get("invoke"), Mapping) else {}
+            pattern_id = invoke.get("patternID") or ui_meta.get("patternID")
+            ui_id = ui_meta.get("id") or record["id"]
+            if not isinstance(pattern_id, str) or not pattern_id.strip():
+                raise CompileError(f"{record['id']} requires invoke.patternID or metadata.ui.patternID for UI projection")
+            order = ui_meta.get("order")
+            if isinstance(order, bool) or not isinstance(order, int):
+                raise CompileError(f"{record['id']}.metadata.ui.order must be an integer")
+            label = affordance.get("label")
+            if not isinstance(label, Mapping) or not isinstance(utterance, Mapping):
+                raise CompileError(f"{record['id']} requires localized affordance.label and say utterance for UI projection")
+            languages = sorted(set(label) | set(utterance))
+            display = {}
+            for language in languages:
+                label_values = label.get(language) or label.get(DEFAULT_LANGUAGE)
+                utterance_values = utterance.get(language) or utterance.get(DEFAULT_LANGUAGE)
+                if not isinstance(label_values, list) or not label_values:
+                    raise CompileError(f"{record['id']}.affordance.label lacks {language} fallback text")
+                if not isinstance(utterance_values, list) or not utterance_values:
+                    raise CompileError(f"{record['id']}.say lacks {language} fallback text")
+                display[language] = {
+                    "label": label_values[0],
+                    "utterance": utterance_values[0],
+                }
+            row = {
+                "id": ui_id,
+                "order": order,
+                "patternID": pattern_id,
+                "display": display,
+                "sourceRecordID": record["id"],
+                "owner": record["owner"],
+            }
+            for field, value in ui_meta.items():
+                if field not in ("id", "order", "patternID") and field not in row:
+                    row[field] = _copy(value)
+            for field in ("topic", "intent", "speechAct", "subject"):
+                if field not in row and field in invoke:
+                    row[field] = _copy(invoke[field])
+            if "slots" not in row and record.get("slots"):
+                row["slots"] = _copy(record["slots"])
+            if "target" not in row and record.get("target"):
+                row["target"] = _copy(record["target"])
             rows_by_namespace.setdefault(namespace, []).append(row)
     rows: list[dict[str, Any]] = []
     for namespace in sorted(rows_by_namespace):

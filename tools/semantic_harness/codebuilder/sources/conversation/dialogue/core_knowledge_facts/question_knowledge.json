@@ -1,0 +1,272 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "question",
+  "id": "knowledge",
+  "owner": "PsychopatzCore",
+  "participants": {
+    "speaker": [
+      "participant"
+    ],
+    "addressee": [
+      "participant"
+    ]
+  },
+  "metadata": {
+    "category": "psychopatzcore:knowledge",
+    "sourceSurface": "content/knowledge/knowledge.json",
+    "responseAct": "KNOWLEDGE_RESPONSE"
+  },
+  "reply": {
+    "known": {
+      "act": "KNOWLEDGE_RESPONSE",
+      "say": {
+        "1": {
+          "variants": [
+            {
+              "id": "neutral",
+              "text": {
+                "EN": [
+                  "I know about {target.name}.",
+                  "Yes, I know about {target.name}.",
+                  "I'm familiar with {target.name}.",
+                  "I have knowledge of {target.name}.",
+                  "Yes, I understand about {target.name}.",
+                  "I'm aware of {target.name}.",
+                  "I know the situation with {target.name}.",
+                  "Information on {target.name} is known to me.",
+                  "Yes, I've learned about {target.name} already.",
+                  "I have reliable word on {target.name}."
+                ],
+                "TL": [
+                  "May alam ako tungkol sa {target.name}.",
+                  "Oo, may alam ako tungkol sa {target.name}.",
+                  "Pamilyar ako sa {target.name}.",
+                  "May kaalaman ako sa {target.name}.",
+                  "Oo, nauunawaan ko ang tungkol sa {target.name}.",
+                  "Batid ko ang tungkol sa {target.name}.",
+                  "Alam ko ang sitwasyon sa {target.name}.",
+                  "Batid ko ang impormasyon sa {target.name}.",
+                  "Oo, nalaman ko na ang tungkol sa {target.name} noon pa.",
+                  "Maaasahan ang balita ko tungkol sa {target.name}."
+                ]
+              }
+            },
+            {
+              "id": "guarded",
+              "text": {
+                "EN": [
+                  "I know enough about {target.name}.",
+                  "I'm aware of {target.name}, but keep it quiet.",
+                  "I know about {target.name}. Don't shout it out.",
+                  "Yes, I know {target.name}. What of it?",
+                  "I have information on {target.name}. Keep your voice down.",
+                  "I know what {target.name} is. Be cautious.",
+                  "I'm familiar with {target.name}. Don't spread it around.",
+                  "Yes, I know {target.name}. It's dangerous knowledge.",
+                  "I know about {target.name}. Keep it between us.",
+                  "Yes, I'm aware of {target.name}. Don't bring trouble our way."
+                ],
+                "TL": [
+                  "Sapat ang alam ko tungkol sa {target.name}.",
+                  "Alam ko ang {target.name}, pero huwag mong ipagsabi.",
+                  "May alam ako sa {target.name}. Huwag mong ipagsigawan.",
+                  "Oo, alam ko ang {target.name}. Ano naman?",
+                  "Nasa akin ang impormasyon sa {target.name}. Hinaan mo ang boses mo.",
+                  "Alam ko kung ano ang {target.name}. Mag-ingat ka.",
+                  "Pamilyar ako sa {target.name}. Huwag mong ikalat.",
+                  "Oo, alam ko ang {target.name}. Delikadong kaalaman 'yan.",
+                  "May alam ako tungkol sa {target.name}. Atin-atin lang 'to.",
+                  "Oo, alam ko ang tungkol sa {target.name}. Huwag kang magdala ng gulo sa atin."
+                ]
+              }
+            },
+            {
+              "id": "terse",
+              "text": {
+                "EN": [
+                  "I know {target.name}.",
+                  "Know it: {target.name}.",
+                  "Aware of {target.name}.",
+                  "Familiar with {target.name}.",
+                  "Yes, {target.name}.",
+                  "Heard of {target.name}.",
+                  "Got info on {target.name}.",
+                  "Understood: {target.name}.",
+                  "Already know {target.name}.",
+                  "Clear on {target.name}."
+                ],
+                "TL": [
+                  "Alam ko ang {target.name}.",
+                  "Alam ko: {target.name}.",
+                  "Batid ang {target.name}.",
+                  "Pamilyar sa {target.name}.",
+                  "Oo, {target.name}.",
+                  "Narinig ang {target.name}.",
+                  "May balita sa {target.name}.",
+                  "Naintindihan: {target.name}.",
+                  "Alam na ang {target.name}.",
+                  "Malinaw sa {target.name}."
+                ]
+              }
+            },
+            {
+              "id": "warm",
+              "text": {
+                "EN": [
+                  "I know about {target.name}.",
+                  "Yes, I know about {target.name}! Glad you asked.",
+                  "I'm happy to share what I know about {target.name}.",
+                  "I do know about {target.name}, friend. Let's discuss it.",
+                  "I'm quite familiar with {target.name}. What would you like to know?",
+                  "Yes, I've got good knowledge on {target.name}.",
+                  "I know {target.name} well! Always happy to talk it through.",
+                  "I can definitely fill you in on {target.name}.",
+                  "I know about {target.name}, happy to answer your questions.",
+                  "Yes, I'm well acquainted with {target.name}, my friend."
+                ],
+                "TL": [
+                  "May alam ako tungkol sa {target.name}.",
+                  "Oo, may alam ako tungkol sa {target.name}! Mabuti at nagtanong ka.",
+                  "Masaya akong ibahagi sa'yo kung ano ang nalalaman ko sa {target.name}.",
+                  "May alam ako sa {target.name}, kaibigan. Pag-usapan natin.",
+                  "Pamilyar ako sa {target.name}. Ano'ng gusto mong malaman?",
+                  "Oo, may magandang kaalaman ako tungkol sa {target.name}.",
+                  "Alam na alam ko ang {target.name}! Laging masayang pag-usapan.",
+                  "Tiyak na matutulungan kita tungkol sa {target.name}.",
+                  "May alam ako sa {target.name}, masayang sagutin ang mga tanong mo.",
+                  "Oo, kabisado ko ang {target.name}, kaibigan."
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "unknown": {
+      "act": "KNOWLEDGE_RESPONSE",
+      "say": {
+        "1": {
+          "variants": [
+            {
+              "id": "neutral",
+              "text": {
+                "EN": [
+                  "I don't have reliable information about that.",
+                  "I'm not familiar with that subject.",
+                  "I haven't encountered that information before.",
+                  "I have no knowledge on that matter.",
+                  "That's unfamiliar to me, sorry.",
+                  "I can't answer that. I simply don't know.",
+                  "Haven't come across that in my travels.",
+                  "I don't have the answers on that one.",
+                  "I'm unaware of that topic.",
+                  "Sorry, that's outside my knowledge."
+                ],
+                "TL": [
+                  "Wala akong maaasahang impormasyon tungkol diyan.",
+                  "Hindi ako pamilyar sa paksang iyon.",
+                  "Hindi ko pa nalaman ang impormasyong iyon noon.",
+                  "Wala akong kaalaman sa bagay na iyon.",
+                  "Bago 'yan sa akin, pasensya na.",
+                  "Hindi ko masasagot 'yan. Talagang hindi ko alam.",
+                  "Hindi ko pa 'yan nasalubong sa paglalakbay ko.",
+                  "Wala sa akin ang mga sagot tungkol diyan.",
+                  "Wala akong kamalayan sa paksang iyon.",
+                  "Pasensya na, labas 'yan sa kaalaman ko."
+                ]
+              }
+            },
+            {
+              "id": "guarded",
+              "text": {
+                "EN": [
+                  "I don't know anything about that.",
+                  "Haven't heard of it. Don't waste time on wild goose chases.",
+                  "No idea. Keep your thoughts on what's in front of us.",
+                  "I know nothing about that topic. Drop it.",
+                  "Never crossed my path. Stay alert.",
+                  "Can't help you there. Don't get distracted.",
+                  "I'm in the dark on that. Watch the road.",
+                  "No clue. Don't go looking for things that aren't there.",
+                  "Nothing I've ever encountered. Move along.",
+                  "I don't know and I don't care to guess."
+                ],
+                "TL": [
+                  "Wala akong alam tungkol diyan.",
+                  "Hindi ko narinig 'yan. Huwag magsayang ng oras sa walang kabuluhan.",
+                  "Walang ideya. Ituon ang isip sa kung ano ang nasa harap natin.",
+                  "Wala akong alam sa paksang 'yan. Kalimutan mo na.",
+                  "Hindi pa dumaan sa akin 'yan. Maging alerto.",
+                  "Hindi kita matutulungan diyan. Huwag mawala sa pokus.",
+                  "Wala akong alam diyan. Bantayan ang daan.",
+                  "Walang ideya. Huwag maghanap ng mga bagay na wala naman.",
+                  "Hindi ko pa kailanman nakaharap 'yan. Tuloy sa lakad.",
+                  "Hindi ko alam at ayaw kong manghula."
+                ]
+              }
+            },
+            {
+              "id": "terse",
+              "text": {
+                "EN": [
+                  "Don't know.",
+                  "No idea.",
+                  "Unfamiliar.",
+                  "Never heard of it.",
+                  "Can't say.",
+                  "Unknown.",
+                  "No clue.",
+                  "Not a clue.",
+                  "Nothing.",
+                  "Blank on that."
+                ],
+                "TL": [
+                  "Hindi alam.",
+                  "Walang ideya.",
+                  "Hindi pamilyar.",
+                  "Hindi narinig.",
+                  "Hindi masabi.",
+                  "Hindi batid.",
+                  "Walang muwang.",
+                  "Wala talaga.",
+                  "Wala.",
+                  "Walang alam."
+                ]
+              }
+            },
+            {
+              "id": "warm",
+              "text": {
+                "EN": [
+                  "I wish I knew, but I don't know anything about that.",
+                  "I'm sorry, friend, I haven't heard about that.",
+                  "I wish I could help you with that, but I'm unfamiliar.",
+                  "I don't know, but we can try to find out together.",
+                  "Sorry I can't be more helpful on that topic.",
+                  "That's new to me! I wish I had more answers for you.",
+                  "I haven't learned about that yet, my friend.",
+                  "Wish I could answer that, but I'm in the dark too.",
+                  "I don't know about that, but let's keep learning together.",
+                  "Sorry to disappoint, but that's unfamiliar to me."
+                ],
+                "TL": [
+                  "Sana may alam ako, pero wala akong alam tungkol diyan.",
+                  "Pasensya na, kaibigan, wala akong narinig tungkol diyan.",
+                  "Gusto sana kitang tulungan diyan, pero hindi ako pamilyar.",
+                  "Hindi ko alam, pero pwede nating alamin nang magkasama.",
+                  "Pasensya na kung hindi ako masyadong makatulong sa paksang 'yan.",
+                  "Bago 'yan sa akin! Sana may mga sagot ako para sa'yo.",
+                  "Hindi ko pa natututunan 'yan, kaibigan.",
+                  "Sana masasagot ko 'yan, pero wala rin akong alam.",
+                  "Hindi ko alam 'yan, pero magkasama tayong mag-aral.",
+                  "Pasensya na kung mabigo kita, pero hindi ako pamilyar diyan."
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

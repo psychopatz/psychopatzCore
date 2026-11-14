@@ -263,14 +263,16 @@ class PSDLCompilerTests(unittest.TestCase):
             {item["owner"] for item in sources},
         )
         trading = next(
-            item for item in sources if item["path"] == "adopters/dt/dialogue/trading/trade_conversation_suggestions.json"
+            item for item in sources if item["path"] == "adopters/dt/dialogue/trading/action_trade.json"
         )
         self.assertTrue(trading["exists"])
         document = service.load_psdl_source(trading["sourceID"])
         self.assertEqual(document["schema"], "psychopatz.convo-engine.v1")
         self.assertEqual(document["kind"], "dialogue")
-        self.assertEqual(document["namespace"], "trade.conversation")
-        self.assertEqual(document["id"], "suggestions")
+        self.assertEqual(document["namespace"], "action")
+        self.assertEqual(document["id"], "trade")
+        self.assertIn("affordance", document)
+        self.assertIn("say", document)
 
     def test_compilation_is_deterministic_and_source_path_is_lineage_only(self) -> None:
         source = _catalog()

@@ -1,0 +1,43 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "question",
+  "id": "identity_faction",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.identity_faction",
+      "order": 53,
+      "patternID": "pnc.question.identity.faction",
+      "topic": "identity_faction",
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "IDENTITY_FACTION",
+      "domain": "identity_faction"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.identity.faction",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "IDENTITY_FACTION",
+    "topic": "identity_faction"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask who they are with",
+      "TL": "Itanong kung kanino siya kasama"
+    },
+    "consumers": [
+      "player"
+    ],
+    "groups": [
+      "identity_faction"
+    ]
+  },
+  "say": {
+    "EN": "Who are you with?",
+    "TL": "Sino ang kasama mo?"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "question",
+  "id": "identity_surname",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.identity_surname",
+      "order": 52,
+      "patternID": "pnc.question.identity.surname",
+      "topic": "identity_surname",
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "IDENTITY_SURNAME",
+      "domain": "identity_surname"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.identity.surname",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "IDENTITY_SURNAME",
+    "topic": "identity_surname"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask their surname",
+      "TL": "Itanong ang apelyido niya"
+    },
+    "consumers": [
+      "player"
+    ],
+    "groups": [
+      "identity_surname"
+    ]
+  },
+  "say": {
+    "EN": "What's your surname?",
+    "TL": "Ano ang apelyido mo?"
+  }
+}

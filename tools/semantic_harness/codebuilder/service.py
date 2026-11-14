@@ -53,7 +53,12 @@ from .convo_engine_authoring import (
     source_fingerprint_mismatch,
     write_json_document,
 )
-from .convo_engine_normalization import normalize_source_group
+from .convo_engine_normalization import (
+    fold_outcome_family_documents,
+    fold_suggestion_pair_documents,
+    normalize_source_group,
+    shard_offers_to_families as _shard_offers_to_families,
+)
 from .psdl_compiler import (
     CONVO_ENGINE_SCHEMA,
     LEGACY_PSDL_SCHEMA,
@@ -787,6 +792,163 @@ class SemanticLabAuthoringService:
             force_style_bundle=force_style_bundle,
             write=write,
             prune_sources=prune_sources,
+        )
+
+    def fold_suggestion_pair(
+        self,
+        label_source: str | Path,
+        utterance_sources: list[str | Path] | str | Path,
+        *,
+        dest_path: str | Path,
+        family_id: str | None = None,
+        namespace: str | None = None,
+        default_owner: str | None = None,
+        consumers: tuple[str, ...] = ("player",),
+        write: bool = False,
+        prune_sources: bool = False,
+    ) -> dict[str, Any]:
+        """Preview or write an S6M5 folded suggestion affordance + say family."""
+        allowed = self._convo_engine_allowed_roots()
+        raw_utts = (
+            [utterance_sources]
+            if isinstance(utterance_sources, (str, Path))
+            else list(utterance_sources)
+        )
+        resolved_label = resolve_authorized_source_path(
+            label_source,
+            repository=self.repository,
+            allowed_roots=allowed,
+            check_forbidden_segments=False,
+        )
+        resolved_utts = [
+            resolve_authorized_source_path(
+                item,
+                repository=self.repository,
+                allowed_roots=allowed,
+                check_forbidden_segments=False,
+            )
+            for item in raw_utts
+        ]
+        resolved_dest = resolve_authorized_source_path(
+            dest_path,
+            repository=self.repository,
+            allowed_roots=allowed,
+            check_forbidden_segments=write,
+        )
+        owner = default_owner or self._resolve_convo_engine_default_owner(resolved_dest)
+        return fold_suggestion_pair_documents(
+            resolved_label,
+            resolved_utts,
+            dest_path=resolved_dest,
+            family_id=family_id,
+            namespace=namespace,
+            default_owner=owner,
+            consumers=consumers,
+            write=write,
+            prune_sources=prune_sources,
+        )
+
+    def fold_outcome_family(
+        self,
+        outcome_sources: dict[str, list[str | Path] | str | Path],
+        *,
+        dest_path: str | Path,
+        family_namespace: str | None = None,
+        family_id: str,
+        default_owner: str | None = None,
+        initiating_say: dict[str, Any] | None = None,
+        affordance: dict[str, Any] | None = None,
+        after: dict[str, Any] | None = None,
+        outcome_after: dict[str, dict[str, Any]] | None = None,
+        outcome_when: dict[str, Any] | None = None,
+        extra_metadata: dict[str, Any] | None = None,
+        write: bool = False,
+        prune_sources: bool = False,
+    ) -> dict[str, Any]:
+        """Preview or write an S6M5 outcome-folded family with ``reply.<outcome>``."""
+        allowed = self._convo_engine_allowed_roots()
+        resolved_outcomes: dict[str, list[Path]] = {}
+        for outcome_name, raw in outcome_sources.items():
+            raw_list = [raw] if isinstance(raw, (str, Path)) else list(raw)
+            resolved_outcomes[outcome_name] = [
+                resolve_authorized_source_path(
+                    item,
+                    repository=self.repository,
+                    allowed_roots=allowed,
+                    check_forbidden_segments=False,
+                )
+                for item in raw_list
+            ]
+        resolved_dest = resolve_authorized_source_path(
+            dest_path,
+            repository=self.repository,
+            allowed_roots=allowed,
+            check_forbidden_segments=write,
+        )
+        owner = default_owner or self._resolve_convo_engine_default_owner(resolved_dest)
+        return fold_outcome_family_documents(
+            resolved_outcomes,
+            dest_path=resolved_dest,
+            family_namespace=family_namespace,
+            family_id=family_id,
+            default_owner=owner,
+            initiating_say=initiating_say,
+            affordance=affordance,
+            after=after,
+            outcome_after=outcome_after,
+            outcome_when=outcome_when,
+            extra_metadata=extra_metadata,
+            write=write,
+            prune_sources=prune_sources,
+        )
+
+    def shard_offers_to_families(
+        self,
+        bag_source: str | Path,
+        *,
+        dest_dir: str | Path,
+        default_owner: str | None = None,
+        id_overrides: dict[str, tuple[str | None, str]] | None = None,
+        consumers: tuple[str, ...] = ("player",),
+        after_by_id: dict[str, dict[str, Any]] | None = None,
+        groups_by_id: dict[str, list[str]] | None = None,
+        utility_by_id: dict[str, dict[str, float]] | None = None,
+        slots_by_id: dict[str, dict[str, Any]] | None = None,
+        write: bool = False,
+        prune_source: bool = False,
+    ) -> dict[str, Any]:
+        """Preview or write S6M5 per-family affordance+say files from an ``offers[]`` bag."""
+        allowed = self._convo_engine_allowed_roots()
+        resolved_bag = resolve_authorized_source_path(
+            bag_source,
+            repository=self.repository,
+            allowed_roots=allowed,
+            check_forbidden_segments=False,
+        )
+        resolved_dest_dir = Path(dest_dir)
+        if not resolved_dest_dir.is_absolute():
+            resolved_dest_dir = self.repository / resolved_dest_dir
+        resolved_dest_dir = resolved_dest_dir.expanduser().resolve()
+        if not any(
+            resolved_dest_dir == root or root in resolved_dest_dir.parents
+            for root in allowed
+        ):
+            raise CompileError(
+                "Destination directory must remain inside an authorized repository root"
+            )
+        owner = default_owner or self._resolve_convo_engine_default_owner(resolved_bag)
+        return _shard_offers_to_families(
+            resolved_bag,
+            dest_dir=resolved_dest_dir,
+            default_owner=owner,
+            id_overrides=id_overrides,
+            consumers=consumers,
+            after_by_id=after_by_id,
+            groups_by_id=groups_by_id,
+            utility_by_id=utility_by_id,
+            slots_by_id=slots_by_id,
+            write=write,
+            prune_source=prune_source,
         )
 
     def preview_psdl_document(

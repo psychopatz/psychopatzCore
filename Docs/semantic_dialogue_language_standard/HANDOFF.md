@@ -4,14 +4,14 @@ checkpoint_mode: "committed_handoff"
 phase_commit: "self"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-participant_heads: "project-hoomans=d188b3f4fbe0f77b228254ac94dc8cc3db2f2a15;dynamic-trading=800c3808f736b310ee2c6371e0c4bcebf37fb736"
+participant_heads: "project-hoomans=f11221b0ff0926f2aa80cf7658db0e950151a30d;dynamic-trading=05fcdbdb244dcce74b75e2e55a0008d187271072"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
-phase: "S6M — ConvoEngine normalization"
-chunk: "S6M5 — Affordance/label vs say, named reply outcomes, slots, and chaining normalization"
+phase: "S6M — ConvoEngine action contracts and cleanup"
+chunk: "S6M6 — Registered Semantic Action Contract / result.* and Hoomans CAMP acceptance"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-14T09:30:00Z"
+updated_at: "2026-11-14T17:51:00Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -34,15 +34,15 @@ The existing compiler/runtime migration is useful. Do not undo it.
 ```text
 Core
 /home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD 4b7e45e7 (parent of this S6M4 commit)
+HEAD 152a59c0 (parent of this S6M5 commit)
 
 Hoomans
 /home/psychopatz/Zomboid/Workshop/ProjectHoomans
-HEAD d188b3f4fbe0f77b228254ac94dc8cc3db2f2a15
+HEAD f11221b0ff0926f2aa80cf7658db0e950151a30d
 
 DynamicTrading
 /home/psychopatz/Zomboid/Workshop/DynamicTrading
-HEAD 800c3808f736b310ee2c6371e0c4bcebf37fb736
+HEAD 05fcdbdb244dcce74b75e2e55a0008d187271072
 ```
 
 Reinspect Git state before edits. Preserve unrelated work.
@@ -236,15 +236,21 @@ This is S6M6, not the current chunk.
 - Regenerated all Core, ProjectHoomans, and DynamicTrading ConvoEngine outputs via CodeBuilder, added `ConvoPlanFamily.install` fallback across `SpeechRealization.lua` / `Interaction/Presentation.lua` / `PNC_SemanticTacticalSpatialLanguage.lua`, fixed `ToolReplies.lua` & `PlayerEmote.lua`, updated Hoomans `ResponseCatalog/` / `Dialogue/` / `client/` callers, Core observatory/pilot fixtures, and test expectations atomically.
 - Verification: Core Python `tools/semantic_harness/tests` 131/131 OK, `refactor_binding_smoke.py` PASS, Core semantic Lua tests 18/18 PASS; DynamicTrading `tests/run_tests.py` PASS 89/89; ProjectHoomans `tests/run_tests.py` 1012/1020 PASS (down from 17 pre-existing failures to 8 pre-existing S1/S5/SocialFlavorClient baseline failures); Kahlua2 static check 0 issues across all modified Lua files.
 
-## Immediate Next Chunk — S6M5
+## What became true in S6M5
+
+- Extended Core compiler, registry, and CodeBuilder normalization services (`convo_engine_exchange.py`, `conversation_registry.py`, `conversation_compiler.py`, `psdl_compiler.py`, `convo_engine_normalization.py`, `service.py`) to project `exchangeFamily.slots`, index `reply.<outcome>` (`Registry.CONVO_REPLY_INDEX` & `Registry.ConvoOutcome`), project `affordance` + `say` records into `Registry.UI`, preserve `textRows` without fallback duplicates, and provide validated `fold_suggestion_pair`, `fold_outcome_family`, and `shard_offers_to_families` transformations.
+- Added Core `PsychopatzCore/ConvoEngine/Affordance.lua` and extended `Foundation.lua` and Hoomans `PNC/ConvoEngine/ResponseCatalog/ConvoPlanFamily.lua` to enforce strict `button_label` vs `spoken_action` vs `response` separation (no label→speech fallback), single-slot candidate expansion and `{slot.*.*}` binding, shared `"player"` / `"npc"` / `"participant"` affordance scoring, independent `reply.<outcome>` selection (plus `<id>.<outcome>` & `<id>.<outcome>.<subvariant>` installs), and cycle/hop-bounded `after.recommend` / `after.goto` / `end` / `resume`.
+- Normalized Core (`question.knowledge`, `question.identity` known branch, sharded `core_check_in` + `core_identity`), Hoomans (`static_suggestion_text` 12 label+utterance families, `companion_check_in`, `health_content`, `companion_commands_lifecycle` 5 commands, `quest_content` 4 stages, `task_lifecycle` 7 tasks + `gift`), and DynamicTrading (`trade_conversation_suggestions` -> 8 offer families + `suggestions_recognition`) via CodeBuilder and regenerated 466 artifacts via `build.py`.
+- Verification: Core Python `tools/semantic_harness/tests` 135/135 OK, `refactor_binding_smoke.py` PASS, Core semantic + S6M5 Lua tests 18/18 PASS; DynamicTrading `tests/run_tests.py` PASS 89/89; ProjectHoomans `tests/run_tests.py` 1012/1020 PASS (exact 8 pre-existing failures, 0 regressions); 0 Kahlua2 errors on edited Lua modules.
+
+## Immediate Next Chunk — S6M6
 
 Responsibility:
 
-> Normalize dynamic slots (`$slot.*`), button `affordance.label` vs initiating `say`, named independent `reply` outcomes, shared player/NPC affordance reuse, and recommendation/chaining (`after.recommend` / `after.goto`) through CodeBuilder, keeping runtime callers/tests green.
+> Implement the Core registered Semantic Action Contract / `execute` + bounded `result.*` mechanism and prove Hoomans CAMP end-to-end through its existing authoritative command/server gameplay path (no arbitrary Lua callbacks in ConvoEngine).
 
 ## Following bounded chunks
 
-- **S6M3-S6M5:** source migration/sharding/normalization through CodeBuilder (`say` keys, outcomes, styles, affordances, recommendations).
 - **S6M6:** registered action/result contract + CAMP parity.
 - **S6M7-S6M8:** metadata cleanup + regeneration/audit/regression closure.
 - **S7:** final ConvoEngine Semantic Lab UX.

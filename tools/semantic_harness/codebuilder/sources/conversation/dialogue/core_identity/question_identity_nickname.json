@@ -1,0 +1,43 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "question",
+  "id": "identity_nickname",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.identity_nickname",
+      "order": 51,
+      "patternID": "pnc.question.identity.nickname",
+      "topic": "identity_nickname",
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "IDENTITY_NICKNAME",
+      "domain": "identity_nickname"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.identity.nickname",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "IDENTITY_NICKNAME",
+    "topic": "identity_nickname"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask what people call them",
+      "TL": "Itanong kung ano ang tawag sa kanya"
+    },
+    "consumers": [
+      "player"
+    ],
+    "groups": [
+      "identity_nickname"
+    ]
+  },
+  "say": {
+    "EN": "What do people call you?",
+    "TL": "Ano ang tawag sa iyo ng mga tao?"
+  }
+}

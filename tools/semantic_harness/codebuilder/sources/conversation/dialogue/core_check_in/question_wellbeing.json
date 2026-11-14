@@ -1,0 +1,54 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "offer.question",
+  "id": "wellbeing",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.wellbeing",
+      "order": 10,
+      "patternID": "pnc.question.wellbeing_feeling",
+      "hubID": "whats_up",
+      "hubOnly": true,
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "WELLBEING",
+      "topic": "wellbeing",
+      "domain": "wellbeing"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.wellbeing_feeling",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "WELLBEING",
+    "topic": "wellbeing"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask about wellbeing",
+      "TL": "Itanong ang kalagayan"
+    },
+    "consumers": [
+      "player",
+      "npc"
+    ],
+    "groups": [
+      "wellbeing"
+    ],
+    "utility": {
+      "social": 1.2
+    }
+  },
+  "say": {
+    "EN": "How are you feeling?",
+    "TL": "Kumusta ang pakiramdam mo?"
+  },
+  "after": {
+    "recommend": [
+      "question.wellbeing_detail"
+    ]
+  }
+}

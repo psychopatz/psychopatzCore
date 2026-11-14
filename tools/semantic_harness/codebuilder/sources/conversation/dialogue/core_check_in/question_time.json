@@ -1,0 +1,44 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "question",
+  "id": "time",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.time",
+      "order": 60,
+      "patternID": "pnc.question.time",
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "TIME",
+      "topic": "time",
+      "domain": "time"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.time",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "TIME",
+    "topic": "time"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask about the time",
+      "TL": "Itanong ang oras"
+    },
+    "consumers": [
+      "player",
+      "npc"
+    ],
+    "groups": [
+      "time"
+    ]
+  },
+  "say": {
+    "EN": "What time is it?",
+    "TL": "Anong oras na?"
+  }
+}

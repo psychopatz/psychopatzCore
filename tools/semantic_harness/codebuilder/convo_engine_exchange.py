@@ -891,6 +891,8 @@ def project_exchange_family_runtime(record: Mapping[str, Any]) -> dict[str, Any]
     }
     if "namespace" in record:
         projection["namespace"] = record["namespace"]
+    if record.get("slots"):
+        projection["slots"] = _copy(record["slots"])
     if "invoke" in payload:
         projection["invoke"] = _copy(payload["invoke"])
     if "affordance" in payload:
@@ -904,7 +906,7 @@ def project_exchange_family_runtime(record: Mapping[str, Any]) -> dict[str, Any]
             "translations": _copy(label_text),
             "consumers": list(aff["consumers"]),
         }
-        for opt in ("groups", "priority", "utility", "when"):
+        for opt in ("groups", "priority", "utility", "when", "metadata"):
             if opt in aff:
                 projection["affordance"][opt] = _copy(aff[opt])
         text_entries.append({

@@ -1,0 +1,49 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "offer.question",
+  "id": "activity",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.activity",
+      "order": 60,
+      "patternID": "pnc.question.activity",
+      "extensions": {
+        "topic": "activity"
+      },
+      "hubID": "whats_up",
+      "hubOnly": true,
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "ACTIVITY",
+      "topic": "activity",
+      "domain": "activity"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.activity",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "ACTIVITY",
+    "topic": "activity"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask what they've been doing",
+      "TL": "Itanong ang pinagkakaabalahan"
+    },
+    "consumers": [
+      "player",
+      "npc"
+    ],
+    "groups": [
+      "activity"
+    ]
+  },
+  "say": {
+    "EN": "What have you been doing?",
+    "TL": "Ano ang mga pinagkakaabalahan mo?"
+  }
+}

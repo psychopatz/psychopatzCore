@@ -605,3 +605,531 @@ def normalize_source_group(
         write=write,
         prune_sources=prune_sources,
     )
+
+
+def _first_localized_map(rec: Mapping[str, Any]) -> dict[str, list[str]]:
+    text_obj = rec.get("text")
+    if isinstance(text_obj, Mapping):
+        return _collapse_localized_texts([text_obj])
+    resp = rec.get("response")
+    if isinstance(resp, Mapping):
+        if isinstance(resp.get("text"), Mapping):
+            return _collapse_localized_texts([resp["text"]])
+        if isinstance(resp.get("variants"), list) and resp["variants"]:
+            return _collapse_localized_texts(
+                [v.get("text") for v in resp["variants"] if isinstance(v, Mapping)]
+            )
+    say = rec.get("say")
+    if isinstance(say, Mapping):
+        if "EN" in say or "TL" in say:
+            return _collapse_localized_texts([say])
+        if isinstance(say.get("variants"), list) and say["variants"]:
+            return _collapse_localized_texts(
+                [v.get("text") for v in say["variants"] if isinstance(v, Mapping)]
+            )
+    return {}
+
+
+def _extract_record_text_rows(rec: Mapping[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    md = rec.get("metadata") if isinstance(rec.get("metadata"), Mapping) else {}
+    existing = md.get("textRows")
+    if isinstance(existing, list):
+        for r in existing:
+            if isinstance(r, Mapping) and isinstance(r.get("key"), str):
+                rows.append(copy.deepcopy(dict(r)))
+    text_key = md.get("textKey")
+    if isinstance(text_key, str) and text_key.strip():
+        loc = _first_localized_map(rec)
+        if loc:
+            rows.append({
+                "key": text_key.strip(),
+                "text": {lang: vals[0] for lang, vals in sorted(loc.items()) if vals},
+            })
+    return rows
+
+
+def fold_suggestion_pair_documents(
+    label_source: Path,
+    utterance_sources: Sequence[Path],
+    *,
+    dest_path: Path,
+    family_id: str | None = None,
+    namespace: str | None = None,
+    default_owner: str | None = None,
+    consumers: Sequence[str] = ("player",),
+    write: bool = False,
+    prune_sources: bool = False,
+) -> dict[str, Any]:
+    """Fold UI suggestion label + utterance document(s) into one ConvoEngine family."""
+    label_path = Path(label_source).expanduser().resolve()
+    utt_paths = [Path(p).expanduser().resolve() for p in utterance_sources]
+    if not utt_paths:
+        raise CompileError("fold_suggestion_pair_documents requires at least one utterance source")
+    label_doc = load_json_document(label_path)
+    utt_docs = [load_json_document(p) for p in utt_paths]
+
+    label_rec = dict(label_doc["records"][0]) if isinstance(label_doc.get("records"), list) else dict(label_doc)
+    utt_recs = [
+        dict(d["records"][0]) if isinstance(d.get("records"), list) else dict(d)
+        for d in utt_docs
+    ]
+
+    owner = label_rec.get("owner") or utt_recs[0].get("owner") or default_owner
+    if not owner:
+        raise CompileError("Cannot determine owner for suggestion pair")
+
+    if family_id is None:
+        raw_ns = str(label_rec.get("namespace") or "").strip(".")
+        raw_local = strip_redundant_id_prefix(str(label_rec.get("id") or "")).strip(".")
+        combined_id = f"{raw_ns}.{raw_local}" if raw_ns else raw_local
+        if combined_id.endswith(".label"):
+            combined_id = combined_id[: -len(".label")]
+        _, ns_part, local_part, _, _ = split_canonical_identity(
+            combined_id, None, strip_numeric_suffix=False
+        )
+        namespace = namespace if namespace is not None else ns_part
+        family_id = local_part
+    elif "." in family_id and namespace is None:
+        namespace, family_id = family_id.rsplit(".", 1)
+
+    label_loc = _first_localized_map(label_rec)
+    if not label_loc:
+        raise CompileError(f"Missing localized text in suggestion label source {label_path}")
+
+    all_rows = _extract_record_text_rows(label_rec)
+    say_block: Any
+    if len(utt_recs) == 1:
+        utt_loc = _first_localized_map(utt_recs[0])
+        if not utt_loc:
+            raise CompileError(f"Missing localized text in suggestion utterance source {utt_paths[0]}")
+        say_block = {
+            lang: vals[0] if len(vals) == 1 else vals
+            for lang, vals in sorted(utt_loc.items())
+        }
+        all_rows.extend(_extract_record_text_rows(utt_recs[0]))
+    else:
+        say_block = {}
+        for idx, urec in enumerate(utt_recs, start=1):
+            utt_loc = _first_localized_map(urec)
+            if not utt_loc:
+                raise CompileError(f"Missing localized text in utterance record #{idx}")
+            say_block[str(idx)] = {
+                "text": {
+                    lang: vals[0] if len(vals) == 1 else vals
+                    for lang, vals in sorted(utt_loc.items())
+                }
+            }
+            all_rows.extend(_extract_record_text_rows(urec))
+
+    cleaned_md = _clean_family_metadata(
+        [label_rec, *utt_recs],
+        derived_rows=all_rows,
+        response_act=None,
+        multi_folded=True,
+    )
+    cleaned_md.pop("textKey", None)
+
+    canonical: dict[str, Any] = {
+        "schema": CONVO_ENGINE_SCHEMA,
+        "kind": "dialogue",
+    }
+    if namespace:
+        canonical["namespace"] = namespace
+    canonical["id"] = family_id
+    canonical["owner"] = owner
+    if cleaned_md:
+        canonical["metadata"] = cleaned_md
+    canonical["affordance"] = {
+        "label": {
+            lang: vals[0] if len(vals) == 1 else vals
+            for lang, vals in sorted(label_loc.items())
+        },
+        "consumers": list(consumers),
+    }
+    canonical["say"] = say_block
+
+    resolved_dest = Path(dest_path).expanduser().resolve()
+    compiled = compile_convo_engine_document(
+        canonical,
+        source_path=resolved_dest,
+        default_owner=default_owner,
+        allow_legacy_schema=False,
+        validate_cross_references=False,
+    )
+    all_sources = [label_path, *utt_paths]
+    writes: list[str] = []
+    removed: list[str] = []
+    if write:
+        write_json_document(resolved_dest, canonical)
+        writes.append(str(resolved_dest))
+        if prune_sources:
+            for src in all_sources:
+                if src != resolved_dest and src.is_file():
+                    src.unlink()
+                    removed.append(str(src))
+    return {
+        "ok": True,
+        "previewOnly": not write,
+        "destPath": str(resolved_dest),
+        "familyId": compiled["records"][0]["id"],
+        "compiledFingerprint": compiled["fingerprint"],
+        "document": canonical,
+        "writes": writes,
+        "removedSources": removed,
+    }
+
+
+def fold_outcome_family_documents(
+    outcome_sources: Mapping[str, Sequence[Path] | Path],
+    *,
+    dest_path: Path,
+    family_namespace: str | None = None,
+    family_id: str,
+    default_owner: str | None = None,
+    initiating_say: Mapping[str, Any] | None = None,
+    affordance: Mapping[str, Any] | None = None,
+    after: Mapping[str, Any] | None = None,
+    outcome_after: Mapping[str, Mapping[str, Any]] | None = None,
+    outcome_when: Mapping[str, Any] | None = None,
+    extra_metadata: Mapping[str, Any] | None = None,
+    write: bool = False,
+    prune_sources: bool = False,
+) -> dict[str, Any]:
+    """Fold outcome-split records (and optional style subvariants) into one family with ``reply``."""
+    resolved_sources: list[Path] = []
+    records_all: list[dict[str, Any]] = []
+    replies: dict[str, Any] = {}
+    all_rows: list[dict[str, Any]] = []
+    merged_slots: dict[str, Any] = {}
+    merged_participants: dict[str, Any] = {}
+    merged_target: Any = None
+    owner: str | None = default_owner
+
+    for outcome_name, raw_paths in outcome_sources.items():
+        paths = [Path(raw_paths)] if isinstance(raw_paths, (str, Path)) else [Path(p) for p in raw_paths]
+        paths = [p.expanduser().resolve() for p in paths]
+        if not paths:
+            continue
+        outcome_variants: list[dict[str, Any]] = []
+        branch_act: str | None = None
+        for path in paths:
+            resolved_sources.append(path)
+            doc = load_json_document(path)
+            rec = dict(doc["records"][0]) if isinstance(doc.get("records"), list) else dict(doc)
+            records_all.append(rec)
+            if not owner and isinstance(rec.get("owner"), str):
+                owner = rec["owner"]
+            if isinstance(rec.get("slots"), Mapping):
+                for sk, sv in rec["slots"].items():
+                    merged_slots.setdefault(sk, copy.deepcopy(sv))
+            if isinstance(rec.get("participants"), Mapping):
+                for pk, pv in rec["participants"].items():
+                    merged_participants.setdefault(pk, copy.deepcopy(pv))
+            if merged_target is None and "target" in rec:
+                merged_target = copy.deepcopy(rec["target"])
+
+            all_rows.extend(_extract_record_text_rows(rec))
+
+            raw_id = strip_redundant_id_prefix(str(rec.get("id") or ""))
+            full_id = f"{rec.get('namespace')}.{raw_id}" if rec.get("namespace") else raw_id
+            default_var_id = "neutral"
+            marker = f".{outcome_name}."
+            if marker in full_id:
+                default_var_id = full_id.split(marker, 1)[1]
+
+            # Extract variants either from canonical `say` or legacy `response`.
+            if isinstance(rec.get("say"), Mapping):
+                src_say = rec["say"]
+                act = (rec.get("metadata") or {}).get("responseAct")
+                rows = []
+                if isinstance(src_say.get("variants"), list):
+                    rec_vars = [
+                        copy.deepcopy(dict(v))
+                        for v in src_say["variants"]
+                        if isinstance(v, Mapping)
+                    ]
+                elif "realizations" in src_say or "1" in src_say:
+                    rec_vars = []
+                    realizations = src_say.get("realizations") if "realizations" in src_say else src_say
+                    for rval in realizations.values():
+                        if isinstance(rval, Mapping) and isinstance(rval.get("variants"), list):
+                            for v in rval["variants"]:
+                                if isinstance(v, Mapping):
+                                    rec_vars.append(copy.deepcopy(dict(v)))
+                else:
+                    rec_vars, act, rows = _extract_record_variants(
+                        {**rec, "response": {"variants": [{"id": default_var_id, "text": src_say}]}},
+                        default_style=default_var_id,
+                    )
+                all_rows.extend(rows)
+            else:
+                rec_vars, act, rows = _extract_record_variants(rec, default_style=default_var_id)
+                all_rows.extend(rows)
+
+            if act and branch_act is None:
+                branch_act = act
+            for v in rec_vars:
+                v_copy = copy.deepcopy(dict(v))
+                if default_var_id != "neutral" and (
+                    not v_copy.get("id") or v_copy.get("id") == "neutral" or len(paths) > 1
+                ):
+                    if default_var_id != "neutral" and v_copy.get("id") in (None, "neutral", "default"):
+                        v_copy["id"] = default_var_id
+                outcome_variants.append(v_copy)
+
+        if not outcome_variants:
+            raise CompileError(f"Outcome {outcome_name!r} has no variants")
+        branch: dict[str, Any] = {}
+        if outcome_when and outcome_name in outcome_when:
+            branch["when"] = copy.deepcopy(outcome_when[outcome_name])
+        if branch_act:
+            branch["act"] = branch_act
+        if len(outcome_variants) == 1 and outcome_variants[0].get("id") in ("neutral", "default") and "when" not in outcome_variants[0]:
+            text_map = outcome_variants[0].get("text") or {}
+            branch["say"] = {
+                lang: vals[0] if isinstance(vals, list) and len(vals) == 1 else vals
+                for lang, vals in sorted(text_map.items())
+            }
+        else:
+            branch["say"] = {"1": {"variants": outcome_variants}}
+        if outcome_after and outcome_name in outcome_after:
+            branch["after"] = copy.deepcopy(outcome_after[outcome_name])
+        replies[outcome_name] = branch
+
+    if not owner:
+        raise CompileError("Cannot determine owner for outcome-folded family")
+
+    cleaned_md = _clean_family_metadata(
+        records_all,
+        derived_rows=all_rows,
+        response_act=None,
+        multi_folded=True,
+    )
+    cleaned_md.pop("textKey", None)
+    if extra_metadata:
+        for mk, mv in extra_metadata.items():
+            cleaned_md[mk] = copy.deepcopy(mv)
+
+    canonical: dict[str, Any] = {
+        "schema": CONVO_ENGINE_SCHEMA,
+        "kind": "dialogue",
+    }
+    if family_namespace:
+        canonical["namespace"] = family_namespace
+    canonical["id"] = family_id
+    canonical["owner"] = owner
+    if merged_participants:
+        canonical["participants"] = merged_participants
+    if merged_target is not None:
+        canonical["target"] = merged_target
+    if merged_slots:
+        canonical["slots"] = merged_slots
+    if cleaned_md:
+        canonical["metadata"] = cleaned_md
+    if affordance is not None:
+        canonical["affordance"] = copy.deepcopy(dict(affordance))
+    if initiating_say is not None:
+        canonical["say"] = copy.deepcopy(dict(initiating_say))
+    canonical["reply"] = replies
+    if after is not None:
+        canonical["after"] = copy.deepcopy(dict(after))
+
+    resolved_dest = Path(dest_path).expanduser().resolve()
+    compiled = compile_convo_engine_document(
+        canonical,
+        source_path=resolved_dest,
+        default_owner=default_owner,
+        allow_legacy_schema=False,
+        validate_cross_references=False,
+    )
+    writes: list[str] = []
+    removed: list[str] = []
+    if write:
+        write_json_document(resolved_dest, canonical)
+        writes.append(str(resolved_dest))
+        if prune_sources:
+            for src in resolved_sources:
+                if src != resolved_dest and src.is_file():
+                    src.unlink()
+                    removed.append(str(src))
+    return {
+        "ok": True,
+        "previewOnly": not write,
+        "destPath": str(resolved_dest),
+        "familyId": compiled["records"][0]["id"],
+        "outcomes": sorted(replies),
+        "compiledFingerprint": compiled["fingerprint"],
+        "document": canonical,
+        "writes": writes,
+        "removedSources": removed,
+    }
+
+
+def shard_offers_to_families(
+    bag_source: Path,
+    *,
+    dest_dir: Path,
+    default_owner: str | None = None,
+    id_overrides: Mapping[str, tuple[str | None, str]] | None = None,
+    consumers: Sequence[str] = ("player",),
+    after_by_id: Mapping[str, Mapping[str, Any]] | None = None,
+    groups_by_id: Mapping[str, Sequence[str]] | None = None,
+    utility_by_id: Mapping[str, Mapping[str, float]] | None = None,
+    slots_by_id: Mapping[str, Mapping[str, Any]] | None = None,
+    write: bool = False,
+    prune_source: bool = False,
+) -> dict[str, Any]:
+    """Shard a legacy ``offers[]`` suggestion bag into per-family ``affordance`` + ``say`` files."""
+    src_path = Path(bag_source).expanduser().resolve()
+    doc = load_json_document(src_path)
+    bag = dict(doc["records"][0]) if isinstance(doc.get("records"), list) else dict(doc)
+    offers = bag.get("offers")
+    if not isinstance(offers, list) or not offers:
+        raise CompileError(f"Expected non-empty offers[] in {src_path}")
+
+    bag_md = bag.get("metadata") if isinstance(bag.get("metadata"), Mapping) else {}
+    text_namespace = bag_md.get("textNamespace")
+    owner = bag.get("owner") or default_owner
+    if not owner:
+        raise CompileError(f"Cannot determine owner for {src_path}")
+
+    out_dir = Path(dest_dir).expanduser().resolve()
+    sharded: list[dict[str, Any]] = []
+    writes: list[str] = []
+
+    for offer in offers:
+        if not isinstance(offer, Mapping):
+            continue
+        raw_offer_id = str(offer.get("id") or "").strip()
+        if not raw_offer_id:
+            raise CompileError(f"Offer without id in {src_path}")
+        if id_overrides and raw_offer_id in id_overrides:
+            ns, local_id = id_overrides[raw_offer_id]
+        elif "." in raw_offer_id:
+            ns, local_id = raw_offer_id.rsplit(".", 1)
+        else:
+            ns, local_id = None, raw_offer_id
+
+        frame = dict(offer.get("frame") or {})
+        offer_md = dict(offer.get("metadata") or {})
+        pattern_id = frame.get("patternID") or offer_md.get("patternID")
+        ui_row: dict[str, Any] = {
+            "id": raw_offer_id,
+            "order": offer_md.get("order"),
+            "patternID": pattern_id,
+        }
+        for field, value in frame.items():
+            if field != "patternID":
+                ui_row[field] = copy.deepcopy(value)
+        if "domain" in offer_md:
+            ui_row["domain"] = offer_md["domain"]
+
+        invoke_obj: dict[str, Any] = {"patternID": pattern_id}
+        for field in ("intent", "speechAct", "subject", "topic"):
+            if field in frame:
+                invoke_obj[field] = frame[field]
+
+        aff_obj: dict[str, Any] = {
+            "label": copy.deepcopy(offer["label"]),
+            "consumers": list(consumers),
+        }
+        if offer.get("when") is not None:
+            aff_obj["when"] = copy.deepcopy(offer["when"])
+        elif offer_md.get("when") is not None:
+            aff_obj["when"] = copy.deepcopy(offer_md["when"])
+        if groups_by_id and raw_offer_id in groups_by_id:
+            aff_obj["groups"] = list(groups_by_id[raw_offer_id])
+        elif frame.get("topic"):
+            aff_obj["groups"] = [str(frame["topic"])]
+        if utility_by_id and raw_offer_id in utility_by_id:
+            aff_obj["utility"] = dict(utility_by_id[raw_offer_id])
+
+        md_obj: dict[str, Any] = {}
+        if text_namespace:
+            md_obj["textNamespace"] = text_namespace
+        md_obj["ui"] = ui_row
+
+        family_doc: dict[str, Any] = {
+            "schema": CONVO_ENGINE_SCHEMA,
+            "kind": "dialogue",
+        }
+        if ns:
+            family_doc["namespace"] = ns
+        family_doc["id"] = local_id
+        family_doc["owner"] = owner
+        if slots_by_id and raw_offer_id in slots_by_id:
+            family_doc["slots"] = copy.deepcopy(dict(slots_by_id[raw_offer_id]))
+        family_doc["metadata"] = md_obj
+        family_doc["invoke"] = invoke_obj
+        family_doc["affordance"] = aff_obj
+        family_doc["say"] = copy.deepcopy(offer["utterance"])
+        if after_by_id and raw_offer_id in after_by_id:
+            family_doc["after"] = copy.deepcopy(dict(after_by_id[raw_offer_id]))
+
+        filename = raw_offer_id.replace(".", "_") + ".json"
+        dest_file = out_dir / filename
+        compiled = compile_convo_engine_document(
+            family_doc,
+            source_path=dest_file,
+            default_owner=default_owner,
+            allow_legacy_schema=False,
+            validate_cross_references=False,
+        )
+        if write:
+            write_json_document(dest_file, family_doc)
+            writes.append(str(dest_file))
+        sharded.append({
+            "offerId": raw_offer_id,
+            "familyId": compiled["records"][0]["id"],
+            "destPath": str(dest_file),
+            "compiledFingerprint": compiled["fingerprint"],
+            "document": family_doc,
+        })
+
+    if isinstance(bag.get("recognition"), Mapping):
+        rec_ns = str(bag.get("namespace") or "").strip(".")
+        rec_id = f"{bag.get('id') or 'bag'}_recognition"
+        rec_doc: dict[str, Any] = {
+            "schema": CONVO_ENGINE_SCHEMA,
+            "kind": "dialogue",
+        }
+        if rec_ns:
+            rec_doc["namespace"] = rec_ns
+        rec_doc["id"] = rec_id
+        rec_doc["owner"] = owner
+        rec_doc["recognition"] = copy.deepcopy(dict(bag["recognition"]))
+        rec_dest = out_dir / f"{rec_id}.json"
+        rec_compiled = compile_convo_engine_document(
+            rec_doc,
+            source_path=rec_dest,
+            default_owner=default_owner,
+            allow_legacy_schema=False,
+            validate_cross_references=False,
+        )
+        if write:
+            write_json_document(rec_dest, rec_doc)
+            writes.append(str(rec_dest))
+        sharded.append({
+            "offerId": rec_compiled["records"][0]["id"],
+            "familyId": rec_compiled["records"][0]["id"],
+            "destPath": str(rec_dest),
+            "compiledFingerprint": rec_compiled["fingerprint"],
+            "document": rec_doc,
+        })
+
+    removed: list[str] = []
+    if write and prune_source and src_path.is_file():
+        src_path.unlink()
+        removed.append(str(src_path))
+
+    return {
+        "ok": True,
+        "previewOnly": not write,
+        "sourcePath": str(src_path),
+        "shardCount": len(sharded),
+        "shards": sharded,
+        "writes": writes,
+        "removedSources": removed,
+    }
+

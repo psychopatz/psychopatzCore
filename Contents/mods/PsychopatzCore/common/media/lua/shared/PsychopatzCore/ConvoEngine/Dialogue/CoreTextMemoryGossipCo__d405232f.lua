@@ -118,6 +118,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "corpse",
+            ["slots"] = {
+                ["faction"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = true,
+                    ["type"] = "entity.faction",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "One less of us, {target.name}. Damn.",

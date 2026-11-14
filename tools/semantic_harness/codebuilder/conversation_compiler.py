@@ -425,10 +425,17 @@ def compile_conversation_sources(
             if (
                 record.get("kind") == "dialogue"
                 and isinstance(payload, dict)
-                and payload.get("say") is not None
                 and isinstance(record.get("id"), str)
             ):
-                available_content_templates.add(record["id"])
+                if payload.get("say") is not None:
+                    available_content_templates.add(record["id"])
+                if isinstance(payload.get("reply"), dict):
+                    available_content_templates.add(record["id"])
+                    for outcome_name in payload["reply"]:
+                        if isinstance(outcome_name, str) and outcome_name.strip():
+                            available_content_templates.add(
+                                f"{record['id']}.{outcome_name.strip()}"
+                            )
             metadata = payload.get("metadata") if isinstance(payload, dict) else None
             if not isinstance(metadata, dict):
                 continue
@@ -683,6 +690,17 @@ def _psdl_plan_text_rows(
                 )
         turns = response.get("turns")
     else:
+        affordance = payload.get("affordance")
+        if isinstance(affordance, Mapping):
+            aff_metadata = affordance.get("metadata")
+            label_key = None
+            if isinstance(aff_metadata, Mapping) and isinstance(aff_metadata.get("textKey"), str):
+                label_key = aff_metadata.get("textKey")
+            elif isinstance(metadata.get("labelKey"), str):
+                label_key = metadata.get("labelKey")
+            if label_key:
+                add(affordance.get("label"), label_key)
+        has_explicit_rows = isinstance(metadata.get("textRows"), list) and len(metadata["textRows"]) > 0
         say = payload.get("say")
         if isinstance(say, Mapping) and isinstance(say.get("realizations"), Mapping):
             realizations = say["realizations"]
@@ -695,11 +713,40 @@ def _psdl_plan_text_rows(
                     if not isinstance(variant, Mapping):
                         continue
                     variant_metadata = variant.get("metadata")
-                    variant_id = str(variant.get("id") or f"say_{rkey}_{index + 1}")
-                    add(
-                        variant.get("text"),
-                        metadata_key(variant_metadata, "textKey", variant_id),
+                    explicit_key = (
+                        isinstance(variant_metadata, Mapping)
+                        and isinstance(variant_metadata.get("textKey"), str)
+                        and variant_metadata.get("textKey").strip()
                     )
+                    if explicit_key or not has_explicit_rows:
+                        variant_id = str(variant.get("id") or f"say_{rkey}_{index + 1}")
+                        add(
+                            variant.get("text"),
+                            metadata_key(variant_metadata, "textKey", variant_id),
+                        )
+        reply = payload.get("reply")
+        if isinstance(reply, Mapping):
+            for outcome_name, branch in reply.items():
+                if not isinstance(branch, Mapping):
+                    continue
+                branch_say = branch.get("say")
+                if isinstance(branch_say, Mapping) and isinstance(branch_say.get("realizations"), Mapping):
+                    realizations = branch_say["realizations"]
+                    key_order = (
+                        branch_say.get("keyOrder")
+                        if isinstance(branch_say.get("keyOrder"), list)
+                        else sorted(realizations)
+                    )
+                    for rkey in key_order:
+                        real = realizations.get(rkey)
+                        if not isinstance(real, Mapping):
+                            continue
+                        for index, variant in enumerate(real.get("variants") or []):
+                            if not isinstance(variant, Mapping):
+                                continue
+                            variant_metadata = variant.get("metadata")
+                            if isinstance(variant_metadata, Mapping) and isinstance(variant_metadata.get("textKey"), str):
+                                add(variant.get("text"), variant_metadata.get("textKey"))
         turns = payload.get("turns")
     if turns is None:
         turns = payload.get("turns")

@@ -1,0 +1,47 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "question",
+  "id": "wellbeing_detail",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.wellbeing_detail",
+      "order": 20,
+      "patternID": "pnc.question.wellbeing_follow_up_what_is_wrong",
+      "extensions": {
+        "topic": "wellbeing"
+      },
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "WELLBEING",
+      "topic": "wellbeing",
+      "domain": "wellbeing"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.wellbeing_follow_up_what_is_wrong",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "WELLBEING",
+    "topic": "wellbeing"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask what is wrong",
+      "TL": "Itanong kung ano ang problema"
+    },
+    "consumers": [
+      "player",
+      "npc"
+    ],
+    "groups": [
+      "wellbeing"
+    ]
+  },
+  "say": {
+    "EN": "What's wrong?",
+    "TL": "Ano ang problema?"
+  }
+}

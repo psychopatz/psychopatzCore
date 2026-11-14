@@ -150,15 +150,54 @@ function Foundation.GetResponse(poolID, options)
     return nil
 end
 
+local function resolvePlanAndOutcome(templateID, options)
+    local registry = Registry
+    local outcomeName = type(options) == "table" and options.outcome or nil
+    local plan = registry.ConvoPlan(templateID)
+    if type(plan) == "table" then
+        return plan, outcomeName
+    end
+    if type(registry.ConvoOutcome) == "function" then
+        local ref = registry.ConvoOutcome(templateID)
+        if type(ref) == "table" and type(ref.plan) == "table" then
+            return ref.plan, outcomeName or ref.outcome
+        end
+    end
+    local baseID, suffix = string.match(tostring(templateID or ""), "^(.+)%.([^%.]+)$")
+    if baseID and suffix then
+        plan = registry.ConvoPlan(baseID)
+        local family = type(plan) == "table" and plan.exchangeFamily or nil
+        if type(family) == "table" and type(family.replies) == "table"
+            and type(family.replies[suffix]) == "table"
+        then
+            return plan, outcomeName or suffix
+        end
+    end
+    return nil, nil
+end
+
 local function selectPlanPhrase(templateID, style, options)
     if type(Registry.ConvoPlan) ~= "function" then return nil end
-    local plan = Registry.ConvoPlan(templateID)
+    local plan, outcomeName = resolvePlanAndOutcome(templateID, options)
     if type(plan) ~= "table" then return nil end
     local family = type(plan.exchangeFamily) == "table" and plan.exchangeFamily or nil
-    local say = (family and family.initiatingSay) or (type(plan.payload) == "table" and plan.payload.say) or nil
-    if type(say) ~= "table" or type(say.realizations) ~= "table" then return nil end
-    local key = tostring((type(options) == "table" and options.realizationKey) or "1")
-    local entry = say.realizations[key] or say.realizations["1"]
+    local entry = nil
+    if outcomeName ~= nil and outcomeName ~= "" then
+        local branch = type(family) == "table" and type(family.replies) == "table"
+            and family.replies[tostring(outcomeName)] or nil
+        if type(branch) ~= "table" then return nil end
+        if type(branch.say) == "table" and type(branch.say.realizations) == "table" then
+            local key = tostring((type(options) == "table" and options.realizationKey) or "1")
+            entry = branch.say.realizations[key] or branch.say.realizations["1"]
+        elseif type(branch.variants) == "table" then
+            entry = { variants = branch.variants }
+        end
+    else
+        local say = (family and family.initiatingSay) or (type(plan.payload) == "table" and plan.payload.say) or nil
+        if type(say) ~= "table" or type(say.realizations) ~= "table" then return nil end
+        local key = tostring((type(options) == "table" and options.realizationKey) or "1")
+        entry = say.realizations[key] or say.realizations["1"]
+    end
     if type(entry) ~= "table" or type(entry.variants) ~= "table" then return nil end
 
     local wanted = tostring(style or "neutral")
@@ -189,6 +228,7 @@ local function selectPlanPhrase(templateID, style, options)
         templateID = chosen.templateID or templateID,
         style = tostring(chosen.id or wanted),
         familyID = plan.id,
+        outcome = outcomeName,
         fallback = enText,
         translations = { EN = enText, TL = tlText },
     }
@@ -216,6 +256,26 @@ end
 function Foundation.IsAvailable()
     return Foundation.Registered == true
         and type(Registry) == "table"
+end
+
+local function affordanceModule()
+    return ConvoEngine.Affordance or require "PsychopatzCore/ConvoEngine/Affordance"
+end
+
+function Foundation.GetAffordances(consumer, context, options)
+    return affordanceModule().Collect(consumer, context, options)
+end
+
+function Foundation.SelectNpcAffordance(context, options)
+    return affordanceModule().SelectNpcAffordance(context, options)
+end
+
+function Foundation.SelectReplyOutcome(familyOrID, context, options)
+    return affordanceModule().SelectReply(familyOrID, context, options)
+end
+
+function Foundation.ResolveAfter(familyOrID, outcomeName, context, options)
+    return affordanceModule().ResolveAfter(familyOrID, outcomeName, context, options)
 end
 
 Foundation.Register()

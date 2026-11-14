@@ -1,0 +1,44 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "question",
+  "id": "date",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.date",
+      "order": 70,
+      "patternID": "pnc.question.date",
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "DATE",
+      "topic": "date",
+      "domain": "date"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.date",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "DATE",
+    "topic": "date"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask about the date",
+      "TL": "Itanong ang petsa"
+    },
+    "consumers": [
+      "player",
+      "npc"
+    ],
+    "groups": [
+      "date"
+    ]
+  },
+  "say": {
+    "EN": "What's today's date?",
+    "TL": "Ano ang petsa ngayon?"
+  }
+}

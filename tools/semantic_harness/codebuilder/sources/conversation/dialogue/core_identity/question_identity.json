@@ -1,0 +1,43 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "offer.question",
+  "id": "identity",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.identity",
+      "order": 50,
+      "patternID": "pnc.question.identity",
+      "topic": "identity",
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "IDENTITY",
+      "domain": "identity"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.identity",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "IDENTITY",
+    "topic": "identity"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask who they are",
+      "TL": "Itanong kung sino siya"
+    },
+    "consumers": [
+      "player"
+    ],
+    "groups": [
+      "identity"
+    ]
+  },
+  "say": {
+    "EN": "Who are you?",
+    "TL": "Sino ka?"
+  }
+}

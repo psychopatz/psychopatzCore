@@ -1,0 +1,46 @@
+{
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "question",
+  "id": "weather",
+  "owner": "PsychopatzCore",
+  "metadata": {
+    "textNamespace": "UI_PNC_Conversation_Suggestion",
+    "ui": {
+      "id": "question.weather",
+      "order": 80,
+      "patternID": "pnc.question.weather",
+      "hubID": "whats_up",
+      "hubOnly": true,
+      "intent": "QUESTION",
+      "speechAct": "QUESTION",
+      "subject": "WEATHER",
+      "topic": "weather",
+      "domain": "weather"
+    }
+  },
+  "invoke": {
+    "patternID": "pnc.question.weather",
+    "intent": "QUESTION",
+    "speechAct": "QUESTION",
+    "subject": "WEATHER",
+    "topic": "weather"
+  },
+  "affordance": {
+    "label": {
+      "EN": "Ask about the weather",
+      "TL": "Itanong ang panahon"
+    },
+    "consumers": [
+      "player",
+      "npc"
+    ],
+    "groups": [
+      "weather"
+    ]
+  },
+  "say": {
+    "EN": "How is the weather?",
+    "TL": "Kumusta ang panahon?"
+  }
+}

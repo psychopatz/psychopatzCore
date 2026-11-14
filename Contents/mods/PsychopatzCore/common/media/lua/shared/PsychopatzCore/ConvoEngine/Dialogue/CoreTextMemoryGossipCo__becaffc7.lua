@@ -181,6 +181,20 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "corpse.revenge",
+            ["slots"] = {
+                ["faction"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = true,
+                    ["type"] = "entity.faction",
+                },
+                ["killer"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = true,
+                    ["type"] = "entity.person",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
@@ -891,6 +905,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "corpse.revenge",
+            ["slots"] = {
+                ["killer"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = true,
+                    ["type"] = "entity.person",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "Damn {slot.killer.name}. {target.name} was my friend, and this will cost you.",
@@ -1595,6 +1617,14 @@ return {
                 ["textRole"] = "spoken_action",
             },
             ["namespace"] = "corpse.revenge",
+            ["slots"] = {
+                ["killer"] = {
+                    ["multiple"] = false,
+                    ["public"] = true,
+                    ["required"] = true,
+                    ["type"] = "entity.person",
+                },
+            },
             ["textRoles"] = {
                 {
                     ["fallback"] = "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
