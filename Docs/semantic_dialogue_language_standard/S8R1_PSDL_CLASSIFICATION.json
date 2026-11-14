@@ -1,4 +1,8 @@
 {
+  "snapshotRole": "pre_s8r_cleanup_baseline",
+  "snapshotStatus": "historical_evidence_not_current_state",
+  "capturedAt": "2026-11-14",
+  "currentSteadyStateCheck": "rerun convo_engine_psdl_inventory.py or convo_engine_cli.py audit-s6m8 --check-determinism",
   "schema": "psychopatz.convo-engine.s8r1-psdl-inventory.v1",
   "counts": {
     "total": 279,

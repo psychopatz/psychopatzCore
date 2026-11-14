@@ -6,14 +6,14 @@
 
 The previous name **PSDL** meant **Psychopatz Semantic Dialogue Language**. `PSDL` / `psdl` is now a migration-era internal alias only; new public documentation, APIs, source layout, and runtime layout use **ConvoEngine**. Do not perform an unsafe blind rename—remove the old alias through tested compiler/service migration and caller-zero evidence.
 
-ConvoEngine itself is **Core-owned infrastructure**. Its language schema, canonical IR, compiler, generic validator, shared predicate/reference/binding contracts, package-routing logic and reusable authoring service belong physically in `psychopatzCore`. ProjectHoomans and DynamicTrading/DTCommon are adopters: they may own domain-specific PSDL records and adapters, but they must not fork or duplicate the language/compiler/runtime authority.
+ConvoEngine itself is **Core-owned infrastructure**. Its language schema, canonical IR, compiler, generic validator, shared predicate/reference/binding contracts, package-routing logic and reusable authoring service belong physically in `psychopatzCore`. ProjectHoomans and DynamicTrading/DTCommon are adopters: they may own domain-specific ConvoEngine records and adapters, but they must not fork or duplicate the language/compiler/runtime authority.
 
 This goal does **not** replace accepted semantic runtime authorities. It standardizes how authors describe them.
 
 ```text
-PSDL source
+ConvoEngine source
     ↓
-PSDL normalization + validation
+ConvoEngine normalization + validation
     ↓
 Canonical Semantic Dialogue IR
     ↓
@@ -80,7 +80,7 @@ Player buttons, NPC affordances, chained NPC messages, nested choices, semantic 
 
 ## Actor-neutral reference model
 
-PSDL must not encode player/NPC identity into ordinary reusable dialogue.
+ConvoEngine must not encode player/NPC identity into ordinary reusable dialogue.
 
 Canonical participant references are:
 
@@ -94,7 +94,7 @@ Canonical participant references are:
 
 The same definition must be usable for player→NPC, NPC→player, NPC→NPC and multi-participant scenes unless it declares an explicit participant constraint.
 
-Do not create new canonical authoring fields such as `npcName`, `targetNPCName`, `playerFirstName`, `npcGender`, or `playerRelationship`. Historical adapters may read them during migration, but new PSDL source uses actor-neutral references.
+Do not create new canonical authoring fields such as `npcName`, `targetNPCName`, `playerFirstName`, `npcGender`, or `playerRelationship`. Historical adapters may read them during migration, but new ConvoEngine source uses actor-neutral references.
 
 ### Presentation sugar
 
@@ -146,7 +146,7 @@ conversation
 └─ result        # bounded public action-result context, only after execution
 ```
 
-Private/secret/undiscovered facts remain inaccessible. PSDL predicates never reach directly into Java objects, mutable domain stores or arbitrary Lua callbacks.
+Private/secret/undiscovered facts remain inaccessible. ConvoEngine predicates never reach directly into Java objects, mutable domain stores or arbitrary Lua callbacks.
 
 ## Predicate language
 
@@ -167,7 +167,7 @@ Required scalar operations preserve the existing semantic predicate contract:
 - `lt` / `lte`;
 - `truthy` / `falsy`.
 
-PSDL extends the common predicate contract with generic bounded collection operations:
+ConvoEngine extends the common predicate contract with generic bounded collection operations:
 
 - `contains`;
 - `not_contains`;
@@ -176,9 +176,9 @@ PSDL extends the common predicate contract with generic bounded collection opera
 
 These are generic collection operations, not trait-specific special cases. They support traits, capabilities, tags, roles, known IDs and other bounded projected collections.
 
-## PSDL module kinds
+## ConvoEngine module kinds
 
-PSDL uses one language family with small composable module kinds.
+ConvoEngine uses one language family with small composable module kinds.
 
 ### `dialogue`
 
@@ -210,7 +210,7 @@ Realization remains bounded, locale-aware and downstream of semantic truth.
 
 ## Beats and dialogue
 
-Beats are part of PSDL, but they are a separate module kind rather than a required wrapper around dialogue.
+Beats are part of ConvoEngine, but they are a separate module kind rather than a required wrapper around dialogue.
 
 Simple content must remain simple:
 
@@ -330,7 +330,7 @@ The historical player-only `visibility = "player"` shape is not the target canon
 
 ## Typed slots and references
 
-PSDL slots are typed:
+ConvoEngine slots are typed:
 
 ```text
 entity.person
@@ -348,7 +348,7 @@ The compiler/runtime may extend the registry without changing the language gramm
 
 Typed slots are used by semantic NLU/entity resolution and by authored offers. Fuzzy matching remains an external semantic resolver concern.
 
-PSDL may declare semantic risk policy such as exact/safe/confirm, but authors do not encode edit-distance thresholds.
+ConvoEngine may declare semantic risk policy such as exact/safe/confirm, but authors do not encode edit-distance thresholds.
 
 Mutating gameplay actions remain subject to existing exact/confirmation safety policy.
 
@@ -370,7 +370,7 @@ Bindings never authorize gameplay effects.
 
 ## Translation model
 
-PSDL source owns locale content. Generated runtime translation files do not become authoring sources.
+ConvoEngine source owns locale content. Generated runtime translation files do not become authoring sources.
 
 EN remains the required fallback locale. Additional locales are data-driven and must not require compiler/runtime language whitelists.
 
@@ -383,7 +383,7 @@ EN remains the required fallback locale. Additional locales are data-driven and 
 
 ## Semantic effects, actions and authority
 
-PSDL expresses typed semantic intents/events/effects and may reference a
+ConvoEngine expresses typed semantic intents/events/effects and may reference a
 registered authoritative gameplay action contract. It never embeds arbitrary
 Lua mutation scripts or arbitrary function/module names.
 
@@ -425,7 +425,7 @@ slot/context/binding resolvers may inspect bounded public state, while
 `execute` happens only after a semantic action has actually been selected and
 passed authority/safety gates.
 
-Raw implementation return tables never enter PSDL directly. Action adapters
+Raw implementation return tables never enter ConvoEngine directly. Action adapters
 project only contract-declared public fields under bounded `result.*`, with
 normalized outcomes such as pending/accepted/rejected/failed/completed.
 
@@ -460,7 +460,7 @@ Existing runtime structures may remain internally where they are already accepte
 
 ### Mandatory three-mod boundary
 
-- **PsychopatzCore** owns the PSDL language/schema, Canonical Semantic Dialogue IR, compiler/normalizer, generic validation, generic predicates/references/slots/bindings, registered Semantic Action Contract/result mechanism, shared authoring APIs, generic package routing, and reusable runtime contracts.
+- **PsychopatzCore** owns the ConvoEngine language/schema, Canonical Semantic Dialogue IR, compiler/normalizer, generic validation, generic predicates/references/slots/bindings, registered Semantic Action Contract/result mechanism, shared authoring APIs, generic package routing, and reusable runtime contracts.
 - **ProjectHoomans** owns Hoomans-specific semantic dialogue recipes, NPC/social gameplay adapters, and product-specific constraints/content.
 - **DynamicTrading / DTCommon** owns trader/market-specific semantic dialogue recipes, trading adapters, and product-specific constraints/content.
 
@@ -481,7 +481,7 @@ From this goal onward:
 - do not add new first-party response-pool/flow files merely because an old domain used them;
 - do not introduce `Legacy/`, `Compat/`, `Old/`, `V1/`, `Part02` or equivalent migration-copy source trees;
 - do not create broad alias registries to keep first-party old IDs alive;
-- do not duplicate a migrated definition in both old and PSDL source.
+- do not duplicate a migrated definition in both old and ConvoEngine source.
 
 Existing old source is migration input only. Convert one owning domain, prove parity/callers, then delete the superseded source. Transitional readers/adapters may exist in compiler/runtime code only when bounded and explicitly scheduled for removal; they are not new authoring surfaces.
 
@@ -489,7 +489,7 @@ External-mod compatibility remains an explicit adapter boundary and does not jus
 
 ## Performance and persistence
 
-PSDL must preserve accepted performance invariants:
+ConvoEngine must preserve accepted performance invariants:
 
 - no per-NPC dialogue polling;
 - no per-frame semantic scans;
@@ -501,13 +501,65 @@ PSDL must preserve accepted performance invariants:
 - no persisted rendered response plan;
 - no giant per-NPC dialogue catalog.
 
+## Semantic Harness authority boundary
+
+Semantic Lab and headless harness tooling are **clients of ConvoEngine
+authority**, not alternate semantic runtimes.
+
+The harness may own:
+
+- source discovery and editor presentation;
+- compiler/validation preview;
+- bounded scenario/context construction;
+- transport to the production Lua worker;
+- trace rendering, diffs, reports and test orchestration.
+
+The harness must not own a second implementation of:
+
+- predicate semantics;
+- TextBinding/privacy/resolver semantics;
+- affordance candidate expansion or utility scoring;
+- NPC selection policy;
+- reply/after resolution;
+- registered action-contract truth;
+- package/source ownership.
+
+Behavioral simulation must call production Lua authorities through the worker
+when parity matters. A Python-only projection may be used for structural
+compiler preview, but it must be labeled effect-free/non-authoritative and may
+not silently substitute for runtime behavior.
+
+Canonical family CRUD must be service-owned and transactional: owner-routed,
+fingerprint-guarded, globally reference-validated, followed by CodeBuilder
+regeneration. UI code never chooses package roots, unlinks canonical family
+files directly, or edits generated output.
+
+Repository/participant discovery is shared compiler/service infrastructure.
+Studio panes must not invent sibling-directory assumptions.
+
+The compact target is six stable ports:
+
+    WorkspaceCatalog
+    ConvoCatalog
+    OperationRegistry / ConvoTransaction
+    production Lua ConvoProbe
+    BuildPlanner
+    thin GUI/CLI clients
+
+The existing provider manifest is the extension boundary. A normal future
+provider/family/action contract should enter through capabilities/source/runtime
+registration and become discoverable without new Core adopter branches.
+
+See `SEMANTIC_HARNESS_AUDIT.md`,
+`SEMANTIC_HARNESS_COMPACT_ARCHITECTURE.md` and ROADMAP S9.
+
 ## Observability
 
 Semantic Lab / Observatory should be able to explain:
 
 ```text
 source module
-→ normalized PSDL IR
+→ normalized ConvoEngine IR
 → resolved participants/references/slots
 → predicate trace
 → semantic candidate/frame

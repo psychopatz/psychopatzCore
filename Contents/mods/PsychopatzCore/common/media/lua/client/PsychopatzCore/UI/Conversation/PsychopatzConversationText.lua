@@ -117,7 +117,7 @@ local function format(value, args)
             )
         end
     end
-    -- PSDL uses the shared actor-neutral binding contract for nested paths
+    -- ConvoEngine uses the shared actor-neutral binding contract for nested paths
     -- such as {speaker.name} and {addressee.name}. Keep the flat formatter
     -- above for established catalogs, then let Core resolve only public
     -- semantic paths from the same argument context.

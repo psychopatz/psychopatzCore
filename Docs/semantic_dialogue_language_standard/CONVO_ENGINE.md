@@ -303,8 +303,8 @@ action-result implementation, and Semantic Lab UI into one unbounded patch.
 10. Verify no old ConvoEngine-owned `Semantics/...` path callers remain.
 11. Continue reply/action-result/Semantic Lab acceptance.
 
-The above architecture/migration order and **S8R** final naming/audit/document
-closure are now complete:
+The above runtime/compiler/content migration order and **S8R** final
+naming/audit/document closure are complete:
 
 1. classified all remaining legacy PSDL names (`S8R1_PSDL_CLASSIFICATION.json`);
 2. removed active `psdl.*` / `pnc.psdl.*` /
@@ -313,11 +313,21 @@ closure are now complete:
 3. hardened `convo_engine_s6m8_audit.py` and `convo_engine_cli.py` repository
    discovery / fail-closed checks;
 4. regenerated/retested all three repositories;
-5. committed the complete goal-owned normative documentation set and final
-   HANDOFF.
+5. committed the S8R normative documentation checkpoint.
 
-Do not reopen source sharding, action contracts, or Semantic Lab architecture
-unless live gameplay testing finds a concrete defect.
+Do not reopen source sharding, compact family syntax, action contracts, or
+runtime ownership without a concrete regression.
+
+**S9 is a harness convergence phase, not a ConvoEngine runtime redesign.**
+Semantic Lab currently exposes the accepted model but still contains duplicate
+legacy authoring surfaces and a Python approximation of runtime semantic
+behavior. S9 moves Studio/CLI onto the same service/compiler/production-Lua
+authorities, adds safe owner-routed transactional family CRUD, and removes or
+hides dead authoring surfaces. Read `SEMANTIC_HARNESS_AUDIT.md`, the relevant
+section of `SEMANTIC_HARNESS_COMPACT_ARCHITECTURE.md`, and ROADMAP S9 for the
+active plan. The compact target is WorkspaceCatalog + ConvoCatalog + a shared
+operation/transaction surface + production Lua ConvoProbe + BuildPlanner +
+thin GUI/CLI clients.
 
 ## Hard rules
 

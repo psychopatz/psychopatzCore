@@ -67,7 +67,7 @@ During migration:
 - existing old source may be read and converted;
 - do not add new production features to old authoring just because conversion is unfinished;
 - do not make checked-in migration copies under `Legacy`, `Compat`, `Old`, `V1`, `Migrated`, `PartNN` or similar;
-- do not maintain both old and PSDL definitions after a domain is accepted;
+- do not maintain both old and ConvoEngine definitions after a domain is accepted;
 - do not hand-edit or manually move generated output;
 - do not manually manufacture mass conversation-source shards; extend/use CodeBuilder's authoring/migration API and let it validate/write them.
 
@@ -102,7 +102,7 @@ Player/NPC-specific gameplay restrictions may remain domain constraints, but not
 
 ## Predicate discipline
 
-All PSDL contextual eligibility uses the shared predicate contract.
+All ConvoEngine contextual eligibility uses the shared predicate contract.
 
 Do not introduce trait-specific/gender-specific/relationship-specific mini evaluators.
 
@@ -123,7 +123,7 @@ Beats are optional orchestration.
 
 ## Fuzzy-resolution discipline
 
-PSDL does not implement fuzzy algorithms.
+ConvoEngine does not implement fuzzy algorithms.
 
 Core semantic/entity/item/world resolvers remain responsible for matching and confidence.
 
@@ -258,6 +258,40 @@ Before declaring S8 accepted:
   references files absent from the commit.
 
 Do not weaken assertions or inflate limits/timeouts merely to make migration pass.
+
+### S9 Semantic Harness convergence discipline
+
+For S9, read `SEMANTIC_HARNESS_AUDIT.md` first. Read only the relevant
+section of `SEMANTIC_HARNESS_COMPACT_ARCHITECTURE.md` for the active S9 chunk;
+do not load the whole deep-design document by default.
+
+Compactness means fewer authorities and public concepts, not fewer files at any
+cost. New S9 code must converge on WorkspaceCatalog, ConvoCatalog, the shared
+operation/transaction surface, production Lua ConvoProbe and BuildPlanner.
+
+- add regression tests for a reproduced gap before replacing the old path;
+- reuse the compiler/manifest participant map; do not add Studio-only sibling
+  repository discovery;
+- family create/edit/move/delete must go through a service transaction with
+  owner routing, source fingerprint, global semantic-reference validation and
+  regeneration;
+- UI code must not call `Path.unlink()` on canonical ConvoEngine source;
+- Python structural preview is allowed, but behavioral parity comes from
+  production Lua Predicate/TextBinding/Affordance/ActionContract through the
+  worker;
+- do not hard-code adopter action contracts in Core Studio code when runtime or
+  declarative registration can provide the catalog;
+- missing canonical dataset sources are not editable and not workflow-ready;
+- remove/hide obsolete zero-source authoring panes rather than keeping empty
+  first-class surfaces;
+- expose ConvoEngine through one discoverable main harness CLI/service contract;
+- migrate tests off legacy PSDL record-bucket CRUD before deleting those
+  compatibility methods;
+- deterministic audits must not race by mutating the same live generated tree;
+  use isolated output or a workspace generation lock;
+- keep staging/temp output outside Project Zomboid `media/`.
+
+S9 acceptance reruns the complete S8R matrix after focused harness parity tests.
 
 ## Git and phase close
 
