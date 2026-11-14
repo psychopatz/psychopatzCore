@@ -4,7 +4,7 @@ checkpoint_mode: "committed_handoff"
 phase_commit: "self"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-participant_heads: "project-hoomans=f11221b0ff0926f2aa80cf7658db0e950151a30d;dynamic-trading=05fcdbdb244dcce74b75e2e55a0008d187271072"
+participant_heads: "project-hoomans=d8689b3b591036e2786b2afc2692aadc18799c37;dynamic-trading=05fcdbdb244dcce74b75e2e55a0008d187271072"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S6M — ConvoEngine action contracts and cleanup"
@@ -34,11 +34,11 @@ The existing compiler/runtime migration is useful. Do not undo it.
 ```text
 Core
 /home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD 152a59c0 (parent of this S6M5 commit)
+HEAD 577c903ef51d3b09ece69139bb09ca772377040c (parent of this S6M5 handoff)
 
 Hoomans
 /home/psychopatz/Zomboid/Workshop/ProjectHoomans
-HEAD f11221b0ff0926f2aa80cf7658db0e950151a30d
+HEAD d8689b3b591036e2786b2afc2692aadc18799c37
 
 DynamicTrading
 /home/psychopatz/Zomboid/Workshop/DynamicTrading
