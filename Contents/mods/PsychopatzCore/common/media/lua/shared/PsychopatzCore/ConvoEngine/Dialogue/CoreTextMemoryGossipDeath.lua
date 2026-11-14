@@ -73,9 +73,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.death.report",
-                ["sourcePath"] = "memory/gossip/death/report.json",
                 ["textKey"] = "death.report",
                 ["textRows"] = {
                     {
@@ -240,9 +237,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.death.sacrifice",
-                ["sourcePath"] = "memory/gossip/death/sacrifice.json",
                 ["textKey"] = "death.sacrifice",
                 ["textRows"] = {
                     {

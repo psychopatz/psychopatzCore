@@ -339,9 +339,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.corpse.revenge.comrade",
-                ["sourcePath"] = "memory/gossip/corpse/revenge/comrade.json",
                 ["textRows"] = {
                     {
                         ["key"] = "corpse.revenge.comrade.01",
@@ -1057,9 +1054,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.corpse.revenge.friend",
-                ["sourcePath"] = "memory/gossip/corpse/revenge/friend.json",
                 ["textRows"] = {
                     {
                         ["key"] = "corpse.revenge.friend.01",
@@ -1769,9 +1763,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.corpse.revenge.relative",
-                ["sourcePath"] = "memory/gossip/corpse/revenge/relative.json",
                 ["textRows"] = {
                     {
                         ["key"] = "corpse.revenge.relative.01",

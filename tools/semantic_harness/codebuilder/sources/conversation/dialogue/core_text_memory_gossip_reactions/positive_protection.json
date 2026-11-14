@@ -9,9 +9,6 @@
     "type": "entity.person"
   },
   "metadata": {
-    "migration": "Core PSDL text record; translation catalog is downstream output",
-    "sourceCatalog": "conversation.memory.gossip.reactions.positive.protection",
-    "sourcePath": "memory/gossip/reactions/positive/protection.json",
     "textKey": "positive.protection",
     "textTarget": "memory/gossip",
     "textRows": [

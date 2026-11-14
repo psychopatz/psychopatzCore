@@ -14,7 +14,6 @@
   },
   "metadata": {
     "category": "psychopatzcore:world_event",
-    "sourceSurface": "content/social/interaction/world_event/warning_flavor.json",
     "responseAct": "AMBIENT_FLAVOR"
   },
   "say": {

@@ -601,7 +601,6 @@ return {
             ["metadata"] = {
                 ["category"] = "psychopatzcore:knowledge",
                 ["responseAct"] = "KNOWLEDGE_RESPONSE",
-                ["sourceSurface"] = "content/knowledge/knowledge.json",
             },
             ["reply"] = {
                 ["known"] = {

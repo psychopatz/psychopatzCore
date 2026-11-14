@@ -32,6 +32,49 @@ _FORBIDDEN_PATH_SEGMENTS = frozenset({
     "migrated",
 })
 _PART_SEGMENT_RE = re.compile(r"^part\d+$", re.IGNORECASE)
+_STALE_MIGRATION_TOP_KEYS = frozenset({
+    "sourceSurface",
+    "migration",
+    "sourceCatalog",
+    "originalOwner",
+})
+_STALE_MIGRATION_METADATA_KEYS = frozenset({
+    "sourceSurface",
+    "migration",
+    "sourceCatalog",
+    "originalOwner",
+    "sourcePath",
+    "sourceProfile",
+})
+
+
+def strip_stale_migration_metadata(document: Mapping[str, Any]) -> dict[str, Any]:
+    """Return a copy of a ConvoEngine document with stale migration metadata stripped."""
+    cleaned = copy.deepcopy(dict(document))
+    if cleaned.get("schema") != CONVO_ENGINE_SCHEMA:
+        return cleaned
+    for key in _STALE_MIGRATION_TOP_KEYS:
+        cleaned.pop(key, None)
+    meta = cleaned.get("metadata")
+    if isinstance(meta, dict):
+        for key in _STALE_MIGRATION_METADATA_KEYS:
+            meta.pop(key, None)
+        if not meta:
+            cleaned.pop("metadata", None)
+    records = cleaned.get("records")
+    if isinstance(records, list):
+        for record in records:
+            if not isinstance(record, dict):
+                continue
+            for key in _STALE_MIGRATION_TOP_KEYS:
+                record.pop(key, None)
+            rec_meta = record.get("metadata")
+            if isinstance(rec_meta, dict):
+                for key in _STALE_MIGRATION_METADATA_KEYS:
+                    rec_meta.pop(key, None)
+                if not rec_meta:
+                    record.pop("metadata", None)
+    return cleaned
 
 
 def resolve_authorized_source_path(
@@ -108,7 +151,7 @@ def build_convo_engine_family_document(
         strict_convo_engine=True,
         label="ConvoEngine family",
     )
-    return doc
+    return strip_stale_migration_metadata(doc)
 
 
 def apply_family_patch(

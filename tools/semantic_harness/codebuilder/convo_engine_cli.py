@@ -132,6 +132,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_norm.add_argument("--prune-sources", action="store_true")
     p_norm.add_argument("--write", action="store_true")
 
+    p_audit = sub.add_parser(
+        "audit-s6m8",
+        help="Run the S6M8 ConvoEngine hygiene, compiler, layout, and determinism audit",
+    )
+    _add_repo_args(p_audit)
+    p_audit.add_argument("--check-determinism", action="store_true")
+
     return parser
 
 
@@ -224,6 +231,10 @@ def main(arguments: list[str] | None = None) -> int:
                 force_style_bundle=args.force_style_bundle,
                 write=args.write,
                 prune_sources=args.prune_sources,
+            )
+        elif args.command == "audit-s6m8":
+            result = svc.run_convo_engine_s6m8_audit(
+                check_determinism=args.check_determinism,
             )
         else:
             parser.error(f"unknown command: {args.command}")

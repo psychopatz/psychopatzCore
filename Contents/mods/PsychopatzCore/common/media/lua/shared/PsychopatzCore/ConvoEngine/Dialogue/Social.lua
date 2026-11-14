@@ -306,7 +306,6 @@ return {
             ["metadata"] = {
                 ["category"] = "psychopatzcore:world_event",
                 ["responseAct"] = "WORLD_WARNING",
-                ["sourceSurface"] = "content/social/interaction/world_event/warning.json",
             },
             ["say"] = {
                 ["keyOrder"] = {
@@ -915,7 +914,6 @@ return {
             ["metadata"] = {
                 ["category"] = "psychopatzcore:world_event",
                 ["responseAct"] = "AMBIENT_FLAVOR",
-                ["sourceSurface"] = "content/social/interaction/world_event/warning_flavor.json",
             },
             ["say"] = {
                 ["keyOrder"] = {

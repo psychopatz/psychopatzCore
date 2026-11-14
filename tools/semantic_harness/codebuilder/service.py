@@ -51,6 +51,7 @@ from .convo_engine_authoring import (
     prepare_shard_documents,
     resolve_authorized_source_path,
     source_fingerprint_mismatch,
+    strip_stale_migration_metadata,
     write_json_document,
 )
 from .convo_engine_normalization import (
@@ -59,6 +60,7 @@ from .convo_engine_normalization import (
     normalize_source_group,
     shard_offers_to_families as _shard_offers_to_families,
 )
+from .convo_engine_s6m8_audit import audit_convo_engine_workspace
 from .psdl_compiler import (
     CONVO_ENGINE_SCHEMA,
     LEGACY_PSDL_SCHEMA,
@@ -228,6 +230,34 @@ class SemanticLabAuthoringService:
             return normalize_owner(default_owner)
         return None
 
+    def _sibling_behavior_sources_for(
+        self,
+        source_path: str | Path | None,
+    ) -> dict[Path, dict[str, Any]]:
+        if source_path is None:
+            return {}
+        resolved = Path(source_path).expanduser().resolve()
+        conv_root = next(
+            (parent for parent in resolved.parents if parent.name == "conversation"),
+            None,
+        )
+        if conv_root is None:
+            return {}
+        behavior_dir = conv_root / "behavior"
+        if not behavior_dir.is_dir():
+            return {}
+        siblings: dict[Path, dict[str, Any]] = {}
+        for item in sorted(behavior_dir.rglob("*.json")):
+            if item.resolve() == resolved:
+                continue
+            try:
+                loaded = load_json_document(item)
+            except CompileError:
+                continue
+            if loaded.get("schema") == CONVO_ENGINE_SCHEMA:
+                siblings[item.resolve()] = loaded
+        return siblings
+
     def preview_convo_engine_document(
         self,
         document: dict[str, Any],
@@ -240,12 +270,32 @@ class SemanticLabAuthoringService:
         resolved_owner = default_owner
         if resolved_owner is None and isinstance(document, dict) and document.get("owner") is None:
             resolved_owner = self._resolve_convo_engine_default_owner(source_path)
-        compiled = _compile_convo_engine_document(
-            document,
-            source_path=source_path,
-            default_owner=resolved_owner,
-            allow_legacy_schema=allow_legacy_schema,
+        siblings = (
+            self._sibling_behavior_sources_for(source_path)
+            if isinstance(document, dict) and document.get("kind") == "beat"
+            else {}
         )
+        if siblings and source_path is not None:
+            target_key = Path(source_path).expanduser().resolve()
+            _compile_convo_engine_sources(
+                {**siblings, target_key: document},
+                default_owner=resolved_owner,
+                allow_legacy_schema=allow_legacy_schema,
+            )
+            compiled = _compile_convo_engine_document(
+                document,
+                source_path=source_path,
+                default_owner=resolved_owner,
+                allow_legacy_schema=allow_legacy_schema,
+                validate_cross_references=False,
+            )
+        else:
+            compiled = _compile_convo_engine_document(
+                document,
+                source_path=source_path,
+                default_owner=resolved_owner,
+                allow_legacy_schema=allow_legacy_schema,
+            )
         diagnostics: list[dict[str, str]] = []
         if any(
             (record.get("lineage") or {}).get("migrationReadOnly")
@@ -352,7 +402,12 @@ class SemanticLabAuthoringService:
         )
         if report.get("ok") is not True:
             return report
-        write_json_document(target, document)
+        persisted = (
+            strip_stale_migration_metadata(document)
+            if isinstance(document, dict) and document.get("schema") == CONVO_ENGINE_SCHEMA
+            else copy.deepcopy(document)
+        )
+        write_json_document(target, persisted)
         return {
             "ok": True,
             "previewOnly": False,
@@ -360,9 +415,9 @@ class SemanticLabAuthoringService:
             "writeApproved": True,
             "generatedOutputRequired": True,
             "sourcePath": str(target),
-            "sourceFingerprint": fingerprint(document),
+            "sourceFingerprint": fingerprint(persisted),
             "compiledFingerprint": report["compiled"]["fingerprint"],
-            "document": copy.deepcopy(document),
+            "document": persisted,
             "writes": [str(target)],
         }
 
@@ -2525,3 +2580,21 @@ class SemanticLabAuthoringService:
     ) -> dict[str, Any]:
         """Convert explicit license-cleared review decisions to canonical records."""
         return promote_reviewed_candidates(report, decisions)
+
+    def run_convo_engine_s6m8_audit(
+        self,
+        *,
+        check_determinism: bool = False,
+    ) -> dict[str, Any]:
+        """Execute the S6M8 three-repository ConvoEngine integrity and determinism audit."""
+        hoomans_repo = (
+            self.repository
+            if (self.repository / "tools/providers/pnc/codebuilder/sources/conversation").is_dir()
+            else None
+        )
+        return audit_convo_engine_workspace(
+            self.core_repository,
+            hoomans_repository=hoomans_repo,
+            dynamic_trading_repository=self.dynamic_trading_repository,
+            check_determinism=check_determinism,
+        )

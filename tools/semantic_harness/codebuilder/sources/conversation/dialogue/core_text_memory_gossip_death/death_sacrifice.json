@@ -9,9 +9,6 @@
     "type": "entity.person"
   },
   "metadata": {
-    "migration": "Core PSDL text record; translation catalog is downstream output",
-    "sourceCatalog": "conversation.memory.gossip.death.sacrifice",
-    "sourcePath": "memory/gossip/death/sacrifice.json",
     "textKey": "death.sacrifice",
     "textTarget": "memory/gossip",
     "textRows": [

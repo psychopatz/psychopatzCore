@@ -225,9 +225,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.corpse.ordinary.comrade",
-                ["sourcePath"] = "memory/gossip/corpse/ordinary/comrade.json",
                 ["textRows"] = {
                     {
                         ["key"] = "corpse.comrade.01",
@@ -701,9 +698,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.corpse.ordinary.friend",
-                ["sourcePath"] = "memory/gossip/corpse/ordinary/friend.json",
                 ["textRows"] = {
                     {
                         ["key"] = "corpse.friend.01",
@@ -1171,9 +1165,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.corpse.ordinary.hostile",
-                ["sourcePath"] = "memory/gossip/corpse/ordinary/hostile.json",
                 ["textRows"] = {
                     {
                         ["key"] = "corpse.hostile.01",
@@ -1641,9 +1632,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.corpse.ordinary.neutral",
-                ["sourcePath"] = "memory/gossip/corpse/ordinary/neutral.json",
                 ["textRows"] = {
                     {
                         ["key"] = "corpse.neutral.01",
@@ -2111,9 +2099,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.corpse.ordinary.relative",
-                ["sourcePath"] = "memory/gossip/corpse/ordinary/relative.json",
                 ["textRows"] = {
                     {
                         ["key"] = "corpse.relative.01",

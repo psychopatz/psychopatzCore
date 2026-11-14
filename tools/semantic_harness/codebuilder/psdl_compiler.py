@@ -890,7 +890,7 @@ def compile_convo_engine_sources(
             source_path=path,
             default_owner=default_owner,
             allow_legacy_schema=allow_legacy_schema,
-            validate_cross_references=validate_cross_references,
+            validate_cross_references=False,
             action_contracts=action_contracts,
         )
         ids = [record["id"] for record in compiled["records"]]

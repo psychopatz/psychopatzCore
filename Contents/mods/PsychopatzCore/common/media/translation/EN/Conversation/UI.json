@@ -115,6 +115,7 @@
   "UI_PsychopatzConversation_Debugger_Status_Valid": "valid",
   "UI_PsychopatzConversation_Debugger_Status_Yes": "Yes",
   "UI_PsychopatzConversation_Debugger_Title": "CONVERSATION BLOCK DEBUGGER",
+  "UI_PsychopatzConversation_Goodbye": "Goodbye.",
   "UI_PsychopatzConversation_Identity_Stranger": "Stranger",
   "UI_PsychopatzConversation_LLM_InputTooltip": "Type a message for this NPC.",
   "UI_PsychopatzConversation_LLM_ModeNearby": "NEARBY NPCS",

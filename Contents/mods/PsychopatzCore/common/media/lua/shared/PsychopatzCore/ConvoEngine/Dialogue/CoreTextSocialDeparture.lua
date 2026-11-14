@@ -73,9 +73,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.departure.response",
-                ["sourcePath"] = "social/departure/response.json",
                 ["textKey"] = "departure.confirmed",
                 ["textRows"] = {
                     {
@@ -240,9 +237,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.departure.response",
-                ["sourcePath"] = "social/departure/response.json",
                 ["textKey"] = "departure.rejected",
                 ["textRows"] = {
                     {
@@ -407,9 +401,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.departure.response",
-                ["sourcePath"] = "social/departure/response.json",
                 ["textKey"] = "departure.warning",
                 ["textRows"] = {
                     {

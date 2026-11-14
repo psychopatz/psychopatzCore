@@ -5,9 +5,6 @@
   "id": "goodbye",
   "owner": "PsychopatzCore",
   "metadata": {
-    "migration": "Core PSDL text record; translation catalog is downstream output",
-    "sourceCatalog": "conversation.social.goodbye.closing",
-    "sourcePath": "social/goodbye/closing.json",
     "textTarget": "social/goodbye/closing",
     "textRows": [
       {

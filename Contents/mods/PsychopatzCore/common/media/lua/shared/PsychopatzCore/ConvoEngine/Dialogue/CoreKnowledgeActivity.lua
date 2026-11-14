@@ -306,7 +306,6 @@ return {
             ["metadata"] = {
                 ["category"] = "psychopatzcore:knowledge",
                 ["responseAct"] = "KNOWLEDGE_RESPONSE",
-                ["sourceSurface"] = "content/knowledge/activity.json",
             },
             ["say"] = {
                 ["keyOrder"] = {
@@ -915,7 +914,6 @@ return {
             ["metadata"] = {
                 ["category"] = "psychopatzcore:knowledge",
                 ["responseAct"] = "KNOWLEDGE_RESPONSE",
-                ["sourceSurface"] = "content/knowledge/activity.json",
             },
             ["say"] = {
                 ["keyOrder"] = {

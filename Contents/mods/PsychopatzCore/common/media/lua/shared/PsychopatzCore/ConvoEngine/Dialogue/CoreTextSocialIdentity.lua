@@ -73,9 +73,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.identity.response",
-                ["sourcePath"] = "social/identity/response.json",
                 ["textKey"] = "identity.introduction",
                 ["textRows"] = {
                     {

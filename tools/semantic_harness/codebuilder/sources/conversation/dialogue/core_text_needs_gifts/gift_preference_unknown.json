@@ -5,9 +5,6 @@
   "id": "unknown",
   "owner": "PsychopatzCore",
   "metadata": {
-    "migration": "Core PSDL text record; translation catalog is downstream output",
-    "sourceCatalog": "conversation.needs.gifts.preference",
-    "sourcePath": "needs/gifts/preference.json",
     "textKey": "gift.preference.unknown",
     "textTarget": "needs/gifts/preference",
     "textRows": [

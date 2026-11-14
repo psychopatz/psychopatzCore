@@ -15,9 +15,6 @@
     }
   },
   "metadata": {
-    "migration": "Core PSDL text record; translation catalog is downstream output",
-    "sourceCatalog": "conversation.memory.gossip.reactions.neutral.sighting",
-    "sourcePath": "memory/gossip/reactions/neutral/sighting.json",
     "textKey": "neutral.sighting",
     "textTarget": "memory/gossip",
     "textRows": [

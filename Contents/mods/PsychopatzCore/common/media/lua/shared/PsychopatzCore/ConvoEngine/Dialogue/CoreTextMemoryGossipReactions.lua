@@ -73,9 +73,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.mockery",
-                ["sourcePath"] = "memory/gossip/reactions/negative/mockery.json",
                 ["textKey"] = "negative.mockery.gear",
                 ["textRows"] = {
                     {
@@ -240,9 +237,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.mockery",
-                ["sourcePath"] = "memory/gossip/reactions/negative/mockery.json",
                 ["textKey"] = "negative.mockery.retreat",
                 ["textRows"] = {
                     {
@@ -407,9 +401,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.suspicion",
-                ["sourcePath"] = "memory/gossip/reactions/negative/suspicion.json",
                 ["textKey"] = "negative.suspicion.story",
                 ["textRows"] = {
                     {
@@ -574,9 +565,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.warning",
-                ["sourcePath"] = "memory/gossip/reactions/negative/warning.json",
                 ["textKey"] = "negative.warning.abandoned",
                 ["textRows"] = {
                     {
@@ -749,9 +737,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.negative.warning",
-                ["sourcePath"] = "memory/gossip/reactions/negative/warning.json",
                 ["textKey"] = "negative.warning.danger",
                 ["textRows"] = {
                     {
@@ -922,9 +907,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.neutral.survival",
-                ["sourcePath"] = "memory/gossip/reactions/neutral/survival.json",
                 ["textKey"] = "neutral.horde_survival",
                 ["textRows"] = {
                     {
@@ -1097,9 +1079,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.neutral.sighting",
-                ["sourcePath"] = "memory/gossip/reactions/neutral/sighting.json",
                 ["textKey"] = "neutral.sighting",
                 ["textRows"] = {
                     {
@@ -1270,9 +1249,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.positive.praise",
-                ["sourcePath"] = "memory/gossip/reactions/positive/praise.json",
                 ["textKey"] = "positive.praise.help",
                 ["textRows"] = {
                     {
@@ -1437,9 +1413,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.positive.protection",
-                ["sourcePath"] = "memory/gossip/reactions/positive/protection.json",
                 ["textKey"] = "positive.protection",
                 ["textRows"] = {
                     {
@@ -1604,9 +1577,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.positive.rescue",
-                ["sourcePath"] = "memory/gossip/reactions/positive/rescue.json",
                 ["textKey"] = "positive.rescue.return",
                 ["textRows"] = {
                     {
@@ -1771,9 +1741,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.memory.gossip.reactions.positive.sympathy",
-                ["sourcePath"] = "memory/gossip/reactions/positive/sympathy.json",
                 ["textKey"] = "positive.sympathy.loss",
                 ["textRows"] = {
                     {

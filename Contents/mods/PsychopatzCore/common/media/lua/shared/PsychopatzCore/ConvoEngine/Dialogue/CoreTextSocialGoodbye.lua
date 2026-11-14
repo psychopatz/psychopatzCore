@@ -73,9 +73,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
                 ["textKey"] = "choice.goodbye",
                 ["textRows"] = {
                     {
@@ -600,9 +597,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
                 ["textRows"] = {
                     {
                         ["key"] = "response.goodbye",

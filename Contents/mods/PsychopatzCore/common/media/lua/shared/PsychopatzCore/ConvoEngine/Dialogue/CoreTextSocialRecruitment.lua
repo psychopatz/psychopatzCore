@@ -145,9 +145,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.recruitment.response",
-                ["sourcePath"] = "social/recruitment/response.json",
                 ["textRows"] = {
                     {
                         ["key"] = "recruitment.admire.1",
@@ -463,9 +460,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.recruitment.response",
-                ["sourcePath"] = "social/recruitment/response.json",
                 ["textRows"] = {
                     {
                         ["key"] = "recruitment.fear.1",
@@ -745,9 +739,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.recruitment.response",
-                ["sourcePath"] = "social/recruitment/response.json",
                 ["textRows"] = {
                     {
                         ["key"] = "recruitment.reject.cooldown.1",
@@ -1023,9 +1014,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.recruitment.response",
-                ["sourcePath"] = "social/recruitment/response.json",
                 ["textRows"] = {
                     {
                         ["key"] = "recruitment.reject.general.1",
@@ -1305,9 +1293,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.recruitment.response",
-                ["sourcePath"] = "social/recruitment/response.json",
                 ["textRows"] = {
                     {
                         ["key"] = "recruitment.reject.hostile.1",
@@ -1547,9 +1532,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.recruitment.response",
-                ["sourcePath"] = "social/recruitment/response.json",
                 ["textRows"] = {
                     {
                         ["key"] = "recruitment.reject.leader.1",
@@ -1789,9 +1771,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.recruitment.response",
-                ["sourcePath"] = "social/recruitment/response.json",
                 ["textRows"] = {
                     {
                         ["key"] = "recruitment.reject.member.1",
@@ -2319,9 +2298,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.recruitment.response",
-                ["sourcePath"] = "social/recruitment/response.json",
                 ["textRows"] = {
                     {
                         ["key"] = "recruitment.reject.relationship.1",
@@ -2881,9 +2857,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.recruitment.response",
-                ["sourcePath"] = "social/recruitment/response.json",
                 ["textRows"] = {
                     {
                         ["key"] = "recruitment.reject.unavailable.1",

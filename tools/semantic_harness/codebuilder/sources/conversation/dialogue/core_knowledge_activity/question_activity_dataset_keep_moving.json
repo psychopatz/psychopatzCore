@@ -14,7 +14,6 @@
   },
   "metadata": {
     "category": "psychopatzcore:knowledge",
-    "sourceSurface": "content/knowledge/activity.json",
     "responseAct": "KNOWLEDGE_RESPONSE"
   },
   "say": {

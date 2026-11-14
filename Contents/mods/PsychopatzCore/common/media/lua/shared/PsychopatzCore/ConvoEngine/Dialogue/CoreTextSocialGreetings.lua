@@ -73,9 +73,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.greetings.ambient_visit.arrival",
-                ["sourcePath"] = "social/greetings/ambient_visit/arrival.json",
                 ["textKey"] = "response.ambient_visit.accepted.1",
                 ["textRows"] = {
                     {

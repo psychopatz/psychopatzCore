@@ -5,9 +5,6 @@
   "id": "horde_survival",
   "owner": "PsychopatzCore",
   "metadata": {
-    "migration": "Core PSDL text record; translation catalog is downstream output",
-    "sourceCatalog": "conversation.memory.gossip.reactions.neutral.survival",
-    "sourcePath": "memory/gossip/reactions/neutral/survival.json",
     "textKey": "neutral.horde_survival",
     "textTarget": "memory/gossip",
     "textRows": [

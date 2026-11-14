@@ -122,7 +122,7 @@ local function format(value, args)
     -- above for established catalogs, then let Core resolve only public
     -- semantic paths from the same argument context.
     if TextBinding and type(TextBinding.Render) == "function"
-        and string.find(output, "{[a-z][a-z0-9_.]*}")
+        and string.find(output, "{[a-z][a-zA-Z0-9_.]*}")
     then
         local rendered = TextBinding.Render(output, args)
         if rendered ~= nil then output = rendered end

@@ -73,9 +73,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.needs.gifts.preference",
-                ["sourcePath"] = "needs/gifts/preference.json",
                 ["textKey"] = "gift.preference.dislike",
                 ["textRows"] = {
                     {
@@ -240,9 +237,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.needs.gifts.preference",
-                ["sourcePath"] = "needs/gifts/preference.json",
                 ["textKey"] = "gift.preference.like",
                 ["textRows"] = {
                     {
@@ -407,9 +401,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.needs.gifts.preference",
-                ["sourcePath"] = "needs/gifts/preference.json",
                 ["textKey"] = "gift.preference.neutral",
                 ["textRows"] = {
                     {
@@ -574,9 +565,6 @@ return {
         },
         ["payload"] = {
             ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.needs.gifts.preference",
-                ["sourcePath"] = "needs/gifts/preference.json",
                 ["textKey"] = "gift.preference.unknown",
                 ["textRows"] = {
                     {

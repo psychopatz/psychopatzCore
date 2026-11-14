@@ -15,9 +15,6 @@
     }
   },
   "metadata": {
-    "migration": "Core PSDL text record; translation catalog is downstream output",
-    "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
-    "sourcePath": "memory/gossip/corpse/revenge/relative.json",
     "textTarget": "memory/gossip",
     "textRows": [
       {

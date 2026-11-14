@@ -4,14 +4,14 @@ checkpoint_mode: "committed_handoff"
 phase_commit: "self"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-participant_heads: "project-hoomans=0c5c825c280558278d64f1ef28d45aadccbaa28d;dynamic-trading=b3e3e6ce862dd633817ff8eddf3d2ea3b83bb49e"
+participant_heads: "project-hoomans=a23890d67da3ddbd4173a5a00d69e75644fbedc1;dynamic-trading=f41df273b37057ebf99f689fb9e67bac6d47d07e"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
-phase: "S6M — ConvoEngine action contracts and cleanup"
-chunk: "S6M7-S6M8 — Metadata cleanup, deterministic regeneration, audits & broad regression closure"
+phase: "S7 — ConvoEngine-native Semantic Lab UX"
+chunk: "S7 — Semantic Lab exchange-family authoring & trace"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-14T18:03:00Z"
+updated_at: "2026-11-14T18:22:30Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -34,15 +34,15 @@ The existing compiler/runtime migration is useful. Do not undo it.
 ```text
 Core
 /home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD dcd16440a086fb45d4f04082c897f07d7c523388 (parent of this S6M6 handoff)
+HEAD 28647c99964b845087e8397622b7c374b4245372 (parent of this S6M7-S6M8 handoff)
 
 Hoomans
 /home/psychopatz/Zomboid/Workshop/ProjectHoomans
-HEAD 0c5c825c280558278d64f1ef28d45aadccbaa28d
+HEAD a23890d67da3ddbd4173a5a00d69e75644fbedc1
 
 DynamicTrading
 /home/psychopatz/Zomboid/Workshop/DynamicTrading
-HEAD b3e3e6ce862dd633817ff8eddf3d2ea3b83bb49e
+HEAD f41df273b37057ebf99f689fb9e67bac6d47d07e
 ```
 
 Reinspect Git state before edits. Preserve unrelated work.
@@ -250,16 +250,22 @@ This is S6M6, not the current chunk.
 - Updated `command_camp.json` through `SemanticLabAuthoringService.write_convo_engine_source` and regenerated all 466 generated artifacts cleanly via `build.py`.
 - Verification: Core Python `tools/semantic_harness/tests` 140/140 OK, `refactor_binding_smoke.py` PASS (5 changed Lua files), Core S6M5 + S6M6 Lua smokes PASS; DynamicTrading `tests/run_tests.py` PASS 89/89; ProjectHoomans `tests/run_tests.py` 1013/1021 PASS (`pnc_convo_engine_camp_action_smoke.lua` PASS, 10/10 camp/task filter pass, exact 8 pre-existing baseline failures, 0 regressions); 0 Kahlua2 errors across all 6 edited/created Lua files.
 
-## Immediate Next Chunk — S6M7-S6M8
+## What became true in S6M7-S6M8
+
+- Enforced stale migration metadata stripping (`sourceSurface`, `migration`, `sourceCatalog`, `originalOwner`, `metadata.sourcePath`, `metadata.sourceProfile`) in `convo_engine_authoring.py` / `SemanticLabAuthoringService.write_convo_engine_source` and fixed cross-file `compile_convo_engine_sources` + `beat`-to-sibling-`behavior` validation in `psdl_compiler.py` / `service.py`.
+- Cleaned stale migration metadata across all 436 Core/Hoomans and 2 DynamicTrading canonical ConvoEngine source files via `SemanticLabAuthoringService.write_convo_engine_source`, restored `opening.001..003` `metadata.textRows` in `social_settlement_admission.json`, and regenerated 466 runtime/translation files via `build.py`.
+- Closed all 7 Hoomans ConvoEngine/semantic/translation/emote/gift/context regressions (Core `UI_PsychopatzConversation_Goodbye` in `EN/TL/Conversation/UI.json` + camelCase `{slot.*}` regex in `PsychopatzConversationText.lua`; Hoomans `DialogueBlocks.lua` compact `say`, `PNC_CompanionCommandInteractionQueue.lua` explicit player actor + synchronous pump, `PNC_CompanionCommandInteraction.lua` unique per-exchange correlation ID, `PNC_TranslationBootstrap.lua` + `_Segments.lua` `^semantic.` / `^UI_DT_Conversation_` / `DebugDiscoveryRawLabel`, `Gifts_Receive_Presentation.lua` nil-guards, `pnc_conversation_smoke.lua`, `pnc_semantic_context_smoke.lua`, `pnc_semantic_cognition_client_smoke.lua`).
+- Added automated `convo_engine_s6m8_audit.py`, CLI `audit-s6m8`, service `run_convo_engine_s6m8_audit()`, and `test_convo_engine_s6m8_audit.py`.
+- Verification: Core Python 144/144 OK, Core ConvoEngine S6M5/S6M6 Lua smokes PASS, `audit-s6m8` 0 violations across 566 family files & 0 diffs across 404 generated files in two-pass determinism check, Kahlua2 0 errors across 288 scanned Lua files, DynamicTrading 89/89 PASS, ProjectHoomans 1020/1021 PASS (only unrelated world-bootstrap `pnc_population_director_smoke.lua:316` fails).
+
+## Immediate Next Chunk — S7
 
 Responsibility:
 
-> Finish metadata/source cleanup, deterministic regeneration, namespace/caller-zero & modularity audits, broad tests (including resolving remaining baseline Hoomans failures where ConvoEngine-owned), and Kahlua/static/modularity acceptance across all three repositories.
+> Upgrade Semantic Lab (`tools/semantic_harness/studio/`) to ConvoEngine-native authoring & live simulation/trace UX backed by `SemanticLabAuthoringService`, covering hierarchical family browsing, kind/namespace/family-id/slots/say/reply/`execute` authoring, player↔NPC & NPC↔NPC preview, and `affordance → speech → execute → result → reply` traces.
 
 ## Following bounded chunks
 
-- **S6M7-S6M8:** metadata cleanup + regeneration/audit/regression closure.
-- **S7:** final ConvoEngine Semantic Lab UX.
 - **S8:** exhaustive three-repo acceptance.
 
 ## Safety
