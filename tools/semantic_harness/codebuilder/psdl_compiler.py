@@ -82,6 +82,7 @@ MAX_LIST_ITEMS = 32
 MAX_RECOGNITION_RECORDS = 256
 _ID = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
 _NAME = re.compile(r"^[a-z][a-z0-9_]{0,31}$")
+_BINDING_NAME = re.compile(r"^[a-z][a-zA-Z0-9_.]*(?<!\.)$")
 _RESOLVER = re.compile(r"^[a-z][a-z0-9_.:-]{0,127}$")
 _PLACEHOLDER = re.compile(r"\{([a-z][a-zA-Z0-9_.]*)\}")
 _FORBIDDEN_ID_PARTS = frozenset({
@@ -169,8 +170,16 @@ def _normalize_bindings(value: Any, label: str = "bindings") -> dict[str, dict[s
         raise CompileError(f"{label} must contain at most {MAX_BINDINGS} bindings")
     output: dict[str, dict[str, Any]] = {}
     for name in sorted(value, key=lambda item: str(item)):
-        if not isinstance(name, str) or not _NAME.fullmatch(name):
+        if (
+            not isinstance(name, str)
+            or len(name) > 64
+            or ".." in name
+            or not _BINDING_NAME.fullmatch(name)
+        ):
             raise CompileError(f"{label} contains an invalid binding name {name!r}")
+        for segment in name.split("."):
+            if segment.lower() in {"private", "secret", "undiscovered", "lua", "callback", "java"}:
+                raise CompileError(f"{label} contains forbidden binding segment in {name!r}")
         raw = value[name]
         if not isinstance(raw, Mapping):
             raise CompileError(f"{label}.{name} must be a typed resolver object")
@@ -440,6 +449,7 @@ def _normalize_module_payload(
     slots: Mapping[str, Any] | None = None,
     source_schema: str = LEGACY_PSDL_SCHEMA,
     has_namespace: bool = False,
+    action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     bindings = _normalize_bindings(payload.get("bindings"), f"{label}.bindings")
     if bindings:
@@ -525,7 +535,7 @@ def _normalize_module_payload(
             if not normalized_candidates:
                 raise CompileError(f"{label}.candidates must contain at least one behavior")
     if kind == "dialogue":
-        if any(key in payload for key in ("invoke", "affordance", "say", "reply", "after")):
+        if any(key in payload for key in ("invoke", "affordance", "execute", "say", "reply", "after")):
             normalize_exchange_family_payload(
                 payload,
                 label=label,
@@ -536,6 +546,7 @@ def _normalize_module_payload(
                 normalize_transition=_normalize_transition,
                 normalize_turn=_normalize_turn,
                 consumers=CONSUMERS,
+                action_contracts=action_contracts,
             )
     if kind == "dialogue" and not any(
         field in payload for field in ("respond", "response", "variants", "turns", "text", "offers", "say", "reply", "recognition")
@@ -675,6 +686,7 @@ def _normalize_record(
     default_owner: Any = None,
     document_schema: str = LEGACY_PSDL_SCHEMA,
     allow_legacy_schema: bool = True,
+    action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     if not isinstance(raw, Mapping):
         raise CompileError("ConvoEngine record must be an object")
@@ -719,6 +731,7 @@ def _normalize_record(
         slots=canonical["slots"],
         source_schema=record_schema,
         has_namespace=(namespace is not None),
+        action_contracts=action_contracts,
     )
     canonical["owner"] = record["owner"]
     if canonical["kind"] in {"behavior", "beat"}:
@@ -797,6 +810,7 @@ def compile_convo_engine_document(
     default_owner: Any = None,
     allow_legacy_schema: bool = True,
     validate_cross_references: bool = True,
+    action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Compile one ConvoEngine/PSDL record or a bounded record catalog."""
     raw_records, doc_owner, doc_schema = _record_values(
@@ -816,6 +830,7 @@ def compile_convo_engine_document(
             default_owner=resolved_default_owner,
             document_schema=doc_schema,
             allow_legacy_schema=allow_legacy_schema,
+            action_contracts=action_contracts,
         )
         for index, raw in enumerate(raw_records)
     ]
@@ -860,6 +875,7 @@ def compile_convo_engine_sources(
     default_owner: Any = None,
     allow_legacy_schema: bool = True,
     validate_cross_references: bool = True,
+    action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Compile multiple source documents with deterministic path/ID routing."""
     if not isinstance(sources, Mapping) or not sources:
@@ -875,6 +891,7 @@ def compile_convo_engine_sources(
             default_owner=default_owner,
             allow_legacy_schema=allow_legacy_schema,
             validate_cross_references=validate_cross_references,
+            action_contracts=action_contracts,
         )
         ids = [record["id"] for record in compiled["records"]]
         duplicates = sorted(set(ids) & seen_ids)

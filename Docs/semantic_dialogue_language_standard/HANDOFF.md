@@ -4,14 +4,14 @@ checkpoint_mode: "committed_handoff"
 phase_commit: "self"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-participant_heads: "project-hoomans=d8689b3b591036e2786b2afc2692aadc18799c37;dynamic-trading=05fcdbdb244dcce74b75e2e55a0008d187271072"
+participant_heads: "project-hoomans=0c5c825c280558278d64f1ef28d45aadccbaa28d;dynamic-trading=b3e3e6ce862dd633817ff8eddf3d2ea3b83bb49e"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S6M — ConvoEngine action contracts and cleanup"
-chunk: "S6M6 — Registered Semantic Action Contract / result.* and Hoomans CAMP acceptance"
+chunk: "S6M7-S6M8 — Metadata cleanup, deterministic regeneration, audits & broad regression closure"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-14T17:51:00Z"
+updated_at: "2026-11-14T18:03:00Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -34,15 +34,15 @@ The existing compiler/runtime migration is useful. Do not undo it.
 ```text
 Core
 /home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD 577c903ef51d3b09ece69139bb09ca772377040c (parent of this S6M5 handoff)
+HEAD dcd16440a086fb45d4f04082c897f07d7c523388 (parent of this S6M6 handoff)
 
 Hoomans
 /home/psychopatz/Zomboid/Workshop/ProjectHoomans
-HEAD d8689b3b591036e2786b2afc2692aadc18799c37
+HEAD 0c5c825c280558278d64f1ef28d45aadccbaa28d
 
 DynamicTrading
 /home/psychopatz/Zomboid/Workshop/DynamicTrading
-HEAD 05fcdbdb244dcce74b75e2e55a0008d187271072
+HEAD b3e3e6ce862dd633817ff8eddf3d2ea3b83bb49e
 ```
 
 Reinspect Git state before edits. Preserve unrelated work.
@@ -243,15 +243,21 @@ This is S6M6, not the current chunk.
 - Normalized Core (`question.knowledge`, `question.identity` known branch, sharded `core_check_in` + `core_identity`), Hoomans (`static_suggestion_text` 12 label+utterance families, `companion_check_in`, `health_content`, `companion_commands_lifecycle` 5 commands, `quest_content` 4 stages, `task_lifecycle` 7 tasks + `gift`), and DynamicTrading (`trade_conversation_suggestions` -> 8 offer families + `suggestions_recognition`) via CodeBuilder and regenerated 466 artifacts via `build.py`.
 - Verification: Core Python `tools/semantic_harness/tests` 135/135 OK, `refactor_binding_smoke.py` PASS, Core semantic + S6M5 Lua tests 18/18 PASS; DynamicTrading `tests/run_tests.py` PASS 89/89; ProjectHoomans `tests/run_tests.py` 1012/1020 PASS (exact 8 pre-existing failures, 0 regressions); 0 Kahlua2 errors on edited Lua modules.
 
-## Immediate Next Chunk — S6M6
+## What became true in S6M6
+
+- Implemented the Core registered Semantic Action Contract / `execute` + bounded public `result.*` compiler/IR/runtime mechanism (`semantic_dialogue_ir.py`, `convo_engine_exchange.py`, `psdl_compiler.py`, `PsychopatzSemanticIR.lua`, `TextBinding.lua`, `ActionContract.lua`, `Affordance.lua`) rejecting arbitrary Lua/callbacks, enforcing `discoveryOnly` isolation, validating typed inputs and capability gates, correlating sync and async (`request_response`) completions with duplicate/stale suppression, and projecting fail-closed public `result.*` fields & bindings.
+- Registered Hoomans `pnc.companion.camp` action contract & `pnc.camp.location_phrase` presentation resolver in `PNC/ConvoEngine/CampActionContract.lua` (required from `PNC/ConvoEngine/Foundation.lua`) routing exclusively through Hoomans' existing authoritative `PNC.Client.RequestSemanticTask` / `TaskRequestService.Submit` path and client-observed `camp_site` hint rules.
+- Updated `command_camp.json` through `SemanticLabAuthoringService.write_convo_engine_source` and regenerated all 466 generated artifacts cleanly via `build.py`.
+- Verification: Core Python `tools/semantic_harness/tests` 140/140 OK, `refactor_binding_smoke.py` PASS (5 changed Lua files), Core S6M5 + S6M6 Lua smokes PASS; DynamicTrading `tests/run_tests.py` PASS 89/89; ProjectHoomans `tests/run_tests.py` 1013/1021 PASS (`pnc_convo_engine_camp_action_smoke.lua` PASS, 10/10 camp/task filter pass, exact 8 pre-existing baseline failures, 0 regressions); 0 Kahlua2 errors across all 6 edited/created Lua files.
+
+## Immediate Next Chunk — S6M7-S6M8
 
 Responsibility:
 
-> Implement the Core registered Semantic Action Contract / `execute` + bounded `result.*` mechanism and prove Hoomans CAMP end-to-end through its existing authoritative command/server gameplay path (no arbitrary Lua callbacks in ConvoEngine).
+> Finish metadata/source cleanup, deterministic regeneration, namespace/caller-zero & modularity audits, broad tests (including resolving remaining baseline Hoomans failures where ConvoEngine-owned), and Kahlua/static/modularity acceptance across all three repositories.
 
 ## Following bounded chunks
 
-- **S6M6:** registered action/result contract + CAMP parity.
 - **S6M7-S6M8:** metadata cleanup + regeneration/audit/regression closure.
 - **S7:** final ConvoEngine Semantic Lab UX.
 - **S8:** exhaustive three-repo acceptance.

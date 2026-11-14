@@ -36,6 +36,7 @@ IR.PUBLIC_CONTEXT_ROOTS = {
     task = true,
     action = true,
     decision = true,
+    result = true,
 }
 
 local function copyValue(value, depth)

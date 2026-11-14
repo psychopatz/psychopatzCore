@@ -47,7 +47,7 @@ function Binding.ClearResolvers()
     Binding.Resolvers = {}
 end
 
-function Binding.ResolvePath(context, path)
+function Binding.ResolvePath(context, path, options)
     if not IR.IsPublicContextPath(path) then
         return nil, "binding_path_private_or_unknown"
     end
@@ -57,6 +57,9 @@ function Binding.ResolvePath(context, path)
             return nil, "binding_value_missing"
         end
         current = current[segment]
+    end
+    if type(options) == "table" and options.raw == true then
+        return current
     end
     local value = scalarText(current)
     if value == nil or value == "" then
@@ -74,7 +77,7 @@ function Binding.Resolve(name, context, definitions)
         path = definition.from
         resolverID = definition.resolver
     end
-    local value, reason = Binding.ResolvePath(context, path)
+    local value, reason = Binding.ResolvePath(context, path, resolverID ~= nil and { raw = true } or nil)
     if value == nil then return nil, reason end
     if resolverID ~= nil then
         local resolver = Binding.Resolvers[resolverID]
@@ -96,7 +99,7 @@ function Binding.Render(template, context, definitions)
     end
     local count = 0
     local missing
-    for name in string.gmatch(template, "{([a-z][a-z0-9_.]*)}") do
+    for name in string.gmatch(template, "{([a-z][a-zA-Z0-9_.]*)}") do
         count = count + 1
         if count > Binding.MAX_PLACEHOLDERS then
             return nil, "binding_placeholder_limit"
@@ -105,7 +108,7 @@ function Binding.Render(template, context, definitions)
         if value == nil then missing = reason or "binding_value_missing" end
     end
     if missing ~= nil then return nil, missing end
-    return (string.gsub(template, "{([a-z][a-z0-9_.]*)}", function(name)
+    return (string.gsub(template, "{([a-z][a-zA-Z0-9_.]*)}", function(name)
         return Binding.Resolve(name, context, definitions)
     end))
 end

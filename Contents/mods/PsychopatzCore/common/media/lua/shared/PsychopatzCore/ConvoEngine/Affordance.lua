@@ -176,12 +176,12 @@ local function selectRealizationTemplate(sayBlock, options)
     return chosen or neutralVar or realization.variants[1], rkey
 end
 
-local function renderTemplateText(rawText, context)
+local function renderTemplateText(rawText, context, bindings)
     if type(rawText) ~= "string" or rawText == "" then
         return nil, "role_text_missing"
     end
     if string.find(rawText, "{", 1, true) then
-        return TextBinding.Render(rawText, context or {})
+        return TextBinding.Render(rawText, context or {}, bindings)
     end
     return rawText
 end
@@ -196,6 +196,7 @@ function Affordance.RenderRoleText(planOrFamily, role, context, options)
     local language = activeLanguage(options)
     local seed = type(options) == "table" and options.seed or family.familyID
     local explicitIndex = type(options) == "table" and options.index or nil
+    local bindings = family.bindings
 
     if role == "button_label" then
         local aff = family.affordance
@@ -204,7 +205,7 @@ function Affordance.RenderRoleText(planOrFamily, role, context, options)
         end
         local raw = resolveLocalizedList(aff.translations, aff.labelFallback, language, seed, 1)
         if not raw then return nil, "button_label_missing" end
-        return renderTemplateText(raw, context)
+        return renderTemplateText(raw, context, bindings)
     elseif role == "spoken_action" then
         local chosen = selectRealizationTemplate(family.initiatingSay, options)
         if type(chosen) ~= "table" then
@@ -212,7 +213,7 @@ function Affordance.RenderRoleText(planOrFamily, role, context, options)
         end
         local raw = resolveLocalizedList(chosen.translations, chosen.fallback, language, seed, explicitIndex)
         if not raw then return nil, "spoken_action_missing" end
-        return renderTemplateText(raw, context)
+        return renderTemplateText(raw, context, bindings)
     elseif role == "response" then
         local outcome = type(options) == "table" and tostring(options.outcome or "") or ""
         local replies = type(family.replies) == "table" and family.replies or nil
@@ -239,7 +240,7 @@ function Affordance.RenderRoleText(planOrFamily, role, context, options)
         end
         local raw = resolveLocalizedList(chosen.translations, chosen.fallback, language, seed, explicitIndex)
         if not raw then return nil, "response_text_missing" end
-        return renderTemplateText(raw, context)
+        return renderTemplateText(raw, context, bindings)
     end
     return nil, "unknown_text_role"
 end
@@ -443,9 +444,20 @@ function Affordance.SelectReply(familyOrID, context, options)
 
     local chosenOutcome = nil
     local explicitOutcome = options.outcome and tostring(options.outcome) or nil
-    if explicitOutcome and type(family.replies[explicitOutcome]) == "table" then
+    if not options.forceExactOutcome then
+        for _, outcomeName in ipairs(sortedKeys(family.replies)) do
+            local branch = family.replies[outcomeName]
+            if type(branch) == "table" and branch.when ~= nil then
+                if evalPredicate(branch.when, context) then
+                    chosenOutcome = outcomeName
+                    break
+                end
+            end
+        end
+    end
+    if not chosenOutcome and explicitOutcome and type(family.replies[explicitOutcome]) == "table" then
         chosenOutcome = explicitOutcome
-    else
+    elseif not chosenOutcome then
         local defaultOutcome = nil
         for _, outcomeName in ipairs(sortedKeys(family.replies)) do
             local branch = family.replies[outcomeName]
@@ -568,6 +580,127 @@ function Affordance.ResolveAfter(familyOrID, outcomeName, context, options)
         return { mode = "transition", transition = after.transition }
     end
     return { mode = "none" }
+end
+
+local function actionContractModule()
+    if ConvoEngine.ActionContract then
+        return ConvoEngine.ActionContract
+    end
+    return require "PsychopatzCore/ConvoEngine/ActionContract"
+end
+
+function Affordance.ApplyActionResult(familyOrID, actionResponse, context, options)
+    options = type(options) == "table" and options or {}
+    context = type(context) == "table" and context or {}
+    local _plan, family = findPlan(familyOrID, options)
+    if type(family) ~= "table" then
+        return nil, "exchange_family_missing"
+    end
+
+    local resolved = actionResponse
+    if type(options.requestID) == "string" and options.requestID ~= ""
+        and options.completeAsync == true
+    then
+        resolved = actionContractModule().CompleteAsync(options.requestID, actionResponse, options)
+        if not resolved or resolved.accepted ~= true then
+            return {
+                familyID = family.familyID,
+                accepted = false,
+                duplicate = resolved and resolved.duplicate == true,
+                stale = resolved and resolved.stale == true,
+                reason = resolved and resolved.reason or "async_result_rejected",
+                result = resolved and resolved.result or nil,
+                emittedReply = false,
+            }
+        end
+    end
+
+    if type(resolved) ~= "table" then
+        return nil, "action_result_missing"
+    end
+
+    local replyCtx = cloneShallow(context)
+    replyCtx.result = resolved.result or resolved
+    local selectOpts = cloneShallow(options)
+    selectOpts.outcome = resolved.outcome or (replyCtx.result and replyCtx.result.outcome)
+
+    local reply, replyErr = Affordance.SelectReply(family, replyCtx, selectOpts)
+    local afterResult = Affordance.ResolveAfter(
+        family,
+        reply and reply.outcome or selectOpts.outcome,
+        replyCtx,
+        options
+    )
+    return {
+        familyID = family.familyID,
+        accepted = resolved.accepted ~= false,
+        requestID = resolved.requestID or (replyCtx.result and replyCtx.result.requestID),
+        outcome = reply and reply.outcome or selectOpts.outcome,
+        result = replyCtx.result,
+        reply = reply,
+        replyError = replyErr,
+        after = afterResult,
+        emittedReply = reply ~= nil,
+        duplicate = false,
+        stale = false,
+    }
+end
+
+function Affordance.ExecuteExchange(familyOrID, context, options)
+    options = type(options) == "table" and options or {}
+    context = type(context) == "table" and context or {}
+    if options.discoveryOnly == true then
+        return {
+            accepted = false,
+            reason = "action_execution_forbidden_in_discovery",
+            emittedReply = false,
+        }
+    end
+    local _plan, family = findPlan(familyOrID, options)
+    if type(family) ~= "table" then
+        return nil, "exchange_family_missing"
+    end
+
+    local spokenText = nil
+    if options.renderSpokenAction ~= false and type(family.initiatingSay) == "table" then
+        spokenText = Affordance.RenderRoleText(family, "spoken_action", context, options)
+    end
+
+    if type(family.execute) ~= "table" then
+        local reply, err = Affordance.SelectReply(family, context, options)
+        return {
+            familyID = family.familyID,
+            accepted = true,
+            spokenAction = spokenText,
+            outcome = reply and reply.outcome or nil,
+            reply = reply,
+            replyError = err,
+            after = Affordance.ResolveAfter(family, reply and reply.outcome, context, options),
+            emittedReply = reply ~= nil,
+        }
+    end
+
+    local execRes = actionContractModule().Execute(family.execute, context, options)
+    if execRes.duplicate == true then
+        return {
+            familyID = family.familyID,
+            accepted = execRes.accepted,
+            duplicate = true,
+            stale = true,
+            reason = execRes.reason,
+            requestID = execRes.requestID,
+            outcome = execRes.outcome,
+            result = execRes.result,
+            spokenAction = spokenText,
+            emittedReply = false,
+        }
+    end
+
+    local applied = Affordance.ApplyActionResult(family, execRes, context, options)
+    if type(applied) == "table" then
+        applied.spokenAction = spokenText
+    end
+    return applied
 end
 
 return Affordance

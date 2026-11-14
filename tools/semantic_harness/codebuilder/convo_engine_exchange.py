@@ -37,10 +37,27 @@ EXCHANGE_FAMILY_FIELDS = frozenset({
     "namespace",
     "invoke",
     "affordance",
+    "execute",
     "say",
     "reply",
     "after",
 })
+
+ACTION_MODES = frozenset({"sync", "request_response", "long_running"})
+_FORBIDDEN_CALLBACK_KEYS = frozenset({
+    "lua",
+    "callback",
+    "callbacks",
+    "module",
+    "function",
+    "fn",
+    "code",
+    "script",
+    "handler",
+    "handlerfn",
+    "inline",
+})
+MAX_ACTION_WITH_ARGS = 16
 
 MAX_SAY_REALIZATIONS = 32
 MAX_REPLY_OUTCOMES = 16
@@ -771,6 +788,173 @@ def normalize_reply_outcomes(
     return outcomes
 
 
+def _assert_no_callback_value(value: Any, label: str, depth: int = 0) -> None:
+    if depth > 6:
+        raise CompileError(f"{label} exceeds maximum nesting depth")
+    if isinstance(value, Mapping):
+        for raw_key, item in value.items():
+            key_text = str(raw_key)
+            if key_text.lower() in _FORBIDDEN_CALLBACK_KEYS:
+                raise CompileError(
+                    f"{label}.{key_text} cannot embed arbitrary Lua or callback fields"
+                )
+            _assert_no_callback_value(item, f"{label}.{key_text}", depth + 1)
+        return
+    if isinstance(value, list):
+        if len(value) > 32:
+            raise CompileError(f"{label} exceeds maximum list length (32)")
+        for idx, item in enumerate(value):
+            _assert_no_callback_value(item, f"{label}[{idx}]", depth + 1)
+        return
+    if isinstance(value, str):
+        if len(value) > 256 or any(ord(ch) < 32 for ch in value):
+            raise CompileError(f"{label} must be bounded plain text")
+        lowered = value.strip().lower()
+        if (
+            lowered.startswith("lua:")
+            or "function(" in lowered
+            or "require(" in lowered
+            or "loadstring(" in lowered
+        ):
+            raise CompileError(f"{label} cannot contain executable Lua or callback code")
+        return
+    if isinstance(value, bool) or isinstance(value, (int, float)):
+        if isinstance(value, float) and not math.isfinite(value):
+            raise CompileError(f"{label} must be finite")
+        return
+    if value is not None:
+        raise CompileError(f"{label} has unsupported value type {type(value).__name__}")
+
+
+def _normalize_action_input_value(
+    value: Any,
+    label: str,
+    *,
+    slots: Mapping[str, Any],
+) -> Any:
+    from .semantic_dialogue_ir import validate_context_path
+
+    _assert_no_callback_value(value, label)
+    if isinstance(value, str):
+        stripped = value.strip()
+        if stripped.startswith("$slot."):
+            slot_path = stripped[len("$slot."):]
+            slot_root = slot_path.split(".", 1)[0]
+            if not _NAME_RE.fullmatch(slot_root):
+                raise CompileError(f"{label} contains invalid slot reference {stripped!r}")
+            validate_context_path(f"slot.{slot_path}", label)
+            if slots and slot_root not in slots:
+                raise CompileError(f"{label} references undeclared slot {slot_root!r}")
+            return stripped
+        if stripped == "$target" or stripped.startswith("$target."):
+            subpath = "target" if stripped == "$target" else f"target.{stripped[len('$target.'):]}"
+            validate_context_path(subpath, label)
+            return stripped
+        if stripped.startswith("$context."):
+            validate_context_path(stripped[len("$context."):], label)
+            return stripped
+        return stripped
+    return _copy(value)
+
+
+def normalize_execute(
+    value: Any,
+    label: str,
+    *,
+    slots: Mapping[str, Any],
+    action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Normalize a typed ConvoEngine action ``execute`` contract."""
+    from .semantic_dialogue_ir import SLOT_TYPES, validate_context_path
+
+    if isinstance(value, str):
+        raw: Mapping[str, Any] = {"use": value}
+    elif isinstance(value, Mapping):
+        raw = value
+    else:
+        raise CompileError(f"{label} must be an action ID string or execute object")
+
+    _assert_no_callback_value(raw, label)
+    allowed = {"use", "with", "mode", "idempotencyKey"}
+    unsupported = set(raw) - allowed
+    if unsupported:
+        raise CompileError(
+            f"{label} contains unsupported fields: "
+            + ", ".join(sorted(str(item) for item in unsupported))
+        )
+
+    raw_use = raw.get("use")
+    if not isinstance(raw_use, str) or not _ID_RE.fullmatch(raw_use.strip()):
+        raise CompileError(f"{label}.use must be a registered lowercase action contract ID")
+    action_id = raw_use.strip()
+    _check_no_forbidden_parts(action_id, f"{label}.use")
+
+    normalized: dict[str, Any] = {"use": action_id}
+    if "mode" in raw:
+        mode = raw["mode"]
+        if not isinstance(mode, str) or mode not in ACTION_MODES:
+            raise CompileError(f"{label}.mode must be sync, request_response, or long_running")
+        normalized["mode"] = mode
+
+    if "idempotencyKey" in raw:
+        idem = raw["idempotencyKey"]
+        if not isinstance(idem, str) or not idem.strip():
+            raise CompileError(f"{label}.idempotencyKey must be a non-empty string")
+        normalized["idempotencyKey"] = _normalize_action_input_value(
+            idem, f"{label}.idempotencyKey", slots=slots
+        )
+
+    if "with" in raw:
+        raw_with = raw["with"]
+        if not isinstance(raw_with, Mapping) or len(raw_with) > MAX_ACTION_WITH_ARGS:
+            raise CompileError(f"{label}.with must be an object with at most {MAX_ACTION_WITH_ARGS} keys")
+        normalized_with: dict[str, Any] = {}
+        for arg_key in sorted(raw_with, key=lambda item: str(item)):
+            if not isinstance(arg_key, str) or not re.fullmatch(r"^[a-zA-Z][a-zA-Z0-9_]{0,63}$", arg_key):
+                raise CompileError(f"{label}.with contains invalid argument key {arg_key!r}")
+            validate_context_path(f"action.{arg_key}", f"{label}.with.{arg_key}")
+            normalized_with[arg_key] = _normalize_action_input_value(
+                raw_with[arg_key], f"{label}.with.{arg_key}", slots=slots
+            )
+        normalized["with"] = normalized_with
+
+    if action_contracts is not None:
+        contract = action_contracts.get(action_id)
+        if not isinstance(contract, Mapping):
+            raise CompileError(f"{label}.use references unknown action contract {action_id!r}")
+        if "mode" in normalized and contract.get("mode") and normalized["mode"] != contract["mode"]:
+            raise CompileError(
+                f"{label}.mode {normalized['mode']!r} conflicts with contract mode {contract['mode']!r}"
+            )
+        if "mode" not in normalized and isinstance(contract.get("mode"), str):
+            normalized["mode"] = contract["mode"]
+        contract_inputs = contract.get("inputs")
+        if isinstance(contract_inputs, Mapping):
+            provided_with = normalized.get("with", {})
+            for arg_key, arg_val in provided_with.items():
+                if arg_key not in contract_inputs:
+                    raise CompileError(
+                        f"{label}.with.{arg_key} is not declared by action contract {action_id!r}"
+                    )
+                input_spec = contract_inputs[arg_key]
+                expected_type = input_spec.get("type") if isinstance(input_spec, Mapping) else input_spec
+                if expected_type and isinstance(arg_val, str) and arg_val.startswith("$slot."):
+                    slot_root = arg_val[len("$slot."):].split(".", 1)[0]
+                    slot_spec = slots.get(slot_root)
+                    slot_type = slot_spec.get("type") if isinstance(slot_spec, Mapping) else None
+                    if slot_type and slot_type != expected_type and expected_type in SLOT_TYPES:
+                        raise CompileError(
+                            f"{label}.with.{arg_key} expects {expected_type}, got slot type {slot_type!r}"
+                        )
+            for input_name, input_spec in sorted(contract_inputs.items()):
+                if isinstance(input_spec, Mapping) and input_spec.get("required") is True:
+                    if input_name not in provided_with and not input_spec.get("source"):
+                        raise CompileError(
+                            f"{label}.with is missing required input {input_name!r} for {action_id!r}"
+                        )
+    return normalized
+
+
 def normalize_exchange_family_payload(
     payload: dict[str, Any],
     *,
@@ -782,10 +966,18 @@ def normalize_exchange_family_payload(
     normalize_transition: Callable[[Any, str], Any],
     normalize_turn: Callable[..., dict[str, Any]],
     consumers: frozenset[str],
+    action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Normalize exchange-family fields in place on a dialogue payload."""
     if "invoke" in payload:
         payload["invoke"] = _normalize_invoke(payload["invoke"], f"{label}.invoke", slots=slots)
+    if "execute" in payload:
+        payload["execute"] = normalize_execute(
+            payload["execute"],
+            f"{label}.execute",
+            slots=slots,
+            action_contracts=action_contracts,
+        )
     if "affordance" in payload:
         payload["affordance"] = _normalize_affordance(
             payload["affordance"],
@@ -881,7 +1073,7 @@ def _project_realizations_runtime(
 def project_exchange_family_runtime(record: Mapping[str, Any]) -> dict[str, Any] | None:
     """Project a compiled ConvoEngine exchange family to explicit runtime structures."""
     payload = record.get("payload") or {}
-    if not any(field in payload for field in ("invoke", "affordance", "say", "reply", "after")):
+    if not any(field in payload for field in ("invoke", "affordance", "execute", "say", "reply", "after")):
         return None
 
     family_id = str(record["id"])
@@ -893,8 +1085,12 @@ def project_exchange_family_runtime(record: Mapping[str, Any]) -> dict[str, Any]
         projection["namespace"] = record["namespace"]
     if record.get("slots"):
         projection["slots"] = _copy(record["slots"])
+    if payload.get("bindings"):
+        projection["bindings"] = _copy(payload["bindings"])
     if "invoke" in payload:
         projection["invoke"] = _copy(payload["invoke"])
+    if "execute" in payload:
+        projection["execute"] = _copy(payload["execute"])
     if "affordance" in payload:
         aff = payload["affordance"]
         label_text = aff["label"]
@@ -1047,6 +1243,7 @@ __all__ = [
     "collect_semantic_references",
     "normalize_compact_locale_text",
     "normalize_exchange_family_payload",
+    "normalize_execute",
     "normalize_reply_outcomes",
     "normalize_say_realizations",
     "project_exchange_family_runtime",
