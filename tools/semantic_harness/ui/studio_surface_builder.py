@@ -9,7 +9,7 @@ from ..studio.dataset_library import DatasetLibraryPane
 from ..studio.dialogue_content_pane import DialogueContentPane
 from ..studio.interaction_explorer_pane import InteractionExplorerPane
 from ..studio.interaction_spec_pane import InteractionSpecPane
-from ..studio.psdl_authoring_pane import PSDLAuthoringPane
+from ..studio.convo_engine_authoring_pane import ConvoEngineAuthoringPane
 from ..studio.source_explorer_pane import CanonicalSourceExplorerPane
 from ..studio.workflow import SemanticLabWorkflowPane
 from ..studio.observatory_pane import SemanticObservatoryPane
@@ -123,7 +123,7 @@ def build_studio_editors(
     advanced_notebook.add(blocks_frame, text="Block contracts")
     advanced_notebook.add(composer_frame, text="Interaction composer")
     advanced_notebook.add(workflow_frame, text="Workflow composer")
-    advanced_notebook.add(psdl_frame, text="PSDL authoring")
+    advanced_notebook.add(psdl_frame, text="ConvoEngine")
     app.interaction_modules_frame = interaction_modules_frame
     app.flow_editor_frame = flow_frame
     app.library_tab = library_frame
@@ -200,7 +200,7 @@ def build_studio_editors(
         on_generate=app.generate_workflow,
         on_inspect=app.inspect_live_worker,
     )
-    app.psdl_authoring = PSDLAuthoringPane(
+    app.convo_engine_authoring = ConvoEngineAuthoringPane(
         psdl_frame,
         app._tk,
         ttk,
@@ -208,3 +208,4 @@ def build_studio_editors(
         app._messagebox,
         app.authoring_service,
     )
+    app.psdl_authoring = app.convo_engine_authoring

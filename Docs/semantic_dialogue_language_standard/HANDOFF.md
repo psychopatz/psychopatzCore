@@ -7,11 +7,11 @@ branch: "main"
 participant_heads: "project-hoomans=a23890d67da3ddbd4173a5a00d69e75644fbedc1;dynamic-trading=f41df273b37057ebf99f689fb9e67bac6d47d07e"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
-phase: "S7 — ConvoEngine-native Semantic Lab UX"
-chunk: "S7 — Semantic Lab exchange-family authoring & trace"
+phase: "S8 — Final three-repository ConvoEngine acceptance"
+chunk: "S8 — Fresh exhaustive 3-repository verification & completion"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-14T18:22:30Z"
+updated_at: "2026-11-14T18:26:45Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -34,7 +34,7 @@ The existing compiler/runtime migration is useful. Do not undo it.
 ```text
 Core
 /home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD 28647c99964b845087e8397622b7c374b4245372 (parent of this S6M7-S6M8 handoff)
+HEAD d200bde85eebc2b6d4ac0e69f4b9d62f94add23a (parent of this S7 handoff)
 
 Hoomans
 /home/psychopatz/Zomboid/Workshop/ProjectHoomans
@@ -258,15 +258,17 @@ This is S6M6, not the current chunk.
 - Added automated `convo_engine_s6m8_audit.py`, CLI `audit-s6m8`, service `run_convo_engine_s6m8_audit()`, and `test_convo_engine_s6m8_audit.py`.
 - Verification: Core Python 144/144 OK, Core ConvoEngine S6M5/S6M6 Lua smokes PASS, `audit-s6m8` 0 violations across 566 family files & 0 diffs across 404 generated files in two-pass determinism check, Kahlua2 0 errors across 288 scanned Lua files, DynamicTrading 89/89 PASS, ProjectHoomans 1020/1021 PASS (only unrelated world-bootstrap `pnc_population_director_smoke.lua:316` fails).
 
-## Immediate Next Chunk — S7
+## What became true in S7
+
+- Added `tools/semantic_harness/codebuilder/convo_engine_studio_trace.py` and exposed `list_convo_engine_families()`, `list_convo_engine_action_contracts()`, and `simulate_convo_engine_family()` on `SemanticLabAuthoringService`.
+- Replaced record-bucket PSDL UI in Semantic Lab with `ConvoEngineAuthoringPane` (`tools/semantic_harness/studio/convo_engine_authoring_pane.py`, mounted at `"ConvoEngine"` tab in `ui/studio_surface_builder.py`, with `PSDLAuthoringPane` preserved as thin subclass alias in `psdl_authoring_pane.py`), supporting family filtering/CRUD, reply outcome editing, registered `execute` contract picker, `after.recommend` picker, player<->NPC / NPC<->NPC simulation preview with separated `button_label` / `spoken_action` / `response`, full `predicate -> affordance -> invoke -> speech -> execute -> result -> reply -> after` trace, and in-UI S6M8 audit.
+- Verification: Core Python `tools/semantic_harness/tests` 146/146 OK (`test_convo_engine_studio_s7.py` + `test_convo_engine_s6m8_audit.py` PASS).
+
+## Immediate Next Chunk — S8
 
 Responsibility:
 
-> Upgrade Semantic Lab (`tools/semantic_harness/studio/`) to ConvoEngine-native authoring & live simulation/trace UX backed by `SemanticLabAuthoringService`, covering hierarchical family browsing, kind/namespace/family-id/slots/say/reply/`execute` authoring, player↔NPC & NPC↔NPC preview, and `affordance → speech → execute → result → reply` traces.
-
-## Following bounded chunks
-
-- **S8:** exhaustive three-repo acceptance.
+> Perform exhaustive fresh three-repository verification across Core, ProjectHoomans, and DynamicTrading, confirm all acceptance gates pass, and record the final truthful HANDOFF.md & PROGRESS.md checkpoint.
 
 ## Safety
 

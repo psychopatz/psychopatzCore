@@ -61,6 +61,11 @@ from .convo_engine_normalization import (
     shard_offers_to_families as _shard_offers_to_families,
 )
 from .convo_engine_s6m8_audit import audit_convo_engine_workspace
+from .convo_engine_studio_trace import (
+    list_convo_engine_families as _list_convo_engine_families,
+    list_registered_action_contracts as _list_registered_action_contracts,
+    simulate_convo_engine_family as _simulate_convo_engine_family,
+)
 from .psdl_compiler import (
     CONVO_ENGINE_SCHEMA,
     LEGACY_PSDL_SCHEMA,
@@ -2597,4 +2602,47 @@ class SemanticLabAuthoringService:
             hoomans_repository=hoomans_repo,
             dynamic_trading_repository=self.dynamic_trading_repository,
             check_determinism=check_determinism,
+        )
+
+    def list_convo_engine_families(self) -> list[dict[str, Any]]:
+        """List all canonical ConvoEngine single-family sources across repositories."""
+        return _list_convo_engine_families(self)
+
+    def list_convo_engine_action_contracts(self) -> list[dict[str, Any]]:
+        """List registered Semantic Action Contracts available to ConvoEngine families."""
+        return _list_registered_action_contracts(self)
+
+    def simulate_convo_engine_family(
+        self,
+        document: dict[str, Any],
+        *,
+        source_path: str | Path | None = None,
+        speaker: str = "player",
+        addressee: str = "npc",
+        target: str | None = None,
+        slot_values: dict[str, Any] | None = None,
+        style: str = "neutral",
+        locale: str = "EN",
+        result_outcome: str | None = None,
+        result_reason_class: str | None = None,
+        result_fields: dict[str, Any] | None = None,
+        context: dict[str, Any] | None = None,
+        realization_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Validate and trace one ConvoEngine family through affordance -> execute -> reply."""
+        return _simulate_convo_engine_family(
+            self,
+            document,
+            source_path=source_path,
+            speaker=speaker,
+            addressee=addressee,
+            target=target,
+            slot_values=slot_values,
+            style=style,
+            locale=locale,
+            result_outcome=result_outcome,
+            result_reason_class=result_reason_class,
+            result_fields=result_fields,
+            context=context,
+            realization_key=realization_key,
         )
