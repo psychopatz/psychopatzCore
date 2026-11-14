@@ -119,6 +119,19 @@ def build_parser() -> argparse.ArgumentParser:
     p_write.add_argument("--owner", default=None)
     p_write.add_argument("--expected-fingerprint", default=None)
 
+    p_norm = sub.add_parser(
+        "normalize",
+        help="Fold style/legacy/numeric ConvoEngine sources into one canonical family",
+    )
+    _add_repo_args(p_norm)
+    p_norm.add_argument("--sources", nargs="+", required=True, type=Path)
+    p_norm.add_argument("--dest", type=Path, default=None)
+    p_norm.add_argument("--owner", default=None)
+    p_norm.add_argument("--no-strip-numeric", action="store_true")
+    p_norm.add_argument("--force-style-bundle", action="store_true")
+    p_norm.add_argument("--prune-sources", action="store_true")
+    p_norm.add_argument("--write", action="store_true")
+
     return parser
 
 
@@ -201,6 +214,16 @@ def main(arguments: list[str] | None = None) -> int:
                 expected_source_fingerprint=args.expected_fingerprint,
                 default_owner=args.owner,
                 allow_legacy_schema=False,
+            )
+        elif args.command == "normalize":
+            result = svc.normalize_convo_engine_sources(
+                args.sources,
+                dest_path=args.dest,
+                default_owner=args.owner,
+                strip_numeric_suffix=not args.no_strip_numeric,
+                force_style_bundle=args.force_style_bundle,
+                write=args.write,
+                prune_sources=args.prune_sources,
             )
         else:
             parser.error(f"unknown command: {args.command}")

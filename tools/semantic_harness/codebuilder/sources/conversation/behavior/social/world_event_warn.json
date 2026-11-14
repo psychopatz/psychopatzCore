@@ -13,14 +13,14 @@
   "outputs": {
     "speech": {
       "dialogueAct": "WORLD_WARNING",
-      "contentTemplateID": "semantic.interaction.world_event.warning"
+      "contentTemplateID": "interaction.world_event.warning"
     },
     "emote": {
       "id": "emote.alert"
     },
     "flavor": {
       "presentationAct": "AMBIENT_FLAVOR",
-      "contentTemplateID": "semantic.interaction.world_event.warning_flavor"
+      "contentTemplateID": "interaction.world_event.warning_flavor"
     }
   },
   "when": {

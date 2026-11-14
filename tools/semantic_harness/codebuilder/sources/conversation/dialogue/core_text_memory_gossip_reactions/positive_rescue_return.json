@@ -1,11 +1,19 @@
 {
-  "id": "return",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "positive.rescue",
+  "id": "return",
+  "owner": "PsychopatzCore",
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.memory.gossip.reactions.positive.rescue",
     "sourcePath": "memory/gossip/reactions/positive/rescue.json",
     "textKey": "positive.rescue.return",
+    "textTarget": "memory/gossip",
     "textRows": [
       {
         "key": "positive.rescue.return",
@@ -14,18 +22,17 @@
           "TL": "Naiuwi ni {target.name} nang buhay ang isang tao."
         }
       }
-    ],
-    "textTarget": "memory/gossip"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "target": {
-    "required": true,
-    "type": "entity.person"
-  },
-  "text": {
-    "EN": "{target.name} got someone home alive.",
-    "TL": "Naiuwi ni {target.name} nang buhay ang isang tao."
-  },
-  "namespace": "text.positive.rescue",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "{target.name} got someone home alive.",
+          "TL": "Naiuwi ni {target.name} nang buhay ang isang tao."
+        }
+      }
+    ]
+  }
 }

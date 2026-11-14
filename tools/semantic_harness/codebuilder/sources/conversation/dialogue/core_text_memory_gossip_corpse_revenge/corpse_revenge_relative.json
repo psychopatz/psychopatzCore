@@ -1,286 +1,171 @@
 {
-  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "corpse.revenge",
+  "id": "relative",
   "owner": "PsychopatzCore",
-  "records": [
-    {
-      "id": "text.corpse.revenge.relative.01",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
-        "sourcePath": "memory/gossip/corpse/revenge/relative.json",
-        "textKey": "corpse.revenge.relative.01",
-        "textRows": [
-          {
-            "key": "corpse.revenge.relative.01",
-            "text": {
-              "EN": "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
-              "TL": "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
-        "TL": "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.relative.02",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
-        "sourcePath": "memory/gossip/corpse/revenge/relative.json",
-        "textKey": "corpse.revenge.relative.02",
-        "textRows": [
-          {
-            "key": "corpse.revenge.relative.02",
-            "text": {
-              "EN": "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
-              "TL": "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
-        "TL": "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.relative.03",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
-        "sourcePath": "memory/gossip/corpse/revenge/relative.json",
-        "textKey": "corpse.revenge.relative.03",
-        "textRows": [
-          {
-            "key": "corpse.revenge.relative.03",
-            "text": {
-              "EN": "What {slot.killer.name} did to {target.name} will never be forgiven.",
-              "TL": "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "What {slot.killer.name} did to {target.name} will never be forgiven.",
-        "TL": "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.relative.04",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
-        "sourcePath": "memory/gossip/corpse/revenge/relative.json",
-        "textKey": "corpse.revenge.relative.04",
-        "textRows": [
-          {
-            "key": "corpse.revenge.relative.04",
-            "text": {
-              "EN": "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
-              "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
-        "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.relative.05",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
-        "sourcePath": "memory/gossip/corpse/revenge/relative.json",
-        "textKey": "corpse.revenge.relative.05",
-        "textRows": [
-          {
-            "key": "corpse.revenge.relative.05",
-            "text": {
-              "EN": "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
-              "TL": "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
-        "TL": "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.relative.06",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
-        "sourcePath": "memory/gossip/corpse/revenge/relative.json",
-        "textKey": "corpse.revenge.relative.06",
-        "textRows": [
-          {
-            "key": "corpse.revenge.relative.06",
-            "text": {
-              "EN": "No. Not {target.name}. {slot.killer.name} just made this personal.",
-              "TL": "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "No. Not {target.name}. {slot.killer.name} just made this personal.",
-        "TL": "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.relative.07",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
-        "sourcePath": "memory/gossip/corpse/revenge/relative.json",
-        "textKey": "corpse.revenge.relative.07",
-        "textRows": [
-          {
-            "key": "corpse.revenge.relative.07",
-            "text": {
-              "EN": "{target.name} was family. {slot.killer.name} will regret this.",
-              "TL": "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "{target.name} was family. {slot.killer.name} will regret this.",
-        "TL": "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.relative.08",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
-        "sourcePath": "memory/gossip/corpse/revenge/relative.json",
-        "textKey": "corpse.revenge.relative.08",
-        "textRows": [
-          {
-            "key": "corpse.revenge.relative.08",
-            "text": {
-              "EN": "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
-              "TL": "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
-        "TL": "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya."
-      }
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
+  "slots": {
+    "killer": {
+      "required": true,
+      "type": "entity.person"
     }
-  ]
+  },
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.memory.gossip.corpse.revenge.relative",
+    "sourcePath": "memory/gossip/corpse/revenge/relative.json",
+    "textTarget": "memory/gossip",
+    "textRows": [
+      {
+        "key": "corpse.revenge.relative.01",
+        "text": {
+          "EN": "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
+          "TL": "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin."
+        }
+      },
+      {
+        "key": "corpse.revenge.relative.02",
+        "text": {
+          "EN": "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
+          "TL": "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko."
+        }
+      },
+      {
+        "key": "corpse.revenge.relative.03",
+        "text": {
+          "EN": "What {slot.killer.name} did to {target.name} will never be forgiven.",
+          "TL": "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}."
+        }
+      },
+      {
+        "key": "corpse.revenge.relative.04",
+        "text": {
+          "EN": "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
+          "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya."
+        }
+      },
+      {
+        "key": "corpse.revenge.relative.05",
+        "text": {
+          "EN": "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
+          "TL": "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}."
+        }
+      },
+      {
+        "key": "corpse.revenge.relative.06",
+        "text": {
+          "EN": "No. Not {target.name}. {slot.killer.name} just made this personal.",
+          "TL": "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}."
+        }
+      },
+      {
+        "key": "corpse.revenge.relative.07",
+        "text": {
+          "EN": "{target.name} was family. {slot.killer.name} will regret this.",
+          "TL": "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}."
+        }
+      },
+      {
+        "key": "corpse.revenge.relative.08",
+        "text": {
+          "EN": "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
+          "TL": "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya."
+        }
+      }
+    ]
+  },
+  "say": {
+    "1": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Damn it, {slot.killer.name}. You took {target.name} from their family. This will not go unanswered.",
+            "TL": "Putang ina, {slot.killer.name}. Inagaw mo si {target.name} sa pamilya niya. Hindi ito palalampasin."
+          }
+        }
+      ]
+    },
+    "2": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "I saw {target.name} fall. {slot.killer.name} will answer for this, I swear it.",
+            "TL": "Nakita kong bumagsak si {target.name}. Mananagot si {slot.killer.name} sa ginawa niya, isinusumpa ko."
+          }
+        }
+      ]
+    },
+    "3": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "What {slot.killer.name} did to {target.name} will never be forgiven.",
+            "TL": "Hindi ko mapapatawad ang ginawa ni {slot.killer.name} kay {target.name}."
+          }
+        }
+      ]
+    },
+    "4": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Hell, {target.name}. {slot.killer.name} is going to pay for this.",
+            "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} sa ginawa niya."
+          }
+        }
+      ]
+    },
+    "5": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "I will not let {target.name}'s death go unanswered. {slot.killer.name} started this.",
+            "TL": "Hindi ko hahayaang walang hustisya ang pagkamatay ni {target.name}. Sinimulan ito ni {slot.killer.name}."
+          }
+        }
+      ]
+    },
+    "6": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "No. Not {target.name}. {slot.killer.name} just made this personal.",
+            "TL": "Hindi. Hindi si {target.name}. Ginawa itong personal ni {slot.killer.name}."
+          }
+        }
+      ]
+    },
+    "7": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "{target.name} was family. {slot.killer.name} will regret this.",
+            "TL": "Pamilya si {target.name}. Pagsisisihan ito ni {slot.killer.name}."
+          }
+        }
+      ]
+    },
+    "8": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Rest now, {target.name}. I hope {slot.killer.name} runs, because I am coming.",
+            "TL": "Magpahinga ka muna, {target.name}. Sana tumakbo si {slot.killer.name}, dahil hahabulin ko siya."
+          }
+        }
+      ]
+    }
+  }
 }

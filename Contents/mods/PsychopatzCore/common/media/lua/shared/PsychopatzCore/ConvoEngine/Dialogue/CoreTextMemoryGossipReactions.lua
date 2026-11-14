@@ -2,16 +2,66 @@
 return {
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.negative.mockery.gear",
+        ["exchangeFamily"] = {
+            ["familyID"] = "negative.mockery.gear",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Someone says {target.name} cannot keep track of their own gear.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.negative.mockery.gear.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Someone says {target.name} cannot keep track of their own gear.",
+                                    },
+                                    ["TL"] = {
+                                        "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "negative.mockery",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "Someone says {target.name} cannot keep track of their own gear.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.negative.mockery.gear.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Someone says {target.name} cannot keep track of their own gear.",
+                        },
+                        ["TL"] = {
+                            "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "negative.mockery.gear",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "gear",
-            ["sourceId"] = "text.negative.mockery.gear",
+            ["sourceId"] = "negative.mockery.gear",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_mockery_gear.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.negative.mockery",
+        ["namespace"] = "negative.mockery",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -38,13 +88,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Someone says {target.name} cannot keep track of their own gear.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Someone says {target.name} cannot keep track of their own gear.",
+                                    },
+                                    ["TL"] = {
+                                        "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -52,12 +120,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.negative.mockery.gear",
+            ["responsePlanID"] = "negative.mockery.gear",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -66,7 +134,7 @@ return {
                             },
                             ["fallback"] = "Someone says {target.name} cannot keep track of their own gear.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.negative.mockery.gear.response",
+                            ["templateID"] = "psdl.negative.mockery.gear.say_1",
                         },
                     },
                 },
@@ -80,20 +148,87 @@ return {
             ["required"] = true,
             ["type"] = "entity.person",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "Someone says {target.name} cannot keep track of their own gear.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.negative.mockery.gear.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Someone says {target.name} cannot keep track of their own gear.",
+                    },
+                    ["TL"] = {
+                        "Sabi nila, hindi maalagaan ni {target.name} ang sarili niyang gamit.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.negative.mockery.retreat",
+        ["exchangeFamily"] = {
+            ["familyID"] = "negative.mockery.retreat",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "{target.name} talked big, then backed down when it mattered.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.negative.mockery.retreat.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "{target.name} talked big, then backed down when it mattered.",
+                                    },
+                                    ["TL"] = {
+                                        "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "negative.mockery",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "{target.name} talked big, then backed down when it mattered.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.negative.mockery.retreat.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "{target.name} talked big, then backed down when it mattered.",
+                        },
+                        ["TL"] = {
+                            "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "negative.mockery.retreat",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "retreat",
-            ["sourceId"] = "text.negative.mockery.retreat",
+            ["sourceId"] = "negative.mockery.retreat",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_mockery_retreat.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.negative.mockery",
+        ["namespace"] = "negative.mockery",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -120,13 +255,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "{target.name} talked big, then backed down when it mattered.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "{target.name} talked big, then backed down when it mattered.",
+                                    },
+                                    ["TL"] = {
+                                        "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -134,12 +287,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.negative.mockery.retreat",
+            ["responsePlanID"] = "negative.mockery.retreat",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -148,7 +301,7 @@ return {
                             },
                             ["fallback"] = "{target.name} talked big, then backed down when it mattered.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.negative.mockery.retreat.response",
+                            ["templateID"] = "psdl.negative.mockery.retreat.say_1",
                         },
                     },
                 },
@@ -162,20 +315,87 @@ return {
             ["required"] = true,
             ["type"] = "entity.person",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "{target.name} talked big, then backed down when it mattered.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.negative.mockery.retreat.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "{target.name} talked big, then backed down when it mattered.",
+                    },
+                    ["TL"] = {
+                        "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.negative.suspicion.story",
+        ["exchangeFamily"] = {
+            ["familyID"] = "negative.suspicion.story",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Watch {target.name}; their story keeps changing.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.negative.suspicion.story.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Watch {target.name}; their story keeps changing.",
+                                    },
+                                    ["TL"] = {
+                                        "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "negative.suspicion",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "Watch {target.name}; their story keeps changing.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.negative.suspicion.story.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Watch {target.name}; their story keeps changing.",
+                        },
+                        ["TL"] = {
+                            "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "negative.suspicion.story",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "story",
-            ["sourceId"] = "text.negative.suspicion.story",
+            ["sourceId"] = "negative.suspicion.story",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_suspicion_story.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.negative.suspicion",
+        ["namespace"] = "negative.suspicion",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -202,13 +422,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Watch {target.name}; their story keeps changing.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Watch {target.name}; their story keeps changing.",
+                                    },
+                                    ["TL"] = {
+                                        "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -216,12 +454,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.negative.suspicion.story",
+            ["responsePlanID"] = "negative.suspicion.story",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -230,7 +468,7 @@ return {
                             },
                             ["fallback"] = "Watch {target.name}; their story keeps changing.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.negative.suspicion.story.response",
+                            ["templateID"] = "psdl.negative.suspicion.story.say_1",
                         },
                     },
                 },
@@ -244,20 +482,87 @@ return {
             ["required"] = true,
             ["type"] = "entity.person",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "Watch {target.name}; their story keeps changing.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.negative.suspicion.story.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Watch {target.name}; their story keeps changing.",
+                    },
+                    ["TL"] = {
+                        "Bantayan si {target.name}; pabago-bago ang kuwento niya.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.negative.warning.abandoned",
+        ["exchangeFamily"] = {
+            ["familyID"] = "negative.warning.abandoned",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "{target.name} left someone behind when the zombies closed in.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.negative.warning.abandoned.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "{target.name} left someone behind when the zombies closed in.",
+                                    },
+                                    ["TL"] = {
+                                        "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "negative.warning",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "{target.name} left someone behind when the zombies closed in.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.negative.warning.abandoned.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "{target.name} left someone behind when the zombies closed in.",
+                        },
+                        ["TL"] = {
+                            "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "negative.warning.abandoned",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "abandoned",
-            ["sourceId"] = "text.negative.warning.abandoned",
+            ["sourceId"] = "negative.warning.abandoned",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_warning_abandoned.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.negative.warning",
+        ["namespace"] = "negative.warning",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -284,13 +589,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "{target.name} left someone behind when the zombies closed in.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "{target.name} left someone behind when the zombies closed in.",
+                                    },
+                                    ["TL"] = {
+                                        "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -298,12 +621,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.negative.warning.abandoned",
+            ["responsePlanID"] = "negative.warning.abandoned",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -312,7 +635,7 @@ return {
                             },
                             ["fallback"] = "{target.name} left someone behind when the zombies closed in.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.negative.warning.abandoned.response",
+                            ["templateID"] = "psdl.negative.warning.abandoned.say_1",
                         },
                     },
                 },
@@ -326,20 +649,87 @@ return {
             ["required"] = true,
             ["type"] = "entity.person",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "{target.name} left someone behind when the zombies closed in.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.negative.warning.abandoned.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "{target.name} left someone behind when the zombies closed in.",
+                    },
+                    ["TL"] = {
+                        "Iniwan ni {target.name} ang kasama niya nang sumalakay ang mga zombie.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.negative.warning.danger",
+        ["exchangeFamily"] = {
+            ["familyID"] = "negative.warning.danger",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "People have spotted danger near {slot.place.name}.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.negative.warning.danger.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "People have spotted danger near {slot.place.name}.",
+                                    },
+                                    ["TL"] = {
+                                        "May nakapansing panganib malapit sa {slot.place.name}.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "negative.warning",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "People have spotted danger near {slot.place.name}.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.negative.warning.danger.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "People have spotted danger near {slot.place.name}.",
+                        },
+                        ["TL"] = {
+                            "May nakapansing panganib malapit sa {slot.place.name}.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "negative.warning.danger",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "danger",
-            ["sourceId"] = "text.negative.warning.danger",
+            ["sourceId"] = "negative.warning.danger",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/negative_warning_danger.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.negative.warning",
+        ["namespace"] = "negative.warning",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -366,13 +756,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "People have spotted danger near {slot.place.name}.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "May nakapansing panganib malapit sa {slot.place.name}.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "People have spotted danger near {slot.place.name}.",
+                                    },
+                                    ["TL"] = {
+                                        "May nakapansing panganib malapit sa {slot.place.name}.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -380,12 +788,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.negative.warning.danger",
+            ["responsePlanID"] = "negative.warning.danger",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -394,7 +802,7 @@ return {
                             },
                             ["fallback"] = "People have spotted danger near {slot.place.name}.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.negative.warning.danger.response",
+                            ["templateID"] = "psdl.negative.warning.danger.say_1",
                         },
                     },
                 },
@@ -414,20 +822,87 @@ return {
             ["required"] = false,
             ["type"] = "entity.any",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "People have spotted danger near {slot.place.name}.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.negative.warning.danger.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "People have spotted danger near {slot.place.name}.",
+                    },
+                    ["TL"] = {
+                        "May nakapansing panganib malapit sa {slot.place.name}.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.neutral.horde_survival",
+        ["exchangeFamily"] = {
+            ["familyID"] = "neutral.horde_survival",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "I got away when a whole horde came after me.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.neutral.horde_survival.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "I got away when a whole horde came after me.",
+                                    },
+                                    ["TL"] = {
+                                        "Nakatakas ako nang habulin ako ng napakaraming zombie.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "neutral",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "I got away when a whole horde came after me.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.neutral.horde_survival.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "I got away when a whole horde came after me.",
+                        },
+                        ["TL"] = {
+                            "Nakatakas ako nang habulin ako ng napakaraming zombie.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "neutral.horde_survival",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "horde_survival",
-            ["sourceId"] = "text.neutral.horde_survival",
+            ["sourceId"] = "neutral.horde_survival",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/neutral_horde_survival.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.neutral",
+        ["namespace"] = "neutral",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -454,13 +929,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "I got away when a whole horde came after me.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Nakatakas ako nang habulin ako ng napakaraming zombie.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "I got away when a whole horde came after me.",
+                                    },
+                                    ["TL"] = {
+                                        "Nakatakas ako nang habulin ako ng napakaraming zombie.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -468,12 +961,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.neutral.horde_survival",
+            ["responsePlanID"] = "neutral.horde_survival",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -482,7 +975,7 @@ return {
                             },
                             ["fallback"] = "I got away when a whole horde came after me.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.neutral.horde_survival.response",
+                            ["templateID"] = "psdl.neutral.horde_survival.say_1",
                         },
                     },
                 },
@@ -496,20 +989,87 @@ return {
             ["required"] = false,
             ["type"] = "entity.any",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "I got away when a whole horde came after me.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.neutral.horde_survival.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "I got away when a whole horde came after me.",
+                    },
+                    ["TL"] = {
+                        "Nakatakas ako nang habulin ako ng napakaraming zombie.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.neutral.sighting",
+        ["exchangeFamily"] = {
+            ["familyID"] = "neutral.sighting",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Word is {target.name} was seen near {slot.place.name}.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.neutral.sighting.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Word is {target.name} was seen near {slot.place.name}.",
+                                    },
+                                    ["TL"] = {
+                                        "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "neutral",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "Word is {target.name} was seen near {slot.place.name}.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.neutral.sighting.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Word is {target.name} was seen near {slot.place.name}.",
+                        },
+                        ["TL"] = {
+                            "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "neutral.sighting",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "sighting",
-            ["sourceId"] = "text.neutral.sighting",
+            ["sourceId"] = "neutral.sighting",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/neutral_sighting.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.neutral",
+        ["namespace"] = "neutral",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -536,13 +1096,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Word is {target.name} was seen near {slot.place.name}.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Word is {target.name} was seen near {slot.place.name}.",
+                                    },
+                                    ["TL"] = {
+                                        "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -550,12 +1128,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.neutral.sighting",
+            ["responsePlanID"] = "neutral.sighting",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -564,7 +1142,7 @@ return {
                             },
                             ["fallback"] = "Word is {target.name} was seen near {slot.place.name}.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.neutral.sighting.response",
+                            ["templateID"] = "psdl.neutral.sighting.say_1",
                         },
                     },
                 },
@@ -584,20 +1162,87 @@ return {
             ["required"] = true,
             ["type"] = "entity.person",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "Word is {target.name} was seen near {slot.place.name}.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.neutral.sighting.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Word is {target.name} was seen near {slot.place.name}.",
+                    },
+                    ["TL"] = {
+                        "May nakakita raw kay {target.name} malapit sa {slot.place.name}.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.positive.praise.help",
+        ["exchangeFamily"] = {
+            ["familyID"] = "positive.praise.help",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "{target.name} has been looking out for people.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.positive.praise.help.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "{target.name} has been looking out for people.",
+                                    },
+                                    ["TL"] = {
+                                        "Inaalalayan ni {target.name} ang mga tao.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "positive.praise",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "{target.name} has been looking out for people.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.positive.praise.help.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "{target.name} has been looking out for people.",
+                        },
+                        ["TL"] = {
+                            "Inaalalayan ni {target.name} ang mga tao.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "positive.praise.help",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "help",
-            ["sourceId"] = "text.positive.praise.help",
+            ["sourceId"] = "positive.praise.help",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/positive_praise_help.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.positive.praise",
+        ["namespace"] = "positive.praise",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -624,13 +1269,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "{target.name} has been looking out for people.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Inaalalayan ni {target.name} ang mga tao.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "{target.name} has been looking out for people.",
+                                    },
+                                    ["TL"] = {
+                                        "Inaalalayan ni {target.name} ang mga tao.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -638,12 +1301,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.positive.praise.help",
+            ["responsePlanID"] = "positive.praise.help",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -652,7 +1315,7 @@ return {
                             },
                             ["fallback"] = "{target.name} has been looking out for people.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.positive.praise.help.response",
+                            ["templateID"] = "psdl.positive.praise.help.say_1",
                         },
                     },
                 },
@@ -666,20 +1329,87 @@ return {
             ["required"] = true,
             ["type"] = "entity.person",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "{target.name} has been looking out for people.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.positive.praise.help.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "{target.name} has been looking out for people.",
+                    },
+                    ["TL"] = {
+                        "Inaalalayan ni {target.name} ang mga tao.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.positive.protection",
+        ["exchangeFamily"] = {
+            ["familyID"] = "positive.protection",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "{target.name} stood up for someone when an attacker closed in.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.positive.protection.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "{target.name} stood up for someone when an attacker closed in.",
+                                    },
+                                    ["TL"] = {
+                                        "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "positive",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "{target.name} stood up for someone when an attacker closed in.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.positive.protection.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "{target.name} stood up for someone when an attacker closed in.",
+                        },
+                        ["TL"] = {
+                            "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "positive.protection",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "protection",
-            ["sourceId"] = "text.positive.protection",
+            ["sourceId"] = "positive.protection",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/positive_protection.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.positive",
+        ["namespace"] = "positive",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -706,13 +1436,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "{target.name} stood up for someone when an attacker closed in.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "{target.name} stood up for someone when an attacker closed in.",
+                                    },
+                                    ["TL"] = {
+                                        "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -720,12 +1468,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.positive.protection",
+            ["responsePlanID"] = "positive.protection",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -734,7 +1482,7 @@ return {
                             },
                             ["fallback"] = "{target.name} stood up for someone when an attacker closed in.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.positive.protection.response",
+                            ["templateID"] = "psdl.positive.protection.say_1",
                         },
                     },
                 },
@@ -748,20 +1496,87 @@ return {
             ["required"] = true,
             ["type"] = "entity.person",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "{target.name} stood up for someone when an attacker closed in.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.positive.protection.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "{target.name} stood up for someone when an attacker closed in.",
+                    },
+                    ["TL"] = {
+                        "Ipinagtanggol ni {target.name} ang isang tao nang may umatake.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.positive.rescue.return",
+        ["exchangeFamily"] = {
+            ["familyID"] = "positive.rescue.return",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "{target.name} got someone home alive.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.positive.rescue.return.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "{target.name} got someone home alive.",
+                                    },
+                                    ["TL"] = {
+                                        "Naiuwi ni {target.name} nang buhay ang isang tao.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "positive.rescue",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "{target.name} got someone home alive.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.positive.rescue.return.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "{target.name} got someone home alive.",
+                        },
+                        ["TL"] = {
+                            "Naiuwi ni {target.name} nang buhay ang isang tao.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "positive.rescue.return",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "return",
-            ["sourceId"] = "text.positive.rescue.return",
+            ["sourceId"] = "positive.rescue.return",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/positive_rescue_return.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.positive.rescue",
+        ["namespace"] = "positive.rescue",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -788,13 +1603,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "{target.name} got someone home alive.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Naiuwi ni {target.name} nang buhay ang isang tao.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "{target.name} got someone home alive.",
+                                    },
+                                    ["TL"] = {
+                                        "Naiuwi ni {target.name} nang buhay ang isang tao.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -802,12 +1635,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.positive.rescue.return",
+            ["responsePlanID"] = "positive.rescue.return",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -816,7 +1649,7 @@ return {
                             },
                             ["fallback"] = "{target.name} got someone home alive.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.positive.rescue.return.response",
+                            ["templateID"] = "psdl.positive.rescue.return.say_1",
                         },
                     },
                 },
@@ -830,20 +1663,87 @@ return {
             ["required"] = true,
             ["type"] = "entity.person",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "{target.name} got someone home alive.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.positive.rescue.return.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "{target.name} got someone home alive.",
+                    },
+                    ["TL"] = {
+                        "Naiuwi ni {target.name} nang buhay ang isang tao.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_reactions",
-        ["id"] = "text.positive.sympathy.loss",
+        ["exchangeFamily"] = {
+            ["familyID"] = "positive.sympathy.loss",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "I heard what happened to {target.name}. I hope they are holding up.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.positive.sympathy.loss.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "I heard what happened to {target.name}. I hope they are holding up.",
+                                    },
+                                    ["TL"] = {
+                                        "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "positive.sympathy",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "I heard what happened to {target.name}. I hope they are holding up.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.positive.sympathy.loss.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "I heard what happened to {target.name}. I hope they are holding up.",
+                        },
+                        ["TL"] = {
+                            "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "positive.sympathy.loss",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "loss",
-            ["sourceId"] = "text.positive.sympathy.loss",
+            ["sourceId"] = "positive.sympathy.loss",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_reactions/positive_sympathy_loss.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipReactions",
-        ["namespace"] = "text.positive.sympathy",
+        ["namespace"] = "positive.sympathy",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -870,13 +1770,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "I heard what happened to {target.name}. I hope they are holding up.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "I heard what happened to {target.name}. I hope they are holding up.",
+                                    },
+                                    ["TL"] = {
+                                        "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -884,12 +1802,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.positive.sympathy.loss",
+            ["responsePlanID"] = "positive.sympathy.loss",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -898,7 +1816,7 @@ return {
                             },
                             ["fallback"] = "I heard what happened to {target.name}. I hope they are holding up.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.positive.sympathy.loss.response",
+                            ["templateID"] = "psdl.positive.sympathy.loss.say_1",
                         },
                     },
                 },
@@ -911,6 +1829,23 @@ return {
             ["multiple"] = false,
             ["required"] = true,
             ["type"] = "entity.person",
+        },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "I heard what happened to {target.name}. I hope they are holding up.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.positive.sympathy.loss.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "I heard what happened to {target.name}. I hope they are holding up.",
+                    },
+                    ["TL"] = {
+                        "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
         },
         ["when"] = nil,
     },

@@ -53,6 +53,7 @@ from .convo_engine_authoring import (
     source_fingerprint_mismatch,
     write_json_document,
 )
+from .convo_engine_normalization import normalize_source_group
 from .psdl_compiler import (
     CONVO_ENGINE_SCHEMA,
     LEGACY_PSDL_SCHEMA,
@@ -740,6 +741,52 @@ class SemanticLabAuthoringService:
                 "canonicalCount": summary["canonicalCount"],
                 "preNormalizationLegacyCount": summary["preNormalizationLegacyCount"],
             },
+        )
+
+    def normalize_convo_engine_sources(
+        self,
+        sources: list[str | Path] | str | Path,
+        *,
+        dest_path: str | Path | None = None,
+        default_owner: str | None = None,
+        strip_numeric_suffix: bool = True,
+        force_style_bundle: bool = False,
+        write: bool = False,
+        prune_sources: bool = False,
+    ) -> dict[str, Any]:
+        """Preview or write canonical S6M4 ``psychopatz.convo-engine.v1`` normalization."""
+        raw_sources = [sources] if isinstance(sources, (str, Path)) else list(sources)
+        allowed = self._convo_engine_allowed_roots()
+        resolved_sources = [
+            resolve_authorized_source_path(
+                item,
+                repository=self.repository,
+                allowed_roots=allowed,
+                check_forbidden_segments=False,
+            )
+            for item in raw_sources
+        ]
+        resolved_dest = (
+            resolve_authorized_source_path(
+                dest_path,
+                repository=self.repository,
+                allowed_roots=allowed,
+                check_forbidden_segments=write,
+            )
+            if dest_path is not None
+            else resolved_sources[0]
+        )
+        owner = default_owner or self._resolve_convo_engine_default_owner(
+            resolved_dest,
+        )
+        return normalize_source_group(
+            resolved_sources,
+            dest_path=resolved_dest,
+            default_owner=owner,
+            strip_numeric_suffix=strip_numeric_suffix,
+            force_style_bundle=force_style_bundle,
+            write=write,
+            prune_sources=prune_sources,
         )
 
     def preview_psdl_document(

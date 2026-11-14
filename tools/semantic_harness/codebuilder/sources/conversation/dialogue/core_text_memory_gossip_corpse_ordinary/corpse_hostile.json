@@ -1,147 +1,111 @@
 {
-  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "corpse",
+  "id": "hostile",
   "owner": "PsychopatzCore",
-  "records": [
-    {
-      "id": "text.corpse.hostile.01",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.hostile",
-        "sourcePath": "memory/gossip/corpse/ordinary/hostile.json",
-        "textKey": "corpse.hostile.01",
-        "textRows": [
-          {
-            "key": "corpse.hostile.01",
-            "text": {
-              "EN": "So this is how it ends for you, {target.name}.",
-              "TL": "Dito pala magtatapos para sa'yo, {target.name}."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.hostile",
+    "sourcePath": "memory/gossip/corpse/ordinary/hostile.json",
+    "textTarget": "memory/gossip",
+    "textRows": [
+      {
+        "key": "corpse.hostile.01",
+        "text": {
+          "EN": "So this is how it ends for you, {target.name}.",
+          "TL": "Dito pala magtatapos para sa'yo, {target.name}."
+        }
       },
-      "owner": "PsychopatzCore",
-      "target": {
-        "required": true,
-        "type": "entity.person"
+      {
+        "key": "corpse.hostile.02",
+        "text": {
+          "EN": "You made plenty of enemies, {target.name}. I was one.",
+          "TL": "Marami kang naging kaaway, {target.name}. Isa ako roon."
+        }
       },
-      "text": {
-        "EN": "So this is how it ends for you, {target.name}.",
-        "TL": "Dito pala magtatapos para sa'yo, {target.name}."
+      {
+        "key": "corpse.hostile.03",
+        "text": {
+          "EN": "I won't mourn you, {target.name}, but I won't forget this.",
+          "TL": "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan."
+        }
+      },
+      {
+        "key": "corpse.hostile.04",
+        "text": {
+          "EN": "The threat is gone. Keep moving.",
+          "TL": "Wala na ang banta. Tuloy lang."
+        }
+      },
+      {
+        "key": "corpse.hostile.05",
+        "text": {
+          "EN": "Maybe you finally found some peace, {target.name}.",
+          "TL": "Baka nakahanap ka na rin ng katahimikan, {target.name}."
+        }
       }
+    ]
+  },
+  "say": {
+    "1": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "So this is how it ends for you, {target.name}.",
+            "TL": "Dito pala magtatapos para sa'yo, {target.name}."
+          }
+        }
+      ]
     },
-    {
-      "id": "text.corpse.hostile.02",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.hostile",
-        "sourcePath": "memory/gossip/corpse/ordinary/hostile.json",
-        "textKey": "corpse.hostile.02",
-        "textRows": [
-          {
-            "key": "corpse.hostile.02",
-            "text": {
-              "EN": "You made plenty of enemies, {target.name}. I was one.",
-              "TL": "Marami kang naging kaaway, {target.name}. Isa ako roon."
-            }
+    "2": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "You made plenty of enemies, {target.name}. I was one.",
+            "TL": "Marami kang naging kaaway, {target.name}. Isa ako roon."
           }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "You made plenty of enemies, {target.name}. I was one.",
-        "TL": "Marami kang naging kaaway, {target.name}. Isa ako roon."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.corpse.hostile.03",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.hostile",
-        "sourcePath": "memory/gossip/corpse/ordinary/hostile.json",
-        "textKey": "corpse.hostile.03",
-        "textRows": [
-          {
-            "key": "corpse.hostile.03",
-            "text": {
-              "EN": "I won't mourn you, {target.name}, but I won't forget this.",
-              "TL": "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan."
-            }
+    "3": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "I won't mourn you, {target.name}, but I won't forget this.",
+            "TL": "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan."
           }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "I won't mourn you, {target.name}, but I won't forget this.",
-        "TL": "Hindi kita ipagluluksa, {target.name}, pero hindi ko ito malilimutan."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.corpse.hostile.04",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.hostile",
-        "sourcePath": "memory/gossip/corpse/ordinary/hostile.json",
-        "textKey": "corpse.hostile.04",
-        "textRows": [
-          {
-            "key": "corpse.hostile.04",
-            "text": {
-              "EN": "The threat is gone. Keep moving.",
-              "TL": "Wala na ang banta. Tuloy lang."
-            }
+    "4": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "The threat is gone. Keep moving.",
+            "TL": "Wala na ang banta. Tuloy lang."
           }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "The threat is gone. Keep moving.",
-        "TL": "Wala na ang banta. Tuloy lang."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.corpse.hostile.05",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.ordinary.hostile",
-        "sourcePath": "memory/gossip/corpse/ordinary/hostile.json",
-        "textKey": "corpse.hostile.05",
-        "textRows": [
-          {
-            "key": "corpse.hostile.05",
-            "text": {
-              "EN": "Maybe you finally found some peace, {target.name}.",
-              "TL": "Baka nakahanap ka na rin ng katahimikan, {target.name}."
-            }
+    "5": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Maybe you finally found some peace, {target.name}.",
+            "TL": "Baka nakahanap ka na rin ng katahimikan, {target.name}."
           }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "Maybe you finally found some peace, {target.name}.",
-        "TL": "Baka nakahanap ka na rin ng katahimikan, {target.name}."
-      }
+        }
+      ]
     }
-  ]
+  }
 }

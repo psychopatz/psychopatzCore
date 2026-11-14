@@ -150,14 +150,62 @@ function Foundation.GetResponse(poolID, options)
     return nil
 end
 
+local function selectPlanPhrase(templateID, style, options)
+    if type(Registry.ConvoPlan) ~= "function" then return nil end
+    local plan = Registry.ConvoPlan(templateID)
+    if type(plan) ~= "table" then return nil end
+    local family = type(plan.exchangeFamily) == "table" and plan.exchangeFamily or nil
+    local say = (family and family.initiatingSay) or (type(plan.payload) == "table" and plan.payload.say) or nil
+    if type(say) ~= "table" or type(say.realizations) ~= "table" then return nil end
+    local key = tostring((type(options) == "table" and options.realizationKey) or "1")
+    local entry = say.realizations[key] or say.realizations["1"]
+    if type(entry) ~= "table" or type(entry.variants) ~= "table" then return nil end
+
+    local wanted = tostring(style or "neutral")
+    local chosen, neutralVar = nil, nil
+    for _, v in ipairs(entry.variants) do
+        if type(v) == "table" then
+            if tostring(v.id or "") == wanted then chosen = v break end
+            if neutralVar == nil and tostring(v.id or "") == "neutral" then neutralVar = v end
+        end
+    end
+    chosen = chosen or neutralVar or entry.variants[1]
+    if type(chosen) ~= "table" then return nil end
+
+    local translations = type(chosen.translations) == "table" and chosen.translations or {}
+    local enList = type(translations.EN) == "table" and translations.EN or nil
+    local tlList = type(translations.TL) == "table" and translations.TL or nil
+    local count = (enList and #enList > 0 and #enList) or (tlList and #tlList > 0 and #tlList) or 0
+    local idx = 1
+    if count > 0 then
+        local explicit = type(options) == "table" and tonumber(options.index) or nil
+        idx = explicit or stableIndex(type(options) == "table" and options.seed or "", count) or 1
+        idx = ((math.floor(idx) - 1) % count) + 1
+    end
+    local enText = enList and enList[idx] or chosen.fallback
+    local tlText = tlList and (tlList[idx] or tlList[1]) or nil
+    return {
+        id = chosen.id,
+        templateID = chosen.templateID or templateID,
+        style = tostring(chosen.id or wanted),
+        familyID = plan.id,
+        fallback = enText,
+        translations = { EN = enText, TL = tlText },
+    }
+end
+
 function Foundation.GetPhrase(templateID, style, options)
     local family, phrases, selectedStyle = Registry.FamilyFor(
         tostring(templateID or ""),
         style
     )
-    if type(phrases) ~= "table" then return nil end
+    if type(phrases) ~= "table" then
+        return selectPlanPhrase(tostring(templateID or ""), style, options)
+    end
     local phrase = selectedVariant(phrases, options)
-    if type(phrase) ~= "table" then return nil end
+    if type(phrase) ~= "table" then
+        return selectPlanPhrase(tostring(templateID or ""), style, options)
+    end
     local output = clone(phrase)
     output.templateID = output.templateID or templateID
     output.style = selectedStyle

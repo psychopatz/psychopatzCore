@@ -4,9 +4,15 @@
   "cases": [
     {
       "id": "whats_up.basic.en",
-      "tags": ["whats_up", "nlu", "pilot"],
+      "tags": [
+        "whats_up",
+        "nlu",
+        "pilot"
+      ],
       "scenario": {
-        "world": { "weather": "clear" }
+        "world": {
+          "weather": "clear"
+        }
       },
       "turns": [
         {
@@ -15,7 +21,7 @@
             "ir.subject": "CONVERSATION_TOPIC",
             "ir.extensions.topic": "whats_up",
             "response.sourcePoolID": "semantic.question.whats_up",
-            "response.templateID": "semantic.question.whats_up.default",
+            "response.templateID": "question.whats_up.default",
             "response.exists": true,
             "flow.noFlow": true
           }
@@ -24,9 +30,15 @@
     },
     {
       "id": "whats_up.weather_variant.rain",
-      "tags": ["whats_up", "weather", "pilot"],
+      "tags": [
+        "whats_up",
+        "weather",
+        "pilot"
+      ],
       "scenario": {
-        "world": { "weather": "rain" }
+        "world": {
+          "weather": "rain"
+        }
       },
       "turns": [
         {
@@ -42,10 +54,17 @@
     },
     {
       "id": "whats_up.time_context",
-      "tags": ["whats_up", "time", "pilot"],
+      "tags": [
+        "whats_up",
+        "time",
+        "pilot"
+      ],
       "scenario": {
         "world": {
-          "time": { "hour": 21, "minute": 5 }
+          "time": {
+            "hour": 21,
+            "minute": 5
+          }
         }
       },
       "turns": [
@@ -61,10 +80,18 @@
     },
     {
       "id": "whats_up.date_context",
-      "tags": ["whats_up", "date", "pilot"],
+      "tags": [
+        "whats_up",
+        "date",
+        "pilot"
+      ],
       "scenario": {
         "world": {
-          "calendar": { "year": 1993, "month": 10, "day": 19 }
+          "calendar": {
+            "year": 1993,
+            "month": 10,
+            "day": 19
+          }
         }
       },
       "turns": [

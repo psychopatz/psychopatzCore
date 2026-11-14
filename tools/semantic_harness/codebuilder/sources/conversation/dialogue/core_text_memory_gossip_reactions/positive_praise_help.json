@@ -1,11 +1,19 @@
 {
-  "id": "help",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "positive.praise",
+  "id": "help",
+  "owner": "PsychopatzCore",
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.memory.gossip.reactions.positive.praise",
     "sourcePath": "memory/gossip/reactions/positive/praise.json",
     "textKey": "positive.praise.help",
+    "textTarget": "memory/gossip",
     "textRows": [
       {
         "key": "positive.praise.help",
@@ -14,18 +22,17 @@
           "TL": "Inaalalayan ni {target.name} ang mga tao."
         }
       }
-    ],
-    "textTarget": "memory/gossip"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "target": {
-    "required": true,
-    "type": "entity.person"
-  },
-  "text": {
-    "EN": "{target.name} has been looking out for people.",
-    "TL": "Inaalalayan ni {target.name} ang mga tao."
-  },
-  "namespace": "text.positive.praise",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "{target.name} has been looking out for people.",
+          "TL": "Inaalalayan ni {target.name} ang mga tao."
+        }
+      }
+    ]
+  }
 }

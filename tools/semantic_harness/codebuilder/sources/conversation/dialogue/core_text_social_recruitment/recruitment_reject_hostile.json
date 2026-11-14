@@ -1,56 +1,53 @@
 {
-  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "recruitment.reject",
+  "id": "hostile",
   "owner": "PsychopatzCore",
-  "records": [
-    {
-      "id": "text.recruitment.reject.hostile.1",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.recruitment.response",
-        "sourcePath": "social/recruitment/response.json",
-        "textKey": "recruitment.reject.hostile.1",
-        "textRows": [
-          {
-            "key": "recruitment.reject.hostile.1",
-            "text": {
-              "EN": "You want me to join you? Keep your distance.",
-              "TL": "Gusto mong sumama ako sa iyo? Lumayo ka."
-            }
-          }
-        ],
-        "textTarget": "social/recruitment/response"
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.social.recruitment.response",
+    "sourcePath": "social/recruitment/response.json",
+    "textTarget": "social/recruitment/response",
+    "textRows": [
+      {
+        "key": "recruitment.reject.hostile.1",
+        "text": {
+          "EN": "You want me to join you? Keep your distance.",
+          "TL": "Gusto mong sumama ako sa iyo? Lumayo ka."
+        }
       },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "You want me to join you? Keep your distance.",
-        "TL": "Gusto mong sumama ako sa iyo? Lumayo ka."
+      {
+        "key": "recruitment.reject.hostile.2",
+        "text": {
+          "EN": "I am not joining you. Do not mistake this conversation for trust.",
+          "TL": "Hindi ako sasama sa iyo. Huwag mong ipagkamali ang pag-uusap na ito sa tiwala."
+        }
       }
+    ]
+  },
+  "say": {
+    "1": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "You want me to join you? Keep your distance.",
+            "TL": "Gusto mong sumama ako sa iyo? Lumayo ka."
+          }
+        }
+      ]
     },
-    {
-      "id": "text.recruitment.reject.hostile.2",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.recruitment.response",
-        "sourcePath": "social/recruitment/response.json",
-        "textKey": "recruitment.reject.hostile.2",
-        "textRows": [
-          {
-            "key": "recruitment.reject.hostile.2",
-            "text": {
-              "EN": "I am not joining you. Do not mistake this conversation for trust.",
-              "TL": "Hindi ako sasama sa iyo. Huwag mong ipagkamali ang pag-uusap na ito sa tiwala."
-            }
+    "2": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "I am not joining you. Do not mistake this conversation for trust.",
+            "TL": "Hindi ako sasama sa iyo. Huwag mong ipagkamali ang pag-uusap na ito sa tiwala."
           }
-        ],
-        "textTarget": "social/recruitment/response"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "I am not joining you. Do not mistake this conversation for trust.",
-        "TL": "Hindi ako sasama sa iyo. Huwag mong ipagkamali ang pag-uusap na ito sa tiwala."
-      }
+        }
+      ]
     }
-  ]
+  }
 }

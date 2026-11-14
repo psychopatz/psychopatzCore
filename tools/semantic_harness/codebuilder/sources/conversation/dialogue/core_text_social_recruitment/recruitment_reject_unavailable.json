@@ -1,56 +1,53 @@
 {
-  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "recruitment.reject",
+  "id": "unavailable",
   "owner": "PsychopatzCore",
-  "records": [
-    {
-      "id": "text.recruitment.reject.unavailable.1",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.recruitment.response",
-        "sourcePath": "social/recruitment/response.json",
-        "textKey": "recruitment.reject.unavailable.1",
-        "textRows": [
-          {
-            "key": "recruitment.reject.unavailable.1",
-            "text": {
-              "EN": "I cannot make that decision while I am unavailable.",
-              "TL": "Hindi ko magagawa ang desisyong iyon habang hindi ako available."
-            }
-          }
-        ],
-        "textTarget": "social/recruitment/response"
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.social.recruitment.response",
+    "sourcePath": "social/recruitment/response.json",
+    "textTarget": "social/recruitment/response",
+    "textRows": [
+      {
+        "key": "recruitment.reject.unavailable.1",
+        "text": {
+          "EN": "I cannot make that decision while I am unavailable.",
+          "TL": "Hindi ko magagawa ang desisyong iyon habang hindi ako available."
+        }
       },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "I cannot make that decision while I am unavailable.",
-        "TL": "Hindi ko magagawa ang desisyong iyon habang hindi ako available."
+      {
+        "key": "recruitment.reject.unavailable.2",
+        "text": {
+          "EN": "This is not a conversation I can have right now.",
+          "TL": "Hindi ko maaaring pag-usapan iyan ngayon."
+        }
       }
+    ]
+  },
+  "say": {
+    "1": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "I cannot make that decision while I am unavailable.",
+            "TL": "Hindi ko magagawa ang desisyong iyon habang hindi ako available."
+          }
+        }
+      ]
     },
-    {
-      "id": "text.recruitment.reject.unavailable.2",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.recruitment.response",
-        "sourcePath": "social/recruitment/response.json",
-        "textKey": "recruitment.reject.unavailable.2",
-        "textRows": [
-          {
-            "key": "recruitment.reject.unavailable.2",
-            "text": {
-              "EN": "This is not a conversation I can have right now.",
-              "TL": "Hindi ko maaaring pag-usapan iyan ngayon."
-            }
+    "2": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "This is not a conversation I can have right now.",
+            "TL": "Hindi ko maaaring pag-usapan iyan ngayon."
           }
-        ],
-        "textTarget": "social/recruitment/response"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "This is not a conversation I can have right now.",
-        "TL": "Hindi ko maaaring pag-usapan iyan ngayon."
-      }
+        }
+      ]
     }
-  ]
+  }
 }

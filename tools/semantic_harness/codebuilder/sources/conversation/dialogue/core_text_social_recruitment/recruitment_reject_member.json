@@ -1,56 +1,53 @@
 {
-  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "recruitment.reject",
+  "id": "member",
   "owner": "PsychopatzCore",
-  "records": [
-    {
-      "id": "text.recruitment.reject.member.1",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.recruitment.response",
-        "sourcePath": "social/recruitment/response.json",
-        "textKey": "recruitment.reject.member.1",
-        "textRows": [
-          {
-            "key": "recruitment.reject.member.1",
-            "text": {
-              "EN": "You are already with us. Ask me about orders instead of recruiting me again.",
-              "TL": "Kasama na kita. Magtanong ka na lang tungkol sa mga utos kaysa i-recruit akong muli."
-            }
-          }
-        ],
-        "textTarget": "social/recruitment/response"
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.social.recruitment.response",
+    "sourcePath": "social/recruitment/response.json",
+    "textTarget": "social/recruitment/response",
+    "textRows": [
+      {
+        "key": "recruitment.reject.member.1",
+        "text": {
+          "EN": "You are already with us. Ask me about orders instead of recruiting me again.",
+          "TL": "Kasama na kita. Magtanong ka na lang tungkol sa mga utos kaysa i-recruit akong muli."
+        }
       },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "You are already with us. Ask me about orders instead of recruiting me again.",
-        "TL": "Kasama na kita. Magtanong ka na lang tungkol sa mga utos kaysa i-recruit akong muli."
+      {
+        "key": "recruitment.reject.member.2",
+        "text": {
+          "EN": "I am already part of this group.",
+          "TL": "Bahagi na ako ng grupong ito."
+        }
       }
+    ]
+  },
+  "say": {
+    "1": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "You are already with us. Ask me about orders instead of recruiting me again.",
+            "TL": "Kasama na kita. Magtanong ka na lang tungkol sa mga utos kaysa i-recruit akong muli."
+          }
+        }
+      ]
     },
-    {
-      "id": "text.recruitment.reject.member.2",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.recruitment.response",
-        "sourcePath": "social/recruitment/response.json",
-        "textKey": "recruitment.reject.member.2",
-        "textRows": [
-          {
-            "key": "recruitment.reject.member.2",
-            "text": {
-              "EN": "I am already part of this group.",
-              "TL": "Bahagi na ako ng grupong ito."
-            }
+    "2": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "I am already part of this group.",
+            "TL": "Bahagi na ako ng grupong ito."
           }
-        ],
-        "textTarget": "social/recruitment/response"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "I am already part of this group.",
-        "TL": "Bahagi na ako ng grupong ito."
-      }
+        }
+      ]
     }
-  ]
+  }
 }

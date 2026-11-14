@@ -12,7 +12,7 @@
   "modifiers": [],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.interaction.scene.grounded_news_share",
+      "contentTemplateID": "interaction.scene.grounded_news_share",
       "dialogueAct": "DISCLOSE"
     }
   },

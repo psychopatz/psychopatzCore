@@ -34,11 +34,12 @@ def render_conversation_ui_module(
         owners = {normalize_owner(include_owner)}
     if owners is not None:
         locations = model.get("locations") or {}
+        ui_locations = model.get("uiLocations") or {}
         records = [
             record
             for record in records
             if normalize_owner(
-                (locations.get(str(record.get("id"))) or {}).get("owner")
+                (ui_locations.get(str(record.get("id"))) or locations.get(str(record.get("id"))) or {}).get("owner")
             ) in owners
         ]
     return (

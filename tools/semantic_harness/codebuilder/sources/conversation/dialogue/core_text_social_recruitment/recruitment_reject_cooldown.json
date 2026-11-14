@@ -1,56 +1,53 @@
 {
-  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "recruitment.reject",
+  "id": "cooldown",
   "owner": "PsychopatzCore",
-  "records": [
-    {
-      "id": "text.recruitment.reject.cooldown.1",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.recruitment.response",
-        "sourcePath": "social/recruitment/response.json",
-        "textKey": "recruitment.reject.cooldown.1",
-        "textRows": [
-          {
-            "key": "recruitment.reject.cooldown.1",
-            "text": {
-              "EN": "We already had this conversation today. Give me time to think before you press me again.",
-              "TL": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin."
-            }
-          }
-        ],
-        "textTarget": "social/recruitment/response"
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.social.recruitment.response",
+    "sourcePath": "social/recruitment/response.json",
+    "textTarget": "social/recruitment/response",
+    "textRows": [
+      {
+        "key": "recruitment.reject.cooldown.1",
+        "text": {
+          "EN": "We already had this conversation today. Give me time to think before you press me again.",
+          "TL": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin."
+        }
       },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "We already had this conversation today. Give me time to think before you press me again.",
-        "TL": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin."
+      {
+        "key": "recruitment.reject.cooldown.2",
+        "text": {
+          "EN": "Not again today. Let us see how things stand tomorrow.",
+          "TL": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas."
+        }
       }
+    ]
+  },
+  "say": {
+    "1": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "We already had this conversation today. Give me time to think before you press me again.",
+            "TL": "Napag-usapan na natin ito ngayon. Bigyan mo ako ng oras mag-isip bago mo ako muling pilitin."
+          }
+        }
+      ]
     },
-    {
-      "id": "text.recruitment.reject.cooldown.2",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.recruitment.response",
-        "sourcePath": "social/recruitment/response.json",
-        "textKey": "recruitment.reject.cooldown.2",
-        "textRows": [
-          {
-            "key": "recruitment.reject.cooldown.2",
-            "text": {
-              "EN": "Not again today. Let us see how things stand tomorrow.",
-              "TL": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas."
-            }
+    "2": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Not again today. Let us see how things stand tomorrow.",
+            "TL": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas."
           }
-        ],
-        "textTarget": "social/recruitment/response"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "Not again today. Let us see how things stand tomorrow.",
-        "TL": "Hindi na ulit ngayon. Tingnan natin kung ano ang mangyayari bukas."
-      }
+        }
+      ]
     }
-  ]
+  }
 }

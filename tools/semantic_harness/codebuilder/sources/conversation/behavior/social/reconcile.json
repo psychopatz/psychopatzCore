@@ -25,7 +25,7 @@
   ],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.social.apology.friendly",
+      "contentTemplateID": "social.apology.friendly",
       "dialogueAct": "RECONCILE"
     }
   },

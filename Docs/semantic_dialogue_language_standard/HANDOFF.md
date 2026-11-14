@@ -4,14 +4,14 @@ checkpoint_mode: "committed_handoff"
 phase_commit: "self"
 target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
-participant_heads: "project-hoomans=13ae8008316227eb1042314acb5400be0c011d48;dynamic-trading=e05d4b277934b8aafe5871d60b3bfb4937a37c07"
+participant_heads: "project-hoomans=d188b3f4fbe0f77b228254ac94dc8cc3db2f2a15;dynamic-trading=800c3808f736b310ee2c6371e0c4bcebf37fb736"
 state: "CLEAN_CHECKPOINT"
 parent_status: "IN_PROGRESS"
 phase: "S6M — ConvoEngine normalization"
-chunk: "S6M4 — Realization/style normalization and canonical ID cleanup"
+chunk: "S6M5 — Affordance/label vs say, named reply outcomes, slots, and chaining normalization"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-13T19:10:00Z"
+updated_at: "2026-11-14T09:30:00Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -34,15 +34,15 @@ The existing compiler/runtime migration is useful. Do not undo it.
 ```text
 Core
 /home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD 8dd946300f407dbcbf2987a77133398f9a58027b (parent of this S6M3 commit)
+HEAD 4b7e45e7 (parent of this S6M4 commit)
 
 Hoomans
 /home/psychopatz/Zomboid/Workshop/ProjectHoomans
-HEAD 13ae8008316227eb1042314acb5400be0c011d48
+HEAD d188b3f4fbe0f77b228254ac94dc8cc3db2f2a15
 
 DynamicTrading
 /home/psychopatz/Zomboid/Workshop/DynamicTrading
-HEAD e05d4b277934b8aafe5871d60b3bfb4937a37c07
+HEAD 800c3808f736b310ee2c6371e0c4bcebf37fb736
 ```
 
 Reinspect Git state before edits. Preserve unrelated work.
@@ -230,17 +230,17 @@ This is S6M6, not the current chunk.
 - Regenerated 454 generated files cleanly via `build.py` (with `DTCommon` marked `optional: true` in Core `externalSourceRoots` so Hoomans-only compiler tests remain self-contained).
 - Verified Core Python `tools/semantic_harness/tests` 129/129 OK, `refactor_binding_smoke.py` PASS, Core semantic Lua smokes 9/9 PASS, DynamicTrading `tests/run_tests.py` 89/89 PASS, ProjectHoomans `tests/run_tests.py` 1003/1020 PASS (exact pre-existing S1/S5 baseline).
 
-## Immediate Next Chunk — S6M4
+## What became true in S6M4
+
+- Normalized all remaining `psychopatz.semantic.dialogue-language.v1` numeric `.01/.1/.2` wording shards and style-sibling families (`.neutral/.warm/.terse/.guarded/.friendly`) + redundant `semantic.` prefixes into canonical `psychopatz.convo-engine.v1` family modules via CodeBuilder (`convo_engine_normalization.py`, `conversation_compiler.py`, `conversation_rendering.py`, `Foundation.lua`), leaving **0** `psychopatz.semantic.dialogue-language.v1` source files across all three repositories.
+- Regenerated all Core, ProjectHoomans, and DynamicTrading ConvoEngine outputs via CodeBuilder, added `ConvoPlanFamily.install` fallback across `SpeechRealization.lua` / `Interaction/Presentation.lua` / `PNC_SemanticTacticalSpatialLanguage.lua`, fixed `ToolReplies.lua` & `PlayerEmote.lua`, updated Hoomans `ResponseCatalog/` / `Dialogue/` / `client/` callers, Core observatory/pilot fixtures, and test expectations atomically.
+- Verification: Core Python `tools/semantic_harness/tests` 131/131 OK, `refactor_binding_smoke.py` PASS, Core semantic Lua tests 18/18 PASS; DynamicTrading `tests/run_tests.py` PASS 89/89; ProjectHoomans `tests/run_tests.py` 1012/1020 PASS (down from 17 pre-existing failures to 8 pre-existing S1/S5/SocialFlavorClient baseline failures); Kahlua2 static check 0 issues across all modified Lua files.
+
+## Immediate Next Chunk — S6M5
 
 Responsibility:
 
-> Normalize the 57 remaining pre-normalization numeric-ID shards (`psychopatz.semantic.dialogue-language.v1` `.01/.1/.2` wording IDs) and style-sibling shards (`.neutral/.warm/.terse/.guarded/.friendly`) + redundant routine `semantic.` prefixes into canonical `psychopatz.convo-engine.v1` family modules via CodeBuilder, updating callers/tests atomically to reach zero `psychopatz.semantic.dialogue-language.v1` sources.
-
-Pass gate:
-
-- Numeric `.01/.1/.2` wording IDs live as stable `say` realization keys (or single-`say` shorthand) inside coherent family files;
-- Style-sibling variants fold under family style/context dimensions;
-- Zero `psychopatz.semantic.dialogue-language.v1` files remain across Core/Hoomans/DynamicTrading and tests pass.
+> Normalize dynamic slots (`$slot.*`), button `affordance.label` vs initiating `say`, named independent `reply` outcomes, shared player/NPC affordance reuse, and recommendation/chaining (`after.recommend` / `after.goto`) through CodeBuilder, keeping runtime callers/tests green.
 
 ## Following bounded chunks
 

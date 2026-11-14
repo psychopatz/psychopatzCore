@@ -9,7 +9,7 @@
   "modifiers": [],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.interaction.scene.task_work_assigned",
+      "contentTemplateID": "interaction.scene.task_work_assigned",
       "dialogueAct": "INFORM"
     }
   },

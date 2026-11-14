@@ -1,11 +1,15 @@
 {
-  "id": "unknown",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "gift.preference",
+  "id": "unknown",
+  "owner": "PsychopatzCore",
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.needs.gifts.preference",
     "sourcePath": "needs/gifts/preference.json",
     "textKey": "gift.preference.unknown",
+    "textTarget": "needs/gifts/preference",
     "textRows": [
       {
         "key": "gift.preference.unknown",
@@ -14,14 +18,17 @@
           "TL": "Hindi ko alam kung anong gamit ang tinutukoy mo."
         }
       }
-    ],
-    "textTarget": "needs/gifts/preference"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "text": {
-    "EN": "I'm not sure which item you mean.",
-    "TL": "Hindi ko alam kung anong gamit ang tinutukoy mo."
-  },
-  "namespace": "text.gift.preference",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "I'm not sure which item you mean.",
+          "TL": "Hindi ko alam kung anong gamit ang tinutukoy mo."
+        }
+      }
+    ]
+  }
 }

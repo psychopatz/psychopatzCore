@@ -1,281 +1,215 @@
 {
-  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "response",
+  "id": "goodbye",
   "owner": "PsychopatzCore",
-  "records": [
-    {
-      "id": "text.response.goodbye",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye",
-        "textRows": [
-          {
-            "key": "response.goodbye",
-            "text": {
-              "EN": "You too.",
-              "TL": "Ikaw rin."
-            }
-          }
-        ],
-        "textTarget": "social/goodbye/closing"
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.social.goodbye.closing",
+    "sourcePath": "social/goodbye/closing.json",
+    "textTarget": "social/goodbye/closing",
+    "textRows": [
+      {
+        "key": "response.goodbye",
+        "text": {
+          "EN": "You too.",
+          "TL": "Ikaw rin."
+        }
       },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "You too.",
-        "TL": "Ikaw rin."
+      {
+        "key": "response.goodbye.1",
+        "text": {
+          "EN": "You too.",
+          "TL": "Ikaw rin."
+        }
+      },
+      {
+        "key": "response.goodbye.2",
+        "text": {
+          "EN": "Watch your back out there.",
+          "TL": "Mag-ingat ka sa labas."
+        }
+      },
+      {
+        "key": "response.goodbye.3",
+        "text": {
+          "EN": "Take care. See you around.",
+          "TL": "Ingat. Magkikita pa tayo."
+        }
+      },
+      {
+        "key": "response.goodbye.4",
+        "text": {
+          "EN": "Keep your eyes open.",
+          "TL": "Bantayan mo ang likod mo."
+        }
+      },
+      {
+        "key": "response.goodbye.5",
+        "text": {
+          "EN": "Stay safe. Don't take unnecessary risks.",
+          "TL": "Manatiling ligtas. Huwag sumuong sa panganib."
+        }
+      },
+      {
+        "key": "response.goodbye.6",
+        "text": {
+          "EN": "Until next time. Stay sharp.",
+          "TL": "Hanggang sa muli. Maging alerto."
+        }
+      },
+      {
+        "key": "response.goodbye.7",
+        "text": {
+          "EN": "Yeah. Catch you later.",
+          "TL": "Sige. Magkita na lang tayo mamaya."
+        }
+      },
+      {
+        "key": "response.goodbye.8",
+        "text": {
+          "EN": "Take it easy out there.",
+          "TL": "Dahan-dahan ka lang sa daan."
+        }
+      },
+      {
+        "key": "response.goodbye.9",
+        "text": {
+          "EN": "See you. Keep your head down.",
+          "TL": "Sige na. Huwag kang papakita sa mga 'yun."
+        }
+      },
+      {
+        "key": "response.goodbye.10",
+        "text": {
+          "EN": "Be careful on the roads.",
+          "TL": "Maging maingat ka palagi sa labas."
+        }
       }
+    ]
+  },
+  "say": {
+    "1": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "You too.",
+            "TL": "Ikaw rin."
+          }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.1",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.1",
-        "textRows": [
-          {
-            "key": "response.goodbye.1",
-            "text": {
-              "EN": "You too.",
-              "TL": "Ikaw rin."
-            }
+    "2": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "You too.",
+            "TL": "Ikaw rin."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "You too.",
-        "TL": "Ikaw rin."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.10",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.10",
-        "textRows": [
-          {
-            "key": "response.goodbye.10",
-            "text": {
-              "EN": "Be careful on the roads.",
-              "TL": "Maging maingat ka palagi sa labas."
-            }
+    "3": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Watch your back out there.",
+            "TL": "Mag-ingat ka sa labas."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "Be careful on the roads.",
-        "TL": "Maging maingat ka palagi sa labas."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.2",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.2",
-        "textRows": [
-          {
-            "key": "response.goodbye.2",
-            "text": {
-              "EN": "Watch your back out there.",
-              "TL": "Mag-ingat ka sa labas."
-            }
+    "4": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Take care. See you around.",
+            "TL": "Ingat. Magkikita pa tayo."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "Watch your back out there.",
-        "TL": "Mag-ingat ka sa labas."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.3",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.3",
-        "textRows": [
-          {
-            "key": "response.goodbye.3",
-            "text": {
-              "EN": "Take care. See you around.",
-              "TL": "Ingat. Magkikita pa tayo."
-            }
+    "5": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Keep your eyes open.",
+            "TL": "Bantayan mo ang likod mo."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "Take care. See you around.",
-        "TL": "Ingat. Magkikita pa tayo."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.4",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.4",
-        "textRows": [
-          {
-            "key": "response.goodbye.4",
-            "text": {
-              "EN": "Keep your eyes open.",
-              "TL": "Bantayan mo ang likod mo."
-            }
+    "6": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Stay safe. Don't take unnecessary risks.",
+            "TL": "Manatiling ligtas. Huwag sumuong sa panganib."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "Keep your eyes open.",
-        "TL": "Bantayan mo ang likod mo."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.5",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.5",
-        "textRows": [
-          {
-            "key": "response.goodbye.5",
-            "text": {
-              "EN": "Stay safe. Don't take unnecessary risks.",
-              "TL": "Manatiling ligtas. Huwag sumuong sa panganib."
-            }
+    "7": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Until next time. Stay sharp.",
+            "TL": "Hanggang sa muli. Maging alerto."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "Stay safe. Don't take unnecessary risks.",
-        "TL": "Manatiling ligtas. Huwag sumuong sa panganib."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.6",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.6",
-        "textRows": [
-          {
-            "key": "response.goodbye.6",
-            "text": {
-              "EN": "Until next time. Stay sharp.",
-              "TL": "Hanggang sa muli. Maging alerto."
-            }
+    "8": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Yeah. Catch you later.",
+            "TL": "Sige. Magkita na lang tayo mamaya."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "Until next time. Stay sharp.",
-        "TL": "Hanggang sa muli. Maging alerto."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.7",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.7",
-        "textRows": [
-          {
-            "key": "response.goodbye.7",
-            "text": {
-              "EN": "Yeah. Catch you later.",
-              "TL": "Sige. Magkita na lang tayo mamaya."
-            }
+    "9": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Take it easy out there.",
+            "TL": "Dahan-dahan ka lang sa daan."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "Yeah. Catch you later.",
-        "TL": "Sige. Magkita na lang tayo mamaya."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.8",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.8",
-        "textRows": [
-          {
-            "key": "response.goodbye.8",
-            "text": {
-              "EN": "Take it easy out there.",
-              "TL": "Dahan-dahan ka lang sa daan."
-            }
+    "10": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "See you. Keep your head down.",
+            "TL": "Sige na. Huwag kang papakita sa mga 'yun."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "Take it easy out there.",
-        "TL": "Dahan-dahan ka lang sa daan."
-      }
+        }
+      ]
     },
-    {
-      "id": "text.response.goodbye.9",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.social.goodbye.closing",
-        "sourcePath": "social/goodbye/closing.json",
-        "textKey": "response.goodbye.9",
-        "textRows": [
-          {
-            "key": "response.goodbye.9",
-            "text": {
-              "EN": "See you. Keep your head down.",
-              "TL": "Sige na. Huwag kang papakita sa mga 'yun."
-            }
+    "11": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Be careful on the roads.",
+            "TL": "Maging maingat ka palagi sa labas."
           }
-        ],
-        "textTarget": "social/goodbye/closing"
-      },
-      "owner": "PsychopatzCore",
-      "text": {
-        "EN": "See you. Keep your head down.",
-        "TL": "Sige na. Huwag kang papakita sa mga 'yun."
-      }
+        }
+      ]
     }
-  ]
+  }
 }

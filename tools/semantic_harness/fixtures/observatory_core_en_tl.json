@@ -2,7 +2,7 @@
   "cases": [
     {
       "expected": {
-        "firstSemanticKey": "semantic.flow.greeting.opening.default",
+        "firstSemanticKey": "flow.greeting.opening.default",
         "maxActions": 0
       },
       "label": "Greeting opening EN",
@@ -11,7 +11,7 @@
     },
     {
       "expected": {
-        "firstSemanticKey": "semantic.flow.greeting.opening.default",
+        "firstSemanticKey": "flow.greeting.opening.default",
         "maxActions": 0,
         "maxFallbackLookups": 0
       },
@@ -21,7 +21,7 @@
     },
     {
       "expected": {
-        "firstSemanticKey": "semantic.flow.greeting.opening.rain",
+        "firstSemanticKey": "flow.greeting.opening.rain",
         "maxActions": 0
       },
       "label": "Rain greeting EN",
@@ -35,7 +35,7 @@
     },
     {
       "expected": {
-        "firstSemanticKey": "semantic.flow.greeting.opening.rain",
+        "firstSemanticKey": "flow.greeting.opening.rain",
         "maxActions": 0,
         "maxFallbackLookups": 0
       },
@@ -50,7 +50,7 @@
     },
     {
       "expected": {
-        "lastKeyPrefix": "semantic.question.identity.",
+        "lastKeyPrefix": "question.identity.",
         "maxActions": 0
       },
       "label": "Unknown identity EN",
@@ -64,7 +64,7 @@
     },
     {
       "expected": {
-        "lastKeyPrefix": "semantic.question.identity.",
+        "lastKeyPrefix": "question.identity.",
         "maxActions": 0
       },
       "label": "Unknown identity TL",
@@ -79,7 +79,7 @@
     {
       "expected": {
         "accepted": true,
-        "lastKey": "semantic.command.follow.queued",
+        "lastKey": "command.follow.queued",
         "minActions": 1
       },
       "label": "Companion Follow EN",
@@ -88,7 +88,7 @@
     },
     {
       "expected": {
-        "lastKey": "semantic.command.follow.queued",
+        "lastKey": "command.follow.queued",
         "maxFallbackLookups": 0,
         "minActions": 1,
         "textContains": "Sige, susundan kita."

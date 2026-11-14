@@ -2,16 +2,66 @@
 return {
     {
         ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.choice.goodbye",
+        ["exchangeFamily"] = {
+            ["familyID"] = "choice.goodbye",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "That's all. Stay safe.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.choice.goodbye.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "That's all. Stay safe.",
+                                    },
+                                    ["TL"] = {
+                                        "Iyon lang. Manatiling ligtas.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "choice",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "That's all. Stay safe.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.choice.goodbye.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "That's all. Stay safe.",
+                        },
+                        ["TL"] = {
+                            "Iyon lang. Manatiling ligtas.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "choice.goodbye",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "goodbye",
-            ["sourceId"] = "text.choice.goodbye",
+            ["sourceId"] = "choice.goodbye",
             ["sourcePath"] = "dialogue/core_text_social_goodbye/choice_goodbye.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["namespace"] = "text.choice",
+        ["namespace"] = "choice",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -38,13 +88,31 @@ return {
                 },
                 ["textTarget"] = "social/goodbye/closing",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "That's all. Stay safe.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Iyon lang. Manatiling ligtas.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "That's all. Stay safe.",
+                                    },
+                                    ["TL"] = {
+                                        "Iyon lang. Manatiling ligtas.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -52,12 +120,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.choice.goodbye",
+            ["responsePlanID"] = "choice.goodbye",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -66,7 +134,7 @@ return {
                             },
                             ["fallback"] = "That's all. Stay safe.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.choice.goodbye.response",
+                            ["templateID"] = "psdl.choice.goodbye.say_1",
                         },
                     },
                 },
@@ -80,19 +148,447 @@ return {
             ["required"] = false,
             ["type"] = "entity.any",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "That's all. Stay safe.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.choice.goodbye.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "That's all. Stay safe.",
+                    },
+                    ["TL"] = {
+                        "Iyon lang. Manatiling ligtas.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye",
+        ["exchangeFamily"] = {
+            ["familyID"] = "response.goodbye",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                },
+                ["mode"] = "keyed",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "You too.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "You too.",
+                                    },
+                                    ["TL"] = {
+                                        "Ikaw rin.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["10"] = {
+                        ["key"] = "10",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "See you. Keep your head down.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.10.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "See you. Keep your head down.",
+                                    },
+                                    ["TL"] = {
+                                        "Sige na. Huwag kang papakita sa mga 'yun.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["11"] = {
+                        ["key"] = "11",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Be careful on the roads.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.11.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Be careful on the roads.",
+                                    },
+                                    ["TL"] = {
+                                        "Maging maingat ka palagi sa labas.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["2"] = {
+                        ["key"] = "2",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "You too.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.2.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "You too.",
+                                    },
+                                    ["TL"] = {
+                                        "Ikaw rin.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["3"] = {
+                        ["key"] = "3",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Watch your back out there.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.3.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Watch your back out there.",
+                                    },
+                                    ["TL"] = {
+                                        "Mag-ingat ka sa labas.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["4"] = {
+                        ["key"] = "4",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Take care. See you around.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.4.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Take care. See you around.",
+                                    },
+                                    ["TL"] = {
+                                        "Ingat. Magkikita pa tayo.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["5"] = {
+                        ["key"] = "5",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Keep your eyes open.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.5.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Keep your eyes open.",
+                                    },
+                                    ["TL"] = {
+                                        "Bantayan mo ang likod mo.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["6"] = {
+                        ["key"] = "6",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Stay safe. Don't take unnecessary risks.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.6.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Stay safe. Don't take unnecessary risks.",
+                                    },
+                                    ["TL"] = {
+                                        "Manatiling ligtas. Huwag sumuong sa panganib.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["7"] = {
+                        ["key"] = "7",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Until next time. Stay sharp.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.7.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Until next time. Stay sharp.",
+                                    },
+                                    ["TL"] = {
+                                        "Hanggang sa muli. Maging alerto.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["8"] = {
+                        ["key"] = "8",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Yeah. Catch you later.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.8.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Yeah. Catch you later.",
+                                    },
+                                    ["TL"] = {
+                                        "Sige. Magkita na lang tayo mamaya.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["9"] = {
+                        ["key"] = "9",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Take it easy out there.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.goodbye.say.9.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Take it easy out there.",
+                                    },
+                                    ["TL"] = {
+                                        "Dahan-dahan ka lang sa daan.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "response",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "You too.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "You too.",
+                        },
+                        ["TL"] = {
+                            "Ikaw rin.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "You too.",
+                    ["realizationKey"] = "2",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.2.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "You too.",
+                        },
+                        ["TL"] = {
+                            "Ikaw rin.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Watch your back out there.",
+                    ["realizationKey"] = "3",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.3.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Watch your back out there.",
+                        },
+                        ["TL"] = {
+                            "Mag-ingat ka sa labas.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Take care. See you around.",
+                    ["realizationKey"] = "4",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.4.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Take care. See you around.",
+                        },
+                        ["TL"] = {
+                            "Ingat. Magkikita pa tayo.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Keep your eyes open.",
+                    ["realizationKey"] = "5",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.5.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Keep your eyes open.",
+                        },
+                        ["TL"] = {
+                            "Bantayan mo ang likod mo.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Stay safe. Don't take unnecessary risks.",
+                    ["realizationKey"] = "6",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.6.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Stay safe. Don't take unnecessary risks.",
+                        },
+                        ["TL"] = {
+                            "Manatiling ligtas. Huwag sumuong sa panganib.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Until next time. Stay sharp.",
+                    ["realizationKey"] = "7",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.7.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Until next time. Stay sharp.",
+                        },
+                        ["TL"] = {
+                            "Hanggang sa muli. Maging alerto.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Yeah. Catch you later.",
+                    ["realizationKey"] = "8",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.8.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Yeah. Catch you later.",
+                        },
+                        ["TL"] = {
+                            "Sige. Magkita na lang tayo mamaya.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Take it easy out there.",
+                    ["realizationKey"] = "9",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.9.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Take it easy out there.",
+                        },
+                        ["TL"] = {
+                            "Dahan-dahan ka lang sa daan.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "See you. Keep your head down.",
+                    ["realizationKey"] = "10",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.10.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "See you. Keep your head down.",
+                        },
+                        ["TL"] = {
+                            "Sige na. Huwag kang papakita sa mga 'yun.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Be careful on the roads.",
+                    ["realizationKey"] = "11",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.goodbye.say.11.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Be careful on the roads.",
+                        },
+                        ["TL"] = {
+                            "Maging maingat ka palagi sa labas.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "response.goodbye",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[0]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["localId"] = "goodbye",
+            ["sourceId"] = "response.goodbye",
+            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
+        ["namespace"] = "response",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -107,7 +603,6 @@ return {
                 ["migration"] = "Core PSDL text record; translation catalog is downstream output",
                 ["sourceCatalog"] = "conversation.social.goodbye.closing",
                 ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye",
                 ["textRows"] = {
                     {
                         ["key"] = "response.goodbye",
@@ -116,80 +611,6 @@ return {
                             ["TL"] = "Ikaw rin.",
                         },
                     },
-                },
-                ["textTarget"] = "social/goodbye/closing",
-            },
-            ["text"] = {
-                ["EN"] = {
-                    "You too.",
-                },
-                ["TL"] = {
-                    "Ikaw rin.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
-                    },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "You too.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.response",
-                        },
-                    },
-                },
-            },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.1",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.1",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[1]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.1",
-                ["textRows"] = {
                     {
                         ["key"] = "response.goodbye.1",
                         ["text"] = {
@@ -197,80 +618,62 @@ return {
                             ["TL"] = "Ikaw rin.",
                         },
                     },
-                },
-                ["textTarget"] = "social/goodbye/closing",
-            },
-            ["text"] = {
-                ["EN"] = {
-                    "You too.",
-                },
-                ["TL"] = {
-                    "Ikaw rin.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.1",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
-                    },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "You too.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.1.response",
+                    {
+                        ["key"] = "response.goodbye.2",
+                        ["text"] = {
+                            ["EN"] = "Watch your back out there.",
+                            ["TL"] = "Mag-ingat ka sa labas.",
                         },
                     },
-                },
-            },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.10",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.10",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[2]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.10",
-                ["textRows"] = {
+                    {
+                        ["key"] = "response.goodbye.3",
+                        ["text"] = {
+                            ["EN"] = "Take care. See you around.",
+                            ["TL"] = "Ingat. Magkikita pa tayo.",
+                        },
+                    },
+                    {
+                        ["key"] = "response.goodbye.4",
+                        ["text"] = {
+                            ["EN"] = "Keep your eyes open.",
+                            ["TL"] = "Bantayan mo ang likod mo.",
+                        },
+                    },
+                    {
+                        ["key"] = "response.goodbye.5",
+                        ["text"] = {
+                            ["EN"] = "Stay safe. Don't take unnecessary risks.",
+                            ["TL"] = "Manatiling ligtas. Huwag sumuong sa panganib.",
+                        },
+                    },
+                    {
+                        ["key"] = "response.goodbye.6",
+                        ["text"] = {
+                            ["EN"] = "Until next time. Stay sharp.",
+                            ["TL"] = "Hanggang sa muli. Maging alerto.",
+                        },
+                    },
+                    {
+                        ["key"] = "response.goodbye.7",
+                        ["text"] = {
+                            ["EN"] = "Yeah. Catch you later.",
+                            ["TL"] = "Sige. Magkita na lang tayo mamaya.",
+                        },
+                    },
+                    {
+                        ["key"] = "response.goodbye.8",
+                        ["text"] = {
+                            ["EN"] = "Take it easy out there.",
+                            ["TL"] = "Dahan-dahan ka lang sa daan.",
+                        },
+                    },
+                    {
+                        ["key"] = "response.goodbye.9",
+                        ["text"] = {
+                            ["EN"] = "See you. Keep your head down.",
+                            ["TL"] = "Sige na. Huwag kang papakita sa mga 'yun.",
+                        },
+                    },
                     {
                         ["key"] = "response.goodbye.10",
                         ["text"] = {
@@ -281,13 +684,211 @@ return {
                 },
                 ["textTarget"] = "social/goodbye/closing",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Be careful on the roads.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
                 },
-                ["TL"] = {
-                    "Maging maingat ka palagi sa labas.",
+                ["mode"] = "keyed",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "You too.",
+                                    },
+                                    ["TL"] = {
+                                        "Ikaw rin.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["10"] = {
+                        ["key"] = "10",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "See you. Keep your head down.",
+                                    },
+                                    ["TL"] = {
+                                        "Sige na. Huwag kang papakita sa mga 'yun.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["11"] = {
+                        ["key"] = "11",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Be careful on the roads.",
+                                    },
+                                    ["TL"] = {
+                                        "Maging maingat ka palagi sa labas.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["2"] = {
+                        ["key"] = "2",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "You too.",
+                                    },
+                                    ["TL"] = {
+                                        "Ikaw rin.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["3"] = {
+                        ["key"] = "3",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Watch your back out there.",
+                                    },
+                                    ["TL"] = {
+                                        "Mag-ingat ka sa labas.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["4"] = {
+                        ["key"] = "4",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Take care. See you around.",
+                                    },
+                                    ["TL"] = {
+                                        "Ingat. Magkikita pa tayo.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["5"] = {
+                        ["key"] = "5",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Keep your eyes open.",
+                                    },
+                                    ["TL"] = {
+                                        "Bantayan mo ang likod mo.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["6"] = {
+                        ["key"] = "6",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Stay safe. Don't take unnecessary risks.",
+                                    },
+                                    ["TL"] = {
+                                        "Manatiling ligtas. Huwag sumuong sa panganib.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["7"] = {
+                        ["key"] = "7",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Until next time. Stay sharp.",
+                                    },
+                                    ["TL"] = {
+                                        "Hanggang sa muli. Maging alerto.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["8"] = {
+                        ["key"] = "8",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Yeah. Catch you later.",
+                                    },
+                                    ["TL"] = {
+                                        "Sige. Magkita na lang tayo mamaya.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    ["9"] = {
+                        ["key"] = "9",
+                        ["shorthand"] = false,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Take it easy out there.",
+                                    },
+                                    ["TL"] = {
+                                        "Dahan-dahan ka lang sa daan.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -295,21 +896,21 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.10",
+            ["responsePlanID"] = "response.goodbye",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
                         {
                             ["args"] = {
                             },
-                            ["fallback"] = "Be careful on the roads.",
+                            ["fallback"] = "You too.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.10.response",
+                            ["templateID"] = "psdl.response.goodbye.say_1",
                         },
                     },
                 },
@@ -323,653 +924,172 @@ return {
             ["required"] = false,
             ["type"] = "entity.any",
         },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.2",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.2",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[3]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.2",
-                ["textRows"] = {
-                    {
-                        ["key"] = "response.goodbye.2",
-                        ["text"] = {
-                            ["EN"] = "Watch your back out there.",
-                            ["TL"] = "Mag-ingat ka sa labas.",
-                        },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "You too.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "You too.",
+                    },
+                    ["TL"] = {
+                        "Ikaw rin.",
                     },
                 },
-                ["textTarget"] = "social/goodbye/closing",
+                ["variantID"] = "neutral",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Watch your back out there.",
-                },
-                ["TL"] = {
-                    "Mag-ingat ka sa labas.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.2",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
+            {
+                ["fallback"] = "You too.",
+                ["realizationKey"] = "2",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.2.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "You too.",
                     },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "Watch your back out there.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.2.response",
-                        },
+                    ["TL"] = {
+                        "Ikaw rin.",
                     },
                 },
+                ["variantID"] = "neutral",
             },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.3",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.3",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[4]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.3",
-                ["textRows"] = {
-                    {
-                        ["key"] = "response.goodbye.3",
-                        ["text"] = {
-                            ["EN"] = "Take care. See you around.",
-                            ["TL"] = "Ingat. Magkikita pa tayo.",
-                        },
+            {
+                ["fallback"] = "Watch your back out there.",
+                ["realizationKey"] = "3",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.3.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Watch your back out there.",
+                    },
+                    ["TL"] = {
+                        "Mag-ingat ka sa labas.",
                     },
                 },
-                ["textTarget"] = "social/goodbye/closing",
+                ["variantID"] = "neutral",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Take care. See you around.",
-                },
-                ["TL"] = {
-                    "Ingat. Magkikita pa tayo.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.3",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
+            {
+                ["fallback"] = "Take care. See you around.",
+                ["realizationKey"] = "4",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.4.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Take care. See you around.",
                     },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "Take care. See you around.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.3.response",
-                        },
+                    ["TL"] = {
+                        "Ingat. Magkikita pa tayo.",
                     },
                 },
+                ["variantID"] = "neutral",
             },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.4",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.4",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[5]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.4",
-                ["textRows"] = {
-                    {
-                        ["key"] = "response.goodbye.4",
-                        ["text"] = {
-                            ["EN"] = "Keep your eyes open.",
-                            ["TL"] = "Bantayan mo ang likod mo.",
-                        },
+            {
+                ["fallback"] = "Keep your eyes open.",
+                ["realizationKey"] = "5",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.5.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Keep your eyes open.",
+                    },
+                    ["TL"] = {
+                        "Bantayan mo ang likod mo.",
                     },
                 },
-                ["textTarget"] = "social/goodbye/closing",
+                ["variantID"] = "neutral",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Keep your eyes open.",
-                },
-                ["TL"] = {
-                    "Bantayan mo ang likod mo.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.4",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
+            {
+                ["fallback"] = "Stay safe. Don't take unnecessary risks.",
+                ["realizationKey"] = "6",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.6.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Stay safe. Don't take unnecessary risks.",
                     },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "Keep your eyes open.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.4.response",
-                        },
+                    ["TL"] = {
+                        "Manatiling ligtas. Huwag sumuong sa panganib.",
                     },
                 },
+                ["variantID"] = "neutral",
             },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.5",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.5",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[6]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.5",
-                ["textRows"] = {
-                    {
-                        ["key"] = "response.goodbye.5",
-                        ["text"] = {
-                            ["EN"] = "Stay safe. Don't take unnecessary risks.",
-                            ["TL"] = "Manatiling ligtas. Huwag sumuong sa panganib.",
-                        },
+            {
+                ["fallback"] = "Until next time. Stay sharp.",
+                ["realizationKey"] = "7",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.7.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Until next time. Stay sharp.",
+                    },
+                    ["TL"] = {
+                        "Hanggang sa muli. Maging alerto.",
                     },
                 },
-                ["textTarget"] = "social/goodbye/closing",
+                ["variantID"] = "neutral",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Stay safe. Don't take unnecessary risks.",
-                },
-                ["TL"] = {
-                    "Manatiling ligtas. Huwag sumuong sa panganib.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.5",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
+            {
+                ["fallback"] = "Yeah. Catch you later.",
+                ["realizationKey"] = "8",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.8.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Yeah. Catch you later.",
                     },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "Stay safe. Don't take unnecessary risks.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.5.response",
-                        },
+                    ["TL"] = {
+                        "Sige. Magkita na lang tayo mamaya.",
                     },
                 },
+                ["variantID"] = "neutral",
             },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.6",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.6",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[7]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.6",
-                ["textRows"] = {
-                    {
-                        ["key"] = "response.goodbye.6",
-                        ["text"] = {
-                            ["EN"] = "Until next time. Stay sharp.",
-                            ["TL"] = "Hanggang sa muli. Maging alerto.",
-                        },
+            {
+                ["fallback"] = "Take it easy out there.",
+                ["realizationKey"] = "9",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.9.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Take it easy out there.",
+                    },
+                    ["TL"] = {
+                        "Dahan-dahan ka lang sa daan.",
                     },
                 },
-                ["textTarget"] = "social/goodbye/closing",
+                ["variantID"] = "neutral",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Until next time. Stay sharp.",
-                },
-                ["TL"] = {
-                    "Hanggang sa muli. Maging alerto.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.6",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
+            {
+                ["fallback"] = "See you. Keep your head down.",
+                ["realizationKey"] = "10",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.10.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "See you. Keep your head down.",
                     },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "Until next time. Stay sharp.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.6.response",
-                        },
+                    ["TL"] = {
+                        "Sige na. Huwag kang papakita sa mga 'yun.",
                     },
                 },
+                ["variantID"] = "neutral",
             },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.7",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.7",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[8]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.7",
-                ["textRows"] = {
-                    {
-                        ["key"] = "response.goodbye.7",
-                        ["text"] = {
-                            ["EN"] = "Yeah. Catch you later.",
-                            ["TL"] = "Sige. Magkita na lang tayo mamaya.",
-                        },
+            {
+                ["fallback"] = "Be careful on the roads.",
+                ["realizationKey"] = "11",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.goodbye.say.11.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Be careful on the roads.",
+                    },
+                    ["TL"] = {
+                        "Maging maingat ka palagi sa labas.",
                     },
                 },
-                ["textTarget"] = "social/goodbye/closing",
+                ["variantID"] = "neutral",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Yeah. Catch you later.",
-                },
-                ["TL"] = {
-                    "Sige. Magkita na lang tayo mamaya.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.7",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
-                    },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "Yeah. Catch you later.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.7.response",
-                        },
-                    },
-                },
-            },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.8",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.8",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[9]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.8",
-                ["textRows"] = {
-                    {
-                        ["key"] = "response.goodbye.8",
-                        ["text"] = {
-                            ["EN"] = "Take it easy out there.",
-                            ["TL"] = "Dahan-dahan ka lang sa daan.",
-                        },
-                    },
-                },
-                ["textTarget"] = "social/goodbye/closing",
-            },
-            ["text"] = {
-                ["EN"] = {
-                    "Take it easy out there.",
-                },
-                ["TL"] = {
-                    "Dahan-dahan ka lang sa daan.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.8",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
-                    },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "Take it easy out there.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.8.response",
-                        },
-                    },
-                },
-            },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_text_social_goodbye",
-        ["id"] = "text.response.goodbye.9",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.goodbye.9",
-            ["sourcePath"] = "dialogue/core_text_social_goodbye/response_goodbye.json#records[10]",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGoodbye",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["migration"] = "Core PSDL text record; translation catalog is downstream output",
-                ["sourceCatalog"] = "conversation.social.goodbye.closing",
-                ["sourcePath"] = "social/goodbye/closing.json",
-                ["textKey"] = "response.goodbye.9",
-                ["textRows"] = {
-                    {
-                        ["key"] = "response.goodbye.9",
-                        ["text"] = {
-                            ["EN"] = "See you. Keep your head down.",
-                            ["TL"] = "Sige na. Huwag kang papakita sa mga 'yun.",
-                        },
-                    },
-                },
-                ["textTarget"] = "social/goodbye/closing",
-            },
-            ["text"] = {
-                ["EN"] = {
-                    "See you. Keep your head down.",
-                },
-                ["TL"] = {
-                    "Sige na. Huwag kang papakita sa mga 'yun.",
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["responsePlan"] = {
-            ["dialogueAct"] = nil,
-            ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.goodbye.9",
-            ["schemaVersion"] = 1,
-            ["turns"] = {
-                {
-                    ["continuation"] = "end",
-                    ["id"] = "response",
-                    ["offers"] = {
-                    },
-                    ["segments"] = {
-                        {
-                            ["args"] = {
-                            },
-                            ["fallback"] = "See you. Keep your head down.",
-                            ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.goodbye.9.response",
-                        },
-                    },
-                },
-            },
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_text_social_goodbye/response_goodbye.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
         },
         ["when"] = nil,
     },

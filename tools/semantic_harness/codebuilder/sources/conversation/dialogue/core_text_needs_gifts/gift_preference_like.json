@@ -1,11 +1,15 @@
 {
-  "id": "like",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "gift.preference",
+  "id": "like",
+  "owner": "PsychopatzCore",
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.needs.gifts.preference",
     "sourcePath": "needs/gifts/preference.json",
     "textKey": "gift.preference.like",
+    "textTarget": "needs/gifts/preference",
     "textRows": [
       {
         "key": "gift.preference.like",
@@ -14,14 +18,17 @@
           "TL": "Gusto ko iyan."
         }
       }
-    ],
-    "textTarget": "needs/gifts/preference"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "text": {
-    "EN": "I like that.",
-    "TL": "Gusto ko iyan."
-  },
-  "namespace": "text.gift.preference",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "I like that.",
+          "TL": "Gusto ko iyan."
+        }
+      }
+    ]
+  }
 }

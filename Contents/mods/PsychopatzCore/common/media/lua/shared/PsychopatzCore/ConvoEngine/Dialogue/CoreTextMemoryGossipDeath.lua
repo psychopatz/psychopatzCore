@@ -2,16 +2,66 @@
 return {
     {
         ["domain"] = "core_text_memory_gossip_death",
-        ["id"] = "text.death.report",
+        ["exchangeFamily"] = {
+            ["familyID"] = "death.report",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "I heard {target.name} did not make it back.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.death.report.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "I heard {target.name} did not make it back.",
+                                    },
+                                    ["TL"] = {
+                                        "Balita ko, hindi na nakabalik si {target.name}.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "death",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "I heard {target.name} did not make it back.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.death.report.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "I heard {target.name} did not make it back.",
+                        },
+                        ["TL"] = {
+                            "Balita ko, hindi na nakabalik si {target.name}.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "death.report",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "report",
-            ["sourceId"] = "text.death.report",
+            ["sourceId"] = "death.report",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_death/death_report.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipDeath",
-        ["namespace"] = "text.death",
+        ["namespace"] = "death",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -38,13 +88,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "I heard {target.name} did not make it back.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Balita ko, hindi na nakabalik si {target.name}.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "I heard {target.name} did not make it back.",
+                                    },
+                                    ["TL"] = {
+                                        "Balita ko, hindi na nakabalik si {target.name}.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -52,12 +120,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.death.report",
+            ["responsePlanID"] = "death.report",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -66,7 +134,7 @@ return {
                             },
                             ["fallback"] = "I heard {target.name} did not make it back.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.death.report.response",
+                            ["templateID"] = "psdl.death.report.say_1",
                         },
                     },
                 },
@@ -80,20 +148,87 @@ return {
             ["required"] = true,
             ["type"] = "entity.person",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "I heard {target.name} did not make it back.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.death.report.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "I heard {target.name} did not make it back.",
+                    },
+                    ["TL"] = {
+                        "Balita ko, hindi na nakabalik si {target.name}.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_text_memory_gossip_death",
-        ["id"] = "text.death.sacrifice",
+        ["exchangeFamily"] = {
+            ["familyID"] = "death.sacrifice",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "They say {target.name} stayed behind so others could escape.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.death.sacrifice.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "They say {target.name} stayed behind so others could escape.",
+                                    },
+                                    ["TL"] = {
+                                        "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "death",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "They say {target.name} stayed behind so others could escape.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.death.sacrifice.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "They say {target.name} stayed behind so others could escape.",
+                        },
+                        ["TL"] = {
+                            "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "death.sacrifice",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "sacrifice",
-            ["sourceId"] = "text.death.sacrifice",
+            ["sourceId"] = "death.sacrifice",
             ["sourcePath"] = "dialogue/core_text_memory_gossip_death/death_sacrifice.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextMemoryGossipDeath",
-        ["namespace"] = "text.death",
+        ["namespace"] = "death",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -120,13 +255,31 @@ return {
                 },
                 ["textTarget"] = "memory/gossip",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "They say {target.name} stayed behind so others could escape.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "They say {target.name} stayed behind so others could escape.",
+                                    },
+                                    ["TL"] = {
+                                        "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -134,12 +287,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.death.sacrifice",
+            ["responsePlanID"] = "death.sacrifice",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -148,7 +301,7 @@ return {
                             },
                             ["fallback"] = "They say {target.name} stayed behind so others could escape.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.death.sacrifice.response",
+                            ["templateID"] = "psdl.death.sacrifice.say_1",
                         },
                     },
                 },
@@ -161,6 +314,23 @@ return {
             ["multiple"] = false,
             ["required"] = true,
             ["type"] = "entity.person",
+        },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "They say {target.name} stayed behind so others could escape.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.death.sacrifice.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "They say {target.name} stayed behind so others could escape.",
+                    },
+                    ["TL"] = {
+                        "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
         },
         ["when"] = nil,
     },

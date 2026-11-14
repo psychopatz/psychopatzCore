@@ -16,7 +16,7 @@
   ],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.interaction.first_contact.challenge",
+      "contentTemplateID": "interaction.first_contact.challenge",
       "dialogueAct": "CHALLENGE"
     }
   },

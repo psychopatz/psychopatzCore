@@ -1,546 +1,140 @@
 {
   "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "question.activity.dataset",
+  "id": "keep_moving",
   "owner": "PsychopatzCore",
-  "records": [
-    {
-      "kind": "dialogue",
-      "id": "guarded",
-      "owner": "PsychopatzCore",
-      "participants": {
-        "speaker": [
-          "participant"
-        ],
-        "addressee": [
-          "participant"
-        ]
+  "participants": {
+    "speaker": [
+      "participant"
+    ],
+    "addressee": [
+      "participant"
+    ]
+  },
+  "metadata": {
+    "category": "psychopatzcore:knowledge",
+    "sourceSurface": "content/knowledge/activity.json",
+    "responseAct": "KNOWLEDGE_RESPONSE"
+  },
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": [
+            "We should keep moving. It's not safe to linger.",
+            "Staying mobile is our best option right now.",
+            "We need to continue forward and find shelter.",
+            "It's best if we keep moving down this route.",
+            "Let's keep the pace. We have ground to cover.",
+            "We shouldn't remain stationary for too long.",
+            "Keep walking. We need to reach our objective.",
+            "Moving along is the safest strategy right now.",
+            "Let's continue on our way.",
+            "We should maintain our momentum and keep moving."
+          ],
+          "TL": [
+            "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal.",
+            "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon.",
+            "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan.",
+            "Pinakamabuti kung magpapatuloy tayo sa rutang ito.",
+            "Panatilihin natin ang bilis. Marami pa tayong lalakarin.",
+            "Hindi tayo dapat manatiling nakatigil nang matagal.",
+            "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin.",
+            "Ang pag-usad ang pinakaligtas na stratehiya ngayon.",
+            "Magpatuloy tayo sa ating daan.",
+            "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad."
+          ]
+        }
       },
-      "metadata": {
-        "category": "psychopatzcore:knowledge",
-        "sourceSurface": "content/knowledge/activity.json",
-        "responseTemplateID": "semantic.question.activity.dataset.keep_moving",
-        "style": "guarded"
+      {
+        "id": "guarded",
+        "text": {
+          "EN": [
+            "We need to keep moving. Sitting still will get us killed.",
+            "Don't loiter. The dead migrate toward stillness.",
+            "Keep your boots moving. Danger is everywhere.",
+            "We stay on the road. Tarrying is suicide.",
+            "Keep moving. Eyes on the woodline.",
+            "No resting in the open. Walk.",
+            "Movement keeps us alive. Don't freeze up.",
+            "Keep marching. We're too exposed right here.",
+            "Keep going. Resting here is asking for trouble.",
+            "Step lively. A static survivor is a dead survivor."
+          ],
+          "TL": [
+            "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito.",
+            "Huwag tatambay. Dumarating ang mga patay kapag nanahimik.",
+            "Igalaw ang mga paa mo. Nasa paligid ang panganib.",
+            "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras.",
+            "Tuloy ang lakad. Tumingin sa kakahuyan.",
+            "Walang pahinga sa lantad na lugar. Lakad.",
+            "Pagkilos ang bumubuhay sa atin. Huwag matulala.",
+            "Magmartsa pa. Masyado tayong lantad dito.",
+            "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito.",
+            "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor."
+          ]
+        }
       },
-      "response": {
-        "act": "KNOWLEDGE_RESPONSE",
-        "variants": [
-          {
-            "id": "guarded.01",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.01"
-            },
-            "text": {
-              "EN": "We need to keep moving. Sitting still will get us killed.",
-              "TL": "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito."
-            }
-          },
-          {
-            "id": "guarded.02",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.02"
-            },
-            "text": {
-              "EN": "Don't loiter. The dead migrate toward stillness.",
-              "TL": "Huwag tatambay. Dumarating ang mga patay kapag nanahimik."
-            }
-          },
-          {
-            "id": "guarded.03",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.03"
-            },
-            "text": {
-              "EN": "Keep your boots moving. Danger is everywhere.",
-              "TL": "Igalaw ang mga paa mo. Nasa paligid ang panganib."
-            }
-          },
-          {
-            "id": "guarded.04",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.04"
-            },
-            "text": {
-              "EN": "We stay on the road. Tarrying is suicide.",
-              "TL": "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras."
-            }
-          },
-          {
-            "id": "guarded.05",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.05"
-            },
-            "text": {
-              "EN": "Keep moving. Eyes on the woodline.",
-              "TL": "Tuloy ang lakad. Tumingin sa kakahuyan."
-            }
-          },
-          {
-            "id": "guarded.06",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.06"
-            },
-            "text": {
-              "EN": "No resting in the open. Walk.",
-              "TL": "Walang pahinga sa lantad na lugar. Lakad."
-            }
-          },
-          {
-            "id": "guarded.07",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.07"
-            },
-            "text": {
-              "EN": "Movement keeps us alive. Don't freeze up.",
-              "TL": "Pagkilos ang bumubuhay sa atin. Huwag matulala."
-            }
-          },
-          {
-            "id": "guarded.08",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.08"
-            },
-            "text": {
-              "EN": "Keep marching. We're too exposed right here.",
-              "TL": "Magmartsa pa. Masyado tayong lantad dito."
-            }
-          },
-          {
-            "id": "guarded.09",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.09"
-            },
-            "text": {
-              "EN": "Keep going. Resting here is asking for trouble.",
-              "TL": "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito."
-            }
-          },
-          {
-            "id": "guarded.10",
-            "metadata": {
-              "style": "guarded",
-              "textKey": "semantic.question.activity.dataset.keep_moving.guarded.10"
-            },
-            "text": {
-              "EN": "Step lively. A static survivor is a dead survivor.",
-              "TL": "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor."
-            }
-          }
-        ]
+      {
+        "id": "terse",
+        "text": {
+          "EN": [
+            "Keep moving.",
+            "Move.",
+            "Don't stop.",
+            "Walk.",
+            "Keep pace.",
+            "Forward.",
+            "Keep going.",
+            "Step up.",
+            "Don't linger.",
+            "On the move."
+          ],
+          "TL": [
+            "Tuloy sa paglakad.",
+            "Galaw.",
+            "Huwag hihinto.",
+            "Lakad.",
+            "Sumabay.",
+            "Sulong.",
+            "Tuloy lang.",
+            "Hakbang.",
+            "Huwag magtagal.",
+            "Kilos."
+          ]
+        }
       },
-      "namespace": "semantic.question.activity.dataset.keep_moving"
-    },
-    {
-      "kind": "dialogue",
-      "id": "neutral",
-      "owner": "PsychopatzCore",
-      "participants": {
-        "speaker": [
-          "participant"
-        ],
-        "addressee": [
-          "participant"
-        ]
-      },
-      "metadata": {
-        "category": "psychopatzcore:knowledge",
-        "sourceSurface": "content/knowledge/activity.json",
-        "responseTemplateID": "semantic.question.activity.dataset.keep_moving",
-        "style": "neutral"
-      },
-      "response": {
-        "act": "KNOWLEDGE_RESPONSE",
-        "variants": [
-          {
-            "id": "neutral.01",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.01"
-            },
-            "text": {
-              "EN": "We should keep moving. It's not safe to linger.",
-              "TL": "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal."
-            }
-          },
-          {
-            "id": "neutral.02",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.02"
-            },
-            "text": {
-              "EN": "Staying mobile is our best option right now.",
-              "TL": "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon."
-            }
-          },
-          {
-            "id": "neutral.03",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.03"
-            },
-            "text": {
-              "EN": "We need to continue forward and find shelter.",
-              "TL": "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan."
-            }
-          },
-          {
-            "id": "neutral.04",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.04"
-            },
-            "text": {
-              "EN": "It's best if we keep moving down this route.",
-              "TL": "Pinakamabuti kung magpapatuloy tayo sa rutang ito."
-            }
-          },
-          {
-            "id": "neutral.05",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.05"
-            },
-            "text": {
-              "EN": "Let's keep the pace. We have ground to cover.",
-              "TL": "Panatilihin natin ang bilis. Marami pa tayong lalakarin."
-            }
-          },
-          {
-            "id": "neutral.06",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.06"
-            },
-            "text": {
-              "EN": "We shouldn't remain stationary for too long.",
-              "TL": "Hindi tayo dapat manatiling nakatigil nang matagal."
-            }
-          },
-          {
-            "id": "neutral.07",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.07"
-            },
-            "text": {
-              "EN": "Keep walking. We need to reach our objective.",
-              "TL": "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin."
-            }
-          },
-          {
-            "id": "neutral.08",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.08"
-            },
-            "text": {
-              "EN": "Moving along is the safest strategy right now.",
-              "TL": "Ang pag-usad ang pinakaligtas na stratehiya ngayon."
-            }
-          },
-          {
-            "id": "neutral.09",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.09"
-            },
-            "text": {
-              "EN": "Let's continue on our way.",
-              "TL": "Magpatuloy tayo sa ating daan."
-            }
-          },
-          {
-            "id": "neutral.10",
-            "metadata": {
-              "style": "neutral",
-              "textKey": "semantic.question.activity.dataset.keep_moving.neutral.10"
-            },
-            "text": {
-              "EN": "We should maintain our momentum and keep moving.",
-              "TL": "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad."
-            }
-          }
-        ]
-      },
-      "namespace": "semantic.question.activity.dataset.keep_moving"
-    },
-    {
-      "kind": "dialogue",
-      "id": "terse",
-      "owner": "PsychopatzCore",
-      "participants": {
-        "speaker": [
-          "participant"
-        ],
-        "addressee": [
-          "participant"
-        ]
-      },
-      "metadata": {
-        "category": "psychopatzcore:knowledge",
-        "sourceSurface": "content/knowledge/activity.json",
-        "responseTemplateID": "semantic.question.activity.dataset.keep_moving",
-        "style": "terse"
-      },
-      "response": {
-        "act": "KNOWLEDGE_RESPONSE",
-        "variants": [
-          {
-            "id": "terse.01",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.01"
-            },
-            "text": {
-              "EN": "Keep moving.",
-              "TL": "Tuloy sa paglakad."
-            }
-          },
-          {
-            "id": "terse.02",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.02"
-            },
-            "text": {
-              "EN": "Move.",
-              "TL": "Galaw."
-            }
-          },
-          {
-            "id": "terse.03",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.03"
-            },
-            "text": {
-              "EN": "Don't stop.",
-              "TL": "Huwag hihinto."
-            }
-          },
-          {
-            "id": "terse.04",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.04"
-            },
-            "text": {
-              "EN": "Walk.",
-              "TL": "Lakad."
-            }
-          },
-          {
-            "id": "terse.05",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.05"
-            },
-            "text": {
-              "EN": "Keep pace.",
-              "TL": "Sumabay."
-            }
-          },
-          {
-            "id": "terse.06",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.06"
-            },
-            "text": {
-              "EN": "Forward.",
-              "TL": "Sulong."
-            }
-          },
-          {
-            "id": "terse.07",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.07"
-            },
-            "text": {
-              "EN": "Keep going.",
-              "TL": "Tuloy lang."
-            }
-          },
-          {
-            "id": "terse.08",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.08"
-            },
-            "text": {
-              "EN": "Step up.",
-              "TL": "Hakbang."
-            }
-          },
-          {
-            "id": "terse.09",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.09"
-            },
-            "text": {
-              "EN": "Don't linger.",
-              "TL": "Huwag magtagal."
-            }
-          },
-          {
-            "id": "terse.10",
-            "metadata": {
-              "style": "terse",
-              "textKey": "semantic.question.activity.dataset.keep_moving.terse.10"
-            },
-            "text": {
-              "EN": "On the move.",
-              "TL": "Kilos."
-            }
-          }
-        ]
-      },
-      "namespace": "semantic.question.activity.dataset.keep_moving"
-    },
-    {
-      "kind": "dialogue",
-      "id": "warm",
-      "owner": "PsychopatzCore",
-      "participants": {
-        "speaker": [
-          "participant"
-        ],
-        "addressee": [
-          "participant"
-        ]
-      },
-      "metadata": {
-        "category": "psychopatzcore:knowledge",
-        "sourceSurface": "content/knowledge/activity.json",
-        "responseTemplateID": "semantic.question.activity.dataset.keep_moving",
-        "style": "warm"
-      },
-      "response": {
-        "act": "KNOWLEDGE_RESPONSE",
-        "variants": [
-          {
-            "id": "warm.01",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.01"
-            },
-            "text": {
-              "EN": "Let's keep moving together, friend. We'll find safety.",
-              "TL": "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan."
-            }
-          },
-          {
-            "id": "warm.02",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.02"
-            },
-            "text": {
-              "EN": "We should keep going. I'll stay right by your side.",
-              "TL": "Dapat tayong magpatuloy. Mananatili ako sa tabi mo."
-            }
-          },
-          {
-            "id": "warm.03",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.03"
-            },
-            "text": {
-              "EN": "Let's keep our feet moving. A warm fire awaits us eventually.",
-              "TL": "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo."
-            }
-          },
-          {
-            "id": "warm.04",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.04"
-            },
-            "text": {
-              "EN": "Keep up the good pace. We're doing fine.",
-              "TL": "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin."
-            }
-          },
-          {
-            "id": "warm.05",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.05"
-            },
-            "text": {
-              "EN": "Let's keep walking together. We're safer on the move.",
-              "TL": "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos."
-            }
-          },
-          {
-            "id": "warm.06",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.06"
-            },
-            "text": {
-              "EN": "We'll get through this path. Just keep moving with me.",
-              "TL": "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin."
-            }
-          },
-          {
-            "id": "warm.07",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.07"
-            },
-            "text": {
-              "EN": "Let's keep going, one step at a time.",
-              "TL": "Magpatuloy tayo, bawat hakbang."
-            }
-          },
-          {
-            "id": "warm.08",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.08"
-            },
-            "text": {
-              "EN": "I'm with you. Let's keep walking until we find shelter.",
-              "TL": "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan."
-            }
-          },
-          {
-            "id": "warm.09",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.09"
-            },
-            "text": {
-              "EN": "Keep moving forward. We've got this.",
-              "TL": "Tuloy sa pagsulong. Kaya natin 'to."
-            }
-          },
-          {
-            "id": "warm.10",
-            "metadata": {
-              "style": "warm",
-              "textKey": "semantic.question.activity.dataset.keep_moving.warm.10"
-            },
-            "text": {
-              "EN": "Let's keep our spirits up and keep walking.",
-              "TL": "Panatilihing mataas ang loob natin at magpatuloy sa paglakad."
-            }
-          }
-        ]
-      },
-      "namespace": "semantic.question.activity.dataset.keep_moving"
-    }
-  ]
+      {
+        "id": "warm",
+        "text": {
+          "EN": [
+            "Let's keep moving together, friend. We'll find safety.",
+            "We should keep going. I'll stay right by your side.",
+            "Let's keep our feet moving. A warm fire awaits us eventually.",
+            "Keep up the good pace. We're doing fine.",
+            "Let's keep walking together. We're safer on the move.",
+            "We'll get through this path. Just keep moving with me.",
+            "Let's keep going, one step at a time.",
+            "I'm with you. Let's keep walking until we find shelter.",
+            "Keep moving forward. We've got this.",
+            "Let's keep our spirits up and keep walking."
+          ],
+          "TL": [
+            "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan.",
+            "Dapat tayong magpatuloy. Mananatili ako sa tabi mo.",
+            "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo.",
+            "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin.",
+            "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos.",
+            "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin.",
+            "Magpatuloy tayo, bawat hakbang.",
+            "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan.",
+            "Tuloy sa pagsulong. Kaya natin 'to.",
+            "Panatilihing mataas ang loob natin at magpatuloy sa paglakad."
+          ]
+        }
+      }
+    ]
+  }
 }

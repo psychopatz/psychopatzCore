@@ -952,6 +952,29 @@ def _response_plan_projection(record: Mapping[str, Any]) -> dict[str, Any] | Non
         source = {"text": payload["text"]}
     elif "turns" in payload:
         source = {"turns": payload["turns"]}
+    elif isinstance(payload.get("say"), Mapping):
+        say = payload["say"]
+        metadata = payload.get("metadata") or {}
+        realizations = say.get("realizations") if isinstance(say.get("realizations"), Mapping) else {}
+        key_order = say.get("keyOrder") if isinstance(say.get("keyOrder"), list) else sorted(realizations)
+        turns_from_say: list[dict[str, Any]] = []
+        for rkey in key_order:
+            real = realizations.get(rkey)
+            if not isinstance(real, Mapping):
+                continue
+            variants = real.get("variants")
+            if not isinstance(variants, list) or not variants:
+                continue
+            first_text = variants[0].get("text") if isinstance(variants[0], Mapping) else None
+            if isinstance(first_text, Mapping) and first_text.get(DEFAULT_LANGUAGE):
+                turns_from_say.append({"id": f"say_{rkey}", "text": first_text})
+                break
+        if not turns_from_say:
+            return None
+        source = {
+            "act": metadata.get("responseAct") if isinstance(metadata, Mapping) else None,
+            "turns": turns_from_say,
+        }
     else:
         return None
     source_turns = source.get("turns")
@@ -1100,13 +1123,28 @@ def render_psdl_response_pool_plan(compiled: Mapping[str, Any]) -> list[dict[str
         if record.get("kind") != "dialogue":
             continue
         payload = record.get("payload") or {}
-        response = payload.get("response")
-        if not isinstance(response, Mapping):
-            continue
         metadata = payload.get("metadata") or {}
         pool_id = metadata.get("responsePoolID") if isinstance(metadata, Mapping) else None
-        variants = response.get("variants")
-        if not isinstance(pool_id, str) or not pool_id.strip() or not isinstance(variants, list):
+        if not isinstance(pool_id, str) or not pool_id.strip():
+            continue
+        response = payload.get("response")
+        variants: list[Any] | None = None
+        act: Any = metadata.get("responseAct") if isinstance(metadata, Mapping) else None
+        if isinstance(response, Mapping):
+            variants = response.get("variants") if isinstance(response.get("variants"), list) else None
+            if response.get("act") is not None:
+                act = response.get("act")
+        elif isinstance(payload.get("say"), Mapping):
+            say = payload["say"]
+            realizations = say.get("realizations") if isinstance(say.get("realizations"), Mapping) else {}
+            key_order = say.get("keyOrder") if isinstance(say.get("keyOrder"), list) else sorted(realizations)
+            collected: list[Any] = []
+            for rkey in key_order:
+                real = realizations.get(rkey)
+                if isinstance(real, Mapping) and isinstance(real.get("variants"), list):
+                    collected.extend(real["variants"])
+            variants = collected or None
+        if not isinstance(variants, list):
             continue
         output_variants: list[dict[str, Any]] = []
         for variant in variants:
@@ -1135,8 +1173,8 @@ def render_psdl_response_pool_plan(compiled: Mapping[str, Any]) -> list[dict[str
             ):
                 if field in variant_metadata:
                     item[field] = _copy(variant_metadata[field])
-            if "dialogueAct" not in item and response.get("act") is not None:
-                item["dialogueAct"] = response["act"]
+            if "dialogueAct" not in item and act is not None:
+                item["dialogueAct"] = act
             output_variants.append(item)
         if output_variants:
             pools.append({"id": pool_id, "variants": output_variants})

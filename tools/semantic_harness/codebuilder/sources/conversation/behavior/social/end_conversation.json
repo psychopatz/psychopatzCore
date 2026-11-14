@@ -24,7 +24,7 @@
   ],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.social.hostile_withdrawn",
+      "contentTemplateID": "social.hostile_withdrawn",
       "dialogueAct": "END_CONVERSATION"
     }
   },

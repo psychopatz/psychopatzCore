@@ -12,7 +12,7 @@
   "modifiers": [],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.interaction.scene.excursion_departing",
+      "contentTemplateID": "interaction.scene.excursion_departing",
       "dialogueAct": "INFORM"
     }
   },

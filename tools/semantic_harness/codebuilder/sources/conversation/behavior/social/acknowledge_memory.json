@@ -28,11 +28,11 @@
       "id": "emote.nod"
     },
     "flavor": {
-      "contentTemplateID": "semantic.interaction.memory.acknowledge_flavor",
+      "contentTemplateID": "interaction.memory.acknowledge_flavor",
       "presentationAct": "AMBIENT_FLAVOR"
     },
     "speech": {
-      "contentTemplateID": "semantic.interaction.memory.acknowledge",
+      "contentTemplateID": "interaction.memory.acknowledge",
       "dialogueAct": "ACKNOWLEDGE"
     }
   },

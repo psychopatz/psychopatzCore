@@ -2,5 +2,6 @@
   "gift.preference.dislike": "I don't like that.",
   "gift.preference.like": "I like that.",
   "gift.preference.neutral": "I don't have a strong preference.",
-  "gift.preference.unknown": "I'm not sure which item you mean."
+  "gift.preference.unknown": "I'm not sure which item you mean.",
+  "neutral": "I'm not sure which item you mean."
 }

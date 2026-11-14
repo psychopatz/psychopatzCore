@@ -31,11 +31,11 @@ return {
                 ["id"] = "emote.nod",
             },
             ["flavor"] = {
-                ["contentTemplateID"] = "semantic.interaction.memory.acknowledge_flavor",
+                ["contentTemplateID"] = "interaction.memory.acknowledge_flavor",
                 ["presentationAct"] = "AMBIENT_FLAVOR",
             },
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.memory.acknowledge",
+                ["contentTemplateID"] = "interaction.memory.acknowledge",
                 ["dialogueAct"] = "ACKNOWLEDGE",
             },
         },
@@ -65,7 +65,7 @@ return {
                 ["id"] = "emote.nod",
             },
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.news.acknowledge",
+                ["contentTemplateID"] = "interaction.news.acknowledge",
                 ["dialogueAct"] = "ACKNOWLEDGE",
             },
         },
@@ -92,7 +92,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.social.apology.friendly",
+                ["contentTemplateID"] = "social.apology.friendly",
                 ["dialogueAct"] = "ACKNOWLEDGE_REPAIR",
             },
         },
@@ -129,7 +129,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.social.acknowledged",
+                ["contentTemplateID"] = "social.acknowledged",
                 ["dialogueAct"] = "ACKNOWLEDGE",
             },
         },
@@ -175,7 +175,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.social.acknowledged",
+                ["contentTemplateID"] = "social.acknowledged",
                 ["dialogueAct"] = "ACKNOWLEDGE",
             },
         },
@@ -235,7 +235,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.memory.followup",
+                ["contentTemplateID"] = "interaction.memory.followup",
                 ["dialogueAct"] = "ASK_FOLLOWUP",
             },
         },
@@ -272,7 +272,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.first_contact.challenge",
+                ["contentTemplateID"] = "interaction.first_contact.challenge",
                 ["dialogueAct"] = "CHALLENGE",
             },
         },
@@ -304,7 +304,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.context.clarify",
+                ["contentTemplateID"] = "interaction.context.clarify",
                 ["dialogueAct"] = "ASK_CLARIFICATION",
             },
         },
@@ -359,7 +359,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.argument.deescalate",
+                ["contentTemplateID"] = "interaction.argument.deescalate",
                 ["dialogueAct"] = "DEESCALATE",
             },
         },
@@ -417,7 +417,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.social.hostile_withdrawn",
+                ["contentTemplateID"] = "social.hostile_withdrawn",
                 ["dialogueAct"] = "END_CONVERSATION",
             },
         },
@@ -481,7 +481,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.social.apology.friendly",
+                ["contentTemplateID"] = "social.apology.friendly",
                 ["dialogueAct"] = "RECONCILE",
             },
         },
@@ -536,7 +536,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.argument.retaliate",
+                ["contentTemplateID"] = "interaction.argument.retaliate",
                 ["dialogueAct"] = "RETALIATE_VERBALLY",
             },
         },
@@ -578,7 +578,7 @@ return {
                 ["id"] = "emote.nod",
             },
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.social.acknowledged",
+                ["contentTemplateID"] = "social.acknowledged",
                 ["dialogueAct"] = "ACKNOWLEDGE",
             },
         },
@@ -613,7 +613,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.excursion_departing",
+                ["contentTemplateID"] = "interaction.scene.excursion_departing",
                 ["dialogueAct"] = "INFORM",
             },
         },
@@ -649,7 +649,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.excursion_failed",
+                ["contentTemplateID"] = "interaction.scene.excursion_failed",
                 ["dialogueAct"] = "INFORM",
             },
         },
@@ -685,7 +685,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.excursion_home",
+                ["contentTemplateID"] = "interaction.scene.excursion_home",
                 ["dialogueAct"] = "INFORM",
             },
         },
@@ -721,7 +721,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.excursion_preparing",
+                ["contentTemplateID"] = "interaction.scene.excursion_preparing",
                 ["dialogueAct"] = "INFORM",
             },
         },
@@ -757,7 +757,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.excursion_returning",
+                ["contentTemplateID"] = "interaction.scene.excursion_returning",
                 ["dialogueAct"] = "INFORM",
             },
         },
@@ -793,7 +793,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.grounded_news_share",
+                ["contentTemplateID"] = "interaction.scene.grounded_news_share",
                 ["dialogueAct"] = "DISCLOSE",
             },
         },
@@ -832,7 +832,7 @@ return {
                 ["id"] = "emote.alert",
             },
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.horde_prompt",
+                ["contentTemplateID"] = "interaction.scene.horde_prompt",
                 ["dialogueAct"] = "WARN",
             },
         },
@@ -866,7 +866,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.horde_reply_brave",
+                ["contentTemplateID"] = "interaction.scene.horde_reply_brave",
                 ["dialogueAct"] = "PROPOSE_ENGAGE",
             },
         },
@@ -909,7 +909,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.horde_reply_cautious",
+                ["contentTemplateID"] = "interaction.scene.horde_reply_cautious",
                 ["dialogueAct"] = "PROPOSE_AVOID",
             },
         },
@@ -952,7 +952,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.horde_reply_steady",
+                ["contentTemplateID"] = "interaction.scene.horde_reply_steady",
                 ["dialogueAct"] = "PROPOSE_HOLD",
             },
         },
@@ -997,7 +997,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.memory.followup",
+                ["contentTemplateID"] = "interaction.memory.followup",
                 ["dialogueAct"] = "ASK_FOLLOWUP",
             },
         },
@@ -1031,7 +1031,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.grounded_news_answer",
+                ["contentTemplateID"] = "interaction.scene.grounded_news_answer",
                 ["dialogueAct"] = "ANSWER",
             },
         },
@@ -1065,7 +1065,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.post_combat_clear",
+                ["contentTemplateID"] = "interaction.scene.post_combat_clear",
                 ["dialogueAct"] = "INFORM",
             },
         },
@@ -1099,7 +1099,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.task_work_assigned",
+                ["contentTemplateID"] = "interaction.scene.task_work_assigned",
                 ["dialogueAct"] = "INFORM",
             },
         },
@@ -1133,7 +1133,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.scene.task_work_completed",
+                ["contentTemplateID"] = "interaction.scene.task_work_completed",
                 ["dialogueAct"] = "INFORM",
             },
         },
@@ -1179,7 +1179,7 @@ return {
         },
         ["outputs"] = {
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.social.hostile_boundary",
+                ["contentTemplateID"] = "social.hostile_boundary",
                 ["dialogueAct"] = "BOUNDARY_WARNING",
             },
         },
@@ -1215,11 +1215,11 @@ return {
                 ["id"] = "emote.alert",
             },
             ["flavor"] = {
-                ["contentTemplateID"] = "semantic.interaction.world_event.warning_flavor",
+                ["contentTemplateID"] = "interaction.world_event.warning_flavor",
                 ["presentationAct"] = "AMBIENT_FLAVOR",
             },
             ["speech"] = {
-                ["contentTemplateID"] = "semantic.interaction.world_event.warning",
+                ["contentTemplateID"] = "interaction.world_event.warning",
                 ["dialogueAct"] = "WORLD_WARNING",
             },
         },

@@ -1,11 +1,21 @@
 {
-  "id": "danger",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "negative.warning",
+  "id": "danger",
+  "owner": "PsychopatzCore",
+  "slots": {
+    "place": {
+      "required": true,
+      "type": "entity.location"
+    }
+  },
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.memory.gossip.reactions.negative.warning",
     "sourcePath": "memory/gossip/reactions/negative/warning.json",
     "textKey": "negative.warning.danger",
+    "textTarget": "memory/gossip",
     "textRows": [
       {
         "key": "negative.warning.danger",
@@ -14,20 +24,17 @@
           "TL": "May nakapansing panganib malapit sa {slot.place.name}."
         }
       }
-    ],
-    "textTarget": "memory/gossip"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "slots": {
-    "place": {
-      "required": true,
-      "type": "entity.location"
-    }
-  },
-  "text": {
-    "EN": "People have spotted danger near {slot.place.name}.",
-    "TL": "May nakapansing panganib malapit sa {slot.place.name}."
-  },
-  "namespace": "text.negative.warning",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "People have spotted danger near {slot.place.name}.",
+          "TL": "May nakapansing panganib malapit sa {slot.place.name}."
+        }
+      }
+    ]
+  }
 }

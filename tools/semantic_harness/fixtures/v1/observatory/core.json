@@ -4,26 +4,35 @@
   "cases": [
     {
       "id": "observatory.core.greeting_opening.en",
-      "tags": ["observatory", "greeting", "core"],
+      "tags": [
+        "observatory",
+        "greeting",
+        "core"
+      ],
       "turns": [
         {
           "text": "hello",
           "language": "EN",
           "expect": {
-            "firstSemanticKey": "semantic.flow.greeting.opening.default"
+            "firstSemanticKey": "flow.greeting.opening.default"
           }
         }
       ]
     },
     {
       "id": "observatory.core.greeting_opening.tl",
-      "tags": ["observatory", "greeting", "core", "localization"],
+      "tags": [
+        "observatory",
+        "greeting",
+        "core",
+        "localization"
+      ],
       "turns": [
         {
           "text": "hello",
           "language": "TL",
           "expect": {
-            "firstSemanticKey": "semantic.flow.greeting.opening.default",
+            "firstSemanticKey": "flow.greeting.opening.default",
             "fallbackLookups": 0
           }
         }
@@ -31,32 +40,47 @@
     },
     {
       "id": "observatory.core.rain_greeting.en",
-      "tags": ["observatory", "greeting", "weather", "core"],
+      "tags": [
+        "observatory",
+        "greeting",
+        "weather",
+        "core"
+      ],
       "scenario": {
-        "world": { "weather": "rain" }
+        "world": {
+          "weather": "rain"
+        }
       },
       "turns": [
         {
           "text": "hello",
           "language": "EN",
           "expect": {
-            "firstSemanticKey": "semantic.flow.greeting.opening.rain"
+            "firstSemanticKey": "flow.greeting.opening.rain"
           }
         }
       ]
     },
     {
       "id": "observatory.core.rain_greeting.tl",
-      "tags": ["observatory", "greeting", "weather", "core", "localization"],
+      "tags": [
+        "observatory",
+        "greeting",
+        "weather",
+        "core",
+        "localization"
+      ],
       "scenario": {
-        "world": { "weather": "rain" }
+        "world": {
+          "weather": "rain"
+        }
       },
       "turns": [
         {
           "text": "hello",
           "language": "TL",
           "expect": {
-            "firstSemanticKey": "semantic.flow.greeting.opening.rain",
+            "firstSemanticKey": "flow.greeting.opening.rain",
             "fallbackLookups": 0
           }
         }
@@ -64,9 +88,15 @@
     },
     {
       "id": "observatory.core.unknown_identity.en",
-      "tags": ["observatory", "identity", "core"],
+      "tags": [
+        "observatory",
+        "identity",
+        "core"
+      ],
       "scenario": {
-        "npc": { "name": "" }
+        "npc": {
+          "name": ""
+        }
       },
       "turns": [
         {
@@ -74,16 +104,25 @@
           "language": "EN",
           "expect": {
             "ir.subject": "IDENTITY",
-            "lastSemanticKey": { "prefix": "semantic.question.identity." }
+            "lastSemanticKey": {
+              "prefix": "question.identity."
+            }
           }
         }
       ]
     },
     {
       "id": "observatory.core.unknown_identity.tl",
-      "tags": ["observatory", "identity", "core", "localization"],
+      "tags": [
+        "observatory",
+        "identity",
+        "core",
+        "localization"
+      ],
       "scenario": {
-        "npc": { "name": "" }
+        "npc": {
+          "name": ""
+        }
       },
       "turns": [
         {
@@ -91,7 +130,9 @@
           "language": "TL",
           "expect": {
             "ir.subject": "IDENTITY",
-            "lastSemanticKey": { "prefix": "semantic.question.identity." }
+            "lastSemanticKey": {
+              "prefix": "question.identity."
+            }
           }
         }
       ]

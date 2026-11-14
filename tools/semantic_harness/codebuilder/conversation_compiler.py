@@ -316,6 +316,7 @@ def compile_conversation_sources(
     )
 
     locations: dict[str, dict[str, Any]] = {}
+    ui_locations: dict[str, dict[str, Any]] = {}
     for document, entry, _fingerprint_value in loaded:
         path = entry["path"]
         entry = {
@@ -386,7 +387,7 @@ def compile_conversation_sources(
                     )
                 for row in render_psdl_ui_plan(compiled_psdl):
                     _add_global_id(
-                        locations,
+                        ui_locations,
                         row.get("id"),
                         kind="ui",
                         shard=entry,
@@ -402,9 +403,9 @@ def compile_conversation_sources(
                     )
         else:
             for suggestion in document.get("suggestions", []):
-                _add_global_id(locations, suggestion.get("id"), kind="ui", shard=entry, path=path)
+                _add_global_id(ui_locations, suggestion.get("id"), kind="ui", shard=entry, path=path)
             for text in document.get("texts", []):
-                _add_global_id(locations, text.get("id"), kind="uiText", shard=entry, path=path)
+                _add_global_id(ui_locations, text.get("id"), kind="uiText", shard=entry, path=path)
 
     behavior_ids = {record["id"] for record in behaviors["records"]}
     available_content_templates = {
@@ -421,6 +422,13 @@ def compile_conversation_sources(
     for compiled_psdl, _entry in psdl_documents:
         for record in compiled_psdl.get("records", []):
             payload = record.get("payload")
+            if (
+                record.get("kind") == "dialogue"
+                and isinstance(payload, dict)
+                and payload.get("say") is not None
+                and isinstance(record.get("id"), str)
+            ):
+                available_content_templates.add(record["id"])
             metadata = payload.get("metadata") if isinstance(payload, dict) else None
             if not isinstance(metadata, dict):
                 continue
@@ -554,6 +562,7 @@ def compile_conversation_sources(
         "uiTranslations": _ui_translations(ui, ui_texts),
         "shards": shard_reports,
         "locations": locations,
+        "uiLocations": ui_locations,
         "wholeModelFingerprint": whole_fingerprint,
         # Private build-time provenance used for shard-targeted authoring.
         # Private fields are never written into generated runtime artifacts.
@@ -674,6 +683,23 @@ def _psdl_plan_text_rows(
                 )
         turns = response.get("turns")
     else:
+        say = payload.get("say")
+        if isinstance(say, Mapping) and isinstance(say.get("realizations"), Mapping):
+            realizations = say["realizations"]
+            key_order = say.get("keyOrder") if isinstance(say.get("keyOrder"), list) else sorted(realizations)
+            for rkey in key_order:
+                real = realizations.get(rkey)
+                if not isinstance(real, Mapping):
+                    continue
+                for index, variant in enumerate(real.get("variants") or []):
+                    if not isinstance(variant, Mapping):
+                        continue
+                    variant_metadata = variant.get("metadata")
+                    variant_id = str(variant.get("id") or f"say_{rkey}_{index + 1}")
+                    add(
+                        variant.get("text"),
+                        metadata_key(variant_metadata, "textKey", variant_id),
+                    )
         turns = payload.get("turns")
     if turns is None:
         turns = payload.get("turns")
@@ -908,6 +934,7 @@ def render_conversation_runtime_plan(
         model["content"], prefix, max_bytes=CONVERSATION_MAX_SHARD_BYTES
     )
     locations = model.get("locations") or {}
+    ui_locations = model.get("uiLocations") or {}
     convo_entries_by_path = {
         str(entry.get("path")): entry
         for entry in (model.get("_manifest_entries") or [])
@@ -932,9 +959,15 @@ def render_conversation_runtime_plan(
             return f"templates/{domain}.json"
         return f"dialogue/{domain}.json"
 
-    def owned(item: dict[str, Any], *, domain: str) -> dict[str, Any]:
+    def owned(
+        item: dict[str, Any],
+        *,
+        domain: str,
+        lookup: dict[str, dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
         record_id = str(item.get("id") or "")
-        owner = locations.get(record_id) if record_id else None
+        loc_map = locations if lookup is None else lookup
+        owner = loc_map.get(record_id) if record_id else None
         source_shard = item.get("sourceShard") or (
             owner.get("sourceShard") if isinstance(owner, dict) else None
         )
@@ -1002,7 +1035,7 @@ def render_conversation_runtime_plan(
         for item in model.get("packs", [])
     ]
     ui_records = [
-        owned(item, domain=str(item.get("topic") or "general"))
+        owned(item, domain=str(item.get("topic") or "general"), lookup=ui_locations)
         for item in model["ui"]
     ]
 

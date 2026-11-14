@@ -9,7 +9,7 @@
       "id": "emote.nod"
     },
     "speech": {
-      "contentTemplateID": "semantic.interaction.news.acknowledge",
+      "contentTemplateID": "interaction.news.acknowledge",
       "dialogueAct": "ACKNOWLEDGE"
     }
   },

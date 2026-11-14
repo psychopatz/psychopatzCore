@@ -2,16 +2,297 @@
 return {
     {
         ["domain"] = "social",
-        ["id"] = "semantic.interaction.world_event.warning.guarded",
+        ["exchangeFamily"] = {
+            ["familyID"] = "interaction.world_event.warning",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Heads up. Something's wrong out there.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.interaction.world_event.warning.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Heads up. Something's wrong out there.",
+                                        "Look alive. The situation outside is shifting.",
+                                        "Pay attention. We have unexpected movement outside.",
+                                        "Warning. Something big is happening nearby.",
+                                        "Heads up, everyone. Check your gear.",
+                                        "Listen close. An event is unfolding out there.",
+                                        "Alert. We need to be ready for trouble.",
+                                        "Keep your eyes open. That sound wasn't normal.",
+                                        "Stay sharp. The perimeter is showing activity.",
+                                        "Heads up. Let's not get caught unprepared.",
+                                    },
+                                    ["TL"] = {
+                                        "Mag-ingat. May mali sa labas.",
+                                        "Maging alerto. Nagbabago ang sitwasyon sa labas.",
+                                        "Makinig ka. May di-inaasahang galaw sa labas.",
+                                        "Babala. May malaking nangyayari sa malapit.",
+                                        "Mag-ingat ang lahat. Suriin ang mga gamit niyo.",
+                                        "Makinig nang mabuti. May kaganapan sa labas.",
+                                        "Alerto. Kailangan nating maging handa sa gulo.",
+                                        "Buksan ang mga mata. Hindi karaniwan ang tunog na 'yon.",
+                                        "Maging alerto. May aktibidad sa paligid.",
+                                        "Mag-ingat. Huwag tayong mahuling walang paghahanda.",
+                                    },
+                                },
+                            },
+                            {
+                                ["fallback"] = "Stay sharp. We've got trouble.",
+                                ["id"] = "guarded",
+                                ["templateID"] = "convo.interaction.world_event.warning.say.1.guarded",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Stay sharp. We've got trouble.",
+                                        "Weapons drawn, now. Danger outside.",
+                                        "Shut up and listen. Something is coming.",
+                                        "Lock the doors and watch every angle.",
+                                        "If it moves through that entrance, put it down.",
+                                        "Trouble's coming. Don't freeze up on me.",
+                                        "Get into defensive positions immediately.",
+                                        "Keep quiet. You don't want to draw them here.",
+                                        "Threat incoming. Expect the worst.",
+                                        "Eyes on the perimeter. Shoot on sight.",
+                                    },
+                                    ["TL"] = {
+                                        "Mag-ingat ka. May problema tayo.",
+                                        "Ibunot ang armas, ngayon na. May panganib sa labas.",
+                                        "Tumahimik at makinig. May paparating.",
+                                        "Ikandado ang pinto at bantayan ang bawat sulok.",
+                                        "Kapag may gumalaw sa lagusang 'yan, patumbahin mo.",
+                                        "Parating ang gulo. Huwag kang tatanga-tanga.",
+                                        "Pumwesto sa depensa agad-agad.",
+                                        "Manahimik ka. Ayaw mong maakit sila rito.",
+                                        "Banta parating. Asahan ang pinakamasama.",
+                                        "Bantayan ang paligid. Barilin agad kapag nakita.",
+                                    },
+                                },
+                            },
+                            {
+                                ["fallback"] = "Heads up!",
+                                ["id"] = "terse",
+                                ["templateID"] = "convo.interaction.world_event.warning.say.1.terse",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Heads up!",
+                                        "Incoming!",
+                                        "Danger!",
+                                        "Look out!",
+                                        "Alert!",
+                                        "Listen!",
+                                        "Trouble!",
+                                        "Ready weapons!",
+                                        "Movement!",
+                                        "Cover!",
+                                    },
+                                    ["TL"] = {
+                                        "Mag-ingat!",
+                                        "Paparating!",
+                                        "Panganib!",
+                                        "Mag-ingat ka!",
+                                        "Alerto!",
+                                        "Makinig!",
+                                        "Gulo!",
+                                        "Ihanda ang armas!",
+                                        "May gumagalaw!",
+                                        "Magtago!",
+                                    },
+                                },
+                            },
+                            {
+                                ["fallback"] = "Stay close. Something's wrong out there.",
+                                ["id"] = "warm",
+                                ["templateID"] = "convo.interaction.world_event.warning.say.1.warm",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Stay close. Something's wrong out there.",
+                                        "Stick by me, friend. We have trouble brewing outside.",
+                                        "Don't wander off. Something bad is moving out there.",
+                                        "Keep close and stay low. I'll protect you.",
+                                        "Hey, stay behind me until we know what that was.",
+                                        "Careful, everyone! Let's look out for one another.",
+                                        "Hold on to each other. Danger is nearby.",
+                                        "Stay safe by my side. Trouble is coming.",
+                                        "Heads up, partner. Whatever happens, we stick together.",
+                                        "Keep close. I don't want anyone getting separated.",
+                                    },
+                                    ["TL"] = {
+                                        "Manatili kang malapit. May mali sa labas.",
+                                        "Dumikit ka sa akin, kaibigan. May namumuong gulo sa labas.",
+                                        "Huwag kang lalayo. May masamang gumagalaw sa labas.",
+                                        "Manatiling malapit at yumuko. Poprotektahan kita.",
+                                        "Huy, manatili ka sa likod ko hanggang malaman natin 'yon.",
+                                        "Mag-ingat ang lahat! Magbantayan tayo sa isa't isa.",
+                                        "Kumapit sa isa't isa. Malapit lang ang panganib.",
+                                        "Manatiling ligtas sa tabi ko. Parating ang panganib.",
+                                        "Mag-ingat, kasama. Anuman ang mangyari, sama-sama tayo.",
+                                        "Dumikit ka. Ayokong may mahiwalay sa atin.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "interaction.world_event",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "Heads up. Something's wrong out there.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.interaction.world_event.warning.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Heads up. Something's wrong out there.",
+                            "Look alive. The situation outside is shifting.",
+                            "Pay attention. We have unexpected movement outside.",
+                            "Warning. Something big is happening nearby.",
+                            "Heads up, everyone. Check your gear.",
+                            "Listen close. An event is unfolding out there.",
+                            "Alert. We need to be ready for trouble.",
+                            "Keep your eyes open. That sound wasn't normal.",
+                            "Stay sharp. The perimeter is showing activity.",
+                            "Heads up. Let's not get caught unprepared.",
+                        },
+                        ["TL"] = {
+                            "Mag-ingat. May mali sa labas.",
+                            "Maging alerto. Nagbabago ang sitwasyon sa labas.",
+                            "Makinig ka. May di-inaasahang galaw sa labas.",
+                            "Babala. May malaking nangyayari sa malapit.",
+                            "Mag-ingat ang lahat. Suriin ang mga gamit niyo.",
+                            "Makinig nang mabuti. May kaganapan sa labas.",
+                            "Alerto. Kailangan nating maging handa sa gulo.",
+                            "Buksan ang mga mata. Hindi karaniwan ang tunog na 'yon.",
+                            "Maging alerto. May aktibidad sa paligid.",
+                            "Mag-ingat. Huwag tayong mahuling walang paghahanda.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Stay sharp. We've got trouble.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.interaction.world_event.warning.say.1.guarded",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Stay sharp. We've got trouble.",
+                            "Weapons drawn, now. Danger outside.",
+                            "Shut up and listen. Something is coming.",
+                            "Lock the doors and watch every angle.",
+                            "If it moves through that entrance, put it down.",
+                            "Trouble's coming. Don't freeze up on me.",
+                            "Get into defensive positions immediately.",
+                            "Keep quiet. You don't want to draw them here.",
+                            "Threat incoming. Expect the worst.",
+                            "Eyes on the perimeter. Shoot on sight.",
+                        },
+                        ["TL"] = {
+                            "Mag-ingat ka. May problema tayo.",
+                            "Ibunot ang armas, ngayon na. May panganib sa labas.",
+                            "Tumahimik at makinig. May paparating.",
+                            "Ikandado ang pinto at bantayan ang bawat sulok.",
+                            "Kapag may gumalaw sa lagusang 'yan, patumbahin mo.",
+                            "Parating ang gulo. Huwag kang tatanga-tanga.",
+                            "Pumwesto sa depensa agad-agad.",
+                            "Manahimik ka. Ayaw mong maakit sila rito.",
+                            "Banta parating. Asahan ang pinakamasama.",
+                            "Bantayan ang paligid. Barilin agad kapag nakita.",
+                        },
+                    },
+                    ["variantID"] = "guarded",
+                },
+                {
+                    ["fallback"] = "Heads up!",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.interaction.world_event.warning.say.1.terse",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Heads up!",
+                            "Incoming!",
+                            "Danger!",
+                            "Look out!",
+                            "Alert!",
+                            "Listen!",
+                            "Trouble!",
+                            "Ready weapons!",
+                            "Movement!",
+                            "Cover!",
+                        },
+                        ["TL"] = {
+                            "Mag-ingat!",
+                            "Paparating!",
+                            "Panganib!",
+                            "Mag-ingat ka!",
+                            "Alerto!",
+                            "Makinig!",
+                            "Gulo!",
+                            "Ihanda ang armas!",
+                            "May gumagalaw!",
+                            "Magtago!",
+                        },
+                    },
+                    ["variantID"] = "terse",
+                },
+                {
+                    ["fallback"] = "Stay close. Something's wrong out there.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.interaction.world_event.warning.say.1.warm",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Stay close. Something's wrong out there.",
+                            "Stick by me, friend. We have trouble brewing outside.",
+                            "Don't wander off. Something bad is moving out there.",
+                            "Keep close and stay low. I'll protect you.",
+                            "Hey, stay behind me until we know what that was.",
+                            "Careful, everyone! Let's look out for one another.",
+                            "Hold on to each other. Danger is nearby.",
+                            "Stay safe by my side. Trouble is coming.",
+                            "Heads up, partner. Whatever happens, we stick together.",
+                            "Keep close. I don't want anyone getting separated.",
+                        },
+                        ["TL"] = {
+                            "Manatili kang malapit. May mali sa labas.",
+                            "Dumikit ka sa akin, kaibigan. May namumuong gulo sa labas.",
+                            "Huwag kang lalayo. May masamang gumagalaw sa labas.",
+                            "Manatiling malapit at yumuko. Poprotektahan kita.",
+                            "Huy, manatili ka sa likod ko hanggang malaman natin 'yon.",
+                            "Mag-ingat ang lahat! Magbantayan tayo sa isa't isa.",
+                            "Kumapit sa isa't isa. Malapit lang ang panganib.",
+                            "Manatiling ligtas sa tabi ko. Parating ang panganib.",
+                            "Mag-ingat, kasama. Anuman ang mangyari, sama-sama tayo.",
+                            "Dumikit ka. Ayokong may mahiwalay sa atin.",
+                        },
+                    },
+                    ["variantID"] = "warm",
+                },
+            },
+        },
+        ["id"] = "interaction.world_event.warning",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["localId"] = "guarded",
-            ["sourceId"] = "semantic.interaction.world_event.warning.guarded",
-            ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json#records[3]",
+            ["localId"] = "warning",
+            ["sourceId"] = "interaction.world_event.warning",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
-        ["namespace"] = "semantic.interaction.world_event.warning",
+        ["namespace"] = "interaction.world_event",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -24,167 +305,165 @@ return {
         ["payload"] = {
             ["metadata"] = {
                 ["category"] = "psychopatzcore:world_event",
-                ["responseTemplateID"] = "semantic.interaction.world_event.warning",
+                ["responseAct"] = "WORLD_WARNING",
                 ["sourceSurface"] = "content/social/interaction/world_event/warning.json",
-                ["style"] = "guarded",
             },
-            ["response"] = {
-                ["act"] = "WORLD_WARNING",
-                ["variants"] = {
-                    {
-                        ["id"] = "guarded.01",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Stay sharp. We've got trouble.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Heads up. Something's wrong out there.",
+                                        "Look alive. The situation outside is shifting.",
+                                        "Pay attention. We have unexpected movement outside.",
+                                        "Warning. Something big is happening nearby.",
+                                        "Heads up, everyone. Check your gear.",
+                                        "Listen close. An event is unfolding out there.",
+                                        "Alert. We need to be ready for trouble.",
+                                        "Keep your eyes open. That sound wasn't normal.",
+                                        "Stay sharp. The perimeter is showing activity.",
+                                        "Heads up. Let's not get caught unprepared.",
+                                    },
+                                    ["TL"] = {
+                                        "Mag-ingat. May mali sa labas.",
+                                        "Maging alerto. Nagbabago ang sitwasyon sa labas.",
+                                        "Makinig ka. May di-inaasahang galaw sa labas.",
+                                        "Babala. May malaking nangyayari sa malapit.",
+                                        "Mag-ingat ang lahat. Suriin ang mga gamit niyo.",
+                                        "Makinig nang mabuti. May kaganapan sa labas.",
+                                        "Alerto. Kailangan nating maging handa sa gulo.",
+                                        "Buksan ang mga mata. Hindi karaniwan ang tunog na 'yon.",
+                                        "Maging alerto. May aktibidad sa paligid.",
+                                        "Mag-ingat. Huwag tayong mahuling walang paghahanda.",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Mag-ingat ka. May problema tayo.",
+                            {
+                                ["id"] = "guarded",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Stay sharp. We've got trouble.",
+                                        "Weapons drawn, now. Danger outside.",
+                                        "Shut up and listen. Something is coming.",
+                                        "Lock the doors and watch every angle.",
+                                        "If it moves through that entrance, put it down.",
+                                        "Trouble's coming. Don't freeze up on me.",
+                                        "Get into defensive positions immediately.",
+                                        "Keep quiet. You don't want to draw them here.",
+                                        "Threat incoming. Expect the worst.",
+                                        "Eyes on the perimeter. Shoot on sight.",
+                                    },
+                                    ["TL"] = {
+                                        "Mag-ingat ka. May problema tayo.",
+                                        "Ibunot ang armas, ngayon na. May panganib sa labas.",
+                                        "Tumahimik at makinig. May paparating.",
+                                        "Ikandado ang pinto at bantayan ang bawat sulok.",
+                                        "Kapag may gumalaw sa lagusang 'yan, patumbahin mo.",
+                                        "Parating ang gulo. Huwag kang tatanga-tanga.",
+                                        "Pumwesto sa depensa agad-agad.",
+                                        "Manahimik ka. Ayaw mong maakit sila rito.",
+                                        "Banta parating. Asahan ang pinakamasama.",
+                                        "Bantayan ang paligid. Barilin agad kapag nakita.",
+                                    },
+                                },
                             },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.02",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Weapons drawn, now. Danger outside.",
+                            {
+                                ["id"] = "terse",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Heads up!",
+                                        "Incoming!",
+                                        "Danger!",
+                                        "Look out!",
+                                        "Alert!",
+                                        "Listen!",
+                                        "Trouble!",
+                                        "Ready weapons!",
+                                        "Movement!",
+                                        "Cover!",
+                                    },
+                                    ["TL"] = {
+                                        "Mag-ingat!",
+                                        "Paparating!",
+                                        "Panganib!",
+                                        "Mag-ingat ka!",
+                                        "Alerto!",
+                                        "Makinig!",
+                                        "Gulo!",
+                                        "Ihanda ang armas!",
+                                        "May gumagalaw!",
+                                        "Magtago!",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Ibunot ang armas, ngayon na. May panganib sa labas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.03",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Shut up and listen. Something is coming.",
-                            },
-                            ["TL"] = {
-                                "Tumahimik at makinig. May paparating.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.04",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Lock the doors and watch every angle.",
-                            },
-                            ["TL"] = {
-                                "Ikandado ang pinto at bantayan ang bawat sulok.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.05",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "If it moves through that entrance, put it down.",
-                            },
-                            ["TL"] = {
-                                "Kapag may gumalaw sa lagusang 'yan, patumbahin mo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.06",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Trouble's coming. Don't freeze up on me.",
-                            },
-                            ["TL"] = {
-                                "Parating ang gulo. Huwag kang tatanga-tanga.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.07",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Get into defensive positions immediately.",
-                            },
-                            ["TL"] = {
-                                "Pumwesto sa depensa agad-agad.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.08",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep quiet. You don't want to draw them here.",
-                            },
-                            ["TL"] = {
-                                "Manahimik ka. Ayaw mong maakit sila rito.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.09",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Threat incoming. Expect the worst.",
-                            },
-                            ["TL"] = {
-                                "Banta parating. Asahan ang pinakamasama.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.10",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning.guarded.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Eyes on the perimeter. Shoot on sight.",
-                            },
-                            ["TL"] = {
-                                "Bantayan ang paligid. Barilin agad kapag nakita.",
+                            {
+                                ["id"] = "warm",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Stay close. Something's wrong out there.",
+                                        "Stick by me, friend. We have trouble brewing outside.",
+                                        "Don't wander off. Something bad is moving out there.",
+                                        "Keep close and stay low. I'll protect you.",
+                                        "Hey, stay behind me until we know what that was.",
+                                        "Careful, everyone! Let's look out for one another.",
+                                        "Hold on to each other. Danger is nearby.",
+                                        "Stay safe by my side. Trouble is coming.",
+                                        "Heads up, partner. Whatever happens, we stick together.",
+                                        "Keep close. I don't want anyone getting separated.",
+                                    },
+                                    ["TL"] = {
+                                        "Manatili kang malapit. May mali sa labas.",
+                                        "Dumikit ka sa akin, kaibigan. May namumuong gulo sa labas.",
+                                        "Huwag kang lalayo. May masamang gumagalaw sa labas.",
+                                        "Manatiling malapit at yumuko. Poprotektahan kita.",
+                                        "Huy, manatili ka sa likod ko hanggang malaman natin 'yon.",
+                                        "Mag-ingat ang lahat! Magbantayan tayo sa isa't isa.",
+                                        "Kumapit sa isa't isa. Malapit lang ang panganib.",
+                                        "Manatiling ligtas sa tabi ko. Parating ang panganib.",
+                                        "Mag-ingat, kasama. Anuman ang mangyari, sama-sama tayo.",
+                                        "Dumikit ka. Ayokong may mahiwalay sa atin.",
+                                    },
+                                },
                             },
                         },
                     },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = "WORLD_WARNING",
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "interaction.world_event.warning",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "say_1",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "Heads up. Something's wrong out there.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.interaction.world_event.warning.say_1",
+                        },
+                    },
+                },
+            },
         },
         ["slots"] = {
         },
@@ -194,412 +473,435 @@ return {
             ["required"] = false,
             ["type"] = "entity.any",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "Heads up. Something's wrong out there.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.interaction.world_event.warning.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Heads up. Something's wrong out there.",
+                        "Look alive. The situation outside is shifting.",
+                        "Pay attention. We have unexpected movement outside.",
+                        "Warning. Something big is happening nearby.",
+                        "Heads up, everyone. Check your gear.",
+                        "Listen close. An event is unfolding out there.",
+                        "Alert. We need to be ready for trouble.",
+                        "Keep your eyes open. That sound wasn't normal.",
+                        "Stay sharp. The perimeter is showing activity.",
+                        "Heads up. Let's not get caught unprepared.",
+                    },
+                    ["TL"] = {
+                        "Mag-ingat. May mali sa labas.",
+                        "Maging alerto. Nagbabago ang sitwasyon sa labas.",
+                        "Makinig ka. May di-inaasahang galaw sa labas.",
+                        "Babala. May malaking nangyayari sa malapit.",
+                        "Mag-ingat ang lahat. Suriin ang mga gamit niyo.",
+                        "Makinig nang mabuti. May kaganapan sa labas.",
+                        "Alerto. Kailangan nating maging handa sa gulo.",
+                        "Buksan ang mga mata. Hindi karaniwan ang tunog na 'yon.",
+                        "Maging alerto. May aktibidad sa paligid.",
+                        "Mag-ingat. Huwag tayong mahuling walang paghahanda.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+            {
+                ["fallback"] = "Stay sharp. We've got trouble.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.interaction.world_event.warning.say.1.guarded",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Stay sharp. We've got trouble.",
+                        "Weapons drawn, now. Danger outside.",
+                        "Shut up and listen. Something is coming.",
+                        "Lock the doors and watch every angle.",
+                        "If it moves through that entrance, put it down.",
+                        "Trouble's coming. Don't freeze up on me.",
+                        "Get into defensive positions immediately.",
+                        "Keep quiet. You don't want to draw them here.",
+                        "Threat incoming. Expect the worst.",
+                        "Eyes on the perimeter. Shoot on sight.",
+                    },
+                    ["TL"] = {
+                        "Mag-ingat ka. May problema tayo.",
+                        "Ibunot ang armas, ngayon na. May panganib sa labas.",
+                        "Tumahimik at makinig. May paparating.",
+                        "Ikandado ang pinto at bantayan ang bawat sulok.",
+                        "Kapag may gumalaw sa lagusang 'yan, patumbahin mo.",
+                        "Parating ang gulo. Huwag kang tatanga-tanga.",
+                        "Pumwesto sa depensa agad-agad.",
+                        "Manahimik ka. Ayaw mong maakit sila rito.",
+                        "Banta parating. Asahan ang pinakamasama.",
+                        "Bantayan ang paligid. Barilin agad kapag nakita.",
+                    },
+                },
+                ["variantID"] = "guarded",
+            },
+            {
+                ["fallback"] = "Heads up!",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.interaction.world_event.warning.say.1.terse",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Heads up!",
+                        "Incoming!",
+                        "Danger!",
+                        "Look out!",
+                        "Alert!",
+                        "Listen!",
+                        "Trouble!",
+                        "Ready weapons!",
+                        "Movement!",
+                        "Cover!",
+                    },
+                    ["TL"] = {
+                        "Mag-ingat!",
+                        "Paparating!",
+                        "Panganib!",
+                        "Mag-ingat ka!",
+                        "Alerto!",
+                        "Makinig!",
+                        "Gulo!",
+                        "Ihanda ang armas!",
+                        "May gumagalaw!",
+                        "Magtago!",
+                    },
+                },
+                ["variantID"] = "terse",
+            },
+            {
+                ["fallback"] = "Stay close. Something's wrong out there.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.interaction.world_event.warning.say.1.warm",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Stay close. Something's wrong out there.",
+                        "Stick by me, friend. We have trouble brewing outside.",
+                        "Don't wander off. Something bad is moving out there.",
+                        "Keep close and stay low. I'll protect you.",
+                        "Hey, stay behind me until we know what that was.",
+                        "Careful, everyone! Let's look out for one another.",
+                        "Hold on to each other. Danger is nearby.",
+                        "Stay safe by my side. Trouble is coming.",
+                        "Heads up, partner. Whatever happens, we stick together.",
+                        "Keep close. I don't want anyone getting separated.",
+                    },
+                    ["TL"] = {
+                        "Manatili kang malapit. May mali sa labas.",
+                        "Dumikit ka sa akin, kaibigan. May namumuong gulo sa labas.",
+                        "Huwag kang lalayo. May masamang gumagalaw sa labas.",
+                        "Manatiling malapit at yumuko. Poprotektahan kita.",
+                        "Huy, manatili ka sa likod ko hanggang malaman natin 'yon.",
+                        "Mag-ingat ang lahat! Magbantayan tayo sa isa't isa.",
+                        "Kumapit sa isa't isa. Malapit lang ang panganib.",
+                        "Manatiling ligtas sa tabi ko. Parating ang panganib.",
+                        "Mag-ingat, kasama. Anuman ang mangyari, sama-sama tayo.",
+                        "Dumikit ka. Ayokong may mahiwalay sa atin.",
+                    },
+                },
+                ["variantID"] = "warm",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "social",
-        ["id"] = "semantic.interaction.world_event.warning.neutral",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "neutral",
-            ["sourceId"] = "semantic.interaction.world_event.warning.neutral",
-            ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json#records[0]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/Social",
-        ["namespace"] = "semantic.interaction.world_event.warning",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:world_event",
-                ["responseTemplateID"] = "semantic.interaction.world_event.warning",
-                ["sourceSurface"] = "content/social/interaction/world_event/warning.json",
-                ["style"] = "neutral",
-            },
-            ["response"] = {
-                ["act"] = "WORLD_WARNING",
-                ["variants"] = {
-                    {
-                        ["id"] = "neutral.01",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Heads up. Something's wrong out there.",
+        ["exchangeFamily"] = {
+            ["familyID"] = "interaction.world_event.warning_flavor",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "The NPC snaps to attention and scans the area.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "The NPC snaps to attention and scans the area.",
+                                        "The NPC pauses and listens intently to distant noise.",
+                                        "The NPC raises a hand to signal sudden awareness.",
+                                        "The NPC turns sharply toward the source of the disturbance.",
+                                        "A tense hush falls as the NPC monitors the perimeter.",
+                                        "The NPC shifts their stance, ready to react.",
+                                        "The NPC points toward the horizon with furrowed brows.",
+                                        "The NPC squints into the distance, assessing the threat.",
+                                        "The NPC signals caution to everyone nearby.",
+                                        "The NPC's posture straightens instantly at the sound.",
+                                    },
+                                    ["TL"] = {
+                                        "Biglang naging alerto ang NPC at sinuri ang paligid.",
+                                        "Huminto ang NPC at taimtim na nakinig sa malayong ingay.",
+                                        "Itinaas ng NPC ang kamay bilang senyas ng biglaang pagka-alerto.",
+                                        "Mabilis na lumingon ang NPC sa pinagmulan ng kaguluhan.",
+                                        "Isang tensiyonadong katahimikan ang bumalot habang nagbabantay ang NPC.",
+                                        "Nagbago ng tindig ang NPC, handang rumesponde.",
+                                        "Itinuro ng NPC ang abot-tanaw habang nakakunot ang noo.",
+                                        "Nanliit ang mata ng NPC sa malayo, tinitimbang ang banta.",
+                                        "Nagsenyas ng pag-iingat ang NPC sa lahat ng nasa malapit.",
+                                        "Agad na naituwid ang tindig ng NPC nang marinig ang tunog.",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Mag-ingat. May mali sa labas.",
+                            {
+                                ["fallback"] = "The NPC stiffens and watches the approaches.",
+                                ["id"] = "guarded",
+                                ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.guarded",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "The NPC stiffens and watches the approaches.",
+                                        "The NPC drops behind cover, weapon ready.",
+                                        "The NPC checks their weapon chamber with a grim expression.",
+                                        "The NPC scans every window and doorway with cold vigilance.",
+                                        "The NPC backs slowly into a defensive choke point.",
+                                        "The NPC eyes their companions to ensure everyone is armed.",
+                                        "A calculating glare fixes on the direction of the noise.",
+                                        "The NPC prepares for an immediate fight with grim resolve.",
+                                        "The NPC's posture turns deadly and guarded.",
+                                        "The NPC remains motionless, waiting for the first sign of hostiles.",
+                                    },
+                                    ["TL"] = {
+                                        "Nanigas ang NPC at binantayan ang mga posibleng lapitan.",
+                                        "Bumaba sa kublihan ang NPC, handa ang armas.",
+                                        "Tiningnan ng NPC ang karga ng armas na may madilim na mukha.",
+                                        "Sinuri ng NPC ang bawat bintana at pintuan nang may malamig na pag-iingat.",
+                                        "Mabagal na umatras ang NPC sa isang depensibong posisyon.",
+                                        "Tiningnan ng NPC ang mga kasama para tiyaking may armas ang lahat.",
+                                        "Isang mapanuring titig ang ibinaling sa direksyon ng ingay.",
+                                        "Naghahanda ang NPC sa agarang laban kalakip ang matinding kapasyahan.",
+                                        "Naging mabangis at maingat ang tindig ng NPC.",
+                                        "Nanatiling walang katinag-tinag ang NPC, naghihintay sa unang banta.",
+                                    },
+                                },
                             },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.02",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Look alive. The situation outside is shifting.",
+                            {
+                                ["fallback"] = "The NPC jerks a warning gesture.",
+                                ["id"] = "terse",
+                                ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.terse",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "The NPC jerks a warning gesture.",
+                                        "A sharp signal cuts the air.",
+                                        "The NPC stiffens instantly.",
+                                        "A hand shoots up in alarm.",
+                                        "The NPC's head snaps toward the danger.",
+                                        "A low hiss demands silence.",
+                                        "The NPC drops into a crouch.",
+                                        "A quick wave commands cover.",
+                                        "The NPC draws their weapon in one motion.",
+                                        "Eyes wide, the NPC freezes.",
+                                    },
+                                    ["TL"] = {
+                                        "Biglang nagsenyas ng babala ang NPC.",
+                                        "Isang mabilis na senyas ang pumunit sa hangin.",
+                                        "Agad na nanigas ang NPC.",
+                                        "Biglang itinaas ang kamay sa pagkaalarma.",
+                                        "Mabilis na lumingon ang ulo ng NPC sa panganib.",
+                                        "Isang mahinang pahiwatig ang humingi ng katahimikan.",
+                                        "Bumaba sa pagkakayuko ang NPC.",
+                                        "Isang mabilis na kumpas ang nag-utos na magtago.",
+                                        "Binunot ng NPC ang armas sa iisang kilos.",
+                                        "Nanlalaki ang mata, tumigil ang NPC.",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Maging alerto. Nagbabago ang sitwasyon sa labas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.03",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Pay attention. We have unexpected movement outside.",
-                            },
-                            ["TL"] = {
-                                "Makinig ka. May di-inaasahang galaw sa labas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.04",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Warning. Something big is happening nearby.",
-                            },
-                            ["TL"] = {
-                                "Babala. May malaking nangyayari sa malapit.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.05",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Heads up, everyone. Check your gear.",
-                            },
-                            ["TL"] = {
-                                "Mag-ingat ang lahat. Suriin ang mga gamit niyo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.06",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Listen close. An event is unfolding out there.",
-                            },
-                            ["TL"] = {
-                                "Makinig nang mabuti. May kaganapan sa labas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.07",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Alert. We need to be ready for trouble.",
-                            },
-                            ["TL"] = {
-                                "Alerto. Kailangan nating maging handa sa gulo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.08",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep your eyes open. That sound wasn't normal.",
-                            },
-                            ["TL"] = {
-                                "Buksan ang mga mata. Hindi karaniwan ang tunog na 'yon.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.09",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Stay sharp. The perimeter is showing activity.",
-                            },
-                            ["TL"] = {
-                                "Maging alerto. May aktibidad sa paligid.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.10",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning.neutral.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Heads up. Let's not get caught unprepared.",
-                            },
-                            ["TL"] = {
-                                "Mag-ingat. Huwag tayong mahuling walang paghahanda.",
+                            {
+                                ["fallback"] = "The NPC motions for the others to stay close.",
+                                ["id"] = "warm",
+                                ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.warm",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "The NPC motions for the others to stay close.",
+                                        "The NPC places a protective hand out, urging allies to gather.",
+                                        "The NPC steps forward to shield their companions from view.",
+                                        "The NPC gives an urgent, reassuring glance to their partners.",
+                                        "The NPC whispers a quiet encouragement while staying watchful.",
+                                        "The NPC gestures for the group to huddle together safely.",
+                                        "The NPC keeps one eye on the threat and one on their friends.",
+                                        "The NPC gently pulls their ally behind solid cover.",
+                                        "The NPC nods determinedly to protect those nearby.",
+                                        "The NPC stays tightly flanked with their companions.",
+                                    },
+                                    ["TL"] = {
+                                        "Sinenyasan ng NPC ang iba na manatiling malapit.",
+                                        "Inilahad ng NPC ang protektibong kamay, pinapalapit ang mga kasama.",
+                                        "Humakbang pasulong ang NPC upang harangan sa paningin ang mga kasama.",
+                                        "Nagbigay ng mabilis at nakapagpapanatag na tingin ang NPC sa mga kasama.",
+                                        "Bumulong ng pampalakas ng loob ang NPC habang nananatiling mapagmatyag.",
+                                        "Nagsenyas ang NPC sa grupo na magsama-sama nang ligtas.",
+                                        "Bantay ng NPC ang banta habang tinitingnan din ang mga kaibigan.",
+                                        "Marahang hinila ng NPC ang kasama sa likod ng matibay na kublihan.",
+                                        "Determinado at matatag na tumango ang NPC para protektahan ang iba.",
+                                        "Nanatiling nakadikit ang NPC sa tabi ng mga kasama.",
+                                    },
+                                },
                             },
                         },
                     },
                 },
+                ["textRole"] = "spoken_action",
             },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/social/interaction_world_event_warning.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "social",
-        ["id"] = "semantic.interaction.world_event.warning.terse",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "terse",
-            ["sourceId"] = "semantic.interaction.world_event.warning.terse",
-            ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json#records[2]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/Social",
-        ["namespace"] = "semantic.interaction.world_event.warning",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:world_event",
-                ["responseTemplateID"] = "semantic.interaction.world_event.warning",
-                ["sourceSurface"] = "content/social/interaction/world_event/warning.json",
-                ["style"] = "terse",
-            },
-            ["response"] = {
-                ["act"] = "WORLD_WARNING",
-                ["variants"] = {
-                    {
-                        ["id"] = "terse.01",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.01",
+            ["namespace"] = "interaction.world_event",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "The NPC snaps to attention and scans the area.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "The NPC snaps to attention and scans the area.",
+                            "The NPC pauses and listens intently to distant noise.",
+                            "The NPC raises a hand to signal sudden awareness.",
+                            "The NPC turns sharply toward the source of the disturbance.",
+                            "A tense hush falls as the NPC monitors the perimeter.",
+                            "The NPC shifts their stance, ready to react.",
+                            "The NPC points toward the horizon with furrowed brows.",
+                            "The NPC squints into the distance, assessing the threat.",
+                            "The NPC signals caution to everyone nearby.",
+                            "The NPC's posture straightens instantly at the sound.",
                         },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Heads up!",
-                            },
-                            ["TL"] = {
-                                "Mag-ingat!",
-                            },
+                        ["TL"] = {
+                            "Biglang naging alerto ang NPC at sinuri ang paligid.",
+                            "Huminto ang NPC at taimtim na nakinig sa malayong ingay.",
+                            "Itinaas ng NPC ang kamay bilang senyas ng biglaang pagka-alerto.",
+                            "Mabilis na lumingon ang NPC sa pinagmulan ng kaguluhan.",
+                            "Isang tensiyonadong katahimikan ang bumalot habang nagbabantay ang NPC.",
+                            "Nagbago ng tindig ang NPC, handang rumesponde.",
+                            "Itinuro ng NPC ang abot-tanaw habang nakakunot ang noo.",
+                            "Nanliit ang mata ng NPC sa malayo, tinitimbang ang banta.",
+                            "Nagsenyas ng pag-iingat ang NPC sa lahat ng nasa malapit.",
+                            "Agad na naituwid ang tindig ng NPC nang marinig ang tunog.",
                         },
                     },
-                    {
-                        ["id"] = "terse.02",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.02",
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "The NPC stiffens and watches the approaches.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.guarded",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "The NPC stiffens and watches the approaches.",
+                            "The NPC drops behind cover, weapon ready.",
+                            "The NPC checks their weapon chamber with a grim expression.",
+                            "The NPC scans every window and doorway with cold vigilance.",
+                            "The NPC backs slowly into a defensive choke point.",
+                            "The NPC eyes their companions to ensure everyone is armed.",
+                            "A calculating glare fixes on the direction of the noise.",
+                            "The NPC prepares for an immediate fight with grim resolve.",
+                            "The NPC's posture turns deadly and guarded.",
+                            "The NPC remains motionless, waiting for the first sign of hostiles.",
                         },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Incoming!",
-                            },
-                            ["TL"] = {
-                                "Paparating!",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.03",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Danger!",
-                            },
-                            ["TL"] = {
-                                "Panganib!",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.04",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Look out!",
-                            },
-                            ["TL"] = {
-                                "Mag-ingat ka!",
-                            },
+                        ["TL"] = {
+                            "Nanigas ang NPC at binantayan ang mga posibleng lapitan.",
+                            "Bumaba sa kublihan ang NPC, handa ang armas.",
+                            "Tiningnan ng NPC ang karga ng armas na may madilim na mukha.",
+                            "Sinuri ng NPC ang bawat bintana at pintuan nang may malamig na pag-iingat.",
+                            "Mabagal na umatras ang NPC sa isang depensibong posisyon.",
+                            "Tiningnan ng NPC ang mga kasama para tiyaking may armas ang lahat.",
+                            "Isang mapanuring titig ang ibinaling sa direksyon ng ingay.",
+                            "Naghahanda ang NPC sa agarang laban kalakip ang matinding kapasyahan.",
+                            "Naging mabangis at maingat ang tindig ng NPC.",
+                            "Nanatiling walang katinag-tinag ang NPC, naghihintay sa unang banta.",
                         },
                     },
-                    {
-                        ["id"] = "terse.05",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.05",
+                    ["variantID"] = "guarded",
+                },
+                {
+                    ["fallback"] = "The NPC jerks a warning gesture.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.terse",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "The NPC jerks a warning gesture.",
+                            "A sharp signal cuts the air.",
+                            "The NPC stiffens instantly.",
+                            "A hand shoots up in alarm.",
+                            "The NPC's head snaps toward the danger.",
+                            "A low hiss demands silence.",
+                            "The NPC drops into a crouch.",
+                            "A quick wave commands cover.",
+                            "The NPC draws their weapon in one motion.",
+                            "Eyes wide, the NPC freezes.",
                         },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Alert!",
-                            },
-                            ["TL"] = {
-                                "Alerto!",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.06",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Listen!",
-                            },
-                            ["TL"] = {
-                                "Makinig!",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.07",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Trouble!",
-                            },
-                            ["TL"] = {
-                                "Gulo!",
-                            },
+                        ["TL"] = {
+                            "Biglang nagsenyas ng babala ang NPC.",
+                            "Isang mabilis na senyas ang pumunit sa hangin.",
+                            "Agad na nanigas ang NPC.",
+                            "Biglang itinaas ang kamay sa pagkaalarma.",
+                            "Mabilis na lumingon ang ulo ng NPC sa panganib.",
+                            "Isang mahinang pahiwatig ang humingi ng katahimikan.",
+                            "Bumaba sa pagkakayuko ang NPC.",
+                            "Isang mabilis na kumpas ang nag-utos na magtago.",
+                            "Binunot ng NPC ang armas sa iisang kilos.",
+                            "Nanlalaki ang mata, tumigil ang NPC.",
                         },
                     },
-                    {
-                        ["id"] = "terse.08",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.08",
+                    ["variantID"] = "terse",
+                },
+                {
+                    ["fallback"] = "The NPC motions for the others to stay close.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.warm",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "The NPC motions for the others to stay close.",
+                            "The NPC places a protective hand out, urging allies to gather.",
+                            "The NPC steps forward to shield their companions from view.",
+                            "The NPC gives an urgent, reassuring glance to their partners.",
+                            "The NPC whispers a quiet encouragement while staying watchful.",
+                            "The NPC gestures for the group to huddle together safely.",
+                            "The NPC keeps one eye on the threat and one on their friends.",
+                            "The NPC gently pulls their ally behind solid cover.",
+                            "The NPC nods determinedly to protect those nearby.",
+                            "The NPC stays tightly flanked with their companions.",
                         },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Ready weapons!",
-                            },
-                            ["TL"] = {
-                                "Ihanda ang armas!",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.09",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Movement!",
-                            },
-                            ["TL"] = {
-                                "May gumagalaw!",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.10",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning.terse.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Cover!",
-                            },
-                            ["TL"] = {
-                                "Magtago!",
-                            },
+                        ["TL"] = {
+                            "Sinenyasan ng NPC ang iba na manatiling malapit.",
+                            "Inilahad ng NPC ang protektibong kamay, pinapalapit ang mga kasama.",
+                            "Humakbang pasulong ang NPC upang harangan sa paningin ang mga kasama.",
+                            "Nagbigay ng mabilis at nakapagpapanatag na tingin ang NPC sa mga kasama.",
+                            "Bumulong ng pampalakas ng loob ang NPC habang nananatiling mapagmatyag.",
+                            "Nagsenyas ang NPC sa grupo na magsama-sama nang ligtas.",
+                            "Bantay ng NPC ang banta habang tinitingnan din ang mga kaibigan.",
+                            "Marahang hinila ng NPC ang kasama sa likod ng matibay na kublihan.",
+                            "Determinado at matatag na tumango ang NPC para protektahan ang iba.",
+                            "Nanatiling nakadikit ang NPC sa tabi ng mga kasama.",
                         },
                     },
+                    ["variantID"] = "warm",
                 },
             },
         },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/social/interaction_world_event_warning.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "social",
-        ["id"] = "semantic.interaction.world_event.warning.warm",
+        ["id"] = "interaction.world_event.warning_flavor",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["localId"] = "warm",
-            ["sourceId"] = "semantic.interaction.world_event.warning.warm",
-            ["sourcePath"] = "dialogue/social/interaction_world_event_warning.json#records[1]",
+            ["localId"] = "warning_flavor",
+            ["sourceId"] = "interaction.world_event.warning_flavor",
+            ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/Social",
-        ["namespace"] = "semantic.interaction.world_event.warning",
+        ["namespace"] = "interaction.world_event",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -612,363 +914,165 @@ return {
         ["payload"] = {
             ["metadata"] = {
                 ["category"] = "psychopatzcore:world_event",
-                ["responseTemplateID"] = "semantic.interaction.world_event.warning",
-                ["sourceSurface"] = "content/social/interaction/world_event/warning.json",
-                ["style"] = "warm",
-            },
-            ["response"] = {
-                ["act"] = "WORLD_WARNING",
-                ["variants"] = {
-                    {
-                        ["id"] = "warm.01",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Stay close. Something's wrong out there.",
-                            },
-                            ["TL"] = {
-                                "Manatili kang malapit. May mali sa labas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.02",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Stick by me, friend. We have trouble brewing outside.",
-                            },
-                            ["TL"] = {
-                                "Dumikit ka sa akin, kaibigan. May namumuong gulo sa labas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.03",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Don't wander off. Something bad is moving out there.",
-                            },
-                            ["TL"] = {
-                                "Huwag kang lalayo. May masamang gumagalaw sa labas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.04",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep close and stay low. I'll protect you.",
-                            },
-                            ["TL"] = {
-                                "Manatiling malapit at yumuko. Poprotektahan kita.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.05",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Hey, stay behind me until we know what that was.",
-                            },
-                            ["TL"] = {
-                                "Huy, manatili ka sa likod ko hanggang malaman natin 'yon.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.06",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Careful, everyone! Let's look out for one another.",
-                            },
-                            ["TL"] = {
-                                "Mag-ingat ang lahat! Magbantayan tayo sa isa't isa.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.07",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Hold on to each other. Danger is nearby.",
-                            },
-                            ["TL"] = {
-                                "Kumapit sa isa't isa. Malapit lang ang panganib.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.08",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Stay safe by my side. Trouble is coming.",
-                            },
-                            ["TL"] = {
-                                "Manatiling ligtas sa tabi ko. Parating ang panganib.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.09",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Heads up, partner. Whatever happens, we stick together.",
-                            },
-                            ["TL"] = {
-                                "Mag-ingat, kasama. Anuman ang mangyari, sama-sama tayo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.10",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning.warm.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep close. I don't want anyone getting separated.",
-                            },
-                            ["TL"] = {
-                                "Dumikit ka. Ayokong may mahiwalay sa atin.",
-                            },
-                        },
-                    },
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/social/interaction_world_event_warning.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "social",
-        ["id"] = "semantic.interaction.world_event.warning_flavor.guarded",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "guarded",
-            ["sourceId"] = "semantic.interaction.world_event.warning_flavor.guarded",
-            ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json#records[3]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/Social",
-        ["namespace"] = "semantic.interaction.world_event.warning_flavor",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:world_event",
-                ["responseTemplateID"] = "semantic.interaction.world_event.warning_flavor",
+                ["responseAct"] = "AMBIENT_FLAVOR",
                 ["sourceSurface"] = "content/social/interaction/world_event/warning_flavor.json",
-                ["style"] = "guarded",
             },
-            ["response"] = {
-                ["act"] = "AMBIENT_FLAVOR",
-                ["variants"] = {
-                    {
-                        ["id"] = "guarded.01",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC stiffens and watches the approaches.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "The NPC snaps to attention and scans the area.",
+                                        "The NPC pauses and listens intently to distant noise.",
+                                        "The NPC raises a hand to signal sudden awareness.",
+                                        "The NPC turns sharply toward the source of the disturbance.",
+                                        "A tense hush falls as the NPC monitors the perimeter.",
+                                        "The NPC shifts their stance, ready to react.",
+                                        "The NPC points toward the horizon with furrowed brows.",
+                                        "The NPC squints into the distance, assessing the threat.",
+                                        "The NPC signals caution to everyone nearby.",
+                                        "The NPC's posture straightens instantly at the sound.",
+                                    },
+                                    ["TL"] = {
+                                        "Biglang naging alerto ang NPC at sinuri ang paligid.",
+                                        "Huminto ang NPC at taimtim na nakinig sa malayong ingay.",
+                                        "Itinaas ng NPC ang kamay bilang senyas ng biglaang pagka-alerto.",
+                                        "Mabilis na lumingon ang NPC sa pinagmulan ng kaguluhan.",
+                                        "Isang tensiyonadong katahimikan ang bumalot habang nagbabantay ang NPC.",
+                                        "Nagbago ng tindig ang NPC, handang rumesponde.",
+                                        "Itinuro ng NPC ang abot-tanaw habang nakakunot ang noo.",
+                                        "Nanliit ang mata ng NPC sa malayo, tinitimbang ang banta.",
+                                        "Nagsenyas ng pag-iingat ang NPC sa lahat ng nasa malapit.",
+                                        "Agad na naituwid ang tindig ng NPC nang marinig ang tunog.",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Nanigas ang NPC at binantayan ang mga posibleng lapitan.",
+                            {
+                                ["id"] = "guarded",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "The NPC stiffens and watches the approaches.",
+                                        "The NPC drops behind cover, weapon ready.",
+                                        "The NPC checks their weapon chamber with a grim expression.",
+                                        "The NPC scans every window and doorway with cold vigilance.",
+                                        "The NPC backs slowly into a defensive choke point.",
+                                        "The NPC eyes their companions to ensure everyone is armed.",
+                                        "A calculating glare fixes on the direction of the noise.",
+                                        "The NPC prepares for an immediate fight with grim resolve.",
+                                        "The NPC's posture turns deadly and guarded.",
+                                        "The NPC remains motionless, waiting for the first sign of hostiles.",
+                                    },
+                                    ["TL"] = {
+                                        "Nanigas ang NPC at binantayan ang mga posibleng lapitan.",
+                                        "Bumaba sa kublihan ang NPC, handa ang armas.",
+                                        "Tiningnan ng NPC ang karga ng armas na may madilim na mukha.",
+                                        "Sinuri ng NPC ang bawat bintana at pintuan nang may malamig na pag-iingat.",
+                                        "Mabagal na umatras ang NPC sa isang depensibong posisyon.",
+                                        "Tiningnan ng NPC ang mga kasama para tiyaking may armas ang lahat.",
+                                        "Isang mapanuring titig ang ibinaling sa direksyon ng ingay.",
+                                        "Naghahanda ang NPC sa agarang laban kalakip ang matinding kapasyahan.",
+                                        "Naging mabangis at maingat ang tindig ng NPC.",
+                                        "Nanatiling walang katinag-tinag ang NPC, naghihintay sa unang banta.",
+                                    },
+                                },
                             },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.02",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC drops behind cover, weapon ready.",
+                            {
+                                ["id"] = "terse",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "The NPC jerks a warning gesture.",
+                                        "A sharp signal cuts the air.",
+                                        "The NPC stiffens instantly.",
+                                        "A hand shoots up in alarm.",
+                                        "The NPC's head snaps toward the danger.",
+                                        "A low hiss demands silence.",
+                                        "The NPC drops into a crouch.",
+                                        "A quick wave commands cover.",
+                                        "The NPC draws their weapon in one motion.",
+                                        "Eyes wide, the NPC freezes.",
+                                    },
+                                    ["TL"] = {
+                                        "Biglang nagsenyas ng babala ang NPC.",
+                                        "Isang mabilis na senyas ang pumunit sa hangin.",
+                                        "Agad na nanigas ang NPC.",
+                                        "Biglang itinaas ang kamay sa pagkaalarma.",
+                                        "Mabilis na lumingon ang ulo ng NPC sa panganib.",
+                                        "Isang mahinang pahiwatig ang humingi ng katahimikan.",
+                                        "Bumaba sa pagkakayuko ang NPC.",
+                                        "Isang mabilis na kumpas ang nag-utos na magtago.",
+                                        "Binunot ng NPC ang armas sa iisang kilos.",
+                                        "Nanlalaki ang mata, tumigil ang NPC.",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Bumaba sa kublihan ang NPC, handa ang armas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.03",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC checks their weapon chamber with a grim expression.",
-                            },
-                            ["TL"] = {
-                                "Tiningnan ng NPC ang karga ng armas na may madilim na mukha.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.04",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC scans every window and doorway with cold vigilance.",
-                            },
-                            ["TL"] = {
-                                "Sinuri ng NPC ang bawat bintana at pintuan nang may malamig na pag-iingat.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.05",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC backs slowly into a defensive choke point.",
-                            },
-                            ["TL"] = {
-                                "Mabagal na umatras ang NPC sa isang depensibong posisyon.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.06",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC eyes their companions to ensure everyone is armed.",
-                            },
-                            ["TL"] = {
-                                "Tiningnan ng NPC ang mga kasama para tiyaking may armas ang lahat.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.07",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "A calculating glare fixes on the direction of the noise.",
-                            },
-                            ["TL"] = {
-                                "Isang mapanuring titig ang ibinaling sa direksyon ng ingay.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.08",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC prepares for an immediate fight with grim resolve.",
-                            },
-                            ["TL"] = {
-                                "Naghahanda ang NPC sa agarang laban kalakip ang matinding kapasyahan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.09",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC's posture turns deadly and guarded.",
-                            },
-                            ["TL"] = {
-                                "Naging mabangis at maingat ang tindig ng NPC.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.10",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.guarded.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC remains motionless, waiting for the first sign of hostiles.",
-                            },
-                            ["TL"] = {
-                                "Nanatiling walang katinag-tinag ang NPC, naghihintay sa unang banta.",
+                            {
+                                ["id"] = "warm",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "The NPC motions for the others to stay close.",
+                                        "The NPC places a protective hand out, urging allies to gather.",
+                                        "The NPC steps forward to shield their companions from view.",
+                                        "The NPC gives an urgent, reassuring glance to their partners.",
+                                        "The NPC whispers a quiet encouragement while staying watchful.",
+                                        "The NPC gestures for the group to huddle together safely.",
+                                        "The NPC keeps one eye on the threat and one on their friends.",
+                                        "The NPC gently pulls their ally behind solid cover.",
+                                        "The NPC nods determinedly to protect those nearby.",
+                                        "The NPC stays tightly flanked with their companions.",
+                                    },
+                                    ["TL"] = {
+                                        "Sinenyasan ng NPC ang iba na manatiling malapit.",
+                                        "Inilahad ng NPC ang protektibong kamay, pinapalapit ang mga kasama.",
+                                        "Humakbang pasulong ang NPC upang harangan sa paningin ang mga kasama.",
+                                        "Nagbigay ng mabilis at nakapagpapanatag na tingin ang NPC sa mga kasama.",
+                                        "Bumulong ng pampalakas ng loob ang NPC habang nananatiling mapagmatyag.",
+                                        "Nagsenyas ang NPC sa grupo na magsama-sama nang ligtas.",
+                                        "Bantay ng NPC ang banta habang tinitingnan din ang mga kaibigan.",
+                                        "Marahang hinila ng NPC ang kasama sa likod ng matibay na kublihan.",
+                                        "Determinado at matatag na tumango ang NPC para protektahan ang iba.",
+                                        "Nanatiling nakadikit ang NPC sa tabi ng mga kasama.",
+                                    },
+                                },
                             },
                         },
                     },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = "AMBIENT_FLAVOR",
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "interaction.world_event.warning_flavor",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "say_1",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "The NPC snaps to attention and scans the area.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.interaction.world_event.warning_flavor.say_1",
+                        },
+                    },
+                },
+            },
         },
         ["slots"] = {
         },
@@ -978,593 +1082,139 @@ return {
             ["required"] = false,
             ["type"] = "entity.any",
         },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "social",
-        ["id"] = "semantic.interaction.world_event.warning_flavor.neutral",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "neutral",
-            ["sourceId"] = "semantic.interaction.world_event.warning_flavor.neutral",
-            ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json#records[0]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/Social",
-        ["namespace"] = "semantic.interaction.world_event.warning_flavor",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:world_event",
-                ["responseTemplateID"] = "semantic.interaction.world_event.warning_flavor",
-                ["sourceSurface"] = "content/social/interaction/world_event/warning_flavor.json",
-                ["style"] = "neutral",
-            },
-            ["response"] = {
-                ["act"] = "AMBIENT_FLAVOR",
-                ["variants"] = {
-                    {
-                        ["id"] = "neutral.01",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC snaps to attention and scans the area.",
-                            },
-                            ["TL"] = {
-                                "Biglang naging alerto ang NPC at sinuri ang paligid.",
-                            },
-                        },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "The NPC snaps to attention and scans the area.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "The NPC snaps to attention and scans the area.",
+                        "The NPC pauses and listens intently to distant noise.",
+                        "The NPC raises a hand to signal sudden awareness.",
+                        "The NPC turns sharply toward the source of the disturbance.",
+                        "A tense hush falls as the NPC monitors the perimeter.",
+                        "The NPC shifts their stance, ready to react.",
+                        "The NPC points toward the horizon with furrowed brows.",
+                        "The NPC squints into the distance, assessing the threat.",
+                        "The NPC signals caution to everyone nearby.",
+                        "The NPC's posture straightens instantly at the sound.",
                     },
-                    {
-                        ["id"] = "neutral.02",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC pauses and listens intently to distant noise.",
-                            },
-                            ["TL"] = {
-                                "Huminto ang NPC at taimtim na nakinig sa malayong ingay.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.03",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC raises a hand to signal sudden awareness.",
-                            },
-                            ["TL"] = {
-                                "Itinaas ng NPC ang kamay bilang senyas ng biglaang pagka-alerto.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.04",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC turns sharply toward the source of the disturbance.",
-                            },
-                            ["TL"] = {
-                                "Mabilis na lumingon ang NPC sa pinagmulan ng kaguluhan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.05",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "A tense hush falls as the NPC monitors the perimeter.",
-                            },
-                            ["TL"] = {
-                                "Isang tensiyonadong katahimikan ang bumalot habang nagbabantay ang NPC.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.06",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC shifts their stance, ready to react.",
-                            },
-                            ["TL"] = {
-                                "Nagbago ng tindig ang NPC, handang rumesponde.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.07",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC points toward the horizon with furrowed brows.",
-                            },
-                            ["TL"] = {
-                                "Itinuro ng NPC ang abot-tanaw habang nakakunot ang noo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.08",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC squints into the distance, assessing the threat.",
-                            },
-                            ["TL"] = {
-                                "Nanliit ang mata ng NPC sa malayo, tinitimbang ang banta.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.09",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC signals caution to everyone nearby.",
-                            },
-                            ["TL"] = {
-                                "Nagsenyas ng pag-iingat ang NPC sa lahat ng nasa malapit.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.10",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.neutral.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC's posture straightens instantly at the sound.",
-                            },
-                            ["TL"] = {
-                                "Agad na naituwid ang tindig ng NPC nang marinig ang tunog.",
-                            },
-                        },
+                    ["TL"] = {
+                        "Biglang naging alerto ang NPC at sinuri ang paligid.",
+                        "Huminto ang NPC at taimtim na nakinig sa malayong ingay.",
+                        "Itinaas ng NPC ang kamay bilang senyas ng biglaang pagka-alerto.",
+                        "Mabilis na lumingon ang NPC sa pinagmulan ng kaguluhan.",
+                        "Isang tensiyonadong katahimikan ang bumalot habang nagbabantay ang NPC.",
+                        "Nagbago ng tindig ang NPC, handang rumesponde.",
+                        "Itinuro ng NPC ang abot-tanaw habang nakakunot ang noo.",
+                        "Nanliit ang mata ng NPC sa malayo, tinitimbang ang banta.",
+                        "Nagsenyas ng pag-iingat ang NPC sa lahat ng nasa malapit.",
+                        "Agad na naituwid ang tindig ng NPC nang marinig ang tunog.",
                     },
                 },
+                ["variantID"] = "neutral",
             },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/social/interaction_world_event_warning_flavor.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "social",
-        ["id"] = "semantic.interaction.world_event.warning_flavor.terse",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "terse",
-            ["sourceId"] = "semantic.interaction.world_event.warning_flavor.terse",
-            ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json#records[2]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/Social",
-        ["namespace"] = "semantic.interaction.world_event.warning_flavor",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:world_event",
-                ["responseTemplateID"] = "semantic.interaction.world_event.warning_flavor",
-                ["sourceSurface"] = "content/social/interaction/world_event/warning_flavor.json",
-                ["style"] = "terse",
-            },
-            ["response"] = {
-                ["act"] = "AMBIENT_FLAVOR",
-                ["variants"] = {
-                    {
-                        ["id"] = "terse.01",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC jerks a warning gesture.",
-                            },
-                            ["TL"] = {
-                                "Biglang nagsenyas ng babala ang NPC.",
-                            },
-                        },
+            {
+                ["fallback"] = "The NPC stiffens and watches the approaches.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.guarded",
+                ["translations"] = {
+                    ["EN"] = {
+                        "The NPC stiffens and watches the approaches.",
+                        "The NPC drops behind cover, weapon ready.",
+                        "The NPC checks their weapon chamber with a grim expression.",
+                        "The NPC scans every window and doorway with cold vigilance.",
+                        "The NPC backs slowly into a defensive choke point.",
+                        "The NPC eyes their companions to ensure everyone is armed.",
+                        "A calculating glare fixes on the direction of the noise.",
+                        "The NPC prepares for an immediate fight with grim resolve.",
+                        "The NPC's posture turns deadly and guarded.",
+                        "The NPC remains motionless, waiting for the first sign of hostiles.",
                     },
-                    {
-                        ["id"] = "terse.02",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "A sharp signal cuts the air.",
-                            },
-                            ["TL"] = {
-                                "Isang mabilis na senyas ang pumunit sa hangin.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.03",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC stiffens instantly.",
-                            },
-                            ["TL"] = {
-                                "Agad na nanigas ang NPC.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.04",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "A hand shoots up in alarm.",
-                            },
-                            ["TL"] = {
-                                "Biglang itinaas ang kamay sa pagkaalarma.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.05",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC's head snaps toward the danger.",
-                            },
-                            ["TL"] = {
-                                "Mabilis na lumingon ang ulo ng NPC sa panganib.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.06",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "A low hiss demands silence.",
-                            },
-                            ["TL"] = {
-                                "Isang mahinang pahiwatig ang humingi ng katahimikan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.07",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC drops into a crouch.",
-                            },
-                            ["TL"] = {
-                                "Bumaba sa pagkakayuko ang NPC.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.08",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "A quick wave commands cover.",
-                            },
-                            ["TL"] = {
-                                "Isang mabilis na kumpas ang nag-utos na magtago.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.09",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC draws their weapon in one motion.",
-                            },
-                            ["TL"] = {
-                                "Binunot ng NPC ang armas sa iisang kilos.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.10",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.terse.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Eyes wide, the NPC freezes.",
-                            },
-                            ["TL"] = {
-                                "Nanlalaki ang mata, tumigil ang NPC.",
-                            },
-                        },
+                    ["TL"] = {
+                        "Nanigas ang NPC at binantayan ang mga posibleng lapitan.",
+                        "Bumaba sa kublihan ang NPC, handa ang armas.",
+                        "Tiningnan ng NPC ang karga ng armas na may madilim na mukha.",
+                        "Sinuri ng NPC ang bawat bintana at pintuan nang may malamig na pag-iingat.",
+                        "Mabagal na umatras ang NPC sa isang depensibong posisyon.",
+                        "Tiningnan ng NPC ang mga kasama para tiyaking may armas ang lahat.",
+                        "Isang mapanuring titig ang ibinaling sa direksyon ng ingay.",
+                        "Naghahanda ang NPC sa agarang laban kalakip ang matinding kapasyahan.",
+                        "Naging mabangis at maingat ang tindig ng NPC.",
+                        "Nanatiling walang katinag-tinag ang NPC, naghihintay sa unang banta.",
                     },
                 },
+                ["variantID"] = "guarded",
             },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/social/interaction_world_event_warning_flavor.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "social",
-        ["id"] = "semantic.interaction.world_event.warning_flavor.warm",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "warm",
-            ["sourceId"] = "semantic.interaction.world_event.warning_flavor.warm",
-            ["sourcePath"] = "dialogue/social/interaction_world_event_warning_flavor.json#records[1]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/Social",
-        ["namespace"] = "semantic.interaction.world_event.warning_flavor",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:world_event",
-                ["responseTemplateID"] = "semantic.interaction.world_event.warning_flavor",
-                ["sourceSurface"] = "content/social/interaction/world_event/warning_flavor.json",
-                ["style"] = "warm",
-            },
-            ["response"] = {
-                ["act"] = "AMBIENT_FLAVOR",
-                ["variants"] = {
-                    {
-                        ["id"] = "warm.01",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC motions for the others to stay close.",
-                            },
-                            ["TL"] = {
-                                "Sinenyasan ng NPC ang iba na manatiling malapit.",
-                            },
-                        },
+            {
+                ["fallback"] = "The NPC jerks a warning gesture.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.terse",
+                ["translations"] = {
+                    ["EN"] = {
+                        "The NPC jerks a warning gesture.",
+                        "A sharp signal cuts the air.",
+                        "The NPC stiffens instantly.",
+                        "A hand shoots up in alarm.",
+                        "The NPC's head snaps toward the danger.",
+                        "A low hiss demands silence.",
+                        "The NPC drops into a crouch.",
+                        "A quick wave commands cover.",
+                        "The NPC draws their weapon in one motion.",
+                        "Eyes wide, the NPC freezes.",
                     },
-                    {
-                        ["id"] = "warm.02",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC places a protective hand out, urging allies to gather.",
-                            },
-                            ["TL"] = {
-                                "Inilahad ng NPC ang protektibong kamay, pinapalapit ang mga kasama.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.03",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC steps forward to shield their companions from view.",
-                            },
-                            ["TL"] = {
-                                "Humakbang pasulong ang NPC upang harangan sa paningin ang mga kasama.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.04",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC gives an urgent, reassuring glance to their partners.",
-                            },
-                            ["TL"] = {
-                                "Nagbigay ng mabilis at nakapagpapanatag na tingin ang NPC sa mga kasama.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.05",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC whispers a quiet encouragement while staying watchful.",
-                            },
-                            ["TL"] = {
-                                "Bumulong ng pampalakas ng loob ang NPC habang nananatiling mapagmatyag.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.06",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC gestures for the group to huddle together safely.",
-                            },
-                            ["TL"] = {
-                                "Nagsenyas ang NPC sa grupo na magsama-sama nang ligtas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.07",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC keeps one eye on the threat and one on their friends.",
-                            },
-                            ["TL"] = {
-                                "Bantay ng NPC ang banta habang tinitingnan din ang mga kaibigan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.08",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC gently pulls their ally behind solid cover.",
-                            },
-                            ["TL"] = {
-                                "Marahang hinila ng NPC ang kasama sa likod ng matibay na kublihan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.09",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC nods determinedly to protect those nearby.",
-                            },
-                            ["TL"] = {
-                                "Determinado at matatag na tumango ang NPC para protektahan ang iba.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.10",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.interaction.world_event.warning_flavor.warm.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The NPC stays tightly flanked with their companions.",
-                            },
-                            ["TL"] = {
-                                "Nanatiling nakadikit ang NPC sa tabi ng mga kasama.",
-                            },
-                        },
+                    ["TL"] = {
+                        "Biglang nagsenyas ng babala ang NPC.",
+                        "Isang mabilis na senyas ang pumunit sa hangin.",
+                        "Agad na nanigas ang NPC.",
+                        "Biglang itinaas ang kamay sa pagkaalarma.",
+                        "Mabilis na lumingon ang ulo ng NPC sa panganib.",
+                        "Isang mahinang pahiwatig ang humingi ng katahimikan.",
+                        "Bumaba sa pagkakayuko ang NPC.",
+                        "Isang mabilis na kumpas ang nag-utos na magtago.",
+                        "Binunot ng NPC ang armas sa iisang kilos.",
+                        "Nanlalaki ang mata, tumigil ang NPC.",
                     },
                 },
+                ["variantID"] = "terse",
             },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/social/interaction_world_event_warning_flavor.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
+            {
+                ["fallback"] = "The NPC motions for the others to stay close.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.interaction.world_event.warning_flavor.say.1.warm",
+                ["translations"] = {
+                    ["EN"] = {
+                        "The NPC motions for the others to stay close.",
+                        "The NPC places a protective hand out, urging allies to gather.",
+                        "The NPC steps forward to shield their companions from view.",
+                        "The NPC gives an urgent, reassuring glance to their partners.",
+                        "The NPC whispers a quiet encouragement while staying watchful.",
+                        "The NPC gestures for the group to huddle together safely.",
+                        "The NPC keeps one eye on the threat and one on their friends.",
+                        "The NPC gently pulls their ally behind solid cover.",
+                        "The NPC nods determinedly to protect those nearby.",
+                        "The NPC stays tightly flanked with their companions.",
+                    },
+                    ["TL"] = {
+                        "Sinenyasan ng NPC ang iba na manatiling malapit.",
+                        "Inilahad ng NPC ang protektibong kamay, pinapalapit ang mga kasama.",
+                        "Humakbang pasulong ang NPC upang harangan sa paningin ang mga kasama.",
+                        "Nagbigay ng mabilis at nakapagpapanatag na tingin ang NPC sa mga kasama.",
+                        "Bumulong ng pampalakas ng loob ang NPC habang nananatiling mapagmatyag.",
+                        "Nagsenyas ang NPC sa grupo na magsama-sama nang ligtas.",
+                        "Bantay ng NPC ang banta habang tinitingnan din ang mga kaibigan.",
+                        "Marahang hinila ng NPC ang kasama sa likod ng matibay na kublihan.",
+                        "Determinado at matatag na tumango ang NPC para protektahan ang iba.",
+                        "Nanatiling nakadikit ang NPC sa tabi ng mga kasama.",
+                    },
+                },
+                ["variantID"] = "warm",
+            },
         },
         ["when"] = nil,
     },

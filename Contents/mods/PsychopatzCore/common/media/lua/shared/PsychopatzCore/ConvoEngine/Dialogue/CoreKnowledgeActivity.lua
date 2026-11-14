@@ -2,16 +2,297 @@
 return {
     {
         ["domain"] = "core_knowledge_activity",
-        ["id"] = "semantic.question.activity.dataset.keep_moving.guarded",
+        ["exchangeFamily"] = {
+            ["familyID"] = "question.activity.dataset.keep_moving",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "We should keep moving. It's not safe to linger.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "We should keep moving. It's not safe to linger.",
+                                        "Staying mobile is our best option right now.",
+                                        "We need to continue forward and find shelter.",
+                                        "It's best if we keep moving down this route.",
+                                        "Let's keep the pace. We have ground to cover.",
+                                        "We shouldn't remain stationary for too long.",
+                                        "Keep walking. We need to reach our objective.",
+                                        "Moving along is the safest strategy right now.",
+                                        "Let's continue on our way.",
+                                        "We should maintain our momentum and keep moving.",
+                                    },
+                                    ["TL"] = {
+                                        "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal.",
+                                        "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon.",
+                                        "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan.",
+                                        "Pinakamabuti kung magpapatuloy tayo sa rutang ito.",
+                                        "Panatilihin natin ang bilis. Marami pa tayong lalakarin.",
+                                        "Hindi tayo dapat manatiling nakatigil nang matagal.",
+                                        "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin.",
+                                        "Ang pag-usad ang pinakaligtas na stratehiya ngayon.",
+                                        "Magpatuloy tayo sa ating daan.",
+                                        "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad.",
+                                    },
+                                },
+                            },
+                            {
+                                ["fallback"] = "We need to keep moving. Sitting still will get us killed.",
+                                ["id"] = "guarded",
+                                ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.guarded",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "We need to keep moving. Sitting still will get us killed.",
+                                        "Don't loiter. The dead migrate toward stillness.",
+                                        "Keep your boots moving. Danger is everywhere.",
+                                        "We stay on the road. Tarrying is suicide.",
+                                        "Keep moving. Eyes on the woodline.",
+                                        "No resting in the open. Walk.",
+                                        "Movement keeps us alive. Don't freeze up.",
+                                        "Keep marching. We're too exposed right here.",
+                                        "Keep going. Resting here is asking for trouble.",
+                                        "Step lively. A static survivor is a dead survivor.",
+                                    },
+                                    ["TL"] = {
+                                        "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito.",
+                                        "Huwag tatambay. Dumarating ang mga patay kapag nanahimik.",
+                                        "Igalaw ang mga paa mo. Nasa paligid ang panganib.",
+                                        "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras.",
+                                        "Tuloy ang lakad. Tumingin sa kakahuyan.",
+                                        "Walang pahinga sa lantad na lugar. Lakad.",
+                                        "Pagkilos ang bumubuhay sa atin. Huwag matulala.",
+                                        "Magmartsa pa. Masyado tayong lantad dito.",
+                                        "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito.",
+                                        "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor.",
+                                    },
+                                },
+                            },
+                            {
+                                ["fallback"] = "Keep moving.",
+                                ["id"] = "terse",
+                                ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.terse",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Keep moving.",
+                                        "Move.",
+                                        "Don't stop.",
+                                        "Walk.",
+                                        "Keep pace.",
+                                        "Forward.",
+                                        "Keep going.",
+                                        "Step up.",
+                                        "Don't linger.",
+                                        "On the move.",
+                                    },
+                                    ["TL"] = {
+                                        "Tuloy sa paglakad.",
+                                        "Galaw.",
+                                        "Huwag hihinto.",
+                                        "Lakad.",
+                                        "Sumabay.",
+                                        "Sulong.",
+                                        "Tuloy lang.",
+                                        "Hakbang.",
+                                        "Huwag magtagal.",
+                                        "Kilos.",
+                                    },
+                                },
+                            },
+                            {
+                                ["fallback"] = "Let's keep moving together, friend. We'll find safety.",
+                                ["id"] = "warm",
+                                ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.warm",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Let's keep moving together, friend. We'll find safety.",
+                                        "We should keep going. I'll stay right by your side.",
+                                        "Let's keep our feet moving. A warm fire awaits us eventually.",
+                                        "Keep up the good pace. We're doing fine.",
+                                        "Let's keep walking together. We're safer on the move.",
+                                        "We'll get through this path. Just keep moving with me.",
+                                        "Let's keep going, one step at a time.",
+                                        "I'm with you. Let's keep walking until we find shelter.",
+                                        "Keep moving forward. We've got this.",
+                                        "Let's keep our spirits up and keep walking.",
+                                    },
+                                    ["TL"] = {
+                                        "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan.",
+                                        "Dapat tayong magpatuloy. Mananatili ako sa tabi mo.",
+                                        "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo.",
+                                        "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin.",
+                                        "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos.",
+                                        "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin.",
+                                        "Magpatuloy tayo, bawat hakbang.",
+                                        "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan.",
+                                        "Tuloy sa pagsulong. Kaya natin 'to.",
+                                        "Panatilihing mataas ang loob natin at magpatuloy sa paglakad.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "question.activity.dataset",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "We should keep moving. It's not safe to linger.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "We should keep moving. It's not safe to linger.",
+                            "Staying mobile is our best option right now.",
+                            "We need to continue forward and find shelter.",
+                            "It's best if we keep moving down this route.",
+                            "Let's keep the pace. We have ground to cover.",
+                            "We shouldn't remain stationary for too long.",
+                            "Keep walking. We need to reach our objective.",
+                            "Moving along is the safest strategy right now.",
+                            "Let's continue on our way.",
+                            "We should maintain our momentum and keep moving.",
+                        },
+                        ["TL"] = {
+                            "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal.",
+                            "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon.",
+                            "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan.",
+                            "Pinakamabuti kung magpapatuloy tayo sa rutang ito.",
+                            "Panatilihin natin ang bilis. Marami pa tayong lalakarin.",
+                            "Hindi tayo dapat manatiling nakatigil nang matagal.",
+                            "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin.",
+                            "Ang pag-usad ang pinakaligtas na stratehiya ngayon.",
+                            "Magpatuloy tayo sa ating daan.",
+                            "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "We need to keep moving. Sitting still will get us killed.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.guarded",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "We need to keep moving. Sitting still will get us killed.",
+                            "Don't loiter. The dead migrate toward stillness.",
+                            "Keep your boots moving. Danger is everywhere.",
+                            "We stay on the road. Tarrying is suicide.",
+                            "Keep moving. Eyes on the woodline.",
+                            "No resting in the open. Walk.",
+                            "Movement keeps us alive. Don't freeze up.",
+                            "Keep marching. We're too exposed right here.",
+                            "Keep going. Resting here is asking for trouble.",
+                            "Step lively. A static survivor is a dead survivor.",
+                        },
+                        ["TL"] = {
+                            "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito.",
+                            "Huwag tatambay. Dumarating ang mga patay kapag nanahimik.",
+                            "Igalaw ang mga paa mo. Nasa paligid ang panganib.",
+                            "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras.",
+                            "Tuloy ang lakad. Tumingin sa kakahuyan.",
+                            "Walang pahinga sa lantad na lugar. Lakad.",
+                            "Pagkilos ang bumubuhay sa atin. Huwag matulala.",
+                            "Magmartsa pa. Masyado tayong lantad dito.",
+                            "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito.",
+                            "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor.",
+                        },
+                    },
+                    ["variantID"] = "guarded",
+                },
+                {
+                    ["fallback"] = "Keep moving.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.terse",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Keep moving.",
+                            "Move.",
+                            "Don't stop.",
+                            "Walk.",
+                            "Keep pace.",
+                            "Forward.",
+                            "Keep going.",
+                            "Step up.",
+                            "Don't linger.",
+                            "On the move.",
+                        },
+                        ["TL"] = {
+                            "Tuloy sa paglakad.",
+                            "Galaw.",
+                            "Huwag hihinto.",
+                            "Lakad.",
+                            "Sumabay.",
+                            "Sulong.",
+                            "Tuloy lang.",
+                            "Hakbang.",
+                            "Huwag magtagal.",
+                            "Kilos.",
+                        },
+                    },
+                    ["variantID"] = "terse",
+                },
+                {
+                    ["fallback"] = "Let's keep moving together, friend. We'll find safety.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.warm",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Let's keep moving together, friend. We'll find safety.",
+                            "We should keep going. I'll stay right by your side.",
+                            "Let's keep our feet moving. A warm fire awaits us eventually.",
+                            "Keep up the good pace. We're doing fine.",
+                            "Let's keep walking together. We're safer on the move.",
+                            "We'll get through this path. Just keep moving with me.",
+                            "Let's keep going, one step at a time.",
+                            "I'm with you. Let's keep walking until we find shelter.",
+                            "Keep moving forward. We've got this.",
+                            "Let's keep our spirits up and keep walking.",
+                        },
+                        ["TL"] = {
+                            "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan.",
+                            "Dapat tayong magpatuloy. Mananatili ako sa tabi mo.",
+                            "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo.",
+                            "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin.",
+                            "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos.",
+                            "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin.",
+                            "Magpatuloy tayo, bawat hakbang.",
+                            "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan.",
+                            "Tuloy sa pagsulong. Kaya natin 'to.",
+                            "Panatilihing mataas ang loob natin at magpatuloy sa paglakad.",
+                        },
+                    },
+                    ["variantID"] = "warm",
+                },
+            },
+        },
+        ["id"] = "question.activity.dataset.keep_moving",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["localId"] = "guarded",
-            ["sourceId"] = "semantic.question.activity.dataset.keep_moving.guarded",
-            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json#records[0]",
+            ["localId"] = "keep_moving",
+            ["sourceId"] = "question.activity.dataset.keep_moving",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
-        ["namespace"] = "semantic.question.activity.dataset.keep_moving",
+        ["namespace"] = "question.activity.dataset",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -24,167 +305,165 @@ return {
         ["payload"] = {
             ["metadata"] = {
                 ["category"] = "psychopatzcore:knowledge",
-                ["responseTemplateID"] = "semantic.question.activity.dataset.keep_moving",
+                ["responseAct"] = "KNOWLEDGE_RESPONSE",
                 ["sourceSurface"] = "content/knowledge/activity.json",
-                ["style"] = "guarded",
             },
-            ["response"] = {
-                ["act"] = "KNOWLEDGE_RESPONSE",
-                ["variants"] = {
-                    {
-                        ["id"] = "guarded.01",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We need to keep moving. Sitting still will get us killed.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "We should keep moving. It's not safe to linger.",
+                                        "Staying mobile is our best option right now.",
+                                        "We need to continue forward and find shelter.",
+                                        "It's best if we keep moving down this route.",
+                                        "Let's keep the pace. We have ground to cover.",
+                                        "We shouldn't remain stationary for too long.",
+                                        "Keep walking. We need to reach our objective.",
+                                        "Moving along is the safest strategy right now.",
+                                        "Let's continue on our way.",
+                                        "We should maintain our momentum and keep moving.",
+                                    },
+                                    ["TL"] = {
+                                        "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal.",
+                                        "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon.",
+                                        "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan.",
+                                        "Pinakamabuti kung magpapatuloy tayo sa rutang ito.",
+                                        "Panatilihin natin ang bilis. Marami pa tayong lalakarin.",
+                                        "Hindi tayo dapat manatiling nakatigil nang matagal.",
+                                        "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin.",
+                                        "Ang pag-usad ang pinakaligtas na stratehiya ngayon.",
+                                        "Magpatuloy tayo sa ating daan.",
+                                        "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad.",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito.",
+                            {
+                                ["id"] = "guarded",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "We need to keep moving. Sitting still will get us killed.",
+                                        "Don't loiter. The dead migrate toward stillness.",
+                                        "Keep your boots moving. Danger is everywhere.",
+                                        "We stay on the road. Tarrying is suicide.",
+                                        "Keep moving. Eyes on the woodline.",
+                                        "No resting in the open. Walk.",
+                                        "Movement keeps us alive. Don't freeze up.",
+                                        "Keep marching. We're too exposed right here.",
+                                        "Keep going. Resting here is asking for trouble.",
+                                        "Step lively. A static survivor is a dead survivor.",
+                                    },
+                                    ["TL"] = {
+                                        "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito.",
+                                        "Huwag tatambay. Dumarating ang mga patay kapag nanahimik.",
+                                        "Igalaw ang mga paa mo. Nasa paligid ang panganib.",
+                                        "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras.",
+                                        "Tuloy ang lakad. Tumingin sa kakahuyan.",
+                                        "Walang pahinga sa lantad na lugar. Lakad.",
+                                        "Pagkilos ang bumubuhay sa atin. Huwag matulala.",
+                                        "Magmartsa pa. Masyado tayong lantad dito.",
+                                        "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito.",
+                                        "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor.",
+                                    },
+                                },
                             },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.02",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Don't loiter. The dead migrate toward stillness.",
+                            {
+                                ["id"] = "terse",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Keep moving.",
+                                        "Move.",
+                                        "Don't stop.",
+                                        "Walk.",
+                                        "Keep pace.",
+                                        "Forward.",
+                                        "Keep going.",
+                                        "Step up.",
+                                        "Don't linger.",
+                                        "On the move.",
+                                    },
+                                    ["TL"] = {
+                                        "Tuloy sa paglakad.",
+                                        "Galaw.",
+                                        "Huwag hihinto.",
+                                        "Lakad.",
+                                        "Sumabay.",
+                                        "Sulong.",
+                                        "Tuloy lang.",
+                                        "Hakbang.",
+                                        "Huwag magtagal.",
+                                        "Kilos.",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Huwag tatambay. Dumarating ang mga patay kapag nanahimik.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.03",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep your boots moving. Danger is everywhere.",
-                            },
-                            ["TL"] = {
-                                "Igalaw ang mga paa mo. Nasa paligid ang panganib.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.04",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We stay on the road. Tarrying is suicide.",
-                            },
-                            ["TL"] = {
-                                "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.05",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep moving. Eyes on the woodline.",
-                            },
-                            ["TL"] = {
-                                "Tuloy ang lakad. Tumingin sa kakahuyan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.06",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "No resting in the open. Walk.",
-                            },
-                            ["TL"] = {
-                                "Walang pahinga sa lantad na lugar. Lakad.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.07",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Movement keeps us alive. Don't freeze up.",
-                            },
-                            ["TL"] = {
-                                "Pagkilos ang bumubuhay sa atin. Huwag matulala.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.08",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep marching. We're too exposed right here.",
-                            },
-                            ["TL"] = {
-                                "Magmartsa pa. Masyado tayong lantad dito.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.09",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep going. Resting here is asking for trouble.",
-                            },
-                            ["TL"] = {
-                                "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.10",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.guarded.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Step lively. A static survivor is a dead survivor.",
-                            },
-                            ["TL"] = {
-                                "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor.",
+                            {
+                                ["id"] = "warm",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Let's keep moving together, friend. We'll find safety.",
+                                        "We should keep going. I'll stay right by your side.",
+                                        "Let's keep our feet moving. A warm fire awaits us eventually.",
+                                        "Keep up the good pace. We're doing fine.",
+                                        "Let's keep walking together. We're safer on the move.",
+                                        "We'll get through this path. Just keep moving with me.",
+                                        "Let's keep going, one step at a time.",
+                                        "I'm with you. Let's keep walking until we find shelter.",
+                                        "Keep moving forward. We've got this.",
+                                        "Let's keep our spirits up and keep walking.",
+                                    },
+                                    ["TL"] = {
+                                        "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan.",
+                                        "Dapat tayong magpatuloy. Mananatili ako sa tabi mo.",
+                                        "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo.",
+                                        "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin.",
+                                        "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos.",
+                                        "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin.",
+                                        "Magpatuloy tayo, bawat hakbang.",
+                                        "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan.",
+                                        "Tuloy sa pagsulong. Kaya natin 'to.",
+                                        "Panatilihing mataas ang loob natin at magpatuloy sa paglakad.",
+                                    },
+                                },
                             },
                         },
                     },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
+        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = "KNOWLEDGE_RESPONSE",
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "question.activity.dataset.keep_moving",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "say_1",
+                    ["offers"] = {
+                    },
+                    ["segments"] = {
+                        {
+                            ["args"] = {
+                            },
+                            ["fallback"] = "We should keep moving. It's not safe to linger.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.question.activity.dataset.keep_moving.say_1",
+                        },
+                    },
+                },
+            },
         },
         ["slots"] = {
         },
@@ -194,20 +473,435 @@ return {
             ["required"] = false,
             ["type"] = "entity.any",
         },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "We should keep moving. It's not safe to linger.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "We should keep moving. It's not safe to linger.",
+                        "Staying mobile is our best option right now.",
+                        "We need to continue forward and find shelter.",
+                        "It's best if we keep moving down this route.",
+                        "Let's keep the pace. We have ground to cover.",
+                        "We shouldn't remain stationary for too long.",
+                        "Keep walking. We need to reach our objective.",
+                        "Moving along is the safest strategy right now.",
+                        "Let's continue on our way.",
+                        "We should maintain our momentum and keep moving.",
+                    },
+                    ["TL"] = {
+                        "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal.",
+                        "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon.",
+                        "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan.",
+                        "Pinakamabuti kung magpapatuloy tayo sa rutang ito.",
+                        "Panatilihin natin ang bilis. Marami pa tayong lalakarin.",
+                        "Hindi tayo dapat manatiling nakatigil nang matagal.",
+                        "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin.",
+                        "Ang pag-usad ang pinakaligtas na stratehiya ngayon.",
+                        "Magpatuloy tayo sa ating daan.",
+                        "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
+            {
+                ["fallback"] = "We need to keep moving. Sitting still will get us killed.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.guarded",
+                ["translations"] = {
+                    ["EN"] = {
+                        "We need to keep moving. Sitting still will get us killed.",
+                        "Don't loiter. The dead migrate toward stillness.",
+                        "Keep your boots moving. Danger is everywhere.",
+                        "We stay on the road. Tarrying is suicide.",
+                        "Keep moving. Eyes on the woodline.",
+                        "No resting in the open. Walk.",
+                        "Movement keeps us alive. Don't freeze up.",
+                        "Keep marching. We're too exposed right here.",
+                        "Keep going. Resting here is asking for trouble.",
+                        "Step lively. A static survivor is a dead survivor.",
+                    },
+                    ["TL"] = {
+                        "Kailangan nating magpatuloy sa paglakad. Mamamatay tayo kapag tumigil dito.",
+                        "Huwag tatambay. Dumarating ang mga patay kapag nanahimik.",
+                        "Igalaw ang mga paa mo. Nasa paligid ang panganib.",
+                        "Manatili tayo sa kalsada. Pagpapatiwakal ang pag-aaksaya ng oras.",
+                        "Tuloy ang lakad. Tumingin sa kakahuyan.",
+                        "Walang pahinga sa lantad na lugar. Lakad.",
+                        "Pagkilos ang bumubuhay sa atin. Huwag matulala.",
+                        "Magmartsa pa. Masyado tayong lantad dito.",
+                        "Tuloy lang. Naghahanap ka ng gulo kapag nagpahinga ka rito.",
+                        "Bilis-bilisan ang hakbang. Ang nakatayong survivor ay patay na survivor.",
+                    },
+                },
+                ["variantID"] = "guarded",
+            },
+            {
+                ["fallback"] = "Keep moving.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.terse",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Keep moving.",
+                        "Move.",
+                        "Don't stop.",
+                        "Walk.",
+                        "Keep pace.",
+                        "Forward.",
+                        "Keep going.",
+                        "Step up.",
+                        "Don't linger.",
+                        "On the move.",
+                    },
+                    ["TL"] = {
+                        "Tuloy sa paglakad.",
+                        "Galaw.",
+                        "Huwag hihinto.",
+                        "Lakad.",
+                        "Sumabay.",
+                        "Sulong.",
+                        "Tuloy lang.",
+                        "Hakbang.",
+                        "Huwag magtagal.",
+                        "Kilos.",
+                    },
+                },
+                ["variantID"] = "terse",
+            },
+            {
+                ["fallback"] = "Let's keep moving together, friend. We'll find safety.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.question.activity.dataset.keep_moving.say.1.warm",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Let's keep moving together, friend. We'll find safety.",
+                        "We should keep going. I'll stay right by your side.",
+                        "Let's keep our feet moving. A warm fire awaits us eventually.",
+                        "Keep up the good pace. We're doing fine.",
+                        "Let's keep walking together. We're safer on the move.",
+                        "We'll get through this path. Just keep moving with me.",
+                        "Let's keep going, one step at a time.",
+                        "I'm with you. Let's keep walking until we find shelter.",
+                        "Keep moving forward. We've got this.",
+                        "Let's keep our spirits up and keep walking.",
+                    },
+                    ["TL"] = {
+                        "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan.",
+                        "Dapat tayong magpatuloy. Mananatili ako sa tabi mo.",
+                        "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo.",
+                        "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin.",
+                        "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos.",
+                        "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin.",
+                        "Magpatuloy tayo, bawat hakbang.",
+                        "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan.",
+                        "Tuloy sa pagsulong. Kaya natin 'to.",
+                        "Panatilihing mataas ang loob natin at magpatuloy sa paglakad.",
+                    },
+                },
+                ["variantID"] = "warm",
+            },
+        },
         ["when"] = nil,
     },
     {
         ["domain"] = "core_knowledge_activity",
-        ["id"] = "semantic.question.activity.dataset.keep_moving.neutral",
+        ["exchangeFamily"] = {
+            ["familyID"] = "question.activity.fishing",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Fishing is a solid way to secure fresh food.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.question.activity.fishing.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Fishing is a solid way to secure fresh food.",
+                                        "We can catch fish here if we have rod and bait.",
+                                        "The water looks promising for catching dinner.",
+                                        "Fishing requires patience, but it provides calories.",
+                                        "A good spot to cast a line and get some food.",
+                                        "We should try fishing if our rations are running low.",
+                                        "Fish are clean protein out here in the wild.",
+                                        "Check the line and bait. We could catch something good.",
+                                        "Fishing by the river is a viable survival task.",
+                                        "We can cast a line here while the area is clear.",
+                                    },
+                                    ["TL"] = {
+                                        "Magandang paraan ang pangingisda para makakuha ng sariwang pagkain.",
+                                        "Makakahuli tayo ng isda rito kung may pamingwit at pain.",
+                                        "Mukhang maganda ang tubig para makahuli ng hapunan.",
+                                        "Kailangan ng pasensya sa pangingisda, pero nagbibigay ito ng lakas.",
+                                        "Magandang lugar para maghulog ng pamingwit at kumuha ng pagkain.",
+                                        "Dapat nating subukan ang pangingisda kung paubos na ang rasyon.",
+                                        "Malinis na protina ang isda rito sa labas.",
+                                        "Tignan ang pisi at pain. Baka makahuli tayo ng maganda.",
+                                        "Mabisang gawaing kaligtasan ang pangingisda sa ilog.",
+                                        "Pwede tayong maghagis ng pamingwit dito habang malinis ang lugar.",
+                                    },
+                                },
+                            },
+                            {
+                                ["fallback"] = "Fishing leaves you exposed by the water. Watch your back.",
+                                ["id"] = "guarded",
+                                ["templateID"] = "convo.question.activity.fishing.say.1.guarded",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Fishing leaves you exposed by the water. Watch your back.",
+                                        "Water draws the dead. Keep your weapon close while casting.",
+                                        "Don't get tunnel vision looking at the bobber.",
+                                        "Fish fast and leave. Banks are ambush territory.",
+                                        "Quiet catches only. Splashing brings infected.",
+                                        "Watch the treeline while you work the line.",
+                                        "If something rustles in the reeds, drop the rod and draw.",
+                                        "Fishing is risky out here. Keep eyes peeled.",
+                                        "Get the protein and get off the shore.",
+                                        "Don't get dragged in. Watch the water.",
+                                    },
+                                    ["TL"] = {
+                                        "Nakalantad ka sa tubig kapag nangingisda. Bantayan mo ang likod mo.",
+                                        "Umaakit ng patay ang tubig. Ihanda ang sandata habang naghahagis ng bingwit.",
+                                        "Huwag matutok sa lumulutang na pamingwit.",
+                                        "Mangisda nang mabilis at umalis. Lugar ng tambangan ang pampang.",
+                                        "Tahimik na huli lang. Ang tilamsik ng tubig ay umaakit ng infected.",
+                                        "Bantayan ang kakahuyan habang humahawak ng tali.",
+                                        "Kapag may kumaluskos sa talahiban, bitawan ang pamingwit at mag-armas.",
+                                        "Delikado ang pangingisda rito. Buksan ang mga mata.",
+                                        "Kunin ang isda at umalis agad sa pampang.",
+                                        "Huwag magpahila sa tubig. Bantayan ang paligid.",
+                                    },
+                                },
+                            },
+                            {
+                                ["fallback"] = "Fishing.",
+                                ["id"] = "terse",
+                                ["templateID"] = "convo.question.activity.fishing.say.1.terse",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Fishing.",
+                                        "Cast a line.",
+                                        "Need bait.",
+                                        "Watch the water.",
+                                        "Good food source.",
+                                        "Fish quietly.",
+                                        "Cast here.",
+                                        "Rod and reel.",
+                                        "Catch dinner.",
+                                        "Fresh fish.",
+                                    },
+                                    ["TL"] = {
+                                        "Pangingisda.",
+                                        "Ihagis ang pamingwit.",
+                                        "Kailangan ng pain.",
+                                        "Bantayan ang tubig.",
+                                        "Magandang pagkain.",
+                                        "Mangisda nang tahimik.",
+                                        "Dito maghagis.",
+                                        "Pamingwit at ikutan.",
+                                        "Hulihin ang hapunan.",
+                                        "Sariwang isda.",
+                                    },
+                                },
+                            },
+                            {
+                                ["fallback"] = "Fishing by the water sounds peaceful right now.",
+                                ["id"] = "warm",
+                                ["templateID"] = "convo.question.activity.fishing.say.1.warm",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Fishing by the water sounds peaceful right now.",
+                                        "I'd love to catch some fresh fish for us to cook.",
+                                        "A nice fresh catch would make a wonderful meal for us.",
+                                        "It feels good to take a moment by the water and fish.",
+                                        "Let's see if we can catch something tasty together.",
+                                        "Fishing reminds me of quieter times. Let's cast a line.",
+                                        "A warm fire and fresh fish would do wonders for our mood.",
+                                        "I'll keep watch while you fish, or we can take turns.",
+                                        "Fresh catch would be a real treat for both of us.",
+                                        "Let's catch a good meal and share it tonight.",
+                                    },
+                                    ["TL"] = {
+                                        "Mukhang mapayapa ang pangingisda sa tabi ng tubig ngayon.",
+                                        "Gusto kong makahuli ng sariwang isda para lutuin natin.",
+                                        "Ang sariwang huli ay magiging napakagandang salu-salo para sa atin.",
+                                        "Masarap magpahinga sandali sa tabi ng tubig at mangisda.",
+                                        "Tignan natin kung makakahuli tayo ng masarap nang magkasama.",
+                                        "Naaalala ko ang mga tahimik na panahon sa pangingisda. Maghagis tayo.",
+                                        "Ang maaliwalas na apoy at sariwang isda ay magpapagaan ng loob natin.",
+                                        "Babantayan kita habang nangingisda ka, o magsalitan tayo.",
+                                        "Tunay na pabuya para sa atin ang sariwang huli.",
+                                        "Manghuli tayo ng masarap na pagkain at magsalu-salo ngayong gabi.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "question.activity",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "Fishing is a solid way to secure fresh food.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.question.activity.fishing.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Fishing is a solid way to secure fresh food.",
+                            "We can catch fish here if we have rod and bait.",
+                            "The water looks promising for catching dinner.",
+                            "Fishing requires patience, but it provides calories.",
+                            "A good spot to cast a line and get some food.",
+                            "We should try fishing if our rations are running low.",
+                            "Fish are clean protein out here in the wild.",
+                            "Check the line and bait. We could catch something good.",
+                            "Fishing by the river is a viable survival task.",
+                            "We can cast a line here while the area is clear.",
+                        },
+                        ["TL"] = {
+                            "Magandang paraan ang pangingisda para makakuha ng sariwang pagkain.",
+                            "Makakahuli tayo ng isda rito kung may pamingwit at pain.",
+                            "Mukhang maganda ang tubig para makahuli ng hapunan.",
+                            "Kailangan ng pasensya sa pangingisda, pero nagbibigay ito ng lakas.",
+                            "Magandang lugar para maghulog ng pamingwit at kumuha ng pagkain.",
+                            "Dapat nating subukan ang pangingisda kung paubos na ang rasyon.",
+                            "Malinis na protina ang isda rito sa labas.",
+                            "Tignan ang pisi at pain. Baka makahuli tayo ng maganda.",
+                            "Mabisang gawaing kaligtasan ang pangingisda sa ilog.",
+                            "Pwede tayong maghagis ng pamingwit dito habang malinis ang lugar.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+                {
+                    ["fallback"] = "Fishing leaves you exposed by the water. Watch your back.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.question.activity.fishing.say.1.guarded",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Fishing leaves you exposed by the water. Watch your back.",
+                            "Water draws the dead. Keep your weapon close while casting.",
+                            "Don't get tunnel vision looking at the bobber.",
+                            "Fish fast and leave. Banks are ambush territory.",
+                            "Quiet catches only. Splashing brings infected.",
+                            "Watch the treeline while you work the line.",
+                            "If something rustles in the reeds, drop the rod and draw.",
+                            "Fishing is risky out here. Keep eyes peeled.",
+                            "Get the protein and get off the shore.",
+                            "Don't get dragged in. Watch the water.",
+                        },
+                        ["TL"] = {
+                            "Nakalantad ka sa tubig kapag nangingisda. Bantayan mo ang likod mo.",
+                            "Umaakit ng patay ang tubig. Ihanda ang sandata habang naghahagis ng bingwit.",
+                            "Huwag matutok sa lumulutang na pamingwit.",
+                            "Mangisda nang mabilis at umalis. Lugar ng tambangan ang pampang.",
+                            "Tahimik na huli lang. Ang tilamsik ng tubig ay umaakit ng infected.",
+                            "Bantayan ang kakahuyan habang humahawak ng tali.",
+                            "Kapag may kumaluskos sa talahiban, bitawan ang pamingwit at mag-armas.",
+                            "Delikado ang pangingisda rito. Buksan ang mga mata.",
+                            "Kunin ang isda at umalis agad sa pampang.",
+                            "Huwag magpahila sa tubig. Bantayan ang paligid.",
+                        },
+                    },
+                    ["variantID"] = "guarded",
+                },
+                {
+                    ["fallback"] = "Fishing.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.question.activity.fishing.say.1.terse",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Fishing.",
+                            "Cast a line.",
+                            "Need bait.",
+                            "Watch the water.",
+                            "Good food source.",
+                            "Fish quietly.",
+                            "Cast here.",
+                            "Rod and reel.",
+                            "Catch dinner.",
+                            "Fresh fish.",
+                        },
+                        ["TL"] = {
+                            "Pangingisda.",
+                            "Ihagis ang pamingwit.",
+                            "Kailangan ng pain.",
+                            "Bantayan ang tubig.",
+                            "Magandang pagkain.",
+                            "Mangisda nang tahimik.",
+                            "Dito maghagis.",
+                            "Pamingwit at ikutan.",
+                            "Hulihin ang hapunan.",
+                            "Sariwang isda.",
+                        },
+                    },
+                    ["variantID"] = "terse",
+                },
+                {
+                    ["fallback"] = "Fishing by the water sounds peaceful right now.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.question.activity.fishing.say.1.warm",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Fishing by the water sounds peaceful right now.",
+                            "I'd love to catch some fresh fish for us to cook.",
+                            "A nice fresh catch would make a wonderful meal for us.",
+                            "It feels good to take a moment by the water and fish.",
+                            "Let's see if we can catch something tasty together.",
+                            "Fishing reminds me of quieter times. Let's cast a line.",
+                            "A warm fire and fresh fish would do wonders for our mood.",
+                            "I'll keep watch while you fish, or we can take turns.",
+                            "Fresh catch would be a real treat for both of us.",
+                            "Let's catch a good meal and share it tonight.",
+                        },
+                        ["TL"] = {
+                            "Mukhang mapayapa ang pangingisda sa tabi ng tubig ngayon.",
+                            "Gusto kong makahuli ng sariwang isda para lutuin natin.",
+                            "Ang sariwang huli ay magiging napakagandang salu-salo para sa atin.",
+                            "Masarap magpahinga sandali sa tabi ng tubig at mangisda.",
+                            "Tignan natin kung makakahuli tayo ng masarap nang magkasama.",
+                            "Naaalala ko ang mga tahimik na panahon sa pangingisda. Maghagis tayo.",
+                            "Ang maaliwalas na apoy at sariwang isda ay magpapagaan ng loob natin.",
+                            "Babantayan kita habang nangingisda ka, o magsalitan tayo.",
+                            "Tunay na pabuya para sa atin ang sariwang huli.",
+                            "Manghuli tayo ng masarap na pagkain at magsalu-salo ngayong gabi.",
+                        },
+                    },
+                    ["variantID"] = "warm",
+                },
+            },
+        },
+        ["id"] = "question.activity.fishing",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["localId"] = "neutral",
-            ["sourceId"] = "semantic.question.activity.dataset.keep_moving.neutral",
-            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json#records[1]",
+            ["localId"] = "fishing",
+            ["sourceId"] = "question.activity.fishing",
+            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
-        ["namespace"] = "semantic.question.activity.dataset.keep_moving",
+        ["namespace"] = "question.activity",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -220,755 +914,165 @@ return {
         ["payload"] = {
             ["metadata"] = {
                 ["category"] = "psychopatzcore:knowledge",
-                ["responseTemplateID"] = "semantic.question.activity.dataset.keep_moving",
+                ["responseAct"] = "KNOWLEDGE_RESPONSE",
                 ["sourceSurface"] = "content/knowledge/activity.json",
-                ["style"] = "neutral",
             },
-            ["response"] = {
-                ["act"] = "KNOWLEDGE_RESPONSE",
-                ["variants"] = {
-                    {
-                        ["id"] = "neutral.01",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We should keep moving. It's not safe to linger.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Fishing is a solid way to secure fresh food.",
+                                        "We can catch fish here if we have rod and bait.",
+                                        "The water looks promising for catching dinner.",
+                                        "Fishing requires patience, but it provides calories.",
+                                        "A good spot to cast a line and get some food.",
+                                        "We should try fishing if our rations are running low.",
+                                        "Fish are clean protein out here in the wild.",
+                                        "Check the line and bait. We could catch something good.",
+                                        "Fishing by the river is a viable survival task.",
+                                        "We can cast a line here while the area is clear.",
+                                    },
+                                    ["TL"] = {
+                                        "Magandang paraan ang pangingisda para makakuha ng sariwang pagkain.",
+                                        "Makakahuli tayo ng isda rito kung may pamingwit at pain.",
+                                        "Mukhang maganda ang tubig para makahuli ng hapunan.",
+                                        "Kailangan ng pasensya sa pangingisda, pero nagbibigay ito ng lakas.",
+                                        "Magandang lugar para maghulog ng pamingwit at kumuha ng pagkain.",
+                                        "Dapat nating subukan ang pangingisda kung paubos na ang rasyon.",
+                                        "Malinis na protina ang isda rito sa labas.",
+                                        "Tignan ang pisi at pain. Baka makahuli tayo ng maganda.",
+                                        "Mabisang gawaing kaligtasan ang pangingisda sa ilog.",
+                                        "Pwede tayong maghagis ng pamingwit dito habang malinis ang lugar.",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Dapat tayong magpatuloy sa paglakad. Hindi ligtas magtagal.",
+                            {
+                                ["id"] = "guarded",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Fishing leaves you exposed by the water. Watch your back.",
+                                        "Water draws the dead. Keep your weapon close while casting.",
+                                        "Don't get tunnel vision looking at the bobber.",
+                                        "Fish fast and leave. Banks are ambush territory.",
+                                        "Quiet catches only. Splashing brings infected.",
+                                        "Watch the treeline while you work the line.",
+                                        "If something rustles in the reeds, drop the rod and draw.",
+                                        "Fishing is risky out here. Keep eyes peeled.",
+                                        "Get the protein and get off the shore.",
+                                        "Don't get dragged in. Watch the water.",
+                                    },
+                                    ["TL"] = {
+                                        "Nakalantad ka sa tubig kapag nangingisda. Bantayan mo ang likod mo.",
+                                        "Umaakit ng patay ang tubig. Ihanda ang sandata habang naghahagis ng bingwit.",
+                                        "Huwag matutok sa lumulutang na pamingwit.",
+                                        "Mangisda nang mabilis at umalis. Lugar ng tambangan ang pampang.",
+                                        "Tahimik na huli lang. Ang tilamsik ng tubig ay umaakit ng infected.",
+                                        "Bantayan ang kakahuyan habang humahawak ng tali.",
+                                        "Kapag may kumaluskos sa talahiban, bitawan ang pamingwit at mag-armas.",
+                                        "Delikado ang pangingisda rito. Buksan ang mga mata.",
+                                        "Kunin ang isda at umalis agad sa pampang.",
+                                        "Huwag magpahila sa tubig. Bantayan ang paligid.",
+                                    },
+                                },
                             },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.02",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Staying mobile is our best option right now.",
+                            {
+                                ["id"] = "terse",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Fishing.",
+                                        "Cast a line.",
+                                        "Need bait.",
+                                        "Watch the water.",
+                                        "Good food source.",
+                                        "Fish quietly.",
+                                        "Cast here.",
+                                        "Rod and reel.",
+                                        "Catch dinner.",
+                                        "Fresh fish.",
+                                    },
+                                    ["TL"] = {
+                                        "Pangingisda.",
+                                        "Ihagis ang pamingwit.",
+                                        "Kailangan ng pain.",
+                                        "Bantayan ang tubig.",
+                                        "Magandang pagkain.",
+                                        "Mangisda nang tahimik.",
+                                        "Dito maghagis.",
+                                        "Pamingwit at ikutan.",
+                                        "Hulihin ang hapunan.",
+                                        "Sariwang isda.",
+                                    },
+                                },
                             },
-                            ["TL"] = {
-                                "Ang pananatiling gumagalaw ang pinakamagandang opsyon natin ngayon.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.03",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We need to continue forward and find shelter.",
-                            },
-                            ["TL"] = {
-                                "Kailangan nating magpatuloy pasulong at maghanap ng masisilungan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.04",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "It's best if we keep moving down this route.",
-                            },
-                            ["TL"] = {
-                                "Pinakamabuti kung magpapatuloy tayo sa rutang ito.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.05",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Let's keep the pace. We have ground to cover.",
-                            },
-                            ["TL"] = {
-                                "Panatilihin natin ang bilis. Marami pa tayong lalakarin.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.06",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We shouldn't remain stationary for too long.",
-                            },
-                            ["TL"] = {
-                                "Hindi tayo dapat manatiling nakatigil nang matagal.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.07",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep walking. We need to reach our objective.",
-                            },
-                            ["TL"] = {
-                                "Magpatuloy sa paglakad. Kailangan nating marating ang layunin natin.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.08",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Moving along is the safest strategy right now.",
-                            },
-                            ["TL"] = {
-                                "Ang pag-usad ang pinakaligtas na stratehiya ngayon.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.09",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Let's continue on our way.",
-                            },
-                            ["TL"] = {
-                                "Magpatuloy tayo sa ating daan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.10",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.neutral.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We should maintain our momentum and keep moving.",
-                            },
-                            ["TL"] = {
-                                "Dapat nating panatilihin ang ating bwelo at magpatuloy sa paglakad.",
+                            {
+                                ["id"] = "warm",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Fishing by the water sounds peaceful right now.",
+                                        "I'd love to catch some fresh fish for us to cook.",
+                                        "A nice fresh catch would make a wonderful meal for us.",
+                                        "It feels good to take a moment by the water and fish.",
+                                        "Let's see if we can catch something tasty together.",
+                                        "Fishing reminds me of quieter times. Let's cast a line.",
+                                        "A warm fire and fresh fish would do wonders for our mood.",
+                                        "I'll keep watch while you fish, or we can take turns.",
+                                        "Fresh catch would be a real treat for both of us.",
+                                        "Let's catch a good meal and share it tonight.",
+                                    },
+                                    ["TL"] = {
+                                        "Mukhang mapayapa ang pangingisda sa tabi ng tubig ngayon.",
+                                        "Gusto kong makahuli ng sariwang isda para lutuin natin.",
+                                        "Ang sariwang huli ay magiging napakagandang salu-salo para sa atin.",
+                                        "Masarap magpahinga sandali sa tabi ng tubig at mangisda.",
+                                        "Tignan natin kung makakahuli tayo ng masarap nang magkasama.",
+                                        "Naaalala ko ang mga tahimik na panahon sa pangingisda. Maghagis tayo.",
+                                        "Ang maaliwalas na apoy at sariwang isda ay magpapagaan ng loob natin.",
+                                        "Babantayan kita habang nangingisda ka, o magsalitan tayo.",
+                                        "Tunay na pabuya para sa atin ang sariwang huli.",
+                                        "Manghuli tayo ng masarap na pagkain at magsalu-salo ngayong gabi.",
+                                    },
+                                },
                             },
                         },
                     },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
         },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_knowledge_activity",
-        ["id"] = "semantic.question.activity.dataset.keep_moving.terse",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "terse",
-            ["sourceId"] = "semantic.question.activity.dataset.keep_moving.terse",
-            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json#records[2]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
-        ["namespace"] = "semantic.question.activity.dataset.keep_moving",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:knowledge",
-                ["responseTemplateID"] = "semantic.question.activity.dataset.keep_moving",
-                ["sourceSurface"] = "content/knowledge/activity.json",
-                ["style"] = "terse",
-            },
-            ["response"] = {
-                ["act"] = "KNOWLEDGE_RESPONSE",
-                ["variants"] = {
-                    {
-                        ["id"] = "terse.01",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep moving.",
-                            },
-                            ["TL"] = {
-                                "Tuloy sa paglakad.",
-                            },
-                        },
+        ["responsePlan"] = {
+            ["dialogueAct"] = "KNOWLEDGE_RESPONSE",
+            ["kind"] = "dialogue_act_plan",
+            ["responsePlanID"] = "question.activity.fishing",
+            ["schemaVersion"] = 1,
+            ["turns"] = {
+                {
+                    ["continuation"] = "end",
+                    ["id"] = "say_1",
+                    ["offers"] = {
                     },
-                    {
-                        ["id"] = "terse.02",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Move.",
+                    ["segments"] = {
+                        {
+                            ["args"] = {
                             },
-                            ["TL"] = {
-                                "Galaw.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.03",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Don't stop.",
-                            },
-                            ["TL"] = {
-                                "Huwag hihinto.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.04",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Walk.",
-                            },
-                            ["TL"] = {
-                                "Lakad.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.05",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep pace.",
-                            },
-                            ["TL"] = {
-                                "Sumabay.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.06",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Forward.",
-                            },
-                            ["TL"] = {
-                                "Sulong.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.07",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep going.",
-                            },
-                            ["TL"] = {
-                                "Tuloy lang.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.08",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Step up.",
-                            },
-                            ["TL"] = {
-                                "Hakbang.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.09",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Don't linger.",
-                            },
-                            ["TL"] = {
-                                "Huwag magtagal.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.10",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.terse.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "On the move.",
-                            },
-                            ["TL"] = {
-                                "Kilos.",
-                            },
+                            ["fallback"] = "Fishing is a solid way to secure fresh food.",
+                            ["kind"] = "translation",
+                            ["templateID"] = "psdl.question.activity.fishing.say_1",
                         },
                     },
                 },
             },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_knowledge_activity",
-        ["id"] = "semantic.question.activity.dataset.keep_moving.warm",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "warm",
-            ["sourceId"] = "semantic.question.activity.dataset.keep_moving.warm",
-            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json#records[3]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
-        ["namespace"] = "semantic.question.activity.dataset.keep_moving",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:knowledge",
-                ["responseTemplateID"] = "semantic.question.activity.dataset.keep_moving",
-                ["sourceSurface"] = "content/knowledge/activity.json",
-                ["style"] = "warm",
-            },
-            ["response"] = {
-                ["act"] = "KNOWLEDGE_RESPONSE",
-                ["variants"] = {
-                    {
-                        ["id"] = "warm.01",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Let's keep moving together, friend. We'll find safety.",
-                            },
-                            ["TL"] = {
-                                "Magpatuloy tayong maglakad nang magkasama, kaibigan. Makakahanap tayo ng kaligtasan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.02",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We should keep going. I'll stay right by your side.",
-                            },
-                            ["TL"] = {
-                                "Dapat tayong magpatuloy. Mananatili ako sa tabi mo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.03",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Let's keep our feet moving. A warm fire awaits us eventually.",
-                            },
-                            ["TL"] = {
-                                "Igalaw natin ang mga paa natin. May naghihintay na maaliwalas na apoy sa atin sa dulo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.04",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep up the good pace. We're doing fine.",
-                            },
-                            ["TL"] = {
-                                "Ipagpatuloy ang magandang bilis. Maayos ang lagay natin.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.05",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Let's keep walking together. We're safer on the move.",
-                            },
-                            ["TL"] = {
-                                "Sabay tayong maglakad. Mas ligtas tayo habang kumikilos.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.06",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We'll get through this path. Just keep moving with me.",
-                            },
-                            ["TL"] = {
-                                "Malalampasan natin ang landas na 'to. Sumabay ka lang sa akin.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.07",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Let's keep going, one step at a time.",
-                            },
-                            ["TL"] = {
-                                "Magpatuloy tayo, bawat hakbang.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.08",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "I'm with you. Let's keep walking until we find shelter.",
-                            },
-                            ["TL"] = {
-                                "Kasama mo ako. Tuloy lang sa paglakad hanggang makahanap ng silungan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.09",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Keep moving forward. We've got this.",
-                            },
-                            ["TL"] = {
-                                "Tuloy sa pagsulong. Kaya natin 'to.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.10",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.dataset.keep_moving.warm.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Let's keep our spirits up and keep walking.",
-                            },
-                            ["TL"] = {
-                                "Panatilihing mataas ang loob natin at magpatuloy sa paglakad.",
-                            },
-                        },
-                    },
-                },
-            },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_dataset_keep_moving.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_knowledge_activity",
-        ["id"] = "semantic.question.activity.fishing.guarded",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "guarded",
-            ["sourceId"] = "semantic.question.activity.fishing.guarded",
-            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json#records[0]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
-        ["namespace"] = "semantic.question.activity.fishing",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:knowledge",
-                ["responseTemplateID"] = "semantic.question.activity.fishing",
-                ["sourceSurface"] = "content/knowledge/activity.json",
-                ["style"] = "guarded",
-            },
-            ["response"] = {
-                ["act"] = "KNOWLEDGE_RESPONSE",
-                ["variants"] = {
-                    {
-                        ["id"] = "guarded.01",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fishing leaves you exposed by the water. Watch your back.",
-                            },
-                            ["TL"] = {
-                                "Nakalantad ka sa tubig kapag nangingisda. Bantayan mo ang likod mo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.02",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Water draws the dead. Keep your weapon close while casting.",
-                            },
-                            ["TL"] = {
-                                "Umaakit ng patay ang tubig. Ihanda ang sandata habang naghahagis ng bingwit.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.03",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Don't get tunnel vision looking at the bobber.",
-                            },
-                            ["TL"] = {
-                                "Huwag matutok sa lumulutang na pamingwit.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.04",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fish fast and leave. Banks are ambush territory.",
-                            },
-                            ["TL"] = {
-                                "Mangisda nang mabilis at umalis. Lugar ng tambangan ang pampang.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.05",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Quiet catches only. Splashing brings infected.",
-                            },
-                            ["TL"] = {
-                                "Tahimik na huli lang. Ang tilamsik ng tubig ay umaakit ng infected.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.06",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Watch the treeline while you work the line.",
-                            },
-                            ["TL"] = {
-                                "Bantayan ang kakahuyan habang humahawak ng tali.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.07",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "If something rustles in the reeds, drop the rod and draw.",
-                            },
-                            ["TL"] = {
-                                "Kapag may kumaluskos sa talahiban, bitawan ang pamingwit at mag-armas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.08",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fishing is risky out here. Keep eyes peeled.",
-                            },
-                            ["TL"] = {
-                                "Delikado ang pangingisda rito. Buksan ang mga mata.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.09",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Get the protein and get off the shore.",
-                            },
-                            ["TL"] = {
-                                "Kunin ang isda at umalis agad sa pampang.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "guarded.10",
-                        ["metadata"] = {
-                            ["style"] = "guarded",
-                            ["textKey"] = "semantic.question.activity.fishing.guarded.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Don't get dragged in. Watch the water.",
-                            },
-                            ["TL"] = {
-                                "Huwag magpahila sa tubig. Bantayan ang paligid.",
-                            },
-                        },
-                    },
-                },
-            },
-        },
-        ["references"] = {
         },
         ["slots"] = {
         },
@@ -978,593 +1082,139 @@ return {
             ["required"] = false,
             ["type"] = "entity.any",
         },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_knowledge_activity",
-        ["id"] = "semantic.question.activity.fishing.neutral",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "neutral",
-            ["sourceId"] = "semantic.question.activity.fishing.neutral",
-            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json#records[1]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
-        ["namespace"] = "semantic.question.activity.fishing",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:knowledge",
-                ["responseTemplateID"] = "semantic.question.activity.fishing",
-                ["sourceSurface"] = "content/knowledge/activity.json",
-                ["style"] = "neutral",
-            },
-            ["response"] = {
-                ["act"] = "KNOWLEDGE_RESPONSE",
-                ["variants"] = {
-                    {
-                        ["id"] = "neutral.01",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fishing is a solid way to secure fresh food.",
-                            },
-                            ["TL"] = {
-                                "Magandang paraan ang pangingisda para makakuha ng sariwang pagkain.",
-                            },
-                        },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "Fishing is a solid way to secure fresh food.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.question.activity.fishing.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Fishing is a solid way to secure fresh food.",
+                        "We can catch fish here if we have rod and bait.",
+                        "The water looks promising for catching dinner.",
+                        "Fishing requires patience, but it provides calories.",
+                        "A good spot to cast a line and get some food.",
+                        "We should try fishing if our rations are running low.",
+                        "Fish are clean protein out here in the wild.",
+                        "Check the line and bait. We could catch something good.",
+                        "Fishing by the river is a viable survival task.",
+                        "We can cast a line here while the area is clear.",
                     },
-                    {
-                        ["id"] = "neutral.02",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We can catch fish here if we have rod and bait.",
-                            },
-                            ["TL"] = {
-                                "Makakahuli tayo ng isda rito kung may pamingwit at pain.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.03",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "The water looks promising for catching dinner.",
-                            },
-                            ["TL"] = {
-                                "Mukhang maganda ang tubig para makahuli ng hapunan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.04",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fishing requires patience, but it provides calories.",
-                            },
-                            ["TL"] = {
-                                "Kailangan ng pasensya sa pangingisda, pero nagbibigay ito ng lakas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.05",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "A good spot to cast a line and get some food.",
-                            },
-                            ["TL"] = {
-                                "Magandang lugar para maghulog ng pamingwit at kumuha ng pagkain.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.06",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We should try fishing if our rations are running low.",
-                            },
-                            ["TL"] = {
-                                "Dapat nating subukan ang pangingisda kung paubos na ang rasyon.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.07",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fish are clean protein out here in the wild.",
-                            },
-                            ["TL"] = {
-                                "Malinis na protina ang isda rito sa labas.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.08",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Check the line and bait. We could catch something good.",
-                            },
-                            ["TL"] = {
-                                "Tignan ang pisi at pain. Baka makahuli tayo ng maganda.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.09",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fishing by the river is a viable survival task.",
-                            },
-                            ["TL"] = {
-                                "Mabisang gawaing kaligtasan ang pangingisda sa ilog.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "neutral.10",
-                        ["metadata"] = {
-                            ["style"] = "neutral",
-                            ["textKey"] = "semantic.question.activity.fishing.neutral.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "We can cast a line here while the area is clear.",
-                            },
-                            ["TL"] = {
-                                "Pwede tayong maghagis ng pamingwit dito habang malinis ang lugar.",
-                            },
-                        },
+                    ["TL"] = {
+                        "Magandang paraan ang pangingisda para makakuha ng sariwang pagkain.",
+                        "Makakahuli tayo ng isda rito kung may pamingwit at pain.",
+                        "Mukhang maganda ang tubig para makahuli ng hapunan.",
+                        "Kailangan ng pasensya sa pangingisda, pero nagbibigay ito ng lakas.",
+                        "Magandang lugar para maghulog ng pamingwit at kumuha ng pagkain.",
+                        "Dapat nating subukan ang pangingisda kung paubos na ang rasyon.",
+                        "Malinis na protina ang isda rito sa labas.",
+                        "Tignan ang pisi at pain. Baka makahuli tayo ng maganda.",
+                        "Mabisang gawaing kaligtasan ang pangingisda sa ilog.",
+                        "Pwede tayong maghagis ng pamingwit dito habang malinis ang lugar.",
                     },
                 },
+                ["variantID"] = "neutral",
             },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_fishing.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_knowledge_activity",
-        ["id"] = "semantic.question.activity.fishing.terse",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "terse",
-            ["sourceId"] = "semantic.question.activity.fishing.terse",
-            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json#records[2]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
-        ["namespace"] = "semantic.question.activity.fishing",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:knowledge",
-                ["responseTemplateID"] = "semantic.question.activity.fishing",
-                ["sourceSurface"] = "content/knowledge/activity.json",
-                ["style"] = "terse",
-            },
-            ["response"] = {
-                ["act"] = "KNOWLEDGE_RESPONSE",
-                ["variants"] = {
-                    {
-                        ["id"] = "terse.01",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fishing.",
-                            },
-                            ["TL"] = {
-                                "Pangingisda.",
-                            },
-                        },
+            {
+                ["fallback"] = "Fishing leaves you exposed by the water. Watch your back.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.question.activity.fishing.say.1.guarded",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Fishing leaves you exposed by the water. Watch your back.",
+                        "Water draws the dead. Keep your weapon close while casting.",
+                        "Don't get tunnel vision looking at the bobber.",
+                        "Fish fast and leave. Banks are ambush territory.",
+                        "Quiet catches only. Splashing brings infected.",
+                        "Watch the treeline while you work the line.",
+                        "If something rustles in the reeds, drop the rod and draw.",
+                        "Fishing is risky out here. Keep eyes peeled.",
+                        "Get the protein and get off the shore.",
+                        "Don't get dragged in. Watch the water.",
                     },
-                    {
-                        ["id"] = "terse.02",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Cast a line.",
-                            },
-                            ["TL"] = {
-                                "Ihagis ang pamingwit.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.03",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Need bait.",
-                            },
-                            ["TL"] = {
-                                "Kailangan ng pain.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.04",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Watch the water.",
-                            },
-                            ["TL"] = {
-                                "Bantayan ang tubig.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.05",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Good food source.",
-                            },
-                            ["TL"] = {
-                                "Magandang pagkain.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.06",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fish quietly.",
-                            },
-                            ["TL"] = {
-                                "Mangisda nang tahimik.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.07",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Cast here.",
-                            },
-                            ["TL"] = {
-                                "Dito maghagis.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.08",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Rod and reel.",
-                            },
-                            ["TL"] = {
-                                "Pamingwit at ikutan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.09",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Catch dinner.",
-                            },
-                            ["TL"] = {
-                                "Hulihin ang hapunan.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "terse.10",
-                        ["metadata"] = {
-                            ["style"] = "terse",
-                            ["textKey"] = "semantic.question.activity.fishing.terse.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fresh fish.",
-                            },
-                            ["TL"] = {
-                                "Sariwang isda.",
-                            },
-                        },
+                    ["TL"] = {
+                        "Nakalantad ka sa tubig kapag nangingisda. Bantayan mo ang likod mo.",
+                        "Umaakit ng patay ang tubig. Ihanda ang sandata habang naghahagis ng bingwit.",
+                        "Huwag matutok sa lumulutang na pamingwit.",
+                        "Mangisda nang mabilis at umalis. Lugar ng tambangan ang pampang.",
+                        "Tahimik na huli lang. Ang tilamsik ng tubig ay umaakit ng infected.",
+                        "Bantayan ang kakahuyan habang humahawak ng tali.",
+                        "Kapag may kumaluskos sa talahiban, bitawan ang pamingwit at mag-armas.",
+                        "Delikado ang pangingisda rito. Buksan ang mga mata.",
+                        "Kunin ang isda at umalis agad sa pampang.",
+                        "Huwag magpahila sa tubig. Bantayan ang paligid.",
                     },
                 },
+                ["variantID"] = "guarded",
             },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_fishing.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
-        },
-        ["when"] = nil,
-    },
-    {
-        ["domain"] = "core_knowledge_activity",
-        ["id"] = "semantic.question.activity.fishing.warm",
-        ["kind"] = "dialogue",
-        ["lineage"] = {
-            ["localId"] = "warm",
-            ["sourceId"] = "semantic.question.activity.fishing.warm",
-            ["sourcePath"] = "dialogue/core_knowledge_activity/question_activity_fishing.json#records[3]",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
-        },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeActivity",
-        ["namespace"] = "semantic.question.activity.fishing",
-        ["owner"] = "PsychopatzCore",
-        ["participants"] = {
-            ["addressee"] = {
-                "participant",
-            },
-            ["speaker"] = {
-                "participant",
-            },
-        },
-        ["payload"] = {
-            ["metadata"] = {
-                ["category"] = "psychopatzcore:knowledge",
-                ["responseTemplateID"] = "semantic.question.activity.fishing",
-                ["sourceSurface"] = "content/knowledge/activity.json",
-                ["style"] = "warm",
-            },
-            ["response"] = {
-                ["act"] = "KNOWLEDGE_RESPONSE",
-                ["variants"] = {
-                    {
-                        ["id"] = "warm.01",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.01",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fishing by the water sounds peaceful right now.",
-                            },
-                            ["TL"] = {
-                                "Mukhang mapayapa ang pangingisda sa tabi ng tubig ngayon.",
-                            },
-                        },
+            {
+                ["fallback"] = "Fishing.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.question.activity.fishing.say.1.terse",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Fishing.",
+                        "Cast a line.",
+                        "Need bait.",
+                        "Watch the water.",
+                        "Good food source.",
+                        "Fish quietly.",
+                        "Cast here.",
+                        "Rod and reel.",
+                        "Catch dinner.",
+                        "Fresh fish.",
                     },
-                    {
-                        ["id"] = "warm.02",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.02",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "I'd love to catch some fresh fish for us to cook.",
-                            },
-                            ["TL"] = {
-                                "Gusto kong makahuli ng sariwang isda para lutuin natin.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.03",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.03",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "A nice fresh catch would make a wonderful meal for us.",
-                            },
-                            ["TL"] = {
-                                "Ang sariwang huli ay magiging napakagandang salu-salo para sa atin.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.04",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.04",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "It feels good to take a moment by the water and fish.",
-                            },
-                            ["TL"] = {
-                                "Masarap magpahinga sandali sa tabi ng tubig at mangisda.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.05",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.05",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Let's see if we can catch something tasty together.",
-                            },
-                            ["TL"] = {
-                                "Tignan natin kung makakahuli tayo ng masarap nang magkasama.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.06",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.06",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fishing reminds me of quieter times. Let's cast a line.",
-                            },
-                            ["TL"] = {
-                                "Naaalala ko ang mga tahimik na panahon sa pangingisda. Maghagis tayo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.07",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.07",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "A warm fire and fresh fish would do wonders for our mood.",
-                            },
-                            ["TL"] = {
-                                "Ang maaliwalas na apoy at sariwang isda ay magpapagaan ng loob natin.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.08",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.08",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "I'll keep watch while you fish, or we can take turns.",
-                            },
-                            ["TL"] = {
-                                "Babantayan kita habang nangingisda ka, o magsalitan tayo.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.09",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.09",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Fresh catch would be a real treat for both of us.",
-                            },
-                            ["TL"] = {
-                                "Tunay na pabuya para sa atin ang sariwang huli.",
-                            },
-                        },
-                    },
-                    {
-                        ["id"] = "warm.10",
-                        ["metadata"] = {
-                            ["style"] = "warm",
-                            ["textKey"] = "semantic.question.activity.fishing.warm.10",
-                        },
-                        ["text"] = {
-                            ["EN"] = {
-                                "Let's catch a good meal and share it tonight.",
-                            },
-                            ["TL"] = {
-                                "Manghuli tayo ng masarap na pagkain at magsalu-salo ngayong gabi.",
-                            },
-                        },
+                    ["TL"] = {
+                        "Pangingisda.",
+                        "Ihagis ang pamingwit.",
+                        "Kailangan ng pain.",
+                        "Bantayan ang tubig.",
+                        "Magandang pagkain.",
+                        "Mangisda nang tahimik.",
+                        "Dito maghagis.",
+                        "Pamingwit at ikutan.",
+                        "Hulihin ang hapunan.",
+                        "Sariwang isda.",
                     },
                 },
+                ["variantID"] = "terse",
             },
-        },
-        ["references"] = {
-        },
-        ["slots"] = {
-        },
-        ["sourceShard"] = "dialogue/core_knowledge_activity/question_activity_fishing.json",
-        ["target"] = {
-            ["multiple"] = false,
-            ["required"] = false,
-            ["type"] = "entity.any",
+            {
+                ["fallback"] = "Fishing by the water sounds peaceful right now.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.question.activity.fishing.say.1.warm",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Fishing by the water sounds peaceful right now.",
+                        "I'd love to catch some fresh fish for us to cook.",
+                        "A nice fresh catch would make a wonderful meal for us.",
+                        "It feels good to take a moment by the water and fish.",
+                        "Let's see if we can catch something tasty together.",
+                        "Fishing reminds me of quieter times. Let's cast a line.",
+                        "A warm fire and fresh fish would do wonders for our mood.",
+                        "I'll keep watch while you fish, or we can take turns.",
+                        "Fresh catch would be a real treat for both of us.",
+                        "Let's catch a good meal and share it tonight.",
+                    },
+                    ["TL"] = {
+                        "Mukhang mapayapa ang pangingisda sa tabi ng tubig ngayon.",
+                        "Gusto kong makahuli ng sariwang isda para lutuin natin.",
+                        "Ang sariwang huli ay magiging napakagandang salu-salo para sa atin.",
+                        "Masarap magpahinga sandali sa tabi ng tubig at mangisda.",
+                        "Tignan natin kung makakahuli tayo ng masarap nang magkasama.",
+                        "Naaalala ko ang mga tahimik na panahon sa pangingisda. Maghagis tayo.",
+                        "Ang maaliwalas na apoy at sariwang isda ay magpapagaan ng loob natin.",
+                        "Babantayan kita habang nangingisda ka, o magsalitan tayo.",
+                        "Tunay na pabuya para sa atin ang sariwang huli.",
+                        "Manghuli tayo ng masarap na pagkain at magsalu-salo ngayong gabi.",
+                    },
+                },
+                ["variantID"] = "warm",
+            },
         },
         ["when"] = nil,
     },

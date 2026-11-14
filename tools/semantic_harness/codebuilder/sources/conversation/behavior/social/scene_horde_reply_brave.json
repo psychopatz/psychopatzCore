@@ -9,7 +9,7 @@
   "modifiers": [],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.interaction.scene.horde_reply_brave",
+      "contentTemplateID": "interaction.scene.horde_reply_brave",
       "dialogueAct": "PROPOSE_ENGAGE"
     }
   },

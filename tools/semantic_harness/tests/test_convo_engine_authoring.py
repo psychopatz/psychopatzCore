@@ -471,6 +471,194 @@ class ConvoEngineS6M1BAuthoringTests(unittest.TestCase):
             self.assertEqual(domains["adopters/dt/dialogue/trade/hello.json"], "trade")
             self.assertTrue(core_repo.is_dir())
 
+    def test_s6m4_service_normalizes_style_bundle_and_legacy_numeric_realizations(self) -> None:
+        core_repo = Path(__file__).resolve().parents[3]
+        with TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            service = SemanticLabAuthoringService(
+                repository=repo,
+                core_repository=core_repo,
+            )
+            style_src = repo / "sources/conversation/dialogue/facts/question_known.json"
+            style_src.parent.mkdir(parents=True, exist_ok=True)
+            style_src.write_text(
+                json.dumps({
+                    "schema": CONVO_ENGINE_SCHEMA,
+                    "owner": "PsychopatzCore",
+                    "records": [
+                        {
+                            "kind": "dialogue",
+                            "namespace": "semantic.question.knowledge.known",
+                            "id": "guarded",
+                            "metadata": {"style": "guarded", "responseTemplateID": "semantic.question.knowledge.known"},
+                            "response": {
+                                "act": "ANSWER",
+                                "variants": [
+                                    {"id": "guarded.01", "text": {"EN": "Why ask?", "TL": "Bakit?"}},
+                                    {"id": "guarded.02", "text": {"EN": "Keep it brief.", "TL": "Maikli lang."}},
+                                ],
+                            },
+                        },
+                        {
+                            "kind": "dialogue",
+                            "namespace": "semantic.question.knowledge.known",
+                            "id": "neutral",
+                            "metadata": {"style": "neutral", "responseTemplateID": "semantic.question.knowledge.known"},
+                            "response": {
+                                "act": "ANSWER",
+                                "variants": [
+                                    {"id": "neutral.01", "text": {"EN": "Yes, I know.", "TL": "Oo, alam ko."}},
+                                ],
+                            },
+                        },
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            dry = service.normalize_convo_engine_sources([style_src], write=False)
+            self.assertTrue(dry["ok"])
+            self.assertTrue(dry["effectFree"])
+            self.assertEqual(dry["familyId"], "question.knowledge.known")
+            self.assertEqual(
+                dry["document"]["say"],
+                {
+                    "variants": [
+                        {"id": "neutral", "text": {"EN": ["Yes, I know."], "TL": ["Oo, alam ko."]}},
+                        {"id": "guarded", "text": {"EN": ["Why ask?", "Keep it brief."], "TL": ["Bakit?", "Maikli lang."]}},
+                    ]
+                },
+            )
+            written = service.normalize_convo_engine_sources([style_src], write=True)
+            self.assertTrue(written["ok"])
+            self.assertEqual(written["writes"], [str(style_src.resolve())])
+
+            # Legacy numeric triplets fold into positive-integer say keys + prune extra files.
+            leg_dir = repo / "sources/conversation/dialogue/combat"
+            leg_dir.mkdir(parents=True, exist_ok=True)
+            leg1 = leg_dir / "human_kill_brave_line_01.json"
+            leg2 = leg_dir / "human_kill_brave_line_02.json"
+            leg1.write_text(json.dumps({
+                "schema": LEGACY_PSDL_SCHEMA,
+                "owner": "PsychopatzCore",
+                "records": [{
+                    "kind": "dialogue",
+                    "id": "semantic.combat.human_kill.brave.line_01",
+                    "text": {"EN": "Line one.", "TL": "Una."},
+                    "metadata": {"textTarget": "combat/human", "textKey": "line.01"},
+                }],
+            }), encoding="utf-8")
+            leg2.write_text(json.dumps({
+                "schema": LEGACY_PSDL_SCHEMA,
+                "owner": "PsychopatzCore",
+                "records": [{
+                    "kind": "dialogue",
+                    "id": "semantic.combat.human_kill.brave.line_02",
+                    "text": {"EN": "Line two.", "TL": "Pangalawa."},
+                    "metadata": {"textTarget": "combat/human", "textKey": "line.02"},
+                }],
+            }), encoding="utf-8")
+            folded_dest = leg_dir / "human_kill_brave.json"
+            folded = service.normalize_convo_engine_sources(
+                [leg1, leg2],
+                dest_path=folded_dest,
+                strip_numeric_suffix=True,
+                write=True,
+                prune_sources=True,
+            )
+            self.assertTrue(folded["ok"])
+            self.assertEqual(folded["familyId"], "combat.human_kill.brave")
+            self.assertFalse(leg1.exists())
+            self.assertFalse(leg2.exists())
+            self.assertTrue(folded_dest.is_file())
+            doc = json.loads(folded_dest.read_text(encoding="utf-8"))
+            self.assertEqual(doc["schema"], CONVO_ENGINE_SCHEMA)
+            self.assertEqual(sorted(doc["say"].keys()), ["1", "2"])
+            self.assertEqual(len(doc["metadata"]["textRows"]), 2)
+            # Compiled projection preserves responsePlan and responsePool support on say families.
+            compiled = service.preview_convo_engine_document(doc, source_path=folded_dest, allow_legacy_schema=False)
+            self.assertTrue(compiled["ok"])
+            self.assertEqual(compiled["runtimePlan"][0]["responsePlan"]["dialogueAct"], None)
+
+    def test_s6m4_single_record_style_identity_uses_response_template_id(self) -> None:
+        from tools.semantic_harness.codebuilder.convo_engine_normalization import normalize_documents
+
+        clarify = normalize_documents([{
+            "schema": CONVO_ENGINE_SCHEMA,
+            "owner": "PNC",
+            "records": [{
+                "kind": "dialogue",
+                "namespace": "semantic.interaction.context.clarify",
+                "id": "neutral",
+                "metadata": {
+                    "style": "neutral",
+                    "responseTemplateID": "semantic.interaction.context.clarify",
+                },
+                "response": {
+                    "variants": [{"id": "neutral.01", "text": {"EN": "What do you mean?", "TL": "Anong ibig mong sabihin?"}}],
+                },
+            }],
+        }])
+        self.assertEqual(clarify["familyId"], "interaction.context.clarify")
+        self.assertEqual(clarify["document"]["namespace"], "interaction.context")
+        self.assertEqual(clarify["document"]["id"], "clarify")
+
+        compat = normalize_documents([{
+            "schema": CONVO_ENGINE_SCHEMA,
+            "owner": "PNC",
+            "records": [{
+                "kind": "dialogue",
+                "namespace": "semantic.integration.bandits.hooman_hurt.colonist",
+                "id": "neutral",
+                "metadata": {
+                    "style": "neutral",
+                    "responseTemplateID": "semantic.compat.bandits.hooman_hurt.colonist",
+                },
+                "response": {
+                    "variants": [{"id": "neutral.01", "text": {"EN": "Watch out!", "TL": "Mag-ingat!"}}],
+                },
+            }],
+        }])
+        self.assertEqual(compat["familyId"], "integration.bandits.hooman_hurt.colonist")
+
+        friendly = normalize_documents([{
+            "schema": CONVO_ENGINE_SCHEMA,
+            "owner": "PNC",
+            "records": [{
+                "kind": "dialogue",
+                "namespace": "semantic.flow.greeting.opening",
+                "id": "friendly",
+                "metadata": {
+                    "style": "friendly",
+                    "responseTemplateID": "semantic.flow.greeting.opening.friendly",
+                },
+                "response": {
+                    "variants": [{"id": "friendly.01", "text": {"EN": "Hey!", "TL": "Uy!"}}],
+                },
+            }],
+        }])
+        self.assertEqual(friendly["familyId"], "flow.greeting.opening.friendly")
+
+        pool = normalize_documents([{
+            "schema": CONVO_ENGINE_SCHEMA,
+            "owner": "PNC",
+            "records": [{
+                "kind": "dialogue",
+                "namespace": "semantic.question",
+                "id": "identity",
+                "metadata": {"responsePoolID": "semantic.question.identity"},
+                "response": {
+                    "variants": [{
+                        "id": "semantic.question.identity.01",
+                        "text": {"EN": "I am Riley."},
+                        "when": {"all": [{"path": "speaker.displayName", "op": "eq", "value": "Riley"}]},
+                    }],
+                },
+            }],
+        }])
+        self.assertEqual(pool["familyId"], "response_pool.question.identity")
+        self.assertEqual(pool["document"]["metadata"]["responsePoolID"], "question.identity")
+        self.assertEqual(pool["document"]["say"]["variants"][0]["id"], "question.identity.01")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -15,7 +15,7 @@
       "id": "emote.alert"
     },
     "speech": {
-      "contentTemplateID": "semantic.interaction.scene.horde_prompt",
+      "contentTemplateID": "interaction.scene.horde_prompt",
       "dialogueAct": "WARN"
     }
   },

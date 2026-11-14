@@ -1,11 +1,19 @@
 {
-  "id": "sacrifice",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "death",
+  "id": "sacrifice",
+  "owner": "PsychopatzCore",
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.memory.gossip.death.sacrifice",
     "sourcePath": "memory/gossip/death/sacrifice.json",
     "textKey": "death.sacrifice",
+    "textTarget": "memory/gossip",
     "textRows": [
       {
         "key": "death.sacrifice",
@@ -14,18 +22,17 @@
           "TL": "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba."
         }
       }
-    ],
-    "textTarget": "memory/gossip"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "target": {
-    "required": true,
-    "type": "entity.person"
-  },
-  "text": {
-    "EN": "They say {target.name} stayed behind so others could escape.",
-    "TL": "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba."
-  },
-  "namespace": "text.death",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "They say {target.name} stayed behind so others could escape.",
+          "TL": "Sabi nila, nagpaiwan si {target.name} para makatakas ang iba."
+        }
+      }
+    ]
+  }
 }

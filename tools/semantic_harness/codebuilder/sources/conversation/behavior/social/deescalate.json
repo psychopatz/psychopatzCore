@@ -24,7 +24,7 @@
   ],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.interaction.argument.deescalate",
+      "contentTemplateID": "interaction.argument.deescalate",
       "dialogueAct": "DEESCALATE"
     }
   },

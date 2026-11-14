@@ -4,7 +4,11 @@
   "cases": [
     {
       "id": "c0a.npc_question_player_not_really",
-      "tags": ["c0a", "multi_turn", "social"],
+      "tags": [
+        "c0a",
+        "multi_turn",
+        "social"
+      ],
       "description": "NPC greeting flow followed by player short disagreement",
       "turns": [
         {
@@ -19,22 +23,31 @@
           "expect": {
             "ir.intent": "DISAGREE",
             "decision.branch": "SOCIAL_ACKNOWLEDGED",
-            "response.templateID": "semantic.social.acknowledged"
+            "response.templateID": "social.acknowledged"
           }
         }
       ]
     },
     {
       "id": "c0a.hostility_then_apology",
-      "tags": ["c0a", "multi_turn", "hostility", "apology"],
+      "tags": [
+        "c0a",
+        "multi_turn",
+        "hostility",
+        "apology"
+      ],
       "description": "Hostility followed by an apology and de-escalation",
       "turns": [
         {
           "text": "fuck you",
           "expect": {
             "ir.intent": "INSULT",
-            "dispatchTransport": { "count": 0 },
-            "toolCalls": { "count": 0 }
+            "dispatchTransport": {
+              "count": 0
+            },
+            "toolCalls": {
+              "count": 0
+            }
           }
         },
         {
@@ -42,21 +55,28 @@
           "expect": {
             "ir.intent": "APOLOGIZE",
             "decision.branch": "SOCIAL_ACKNOWLEDGED",
-            "response.templateID": "semantic.social.apology.friendly"
+            "response.templateID": "social.apology.friendly"
           }
         }
       ]
     },
     {
       "id": "c0a.hostility_then_continued_challenge",
-      "tags": ["c0a", "multi_turn", "hostility", "challenge"],
+      "tags": [
+        "c0a",
+        "multi_turn",
+        "hostility",
+        "challenge"
+      ],
       "description": "Hostility followed by a skeptical short utterance",
       "turns": [
         {
           "text": "fuck you",
           "expect": {
             "ir.intent": "INSULT",
-            "dispatchTransport": { "count": 0 }
+            "dispatchTransport": {
+              "count": 0
+            }
           }
         },
         {
@@ -64,14 +84,20 @@
           "expect": {
             "ir.intent": "DISAGREE",
             "decision.branch": "SOCIAL_ACKNOWLEDGED",
-            "response.templateID": "semantic.social.acknowledged"
+            "response.templateID": "social.acknowledged"
           }
         }
       ]
     },
     {
       "id": "c0a.topic_continuation",
-      "tags": ["c0a", "multi_turn", "topic", "time", "date"],
+      "tags": [
+        "c0a",
+        "multi_turn",
+        "topic",
+        "time",
+        "date"
+      ],
       "description": "Adjacent time and date queries across consecutive turns",
       "turns": [
         {
@@ -92,7 +118,12 @@
     },
     {
       "id": "c0a.topic_change",
-      "tags": ["c0a", "multi_turn", "topic", "wellbeing"],
+      "tags": [
+        "c0a",
+        "multi_turn",
+        "topic",
+        "wellbeing"
+      ],
       "description": "Time question followed by wellbeing query",
       "turns": [
         {

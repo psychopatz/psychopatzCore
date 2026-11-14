@@ -25,7 +25,7 @@
   ],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.interaction.argument.retaliate",
+      "contentTemplateID": "interaction.argument.retaliate",
       "dialogueAct": "RETALIATE_VERBALLY"
     }
   },

@@ -9,7 +9,7 @@
   "modifiers": [],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.interaction.scene.horde_reply_cautious",
+      "contentTemplateID": "interaction.scene.horde_reply_cautious",
       "dialogueAct": "PROPOSE_AVOID"
     }
   },

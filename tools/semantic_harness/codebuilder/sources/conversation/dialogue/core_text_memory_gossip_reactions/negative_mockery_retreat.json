@@ -1,11 +1,19 @@
 {
-  "id": "retreat",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "negative.mockery",
+  "id": "retreat",
+  "owner": "PsychopatzCore",
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.memory.gossip.reactions.negative.mockery",
     "sourcePath": "memory/gossip/reactions/negative/mockery.json",
     "textKey": "negative.mockery.retreat",
+    "textTarget": "memory/gossip",
     "textRows": [
       {
         "key": "negative.mockery.retreat",
@@ -14,18 +22,17 @@
           "TL": "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos."
         }
       }
-    ],
-    "textTarget": "memory/gossip"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "target": {
-    "required": true,
-    "type": "entity.person"
-  },
-  "text": {
-    "EN": "{target.name} talked big, then backed down when it mattered.",
-    "TL": "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos."
-  },
-  "namespace": "text.negative.mockery",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "{target.name} talked big, then backed down when it mattered.",
+          "TL": "Malakas ang loob magsalita ni {target.name}, pero umurong nang kailangan nang kumilos."
+        }
+      }
+    ]
+  }
 }

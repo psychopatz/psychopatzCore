@@ -4,16 +4,24 @@
   "cases": [
     {
       "id": "language.greeting.matrix",
-      "tags": ["greeting", "matrix", "localization", "pilot"],
+      "tags": [
+        "greeting",
+        "matrix",
+        "localization",
+        "pilot"
+      ],
       "matrix": {
-        "language": ["EN", "TL"]
+        "language": [
+          "EN",
+          "TL"
+        ]
       },
       "turns": [
         {
           "text": "hello",
           "expect": {
             "ir.intent": "GREET",
-            "response.templateID": "semantic.flow.greeting.opening.default",
+            "response.templateID": "flow.greeting.opening.default",
             "response.exists": true
           }
         }
@@ -21,19 +29,29 @@
     },
     {
       "id": "language.rain_greeting.matrix",
-      "tags": ["greeting", "weather", "localization", "pilot"],
+      "tags": [
+        "greeting",
+        "weather",
+        "localization",
+        "pilot"
+      ],
       "scenario": {
-        "world": { "weather": "rain" }
+        "world": {
+          "weather": "rain"
+        }
       },
       "matrix": {
-        "language": ["EN", "TL"]
+        "language": [
+          "EN",
+          "TL"
+        ]
       },
       "turns": [
         {
           "text": "hello",
           "expect": {
             "ir.intent": "GREET",
-            "response.templateID": "semantic.flow.greeting.opening.rain",
+            "response.templateID": "flow.greeting.opening.rain",
             "response.exists": true
           }
         }

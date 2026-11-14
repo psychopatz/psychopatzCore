@@ -50,7 +50,7 @@
     },
     {
       "expected": {
-        "lastKey": "semantic.command.stay.queued",
+        "lastKey": "command.stay.queued",
         "minActions": 1
       },
       "label": "Follow then Wait EN",
@@ -62,7 +62,7 @@
     },
     {
       "expected": {
-        "lastKey": "semantic.command.stay.queued",
+        "lastKey": "command.stay.queued",
         "maxFallbackLookups": 0,
         "minActions": 1
       },

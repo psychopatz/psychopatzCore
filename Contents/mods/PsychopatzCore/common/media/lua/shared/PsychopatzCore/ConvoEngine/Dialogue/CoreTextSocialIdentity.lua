@@ -2,16 +2,66 @@
 return {
     {
         ["domain"] = "core_text_social_identity",
-        ["id"] = "text.identity.introduction",
+        ["exchangeFamily"] = {
+            ["familyID"] = "identity.introduction",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "They introduce themselves.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.identity.introduction.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "They introduce themselves.",
+                                    },
+                                    ["TL"] = {
+                                        "Nagpakilala sila.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "identity",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "They introduce themselves.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.identity.introduction.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "They introduce themselves.",
+                        },
+                        ["TL"] = {
+                            "Nagpakilala sila.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "identity.introduction",
         ["kind"] = "dialogue",
         ["lineage"] = {
             ["localId"] = "introduction",
-            ["sourceId"] = "text.identity.introduction",
+            ["sourceId"] = "identity.introduction",
             ["sourcePath"] = "dialogue/core_text_social_identity/identity_introduction.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialIdentity",
-        ["namespace"] = "text.identity",
+        ["namespace"] = "identity",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -38,13 +88,31 @@ return {
                 },
                 ["textTarget"] = "social/identity/response",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "They introduce themselves.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Nagpakilala sila.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "They introduce themselves.",
+                                    },
+                                    ["TL"] = {
+                                        "Nagpakilala sila.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -52,12 +120,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.identity.introduction",
+            ["responsePlanID"] = "identity.introduction",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -66,7 +134,7 @@ return {
                             },
                             ["fallback"] = "They introduce themselves.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.identity.introduction.response",
+                            ["templateID"] = "psdl.identity.introduction.say_1",
                         },
                     },
                 },
@@ -79,6 +147,23 @@ return {
             ["multiple"] = false,
             ["required"] = false,
             ["type"] = "entity.any",
+        },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "They introduce themselves.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.identity.introduction.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "They introduce themselves.",
+                    },
+                    ["TL"] = {
+                        "Nagpakilala sila.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
         },
         ["when"] = nil,
     },

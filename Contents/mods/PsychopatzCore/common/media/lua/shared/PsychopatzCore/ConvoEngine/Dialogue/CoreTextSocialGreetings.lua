@@ -2,15 +2,66 @@
 return {
     {
         ["domain"] = "core_text_social_greetings",
-        ["id"] = "text.response.ambient_visit.accepted.1",
+        ["exchangeFamily"] = {
+            ["familyID"] = "response.ambient_visit.accepted",
+            ["initiatingSay"] = {
+                ["keyOrder"] = {
+                    "1",
+                },
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["fallback"] = "Thank you. I could use somewhere safe to rest for a while.",
+                                ["id"] = "neutral",
+                                ["templateID"] = "convo.response.ambient_visit.accepted.say.1.neutral",
+                                ["textRole"] = "spoken_action",
+                                ["translations"] = {
+                                    ["EN"] = {
+                                        "Thank you. I could use somewhere safe to rest for a while.",
+                                    },
+                                    ["TL"] = {
+                                        "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                ["textRole"] = "spoken_action",
+            },
+            ["namespace"] = "response.ambient_visit",
+            ["textRoles"] = {
+                {
+                    ["fallback"] = "Thank you. I could use somewhere safe to rest for a while.",
+                    ["realizationKey"] = "1",
+                    ["role"] = "spoken_action",
+                    ["templateID"] = "convo.response.ambient_visit.accepted.say.1.neutral",
+                    ["translations"] = {
+                        ["EN"] = {
+                            "Thank you. I could use somewhere safe to rest for a while.",
+                        },
+                        ["TL"] = {
+                            "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
+                        },
+                    },
+                    ["variantID"] = "neutral",
+                },
+            },
+        },
+        ["id"] = "response.ambient_visit.accepted",
         ["kind"] = "dialogue",
         ["lineage"] = {
-            ["migrationReadOnly"] = true,
-            ["sourceId"] = "text.response.ambient_visit.accepted.1",
+            ["localId"] = "accepted",
+            ["sourceId"] = "response.ambient_visit.accepted",
             ["sourcePath"] = "dialogue/core_text_social_greetings/response_ambient_visit_accepted.json",
-            ["sourceSchema"] = "psychopatz.semantic.dialogue-language.v1",
+            ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGreetings",
+        ["namespace"] = "response.ambient_visit",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
             ["addressee"] = {
@@ -37,13 +88,31 @@ return {
                 },
                 ["textTarget"] = "social/greetings/ambient_visit/arrival",
             },
-            ["text"] = {
-                ["EN"] = {
-                    "Thank you. I could use somewhere safe to rest for a while.",
+            ["say"] = {
+                ["keyOrder"] = {
+                    "1",
                 },
-                ["TL"] = {
-                    "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
+                ["mode"] = "single",
+                ["realizations"] = {
+                    ["1"] = {
+                        ["key"] = "1",
+                        ["shorthand"] = true,
+                        ["variants"] = {
+                            {
+                                ["id"] = "neutral",
+                                ["text"] = {
+                                    ["EN"] = {
+                                        "Thank you. I could use somewhere safe to rest for a while.",
+                                    },
+                                    ["TL"] = {
+                                        "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
+                ["textRole"] = "spoken_action",
             },
         },
         ["references"] = {
@@ -51,12 +120,12 @@ return {
         ["responsePlan"] = {
             ["dialogueAct"] = nil,
             ["kind"] = "dialogue_act_plan",
-            ["responsePlanID"] = "text.response.ambient_visit.accepted.1",
+            ["responsePlanID"] = "response.ambient_visit.accepted",
             ["schemaVersion"] = 1,
             ["turns"] = {
                 {
                     ["continuation"] = "end",
-                    ["id"] = "response",
+                    ["id"] = "say_1",
                     ["offers"] = {
                     },
                     ["segments"] = {
@@ -65,7 +134,7 @@ return {
                             },
                             ["fallback"] = "Thank you. I could use somewhere safe to rest for a while.",
                             ["kind"] = "translation",
-                            ["templateID"] = "psdl.text.response.ambient_visit.accepted.1.response",
+                            ["templateID"] = "psdl.response.ambient_visit.accepted.say_1",
                         },
                     },
                 },
@@ -78,6 +147,23 @@ return {
             ["multiple"] = false,
             ["required"] = false,
             ["type"] = "entity.any",
+        },
+        ["textRoles"] = {
+            {
+                ["fallback"] = "Thank you. I could use somewhere safe to rest for a while.",
+                ["realizationKey"] = "1",
+                ["role"] = "spoken_action",
+                ["templateID"] = "convo.response.ambient_visit.accepted.say.1.neutral",
+                ["translations"] = {
+                    ["EN"] = {
+                        "Thank you. I could use somewhere safe to rest for a while.",
+                    },
+                    ["TL"] = {
+                        "Salamat. Kailangan ko muna ng ligtas na lugar para makapagpahinga.",
+                    },
+                },
+                ["variantID"] = "neutral",
+            },
         },
         ["when"] = nil,
     },

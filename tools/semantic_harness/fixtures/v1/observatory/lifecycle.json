@@ -4,7 +4,11 @@
   "cases": [
     {
       "id": "observatory.lifecycle.goodbye_root_choice.en",
-      "tags": ["observatory", "lifecycle", "goodbye"],
+      "tags": [
+        "observatory",
+        "lifecycle",
+        "goodbye"
+      ],
       "turns": [
         {
           "rootChoice": "goodbye",
@@ -18,7 +22,12 @@
     },
     {
       "id": "observatory.lifecycle.goodbye_root_choice.tl",
-      "tags": ["observatory", "lifecycle", "goodbye", "localization"],
+      "tags": [
+        "observatory",
+        "lifecycle",
+        "goodbye",
+        "localization"
+      ],
       "turns": [
         {
           "rootChoice": "goodbye",
@@ -33,7 +42,11 @@
     },
     {
       "id": "observatory.lifecycle.typed_goodbye_separate_route.en",
-      "tags": ["observatory", "lifecycle", "typed_goodbye"],
+      "tags": [
+        "observatory",
+        "lifecycle",
+        "typed_goodbye"
+      ],
       "turns": [
         {
           "text": "goodbye",
@@ -47,7 +60,12 @@
     },
     {
       "id": "observatory.lifecycle.typed_goodbye_separate_route.tl",
-      "tags": ["observatory", "lifecycle", "typed_goodbye", "localization"],
+      "tags": [
+        "observatory",
+        "lifecycle",
+        "typed_goodbye",
+        "localization"
+      ],
       "turns": [
         {
           "text": "goodbye",
@@ -61,7 +79,12 @@
     },
     {
       "id": "observatory.lifecycle.follow_then_wait.en",
-      "tags": ["observatory", "lifecycle", "commands", "multi_turn"],
+      "tags": [
+        "observatory",
+        "lifecycle",
+        "commands",
+        "multi_turn"
+      ],
       "turns": [
         {
           "text": "follow me",
@@ -75,14 +98,20 @@
           "language": "EN",
           "expect": {
             "ir.action": "STAY",
-            "lastKey": "semantic.command.stay.queued"
+            "lastKey": "command.stay.queued"
           }
         }
       ]
     },
     {
       "id": "observatory.lifecycle.follow_then_wait.tl",
-      "tags": ["observatory", "lifecycle", "commands", "multi_turn", "localization"],
+      "tags": [
+        "observatory",
+        "lifecycle",
+        "commands",
+        "multi_turn",
+        "localization"
+      ],
       "turns": [
         {
           "text": "follow me",
@@ -96,7 +125,7 @@
           "language": "TL",
           "expect": {
             "ir.action": "STAY",
-            "lastKey": "semantic.command.stay.queued",
+            "lastKey": "command.stay.queued",
             "fallbackLookups": 0
           }
         }

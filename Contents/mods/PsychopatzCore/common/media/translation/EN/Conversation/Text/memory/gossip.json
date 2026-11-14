@@ -55,6 +55,7 @@
   "negative.suspicion.story": "Watch {target.name}; their story keeps changing.",
   "negative.warning.abandoned": "{target.name} left someone behind when the zombies closed in.",
   "negative.warning.danger": "People have spotted danger near {slot.place.name}.",
+  "neutral": "I heard what happened to {target.name}. I hope they are holding up.",
   "neutral.horde_survival": "I got away when a whole horde came after me.",
   "neutral.sighting": "Word is {target.name} was seen near {slot.place.name}.",
   "positive.praise.help": "{target.name} has been looking out for people.",

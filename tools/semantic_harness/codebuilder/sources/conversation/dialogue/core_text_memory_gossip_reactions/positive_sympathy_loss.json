@@ -1,11 +1,19 @@
 {
-  "id": "loss",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "positive.sympathy",
+  "id": "loss",
+  "owner": "PsychopatzCore",
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.memory.gossip.reactions.positive.sympathy",
     "sourcePath": "memory/gossip/reactions/positive/sympathy.json",
     "textKey": "positive.sympathy.loss",
+    "textTarget": "memory/gossip",
     "textRows": [
       {
         "key": "positive.sympathy.loss",
@@ -14,18 +22,17 @@
           "TL": "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya."
         }
       }
-    ],
-    "textTarget": "memory/gossip"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "target": {
-    "required": true,
-    "type": "entity.person"
-  },
-  "text": {
-    "EN": "I heard what happened to {target.name}. I hope they are holding up.",
-    "TL": "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya."
-  },
-  "namespace": "text.positive.sympathy",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "I heard what happened to {target.name}. I hope they are holding up.",
+          "TL": "Narinig ko ang nangyari kay {target.name}. Sana kinakaya niya."
+        }
+      }
+    ]
+  }
 }

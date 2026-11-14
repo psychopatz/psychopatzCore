@@ -1,290 +1,175 @@
 {
-  "schema": "psychopatz.semantic.dialogue-language.v1",
+  "schema": "psychopatz.convo-engine.v1",
+  "kind": "dialogue",
+  "namespace": "corpse.revenge",
+  "id": "comrade",
   "owner": "PsychopatzCore",
-  "records": [
-    {
-      "id": "text.corpse.revenge.comrade.01",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.comrade",
-        "sourcePath": "memory/gossip/corpse/revenge/comrade.json",
-        "textKey": "corpse.revenge.comrade.01",
-        "textRows": [
-          {
-            "key": "corpse.revenge.comrade.01",
-            "text": {
-              "EN": "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
-              "TL": "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "faction": {
-          "required": true,
-          "type": "entity.faction"
-        },
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
-        "TL": "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami."
-      }
+  "target": {
+    "required": true,
+    "type": "entity.person"
+  },
+  "slots": {
+    "faction": {
+      "required": true,
+      "type": "entity.faction"
     },
-    {
-      "id": "text.corpse.revenge.comrade.02",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.comrade",
-        "sourcePath": "memory/gossip/corpse/revenge/comrade.json",
-        "textKey": "corpse.revenge.comrade.02",
-        "textRows": [
-          {
-            "key": "corpse.revenge.comrade.02",
-            "text": {
-              "EN": "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
-              "TL": "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
-        "TL": "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.comrade.03",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.comrade",
-        "sourcePath": "memory/gossip/corpse/revenge/comrade.json",
-        "textKey": "corpse.revenge.comrade.03",
-        "textRows": [
-          {
-            "key": "corpse.revenge.comrade.03",
-            "text": {
-              "EN": "We saw {slot.killer.name} take {target.name}. This is not finished.",
-              "TL": "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "We saw {slot.killer.name} take {target.name}. This is not finished.",
-        "TL": "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.comrade.04",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.comrade",
-        "sourcePath": "memory/gossip/corpse/revenge/comrade.json",
-        "textKey": "corpse.revenge.comrade.04",
-        "textRows": [
-          {
-            "key": "corpse.revenge.comrade.04",
-            "text": {
-              "EN": "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
-              "TL": "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "faction": {
-          "required": true,
-          "type": "entity.faction"
-        },
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "text": {
-        "EN": "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
-        "TL": "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.comrade.05",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.comrade",
-        "sourcePath": "memory/gossip/corpse/revenge/comrade.json",
-        "textKey": "corpse.revenge.comrade.05",
-        "textRows": [
-          {
-            "key": "corpse.revenge.comrade.05",
-            "text": {
-              "EN": "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
-              "TL": "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
-        "TL": "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.comrade.06",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.comrade",
-        "sourcePath": "memory/gossip/corpse/revenge/comrade.json",
-        "textKey": "corpse.revenge.comrade.06",
-        "textRows": [
-          {
-            "key": "corpse.revenge.comrade.06",
-            "text": {
-              "EN": "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
-              "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
-        "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.comrade.07",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.comrade",
-        "sourcePath": "memory/gossip/corpse/revenge/comrade.json",
-        "textKey": "corpse.revenge.comrade.07",
-        "textRows": [
-          {
-            "key": "corpse.revenge.comrade.07",
-            "text": {
-              "EN": "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
-              "TL": "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "faction": {
-          "required": true,
-          "type": "entity.faction"
-        },
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "text": {
-        "EN": "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
-        "TL": "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos."
-      }
-    },
-    {
-      "id": "text.corpse.revenge.comrade.08",
-      "kind": "dialogue",
-      "metadata": {
-        "migration": "Core PSDL text record; translation catalog is downstream output",
-        "sourceCatalog": "conversation.memory.gossip.corpse.revenge.comrade",
-        "sourcePath": "memory/gossip/corpse/revenge/comrade.json",
-        "textKey": "corpse.revenge.comrade.08",
-        "textRows": [
-          {
-            "key": "corpse.revenge.comrade.08",
-            "text": {
-              "EN": "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
-              "TL": "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}."
-            }
-          }
-        ],
-        "textTarget": "memory/gossip"
-      },
-      "owner": "PsychopatzCore",
-      "slots": {
-        "killer": {
-          "required": true,
-          "type": "entity.person"
-        }
-      },
-      "target": {
-        "required": true,
-        "type": "entity.person"
-      },
-      "text": {
-        "EN": "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
-        "TL": "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}."
-      }
+    "killer": {
+      "required": true,
+      "type": "entity.person"
     }
-  ]
+  },
+  "metadata": {
+    "migration": "Core PSDL text record; translation catalog is downstream output",
+    "sourceCatalog": "conversation.memory.gossip.corpse.revenge.comrade",
+    "sourcePath": "memory/gossip/corpse/revenge/comrade.json",
+    "textTarget": "memory/gossip",
+    "textRows": [
+      {
+        "key": "corpse.revenge.comrade.01",
+        "text": {
+          "EN": "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
+          "TL": "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami."
+        }
+      },
+      {
+        "key": "corpse.revenge.comrade.02",
+        "text": {
+          "EN": "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
+          "TL": "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin."
+        }
+      },
+      {
+        "key": "corpse.revenge.comrade.03",
+        "text": {
+          "EN": "We saw {slot.killer.name} take {target.name}. This is not finished.",
+          "TL": "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito."
+        }
+      },
+      {
+        "key": "corpse.revenge.comrade.04",
+        "text": {
+          "EN": "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
+          "TL": "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito."
+        }
+      },
+      {
+        "key": "corpse.revenge.comrade.05",
+        "text": {
+          "EN": "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
+          "TL": "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}."
+        }
+      },
+      {
+        "key": "corpse.revenge.comrade.06",
+        "text": {
+          "EN": "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
+          "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami."
+        }
+      },
+      {
+        "key": "corpse.revenge.comrade.07",
+        "text": {
+          "EN": "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
+          "TL": "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos."
+        }
+      },
+      {
+        "key": "corpse.revenge.comrade.08",
+        "text": {
+          "EN": "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
+          "TL": "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}."
+        }
+      }
+    ]
+  },
+  "say": {
+    "1": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Damn {slot.killer.name}. {target.name} stood with {slot.faction.name}; we will answer for this.",
+            "TL": "Putang ina, {slot.killer.name}. Kasama ni {target.name} ang {slot.faction.name}; gaganti kami."
+          }
+        }
+      ]
+    },
+    "2": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "One of ours is down, {target.name}. {slot.killer.name} made enemies of all of us.",
+            "TL": "Nawalan kami ng kasama, {target.name}. Ginawang kaaway ni {slot.killer.name} ang lahat sa amin."
+          }
+        }
+      ]
+    },
+    "3": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "We saw {slot.killer.name} take {target.name}. This is not finished.",
+            "TL": "Nakita naming pinatay ni {slot.killer.name} si {target.name}. Hindi pa tapos ito."
+          }
+        }
+      ]
+    },
+    "4": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "{slot.killer.name} killed a member of {slot.faction.name}. We will remember.",
+            "TL": "Pinatay ni {slot.killer.name} ang kasapi ng {slot.faction.name}. Tatandaan namin ito."
+          }
+        }
+      ]
+    },
+    "5": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Run while you can, {slot.killer.name}. We will not forget what happened to {target.name}.",
+            "TL": "Tumakbo ka habang may oras pa, {slot.killer.name}. Hindi namin kalilimutan ang nangyari kay {target.name}."
+          }
+        }
+      ]
+    },
+    "6": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "Hell, {target.name}. {slot.killer.name} will pay for making us weaker.",
+            "TL": "Lintik, {target.name}. Magbabayad si {slot.killer.name} dahil pinahina niya kami."
+          }
+        }
+      ]
+    },
+    "7": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "{slot.faction.name} lost one today. {slot.killer.name} started something they cannot finish.",
+            "TL": "May nawala sa {slot.faction.name} ngayon. Sinimulan ito ni {slot.killer.name} at hindi niya matatapos."
+          }
+        }
+      ]
+    },
+    "8": {
+      "variants": [
+        {
+          "id": "neutral",
+          "text": {
+            "EN": "We do not forget our own, {target.name}. {slot.killer.name} will answer for this.",
+            "TL": "Hindi namin kinakalimutan ang mga kasama namin, {target.name}. Mananagot si {slot.killer.name}."
+          }
+        }
+      ]
+    }
+  }
 }

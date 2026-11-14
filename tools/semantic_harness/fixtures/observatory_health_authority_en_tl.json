@@ -31,7 +31,7 @@
     },
     {
       "expected": {
-        "lastKeyPrefix": "semantic.question.wellbeing.",
+        "lastKeyPrefix": "question.wellbeing.",
         "maxActions": 0
       },
       "label": "Healthy wellbeing EN",
@@ -45,7 +45,7 @@
     },
     {
       "expected": {
-        "lastKeyPrefix": "semantic.question.wellbeing.",
+        "lastKeyPrefix": "question.wellbeing.",
         "maxActions": 0,
         "maxFallbackLookups": 0
       },
@@ -60,7 +60,7 @@
     },
     {
       "expected": {
-        "lastKey": "semantic.command.stay.queued",
+        "lastKey": "command.stay.queued",
         "minActions": 1
       },
       "label": "Companion Wait EN",
@@ -69,7 +69,7 @@
     },
     {
       "expected": {
-        "lastKey": "semantic.command.stay.queued",
+        "lastKey": "command.stay.queued",
         "maxFallbackLookups": 0,
         "minActions": 1,
         "textContains": "Sige, mananatili ako rito."
@@ -80,7 +80,7 @@
     },
     {
       "expected": {
-        "lastSemanticKey": "semantic.social.hostile_boundary",
+        "lastSemanticKey": "social.hostile_boundary",
         "maxActions": 0
       },
       "label": "Hostile boundary EN",
@@ -89,7 +89,7 @@
     },
     {
       "expected": {
-        "lastSemanticKey": "semantic.social.hostile_boundary",
+        "lastSemanticKey": "social.hostile_boundary",
         "maxActions": 0
       },
       "label": "Hostile boundary TL",

@@ -6,7 +6,7 @@
   "modifiers": [],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.interaction.context.clarify",
+      "contentTemplateID": "interaction.context.clarify",
       "dialogueAct": "ASK_CLARIFICATION"
     }
   },

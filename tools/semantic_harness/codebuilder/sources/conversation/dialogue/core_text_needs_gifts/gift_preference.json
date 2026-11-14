@@ -1,11 +1,15 @@
 {
-  "id": "neutral",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "gift.preference",
+  "id": "neutral",
+  "owner": "PsychopatzCore",
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.needs.gifts.preference",
     "sourcePath": "needs/gifts/preference.json",
     "textKey": "gift.preference.neutral",
+    "textTarget": "needs/gifts/preference",
     "textRows": [
       {
         "key": "gift.preference.neutral",
@@ -14,14 +18,17 @@
           "TL": "Wala akong matinding kagustuhan tungkol diyan."
         }
       }
-    ],
-    "textTarget": "needs/gifts/preference"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "text": {
-    "EN": "I don't have a strong preference.",
-    "TL": "Wala akong matinding kagustuhan tungkol diyan."
-  },
-  "namespace": "text.gift.preference",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "I don't have a strong preference.",
+          "TL": "Wala akong matinding kagustuhan tungkol diyan."
+        }
+      }
+    ]
+  }
 }

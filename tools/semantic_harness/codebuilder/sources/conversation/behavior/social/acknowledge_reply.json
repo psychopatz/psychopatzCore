@@ -6,7 +6,7 @@
   "modifiers": [],
   "outputs": {
     "speech": {
-      "contentTemplateID": "semantic.social.acknowledged",
+      "contentTemplateID": "social.acknowledged",
       "dialogueAct": "ACKNOWLEDGE"
     }
   },

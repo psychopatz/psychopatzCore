@@ -1,11 +1,15 @@
 {
-  "id": "goodbye",
+  "schema": "psychopatz.convo-engine.v1",
   "kind": "dialogue",
+  "namespace": "choice",
+  "id": "goodbye",
+  "owner": "PsychopatzCore",
   "metadata": {
     "migration": "Core PSDL text record; translation catalog is downstream output",
     "sourceCatalog": "conversation.social.goodbye.closing",
     "sourcePath": "social/goodbye/closing.json",
     "textKey": "choice.goodbye",
+    "textTarget": "social/goodbye/closing",
     "textRows": [
       {
         "key": "choice.goodbye",
@@ -14,14 +18,17 @@
           "TL": "Iyon lang. Manatiling ligtas."
         }
       }
-    ],
-    "textTarget": "social/goodbye/closing"
+    ]
   },
-  "owner": "PsychopatzCore",
-  "text": {
-    "EN": "That's all. Stay safe.",
-    "TL": "Iyon lang. Manatiling ligtas."
-  },
-  "namespace": "text.choice",
-  "schema": "psychopatz.convo-engine.v1"
+  "say": {
+    "variants": [
+      {
+        "id": "neutral",
+        "text": {
+          "EN": "That's all. Stay safe.",
+          "TL": "Iyon lang. Manatiling ligtas."
+        }
+      }
+    ]
+  }
 }
