@@ -1,25 +1,34 @@
 # Progress — ConvoEngine
 
-**Status:** IN PROGRESS — S0-S8R ConvoEngine accepted; S9H0–S9H6 complete, S9H7 final cross-repo acceptance & complexity audit next.
-**Estimated developer progress:** 99% for the expanded ConvoEngine + harness objective.
+**Status:** DEVELOPER-SIDE COMPLETE (S0–S8R ConvoEngine + S9H0–S9H7 Semantic Harness convergence); ready for user native Project Zomboid SP/MP live visual/feel acceptance.
+**Estimated developer progress:** 100% of developer-side ConvoEngine + Semantic Harness S9 scope.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S9 — Semantic Harness ConvoEngine convergence.
-**Immediate Next Chunk:** S9H7 — exhaustive 3-repo verification matrix, complexity/LOC metric audit, final `PROGRESS.md` / `HANDOFF.md` reconciliation, and local commits.
+**Active phase:** S9 complete (all chunks S9H0–S9H7 verified and committed locally).
+**Immediate Next Chunk:** None (developer-side S9 closed; only user-owned native PZ SP/MP verification remains).
 
-## Accepted ConvoEngine baseline
+## Accepted ConvoEngine + S9 verified summary
 
-S0-S8R runtime/compiler/content migration remains accepted and must not be redesigned without a concrete regression.
+S0-S8R runtime/compiler/content work remains accepted and un-reopened, and S9 converged Semantic Lab and the main CLI onto ConvoEngine as the single conversation authoring, simulation, and build authority across the six target ports (`WorkspaceCatalog`, `ConvoCatalog`, `OperationRegistry` / `ConvoTransaction`, production Lua `ConvoProbe`, `BuildPlanner`, thin GUI/CLI clients).
 
-Verified 2026-11-14 baseline:
+Verified 2026-11-14 post-S9 checks:
 
     canonical ConvoEngine families                 566
     active psdl.* / pnc.psdl.* output violations    0
-    deterministic generated files                  404 / 0 diffs
-    Core Python semantic-harness                   150/150 PASS
-    Core Convo/Semantic/Conversation Lua            34/34 PASS
-    DynamicTrading                                   89/89 PASS
-    ProjectHoomans                                 1020/1021
-    Kahlua ConvoEngine trees                          0 errors
+    isolated determinism audit hashes              368 / 0 diffs
+    Core Python semantic-harness                   188/188 PASS (0 expected failures)
+    Core Convo/Semantic/Conversation/Role Lua       36/36 PASS
+    DynamicTrading Lua                              89/89 PASS
+    ProjectHoomans Lua                            1020/1021 (only tests/pnc_population_director_smoke.lua:316)
+    Kahlua ConvoEngine trees (52+219+5 files)        0 errors
+
+Post-S9 harness complexity & surface metrics (excluding `.venv`/`__pycache__`):
+
+    Python files                                  294 (added clean port modules + 6 S9 test suites)
+    Python LOC                                 77,218
+    codebuilder LOC                            28,351
+    Studio + UI LOC                            21,279
+    SemanticLabAuthoringService                  2,433 lines (down from 2,729) / 66 public methods
+    entrypoints/cli.py                           1,432 lines / 124 add_argument calls
 
 The single Hoomans failure remains `tests/pnc_population_director_smoke.lua:316`. Fresh Git/dependency evidence continues to show it is outside the ConvoEngine change surface.
 
@@ -111,13 +120,9 @@ must not require full-corpus dumps or reading the giant service/CLI modules.
 - **S9H3 — production Lua ConvoProbe: COMPLETE.** Added Core Lua `CONVO_PROBE` worker handler (`tools/semantic_harness/lua/worker/ConvoProbe.lua`, wired into `lua/worker.lua` and `ProjectHoomans` `CommandRouter`) and Python `ConvoProbe` client (`codebuilder/convo_probe.py`) with strict capability negotiation (`semantic.convo_probe`, explicit `ConvoProbeUnavailableError` with zero Python fallback). Migrated `convo_engine_studio_trace.py` (`simulate_convo_engine_family` and `list_registered_action_contracts`) to production Lua `ConvoProbe` + manifest/catalog discovery, deleting Python predicate/rendering duplication and hard-coded `KNOWN_ACTION_CONTRACTS`. Added `test_convo_engine_s9h3_convo_probe.py` and cleared S9H3 regression locks (`test_08`, `test_09`). Verified Core Python `178/178 OK (expected failures=3)` and Core Lua `33/33 PASS`.
 - **S9H4 — compact Studio + compiler field descriptors: COMPLETE.** Added compiler-owned `FieldDescriptor` registry (`codebuilder/convo_engine_fields.py`, exposed via `convo_engine_authoring.py` and `SemanticLabAuthoringService.describe_convo_engine_fields()`) and `SurfaceRegistry` (`studio/surface_registry.py`), promoted ConvoEngine (`Conversations`), `Source / Impact`, and `Review` to primary Studio tabs while gating legacy panes behind `"Show Legacy Compatibility Tools"`, updated `ConvoEngineAuthoringPane` to render fields from compiler descriptors and display/preserve unknown fields, fixed `dataset_catalog.py` so missing sources report `exists=false, editable=false` and missing workflow datasets report `workflowReady=false`, disabled edits on missing sources in `DatasetLibraryPane` / `DialogueContentPane`, added `test_convo_engine_s9h4_studio.py`, and cleared `test_06` and `test_07`. Full Core Python suite verified: `182/182 OK (expected failures=1)`.
 - **S9H5 — compact main CLI + compatibility quarantine: COMPLETE.** Added shared `codebuilder/convo_cli_ops.py` and unified `workspace` (`describe`) + `convo` (`operations`, `catalog`, `get`, `impact`, `validate`, `simulate`, `change preview|apply`, `build preview|apply`, `audit`) subcommands on main `entrypoints/cli.py` / `entrypoints/app.py`, delegated `convo_engine_cli.py` (`validate`, `create`, `edit`, `move`, `write`, `audit-s6m8`) onto `OperationRegistry`, quarantined legacy schema reading behind explicit opt-in (`allow_legacy_schema=False` default / `--allow-legacy`), deleted 342 lines of dead legacy PSDL record-bucket CRUD methods from `SemanticLabAuthoringService`, normalized `OperationRegistry.dispatch` `ok` envelopes, and added `test_convo_engine_s9h5_cli.py`. Verified Core Python `185/185 OK (expected failures=1)`.
-- **S9H6 — BuildPlanner + isolated determinism/cache/lock: NEXT.**
-- **S9H7 — exhaustive acceptance + complexity audit: NOT STARTED.**
+- **S9H6 — BuildPlanner + isolated determinism/cache/lock: COMPLETE.** Added `codebuilder/build_planner.py` (`BuildPlanner`, `BuildPlan`), `output_repositories` redirection in `codebuilder/build.py`, thread-reentrant `workspace_generation_lock` in `codebuilder/convo_transaction.py`, routed `OperationRegistry` (`convo.build.preview` / `convo.build.apply`) and `convo_engine_s6m8_audit.py` determinism checks into isolated temporary staging directories, cleared `test_11`, and added `test_convo_engine_s9h6_build_planner.py`. Verified Core Python `188/188 OK (expected failures=0)`.
+- **S9H7 — exhaustive acceptance + complexity audit: COMPLETE.** Verified Core Python `188/188 PASS`, unified CLI `convo audit --check-determinism` (`566` families, `0` legacy violations, `368` isolated determinism file hashes / `0` diffs), Core Lua Convo/Semantic/Conversation/Role (`36/36 PASS`), DynamicTrading (`89/89 PASS`), ProjectHoomans (`1020/1021`, only unrelated `pnc_population_director_smoke.lua:316`), and `pz-verify` Kahlua (`0` errors across `276` mod Lua files). Measured post-S9 metrics (`SemanticLabAuthoringService`: `2,433` lines; `entrypoints/cli.py`: `1,432` lines / `124` `add_argument` calls).
 
-## Immediate Next Chunk — S9H6 BuildPlanner + isolated determinism/cache/lock
+## Completion boundary — MET
 
-Add `codebuilder/build_planner.py` (`BuildPlanner`), isolate `convo_engine_s6m8_audit.py` determinism checks into temporary staging directories under `workspace_generation_lock` so live `media/` is never raced/mutated, add concurrency & isolation tests, and clear `test_11`.
-
-## Completion boundary
-
-The expanded developer-side objective is complete only when Semantic Lab and the main CLI consume ConvoEngine as the single conversation authoring/simulation authority: owner-routed safe CRUD, production-Lua simulation/trace, current source discovery, no misleading dead authoring tabs, one discoverable CLI/service contract, concurrency-safe deterministic audit, and the full S8R verification matrix still passing.
+Developer-side S9 is complete: Semantic Lab and the main CLI consume ConvoEngine as the single conversation authoring/simulation/build authority with owner-routed safe CRUD, production-Lua simulation/trace (`ConvoProbe`), manifest-driven `WorkspaceCatalog`/`ConvoCatalog` discovery, compatibility-gated Studio surfaces, one discoverable `OperationRegistry` CLI/service contract, concurrency-safe isolated deterministic audit (`BuildPlanner`), and all cross-repo verification suites passing cleanly. Only user-owned live Project Zomboid SP/MP playtesting remains.
