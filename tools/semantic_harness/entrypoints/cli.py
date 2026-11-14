@@ -8,6 +8,11 @@ from copy import deepcopy
 from pathlib import Path
 import sys
 
+from tools.semantic_harness.codebuilder.convo_cli_ops import (
+    dispatch_convo_cli,
+    effective_repo_arg,
+    register_workspace_and_convo_subparsers,
+)
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.codebuilder.translation_support import normalize_language
 from tools.semantic_harness.inspection.rendering import print_result as _print_result
@@ -451,21 +456,21 @@ def cli(arguments: argparse.Namespace) -> int:
             _print_result(config.activation_plan or {}, arguments.jsonl)
             return 0
 
-        repository = Path(arguments.repository) if arguments.repository else None
+        repository = effective_repo_arg(arguments, "repository")
         authoring_service = SemanticLabAuthoringService(
             repository=repository,
             runtime_root=repository,
-            core_repository=(
-                Path(arguments.core_repository)
-                if getattr(arguments, "core_repository", None)
-                else None
-            ),
-            dynamic_trading_repository=(
-                Path(arguments.dynamic_trading_repository)
-                if getattr(arguments, "dynamic_trading_repository", None)
-                else None
+            core_repository=effective_repo_arg(arguments, "core_repository"),
+            hoomans_repository=effective_repo_arg(arguments, "hoomans_repository"),
+            dynamic_trading_repository=effective_repo_arg(
+                arguments, "dynamic_trading_repository"
             ),
         )
+        if getattr(arguments, "command", None) in {"workspace", "convo"}:
+            convo_result = dispatch_convo_cli(arguments, authoring_service)
+            use_jsonl = bool(getattr(arguments, "sub_jsonl", False) or arguments.jsonl)
+            _print_result(convo_result, use_jsonl)
+            return 0 if convo_result.get("ok") is True else 2
         activity_log = ActivityLog(
             path=default_activity_path(
                 authoring_service.repository,
@@ -1084,8 +1089,9 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--scenario", help="JSON scenario file")
     parser.add_argument("--case", help="JSON replay case with scenario and inputs")
     parser.add_argument("--lua", help="Lua executable; defaults to SEMANTIC_HARNESS_LUA, lua, or luajit")
-    parser.add_argument("--repository", help="Project Hoomans repository")
+    parser.add_argument("--repository", help="Project Hoomans or workspace repository")
     parser.add_argument("--core-repository", help="PsychopatzCore repository")
+    parser.add_argument("--hoomans-repository", help="ProjectHoomans repository")
     parser.add_argument(
         "--profile",
         default="pnc",
@@ -1422,4 +1428,5 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--timeout", type=float, default=5.0, help="per-request timeout in seconds")
     parser.add_argument("--startup-timeout", type=float, default=8.0, help="worker startup timeout in seconds")
     parser.add_argument("--shutdown-timeout", type=float, default=1.0, help="worker shutdown timeout in seconds")
+    register_workspace_and_convo_subparsers(parser)
     return parser

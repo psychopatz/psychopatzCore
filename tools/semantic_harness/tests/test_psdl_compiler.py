@@ -114,105 +114,64 @@ def _catalog() -> dict:
 
 
 class PSDLCompilerTests(unittest.TestCase):
-    def test_core_authoring_service_mutates_and_validates_psdl_catalogs(self) -> None:
-        repository = Path(__file__).resolve().parents[3]
-        service = SemanticLabAuthoringService(
-            repository=repository,
-            core_repository=repository,
+    def test_core_authoring_service_mutates_and_validates_convo_engine_families(self) -> None:
+        from tools.semantic_harness.tests.test_convo_engine_s9_regressions import (
+            _setup_three_repo_workspace,
         )
-        document = {
-            "schema": "psychopatz.semantic.dialogue-language.v1",
-            "records": [{
-                "kind": "dialogue",
-                "id": "social.authoring.seed",
-                "owner": "ProjectHoomans",
-                "participants": {
-                    "speaker": ["participant"],
-                    "addressee": ["participant"],
-                },
-                "response": {
-                    "act": "REPLY",
-                    "turns": [{
-                        "id": "reply",
-                        "text": {
-                            "EN": "Hello, {addressee.name}.",
-                            "TL": "Kumusta, {addressee.name}.",
-                        },
-                    }],
-                },
-            }],
-        }
-        created = service.create_psdl_record(
-            document,
-            {
-                "kind": "dialogue",
-                "id": "social.authoring.created",
-                "owner": "ProjectHoomans",
-                "participants": {
-                    "speaker": ["participant"],
-                    "addressee": ["participant"],
-                },
-                "response": {
-                    "act": "REPLY",
-                    "turns": [{"id": "reply", "text": {
-                        "EN": "Welcome.", "TL": "Maligayang pagdating."
-                    }}],
-                },
-            },
-        )
-        self.assertTrue(created["ok"])
-        edited = service.edit_psdl_record(
-            created["document"],
-            "social.authoring.created",
-            {"metadata": {"topic": "welcome"}},
-        )
-        self.assertTrue(edited["ok"])
-        duplicated = service.duplicate_psdl_record(
-            edited["document"],
-            "social.authoring.created",
-            "social.authoring.duplicate",
-        )
-        self.assertTrue(duplicated["ok"])
-        reordered = service.reorder_psdl_records(
-            duplicated["document"],
-            [
-                "social.authoring.duplicate",
-                "social.authoring.seed",
-                "social.authoring.created",
-            ],
-        )
-        self.assertTrue(reordered["ok"])
-        deleted = service.delete_psdl_record(
-            reordered["document"],
-            "social.authoring.duplicate",
-        )
-        self.assertTrue(deleted["ok"])
-        self.assertEqual(
-            [item["id"] for item in deleted["document"]["records"]],
-            ["social.authoring.seed", "social.authoring.created"],
-        )
-
-        invalid = service.validate_psdl_document({
-            "schema": "psychopatz.semantic.dialogue-language.v1",
-            "records": [],
-        })
-        self.assertFalse(invalid["ok"])
-        self.assertTrue(invalid["effectFree"])
 
         with TemporaryDirectory() as temporary:
-            writable = SemanticLabAuthoringService(
-                repository=Path(temporary),
-                core_repository=repository,
+            repos = _setup_three_repo_workspace(Path(temporary))
+            service = SemanticLabAuthoringService(
+                repository=repos["core"],
+                core_repository=repos["core"],
+                hoomans_repository=repos["hoomans"],
+                dynamic_trading_repository=repos["dt"],
             )
-            written = writable.write_psdl_source(
-                "dialogue/authoring/authoring.json",
-                deleted["document"],
+            created = service.dispatch_operation(
+                "convo.change.apply",
+                {
+                    "operation": "create",
+                    "requestedOwner": "ProjectHoomans",
+                    "document": {
+                        "schema": "psychopatz.convo-engine.v1",
+                        "kind": "dialogue",
+                        "namespace": "social",
+                        "id": "authoring_seed",
+                        "owner": "ProjectHoomans",
+                        "participants": {
+                            "speaker": ["participant"],
+                            "addressee": ["participant"],
+                        },
+                        "invoke": {"intent": "GREET"},
+                        "say": "Hello, {addressee.name}.",
+                    },
+                },
             )
-            self.assertTrue(written["ok"])
-            self.assertTrue(written["generatedOutputRequired"])
-            self.assertTrue(
-                (Path(temporary) / "dialogue/authoring/authoring.json").is_file()
+            self.assertTrue(created["ok"])
+            src_path = Path(created["destPath"])
+            self.assertTrue(src_path.is_file())
+            edited = service.dispatch_operation(
+                "convo.change.preview",
+                {
+                    "operation": "edit",
+                    "target": str(src_path),
+                    "expectedFingerprint": created["sourceFingerprint"],
+                    "patch": {"metadata": {"topic": "welcome"}},
+                },
             )
+            self.assertTrue(edited["ok"])
+            self.assertTrue(edited["effectFree"])
+            invalid = service.dispatch_operation(
+                "convo.validate",
+                {
+                    "document": {
+                        "schema": "psychopatz.semantic.dialogue-language.v1",
+                        "records": [],
+                    }
+                },
+            )
+            self.assertFalse(invalid["ok"])
+            self.assertTrue(invalid["effectFree"])
 
     def test_catalog_compiles_to_one_core_ir_and_runtime_plan(self) -> None:
         compiled = compile_psdl_document(_catalog(), source_path="dialogue/social.json")
@@ -247,26 +206,31 @@ class PSDLCompilerTests(unittest.TestCase):
         self.assertNotIn("text", director_plan["behaviors"][0])
         self.assertNotIn("text", director_plan["beats"][0])
 
-    def test_service_indexes_manifest_routed_psdl_sources_for_studio(self) -> None:
+    def test_service_indexes_manifest_routed_convo_sources_for_studio(self) -> None:
         workspace = Path(__file__).resolve().parents[3]
         hoomans = workspace.parent / "ProjectHoomans"
         dynamic_trading = workspace.parent / "DynamicTrading"
         service = SemanticLabAuthoringService(
             repository=hoomans,
             core_repository=workspace,
+            hoomans_repository=hoomans,
             dynamic_trading_repository=dynamic_trading,
         )
-        sources = service.list_psdl_sources()
-        self.assertGreaterEqual(len(sources), 3)
-        self.assertEqual(
-            {"PsychopatzCore", "ProjectHoomans", "DTCommon"},
-            {item["owner"] for item in sources},
-        )
+        owners_seen: set[str] = set()
+        for owner in ("PsychopatzCore", "ProjectHoomans", "DTCommon"):
+            part = service.dispatch_operation("convo.catalog", {"owner": owner, "limit": 50})
+            self.assertTrue(part["ok"])
+            self.assertGreater(part["total"], 0)
+            owners_seen.add(owner)
+        self.assertEqual(owners_seen, {"PsychopatzCore", "ProjectHoomans", "DTCommon"})
+        trading_page = service.dispatch_operation("convo.catalog", {"owner": "DTCommon", "limit": 50})
         trading = next(
-            item for item in sources if item["path"] == "adopters/dt/dialogue/trading/action_trade.json"
+            item
+            for item in trading_page["items"]
+            if str(item.get("sourcePath", "")).endswith("action_trade.json")
         )
-        self.assertTrue(trading["exists"])
-        document = service.load_psdl_source(trading["sourceID"])
+        loaded = service.dispatch_operation("convo.get", {"target": trading["sourcePath"]})
+        document = loaded["document"]
         self.assertEqual(document["schema"], "psychopatz.convo-engine.v1")
         self.assertEqual(document["kind"], "dialogue")
         self.assertEqual(document["namespace"], "action")

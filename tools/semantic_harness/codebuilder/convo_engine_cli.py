@@ -15,20 +15,21 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 if __package__ in {None, ""}:
+    from tools.semantic_harness.codebuilder.convo_cli_ops import (
+        add_repo_override_args,
+        read_json_arg as _read_json_arg,
+    )
     from tools.semantic_harness.codebuilder.convo_engine_authoring import load_json_document
     from tools.semantic_harness.codebuilder.errors import CompileError
     from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 else:
+    from .convo_cli_ops import (
+        add_repo_override_args,
+        read_json_arg as _read_json_arg,
+    )
     from .convo_engine_authoring import load_json_document
     from .errors import CompileError
     from .service import SemanticLabAuthoringService
-
-
-def _read_json_arg(path_or_json: str) -> Any:
-    text = path_or_json.strip()
-    if text.startswith("{") or text.startswith("["):
-        return json.loads(text)
-    return json.loads(Path(path_or_json).expanduser().resolve().read_text(encoding="utf-8"))
 
 
 def _service(args: argparse.Namespace) -> SemanticLabAuthoringService:
@@ -55,17 +56,19 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p_validate = sub.add_parser("validate", help="Validate a ConvoEngine/PSDL JSON file")
+    p_validate = sub.add_parser("validate", help="Validate a ConvoEngine JSON file")
     _add_repo_args(p_validate)
     p_validate.add_argument("--input", required=True, type=Path)
     p_validate.add_argument("--owner", default=None)
     p_validate.add_argument("--strict", action="store_true")
+    p_validate.add_argument("--allow-legacy", action="store_true")
 
     p_preview = sub.add_parser("preview", help="Preview compiled IR and runtime plan")
     _add_repo_args(p_preview)
     p_preview.add_argument("--input", required=True, type=Path)
     p_preview.add_argument("--owner", default=None)
     p_preview.add_argument("--strict", action="store_true")
+    p_preview.add_argument("--allow-legacy", action="store_true")
 
     p_create = sub.add_parser("create", help="Create and validate a ConvoEngine family")
     _add_repo_args(p_create)
@@ -153,47 +156,67 @@ def main(arguments: list[str] | None = None) -> int:
         if args.command in {"validate", "preview"}:
             input_path = args.input.expanduser().resolve()
             doc = load_json_document(input_path)
+            allow_legacy = bool(getattr(args, "allow_legacy", False) and not args.strict)
             if args.command == "validate":
-                result = svc.validate_convo_engine_document(
-                    doc,
-                    source_path=input_path,
-                    default_owner=args.owner,
-                    allow_legacy_schema=not args.strict,
+                result = svc.dispatch_operation(
+                    "convo.validate",
+                    {
+                        "document": doc,
+                        "sourcePath": str(input_path),
+                        "owner": args.owner,
+                        "allowLegacySchema": allow_legacy,
+                    },
                 )
             else:
                 result = svc.preview_convo_engine_document(
                     doc,
                     source_path=input_path,
                     default_owner=args.owner,
-                    allow_legacy_schema=not args.strict,
+                    allow_legacy_schema=allow_legacy,
                 )
         elif args.command == "create":
             spec = _read_json_arg(args.spec)
-            result = svc.create_convo_engine_family(
-                spec,
-                source_path=args.output,
-                default_owner=args.owner,
-                write=args.write,
-                overwrite=args.overwrite,
+            op_name = "convo.change.apply" if args.write else "convo.change.preview"
+            result = svc.dispatch_operation(
+                op_name,
+                {
+                    "operation": "create",
+                    "document": spec,
+                    "destPath": str(args.output) if args.output is not None else None,
+                    "requestedOwner": args.owner,
+                    "overwrite": bool(args.overwrite),
+                },
             )
         elif args.command == "edit":
             patch = _read_json_arg(args.patch)
-            result = svc.edit_convo_engine_family(
-                args.source,
-                patch,
-                default_owner=args.owner,
-                expected_source_fingerprint=args.expected_fingerprint,
-                write=args.write,
+            op_name = "convo.change.apply" if args.write else "convo.change.preview"
+            result = svc.dispatch_operation(
+                op_name,
+                {
+                    "operation": "edit",
+                    "target": str(args.source),
+                    "patch": patch,
+                    "requestedOwner": args.owner,
+                    "expectedFingerprint": args.expected_fingerprint,
+                },
             )
         elif args.command == "move":
-            result = svc.move_convo_engine_source(
-                args.source,
-                args.dest,
-                namespace=args.namespace,
-                family_id=args.family_id,
-                remove_source=not args.keep_source,
-                overwrite=args.overwrite,
-                dry_run=not args.write,
+            op_name = "convo.change.apply" if args.write else "convo.change.preview"
+            identity = {}
+            if args.namespace:
+                identity["namespace"] = args.namespace
+            if args.family_id:
+                identity["id"] = args.family_id
+            result = svc.dispatch_operation(
+                op_name,
+                {
+                    "operation": "move",
+                    "target": str(args.source),
+                    "destPath": str(args.dest),
+                    "requestedIdentity": identity or None,
+                    "removeSource": not bool(args.keep_source),
+                    "overwrite": bool(args.overwrite),
+                },
             )
         elif args.command == "shard":
             plan = _read_json_arg(args.plan)
@@ -218,12 +241,17 @@ def main(arguments: list[str] | None = None) -> int:
             )
         elif args.command == "write":
             doc = _read_json_arg(args.input)
-            result = svc.write_convo_engine_source(
-                args.output,
-                doc,
-                expected_source_fingerprint=args.expected_fingerprint,
-                default_owner=args.owner,
-                allow_legacy_schema=False,
+            result = svc.dispatch_operation(
+                "convo.change.apply",
+                {
+                    "operation": "write",
+                    "target": str(args.output),
+                    "destPath": str(args.output),
+                    "document": doc,
+                    "expectedFingerprint": args.expected_fingerprint,
+                    "requestedOwner": args.owner,
+                    "allowLegacySchema": False,
+                },
             )
         elif args.command == "normalize":
             result = svc.normalize_convo_engine_sources(
@@ -236,8 +264,9 @@ def main(arguments: list[str] | None = None) -> int:
                 prune_sources=args.prune_sources,
             )
         elif args.command == "audit-s6m8":
-            result = svc.run_convo_engine_s6m8_audit(
-                check_determinism=args.check_determinism,
+            result = svc.dispatch_operation(
+                "convo.audit",
+                {"checkDeterminism": bool(args.check_determinism)},
             )
         else:
             parser.error(f"unknown command: {args.command}")

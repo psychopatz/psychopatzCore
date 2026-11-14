@@ -124,7 +124,12 @@ class ConvoEngineS6M1ACompilerTests(unittest.TestCase):
             "on": {"intent": "GREET"},
             "respond": {"EN": "Hello, {addressee.name}."},
         }
-        preview = service.preview_convo_engine_document(legacy_doc)
+        with self.assertRaises(CompileError):
+            service.preview_convo_engine_document(legacy_doc)
+        preview = service.preview_convo_engine_document(
+            legacy_doc,
+            allow_legacy_schema=True,
+        )
         self.assertTrue(preview["ok"])
         self.assertEqual(preview["diagnostics"][0]["code"], "legacy_schema_migration_only")
 

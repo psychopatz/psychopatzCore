@@ -80,6 +80,7 @@ class OperationRegistry:
         result = handler(payload or {})
         if isinstance(result, dict):
             result.setdefault("operation", op_id)
+            result.setdefault("ok", True)
         return result
 
     def _register_defaults(self) -> None:

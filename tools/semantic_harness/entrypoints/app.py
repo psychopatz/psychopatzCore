@@ -25,6 +25,8 @@ else:
 def _should_run_cli(arguments: object) -> bool:
     if getattr(arguments, "no_gui", False):
         return True
+    if getattr(arguments, "command", None) in {"workspace", "convo"}:
+        return True
     return any(
         getattr(arguments, operation, None)
         for operation in (
