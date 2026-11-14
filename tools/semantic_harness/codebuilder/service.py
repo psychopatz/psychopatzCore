@@ -65,6 +65,9 @@ from .convo_engine_s6m8_audit import (
     discover_convo_engine_repositories,
 )
 from .convo_catalog import ConvoCatalog
+from .convo_transaction import ChangeSet, ConvoTransaction
+from .harness_context import HarnessContext
+from .operation_registry import OperationRegistry
 from .convo_engine_studio_trace import (
     list_convo_engine_families as _list_convo_engine_families,
     list_registered_action_contracts as _list_registered_action_contracts,
@@ -158,6 +161,19 @@ class SemanticLabAuthoringService:
             self.core_repository,
             self.dynamic_trading_repository,
         )
+        self.convo_transaction = ConvoTransaction(self)
+        self.harness = HarnessContext(
+            workspace=self.workspace_snapshot,
+            convo=self.convo_catalog,
+            transaction=self.convo_transaction,
+            audit=audit_convo_engine_workspace,
+            compat={
+                "datasets": self.dataset_catalog,
+                "blocks": self.block_registry,
+                "interaction": self.interaction_authoring,
+            },
+        )
+        self.operations = OperationRegistry(self)
 
     def refresh_workspace(self) -> WorkspaceSnapshot:
         """Re-discover workspace providers and source roots via WorkspaceCatalog."""
@@ -170,7 +186,22 @@ class SemanticLabAuthoringService:
             runtime_root=self.runtime_root,
         )
         self.convo_catalog = ConvoCatalog(self.workspace_snapshot)
+        if hasattr(self, "harness"):
+            self.harness.workspace = self.workspace_snapshot
+            self.harness.convo = self.convo_catalog
         return self.workspace_snapshot
+
+    def describe_operations(self) -> list[dict[str, Any]]:
+        """Return versioned OperationRegistry descriptors for GUI/CLI/agent clients."""
+        return self.operations.list_operations()
+
+    def dispatch_operation(
+        self,
+        operation_id: str,
+        payload: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        """Dispatch one OperationRegistry query or command by ID."""
+        return self.operations.dispatch(operation_id, payload)
 
     def describe_workspace(self) -> dict[str, Any]:
         """Return bounded workspace/provider/source summary from WorkspaceCatalog."""
@@ -499,42 +530,21 @@ class SemanticLabAuthoringService:
         expected_source_fingerprint: str | None = None,
         default_owner: str | None = None,
         allow_legacy_schema: bool = False,
+        regenerate: bool = False,
     ) -> dict[str, Any]:
-        """Validate and write one canonical ConvoEngine source JSON file."""
-        target = resolve_authorized_source_path(
-            source_path,
-            repository=self.repository,
-            allowed_roots=self._convo_engine_allowed_roots(),
+        """Validate and write one canonical ConvoEngine source JSON file via ConvoTransaction."""
+        return self.convo_transaction.apply(
+            ChangeSet(
+                operation="write",
+                target=source_path,
+                dest_path=source_path,
+                expected_fingerprint=expected_source_fingerprint,
+                requested_owner=default_owner,
+                document=document,
+                allow_legacy_schema=allow_legacy_schema,
+                regenerate=regenerate,
+            )
         )
-        stale = source_fingerprint_mismatch(target, expected_source_fingerprint)
-        if stale is not None:
-            return stale
-        report = self.validate_convo_engine_document(
-            document,
-            source_path=target,
-            default_owner=default_owner,
-            allow_legacy_schema=allow_legacy_schema,
-        )
-        if report.get("ok") is not True:
-            return report
-        persisted = (
-            strip_stale_migration_metadata(document)
-            if isinstance(document, dict) and document.get("schema") == CONVO_ENGINE_SCHEMA
-            else copy.deepcopy(document)
-        )
-        write_json_document(target, persisted)
-        return {
-            "ok": True,
-            "previewOnly": False,
-            "effectFree": False,
-            "writeApproved": True,
-            "generatedOutputRequired": True,
-            "sourcePath": str(target),
-            "sourceFingerprint": fingerprint(persisted),
-            "compiledFingerprint": report["compiled"]["fingerprint"],
-            "document": persisted,
-            "writes": [str(target)],
-        }
 
     def create_convo_engine_family(
         self,
@@ -544,59 +554,23 @@ class SemanticLabAuthoringService:
         default_owner: str | None = None,
         write: bool = False,
         overwrite: bool = False,
+        regenerate: bool | str = False,
     ) -> dict[str, Any]:
         """Create and validate a canonical ConvoEngine family, optionally writing it."""
-        resolved_owner = default_owner
-        if resolved_owner is None and isinstance(family_spec, dict) and family_spec.get("owner") is None:
-            resolved_owner = self._resolve_convo_engine_default_owner(source_path)
-        document = build_convo_engine_family_document(
-            family_spec,
-            default_owner=resolved_owner,
-        )
-        target: Path | None = None
-        if source_path is not None:
-            target = resolve_authorized_source_path(
-                source_path,
-                repository=self.repository,
-                allowed_roots=self._convo_engine_allowed_roots(),
-            )
-            if write and target.exists() and not overwrite:
-                raise CompileError(f"ConvoEngine destination already exists: {target}")
-        elif write:
+        if write and source_path is None and not isinstance(family_spec, dict):
             raise CompileError("source_path is required when write=True")
-
-        report = self.validate_convo_engine_document(
-            document,
-            source_path=target or source_path,
-            default_owner=resolved_owner,
-            allow_legacy_schema=False,
+        changeset = ChangeSet(
+            operation="create",
+            target=source_path,
+            dest_path=source_path,
+            requested_owner=default_owner,
+            document=family_spec,
+            overwrite=overwrite,
+            regenerate=regenerate if write else False,
         )
-        if report.get("ok") is not True:
-            return report
-        if write and target is not None:
-            write_json_document(target, document)
-            return {
-                "ok": True,
-                "previewOnly": False,
-                "effectFree": False,
-                "sourcePath": str(target),
-                "sourceFingerprint": fingerprint(document),
-                "compiledFingerprint": report["compiled"]["fingerprint"],
-                "document": document,
-                "preview": report,
-                "writes": [str(target)],
-            }
-        return {
-            "ok": True,
-            "previewOnly": True,
-            "effectFree": True,
-            "sourcePath": str(target) if target is not None else None,
-            "sourceFingerprint": fingerprint(document),
-            "compiledFingerprint": report["compiled"]["fingerprint"],
-            "document": document,
-            "preview": report,
-            "writes": [],
-        }
+        if write:
+            return self.convo_transaction.apply(changeset)
+        return self.convo_transaction.preview(changeset)
 
     def edit_convo_engine_family(
         self,
@@ -607,68 +581,33 @@ class SemanticLabAuthoringService:
         default_owner: str | None = None,
         expected_source_fingerprint: str | None = None,
         write: bool = False,
+        regenerate: bool | str = False,
     ) -> dict[str, Any]:
         """Edit and validate one canonical ConvoEngine family, optionally writing it."""
-        target: Path | None = None
         if isinstance(source_or_doc, (str, Path)):
-            target = resolve_authorized_source_path(
-                source_or_doc,
-                repository=self.repository,
-                allowed_roots=self._convo_engine_allowed_roots(),
-                check_forbidden_segments=False,
+            changeset = ChangeSet(
+                operation="edit",
+                target=source_or_doc,
+                dest_path=source_path or source_or_doc,
+                expected_fingerprint=expected_source_fingerprint,
+                requested_owner=default_owner,
+                patch=patch,
+                regenerate=regenerate if write else False,
             )
-            stale = source_fingerprint_mismatch(target, expected_source_fingerprint)
-            if stale is not None:
-                return stale
-            base_doc = load_json_document(target)
         else:
-            base_doc = source_or_doc
-            if source_path is not None:
-                target = resolve_authorized_source_path(
-                    source_path,
-                    repository=self.repository,
-                    allowed_roots=self._convo_engine_allowed_roots(),
-                )
-        updated = apply_family_patch(base_doc, patch)
-        report = self.validate_convo_engine_document(
-            updated,
-            source_path=target or source_path,
-            default_owner=default_owner,
-            allow_legacy_schema=False,
-        )
-        if report.get("ok") is not True:
-            return report
-        if write:
-            if target is None:
-                raise CompileError("source_path is required when write=True")
-            target = resolve_authorized_source_path(
-                target,
-                repository=self.repository,
-                allowed_roots=self._convo_engine_allowed_roots(),
+            changeset = ChangeSet(
+                operation="edit",
+                target=source_path,
+                dest_path=source_path,
+                expected_fingerprint=expected_source_fingerprint,
+                requested_owner=default_owner,
+                document=source_or_doc,
+                patch=patch,
+                regenerate=regenerate if write else False,
             )
-            write_json_document(target, updated)
-            return {
-                "ok": True,
-                "previewOnly": False,
-                "effectFree": False,
-                "sourcePath": str(target),
-                "sourceFingerprint": fingerprint(updated),
-                "compiledFingerprint": report["compiled"]["fingerprint"],
-                "document": updated,
-                "preview": report,
-                "writes": [str(target)],
-            }
-        return {
-            "ok": True,
-            "previewOnly": True,
-            "effectFree": True,
-            "sourcePath": str(target) if target is not None else None,
-            "sourceFingerprint": fingerprint(updated),
-            "compiledFingerprint": report["compiled"]["fingerprint"],
-            "document": updated,
-            "preview": report,
-            "writes": [],
-        }
+        if write:
+            return self.convo_transaction.apply(changeset)
+        return self.convo_transaction.preview(changeset)
 
     def move_convo_engine_source(
         self,
@@ -680,69 +619,47 @@ class SemanticLabAuthoringService:
         remove_source: bool = True,
         overwrite: bool = False,
         dry_run: bool = False,
+        expected_source_fingerprint: str | None = None,
+        regenerate: bool | str = False,
     ) -> dict[str, Any]:
         """Validate, relocate, and optionally re-namespace/rename a ConvoEngine source."""
-        allowed = self._convo_engine_allowed_roots()
-        src = resolve_authorized_source_path(
-            source_path,
-            repository=self.repository,
-            allowed_roots=allowed,
-            check_forbidden_segments=False,
-        )
-        dst = resolve_authorized_source_path(
-            dest_path,
-            repository=self.repository,
-            allowed_roots=allowed,
-        )
-        doc = load_json_document(src)
-        if doc.get("schema") != CONVO_ENGINE_SCHEMA:
-            raise CompileError(
-                f"move_convo_engine_source requires canonical schema {CONVO_ENGINE_SCHEMA}"
-            )
-        moved_doc = copy.deepcopy(doc)
+        requested_identity: dict[str, Any] = {}
         if namespace is not None:
-            moved_doc["namespace"] = namespace
+            requested_identity["namespace"] = namespace
         if family_id is not None:
-            moved_doc["id"] = family_id
-        report = self.validate_convo_engine_document(
-            moved_doc,
-            source_path=dst,
-            allow_legacy_schema=False,
+            requested_identity["id"] = family_id
+        changeset = ChangeSet(
+            operation="move",
+            target=source_path,
+            dest_path=dest_path,
+            expected_fingerprint=expected_source_fingerprint,
+            requested_identity=requested_identity or None,
+            remove_source=remove_source,
+            overwrite=overwrite,
+            regenerate=regenerate if not dry_run else False,
         )
-        if report.get("ok") is not True:
-            return report
-        if dst != src and dst.exists() and not overwrite:
-            raise CompileError(f"ConvoEngine destination already exists: {dst}")
         if dry_run:
-            return {
-                "ok": True,
-                "previewOnly": True,
-                "effectFree": True,
-                "sourcePath": str(src),
-                "destPath": str(dst),
-                "removedSource": None,
-                "sourceFingerprint": fingerprint(moved_doc),
-                "compiledFingerprint": report["compiled"]["fingerprint"],
-                "document": moved_doc,
-                "writes": [],
-            }
-        write_json_document(dst, moved_doc)
-        removed: str | None = None
-        if remove_source and dst != src and src.is_file():
-            src.unlink()
-            removed = str(src)
-        return {
-            "ok": True,
-            "previewOnly": False,
-            "effectFree": False,
-            "sourcePath": str(src),
-            "destPath": str(dst),
-            "removedSource": removed,
-            "sourceFingerprint": fingerprint(moved_doc),
-            "compiledFingerprint": report["compiled"]["fingerprint"],
-            "document": moved_doc,
-            "writes": [str(dst)],
-        }
+            return self.convo_transaction.preview(changeset)
+        return self.convo_transaction.apply(changeset, raise_on_error=True)
+
+    def delete_convo_engine_family(
+        self,
+        source_or_id: str | Path,
+        *,
+        expected_source_fingerprint: str | None = None,
+        write: bool = True,
+        regenerate: bool | str = "auto",
+    ) -> dict[str, Any]:
+        """Safely preview or delete a canonical ConvoEngine family if unreferenced."""
+        changeset = ChangeSet(
+            operation="delete",
+            target=source_or_id,
+            expected_fingerprint=expected_source_fingerprint,
+            regenerate=regenerate if write else False,
+        )
+        if write:
+            return self.convo_transaction.apply(changeset)
+        return self.convo_transaction.preview(changeset)
 
     def _load_authorized_source(
         self,

@@ -52,6 +52,7 @@ class ConvoEngineAuthoringPane:
         self._filtered_families: list[dict[str, Any]] = []
         self._current_entry: dict[str, Any] | None = None
         self._document: dict[str, Any] | None = None
+        self._loaded_fingerprint: str | None = None
         self._editors: dict[str, Any] = {}
         self._action_contracts: list[dict[str, Any]] = []
 
@@ -316,13 +317,28 @@ class ConvoEngineAuthoringPane:
         if not selection or int(selection[0]) >= len(self._filtered_families):
             return
         entry = self._filtered_families[int(selection[0])]
-        try:
-            document = json.loads(Path(entry["sourcePath"]).read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as error:
-            self._status_var.set(f"Load failed: {error}")
-            return
+        dispatch = getattr(self.service, "dispatch_operation", None)
+        if callable(dispatch):
+            try:
+                loaded = dispatch("convo.get", {"target": entry.get("sourcePath") or entry.get("canonicalID")})
+            except (OSError, ValueError) as error:
+                self._status_var.set(f"Load failed: {error}")
+                return
+            if not loaded.get("found"):
+                self._status_var.set("Load failed: family missing")
+                return
+            document = loaded["document"]
+            loaded_fp = loaded.get("sourceFingerprint")
+        else:
+            try:
+                document = json.loads(Path(entry["sourcePath"]).read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as error:
+                self._status_var.set(f"Load failed: {error}")
+                return
+            loaded_fp = entry.get("sourceFingerprint")
         self._current_entry = entry
         self._document = document
+        self._loaded_fingerprint = loaded_fp
         self._load_family_form(document)
         self._status_var.set(
             f"{entry['owner']} · {entry['canonicalID']} ({entry['path']})"
@@ -468,6 +484,7 @@ class ConvoEngineAuthoringPane:
         if res.get("ok") is True:
             self._document = copy.deepcopy(res["document"])
             self._current_entry = None
+            self._loaded_fingerprint = None
             self._load_family_form(self._document)
             self._status_var.set(f"Drafted new family {ns}.{fid} in memory; write explicitly")
         else:
@@ -480,22 +497,47 @@ class ConvoEngineAuthoringPane:
         dup["id"] = f"{dup.get('id', 'family')}_copy"
         self._document = dup
         self._current_entry = None
+        self._loaded_fingerprint = None
         self._load_family_form(dup)
         self._status_var.set(f"Duplicated as {dup['id']} in memory; set target path & write")
 
-    def delete_family(self) -> None:
+    def delete_family(self) -> dict[str, Any] | None:
         if self._current_entry is None:
-            return
-        path = Path(self._current_entry["sourcePath"])
+            return None
+        target = self._current_entry.get("sourcePath") or self._current_entry.get("canonicalID")
         if not self._messagebox.askyesno(
             "Delete ConvoEngine family",
-            f"Delete canonical source {self._current_entry['canonicalID']} ({path.name})?",
+            f"Delete canonical source {self._current_entry['canonicalID']} ({Path(str(target)).name})?",
         ):
-            return
-        if path.is_file():
-            path.unlink()
-        self.refresh()
-        self._status_var.set("Deleted canonical family source; regenerate downstream outputs")
+            return {"ok": False, "cancelled": True, "writes": []}
+        dispatch = getattr(self.service, "dispatch_operation", None)
+        payload = {
+            "operation": "delete",
+            "target": target,
+            "expectedFingerprint": self._loaded_fingerprint,
+        }
+        try:
+            if callable(dispatch):
+                res = dispatch("convo.change.apply", payload)
+            else:
+                res = self.service.delete_convo_engine_family(
+                    target,
+                    expected_source_fingerprint=self._loaded_fingerprint,
+                    write=True,
+                )
+        except (OSError, ValueError) as error:
+            res = {"ok": False, "diagnostics": [{"severity": "error", "message": str(error)}], "writes": []}
+        self._set_report(res)
+        if res.get("ok") is True:
+            self._loaded_fingerprint = None
+            self._current_entry = None
+            self.refresh()
+            self._status_var.set("Deleted canonical family source via ConvoTransaction")
+        else:
+            diags = res.get("diagnostics") or []
+            msg = diags[0].get("message") if diags else "Delete rejected"
+            self._status_var.set(f"Delete rejected: {msg}")
+        return res
 
     def preview_record(self) -> dict[str, Any] | None:
         try:
@@ -538,32 +580,41 @@ class ConvoEngineAuthoringPane:
         if not report or report.get("ok") is not True:
             return report or {"ok": False, "writes": []}
         doc = self._form_document()
-        target_path = (self._current_entry or {}).get("sourcePath")
-        if not target_path:
-            ns_dir = str(doc.get("namespace") or "misc").replace(".", "/")
-            target_path = str(
-                Path(self.service.core_repository)
-                / "tools/semantic_harness/codebuilder/sources/conversation"
-                / str(doc.get("kind") or "dialogue")
-                / ns_dir
-                / f"{doc['id']}.json"
-            )
+        existing_path = (self._current_entry or {}).get("sourcePath")
         if not self._messagebox.askyesno(
             "Write ConvoEngine source",
-            f"Write validated family {doc['id']} to {target_path}?",
+            f"Write validated family {doc['id']} ({doc.get('owner') or 'auto'})?",
         ):
             return {"ok": False, "cancelled": True, "writes": []}
-        written = self.service.write_convo_engine_source(
-            target_path,
-            doc,
-            allow_legacy_schema=False,
-        )
+        payload = {
+            "operation": "write" if existing_path else "create",
+            "target": existing_path,
+            "expectedFingerprint": self._loaded_fingerprint if existing_path else None,
+            "requestedOwner": doc.get("owner"),
+            "document": doc,
+            "allowLegacySchema": False,
+        }
+        try:
+            dispatch = getattr(self.service, "dispatch_operation", None)
+            if callable(dispatch):
+                written = dispatch("convo.change.apply", payload)
+            else:
+                written = self.service.write_convo_engine_source(
+                    existing_path or doc["id"],
+                    doc,
+                    expected_source_fingerprint=self._loaded_fingerprint,
+                    allow_legacy_schema=False,
+                )
+        except (OSError, ValueError) as error:
+            written = {"ok": False, "diagnostics": [{"severity": "error", "message": str(error)}], "writes": []}
+        self._set_report(written)
         self._status_var.set(
-            "Canonical ConvoEngine source written; regenerate downstream artifacts via CodeBuilder"
+            "Canonical ConvoEngine source committed via ConvoTransaction"
             if written.get("ok") is True
-            else "Write rejected by CodeBuilder validation"
+            else "Write rejected by ConvoTransaction / CodeBuilder validation"
         )
         if written.get("ok") is True:
+            self._loaded_fingerprint = written.get("sourceFingerprint")
             self.refresh()
         return written
 

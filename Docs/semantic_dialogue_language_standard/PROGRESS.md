@@ -107,16 +107,16 @@ must not require full-corpus dumps or reading the giant service/CLI modules.
 
 - **S9H0 — regression-lock + architecture freeze: COMPLETE.** `test_convo_engine_s9_regressions.py` pins all 13 reproduced defects/invariants (16 tests, originally 12 expected failures).
 - **S9H1 — WorkspaceCatalog + ConvoCatalog: COMPLETE.** Added `codebuilder/workspace_catalog.py` (`WorkspaceCatalog`, immutable bounded `WorkspaceSnapshot`, `semantic.provider_manifest.v2` conversation-source normalization, explicit override precedence, fail-closed required owners) and `codebuilder/convo_catalog.py` (`ConvoCatalog`, cached lightweight `FamilySummary` index, on-demand single-family loading, `query`/`impact`/reference validation). Migrated `SemanticLabAuthoringService`, `convo_engine_studio_trace.py`, `CanonicalSourceExplorerPane`, `convo_engine_s6m8_audit.py`, and `build.py`. Full Core Python suite verified: `171/171 OK (expected failures=10)`.
-- **S9H2 — OperationRegistry + safe ConvoTransaction: NEXT.**
-- **S9H3 — production Lua ConvoProbe: NOT STARTED.**
+- **S9H2 — OperationRegistry + safe ConvoTransaction: COMPLETE.** Added `codebuilder/convo_transaction.py` (`ChangeSet`, `ConvoTransaction`, `atomic_write_json`, `workspace_generation_lock`, identity-change auto-move, global dangling-reference protection, stale source-fingerprint guards), `codebuilder/harness_context.py` (`HarnessContext`), and `codebuilder/operation_registry.py` (`OperationRegistry` registering all 11 versioned operations). Routed `SemanticLabAuthoringService` and `ConvoEngineAuthoringPane` CRUD/delete through `OperationRegistry` / `ConvoTransaction`, removing direct `Path.unlink()` from the pane. Added `tools/semantic_harness/tests/test_convo_engine_s9h2_transactions.py` and cleared S9H2 regression locks (`test_01`, `test_02`, `test_03b`, `test_04b`, `test_05`). Full Core Python suite verified: `175/175 OK (expected failures=5)`.
+- **S9H3 — production Lua ConvoProbe: NEXT.**
 - **S9H4 — compact Studio + compiler field descriptors: NOT STARTED.**
 - **S9H5 — compact main CLI + compatibility quarantine: NOT STARTED.**
 - **S9H6 — BuildPlanner + isolated determinism/cache/lock: NOT STARTED.**
 - **S9H7 — exhaustive acceptance + complexity audit: NOT STARTED.**
 
-## Immediate Next Chunk — S9H2 OperationRegistry + safe ConvoTransaction
+## Immediate Next Chunk — S9H3 production Lua ConvoProbe
 
-Introduce `OperationRegistry` + `ConvoTransaction` (`ChangeSet` preview/apply), enforce owner-routed writes, move semantics on identity changes, dangling-reference rejection on delete/move, source-fingerprint guards in Studio/service, remove `Path.unlink()` from the pane, and decompose `SemanticLabAuthoringService` onto `HarnessContext`.
+Replace Python re-implementation of ConvoEngine simulation and hard-coded CAMP action-contract metadata with a production Lua `CONVO_PROBE` worker command (`semantic.harness.convo_trace.v1`) running the actual Core Lua runtime (`PsychopatzSemanticPredicate`, `TextBinding`, `ConvoEngine` affordance/reply/after/action contracts), remove `KNOWN_ACTION_CONTRACTS` hard-coding, and clear `test_08` and `test_09`.
 
 ## Completion boundary
 

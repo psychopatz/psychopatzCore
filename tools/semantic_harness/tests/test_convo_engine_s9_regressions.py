@@ -310,7 +310,6 @@ def _setup_three_repo_workspace(base: Path) -> dict[str, Path]:
 
 
 class ConvoEngineS9RegressionTests(unittest.TestCase):
-    @unittest.expectedFailure  # S9H1/S9H2: explicit hoomans_repository & pane owner routing
     def test_01_project_hoomans_new_family_owner_routing(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))
@@ -337,7 +336,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
             self.assertIn(repos["hoomans"].resolve(), written.parents)
             self.assertNotIn(repos["core"].resolve(), written.parents)
 
-    @unittest.expectedFailure  # S9H1/S9H2: DTCommon new-family owner routing
     def test_02_dt_common_new_family_owner_routing(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))
@@ -381,7 +379,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
             self.assertFalse(res["ok"])
             self.assertTrue(res.get("stale"))
 
-    @unittest.expectedFailure  # S9H2: pane write must pass expected source fingerprint
     def test_03b_pane_stale_source_fingerprint_write_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))
@@ -413,7 +410,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
         with self.assertRaises(CompileError):
             apply_family_patch(doc, {"namespace": "trade"})
 
-    @unittest.expectedFailure  # S9H2: pane identity edit must require move semantics
     def test_04b_pane_identity_edit_does_not_overwrite_old_path(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))
@@ -434,7 +430,6 @@ class ConvoEngineS9RegressionTests(unittest.TestCase):
             else:
                 self.assertTrue(res.get("ok"))
 
-    @unittest.expectedFailure  # S9H2: move/delete must reject dangling semantic references
     def test_05_delete_and_move_reject_dangling_semantic_references(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             repos = _setup_three_repo_workspace(Path(tmp))
