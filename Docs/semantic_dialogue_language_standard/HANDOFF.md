@@ -6,12 +6,12 @@ target_repo: "/home/psychopatz/Zomboid/Workshop/psychopatzCore"
 branch: "main"
 participant_heads: "project-hoomans=a23890d67da3ddbd4173a5a00d69e75644fbedc1;dynamic-trading=f41df273b37057ebf99f689fb9e67bac6d47d07e"
 state: "CLEAN_CHECKPOINT"
-parent_status: "IN_PROGRESS"
-phase: "S8 — Final three-repository ConvoEngine acceptance"
-chunk: "S8 — Fresh exhaustive 3-repository verification & completion"
+parent_status: "DEVELOPER_COMPLETE"
+phase: "S8 — Accepted"
+chunk: "Developer-side ConvoEngine roadmap complete"
 evidence: "TEST_VERIFIED"
 retrieval_tier: "verify"
-updated_at: "2026-11-14T18:26:45Z"
+updated_at: "2026-11-14T18:28:00Z"
 ---
 
 # ConvoEngine Session Handoff
@@ -34,7 +34,7 @@ The existing compiler/runtime migration is useful. Do not undo it.
 ```text
 Core
 /home/psychopatz/Zomboid/Workshop/psychopatzCore
-HEAD d200bde85eebc2b6d4ac0e69f4b9d62f94add23a (parent of this S7 handoff)
+HEAD 2d667ccf98f50560c488fa4bab466ac10bfce0b4 (parent of this S8 handoff)
 
 Hoomans
 /home/psychopatz/Zomboid/Workshop/ProjectHoomans
@@ -264,11 +264,19 @@ This is S6M6, not the current chunk.
 - Replaced record-bucket PSDL UI in Semantic Lab with `ConvoEngineAuthoringPane` (`tools/semantic_harness/studio/convo_engine_authoring_pane.py`, mounted at `"ConvoEngine"` tab in `ui/studio_surface_builder.py`, with `PSDLAuthoringPane` preserved as thin subclass alias in `psdl_authoring_pane.py`), supporting family filtering/CRUD, reply outcome editing, registered `execute` contract picker, `after.recommend` picker, player<->NPC / NPC<->NPC simulation preview with separated `button_label` / `spoken_action` / `response`, full `predicate -> affordance -> invoke -> speech -> execute -> result -> reply -> after` trace, and in-UI S6M8 audit.
 - Verification: Core Python `tools/semantic_harness/tests` 146/146 OK (`test_convo_engine_studio_s7.py` + `test_convo_engine_s6m8_audit.py` PASS).
 
-## Immediate Next Chunk — S8
+## What became true in S8
 
-Responsibility:
+- Completed fresh exhaustive three-repository acceptance after S7 commit `2d667ccf98f50560c488fa4bab466ac10bfce0b4`:
+  - Core Python suite (`python3 -m unittest discover -s tools/semantic_harness/tests -p "test_*.py" -q`): `146/146` OK.
+  - Three-repository S6M8 audit with two-pass determinism (`convo_engine_cli.py audit-s6m8 --check-determinism`): `"ok": true`, `owners: ["PsychopatzCore", "ProjectHoomans", "DTCommon"]`, `familyFilesChecked: 566`, `psdlDirectories: 0`, `catalogLuaLeaves: 0`, `legacyRuntimeDirectories: 0`, `compiled.fingerprint: e87edeeb6127568c6a665c311730780b1d2682cc4f2ba18f1c5cb5e4309870bf`, `patterns: 56`, `uiDefinitions: 21`, `convoPlans: 566`, `determinism.diffs: []` across `404` files, `violationCount: 0`.
+  - Core ConvoEngine/Semantic/Conversation Lua suites: `29/29` PASS.
+  - `DynamicTrading/tests/run_tests.py`: `89/89` PASS.
+  - `ProjectHoomans/tests/run_tests.py`: `1020/1021` PASS (single unrelated failure at `pnc_population_director_smoke.lua:316` world-bootstrap check; zero ConvoEngine/Conversation/Semantic references in `Director/Population/` or `Population/`).
+  - Kahlua2 static verification (`pz_verify.py --kahlua --severity ERROR`): `0` errors across `PsychopatzCore/ConvoEngine` (`52` files), `PNC/ConvoEngine` (`219` files), and `DTCommon/ConvoEngine` (`5` files).
 
-> Perform exhaustive fresh three-repository verification across Core, ProjectHoomans, and DynamicTrading, confirm all acceptance gates pass, and record the final truthful HANDOFF.md & PROGRESS.md checkpoint.
+## Remaining user-owned live verification
+
+- Native Project Zomboid live SP/MP in-game acceptance (UI rendering, conversation flow/timing, sound/emote/CAMP UX feel) remains user-owned.
 
 ## Safety
 
