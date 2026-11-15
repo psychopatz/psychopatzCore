@@ -6,7 +6,55 @@ from copy import deepcopy
 from typing import Any
 
 from tools.semantic_harness.inspection.tool_calls import format_tool_call
-from .suggestion_projection import npc_message_text, semantic_suggestion_title
+from .suggestion_projection import (
+    is_navigation_frame,
+    npc_message_text,
+    resolve_initiating_say,
+    semantic_suggestion_title,
+)
+
+
+def _record_accepted_click(
+    app: Any,
+    *,
+    frame: dict[str, Any],
+    row: dict[str, Any] | None,
+    label: str,
+    response: dict[str, Any],
+    system_message: str | None = None,
+) -> None:
+    presentation_only = is_navigation_frame(frame)
+    utterance = resolve_initiating_say(row, frame, response)
+    if presentation_only:
+        recorded_text = label
+    elif utterance is not None:
+        recorded_text = utterance
+        app.last_test_utterance = utterance
+        app._append("PLAYER", utterance)
+    else:
+        recorded_text = ""
+        app._append(
+            "SYSTEM",
+            "Suggestion missing initiating say; refusing UI label fallback.",
+        )
+    for message in response.get("messages", []):
+        if message.get("speaker") == "npc":
+            app._append("NPC", npc_message_text(message))
+    for call in response.get("toolCalls", []):
+        app._append("TOOL/ACTION", format_tool_call(call))
+    app._append_production_action(response)
+    if system_message:
+        app._append("SYSTEM", system_message)
+    app._record_replay_step(
+        {
+            "kind": "suggestion_click",
+            "candidateID": frame.get("candidateID")
+            or (row or {}).get("id"),
+            "label": label,
+            "text": recorded_text,
+            "frame": deepcopy(frame),
+        }
+    )
 
 
 def submit(app: Any) -> None:
@@ -43,32 +91,20 @@ def click_suggestion(app: Any, index: int) -> None:
     if not isinstance(frame, dict) or row.get("enabled") is not True:
         return
     label = semantic_suggestion_title(row)
+    if not is_navigation_frame(frame) and resolve_initiating_say(row, frame) is None:
+        app._append("SYSTEM", "Suggestion rejected: initiating_say_required")
+        app._set_status("Suggestion rejected: initiating_say_required")
+        return
 
     def finish(response: dict[str, Any]) -> None:
         if response.get("accepted") is True:
-            utterance = (row.get("display") or {}).get("utterance") or label
-            app.last_test_utterance = str(utterance)
-            presentation_only = str(frame.get("kind") or "") in {
-                "semantic_back_click_frame",
-                "semantic_group_click_frame",
-            }
-            if not presentation_only:
-                app._append("PLAYER", str(utterance))
-            for message in response.get("messages", []):
-                if message.get("speaker") == "npc":
-                    app._append("NPC", npc_message_text(message))
-            for call in response.get("toolCalls", []):
-                app._append("TOOL/ACTION", format_tool_call(call))
-            app._append_production_action(response)
-            app._append("SYSTEM", f"Clicked semantic suggestion: {label}")
-            app._record_replay_step(
-                {
-                    "kind": "suggestion_click",
-                    "candidateID": frame.get("candidateID") or row.get("id"),
-                    "label": label,
-                    "text": str(utterance),
-                    "frame": deepcopy(frame),
-                }
+            _record_accepted_click(
+                app,
+                frame=frame,
+                row=row,
+                label=label,
+                response=response,
+                system_message=f"Clicked semantic suggestion: {label}",
             )
         else:
             app._append(
@@ -85,26 +121,25 @@ def click_graph_frame(app: Any, frame: dict[str, Any]) -> bool:
 
     if not app.session.ready or app.busy or not isinstance(frame, dict):
         return False
-    label = str(frame.get("textFallback") or frame.get("candidateID") or "choice")
+    label = str(
+        frame.get("labelFallback")
+        or frame.get("label")
+        or frame.get("candidateID")
+        or "choice"
+    )
+    if not is_navigation_frame(frame) and resolve_initiating_say(None, frame) is None:
+        app._append("SYSTEM", "Graph choice rejected: initiating_say_required")
+        app._set_status("Graph choice rejected: initiating_say_required")
+        return False
 
     def finish(response: dict[str, Any]) -> None:
         if response.get("accepted") is True:
-            app.last_test_utterance = label
-            app._append("PLAYER", label)
-            for message in response.get("messages", []):
-                if message.get("speaker") == "npc":
-                    app._append("NPC", npc_message_text(message))
-            for call in response.get("toolCalls", []):
-                app._append("TOOL/ACTION", format_tool_call(call))
-            app._append_production_action(response)
-            app._record_replay_step(
-                {
-                    "kind": "suggestion_click",
-                    "candidateID": frame.get("candidateID"),
-                    "label": label,
-                    "text": label,
-                    "frame": deepcopy(frame),
-                }
+            _record_accepted_click(
+                app,
+                frame=frame,
+                row=None,
+                label=label,
+                response=response,
             )
         else:
             app._append(

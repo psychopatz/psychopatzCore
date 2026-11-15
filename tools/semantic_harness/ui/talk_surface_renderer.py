@@ -32,10 +32,9 @@ def render_talk_choices(app: Any, choices: Any) -> None:
     for index, choice in enumerate(visible):
         frame = choice["frame"]
         text = str(
-            choice.get("text")
-            or choice.get("label")
+            choice.get("label")
+            or choice.get("text")
             or frame.get("labelFallback")
-            or frame.get("textFallback")
             or choice.get("id")
             or "choice"
         )

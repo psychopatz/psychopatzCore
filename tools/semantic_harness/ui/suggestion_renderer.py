@@ -54,13 +54,26 @@ def render_suggestions(
         self.suggestion_revision = channel.get("revision")
         self.suggestion_rows = conversation_presented_rows(presentation)
         self._ensure_suggestion_buttons(len(self.suggestion_rows))
+        choice_surface = channel.get("choiceSurface") or {}
+        lifecycle_state = lifecycle.get("state")
+        pending_semantic_choices = (
+            lifecycle_state == "pending"
+            and choice_surface.get("source") == "semantic_suggestions"
+            and lifecycle.get("busy") is not True
+            and choice_surface.get("busy") is not True
+            and lifecycle.get("closing") is not True
+            and lifecycle.get("closed") is not True
+        )
         self.suggestion_interactive = (
-            lifecycle.get("state") not in {
-                "busy",
-                "pending",
-                "closing",
-                "closed",
-            }
+            (
+                lifecycle_state not in {
+                    "busy",
+                    "pending",
+                    "closing",
+                    "closed",
+                }
+                or pending_semantic_choices
+            )
             and (presentation.get("semanticInput") or {}).get(
                 "available", True
             )

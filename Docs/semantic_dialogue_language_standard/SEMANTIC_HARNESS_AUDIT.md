@@ -3,7 +3,7 @@
 **Original audit date:** 2026-11-14
 **Post-S9 re-audit:** 2026-11-14
 **Repositories:** psychopatzCore, ProjectHoomans, DynamicTrading
-**Status:** PRE-S9 FINDINGS (H1-H10) AND POST-S9 RESIDUALS (R1-R5) RESOLVED (S9 + S9R ACCEPTED).
+**Status:** S9 + S9R architecture accepted; S10 reliability/acceptance gap ACTIVE after real PNC provider-worker and GUI-path failure reproduced on 2026-11-15.
 
 ## Purpose
 
@@ -97,4 +97,89 @@ Latest verification after S9R closure:
 - `1020/1021` ProjectHoomans (only unrelated pre-existing `tests/pnc_population_director_smoke.lua:316`)
 - `0` Kahlua errors across `276` ConvoEngine Lua files (`52` Core, `219` Hoomans, `5` DTCommon)
 
-After S9R, only user-owned native Project Zomboid SP/MP visual/feel acceptance remains.
+At S9R close, the recorded conclusion was that only user-owned native Project Zomboid SP/MP visual/feel acceptance remained. Fresh 2026-11-15 evidence below supersedes that conclusion and opens S10.
+
+
+## 2026-11-15 S10 reliability re-audit
+
+The previous post-S9 conclusion that only user-owned native Project Zomboid acceptance remained is superseded by fresh developer-side evidence.
+
+### A1 — real PNC provider worker fails startup
+
+The PNC manifest selects `tools.providers.pnc.runtime.worker:LuaSemanticWorker` and `tools/providers/pnc/lua/worker.lua`. Starting that exact path reproduces:
+
+```text
+automatic semantic response registration failed:
+semantic.generated.parameterized_task.consume.active
+```
+
+Temporary diagnostic instrumentation preserved the repository and exposed the returned registration reason:
+
+```text
+reason=response_pool_empty
+poolCount=171
+max=256
+```
+
+Therefore the failure is not pool capacity. The task adapter still declares `task.consume.active`, while canonical ConvoEngine task wording uses `convo.task.consume.reply.active.say.1.default`-style identities. No maintained fallback was found for the old template ID.
+
+### A2 — accepted Hoomans gate omitted the provider Python/GUI suite
+
+`ProjectHoomans/tests/run_tests.py` discovers only root `tests/*_smoke.lua`. The provider suite under `tools/providers/pnc/tests/` is separate and currently contains about 866 discoverable Python tests.
+
+Measured audit signals:
+
+    provider test files instantiating real LuaSemanticWorker   147
+    Tk/SemanticHarnessApp-related provider test files          33
+
+An existing provider test, `RealWorkerExecutionTests.test_single_turn_greeting_execution`, already reproduces the startup failure. The prior `1020/1021` root-Lua result therefore was not complete Semantic Harness acceptance evidence.
+
+### A3 — real GUI acceptance is automatable
+
+The development machine has `/usr/bin/xvfb-run` and Tk 8.6. A real Semantic Lab launch under Xvfb maps the window and starts the PNC worker but never reaches worker-ready because the provider worker fails before the handshake. Display-gated tests must therefore become first-class Xvfb acceptance rather than optional skips.
+
+### A4 — label/speech realization contract is not enforced end to end
+
+Fresh 2026-11-16 Semantic Lab identity testing shows a visible choice labelled
+`Say your real name` can become the player's transcript line. The ProjectHoomans
+identity provider already carries separate label/utterance fields and the
+semantic frame contains the canonical player name, but the truthful speech
+fallback is still generic (`My real name.`).
+
+This is not a missing-language-spec problem. The accepted ConvoEngine language
+contract already makes `affordance.label` UI-only, `say` initiating speech, and
+forbids implicit label-to-speech canonicalization. The gap is runtime projection,
+binding and acceptance coverage.
+
+`S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md` defines the mandatory regression.
+
+### A5 — current dirty S10A work now exposes a later pool-limit failure
+
+The focused Lua preflight smoke passes. Running the new exact manifest-selected
+PNC provider-worker tests with the Core/Hoomans Python paths resolves the original
+empty-CONSUME failure far enough to reach:
+
+```text
+pool=semantic.generated.multi_stage_gift.gift.failed
+reason=response_pool_limit
+capability=pnc:gift.offer
+action=GIFT
+```
+
+The new real-worker test currently errors 3/3 at startup. This does not justify
+blindly increasing `MAX_POOLS`; first prove whether the valid generated catalog
+contains duplicate/over-granular pools or registration drift.
+
+### S10 response
+
+S10 does not reopen the six-port S9/S9R architecture. It repairs the concrete provider/runtime defect and closes the acceptance-system gap through:
+
+- provider-exact worker startup/runtime tests;
+- automatic-flow preflight and actionable registration diagnostics;
+- unified multi-suite acceptance orchestration;
+- a compact Feature Acceptance Registry;
+- real Tk/Xvfb user journeys;
+- supported-provider lifecycle/restart matrices;
+- zero unexplained skips for mandatory harness acceptance.
+
+See `SEMANTIC_HARNESS_RELIABILITY.md` for the normative design and phase gates.

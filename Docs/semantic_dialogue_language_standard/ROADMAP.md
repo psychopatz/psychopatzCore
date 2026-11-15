@@ -806,7 +806,57 @@ At acceptance:
    - state `USER_ACCEPTANCE` or equivalent developer-complete state;
 5. do not push.
 
-**Completion gate:** S9R is accepted only when the residual wiring/docs mismatches are closed and the full accepted test matrix remains green. After that, only user-owned native Project Zomboid SP/MP acceptance remains.
+**Historical S9R completion gate:** S9R was accepted when its residual wiring/docs mismatches closed and the then-defined matrix remained green. Its conclusion that only native Project Zomboid acceptance remained is superseded by S10 after real provider-worker/GUI-path testing exposed an omitted developer-side acceptance surface.
+
+## S10 — Semantic Lab end-to-end reliability and maintainability
+
+**Status:** ACTIVE.
+
+S10 exists because real 2026-11-15 acceptance disproved the prior developer-complete claim without invalidating the accepted S0-S9R architecture. The exact manifest-selected PNC provider worker fails during startup, and the previous Hoomans acceptance count did not include the provider Python/GUI suite that already reproduces that defect.
+
+The normative S10 design is `SEMANTIC_HARNESS_RELIABILITY.md`. The focused runtime acceptance for UI-label versus spoken realization and the ProjectHoomans identity regression is `S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md`; `LANGUAGE_SPEC.md` remains the semantic authoring authority.
+
+### S10A — real PNC worker startup and automatic-flow integrity
+
+**Status:** COMPLETE (`MAX_POOLS = 256` preserved; manifest-selected `LuaSemanticWorker` startup/restart catalog-stable; `hello` & `CAPABILITIES` persona payload kept compact while `PERSONA_CATALOG` retains full phrase content; `ResponseCatalog_Conversation` canonical pool extension preserves `SpeechRealization` family lookup and prioritizes styled pools; `affordance.label` vs initiating `say` vs reply `say` contract enforced; bound canonical/generated identity claims and distinct refusal verified in real worker + real Tk/Xvfb GUI journey with 36/36 provider/GUI tests and Lua preflight/local route smokes green).
+
+- freeze the exact manifest-selected `LuaSemanticWorker` failure;
+- preflight generated response pools before registry mutation;
+- audit all parameterized task response metadata against canonical ConvoEngine wording;
+- repair the source-of-truth mismatch rather than skipping/ignoring invalid pools;
+- improve registration diagnostics with reason/capability/template identity;
+- prove repeated start/restart is idempotent and catalog-stable;
+- enforce the existing ConvoEngine rule that `affordance.label` is UI-only and cannot become spoken dialogue through an implicit fallback;
+- bind truthful/generated identity claims into `say` realizations from authoritative semantic slots rather than generic/manual runtime strings;
+- add the ProjectHoomans identity click regression defined in `S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md`, including natural wording variants with semantic invariance.
+
+**Gate:** the real PNC provider worker starts/restarts, returns capabilities, all generated pools are resolvable/non-empty and catalog-stable, label-to-speech fallback is rejected or explicitly classified, and the focused real-worker identity case proves the button label is not the spoken player line while the bound canonical/generated identity remains authoritative.
+
+### S10B — unified acceptance orchestration
+
+**Status:** ACTIVE (NEXT).
+
+Create one bounded developer acceptance workflow that reports Core Python/Lua, Hoomans root Lua, Hoomans provider Python, real provider-worker acceptance, real Tk/Xvfb GUI, DynamicTrading, deterministic ConvoEngine audit, and Kahlua/static verification as distinct suites.
+
+Mandatory suites may not silently disappear. Display-required tests run under Xvfb when available. Report passed/failed/skipped/allowed-skips per suite.
+
+**Gate:** the accepted report represents the real harness surface, not only component/root smoke tests.
+
+### S10C — feature-owned real GUI acceptance
+
+Introduce one compact machine-readable Feature Acceptance Registry mapping supported public actions to surface, canonical operation/capability, provider applicability, mutation class and automated acceptance owner.
+
+Inventory World & Mods, Simulation, Quality Sweep, Studio and actionable diagnostics. Add real Tk/Xvfb journeys using the real session/provider path and hermetic fixture repositories for mutating authoring tests.
+
+The mandatory Simulation/Conversation journeys include the identity-label regression: reach a pending identity exchange, verify the visible button remains a compact UI affordance, invoke that real widget path, and prove the player transcript uses a bound `say` realization containing the authoritative name rather than the UI label.
+
+**Gate:** every mandatory supported feature has acceptance ownership, every GUI feature has a real-surface case, the label/speech identity journey passes through the real selected provider, and adding an uncovered supported feature fails validation.
+
+### S10D — provider lifecycle, maintainability and closure
+
+Run start/request/restart/reconfigure/shutdown matrices for all supported manifest selections, repeat lifecycle transitions to expose stale globals/duplicate registration/registry drift, document the one-command acceptance workflow, and reconcile continuity docs only after all real-path gates pass.
+
+**Completion gate:** developer-side harness work may return to complete only when S10A-S10D and the retained S9/S9R regression matrix are green. Only then does native Project Zomboid gameplay/visual acceptance become the sole remaining boundary.
 
 ## Commit protocol
 

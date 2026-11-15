@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from copy import deepcopy
 from typing import Any
 
@@ -92,13 +93,69 @@ def semantic_suggestion_rows(
     return rows
 
 
+def is_navigation_frame(frame: Any) -> bool:
+    """Return True only when ``frame`` is a navigation-only affordance."""
+    if not isinstance(frame, dict):
+        return False
+    return bool(frame.get("navigationExchange") is True) or str(
+        frame.get("kind") or ""
+    ) in {
+        "semantic_back_click_frame",
+        "semantic_group_click_frame",
+    }
+
+
+def resolve_initiating_say(
+    row: Mapping[str, Any] | dict[str, Any] | None,
+    frame: Mapping[str, Any] | dict[str, Any] | None = None,
+    response: Mapping[str, Any] | dict[str, Any] | None = None,
+) -> str | None:
+    """Resolve explicit initiating speech without ever falling back to UI labels."""
+    row_dict = row if isinstance(row, Mapping) else {}
+    frame_dict = frame if isinstance(frame, Mapping) else {}
+    display = row_dict.get("display")
+    display_dict = display if isinstance(display, Mapping) else {}
+    resp_dict = response if isinstance(response, Mapping) else {}
+    result = resp_dict.get("result")
+    result_dict = result if isinstance(result, Mapping) else {}
+    ir = result_dict.get("ir") or resp_dict.get("ir")
+    ir_dict = ir if isinstance(ir, Mapping) else {}
+    for candidate in (
+        resp_dict.get("playerUtterance"),
+        ir_dict.get("rawText"),
+        display_dict.get("utterance"),
+        display_dict.get("utteranceFallback"),
+        row_dict.get("utterance"),
+        row_dict.get("utteranceFallback"),
+        frame_dict.get("utterance"),
+        frame_dict.get("utteranceFallback"),
+        frame_dict.get("textFallback"),
+    ):
+        if isinstance(candidate, str) and candidate.strip():
+            return candidate.strip()
+    return None
+
+
+def validate_affordance_speech(
+    row: Mapping[str, Any] | dict[str, Any] | None,
+    frame: Mapping[str, Any] | dict[str, Any] | None = None,
+) -> tuple[bool, str]:
+    """Validate that conversational affordances declare explicit initiating ``say``."""
+    row_dict = row if isinstance(row, Mapping) else {}
+    frame_dict = frame if isinstance(frame, Mapping) else row_dict.get("semanticFrame") or row_dict.get("frame")
+    if is_navigation_frame(frame_dict):
+        return True, "navigation_frame"
+    if resolve_initiating_say(row_dict, frame_dict) is not None:
+        return True, "valid_initiating_say"
+    return False, "initiating_say_required"
+
+
 def semantic_suggestion_title(row: dict[str, Any]) -> str:
     display = row.get("display") or {}
     return str(
         display.get("label")
         or display.get("labelFallback")
-        or display.get("utterance")
-        or display.get("utteranceFallback")
+        or row.get("label")
         or row.get("text")
         or row.get("id")
         or row.get("action")
@@ -112,7 +169,7 @@ def conversation_presented_rows(
     """Adapt the production Conversation rows for the primary button surface.
 
     Lua owns the selected group, ordering, eligibility and semantic frames.
-    This adapter only supplies the renderer's established row shape.
+    This adapter preserves label vs. spoken-utterance separation.
     """
 
     presentation = presentation if isinstance(presentation, dict) else {}
@@ -121,20 +178,37 @@ def conversation_presented_rows(
     for row in channel.get("rows") or []:
         if not isinstance(row, dict):
             continue
-        text = str(row.get("text") or row.get("id") or "Choice")
         frame = row.get("semanticFrame") or row.get("frame")
-        rows.append(
-            {
-                "id": row.get("id"),
-                "text": text,
-                "display": {"label": text, "labelFallback": text},
-                "frame": deepcopy(frame),
-                "semanticFrame": deepcopy(frame),
-                "enabled": row.get("enabled") is True,
-                "source": deepcopy(row.get("source") or {}),
-                "groupID": channel.get("groupID"),
-            }
+        frame_dict = frame if isinstance(frame, dict) else {}
+        label = str(
+            row.get("label")
+            or row.get("text")
+            or frame_dict.get("labelFallback")
+            or row.get("id")
+            or "Choice"
         )
+        utterance = resolve_initiating_say(row, frame_dict)
+        display: dict[str, Any] = {
+            "label": label,
+            "labelFallback": label,
+        }
+        if utterance is not None:
+            display["utterance"] = utterance
+            display["utteranceFallback"] = utterance
+        projected: dict[str, Any] = {
+            "id": row.get("id"),
+            "text": label,
+            "label": label,
+            "display": display,
+            "frame": deepcopy(frame),
+            "semanticFrame": deepcopy(frame),
+            "enabled": row.get("enabled") is True,
+            "source": deepcopy(row.get("source") or {}),
+            "groupID": channel.get("groupID"),
+        }
+        if utterance is not None:
+            projected["utterance"] = utterance
+        rows.append(projected)
     return rows
 
 
@@ -246,9 +320,12 @@ def semantic_hub_diagnostic_projection(
     }
 
 __all__ = [
+    "is_navigation_frame",
     "npc_message_text",
+    "resolve_initiating_say",
     "semantic_suggestion_rows",
     "semantic_suggestion_title",
     "conversation_presented_rows",
     "semantic_hub_diagnostic_projection",
+    "validate_affordance_speech",
 ]

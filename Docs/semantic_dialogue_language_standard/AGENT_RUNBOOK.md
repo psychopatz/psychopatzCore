@@ -259,15 +259,17 @@ Before declaring S8 accepted:
 
 Do not weaken assertions or inflate limits/timeouts merely to make migration pass.
 
-### S9 / S9R Semantic Harness convergence discipline
+### S9 / S9R accepted architecture and S10 reliability discipline
 
-S9H0-S9H7 and S9R0-S9R3 are complete and accepted. Do not reopen their
-architecture without a concrete regression; only user-owned native Project
-Zomboid SP/MP visual/feel acceptance remains.
+S9H0-S9H7 and S9R0-S9R3 remain architecturally accepted. Do not redesign their
+six-port model without a concrete regression. However, developer-side acceptance
+is reopened as S10 because the real manifest-selected PNC provider worker and
+GUI path were not part of the previous accepted matrix and now reproduce a
+startup failure.
 
-For maintenance/verification, read current `PROGRESS.md`, `HANDOFF.md`, and the
-post-S9 summary of `SEMANTIC_HARNESS_AUDIT.md`. Read the compact architecture
-when modifying one of its six stable ports.
+For S10, read `PROGRESS.md`, `HANDOFF.md`,
+`SEMANTIC_HARNESS_RELIABILITY.md`, and the S10 section of
+`SEMANTIC_HARNESS_AUDIT.md` before editing.
 
 Preserve the accepted S9/S9R invariants:
 
@@ -281,7 +283,48 @@ Preserve the accepted S9/S9R invariants:
 - do not expand the 11-operation public vocabulary unless a real missing
   semantic responsibility is proven.
 
-S9R acceptance reruns the full accepted S9H7 matrix after focused closure tests.
+S10 adds these acceptance rules:
+
+- a neutral Core worker with provider metadata is not proof that a manifest-
+  selected provider Python worker/provider Lua worker starts;
+- every provider declaring a worker must enter the mandatory provider lifecycle
+  matrix automatically;
+- every supported public GUI/CLI/agent action must have one compact Feature
+  Acceptance Registry entry and a real-path acceptance owner;
+- GUI-exposed features require real Tk/Xvfb acceptance, not only mocked widget
+  or service tests;
+- when Xvfb is available, DISPLAY-dependent mandatory tests must run rather than
+  silently skip;
+- top-level acceptance must report Core tests, root adopter Lua, provider Python,
+  provider real-worker, GUI/Xvfb, DT, deterministic audit and Kahlua/static
+  suites separately;
+- mandatory unexplained skips are failures;
+- source-writing GUI tests use hermetic temporary repositories/outputs and never
+  mutate the user's live canonical sources;
+- worker startup/restart acceptance must prove catalog/registry stability and
+  no duplicate/stale registration;
+- preserve strict invalid-response failure; never fix startup by ignoring empty
+  pools, skipping capabilities, or inflating unrelated limits;
+- preserve the ConvoEngine text-role contract: `affordance.label` is UI-only,
+  initiating `say` is spoken action, and reply `say` is response text;
+- never allow a generic `labelFallback -> utterance/textFallback` chain to make
+  a conversational button label the canonical spoken line;
+- dynamic speech uses the same bound semantic instance/typed slots as the
+  action; do not recover names/targets by parsing rendered strings;
+- intentional label/speech equality must be explicitly authored in both roles,
+  not inherited through fallback;
+- the ProjectHoomans identity regression in
+  `S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md` is mandatory S10 evidence;
+- error output should expose provider, feature/operation, pool/capability and
+  underlying reason when available.
+
+A feature is not developer-complete merely because its underlying service or CLI
+operation has unit coverage. If users/agents invoke it through another surface,
+acceptance must exercise that real surface through the selected provider/runtime
+path.
+
+S10 acceptance reruns the retained S9/S9R matrix plus all mandatory provider and
+real-GUI gates defined in `SEMANTIC_HARNESS_RELIABILITY.md`.
 
 ## Git and phase close
 
