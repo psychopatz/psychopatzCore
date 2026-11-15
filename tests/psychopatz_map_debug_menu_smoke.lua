@@ -66,7 +66,7 @@ local enabled = false
 Hub.RegisterTool({
     id = "map.toggle",
     surface = "map",
-    source = "Map Debug",
+    source = "Map Tools",
     title = "Toggle",
     menuTitle = function()
         return enabled and "TEST DEBUG: ON" or "TEST DEBUG: OFF"

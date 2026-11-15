@@ -169,12 +169,12 @@ end
 if Core.DebugHub and type(Core.DebugHub.RegisterTool) == "function" then
     Core.DebugHub.RegisterTool({
         id = "psychopatz.teleport",
-        source = "PsychopatzCore",
+        source = "Psychopatz Core",
         order = 15,
         title = tr("UI_PsychopatzDebugHub_Teleport_Title",
-            "Teleport To Coordinates"),
+            "Teleport to Coordinates"),
         description = tr("UI_PsychopatzDebugHub_Teleport_Description",
-            "Teleport to exact world coordinates and resolve a safe level. The world map also offers [Debug] Teleport Here on right click."),
+            "Teleport to exact world coordinates and resolve a safe level. The world map also offers Teleport Here on right click."),
         available = function()
             return Teleport.CanUse(playerOrNil())
         end,

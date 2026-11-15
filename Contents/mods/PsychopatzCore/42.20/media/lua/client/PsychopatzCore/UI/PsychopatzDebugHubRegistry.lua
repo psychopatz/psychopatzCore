@@ -4,7 +4,7 @@ PsychopatzCore.DebugHub = PsychopatzCore.DebugHub or {}
 local Hub = PsychopatzCore.DebugHub
 Hub.tools = Hub.tools or {}
 Hub.groupExpanded = Hub.groupExpanded or {}
-Hub.DEFAULT_SOURCE = Hub.DEFAULT_SOURCE or "PsychopatzCore"
+Hub.DEFAULT_SOURCE = Hub.DEFAULT_SOURCE or "Psychopatz Core"
 Hub.DEFAULT_SURFACE = Hub.DEFAULT_SURFACE or "global"
 
 local function requestedSurface(filter)

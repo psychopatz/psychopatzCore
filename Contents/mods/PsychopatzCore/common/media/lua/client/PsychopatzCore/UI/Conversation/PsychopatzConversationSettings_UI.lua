@@ -114,7 +114,7 @@ if PsychopatzCore.DebugHub
 then
     PsychopatzCore.DebugHub.RegisterTool({
         id = "psychopatz.conversationSettings",
-        source = "PsychopatzCore",
+        source = "Psychopatz Core",
         order = 120,
         title = tr("UI_PsychopatzConversation_DebugToolTitle"),
         description = tr("UI_PsychopatzConversation_DebugToolDescription"),

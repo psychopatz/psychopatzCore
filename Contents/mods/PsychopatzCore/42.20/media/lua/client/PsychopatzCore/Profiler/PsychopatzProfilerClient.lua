@@ -59,9 +59,9 @@ function Client.Start()
     local Hub = require "PsychopatzCore/UI/PsychopatzDebugHubWindow"
     Hub.RegisterTool({
         id = "psychopatz.profiler",
-        source = "PsychopatzCore",
+        source = "Psychopatz Core",
         order = 100,
-        title = tr("UI_PsychopatzDebugHub_Profiler_Title", "Profiler"),
+        title = tr("UI_PsychopatzDebugHub_Profiler_Title", "Runtime Profiler"),
         description = tr("UI_PsychopatzDebugHub_Profiler_Description",
             "Inspect metrics and configure the shared profiler capture runtime."),
         available = function()

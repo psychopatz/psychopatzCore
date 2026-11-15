@@ -45,9 +45,9 @@ end
 if DebugHub and DebugHub.RegisterTool then
     DebugHub.RegisterTool({
         id = "psychopatz.preview",
-        source = "PsychopatzCore",
+        source = "Psychopatz Core",
         order = 25,
-        title = tr("UI_PsychopatzPreview_Title", "Preview Hub"),
+        title = tr("UI_PsychopatzPreview_Title", "Perception Preview"),
         description = tr("UI_PsychopatzPreview_Description",
             "Inspect registered client-local perception previews."),
         available = function()
@@ -63,7 +63,7 @@ end
 if DebugHub and DebugHub.RegisterTool then
     DebugHub.RegisterTool({
         id = "psychopatz.worldMetadata",
-        source = "PsychopatzCore",
+        source = "Psychopatz Core",
         order = 30,
         title = tr("UI_PsychopatzWorldMetadata_Title",
             "Export World Place Metadata"),
@@ -89,9 +89,9 @@ end
 if DebugHub and DebugHub.RegisterTool then
     DebugHub.RegisterTool({
         id = "psychopatz.runtimeTrace",
-        source = "PsychopatzCore",
+        source = "Psychopatz Core",
         order = 5,
-        title = tr("UI_PsychopatzDebug_RuntimeTrace_Title", "Runtime Debug Trace"),
+        title = tr("UI_PsychopatzDebug_RuntimeTrace_Title", "Runtime Event Trace"),
         description = tr("UI_PsychopatzDebug_RuntimeTrace_Description",
             "Inspect opt-in structured runtime events from any mod."),
         available = function()
@@ -120,9 +120,9 @@ end
 if DebugHub and DebugHub.RegisterTool then
     DebugHub.RegisterTool({
         id = "psychopatz.debugSettings",
-        source = "PsychopatzCore",
+        source = "Psychopatz Core",
         order = 10,
-        title = tr("UI_PsychopatzDebug_Settings_Title", "Debug Settings"),
+        title = tr("UI_PsychopatzDebug_Settings_Title", "Diagnostic Settings"),
         description = tr("UI_PsychopatzDebug_Settings_Description",
             "Enable or disable persisted diagnostic instrumentation."),
         available = function()
@@ -154,7 +154,7 @@ end
 if DebugHub and DebugHub.RegisterTool then
     DebugHub.RegisterTool({
         id = "psychopatz.translationCoverage",
-        source = "PsychopatzCore",
+        source = "Psychopatz Core",
         order = 20,
         title = tr("UI_PsychopatzDebugHub_TranslationCoverage_Title",
             "Translation Coverage"),

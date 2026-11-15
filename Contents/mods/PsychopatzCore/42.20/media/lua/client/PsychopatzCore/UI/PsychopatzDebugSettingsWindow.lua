@@ -245,7 +245,7 @@ local function buildDefinition()
 
     return {
         id = SETTINGS_ID,
-        title = tr("UI_PsychopatzDebugSettings_Title", "Debug Settings"),
+        title = tr("UI_PsychopatzDebugSettings_Title", "Diagnostic Settings"),
         controls = controls,
         window = {
             persistenceNamespace = "Debug",

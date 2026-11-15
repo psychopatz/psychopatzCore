@@ -24,7 +24,7 @@ assert(Hub.RegisterTool({
 assert(Hub.RegisterTool({
     id = "registry.map",
     surface = "map",
-    source = "Map Debug",
+    source = "Map Tools",
     order = 5,
     title = "Map Tool",
     action = function() launched = launched + 1 end,
@@ -42,11 +42,11 @@ local mapTools = Hub.GetTools("map")
 assert(#mapTools == 1 and mapTools[1].id == "registry.map",
     "surface filtering did not isolate map tools")
 local mapGroups = Hub.GetToolGroups({ surface = "map" })
-assert(#mapGroups == 1 and mapGroups[1].source == "Map Debug",
+assert(#mapGroups == 1 and mapGroups[1].source == "Map Tools",
     "surface filtering did not isolate map groups")
 
 local groups = Hub.GetToolGroups()
-assert(#groups == 2 and groups[1].source == "Map Debug"
+assert(#groups == 2 and groups[1].source == "Map Tools"
     and #groups[1].tools == 1 and groups[2].source == "Registry"
     and #groups[2].tools == 2,
     "registry grouping changed")

@@ -90,7 +90,7 @@ local function registerDebug(id, titleKey, titleFallback, helpKey,
         id = "psychopatz.map." .. id,
         title = tr(titleKey, titleFallback),
         description = tr(helpKey, helpFallback),
-        source = "Map Debug",
+        source = "Map Tools",
         surface = "map",
         order = order,
         available = available or canUseDebug,
@@ -104,7 +104,7 @@ end
 registerDebug(
     "actor_debug_presentation",
     "UI_PsychopatzMapTools_ActorDebugOn",
-    "Toggle survivor debug inspection",
+    "Toggle survivor overlay diagnostics",
     "UI_PsychopatzMapTools_ActorDebugHelp",
     "Show routes and undiscovered overlays. Portraits require learned identity.",
     10,
@@ -114,7 +114,7 @@ registerDebug(
     end,
     function()
         local state = Client.IsDebugPresentationEnabled()
-        return tr("UI_PsychopatzMapTools_DebugLabel", "SURVIVOR DEBUG")
+        return tr("UI_PsychopatzMapTools_DebugLabel", "SURVIVOR OVERLAYS")
             .. (state and ": ON" or ": OFF")
     end,
     function()
@@ -128,7 +128,7 @@ registerDebug(
     "UI_PsychopatzMapTools_PresenceOverride_Title",
     "Force selected survivor live",
     "UI_PsychopatzMapTools_PresenceOverride_Help",
-    "Materialize the selected Core actor through its registered provider, or release its debug body.",
+    "Materialize or release the selected survivor's debug body.",
     12,
     function()
         local id = presenceActorID()
@@ -157,9 +157,9 @@ registerDebug(
 registerDebug(
     "marker_diagnostics",
     "UI_PsychopatzMapTools_MarkerDiagnostics_Title",
-    "Marker diagnostics",
+    "Map marker diagnostics",
     "UI_PsychopatzMapTools_MarkerDiagnostics_Help",
-    "Inspect actor, abstract group, discovery signal, and settlement markers.",
+    "Inspect survivor, group, discovery, and settlement markers.",
     15,
     function()
         MarkerDiagnostics.SetEnabled(
@@ -203,7 +203,7 @@ registerDebug(
 registerDebug(
     "discovery_all_signals",
     "UI_PsychopatzMapTools_DiscoverySignals_Title",
-    "Discover all signals",
+    "Reveal all survivor signals",
     "UI_PsychopatzMapTools_DiscoverySignals_Help",
     "Reveal every Core survivor-world signal to this player.",
     30,
@@ -215,7 +215,7 @@ registerDebug(
 registerDebug(
     "discovery_all",
     "UI_PsychopatzMapTools_DiscoveryAll_Title",
-    "Discover all survivor-world entities",
+    "Reveal all survivor-world entities",
     "UI_PsychopatzMapTools_DiscoveryAll_Help",
     "Reveal every Core survivor-world signal, group, and community.",
     40,
@@ -227,7 +227,7 @@ registerDebug(
 registerDebug(
     "discovery_all_groups",
     "UI_PsychopatzMapTools_DiscoveryGroups_Title",
-    "Discover all mobile groups",
+    "Reveal all mobile groups",
     "UI_PsychopatzMapTools_DiscoveryGroups_Help",
     "Reveal every Core survivor-world mobile group.",
     50,
@@ -240,7 +240,7 @@ registerDebug(
 registerDebug(
     "discovery_all_communities",
     "UI_PsychopatzMapTools_DiscoveryCommunities_Title",
-    "Discover all communities",
+    "Reveal all communities",
     "UI_PsychopatzMapTools_DiscoveryCommunities_Help",
     "Reveal every Core survivor-world community.",
     60,
@@ -253,7 +253,7 @@ registerDebug(
 registerDebug(
     "discovery_reset",
     "UI_PsychopatzMapTools_DiscoveryReset_Title",
-    "Reset discovery",
+    "Reset survivor discovery",
     "UI_PsychopatzMapTools_DiscoveryReset_Help",
     "Clear this player's Core survivor-world discovery state.",
     70,
@@ -307,11 +307,11 @@ Menu.Register("PsychopatzCore:map_debug", {
     visible = canUseDebug,
     enabled = canUseDebug,
     title = function()
-        return tr("UI_PsychopatzMapTools_DebugHub_Title", "Debug")
+        return tr("UI_PsychopatzMapTools_DebugHub_Title", "Map Tools")
     end,
     tooltip = function()
         return tr("UI_PsychopatzMapTools_DebugHub_Help",
-            "Open map debug tools.")
+            "Open map tools.")
     end,
     onActivate = function(map)
         closeMapToolsMenu()

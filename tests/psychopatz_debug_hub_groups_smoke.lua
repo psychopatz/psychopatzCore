@@ -28,7 +28,7 @@ local launched = {}
 
 Hub.RegisterTool({
     id = "core.one",
-    source = "PsychopatzCore",
+    source = "Psychopatz Core",
     order = 10,
     title = "Core One",
     action = function() launched.coreOne = (launched.coreOne or 0) + 1 end,
@@ -50,7 +50,7 @@ Hub.RegisterTool({
 
 local groups = Hub.GetToolGroups()
 assert(#groups == 2, "debug tools were not grouped by source")
-assert(groups[1].source == "PsychopatzCore", "core group order was incorrect")
+assert(groups[1].source == "Psychopatz Core", "core group order was incorrect")
 assert(groups[2].source == "Project Hoomans", "Hoomans group was missing")
 assert(groups[1].expanded == true, "core group was not expanded by default")
 assert(groups[2].expanded == true, "Hoomans group was not expanded by default")
@@ -128,11 +128,18 @@ assert(launched.coreOne == 1,
 Hub.RegisterTool({
     id = "map.one",
     surface = "map",
-    source = "Map Debug",
+    source = "Map Tools",
     order = 5,
     title = "Map One",
     action = function() launched.mapOne = (launched.mapOne or 0) + 1 end,
 })
+window:rebuildCards()
+assert(#window.definitions == 3,
+    "global debug hub leaked map-surface tools")
+for _, definition in ipairs(window.definitions) do
+    assert(definition.surface ~= "map",
+        "global debug hub rendered a map-surface definition")
+end
 window.surface = "map"
 window:rebuildCards()
 assert(#window.definitions == 1 and window.definitions[1].id == "map.one",

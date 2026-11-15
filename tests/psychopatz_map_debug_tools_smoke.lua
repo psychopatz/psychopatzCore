@@ -153,11 +153,11 @@ assert(Client.Selection.trackedActorID == nil,
 
 local inspectionTool = debug("actor_debug_presentation")
 assert(inspectionTool.available(), "authorized Debug Hub tool hidden")
-assert(inspectionTool.menuTitle() == "SURVIVOR DEBUG: OFF",
+assert(inspectionTool.menuTitle() == "SURVIVOR OVERLAYS: OFF",
     "map debug toggle did not expose its OFF state")
 assert(inspectionTool.action() and inspection,
     "Debug Hub inspection tool did not enable inspection")
-assert(inspectionTool.menuTitle() == "SURVIVOR DEBUG: ON",
+assert(inspectionTool.menuTitle() == "SURVIVOR OVERLAYS: ON",
     "map debug toggle did not expose its ON state")
 assert(inspectionTool.action() and not inspection,
     "Debug Hub inspection tool did not disable inspection")
