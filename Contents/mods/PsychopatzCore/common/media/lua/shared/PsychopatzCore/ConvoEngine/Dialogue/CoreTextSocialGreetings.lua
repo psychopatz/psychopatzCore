@@ -55,10 +55,12 @@ return {
         ["id"] = "response.ambient_visit.accepted",
         ["kind"] = "dialogue",
         ["lineage"] = {
+            ["authoringSchema"] = "psychopatz.psdl.v2",
+            ["canonicalSchema"] = "psychopatz.convo-engine.v1",
             ["localId"] = "accepted",
             ["sourceId"] = "response.ambient_visit.accepted",
             ["sourcePath"] = "dialogue/core_text_social_greetings/response_ambient_visit_accepted.json",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
+            ["sourceSchema"] = "psychopatz.psdl.v2",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialGreetings",
         ["namespace"] = "response.ambient_visit",

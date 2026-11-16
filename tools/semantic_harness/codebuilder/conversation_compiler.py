@@ -95,6 +95,7 @@ from .generation_ownership import (
     resolve_hoomans_repository,
     source_owner,
 )
+from .backend_registry import render_portable_plan_for_target
 from .portable_runtime import compile_portable_plan
 from .psdl_compiler import (
     _validate_cross_references as _validate_convo_engine_cross_references,
@@ -106,7 +107,6 @@ from .psdl_compiler import (
     render_psdl_semantic_pack_plan,
     render_psdl_runtime_plan,
     render_psdl_ui_plan,
-    render_pz_backend_from_portable_plan,
 )
 from .conversation_assembly import CONVO_ENGINE_SHARD_KINDS
 
@@ -195,6 +195,7 @@ def compile_conversation_sources(
     runtime_root: Path | None = None,
     source_overrides: dict[str, dict[str, Any]] | None = None,
     package_repositories: Mapping[str, Path] | None = None,
+    target_descriptor: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Load, validate, merge, sort, fingerprint, and index Conversation shards.
 
@@ -297,15 +298,22 @@ def compile_conversation_sources(
         for compiled_psdl, _entry in psdl_documents
         for record in compiled_psdl.get("records", [])
     ]
+    resolved_target_descriptor = (
+        dict(target_descriptor)
+        if target_descriptor is not None
+        else combined_target_descriptor([manifest["registryOwner"]])
+    )
     if merged_convo_records:
         _validate_convo_engine_cross_references(merged_convo_records)
-        active_owners = {
-            normalize_owner(rec.get("owner"), default=manifest["defaultOwner"])
-            for rec in merged_convo_records
-        } | {manifest["registryOwner"]}
+        if target_descriptor is None:
+            active_owners = {
+                normalize_owner(rec.get("owner"), default=manifest["defaultOwner"])
+                for rec in merged_convo_records
+            } | {manifest["registryOwner"]}
+            resolved_target_descriptor = combined_target_descriptor(sorted(active_owners))
         validate_target_capabilities(
             merged_convo_records,
-            combined_target_descriptor(sorted(active_owners)),
+            resolved_target_descriptor,
         )
     entry_by_record_id: dict[str, dict[str, Any]] = {}
     for compiled_psdl, entry in psdl_documents:
@@ -318,20 +326,21 @@ def compile_conversation_sources(
         merged_convo_records,
         package=manifest["registryOwner"],
     )
-    pz_projection = render_pz_backend_from_portable_plan(
+    backend_projection = render_portable_plan_for_target(
         portable_plan,
+        target_descriptor=resolved_target_descriptor,
         entry_by_record_id=entry_by_record_id,
         default_owner=manifest["defaultOwner"],
     )
-    psdl_ui = pz_projection["ui"]
-    psdl_packs = pz_projection["semanticPacks"]
-    psdl_runtime_plans = pz_projection["runtimePlans"]
-    behaviors["records"].extend(pz_projection["behaviors"])
-    beats["records"].extend(pz_projection["beats"])
-    psdl_response_pools = pz_projection["responsePools"]
-    psdl_response_pool_owners = pz_projection["responsePoolOwners"]
-    psdl_flows = pz_projection["flows"]
-    psdl_realizations = pz_projection["realizations"]
+    psdl_ui = backend_projection["ui"]
+    psdl_packs = backend_projection["semanticPacks"]
+    psdl_runtime_plans = backend_projection["runtimePlans"]
+    behaviors["records"].extend(backend_projection["behaviors"])
+    beats["records"].extend(backend_projection["beats"])
+    psdl_response_pools = backend_projection["responsePools"]
+    psdl_response_pool_owners = backend_projection["responsePoolOwners"]
+    psdl_flows = backend_projection["flows"]
+    psdl_realizations = backend_projection["realizations"]
     if psdl_response_pools:
         dialogue["responsePools"].extend(psdl_response_pools)
         dialogue["responsePools"].sort(key=lambda item: str(item.get("id", "")))
@@ -642,6 +651,8 @@ def compile_conversation_sources(
         "packs": packs,
         "psdlRuntimePlans": psdl_runtime_plans,
         "portablePlan": portable_plan,
+        "targetBackend": backend_projection.get("backend"),
+        "portableArtifacts": backend_projection.get("portableArtifacts", {}),
         "ui": ui,
         "uiTexts": ui_texts,
         "uiTranslations": _ui_translations(ui, ui_texts),

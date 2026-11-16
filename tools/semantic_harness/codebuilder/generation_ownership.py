@@ -191,16 +191,24 @@ def combined_target_descriptor(owners: Any) -> dict[str, Any]:
     """Build a merged psychopatz.psdl.target.v1 descriptor across active package owners."""
     caps: set[str] = set()
     resolvers: set[str] = set()
+    backends: set[str] = set()
     targets: list[str] = []
     for owner in owners:
         desc = package_descriptor(owner)
         targets.append(desc.owner)
         caps.update(desc.capabilities)
         resolvers.update(desc.resolvers)
+        backends.add(desc.backend)
+    if len(backends) > 1:
+        raise OwnerConfigurationError(
+            "cannot combine incompatible target backends in one build: "
+            + ", ".join(sorted(backends))
+        )
+    backend = next(iter(backends)) if backends else "pz-lua"
     return {
         "schema": "psychopatz.psdl.target.v1",
         "target": "+".join(sorted(set(targets))) or "default",
-        "backend": "pz-lua",
+        "backend": backend,
         "providedCapabilities": sorted(caps),
         "providedResolvers": sorted(resolvers),
     }

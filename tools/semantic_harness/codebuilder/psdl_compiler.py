@@ -64,7 +64,7 @@ CONVO_ENGINE_COMPILED_SCHEMA = PSDL_COMPILED_SCHEMA
 PSDL_KINDS = frozenset({"dialogue", "behavior", "beat", "realization"})
 PSDL_DOCUMENT_FIELDS = frozenset({"schema", "records", "owner", "metadata"})
 PSDL_RECORD_FIELDS = frozenset({
-    "schema", "kind", "namespace", "id", "version", "owner", "participants", "target", "slots",
+    "schema", "_authoringSchema", "kind", "namespace", "id", "version", "owner", "participants", "target", "slots",
     "references", "when", "constraints", "on", "respond", "response",
     "variants", "turns", "offers", "transitions", "bindings", "text",
     "label", "utterance", "stimuli", "act", "action", "mode", "requiredCapabilities",
@@ -776,7 +776,7 @@ def _record_values(
             package=package,
             text_loader=text_loader,
         )
-        return [expanded], None, CONVO_ENGINE_SCHEMA
+        return [expanded], None, str(schema or COMPACT_PSDL_SCHEMA)
     if schema not in SUPPORTED_SOURCE_SCHEMAS:
         raise CompileError(
             f"ConvoEngine document.schema must be {CONVO_ENGINE_SCHEMA} (or migration {LEGACY_PSDL_SCHEMA})"
@@ -880,6 +880,8 @@ def compile_convo_engine_document(
         "schema": PSDL_COMPILED_SCHEMA,
         "version": 1,
         "canonicalIRSchema": CANONICAL_IR_SCHEMA,
+        "canonicalSchema": CONVO_ENGINE_SCHEMA,
+        "authoringSchema": doc_schema,
         "sourceSchema": doc_schema,
         "records": records,
     }

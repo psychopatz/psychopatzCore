@@ -98,6 +98,7 @@ _BOUNDED_LUA_FIXTURE_TESTS = frozenset({
 _BOUNDED_CODEBUILDER_MODULES = frozenset({
     "tools/semantic_harness/codebuilder/README.md",
     "tools/semantic_harness/codebuilder/__init__.py",
+    "tools/semantic_harness/codebuilder/backend_registry.py",
     "tools/semantic_harness/codebuilder/build.py",
     "tools/semantic_harness/codebuilder/capability_abi.py",
     "tools/semantic_harness/codebuilder/catalog_naming.py",
@@ -121,6 +122,7 @@ _BOUNDED_CODEBUILDER_MODULES = frozenset({
     "tools/semantic_harness/codebuilder/psdl_inspect.py",
     "tools/semantic_harness/codebuilder/reconcile.py",
     "tools/semantic_harness/codebuilder/semantic_dialogue_ir.py",
+    "tools/semantic_harness/codebuilder/semantic_trace.py",
     "tools/semantic_harness/codebuilder/service.py",
     "tools/semantic_harness/codebuilder/targets/pz_packages.json",
     "tools/semantic_harness/ui/studio_surface_builder.py",

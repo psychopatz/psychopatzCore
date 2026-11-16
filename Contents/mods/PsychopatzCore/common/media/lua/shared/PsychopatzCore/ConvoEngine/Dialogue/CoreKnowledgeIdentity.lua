@@ -572,10 +572,12 @@ return {
         ["id"] = "question.identity",
         ["kind"] = "dialogue",
         ["lineage"] = {
+            ["authoringSchema"] = "psychopatz.psdl.v2",
+            ["canonicalSchema"] = "psychopatz.convo-engine.v1",
             ["localId"] = "identity",
             ["sourceId"] = "question.identity",
             ["sourcePath"] = "dialogue/core_knowledge_identity/question_identity.json",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
+            ["sourceSchema"] = "psychopatz.psdl.v2",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeIdentity",
         ["namespace"] = "question",

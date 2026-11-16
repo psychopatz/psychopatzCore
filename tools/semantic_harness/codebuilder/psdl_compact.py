@@ -470,6 +470,7 @@ def expand_compact_psdl_document(
             doc["translations"] = merged_tr
 
     doc = _expand_predicates_in_tree(doc, str(doc.get("id") or "psdl"))
+    doc["_authoringSchema"] = str(schema or COMPACT_PSDL_SCHEMA)
     doc["schema"] = CONVO_ENGINE_SCHEMA
     return doc
 

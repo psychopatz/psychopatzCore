@@ -231,13 +231,16 @@ def canonicalize_dialogue(source: Mapping[str, Any], *, source_path: str | None 
         key: copy_json(source[key])
         for key in sorted(source)
         if key not in {
-            "schema", "kind", "namespace", "id", "owner", "participants", "target",
-            "slots", "references", "when", "constraints",
+            "schema", "_authoringSchema", "kind", "namespace", "id", "owner",
+            "participants", "target", "slots", "references", "when", "constraints",
         }
     }
+    authoring_schema = str(source.get("_authoringSchema") or source_schema)
     lineage: dict[str, Any] = {
         "sourceId": record_id,
-        "sourceSchema": source_schema,
+        "authoringSchema": authoring_schema,
+        "canonicalSchema": CONVO_ENGINE_SCHEMA,
+        "sourceSchema": authoring_schema,
     }
     if namespace is not None:
         lineage["localId"] = local_id

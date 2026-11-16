@@ -546,10 +546,12 @@ return {
         ["id"] = "gossip.unknown",
         ["kind"] = "dialogue",
         ["lineage"] = {
+            ["authoringSchema"] = "psychopatz.psdl.v2",
+            ["canonicalSchema"] = "psychopatz.convo-engine.v1",
             ["localId"] = "unknown",
             ["sourceId"] = "gossip.unknown",
             ["sourcePath"] = "dialogue/core_knowledge_gossip/gossip_unknown.json",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
+            ["sourceSchema"] = "psychopatz.psdl.v2",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeGossip",
         ["namespace"] = "gossip",

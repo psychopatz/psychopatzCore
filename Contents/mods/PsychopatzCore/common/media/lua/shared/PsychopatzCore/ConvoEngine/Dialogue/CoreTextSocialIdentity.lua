@@ -55,10 +55,12 @@ return {
         ["id"] = "identity.introduction",
         ["kind"] = "dialogue",
         ["lineage"] = {
+            ["authoringSchema"] = "psychopatz.psdl.v2",
+            ["canonicalSchema"] = "psychopatz.convo-engine.v1",
             ["localId"] = "introduction",
             ["sourceId"] = "identity.introduction",
             ["sourcePath"] = "dialogue/core_text_social_identity/identity_introduction.json",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
+            ["sourceSchema"] = "psychopatz.psdl.v2",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreTextSocialIdentity",
         ["namespace"] = "identity",

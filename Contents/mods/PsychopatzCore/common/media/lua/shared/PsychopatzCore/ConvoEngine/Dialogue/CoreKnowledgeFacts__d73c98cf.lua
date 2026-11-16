@@ -581,10 +581,12 @@ return {
         ["id"] = "question.knowledge",
         ["kind"] = "dialogue",
         ["lineage"] = {
+            ["authoringSchema"] = "psychopatz.psdl.v2",
+            ["canonicalSchema"] = "psychopatz.convo-engine.v1",
             ["localId"] = "knowledge",
             ["sourceId"] = "question.knowledge",
             ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge.json",
-            ["sourceSchema"] = "psychopatz.convo-engine.v1",
+            ["sourceSchema"] = "psychopatz.psdl.v2",
         },
         ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts__d73c98cf",
         ["namespace"] = "question",
