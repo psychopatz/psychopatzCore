@@ -14,6 +14,7 @@ from .generation_ownership import (
     OwnerConfigurationError,
     normalize_owner,
     resolve_core_repository,
+    resolve_hoomans_repository,
 )
 from .source_manifest import (
     SourceManifestError,
@@ -194,7 +195,9 @@ def load_manifest(
     """Load and validate the complete local/external Conversation graph."""
 
     resolved_package_repositories = dict(package_repositories or {})
-    resolved_package_repositories.setdefault(HOOMANS_OWNER, repository)
+    resolved_package_repositories.setdefault(
+        HOOMANS_OWNER, resolve_hoomans_repository(repository)
+    )
     resolved_package_repositories.setdefault(
         "PsychopatzCore", resolve_core_repository(repository)
     )

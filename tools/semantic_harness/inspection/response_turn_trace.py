@@ -27,18 +27,39 @@ def inspect_response_turn(
             or message.get("key")
             or ""
         )
-        lookup = worker.response_key_lookup(key) if key else {
-            "matches": [], "truncated": False, "matchCount": 0,
-        }
-        matched = lookup.get("matches", [])
-        direct = [
-            row for row in matched
-            if row.get("matchKind") == "REGISTERED_VARIANT_ID"
-        ]
-        verified = (
-            len(direct) == 1 and lookup.get("matchCount") == 1
-            and not lookup.get("truncated")
-        )
+        variant_id = str(message.get("semanticVariantID") or "")
+        lookup = {"matches": [], "truncated": False, "matchCount": 0}
+        matched = []
+        direct = []
+        verified = False
+        if variant_id:
+            variant_lookup = worker.response_key_lookup(variant_id)
+            variant_matches = variant_lookup.get("matches", [])
+            variant_direct = [
+                row for row in variant_matches
+                if row.get("matchKind") == "REGISTERED_VARIANT_ID"
+            ]
+            if (
+                len(variant_direct) == 1
+                and variant_lookup.get("matchCount") == 1
+                and not variant_lookup.get("truncated")
+            ):
+                key = variant_id
+                lookup = variant_lookup
+                matched = variant_matches
+                direct = variant_direct
+                verified = True
+        if not verified and key:
+            lookup = worker.response_key_lookup(key)
+            matched = lookup.get("matches", [])
+            direct = [
+                row for row in matched
+                if row.get("matchKind") == "REGISTERED_VARIANT_ID"
+            ]
+            verified = (
+                len(direct) == 1 and lookup.get("matchCount") == 1
+                and not lookup.get("truncated")
+            )
         result.append({
             "observedKey": key,
             "renderedKey": message.get("key"),

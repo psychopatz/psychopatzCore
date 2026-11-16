@@ -283,6 +283,14 @@ def build_worker_launch_spec(config: HarnessConfig) -> WorkerLaunchSpec:
         ),
     }
     environment.update(_provider_environment(config))
+    if config.candidate_overlay_root is not None:
+        environment["SEMANTIC_HARNESS_CANDIDATE_OVERLAY_ROOT"] = str(
+            config.candidate_overlay_root
+        )
+    if config.candidate_overlay_module:
+        environment["SEMANTIC_HARNESS_CANDIDATE_OVERLAY_MODULE"] = str(
+            config.candidate_overlay_module
+        )
 
     return WorkerLaunchSpec(
         lua_bin=config.lua_bin,

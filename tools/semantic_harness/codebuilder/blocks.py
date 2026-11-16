@@ -457,6 +457,36 @@ class SemanticBlockRegistry:
 
     def _response_blocks(self) -> list[dict[str, Any]]:
         blocks: list[dict[str, Any]] = []
+        seen_ids: set[str] = set()
+        try:
+            from .conversation_compiler import compile_conversation_sources
+
+            model = compile_conversation_sources(self.repository)
+            for pool in model.get("dialogue", {}).get("responsePools", []):
+                if not isinstance(pool, dict) or not (pool.get("poolID") or pool.get("id")):
+                    continue
+                pool_id = str(pool.get("poolID") or pool.get("id"))
+                block_id = f"response:{pool_id}"
+                if block_id in seen_ids:
+                    continue
+                seen_ids.add(block_id)
+                variants = pool.get("variants", [])
+                blocks.append({
+                    "id": block_id,
+                    "category": "dialogue_responses",
+                    "kind": "response_pool",
+                    "label": pool_id,
+                    "owner": pool.get("owner") or "Project Hoomans CodeBuilder",
+                    "source": str(pool.get("sourceShard") or "convo_engine"),
+                    "contract": "reviewed localized response pool",
+                    "reusable": True,
+                    "available": True,
+                    "variantCount": len(variants) if isinstance(variants, list) else 0,
+                    "definition": {"poolID": pool_id},
+                    "ports": block_port_contract("dialogue_responses.response_pool"),
+                })
+        except Exception:
+            pass
         for source_id in ("semantic_flows", "common_dialogue"):
             spec = self.dataset_specs.get(source_id)
             if not spec:
@@ -484,9 +514,13 @@ class SemanticBlockRegistry:
                 if not isinstance(pool, dict) or not pool.get("poolID") and not pool.get("id"):
                     continue
                 pool_id = str(pool.get("poolID") or pool.get("id"))
+                block_id = f"response:{pool_id}"
+                if block_id in seen_ids:
+                    continue
+                seen_ids.add(block_id)
                 variants = pool.get("variants", [])
                 blocks.append({
-                    "id": f"response:{pool_id}",
+                    "id": block_id,
                     "category": "dialogue_responses",
                     "kind": "response_pool",
                     "label": pool_id,

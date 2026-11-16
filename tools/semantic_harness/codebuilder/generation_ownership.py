@@ -242,6 +242,29 @@ def resolve_core_repository(
     return (base.parent / "psychopatzCore").resolve()
 
 
+def resolve_hoomans_repository(
+    project_repository: Path,
+    *,
+    explicit: Path | None = None,
+    runtime_root: Path | None = None,
+) -> Path:
+    """Resolve the ProjectHoomans checkout when invoked from Core or Hoomans."""
+    if explicit is not None:
+        return explicit.expanduser().resolve()
+    env = os.environ.get("PZ_TEST_HOOMANS_REPOSITORY")
+    if env:
+        return Path(env).expanduser().resolve()
+    base = (runtime_root or project_repository).expanduser().resolve()
+    if (base / "Contents/mods/ProjectHoomans").is_dir() or (
+        base / "tools/providers/pnc"
+    ).is_dir():
+        return base
+    sibling = (base.parent / "ProjectHoomans").resolve()
+    if sibling.is_dir():
+        return sibling
+    return base
+
+
 def owner_repository(
     project_repository: Path,
     owner: Any,

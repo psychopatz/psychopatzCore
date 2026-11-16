@@ -8,9 +8,14 @@ from __future__ import annotations
 
 import hashlib
 import json
+from pathlib import Path
 from typing import Any
 
 from tools.semantic_harness.codebuilder.dialogue_dataset import compile_dialogue_dataset
+from tools.semantic_harness.codebuilder.generation_ownership import (
+    module_target,
+    owner_repository,
+)
 from tools.semantic_harness.codebuilder.semantic_definition_compiler import compile_semantic_definitions
 from tools.semantic_harness.codebuilder.service import SemanticLabAuthoringService
 from tools.semantic_harness.runtime.worker import LuaSemanticWorker
@@ -21,6 +26,102 @@ def _condition(value: Any) -> Any:
     if value == [] or value == {} or value is None:
         return {}
     return value
+
+
+def _convo_engine_english_lines(record: dict[str, Any]) -> set[str]:
+    lines: set[str] = set()
+    payload = record.get("payload") if isinstance(record.get("payload"), dict) else {}
+    say = payload.get("say") if isinstance(payload.get("say"), dict) else {}
+    realizations = say.get("realizations") if isinstance(say.get("realizations"), dict) else {}
+    for slot in realizations.values():
+        if not isinstance(slot, dict):
+            continue
+        for variant in slot.get("variants") or []:
+            if not isinstance(variant, dict):
+                continue
+            text_map = variant.get("text") if isinstance(variant.get("text"), dict) else {}
+            en = text_map.get("EN")
+            if isinstance(en, str) and en:
+                lines.add(en)
+            elif isinstance(en, list):
+                lines.update(item for item in en if isinstance(item, str) and item)
+    return lines
+
+
+def _convo_engine_generated_matches(
+    service: SemanticLabAuthoringService,
+    row: dict[str, Any],
+    template_id: str,
+) -> bool:
+    owner = str(row.get("owner") or "")
+    modules = row.get("generatedModules") or []
+    if not owner or not modules:
+        return False
+    sibling_dt = getattr(service, "dynamic_trading_repository", None) or (
+        service.repository.parent / "DynamicTrading"
+    )
+    sibling_core = getattr(service, "core_repository", None) or (
+        service.repository.parent / "psychopatzCore"
+    )
+    try:
+        owner_repo = owner_repository(
+            service.repository,
+            owner,
+            core_repository=sibling_core,
+            dynamic_trading_repository=sibling_dt,
+        )
+    except Exception:
+        return False
+    for module in modules:
+        try:
+            _, lua_path = module_target(
+                owner_repo,
+                str(module),
+                core_repository=sibling_core,
+                dynamic_trading_repository=sibling_dt,
+            )
+        except Exception:
+            continue
+        if lua_path.is_file() and template_id in lua_path.read_text(encoding="utf-8"):
+            return True
+    return False
+
+
+def _matches_convo_engine_lineage(
+    service: SemanticLabAuthoringService,
+    row: dict[str, Any],
+    loaded_variant: dict[str, Any],
+) -> dict[str, Any] | None:
+    source_path = Path(str(row["sourcePath"]))
+    if not source_path.is_file():
+        return None
+    doc = json.loads(source_path.read_text(encoding="utf-8"))
+    preview = service.preview_convo_engine_document(doc, source_path=source_path)
+    if not preview.get("ok"):
+        return None
+    records = (preview.get("compiled") or {}).get("records") or []
+    template_id = str(loaded_variant.get("templateID") or row["canonicalID"])
+    record = next((item for item in records if item.get("id") == template_id), None)
+    if not isinstance(record, dict):
+        return None
+    fallback = loaded_variant.get("fallback")
+    en_lines = _convo_engine_english_lines(record)
+    if isinstance(fallback, str) and fallback and en_lines and fallback not in en_lines:
+        return None
+    if not _convo_engine_generated_matches(service, row, template_id):
+        return None
+    try:
+        rel_path = str(source_path.relative_to(service.repository))
+    except ValueError:
+        rel_path = str(source_path)
+    return {
+        "sourceID": str(row["sourceID"]),
+        "canonicalID": str(row["canonicalID"]),
+        "sourcePath": rel_path,
+        "sourceSHA256": hashlib.sha256(source_path.read_bytes()).hexdigest(),
+        "validatedBy": "convo_engine_compiler_and_loaded_lua",
+        "generatedArtifactParity": "unchanged",
+    }
 
 
 def _matches(authored: dict[str, Any], loaded: dict[str, Any]) -> bool:
@@ -135,6 +236,33 @@ def inspect_codebuilder_lineage(
             "verified": True,
             "generatedArtifactParity": "unchanged",
         })
+    convo_by_id = {
+        str(row["canonicalID"]): row
+        for row in service.list_convo_engine_families()
+        if row.get("canonicalID") and row.get("sourcePath")
+    }
+    for loaded_variant in loaded:
+        variant_id = loaded_variant["id"]
+        if matches[variant_id]:
+            continue
+        template_id = str(loaded_variant.get("templateID") or "")
+        row = convo_by_id.get(template_id)
+        if row is None:
+            continue
+        convo_match = _matches_convo_engine_lineage(service, row, loaded_variant)
+        if convo_match is not None:
+            matches[variant_id].append(convo_match)
+            checked_sources.append({
+                "sourceID": convo_match["sourceID"],
+                "verified": True,
+                "generatedArtifactParity": "unchanged",
+            })
+        else:
+            checked_sources.append({
+                "sourceID": str(row["sourceID"]),
+                "verified": False,
+                "reason": "convo_engine_source_mismatch",
+            })
     owners = []
     for variant in loaded:
         candidates = matches[variant["id"]]

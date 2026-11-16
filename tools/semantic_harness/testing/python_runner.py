@@ -45,10 +45,6 @@ DEFAULT_SLOWEST_COUNT = 12
 # temporary repositories in their normal tests, but remain exclusive so future
 # cases cannot accidentally write generated artifacts beside a read-only test.
 CANONICAL_SOURCE_MODULES = frozenset({
-    "test_codebuilder_consolidation",
-    "test_interaction_spec",
-    "test_semantic_authoring_compiler",
-    "test_v1_visual_authoring",
 })
 
 # This module has a real wall-clock IPC budget.  It is read-only, but running
@@ -58,12 +54,12 @@ CANONICAL_SOURCE_MODULES = frozenset({
 RESOURCE_SENSITIVE_MODULES = frozenset({
     "test_conversational_competence_c7g",
     "test_contextual_scale_isolation",
+    "test_contextual_bond_catalog_runtime",
     # These real-worker contextual modules passed in an isolated serial
     # rerun but produced scheduler-sensitive precision/context failures when
     # competing with other worker-heavy modules.  Keep the tests unchanged;
     # route only the resource-sensitive processes through the existing
     # exclusive lane.
-    "test_c7f_dataset_precision",
     "test_coherent_conversation_c8",
     "test_contextual_acceptance_c6b",
     "test_contextual_conversation_c4a",
@@ -73,6 +69,13 @@ RESOURCE_SENSITIVE_MODULES = frozenset({
     "test_contextual_provider_parity_c6c",
     "test_contextual_speech_behavior",
     "test_contextual_suggestions_whats_up",
+    # These Tk + Lua-worker GUI modules exceed tight startup/poll budgets
+    # when 4 heavy Xvfb+Lua windows compete concurrently on the shared display.
+    "test_semantic_lab_persona_workflow",
+    "test_surface_consolidation",
+    "test_ui_organization",
+    "test_ui_state_persistence",
+    "test_world_knowledge_gui",
 })
 
 # These modules are still safe to run in the bounded parallel lane, but their
@@ -176,6 +179,7 @@ class PythonAcceptanceRunner:
         exclusive_modules: Iterable[str] = EXCLUSIVE_MODULES,
         environment: dict[str, str] | None = None,
         headless: bool = True,
+        unittest_verbose: bool = False,
     ) -> None:
         if jobs <= 0:
             raise ValueError("jobs must be positive")
@@ -194,6 +198,7 @@ class PythonAcceptanceRunner:
         self.exclusive_modules = frozenset(exclusive_modules)
         self.environment = dict(environment or {})
         self.headless = headless
+        self.unittest_verbose = unittest_verbose
         self._lock = threading.Lock()
         self._active: dict[str, subprocess.Popen[bytes]] = {}
         self._events: list[dict[str, object]] = []
@@ -308,8 +313,9 @@ class PythonAcceptanceRunner:
         timed_out = False
         termination_reason: str | None = None
         try:
+            verbosity = "-v" if self.unittest_verbose else "-q"
             process = subprocess.Popen(
-                [self.python, "-m", "unittest", module.name, "-q"],
+                [self.python, "-m", "unittest", module.name, verbosity],
                 cwd=self.root,
                 env=self._environment(),
                 stdout=subprocess.PIPE,

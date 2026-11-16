@@ -89,6 +89,7 @@ from .generation_ownership import (
     normalize_owner,
     route_module_for_owner,
     resolve_core_repository,
+    resolve_hoomans_repository,
     source_owner,
 )
 from .psdl_compiler import (
@@ -156,7 +157,10 @@ def compile_conversation_sources(
     """
     repository = repository.expanduser().resolve()
     resolved_package_repositories = {
-        HOOMANS_OWNER: repository,
+        HOOMANS_OWNER: resolve_hoomans_repository(
+            repository,
+            runtime_root=runtime_root,
+        ),
         "PsychopatzCore": resolve_core_repository(
             repository,
             runtime_root=runtime_root,
@@ -377,14 +381,28 @@ def compile_conversation_sources(
             for compiled_psdl, psdl_entry in psdl_documents:
                 if psdl_entry["path"] != path:
                     continue
+                psdl_ids: set[str] = set()
                 for record in compiled_psdl["records"]:
+                    rec_id = record.get("id")
+                    if isinstance(rec_id, str):
+                        psdl_ids.add(rec_id)
                     _add_global_id(
                         locations,
-                        record.get("id"),
+                        rec_id,
                         kind=record.get("kind", "dialogue"),
                         shard=entry,
                         path=path,
                     )
+                for row in render_psdl_realization_plan(compiled_psdl):
+                    row_id = row.get("id")
+                    if row_id not in psdl_ids:
+                        _add_global_id(
+                            locations,
+                            row_id,
+                            kind="realization",
+                            shard=entry,
+                            path=path,
+                        )
                 for row in render_psdl_ui_plan(compiled_psdl):
                     _add_global_id(
                         ui_locations,

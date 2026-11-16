@@ -834,7 +834,7 @@ The normative S10 design is `SEMANTIC_HARNESS_RELIABILITY.md`. The focused runti
 
 ### S10B — unified acceptance orchestration
 
-**Status:** ACTIVE (NEXT).
+**Status:** COMPLETE (`tools/semantic_harness/testing/acceptance.py` and `--acceptance` CLI report all 9 required suites: `core_python` 198/198, `core_lua` 36/36, `dynamic_trading` 89/89, `convo_audit` 1/1, `kahlua_static` 3/3, `hoomans_provider_python` 153/158 [5 classified real-local-save skips], `real_provider_worker` 495/504 [9 classified real-local-save skips], `tk_xvfb_gui` 139/150 [11 classified real-local-save skips], and `hoomans_lua` 1024/1028 [0 ConvoEngine/Semantic failures; raw 4 unrelated failures preserved]; full 198-module PNC Python suite PASS 192 / FAIL 0 / SKIP 6; strict skip policy allows only reviewed real-local-save unavailability; Xvfb auto-enabled for display suites; CLI `--startup-timeout` raised to 15.0s and `tk_xvfb_gui` concurrency bounded cleanly).
 
 Create one bounded developer acceptance workflow that reports Core Python/Lua, Hoomans root Lua, Hoomans provider Python, real provider-worker acceptance, real Tk/Xvfb GUI, DynamicTrading, deterministic ConvoEngine audit, and Kahlua/static verification as distinct suites.
 
@@ -843,6 +843,8 @@ Mandatory suites may not silently disappear. Display-required tests run under Xv
 **Gate:** the accepted report represents the real harness surface, not only component/root smoke tests.
 
 ### S10C — feature-owned real GUI acceptance
+
+**Status:** ACTIVE (NEXT).
 
 Introduce one compact machine-readable Feature Acceptance Registry mapping supported public actions to surface, canonical operation/capability, provider applicability, mutation class and automated acceptance owner.
 

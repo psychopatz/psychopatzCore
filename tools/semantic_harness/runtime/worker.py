@@ -48,6 +48,15 @@ class LuaSemanticWorker:
                 request_timeout=kwargs.get("request_timeout", 5.0),
                 shutdown_timeout=kwargs.get("shutdown_timeout", 1.0),
             )
+        if kwargs.get("candidate_overlay_root") is not None:
+            overlay_root = Path(kwargs["candidate_overlay_root"]).resolve(strict=True)
+            if not overlay_root.is_dir():
+                raise ValueError("candidate overlay must be a directory")
+            config = replace(
+                config,
+                candidate_overlay_root=overlay_root,
+                candidate_overlay_module=kwargs.get("candidate_overlay_module"),
+            )
         for option in (
             "provider_roots",
             "mods",

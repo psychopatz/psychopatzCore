@@ -86,6 +86,7 @@ CLI_OPERATIONS = (
     "sweep_report",
     "sweep_replay",
     "variation_audit",
+    "acceptance",
     "input",
     "ping",
     "capabilities",
@@ -502,6 +503,43 @@ def cli(arguments: argparse.Namespace) -> int:
         if offline_report is not None:
             _print_result(offline_report, arguments.jsonl)
             return 0 if offline_report.get("ok") is True else 2
+        if getattr(arguments, "acceptance", False):
+            from tools.semantic_harness.testing.acceptance import (
+                REQUIRED_SUITES,
+                ensure_xvfb_for_suites,
+                print_acceptance_report,
+                run_acceptance_suites,
+                write_acceptance_report,
+            )
+
+            selected_suites = tuple(getattr(arguments, "acceptance_suite", None) or ()) or REQUIRED_SUITES
+            ensure_xvfb_for_suites(selected_suites)
+            acc_report = run_acceptance_suites(
+                core_repository=authoring_service.core_repository,
+                hoomans_repository=effective_repo_arg(arguments, "hoomans_repository"),
+                dynamic_trading_repository=effective_repo_arg(arguments, "dynamic_trading_repository"),
+                suites=selected_suites,
+                jobs=getattr(arguments, "acceptance_jobs", 2) or 2,
+                timeout=getattr(arguments, "acceptance_timeout", 300.0) or 300.0,
+                kahlua_game_root=(
+                    Path(arguments.acceptance_kahlua_root)
+                    if getattr(arguments, "acceptance_kahlua_root", None)
+                    else None
+                ),
+                allow_unrelated_baselines=bool(
+                    getattr(arguments, "allow_unrelated_baselines", False)
+                ),
+            )
+            if getattr(arguments, "acceptance_report", None):
+                write_acceptance_report(
+                    acc_report,
+                    Path(arguments.acceptance_report).expanduser(),
+                )
+            if arguments.jsonl:
+                _print_result(acc_report, True)
+            else:
+                print_acceptance_report(acc_report)
+            return 0 if acc_report.get("ok") else 1
         worker_kwargs = {
             "lua_bin": arguments.lua,
             "repository": Path(arguments.repository) if arguments.repository else None,
@@ -1425,8 +1463,15 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--input", action="append", default=[], help="chat input; repeatable")
     parser.add_argument("--ping", action="store_true")
     parser.add_argument("--capabilities", action="store_true")
+    parser.add_argument("--acceptance", action="store_true", help="run S10 unified multi-suite acceptance matrix")
+    parser.add_argument("--acceptance-suite", action="append", help="specific S10 suite to run (repeatable)")
+    parser.add_argument("--acceptance-jobs", type=int, default=2, help="parallel workers for --acceptance")
+    parser.add_argument("--acceptance-timeout", type=float, default=300.0, help="per-module timeout for --acceptance")
+    parser.add_argument("--acceptance-kahlua-root", help="installed PZ dir for kahlua_static suite")
+    parser.add_argument("--acceptance-report", help="write JSON acceptance report to path")
+    parser.add_argument("--allow-unrelated-baselines", action="store_true", help="allow classified non-Convo baselines in hoomans_lua")
     parser.add_argument("--timeout", type=float, default=5.0, help="per-request timeout in seconds")
-    parser.add_argument("--startup-timeout", type=float, default=8.0, help="worker startup timeout in seconds")
+    parser.add_argument("--startup-timeout", type=float, default=15.0, help="worker startup timeout in seconds")
     parser.add_argument("--shutdown-timeout", type=float, default=1.0, help="worker shutdown timeout in seconds")
     register_workspace_and_convo_subparsers(parser)
     return parser

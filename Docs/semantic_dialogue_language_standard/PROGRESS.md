@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN PROGRESS — S10A complete and committed across Core, ProjectHoomans, and DynamicTrading; S10B unified multi-suite acceptance orchestration is active.
-**Estimated developer progress:** S0-S9R retained, S10A complete, S10B-S10D remaining before developer-side acceptance closes.
+**Status:** IN PROGRESS — S10A and S10B complete and committed locally; S10C feature-owned real GUI acceptance and Feature Acceptance Registry are active.
+**Estimated developer progress:** S0-S9R retained, S10A-S10B complete, S10C-S10D remaining before developer-side acceptance closes.
 **Branch:** existing `main` in all three repositories.
 **Active phase:** S10 — Semantic Lab end-to-end reliability and feature acceptance.
-**Immediate Next Chunk:** S10B — catalog/repair any stale/broken provider tests in `ProjectHoomans/tools/providers/pnc/tests/` and wire the Core unified multi-suite acceptance runner reporting Core Python/Lua, ProjectHoomans root Lua (explicitly classifying the unrelated `pnc_population_director_smoke.lua` baseline), ProjectHoomans provider Python + real-worker + Tk/Xvfb GUI suites, DynamicTrading suite, `audit-s6m8 --check-determinism`, and Kahlua/static verification with zero unexplained skips.
+**Immediate Next Chunk:** S10C — implement `tools/semantic_harness/testing/feature_registry.json` + `feature_registry.py` mapping every supported public GUI/CLI/agent action, add real Tk/Xvfb GUI journeys in `ProjectHoomans/tools/providers/pnc/tests/test_s10c_gui_journeys.py`, and add the Core registry coverage gate test before continuing to S10D.
 
 ## Accepted baseline retained
 
@@ -78,11 +78,26 @@ S10 makes the harness reliable and maintainable when new features are introduced
 - provider start/request/restart/shutdown lifecycle matrices;
 - a zero-unexplained-skip policy for mandatory acceptance.
 
-## Current repository vector after S10A
+## Current repository vector after S10B
 
-    PsychopatzCore  <updating on S10A commit>
-    ProjectHoomans  fdee75424c93bd818b829ef82bb378a2b6343ebf
-    DynamicTrading  4dcaa177bc59118e82e1681c57b742318de6fd62
+    PsychopatzCore  <updating on S10B commit>
+    ProjectHoomans  5f8b5000e7bfbb26050ff77d63bbdd733e4c3dbe
+    DynamicTrading  9c8cb3dead56d66e32fccb901b9abd3dd6c2f393
+
+## S10B completed acceptance (2026-11-16)
+
+- Repaired/re-aligned the stale PNC provider Python test modules (`test_semantic_observatory_codebuilder_lineage`, `test_health_wording_authority`, `test_needs_wording_authority`, `test_wellbeing_wording_authority`, `test_social_apology_wording_authority`, `test_surface_consolidation`, `test_contextual_bond_catalog_runtime`, `test_pragmatic_interaction_compiler`, `test_world_knowledge_gui`, `test_semantic_lab_persona_workflow`, and save-backed Tk harnesses) and retired 12 obsolete dataset/compiler tests.
+- Full 198-module PNC provider Python suite verified under `xvfb-run`: `PASS 192, FAIL 0, SKIP 6, TOTAL 198` (only real-local-save unavailability skips).
+- Implemented `tools/semantic_harness/testing/acceptance.py` (`--acceptance` CLI mode) reporting all 9 required suites with explicit runtime skip classification (allowing only reviewed real-local-save unavailability) and automatic `xvfb-run` wrapping for display suites:
+  - `core_python`: 198/198 PASS
+  - `core_lua`: 36/36 PASS
+  - `dynamic_trading`: 89/89 PASS
+  - `convo_audit`: 1/1 PASS
+  - `kahlua_static`: 3/3 PASS (Core 67 + ProjectHoomans 317 + DynamicTrading 8 Lua files)
+  - `hoomans_provider_python`: 153/158 PASS (5 classified local-save skips, 0 failures)
+  - `real_provider_worker`: 495/504 PASS (9 classified local-save skips, 0 failures)
+  - `tk_xvfb_gui`: 139/150 PASS (11 classified local-save skips, 0 failures; `--startup-timeout` CLI default updated to `15.0`s and Tk Xvfb suite concurrency capped cleanly)
+  - `hoomans_lua`: 1024/1028 PASS (`convoSemanticFailed=0`, `convoScopeOk=True`; raw 4 unrelated failures: `tests/pnc_population_director_smoke.lua` baseline + 3 Debug Hub parallel P1 commit `20997b30` tests).
 
 ## S10A completed acceptance (2026-11-16)
 

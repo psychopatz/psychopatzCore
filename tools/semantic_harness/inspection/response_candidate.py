@@ -69,6 +69,60 @@ def _semantic_variant_metadata(variant):
     return metadata
 
 
+def _convo_engine_translation_asset(
+    repository: Path, language: str, key: str,
+) -> tuple[Path, str, dict[str, str]] | None:
+    """Resolve inline ConvoEngine dialogue wording and overlay via Conversation manifest."""
+    prefix = "conversation.content.semantic."
+    if not key.startswith(prefix):
+        return None
+    parts = key[len(prefix):].split(".")
+    if len(parts) < 3 or not parts[-1].isdigit():
+        return None
+    seq = int(parts[-1])
+    style = parts[-2]
+    family_id = ".".join(parts[:-2])
+    sources_root = (
+        repository / "tools/providers/pnc/codebuilder/sources/conversation/dialogue"
+    )
+    if not sources_root.is_dir():
+        return None
+    matches: list[tuple[Path, str]] = []
+    for src_path in sorted(sources_root.rglob("*.json")):
+        doc = json.loads(src_path.read_text(encoding="utf-8"))
+        if not isinstance(doc, dict):
+            continue
+        doc_family = ".".join(
+            part for part in (doc.get("namespace"), doc.get("id"))
+            if isinstance(part, str) and part
+        )
+        if doc_family != family_id:
+            continue
+        say = doc.get("say") if isinstance(doc.get("say"), dict) else {}
+        for variant in say.get("variants") or []:
+            if not isinstance(variant, dict) or variant.get("id") != style:
+                continue
+            text_map = variant.get("text") if isinstance(variant.get("text"), dict) else {}
+            lines = text_map.get(language)
+            if isinstance(lines, str) and seq == 1:
+                matches.append((src_path, lines))
+            elif isinstance(lines, list) and 1 <= seq <= len(lines):
+                item = lines[seq - 1]
+                if isinstance(item, str):
+                    matches.append((src_path, item))
+    if len(matches) != 1:
+        return None
+    src_path, baseline_text = matches[0]
+    relative = f"media/translation/{language}/Conversation/Semantic/Responses.json"
+    disk_path = repository / "Contents/mods/ProjectHoomans/common" / relative
+    merged = json.loads(disk_path.read_text(encoding="utf-8"))
+    if not isinstance(merged, dict):
+        return None
+    merged = dict(merged)
+    merged[key] = baseline_text
+    return src_path, relative, merged
+
+
 def _verified_translation_asset(
     repository: Path, language: str, key: str,
 ) -> tuple[Path, str, dict[str, str]]:
@@ -92,9 +146,13 @@ def _verified_translation_asset(
             raise ValueError("manifest translation asset is not an object")
         if key in data:
             found.append((path, "media/translation/" + relative, data))
-    if len(found) != 1:
-        raise ValueError("translation source absent or ambiguous in canonical manifest")
-    return found[0]
+    if len(found) == 1:
+        return found[0]
+    if not found:
+        convo_match = _convo_engine_translation_asset(repository, language, key)
+        if convo_match is not None:
+            return convo_match
+    raise ValueError("translation source absent or ambiguous in canonical manifest")
 
 
 def _real_case(
@@ -120,6 +178,7 @@ def _real_case(
         "accepted": turn.get("accepted"),
         "messages": [{
             "id": m.get("semanticTemplateID") or m.get("key"),
+            "variantID": m.get("semanticVariantID"),
             "translationKey": m.get("translationKey"),
             "text": m.get("text"),
         } for m in responses[-4:]],
@@ -179,13 +238,20 @@ def preview_authored_variant(
             conversation_model,
             "phrase." + template_id,
         )
-        if not isinstance(content_location, dict) or content_location.get("kind") != "content":
-            raise ValueError("selected variant has no canonical Conversation content owner")
-        content_source = (
+        convo_engine_root = (
             repository
-            / CONVERSATION_SOURCE_RELATIVE
-            / Path(content_location["sourceShard"])
-        ).resolve(strict=True)
+            / "Contents/mods/ProjectHoomans/42.20/media/lua/shared/PNC/ConvoEngine"
+        ).resolve()
+        if isinstance(content_location, dict) and content_location.get("kind") == "content":
+            content_source = (
+                repository
+                / CONVERSATION_SOURCE_RELATIVE
+                / Path(content_location["sourceShard"])
+            ).resolve(strict=True)
+        elif template_id and owner_source.is_relative_to(convo_engine_root):
+            content_source = owner_source
+        else:
+            raise ValueError("selected variant has no canonical Conversation content owner")
         original_bytes = content_source.read_bytes()
         original_hash = _sha256(original_bytes)
         expected_source_hash = proposal.get("expectedSourceSHA256")
@@ -209,8 +275,10 @@ def preview_authored_variant(
         scenario = merge(DEFAULT_SCENARIO, overrides)
         scenario.setdefault("runtime", {})["language"] = language
         observed = _real_case(scenario, utterance)
+        target_ids = {variant_id} | ({template_id} if template_id else set())
         selection = [
-            m for m in observed["messages"] if m["id"] == variant_id
+            m for m in observed["messages"]
+            if m.get("id") in target_ids
         ]
         if len(selection) != 1 or not isinstance(
             selection[0]["translationKey"], str
@@ -232,8 +300,10 @@ def preview_authored_variant(
         overlay = Path(dirname)
         translation_diff: list[dict[str, str]] = []
         for language, _scenario, observed, relative in cases:
-            key = next(m["translationKey"] for m in observed["messages"]
-                       if m["id"] == variant_id)
+            key = next(
+                m["translationKey"] for m in observed["messages"]
+                if m.get("id") in target_ids
+            )
             src, confirmed, data = _verified_translation_asset(
                 repository, language, key)
             if relative != confirmed:
@@ -272,6 +342,7 @@ def preview_authored_variant(
                 "accepted": candidate_turn.get("accepted"),
                 "messages": [{
                     "id": m.get("semanticTemplateID") or m.get("key"),
+                    "variantID": m.get("semanticVariantID"),
                     "translationKey": m.get("translationKey"),
                     "text": m.get("text"),
                 } for m in candidate_messages[-4:]],
@@ -289,10 +360,14 @@ def preview_authored_variant(
             if base_variant != new_variant:
                 raise ValueError("candidate unexpectedly changed variant metadata")
             expected_new = proposed_translations[language]
-            before_text = [m["text"] for m in baseline["messages"]
-                           if m["id"] == variant_id]
-            after_text = [m["text"] for m in candidate["messages"]
-                          if m["id"] == variant_id]
+            before_text = [
+                m["text"] for m in baseline["messages"]
+                if m.get("id") in target_ids
+            ]
+            after_text = [
+                m["text"] for m in candidate["messages"]
+                if m.get("id") in target_ids
+            ]
             if (len(after_text) != 1 or after_text[0] != expected_new
                     or before_text == after_text):
                 raise ValueError("real-Lua candidate did not change target translation")

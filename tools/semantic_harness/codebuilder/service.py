@@ -1217,8 +1217,26 @@ class SemanticLabAuthoringService:
         )
         return f"{conversation_prefix(owner)}/{suffix}"
 
-    def _content_source_path(self, source_shard: str) -> Path:
-        return self.repository / CONVERSATION_SOURCE_RELATIVE / Path(source_shard)
+    def _content_source_path(
+        self,
+        source_shard: str,
+        model: dict[str, Any] | None = None,
+    ) -> Path:
+        if isinstance(model, dict):
+            for report in model.get("shards", []):
+                if report.get("path") == source_shard and isinstance(report.get("sourcePath"), str):
+                    return Path(str(report["sourcePath"]))
+        relative = CONVERSATION_SOURCE_RELATIVE / Path(source_shard)
+        candidates = [
+            self.repository / relative,
+            self.core_repository / relative,
+        ]
+        for repo in self.package_repositories.values():
+            candidates.append(repo / relative)
+        for candidate in candidates:
+            if candidate.exists():
+                return candidate
+        return self.repository / relative
 
     @staticmethod
     def _dehydrate_content_shard(document: dict[str, Any]) -> dict[str, Any]:
@@ -1809,7 +1827,15 @@ class SemanticLabAuthoringService:
         model: dict[str, Any],
         record_id: str,
     ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]] | None:
-        location = conversation_record(model, str(record_id))
+        target_id = str(record_id)
+        location = conversation_record(model, target_id)
+        if location is None and "." not in target_id:
+            for prefix in ("behavior", "beat"):
+                candidate = conversation_record(model, f"{prefix}.{target_id}")
+                if isinstance(candidate, dict) and candidate.get("kind") == prefix:
+                    target_id = f"{prefix}.{target_id}"
+                    location = candidate
+                    break
         if not isinstance(location, dict) or location.get("kind") not in {
             "beat", "behavior"
         }:
@@ -1818,9 +1844,17 @@ class SemanticLabAuthoringService:
         document = model.get("_source_documents", {}).get(source_shard)
         if not isinstance(document, dict):
             return None
+        if document.get("schema") == CONVO_ENGINE_SCHEMA or (
+            isinstance(document.get("id"), str)
+            and self._interaction_collection(str(location["kind"])) not in document
+        ):
+            doc_id = str(document.get("id") or "")
+            namespace = str(document.get("namespace") or location.get("kind") or "")
+            if target_id in {doc_id, f"{namespace}.{doc_id}"}:
+                return document, document, location
         collection = self._interaction_collection(str(location["kind"]))
         for record in document.get(collection, []):
-            if isinstance(record, dict) and record.get("id") == record_id:
+            if isinstance(record, dict) and record.get("id") == target_id:
                 return record, document, location
         return None
 
@@ -1837,7 +1871,7 @@ class SemanticLabAuthoringService:
             **json.loads(json.dumps(record, ensure_ascii=False)),
             "kind": location["kind"],
             "sourceShard": source_shard,
-            "sourcePath": str(self._content_source_path(source_shard)),
+            "sourcePath": str(self._content_source_path(source_shard, model)),
             "sourceFingerprint": report["fingerprint"],
             "verifiedOwner": "CodeBuilder → Conversation Registry",
         }
@@ -1852,13 +1886,18 @@ class SemanticLabAuthoringService:
         """Merge worker structural fields while keeping canonical translations."""
         if not isinstance(edited, dict):
             raise CompileError("interaction definition edit must be an object")
-        if str(edited.get("id") or "") != str(current.get("id") or ""):
+        current_id = str(current.get("id") or "")
+        edited_id = str(edited.get("id") or "")
+        accepted_ids = {current_id}
+        if isinstance(current.get("namespace"), str) and current.get("namespace"):
+            accepted_ids.add(f"{current['namespace']}.{current_id}")
+        if edited_id not in accepted_ids:
             raise CompileError("canonical interaction record id is locked")
         allowed = {
             "beat": {
                 "id", "version", "owner", "group", "baseRelevance",
                 "entry", "maintain", "exit", "candidates",
-                "cooldownTurns", "maxTurns",
+                "cooldownTurns", "maxTurns", "stimuli",
             },
             "behavior": {
                 "id", "version", "owner", "act", "mode", "stimuli",
@@ -1868,6 +1907,8 @@ class SemanticLabAuthoringService:
         }[kind]
         output = json.loads(json.dumps(current, ensure_ascii=False))
         for key in allowed:
+            if key == "id":
+                continue
             if key in edited:
                 output[key] = json.loads(
                     json.dumps(edited[key], ensure_ascii=False)
@@ -1942,21 +1983,47 @@ class SemanticLabAuthoringService:
             }
         updated_shard = json.loads(json.dumps(source_document, ensure_ascii=False))
         collection = self._interaction_collection(kind)
+        is_single_record = (
+            updated_shard.get("schema") == CONVO_ENGINE_SCHEMA
+            or (
+                isinstance(updated_shard.get("id"), str)
+                and collection not in updated_shard
+            )
+        )
         found = False
-        for index, record in enumerate(updated_shard.get(collection, [])):
-            if isinstance(record, dict) and record.get("id") == record_id:
-                updated_shard[collection][index] = canonical
-                found = True
-                break
+        if is_single_record:
+            updated_shard = canonical
+            found = True
+        else:
+            for index, record in enumerate(updated_shard.get(collection, [])):
+                if isinstance(record, dict) and record.get("id") == record_id:
+                    updated_shard[collection][index] = canonical
+                    found = True
+                    break
         if not found:
             raise CompileError(f"interaction record vanished from {source_shard}")
 
+        live_source_path = self._content_source_path(source_shard, model)
         with tempfile.TemporaryDirectory() as directory:
             candidate_repo = Path(directory)
-            source_root = self.repository / CONVERSATION_SOURCE_RELATIVE
+            source_owner = str(
+                shard_report.get("sourceOwner")
+                or shard_report.get("owner")
+                or CORE_OWNER
+            )
+            owning_repo = (
+                self.package_repositories.get(source_owner)
+                or self.core_repository
+            )
+            source_root = owning_repo / CONVERSATION_SOURCE_RELATIVE
+            if not source_root.is_dir():
+                source_root = self.core_repository / CONVERSATION_SOURCE_RELATIVE
+                owning_repo = self.core_repository
+                source_owner = CORE_OWNER
             candidate_root = candidate_repo / CONVERSATION_SOURCE_RELATIVE
             shutil.copytree(source_root, candidate_root)
             candidate_path = candidate_root / source_shard
+            candidate_path.parent.mkdir(parents=True, exist_ok=True)
             candidate_path.write_text(
                 json.dumps(
                     updated_shard,
@@ -1967,11 +2034,16 @@ class SemanticLabAuthoringService:
                 encoding="utf-8",
                 newline="\n",
             )
+            candidate_packages = dict(self.package_repositories)
+            candidate_packages[source_owner] = candidate_repo
+            compile_root = (
+                candidate_repo if self.repository == owning_repo else self.repository
+            )
             try:
                 candidate_model = compile_conversation_sources(
-                    candidate_repo,
+                    compile_root,
                     runtime_root=self.runtime_root,
-                    package_repositories=self.package_repositories,
+                    package_repositories=candidate_packages,
                 )
             except (OSError, ValueError, TypeError, CompileError) as error:
                 return None, {
@@ -1994,7 +2066,7 @@ class SemanticLabAuthoringService:
             "recordID": record_id,
             "kind": kind,
             "sourceShard": source_shard,
-            "sourcePath": str(self._content_source_path(source_shard)),
+            "sourcePath": str(live_source_path),
             "sourceFingerprint": actual_fingerprint,
             "current": json.loads(json.dumps(current, ensure_ascii=False)),
             "candidate": canonical,
