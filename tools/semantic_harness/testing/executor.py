@@ -80,6 +80,7 @@ def execute_case(
     ledger = ConflictLedger()
 
     worker: Any | None = None
+    last_record: dict[str, Any] | None = None
     pending_languages: list[str] = []
     runtime_lang = case.scenario.get("runtime", {}).get("language")
     if runtime_lang:
@@ -131,7 +132,24 @@ def execute_case(
                     raise ValueError(f"conversation root choice '{root_choice}' unavailable")
                 record = active_worker.suggestion_click(matched[0]["frame"])
             elif suggestion_frame:
-                record = _get_worker().suggestion_click(suggestion_frame)
+                resolved_frame = suggestion_frame
+                if "candidateID" in suggestion_frame or "permittedAction" in suggestion_frame:
+                    suggestions = ((last_record or {}).get("observation") or {}).get("suggestions") or {}
+                    if "candidateID" in suggestion_frame:
+                        cid = suggestion_frame["candidateID"]
+                        pool = suggestions.get("candidates") or []
+                        matched = [r for r in pool if isinstance(r, dict) and r.get("id") == cid]
+                        if len(matched) != 1 or not isinstance(matched[0].get("frame"), dict):
+                            raise ValueError(f"suggestion candidate '{cid}' unavailable in previous turn")
+                        resolved_frame = matched[0]["frame"]
+                    else:
+                        act = suggestion_frame["permittedAction"]
+                        pool = suggestions.get("permittedCapabilities") or []
+                        matched = [r for r in pool if isinstance(r, dict) and r.get("action") == act]
+                        if len(matched) != 1 or not isinstance(matched[0].get("frame"), dict):
+                            raise ValueError(f"permitted action '{act}' unavailable in previous turn")
+                        resolved_frame = matched[0]["frame"]
+                record = _get_worker().suggestion_click(resolved_frame)
             elif action_kind is not None:
                 spec = get_operation_spec(action_kind)
                 if spec.authority == "compiler":
@@ -144,6 +162,7 @@ def execute_case(
                 raise ValueError(f"Turn {index} has unsupported action structure: {turn_spec}")
 
             turn_elapsed = time.monotonic() - turn_start
+            last_record = record
 
             # Track streaming conflicts
             ledger.add(record)
