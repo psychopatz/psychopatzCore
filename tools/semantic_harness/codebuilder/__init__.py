@@ -90,6 +90,19 @@ from .convo_engine_ownership_inventory import (
     build_ownership_inventory,
     map_generated_convo_engine_module,
 )
+from .generation_recipe import (
+    DEFAULT_RECIPE_PATH,
+    DESIRED_LEDGER_SCHEMA,
+    DesiredArtifactLedger,
+    DesiredArtifactRow,
+    GENERATION_RECIPE_SCHEMA,
+    GenerationRecipe,
+    RetiredEntry,
+    SurfaceRecipe,
+    build_desired_artifact_ledger,
+    load_generation_recipe,
+    validate_generation_recipe,
+)
 from .psdl_compiler import (
     CONVO_ENGINE_COMPILED_SCHEMA,
     PSDL_COMPILED_SCHEMA,

@@ -933,16 +933,22 @@ def conversation_translation_catalogs_by_owner(
             add(owner, language, domain, choice.get("labelKey"), values.get(choice.get("labelKey")))
             add(owner, language, domain, choice.get("choiceKey"), values.get(choice.get("choiceKey")))
 
+    def ui_record_owner(canonical_id: str) -> str:
+        ui_record = (model.get("uiLocations") or {}).get(str(canonical_id))
+        if isinstance(ui_record, dict) and ui_record.get("owner") is not None:
+            return normalize_owner(ui_record.get("owner"), default=default_owner)
+        return record_owner(canonical_id)
+
     ui_key_owners: dict[str, str] = {}
     for suggestion in model.get("ui", []):
-        owner = record_owner(str(suggestion.get("id") or ""))
+        owner = ui_record_owner(str(suggestion.get("id") or ""))
         for key in (suggestion.get("labelKey"), suggestion.get("utteranceKey")):
             if isinstance(key, str):
                 ui_key_owners[key] = owner
     for text in model.get("uiTexts", []):
         key = text.get("key")
         if isinstance(key, str):
-            ui_key_owners[key] = record_owner(str(text.get("id") or ""))
+            ui_key_owners[key] = ui_record_owner(str(text.get("id") or ""))
     for language in languages:
         for key, value in model.get("uiTranslations", {}).get(language, {}).items():
             owner = ui_key_owners.get(key, registry_owner)

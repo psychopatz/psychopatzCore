@@ -1,0 +1,108 @@
+{
+  "schema": "psychopatz.semantic-generation-recipe.v1",
+  "version": 1,
+  "canonicalCli": {
+    "check": "python3 tools/semantic_harness/codebuilder/reconcile.py --recipe tools/semantic_harness/codebuilder/generation_recipe.json --check",
+    "apply": "python3 tools/semantic_harness/codebuilder/reconcile.py --recipe tools/semantic_harness/codebuilder/generation_recipe.json --apply"
+  },
+  "surfaces": [
+    {
+      "id": "conversation_lua",
+      "generator": "conversation",
+      "owners": [
+        "PsychopatzCore",
+        "ProjectHoomans",
+        "DTCommon"
+      ],
+      "policy": "owned_fileset",
+      "generatedMarker": "-- Generated",
+      "preserved": {
+        "PsychopatzCore": [
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/ActionContract.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/Affordance.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueFlow.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueRouter.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueState.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueState_Events.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueState_References.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/DialogueTurn.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/Foundation.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/Offer.lua",
+          "Contents/mods/PsychopatzCore/common/media/lua/shared/PsychopatzCore/ConvoEngine/TextBinding.lua"
+        ],
+        "ProjectHoomans": [
+          "Contents/mods/ProjectHoomans/common/media/lua/shared/PNC/ConvoEngine/DialogueBlocks.lua"
+        ],
+        "DTCommon": []
+      }
+    },
+    {
+      "id": "conversation_translations",
+      "generator": "conversation",
+      "owners": [
+        "PsychopatzCore",
+        "ProjectHoomans",
+        "DTCommon"
+      ],
+      "policy": "owned_fileset",
+      "preserved": {
+        "PsychopatzCore": [],
+        "ProjectHoomans": [
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Flows.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Flows.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Identity/Responses.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Identity/Responses.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Journal/Events.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Journal/Events.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/PBrainZ/Interface.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/PBrainZ/Interface.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Patterns.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Patterns.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Addressing.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Addressing.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Availability.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Availability.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Realizations.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Realizations.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Responses.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Responses.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Telemetry/Diagnostics.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Telemetry/Diagnostics.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/WorldEvents/Events.json",
+          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/WorldEvents/Events.json"
+        ],
+        "DTCommon": []
+      }
+    },
+    {
+      "id": "conversation_ui",
+      "generator": "conversation",
+      "owners": [
+        "PsychopatzCore",
+        "ProjectHoomans",
+        "DTCommon"
+      ],
+      "policy": "mixed_key_catalog"
+    },
+    {
+      "id": "conversation_text",
+      "generator": "conversation_text",
+      "owners": [
+        "PsychopatzCore",
+        "ProjectHoomans",
+        "DTCommon"
+      ],
+      "policy": "owned_fileset"
+    },
+    {
+      "id": "lexicon_lua",
+      "generator": "lexicon",
+      "owners": [
+        "PsychopatzCore"
+      ],
+      "policy": "owned_fileset",
+      "generatedMarker": "-- Generated"
+    }
+  ],
+  "retired": []
+}

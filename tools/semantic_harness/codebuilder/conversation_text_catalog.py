@@ -94,18 +94,29 @@ def _load_catalogs(manifest_path: Path) -> list[dict[str, Any]]:
     return catalogs
 
 
-def write_runtime_text_catalogs(
+def plan_runtime_text_catalogs(
     manifest_path: str | Path,
-    runtime_translation_root: str | Path,
     *,
     owner: str | None = None,
-) -> list[Path]:
-    """Render selected owners' focused dialogue catalogs into flat runtime JSON."""
+) -> tuple[dict[tuple[str, str], dict[str, str]], dict[str, tuple[str, ...]]]:
+    """Return planned (language, relative_output_path) -> key_map and source lineage without disk writes."""
+    resolved_manifest = Path(manifest_path).expanduser().resolve()
+    catalogs = _load_catalogs(resolved_manifest)
+    manifest_doc = _load_object(resolved_manifest)
+    source_path_by_catalog: dict[str, str] = {}
+    for declaration in manifest_doc.get("sources") or []:
+        if not isinstance(declaration, dict):
+            continue
+        rel = _relative_path(declaration.get("path"), field="sources[].path")
+        src_path = resolved_manifest.parent / Path(*PurePosixPath(rel).parts)
+        src_doc = _load_object(src_path)
+        for cat in src_doc.get("catalogs") or []:
+            if isinstance(cat, dict) and isinstance(cat.get("catalogId"), str):
+                source_path_by_catalog[cat["catalogId"]] = f"text/{rel}"
 
-    catalogs = _load_catalogs(Path(manifest_path).expanduser().resolve())
-    runtime_root = Path(runtime_translation_root).expanduser().resolve()
     grouped: dict[str, list[dict[str, Any]]] = {}
     keys_by_output: dict[str, set[str]] = {}
+    lineage_by_output: dict[str, list[str]] = {}
     for catalog in catalogs:
         if owner is not None and catalog.get("owner") != owner:
             continue
@@ -121,6 +132,9 @@ def write_runtime_text_catalogs(
             catalog.get("target"), catalog_id=catalog["catalogId"]
         )
         grouped.setdefault(relative_output_path, []).append(catalog)
+        src_rel = source_path_by_catalog.get(str(catalog["catalogId"]), "text/manifest.json")
+        if src_rel not in lineage_by_output.setdefault(relative_output_path, []):
+            lineage_by_output[relative_output_path].append(src_rel)
         seen_keys = keys_by_output.setdefault(relative_output_path, set())
         for item in entries:
             if not isinstance(item, dict):
@@ -141,7 +155,37 @@ def write_runtime_text_catalogs(
                     raise ValueError(f"missing {language} text for Conversation text key: {key}")
             seen_keys.add(key)
 
-    desired_outputs = set(grouped)
+    planned: dict[tuple[str, str], dict[str, str]] = {}
+    for language in LOCALES:
+        for relative_output_path in sorted(grouped):
+            values: dict[str, str] = {}
+            for catalog in grouped[relative_output_path]:
+                for item in catalog["entries"]:
+                    key = item["key"]
+                    localized = item["text"][language]
+                    values[key] = localized
+            planned[(language, relative_output_path)] = values
+
+    normalized_lineage = {
+        rel_out: tuple(sorted(sources))
+        for rel_out, sources in sorted(lineage_by_output.items())
+    }
+    return planned, normalized_lineage
+
+
+def write_runtime_text_catalogs(
+    manifest_path: str | Path,
+    runtime_translation_root: str | Path,
+    *,
+    owner: str | None = None,
+    extra_desired_outputs: set[str] | None = None,
+) -> list[Path]:
+    """Render selected owners' focused dialogue catalogs into flat runtime JSON."""
+    planned, _lineage = plan_runtime_text_catalogs(manifest_path, owner=owner)
+    runtime_root = Path(runtime_translation_root).expanduser().resolve()
+    desired_outputs = {rel_out for (_lang, rel_out) in planned}
+    if extra_desired_outputs:
+        desired_outputs |= set(extra_desired_outputs)
     for language in LOCALES:
         language_root = runtime_root / language
         text_root = language_root / "Conversation" / "Text"
@@ -159,19 +203,12 @@ def write_runtime_text_catalogs(
                     pass
 
     rendered_paths: list[Path] = []
-    for language in LOCALES:
-        for relative_output_path in sorted(grouped):
-            values: dict[str, str] = {}
-            for catalog in grouped[relative_output_path]:
-                for item in catalog["entries"]:
-                    key = item["key"]
-                    localized = item["text"][language]
-                    values[key] = localized
-            path = runtime_root / language / Path(*PurePosixPath(relative_output_path).parts)
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_text(
-                json.dumps(values, ensure_ascii=False, indent=2) + "\n",
-                encoding="utf-8",
-            )
-            rendered_paths.append(path)
+    for (language, relative_output_path), values in sorted(planned.items()):
+        path = runtime_root / language / Path(*PurePosixPath(relative_output_path).parts)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(
+            json.dumps(values, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        rendered_paths.append(path)
     return rendered_paths
