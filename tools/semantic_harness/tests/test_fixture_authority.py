@@ -21,9 +21,12 @@ from tools.semantic_harness.testing.resolver import (
     resolve_fixture_roots,
 )
 from tools.semantic_harness.ui.regression_controller import (
+    cancel_semantic_fixtures,
+    discover_semantic_fixture_domains,
     run_regression_command_rejections,
     run_regression_lifecycle,
     run_regression_selection,
+    run_semantic_fixtures,
 )
 
 
@@ -254,6 +257,69 @@ class FixtureAuthorityTests(unittest.TestCase):
         self.assertTrue(rows and rows[0]["ok"], rows)
         self.assertEqual(rows[0]["passed"], 1)
         self.assertEqual(rows[0]["total"], 1)
+
+    def test_gui_semantic_fixture_domain_discovery_filter_run_and_cancel(self) -> None:
+        from tools.semantic_harness.runtime.config import HarnessConfig
+
+        class _FakeVar:
+            def __init__(self, value: str = "") -> None:
+                self._value = value
+
+            def get(self) -> str:
+                return self._value
+
+            def set(self, value: str) -> None:
+                self._value = value
+
+        class _FakeApp:
+            def __init__(self) -> None:
+                self.session = SimpleNamespace(ready=True)
+                self.busy = False
+                self.arguments = SimpleNamespace(
+                    repository=str(HOOMANS_ROOT),
+                    core_repository=str(CORE_ROOT),
+                    dynamic_trading_repository=None,
+                    mods=None,
+                    preset=None,
+                    profile="pnc",
+                    provider_root=(),
+                )
+                self.selection_active = {}
+                self.authoring_service = None
+                self.regression_status_var = _FakeVar()
+                self.regression_output = object()
+                self.fixture_domain_var = _FakeVar("compiler")
+                self.fixture_semantic_id_var = _FakeVar("beat.argument_escalation")
+                self.fixture_domain_combo: dict[str, Any] = {}
+                self.trace_tabs = SimpleNamespace(select=lambda _w: None)
+                self.compare_tabs = SimpleNamespace(select=lambda _w: None)
+                self.compare_frame = object()
+                self.regression_frame = object()
+                self.rendered_text = ""
+
+            def _set_text(self, _widget: Any, text: str) -> None:
+                self.rendered_text = text
+
+            def _start_operation(self, operation: Any, finish: Any) -> None:
+                cfg = HarnessConfig.discover(
+                    repository=HOOMANS_ROOT,
+                    core_repository=CORE_ROOT,
+                )
+                worker = SimpleNamespace(config=cfg)
+                finish(operation(worker))
+
+        app = _FakeApp()
+        counts = discover_semantic_fixture_domains(app)
+        self.assertIn("compiler", counts)
+        self.assertIn("beats", counts)
+        self.assertIn("compiler", app.fixture_domain_combo["values"])
+
+        run_semantic_fixtures(app)
+        self.assertIn("PASS=1 FAIL=0 TOTAL=1", app.rendered_text)
+        self.assertIn("compiler.beat_argument_escalation_linkage", app.rendered_text)
+
+        cancel_semantic_fixtures(app)
+        self.assertTrue(app._fixture_cancel_requested)
 
 
 if __name__ == "__main__":
