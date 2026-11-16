@@ -9,7 +9,7 @@ Registry.REGISTRY_MODULE = "PsychopatzCore/ConvoEngine/FoundationRegistry"
 Registry.SCHEMA = "pnc.conversation.model.v1"
 Registry.VERSION = 1
 Registry.CONTENT_FINGERPRINT = "0c0dd14df241eb4b742a95ede0729f2131a3ac66d66cb1497ea50aff9d9e9e39"
-Registry.WHOLE_MODEL_FINGERPRINT = "378c3e2c710385fdd0d7566e54615724754d13e78313864e68c9e818bc6ebc72"
+Registry.WHOLE_MODEL_FINGERPRINT = "619b21e895b85f6c0994bcee8bc18afc81222fa2595fe31ad982942f4f0d6011"
 Registry.PHRASE_FAMILIES = {}
 Registry.PLAYER_CHOICES = {}
 Registry.PATTERNS = {}
@@ -109,7 +109,7 @@ appendConvoPlans(require "PsychopatzCore/ConvoEngine/Behavior/Social")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreCheckIn")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreIdentity")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeActivity")
-appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeFacts")
+appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeFacts__d73c98cf")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeGossip")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreKnowledgeIdentity")
 appendConvoPlans(require "PsychopatzCore/ConvoEngine/Dialogue/CoreTextMemoryGossipCo__d405232f")

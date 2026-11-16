@@ -39,6 +39,8 @@
   "UI_PsychopatzConversation_Choice_ShowDebugText": "Ipakita ang Debug Text",
   "UI_PsychopatzConversation_Choice_ViewDossier": "Tingnan ang dossier",
   "UI_PsychopatzConversation_Context_Talk": "Mag-usap",
+  "UI_PsychopatzConversation_DebugToolDescription": "I-configure ang presentation ng conversation at diagnostic control.",
+  "UI_PsychopatzConversation_DebugToolTitle": "Mga Setting ng Conversation",
   "UI_PsychopatzConversation_Debugger_Button_ApprovalDown": "Pag-apruba -5",
   "UI_PsychopatzConversation_Debugger_Button_ApprovalUp": "Pag-apruba +5",
   "UI_PsychopatzConversation_Debugger_Button_Audience": "Target na tagapakinig: {audience}",
@@ -114,9 +116,6 @@
   "UI_PsychopatzConversation_Debugger_Status_Unknown": "Unknown",
   "UI_PsychopatzConversation_Debugger_Status_Valid": "valid",
   "UI_PsychopatzConversation_Debugger_Status_Yes": "Yes",
-  "UI_PsychopatzConversation_SettingsTitle": "Mga Setting ng Conversation",
-  "UI_PsychopatzConversation_DebugToolTitle": "Mga Setting ng Conversation",
-  "UI_PsychopatzConversation_DebugToolDescription": "I-configure ang presentation ng conversation at diagnostic control.",
   "UI_PsychopatzConversation_Debugger_Title": "INSPEKTOR NG CONVERSATION GRAPH",
   "UI_PsychopatzConversation_Goodbye": "Paalam.",
   "UI_PsychopatzConversation_Identity_Stranger": "estranghero",
@@ -134,6 +133,7 @@
   "UI_PsychopatzConversation_Panel_CurrentRelationEdit": "Kasalukuyang relasyon",
   "UI_PsychopatzConversation_Panel_LLMInlineInput": "KAusapin mo",
   "UI_PsychopatzConversation_Panel_LLMInput": "TYPE TO talk",
+  "UI_PsychopatzConversation_SettingsTitle": "Mga Setting ng Conversation",
   "UI_PsychopatzConversation_Status_BlockUnavailable": "Ang paksang iyon ay hindi available sa ngayon ({reason}).",
   "UI_PsychopatzConversation_Status_ChoiceRejected": "Tinanggihan ang pagpipiliang iyon ({reason})."
 }
