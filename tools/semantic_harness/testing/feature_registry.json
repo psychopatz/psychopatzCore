@@ -335,7 +335,10 @@
       "requiresRealGui": true,
       "acceptanceOwners": [
         "ProjectHoomans:tools.providers.pnc.tests.test_s10a_label_speech_realization:S10ALabelSpeechTkJourneyTests.test_tk_open_conversation_identity_exchange_click_and_restart_repeat",
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery",
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10d_provider_lifecycle:S10DProviderLifecycleTests.test_manifest_preset_discovery_and_lifecycle_matrix",
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10d_provider_lifecycle:S10DProviderLifecycleTests.test_worker_session_reconfigure_cross_provider_transition_and_repeat",
+        "PsychopatzCore:tools.semantic_harness.tests.test_s10d_provider_lifecycle:S10DProviderLifecycleTests.test_repeated_start_restart_and_configure_leaves_zero_catalog_or_source_drift"
       ]
     },
     {

@@ -1,10 +1,10 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** IN PROGRESS — S10A, S10B, and S10C complete and committed locally; S10D provider lifecycle/restart matrix, maintainability, and final closure are active.
-**Estimated developer progress:** S0-S9R retained, S10A-S10C complete, S10D remaining before developer-side acceptance closes.
+**Status:** USER_ACCEPTANCE — S0-S9R retained and S10A-S10D developer-side gates complete; only native Project Zomboid in-game user acceptance remains.
+**Estimated developer progress:** S0-S9R + S10A-S10D complete (developer side).
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S10 — Semantic Lab end-to-end reliability and feature acceptance.
-**Immediate Next Chunk:** S10D — add provider start/capabilities/request/restart/reconfigure/shutdown matrix & repeated-restart drift tests across all manifest selections (`pnc`, `dtabstract`, `pnc-with-dthoomans`) + Core worker, document the `--acceptance` workflow in `AGENT_RUNBOOK.md`, run the complete 9-suite post-edit acceptance verification, and close S10 to `USER_ACCEPTANCE`.
+**Active phase:** S10 — Semantic Lab end-to-end reliability and maintainability (developer-side COMPLETE).
+**Immediate Next Chunk:** User-owned native Project Zomboid gameplay, UI/visual feel, and live dialogue pacing validation.
 
 ## Accepted baseline retained
 
@@ -78,11 +78,26 @@ S10 makes the harness reliable and maintainable when new features are introduced
 - provider start/request/restart/shutdown lifecycle matrices;
 - a zero-unexplained-skip policy for mandatory acceptance.
 
-## Current repository vector after S10C
+## Current repository vector at S10D close
 
-    PsychopatzCore  <updating on S10C commit>
-    ProjectHoomans  f16f2b93ffa2849cfe68242dad24cdd24060029a
-    DynamicTrading  9c8cb3dead56d66e32fccb901b9abd3dd6c2f393
+    PsychopatzCore  <updating on S10D commit> (parent dfcf9f6e73ef50fc6c69da3bdf2aa4a5e5c61680)
+    ProjectHoomans  9778522ffe1976f71d0d1c2efa1f5fb6d741070e (includes S10C commit f16f2b93ffa2849cfe68242dad24cdd24060029a)
+    DynamicTrading  9c8cb3dead56d66e32fccb901b9abd3dd6c2f393 (includes S10A commit 4dcaa177)
+
+## S10D completed acceptance (2026-11-16)
+
+- Added `tools/semantic_harness/tests/test_s10d_provider_lifecycle.py` (`3/3` PASS in `28.98s`), verifying manifest preset discovery, `start -> capabilities -> ping -> input -> restart -> capabilities -> ping -> input -> shutdown` across all supported selections (`pnc`, `dtabstract`, `pnc-with-dthoomans`), live `WorkerSession.reconfigure(...)` transitions (`pnc -> dtabstract -> pnc-with-dthoomans -> pnc -> dtabstract -> pnc`), `configure` + `reset_working_world` + 3x repeated restart stability with invariant `flowCount`/`poolCount`/`beatCount` and flow IDs, and 2x standalone Core worker (`tools/semantic_harness/lua/worker.lua`) restart parity.
+- Mapped S10D lifecycle acceptance owners into `tools/semantic_harness/testing/feature_registry.json`, routed `test_s10d_provider_lifecycle` through `RESOURCE_SENSITIVE_MODULES` in `python_runner.py`, and documented the one-command `--acceptance` CLI and unit verification workflow in `AGENT_RUNBOOK.md`.
+- Post-edit acceptance verification across all 9 suites:
+  - `core_python`: `203/203` PASS (`fail=0`, `skip=0`, `46.66s`) — includes `test_feature_registry` (`2/2`), `test_acceptance_runner` (`6/6`), `test_convo_engine_s9r_closure` (`4/4`)
+  - `core_lua`: `36/36` PASS (`fail=0`, `skip=0`, `0.24s`)
+  - `hoomans_provider_python`: `153/158` PASS (`fail=0`, `skip=5`, `allowed=5`, `92.15s`)
+  - `real_provider_worker`: `495/504` PASS (`fail=0`, `skip=9`, `allowed=9`, `717.40s` on post-edit rerun after transient `0.3057s` vs `0.25s` latency spike in `test_contextual_scale_isolation`)
+  - `tk_xvfb_gui`: `143/154` PASS (`fail=0`, `skip=11`, `allowed=11`, `692.06s`)
+  - `dynamic_trading`: `89/89` PASS (`fail=0`, `skip=0`, `0.59s`)
+  - `convo_audit`: `1/1` PASS (`fail=0`, `skip=0`, `5.37s`)
+  - `kahlua_static`: `3/3` PASS (`fail=0`, `skip=0`, `4.75s`)
+  - `hoomans_lua`: `1025/1029` PASS (`fail=4`, `skip=0`, `14.38s`; all 4 failures have `convoSemantic=false`: baseline `tests/pnc_population_director_smoke.lua` + 3 unrelated DebugHub/translation suites)
 
 ## S10C completed acceptance (2026-11-16)
 

@@ -326,6 +326,28 @@ path.
 S10 acceptance reruns the retained S9/S9R matrix plus all mandatory provider and
 real-GUI gates defined in `SEMANTIC_HARNESS_RELIABILITY.md`.
 
+### One-command S10 acceptance workflow
+
+Run all 9 mandatory developer acceptance suites from `psychopatzCore`:
+
+```bash
+PYTHONPATH=. python3 -m tools.semantic_harness --acceptance --acceptance-jobs 4 \
+  --acceptance-report /path/to/s10_acceptance.json
+```
+
+Focus specific suites with `--acceptance-suite <suite>` (`core_python`, `core_lua`,
+`hoomans_lua`, `hoomans_provider_python`, `real_provider_worker`, `tk_xvfb_gui`,
+`dynamic_trading`, `convo_audit`, `kahlua_static`). Verify UI/CLI acceptance
+ownership mapping and provider start/restart/reconfigure invariants with:
+
+```bash
+PYTHONPATH=. python3 -m unittest \
+  tools.semantic_harness.tests.test_feature_registry \
+  tools.semantic_harness.tests.test_s10d_provider_lifecycle \
+  tools.semantic_harness.tests.test_acceptance_runner \
+  tools.semantic_harness.tests.test_convo_engine_s9r_closure -v
+```
+
 ## Git and phase close
 
 No new branches.

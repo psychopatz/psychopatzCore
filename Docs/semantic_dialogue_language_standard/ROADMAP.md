@@ -856,7 +856,7 @@ The mandatory Simulation/Conversation journeys include the identity-label regres
 
 ### S10D — provider lifecycle, maintainability and closure
 
-**Status:** ACTIVE (NEXT).
+**Status:** COMPLETE (`tools/semantic_harness/tests/test_s10d_provider_lifecycle.py` passes 3/3 across `pnc`, `dtabstract`, `pnc-with-dthoomans`, Core standalone worker, and `WorkerSession.reconfigure` cross-provider transitions with zero catalog/flow/pool drift across repeated restarts; `AGENT_RUNBOOK.md` documents the one-command `--acceptance` CLI and unit verification gates; post-edit acceptance passes `core_python` 203/203, `core_lua` 36/36, `hoomans_provider_python` 153/158 [5 allowed], `real_provider_worker` 495/504 [9 allowed], `tk_xvfb_gui` 143/154 [11 allowed], `dynamic_trading` 89/89, `convo_audit` 1/1, `kahlua_static` 3/3, and `hoomans_lua` `convoSemanticFailed=0` across 1025/1029 [4 unrelated baseline/DebugHub failures]; retained `test_convo_engine_s9r_closure` passes 4/4).
 
 Run start/request/restart/reconfigure/shutdown matrices for all supported manifest selections, repeat lifecycle transitions to expose stale globals/duplicate registration/registry drift, document the one-command acceptance workflow, and reconcile continuity docs only after all real-path gates pass.
 
