@@ -31,6 +31,7 @@ Keep this file limited to repository-wide rules that remain useful across unrela
 - Normal semantic content must not grow per-file preserve/retirement lists. Keep dialogue wording in canonical CodeBuilder families, ordinary application/tooling text outside generated ownership, and preserve the accepted ConvoEngine semantic naming/sharding rules (including valid deterministic hash shards and the ban on arbitrary `PartNN`/migration-history source trees).
 - Keep reusable dialogue semantics portable: declarative dialogue/behavior/beat/recognition logic belongs in canonical PSDL/ConvoEngine source, reusable algorithms (for example fuzzy matching/directors/predicates) belong in the standard runtime, and game/backend-specific mechanics belong behind typed capability adapters rather than in the language/IR core.
 - Optimize PSDL for compact human/agent authoring through explicit semantic IDs, shallow package/profile defaults and progressive-disclosure tooling; keep the normalized canonical IR explicit and validation-friendly rather than minifying semantics with cryptic keys or deep inheritance.
+- Each adopter owns its game/domain PSDL package and semantic programs; Core owns reusable compiler/stdlib semantics and must not hard-code adopter source roots. Generated grouping must split by coherent semantic domain/subdomain before byte/record safety sharding, generated modules must mirror source-package ownership, and compact hashes are only a last-resort collision fallback.
 
 ## Runtime and publication
 

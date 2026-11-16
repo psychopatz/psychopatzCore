@@ -4,6 +4,7 @@ cross-owner collision isolation, variant-growth stability, and global hash audit
 from __future__ import annotations
 
 import copy
+import json
 import random
 import unittest
 from pathlib import Path
@@ -139,3 +140,78 @@ class PsdlDecompositionG9RTests(unittest.TestCase):
         self.assertEqual(loc["domain"], "social")
         self.assertEqual(loc["domainPath"], "social/conflict")
         self.assertEqual(loc["package"], "PsychopatzCore")
+
+    def test_g9r4_real_source_variant_and_new_subdomain_are_local(self) -> None:
+        base_map = {mod: src for mod, src in self.rendered}
+        behavior_root = CORE_ROOT / "tools/semantic_harness/codebuilder/sources/conversation/behavior/social"
+        conflict_dir = behavior_root / "conflict"
+        fixture_variant = conflict_dir / "g9r_fixture_taunt.json"
+        smalltalk_dir = behavior_root / "smalltalk_g9r_fixture"
+        smalltalk_file = smalltalk_dir / "g9r_fixture_smalltalk.json"
+
+        def compile_map() -> dict[str, str]:
+            model = compile_conversation_sources(
+                CORE_ROOT,
+                package_repositories=self.pkg_repos,
+            )
+            rendered, _ = render_conversation_runtime_plan(model)
+            return {mod: src for mod, src in rendered}
+
+        fixture = json.loads((conflict_dir / "warn.json").read_text(encoding="utf-8"))
+        fixture["id"] = "behavior.g9r_fixture_taunt"
+        fixture["act"] = "G9R_FIXTURE_TAUNT"
+
+        try:
+            fixture_variant.write_text(json.dumps(fixture, indent=2) + "\n", encoding="utf-8")
+            variant_map = compile_map()
+
+            for changed_mod in (
+                "PsychopatzCore/ConvoEngine/Behavior/Social/Conflict",
+                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Conflict",
+            ):
+                self.assertNotEqual(variant_map[changed_mod], base_map[changed_mod])
+
+            for stable_mod in (
+                "PsychopatzCore/ConvoEngine/Behavior/Social/Repair",
+                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Repair",
+                "PsychopatzCore/ConvoEngine/Behavior/Social/Acknowledgement",
+                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Acknowledgement",
+                "PsychopatzCore/ConvoEngine/Behavior/Social/Context",
+                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Context",
+            ):
+                self.assertEqual(variant_map[stable_mod], base_map[stable_mod])
+
+            fixture_variant.unlink()
+            smalltalk_dir.mkdir(parents=True, exist_ok=True)
+            smalltalk = dict(fixture)
+            smalltalk["id"] = "behavior.g9r_fixture_smalltalk"
+            smalltalk["act"] = "G9R_FIXTURE_SMALLTALK"
+            smalltalk_file.write_text(json.dumps(smalltalk, indent=2) + "\n", encoding="utf-8")
+            subdomain_map = compile_map()
+
+            new_runtime_modules = {
+                mod for mod in subdomain_map
+                if mod.startswith("PsychopatzCore/ConvoEngine/Behavior/Social/") and mod not in base_map
+            }
+            new_director_modules = {
+                mod for mod in subdomain_map
+                if mod.startswith("PsychopatzCore/ConvoEngine/Behaviors/Director/Social/") and mod not in base_map
+            }
+            self.assertEqual(len(new_runtime_modules), 1)
+            self.assertEqual(len(new_director_modules), 1)
+            self.assertTrue(all("__" not in mod for mod in (*new_runtime_modules, *new_director_modules)))
+            self.assertTrue(all("Smalltalk" in mod for mod in (*new_runtime_modules, *new_director_modules)))
+            for stable_mod in (
+                "PsychopatzCore/ConvoEngine/Behavior/Social/Conflict",
+                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Conflict",
+                "PsychopatzCore/ConvoEngine/Behavior/Social/Repair",
+                "PsychopatzCore/ConvoEngine/Behaviors/Director/Social/Repair",
+            ):
+                self.assertEqual(subdomain_map[stable_mod], base_map[stable_mod])
+        finally:
+            fixture_variant.unlink(missing_ok=True)
+            smalltalk_file.unlink(missing_ok=True)
+            try:
+                smalltalk_dir.rmdir()
+            except OSError:
+                pass
