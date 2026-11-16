@@ -15,12 +15,12 @@ from .resolver import FixtureResolutionError, resolve_fixture_roots
 
 FORBIDDEN_HISTORY_TOKEN_RE = re.compile(
     r"(?:^|[._/\-])("
-    r"c\d+[a-z]?|"
-    r"b[0-9]+|h[0-9]+|r[0-9]+|e[0-9]+|l[0-9]+|s[0-9]+|"
-    r"a[12]|a6r\d+|"
-    r"phase\d+|batch\d+|part\d+|"
+    r"[cbhrsg]\d+(?:[a-z]+\d*)*|"
+    r"[el]\d+|"
+    r"a[12](?:[a-z]+\d*)*|a\d+r\d+[a-z0-9]*|"
+    r"(?:phase|batch|part)\d+[a-z0-9]*|"
     r"pilot|legacy|compat|old"
-    r")(?:$|[._/\-])",
+    r")(?=$|[._/\-])",
     re.IGNORECASE,
 )
 

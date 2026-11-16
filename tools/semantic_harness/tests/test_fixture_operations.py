@@ -303,6 +303,29 @@ class FixtureOperationRegistryTests(unittest.TestCase):
             self.assertTrue(report["domain_path_mismatches"])
             self.assertEqual(len(report["stimulus_overlaps"]), 1)
 
+    def test_history_token_guard_catches_milestone_suffixes_without_false_positives(self) -> None:
+        from tools.semantic_harness.testing.lint import _find_history_tokens
+
+        for bad_name, expected in (
+            ("test_s10a_label_speech_realization", ["s10a"]),
+            ("test_s10c_gui_journeys", ["s10c"]),
+            ("test_s10r1_worker_precision_and_history", ["s10r1"]),
+            ("test_s10r1_c5_variation", ["c5", "s10r1"]),
+            ("test_convo_s6m5_compiler", ["s6m5"]),
+            ("test_psdl_g8r7_portability", ["g8r7"]),
+            ("a6r13_cleanup", ["a6r13"]),
+            ("c0a.r9.h4", ["c0a", "h4", "r9"]),
+        ):
+            self.assertEqual(_find_history_tokens(bad_name), expected, bad_name)
+
+        for good_name in (
+            "semantic.harness-test.v1",
+            "test_i18n_l10n_e2e_utf8_sha256",
+            "dialogue.npc_2.turn_1",
+            "test_identity_label_and_speech_realization",
+        ):
+            self.assertEqual(_find_history_tokens(good_name), [], good_name)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -15,7 +15,7 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_selection_validate_apply_and_preset_reconfiguration"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_selection_validate_apply_and_preset_reconfiguration"
       ]
     },
     {
@@ -51,8 +51,8 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10a_label_speech_realization:S10ALabelSpeechTkJourneyTests.test_tk_open_conversation_identity_exchange_click_and_restart_repeat",
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_identity_label_and_speech_realization:IdentityLabelAndSpeechTkJourneyTests.test_tk_open_conversation_identity_exchange_click_and_restart_repeat",
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     },
     {
@@ -65,7 +65,7 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     },
     {
@@ -78,7 +78,7 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     },
     {
@@ -91,7 +91,7 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     },
     {
@@ -104,7 +104,7 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     },
     {
@@ -165,7 +165,7 @@
       "requiresRealGui": true,
       "acceptanceOwners": [
         "ProjectHoomans:tools.providers.pnc.tests.test_ui_state_persistence:UIStatePersistenceTests.test_layout_preferences_persist_and_reset_without_scenario_mutation",
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     },
     {
@@ -210,7 +210,7 @@
       "requiresRealGui": true,
       "acceptanceOwners": [
         "ProjectHoomans:tools.providers.pnc.tests.test_sweep_ui:SweepUiAndReviewTests.test_simulation_ui_quality_sweep_tab",
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_quality_sweep_and_simulation_sweep_journeys"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_quality_sweep_and_simulation_sweep_journeys"
       ]
     },
     {
@@ -224,7 +224,7 @@
       "requiresRealGui": true,
       "acceptanceOwners": [
         "ProjectHoomans:tools.providers.pnc.tests.test_sweep_ui:SweepUiAndReviewTests.test_dedicated_quality_sweep_workbench",
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_quality_sweep_and_simulation_sweep_journeys"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_quality_sweep_and_simulation_sweep_journeys"
       ]
     },
     {
@@ -258,7 +258,7 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_studio_convo_authoring_audit_and_hermetic_write_delete"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_studio_convo_authoring_audit_and_hermetic_write_delete"
       ]
     },
     {
@@ -277,7 +277,7 @@
       "acceptanceOwners": [
         "ProjectHoomans:tools.providers.pnc.tests.test_surface_consolidation:SurfaceConsolidationTkTests.test_regression_and_selection_explanation_stay_in_simulation",
         "ProjectHoomans:tools.providers.pnc.tests.test_world_knowledge_gui:WorldKnowledgeGuiTests.test_existing_semantic_lab_pane_renders_worker_inspection",
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     },
     {
@@ -295,7 +295,7 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     },
     {
@@ -308,7 +308,7 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery"
       ]
     },
     {
@@ -334,8 +334,8 @@
       "mandatory": true,
       "requiresRealGui": true,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10a_label_speech_realization:S10ALabelSpeechTkJourneyTests.test_tk_open_conversation_identity_exchange_click_and_restart_repeat",
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10c_gui_journeys:S10CGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery",
+        "ProjectHoomans:tools.providers.pnc.tests.test_identity_label_and_speech_realization:IdentityLabelAndSpeechTkJourneyTests.test_tk_open_conversation_identity_exchange_click_and_restart_repeat",
+        "ProjectHoomans:tools.providers.pnc.tests.test_semantic_harness_gui_journeys:SemanticHarnessGuiJourneyTests.test_tk_simulation_preview_language_scenario_io_and_worker_recovery",
         "PsychopatzCore:tools.semantic_harness.tests.test_s10d_provider_lifecycle:S10DProviderLifecycleTests.test_manifest_preset_discovery_and_lifecycle_matrix",
         "PsychopatzCore:tools.semantic_harness.tests.test_s10d_provider_lifecycle:S10DProviderLifecycleTests.test_worker_session_reconfigure_cross_provider_transition_and_repeat",
         "PsychopatzCore:tools.semantic_harness.tests.test_s10d_provider_lifecycle:S10DProviderLifecycleTests.test_repeated_start_restart_and_configure_leaves_zero_catalog_or_source_drift"
@@ -517,7 +517,7 @@
       "mandatory": true,
       "requiresRealGui": false,
       "acceptanceOwners": [
-        "ProjectHoomans:tools.providers.pnc.tests.test_s10r1_worker_precision_and_history:S10R1WorkerPrecisionAndHistoryTests.test_real_worker_backstory_navigation_and_cli_inspect_interaction_history",
+        "ProjectHoomans:tools.providers.pnc.tests.test_backstory_spec_and_interaction_history_cli:BackstorySpecAndInteractionHistoryCliTests.test_real_worker_backstory_navigation_and_cli_inspect_interaction_history",
         "ProjectHoomans:tools.providers.pnc.tests.test_cli_parity:CLIParityTests.test_discovery_and_saved_world_queries_are_machine_readable"
       ]
     },
