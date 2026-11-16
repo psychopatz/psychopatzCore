@@ -8,72 +8,84 @@ from typing import Any
 def restore_ui_state(app: Any) -> None:
     """Restore non-scenario UI state after the widget tree exists."""
 
-    def restore() -> None:
+    if getattr(app, "_layout_restore_after", None) is not None:
         try:
-            layout_version = int(app._ui_state.get("layout_state_version", 0))
-            saved_window_state = app._ui_state.get("window_state")
-            if saved_window_state in {"normal", "zoomed"}:
-                app.root.state(saved_window_state)
-            main_index = int(app._ui_state.get("main_tab", 0))
-            if layout_version == 5 and main_index == 5:
-                main_index = 0
-            elif layout_version < 5:
-                main_index += 1
-            tabs = app.main_tabs.tabs()
-            if tabs:
-                app.main_tabs.select(tabs[min(max(main_index, 0), len(tabs) - 1)])
-            source_tabs = app.world_sources_notebook.tabs()
-            if source_tabs:
-                source_index = int(app._ui_state.get("world_sources_tab", 0))
-                app.world_sources_notebook.select(
-                    source_tabs[min(max(source_index, 0), len(source_tabs) - 1)]
+            app.root.after_cancel(app._layout_restore_after)
+        except app._tk.TclError:
+            pass
+        app._layout_restore_after = None
+
+    def restore() -> None:
+        app._layout_restore_after = None
+        if app.closed:
+            return
+        try:
+            if not getattr(app, "_initial_layout_restored", False):
+                app._initial_layout_restored = True
+                layout_version = int(app._ui_state.get("layout_state_version", 0))
+                saved_window_state = app._ui_state.get("window_state")
+                if saved_window_state in {"normal", "zoomed"}:
+                    app.root.state(saved_window_state)
+                main_index = int(app._ui_state.get("main_tab", 0))
+                if layout_version == 5 and main_index == 5:
+                    main_index = 0
+                elif layout_version < 5:
+                    main_index += 1
+                tabs = app.main_tabs.tabs()
+                if tabs:
+                    app.main_tabs.select(tabs[min(max(main_index, 0), len(tabs) - 1)])
+                source_tabs = app.world_sources_notebook.tabs()
+                if source_tabs:
+                    source_index = int(app._ui_state.get("world_sources_tab", 0))
+                    app.world_sources_notebook.select(
+                        source_tabs[min(max(source_index, 0), len(source_tabs) - 1)]
+                    )
+                # Version 2 stored indices for the pre-consolidation Studio and
+                # Simulation notebooks. Those indices could point at an unrelated
+                # home after duplicate panes were removed, so old state starts at
+                # the new first home and is migrated on save.
+                studio_index = (
+                    int(app._ui_state.get("studio_tab", 0))
+                    if layout_version >= 4 else 0
                 )
-            # Version 2 stored indices for the pre-consolidation Studio and
-            # Simulation notebooks. Those indices could point at an unrelated
-            # home after duplicate panes were removed, so old state starts at
-            # the new first home and is migrated on save.
-            studio_index = (
-                int(app._ui_state.get("studio_tab", 0))
-                if layout_version >= 4 else 0
-            )
-            studio_tabs = app.studio_notebook.tabs()
-            if studio_tabs:
-                app.studio_notebook.select(
-                    studio_tabs[min(max(studio_index, 0), len(studio_tabs) - 1)]
+                studio_tabs = app.studio_notebook.tabs()
+                if studio_tabs:
+                    app.studio_notebook.select(
+                        studio_tabs[min(max(studio_index, 0), len(studio_tabs) - 1)]
+                    )
+                trace_index = (
+                    int(app._ui_state.get("trace_tab", 0))
+                    if layout_version >= 3 else 0
                 )
-            trace_index = (
-                int(app._ui_state.get("trace_tab", 0))
-                if layout_version >= 3 else 0
-            )
-            trace_tabs = app.trace_tabs.tabs()
-            if trace_tabs:
-                app.trace_tabs.select(
-                    trace_tabs[min(max(trace_index, 0), len(trace_tabs) - 1)]
+                trace_tabs = app.trace_tabs.tabs()
+                if trace_tabs:
+                    app.trace_tabs.select(
+                        trace_tabs[min(max(trace_index, 0), len(trace_tabs) - 1)]
+                    )
+                nested_notebooks = (
+                    ("studio_explore_tab", getattr(app, "studio_explore_notebook", None)),
+                    ("advanced_tab", getattr(app, "advanced_notebook", None)),
+                    ("inspect_tab", getattr(app, "inspect_tabs", None)),
+                    ("graph_tab", getattr(app, "graph_tabs", None)),
+                    ("graph_detail_tab", getattr(app, "graph_detail_tabs", None)),
+                    ("compare_tab", getattr(app, "compare_tabs", None)),
+                    ("debug_tab", getattr(app, "debug_tabs", None)),
                 )
-            nested_notebooks = (
-                ("studio_explore_tab", getattr(app, "studio_explore_notebook", None)),
-                ("advanced_tab", getattr(app, "advanced_notebook", None)),
-                ("inspect_tab", getattr(app, "inspect_tabs", None)),
-                ("graph_tab", getattr(app, "graph_tabs", None)),
-                ("graph_detail_tab", getattr(app, "graph_detail_tabs", None)),
-                ("compare_tab", getattr(app, "compare_tabs", None)),
-                ("debug_tab", getattr(app, "debug_tabs", None)),
-            )
-            if layout_version >= 4:
-                for key, notebook in nested_notebooks:
-                    tabs = notebook.tabs() if notebook is not None else ()
-                    if not tabs:
-                        continue
-                    try:
-                        index = int(app._ui_state.get(key, 0))
-                    except (TypeError, ValueError):
-                        index = 0
-                    notebook.select(tabs[min(max(index, 0), len(tabs) - 1)])
-                if app._ui_state.get("developer_tools_visible"):
-                    developer_tools = getattr(app, "developer_tools_host", None)
-                    if developer_tools is not None:
-                        developer_tools.grid()
-            app._restore_splitters()
+                if layout_version >= 4:
+                    for key, notebook in nested_notebooks:
+                        tabs = notebook.tabs() if notebook is not None else ()
+                        if not tabs:
+                            continue
+                        try:
+                            index = int(app._ui_state.get(key, 0))
+                        except (TypeError, ValueError):
+                            index = 0
+                        notebook.select(tabs[min(max(index, 0), len(tabs) - 1)])
+                    if app._ui_state.get("developer_tools_visible"):
+                        developer_tools = getattr(app, "developer_tools_host", None)
+                        if developer_tools is not None:
+                            developer_tools.grid()
+                app._restore_panel_state()
             workbench_tabs = app.workbench_notebook.tabs()
             if workbench_tabs:
                 workbench_index = int(app._ui_state.get("workbench_panel", 0))
@@ -83,7 +95,7 @@ def restore_ui_state(app: Any) -> None:
                     ]
                 )
             app._restore_workbench_tabs()
-            app._restore_panel_state()
+            app._restore_splitters()
         except (app._tk.TclError, TypeError, ValueError):
             pass
 
@@ -116,7 +128,7 @@ def restore_splitters(app: Any) -> None:
     # Ignore absolute sash values written by the pre-dock topology. They can
     # otherwise shrink the conversation pane on the first launch after the
     # layout migration; the corrected defaults are persisted on the next save.
-    sashes_compatible = app._ui_state.get("layout_state_version") in {2, 3, 4, 5}
+    sashes_compatible = app._ui_state.get("layout_state_version") in {2, 3, 4, 5, 6}
     if not app.trace_panel_visible:
         workflow_width = max(1, app.workflow_pane_split.winfo_width())
         if workflow_width <= 10:
@@ -142,6 +154,7 @@ def restore_splitters(app: Any) -> None:
             )
         try:
             app.simulation_panes.sashpos(0, int(simulation_value))
+            app.root.update_idletasks()
         except (app._tk.TclError, TypeError, ValueError):
             pass
 

@@ -217,7 +217,7 @@ end
 
 PsychopatzCore.DebugHub.RegisterTool({
     id = "psychopatz.inventory.itemTypeLedger",
-    source = "PsychopatzCore",
+    source = "Psychopatz Core",
     order = 80,
     title = tr("UI_PsychopatzDebugHub_ItemTypeLedger_Title", "Item Type Ledger"),
     description = tr("UI_PsychopatzDebugHub_ItemTypeLedger_Description",

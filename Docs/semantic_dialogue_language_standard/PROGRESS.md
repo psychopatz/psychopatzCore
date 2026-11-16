@@ -1,10 +1,70 @@
 # Progress — ConvoEngine / Semantic Harness
 
-**Status:** USER_ACCEPTANCE — developer-side S0–S10 + S10R complete (`9/9` canonical acceptance suites PASS).
-**Estimated developer progress:** S0-S9R retained; S10A-S10D + S10R1-S10R4 complete and verified.
+**Status:** IN_PROGRESS — S11 State-Aware Conversation Outcome Closure opened by verified post-S10R native/Semantic Lab regression evidence.
+**Estimated developer progress:** S0-S10 + S10R retained as accepted infrastructure; S11A is active.
 **Branch:** existing `main` in all three repositories.
-**Active phase:** S10 (Developer work complete; native Project Zomboid gameplay/visual acceptance remains user-owned).
-**Immediate Next Chunk:** None (awaiting user-owned native Project Zomboid acceptance).
+**Active phase:** S11A — regression freeze + single semantic state/outcome substrate.
+**Immediate Next Chunk:** Freeze the full S11A P0 regression matrix, then implement the approved Core StatePolicy/SemanticOutcome substrate by extending the existing Predicate / Offer / capability / flow contracts—no parallel registry or shadow state system.
+
+## S11 reopened developer work (2026-11-16)
+
+Normative goal:
+
+`Docs/semantic_dialogue_language_standard/S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`
+
+Approved architecture:
+
+`Docs/semantic_dialogue_language_standard/S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`
+
+Fresh production-worker evidence disproves the prior conclusion that only native visual/gameplay acceptance remained:
+
+- a known NPC correctly selects `question.identity.known` yet the same turn creates a first-contact `PLAYER_NAME` pending obligation;
+- the Response Channel then exposes `Say your real name`, `Don't tell your name`, and `Lie about your name` despite the NPC saying the characters already know one another;
+- a truthful repeated identity claim can reapply the first-introduction relationship effect (`approval +1`, `respect +2`, `familiarity +6`) on every accepted repetition;
+- after an accepted identity exchange clears the live pending obligation, a later snapshot can resurrect the same first-contact identity choices;
+- existing tests currently encode contradictory expectations: known-identity response parity is tested while another smoke test still requires a known identity question to create the first-contact player-name obligation.
+
+S11 treats identity as the reference implementation for a broader invariant: state-constrained button suggestions and free-text input must share one authoritative state/outcome classification, and every recognized reachable state must have an immersive reply/effect/no-op outcome.
+
+The approved implementation direction is explicitly **single-system**: Semantic IR continues to describe meaning; existing gameplay systems remain state authority; the existing semantic capability/flow descriptors are extended with one Predicate-backed `statePolicy` and canonical `SemanticOutcome`. Suggestions, typed input, flow transitions, responses, effects and refresh all consume that result. Do not create a second state store, action registry, suggestion-only eligibility engine, typed-input state engine, condition DSL, or repeat/cooldown subsystem.
+
+S11 sequence:
+
+```text
+S11A — freeze regressions + single StatePolicy/SemanticOutcome substrate
+  ->
+S11B — identity migration onto shared substrate + effect idempotence + refresh correctness
+  ->
+S11C — constrained-domain parity sweep
+  ->
+S11D — real worker / inputbox / response-channel / Tk-Xvfb closure acceptance
+  ->
+S11E — retained canonical acceptance + exact committed closure
+```
+
+Do not return to `USER_ACCEPTANCE` until S11A-S11E pass.
+
+### Expanded branching/state audit
+
+Mandatory audit input:
+
+`Docs/semantic_dialogue_language_standard/S11_BRANCHING_DIALOGUE_AUDIT.md`
+
+The cross-dialogue audit confirms that identity is one instance of a wider state-parity class. Additional runtime-verified defects include:
+
+- repeated FOLLOW/STAY/GO HOME/CAMP commands and busy-state FOLLOW can dispatch through typed input even when suggestion eligibility says the action is already satisfied or unavailable;
+- the needs flow can remain indefinitely in `proposal_pending -> proposal_pending` on repeated acceptance;
+- hostile/busy greeting state can hide the continuation button while typed continuation still completes the semantic flow, and hostile `hello` can combine parley wording with the friendly `How have you been?` follow-up;
+- successful recruitment can leave Recruit visible and admit another recruitment request;
+- accepted relationship proposal can leave its affordance visible even though authority now returns `already_lover`;
+- natural free-text equivalents for relationship proposal, disband/departure, ceasefire and territory currently fall to generic clarification instead of an explicitly owned parity/confirmation policy;
+- effectful authored wellbeing/trust/affinity choices have relationship effects but no explicit repeat/cooldown/retirement policy.
+
+High-risk but comparatively strong authorities that require parity coverage rather than redesign include parameterized task admission, quest lifecycle, settlement/ambient visits, territory and parley state transitions.
+
+Reference-good contracts to preserve include wellbeing answer convergence, event follow-up expiry, grounded gossip unknown handling, gift consent/expiry, departure warning/confirmation, settlement expiry and pragmatic apology/reconciliation. A fresh focused rerun of coherent conversation, event follow-up, gift and grounded-gossip suites passed `14/14`.
+
+S11C/S11D must cover every family in the audit, not only identity. Each family must migrate onto the same existing-registry state/outcome substrate; a family-specific duplicate evaluator is not an acceptable fix.
 
 ## Accepted baseline retained
 

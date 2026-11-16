@@ -810,11 +810,13 @@ At acceptance:
 
 ## S10 — Semantic Lab end-to-end reliability and maintainability
 
-**Status:** REOPENED — S10R acceptance-integrity repair is ACTIVE. S10A remains accepted; S10B-S10D mechanisms exist but their completion/closure claims are not accepted until S10R passes.
+**Status:** COMPLETE — S10A-S10D plus S10R1-S10R4 accepted; canonical 9-suite acceptance is green from the recorded closure checkpoint.
 
-S10 was opened because real 2026-11-15 acceptance disproved the prior developer-complete claim without invalidating the accepted S0-S9R architecture. The initial manifest-selected PNC provider-worker startup defect and the label-versus-speech identity defect were repaired by S10A. A 2026-11-16 post-completion audit then reopened acceptance integrity and closure as S10R.
+S10 was opened because real 2026-11-15 acceptance disproved the prior developer-complete claim without invalidating the accepted S0-S9R architecture. The manifest-selected PNC provider-worker startup defect and label-versus-speech identity defect were repaired by S10A. The 2026-11-16 post-completion audit then repaired acceptance integrity and reproducible closure through S10R.
 
-The normative S10 design is `SEMANTIC_HARNESS_RELIABILITY.md`. The focused runtime acceptance for UI-label versus spoken realization and the ProjectHoomans identity regression is `S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md`. The active closure-repair design is `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`; `LANGUAGE_SPEC.md` remains the semantic authoring authority.
+The normative S10 design is `SEMANTIC_HARNESS_RELIABILITY.md`. The focused runtime acceptance for UI-label versus spoken realization is `S10_LABEL_SPEECH_REALIZATION_ACCEPTANCE.md`. The closure-repair record is `S10_ACCEPTANCE_INTEGRITY_REPAIR.md`; `LANGUAGE_SPEC.md` remains the semantic authoring authority.
+
+S11 later reopened **new developer-side semantic-state correctness work** after the accepted S10 harness exposed contradictory state/outcome behavior. That evidence does not invalidate the S10 harness/acceptance architecture.
 
 ### S10A — real PNC worker startup and automatic-flow integrity
 
@@ -834,7 +836,7 @@ The normative S10 design is `SEMANTIC_HARNESS_RELIABILITY.md`. The focused runti
 
 ### S10B — unified acceptance orchestration
 
-**Status:** IMPLEMENTED, ACCEPTANCE REOPENED BY S10R. The unified runner exists and focused runner tests pass, but the S10B completion claim is not accepted because 12 provider test modules (~68 test methods) were deleted without proving the still-present dataset/workflow/adapter/interaction surfaces were retired, and the canonical nine-suite command is not currently green.
+**Status:** COMPLETE via S10R. The unified runner remains the canonical acceptance orchestrator; S10R1 restored deleted/stale acceptance ownership and S10R3 made the canonical nine-suite workflow reproducibly green.
 
 Create one bounded developer acceptance workflow that reports Core Python/Lua, Hoomans root Lua, Hoomans provider Python, real provider-worker acceptance, real Tk/Xvfb GUI, DynamicTrading, deterministic ConvoEngine audit, and Kahlua/static verification as distinct suites.
 
@@ -844,7 +846,7 @@ Mandatory suites may not silently disappear. Display-required tests run under Xv
 
 ### S10C — feature-owned real GUI acceptance
 
-**Status:** IMPLEMENTED, COVERAGE CLAIM REOPENED BY S10R. Real Tk/Xvfb journeys remain green, but Feature Acceptance Registry discovery does not cover all supported top-level argparse actions. Verified unregistered public actions include dataset/workflow/adapter and interaction-history CLI surfaces, so the claim that every supported public GUI/CLI action has acceptance ownership is not yet true.
+**Status:** COMPLETE via S10R. Real Tk/Xvfb journeys remain green; S10R2 completed public CLI/UI acceptance ownership discovery and negative coverage enforcement.
 
 Introduce one compact machine-readable Feature Acceptance Registry mapping supported public actions to surface, canonical operation/capability, provider applicability, mutation class and automated acceptance owner.
 
@@ -860,7 +862,7 @@ The mandatory Simulation/Conversation journeys include the identity-label regres
 
 Run start/request/restart/reconfigure/shutdown matrices for all supported manifest selections, repeat lifecycle transitions to expose stale globals/duplicate registration/registry drift, document the one-command acceptance workflow, and reconcile continuity docs only after all real-path gates pass.
 
-**Completion gate:** SATISFIED on developer side (S10A + S10B-S10D + S10R1-S10R4 + retained S9/S9R green). Only native Project Zomboid gameplay/visual acceptance (`USER_ACCEPTANCE`) remains.
+**Completion gate:** SATISFIED for S10 (S10A + S10B-S10D + S10R1-S10R4 + retained S9/S9R green). The historical S10 handoff returned to native acceptance; S11 subsequently reopened new semantic-state correctness work from fresh runtime evidence.
 
 ### S10R — acceptance integrity and reproducible closure
 
@@ -875,7 +877,103 @@ S10R did not reopen the accepted S10A identity/worker implementation; it repaire
 - **S10R3 — genuinely green canonical acceptance:** COMPLETE (`unrelated_baselines.json` + `classify_hoomans_lua_results` require exact failure-signature match + owner + `provenanceCommit` and forbid ConvoEngine/timeout waivers; `suite.py` captures `failureOutput` on failures; `workspace_catalog.py` skips system temp roots during sibling discovery; canonical `--acceptance` accepts only signature-verified reviewed baselines with `--strict-baselines` strict mode and `convoScopeOk` purely diagnostic; `hoomans_lua` `1028/1032` PASS with 4 reviewed P1/PopulationDirector signatures and 0 unexpected failures).
 - **S10R4 — manifest-complete lifecycle + closure:** COMPLETE (`test_s10d_provider_lifecycle.py` dynamically derives executable presets and cross-provider reconfigure matrices from `ModManager.discover` and rejects uncovered executable provider manifests (`4/4` PASS in `25.82s`); full 9-suite `--acceptance` `9/9` suites / `2171/2200` cases PASS in `1448.07s`; docs reconciled and committed with `phase_commit: self`, exact participant commits, and SHA-256 residual fingerprints).
 
-**Gate:** SATISFIED — S10R1-S10R4 pass; all still-supported public surfaces have current acceptance ownership; every supported worker-bearing provider selection automatically enters lifecycle acceptance; canonical 9-suite acceptance is reproducibly green; and the final handoff records exact participant commits and residual-work fingerprints.
+**Gate:** SATISFIED — S10R1-S10R4 pass; all still-supported public surfaces have current acceptance ownership; every supported worker-bearing provider selection automatically enters lifecycle acceptance; canonical 9-suite acceptance is reproducibly green; and the final S10R handoff records exact participant commits and residual-work fingerprints. S11 is a later behavior-correctness phase, not a reopening of S10R acceptance integrity.
+
+## S11 — State-Aware Conversation Outcome Closure
+
+**Status:** ACTIVE — S11A regression freeze + single semantic state/outcome substrate.
+
+Normative design: `S11_STATE_AWARE_CONVERSATION_OUTCOME_CLOSURE.md`. Approved no-split-system architecture: `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`. Mandatory branching/state audit scope: `S11_BRANCHING_DIALOGUE_AUDIT.md`.
+
+S11 is opened by verified production-worker/native Semantic Lab evidence after S10R:
+
+- a known NPC can select the correct `question.identity.known` reply while the dialogue state simultaneously creates a first-contact `PLAYER_NAME` obligation;
+- the Response Channel then exposes first-contact truthful/refuse/lie identity choices;
+- repeated truthful identity claims can reapply the first-introduction relationship effect;
+- a resolved identity exchange can clear live pending state yet later snapshot/view projection can resurrect the same first-contact choices;
+- current tests encode conflicting assumptions about known identity and first-contact obligations.
+
+S11 does not patch only the visible identity buttons. It establishes the invariant that every state-constrained semantic act has one authoritative state/outcome classification consumed by both suggestions and free-text input. Every recognized reachable constrained state must resolve to an immersive reply/effect/no-op, even when the equivalent button is hidden or disabled. This must be achieved by extending the existing Core Predicate / Offer / capability / flow system; no parallel semantic state store, action registry, eligibility engine, typed-input state engine, or repeat engine is allowed.
+
+### S11A — regression freeze + single semantic state/outcome substrate
+
+**Status:** ACTIVE.
+
+- freeze the identity and branching-audit P0 regressions with real-worker acceptance before behavior repair;
+- map directional identity facts and overlapping transition ownership for identity, greeting, needs and wellbeing onto existing authoritative state;
+- implement the approved `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md` in Core by extending existing semantic structures:
+  - one `PsychopatzSemanticPredicate`-backed `StatePolicy` evaluator;
+  - one canonical `SemanticOutcome` result shape;
+  - bounded generic outcome/admission vocabulary;
+  - existing capability/flow descriptors extended with `statePolicy`, `inputPolicy`, `repeatPolicy`, and optional postcondition/presentation metadata;
+  - discovery through the existing capability catalog;
+- keep CandidateEligibility focused on parse/context validity rather than creating a second gameplay-state admission engine;
+- make malformed/missing state contracts fail validation;
+- reconcile tests that currently bless duplicate dispatch or contradictory pending behavior.
+
+**Gate:** P0 regressions are executable; the shared substrate is discoverable and tested; no parallel state/action/eligibility/repeat registry was created; identity and companion-command migrations can consume the same canonical StatePolicy/SemanticOutcome path.
+
+### S11B — identity reference migration onto the shared substrate
+
+**Status:** PENDING S11A.
+
+- migrate identity onto the S11A StatePolicy/SemanticOutcome substrate with no identity-only evaluator;
+- stop known-NPC reminder questions from creating first-contact player-name obligations by default;
+- distinguish first introduction from reconfirmation/repetition/correction/deception outcomes;
+- provide known-state truthful/refuse/lie response-channel variants when a reciprocal reconfirmation beat is actually active;
+- route equivalent free-text identity input through the same state classification;
+- make first-introduction relationship effects idempotent;
+- revalidate state-sensitive menu/response choices after authoritative identity results;
+- eliminate refresh/snapshot resurrection of resolved first-contact identity choices;
+- retain S10A label-versus-spoken-speech semantics;
+- prove button and free-text identity routes emit the same canonical SemanticOutcome for the same projected authoritative state.
+
+**Gate:** identity click and free-text routes agree with authoritative state; repeated truthful claims cannot farm first-contact rewards; resolved first-contact choices stay resolved.
+
+### S11C — constrained-domain parity sweep
+
+**Status:** PENDING S11B.
+
+Audit and repair the same parity contract for every maintained family classified in `S11_BRANCHING_DIALOGUE_AUDIT.md`, including companion orders, the needs/proposal branch, greeting/parley, recruitment, relationship proposal, destructive root actions, authored effect repeat semantics, home/camp/task state, production quest lifecycle, knowledge/gossip repetition, gifts/consent, settlement/ambient visits, territory, cooldowns, event follow-ups and pragmatic social repair. Each migrated family must consume the same shared StatePolicy/SemanticOutcome substrate; do not create family-specific shadow evaluators.
+
+Stateful root actions with natural conversational meaning must be classified as `typed_parity_required`, `typed_routes_to_confirmation`, or `presentation_only_by_design`. These map into the shared descriptor `inputPolicy`; do not maintain a separate typed-action policy table. Every effectful authored choice must explicitly own one-shot/cooldown/max-use/state-retired/idempotent/intentionally-repeatable semantics through the existing dialogue history/repeat system, not a second cooldown engine.
+
+Use domain-owned authority and effects; do not centralize ProjectHoomans gameplay policy into Core. Preserve the branching audit's reference-good contracts rather than rewriting them.
+
+**Gate:** every family in the mandatory audit is classified as repaired, explicitly presentation-only, or reference-good/regression-protected, and each maintained constrained family has button/free-text/effect/reply/repeat/post-transition coverage for every reachable state in the canonical acceptance inventory.
+
+### S11D — real-surface outcome-closure acceptance
+
+**Status:** PENDING S11C.
+
+- focused Lua/state-policy acceptance;
+- real manifest-selected PNC worker;
+- real response-channel click path;
+- free-text/inputbox path;
+- real Tk/Xvfb Semantic Lab UI;
+- refresh/snapshot/restart/reconfigure checks where state persistence matters;
+- adversarial repeat loops, including ten repeated truthful identity claims after first introduction;
+- real worker/inputbox regressions for repeated companion commands, needs proposal closure, hostile greeting/parley, recruitment/proposal transitions, destructive typed confirmation, effectful authored-choice repeat policy, active task state and real quest lifecycle;
+- regression protection for wellbeing convergence, event expiry, grounded gossip unknown handling, gift consent/expiry, departure confirmation, settlement expiry and pragmatic social repair;
+- negative validation proving a newly added stateful semantic action without outcome ownership fails acceptance.
+
+**Gate:** no reachable maintained constrained semantic state in the branching audit is button-only, free-text-open-ended, effect-duplicating, unbounded-self-looping, or stale-projection-dependent.
+
+### S11E — retained acceptance and reproducible closure
+
+**Status:** PENDING S11D.
+
+- rerun retained S10A label/speech gates;
+- run all S11 state/outcome suites;
+- rerun canonical nine-suite `--acceptance`;
+- keep S10R signature-based unrelated baseline policy strict;
+- reconcile stable architecture/runbook contracts only when implementation proves they changed;
+- preserve unrelated work;
+- commit changed adopter repositories first and Core last;
+- record exact participant commit vector and residual fingerprints;
+- do not push or publish.
+
+**Completion gate:** S11A-S11E accepted; identity and every maintained constrained family obey state/outcome parity through the single existing-registry StatePolicy/SemanticOutcome path; no parallel semantic state/action/eligibility/repeat system remains; repeated already-satisfied acts are effect-idempotent; post-turn projection is current; canonical acceptance is green; exact closure checkpoint is recorded. Only then return to user-owned native Project Zomboid acceptance.
 
 ## Commit protocol
 

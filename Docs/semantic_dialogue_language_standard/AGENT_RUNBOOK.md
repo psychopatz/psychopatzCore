@@ -54,6 +54,25 @@ Prefer adapting/generating into accepted authorities:
 
 If a missing capability is discovered, prove it with source/tests before changing an accepted subsystem.
 
+### S11 state/outcome discipline
+
+For stateful semantic behavior, read `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md` and `S11_BRANCHING_DIALOGUE_AUDIT.md` before implementation.
+
+S11 extends existing semantic mechanisms; it does not add another runtime stack:
+
+- reuse `PsychopatzSemanticPredicate` as the condition language/evaluator;
+- extend existing capability/flow descriptors with `statePolicy`, `inputPolicy`, `repeatPolicy`, and bounded postcondition/presentation metadata;
+- normalize state/admission into one canonical `SemanticOutcome`;
+- keep `CandidateEligibility` limited to parse/context candidate eligibility;
+- keep gameplay/domain authorities final for mutation;
+- expose new contract fields through the existing capability catalog;
+- carry authored repeat semantics through the existing dialogue history/repeat machinery;
+- rebuild state-sensitive affordances from fresh authority after state changes.
+
+Do not create a `StatefulDialogueRegistry`, second action catalog, second predicate DSL, separate button-state evaluator, separate typed-input state evaluator, separate cooldown engine, or persistent semantic shadow copy of gameplay state.
+
+At review, search for duplicated domain-state predicates. A fix fails S11 if button and typed paths are green only because they contain separate copies of the same gameplay-state rule.
+
 ## ConvoEngine / CodeBuilder authoring discipline
 
 New first-party conversation content is authored only through the Core CodeBuilder ConvoEngine authoring/migration path once that API is available.
@@ -381,4 +400,4 @@ A bounded chunk is not the completion boundary.
 
 Continue mandatory phases automatically after acceptance.
 
-Stop only for a genuine blocker/ownership conflict or after all developer work is complete and only user-owned native acceptance remains.
+Stop only for a genuine blocker/ownership conflict or after all developer work is complete and only user-owned native acceptance remains.\n

@@ -30,6 +30,18 @@ existing semantic/runtime authorities
 
 No second parser, response engine, scene runtime, button engine, relationship authority, gameplay authority, or transcript store is introduced.
 
+### Single semantic state/outcome authority
+
+State-aware dialogue follows the same non-duplication rule.
+
+Semantic IR describes what a participant means. Existing gameplay/domain systems remain authoritative for what is true. Stateful semantic acts are resolved by extending the existing Core semantic capability/flow contracts with one shared Predicate-backed state/outcome evaluation contract; buttons, typed input, flow transitions, response selection, gameplay admission and post-turn projection consume that same result.
+
+Do not introduce a second persisted semantic state store, action/capability registry, condition DSL, suggestion-only eligibility engine, typed-input state engine, response-side state evaluator, or repeat/cooldown subsystem.
+
+Core owns reusable `StatePolicy` / `SemanticOutcome` shapes and validation. Adopters project bounded public facts from their existing authorities and retain domain-specific reasons/effects. A state projection is read-only derived context, never another source of truth.
+
+The active S11 design is specified in `S11_SEMANTIC_STATE_OUTCOME_ARCHITECTURE.md`; once S11 closes, its accepted generic contract becomes part of this architecture.
+
 ## Runtime namespace boundary
 
 ConvoEngine-owned runtime belongs under:
@@ -588,4 +600,4 @@ The tool displays the production chain; it does not implement a duplicate evalua
 - no mandatory beat for simple dialogue;
 - no cinematic transcript scripting engine;
 - no automatic persistence of conversations;
-- no new compatibility/legacy content tree.
+- no new compatibility/legacy content tree.\n
