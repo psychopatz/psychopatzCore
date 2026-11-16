@@ -533,18 +533,24 @@ def build_desired_artifact_ledger(
         runtime_root=hoomans_arg or repo_path,
     )
     resolved_core = workspace.core_repository
-    resolved_hoomans = hoomans_arg or workspace.repository_for(HOOMANS_OWNER) or repo_path
+    resolved_hoomans = hoomans_arg or workspace.repository_for(HOOMANS_OWNER)
+    if resolved_hoomans is None and repo_path != resolved_core:
+        resolved_hoomans = repo_path
     resolved_dt = dt_arg or workspace.repository_for(DT_COMMON_OWNER)
+    primary_compile_repo = resolved_hoomans or repo_path
 
     package_repositories: dict[str, Path] = dict(workspace.repository_by_owner)
-    package_repositories.setdefault(HOOMANS_OWNER, resolved_hoomans)
+    if resolved_hoomans is not None:
+        package_repositories.setdefault(HOOMANS_OWNER, resolved_hoomans)
+    else:
+        package_repositories.setdefault(HOOMANS_OWNER, repo_path)
     package_repositories[CORE_OWNER] = resolved_core
     if resolved_dt is not None:
         package_repositories[DT_COMMON_OWNER] = resolved_dt
 
     compiled_model = model or compile_conversation_sources(
-        resolved_hoomans,
-        runtime_root=resolved_hoomans,
+        primary_compile_repo,
+        runtime_root=primary_compile_repo,
         package_repositories=package_repositories,
     )
 
@@ -556,22 +562,30 @@ def build_desired_artifact_ledger(
         if output_repositories
         else {}
     )
-    out_hoomans = out_overrides.get(HOOMANS_OWNER, resolved_hoomans)
+    out_hoomans = (
+        out_overrides.get(HOOMANS_OWNER, resolved_hoomans)
+        if resolved_hoomans is not None or HOOMANS_OWNER in out_overrides
+        else None
+    )
     out_core = out_overrides.get(CORE_OWNER, resolved_core)
     out_dt = (
         out_overrides.get(DT_COMMON_OWNER, resolved_dt)
         if resolved_dt is not None or DT_COMMON_OWNER in out_overrides
         else None
     )
+    runtime_out_base = out_hoomans or out_core
 
     out_repos_by_owner: dict[str, Path] = {
         CORE_OWNER: out_core,
-        HOOMANS_OWNER: out_hoomans,
     }
+    if out_hoomans is not None:
+        out_repos_by_owner[HOOMANS_OWNER] = out_hoomans
     if out_dt is not None:
         out_repos_by_owner[DT_COMMON_OWNER] = out_dt
 
-    enabled_owners_list = [CORE_OWNER, HOOMANS_OWNER]
+    enabled_owners_list = [CORE_OWNER]
+    if out_hoomans is not None:
+        enabled_owners_list.append(HOOMANS_OWNER)
     if out_dt is not None:
         enabled_owners_list.append(DT_COMMON_OWNER)
     enabled_owners = tuple(enabled_owners_list)
@@ -604,11 +618,11 @@ def build_desired_artifact_ledger(
         if owner not in enabled_set:
             continue
         owner_repo, abs_path = module_target(
-            out_hoomans,
+            runtime_out_base,
             module,
             core_repository=out_core,
             dynamic_trading_repository=out_dt,
-            runtime_root=out_hoomans,
+            runtime_root=runtime_out_base,
         )
         rel_path = abs_path.relative_to(owner_repo).as_posix()
         rep = report_by_module.get(module) or {}
@@ -631,19 +645,19 @@ def build_desired_artifact_ledger(
     registry_owner = normalize_owner(
         manifest.get("registryOwner") if isinstance(manifest, Mapping) else None
     )
-    registry_root = generated_conversation_root(
-        out_hoomans,
-        registry_owner,
-        core_repository=out_core,
-        dynamic_trading_repository=out_dt,
-        runtime_root=out_hoomans,
-    )
     primary_registry_owners = (
         (CORE_OWNER, HOOMANS_OWNER)
         if registry_owner == HOOMANS_OWNER
         else (registry_owner,)
     )
     if registry_owner in enabled_set:
+        registry_root = generated_conversation_root(
+            runtime_out_base,
+            registry_owner,
+            core_repository=out_core,
+            dynamic_trading_repository=out_dt,
+            runtime_root=runtime_out_base,
+        )
         reg_owner_repo = out_repos_by_owner[registry_owner]
         reg_source = render_conversation_registry(
             compiled_model,
@@ -684,11 +698,11 @@ def build_desired_artifact_ledger(
 
     if CORE_OWNER in enabled_set:
         core_registry_root = generated_conversation_root(
-            out_hoomans,
+            runtime_out_base,
             CORE_OWNER,
             core_repository=out_core,
             dynamic_trading_repository=out_dt,
-            runtime_root=out_hoomans,
+            runtime_root=runtime_out_base,
         )
         core_reg_source = render_conversation_registry(
             compiled_model,
@@ -717,11 +731,11 @@ def build_desired_artifact_ledger(
 
     if out_dt is not None and registry_owner != DT_COMMON_OWNER and DT_COMMON_OWNER in enabled_set:
         dt_registry_root = generated_conversation_root(
-            out_hoomans,
+            runtime_out_base,
             DT_COMMON_OWNER,
             core_repository=out_core,
             dynamic_trading_repository=out_dt,
-            runtime_root=out_hoomans,
+            runtime_root=runtime_out_base,
         )
         dt_reg_source = render_conversation_registry(
             compiled_model,
@@ -803,11 +817,11 @@ def build_desired_artifact_ledger(
     for owner in enabled_owners:
         owner_repo = out_repos_by_owner[owner]
         pkg_tr_root = translation_root(
-            out_hoomans,
+            runtime_out_base,
             owner,
             core_repository=out_core,
             dynamic_trading_repository=out_dt,
-            runtime_root=out_hoomans,
+            runtime_root=runtime_out_base,
         )
         owner_catalogs = catalogs_by_owner.get(owner, {})
 
@@ -861,6 +875,7 @@ def build_desired_artifact_ledger(
                 except ValueError:
                     pass
 
+        emitted_ui_langs: set[str] = set()
         for language, domains in sorted(owner_catalogs.items()):
             for domain, values in sorted(domains.items()):
                 if domain.startswith("Text/"):
@@ -871,6 +886,7 @@ def build_desired_artifact_ledger(
                 manifest_entries_by_lang.setdefault(language, set()).add(rel_from_tr)
                 rendered_json = pretty_json(values)
                 if domain == "UI":
+                    emitted_ui_langs.add(language)
                     rows.append(
                         DesiredArtifactRow(
                             owner=owner,
@@ -900,6 +916,32 @@ def build_desired_artifact_ledger(
                             generated_key_values=dict(values),
                         )
                     )
+
+        # Ensure an existing package-owned Conversation/UI.json is still reconciled under mixed_key_catalog
+        # even when current compilation emits 0 generated UI keys for this owner.
+        for language in languages:
+            if language in emitted_ui_langs:
+                continue
+            rel_from_tr = f"{language}/Conversation/UI.json"
+            abs_ui_path = pkg_tr_root / Path(*PurePosixPath(rel_from_tr).parts)
+            if abs_ui_path.is_file():
+                rel_repo_path = abs_ui_path.relative_to(owner_repo).as_posix()
+                manifest_entries_by_lang.setdefault(language, set()).add(rel_from_tr)
+                rendered_json = pretty_json({})
+                rows.append(
+                    DesiredArtifactRow(
+                        owner=owner,
+                        surface=conv_ui_surface.id,
+                        path=rel_repo_path,
+                        artifact_kind="json:ConversationUICatalog",
+                        source_lineage=("manifest.json#ui",),
+                        cleanup_policy=conv_ui_surface.policy,
+                        content_fingerprint=sha256_text(rendered_json),
+                        rendered_content=rendered_json,
+                        generated_keys=(),
+                        generated_key_values={},
+                    )
+                )
 
         # 3. Package translation manifest (manifests/Conversation.json)
         if any(manifest_entries_by_lang.values()) or owner_catalogs:
