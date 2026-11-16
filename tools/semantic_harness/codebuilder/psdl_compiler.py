@@ -37,6 +37,10 @@ from .convo_engine_exchange import (
     resolve_family_identity,
     validate_semantic_reference,
 )
+from .psdl_compact import (
+    COMPACT_PSDL_SCHEMA,
+    expand_compact_psdl_document,
+)
 from .semantic_dialogue_ir import (
     CANONICAL_IR_SCHEMA,
     CONVO_ENGINE_SCHEMA,
@@ -59,7 +63,7 @@ PSDL_RECORD_FIELDS = frozenset({
     "schema", "kind", "namespace", "id", "version", "owner", "participants", "target", "slots",
     "references", "when", "constraints", "on", "respond", "response",
     "variants", "turns", "offers", "transitions", "bindings", "text",
-    "label", "utterance", "stimuli", "act", "mode", "requiredCapabilities",
+    "label", "utterance", "stimuli", "act", "action", "mode", "requiredCapabilities",
     "outputs", "modifiers", "continuation", "baseRelevance",
     "entry", "maintain", "exit", "candidates", "group", "cooldownTurns",
     "maxTurns", "effects", "policy", "metadata", "style", "resolver",
@@ -686,6 +690,7 @@ def _normalize_record(
     default_owner: Any = None,
     document_schema: str = LEGACY_PSDL_SCHEMA,
     allow_legacy_schema: bool = True,
+    allow_custom_owner: bool = False,
     action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     if not isinstance(raw, Mapping):
@@ -720,7 +725,11 @@ def _normalize_record(
         record["owner"] = normalize_owner(record.get("owner"))
         package_descriptor(record["owner"])
     except OwnerConfigurationError as error:
-        raise CompileError(str(error)) from error
+        raw_owner = record.get("owner")
+        if allow_custom_owner and isinstance(raw_owner, str) and raw_owner.strip():
+            record["owner"] = raw_owner.strip()
+        else:
+            raise CompileError(str(error)) from error
     if "when" in record and "constraints" in record:
         raise CompileError(f"{record_id} cannot define both when and constraints")
     canonical = canonicalize_dialogue(record, source_path=source_path)
@@ -749,10 +758,21 @@ def _record_values(
     document: Mapping[str, Any],
     *,
     allow_legacy_schema: bool = True,
+    package: Mapping[str, Any] | None = None,
+    text_loader: Any = None,
 ) -> tuple[list[Mapping[str, Any]], Any, str]:
     if not isinstance(document, Mapping):
         raise CompileError("ConvoEngine document must be an object")
     schema = document.get("schema")
+    if schema == COMPACT_PSDL_SCHEMA or (
+        schema is None and package is not None
+    ) or "profile" in document or "textSidecars" in document:
+        expanded = expand_compact_psdl_document(
+            document,
+            package=package,
+            text_loader=text_loader,
+        )
+        return [expanded], None, CONVO_ENGINE_SCHEMA
     if schema not in SUPPORTED_SOURCE_SCHEMAS:
         raise CompileError(
             f"ConvoEngine document.schema must be {CONVO_ENGINE_SCHEMA} (or migration {LEGACY_PSDL_SCHEMA})"
@@ -813,6 +833,11 @@ def compile_convo_engine_document(
     action_contracts: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Compile one ConvoEngine/PSDL record or a bounded record catalog."""
+    is_compact = (
+        document.get("schema") == COMPACT_PSDL_SCHEMA
+        or "profile" in document
+        or "textSidecars" in document
+    )
     raw_records, doc_owner, doc_schema = _record_values(
         document,
         allow_legacy_schema=allow_legacy_schema,
@@ -830,6 +855,7 @@ def compile_convo_engine_document(
             default_owner=resolved_default_owner,
             document_schema=doc_schema,
             allow_legacy_schema=allow_legacy_schema,
+            allow_custom_owner=is_compact,
             action_contracts=action_contracts,
         )
         for index, raw in enumerate(raw_records)

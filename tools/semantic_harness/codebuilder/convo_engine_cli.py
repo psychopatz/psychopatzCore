@@ -145,6 +145,18 @@ def build_parser() -> argparse.ArgumentParser:
     _add_repo_args(p_audit)
     p_audit.add_argument("--check-determinism", action="store_true")
 
+    p_get = sub.add_parser("get", help="Progressive-disclosure PSDL record inspection")
+    _add_repo_args(p_get)
+    p_get.add_argument("record_id", help="Canonical PSDL record ID")
+    mode_grp = p_get.add_mutually_exclusive_group()
+    mode_grp.add_argument("--summary", action="store_true", help="Compact summary (default)")
+    mode_grp.add_argument("--source", action="store_true", help="Targeted source document")
+    mode_grp.add_argument("--ir", action="store_true", help="Expanded canonical IR")
+
+    p_impact = sub.add_parser("impact", help="Show direct dependencies and consumers of a PSDL record")
+    _add_repo_args(p_impact)
+    p_impact.add_argument("record_id", help="Canonical PSDL record ID")
+
     return parser
 
 
@@ -268,6 +280,34 @@ def main(arguments: list[str] | None = None) -> int:
                 "convo.audit",
                 {"checkDeterminism": bool(args.check_determinism)},
             )
+        elif args.command in {"get", "impact"}:
+            from tools.semantic_harness.codebuilder.conversation_compiler import compile_conversation_sources
+            from tools.semantic_harness.codebuilder.psdl_inspect import inspect_psdl
+
+            pkg_repos = {
+                "PsychopatzCore": svc.core_repository,
+                **({"ProjectHoomans": svc.hoomans_repository} if svc.hoomans_repository else {}),
+                **({"DTCommon": svc.dynamic_trading_repository} if svc.dynamic_trading_repository else {}),
+            }
+            compiled = compile_conversation_sources(
+                svc.core_repository,
+                package_repositories=pkg_repos,
+            )
+            mode = (
+                "impact"
+                if args.command == "impact"
+                else ("source" if args.source else ("ir" if args.ir else "summary"))
+            )
+            result = {
+                "ok": True,
+                "mode": mode,
+                "record": inspect_psdl(
+                    compiled.get("psdlRuntimePlans") or [],
+                    compiled.get("_source_documents") or {},
+                    record_id=args.record_id,
+                    mode=mode,
+                ),
+            }
         else:
             parser.error(f"unknown command: {args.command}")
             return 2
