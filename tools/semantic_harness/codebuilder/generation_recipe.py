@@ -523,13 +523,19 @@ def build_desired_artifact_ledger(
         else None
     )
 
+    auto_discover_siblings = (
+        core_arg is None
+        and hoomans_arg is None
+        and dt_arg is None
+        and output_repositories is None
+    )
     workspace = WorkspaceCatalog.discover(
         repo_path,
         repository=repo_path,
         core_repository=core_arg,
         hoomans_repository=hoomans_arg,
         dynamic_trading_repository=dt_arg,
-        allow_sibling_discovery=False,
+        allow_sibling_discovery=auto_discover_siblings,
         runtime_root=hoomans_arg or repo_path,
     )
     resolved_core = workspace.core_repository
@@ -835,6 +841,7 @@ def build_desired_artifact_ledger(
             runtime_root=runtime_out_base,
         )
         owner_catalogs = catalogs_by_owner.get(owner, {})
+        manifest_entries_by_lang: dict[str, set[str]] = {lang: set() for lang in languages}
 
         # 1. Text catalogs (manifest-backed + inline textTarget)
         text_files_by_lang_rel: dict[tuple[str, str], dict[str, str]] = {}
@@ -858,6 +865,10 @@ def build_desired_artifact_ledger(
         for (language, rel_from_lang), values in sorted(text_files_by_lang_rel.items()):
             abs_text_path = pkg_tr_root / language / Path(*PurePosixPath(rel_from_lang).parts)
             rel_repo_path = abs_text_path.relative_to(owner_repo).as_posix()
+            if rel_from_lang == "Conversation/Text/convo/SemanticResponses.json":
+                manifest_entries_by_lang.setdefault(language, set()).add(
+                    f"{language}/{rel_from_lang}"
+                )
             rendered_json = pretty_json(values)
             rows.append(
                 DesiredArtifactRow(
@@ -875,7 +886,6 @@ def build_desired_artifact_ledger(
             )
 
         # 2. Non-Text Conversation domains and mixed UI.json catalogs
-        manifest_entries_by_lang: dict[str, set[str]] = {lang: set() for lang in languages}
         for preserved_rel in conv_tr_surface.preserved_for(owner):
             preserved_abs = owner_repo / Path(*PurePosixPath(preserved_rel).parts)
             if preserved_abs.is_file():
@@ -930,7 +940,12 @@ def build_desired_artifact_ledger(
 
         # Ensure an existing package-owned Conversation/UI.json is still reconciled under mixed_key_catalog
         # even when current compilation emits 0 generated UI keys for this owner.
-        for language in languages:
+        disk_ui_langs = set(languages)
+        if pkg_tr_root.is_dir():
+            for child in pkg_tr_root.iterdir():
+                if child.is_dir() and (child / "Conversation/UI.json").is_file():
+                    disk_ui_langs.add(child.name)
+        for language in sorted(disk_ui_langs):
             if language in emitted_ui_langs:
                 continue
             rel_from_tr = f"{language}/Conversation/UI.json"

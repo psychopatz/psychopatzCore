@@ -28,6 +28,7 @@ Keep this file limited to repository-wide rules that remain useful across unrela
 - Treat canonical semantic source/manifests and `tools/semantic_harness/codebuilder/generation_recipe.json` (`reconcile.py --check` / `--apply`) as authority. Generated Lua/translation artifacts are downstream output, not hand-edit targets.
 - For semantic generation drift or cleanup, use the canonical recipe-driven check/apply workflow. Do not manually delete or patch suspected generated leftovers, and do not infer staleness from hash-suffixed filenames.
 - Safe cleanup must be owner-scoped and closed-set: remove only artifacts/keys proven CodeBuilder-owned, preserve authored or mixed-package content, and treat unexpected leftovers as a generator-lifecycle defect to fix at the source.
+- Normal semantic content must not grow per-file preserve/retirement lists. Keep dialogue wording in canonical CodeBuilder families, ordinary application/tooling text outside generated ownership, and preserve the accepted ConvoEngine semantic naming/sharding rules (including valid deterministic hash shards and the ban on arbitrary `PartNN`/migration-history source trees).
 
 ## Runtime and publication
 

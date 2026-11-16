@@ -174,6 +174,18 @@ def _discover_locale_conversation_dirs(tr_root: Path) -> list[tuple[str, Path]]:
     return found
 
 
+def _structural_generated_ui_keys(existing_map: Mapping[str, Any]) -> set[str]:
+    return {
+        k
+        for k in existing_map
+        if isinstance(k, str)
+        and (
+            k.startswith("UI_PNC_Conversation_Suggestion_")
+            or k.startswith("UI_DT_Conversation_Suggestion_")
+        )
+    }
+
+
 def _retired_mixed_keys_for(
     recipe: GenerationRecipe,
     owner: str,
@@ -346,10 +358,12 @@ def check_owner_surface_state(
             prior_gen_keys = set(receipt_mixed_keys.get(rel_path) or [])
             retired_ui_keys = _retired_mixed_keys_for(recipe, norm_owner, rel_path)
             desired_gen_keys = set(row.generated_keys)
+            structural_gen_keys = _structural_generated_ui_keys(existing_map)
 
             stale_from_receipt = sorted((prior_gen_keys - desired_gen_keys) & set(existing_map))
+            stale_structural = sorted((structural_gen_keys - desired_gen_keys) & set(existing_map))
             present_retired_keys = sorted((retired_ui_keys - desired_gen_keys) & set(existing_map))
-            all_stale_keys = sorted(set(stale_from_receipt) | set(present_retired_keys))
+            all_stale_keys = sorted(set(stale_from_receipt) | set(stale_structural) | set(present_retired_keys))
 
             if present_retired_keys:
                 retired_present.append({
@@ -799,7 +813,8 @@ def reconcile_apply(
                 prior_gen_keys = set(receipt_mixed_keys.get(row.path) or [])
                 retired_ui_keys = _retired_mixed_keys_for(active_recipe, owner, row.path)
                 desired_gen_keys = set(row.generated_keys)
-                keys_to_remove = (prior_gen_keys | retired_ui_keys) - desired_gen_keys
+                structural_gen_keys = _structural_generated_ui_keys(existing_map)
+                keys_to_remove = (prior_gen_keys | structural_gen_keys | retired_ui_keys) - desired_gen_keys
                 removed_here = sorted(k for k in keys_to_remove if k in existing_map)
                 if removed_here:
                     pruned_keys.append({

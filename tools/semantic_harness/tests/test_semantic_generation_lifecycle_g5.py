@@ -287,10 +287,10 @@ class SemanticGenerationLifecycleG5Tests(unittest.TestCase):
                 receipt_root=receipt_dir,
             )
 
-            # Reintroduce a retired legacy domain file from the default recipe (e.g. Apology.json)
+            # Reintroduce a retired legacy text directory from the default recipe (e.g. Conversation/Text/psdl)
             reintroduced = (
                 repos["hoomans"]
-                / "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Apology.json"
+                / "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Text/psdl/legacy.json"
             )
             _write_json(reintroduced, {"legacy.apology": "Sorry"})
 

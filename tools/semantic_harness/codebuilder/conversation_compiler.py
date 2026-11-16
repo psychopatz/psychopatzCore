@@ -22,6 +22,7 @@ from .conversation_manifest import (
     read_json as _read_json,
     validate_id as _validate_id,
 )
+from .conversation_ui_contract import text_key
 from .conversation_contract import (
     CONVERSATION_MANIFEST_RELATIVE,
     CONVERSATION_MAX_SHARD_BYTES,
@@ -241,6 +242,7 @@ def compile_conversation_sources(
     psdl_packs: list[dict[str, Any]] = []
     psdl_runtime_plans: list[dict[str, Any]] = []
     psdl_response_pools: list[dict[str, Any]] = []
+    psdl_response_pool_owners: dict[str, str] = {}
     psdl_flows: list[dict[str, Any]] = []
     psdl_realizations: list[dict[str, Any]] = []
     for compiled_psdl, entry in psdl_documents:
@@ -269,7 +271,14 @@ def compile_conversation_sources(
             record["domain"] = entry["domain"]
             record["sourceShard"] = entry["path"]
             psdl_packs.append(record)
-        psdl_response_pools.extend(render_psdl_response_pool_plan(compiled_psdl))
+        for pool in render_psdl_response_pool_plan(compiled_psdl):
+            psdl_response_pools.append(pool)
+            pool_id = str(pool.get("id") or "")
+            if pool_id:
+                psdl_response_pool_owners[pool_id] = normalize_owner(
+                    entry.get("owner"),
+                    default=manifest["defaultOwner"],
+                )
         psdl_flows.extend(render_psdl_flow_plan(compiled_psdl))
         psdl_realizations.extend(
             render_psdl_realization_plan(compiled_psdl, source_path=entry["path"])
@@ -277,6 +286,7 @@ def compile_conversation_sources(
     if psdl_response_pools:
         dialogue["responsePools"].extend(psdl_response_pools)
         dialogue["responsePools"].sort(key=lambda item: str(item.get("id", "")))
+        dialogue["_responsePoolOwners"] = psdl_response_pool_owners
     if psdl_flows:
         semantic["flows"].extend(psdl_flows)
         semantic["flows"].sort(key=lambda item: str(item.get("id", "")))
@@ -973,10 +983,47 @@ def conversation_translation_catalogs_by_owner(
         for key, value in model.get("semantic", {}).get("translations", {}).get(language, {}).items():
             add(semantic_owner, language, "Flows", key, value)
 
+    locations = model.get("locations") or {}
+    pool_owners = (model.get("dialogue") or {}).get("_responsePoolOwners") or {}
+    for pool in (model.get("dialogue") or {}).get("responsePools", []):
+        if not isinstance(pool, Mapping):
+            continue
+        raw_pool_id = str(pool.get("id") or "")
+        loc = locations.get(raw_pool_id) or {}
+        pool_owner = normalize_owner(
+            pool_owners.get(raw_pool_id) or loc.get("owner"),
+            default=registry_owner,
+        )
+        for variant in pool.get("variants") or []:
+            if not isinstance(variant, Mapping):
+                continue
+            template_id = str(variant.get("templateID") or "").strip()
+            translations = variant.get("translations")
+            if template_id and isinstance(translations, Mapping):
+                runtime_key = (
+                    f"semantic.{template_id}"
+                    if (
+                        not template_id.startswith("UI_")
+                        and not template_id.startswith("semantic.")
+                        and not template_id.startswith("conversation.content.")
+                        and raw_pool_id
+                        and not raw_pool_id.startswith("semantic.")
+                        and (template_id == raw_pool_id or template_id.startswith(raw_pool_id + "."))
+                    )
+                    else template_id
+                )
+                for raw_lang, raw_vals in translations.items():
+                    lang = normalize_language(raw_lang, "response pool locale")
+                    vals = raw_vals if isinstance(raw_vals, list) else [raw_vals]
+                    if vals and isinstance(vals[0], str):
+                        add(pool_owner, lang, "Text/convo/SemanticResponses", runtime_key, vals[0])
+
     for plan in model.get("psdlRuntimePlans", []):
         owner = normalize_owner(plan.get("owner"), default=default_owner)
         for language, domain, key, value in _psdl_plan_text_rows(plan):
             add(owner, language, domain, key, value)
+            if domain == "Text/UI_PNC_Conversation":
+                add(owner, language, "UI", text_key("UI_PNC_Conversation", key), value)
 
     return {
         owner: {

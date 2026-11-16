@@ -113,7 +113,7 @@ def _convo_engine_translation_asset(
     if len(matches) != 1:
         return None
     src_path, baseline_text = matches[0]
-    relative = f"media/translation/{language}/Conversation/Semantic/Responses.json"
+    relative = f"media/translation/{language}/Conversation/Text/convo/SemanticResponses.json"
     disk_path = repository / "Contents/mods/ProjectHoomans/common" / relative
     merged = json.loads(disk_path.read_text(encoding="utf-8"))
     if not isinstance(merged, dict):

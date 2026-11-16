@@ -44,35 +44,7 @@
         "ProjectHoomans",
         "DTCommon"
       ],
-      "policy": "owned_fileset",
-      "preserved": {
-        "PsychopatzCore": [],
-        "ProjectHoomans": [
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Flows.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Flows.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Identity/Responses.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Identity/Responses.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Journal/Events.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Journal/Events.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/PBrainZ/Interface.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/PBrainZ/Interface.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Patterns.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Patterns.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Addressing.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Addressing.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Availability.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Availability.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Realizations.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Realizations.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Responses.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Responses.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Telemetry/Diagnostics.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Telemetry/Diagnostics.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/WorldEvents/Events.json",
-          "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/WorldEvents/Events.json"
-        ],
-        "DTCommon": []
-      }
+      "policy": "owned_fileset"
     },
     {
       "id": "conversation_ui",
@@ -106,50 +78,6 @@
   ],
   "retired": [
     {
-      "id": "retired.hoomans.conversation.command_en",
-      "surface": "conversation_translations",
-      "kind": "file",
-      "owner": "ProjectHoomans",
-      "policy": "must_not_exist",
-      "path": "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Command.json",
-      "sha256": "26152f0a97fd73824950cd5df6c1c491dbaf7b67e6316ec7dea7b3ccb03c6c02",
-      "reason": "Pre-S5 generated command/horde phrase-family catalog replaced by ConvoEngine inline registration in e7e44b80",
-      "evidence": "G0_SURFACE_INVENTORY.json#retired.hoomans.conversation.command_en"
-    },
-    {
-      "id": "retired.hoomans.conversation.command_tl",
-      "surface": "conversation_translations",
-      "kind": "file",
-      "owner": "ProjectHoomans",
-      "policy": "must_not_exist",
-      "path": "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Command.json",
-      "sha256": "45e8c197547e2ea9c1a4fb9ef572a6e7d3b0b48da8a96362f9316ba63f9bca82",
-      "reason": "Pre-S5 generated command/horde phrase-family catalog replaced by ConvoEngine inline registration in e7e44b80",
-      "evidence": "G0_SURFACE_INVENTORY.json#retired.hoomans.conversation.command_tl"
-    },
-    {
-      "id": "retired.hoomans.ui_catalog.obsolete_generated_keys",
-      "surface": "conversation_ui",
-      "kind": "mixed_keys",
-      "owner": "ProjectHoomans",
-      "policy": "must_not_exist",
-      "paths": [
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/UI.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/UI.json"
-      ],
-      "keys": [
-        "UI_PNC_Conversation_SemanticSuggestions_Title",
-        "UI_PNC_Conversation_Suggestion_Back_Label",
-        "UI_PNC_Conversation_Suggestion_Identity_Lie_Utterance",
-        "UI_PNC_Conversation_Suggestion_Identity_Real_Utterance",
-        "UI_PNC_Conversation_Suggestion_Identity_Rude_Utterance",
-        "UI_PNC_Conversation_Suggestion_Trade_Label",
-        "UI_PNC_Conversation_Suggestion_Trade_Utterance"
-      ],
-      "reason": "Obsolete formerly generated UI suggestion keys from retired ui/suggestion_text_{actions,context}.json (e3e1cab8, fdee7542)",
-      "evidence": "G0_SURFACE_INVENTORY.json#retired.hoomans.ui_catalog.obsolete_generated_keys"
-    },
-    {
       "id": "retired.root.legacy_semantics_generated_conversation",
       "surface": "conversation_lua",
       "kind": "directory_glob",
@@ -161,8 +89,7 @@
       "policy": "must_not_exist",
       "pattern": "Contents/mods/*/common/media/lua/shared/*/Semantics/Generated/Conversation",
       "generatedMarker": "-- Generated",
-      "reason": "Pre-S6M2B generated Conversation Lua root replaced by <Owner>/ConvoEngine",
-      "evidence": "G0_SURFACE_INVENTORY.json#retired.root.legacy_semantics_generated_conversation"
+      "reason": "Pre-S6M2B generated Conversation Lua root replaced by <Owner>/ConvoEngine"
     },
     {
       "id": "retired.root.legacy_conversation_psdl",
@@ -176,8 +103,7 @@
       "policy": "must_not_exist",
       "pattern": "Contents/mods/*/common/media/lua/shared/*/Conversation/PSDL",
       "generatedMarker": "-- Generated",
-      "reason": "Pre-S6M2B PSDL adapter directory",
-      "evidence": "G0_SURFACE_INVENTORY.json#retired.root.legacy_conversation_psdl"
+      "reason": "Pre-S6M2B PSDL adapter directory"
     },
     {
       "id": "retired.root.legacy_text_psdl",
@@ -190,61 +116,7 @@
       ],
       "policy": "must_not_exist",
       "pattern": "Contents/mods/*/common/media/translation/*/Conversation/Text/psdl",
-      "reason": "Pre-S8R Conversation/Text/psdl/* directory migrated to Conversation/Text/convo/* in a21cfd5f",
-      "evidence": "G0_SURFACE_INVENTORY.json#retired.root.legacy_text_psdl"
-    },
-    {
-      "id": "retired.hoomans.conversation.legacy_content_domains",
-      "surface": "conversation_translations",
-      "kind": "file_list",
-      "owner": "ProjectHoomans",
-      "policy": "must_not_exist",
-      "paths": [
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Apology.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Combat.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Combat_Banter.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Combat_Human_Banter.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Compatibility.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Conversation.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Event.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Greeting.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Health.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Knowledge.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Navigation.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Needs.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Quest.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/CommonInteractions.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/DialogueContent.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Generated.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/GroundedPersonalDialogue.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Semantic/Suggestions.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Social.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Task.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/EN/Conversation/Wellbeing.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Apology.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Combat.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Combat_Banter.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Combat_Human_Banter.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Compatibility.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Conversation.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Event.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Greeting.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Health.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Knowledge.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Navigation.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Needs.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Quest.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/CommonInteractions.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/DialogueContent.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Generated.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/GroundedPersonalDialogue.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Semantic/Suggestions.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Social.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Task.json",
-        "Contents/mods/ProjectHoomans/common/media/translation/TL/Conversation/Wellbeing.json"
-      ],
-      "reason": "Pre-S5 generated phrase-family domain catalogs retired during ConvoEngine migration",
-      "evidence": "G0_SURFACE_INVENTORY.json#retired.hoomans.conversation.legacy_content_domains"
+      "reason": "Pre-S8R Conversation/Text/psdl/* directory migrated to Conversation/Text/convo/*"
     }
   ]
 }

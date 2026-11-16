@@ -586,7 +586,7 @@ return {
             ["sourcePath"] = "dialogue/core_knowledge_facts/question_knowledge.json",
             ["sourceSchema"] = "psychopatz.convo-engine.v1",
         },
-        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts",
+        ["module"] = "PNC/ConvoEngine/Dialogue/CoreKnowledgeFacts__d73c98cf",
         ["namespace"] = "question",
         ["owner"] = "PsychopatzCore",
         ["participants"] = {
