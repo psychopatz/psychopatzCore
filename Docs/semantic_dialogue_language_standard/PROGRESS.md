@@ -108,6 +108,13 @@ Its Hoomans count also does not reproduce from the exact recorded participant co
 
 A newly supported non-alias worker-bearing provider can therefore avoid lifecycle acceptance. S10R must derive the executable matrix from current manifest discovery.
 
+## S10R3 completed acceptance (2026-11-16)
+
+- Updated `tools/semantic_harness/testing/suite.py` (`BoundedLuaTestRunner.report`) to include bounded `failureOutput` (`output[-4000:]`) on failing Lua test entries in `--harness-report`.
+- Added `tools/semantic_harness/testing/unrelated_baselines.json` and replaced filename-only matching in `acceptance.py` with `load_unrelated_baselines()`, `match_unrelated_baseline()`, and `classify_hoomans_lua_results()` requiring suite, test, non-Convo test status (`_is_convo_semantic_lua_test` forbidden), owner, `provenanceCommit`, non-timeout, and exact `failureOutput` signature pattern matching.
+- Updated `cli.py` and `acceptance.py:main` so canonical `--acceptance` uses signature-proven reviewed baselines by default (`allow_unrelated_baselines=not strict_baselines`), added `--strict-baselines` to `acceptance.py`, `cli.py`, and `feature_registry.py` (`CLI_MODIFIER_OPTIONS`), and kept `convoScopeOk` strictly diagnostic.
+- Verified `test_acceptance_runner.py` + `test_feature_registry.py` `11/11` PASS and `PYTHONPATH=. python3 -m tools.semantic_harness --acceptance --acceptance-suite hoomans_lua --acceptance-jobs 4` `PASS` (`1028/1032`, 4 signature-verified reviewed baselines from `20997b30` / `79114089`, `0` unexpected failures).
+
 ## S10R2 completed acceptance (2026-11-16)
 
 - Extended `tools/semantic_harness/testing/feature_registry.py` (`discover_public_top_level_cli_actions`) to inspect live `cli._parser()._actions`, separating configuration/filter modifiers (`CLI_MODIFIER_OPTIONS`), mapping option aliases onto one canonical control, and enforcing AST-verified ownership over all 66 discovered public top-level CLI actions plus `app.*_button`, Studio `ConvoEngineAuthoringPane`, and `convo.*` subcommands.

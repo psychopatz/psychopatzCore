@@ -98,6 +98,7 @@ CLI_MODIFIER_OPTIONS: frozenset[str] = frozenset({
     "--acceptance-kahlua-root",
     "--acceptance-report",
     "--allow-unrelated-baselines",
+    "--strict-baselines",
     "--timeout",
     "--startup-timeout",
     "--shutdown-timeout",

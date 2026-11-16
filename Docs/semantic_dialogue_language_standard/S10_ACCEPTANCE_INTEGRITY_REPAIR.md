@@ -163,6 +163,8 @@ The lifecycle matrix must derive its executable provider/preset set from current
 
 ### S10R3 — make canonical acceptance genuinely green and reproducible
 
+**Status:** COMPLETE (`tools/semantic_harness/testing/suite.py` includes bounded `failureOutput` on failing Lua tests in `--harness-report`; `tools/semantic_harness/testing/unrelated_baselines.json` + `load_unrelated_baselines` / `match_unrelated_baseline` / `classify_hoomans_lua_results` in `acceptance.py` enforce suite + test + non-Convo + owner + `provenanceCommit` + exact failure-signature matching; `cli.py --acceptance` and `acceptance.py:main` default to accepting only signature-proven reviewed baselines while exposing `--strict-baselines` for zero-waiver mode and keeping `convoScopeOk` purely diagnostic; `test_acceptance_runner.py` + `test_feature_registry.py` `11/11` PASS; `--acceptance --acceptance-suite hoomans_lua` PASS `1028/1032` with the 4 reviewed DebugHub/PopulationDirector signatures (`20997b30`, `79114089`) and `0` unexpected failures).
+
 1. Run all nine mandatory suites through the canonical `--acceptance` command.
 2. Fix S10-owned failures.
 3. For unrelated failures, require explicit reviewed baseline records with reason, owner, provenance, and stable classification; do not infer unrelated status from filename alone.

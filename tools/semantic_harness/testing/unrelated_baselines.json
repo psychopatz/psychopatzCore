@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "description": "Reviewed non-ConvoEngine baseline failures outside ConvoEngine/SemanticHarness ownership. A failure matches only when suite, test, non-Convo test status, owner/provenance metadata, and all required failureOutput signature patterns match.",
+  "baselines": [
+    {
+      "suite": "hoomans_lua",
+      "test": "tests/pnc_animation_scene_debug_routes_smoke.lua",
+      "owner": "ProjectHoomans Debug Hub (P1)",
+      "provenanceCommit": "20997b30",
+      "reason": "P1 normalized Debug Hub label from 'Animation Scene Lab' to 'Animation Scene Builder'; smoke test still asserts old English label.",
+      "signaturePatterns": [
+        "pnc_animation_scene_debug_routes_smoke.lua:47:",
+        "NPC context menu does not expose scene lab: expected truthy value"
+      ]
+    },
+    {
+      "suite": "hoomans_lua",
+      "test": "tests/pnc_context_debug_smoke.lua",
+      "owner": "ProjectHoomans Debug Hub (P1)",
+      "provenanceCommit": "20997b30",
+      "reason": "P1 normalized Debug Hub labels ('Animation Scene Builder', 'NPC Presentation Preview', 'Player Animation Preview'); smoke test still asserts old labels.",
+      "signaturePatterns": [
+        "pnc_context_debug_smoke.lua:155:",
+        "scene lab is available from the NPC debug submenu: expected=true actual=false"
+      ]
+    },
+    {
+      "suite": "hoomans_lua",
+      "test": "tests/pnc_population_director_smoke.lua",
+      "owner": "ProjectHoomans PopulationDirector",
+      "provenanceCommit": "79114089",
+      "reason": "Commit 79114089 removed migration-era immediate new-world settlement authority while PopulationDirector smoke expectation remains stale.",
+      "signaturePatterns": [
+        "pnc_population_director_smoke.lua:316:",
+        "new world immediately receives one canonical settlement: expected=1 actual=0"
+      ]
+    },
+    {
+      "suite": "hoomans_lua",
+      "test": "tests/pz_custom_translation_manager_smoke.lua",
+      "owner": "ProjectHoomans Debug Hub (P1)",
+      "provenanceCommit": "20997b30",
+      "reason": "P1 updated UI_PNC_DebugHub_NPCMonitor_Title in TL/Debug/Debug.json to 'Runtime Monitor ng NPC'; smoke test still asserts 'Monitor ng NPC'.",
+      "signaturePatterns": [
+        "pz_custom_translation_manager_smoke.lua:101:",
+        "Debug Hub title resolves through the localized catalog: expected=Monitor ng NPC actual=Runtime Monitor ng NPC"
+      ]
+    }
+  ]
+}

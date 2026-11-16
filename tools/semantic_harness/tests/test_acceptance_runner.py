@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -101,9 +102,151 @@ class AcceptanceRunnerTests(unittest.TestCase):
         )
 
     def test_cli_routes_acceptance_flag_headless(self) -> None:
-        args = _parser().parse_args(["--acceptance", "--acceptance-suite", "convo_audit"])
+        args = _parser().parse_args(["--acceptance", "--acceptance-suite", "convo_audit", "--strict-baselines"])
         self.assertTrue(_should_run_cli(args))
         self.assertEqual(args.acceptance_suite, ["convo_audit"])
+        self.assertTrue(args.strict_baselines)
+
+    def test_unrelated_baseline_requires_exact_signature_and_non_convo_provenance(self) -> None:
+        from pathlib import Path
+        import tempfile
+        import subprocess
+        from unittest import mock
+        from tools.semantic_harness.testing.acceptance import (
+            classify_hoomans_lua_results,
+            load_unrelated_baselines,
+            run_acceptance_suites,
+            run_hoomans_lua_suite,
+        )
+
+        baselines = load_unrelated_baselines()
+        self.assertGreaterEqual(len(baselines), 4)
+        hoomans_root = Path("/tmp/fake-hoomans")
+
+        # Exact signature matches as reviewed unrelated baseline with provenance
+        matching = classify_hoomans_lua_results(
+            [
+                {
+                    "path": str(hoomans_root / "tests/pnc_population_director_smoke.lua"),
+                    "returncode": 1,
+                    "failureOutput": (
+                        "lua: ...p/ProjectHoomans/tests/pnc_population_director_smoke.lua:316: "
+                        "new world immediately receives one canonical settlement: expected=1 actual=0"
+                    ),
+                }
+            ],
+            hoomans_root=hoomans_root,
+            baselines=baselines,
+        )
+        self.assertEqual(matching["classifiedBaselines"], ["tests/pnc_population_director_smoke.lua"])
+        self.assertEqual(matching["unexpectedFailures"], [])
+        self.assertEqual(matching["baselineRecords"][0]["provenanceCommit"], "79114089")
+
+        # Same file failing with a DIFFERENT error must NOT be waived by filename
+        different_error = classify_hoomans_lua_results(
+            [
+                {
+                    "path": str(hoomans_root / "tests/pnc_population_director_smoke.lua"),
+                    "returncode": 1,
+                    "failureOutput": "lua: syntax error near unexpected token",
+                }
+            ],
+            hoomans_root=hoomans_root,
+            baselines=baselines,
+        )
+        self.assertEqual(different_error["classifiedBaselines"], [])
+        self.assertEqual(different_error["unexpectedFailures"], ["tests/pnc_population_director_smoke.lua"])
+
+        # Timeout in a reviewed file must never be waived
+        timed_out = classify_hoomans_lua_results(
+            [
+                {
+                    "path": str(hoomans_root / "tests/pnc_population_director_smoke.lua"),
+                    "returncode": 124,
+                    "timedOut": True,
+                    "failureOutput": "pnc_population_director_smoke.lua:316: new world immediately receives one canonical settlement: expected=1 actual=0",
+                }
+            ],
+            hoomans_root=hoomans_root,
+            baselines=baselines,
+        )
+        self.assertEqual(timed_out["unexpectedFailures"], ["tests/pnc_population_director_smoke.lua"])
+
+        # ConvoEngine / semantic baseline entries are forbidden even in synthetic JSON
+        with tempfile.TemporaryDirectory() as tmp:
+            bad_json = Path(tmp) / "bad_baselines.json"
+            bad_json.write_text(
+                json.dumps(
+                    {
+                        "schemaVersion": 1,
+                        "baselines": [
+                            {
+                                "suite": "hoomans_lua",
+                                "test": "tests/pnc_convo_engine_smoke.lua",
+                                "owner": "none",
+                                "provenanceCommit": "deadbeef",
+                                "reason": "bad",
+                                "signaturePatterns": ["error"],
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaises(ValueError):
+                load_unrelated_baselines(bad_json)
+
+        # Strict mode rejects even signature-matched baselines; unexpected failure still fails when convoScopeOk is True
+        def fake_subprocess_run(*args, **kwargs):
+            report_flag_idx = args[0].index("--harness-report") + 1
+            report_file = Path(args[0][report_flag_idx])
+            report_file.write_text(
+                json.dumps(
+                    {
+                        "results": [
+                            {
+                                "path": str(hoomans_root / "tests/pnc_population_director_smoke.lua"),
+                                "returncode": 1,
+                                "failureOutput": (
+                                    "pnc_population_director_smoke.lua:316: "
+                                    "new world immediately receives one canonical settlement: expected=1 actual=0"
+                                ),
+                            },
+                            {
+                                "path": str(hoomans_root / "tests/pnc_unrelated_new_bug_smoke.lua"),
+                                "returncode": 1,
+                                "failureOutput": "new failure in non-convo test",
+                            },
+                        ],
+                        "conflicts": [],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            return subprocess.CompletedProcess(args[0], 1, stdout="", stderr="")
+
+        with tempfile.TemporaryDirectory() as tmp_core:
+            core_repo = Path(tmp_core)
+            with mock.patch("tools.semantic_harness.testing.acceptance.subprocess.run", side_effect=fake_subprocess_run):
+                with mock.patch(
+                    "tools.semantic_harness.testing.acceptance.resolve_repositories",
+                    return_value={"core": core_repo, "hoomans": hoomans_root, "dynamic_trading": core_repo},
+                ):
+                    report = run_acceptance_suites(
+                        core_repository=core_repo,
+                        hoomans_repository=hoomans_root,
+                        dynamic_trading_repository=core_repo,
+                        suites=("hoomans_lua",),
+                    )
+                    self.assertTrue(report["convoScopeOk"])
+                    self.assertFalse(report["ok"])
+                    self.assertFalse(report["suites"]["hoomans_lua"]["ok"])
+
+                    strict = run_hoomans_lua_suite(
+                        {"core": core_repo, "hoomans": hoomans_root, "dynamic_trading": core_repo},
+                        allow_unrelated_baselines=False,
+                    )
+                    self.assertFalse(strict["ok"])
 
     def test_fast_subset_of_real_suites_executes_cleanly(self) -> None:
         repos = resolve_repositories(CORE_ROOT)

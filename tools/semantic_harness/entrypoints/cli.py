@@ -526,8 +526,8 @@ def cli(arguments: argparse.Namespace) -> int:
                     if getattr(arguments, "acceptance_kahlua_root", None)
                     else None
                 ),
-                allow_unrelated_baselines=bool(
-                    getattr(arguments, "allow_unrelated_baselines", False)
+                allow_unrelated_baselines=not bool(
+                    getattr(arguments, "strict_baselines", False)
                 ),
             )
             if getattr(arguments, "acceptance_report", None):
@@ -1469,7 +1469,8 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--acceptance-timeout", type=float, default=300.0, help="per-module timeout for --acceptance")
     parser.add_argument("--acceptance-kahlua-root", help="installed PZ dir for kahlua_static suite")
     parser.add_argument("--acceptance-report", help="write JSON acceptance report to path")
-    parser.add_argument("--allow-unrelated-baselines", action="store_true", help="allow classified non-Convo baselines in hoomans_lua")
+    parser.add_argument("--allow-unrelated-baselines", action="store_true", help="allow signature-verified reviewed non-Convo baselines in hoomans_lua (default)")
+    parser.add_argument("--strict-baselines", action="store_true", help="reject even reviewed non-Convo baselines in hoomans_lua")
     parser.add_argument("--timeout", type=float, default=5.0, help="per-request timeout in seconds")
     parser.add_argument("--startup-timeout", type=float, default=15.0, help="worker startup timeout in seconds")
     parser.add_argument("--shutdown-timeout", type=float, default=1.0, help="worker shutdown timeout in seconds")

@@ -12,7 +12,7 @@ import sys
 import tempfile
 import time
 from pathlib import Path
-from typing import Any, Callable, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
 from tools.semantic_harness.codebuilder.convo_engine_s6m8_audit import (
     audit_convo_engine_workspace,
@@ -46,9 +46,7 @@ CORE_LUA_PATTERNS: tuple[str, ...] = (
     "*conversation*.lua",
 )
 
-HOOMANS_KNOWN_UNRELATED_BASELINES: frozenset[str] = frozenset(
-    {"tests/pnc_population_director_smoke.lua"}
-)
+UNRELATED_BASELINES_PATH = Path(__file__).with_name("unrelated_baselines.json")
 
 ALLOWED_SKIP_REASONS: dict[str, tuple[str, ...]] = {
     "real_local_save_unavailable": (
@@ -379,6 +377,155 @@ def run_core_lua_suite(
     )
 
 
+def load_unrelated_baselines(
+    path: Path | None = None,
+) -> dict[tuple[str, str], dict[str, Any]]:
+    """Load reviewed non-ConvoEngine failure baseline records with signature validation."""
+    target = path or UNRELATED_BASELINES_PATH
+    payload = json.loads(target.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict) or payload.get("schemaVersion") != 1:
+        raise ValueError(f"invalid unrelated baselines schemaVersion at {target}")
+    records = payload.get("baselines")
+    if not isinstance(records, list):
+        raise ValueError(f"invalid unrelated baselines list at {target}")
+    indexed: dict[tuple[str, str], dict[str, Any]] = {}
+    for entry in records:
+        if not isinstance(entry, dict):
+            raise ValueError(f"baseline record must be a JSON object in {target}")
+        suite = str(entry.get("suite") or "").strip()
+        test = str(entry.get("test") or "").strip()
+        owner = str(entry.get("owner") or "").strip()
+        provenance = str(entry.get("provenanceCommit") or "").strip()
+        reason = str(entry.get("reason") or "").strip()
+        patterns = entry.get("signaturePatterns")
+        if not all((suite, test, owner, provenance, reason)):
+            raise ValueError(
+                f"baseline record missing required metadata (suite/test/owner/provenanceCommit/reason): {entry!r}"
+            )
+        if _is_convo_semantic_lua_test(test):
+            raise ValueError(
+                f"ConvoEngine/semantic test cannot be registered as an unrelated baseline: {test}"
+            )
+        if not isinstance(patterns, list) or not patterns or not all(
+            isinstance(p, str) and p.strip() for p in patterns
+        ):
+            raise ValueError(
+                f"baseline record {test!r} must declare non-empty signaturePatterns"
+            )
+        key = (suite, test)
+        if key in indexed:
+            raise ValueError(f"duplicate unrelated baseline record for {key!r}")
+        indexed[key] = {
+            "suite": suite,
+            "test": test,
+            "owner": owner,
+            "provenanceCommit": provenance,
+            "reason": reason,
+            "signaturePatterns": tuple(patterns),
+        }
+    return indexed
+
+
+def match_unrelated_baseline(
+    suite: str,
+    rel_path: str,
+    failure_output: str,
+    baselines: Mapping[tuple[str, str], dict[str, Any]] | None = None,
+) -> dict[str, Any] | None:
+    """Return reviewed baseline metadata only when test is non-Convo and failure signature matches."""
+    if _is_convo_semantic_lua_test(rel_path):
+        return None
+    if not isinstance(failure_output, str) or not failure_output.strip():
+        return None
+    table = baselines if baselines is not None else load_unrelated_baselines()
+    record = table.get((suite, rel_path))
+    if record is None:
+        return None
+    if all(pattern in failure_output for pattern in record["signaturePatterns"]):
+        return record
+    return None
+
+
+def classify_hoomans_lua_results(
+    results: Sequence[Mapping[str, Any]],
+    *,
+    hoomans_root: Path,
+    baselines: Mapping[tuple[str, str], dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Classify ProjectHoomans Lua results using signature-proven reviewed baselines."""
+    table = baselines if baselines is not None else load_unrelated_baselines()
+    convo_total = 0
+    convo_failed = 0
+    failures: list[dict[str, Any]] = []
+    classified_baselines: list[str] = []
+    baseline_records: list[dict[str, Any]] = []
+    unexpected_failures: list[str] = []
+
+    for item in results:
+        path = Path(str(item.get("path", "")))
+        rel = (
+            path.relative_to(hoomans_root).as_posix()
+            if path.is_relative_to(hoomans_root)
+            else str(path)
+        )
+        convo_rel = _is_convo_semantic_lua_test(rel)
+        if convo_rel:
+            convo_total += 1
+        if int(item.get("returncode") or 0) != 0:
+            if convo_rel:
+                convo_failed += 1
+            timed_out = bool(item.get("timedOut"))
+            failure_output = str(item.get("failureOutput") or "")
+            matched = (
+                None
+                if (convo_rel or timed_out)
+                else match_unrelated_baseline("hoomans_lua", rel, failure_output, table)
+            )
+            if matched is not None:
+                classified_baselines.append(rel)
+                baseline_records.append(
+                    {
+                        "test": rel,
+                        "owner": matched["owner"],
+                        "provenanceCommit": matched["provenanceCommit"],
+                        "reason": matched["reason"],
+                        "signatureMatched": True,
+                    }
+                )
+                failures.append(
+                    {
+                        "test": rel,
+                        "returncode": item.get("returncode"),
+                        "classification": "known_unrelated_baseline",
+                        "convoSemantic": convo_rel,
+                        "owner": matched["owner"],
+                        "provenanceCommit": matched["provenanceCommit"],
+                    }
+                )
+            else:
+                unexpected_failures.append(rel)
+                entry: dict[str, Any] = {
+                    "test": rel,
+                    "returncode": item.get("returncode"),
+                    "classification": "unexpected_failure",
+                    "convoSemantic": convo_rel,
+                }
+                if timed_out:
+                    entry["timedOut"] = True
+                if failure_output.strip():
+                    entry["failureTail"] = failure_output.strip()[-300:]
+                failures.append(entry)
+
+    return {
+        "convoTotal": convo_total,
+        "convoFailed": convo_failed,
+        "failures": failures,
+        "classifiedBaselines": classified_baselines,
+        "baselineRecords": baseline_records,
+        "unexpectedFailures": unexpected_failures,
+    }
+
+
 def _is_convo_semantic_lua_test(rel_path: str) -> bool:
     return bool(_CONVO_NAME_RE.search(Path(rel_path).stem.casefold()))
 
@@ -388,7 +535,7 @@ def run_hoomans_lua_suite(
     *,
     jobs: int = 4,
     timeout: float = 60.0,
-    allow_unrelated_baselines: bool = False,
+    allow_unrelated_baselines: bool = True,
 ) -> dict[str, Any]:
     """Run ProjectHoomans root Lua smoke suite via its bounded runner."""
     hoomans = repos["hoomans"]
@@ -430,35 +577,12 @@ def run_hoomans_lua_suite(
         report_path.unlink(missing_ok=True)
 
     results = payload.get("results", [])
-    convo_total = 0
-    convo_failed = 0
-    failures: list[dict[str, Any]] = []
-    classified_baselines: list[str] = []
-    unexpected_failures: list[str] = []
-
-    for item in results:
-        path = Path(str(item.get("path", "")))
-        rel = str(path.relative_to(hoomans)) if path.is_relative_to(hoomans) else str(path)
-        convo_rel = _is_convo_semantic_lua_test(rel)
-        if convo_rel:
-            convo_total += 1
-        if int(item.get("returncode") or 0) != 0:
-            if convo_rel:
-                convo_failed += 1
-            if rel in HOOMANS_KNOWN_UNRELATED_BASELINES and not convo_rel:
-                classified_baselines.append(rel)
-                category = "known_unrelated_baseline"
-            else:
-                unexpected_failures.append(rel)
-                category = "unexpected_failure"
-            failures.append(
-                {
-                    "test": rel,
-                    "returncode": item.get("returncode"),
-                    "classification": category,
-                    "convoSemantic": convo_rel,
-                }
-            )
+    classified = classify_hoomans_lua_results(results, hoomans_root=hoomans)
+    convo_total = classified["convoTotal"]
+    convo_failed = classified["convoFailed"]
+    failures = classified["failures"]
+    classified_baselines = classified["classifiedBaselines"]
+    unexpected_failures = classified["unexpectedFailures"]
 
     total = len(results)
     failed = len(failures)
@@ -489,6 +613,7 @@ def run_hoomans_lua_suite(
             "convoSemanticPassed": convo_total - convo_failed,
             "convoSemanticFailed": convo_failed,
             "classifiedBaselines": classified_baselines,
+            "baselineRecords": classified["baselineRecords"],
             "unexpectedFailures": unexpected_failures,
             "rawReturncode": proc.returncode,
             "stdoutTail": proc.stdout[-400:] if proc.returncode != 0 else "",
@@ -669,7 +794,7 @@ def run_acceptance_suites(
     jobs: int = 2,
     timeout: float = 300.0,
     kahlua_game_root: Path | None = None,
-    allow_unrelated_baselines: bool = False,
+    allow_unrelated_baselines: bool = True,
 ) -> dict[str, Any]:
     """Execute the S10B multi-suite developer acceptance matrix."""
     started = time.monotonic()
@@ -839,6 +964,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--timeout", type=float, default=300.0)
     parser.add_argument("--kahlua-game-root", type=Path)
     parser.add_argument("--allow-unrelated-baselines", action="store_true")
+    parser.add_argument("--strict-baselines", action="store_true")
     parser.add_argument("--report", type=Path)
     parser.add_argument("--jsonl", action="store_true")
     options = parser.parse_args(argv)
@@ -852,7 +978,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         jobs=options.jobs,
         timeout=options.timeout,
         kahlua_game_root=options.kahlua_game_root,
-        allow_unrelated_baselines=options.allow_unrelated_baselines,
+        allow_unrelated_baselines=not bool(options.strict_baselines),
     )
     if options.report is not None:
         write_acceptance_report(report, options.report.expanduser())

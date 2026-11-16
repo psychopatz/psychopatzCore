@@ -263,6 +263,11 @@ class BoundedLuaTestRunner:
                     "pid": result.pid,
                     "timedOut": result.timed_out,
                     "outputTruncated": result.output_truncated,
+                    **(
+                        {"failureOutput": result.output[-4000:]}
+                        if result.returncode != 0 and result.output
+                        else {}
+                    ),
                 }
                 for result in ordered
             ],
