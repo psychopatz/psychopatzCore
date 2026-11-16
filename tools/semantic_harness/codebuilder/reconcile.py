@@ -734,6 +734,7 @@ def reconcile_apply(
                 pruned_files.append(f"{owner}:{item['path']}")
 
         # 3b. Prune proven retired files/directories
+        retired_dirs_to_prune: list[Path] = []
         for item in owner_check["retired_present"]:
             if item.get("kind") == "file":
                 target = owner_repo / Path(*PurePosixPath(item["path"]).parts)
@@ -743,12 +744,23 @@ def reconcile_apply(
             elif item.get("kind") == "directory":
                 target = owner_repo / Path(*PurePosixPath(item["path"]).parts)
                 if target.is_dir():
-                    _prune_empty_dirs(target)
-                    try:
-                        target.rmdir()
-                        pruned_files.append(f"{owner}:{item['path']}")
-                    except OSError:
-                        pass
+                    retired_dirs_to_prune.append(target)
+
+        # Also collect any retired directory_glob roots that are now empty after file pruning
+        for ret_entry in active_recipe.retired:
+            if ret_entry.kind == "directory_glob" and owner in ret_entry.owners and ret_entry.pattern:
+                for hit in sorted(owner_repo.glob(ret_entry.pattern)):
+                    if hit.is_dir() and hit not in retired_dirs_to_prune:
+                        retired_dirs_to_prune.append(hit)
+
+        for target in retired_dirs_to_prune:
+            _prune_empty_dirs(target)
+            try:
+                rel_dir = target.relative_to(owner_repo).as_posix()
+                target.rmdir()
+                pruned_files.append(f"{owner}:{rel_dir}")
+            except OSError:
+                pass
 
         # Clean empty subdirectories under ConvoEngine and Conversation/Text
         conv_root = generated_conversation_root(
